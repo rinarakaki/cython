@@ -142,7 +142,7 @@ cdef {{funcname}}({{name}} c_val):
         import warnings
         warnings.warn(
             f"enum class {{name}} not importable from {{module_name}}. "
-            "You are probably using a cpdef enum declared in a .pxd file that "
+            "You are probably using a enum declared in a .pxd file that "
             "does not have a .py  or .pyx file.")
         return <{{underlying_type}}>c_val
 {{else}}

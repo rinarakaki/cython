@@ -10,7 +10,7 @@ cdef extern from *:
         Item2
     };
     """
-   enum class Enum1:
+    enum class Enum1:
         Item1
         Item2
 
@@ -24,7 +24,7 @@ cdef extern from * namespace "Namespace1":
         };
     }
     """
-   enum class Enum2:
+    enum class Enum2:
         Item1
         Item2
 
@@ -42,7 +42,7 @@ cdef extern from *:
         b = 0
     };
     """
-   enum class Enum4 "sorted":
+    enum class Enum4 "sorted":
         a
         b
 

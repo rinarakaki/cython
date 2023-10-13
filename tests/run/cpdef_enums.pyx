@@ -59,25 +59,25 @@ NameError: ...name 'IntEnum' is not defined
 """
 
 cdef extern from *:
-    cpdef enum: # ExternPyx
+    enum: # ExternPyx
         ONE "1"
         TEN "10"
         HUNDRED "100"
 
-   enum: # ExternSecretPyx
+    enum: # ExternSecretPyx
         THOUSAND "1000"
 
-cpdef enum PyxEnum:
+enum PyxEnum:
     TWO = 2
     THREE = 3
     FIVE = 5
 
-cpdef enum cpdefPyxDocEnum:
+enum cpdefPyxDocEnum:
     """Home is where...
     """
     ELEVEN = 11
 
-cpdef enum cpdefPyxDocLineEnum:
+enum cpdefPyxDocLineEnum:
     """Home is where..."""
     FOURTEEN = 14
 
@@ -98,22 +98,22 @@ cdef extern from *:
     };
     """
     # Cython doesn't know about the duplicates though
-    cpdef enum ExternHasDuplicates:
+    enum ExternHasDuplicates:
         EX_DUP_A
         EX_DUP_B
         EX_DUP_C
 
 
-cpdef enum CyDefinedHasDuplicates1:
+enum CyDefinedHasDuplicates1:
     CY_DUP1_A
     CY_DUP1_B = 0x00000000
 
 
-cpdef enum CyDefinedHasDuplicates2:
+enum CyDefinedHasDuplicates2:
     CY_DUP2_A
     CY_DUP2_B = CY_DUP2_A
 
-cpdef enum CyDefinedHasDuplicates3:
+enum CyDefinedHasDuplicates3:
     CY_DUP3_A = 1
     CY_DUP3_B = 0
     CY_DUP3_C  # = 1

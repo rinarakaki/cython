@@ -279,7 +279,7 @@ def test_nested(o):
     cdef map[pair[double, double], vector[int]] m = o
     return m
 
-cpdef enum Color:
+enum Color:
     RED = 0
     GREEN
     BLUE

@@ -13,11 +13,11 @@ cdef extern from *:
         Item5 = 5
     };
     """
-    cpdef enum class Enum1:
+    enum class Enum1:
         Item1
         Item2
 
-    cpdef enum class Enum2:
+    enum class Enum2:
         """Apricots and other fruits.
         """
         Item4
