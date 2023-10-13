@@ -1,7 +1,7 @@
 # mode: compile
 
-cdef void foo():
-    cdef int i1, i2=0
+fn void foo():
+    cdef i32 i1, i2=0
     cdef char c1=0, c2
     cdef char *p1, *p2=NULL
     cdef object obj1
