@@ -2,8 +2,7 @@ from libc.stdio cimport FILE
 cimport cpython.type
 
 cdef extern from "Python.h":
-
-    ctypedef struct PyObject  # forward declaration
+    struct PyObject  # forward declaration
 
     ctypedef object (*newfunc)(cpython.type.type, PyObject*, PyObject*)  # (type, args|NULL, kwargs|NULL)
 
@@ -37,13 +36,13 @@ cdef extern from "Python.h":
 
     ctypedef object (*PyCFunction)(object, object)
 
-    ctypedef struct PyMethodDef:
+    struct PyMethodDef:
         const char* ml_name
         PyCFunction ml_meth
         int ml_flags
         const char* ml_doc
 
-    ctypedef struct PyTypeObject:
+    struct PyTypeObject:
         const char* tp_name
         const char* tp_doc
         Py_ssize_t tp_basicsize
@@ -77,7 +76,7 @@ cdef extern from "Python.h":
 
         unsigned int tp_version_tag
 
-    ctypedef struct PyObject:
+    struct PyObject:
         Py_ssize_t ob_refcnt
         PyTypeObject *ob_type
 
