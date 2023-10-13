@@ -1,9 +1,9 @@
 # mode: compile
 
-cdef enum E:
+enum E:
     a
 
-cdef enum G:
+enum G:
     b
 
 cdef void f():

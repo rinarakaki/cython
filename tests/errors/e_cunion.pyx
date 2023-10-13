@@ -1,6 +1,6 @@
 # mode: error
 
-cdef union AllCharptr:
+union AllCharptr:
     char *s1
     char *s2
     char *s3
@@ -12,7 +12,7 @@ def convert_ok():
     return u
 
 
-cdef union IllegalMix:
+union IllegalMix:
     char *s1
     char *s2
     int i

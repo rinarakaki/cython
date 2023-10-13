@@ -766,7 +766,7 @@ def test_convert_pylong(x):
    return r
 
 
-cdef enum:
+enum:
    ANONYMOUS_ENUM_MEMBER = 1
 
 def test_anonymous_enum():

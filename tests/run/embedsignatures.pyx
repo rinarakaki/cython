@@ -380,7 +380,7 @@ ctypedef float MyFloat
 cpdef MyFloat f_my_f(MyFloat f):
     return f
 
-cdef enum:
+enum:
     FLAG1
     FLAG2
 

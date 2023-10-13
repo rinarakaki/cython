@@ -1,8 +1,8 @@
-cdef enum CheeseType:
+enum CheeseType:
     cheddar, edam,
     camembert
 
-cdef enum CheeseState:
+enum CheeseState:
     hard = 1
     soft = 2
     runny = 3

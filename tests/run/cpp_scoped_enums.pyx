@@ -29,7 +29,7 @@ cdef extern from * namespace "Namespace1":
         Item2
 
 
-cdef enum class Enum3(int):
+enum class Enum3(int):
     a = 1
     b = 2
 

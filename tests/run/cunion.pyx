@@ -1,4 +1,4 @@
-cdef union Spam:
+union Spam:
     int i
     char c
     float *p[42]
@@ -48,7 +48,7 @@ def test_p():
     eggs_p(spam)
 
 
-cdef union AllCharptr:
+union AllCharptr:
     char* s1
     char* s2
     char* s3
@@ -71,7 +71,7 @@ def test_charptr_to_py():
     return u
 
 
-cdef union SafeMix:
+union SafeMix:
     char c
     unsigned char uc
     signed char sc

@@ -331,7 +331,7 @@ def compile_time_tuple_constant(int x):
         return False
 
 
-cdef enum X:
+enum X:
     a = 1
     b
     c

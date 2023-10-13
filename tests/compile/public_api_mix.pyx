@@ -6,28 +6,28 @@ ctypedef public     int Int1
 ctypedef        api int Int2
 ctypedef public api int Int3
 
-ctypedef            enum EnumA0: EA0
-ctypedef public     enum EnumA1: EA1
+enum EnumA0: EA0
+pub enum EnumA1: EA1
 ctypedef        api enum EnumA2: EA2
 ctypedef public api enum EnumA3: EA3
 
-cdef            enum EnumB0: EB0=0
+enum EnumB0: EB0=0
 cdef public     enum EnumB1: EB1=1
 cdef        api enum EnumB2: EB2=2
 cdef public api enum EnumB3: EB3=3
 
 # --
 
-ctypedef            struct StructA0: 
+struct StructA0: 
     int SA0
-ctypedef public     struct StructA1: 
+pub struct StructA1: 
     int SA1
 ctypedef        api struct StructA2:
     int SA2
 ctypedef public api struct StructA3:
     int SA3
 
-cdef            struct StructB0:
+struct StructB0:
     int SB0
 cdef public     struct StructB1:
     int SB1

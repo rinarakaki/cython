@@ -1,6 +1,6 @@
 # mode: error
 
-cdef enum Spam:
+enum Spam:
 	a, b, c
 
 cdef void f():

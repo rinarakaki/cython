@@ -3,7 +3,7 @@ __doc__ = u"""
 42
 """
 
-cdef enum:
+enum:
     spam = 42
     grail = 17
 

@@ -1,4 +1,4 @@
-cdef struct Bar:
+struct Bar:
     int sum(int a, int b)
 
 cdef int add(int a, int b):

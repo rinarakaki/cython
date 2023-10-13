@@ -21,7 +21,7 @@ cdef class ExtClassA(Base):
 cdef class ExtClassB(Base):
     pass
 
-cdef enum MyEnum:
+enum MyEnum:
     entry0
     entry1
     entry2

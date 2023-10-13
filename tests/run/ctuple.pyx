@@ -130,7 +130,7 @@ def c_types(int a, double b):
     return a_ptr[0], b_ptr[0]
 
 
-cdef union Union:
+union Union:
     int x
     double y
 

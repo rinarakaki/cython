@@ -5,7 +5,7 @@ __doc__ = u"""
     AssertionError: 1
 """
 
-cdef enum Mode:
+enum Mode:
     a = 1
     b = 2
 

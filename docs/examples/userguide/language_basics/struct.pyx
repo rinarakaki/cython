@@ -1,4 +1,4 @@
-cdef struct Grail:
+struct Grail:
     int age
     float volume
 

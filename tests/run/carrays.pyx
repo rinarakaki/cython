@@ -40,7 +40,7 @@ def test2():
     cdef int a2[2+3]
     return sizeof(a1) - sizeof(a2)
 
-cdef enum:
+enum:
     MY_SIZE_A = 2
     MY_SIZE_B = 3
 

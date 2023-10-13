@@ -4,10 +4,10 @@
 ctypedef        int Int0
 ctypedef public int Int1
 
-ctypedef        enum EnumA0: EA0
-ctypedef public enum EnumA1: EA1
+enum EnumA0: EA0
+pub enum EnumA1: EA1
 
-cdef        enum EnumB0: EB0=0
+enum EnumB0: EB0=0
 cdef public enum EnumB1: EB1=1
 
 cdef Int0   i0  = 0
@@ -20,12 +20,12 @@ cdef public EnumB1 eb1 = EB1
 
 # --
 
-ctypedef        struct StructA0:
+struct StructA0:
     int SA0
-ctypedef public struct StructA1:
+pub struct StructA1:
     int SA1
 
-cdef        struct StructB0:
+struct StructB0:
     int SB0
 cdef public struct StructB1:
     int SB1

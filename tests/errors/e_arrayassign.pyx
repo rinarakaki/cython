@@ -21,7 +21,7 @@ cdef int_array2 z
 z = x  # error
 x = z  # error
 
-cdef enum:
+enum:
     SIZE = 2
 
 ctypedef int[SIZE] int_array_dyn

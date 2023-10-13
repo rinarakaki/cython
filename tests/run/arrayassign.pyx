@@ -364,7 +364,7 @@ def assign_slice_from_shorter_array():
     return a
 
 
-cdef enum:
+enum:
     SIZE = 2
 
 ctypedef int[SIZE] int_array_dyn

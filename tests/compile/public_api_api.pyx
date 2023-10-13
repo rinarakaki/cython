@@ -4,10 +4,10 @@
 ctypedef     int Int0
 ctypedef api int Int1
 
-ctypedef     enum EnumA0: EA0
+enum EnumA0: EA0
 ctypedef api enum EnumA1: EA1
 
-cdef     enum EnumB0: EB0=0
+enum EnumB0: EB0=0
 cdef api enum EnumB1: EB1=1
 
 cdef Int0   i0  = 0
@@ -20,12 +20,12 @@ cdef api EnumB1 eb1 = EB1
 
 # --
 
-ctypedef     struct StructA0:
-    int SA0
+struct StructA0:
+    i32 SA0
 ctypedef api struct StructA1:
-    int SA1
+    i32 SA1
 
-cdef     struct StructB0:
+struct StructB0:
     int SB0
 cdef api struct StructB1:
     int SB1

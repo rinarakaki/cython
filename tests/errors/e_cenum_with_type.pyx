@@ -1,6 +1,6 @@
 # mode: error
 
-cdef enum Spam(int):
+enum Spam(int):
     a, b
 
 _ERRORS = u"""

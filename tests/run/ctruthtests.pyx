@@ -77,7 +77,7 @@ def test_attr_int(TestExtInt e):
     else:
         return False
 
-ctypedef union _aux:
+union _aux:
     size_t i
     void *p
 
