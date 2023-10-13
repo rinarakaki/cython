@@ -73,7 +73,7 @@ jobs:
       BACKEND: ${{ matrix.backend }}
       PYTHON_VERSION: ${{ matrix.python-version }}
       MACOSX_DEPLOYMENT_TARGET: 10.15
-      GCC_VERSION: 11
+      GCC_VERSION: 13
       USE_CCACHE: 1
       CCACHE_SLOPPINESS: "pch_defines,time_macros"
       CCACHE_COMPRESS: 1
@@ -87,7 +87,6 @@ jobs:
 
       - name: actions/setup-python@v4
         uses: actions/setup-python@v4
-        if: startsWith(matrix.python-version, '3.')
         with:
           python-version: ${{ matrix.python-version }}
 
