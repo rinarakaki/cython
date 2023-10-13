@@ -1,4 +1,3 @@
-from __future__ import unicode_literals
 import struct
 
 # Tests buffer format string parsing.
@@ -17,15 +16,17 @@ else:
     current_endian = '>'
     other_endian = '<'
 
-cdef struct align_of_float_helper:
+struct align_of_float_helper:
     char ch
-    float d
-cdef struct align_of_int_helper:
+    f32 d
+
+struct align_of_int_helper:
     char ch
     int i
-float_align = sizeof(align_of_float_helper) - sizeof(float)
+
+float_align = sizeof(align_of_float_helper) - sizeof(f32)
 int_align = sizeof(align_of_int_helper) - sizeof(int)
-if float_align != 4 or sizeof(float) != 4:
+if float_align != 4 or sizeof(f32) != 4:
     raise RuntimeError("Alignment or size of float is %d on this system, please report to cython-dev for a testcase fix" % float_align)
 if int_align != 4 or sizeof(int) != 4:
     raise RuntimeError("Alignment or size of int is %d on this system, please report to cython-dev for a testcase fix" % int_align)
@@ -100,46 +101,46 @@ def _obj(fmt):
     cdef object[object] buf = MockBuffer(fmt, sizeof(void*))
 
 
-cdef struct ComplexFloat:
-    float real
-    float imag
+struct ComplexFloat:
+    f32 real
+    f32 imag
 
-ctypedef struct Char3Int:
+struct Char3Int:
     char a
     int b
     int c
     int d
 
-ctypedef struct LongString:
+struct LongString:
     char[90198] c
 
-cdef struct CharIntCFloat:
+struct CharIntCFloat:
     char a
-    int b
+    i32 b
     ComplexFloat c
-    float d
+    f32 d
 
-cdef struct UnpackedStruct1:
+struct UnpackedStruct1:
     char a
-    int b
+    i32 b
     ComplexFloat c
-    float c2
+    f32 c2
     Char3Int d
 
-ctypedef struct UnpackedStruct2:
+struct UnpackedStruct2:
     CharIntCFloat a
     Char3Int b
 
-ctypedef struct UnpackedStruct3:
+struct UnpackedStruct3:
     CharIntCFloat a
     char b
     int c, d, e
 
-cdef struct UnpackedStruct4:
+struct UnpackedStruct4:
     char a
     int b
     ComplexFloat c
-    float c2
+    f32 c2
     char d
     int e, f, g
 
@@ -204,7 +205,7 @@ def unpacked_struct(fmt):
     cdef object[UnpackedStruct3, ndim=1] buf3 = obj
     cdef object[UnpackedStruct4, ndim=1] buf4 = obj
 
-cdef struct ComplexTest:
+struct ComplexTest:
     ComplexFloat a, b, c
 
 def complex_test(fmt):
@@ -255,9 +256,9 @@ def int_and_long_are_same():
         intarr = MockBuffer("l", sizeof(int))
         longarr = MockBuffer("i", sizeof(int))
 
-cdef struct MixedComplex:
-    double real
-    float imag
+struct MixedComplex:
+    f64 real
+    f32 imag
 
 def mixed_complex_struct():
     """
@@ -276,7 +277,7 @@ cdef packed struct PackedSubStruct:
     char x
     int y
 
-cdef struct UnpackedSubStruct:
+struct UnpackedSubStruct:
     char x
     int y
 
@@ -285,7 +286,7 @@ cdef packed struct PackedStruct:
     int b
     PackedSubStruct sub
 
-cdef struct PartiallyPackedStruct:
+struct PartiallyPackedStruct:
     char a
     int b
     PackedSubStruct sub
@@ -374,7 +375,7 @@ def partially_packed_struct_2(fmt):
 
 
 cdef packed struct PackedStructWithCharArrays:
-    float a
+    f32 a
     int b
     char[5] c
     char[3] d
@@ -388,27 +389,27 @@ def packed_struct_with_strings(fmt):
         fmt, sizeof(PackedStructWithCharArrays))
 
 
-ctypedef struct PackedStructWithArrays:
-    double a[16]
-    double b[16]
-    double c
+struct PackedStructWithArrays:
+    f64 a[16]
+    f64 b[16]
+    f64 c
 
-ctypedef struct UnpackedStructWithArrays:
+struct UnpackedStructWithArrays:
     int a
-    float b[8]
-    float c
+    f32 b[8]
+    f32 c
     unsigned long long d
     int e[5]
     int f
     int g
-    double h[4]
+    f64 h[4]
     int i
 
-ctypedef struct PackedStructWithNDArrays:
-    double a
-    double b[2][2]
-    float c
-    float d
+struct PackedStructWithNDArrays:
+    f64 a
+    f64 b[2][2]
+    f32 c
+    f32 d
 
 
 def packed_struct_with_arrays(fmt):
