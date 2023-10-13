@@ -41,7 +41,7 @@ jobs:
         #
         # FIXME: 'cpp' tests seems to fail due to compilation errors (numpy_pythran_unit)
         # in all python versions and test failures (builtin_float) in 3.5<
-        os: [ubuntu-20.04, windows-2019, macos-11]
+        os: [ubuntu-22.04, windows-2019, macos-11]
         backend: [c, cpp]
         python-version:
           - "3.12"
@@ -55,7 +55,7 @@ jobs:
           # Ubuntu sub-jobs:
           # ================
           # GCC 11 (with latest language standards)
-          - os: ubuntu-20.04
+          - os: ubuntu-22.04
             python-version: "3.12"
             allowed_failure: true
             backend: "c,cpp"
@@ -73,7 +73,7 @@ jobs:
       BACKEND: ${{ matrix.backend }}
       PYTHON_VERSION: ${{ matrix.python-version }}
       MACOSX_DEPLOYMENT_TARGET: 10.15
-      GCC_VERSION: 8
+      GCC_VERSION: 13
       USE_CCACHE: 1
       CCACHE_SLOPPINESS: "pch_defines,time_macros"
       CCACHE_COMPRESS: 1
@@ -87,7 +87,7 @@ jobs:
 
       - name: Setup python
         uses: actions/setup-python@v4
-        if: startsWith(matrix.python-version, '3.') || startsWith(matrix.python-version, 'pypy')
+        if: startsWith(matrix.python-version, '3.')
         with:
           python-version: ${{ matrix.python-version }}
 
@@ -119,11 +119,11 @@ jobs:
 
 
   pycoverage:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
 
     env:
       BACKEND: c,cpp
-      OS_NAME: ubuntu-20.04
+      OS_NAME: ubuntu-22.04
       PYTHON_VERSION: "3.12"
 
     steps:
@@ -146,11 +146,11 @@ jobs:
           path: coverage-report-html
 
   cycoverage:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
 
     env:
       BACKEND: c,cpp
-      OS_NAME: ubuntu-20.04
+      OS_NAME: ubuntu-22.04
       PYTHON_VERSION: "3.12"
 
     steps:
