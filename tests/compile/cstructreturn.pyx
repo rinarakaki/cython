@@ -1,9 +1,9 @@
 # mode: compile
 
-ctypedef struct Foo:
-    int blarg
+struct Foo:
+    i32 blarg
 
-cdef Foo f():
+fn f() -> Foo:
     blarg = 1 + 2
     cdef Foo foo
     foo.blarg = blarg
