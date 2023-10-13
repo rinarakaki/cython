@@ -87,25 +87,25 @@ cdef extern from "numpy/arrayobject.h":
 
         NPY_INTP
 
-    ctypedef enum NPY_ORDER:
+   enum NPY_ORDER:
         NPY_ANYORDER
         NPY_CORDER
         NPY_FORTRANORDER
         NPY_KEEPORDER
 
-    ctypedef enum NPY_CASTING:
+   enum NPY_CASTING:
         NPY_NO_CASTING
         NPY_EQUIV_CASTING
         NPY_SAFE_CASTING
         NPY_SAME_KIND_CASTING
         NPY_UNSAFE_CASTING
 
-    ctypedef enum NPY_CLIPMODE:
+   enum NPY_CLIPMODE:
         NPY_CLIP
         NPY_WRAP
         NPY_RAISE
 
-    ctypedef enum NPY_SCALARKIND:
+   enum NPY_SCALARKIND:
         NPY_NOSCALAR,
         NPY_BOOL_SCALAR,
         NPY_INTPOS_SCALAR,
@@ -114,12 +114,12 @@ cdef extern from "numpy/arrayobject.h":
         NPY_COMPLEX_SCALAR,
         NPY_OBJECT_SCALAR
 
-    ctypedef enum NPY_SORTKIND:
+   enum NPY_SORTKIND:
         NPY_QUICKSORT
         NPY_HEAPSORT
         NPY_MERGESORT
 
-    ctypedef enum NPY_SEARCHSIDE:
+   enum NPY_SEARCHSIDE:
         NPY_SEARCHLEFT
         NPY_SEARCHRIGHT
 
