@@ -31,7 +31,7 @@ cdef extern from "numpy/arrayobject.h":
     ctypedef Py_intptr_t npy_intp
     ctypedef size_t npy_uintp
 
-    cdef enum NPY_TYPES:
+   enum NPY_TYPES:
         NPY_BOOL
         NPY_BYTE
         NPY_UBYTE
@@ -188,7 +188,7 @@ cdef extern from "numpy/arrayobject.h":
 
         NPY_ARRAY_UPDATE_ALL
 
-    cdef enum:
+   enum:
         NPY_MAXDIMS
 
     npy_intp NPY_MAX_ELSIZE
@@ -882,7 +882,7 @@ cdef extern from "numpy/ufuncobject.h":
             PyObject *obj
             PyObject *userloops
 
-    cdef enum:
+   enum:
         PyUFunc_Zero
         PyUFunc_One
         PyUFunc_None

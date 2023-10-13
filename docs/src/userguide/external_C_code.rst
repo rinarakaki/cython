@@ -360,7 +360,7 @@ enums, struct and union members, and enum values.  For example::
     cdef struct spam "SPAM":
         int i "eye"
 
-    cdef enum surprise "inquisition":
+   enum surprise "inquisition":
         first "alpha"
         second "beta" = 3
 

@@ -4,7 +4,7 @@
 # buffer interface instead.
 
 cdef extern from "Python.h":
-    cdef enum _:
+   enum _:
         Py_END_OF_BUFFER
     #    This constant may be passed as the size parameter to
     #    PyBuffer_FromObject() or PyBuffer_FromReadWriteObject(). It

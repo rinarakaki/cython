@@ -265,7 +265,7 @@ Declaring an enum as ``cpdef`` will create a :pep:`435`-style Python wrapper::
 There is currently no special syntax for defining a constant, but you can use
 an anonymous :keyword:`enum` declaration for this purpose, for example,::
 
-    cdef enum:
+   enum:
         tons_of_spam = 3
 
 .. note::
