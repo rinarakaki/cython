@@ -4,7 +4,7 @@ struct Order:
     i32 spam
     i32 eggs
 
-cdef Order order1
+let Order order1
 
 order1.spam = 7
 order1.eggs = 2
