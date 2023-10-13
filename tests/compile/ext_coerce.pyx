@@ -17,4 +17,3 @@ def f(Grail g):
     i = g
     g = s
     s = g
-
