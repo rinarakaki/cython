@@ -41,7 +41,7 @@ jobs:
         #
         # FIXME: 'cpp' tests seems to fail due to compilation errors (numpy_pythran_unit)
         # in all python versions and test failures (builtin_float) in 3.5<
-        os: [ubuntu-22.04, windows-2019, macos-11]
+        os: [ubuntu-latest, windows-latest, macos-latest]
         backend: [c, cpp]
         python-version:
           - "3.12"
@@ -55,7 +55,7 @@ jobs:
           # Ubuntu sub-jobs:
           # ================
           # GCC 11 (with latest language standards)
-          - os: ubuntu-22.04
+          - os: ubuntu-latest
             python-version: "3.12"
             allowed_failure: true
             backend: "c,cpp"
@@ -119,11 +119,11 @@ jobs:
 
 
   pycoverage:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
 
     env:
       BACKEND: c,cpp
-      OS_NAME: ubuntu-22.04
+      OS_NAME: ubuntu-latest
       PYTHON_VERSION: "3.12"
 
     steps:
@@ -146,11 +146,11 @@ jobs:
           path: coverage-report-html
 
   cycoverage:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
 
     env:
       BACKEND: c,cpp
-      OS_NAME: ubuntu-22.04
+      OS_NAME: ubuntu-latest
       PYTHON_VERSION: "3.12"
 
     steps:
