@@ -6,5 +6,5 @@ extern from *:
     };
     """
     cdef class crunchytype.Crunchy [ object CrunchyType ]:
-        cdef i32 number
-        cdef object string
+        let i32 number
+        let object string
