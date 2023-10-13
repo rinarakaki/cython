@@ -2844,7 +2844,8 @@ def looking_at_dotted_name(s):
 
 
 basic_c_type_names = cython.declare(frozenset, frozenset((
-    "void", "char", "int", "float", "double", "bint")))
+    "void", "char", "int", "float", "double", "bint",
+    "char", "i32", "f32", "f64", "bool")))
 
 special_basic_c_types = cython.declare(dict, {
     # name : (signed, longness)
