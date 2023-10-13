@@ -3259,6 +3259,12 @@ def p_cdef_statement(s, ctx):
         return p_struct_enum(s, pos, ctx)
     elif s.sy == 'IDENT' and s.systring == 'fused':
         return p_fused_definition(s, pos, ctx)
+    elif s.sy == 'IDENT' and s.systring == 'fn':
+        print("!!!!!!!!!!!!!!!!!!!!!! fn !!!!!!!!!!!!!!!!!!!!!!")
+        return p_c_func_or_var_declaration(s, pos, ctx)
+    elif s.sy == 'IDENT' and s.systring == 'let':
+        print("!!!!!!!!!!!!!!!!!!!!!! let !!!!!!!!!!!!!!!!!!!!!!")
+        return p_c_func_or_var_declaration(s, pos, ctx)
     else:
         return p_c_func_or_var_declaration(s, pos, ctx)
 
