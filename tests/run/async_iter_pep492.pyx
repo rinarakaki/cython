@@ -186,7 +186,7 @@ def test_broken_anext():
 
 
 cdef class Manager:
-    let readonly list counter
+    cdef readonly list counter
     def __init__(self, counter):
         self.counter = counter
 

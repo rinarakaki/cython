@@ -21,9 +21,9 @@ LOG_NONE, LOG_ALL = range(2)
 @cython.final
 cdef class Context(object):
     cdef readonly object name, filename
-    let readonly dict refs
-    let readonly list errors
-    let readonly Py_ssize_t start
+    cdef readonly dict refs
+    cdef readonly list errors
+    cdef readonly Py_ssize_t start
 
     def __cinit__(self, name, line=0, filename=None):
         self.name = name

@@ -9,7 +9,7 @@ cdef class Test:
     True
     """
     let public bint some_public_bool
-    let readonly bint some_ro_bool
+    cdef readonly bint some_ro_bool
 
     def __init__(self, bint boolval):
         self.some_ro_bool = boolval

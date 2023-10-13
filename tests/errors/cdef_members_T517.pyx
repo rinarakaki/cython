@@ -5,7 +5,7 @@ ctypedef void* VoidP
 
 cdef class Spam:
     let          VoidP vp0
-    let readonly VoidP vp2
+    cdef readonly VoidP vp2
     let public   VoidP vp1
 
 struct Foo:
@@ -13,7 +13,7 @@ struct Foo:
 
 cdef class Bar:
     let          Foo foo0
-    let readonly Foo foo2
+    cdef readonly Foo foo2
     let public   Foo foo1
     pass
 

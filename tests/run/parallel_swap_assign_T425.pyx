@@ -78,8 +78,8 @@ def swap_py(a,b):
 
 
 cdef class A:
-    let readonly object x
-    let readonly object y
+    cdef readonly object x
+    cdef readonly object y
     def __init__(self, x, y):
         self.x, self.y = x, y
 
@@ -110,8 +110,8 @@ def swap_attr_values(A a, A b):
 
 
 cdef class B:
-    let readonly A a1
-    let readonly A a2
+    cdef readonly A a1
+    cdef readonly A a2
     def __init__(self, x1, y1, x2, y2):
         self.a1, self.a2 = A(x1, y1), A(x2, y2)
 

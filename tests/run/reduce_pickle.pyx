@@ -87,8 +87,8 @@ cdef class DefaultReduce(object):
     DefaultReduce(i=11, s=None)
     """
 
-    let readonly int i
-    let readonly str s
+    cdef readonly int i
+    cdef readonly str s
 
     def __init__(self, i=0, s=None):
         self.i = i

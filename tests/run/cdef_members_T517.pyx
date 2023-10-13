@@ -94,16 +94,16 @@ cdef class A:
     let public double complex Zd
     let public long double complex Zg
 
-    let readonly short ro_h
-    let readonly int ro_i
-    let readonly long ro_l
-    let readonly long long ro_q
-    let readonly float ro_f
-    let readonly double ro_d
-    let readonly long double ro_g
-    let readonly float complex ro_Zf
-    let readonly double complex ro_Zd
-    let readonly long double complex ro_Zg
+    cdef readonly short ro_h
+    cdef readonly int ro_i
+    cdef readonly long ro_l
+    cdef readonly long long ro_q
+    cdef readonly float ro_f
+    cdef readonly double ro_d
+    cdef readonly long double ro_g
+    cdef readonly float complex ro_Zf
+    cdef readonly double complex ro_Zd
+    cdef readonly long double complex ro_Zg
 
     def __cinit__(self):
         self.ro_h = 7
@@ -122,15 +122,15 @@ cdef class B:
 
     let object a0
     let public object a1
-    let readonly object a2
+    cdef readonly object a2
 
     let list b0
     let public list b1
-    let readonly list b2
+    cdef readonly list b2
 
     let A c0
     let public A c1
-    let readonly A c2
+    cdef readonly A c2
 
     def __cinit__(self):
         self.b0 = self.b1 = self.b2 = []

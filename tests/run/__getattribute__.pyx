@@ -20,7 +20,7 @@ cdef class just_getattribute:
     >>> a.called
     6
     """
-    let readonly int called
+    cdef readonly int called
     def __getattribute__(self,n):
         self.called += 1
         if n == 'bar':
@@ -52,8 +52,8 @@ cdef class just_getattr:
     >>> a.called
     2
     """
-    let readonly int called
-    let readonly int foo
+    cdef readonly int called
+    cdef readonly int foo
     def __init__(self):
         self.foo = 10
     def __getattr__(self,n):
@@ -83,9 +83,9 @@ cdef class both:
     >>> (a.called_getattr, a.called_getattribute)
     (2, 11)
     """
-    let readonly int called_getattribute
-    let readonly int called_getattr
-    let readonly int foo
+    cdef readonly int called_getattribute
+    cdef readonly int called_getattr
+    cdef readonly int foo
     def __init__(self):
         self.foo = 10
 

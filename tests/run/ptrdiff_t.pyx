@@ -35,7 +35,7 @@ cdef class A:
     ERROR
     """
     let public ptrdiff_t a
-    let readonly ptrdiff_t b
+    cdef readonly ptrdiff_t b
 
     def __init__(self, ptrdiff_t a, object b):
         self.a = a

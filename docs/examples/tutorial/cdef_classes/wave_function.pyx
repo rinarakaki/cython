@@ -10,7 +10,7 @@ cdef class WaveFunction(Function):
     let public double freq
 
     # Available in Python-space, but only for reading:
-    let readonly double scale
+    cdef readonly double scale
 
     # Available in Python-space:
     @property

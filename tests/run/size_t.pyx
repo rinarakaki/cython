@@ -42,7 +42,7 @@ def test(size_t i):
 
 cdef class A:
     let public size_t a
-    let readonly size_t b
+    cdef readonly size_t b
 
     def __init__(self, size_t a, object b):
         self.a = a

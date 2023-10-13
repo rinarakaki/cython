@@ -9,7 +9,7 @@ cdef void test(float* f):
   pass
 
 cdef class Position:
-  let readonly CoordSyst parent
+  cdef readonly CoordSyst parent
 
 cdef class Point(Position):
   cdef void bug(self):

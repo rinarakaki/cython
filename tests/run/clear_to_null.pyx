@@ -40,8 +40,8 @@ cdef class TpClearFixture:
     'NULL'
     """
     
-    let readonly object any_object
-    let readonly ExtensionType extension_type
+    cdef readonly object any_object
+    cdef readonly ExtensionType extension_type
 
     def __cinit__(self):
         self.any_object = "Hello World"

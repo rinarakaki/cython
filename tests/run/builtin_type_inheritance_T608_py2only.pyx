@@ -10,7 +10,7 @@ cdef class MyInt(int):
     >>> MyInt(2).attr is None
     True
     """
-    let readonly object attr
+    cdef readonly object attr
 
 cdef class MyInt2(int):
     """
@@ -21,7 +21,7 @@ cdef class MyInt2(int):
     >>> MyInt2(2).test(3)
     5
     """
-    let readonly object attr
+    cdef readonly object attr
 
     def test(self, arg):
         return self._test(arg)

@@ -9,7 +9,7 @@ cdef class MyFloat(float):
     >>> MyFloat(1.0).attr is None
     True
     """
-    let readonly object attr
+    cdef readonly object attr
 
 ustring = u'abc'
 
@@ -22,7 +22,7 @@ cdef class MyUnicode(unicode):
     >>> MyUnicode(ustring).attr is None
     True
     """
-    let readonly object attr
+    cdef readonly object attr
 
 cdef class MyList(list):
     """
@@ -31,7 +31,7 @@ cdef class MyList(list):
     >>> MyList([1,2,3]).attr is None
     True
     """
-    let readonly object attr
+    cdef readonly object attr
 
 cdef class MyListOverride(list):
     """
@@ -77,7 +77,7 @@ cdef class MyDict(dict):
     >>> MyDict({1:2, 3:4}).attr is None
     True
     """
-    let readonly object attr
+    cdef readonly object attr
 
 cdef class MyException(Exception):
     """
@@ -86,7 +86,7 @@ cdef class MyException(Exception):
     ...
     MyException: 3
     """
-    let readonly int value
+    cdef readonly int value
     def __cinit__(self, value):
         self.value = value
 

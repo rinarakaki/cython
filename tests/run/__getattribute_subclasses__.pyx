@@ -3,8 +3,8 @@
 # __getattribute__ and __getattr__ special methods and subclasses.
 
 cdef class boring:
-    let readonly int boring_member
-    let readonly int getattr_called
+    cdef readonly int boring_member
+    cdef readonly int getattr_called
     let int getattribute_called
     def __init__(self):
         self.boring_member = 10
@@ -84,7 +84,7 @@ class getattribute_boring_py(getattribute_boring):
 
 
 cdef class _getattr:
-    let readonly int getattr_called
+    cdef readonly int getattr_called
     def __getattr__(self,n):
         self.getattr_called += 1
         if n == 'resolved_by':
@@ -162,7 +162,7 @@ class getattribute_py(_getattribute):
 
 
 cdef class boring_getattribute(_getattribute):
-    let readonly int boring_getattribute_member
+    cdef readonly int boring_getattribute_member
 
 cdef class boring_boring_getattribute(boring_getattribute):
     """
@@ -191,7 +191,7 @@ cdef class boring_boring_getattribute(boring_getattribute):
     >>> a.getattribute_called
     9
     """
-    let readonly int boring_boring_getattribute_member
+    cdef readonly int boring_boring_getattribute_member
 
 
 class boring_boring_getattribute_py(boring_boring_getattribute):
@@ -200,10 +200,10 @@ class boring_boring_getattribute_py(boring_boring_getattribute):
 
 
 cdef class boring_getattr(_getattr):
-    let readonly int boring_getattr_member
+    cdef readonly int boring_getattr_member
 
 cdef class boring_boring_getattr(boring_getattr):
-    let readonly int boring_boring_getattr_member
+    cdef readonly int boring_boring_getattr_member
 
 cdef class getattribute_boring_boring_getattr(boring_boring_getattr):
     """

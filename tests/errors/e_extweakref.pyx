@@ -7,7 +7,7 @@ cdef class D:
 	let public object __weakref__
 
 cdef class E:
-	let readonly object __weakref__
+	cdef readonly object __weakref__
 
 cdef void f():
 	let C c = C()

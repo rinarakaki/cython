@@ -337,7 +337,7 @@ cdef class VerySpecial:
     >>> vs0_init(0)
     VS __init__ 0
     """
-    let readonly int value
+    cdef readonly int value
 
     def __init__(self, v):
         self.value = v

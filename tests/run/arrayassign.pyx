@@ -410,7 +410,7 @@ def assign_full_array_slice_to_array():
 
 
 cdef class ArrayOwner:
-    let readonly int[3] array
+    cdef readonly int[3] array
 
     def __init__(self, a, b, c):
         self.array = (a, b, c)

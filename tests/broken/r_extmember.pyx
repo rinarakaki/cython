@@ -1,6 +1,6 @@
 cdef class Spam:
     let public int tons
-    let readonly float tastiness
+    cdef readonly float tastiness
     let int temperature
 
     def __init__(self, tons, tastiness, temperature):

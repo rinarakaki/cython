@@ -10,7 +10,7 @@ cdef class Spam:
     let public float f
     let public double d
     let public char *s
-    let readonly char[42] a
+    cdef readonly char[42] a
     let public object o
-    let readonly int r
-    let readonly Spam e
+    cdef readonly int r
+    cdef readonly Spam e
