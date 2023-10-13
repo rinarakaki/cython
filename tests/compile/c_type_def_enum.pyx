@@ -4,6 +4,6 @@ enum ParrotState:
     Alive
     Dead
 
-cdef ParrotState polly
+let ParrotState polly
 
 polly = Dead
