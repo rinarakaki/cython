@@ -2396,7 +2396,7 @@ class UnicodeTest(CommonTest,
 
             # resize text: wstr field must be cleared and then recomputed
             text += 'c'
-            ablet = getargs_u(text)
+            abcdef = getargs_u(text)
             self.assertNotEqual(abc, abcdef)
             self.assertEqual(abcdef, text)
 
