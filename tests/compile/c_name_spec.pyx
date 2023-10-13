@@ -15,11 +15,11 @@ enum Blarg "c_blarg":
 
 fn f64 spam "c_spam" (i32 i, f32 f):
     let f64 d "c_d"
-    let foo *p
+    let Foo *p
     global b
     if i:
-      d = spam(a, f)
-    let foo q
+        d = spam(a, f)
+    let Foo q
     q.i = 7
     p = &q
     b = p.i
