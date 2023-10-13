@@ -3,7 +3,7 @@
 cdef object executable, version_info
 cdef long hexversion
 
-ctypedef struct MyStruct:
+struct MyStruct:
     int x, y, z
 
 # conversion code for this struct will be generated but not used

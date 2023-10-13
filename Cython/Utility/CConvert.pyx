@@ -1,7 +1,7 @@
 #################### FromPyStructUtility ####################
 
 cdef extern from *:
-    ctypedef struct PyTypeObject:
+    struct PyTypeObject:
         char* tp_name
     PyTypeObject *Py_TYPE(obj)
     bint PyMapping_Check(obj)
@@ -27,7 +27,7 @@ cdef {{struct_type}} {{funcname}}(obj) except *:
 #################### FromPyUnionUtility ####################
 
 cdef extern from *:
-    ctypedef struct PyTypeObject:
+    struct PyTypeObject:
         char* tp_name
     PyTypeObject *Py_TYPE(obj)
     bint PyMapping_Check(obj)

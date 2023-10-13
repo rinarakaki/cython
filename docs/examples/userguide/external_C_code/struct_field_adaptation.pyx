@@ -12,7 +12,7 @@ cdef extern from "struct_field_adaptation.h":
     """
 
     # Normal declarations provided by the C header file:
-    ctypedef struct StructType:
+    struct StructType:
         int field1
         int field2
 

@@ -13,10 +13,10 @@ from cpython.ref cimport PyObject, Py_TYPE
 # from Cython code.
 
 cdef extern from *:
-    ctypedef struct PyTypeObject:
+    struct PyTypeObject:
         void (*tp_clear)(object)
 
-    ctypedef struct __pyx_CyFunctionObject:
+    struct __pyx_CyFunctionObject:
         PyObject* func_closure
 
 

@@ -6,7 +6,7 @@ i()
 cdef float f
 f()
 
-ctypedef struct s:    # FIXME: this might be worth an error ...
+struct s:    # FIXME: this might be worth an error ...
     int x
 s()
 

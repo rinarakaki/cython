@@ -2,7 +2,7 @@
 from libc.stdlib cimport malloc, free
 
 # Example C struct
-ctypedef struct my_c_struct:
+struct my_c_struct:
     int a
     int b
 

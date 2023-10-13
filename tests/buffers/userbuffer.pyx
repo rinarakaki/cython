@@ -16,7 +16,7 @@ UserBuffer2: release
 """
 
 cdef extern from *:
-    ctypedef struct Py_buffer # redeclared
+    struct Py_buffer # redeclared
     enum: PyBUF_SIMPLE
     int PyBuffer_FillInfo(Py_buffer *, object, void *, Py_ssize_t, bint, int) except -1
     int  PyObject_GetBuffer(object, Py_buffer *, int) except -1
@@ -45,7 +45,7 @@ cdef class UserBuffer2:
 
 
 cdef extern from *:
-    ctypedef struct PyBuffer"Py_buffer":
+    struct PyBuffer"Py_buffer":
         void *buf
         Py_ssize_t len
         bint readonly

@@ -341,7 +341,7 @@ def try_return_none_1():
         return
 
 cdef extern from *:
-    ctypedef struct PyObject
+    struct PyObject
     void Py_INCREF(object)
 
 cdef PyObject* _none():

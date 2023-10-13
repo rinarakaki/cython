@@ -1432,7 +1432,7 @@ cdef extern from *:
         __Pyx_StructField* field
         size_t parent_offset
 
-    #ctypedef struct __Pyx_BufFmt_Context:
+    #struct __Pyx_BufFmt_Context:
     #  __Pyx_StructField root
         __Pyx_BufFmt_StackElem* head
 

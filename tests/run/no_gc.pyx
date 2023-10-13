@@ -9,7 +9,7 @@ from cpython.ref cimport PyObject, Py_TYPE
 # Force non-gc'd PyTypeObject when safety is guaranteed by user but not provable
 
 cdef extern from *:
-    ctypedef struct PyTypeObject:
+    struct PyTypeObject:
         void (*tp_clear)(object)
         void (*tp_traverse)(object)
 
