@@ -1,11 +1,11 @@
 # mode: compile
 
-cdef int i, j, k
-cdef object a, b, x
+let i32 i, j, k
+let object a, b, x
 
-for i from 0 <= i < 10:
+for i in 0..10:
     pass
-for i from 0 < i <= 10:
+for i in 1..=10:
     pass
 for i from 10 >= i > 0:
     pass
