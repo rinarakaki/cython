@@ -3,7 +3,7 @@
 from .object cimport PyObject
 
 cdef extern from "Python.h":
-    ctypedef struct va_list
+    struct va_list
 
     int PyOS_snprintf(char *str, size_t size, const char *format, ...)
     # Output not more than size bytes to str according to the format
