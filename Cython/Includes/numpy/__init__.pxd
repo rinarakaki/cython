@@ -195,14 +195,13 @@ cdef extern from "numpy/arrayobject.h":
 
     ctypedef void (*PyArray_VectorUnaryFunc)(void *, void *, npy_intp, void *,  void *)
 
-    ctypedef struct PyArray_ArrayDescr:
+    struct PyArray_ArrayDescr:
         # shape is a tuple, but Cython doesn't support "tuple shape"
         # inside a non-PyObject declaration, so we have to declare it
         # as just a PyObject*.
         PyObject* shape
 
-    ctypedef struct PyArray_Descr:
-        pass
+    struct PyArray_Descr
 
     ctypedef class numpy.dtype [object PyArray_Descr, check_size ignore]:
         # Use PyDataType_* macros when possible, however there are no macros
@@ -235,7 +234,7 @@ cdef extern from "numpy/arrayobject.h":
         # Use through macros
         pass
 
-    ctypedef struct PyArrayObject:
+    struct PyArrayObject:
         # For use in situations where ndarray can't replace PyArrayObject*,
         # like PyArrayObject**.
         pass
@@ -332,39 +331,39 @@ cdef extern from "numpy/arrayobject.h":
     ctypedef long double  npy_float96
     ctypedef long double  npy_float128
 
-    ctypedef struct npy_cfloat:
+    struct npy_cfloat:
         double real
         double imag
 
-    ctypedef struct npy_cdouble:
+    struct npy_cdouble:
         double real
         double imag
 
-    ctypedef struct npy_clongdouble:
+    struct npy_clongdouble:
         long double real
         long double imag
 
-    ctypedef struct npy_complex64:
+    struct npy_complex64:
         float real
         float imag
 
-    ctypedef struct npy_complex128:
+    struct npy_complex128:
         double real
         double imag
 
-    ctypedef struct npy_complex160:
+    struct npy_complex160:
         long double real
         long double imag
 
-    ctypedef struct npy_complex192:
+    struct npy_complex192:
         long double real
         long double imag
 
-    ctypedef struct npy_complex256:
+    struct npy_complex256:
         long double real
         long double imag
 
-    ctypedef struct PyArray_Dims:
+    struct PyArray_Dims:
         npy_intp *ptr
         int len
 
@@ -833,17 +832,17 @@ cdef extern from "numpy/arrayscalars.h":
     ctypedef class numpy.character [object PyObject]:
         pass
 
-    ctypedef struct PyDatetimeScalarObject:
+    struct PyDatetimeScalarObject:
         # PyObject_HEAD
         npy_datetime obval
         PyArray_DatetimeMetaData obmeta
 
-    ctypedef struct PyTimedeltaScalarObject:
+    struct PyTimedeltaScalarObject:
         # PyObject_HEAD
         npy_timedelta obval
         PyArray_DatetimeMetaData obmeta
 
-    ctypedef enum NPY_DATETIMEUNIT:
+    enum NPY_DATETIMEUNIT:
         NPY_FR_Y
         NPY_FR_M
         NPY_FR_W
