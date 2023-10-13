@@ -125,7 +125,7 @@ def test_return():
     return "FAILED!"
 
 
-ctypedef enum RangeEnum:
+enum RangeEnum:
     EnumValue1
     EnumValue2
     EnumValue3
