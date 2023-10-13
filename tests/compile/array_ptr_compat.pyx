@@ -1,14 +1,14 @@
 # mode: compile
 
-cdef enum E:
-    z
+enum E:
+    Z
 
-cdef void f():
-    cdef int *p
-    cdef void *v
-    cdef int[5] a
-    cdef int i=0
-    cdef E e=z
+fn void f():
+    let i32 *p
+    let void *v
+    let i32[5] a
+    let i32 i = 0
+    let E e = z
     p = a
     v = a
     p = a + i
