@@ -31,11 +31,6 @@ elif [[ $OSTYPE == "darwin"* ]]; then
   echo "Setting up macos compiler"
   export CC="clang -Wno-deprecated-declarations"
   export CXX="clang++ -stdlib=libc++ -Wno-deprecated-declarations"
-
-  if [[ $PYTHON_VERSION == "3."[78]* ]]; then
-    # see https://trac.macports.org/ticket/62757
-    unset MACOSX_DEPLOYMENT_TARGET
-  fi
 else
   echo "Skipping compiler setup: No setup specified for $OSTYPE"
 fi
@@ -90,19 +85,7 @@ echo "===================="
 
 # Install python requirements
 echo "Installing requirements [python]"
-if [[ $PYTHON_VERSION == "2.7"* ]]; then
-  pip install wheel || exit 1
-  pip install -r test-requirements-27.txt || exit 1
-elif [[ $PYTHON_VERSION == "3."[45]* ]]; then
-  python -m pip install wheel || exit 1
-  python -m pip install -r test-requirements-34.txt || exit 1
-elif [[ $PYTHON_VERSION == "3.6"* ]]; then
-  python -m pip install wheel || exit 1
-  python -m pip install -r test-requirements-36.txt || exit 1
-elif [[ $PYTHON_VERSION == "pypy-2.7" ]]; then
-  pip install wheel || exit 1
-  pip install -r test-requirements-pypy27.txt || exit 1
-elif [[ $PYTHON_VERSION == "3.1"[2-9]* ]]; then
+if [[ $PYTHON_VERSION == "3.1"[2-9]* ]]; then
   python -m pip install wheel || exit 1
   python -m pip install --pre -r test-requirements-312.txt || exit 1
 else
