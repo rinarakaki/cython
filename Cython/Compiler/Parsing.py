@@ -3260,8 +3260,10 @@ def p_cdef_statement(s, ctx):
     elif s.sy == 'IDENT' and s.systring == 'fused':
         return p_fused_definition(s, pos, ctx)
     elif s.sy == 'fn':
+        s.next()
         return p_c_func_or_var_declaration(s, pos, ctx)
     elif s.sy == 'let':
+        s.next()
         return p_c_func_or_var_declaration(s, pos, ctx)
     else:
         return p_c_func_or_var_declaration(s, pos, ctx)
