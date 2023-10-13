@@ -5,13 +5,11 @@
 
 # This utility provides cython.array and cython.view.memoryview
 
-from __future__ import absolute_import
-
 cimport cython
 
 # from cpython cimport ...
 cdef extern from "Python.h":
-    ctypedef struct PyObject
+    struct PyObject
     int PyIndex_Check(object)
     PyObject *PyExc_IndexError
     PyObject *PyExc_ValueError
@@ -30,7 +28,7 @@ cdef extern from *:
     int __Pyx_GetBuffer(object, Py_buffer *, int) except -1
     void __Pyx_ReleaseBuffer(Py_buffer *)
 
-    ctypedef struct PyObject
+    struct PyObject
     ctypedef Py_ssize_t Py_intptr_t
     void Py_INCREF(PyObject *)
     void Py_DECREF(PyObject *)
@@ -40,12 +38,12 @@ cdef extern from *:
     void* PyObject_Malloc(size_t n)
     void PyObject_Free(void *p)
 
-    cdef struct __pyx_memoryview "__pyx_memoryview_obj":
+    struct __pyx_memoryview "__pyx_memoryview_obj":
         Py_buffer view
         PyObject *obj
         __Pyx_TypeInfo *typeinfo
 
-    ctypedef struct {{memviewslice_name}}:
+    struct {{memviewslice_name}}:
         __pyx_memoryview *memview
         char *data
         Py_ssize_t shape[{{max_dims}}]
@@ -55,12 +53,12 @@ cdef extern from *:
     void __PYX_INC_MEMVIEW({{memviewslice_name}} *memslice, int have_gil)
     void __PYX_XCLEAR_MEMVIEW({{memviewslice_name}} *memslice, int have_gil)
 
-    ctypedef struct __pyx_buffer "Py_buffer":
+    struct __pyx_buffer "Py_buffer":
         PyObject *obj
 
     PyObject *Py_None
 
-    cdef enum:
+    enum:
         PyBUF_C_CONTIGUOUS,
         PyBUF_F_CONTIGUOUS,
         PyBUF_ANY_CONTIGUOUS
@@ -72,8 +70,7 @@ cdef extern from *:
         PyBUF_RECORDS
         PyBUF_RECORDS_RO
 
-    ctypedef struct __Pyx_TypeInfo:
-        pass
+    struct __Pyx_TypeInfo
 
 cdef extern from *:
     ctypedef int __pyx_atomic_int_type
@@ -112,7 +109,6 @@ except:
 @cython.collection_type("sequence")
 @cname("__pyx_array")
 cdef class array:
-
     cdef:
         char *data
         Py_ssize_t len
@@ -1411,13 +1407,13 @@ cdef void _slice_assign_scalar(char *data, Py_ssize_t *shape,
 
 ############### BufferFormatFromTypeInfo ###############
 cdef extern from *:
-    ctypedef struct __Pyx_StructField
+    struct __Pyx_StructField
 
-    cdef enum:
+    enum:
         __PYX_BUF_FLAGS_PACKED_STRUCT
         __PYX_BUF_FLAGS_INTEGER_COMPLEX
 
-    ctypedef struct __Pyx_TypeInfo:
+    struct __Pyx_TypeInfo:
         char* name
         __Pyx_StructField* fields
         size_t size
@@ -1427,12 +1423,12 @@ cdef extern from *:
         char is_unsigned
         int flags
 
-    ctypedef struct __Pyx_StructField:
+    struct __Pyx_StructField:
         __Pyx_TypeInfo* type
         char* name
         size_t offset
 
-    ctypedef struct __Pyx_BufFmt_StackElem:
+    struct __Pyx_BufFmt_StackElem:
         __Pyx_StructField* field
         size_t parent_offset
 
