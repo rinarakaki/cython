@@ -1,9 +1,9 @@
 # mode: compile
 
 enum ParrotState:
-    Alive = 1
-    Dead = 2
+    Alive
+    Dead
 
 cdef ParrotState polly
 
-polly = dead
+polly = Dead
