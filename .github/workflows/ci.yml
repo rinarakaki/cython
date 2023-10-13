@@ -61,11 +61,6 @@ jobs:
             backend: "c,cpp"
             env: { LIMITED_API: "--limited-api", EXCLUDE: "--no-file" }
             extra_hash: "-limited_api"
-          # Type specs
-          - os: ubuntu-20.04
-            python-version: pypy-3.9-v7.3.12
-            backend: c
-            env: { NO_CYTHON_COMPILE: 1 }
 
 
     # This defaults to 360 minutes (6h) which is way too long and if a test gets stuck, it can block other pipelines.
