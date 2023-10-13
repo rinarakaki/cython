@@ -6,8 +6,7 @@ from libc.string cimport const_char, const_void
 
 
 cdef extern from "<stdio.h>" nogil:
-
-    ctypedef struct FILE
+    struct FILE
     cdef FILE *stdin
     cdef FILE *stdout
     cdef FILE *stderr
@@ -48,7 +47,7 @@ cdef extern from "<stdio.h>" nogil:
     void     rewind (FILE *stream)
     long int ftell  (FILE *stream)
 
-    ctypedef struct fpos_t
+    struct fpos_t
     ctypedef const fpos_t const_fpos_t "const fpos_t"
     int fgetpos (FILE *stream, fpos_t *position)
     int fsetpos (FILE *stream, const fpos_t *position)
