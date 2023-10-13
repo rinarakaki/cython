@@ -1,12 +1,12 @@
 # mode: compile
 
-ctypedef enum someenum_t:
-    ENUMVALUE_1
-    ENUMVALUE_2
+enum SomeEnum:
+    Value_1
+    Value_2
 
-cdef somefunction(someenum_t val):
-    if val == ENUMVALUE_1:
+fn some_fn(SomeEnum value):
+    if value == Value_1:
         pass
 
-somefunction(ENUMVALUE_1)
-somefunction(ENUMVALUE_2)
+some_fn(Value_1)
+some_fn(Value_2)
