@@ -73,7 +73,7 @@ jobs:
       BACKEND: ${{ matrix.backend }}
       PYTHON_VERSION: ${{ matrix.python-version }}
       MACOSX_DEPLOYMENT_TARGET: 10.15
-      GCC_VERSION: 8
+      GCC_VERSION: 11
       USE_CCACHE: 1
       CCACHE_SLOPPINESS: "pch_defines,time_macros"
       CCACHE_COMPRESS: 1
