@@ -1,7 +1,7 @@
 from .object cimport PyObject
 
 cdef extern from "Python.h":
-    ctypedef struct va_list
+    struct va_list
 
     ############################################################################
     # 7.3.1 String Objects

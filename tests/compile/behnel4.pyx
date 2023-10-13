@@ -1,8 +1,7 @@
 # mode: compile
 
 enum E:
-    Spam
-    Eggs
+    Spam, Eggs
 
 fn E f() except Spam:
     return Eggs
