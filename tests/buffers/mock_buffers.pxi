@@ -21,7 +21,7 @@ cdef class MockBuffer:
     cdef Py_ssize_t* shape
     cdef Py_ssize_t* suboffsets
     cdef object label, log
-    cdef int ndim
+    cdef i32 ndim
     cdef bint writable
 
     cdef readonly object received_flags, release_ok
@@ -56,7 +56,7 @@ cdef class MockBuffer:
             else: break
         if len(datashape) > 1:
             # indirect access
-            self.ndim = <int>len(datashape)
+            self.ndim = <i32>len(datashape)
             shape = datashape
             self.buffer = self.create_indirect_buffer(data, shape)
             suboffsets = [0] * self.ndim
@@ -67,7 +67,7 @@ cdef class MockBuffer:
         else:
             # strided and/or simple access
             self.buffer = self.create_buffer(data)
-            self.ndim = <int>len(shape)
+            self.ndim = <i32>len(shape)
             self.suboffsets = NULL
 
         try:
@@ -126,12 +126,12 @@ cdef class MockBuffer:
             buf[i] = x
         return buf
 
-    def __getbuffer__(MockBuffer self, Py_buffer* buffer, int flags):
+    def __getbuffer__(MockBuffer self, Py_buffer* buffer, i32 flags):
         if self.fail:
             raise ValueError("Failing on purpose")
 
         self.received_flags = []
-        cdef int value
+        cdef i32 value
         for name, value in available_flags:
             if (value & flags) == value:
                 self.received_flags.append(name)
@@ -139,7 +139,7 @@ cdef class MockBuffer:
         if flags & cpython.buffer.PyBUF_WRITABLE and not self.writable:
             raise BufferError(f"Writable buffer requested from read-only mock: {' | '.join(self.received_flags)}")
 
-        buffer.buf = <void*>(<char*>self.buffer + (<int>self.offset * self.itemsize))
+        buffer.buf = <void*>(<char*>self.buffer + (<i32>self.offset * self.itemsize))
         buffer.obj = self
         buffer.len = self.len
         buffer.readonly = not self.writable
@@ -169,56 +169,56 @@ cdef class MockBuffer:
     def resetlog(self):
         self.log = u""
 
-    cdef int write(self, char* buf, object value) except -1: raise Exception()
+    cdef i32 write(self, char* buf, object value) except -1: raise Exception()
     cdef get_itemsize(self):
         print(f"ERROR, not subclassed: {self.__class__}")
     cdef get_default_format(self):
         print(f"ERROR, not subclassed {self.__class__}")
 
 cdef class CharMockBuffer(MockBuffer):
-    cdef int write(self, char* buf, object value) except -1:
+    cdef i32 write(self, char* buf, object value) except -1:
         (<char*>buf)[0] = <char>value
         return 0
     cdef get_itemsize(self): return sizeof(char)
     cdef get_default_format(self): return b"@b"
 
 cdef class IntMockBuffer(MockBuffer):
-    cdef int write(self, char* buf, object value) except -1:
-        (<int*>buf)[0] = <int>value
+    cdef i32 write(self, char* buf, object value) except -1:
+        (<i32*>buf)[0] = <i32>value
         return 0
-    cdef get_itemsize(self): return sizeof(int)
+    cdef get_itemsize(self): return sizeof(i32)
     cdef get_default_format(self): return b"@i"
 
 cdef class UnsignedIntMockBuffer(MockBuffer):
-    cdef int write(self, char* buf, object value) except -1:
-        (<unsigned int*>buf)[0] = <unsigned int>value
+    cdef i32 write(self, char* buf, object value) except -1:
+        (<u32*>buf)[0] = <u32>value
         return 0
-    cdef get_itemsize(self): return sizeof(unsigned int)
+    cdef get_itemsize(self): return sizeof(u32)
     cdef get_default_format(self): return b"@I"
 
 cdef class ShortMockBuffer(MockBuffer):
-    cdef int write(self, char* buf, object value) except -1:
+    cdef i32 write(self, char* buf, object value) except -1:
         (<short*>buf)[0] = <short>value
         return 0
     cdef get_itemsize(self): return sizeof(short)
     cdef get_default_format(self): return b"h" # Try without endian specifier
 
 cdef class UnsignedShortMockBuffer(MockBuffer):
-    cdef int write(self, char* buf, object value) except -1:
+    cdef i32 write(self, char* buf, object value) except -1:
         (<unsigned short*>buf)[0] = <unsigned short>value
         return 0
     cdef get_itemsize(self): return sizeof(unsigned short)
     cdef get_default_format(self): return b"@1H" # Try with repeat count
 
 cdef class FloatMockBuffer(MockBuffer):
-    cdef int write(self, char* buf, object value) except -1:
+    cdef i32 write(self, char* buf, object value) except -1:
         (<float*>buf)[0] = <float>(<double>value)
         return 0
     cdef get_itemsize(self): return sizeof(float)
     cdef get_default_format(self): return b"f"
 
 cdef class DoubleMockBuffer(MockBuffer):
-    cdef int write(self, char* buf, object value) except -1:
+    cdef i32 write(self, char* buf, object value) except -1:
         (<double*>buf)[0] = <double>value
         return 0
     cdef get_itemsize(self): return sizeof(double)
@@ -228,7 +228,7 @@ cdef extern from *:
     void* addr_of_pyobject "(void*)"(object)
 
 cdef class ObjectMockBuffer(MockBuffer):
-    cdef int write(self, char* buf, object value) except -1:
+    cdef i32 write(self, char* buf, object value) except -1:
         (<void**>buf)[0] = addr_of_pyobject(value)
         return 0
 
@@ -244,7 +244,7 @@ cdef class ErrorBuffer:
     def __init__(self, label):
         self.label = label
 
-    def __getbuffer__(ErrorBuffer self, Py_buffer* buffer, int flags):
+    def __getbuffer__(ErrorBuffer self, Py_buffer* buffer, i32 flags):
         raise Exception(f"acquiring {self.label}")
 
     def __releasebuffer__(ErrorBuffer self, Py_buffer* buffer):
@@ -253,34 +253,34 @@ cdef class ErrorBuffer:
 #
 # Structs
 #
-cdef struct MyStruct:
-    signed char a
-    signed char b
-    long long int c
-    int d
-    int e
+struct MyStruct:
+    i8 a
+    i8 b
+    i64 c
+    i32 d
+    i32 e
 
-cdef struct SmallStruct:
-    int a
-    int b
+struct SmallStruct:
+    i32 a
+    i32 b
 
-cdef struct NestedStruct:
+struct NestedStruct:
     SmallStruct x
     SmallStruct y
-    int z
+    i32 z
 
 cdef packed struct PackedStruct:
-    signed char a
-    int b
+    i8 a
+    i32 b
 
-cdef struct NestedPackedStruct:
-    signed char a
-    int b
+struct NestedPackedStruct:
+    i8 a
+    i32 b
     PackedStruct sub
-    int c
+    i32 c
 
 cdef class MyStructMockBuffer(MockBuffer):
-    cdef int write(self, char* buf, object value) except -1:
+    cdef i32 write(self, char* buf, object value) except -1:
         cdef MyStruct* s
         s = <MyStruct*>buf
         s.a, s.b, s.c, s.d, s.e = value
@@ -290,7 +290,7 @@ cdef class MyStructMockBuffer(MockBuffer):
     cdef get_default_format(self): return b"2cq2i"
 
 cdef class NestedStructMockBuffer(MockBuffer):
-    cdef int write(self, char* buf, object value) except -1:
+    cdef i32 write(self, char* buf, object value) except -1:
         cdef NestedStruct* s
         s = <NestedStruct*>buf
         s.x.a, s.x.b, s.y.a, s.y.b, s.z = value
@@ -300,7 +300,7 @@ cdef class NestedStructMockBuffer(MockBuffer):
     cdef get_default_format(self): return b"2T{ii}i"
 
 cdef class PackedStructMockBuffer(MockBuffer):
-    cdef int write(self, char* buf, object value) except -1:
+    cdef i32 write(self, char* buf, object value) except -1:
         cdef PackedStruct* s
         s = <PackedStruct*>buf
         s.a, s.b = value
@@ -310,7 +310,7 @@ cdef class PackedStructMockBuffer(MockBuffer):
     cdef get_default_format(self): return b"^ci"
 
 cdef class NestedPackedStructMockBuffer(MockBuffer):
-    cdef int write(self, char* buf, object value) except -1:
+    cdef i32 write(self, char* buf, object value) except -1:
         cdef NestedPackedStruct* s
         s = <NestedPackedStruct*>buf
         s.a, s.b, s.sub.a, s.sub.b, s.c = value
@@ -319,12 +319,12 @@ cdef class NestedPackedStructMockBuffer(MockBuffer):
     cdef get_itemsize(self): return sizeof(NestedPackedStruct)
     cdef get_default_format(self): return b"ci^ci@i"
 
-cdef struct LongComplex:
-    long double real
-    long double imag
+struct LongComplex:
+    f64 real
+    f64 imag
 
 cdef class LongComplexMockBuffer(MockBuffer):
-    cdef int write(self, char* buf, object value) except -1:
+    cdef i32 write(self, char* buf, object value) except -1:
         cdef LongComplex* s
         s = <LongComplex*>buf
         s.real, s.imag = value
@@ -338,7 +338,7 @@ def print_offsets(*args, size, newline=True):
     sys.stdout.write(' '.join([str(item // size) for item in args]) + ('\n' if newline else ''))
 
 def print_int_offsets(*args, newline=True):
-    print_offsets(*args, size=sizeof(int), newline=newline)
+    print_offsets(*args, size=sizeof(i32), newline=newline)
 
 
 shape_5_3_4_list = [[list(range(k * 12 + j * 4, k * 12 + j * 4 + 4))
