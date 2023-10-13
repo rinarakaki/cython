@@ -2242,7 +2242,7 @@ def p_simple_statement(s, first_statement = 0):
         node = p_return_statement(s)
     elif s.sy == 'raise':
         node = p_raise_statement(s)
-    elif s.sy in ('import', 'cimport'):
+    elif s.sy in ('import', 'cimport', 'use'):
         node = p_import_statement(s)
     elif s.sy == 'from':
         node = p_from_import_statement(s, first_statement = first_statement)
