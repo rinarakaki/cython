@@ -2,23 +2,23 @@ cimport cython
 
 def test_file_py(file):
     assert isinstance(file, (str, unicode)), \
-        u"not a string, found '%s' instead" % file.__class__.__name__
+        "not a string, found '%s' instead" % file.__class__.__name__
     return file
 
 cdef test_file_c(file):
     assert isinstance(file, (str, unicode)), \
-        u"not a string, found '%s' instead" % file.__class__.__name__
-    return u'file' + file
+        "not a string, found '%s' instead" % file.__class__.__name__
+    return 'file' + file
 
 
 def range(arg):
-    return u'range' + arg
+    return 'range' + arg
 
 def len(arg):
-    return u'len' + arg
+    return 'len' + arg
 
 cdef type(arg):
-    return u'type' + arg
+    return 'type' + arg
 
 
 @cython.test_fail_if_path_exists(
@@ -50,7 +50,7 @@ def test_c(arg):
 
 def test_for_in_range(arg):
     """
-    >>> print(str(test_for_in_range('abc')).replace("u'", "'"))
+    >>> print(str(test_for_in_range('abc')).replace("'", "'"))
     ['r', 'a', 'n', 'g', 'e', 'a', 'b', 'c']
     """
     l = []
