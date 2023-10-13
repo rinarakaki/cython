@@ -138,7 +138,7 @@ def format2(ab, cd):
     return a, b, c
 
 
-ctypedef enum TestValues:
+enum TestValues:
     enum_ABC = 1
     enum_XYZ = 2
 

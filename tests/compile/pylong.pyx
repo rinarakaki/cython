@@ -1,10 +1,9 @@
 # mode: compile
 
 cdef extern from "Python.h":
-    ctypedef struct PyTypeObject:
-        pass
+    struct PyTypeObject
 
-    ctypedef struct PyObject:
+    struct PyObject:
         Py_ssize_t ob_refcnt
         PyTypeObject *ob_type
 
@@ -14,11 +13,11 @@ cdef extern from "Python.h":
      #include "longintrepr.h"
     #endif
     """
-    cdef struct _longobject:
-        int ob_refcnt
+    struct _longobject:
+        i32 ob_refcnt
         PyTypeObject *ob_type
 #        int ob_size            # not in Py3k
-        unsigned int *ob_digit
+        u32 *ob_digit
 
 def test(temp = long(0)):
     cdef _longobject *l

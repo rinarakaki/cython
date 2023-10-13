@@ -1,6 +1,6 @@
 # mode: compile
 
-ctypedef enum foo:
+enum foo:
     FOO
 
 cdef void func():

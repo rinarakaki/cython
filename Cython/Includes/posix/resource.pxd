@@ -5,7 +5,6 @@ from posix.time  cimport timeval
 from posix.types cimport id_t
 
 cdef extern from "<sys/resource.h>" nogil:
-
     enum: PRIO_PROCESS
     enum: PRIO_PGRP
     enum: PRIO_USER
@@ -27,11 +26,11 @@ cdef extern from "<sys/resource.h>" nogil:
 
     ctypedef unsigned long rlim_t
 
-    cdef struct rlimit:
+    struct rlimit:
         rlim_t rlim_cur
         rlim_t rlim_max
 
-    cdef struct rusage:
+    struct rusage:
         timeval ru_utime
         timeval ru_stime
         # Linux-specific

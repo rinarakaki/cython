@@ -4,11 +4,11 @@
 from cython cimport typeof
 
 cdef extern from "arithmetic_analyse_types_helper.h":
-    cdef struct short_return:
+    struct short_return:
         char *msg
-    cdef struct int_return:
+    struct int_return:
         char *msg
-    cdef struct longlong_return:
+    struct longlong_return:
         char *msg
     cdef short_return f(short)
     cdef int_return f(int)

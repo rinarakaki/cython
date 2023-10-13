@@ -2,8 +2,8 @@
 # mode: compile
 
 cdef extern from "cast_ctypedef_array_T518_helper.h":
-    cdef struct __foo_struct:
-       int i, j
+    struct __foo_struct:
+       i32 i, j
     ctypedef __foo_struct foo_t[1]
 
     void foo_init(foo_t)

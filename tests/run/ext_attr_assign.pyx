@@ -1,8 +1,8 @@
 # mode: run
 # tag: assign, exttype
 
-cdef struct X:
-    int ix
+struct X:
+    i32 ix
     X* x
 
 

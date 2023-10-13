@@ -590,7 +590,7 @@ Scoped Enumerations
 
 Cython supports scoped enumerations (:keyword:`enum class`) in C++ mode::
 
-    cdef enum class Cheese:
+   enum class Cheese:
         cheddar = 1
         camembert = 2
 
@@ -606,7 +606,7 @@ This is especially important when declaring an external scoped enumeration
 with an underlying type::
 
     cdef extern from "Foo.h":
-        cdef enum class Spam(unsigned int):
+       enum class Spam(unsigned int):
 	    x = 10
 	    y = 20
 	    ...

@@ -1,11 +1,11 @@
 # mode: error
 
-cdef struct S:
-    int m
+struct S:
+    i32 m
 
 def f(a):
-    cdef int i, x[2]
-    cdef S s
+    let int i, x[2]
+    let S s
     global j
     del f() # error
     del i # error: deletion of non-Python object
@@ -19,7 +19,7 @@ def outer(a):
     del a
     return inner()
 
-cdef object g
+let object g
 del g
 
 

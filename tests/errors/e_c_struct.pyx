@@ -1,0 +1,33 @@
+# mode: error
+
+struct Spam:
+    i32 i
+    char c
+    f64[42] *p
+    obj             # error - py object
+
+# struct Spam: # error - redefined (not an error in Cython, should it be?)
+#     i32 j
+
+struct Grail
+
+fn void eggs(Spam s):
+    let i32 j
+    let Grail *gp
+    j = s.k # error - undef attribute
+    j = s.p # type error
+    s.p = j # type error
+    j = j.i # no error - coercion to Python object
+    j.i = j # no error - coercion to Python object
+    j = gp.x # error - incomplete type
+    gp.x = j # error - incomplete type
+
+
+_ERRORS = """
+7:4: C struct/union member cannot be a Python object
+17:9: Object of type 'Spam' has no attribute 'k'
+18:9: Cannot assign type 'float (*)[42]' to 'int'
+19:10: Cannot assign type 'int' to 'float (*)[42]'
+22:10: Cannot select attribute of incomplete type 'Grail'
+23:6: Cannot select attribute of incomplete type 'Grail'
+"""

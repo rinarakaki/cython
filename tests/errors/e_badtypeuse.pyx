@@ -1,6 +1,6 @@
 # mode: error
 
-cdef struct Grail
+struct Grail
 
 cdef extern object xobj # Python object cannot be extern
 cdef object aobj[42]    # array element cannot be Python object
@@ -14,10 +14,10 @@ cdef int a_spam[17][]  # incomplete element type
 cdef Grail a_g[42]     # incomplete element type
 cdef void a_nada[88]   # incomplete element type
 
-cdef struct Eggs:
-	int spam[]
+struct Eggs:
+	i32 spam[]
 
-cdef f(Grail g,   # incomplete argument type
+fn f(Grail g,   # incomplete argument type
 	void v,         # incomplete argument type
 	int a[]):
 		pass
@@ -25,7 +25,7 @@ cdef f(Grail g,   # incomplete argument type
 cdef NoSuchType* ptr
 ptr = None             # This should not produce another error
 
-_ERRORS = u"""
+_ERRORS = """
 5:19: Python object cannot be declared extern
 6:16: Array element cannot be a Python object
 7:12: Pointer base type cannot be a Python object

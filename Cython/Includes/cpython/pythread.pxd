@@ -22,7 +22,7 @@ cdef extern from "pythread.h":
         WAIT_LOCK    #   1
         NOWAIT_LOCK  #   0
 
-    ctypedef enum PyLockStatus:
+   enum PyLockStatus:
         # return values of PyThread_acquire_lock() in CPython 3.2+
         PY_LOCK_FAILURE = 0
         PY_LOCK_ACQUIRED = 1

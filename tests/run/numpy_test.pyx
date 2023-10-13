@@ -330,7 +330,7 @@ def test_dtype(dtype, inc1):
         if a[1] != 11: print u"failed!"
 
 
-cdef struct DoubleInt:
+struct DoubleInt:
     int x, y
 
 def test_recordarray():
@@ -353,15 +353,15 @@ def test_recordarray():
     if arr[1].y != 10: print u"failed"
 
 
-cdef struct NestedStruct:
+struct NestedStruct:
     DoubleInt a
     DoubleInt b
 
-cdef struct BadDoubleInt:
+struct BadDoubleInt:
     float x
     int y
 
-cdef struct BadNestedStruct:
+struct BadNestedStruct:
     DoubleInt a
     BadDoubleInt b
 
@@ -424,11 +424,11 @@ cdef packed struct PackedStruct:
     char a
     int b
 
-cdef struct UnpackedStruct:
+struct UnpackedStruct:
     char a
     int b
 
-cdef struct PartiallyPackedStruct:
+struct PartiallyPackedStruct:
     char a
     int b
     PackedStruct sub
@@ -514,7 +514,7 @@ def test_complextypes():
     print "%d,%d" % (sizeof(x64), sizeof(x128))
 
 
-cdef struct Point:
+struct Point:
     np.float64_t x, y
 
 def test_point_record():
@@ -661,7 +661,7 @@ def test_fused_ndarray_other_dtypes(np.ndarray[fused_dtype, ndim=1] a):
 
 
 # Test fusing the array types together and runtime dispatch
-cdef struct Foo:
+struct Foo:
     int a
     float b
 

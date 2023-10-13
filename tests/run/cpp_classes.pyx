@@ -136,7 +136,7 @@ def test_value_call(int w):
         del sqr
 
 
-cdef struct StructWithEmpty:
+struct StructWithEmpty:
     Empty empty
 
 
