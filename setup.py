@@ -243,12 +243,7 @@ def run_build():
 
     from Cython import __version__ as version
     setup(
-        name='Cython',
         version=version,
-        url='https://cython.org/',
-        author='Robert Bradshaw, Stefan Behnel, Dag Seljebotn, Greg Ewing, et al.',
-        author_email='cython-devel@python.org',
-        description="The Cython compiler for writing C extensions in the Python language.",
         long_description=textwrap.dedent("""\
         The Cython language makes writing C extensions for the Python language as
         easy as Python itself.  Cython is a source code translator based on Pyrex_,
@@ -273,7 +268,6 @@ def run_build():
 
         .. _Pyrex: https://www.cosc.canterbury.ac.nz/greg.ewing/python/Pyrex/
         """),
-        license='Apache-2.0',
         classifiers=[
             dev_status(version),
             "Intended Audience :: Developers",
@@ -300,14 +294,6 @@ def run_build():
             "Topic :: Software Development :: Compilers",
             "Topic :: Software Development :: Libraries :: Python Modules"
         ],
-        project_urls={
-            "Documentation": "https://cython.readthedocs.io/",
-            "Donate": "https://cython.readthedocs.io/en/latest/src/donating.html",
-            "Source Code": "https://github.com/cython/cython",
-            "Bug Tracker": "https://github.com/cython/cython/issues",
-            "User Group": "https://groups.google.com/g/cython-users",
-        },
-
         scripts=scripts,
         packages=packages,
         py_modules=["cython"],
