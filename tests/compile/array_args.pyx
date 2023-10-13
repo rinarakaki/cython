@@ -1,6 +1,6 @@
 # mode: compile
 
-cdef extern from *:
+extern from *:
 
     cdef void foo(int[])
 
@@ -14,8 +14,9 @@ cdef extern from *:
     ctypedef MyStruct* MyStructP
     cdef void baz(MyStructP[])
 
-cdef struct OtherStruct:
-    int a
+
+struct OtherStruct:
+    i32 a
 
 a = sizeof(int[23][34])
 b = sizeof(OtherStruct[43])
