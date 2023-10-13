@@ -177,7 +177,7 @@ def p_namedexpr_test(s):
 COMMON_BINOP_MISTAKES = {'||': 'or', '&&': 'and'}
 
 def p_or_test(s):
-    return p_rassoc_binop_expr(s, u'or', p_and_test)
+    return p_rassoc_binop_expr(s, 'or', p_and_test)
 
 def p_rassoc_binop_expr(s, op, p_subexpr):
     n1 = p_subexpr(s)
@@ -198,7 +198,7 @@ def p_rassoc_binop_expr(s, op, p_subexpr):
 
 def p_and_test(s):
     #return p_binop_expr(s, ('and',), p_not_test)
-    return p_rassoc_binop_expr(s, u'and', p_not_test)
+    return p_rassoc_binop_expr(s, 'and', p_not_test)
 
 #not_test: 'not' not_test | comparison
 
@@ -720,7 +720,7 @@ def p_atom(s):
         kind, bytes_value, unicode_value = p_cat_string_literal(s)
         if kind == 'c':
             return ExprNodes.CharNode(pos, value = bytes_value)
-        elif kind == 'u':
+        elif kind == '':
             return ExprNodes.UnicodeNode(pos, value = unicode_value, bytes_value = bytes_value)
         elif kind == 'b':
             return ExprNodes.BytesNode(pos, value = bytes_value)
@@ -833,7 +833,7 @@ def wrap_compile_time_constant(pos, value):
 def p_cat_string_literal(s):
     # A sequence of one or more adjacent string literals.
     # Returns (kind, bytes_value, unicode_value)
-    # where kind in ('b', 'c', 'u', 'f', '')
+    # where kind in ('b', 'c', '', 'f', '')
     pos = s.position()
     kind, bytes_value, unicode_value = p_string_literal(s)
     if kind == 'c' or s.sy != 'BEGIN_STRING':
@@ -848,7 +848,7 @@ def p_cat_string_literal(s):
             continue
         elif next_kind != kind:
             # concatenating f strings and normal strings is allowed and leads to an f string
-            if {kind, next_kind} in ({'f', 'u'}, {'f', ''}):
+            if {kind, next_kind} in ({'f', ''}, {'f', ''}):
                 kind = 'f'
             else:
                 error(pos, "Cannot mix string literals of different types, expected %s'', got %s''" % (
@@ -858,11 +858,11 @@ def p_cat_string_literal(s):
         ustrings.append(next_unicode_value)
         positions.append(pos)
     # join and rewrap the partial literals
-    if kind in ('b', 'c', '') or kind == 'u' and None not in bstrings:
+    if kind in ('b', 'c', '') or kind == '' and None not in bstrings:
         # Py3 enforced unicode literals are parsed as bytes/unicode combination
         bytes_value = bytes_literal(StringEncoding.join_bytes(bstrings), s.source_encoding)
-    if kind in ('u', ''):
-        unicode_value = EncodedString(u''.join([u for u in ustrings if u is not None]))
+    if kind in ('', ''):
+        unicode_value = EncodedString(''.join([u for u in ustrings if u is not None]))
     if kind == 'f':
         unicode_value = []
         for u, pos in zip(ustrings, positions):
@@ -874,12 +874,12 @@ def p_cat_string_literal(s):
     return kind, bytes_value, unicode_value
 
 
-def p_opt_string_literal(s, required_type='u'):
+def p_opt_string_literal(s, required_type=''):
     if s.sy != 'BEGIN_STRING':
         return None
     pos = s.position()
     kind, bytes_value, unicode_value = p_string_literal(s, required_type)
-    if required_type == 'u':
+    if required_type == '':
         if kind == 'f':
             s.error("f-string not allowed here", pos)
         return unicode_value
@@ -891,14 +891,14 @@ def p_opt_string_literal(s, required_type='u'):
 
 def check_for_non_ascii_characters(string):
     for c in string:
-        if c >= u'\x80':
+        if c >= '\x80':
             return True
     return False
 
 
 def p_string_literal(s, kind_override=None):
     # A single string or char literal.  Returns (kind, bvalue, uvalue)
-    # where kind in ('b', 'c', 'u', 'f', '').  The 'bvalue' is the source
+    # where kind in ('b', 'c', '', 'f', '').  The 'bvalue' is the source
     # code byte sequence of the string literal, 'uvalue' is the
     # decoded Unicode string.  Either of the two may be None depending
     # on the 'kind' of string, only unprefixed strings have both
@@ -914,11 +914,11 @@ def p_string_literal(s, kind_override=None):
     if len(kind_string) > 1:
         if len(set(kind_string)) != len(kind_string):
             error(pos, 'Duplicate string prefix character')
-        if 'b' in kind_string and 'u' in kind_string:
+        if 'b' in kind_string and '' in kind_string:
             error(pos, 'String prefixes b and u cannot be combined')
         if 'b' in kind_string and 'f' in kind_string:
             error(pos, 'String prefixes b and f cannot be combined')
-        if 'u' in kind_string and 'f' in kind_string:
+        if '' in kind_string and 'f' in kind_string:
             error(pos, 'String prefixes u and f cannot be combined')
 
     is_raw = 'r' in kind_string
@@ -934,18 +934,18 @@ def p_string_literal(s, kind_override=None):
         is_raw = True  # postpone the escape resolution
     elif 'b' in kind_string:
         kind = 'b'
-    elif 'u' in kind_string:
-        kind = 'u'
+    elif '' in kind_string:
+        kind = ''
     else:
         kind = ''
 
     if kind == '' and kind_override is None and Future.unicode_literals in s.context.future_directives:
         chars = StringEncoding.StrLiteralBuilder(s.source_encoding)
-        kind = 'u'
+        kind = ''
     else:
         if kind_override is not None and kind_override in 'ub':
             kind = kind_override
-        if kind in ('u', 'f'):  # f-strings are scanned exactly like Unicode literals, but are parsed further later
+        if kind in ('', 'f'):  # f-strings are scanned exactly like Unicode literals, but are parsed further later
             chars = StringEncoding.UnicodeLiteralBuilder()
         elif kind == '':
             chars = StringEncoding.StrLiteralBuilder(s.source_encoding)
@@ -963,14 +963,14 @@ def p_string_literal(s, kind_override=None):
                 has_non_ascii_literal_characters = True
         elif sy == 'ESCAPE':
             # in Py2, 'ur' raw unicode strings resolve unicode escapes but nothing else
-            if is_raw and (is_python3_source or kind != 'u' or systr[1] not in u'Uu'):
+            if is_raw and (is_python3_source or kind != '' or systr[1] not in 'Uu'):
                 chars.append(systr)
                 if is_python3_source and not has_non_ascii_literal_characters and check_for_non_ascii_characters(systr):
                     has_non_ascii_literal_characters = True
             else:
                 _append_escape_sequence(kind, chars, systr, s)
         elif sy == 'NEWLINE':
-            chars.append(u'\n')
+            chars.append('\n')
         elif sy == 'END_STRING':
             break
         elif sy == 'EOF':
@@ -1006,23 +1006,23 @@ def _append_escape_sequence(kind, builder, escape_sequence, s):
         builder.append(c)
     elif c in u"abfnrtv":
         builder.append(StringEncoding.char_from_escape_sequence(escape_sequence))
-    elif c == u'\n':
+    elif c == '\n':
         pass  # line continuation
-    elif c == u'x':  # \xXX
+    elif c == 'x':  # \xXX
         if len(escape_sequence) == 4:
             builder.append_charval(int(escape_sequence[2:], 16))
         else:
             s.error("Invalid hex escape '%s'" % escape_sequence, fatal=False)
-    elif c in u'NUu' and kind in ('u', 'f', ''):  # \uxxxx, \Uxxxxxxxx, \N{...}
+    elif c in 'NUu' and kind in ('', 'f', ''):  # \uxxxx, \Uxxxxxxxx, \N{...}
         chrval = -1
-        if c == u'N':
+        if c == 'N':
             uchar = None
             try:
                 uchar = lookup_unicodechar(escape_sequence[3:-1])
                 chrval = ord(uchar)
             except KeyError:
                 s.error("Unknown Unicode character name %s" %
-                        repr(escape_sequence[3:-1]).lstrip('u'), fatal=False)
+                        repr(escape_sequence[3:-1]).lstrip(''), fatal=False)
             except TypeError:
                 # 2-byte unicode build of CPython?
                 if (uchar is not None and _IS_2BYTE_UNICODE and len(uchar) == 2 and
@@ -1870,7 +1870,7 @@ def p_dotted_name(s, as_allowed):
         names.append(p_ident(s))
     if as_allowed:
         as_name = p_as_name(s)
-    return (pos, target_name, s.context.intern_ustring(u'.'.join(names)), as_name)
+    return (pos, target_name, s.context.intern_ustring('.'.join(names)), as_name)
 
 
 def p_as_name(s):
@@ -2097,7 +2097,7 @@ def p_except_clause(s):
 def p_include_statement(s, ctx):
     pos = s.position()
     s.next()  # 'include'
-    unicode_include_file_name = p_string_literal(s, 'u')[2]
+    unicode_include_file_name = p_string_literal(s, '')[2]
     s.expect_newline("Syntax error in include statement")
     if s.compile_time_eval:
         include_file_name = unicode_include_file_name
@@ -2450,7 +2450,7 @@ def p_statement(s, ctx, first_statement = 0):
                         return p_async_statement(s, ctx, decorators)
                     elif decorators:
                         s.error("Decorators can only be followed by functions or classes")
-                    s.put_back(u'IDENT', ident_name, ident_pos)  # re-insert original token
+                    s.put_back('IDENT', ident_name, ident_pos)  # re-insert original token
                 return p_simple_statement_list(s, ctx, first_statement=first_statement)
 
 
@@ -2638,7 +2638,11 @@ def p_c_simple_base_type(s, nonempty, templates=None):
     if looking_at_base_type(s):
         #print "p_c_simple_base_type: looking_at_base_type at", s.position()
         is_basic = 1
-        if s.sy == 'IDENT' and s.systring in special_basic_c_types:
+        if s.sy == 'IDENT' and s.systring in rust_type_names:
+            signed, longness = 1, 0
+            name = s.systring
+            s.next()
+        elif s.sy == 'IDENT' and s.systring in special_basic_c_types:
             signed, longness = special_basic_c_types[s.systring]
             name = s.systring
             s.next()
@@ -2671,13 +2675,13 @@ def p_c_simple_base_type(s, nonempty, templates=None):
                 s.next()
                 if (s.sy == '*' or s.sy == '**' or s.sy == '&'
                         or (s.sy == 'IDENT' and s.systring in calling_convention_words)):
-                    s.put_back(u'(', u'(', old_pos)
+                    s.put_back('(', '(', old_pos)
                 else:
-                    s.put_back(u'(', u'(', old_pos)
-                    s.put_back(u'IDENT', name, name_pos)
+                    s.put_back('(', '(', old_pos)
+                    s.put_back('IDENT', name, name_pos)
                     name = None
             elif s.sy not in ('*', '**', '[', '&'):
-                s.put_back(u'IDENT', name, name_pos)
+                s.put_back('IDENT', name, name_pos)
                 name = None
 
     type_node = Nodes.CSimpleBaseTypeNode(pos,
@@ -2819,10 +2823,10 @@ def looking_at_expr(s):
 
         dotted_path.reverse()
         for p in dotted_path:
-            s.put_back(u'IDENT', *p)
-            s.put_back(u'.', u'.', p[1])  # gets the position slightly wrong
+            s.put_back('IDENT', *p)
+            s.put_back('.', '.', p[1])  # gets the position slightly wrong
 
-        s.put_back(u'IDENT', name, name_pos)
+        s.put_back('IDENT', name, name_pos)
         return not is_type and saved[0]
     else:
         return True
@@ -2837,15 +2841,19 @@ def looking_at_dotted_name(s):
         name_pos = s.position()
         s.next()
         result = s.sy == '.'
-        s.put_back(u'IDENT', name, name_pos)
+        s.put_back('IDENT', name, name_pos)
         return result
     else:
         return 0
 
+rust_type_names = cython.declare(frozenset, frozenset((
+    "char", "bool",
+    "i8", "i16", "i32", "i64",
+    "u8", "u16", "u32", "u64"
+    "f32", "f64")))
 
 basic_c_type_names = cython.declare(frozenset, frozenset((
-    "void", "char", "int", "float", "double", "bint",
-    "char", "i32", "f32", "f64", "bool")))
+    "void", "char", "int", "float", "double", "bint")))
 
 special_basic_c_types = cython.declare(dict, {
     # name : (signed, longness)
@@ -2864,7 +2872,8 @@ sign_and_longness_words = cython.declare(frozenset, frozenset((
 
 base_type_start_words = cython.declare(
     frozenset,
-    basic_c_type_names
+    rust_type_names
+    | basic_c_type_names
     | sign_and_longness_words
     | frozenset(special_basic_c_types))
 
@@ -2887,7 +2896,7 @@ def p_sign_and_longness(s):
     return signed, longness
 
 def p_opt_cname(s):
-    literal = p_opt_string_literal(s, 'u')
+    literal = p_opt_string_literal(s, '')
     if literal is not None:
         cname = EncodedString(literal)
         cname.encoding = s.source_encoding
@@ -3121,7 +3130,7 @@ def p_exception_value_clause(s, is_extern):
                     exc_val = p_name(s, name)
                     s.next()
             elif s.sy == '*':
-                exc_val = ExprNodes.CharNode(s.position(), value=u'*')
+                exc_val = ExprNodes.CharNode(s.position(), value='*')
                 s.next()
         else:
             if s.sy == '?':
@@ -3228,7 +3237,7 @@ def p_cdef_statement(s, ctx):
     if ctx.api:
         if ctx.visibility not in ('private', 'pub', 'public'):
             error(pos, "Cannot combine 'api' with '%s'" % ctx.visibility)
-    if (ctx.visibility == 'extern') and s.sy == 'from':
+    if ctx.visibility == 'extern' and s.sy == 'from':
         return p_cdef_extern_block(s, pos, ctx)
     elif s.sy == 'import':
         s.next()
@@ -3250,7 +3259,7 @@ def p_cdef_statement(s, ctx):
         return p_c_class_definition(s, pos, ctx)
     elif s.sy == 'IDENT' and s.systring == 'cppclass':
         return p_cpp_class_definition(s, pos, ctx)
-    elif (s.sy in struct_enum_union) or (s.sy == 'IDENT' and s.systring in struct_enum_union):
+    elif s.sy in struct_enum_union or s.sy == 'IDENT' and s.systring in struct_enum_union:
         if ctx.level not in ('module', 'module_pxd'):
             error(pos, "C struct/union/enum definition not allowed here")
         if ctx.overridable:
@@ -3279,11 +3288,11 @@ def p_cdef_extern_block(s, pos, ctx):
     if s.sy == '*':
         s.next()
     else:
-        include_file = p_string_literal(s, 'u')[2]
+        include_file = p_string_literal(s, '')[2]
     ctx = ctx(cdef_flag = 1, visibility = 'extern')
     if s.systring == "namespace":
         s.next()
-        ctx.namespace = p_string_literal(s, 'u')[2]
+        ctx.namespace = p_string_literal(s, '')[2]
     if p_nogil(s):
         ctx.nogil = 1
 
@@ -3824,7 +3833,7 @@ def p_doc_string(s):
         pos = s.position()
         kind, bytes_result, unicode_result = p_cat_string_literal(s)
         s.expect_newline("Syntax error in doc string", ignore_semicolon=True)
-        if kind in ('u', ''):
+        if kind in ('', ''):
             return unicode_result
         warning(pos, "Python 3 requires docstrings to be unicode strings")
         return bytes_result
