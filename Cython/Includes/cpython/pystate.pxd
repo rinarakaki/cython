@@ -9,19 +9,15 @@ cdef extern from "Python.h":
 
     ctypedef long PY_INT64_T  # FIXME: Py2.7+, not defined here but used here
 
-    ctypedef struct PyInterpreterState:
-        pass
+    struct PyInterpreterState
 
-    ctypedef struct PyThreadState:
-        pass
+    struct PyThreadState
 
-    ctypedef struct PyFrameObject:
-        pass
+    struct PyFrameObject
 
     # This is not actually a struct, but make sure it can never be coerced to
     # an int or used in arithmetic expressions
-    ctypedef struct PyGILState_STATE:
-        pass
+    struct PyGILState_STATE
 
     # The type of the trace function registered using PyEval_SetProfile() and
     # PyEval_SetTrace().
