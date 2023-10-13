@@ -8,8 +8,8 @@ cdef class Spam:
     cdef readonly VoidP vp2
     cdef public   VoidP vp1
 
-ctypedef struct Foo:
-    int i
+struct Foo:
+    i32 i
 
 cdef class Bar:
     cdef          Foo foo0
