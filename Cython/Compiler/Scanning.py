@@ -3,8 +3,6 @@
 #   Cython Scanner
 #
 
-from __future__ import absolute_import
-
 import cython
 cython.declare(make_lexicon=object, lexicon=object,
                print_function=object, error=object, warning=object,
@@ -50,7 +48,7 @@ py_reserved_words = [
 pyx_reserved_words = py_reserved_words + [
     "include", "ctypedef", "cdef", "cpdef",
     "cimport", "DEF", "IF", "ELIF", "ELSE",
-    "enum", "struct", "fn", "let", "trait", "union", "use"
+    "enum", "struct", "fn", "let", "trait", "union", "use", "pub"
 ]
 
 
