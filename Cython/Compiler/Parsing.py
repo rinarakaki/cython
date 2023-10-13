@@ -2385,7 +2385,6 @@ def p_statement(s, ctx, first_statement = 0):
         overridable = 1
         s.next()
     elif s.sy in ('fn', 'struct', 'enum', 'let', 'trait', 'type', 'extern'):
-    elif s.sy in ('fn', 'struct', 'enum', 'let', 'trait', 'extern'):
         cdef_flag = 1
     if cdef_flag:
         if ctx.level not in ('module', 'module_pxd', 'function', 'c_class', 'c_class_pxd'):
