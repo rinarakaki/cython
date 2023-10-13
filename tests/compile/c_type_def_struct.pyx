@@ -1,14 +1,14 @@
 # mode: compile
 
-ctypedef struct order:
+struct Order:
     i32 spam
     i32 eggs
 
-cdef order order1
+cdef Order order1
 
 order1.spam = 7
 order1.eggs = 2
 
-ctypedef struct linked:
+struct Linked:
     i32 a
-    linked *next
+    Linked *next
