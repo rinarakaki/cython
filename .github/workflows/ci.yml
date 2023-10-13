@@ -85,7 +85,7 @@ jobs:
         with:
           fetch-depth: 1
 
-      - name: Setup python
+      - name: actions/setup-python@v4
         uses: actions/setup-python@v4
         if: startsWith(matrix.python-version, '3.')
         with:
@@ -103,14 +103,14 @@ jobs:
         env: ${{ matrix.env }}
         run: bash ./Tools/ci-run.sh
 
-      - name: Upload HTML docs
+      - name: actions/upload-artifact@v3
         uses: actions/upload-artifact@v3
         with:
           name: htmldocs
           path: docs/build/html
           if-no-files-found: ignore
 
-      - name: Upload wheels
+      - name: actions/upload-artifact@v3
         uses: actions/upload-artifact@v3
         with:
           name: wheels-${{ runner.os }}${{ matrix.extra_hash }}
@@ -127,10 +127,10 @@ jobs:
       PYTHON_VERSION: "3.12"
 
     steps:
-      - name: Checkout repo
+      - name: actions/checkout@v4
         uses: actions/checkout@v4
 
-      - name: Setup python
+      - name: actions/setup-python@v4
         uses: actions/setup-python@v4
         with:
           python-version: "3.12"
@@ -139,7 +139,7 @@ jobs:
         env: { COVERAGE: 1, NO_CYTHON_COMPILE: 1 }
         run: bash ./Tools/ci-run.sh
 
-      - name: Upload Coverage Report
+      - name: actions/upload-artifact@v3
         uses: actions/upload-artifact@v3
         with:
           name: pycoverage_html
@@ -154,12 +154,12 @@ jobs:
       PYTHON_VERSION: "3.12"
 
     steps:
-      - name: Checkout repo
+      - name: actions/checkout@v4
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
 
-      - name: Setup python
+      - name: actions/setup-python@v4
         uses: actions/setup-python@v4
         with:
           python-version: "3.12"
@@ -168,7 +168,7 @@ jobs:
         env: { COVERAGE: 1 }
         run: bash ./Tools/ci-run.sh
 
-      - name: Upload Coverage Report
+      - name: actions/upload-artifact@v3
         uses: actions/upload-artifact@v3
         with:
           name: cycoverage_html
@@ -179,7 +179,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: actions/checkout@v4
         uses: actions/checkout@v4
-      - name: Codespell
+
+      - name: codespell-project/actions-codespell@v2
         uses: codespell-project/actions-codespell@v2
