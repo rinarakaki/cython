@@ -1752,7 +1752,7 @@ def p_import_statement(s):
     stats = []
     is_absolute = Future.absolute_import in s.context.future_directives
     for pos, target_name, dotted_name, as_name in items:
-        if kind == 'cimport':
+        if kind == 'use' or kind == 'cimport':
             stat = Nodes.CImportStatNode(
                 pos,
                 module_name=dotted_name,
