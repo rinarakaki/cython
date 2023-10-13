@@ -3470,7 +3470,7 @@ def p_struct_enum(s, pos, ctx):
 def p_visibility(s, prev_visibility):
     pos = s.position()
     visibility = prev_visibility
-    if s.sy == 'IDENT' and s.systring in ('extern', 'pub', 'public', 'readonly'):
+    if s.sy in ('extern', 'pub') or s.sy == 'IDENT' and s.systring in ('extern', 'pub', 'public', 'readonly'):
         visibility = s.systring
         if prev_visibility != 'private' and visibility != prev_visibility:
             s.error("Conflicting visibility options '%s' and '%s'"
