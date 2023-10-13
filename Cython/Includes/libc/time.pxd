@@ -10,7 +10,7 @@ cdef extern from "<time.h>" nogil:
     clock_t clock()             # CPU time
     time_t  time(time_t *)      # wall clock time since Unix epoch
 
-    cdef struct tm:
+    struct tm:
         int  tm_sec
         int  tm_min
         int  tm_hour
