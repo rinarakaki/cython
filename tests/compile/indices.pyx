@@ -3,7 +3,7 @@
 cdef int* a
 cdef object x
 
-cdef int f(int i):
+fn i32 f(i32 i):
     print i
     return i
 
