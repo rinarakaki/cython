@@ -10,16 +10,30 @@ authors = [
 ]
 license = { file = "Apache-2.0" }
 requires-python = ">=3.12"
+classifiers = [
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Programming Language :: C",
+    "Programming Language :: Cython",
+    "Topic :: Software Development :: Code Generators",
+    "Topic :: Software Development :: Compilers",
+    "Topic :: Software Development :: Libraries :: Python Modules"
+]
 dependencies = [
 ]
 
 [project.urls]
 "Homepage" = "https://cython.org/"
-"Documentation" = "https://cython.readthedocs.io/",
-"Donate" = "https://cython.readthedocs.io/en/latest/src/donating.html",
-"Source Code" = "https://github.com/cython/cython",
-"Bug Tracker" = "https://github.com/cython/cython/issues",
-"User Group" = "https://groups.google.com/g/cython-users",
+"Documentation" = "https://cython.readthedocs.io/"
+"Donate" = "https://cython.readthedocs.io/en/latest/src/donating.html"
+"Source Code" = "https://github.com/cython/cython"
+"Bug Tracker" = "https://github.com/cython/cython/issues"
+"User Group" = "https://groups.google.com/g/cython-users"
 
 [project.optional-dependencies]
 dev = [
