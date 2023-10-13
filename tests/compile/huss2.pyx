@@ -9,10 +9,10 @@ fn void f():
     let Colour e
     let i32 i
 
-    i = Red
-    i = Red + 1
-    i = Red | 1
-    e = White
+    i = Colour.Red
+    i = Colour.Red + 1
+    i = Colour.Red | 1
+    e = Colour.White
     i = e
     i = e + 1
 
