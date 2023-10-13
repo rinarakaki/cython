@@ -2,17 +2,17 @@
 
 struct Grail
 
-cdef extern object xobj # Python object cannot be extern
-cdef object aobj[42]    # array element cannot be Python object
-cdef object *pobj       # pointer base type cannot be Python object
+extern object xobj # Python object cannot be extern
+let object aobj[42]    # array element cannot be Python object
+let object *pobj       # pointer base type cannot be Python object
 
-cdef int spam[] # incomplete variable type
-cdef Grail g     # incomplete variable type
-cdef void nada   # incomplete variable type
+let int spam[] # incomplete variable type
+let Grail g     # incomplete variable type
+let void nada   # incomplete variable type
 
-cdef int a_spam[17][]  # incomplete element type
-cdef Grail a_g[42]     # incomplete element type
-cdef void a_nada[88]   # incomplete element type
+let int a_spam[17][]  # incomplete element type
+let Grail a_g[42]     # incomplete element type
+let void a_nada[88]   # incomplete element type
 
 struct Eggs:
 	i32 spam[]
@@ -22,7 +22,7 @@ fn f(Grail g,   # incomplete argument type
 	int a[]):
 		pass
 
-cdef NoSuchType* ptr
+let NoSuchType* ptr
 ptr = None             # This should not produce another error
 
 _ERRORS = """

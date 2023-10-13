@@ -22,8 +22,8 @@ floating = cython.fused_type(float, double)
 cdef func(floating x, int2_t y):
     print x, y
 
-cdef float x = 10.0
-cdef int y = 10
+let float x = 10.0
+let int y = 10
 func[float](x, y)
 func[float][int](x, y)
 func[float, int](x)
@@ -40,14 +40,14 @@ def f(memslice_dtype_t[:, :] a):
 lambda cython.integral i: i
 
 
-cdef cython.floating x
+let cython.floating x
 
 cdef class Foo(object):
-    cdef cython.floating attr
+    let cython.floating attr
 
 def outer(cython.floating f):
     def inner():
-        cdef cython.floating g
+        let cython.floating g
 
 
 # Mixing const and non-const type makes fused type ambiguous
@@ -83,7 +83,7 @@ cpdef floating return_type_unfindable2(cython.integral x):
     return 1.0
 
 cdef void contents_unfindable1(cython.integral x):
-    z: floating = 1  # note: cdef variables also fail with an error but not by the time this test aborts
+    z: floating = 1  # note: let variables also fail with an error but not by the time this test aborts
     sz = sizeof(floating)
 
 
@@ -99,7 +99,7 @@ _ERRORS = u"""
 37:6: Invalid base type for memoryview slice: int *
 40:0: Fused lambdas not allowed
 43:5: Fused types not allowed here
-43:21: cdef variable 'x' declared after it is used
+43:21: let variable 'x' declared after it is used
 46:9: Fused types not allowed here
 61:0: Invalid use of fused types, type cannot be specialized
 61:29: ambiguous overloaded method

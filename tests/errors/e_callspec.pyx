@@ -45,23 +45,23 @@ ctypedef USERTYPE (__fastcall *PT8)()
 
 # Pointers
 
-cdef void (*p1)()
-cdef void (__cdecl *p2)()
-cdef void (__stdcall *p3)()
-cdef void (__fastcall *p4)()
-cdef USERTYPE (*p5)()
-cdef USERTYPE (__cdecl *p6)()
-cdef USERTYPE (__stdcall *p7)()
-cdef USERTYPE (__fastcall *p8)()
+let void (*p1)()
+let void (__cdecl *p2)()
+let void (__stdcall *p3)()
+let void (__fastcall *p4)()
+let USERTYPE (*p5)()
+let USERTYPE (__cdecl *p6)()
+let USERTYPE (__stdcall *p7)()
+let USERTYPE (__fastcall *p8)()
 
-cdef PT1 pt1
-cdef PT2 pt2
-cdef PT3 pt3
-cdef PT4 pt4
-cdef PT5 pt5
-cdef PT6 pt6
-cdef PT7 pt7
-cdef PT8 pt8
+let PT1 pt1
+let PT2 pt2
+let PT3 pt3
+let PT4 pt4
+let PT5 pt5
+let PT6 pt6
+let PT7 pt7
+let PT8 pt8
 
 # Assignments
 

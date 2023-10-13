@@ -1,4 +1,4 @@
-cdef extern from "l_capi_api.h":
+extern from "l_capi_api.h":
     float f(float)
     int import_l_capi() except -1
 

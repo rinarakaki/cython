@@ -48,7 +48,7 @@ Traceback (most recent call last):
 OverflowError: ...
 """
 
-cdef extern from *:
+extern from *:
     ctypedef long ssize_t # XXX This should generate a warning !!!
     ssize_t PY_SSIZE_T_MAX
     ssize_t PY_SSIZE_T_MIN
@@ -60,13 +60,13 @@ def test(ssize_t i):
     return i
 
 cdef class A:
-    cdef public ssize_t a
-    cdef readonly ssize_t b
+    let public ssize_t a
+    let readonly ssize_t b
 
     def __init__(self, ssize_t a, object b):
         self.a = a
         self.b = b
 
     cpdef ssize_t foo(self, ssize_t x):
-        cdef object o = x
+        let object o = x
         return o

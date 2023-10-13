@@ -9,7 +9,7 @@ cdef class MyFloat(float):
     >>> MyFloat(1.0).attr is None
     True
     """
-    cdef readonly object attr
+    let readonly object attr
 
 ustring = u'abc'
 
@@ -22,7 +22,7 @@ cdef class MyUnicode(unicode):
     >>> MyUnicode(ustring).attr is None
     True
     """
-    cdef readonly object attr
+    let readonly object attr
 
 cdef class MyList(list):
     """
@@ -31,7 +31,7 @@ cdef class MyList(list):
     >>> MyList([1,2,3]).attr is None
     True
     """
-    cdef readonly object attr
+    let readonly object attr
 
 cdef class MyListOverride(list):
     """
@@ -63,7 +63,7 @@ cdef class MyListOverride(list):
 
     ## FIXME: this doesn't currently work:
 
-    ## cdef int append(self, value) except -1:
+    ## fn int append(self, value) except -1:
     ##     self[:] = self + [0] + [value]
     ##     return 0
 
@@ -77,7 +77,7 @@ cdef class MyDict(dict):
     >>> MyDict({1:2, 3:4}).attr is None
     True
     """
-    cdef readonly object attr
+    let readonly object attr
 
 cdef class MyException(Exception):
     """
@@ -86,7 +86,7 @@ cdef class MyException(Exception):
     ...
     MyException: 3
     """
-    cdef readonly int value
+    let readonly int value
     def __cinit__(self, value):
         self.value = value
 
@@ -110,5 +110,5 @@ def test_exception_type_cast(Exception maybe_exn):
     ...
     TypeError: Argument 'maybe_exn' has incorrect type (expected ...Exception, got int)
     """
-    cdef object o = maybe_exn
-    cdef Exception e = o
+    let object o = maybe_exn
+    let Exception e = o

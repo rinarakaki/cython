@@ -1,7 +1,7 @@
 # tag: cpp
 # mode: run, no-cpp-locals
 
-cdef extern from *:
+extern from *:
     """
     enum Enum1 {
         Item1,
@@ -16,7 +16,7 @@ cdef extern from *:
 a = Item1
 b = Item2
 
-cdef Enum1 x, y
+let Enum1 x, y
 x = Item1
 y = Item2
 
@@ -29,7 +29,7 @@ def compare_enums():
     return x == a, a == Item1, b == y, y == Item2
 
 
-cdef extern from * namespace "Namespace1":
+extern from * namespace "Namespace1":
     """
     namespace Namespace1 {
         enum Enum2 {
@@ -45,7 +45,7 @@ cdef extern from * namespace "Namespace1":
 c = Item3
 d = Item4
 
-cdef Enum2 z, w
+let Enum2 z, w
 z = Item3
 w = Item4
 

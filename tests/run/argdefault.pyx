@@ -45,7 +45,7 @@ def g2(arg={1: 2}):
 
 class Foo(object):
     pass
-cdef GLB3 = Foo()
+let GLB3 = Foo()
 def f3(arg=GLB3):
     """
     >>> f3() #doctest: +ELLIPSIS
@@ -62,7 +62,7 @@ def g3(arg=Foo()):
 
 cdef class Bar:
     pass
-cdef Bar GLB4 = Bar()
+let Bar GLB4 = Bar()
 def f4(arg=GLB4):
     """
     >>> f4() #doctest: +ELLIPSIS
@@ -79,7 +79,7 @@ def g4(arg=Bar()):
 
 cdef class Bla:
     pass
-cdef Bla GLB5 = Bla()
+let Bla GLB5 = Bla()
 def f5(Bla arg=GLB5):
     """
     >>> f5() #doctest: +ELLIPSIS
@@ -94,7 +94,7 @@ def g5(Bla arg=Bla()):
     return arg
 
 
-cdef int GLB6 = 7
+let int GLB6 = 7
 def f6(int arg=GLB6):
     """
     >>> f6()

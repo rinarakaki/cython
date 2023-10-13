@@ -1,7 +1,7 @@
 from sin_of_square cimport Function, SinOfSquareFunction
 
 def integrate(Function f, double a, double b, int N):
-    cdef int i
+    let int i
     cdef double s, dx
     if f is None:
         raise ValueError("f cannot be None")

@@ -8,38 +8,38 @@ cdef signed short[::1, :, :, ::1] both2
 cdef signed char[::2] err0
 cdef signed char[::-100] err1
 cdef signed char[::-1] err2
-cdef long long[01::1, 0x01:, '0'   :, False:] fort_contig0
+fn long long[01::1, 0x01:, '0'   :, False:] fort_contig0
 cdef signed char[1::] bad_start
-cdef unsigned long[:,:1] bad_stop
-cdef unsigned long[:,::1,:] neither_c_or_f
+fn unsigned long[:,:1] bad_stop
+fn unsigned long[:,::1,:] neither_c_or_f
 cdef signed char[::1-1+1] expr_spec
 cdef signed char[::blargh] bad_name
 cdef double[::alist[0]['view'].full] expr_attribute
 
-cdef object[::1, :] unconformable1 = object()
-cdef object[:, ::1] unconformable2 = unconformable1
+fn object[::1, :] unconformable1 = object()
+fn object[:, ::1] unconformable2 = unconformable1
 
-cdef int[::1, :] dtype_unconformable = object()
+fn int[::1, :] dtype_unconformable = object()
 unconformable1 = dtype_unconformable
 
 # These are INVALID
-cdef int[::view.contiguous, ::1] a1
-#cdef int[::view.generic_contiguous, ::1] a2
+fn int[::view.contiguous, ::1] a1
+#fn int[::view.generic_contiguous, ::1] a2
 
-#cdef int[::view.contiguous, ::view.generic_contiguous] a3
-#cdef int[::view.generic_contiguous, ::view.generic_contiguous] a4
+#fn int[::view.contiguous, ::view.generic_contiguous] a3
+#fn int[::view.generic_contiguous, ::view.generic_contiguous] a4
 
-cdef int[::view.contiguous, ::view.contiguous] a5
-cdef int[:, ::view.contiguous, ::view.indirect_contiguous] a6
+fn int[::view.contiguous, ::view.contiguous] a5
+fn int[:, ::view.contiguous, ::view.indirect_contiguous] a6
 
-#cdef int[::view.generic_contiguous, ::view.contiguous] a7
-#cdef int[::view.contiguous, ::view.generic_contiguous] a8
+#fn int[::view.generic_contiguous, ::view.contiguous] a7
+#fn int[::view.contiguous, ::view.generic_contiguous] a8
 
 ctypedef int *intp
 cdef intp[:, :] myarray
 
-cdef int[:] a10 = <int[:10]> object()
-cdef int[:] a11 = <int[:5.4]> <int *> 1
+fn int[:] a10 = <int[:10]> object()
+fn int[:] a11 = <int[:5.4]> <int *> 1
 
 struct Valid:
     int array[1][2][3][4][5][6][7][8]
@@ -49,17 +49,17 @@ struct Invalid:
 cdef Valid[:] validslice
 cdef Invalid[:] invalidslice
 
-cdef int[:, :, :, :] four_D
+fn int[:, :, :, :] four_D
 four_D[None, None, None, None]
 four_D[None, None, None, None, None]
 
-cdef int[:, :, :, :, :, :, :, :] eight_D = object()
+fn int[:, :, :, :, :, :, :, :] eight_D = object()
 
 cdef double[:] m
 print <long> &m
 
 # These are VALID
-cdef int[::view.indirect_contiguous, ::view.contiguous] a9
+fn int[::view.indirect_contiguous, ::view.contiguous] a9
 four_D[None, None, None]
 
 _ERRORS = u'''

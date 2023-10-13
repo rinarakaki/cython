@@ -25,5 +25,5 @@ def test_transpose_refcount():
     """
     cdef double[:, :] A = view.array(shape=(2, 2), itemsize=sizeof(double), format="d")
     A[0, 0], A[0, 1], A[1, 0], A[1, 1] = 1., 2., 3., 4.
-    cdef MemViewContainer container = MemViewContainer(A)
+    let MemViewContainer container = MemViewContainer(A)
     container.run()

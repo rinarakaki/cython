@@ -45,12 +45,12 @@ class MyPyFoo(PyFoo):
 # this doesn't:
 
 cdef class CyFoo:
-    cdef public int bar = 5
-    cdef public object baz = u"someval"
+    let public int bar = 5
+    let public object baz = u"someval"
 
 cdef class MyCyFoo(CyFoo):
-    cdef public int bar = 7
-    cdef public object baz = u"anotherval"
+    let public int bar = 7
+    let public object baz = u"anotherval"
 
 class AnotherFoo(CyFoo):
     bar = 8

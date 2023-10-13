@@ -21,7 +21,7 @@ def simple_iteration_test(L):
     4
     8
     """
-    cdef forward_list[int] l
+    let forward_list[int] l
     for a in L:
         l.push_front(a)
     for a in l:
@@ -59,7 +59,7 @@ def test_value_type(x):
     >>> test_value_type(2.5)
     2.5
     """
-    cdef forward_list[double].value_type val = x
+    let forward_list[double].value_type val = x
     return val
 
 def test_value_type_complex(x):
@@ -67,7 +67,7 @@ def test_value_type_complex(x):
     >>> test_value_type_complex(2)
     (2+0j)
     """
-    cdef forward_list[double complex].value_type val = x
+    let forward_list[double complex].value_type val = x
     return val
 
 

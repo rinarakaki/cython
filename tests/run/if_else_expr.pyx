@@ -5,7 +5,7 @@
 cimport cython
 
 cdef class Foo:
-    cdef dict data
+    let dict data
 
     def __repr__(self):
         return '<Foo>'
@@ -42,7 +42,7 @@ def test_charptr_coercion(x):
     >>> print(test_charptr_coercion(False))
     def
     """
-    cdef char* s = b'abc' if x else b'def'
+    let char* s = b'abc' if x else b'def'
     return s.decode('ascii')
 
 

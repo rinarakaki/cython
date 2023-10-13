@@ -142,7 +142,7 @@ def complex_expression(int a, int b, int c, int d):
     """
     return (a // verbose_call(b)) % (verbose_call(c) // d)
 
-cdef int verbose_call(int x):
+fn int verbose_call(int x):
     print u"verbose_call(%s)" % x
     return x
 
@@ -202,6 +202,6 @@ def c_div_const_test(a, b):
     """
     return c_div_const(a, b)
 
-cdef long c_div_const(const long a, int b):
-    cdef long c = a / b
+fn long c_div_const(const long a, int b):
+    let long c = a / b
     return c

@@ -10,7 +10,7 @@ except ImportError:
 ### extension types
 
 cdef class MyExtType:
-    cdef object attr
+    let object attr
     def __cinit__(self):
         self.attr = 123
 

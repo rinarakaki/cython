@@ -1,10 +1,10 @@
 cimport cython
 
-cdef char* s = b"abcdefg"
-cdef const char* cs = b"abcdefg"
-cdef unsigned char* us = b"abcdefg"
-cdef const unsigned char* cus = b"abcdefg"
-cdef bytes pystr =  b"abcdefg"
+let char* s = b"abcdefg"
+let const char* cs = b"abcdefg"
+let unsigned char* us = b"abcdefg"
+let const unsigned char* cus = b"abcdefg"
+let bytes pystr =  b"abcdefg"
 
 
 @cython.test_assert_path_exists(
@@ -37,7 +37,7 @@ def lentest_char_c():
     >>> lentest_char_c()
     7
     """
-    cdef Py_ssize_t l = len(s)
+    let Py_ssize_t l = len(s)
     return l
 
 
@@ -49,7 +49,7 @@ def lentest_char_c_short():
     >>> lentest_char_c_short()
     7
     """
-    cdef short l = len(s)
+    let short l = len(s)
     return l
 
 
@@ -61,7 +61,7 @@ def lentest_char_c_float():
     >>> lentest_char_c_float()
     7.0
     """
-    cdef float l = len(s)
+    let float l = len(s)
     return l
 
 
@@ -95,7 +95,7 @@ def lentest_uchar_c():
     >>> lentest_uchar_c()
     7
     """
-    cdef Py_ssize_t l = len(us)
+    let Py_ssize_t l = len(us)
     return l
 
 
@@ -112,5 +112,5 @@ def lentest_py_c():
     >>> lentest_py_c()
     7
     """
-    cdef Py_ssize_t l = len(pystr)
+    let Py_ssize_t l = len(pystr)
     return l

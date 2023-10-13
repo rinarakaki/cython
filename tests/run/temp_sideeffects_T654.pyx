@@ -6,7 +6,7 @@
 
 arg_order = []
 
-cdef int f():
+fn int f():
     arg_order.append(1)
     return 1
 
@@ -30,7 +30,7 @@ def test_c_call():
 
 # module globals
 
-cdef object X = 1
+let object X = 1
 cdef redefine_global():
     global X
     x,X = X,2

@@ -33,7 +33,7 @@ def test_string(o):
     >>> normalize(test_string("abc\\x00def".encode('ascii')))
     'abc\\x00def'
     """
-    cdef string s = o
+    let string s = o
     return s
 
 def test_encode_to_string(o):
@@ -43,7 +43,7 @@ def test_encode_to_string(o):
     >>> normalize(test_encode_to_string('abc\\x00def'))
     'abc\\x00def'
     """
-    cdef string s = o.encode('ascii')
+    let string s = o.encode('ascii')
     return s
 
 def test_encode_to_string_cast(o):
@@ -63,7 +63,7 @@ def test_unicode_encode_to_string(unicode o):
     >>> normalize(test_unicode_encode_to_string(py_unicode('abc\\x00def')))
     'abc\\x00def'
     """
-    cdef string s = o.encode('ascii')
+    let string s = o.encode('ascii')
     return s
 
 def test_string_call(a, b):
@@ -78,7 +78,7 @@ def test_c_string_convert(char *c_string):
     >>> normalize(test_c_string_convert("abc".encode('ascii')))
     'abc'
     """
-    cdef string s
+    let string s
     with nogil:
         s = c_string
     return s
@@ -97,7 +97,7 @@ def test_bint_vector(o):
     [False, True]
     """
 
-    cdef vector[bint] v = o
+    let vector[bint] v = o
     return v
 
 def test_int_vector(o):
@@ -113,7 +113,7 @@ def test_int_vector(o):
     ...
     OverflowError: ...
     """
-    cdef vector[int] v = o
+    let vector[int] v = o
     return v
 
 cdef vector[int] takes_vector(vector[int] x):
@@ -138,7 +138,7 @@ def test_string_vector(s):
     >>> list(map(normalize, test_string_vector('ab cd ef gh'.encode('ascii'))))
     ['ab', 'cd', 'ef', 'gh']
     """
-    cdef vector[string] cpp_strings = s.split()
+    let vector[string] cpp_strings = s.split()
     return cpp_strings
 
 cdef list convert_string_vector(vector[string] vect):
@@ -158,7 +158,7 @@ def test_double_vector(o):
     >>> test_double_vector([10**20])
     [1e+20]
     """
-    cdef vector[double] v = o
+    let vector[double] v = o
     return v
 
 def test_repeated_double_vector(a, b, int n):
@@ -186,7 +186,7 @@ def test_typedef_vector(o):
     ...
     TypeError: ...int...
     """
-    cdef vector[my_int] v = o
+    let vector[my_int] v = o
     return v
 
 def test_pair(o):
@@ -202,7 +202,7 @@ def test_list(o):
     >>> test_list([1, 2, 3])
     [1, 2, 3]
     """
-    cdef cpp_list[int] l = o
+    let cpp_list[int] l = o
     return l
 
 def test_set(o):
@@ -214,7 +214,7 @@ def test_set(o):
     >>> type(test_set([])) is py_set
     True
     """
-    cdef cpp_set[long] s = o
+    let cpp_set[long] s = o
     return s
 
 def test_unordered_set(o):
@@ -226,7 +226,7 @@ def test_unordered_set(o):
    >>> type(test_unordered_set([])) is py_set
    True
    """
-   cdef unordered_set[long] s = o
+   let unordered_set[long] s = o
    return s
 
 def test_map(o):

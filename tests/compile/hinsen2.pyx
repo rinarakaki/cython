@@ -2,5 +2,5 @@
 
 cdef class vector:
     def __div__(vector self, double factor):
-        cdef object result = vector()
+        let object result = vector()
         return result

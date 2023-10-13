@@ -34,20 +34,20 @@ OverflowError: ...
 """
 
 # XXX This should generate a warning !!!
-cdef extern from *:
+extern from *:
     ctypedef unsigned long size_t
 
 def test(size_t i):
     return i
 
 cdef class A:
-    cdef public size_t a
-    cdef readonly size_t b
+    let public size_t a
+    let readonly size_t b
 
     def __init__(self, size_t a, object b):
         self.a = a
         self.b = b
 
     cpdef size_t foo(self, size_t x):
-        cdef object o = x
+        let object o = x
         return o

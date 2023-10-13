@@ -1,7 +1,7 @@
 from spam cimport Spam
 from eggs cimport Eggs
 
-cdef extern Spam yummy
-cdef Eggs fried
+extern Spam yummy
+let Eggs fried
 
 fried = None

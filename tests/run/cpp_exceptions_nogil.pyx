@@ -1,15 +1,15 @@
 # mode: run
 # tag: cpp, werror
 
-cdef int raise_TypeError() except *:
+fn int raise_TypeError() except *:
     raise TypeError("custom")
 
-cdef extern from "cpp_exceptions_nogil_helper.h" nogil:
-    cdef void foo "foo"(int i) except +
-    cdef void bar "foo"(int i) except +ValueError
-    cdef void spam"foo"(int i) except +raise_TypeError
+extern from "cpp_exceptions_nogil_helper.h" nogil:
+    let void foo "foo"(int i) except +
+    let void bar "foo"(int i) except +ValueError
+    let void spam"foo"(int i) except +raise_TypeError
 
-cdef int foo_nogil(int i) except * nogil:
+fn int foo_nogil(int i) except * nogil:
     foo(i)
 
 def test_foo_nogil():

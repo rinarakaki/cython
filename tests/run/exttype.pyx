@@ -54,8 +54,8 @@ cdef class Spam:
     >>> s.eat()
     12 42
     """
-    cdef eggs
-    cdef int ham
+    let eggs
+    let int ham
 
     def __cinit__(self, eggs):
         self.eggs = eggs

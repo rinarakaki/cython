@@ -12,7 +12,7 @@ from cpython.ref cimport PyObject, Py_TYPE
 # Pull tp_clear for PyTypeObject as I did not find another way to access it
 # from Cython code.
 
-cdef extern from *:
+extern from *:
     struct PyTypeObject:
         void (*tp_clear)(object)
 
@@ -44,14 +44,14 @@ cdef class DisableTpClear:
     >>> del uut
     """
 
-    cdef public object requires_cleanup
+    let public object requires_cleanup
 
     def __cinit__(self):
         self.requires_cleanup = [
                 "Some object that needs cleaning in __dealloc__"]
 
     def call_tp_clear(self):
-        cdef PyTypeObject *pto = Py_TYPE(self)
+        let PyTypeObject *pto = Py_TYPE(self)
         if pto.tp_clear != NULL:
             pto.tp_clear(self)
 
@@ -68,7 +68,7 @@ cdef class ReallowTpClear(DisableTpClear):
 
     # Problem: cannot really validate that the cycle was cleaned up without using weakrefs etc...
     """
-    cdef public object attr
+    let public object attr
 
 
 def test_closure_without_clear(str x):

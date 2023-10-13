@@ -64,7 +64,7 @@ def test_multimap_erase(vals, int to_remove):
     cdef multimap[int,int] mm = multimap[int,int]()
     for v in vals:
         mm.insert(v)
-    cdef size_t ret = mm.erase(to_remove)
+    let size_t ret = mm.erase(to_remove)
     return [ (item.first, item.second) for item in mm ]
 
 def test_multimap_find_erase(vals, to_remove):
@@ -140,7 +140,7 @@ def test_unordered_multimap_erase(vals, int to_remove):
     cdef unordered_multimap[int,int] umm = unordered_multimap[int,int]()
     for v in vals:
         umm.insert(v)
-    cdef size_t ret = umm.erase(to_remove)
+    let size_t ret = umm.erase(to_remove)
     return sorted([ (item.first, item.second) for item in umm ])
 
 def test_unordered_multimap_find_erase(vals, to_remove):

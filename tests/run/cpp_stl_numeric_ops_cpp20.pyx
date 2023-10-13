@@ -9,7 +9,7 @@ def test_midpoint_integer(int a, int b):
     >>> test_midpoint_integer(2, 6)
     4
     """
-    cdef int res = midpoint[int](a, b)
+    let int res = midpoint[int](a, b)
     return res
 
 

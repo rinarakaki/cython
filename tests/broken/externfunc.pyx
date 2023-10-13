@@ -1,3 +1,3 @@
-cdef extern from "foo.h":
+extern from "foo.h":
 
     int fred()

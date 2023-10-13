@@ -275,7 +275,7 @@ def try_return_cy():
     finally:
         return 2
 
-cdef int try_return_c():
+fn int try_return_c():
     try:
         return 1
     finally:
@@ -288,7 +288,7 @@ def call_try_return_c():
     """
     return try_return_c()
 
-cdef int try_return_with_exception():
+fn int try_return_with_exception():
     try:
         raise TypeError
     finally:
@@ -340,7 +340,7 @@ def try_return_none_1():
     finally:
         return
 
-cdef extern from *:
+extern from *:
     struct PyObject
     void Py_INCREF(object)
 
@@ -510,7 +510,7 @@ def complex_finally_clause(x, obj):
     """
     name = 'module'
     l = []
-    cdef object lobj = l
+    let object lobj = l
 
     for i in range(3):
         l[:] = [1, 2, 3]

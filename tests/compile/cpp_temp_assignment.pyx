@@ -4,7 +4,7 @@
 # TODO cpp_locals works fine with the standard library that comes with gcc11
 # but not with gcc8. Therefore disable the test for now
 
-cdef extern from *:
+extern from *:
     """
     class NoAssignIterator {
         public:
@@ -76,19 +76,19 @@ def test_call_to_function():
 
 def test_assignment_to_name():
     # will fail if move constructors aren't used
-    cdef NoAssign value
+    let NoAssign value
     value = get_NoAssign_Py()
     value = get_NoAssign_Cpp()
 
 def test_assignment_to_scope():
-    cdef NoAssign value
+    let NoAssign value
     value = get_NoAssign_Py()
     value = get_NoAssign_Cpp()
     def inner():
         value.func()
 
 cdef class AssignToClassAttr:
-    cdef NoAssign attr
+    let NoAssign attr
     def __init__(self):
         self.attr = get_NoAssign_Py()
         self.attr = get_NoAssign_Cpp()

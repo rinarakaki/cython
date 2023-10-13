@@ -21,9 +21,9 @@ def test_mktime():
     (986138177, ...'Sun Apr  1 15:16:17 2001\\n')
     """
     cdef tm t, gmt
-    cdef time_t tt
-    cdef char *ct
-    cdef char *tz
+    let time_t tt
+    let char *ct
+    let char *tz
 
     tz = getenv("TZ")
     setenv("TZ", "UTC", 1)

@@ -1,9 +1,9 @@
 # mode: error
 # tag: warnings
 
-cdef extern from *:
-    cdef void f()
-    cdef void (*fp)() nogil
+extern from *:
+    fn void f()
+    let void (*fp)() nogil
     ctypedef void (*fp_t)() nogil
 
 fp = f

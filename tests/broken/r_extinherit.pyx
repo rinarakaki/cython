@@ -1,6 +1,6 @@
 cdef class Parrot:
 
-    cdef object plumage
+    let object plumage
 
     def __init__(self):
         self.plumage = "yellow"

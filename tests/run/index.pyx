@@ -5,7 +5,7 @@ __doc__ = u"""
     TypeError: 'int' object ...
 """
 
-cdef Py_ssize_t maxsize
+let Py_ssize_t maxsize
 
 import sys
 if sys.version_info < (2,5):
@@ -125,9 +125,9 @@ def test_unsigned_long():
     """
     >>> test_unsigned_long()
     """
-    cdef int i
-    cdef unsigned long ix
-    cdef D = {}
+    let int i
+    let unsigned long ix
+    let D = {}
     for i from 0 <= i < <int>sizeof(unsigned long) * 8:
         ix = (<unsigned long>1) << i
         D[ix] = True
@@ -141,9 +141,9 @@ def test_unsigned_short():
     """
     >>> test_unsigned_short()
     """
-    cdef int i
-    cdef unsigned short ix
-    cdef D = {}
+    let int i
+    let unsigned short ix
+    let D = {}
     for i from 0 <= i < <int>sizeof(unsigned short) * 8:
         ix = (<unsigned short>1) << i
         D[ix] = True
@@ -157,9 +157,9 @@ def test_long_long():
     """
     >>> test_long_long()
     """
-    cdef int i
-    cdef long long ix
-    cdef D = {}
+    let int i
+    let long long ix
+    let D = {}
     for i from 0 <= i < <int>sizeof(long long) * 8:
         ix = (<long long>1) << i
         D[ix] = True
@@ -202,7 +202,7 @@ def test_ulong_long():
     """
     >>> test_ulong_long()
     """
-    cdef unsigned long long ix
+    let unsigned long long ix
 
     L = [1, 2, 3]
     try:

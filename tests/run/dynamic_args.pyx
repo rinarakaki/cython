@@ -2,7 +2,7 @@
 # ticket: t674
 
 cdef class Foo:
-    cdef str name
+    let str name
 
     def __init__(self, name):
         self.name = name

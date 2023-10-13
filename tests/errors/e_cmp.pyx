@@ -1,10 +1,10 @@
 # mode: error
 
 cdef void foo():
-	cdef int bool, int1
-	cdef char *ptr2
-	cdef int *ptr3
-	cdef object i = 5
+	let int bool, int1
+	let char *ptr2
+	let int *ptr3
+	let object i = 5
 
 	bool = i == ptr2  # evaluated in Python space
 	bool = ptr3 == i # error

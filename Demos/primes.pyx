@@ -3,8 +3,8 @@
 print("starting")
 
 def primes(int kmax):
-    # cdef int n, k, i
-    cdef int p[1000]
+    # let int n, k, i
+    let int p[1000]
     result = []
     if kmax > 1000:
         kmax = 1000

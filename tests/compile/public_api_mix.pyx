@@ -65,14 +65,14 @@ spam0(None)
 
 # --
 
-cdef            double d0 = 0
-cdef public     double d1 = 1
-cdef        api double d2 = 2
-cdef public api double d3 = 3
+let            double d0 = 0
+let public     double d1 = 1
+let        api double d2 = 2
+let public api double d3 = 3
 
-cdef            object o0 = None
-cdef public     object o1 = None
-cdef        api object o2 = None
-cdef public api object o3 = None
+let            object o0 = None
+let public     object o1 = None
+let        api object o2 = None
+let public api object o3 = None
 
 # --

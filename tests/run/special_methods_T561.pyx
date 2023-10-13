@@ -99,7 +99,7 @@ if sys.version_info >= (2,5):
     VS __index__ 0
 """
 
-cdef extern from *:
+extern from *:
     # type specs require a bug fix in Py3.8+ for some of these tests.
     const int CYTHON_USE_TYPE_SPECS
 
@@ -337,7 +337,7 @@ cdef class VerySpecial:
     >>> vs0_init(0)
     VS __init__ 0
     """
-    cdef readonly int value
+    let readonly int value
 
     def __init__(self, v):
         self.value = v
@@ -567,7 +567,7 @@ cdef class GetAttrGetItemRedirect:
 
     >>> assert item_value is attr_value, repr((item_value, attr_value))
     """
-    cdef object obj
+    let object obj
     def __cinit__(self):
         self.obj = object()
 
@@ -1014,7 +1014,7 @@ cdef class TwoArgPow:
         ...
     TypeError: special_methods_T561.TwoArgPow.__pow__() takes 3 arguments but 2 were given
     """
-    cdef str name
+    let str name
 
     def __init__(self, name):
         self.name = name
@@ -1034,7 +1034,7 @@ cdef class TwoArgRPow:
         ...
     TypeError: special_methods_T561.TwoArgRPow.__rpow__() takes 3 arguments but 2 were given
     """
-    cdef str name
+    let str name
 
     def __init__(self, name):
         self.name = name
@@ -1056,7 +1056,7 @@ cdef class TwoArgIPow:
     >>> print(a)
     a**2
     """
-    cdef str name
+    let str name
 
     def __init__(self, name):
         self.name = name
@@ -1083,7 +1083,7 @@ cdef class TwoOrThreeArgPow:
     >>> print(pow(TwoOrThreeArgPow('a'), 'x', 'y'))
     a**x[y]
     """
-    cdef str name
+    let str name
 
     def __init__(self, name):
         self.name = name
@@ -1101,7 +1101,7 @@ cdef class TwoOrThreeArgRPow:
     >>> print(pow('x', TwoOrThreeArgRPow('a'), 'y'))
     a**x[y]
     """
-    cdef str name
+    let str name
 
     def __init__(self, name):
         self.name = name

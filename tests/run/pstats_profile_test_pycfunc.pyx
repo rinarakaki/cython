@@ -131,8 +131,8 @@ def callees(pstats, target_caller):
                 yield callee
 
 def test_profile(long N):
-    cdef long i, n = 0
-    cdef A a = A()
+    let long i, n = 0
+    let A a = A()
     for i from 0 <= i < N:
         n += f_def(i)
         n += f_cdef(i)
@@ -159,7 +159,7 @@ def test_profile(long N):
 def f_def(long a):
     return a
 
-cdef long f_cdef(long a):
+fn long f_cdef(long a):
     return a
 
 cpdef long f_cpdef(long a):
@@ -173,24 +173,24 @@ cdef inline long f_inline_prof(long a):
     return a
 
 @cython.profile(False)
-cdef int f_noprof(long a):
+fn int f_noprof(long a):
     return a
 
-cdef long f_raise(long) except -2:
+fn long f_raise(long) except -2:
     raise RuntimeError
 
 @cython.profile(False)
-cdef int withgil_noprof(long a) with gil:
+fn int withgil_noprof(long a) with gil:
     return (a)
 @cython.profile(True)
-cdef int withgil_prof(long a) with gil:
+fn int withgil_prof(long a) with gil:
     return (a)
 
 @cython.profile(False)
-cdef int nogil_noprof(long a) nogil:
+fn int nogil_noprof(long a) nogil:
     return a
 @cython.profile(True)
-cdef int nogil_prof(long a) nogil:
+fn int nogil_prof(long a) nogil:
     return a
 
 cdef class A(object):

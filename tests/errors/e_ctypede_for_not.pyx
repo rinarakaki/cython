@@ -10,8 +10,8 @@ struct Blarg:
 
 struct Blarg
 
-cdef Foo f
-cdef Blarg b
+let Foo f
+let Blarg b
 
 _ERRORS = """
 5:0: 'Foo' previously declared using 'cdef'

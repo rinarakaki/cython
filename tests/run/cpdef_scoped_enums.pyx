@@ -1,7 +1,7 @@
 # mode: run
 # tag: cpp, cpp11
 
-cdef extern from *:
+extern from *:
     """
     enum class Enum1 {
         Item1 = 1,

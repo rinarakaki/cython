@@ -42,7 +42,7 @@ def typed_dictcomp():
     >>> list(typed_dictcomp().items())
     [(A, 1), (A, 1), (A, 1)]
     """
-    cdef A obj
+    let A obj
     return {obj:1 for obj in [A(), A(), A()]}
 
 def iterdict_dictcomp():

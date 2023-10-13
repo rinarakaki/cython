@@ -11,13 +11,13 @@ from libcpp.unordered_set cimport unordered_set
 from libcpp.vector cimport vector
 
 def deque_iterator():
-    cdef deque[int].iterator begin
-    cdef deque[int].const_iterator cbegin = begin
+    let deque[int].iterator begin
+    let deque[int].const_iterator cbegin = begin
     begin = cbegin
 
 def list_iterator():
-    cdef list[int].iterator begin
-    cdef list[int].const_iterator cbegin = begin
+    let list[int].iterator begin
+    let list[int].const_iterator cbegin = begin
     begin = cbegin
 
 def map_iterator():
@@ -26,13 +26,13 @@ def map_iterator():
     begin = cbegin
 
 def set_iterator():
-    cdef set[int].iterator begin
-    cdef set[int].const_iterator cbegin = begin
+    let set[int].iterator begin
+    let set[int].const_iterator cbegin = begin
     begin = cbegin
 
 def string_iterator():
-    cdef string.iterator begin
-    cdef string.const_iterator cbegin = begin
+    let string.iterator begin
+    let string.const_iterator cbegin = begin
     begin = cbegin
 
 def map_iterator():
@@ -41,13 +41,13 @@ def map_iterator():
     begin = cbegin
 
 def set_iterator():
-    cdef unordered_set[int].iterator begin
-    cdef unordered_set[int].const_iterator cbegin = begin
+    let unordered_set[int].iterator begin
+    let unordered_set[int].const_iterator cbegin = begin
     begin = cbegin
 
 def vector_iterator():
-    cdef vector[int].iterator begin
-    cdef vector[int].const_iterator cbegin = begin
+    let vector[int].iterator begin
+    let vector[int].const_iterator cbegin = begin
     begin = cbegin
 
 _ERRORS = u"""

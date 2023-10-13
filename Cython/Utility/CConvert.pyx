@@ -1,6 +1,6 @@
 #################### FromPyStructUtility ####################
 
-cdef extern from *:
+extern from *:
     struct PyTypeObject:
         char* tp_name
     PyTypeObject *Py_TYPE(obj)
@@ -10,7 +10,7 @@ cdef extern from *:
 
 @cname("{{funcname}}")
 cdef {{struct_type}} {{funcname}}(obj) except *:
-    cdef {{struct_type}} result
+    let {{struct_type}} result
     if not PyMapping_Check(obj):
         __Pyx_RaiseUnexpectedTypeError(b"a mapping", obj)
 
@@ -26,7 +26,7 @@ cdef {{struct_type}} {{funcname}}(obj) except *:
 
 #################### FromPyUnionUtility ####################
 
-cdef extern from *:
+extern from *:
     struct PyTypeObject:
         char* tp_name
     PyTypeObject *Py_TYPE(obj)
@@ -36,8 +36,8 @@ cdef extern from *:
 
 @cname("{{funcname}}")
 cdef {{struct_type}} {{funcname}}(obj) except *:
-    cdef {{struct_type}} result
-    cdef Py_ssize_t length
+    let {{struct_type}} result
+    let Py_ssize_t length
     if not PyMapping_Check(obj):
         __Pyx_RaiseUnexpectedTypeError(b"a mapping", obj)
 
@@ -63,7 +63,7 @@ cdef {{struct_type}} {{funcname}}(obj) except *:
 #################### cfunc.to_py ####################
 
 @cname("{{cname}}")
-cdef object {{cname}}({{return_type.ctype}} (*f)({{ ', '.join(arg.type_cname for arg in args) }}) {{except_clause}}):
+fn object {{cname}}({{return_type.ctype}} (*f)({{ ', '.join(arg.type_cname for arg in args) }}) {{except_clause}}):
     def wrap({{ ', '.join('{arg.ctype} {arg.name}'.format(arg=arg) for arg in args) }}):
         """wrap({{', '.join(('{arg.name}: {arg.type_displayname}'.format(arg=arg) if arg.type_displayname else arg.name) for arg in args)}}){{if return_type.type_displayname}} -> {{return_type.type_displayname}}{{endif}}"""
         {{'' if return_type.type.is_void else 'return '}}f({{ ', '.join(arg.name for arg in args) }})
@@ -72,12 +72,12 @@ cdef object {{cname}}({{return_type.ctype}} (*f)({{ ', '.join(arg.type_cname for
 
 #################### carray.from_py ####################
 
-cdef extern from *:
+extern from *:
     object PyErr_Format(exc, const char *format, ...)
 
 @cname("{{cname}}")
-cdef int {{cname}}(object o, {{base_type}} *v, Py_ssize_t length) except -1:
-    cdef Py_ssize_t i = length
+fn int {{cname}}(object o, {{base_type}} *v, Py_ssize_t length) except -1:
+    let Py_ssize_t i = length
     try:
         i = len(o)
     except (TypeError, OverflowError):
@@ -102,7 +102,7 @@ cdef int {{cname}}(object o, {{base_type}} *v, Py_ssize_t length) except -1:
 
 #################### carray.to_py ####################
 
-cdef extern from *:
+extern from *:
     void Py_INCREF(object o)
     tuple PyTuple_New(Py_ssize_t size)
     list PyList_New(Py_ssize_t size)
@@ -112,8 +112,8 @@ cdef extern from *:
 
 @cname("{{cname}}")
 cdef inline list {{cname}}({{base_type}} *v, Py_ssize_t length):
-    cdef size_t i
-    cdef object value
+    let size_t i
+    let object value
     l = PyList_New(length)
     for i in range(<size_t>length):
         value = v[i]
@@ -124,8 +124,8 @@ cdef inline list {{cname}}({{base_type}} *v, Py_ssize_t length):
 
 @cname("{{to_tuple_cname}}")
 cdef inline tuple {{to_tuple_cname}}({{base_type}} *v, Py_ssize_t length):
-    cdef size_t i
-    cdef object value
+    let size_t i
+    let object value
     t = PyTuple_New(length)
     for i in range(<size_t>length):
         value = v[i]

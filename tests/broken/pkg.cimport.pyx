@@ -1,6 +1,6 @@
 cimport spam, eggs
 
-cdef extern spam.Spam yummy
-cdef eggs.Eggs fried
+extern spam.Spam yummy
+let eggs.Eggs fried
 
 fried = None

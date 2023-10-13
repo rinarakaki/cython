@@ -8,16 +8,16 @@ ctypedef int[2] int_array2
 cdef int_array x, y
 x = y  # not an error
 
-cdef int_array *x_ptr = &x
+let int_array *x_ptr = &x
 x_ptr[0] = y  # not an error
 
 cdef class A:
-    cdef int_array value
+    let int_array value
     def __init__(self):
         self.value = x  # not an error
 
 
-cdef int_array2 z
+let int_array2 z
 z = x  # error
 x = z  # error
 
@@ -26,7 +26,7 @@ enum:
 
 ctypedef int[SIZE] int_array_dyn
 
-cdef int_array_dyn d
+let int_array_dyn d
 d = z  # not an error
 
 

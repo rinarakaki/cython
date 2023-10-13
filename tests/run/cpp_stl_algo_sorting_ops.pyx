@@ -113,7 +113,7 @@ def partial_sort_ints_reverse2(vector[int] values, int k):
     return output
 
 
-cdef extern from *:
+extern from *:
     """
     struct Employee
     {
@@ -149,7 +149,7 @@ def test_stable_sort():
     108, Ford
     32, Arthur
     """
-    cdef vector[Employee] employees
+    let vector[Employee] employees
     employees.push_back(Employee(108, <string>b"Zaphod"))
     employees.push_back(Employee(32, <string>b"Arthur"))
     employees.push_back(Employee(108, <string>b"Ford"))

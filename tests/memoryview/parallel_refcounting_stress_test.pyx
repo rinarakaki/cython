@@ -25,7 +25,7 @@ def refcounting_stress_test(int N):
     released c
     """
     selectors = [ randint(0, 3) for _ in range(N) ]
-    cdef int[::1] selectorsview = IntMockBuffer(None, selectors, (N,))
+    fn int[::1] selectorsview = IntMockBuffer(None, selectors, (N,))
     shape = (10, 3)
     size = shape[0]*shape[1]
     a = [ random() for _ in range(size) ]
@@ -35,8 +35,8 @@ def refcounting_stress_test(int N):
     cdef double[:,:] bview = DoubleMockBuffer("b", b, shape)
     cdef double[:,:] cview = DoubleMockBuffer("c", c, shape)
 
-    cdef int i
-    cdef double total = 0.0
+    let int i
+    let double total = 0.0
 
     for i in prange(N, nogil=True):
         total += loopbody(aview, bview, cview, selectorsview[i])
@@ -53,7 +53,7 @@ def refcounting_stress_test(int N):
 cdef double loopbody(double[:,:] a, double[:,:] b, double[:,:] c, int selector) nogil:
     cdef double[:,:] selected
     cdef double[:] subslice
-    cdef double res = 0
+    let double res = 0
 
     if selector % 3 == 1:
         selected = a

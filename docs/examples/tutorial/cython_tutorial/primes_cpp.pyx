@@ -4,8 +4,8 @@
 from libcpp.vector cimport vector
 
 def primes(unsigned int nb_primes):
-    cdef int n, i
-    cdef vector[int] p
+    let int n, i
+    let vector[int] p
     p.reserve(nb_primes)  # allocate memory for 'nb_primes' elements.
 
     n = 2

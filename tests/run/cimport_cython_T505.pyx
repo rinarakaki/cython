@@ -2,7 +2,7 @@
 
 cimport cython
 
-cdef extern from "Python.h":
+extern from "Python.h":
     cdef cython.unicode PyUnicode_DecodeUTF8(char* s, Py_ssize_t size, char* errors)
 
 def test_capi():

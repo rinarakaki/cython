@@ -2,7 +2,7 @@
 # but with __slots__ and without __dict__
 
 cdef class CBase(object):
-    cdef int a
+    let int a
     cdef c_method(self):
         return "CBase"
     cpdef cpdef_method(self):

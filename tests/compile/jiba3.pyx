@@ -1,15 +1,15 @@
 # mode: compile
 
-cdef class Position
-cdef class Point(Position)
-cdef class Vector(Point)
-cdef class CoordSyst
+let class Position
+let class Point(Position)
+let class Vector(Point)
+let class CoordSyst
 
 cdef void test(float* f):
   pass
 
 cdef class Position:
-  cdef readonly CoordSyst parent
+  let readonly CoordSyst parent
 
 cdef class Point(Position):
   cdef void bug(self):
@@ -20,5 +20,5 @@ cdef class Vector(Point):
     test(self.parent._matrix)
 
 cdef class CoordSyst:
-  cdef float* _matrix
+  let float* _matrix
 

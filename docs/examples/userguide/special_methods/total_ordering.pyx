@@ -4,7 +4,7 @@ import functools
 
 @functools.total_ordering
 cdef class ExtGe:
-    cdef int x
+    let int x
 
     def __ge__(self, other):
         if not isinstance(other, ExtGe):

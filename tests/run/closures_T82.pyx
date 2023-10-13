@@ -37,11 +37,11 @@ def local_x(int arg_x):
     4 2 1
     15
     """
-    cdef int local_x = arg_x
+    let int local_x = arg_x
     def y(arg_y):
         y = arg_y
         def z(long arg_z):
-            cdef long z = arg_z
+            let long z = arg_z
             print z, y, local_x
             return 8+z+y+local_x
         return z
@@ -203,7 +203,7 @@ def deep_inner():
     >>> deep_inner()()
     2
     """
-    cdef int x = 1
+    let int x = 1
     def f():
         def g():
             def h():
@@ -223,7 +223,7 @@ def deep_inner_sibling():
     >>> deep_inner_sibling()()
     2
     """
-    cdef int x = 1
+    let int x = 1
     def f():
         def a():
             return 1

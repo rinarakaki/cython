@@ -3,16 +3,16 @@
 
 from libcpp.vector cimport vector
 
-cdef extern from *:
+extern from *:
     cdef cppclass Foo[T]:
         pass
 
     cdef cppclass Bar:
         pass
 
-cdef vector[vector[int]] a
-cdef vector[vector[const int]] b
-cdef vector[vector[vector[int]]] c
-cdef vector[vector[vector[const int]]] d
-cdef Foo[Foo[Bar]] e
-cdef Foo[Foo[const Bar]] f
+let vector[vector[int]] a
+let vector[vector[const int]] b
+let vector[vector[vector[int]]] c
+let vector[vector[vector[const int]]] d
+let Foo[Foo[Bar]] e
+let Foo[Foo[const Bar]] f

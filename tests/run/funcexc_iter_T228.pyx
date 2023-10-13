@@ -83,7 +83,7 @@ def call_next_directly():
     cy_iterator().__next__()
 
 cdef class cy_iter_many_options:
-    cdef what
+    let what
     def __init__(self, what):
         self.what = what
 

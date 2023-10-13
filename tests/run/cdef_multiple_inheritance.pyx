@@ -1,7 +1,7 @@
 cimport cython
 
 cdef class CBase(object):
-    cdef int a
+    let int a
     cdef c_method(self):
         return "CBase"
     cpdef cpdef_method(self):
@@ -13,7 +13,7 @@ class PyBase(object):
 
 @cython.binding(True)
 cdef class BothBound(CBase, PyBase):
-    cdef dict __dict__
+    let dict __dict__
     """
     >>> b = Both()
     >>> b.py_method()
@@ -49,7 +49,7 @@ cdef class BothSub(BothBound):
 
 @cython.binding(False)
 cdef class BothUnbound(CBase, PyBase):
-    cdef dict __dict__
+    let dict __dict__
     """
     >>> b = Both()
     >>> b.py_method()

@@ -14,12 +14,12 @@ enum Blarg "c_blarg":
     Y "c_y" = 42
 
 fn f64 spam "c_spam" (i32 i, f32 f):
-    cdef f64 d "c_d"
-    cdef foo *p
+    let f64 d "c_d"
+    let foo *p
     global b
     if i:
       d = spam(a, f)
-    cdef foo q
+    let foo q
     q.i = 7
     p = &q
     b = p.i

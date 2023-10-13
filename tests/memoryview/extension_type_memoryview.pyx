@@ -6,7 +6,7 @@ import numpy as np
 
 
 cdef class ExtensionType(object):
-    cdef public int dummy
+    let public int dummy
 
     def __init__(self, n):
         self.dummy = n
@@ -30,7 +30,7 @@ def test_getitem_typed():
     1
     2
     """
-    cdef ExtensionType item
+    let ExtensionType item
     for i in range(view.shape[0]):
         item = view[i]
         print item.dummy

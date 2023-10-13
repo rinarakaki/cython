@@ -1,7 +1,7 @@
-cdef int f() except -1:
-    cdef dict d
-    cdef object x, z
-    cdef int i
+fn int f() except -1:
+    let dict d
+    let object x, z
+    let int i
     z = dict
     d = dict(x)
     d = dict(*x)

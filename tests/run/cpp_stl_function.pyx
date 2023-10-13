@@ -47,7 +47,7 @@ cdef class FunctionKeeper:
     >>> bool(fk)
     False
     """
-    cdef cpp_function_lib.FunctionKeeper* function_keeper
+    let cpp_function_lib.FunctionKeeper* function_keeper
     
     cdef function[double(double, int) noexcept]* _get_function_ptr_from_name(self, function_name):
         cdef function[double(double, int) noexcept] *f

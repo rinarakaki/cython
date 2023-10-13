@@ -21,7 +21,7 @@ def copy_fortran3(double[:, :, :] mat):
     >>> (a == c).all()
     True
     """
-    cdef int x, y, z
+    let int x, y, z
 
     x, y, z = np.shape(mat)
 
@@ -52,7 +52,7 @@ def copy_fortran2(double[:, :] mat):
     >>> (a == c).all()
     True
     """
-    cdef int rows, cols
+    let int rows, cols
 
     rows, cols = np.shape(mat)
 

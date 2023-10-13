@@ -3,7 +3,7 @@ cimport cython
 ############################################################
 # tests for char* slicing
 
-cdef char* cstring = "abcABCqtp"
+let char* cstring = "abcABCqtp"
 
 def slice_charptr_end():
     """
@@ -41,7 +41,7 @@ def slice_charptr_for_loop_c():
     ['b', 'c', 'A', 'B']
     ['B', 'C', 'q', 't', 'p']
     """
-    cdef char c
+    let char c
     print [ chr(c) for c in cstring[:3] ]
     print [ chr(c) for c in cstring[None:3] ]
     print [ chr(c) for c in cstring[1:5] ]
@@ -58,7 +58,7 @@ def slice_charptr_for_loop_c_to_bytes():
     ['b', 'c', 'A', 'B']
     ['B', 'C', 'q', 't', 'p']
     """
-    cdef bytes b
+    let bytes b
     print str([ b for b in cstring[:3] ]).replace(" b'", " '").replace("[b'", "['")
     print str([ b for b in cstring[None:3] ]).replace(" b'", " '").replace("[b'", "['")
     print str([ b for b in cstring[1:5] ]).replace(" b'", " '").replace("[b'", "['")
@@ -79,8 +79,8 @@ def slice_charptr_for_loop_c_step():
     ptqC ['p', 't', 'q', 'C']
     pq ['p', 'q']
     """
-    cdef object ustring = cstring.decode('ASCII')
-    cdef char c
+    let object ustring = cstring.decode('ASCII')
+    let char c
     print ustring[3::-1],     [ chr(c) for c in cstring[3::-1] ]
     print ustring[3:None:-1], [ chr(c) for c in cstring[3:None:-1] ]
     print ustring[1:5:2],     [ chr(c) for c in cstring[1:5:2] ]
@@ -101,7 +101,7 @@ def slice_charptr_for_loop_c_dynamic_bounds():
     ['b', 'c', 'A', 'B']
     ['B', 'C', 'q', 't', 'p']
     """
-    cdef char c
+    let char c
     print [ chr(c) for c in cstring[0:return3()] ]
     print [ chr(c) for c in cstring[None:return3()] ]
     print [ chr(c) for c in cstring[return1():return5()] ]
@@ -142,7 +142,7 @@ def slice_charptr_for_loop_c_enumerate():
     [(0, 98), (1, 99), (2, 65), (3, 66)]
     [(0, 66), (1, 67), (2, 113), (3, 116), (4, 112)]
     """
-    cdef int c,i
+    let int c,i
     print [ (i,c) for i,c in enumerate(cstring[:3]) ]
     print [ (i,c) for i,c in enumerate(cstring[None:3]) ]
     print [ (i,c) for i,c in enumerate(cstring[1:5]) ]
@@ -152,7 +152,7 @@ def slice_charptr_for_loop_c_enumerate():
 ############################################################
 # tests for int* slicing
 
-cdef int[6] cints
+let int[6] cints
 for i in range(6):
     cints[i] = i
 
@@ -167,7 +167,7 @@ def slice_intarray_for_loop_c():
     [1, 2, 3, 4]
     [4, 5]
     """
-    cdef int i
+    let int i
     print [ i for i in cints[:3] ]
     print [ i for i in cints[None:3] ]
     print [ i for i in cints[1:5] ]
@@ -181,7 +181,7 @@ def iter_intarray_for_loop_c():
     >>> iter_intarray_for_loop_c()
     [0, 1, 2, 3, 4, 5]
     """
-    cdef int i
+    let int i
     print [ i for i in cints ]
 
 @cython.test_assert_path_exists("//ForFromStatNode",
@@ -195,8 +195,8 @@ def slice_intptr_for_loop_c():
     [1, 2, 3, 4]
     [4, 5]
     """
-    cdef int* nums = cints
-    cdef int i
+    let int* nums = cints
+    let int i
     print [ i for i in nums[:3] ]
     print [ i for i in nums[None:3] ]
     print [ i for i in nums[1:5] ]
@@ -206,11 +206,11 @@ def slice_intptr_for_loop_c():
 ############################################################
 # tests for slicing other arrays
 
-cdef double[6] cdoubles
+let double[6] cdoubles
 for i in range(6):
     cdoubles[i] = i + 0.5
 
-cdef double* cdoubles_ptr = cdoubles
+let double* cdoubles_ptr = cdoubles
 
 @cython.test_assert_path_exists("//ForFromStatNode",
                                 "//ForFromStatNode//IndexNode")
@@ -223,7 +223,7 @@ def slice_doublptr_for_loop_c():
     [1.5, 2.5, 3.5, 4.5]
     [4.5, 5.5]
     """
-    cdef double d
+    let double d
     print [ d for d in cdoubles_ptr[:3] ]
     print [ d for d in cdoubles_ptr[None:3] ]
     print [ d for d in cdoubles_ptr[1:5] ]
@@ -236,7 +236,7 @@ def slice_doublptr_for_loop_c():
 ##     """
 ##     >>> slice_doublptr_for_loop_c_step()
 ##     """
-##     cdef double d
+##     let double d
 ##     print [ d for d in cdoubles_ptr[:3:1] ]
 ##     print [ d for d in cdoubles_ptr[5:1:-1] ]
 ##     print [ d for d in cdoubles_ptr[:2:-2] ]
@@ -251,7 +251,7 @@ def iter_doublearray_for_loop_c():
     >>> iter_doublearray_for_loop_c()
     [0.5, 1.5, 2.5, 3.5, 4.5, 5.5]
     """
-    cdef double d
+    let double d
     print [ d for d in cdoubles ]
 
 
@@ -266,11 +266,11 @@ def struct_ptr_iter():
     >>> struct_ptr_iter()
     ([0, 1, 2, 3, 4], [0, 1, 2, 3, 4], [0, 1, 2, 3, 4])
     """
-    cdef MyStruct[5] my_structs
+    let MyStruct[5] my_structs
     for i in range(5):
         my_structs[i].i = i
-    cdef MyStruct value
-    cdef MyStruct *ptr
+    let MyStruct value
+    let MyStruct *ptr
     return ([ value.i for value in my_structs[:5] ],
             [ ptr.i for ptr in my_structs[:5] ],
             [ inferred.i for inferred in my_structs[:5] ])

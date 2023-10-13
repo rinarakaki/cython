@@ -18,13 +18,13 @@ True
 
 import gc
 
-cdef Py_ssize_t new_unreachable = 0
+let Py_ssize_t new_unreachable = 0
 
 def get_new_unreachable():
     return new_unreachable
 
-cdef int counter = 0
-cdef int next_counter():
+let int counter = 0
+fn int next_counter():
     global counter
     counter += 1
     return counter
@@ -39,9 +39,9 @@ cdef class Collector:
         new_unreachable = gc.collect()
 
 cdef class SimpleGarbage:
-    cdef Collector c  # to participate in garbage collection
-    cdef int index
-    cdef bint deallocated
+    let Collector c  # to participate in garbage collection
+    let int index
+    let bint deallocated
     def __cinit__(self):
         self.index = next_counter()
         self.c = Collector()

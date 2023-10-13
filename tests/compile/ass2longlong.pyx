@@ -1,9 +1,9 @@
 # mode: compile
 
 cdef void spam():
-    cdef long long L
-    cdef unsigned long long U
-    cdef object x = object()
+    let long long L
+    let unsigned long long U
+    let object x = object()
     L = x
     x = L
     U = x

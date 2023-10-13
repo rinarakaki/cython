@@ -3,7 +3,7 @@
 
 # -------------------------------------------------------------------
 
-cdef extern from "ctypedef_int_types_chdr_T333.h":
+extern from "ctypedef_int_types_chdr_T333.h":
      ctypedef int SChar     ## "signed char"
      ctypedef int UChar     ## "unsigned char"
      ctypedef int SShort    ## "signed short"
@@ -58,7 +58,7 @@ def test_add_schar(x, y):
        ...
    OverflowError: value too large to convert to SChar
    """
-   cdef SChar r = x + y
+   let SChar r = x + y
    return r
 
 UCHAR_MAX = <UChar>((<UChar>-1))
@@ -91,7 +91,7 @@ def test_add_uchar(x, y):
        ...
    OverflowError: value too large to convert to UChar
    """
-   cdef UChar r = x + y
+   let UChar r = x + y
    return r
 
 # -------------------------------------------------------------------
@@ -141,7 +141,7 @@ def test_add_sshort(x, y):
        ...
    OverflowError: value too large to convert to SShort
    """
-   cdef SShort r = x + y
+   let SShort r = x + y
    return r
 
 USHORT_MAX = <UShort>((<UShort>-1))
@@ -174,7 +174,7 @@ def test_add_ushort(x, y):
        ...
    OverflowError: value too large to convert to UShort
    """
-   cdef UShort r = x + y
+   let UShort r = x + y
    return r
 
 # -------------------------------------------------------------------
@@ -224,7 +224,7 @@ def test_add_sint(x, y):
        ...
    OverflowError: ...
    """
-   cdef SInt r = x + y
+   let SInt r = x + y
    return r
 
 UINT_MAX = <UInt>(<UInt>-1)
@@ -257,7 +257,7 @@ def test_add_uint(x, y):
        ...
    OverflowError: ...
    """
-   cdef UInt r = x + y
+   let UInt r = x + y
    return r
 
 # -------------------------------------------------------------------
@@ -307,7 +307,7 @@ def test_add_slong(x, y):
        ...
    OverflowError: ...
    """
-   cdef SLong r = x + y
+   let SLong r = x + y
    return r
 
 ULONG_MAX = <ULong>(<ULong>-1)
@@ -340,7 +340,7 @@ def test_add_ulong(x, y):
        ...
    OverflowError: ...
    """
-   cdef ULong r = x + y
+   let ULong r = x + y
    return r
 
 # -------------------------------------------------------------------
@@ -390,7 +390,7 @@ def test_add_slonglong(x, y):
        ...
    OverflowError: ...
    """
-   cdef SLongLong r = x + y
+   let SLongLong r = x + y
    return r
 
 ULONGLONG_MAX = <ULongLong>(<ULongLong>-1)
@@ -423,7 +423,7 @@ def test_add_ulonglong(x, y):
        ...
    OverflowError: ...
    """
-   cdef ULongLong r = x + y
+   let ULongLong r = x + y
    return r
 
 # -------------------------------------------------------------------
@@ -506,7 +506,7 @@ cdef class MyClass:
 
 # -------------------------------------------------------------------
 
-cdef extern from *:
+extern from *:
     ctypedef signed   MySInt1 "signed short"
     ctypedef unsigned MyUInt1 "unsigned short"
 
@@ -534,7 +534,7 @@ def test_MyUInt1(MyUInt1 x):
    """
    return x
 
-cdef extern from *:
+extern from *:
     ctypedef signed   MySInt2 "signed short"
     ctypedef unsigned MyUInt2 "unsigned short"
 

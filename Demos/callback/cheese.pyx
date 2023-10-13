@@ -2,7 +2,7 @@
 #   Cython wrapper for the cheesefinder API
 #
 
-cdef extern from "cheesefinder.h":
+extern from "cheesefinder.h":
     ctypedef void (*cheesefunc)(char *name, void *user_data)
     void find_cheeses(cheesefunc user_func, void *user_data)
 

@@ -1,7 +1,7 @@
 # mode: error
 # tag: reversed
 
-cdef int i, j
+let int i, j
 for i in reversed(range([], j, 2)):
     pass
 for i in reversed(range([], j, -2)):

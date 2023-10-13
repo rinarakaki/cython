@@ -6,15 +6,15 @@ from libcpp.vector cimport vector
 from libcpp cimport bool
 
 # Subtracts two integers.
-cdef int subtract_integers(int lhs, int rhs):
+fn int subtract_integers(int lhs, int rhs):
     return lhs - rhs
 
 # Adds two integers.
-cdef int add_integers(int lhs, int rhs):
+fn int add_integers(int lhs, int rhs):
     return lhs + rhs
 
 # Multiplies two integers.
-cdef int multiply_integers(int lhs, int rhs):
+fn int multiply_integers(int lhs, int rhs):
     return lhs * rhs
 
 # Determines equality for two integers.

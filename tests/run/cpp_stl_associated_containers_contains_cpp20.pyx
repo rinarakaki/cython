@@ -64,7 +64,7 @@ def test_set_contains(vals, int val_to_find):
     >>> test_set_contains([1, 2, 3], 4)
     False
     """
-    cdef set[int] s = set[int]()
+    let set[int] s = set[int]()
     for v in vals:
         s.insert(v)
     return s.contains(val_to_find)
@@ -76,7 +76,7 @@ def test_unordered_set_contains(vals, int val_to_find):
     >>> test_unordered_set_contains([1, 2, 3], 4)
     False
     """
-    cdef unordered_set[int] us = unordered_set[int]()
+    let unordered_set[int] us = unordered_set[int]()
     for v in vals:
         us.insert(v)
     return us.contains(val_to_find)
@@ -88,7 +88,7 @@ def test_multiset_contains(vals, int val_to_find):
     >>> test_multiset_contains([1, 2, 3], 4)
     False
     """
-    cdef multiset[int] ms = multiset[int]()
+    let multiset[int] ms = multiset[int]()
     for v in vals:
         ms.insert(v)
     return ms.contains(val_to_find)
@@ -100,7 +100,7 @@ def test_unordered_multiset_contains(vals, int val_to_find):
     >>> test_unordered_multiset_contains([1, 2, 3], 4)
     False
     """
-    cdef unordered_multiset[int] ums = unordered_multiset[int]()
+    let unordered_multiset[int] ums = unordered_multiset[int]()
     for v in vals:
         ums.insert(v)
     return ums.contains(val_to_find)

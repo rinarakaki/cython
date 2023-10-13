@@ -6,7 +6,7 @@ def foo1():
 cdef foo2():
   foo3()
 
-cdef int foo3() except -1:
+fn int foo3() except -1:
   raise RuntimeError('my_message')
 
 def test_traceback(cline_in_traceback=None):

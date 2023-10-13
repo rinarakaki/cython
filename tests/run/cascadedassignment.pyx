@@ -24,9 +24,9 @@ def test_cascaded_assignment_typed():
     int Python object double
     (5, 5, 5.0)
     """
-    cdef int a
-    cdef object b
-    cdef double c
+    let int a
+    let object b
+    let double c
 
     a = b = c = 5
 

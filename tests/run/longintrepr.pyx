@@ -29,16 +29,16 @@ def lshift(long a, unsigned long n):
     """
     if not a:
         return _PyLong_New(0)
-    cdef unsigned long apos = a if a > 0 else -a
+    let unsigned long apos = a if a > 0 else -a
     if (apos >> 1) >= <unsigned long>PyLong_BASE:
         raise OverflowError
 
-    cdef unsigned long index = n // PyLong_SHIFT
-    cdef unsigned long shift = n % PyLong_SHIFT
+    let unsigned long index = n // PyLong_SHIFT
+    let unsigned long shift = n % PyLong_SHIFT
 
-    cdef digit d = apos
-    cdef digit low = (d << shift) & PyLong_MASK
-    cdef digit high = (d >> (PyLong_SHIFT - shift))
+    let digit d = apos
+    let digit low = (d << shift) & PyLong_MASK
+    let digit high = (d >> (PyLong_SHIFT - shift))
 
     if high == 0:
         ret = _PyLong_New(index + 1)

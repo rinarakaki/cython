@@ -14,7 +14,7 @@ cdef class DoubleKeeper:
     >>> d.get_number()
     0.0
     """
-    cdef cppwrap_lib.DoubleKeeper* keeper
+    let cppwrap_lib.DoubleKeeper* keeper
 
     def __cinit__(self, number=None):
         if number is None:

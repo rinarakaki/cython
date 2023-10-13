@@ -4,7 +4,7 @@
 from libcpp.memory cimport unique_ptr, shared_ptr, default_delete, dynamic_pointer_cast, make_unique
 from libcpp cimport nullptr
 
-cdef extern from "cpp_smart_ptr_helper.h":
+extern from "cpp_smart_ptr_helper.h":
     cdef cppclass CountAllocDealloc:
         CountAllocDealloc(int*, int*)
 
@@ -22,8 +22,8 @@ def test_unique_ptr():
     """
     >>> test_unique_ptr()
     """
-    cdef int alloc_count = 0, dealloc_count = 0
-    cdef unique_ptr[CountAllocDealloc] x_ptr
+    let int alloc_count = 0, dealloc_count = 0
+    let unique_ptr[CountAllocDealloc] x_ptr
     x_ptr.reset(new CountAllocDealloc(&alloc_count, &dealloc_count))
     assert alloc_count == 1
     x_ptr.reset()
@@ -49,10 +49,10 @@ def test_unique_ptr():
     assert x_ptr3.get() == nullptr;
 
     # Test that make_unique works
-    cdef unique_ptr[int] x_ptr4
+    let unique_ptr[int] x_ptr4
     x_ptr4 = make_unique[int](5)
     assert(x_ptr4) != nullptr
-    cdef unique_ptr[RaiseOnConstruct] x_ptr5
+    let unique_ptr[RaiseOnConstruct] x_ptr5
     try:
         x_ptr5 = make_unique[RaiseOnConstruct]()
     except RuntimeError:
@@ -63,13 +63,13 @@ def test_const_shared_ptr():
     """
     >>> test_const_shared_ptr()
     """
-    cdef int alloc_count = 0, dealloc_count = 0
-    cdef shared_ptr[const CountAllocDealloc] ptr = shared_ptr[const_CountAllocDealloc](
+    let int alloc_count = 0, dealloc_count = 0
+    let shared_ptr[const CountAllocDealloc] ptr = shared_ptr[const_CountAllocDealloc](
         new CountAllocDealloc(&alloc_count, &dealloc_count))
     assert alloc_count == 1
     assert dealloc_count == 0
 
-    cdef shared_ptr[const CountAllocDealloc] ptr2 = ptr
+    let shared_ptr[const CountAllocDealloc] ptr2 = ptr
     assert alloc_count == 1
     assert dealloc_count == 0
 
@@ -92,22 +92,22 @@ cdef cppclass B(A):
 cdef cppclass C(B):
     pass
 
-cdef shared_ptr[A] holding_subclass = shared_ptr[A](new C())
+let shared_ptr[A] holding_subclass = shared_ptr[A](new C())
 
 
 def test_assignment_to_base_class():
     """
     >>> test_assignment_to_base_class()
     """
-    cdef shared_ptr[C] derived = shared_ptr[C](new C())
-    cdef shared_ptr[A] base = derived
+    let shared_ptr[C] derived = shared_ptr[C](new C())
+    let shared_ptr[A] base = derived
 
 
 def test_dynamic_pointer_cast():
     """
     >>> test_dynamic_pointer_cast()
     """
-    cdef shared_ptr[B] b = shared_ptr[B](new B())
+    let shared_ptr[B] b = shared_ptr[B](new B())
     cdef shared_ptr[A] a = dynamic_pointer_cast[A, B](b)
     assert a.get() == b.get()
 

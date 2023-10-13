@@ -28,7 +28,7 @@ cdef class ExtTypeSimple:
     >>> find_name(ExtTypeSimple)
     1
     """
-    cdef int x
+    let int x
     def __dealloc__(self):
         add_name(self)
         self.x = 0
@@ -72,7 +72,7 @@ cdef class ExtSubTypeObjAttr(ExtTypeSimple):
     >>> find_name(ExtSubTypeObjAttr)
     2
     """
-    cdef object attr
+    let object attr
     def __dealloc__(self):
         add_name(self)
         self.x = 1
@@ -117,8 +117,8 @@ cdef class ExtTypeRefCycle:
     >>> find_name(ExtTypeRefCycle)
     1
     """
-    cdef public object ref
-    cdef int x
+    let public object ref
+    let int x
     def __dealloc__(self):
         add_name(self)
         self.x = 1
@@ -154,7 +154,7 @@ cdef class ExtTypeRefCycleRaise:
     >>> find_name(ExtTypeRefCycleRaise)
     1
     """
-    cdef public object ref
+    let public object ref
     def __dealloc__(self):
         add_name(self)
         raise RuntimeError("Cleaning up !")

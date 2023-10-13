@@ -1,8 +1,8 @@
 # mode: compile
 
 cdef void f():
-    cdef void *p
-    cdef char *q=NULL
+    let void *p
+    let char *q=NULL
     p = q
 
 f()

@@ -18,7 +18,7 @@ cdef class ExtensionType:
 # Pull tp_clear for PyTypeObject as I did not find another way to access it
 # from Cython code.
 
-cdef extern from "Python.h":
+extern from "Python.h":
     struct PyTypeObject:
         void (*tp_clear)(object)
 
@@ -40,15 +40,15 @@ cdef class TpClearFixture:
     'NULL'
     """
     
-    cdef readonly object any_object
-    cdef readonly ExtensionType extension_type
+    let readonly object any_object
+    let readonly ExtensionType extension_type
 
     def __cinit__(self):
         self.any_object = "Hello World"
         self.extension_type = ExtensionType()
 
     def call_tp_clear(self):
-        cdef PyTypeObject *pto = Py_TYPE(self)
+        let PyTypeObject *pto = Py_TYPE(self)
         pto.tp_clear(self)
 
     def check_any_object_status(self):

@@ -1,14 +1,14 @@
 # mode: error
 
-cdef int c1 = "t"     # works
-cdef int c2 = "te"    # fails
-cdef int cx = "test"  # fails
+let int c1 = "t"     # works
+let int c2 = "te"    # fails
+let int cx = "test"  # fails
 
-cdef int x1 =  "\xFF"    # works
-cdef int x2 =  "\u0FFF"  # fails
+let int x1 =  "\xFF"    # works
+let int x2 =  "\u0FFF"  # fails
 
-cdef Py_UNICODE u1 = u"\xFF"   # works
-cdef int u3 = u"\xFF"          # fails
+let Py_UNICODE u1 = u"\xFF"   # works
+let int u3 = u"\xFF"          # fails
 
 
 _ERRORS = """

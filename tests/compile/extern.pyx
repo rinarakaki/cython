@@ -1,13 +1,13 @@
 # mode: compile
 
-cdef extern int i
-cdef extern char *s[]
-cdef extern void spam(char c)
+extern int i
+extern char *s[]
+extern void spam(char c)
 
-cdef extern int eggs():
+extern int eggs():
     pass
 
-cdef int grail():
+fn int grail():
     pass
 
 grail()

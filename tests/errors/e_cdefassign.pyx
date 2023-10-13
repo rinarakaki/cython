@@ -1,9 +1,9 @@
 # mode: error
 
 cdef class A:
-    cdef i32 value = 3
+    let i32 value = 3
 
-cdef extern from *:
+extern from *:
     struct B:
         i32 value = 3
 

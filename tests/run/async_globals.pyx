@@ -4,7 +4,7 @@
 # Using C-globals in coroutines.
 
 
-cdef object py_retval
+let object py_retval
 
 
 async def test():

@@ -21,12 +21,12 @@ __doc__ = u"""
     True
 """
 
-cdef extern from *:
+extern from *:
     ctypedef class __builtin__.list [ object PyListObject ]:
         pass
 
 cdef class Sub2(list):
-    cdef char character
+    let char character
 
 cdef class Sub1(Sub2):
     pass

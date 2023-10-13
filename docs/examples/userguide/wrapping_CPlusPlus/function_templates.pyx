@@ -1,6 +1,6 @@
 # distutils: language = c++
 
-cdef extern from "<algorithm>" namespace "std":
+extern from "<algorithm>" namespace "std":
     T max[T](T a, T b)
 
 print(max[long](3, 4))

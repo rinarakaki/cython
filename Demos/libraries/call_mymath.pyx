@@ -1,4 +1,4 @@
-cdef extern from "mymath.h":
+extern from "mymath.h":
     double sinc(double)
 
 def call_sinc(x):

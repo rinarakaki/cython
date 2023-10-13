@@ -9,25 +9,25 @@ try:
 except ImportError:
     from io import StringIO
 
-cdef int func_implicit(int a, int b):
+fn int func_implicit(int a, int b):
     raise RuntimeError
 
-cdef int func_noexcept(int a, int b) noexcept:
+fn int func_noexcept(int a, int b) noexcept:
     raise RuntimeError
 
-cdef int func_star(int a, int b) except *:
+fn int func_star(int a, int b) except *:
     raise RuntimeError
 
-cdef int func_value(int a, int b) except -1:
+fn int func_value(int a, int b) except -1:
     raise RuntimeError
 
 cdef func_return_obj_implicit(int a, int b):
     raise RuntimeError
 
-cdef int(*ptr_func_implicit)(int, int)
+let int(*ptr_func_implicit)(int, int)
 ptr_func_implicit = func_implicit
 
-cdef int(*ptr_func_noexcept)(int, int) noexcept
+let int(*ptr_func_noexcept)(int, int) noexcept
 ptr_func_noexcept = func_noexcept
 
 @cython.cfunc

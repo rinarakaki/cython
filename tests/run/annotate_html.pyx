@@ -22,8 +22,8 @@
 def mixed_test():
     """docstring
     """
-    cdef int int1, int2, int3
-    cdef char *ptr1, *ptr2 = "test", *ptr3 = "toast"
+    let int int1, int2, int3
+    let char *ptr1, *ptr2 = "test", *ptr3 = "toast"
     int2 = 10
     int3 = 20
     obj1 = 1

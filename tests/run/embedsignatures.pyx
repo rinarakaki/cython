@@ -205,16 +205,16 @@ __doc__ = ur"""
 
 cdef class Ext:
 
-    cdef public int  attr0
+    let public int  attr0
     """attr0 docstring"""
-    cdef public      attr1
+    let public      attr1
     """attr1 docstring"""
-    cdef public list attr2
-    cdef public Ext attr3
+    let public list attr2
+    let public Ext attr3
 
     """NOT attr3 docstring"""
-    cdef        int  attr4
-    cdef public int \
+    let        int  attr4
+    let public int \
         attr5
     """attr5 docstring"""
 

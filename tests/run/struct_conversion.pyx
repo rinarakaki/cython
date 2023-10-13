@@ -54,7 +54,7 @@ def test_dict_construction(x, y, colour):
     >>> try: test_dict_construction("foo", 5, 64)
     ... except TypeError: pass
     """
-    let Point p = {'colour': colour, 'x': x, 'y': y}
+    fn Point p = {'colour': colour, 'x': x, 'y': y}
     return p
 
 def test_list_construction(x, y, colour):
@@ -111,8 +111,8 @@ def test_pointers(i32 n, f64 x):
     2.71828
     True
     """
-    let with_pointers a = [True, {'n': n}, NULL]
-    let with_pointers b = with_pointers(False, {'x': x}, NULL)
+    fn with_pointers a = [True, {'n': n}, NULL]
+    fn with_pointers b = with_pointers(False, {'x': x}, NULL)
     print a.data.n
     print b.data.x
     print a.ptr == b.ptr == NULL
@@ -192,5 +192,5 @@ def test_array_field_init():
     >>> test_array_field_init()
     [1, 2, 3, 4]
     """
-    cdef ArrayFieldStruct s = ArrayFieldStruct([1, 2, 3, 4])
+    let ArrayFieldStruct s = ArrayFieldStruct([1, 2, 3, 4])
     print(s.arr);

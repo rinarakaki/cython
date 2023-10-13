@@ -25,7 +25,7 @@ def optional_pytypes(Optional[int] i, Optional[float] f, Optional[complex] c, Op
     pass
 
 
-cdef ClassVar[list] x
+let ClassVar[list] x
 
 
 # OK
@@ -35,7 +35,7 @@ def optional_memoryview(double[:] d, Optional[double[:]] o):
 
 
 cdef class Cls(object):
-    cdef ClassVar[list] x
+    let ClassVar[list] x
 
 
 

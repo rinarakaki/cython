@@ -1,12 +1,12 @@
 from libc.stdlib cimport malloc
 from libc.string cimport strcpy, strlen
 
-cdef char* hello_world = 'hello world'
-cdef size_t n = strlen(hello_world)
+let char* hello_world = 'hello world'
+let size_t n = strlen(hello_world)
 
 
-cdef char* c_call_returning_a_c_string():
-    cdef char* c_string = <char *> malloc((n + 1) * sizeof(char))
+fn char* c_call_returning_a_c_string():
+    let char* c_string = <char *> malloc((n + 1) * sizeof(char))
     if not c_string:
         return NULL  # malloc failed
 

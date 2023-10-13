@@ -10,7 +10,7 @@ from libcpp.vector cimport vector
 from libcpp.memory cimport shared_ptr, make_shared
 from cython.operator cimport dereference as deref
 
-cdef extern from "cpp_iterators_simple.h":
+extern from "cpp_iterators_simple.h":
     cdef cppclass DoublePointerIter:
         DoublePointerIter(double* start, int len)
         double* begin()
@@ -26,8 +26,8 @@ def test_vector(py_v):
     >>> test_vector([1, 2, 3])
     [1, 2, 3]
     """
-    cdef vector[int] vint = py_v
-    cdef vector[int] result
+    let vector[int] vint = py_v
+    let vector[int] result
     with nogil:
         for item in vint:
             result.push_back(item)
@@ -38,11 +38,11 @@ def test_deque_iterator_subtraction(py_v):
     >>> print(test_deque_iterator_subtraction([1, 2, 3]))
     3
     """
-    cdef deque[int] dint
+    let deque[int] dint
     for i in py_v:
         dint.push_back(i)
-    cdef deque[int].iterator first = dint.begin()
-    cdef deque[int].iterator last = dint.end()
+    let deque[int].iterator first = dint.begin()
+    let deque[int].iterator last = dint.end()
 
     return last - first
 
@@ -51,9 +51,9 @@ def test_vector_iterator_subtraction(py_v):
     >>> print(test_vector_iterator_subtraction([1, 2, 3]))
     3
     """
-    cdef vector[int] vint = py_v
-    cdef vector[int].iterator first = vint.begin()
-    cdef vector[int].iterator last = vint.end()
+    let vector[int] vint = py_v
+    let vector[int].iterator first = vint.begin()
+    let vector[int].iterator last = vint.end()
 
     return last - first
 
@@ -62,10 +62,10 @@ def test_deque_iterator_addition(py_v):
     >>> test_deque_iterator_addition([2, 4, 6])
     6
     """
-    cdef deque[int] dint
+    let deque[int] dint
     for i in py_v:
         dint.push_back(i)
-    cdef deque[int].iterator first = dint.begin()
+    let deque[int].iterator first = dint.begin()
 
     return deref(first+2)
 
@@ -74,8 +74,8 @@ def test_vector_iterator_addition(py_v):
     >>> test_vector_iterator_addition([2, 4, 6])
     6
     """
-    cdef vector[int] vint = py_v
-    cdef vector[int].iterator first = vint.begin()
+    let vector[int] vint = py_v
+    let vector[int].iterator first = vint.begin()
 
     return deref(first+2)
 
@@ -84,10 +84,10 @@ def test_ptrs():
     >>> test_ptrs()
     [1.0, 2.0, 3.0]
     """
-    cdef double a = 1
-    cdef double b = 2
-    cdef double c = 3
-    cdef vector[double*] v
+    let double a = 1
+    let double b = 2
+    let double c = 3
+    let vector[double*] v
     v.push_back(&a)
     v.push_back(&b)
     v.push_back(&c)
@@ -99,7 +99,7 @@ def test_custom():
     [1.0, 2.0, 3.0]
     """
     cdef double* values = [1, 2, 3]
-    cdef DoublePointerIter* iter
+    let DoublePointerIter* iter
     try:
         iter = new DoublePointerIter(values, 3)
         # TODO: It'd be nice to automatically dereference this in a way that
@@ -114,7 +114,7 @@ def test_custom_deref():
     [1.0, 2.0, 3.0]
     """
     cdef double* values = [1, 2, 3]
-    cdef DoublePointerIter* iter
+    let DoublePointerIter* iter
     try:
         iter = new DoublePointerIter(values, 3)
         return [x for x in deref(iter)]
@@ -129,7 +129,7 @@ def test_custom_genexp():
     def to_list(g):  # function to hide the intent to avoid inlined-generator expression optimization
         return list(g)
     cdef double* values = [1, 2, 3]
-    cdef DoublePointerIterDefaultConstructible* iter
+    let DoublePointerIterDefaultConstructible* iter
     try:
         iter = new DoublePointerIterDefaultConstructible(values, 3)
         # TODO: Only needs to copy once - currently copies twice
@@ -142,8 +142,8 @@ def test_iteration_over_heap_vector(L):
     >>> test_iteration_over_heap_vector([1,2])
     [1, 2]
     """
-    cdef int i
-    cdef vector[int] *vint = new vector[int]()
+    let int i
+    let vector[int] *vint = new vector[int]()
     try:
         for i in L:
             vint.push_back(i)
@@ -164,8 +164,8 @@ def test_iteration_in_generator_reassigned():
     >>> list( test_iteration_in_generator_reassigned() )
     [1]
     """
-    cdef vector[int] *vint = new vector[int]()
-    cdef vector[int] *orig_vint = vint
+    let vector[int] *vint = new vector[int]()
+    let vector[int] *orig_vint = vint
     vint.push_back(1)
     reassign = True
     try:
@@ -180,7 +180,7 @@ def test_iteration_in_generator_reassigned():
             del vint
         del orig_vint
 
-cdef extern from *:
+extern from *:
     """
     std::vector<int> make_vec1() {
         std::vector<int> vint;
@@ -189,7 +189,7 @@ cdef extern from *:
         return vint;
     }
     """
-    cdef vector[int] make_vec1() except +
+    let vector[int] make_vec1() except +
 
 cdef vector[int] make_vec2() except *:
     return make_vec1()
@@ -222,13 +222,13 @@ def test_const_iterator_calculations(py_v):
     >>> print(test_const_iterator_calculations([1, 2, 3]))
     [3, 3, 3, 3, True, True, False, False]
     """
-    cdef deque[int] dint
+    let deque[int] dint
     for i in py_v:
         dint.push_back(i)
-    cdef deque[int].iterator first = dint.begin()
-    cdef deque[int].iterator last = dint.end()
-    cdef deque[int].const_iterator cfirst = first
-    cdef deque[int].const_iterator clast = last
+    let deque[int].iterator first = dint.begin()
+    let deque[int].iterator last = dint.end()
+    let deque[int].const_iterator cfirst = first
+    let deque[int].const_iterator clast = last
 
     return [
         last - first,
@@ -241,7 +241,7 @@ def test_const_iterator_calculations(py_v):
         last == cfirst
     ]
 
-cdef extern from "cpp_iterators_over_attribute_of_rvalue_support.h":
+extern from "cpp_iterators_over_attribute_of_rvalue_support.h":
     cdef cppclass HasIterableAttribute:
         vector[int] vec
         HasIterableAttribute()
@@ -265,7 +265,7 @@ def test_iteration_over_attribute_of_call():
     """
     for i in HasIterableAttribute().vec:
         print(i)
-    cdef vector[int] vec
+    let vector[int] vec
     for i in range(42, 45):
         vec.push_back(i)
     for i in HasIterableAttribute(vec).vec:
@@ -273,7 +273,7 @@ def test_iteration_over_attribute_of_call():
     for i in get_object_with_iterable_attribute().vec:
         print(i)
 
-cdef extern from *:
+extern from *:
     # TODO: support make_shared[const int]
     shared_ptr[const int] make_shared_const_int "std::make_shared<const int>"(int)
 
@@ -284,12 +284,12 @@ def test_iteration_over_shared_const_ptr_vector(py_v):
     4
     6
     """
-    cdef vector[shared_ptr[const int]] s
-    cdef int i
+    let vector[shared_ptr[const int]] s
+    let int i
     for i in py_v:
         s.push_back(make_shared_const_int(i))
 
-    cdef shared_ptr[const int] a
+    let shared_ptr[const int] a
     for a in s:
         print(deref(a))
 
@@ -300,7 +300,7 @@ def test_iteration_over_reversed_list(py_v):
     4
     2
     """
-    cdef stdlist[int] lint
+    let stdlist[int] lint
     for e in py_v:
         lint.push_back(e)
     for e in reversed(lint):
@@ -326,7 +326,7 @@ def test_iteration_over_reversed_set(py_v):
     2
     1
     """
-    cdef stdset[int] s
+    let stdset[int] s
     for e in py_v:
         s.insert(e)
     for e in reversed(s):
@@ -342,7 +342,7 @@ def test_iteration_over_reversed_string():
     y
     c
     """
-    cdef string cppstr = "cython"
+    let string cppstr = "cython"
     for c in reversed(cppstr):
         print(chr(c))
 
@@ -353,7 +353,7 @@ def test_iteration_over_reversed_vector(py_v):
     2
     1
     """
-    cdef vector[int] vint
+    let vector[int] vint
     for e in py_v:
         vint.push_back(e)
     for e in reversed(vint):
@@ -371,7 +371,7 @@ def test_non_built_in_reversed_function(py_v):
         print("Non-built-in reversed called.")
         return arg[::-1]
 
-    cdef vector[int] vint
+    let vector[int] vint
     for e in py_v:
         vint.push_back(e)
     for e in reversed(vint):
@@ -382,7 +382,7 @@ def test_non_built_in_reversed_function(py_v):
 # expressions and iteration from c++ const attributes so in this
 # file as a related issue.  Mainly a test that it compiles.
 # GH-5558
-cdef extern from *:
+extern from *:
     """
     struct ConstNumberHolder {
         const int num;

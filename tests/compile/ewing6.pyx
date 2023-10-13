@@ -3,9 +3,9 @@
 # types passed to C method
 
 # Ordering of declarations in C code is important
-cdef class C
-cdef class D(C)
-cdef class E
+let class C
+let class D(C)
+let class E
 
 cdef class C:
     cdef void a(self):

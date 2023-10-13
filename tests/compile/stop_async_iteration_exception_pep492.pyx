@@ -4,9 +4,9 @@
 # make sure async iterators also compile correctly without using 'await'
 
 cdef class AsyncIter:
-    cdef long i
-    cdef long aiter_calls
-    cdef long max_iter_calls
+    let long i
+    let long aiter_calls
+    let long max_iter_calls
 
     def __init__(self, long max_iter_calls=1):
         self.i = 0

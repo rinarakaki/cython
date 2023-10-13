@@ -31,8 +31,8 @@ def compute(my_type[:, ::1] array_1, my_type[:, ::1] array_2, my_type a, my_type
     result = np.zeros((x_max, y_max), dtype=dtype)
     cdef my_type[:, ::1] result_view = result
 
-    cdef my_type tmp
-    cdef Py_ssize_t x, y
+    let my_type tmp
+    let Py_ssize_t x, y
 
     for x in range(x_max):
         for y in range(y_max):

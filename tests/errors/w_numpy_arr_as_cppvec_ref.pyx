@@ -7,7 +7,7 @@ from libcpp.vector cimport vector
 
 np.import_array()
 
-cdef extern from *:
+extern from *:
     void cpp_function_vector1(vector[int])
     void cpp_function_vector2(vector[int] &)
     void cpp_function_2_vec_refs(vector[int] &, vector[int] &)
@@ -20,7 +20,7 @@ def main():
     cpp_function_vector2(arr)
     cpp_function_2_vec_refs(arr, arr)
 
-    cdef vector[int] vec
+    let vector[int] vec
     vec.push_back(0)
     cpp_function_vector2(vec)
 

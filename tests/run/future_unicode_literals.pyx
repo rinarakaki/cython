@@ -26,7 +26,7 @@ else:
 
 u = "test"
 
-cdef char* s = "bytes test"
+let char* s = "bytes test"
 b = s
 
 raw = r'abc\xf8\t\u00f8\U000000f8'

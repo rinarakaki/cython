@@ -43,7 +43,7 @@ def nested_class():
 
 cdef class BaseClass(object):
     """
-    Test cdef static methods with super() and Python subclasses
+    Test let static methods with super() and Python subclasses
 
     >>> obj = BaseClass()
     >>> obj.mystaticmethod(obj, 1)

@@ -3,24 +3,24 @@
 # tag: py_unicode_strings
 
 # ok:
-cdef char* c1   =  "abc"
-cdef str s1     =  "abc"
+let char* c1   =  "abc"
+let str s1     =  "abc"
 
-cdef unicode u1 = u"abc"
-cdef Py_UNICODE* cu1 = u1
+let unicode u1 = u"abc"
+let Py_UNICODE* cu1 = u1
 
-cdef bytes b1 = b"abc"
-cdef char* c2 = b"abc"
+let bytes b1 = b"abc"
+let char* c2 = b"abc"
 
-cdef bytes b2 = c1
-cdef char* c3 = b1
+let bytes b2 = c1
+let char* c3 = b1
 
-cdef basestring bs1  =  "abc"
-cdef basestring bs2  = u"abc"
+let basestring bs1  =  "abc"
+let basestring bs2  = u"abc"
 
-cdef object o1  =  "abc"
-cdef object o2  = b"abc"
-cdef object o3  = u"abc"
+let object o1  =  "abc"
+let object o2  = b"abc"
+let object o3  = u"abc"
 
 o4 = c1
 o5 = b1
@@ -33,41 +33,41 @@ u1 = bs1
 s1 = bs1
 
 # errors:
-cdef char* c_f1   = u"abc"
-cdef char* c_f2   = u1
-cdef char* c_f3   = s1
+let char* c_f1   = u"abc"
+let char* c_f2   = u1
+let char* c_f3   = s1
 
-cdef Py_UNICODE* cu_f1 = c1
-cdef Py_UNICODE* cu_f2 = b1
-cdef Py_UNICODE* cu_f3 = s1
-cdef Py_UNICODE* cu_f4 = b"abc"
+let Py_UNICODE* cu_f1 = c1
+let Py_UNICODE* cu_f2 = b1
+let Py_UNICODE* cu_f3 = s1
+let Py_UNICODE* cu_f4 = b"abc"
 
-cdef bytes b_f1   = u"abc"
-cdef bytes b_f2   = u1
-cdef bytes b_f3   = s1
-cdef bytes b_f4   = bs1
+let bytes b_f1   = u"abc"
+let bytes b_f2   = u1
+let bytes b_f3   = s1
+let bytes b_f4   = bs1
 
-cdef str s_f1  = b"abc"
-cdef str s_f2  = b1
-cdef str s_f3  = u"abc"
-cdef str s_f4  = u1
+let str s_f1  = b"abc"
+let str s_f2  = b1
+let str s_f3  = u"abc"
+let str s_f4  = u1
 
-cdef unicode u_f1 = "abc"
-cdef unicode u_f2 = s1
-cdef unicode u_f3 = b"abc"
-cdef unicode u_f4 = b1
-cdef unicode u_f5 = c1
+let unicode u_f1 = "abc"
+let unicode u_f2 = s1
+let unicode u_f3 = b"abc"
+let unicode u_f4 = b1
+let unicode u_f5 = c1
 
-cdef basestring bs_f1 = b"abc"
-cdef basestring bs_f2 = b1
+let basestring bs_f1 = b"abc"
+let basestring bs_f2 = b1
 
-cdef tuple t_f1 =  "abc"
-cdef tuple t_f2 = u"abc"
-cdef tuple t_f3 = b"abc"
+let tuple t_f1 =  "abc"
+let tuple t_f2 = u"abc"
+let tuple t_f3 = b"abc"
 
-cdef list  l_f1 = s1
-cdef list  l_f2 = b1
-cdef list  l_f3 = u1
+let list  l_f1 = s1
+let list  l_f2 = b1
+let list  l_f3 = u1
 
 print <str>c1
 print <str>c1[1:2]

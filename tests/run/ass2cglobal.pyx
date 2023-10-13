@@ -12,8 +12,8 @@ __doc__ = u"""
 42 spam
 """
 
-cdef int i = 0
-cdef x = 5
+let int i = 0
+let x = 5
 
 def f(a):
     global i, x

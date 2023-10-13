@@ -6,7 +6,7 @@ set to None
 cimport cython
 
 cdef class MyClass:
-    cdef int a, b
+    let int a, b
     def __init__(self, a, b):
         self.a = a
         self.b = b
@@ -152,7 +152,7 @@ def test_memslice_shape(double[:] buf):
     Traceback (most recent call last):
     AttributeError: Cannot access 'shape' attribute of None memoryview slice
     """
-    cdef Py_ssize_t extent = buf.shape[0]
+    let Py_ssize_t extent = buf.shape[0]
 
 @cython.nonecheck(True)
 def test_memslice_slice(double[:] buf):

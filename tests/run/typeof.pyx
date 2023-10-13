@@ -23,14 +23,14 @@ def simple():
     X
     Python object
     """
-    cdef int i = 0
-    cdef long l = 0
-    cdef long long ll = 0
-    cdef int* iptr = &i
-    cdef int** iptrptr = &iptr
-    cdef A a = None
-    cdef B b = None
-    cdef X x = X(a=1, b=2)
+    let int i = 0
+    let long l = 0
+    let long long ll = 0
+    let int* iptr = &i
+    let int** iptrptr = &iptr
+    let A a = None
+    let B b = None
+    let X x = X(a=1, b=2)
     print typeof(i)
     print typeof(l)
     print typeof(ll)
@@ -50,11 +50,11 @@ def expression():
     int
     unsigned int
     """
-    cdef X x = X(a=1, b=2)
-    cdef X *xptr = &x
-    cdef short s = 0
-    cdef int i = 0
-    cdef unsigned int ui = 0
+    let X x = X(a=1, b=2)
+    let X *xptr = &x
+    let short s = 0
+    let int i = 0
+    let unsigned int ui = 0
     print typeof(x.a)
     print typeof(xptr.b)
     print typeof(s + i)

@@ -3,8 +3,8 @@
 import gc
 from cpython cimport pycapsule
 
-cdef int value = 5
-cdef bint destructed = False
+let int value = 5
+let bint destructed = False
 
 cdef void destructor(object obj) noexcept:
     # PyPy's GC does not guarantee immediate execution.

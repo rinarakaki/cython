@@ -1,18 +1,18 @@
 # mode: compile
 
-cdef extern object g(object x) nogil
-cdef extern void g2(object x) nogil
+extern object g(object x) nogil
+extern void g2(object x) nogil
 
-cdef extern from "nogil.h":
+extern from "nogil.h":
         void e1() nogil
         int *e2() nogil
 
 cdef void f(int x) nogil:
-        cdef int y
+        let int y
         y = 42
 
 cdef void h(object x) nogil:
-        cdef void *p=<void*>None
+        let void *p=<void*>None
         g2(x)
         g2(<object>p)
         p = <void *>x

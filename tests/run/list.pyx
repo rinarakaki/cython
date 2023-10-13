@@ -58,13 +58,13 @@ def test_list_sort():
     >>> test_list_sort()
     [1, 2, 3, 4]
     """
-    cdef list l1
+    let list l1
     l1 = [2,3,1,4]
     l1.sort()
     return l1
 
 def test_list_sort_reversed():
-    cdef list l1
+    let list l1
     l1 = [2,3,1,4]
     l1.sort(reversed=True)
     return l1
@@ -74,7 +74,7 @@ def test_list_reverse():
     >>> test_list_reverse()
     [1, 2, 3, 4]
     """
-    cdef list l1
+    let list l1
     l1 = [4,3,2,1]
     l1.reverse()
     return l1
@@ -128,7 +128,7 @@ def test_list_append_insert():
     >>> test_list_append_insert()
     ['first', 'second']
     """
-    cdef list l = []
+    let list l = []
     l.append("second")
     l.insert(0, "first")
     return l
@@ -138,7 +138,7 @@ def test_list_pop():
     >>> test_list_pop()
     (2, [1])
     """
-    cdef list l1
+    let list l1
     l1 = [1,2]
     two = l1.pop()
     return two, l1
@@ -148,7 +148,7 @@ def test_list_pop0():
     >>> test_list_pop0()
     (1, [2])
     """
-    cdef list l1
+    let list l1
     l1 = [1,2]
     one = l1.pop(0)
     return one, l1
@@ -158,7 +158,7 @@ def test_list_pop_all():
     >>> test_list_pop_all()
     True
     """
-    cdef list l1
+    let list l1
     l1 = [1,2]
     i = 0
     try:

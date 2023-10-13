@@ -4,6 +4,6 @@ True
 """
 
 
-cdef unsigned int ui
+let unsigned int ui
 ui = 5
 x = ui

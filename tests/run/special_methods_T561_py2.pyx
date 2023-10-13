@@ -82,7 +82,7 @@ __doc__ = u"""
 """
 
 cdef class VerySpecial:
-    cdef readonly int value
+    let readonly int value
 
     def __init__(self, v):
         self.value = v

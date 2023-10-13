@@ -1,4 +1,4 @@
 # mode: compile
 
-cdef extern void spam(int, char *)
+extern void spam(int, char *)
 

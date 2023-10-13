@@ -2,7 +2,7 @@
 # tag: werror
 
 cdef useless_semicolon():
-    cdef int i;
+    let int i;
     pass;
 
 ctypedef int x;

@@ -24,7 +24,7 @@ def print_args(func):
 
 cdef class Num:
 
-    cdef int n
+    let int n
 
     def __init__(self, n):
         self.n = n
@@ -41,7 +41,7 @@ cdef class Num:
         elif self.n % 2 == 0:
             if print_factors:
                 print 2, self.n // 2
-        cdef int i = 3
+        let int i = 3
         while i*i <= self.n:
             if self.n % i == 0:
                 if print_factors:

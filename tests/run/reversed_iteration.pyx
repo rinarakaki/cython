@@ -82,7 +82,7 @@ def enumerate_reversed_list(list l):
     TypeError: 'NoneType' object is not iterable
     """
     result = []
-    cdef Py_ssize_t i
+    let Py_ssize_t i
     for i, item in enumerate(reversed(l)):
         result.append((i, item))
     return result
@@ -100,7 +100,7 @@ def reversed_range(int N):
     >>> reversed_range(0)
     ([], 99)
     """
-    cdef int i = 99
+    let int i = 99
     result = []
     for i in reversed(range(N)):
         result.append(i)
@@ -119,7 +119,7 @@ def reversed_range_step_pos(int a, int b):
     >>> reversed_range_step_pos(5, 0)
     ([], 99)
     """
-    cdef int i = 99
+    let int i = 99
     result = []
     for i in reversed(range(a, b, 1)):
         result.append(i)
@@ -138,7 +138,7 @@ def reversed_range_step_neg(int a, int b):
     >>> reversed_range_step_neg(0, 5)
     ([], 99)
     """
-    cdef int i = 99
+    let int i = 99
     result = []
     for i in reversed(range(a, b, -1)):
         result.append(i)
@@ -168,7 +168,7 @@ def reversed_range_step3(int a, int b):
     >>> reversed_range_step3(1, 1)
     ([], 99)
     """
-    cdef int i = 99
+    let int i = 99
     result = []
     for i in reversed(range(a, b, 3)):
         result.append(i)
@@ -183,7 +183,7 @@ def reversed_range_step3_expr(int a, int b):
     >>> reversed_range_step3_expr(0, 5)
     ([3, 0], 0)
     """
-    cdef int i = 99, c = 100
+    let int i = 99, c = 100
     result = []
     for i in reversed(range(c-c + a + c-c, c-c + b + c-c, 3)):
         result.append(i)
@@ -213,7 +213,7 @@ def reversed_range_step3_neg(int a, int b):
     >>> reversed_range_step3_neg(1, 1)
     ([], 99)
     """
-    cdef int i = 99
+    let int i = 99
     result = []
     for i in reversed(range(a, b, -3)):
         result.append(i)
@@ -228,7 +228,7 @@ def reversed_range_step3_neg_expr(int a, int b):
     >>> reversed_range_step3_neg_expr(5, 0)
     ([2, 5], 5)
     """
-    cdef int i = 99, c = 100
+    let int i = 99, c = 100
     result = []
     for i in reversed(range(c-c + a + c-c, c-c + b + c-c, -3)):
         result.append(i)
@@ -312,7 +312,7 @@ def reversed_range_step3_py_obj_left(a, int b):
     Traceback (most recent call last):
     TypeError: ...int...
     """
-    cdef long i
+    let long i
     result = []
     for i in reversed(range(a, b, 3)):
         result.append(i)
@@ -323,7 +323,7 @@ def reversed_range_step3_py_obj_right(int a, b):
     Traceback (most recent call last):
     TypeError: ...int...
     """
-    cdef long i
+    let long i
     result = []
     for i in reversed(range(a, b, 3)):
         result.append(i)
@@ -334,7 +334,7 @@ def reversed_range_step3_neg_py_obj_left(a, int b):
     Traceback (most recent call last):
     TypeError: ...int...
     """
-    cdef long i
+    let long i
     result = []
     for i in reversed(range(a, b, -3)):
         result.append(i)
@@ -345,7 +345,7 @@ def reversed_range_step3_neg_py_obj_right(int a, b):
     Traceback (most recent call last):
     TypeError: ...int...
     """
-    cdef long i
+    let long i
     result = []
     for i in reversed(range(a, b, -3)):
         result.append(i)
@@ -358,7 +358,7 @@ def reversed_range_constant():
     >>> reversed_range_constant()
     ([-4, -8, -12], -12)
     """
-    cdef int i = 99
+    let int i = 99
     result = []
     for i in reversed(range(1, 1, 4)):
         result.append(i)
@@ -449,7 +449,7 @@ def reversed_range_constant_neg():
     [-10, -6, -2]
     >>> reversed_range_constant_neg()
     """
-    cdef int i = 99
+    let int i = 99
     result = []
     for i in reversed(range(1, 1, -4)):
         result.append(i)
@@ -720,7 +720,7 @@ def reversed_bytes(bytes s):
     >>> reversed_bytes(bytes_string)
     [70, 69, 68, 99, 98, 97]
     """
-    cdef char c
+    let char c
     result = []
     for c in reversed(s):
         result.append(c)
@@ -735,7 +735,7 @@ def reversed_bytes_slice(bytes s):
     >>> reversed_bytes_slice(bytes_string)
     [68, 99, 98]
     """
-    cdef char c
+    let char c
     result = []
     for c in reversed(s[1:-2]):
         result.append(c)
@@ -750,7 +750,7 @@ def reversed_bytes_slice_step(bytes s):
     >>> reversed_bytes_slice_step(bytes_string)
     [99, 68, 69]
     """
-    cdef char c
+    let char c
     result = []
     for c in reversed(s[-2:1:-1]):
         result.append(c)
@@ -765,7 +765,7 @@ def reversed_bytes_slice_step_only(bytes s):
     >>> reversed_bytes_slice_step_only(bytes_string)
     [97, 98, 99, 68, 69, 70]
     """
-    cdef char c
+    let char c
     result = []
     for c in reversed(s[::-1]):
         result.append(c)
@@ -782,7 +782,7 @@ def reversed_unsigned(int a, int b):
     >>> reversed_unsigned(1, 1)
     []
     """
-    cdef unsigned int i
+    let unsigned int i
     return [i for i in reversed(range(a, b))]
 
 @cython.test_assert_path_exists('//ForFromStatNode')
@@ -793,7 +793,7 @@ def reversed_unsigned_by_3(int a, int b):
     >>> unlongify(reversed_unsigned_by_3(0, 7))
     '[6, 3, 0]'
     """
-    cdef unsigned int i
+    let unsigned int i
     return [i for i in reversed(range(a, b, 3))]
 
 @cython.test_assert_path_exists('//ForFromStatNode')
@@ -804,5 +804,5 @@ def range_unsigned_by_neg_3(int a, int b):
     >>> unlongify(range_unsigned_by_neg_3(0, 7))
     '[7, 4, 1]'
     """
-    cdef unsigned int i
+    let unsigned int i
     return [i for i in range(b, a, -3)]

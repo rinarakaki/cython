@@ -1,13 +1,13 @@
 # mode: error
 
 def f(obj2):
-    cdef int *ptr1
+    let int *ptr1
     obj1 = obj2[ptr1::] # error
     obj1 = obj2[:ptr1:] # error
     obj1 = obj2[::ptr1] # error
 
-cdef int a
-cdef int* int_ptr
+let int a
+let int* int_ptr
 
 for a in int_ptr:
     pass

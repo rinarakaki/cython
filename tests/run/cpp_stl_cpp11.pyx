@@ -155,7 +155,7 @@ def test_unordered_set_functionality():
     return "pass"
 
 
-cdef extern from "cpp_unordered_map_helper.h":
+extern from "cpp_unordered_map_helper.h":
     cdef cppclass IntVectorHash:
         pass
 

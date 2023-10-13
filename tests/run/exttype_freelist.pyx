@@ -52,7 +52,7 @@ cdef class ExtSubTypeNoGC(ExtTypeNoGC):
     >>> obj = PyClass()
     >>> del PyClass, obj
     """
-    cdef bytes x
+    let bytes x
 
 
 @cython.freelist(4)
@@ -79,7 +79,7 @@ cdef class ExtTypeWithGC:
     >>> obj = PyClass()
     >>> del PyClass, obj
     """
-    cdef attribute
+    let attribute
 
     def __init__(self):
         self.attribute = object()
@@ -145,7 +145,7 @@ cdef class LargerExtSubType(ExtSubType):
     >>> obj = PyClass()
     >>> del PyClass, obj
     """
-    cdef attribute2
+    let attribute2
 
     def __cinit__(self):
         self.attribute2 = object()
@@ -175,7 +175,7 @@ cdef class ExtTypeWithCAttr:
     >>> obj = PyClass()
     >>> del PyClass, obj
     """
-    cdef int cattr
+    let int cattr
 
     def __cinit__(self):
         assert self.cattr == 0
@@ -230,7 +230,7 @@ cdef class ExtTypeWithCAttrNoFreelist:
     >>> obj = PyClass()
     >>> del PyClass, obj
     """
-    cdef int cattr
+    let int cattr
 
     def __cinit__(self):
         assert self.cattr == 0
@@ -281,13 +281,13 @@ cdef class ExtTypeWithCMethods:
     >>> obj = PyClass()
     >>> del PyClass, obj
     """
-    cdef int cattr
+    let int cattr
 
     def __cinit__(self):
         assert self.cattr == 0
         self.cattr = 1
 
-    cdef int get_cattr(self):
+    fn int get_cattr(self):
         return self.cattr
 
     cdef set_cattr(self, int value):
@@ -397,7 +397,7 @@ cdef class ExtSubTypeWithMoreCMethods(ExtSubTypeWithCMethods):
         assert self.cattr == 1
         self.cattr = 2
 
-    cdef int get_cattr2(self):
+    fn int get_cattr2(self):
         return self.cattr
 
     cdef set_cattr2(self, int value):
@@ -447,7 +447,7 @@ cdef class ExtTypeWithRefCycle:
     >>> obj = PyClass()
     >>> del PyClass, obj
     """
-    cdef public attribute
+    let public attribute
 
     def __init__(self, obj=None):
         self.attribute = obj

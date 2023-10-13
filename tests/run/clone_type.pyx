@@ -10,5 +10,5 @@ cdef class MyType:
         >>> x1 != x2
         True
         """
-        cdef MyType clone = <MyType>type(self)()
+        let MyType clone = <MyType>type(self)()
         return clone

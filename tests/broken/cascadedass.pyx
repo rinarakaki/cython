@@ -1,5 +1,5 @@
 cdef void foo():
-    cdef int i, j, k
+    let int i, j, k
     i = j = k
     a = b = c
     i = j = c

@@ -1,18 +1,18 @@
 # mode: run
 # tag: cpp, werror
 
-cdef extern from "cpp_namespaces_helper.h" namespace "A":
+extern from "cpp_namespaces_helper.h" namespace "A":
     ctypedef int A_t
     struct S:
         f64 x
         A_t k
     A_t A_func(A_t first, A_t)
-    cdef void f(A_t)
+    fn void f(A_t)
 
-cdef extern from "cpp_namespaces_helper.h" namespace "outer":
+extern from "cpp_namespaces_helper.h" namespace "outer":
     int outer_value
 
-cdef extern from "cpp_namespaces_helper.h" namespace "outer::inner":
+extern from "cpp_namespaces_helper.h" namespace "outer::inner":
     int inner_value
 
 def test_function(x, y):

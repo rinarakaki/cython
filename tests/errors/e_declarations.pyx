@@ -1,12 +1,12 @@
 # mode: error
 
-cdef extern void fa[5]()
-cdef extern int af()[5]
-cdef extern int ff()()
+extern void fa[5]()
+extern int af()[5]
+extern int ff()()
 
 cdef void f():
-	cdef void *p
-	cdef int (*h)()
+	let void *p
+	let int (*h)()
 	h = <int ()()>f # this is an error
 	h = <int (*)()>f # this is OK
 

@@ -10,13 +10,13 @@ enum Mode:
     b = 2
 
 cdef class Curseur:
-    cdef Mode mode
+    let Mode mode
 
     def method(self):
         assert False, self.mode
 
 def build():
-    cdef Curseur c
+    let Curseur c
     c = Curseur()
     c.mode = a
     return c

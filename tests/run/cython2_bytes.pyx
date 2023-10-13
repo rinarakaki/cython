@@ -3,7 +3,7 @@
 
 b = b'abcüöä \x12'
 
-cdef char* cs = 'abcüöä \x12'
+let char* cs = 'abcüöä \x12'
 
 def compare_cs():
     """

@@ -21,7 +21,7 @@ cdef class ExtTypeGC(BaseTypeNoGC):
     >>> create_obj(PyExtTypeGC)
     >>> create_obj(PyExtTypeGC)
     """
-    cdef object attr
+    let object attr
 
 
 cdef class ExtTypeNoGC(BaseTypeNoGC):
@@ -35,4 +35,4 @@ cdef class ExtTypeNoGC(BaseTypeNoGC):
     >>> create_obj(PyExtTypeNoGC)
     >>> create_obj(PyExtTypeNoGC)
     """
-    cdef int x
+    let int x

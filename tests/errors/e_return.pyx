@@ -2,11 +2,11 @@
 # mode: error
 
 cdef void g():
-	cdef int i
+	let int i
 	return i # error
 
-cdef int h():
-	cdef int *p
+fn int h():
+	let int *p
 	return # error
 	return p # error
 

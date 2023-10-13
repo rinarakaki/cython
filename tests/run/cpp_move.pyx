@@ -6,7 +6,7 @@ from libcpp.memory cimport shared_ptr, make_shared
 from libcpp.utility cimport move
 from cython.operator cimport dereference
 
-cdef extern from *:
+extern from *:
     """
     #include <string>
 
@@ -29,6 +29,6 @@ def test_move_func_call():
     """
     >>> test_move_func_call()
     """
-    cdef shared_ptr[int] p
+    let shared_ptr[int] p
     assert move_helper(p) == b'lvalue-ref'
     assert move_helper(move(p)) == b'rvalue-ref'

@@ -23,7 +23,7 @@ def test_shape_stride_suboffset():
     77 11 1
     -1 -1 -1
     '''
-    cdef char[:,:,:] larr = array((5,7,11), 1, 'c')
+    fn char[:,:,:] larr = array((5,7,11), 1, 'c')
     print larr.shape[0], larr.shape[1], larr.shape[2]
     print larr.strides[0], larr.strides[1], larr.strides[2]
     print larr.suboffsets[0], larr.suboffsets[1], larr.suboffsets[2]
@@ -35,7 +35,7 @@ def test_shape_stride_suboffset():
     print larr.suboffsets[0], larr.suboffsets[1], larr.suboffsets[2]
     print
 
-    cdef char[:,:,:] c_contig = larr.copy()
+    fn char[:,:,:] c_contig = larr.copy()
     print c_contig.shape[0], c_contig.shape[1], c_contig.shape[2]
     print c_contig.strides[0], c_contig.strides[1], c_contig.strides[2]
     print c_contig.suboffsets[0], c_contig.suboffsets[1], c_contig.suboffsets[2]
@@ -48,17 +48,17 @@ def test_copy_to():
     0 1 2 3 4 5 6 7
     0 1 2 3 4 5 6 7
     '''
-    cdef int[:, :, :] from_mvs, to_mvs
+    fn int[:, :, :] from_mvs, to_mvs
     from_mvs = np.arange(8, dtype=np.int32).reshape(2,2,2)
 
-    cdef int *from_data = <int *> from_mvs._data
+    let int *from_data = <int *> from_mvs._data
     print ' '.join(str(from_data[i]) for i in range(2*2*2))
 
     to_mvs = array((2,2,2), sizeof(int), 'i')
     to_mvs[...] = from_mvs
 
     # TODO Mark: remove this _data attribute
-    cdef int *to_data = <int*>to_mvs._data
+    let int *to_data = <int*>to_mvs._data
     print ' '.join(str(from_data[i]) for i in range(2*2*2))
     print ' '.join(str(to_data[i]) for i in range(2*2*2))
 
@@ -67,11 +67,11 @@ def test_overlapping_copy():
     """
     >>> test_overlapping_copy()
     """
-    cdef int i, array[10]
+    let int i, array[10]
     for i in range(10):
         array[i] = i
 
-    cdef int[:] slice = array
+    fn int[:] slice = array
     slice[...] = slice[::-1]
 
     for i in range(10):
@@ -96,12 +96,12 @@ def test_partly_overlapping():
     """
     >>> test_partly_overlapping()
     """
-    cdef int i, array[10]
+    let int i, array[10]
     for i in range(10):
         array[i] = i
 
-    cdef int[:] slice = array
-    cdef int[:] slice2 = slice[:5]
+    fn int[:] slice = array
+    fn int[:] slice2 = slice[:5]
     slice2[...] = slice[4:9]
 
     for i in range(5):
@@ -115,7 +115,7 @@ def test_nonecheck1():
       ...
     UnboundLocalError: local variable 'uninitialized' referenced before assignment
     '''
-    cdef int[:,:,:] uninitialized
+    fn int[:,:,:] uninitialized
     print uninitialized.is_c_contig()
 
 @cython.nonecheck(True)
@@ -126,7 +126,7 @@ def test_nonecheck2():
       ...
     UnboundLocalError: local variable 'uninitialized' referenced before assignment
     '''
-    cdef int[:,:,:] uninitialized
+    fn int[:,:,:] uninitialized
     print uninitialized.is_f_contig()
 
 @cython.nonecheck(True)
@@ -137,7 +137,7 @@ def test_nonecheck3():
       ...
     UnboundLocalError: local variable 'uninitialized' referenced before assignment
     '''
-    cdef int[:,:,:] uninitialized
+    fn int[:,:,:] uninitialized
     uninitialized.copy()
 
 @cython.nonecheck(True)
@@ -148,7 +148,7 @@ def test_nonecheck4():
       ...
     UnboundLocalError: local variable 'uninitialized' referenced before assignment
     '''
-    cdef int[:,:,:] uninitialized
+    fn int[:,:,:] uninitialized
     uninitialized.copy_fortran()
 
 @cython.nonecheck(True)
@@ -159,7 +159,7 @@ def test_nonecheck5():
       ...
     UnboundLocalError: local variable 'uninitialized' referenced before assignment
     '''
-    cdef int[:,:,:] uninitialized
+    fn int[:,:,:] uninitialized
     uninitialized._data
 
 def test_copy_mismatch():
@@ -169,8 +169,8 @@ def test_copy_mismatch():
        ...
     ValueError: got differing extents in dimension 0 (got 2 and 3)
     '''
-    cdef int[:,:,::1] mv1  = array((2,2,3), sizeof(int), 'i')
-    cdef int[:,:,::1] mv2  = array((3,2,3), sizeof(int), 'i')
+    fn int[:,:,::1] mv1  = array((2,2,3), sizeof(int), 'i')
+    fn int[:,:,::1] mv2  = array((3,2,3), sizeof(int), 'i')
 
     mv1[...] = mv2
 
@@ -185,8 +185,8 @@ def test_is_contiguous():
     one sized strided contig True True
     strided False
     """
-    cdef int[::1, :, :] fort_contig = array((1,1,1), sizeof(int), 'i', mode='fortran')
-    cdef int[:,:,:] strided = fort_contig
+    fn int[::1, :, :] fort_contig = array((1,1,1), sizeof(int), 'i', mode='fortran')
+    fn int[:,:,:] strided = fort_contig
 
     print 'one sized is_c/f_contig', fort_contig.is_c_contig(), fort_contig.is_f_contig()
     fort_contig = array((2,2,2), sizeof(int), 'i', mode='fortran')
@@ -212,10 +212,10 @@ def call():
     3000
     1 1 1000
     '''
-    cdef int[::1] mv1, mv2, mv3
+    fn int[::1] mv1, mv2, mv3
     cdef array arr = array((3,), sizeof(int), 'i')
     mv1 = arr
-    cdef int *data
+    let int *data
     data = <int*>arr.data
     data[0] = 1000
     data[1] = 2000
@@ -232,7 +232,7 @@ def call():
 
     mv3 = mv2
 
-    cdef int *mv3_data = <int*>mv3._data
+    let int *mv3_data = <int*>mv3._data
 
     print (<int*>mv1._data)[2]
 
@@ -253,7 +253,7 @@ def two_dee():
     1 2 3 -4
     1 2 3 -4
     '''
-    cdef long[:,::1] mv1, mv2, mv3
+    fn long[:,::1] mv1, mv2, mv3
     cdef array arr = array((2,2), sizeof(long), 'l')
 
     assert len(arr) == 2
@@ -265,7 +265,7 @@ def two_dee():
     else:
         assert False, "UnboundLocalError not raised for uninitialised memory view"
 
-    cdef long *arr_data
+    let long *arr_data
     arr_data = <long*>arr.data
 
     mv1 = arr
@@ -302,10 +302,10 @@ def fort_two_dee():
     1 2 3 -4
     '''
     cdef array arr = array((2,2), sizeof(long), 'l', mode='fortran')
-    cdef long[::1,:] mv1, mv2, mv4
-    cdef long[:, ::1] mv3
+    fn long[::1,:] mv1, mv2, mv4
+    fn long[:, ::1] mv3
 
-    cdef long *arr_data
+    let long *arr_data
     arr_data = <long*>arr.data
 
     mv1 = arr

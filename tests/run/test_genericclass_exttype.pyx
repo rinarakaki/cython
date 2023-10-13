@@ -40,7 +40,7 @@ cdef class Invalid2:
     def __class_getitem__(cls, item1, item2): pass
 
 cdef class Invalid3:
-    cdef dict __dict__
+    let dict __dict__
     def __init__(self):
         self.__class_getitem__ = lambda cls, items: 'This will not work'
 

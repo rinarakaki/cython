@@ -1,8 +1,8 @@
 # cython: remove_unreachable=False
 # mode: error
 
-cdef int f_nogil(int x) nogil:
-    cdef int y
+fn int f_nogil(int x) nogil:
+    let int y
     y = x + 10
     return y
 
@@ -14,7 +14,7 @@ def f_gil(x):
 
 
 def illegal_gil_usage():
-    cdef int res = 0
+    let int res = 0
     with nogil(True):
         res = f_gil(res)
 
@@ -33,7 +33,7 @@ def foo(a):
 
 
 def non_constant_condition(int x) -> int:
-    cdef int res = x
+    let int res = x
     with nogil(x < 10):
         res = f_nogil(res)
 

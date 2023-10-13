@@ -10,11 +10,11 @@
 """
 
 x = 3
-cdef int y
+let int y
 
 cdef class Foo:
-    cdef int x
-    cdef int y
+    let int x
+    let int y
     def __init__(self, x):
         self.x = x
     def __str__(self):

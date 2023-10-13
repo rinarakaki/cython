@@ -3,7 +3,7 @@ def test_ptr():
     >>> test_ptr()
     False
     """
-    cdef void* p = NULL
+    let void* p = NULL
     if p:
         return True
     else:
@@ -14,8 +14,8 @@ def test_ptr2():
     >>> test_ptr2()
     2
     """
-    cdef char* p1 = NULL
-    cdef char* p2 = NULL
+    let char* p1 = NULL
+    let char* p2 = NULL
     p1 += 1
 
     if p1 and p2:
@@ -62,7 +62,7 @@ def test_Py_ssize_t(Py_ssize_t i):
         return False
 
 cdef class TestExtInt:
-    cdef int i
+    let int i
     def __init__(self, i): self.i = i
 
 def test_attr_int(TestExtInt e):
@@ -82,9 +82,9 @@ union _aux:
     void *p
 
 cdef class TestExtPtr:
-    cdef void* p
+    let void* p
     def __init__(self, int i):
-        cdef _aux aux
+        let _aux aux
         aux.i = i
         self.p = aux.p
 

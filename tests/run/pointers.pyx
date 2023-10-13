@@ -1,13 +1,13 @@
 cimport cython
 
-cdef char* c_string = b'abcdefg'
-cdef void* void_ptr = c_string
+let char* c_string = b'abcdefg'
+let void* void_ptr = c_string
 
-cdef int i = 42
-cdef int* int_ptr = &i
+let int i = 42
+let int* int_ptr = &i
 
-cdef float x = 42.2
-cdef float* float_ptr = &x
+let float x = 42.2
+let float* float_ptr = &x
 
 def compare():
     """

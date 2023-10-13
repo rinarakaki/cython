@@ -1,8 +1,8 @@
 import math
 
 def great_circle(double lon1, double lat1, double lon2, double lat2):
-    cdef double radius = 3956 # miles
-    cdef double x = math.pi/180.0
+    let double radius = 3956 # miles
+    let double x = math.pi/180.0
     cdef double a, b, theta, c
 
     a = (90.0 - lat1)*x

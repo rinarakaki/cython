@@ -1,14 +1,14 @@
 # ticket: t258
 
-cdef extern from "Python.h":
+extern from "Python.h":
 
     ctypedef class __builtin__.list  [object PyListObject]:
-        cdef Py_ssize_t allocated
+        let Py_ssize_t allocated
 
     ctypedef class __builtin__.dict  [object PyDictObject]:
         pass
 
-    cdef Py_ssize_t Py_SIZE(object o)
+    fn Py_ssize_t Py_SIZE(object o)
 
 cdef list L = [1,2,4]
 cdef dict d = {'A': 'a'}

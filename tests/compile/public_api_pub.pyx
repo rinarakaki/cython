@@ -10,13 +10,13 @@ pub enum EnumA1: EA1
 enum EnumB0: EB0=0
 cdef public enum EnumB1: EB1=1
 
-cdef Int0   i0  = 0
-cdef EnumA0 ea0 = EA0
-cdef EnumB0 eb0 = EB0
+let Int0   i0  = 0
+let EnumA0 ea0 = EA0
+let EnumB0 eb0 = EB0
 
-cdef public Int1   i1  = 0
-cdef public EnumA1 ea1 = EA1
-cdef public EnumB1 eb1 = EB1
+let public Int1   i1  = 0
+let public EnumA1 ea1 = EA1
+let public EnumB1 eb1 = EB1
 
 # --
 
@@ -44,11 +44,11 @@ ctypedef public class Foo1 [type PyFoo1_Type, object PyFoo1_Object]: pass
 cdef        class Bar0: pass
 cdef public class Bar1 [type PyBar1_Type, object PyBar1_Object]: pass
 
-cdef Foo0 f0 = None
-cdef Bar0 b0 = None
+let Foo0 f0 = None
+let Bar0 b0 = None
 
-cdef public Foo1 f1 = None
-cdef public Bar1 b1 = None
+let public Foo1 f1 = None
+let public Bar1 b1 = None
 
 # --
 

@@ -12,7 +12,7 @@ cdef class Queue:
     >>> q.pop()
     5
     """
-    cdef cqueue.Queue* _c_queue
+    let cqueue.Queue* _c_queue
     def __cinit__(self):
         self._c_queue = cqueue.queue_new()
         if self._c_queue is NULL:
@@ -41,14 +41,14 @@ cdef class Queue:
 
 
     cdef extend_ints(self, int* values, size_t count):
-        cdef int value
+        let int value
         for value in values[:count]:  # Slicing pointer to limit the iteration boundaries.
             self.append(value)
 
 
 
     cpdef int peek(self) except? -1:
-        cdef int value = <Py_ssize_t> cqueue.queue_peek_head(self._c_queue)
+        let int value = <Py_ssize_t> cqueue.queue_peek_head(self._c_queue)
 
         if value == 0:
             # this may mean that the queue is empty,

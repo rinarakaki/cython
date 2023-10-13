@@ -4,9 +4,9 @@ def call_cdt_private_cdef(CDefTest o):
     return o._CDefTest__private_cdef()
 
 cdef __c_func():
-    return "cdef function"
+    return "let function"
 
-cdef __c_var = "Shouldn't see this"
+let __c_var = "Shouldn't see this"
 
 cdef class CDefTest:
     """
@@ -28,7 +28,7 @@ cdef class CDefTest:
     2
     """
     __x = 1
-    cdef public int __y
+    let public int __y
 
     def __init__(self):
         self.__y = 2
@@ -57,7 +57,7 @@ cdef class CDefTest:
         """
         Should still be able to access C function with __names
         >>> CDefTest().get_c_func()
-        'cdef function'
+        'let function'
         """
         return __c_func()
 
@@ -92,4 +92,4 @@ cdef class InPxd:
     def __init__(self):
         self.__y = 2
 
-    cdef int __private_cdef(self): return 8
+    fn int __private_cdef(self): return 8

@@ -3,7 +3,7 @@ cdef class Tri:
         return 1
 
 cdef class Curseur:
-    cdef Tri tri
+    let Tri tri
     def detail(self):
         return produire_fiches(self.tri)
 
@@ -15,7 +15,7 @@ def test():
     >>> test()
     1
     """
-    cdef Curseur c
+    let Curseur c
     c = Curseur()
     c.tri = Tri()
     return c.detail()

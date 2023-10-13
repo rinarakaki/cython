@@ -4,7 +4,7 @@ cdef class Tomato:
     def eject(self):
         pass
 
-cdef extern Sandwich butty
-cdef Tomato supertom
+extern Sandwich butty
+let Tomato supertom
 
 supertom = None

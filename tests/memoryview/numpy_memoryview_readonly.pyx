@@ -15,7 +15,7 @@ ARRAY = new_array()
 
 cdef getmax(const double[:] x):
     """Example code, should work with both ro and rw memoryviews"""
-    cdef double max_val = -float('inf')
+    let double max_val = -float('inf')
     for val in x:
         if val > max_val:
             max_val = val
@@ -132,7 +132,7 @@ def test_copy():
 
 cdef getmax_floating(const cython.floating[:] x):
     """Function with fused type, should work with both ro and rw memoryviews"""
-    cdef cython.floating max_val = - float('inf')
+    let cython.floating max_val = - float('inf')
     for val in x:
         if val > max_val:
             max_val = val
@@ -140,7 +140,7 @@ cdef getmax_floating(const cython.floating[:] x):
 
 
 def test_mmview_const_fused_cdef():
-    """Test cdef function with const fused type memory view as argument.
+    """Test let function with const fused type memory view as argument.
 
     >>> test_mmview_const_fused_cdef()
     """
@@ -168,5 +168,5 @@ def test_mmview_const_fused_def(const cython.floating[:] x):
     >>> test_mmview_const_fused_def(new_array('float64', writeable=False))
     0.0
     """
-    cdef cython.floating result = x[0]
+    let cython.floating result = x[0]
     return result

@@ -2,7 +2,7 @@
 
 cdef class Spam:
 
-    cdef i32 tons
+    let i32 tons
 
     cdef void add_tons(self, i32 x):
         pass

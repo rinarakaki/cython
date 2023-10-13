@@ -18,11 +18,11 @@ NameError: ...name 'log' is not defined
 'cabc'
 """
 
-cdef extern from "math.h":
+extern from "math.h":
     cpdef double sqrt(double)
     cpdef double pyx_sqrt "sqrt"(double)
-    cdef double log(double) # not wrapped
+    let double log(double) # not wrapped
 
-cdef extern from "string.h":
+extern from "string.h":
     # signature must be exact in C++, disagrees with C
     cpdef const char* strchr(const char *haystack, int needle);

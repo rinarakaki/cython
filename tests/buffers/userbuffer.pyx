@@ -15,14 +15,14 @@ UserBuffer2: getbuffer
 UserBuffer2: release
 """
 
-cdef extern from *:
+extern from *:
     struct Py_buffer # redeclared
     enum: PyBUF_SIMPLE
     int PyBuffer_FillInfo(Py_buffer *, object, void *, Py_ssize_t, bint, int) except -1
     int  PyObject_GetBuffer(object, Py_buffer *, int) except -1
     void PyBuffer_Release(Py_buffer *)
 
-cdef char global_buf[5]
+let char global_buf[5]
 global_buf[0:5] = [0, 1, 2, 3, 4]
 
 cdef class UserBuffer1:
@@ -31,7 +31,7 @@ cdef class UserBuffer1:
         PyBuffer_FillInfo(view, None, global_buf, 5, 1, flags)
 
 cdef class UserBuffer2:
-    cdef char buf[5]
+    let char buf[5]
 
     def __cinit__(self):
         self.buf[0:5] = [5, 6, 7, 8, 9]
@@ -44,7 +44,7 @@ cdef class UserBuffer2:
         print('UserBuffer2: release')
 
 
-cdef extern from *:
+extern from *:
     struct PyBuffer"Py_buffer":
         void *buf
         Py_ssize_t len
@@ -56,14 +56,14 @@ cdef class _memoryview:
     Memory
     """
 
-    cdef PyBuffer view
+    let PyBuffer view
 
     def __cinit__(self, obj):
-        cdef Py_buffer *view = <Py_buffer*>&self.view
+        let Py_buffer *view = <Py_buffer*>&self.view
         PyObject_GetBuffer(obj, view, PyBUF_SIMPLE)
 
     def __dealloc__(self):
-        cdef Py_buffer *view = <Py_buffer*>&self.view
+        let Py_buffer *view = <Py_buffer*>&self.view
         PyBuffer_Release(view )
         
     def __getbuffer__(self, Py_buffer *view, int flags):
@@ -71,5 +71,5 @@ cdef class _memoryview:
                           self.view.buf, self.view.len,
                           self.view.readonly, flags)
     def tolist(self):
-        cdef char *b = <char *> self.view.buf
+        let char *b = <char *> self.view.buf
         return [b[i] for i in range(self.view.len)]

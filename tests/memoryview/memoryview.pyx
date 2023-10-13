@@ -19,8 +19,8 @@ cimport cython
 import array as pyarray
 from libc.stdlib cimport malloc, free
 
-cdef extern from "Python.h":
-    cdef int PyBUF_C_CONTIGUOUS
+extern from "Python.h":
+    let int PyBUF_C_CONTIGUOUS
 
 include "../buffers/mockbuffers.pxi"
 
@@ -34,8 +34,8 @@ cdef passmvs(float[:,::1] mvs, object foo):
     mvs = array((10,10), itemsize=sizeof(float), format='f')
     foo = init_obj()
 
-cdef object returnobj():
-    cdef obj = object()
+fn object returnobj():
+    let obj = object()
     return obj
 
 cdef float[::1] returnmvs_inner():
@@ -50,13 +50,13 @@ def f():
     cdef memoryview mv = memoryview(arr, PyBUF_C_CONTIGUOUS)
 
 def g():
-    cdef object obj = init_obj()
-    cdef int[::1] mview = array((10,), itemsize=sizeof(int), format='i')
+    let object obj = init_obj()
+    fn int[::1] mview = array((10,), itemsize=sizeof(int), format='i')
     obj = init_obj()
     mview = array((10,), itemsize=sizeof(int), format='i')
 
 cdef class ExtClass(object):
-    cdef int[::1] mview
+    fn int[::1] mview
 
     def __init__(self):
         self.mview = array((10,), itemsize=sizeof(int), format='i')
@@ -90,21 +90,21 @@ def test_external_dtype():
     2.0
     2.0
     """
-    cdef TestExcClassExternalDtype obj = TestExcClassExternalDtype()
+    let TestExcClassExternalDtype obj = TestExcClassExternalDtype()
     print obj.arr_float[4, 4]
     print obj.arr_double[4, 4]
 
 
 cdef class ExtClassMockedAttr(object):
-    cdef int[:, :] arr
+    fn int[:, :] arr
 
     def __init__(self):
         self.arr = IntMockBuffer("self.arr", range(100), (10, 8))
         self.arr[:] = 0
         self.arr[4, 4] = 2
 
-cdef int[:, :] _coerce_to_temp():
-    cdef ExtClassMockedAttr obj = ExtClassMockedAttr()
+fn int[:, :] _coerce_to_temp():
+    let ExtClassMockedAttr obj = ExtClassMockedAttr()
     return obj.arr
 
 def test_coerce_to_temp():
@@ -145,16 +145,16 @@ def test_extclass_attribute_dealloc():
     2
     released self.arr
     """
-    cdef ExtClassMockedAttr obj = ExtClassMockedAttr()
+    let ExtClassMockedAttr obj = ExtClassMockedAttr()
     print obj.arr[4, 4]
 
 cdef float[:,::1] global_mv = array((10,10), itemsize=sizeof(float), format='f')
 global_mv = array((10,10), itemsize=sizeof(float), format='f')
-cdef object global_obj
+let object global_obj
 
 def assignmvs():
-    cdef int[::1] mv1, mv2
-    cdef int[:] mv3
+    fn int[::1] mv1, mv2
+    fn int[:] mv3
     mv1 = array((10,), itemsize=sizeof(int), format='i')
     mv2 = mv1
     mv1 = mv1
@@ -167,7 +167,7 @@ def call():
     global_mv = array((3,3), itemsize=sizeof(float), format='f')
     cdef float[::1] getmvs = returnmvs()
     returnmvs()
-    cdef object obj = returnobj()
+    let object obj = returnobj()
     cdg()
     f = ExtClass()
     pf = PyClass()
@@ -186,7 +186,7 @@ def test_cdef_attribute():
     Memoryview is not initialized
     <MemoryView of 'array' object>
     """
-    cdef ExtClass extobj = ExtClass.__new__(ExtClass)
+    let ExtClass extobj = ExtClass.__new__(ExtClass)
     try:
         print extobj.mview
     except AttributeError, e:
@@ -194,7 +194,7 @@ def test_cdef_attribute():
     else:
         print "No AttributeError was raised"
 
-    cdef int[:] myview
+    fn int[:] myview
     try:
         print myview
     except UnboundLocalError, e:
@@ -202,7 +202,7 @@ def test_cdef_attribute():
     else:
         print "No UnboundLocalError was raised"
 
-    cdef int[:] otherview
+    fn int[:] otherview
     try:
          otherview = myview
     except UnboundLocalError, e:
@@ -225,7 +225,7 @@ def test_nogil_unbound_localerror():
         ...
     UnboundLocalError: local variable 'm' referenced before assignment
     """
-    cdef int[:] m
+    fn int[:] m
     with nogil:
         m[0] = 10
 
@@ -236,8 +236,8 @@ def test_nogil_oob():
         ...
     IndexError: Out of bounds on buffer access (axis 0)
     """
-    cdef int[5] a
-    cdef int[:] m = a
+    let int[5] a
+    fn int[:] m = a
     with nogil:
         m[5] = 1
 
@@ -250,7 +250,7 @@ def basic_struct(MyStruct[:] mslice):
     >>> basic_struct(MyStructMockBuffer(None, [(1, 2, 3, 4, 5)], format="ccqii"))
     [('a', 1), ('b', 2), ('c', 3), ('d', 4), ('e', 5)]
     """
-    cdef object buf = mslice
+    let object buf = mslice
     print sorted([(k, int(v)) for k, v in buf[0].items()])
 
 def nested_struct(NestedStruct[:] mslice):
@@ -262,7 +262,7 @@ def nested_struct(NestedStruct[:] mslice):
     >>> nested_struct(NestedStructMockBuffer(None, [(1, 2, 3, 4, 5)], format="T{ii}T{2i}i"))
     1 2 3 4 5
     """
-    cdef object buf = mslice
+    let object buf = mslice
     d = buf[0]
     print d['x']['a'], d['x']['b'], d['y']['a'], d['y']['b'], d['z']
 
@@ -278,7 +278,7 @@ def packed_struct(PackedStruct[:] mslice):
     1 2
 
     """
-    cdef object buf = mslice
+    let object buf = mslice
     print buf[0]['a'], buf[0]['b']
 
 def nested_packed_struct(NestedPackedStruct[:] mslice):
@@ -292,7 +292,7 @@ def nested_packed_struct(NestedPackedStruct[:] mslice):
     >>> nested_packed_struct(NestedPackedStructMockBuffer(None, [(1, 2, 3, 4, 5)], format="^c@i^ci@i"))
     1 2 3 4 5
     """
-    cdef object buf = mslice
+    let object buf = mslice
     d = buf[0]
     print d['a'], d['b'], d['sub']['a'], d['sub']['b'], d['c']
 
@@ -302,7 +302,7 @@ def complex_dtype(long double complex[:] mslice):
     >>> complex_dtype(LongComplexMockBuffer(None, [(0, -1)]))
     -1j
     """
-    cdef object buf = mslice
+    let object buf = mslice
     print buf[0]
 
 def complex_inplace(long double complex[:] mslice):
@@ -310,7 +310,7 @@ def complex_inplace(long double complex[:] mslice):
     >>> complex_inplace(LongComplexMockBuffer(None, [(0, -1)]))
     (1+1j)
     """
-    cdef object buf = mslice
+    let object buf = mslice
     buf[0] = buf[0] + 1 + 2j
     print buf[0]
 
@@ -321,7 +321,7 @@ def complex_struct_dtype(LongComplex[:] mslice):
     >>> complex_struct_dtype(LongComplexMockBuffer(None, [(0, -1)]))
     0.0 -1.0
     """
-    cdef object buf = mslice
+    let object buf = mslice
     print buf[0]['real'], buf[0]['imag']
 
 #
@@ -359,7 +359,7 @@ def get_int_2d(int[:, :] mslice, int i, int j):
         ...
     IndexError: Out of bounds on buffer access (axis 1)
     """
-    cdef object buf = mslice
+    let object buf = mslice
     return buf[i, j]
 
 def set_int_2d(int[:, :] mslice, int i, int j, int value):
@@ -412,7 +412,7 @@ def set_int_2d(int[:, :] mslice, int i, int j, int value):
     IndexError: Out of bounds on buffer access (axis 1)
 
     """
-    cdef object buf = mslice
+    let object buf = mslice
     buf[i, j] = value
 
 
@@ -448,7 +448,7 @@ def memview_iter(double[:, :] arg):
     released C
     True
     """
-    cdef double total = 0
+    let double total = 0
     for mview1d in arg:
         for val in mview1d:
             total += val
@@ -468,7 +468,7 @@ def writable(unsigned short int[:, :, :] mslice):
     >>> [str(x) for x in R.received_flags] # Py2/3
     ['FORMAT', 'ND', 'STRIDES', 'WRITABLE']
     """
-    cdef object buf = mslice
+    let object buf = mslice
     buf[2, 2, 1] = 23
 
 def strided(int[:] mslice):
@@ -483,7 +483,7 @@ def strided(int[:] mslice):
     >>> A.release_ok
     True
     """
-    cdef object buf = mslice
+    let object buf = mslice
     return buf[2]
 
 def c_contig(int[::1] mslice):
@@ -492,7 +492,7 @@ def c_contig(int[::1] mslice):
     >>> c_contig(A)
     2
     """
-    cdef object buf = mslice
+    let object buf = mslice
     return buf[2]
 
 def c_contig_2d(int[:, ::1] mslice):
@@ -503,7 +503,7 @@ def c_contig_2d(int[:, ::1] mslice):
     >>> c_contig_2d(A)
     7
     """
-    cdef object buf = mslice
+    let object buf = mslice
     return buf[1, 3]
 
 def f_contig(int[::1, :] mslice):
@@ -512,7 +512,7 @@ def f_contig(int[::1, :] mslice):
     >>> f_contig(A)
     2
     """
-    cdef object buf = mslice
+    let object buf = mslice
     return buf[0, 1]
 
 def f_contig_2d(int[::1, :] mslice):
@@ -523,7 +523,7 @@ def f_contig_2d(int[::1, :] mslice):
     >>> f_contig_2d(A)
     7
     """
-    cdef object buf = mslice
+    let object buf = mslice
     return buf[3, 1]
 
 def generic(int[::view.generic, ::view.generic] mslice1,
@@ -579,7 +579,7 @@ def generic(int[::view.generic, ::view.generic] mslice1,
 #    print buf2[2, 2]
 
 ctypedef int td_cy_int
-cdef extern from "bufaccess.h":
+extern from "bufaccess.h":
     ctypedef td_cy_int td_h_short # Defined as short, but Cython doesn't know this!
     ctypedef float td_h_double # Defined as double
     ctypedef unsigned int td_h_ushort # Defined as unsigned short
@@ -594,8 +594,8 @@ def printbuf_td_cy_int(td_cy_int[:] mslice, shape):
        ...
     ValueError: Buffer dtype mismatch, expected 'td_cy_int' but got 'short'
     """
-    cdef object buf = mslice
-    cdef int i
+    let object buf = mslice
+    let int i
     for i in range(shape[0]):
         print buf[i],
     print 'END'
@@ -609,8 +609,8 @@ def printbuf_td_h_short(td_h_short[:] mslice, shape):
        ...
     ValueError: Buffer dtype mismatch, expected 'td_h_short' but got 'int'
     """
-    cdef object buf = mslice
-    cdef int i
+    let object buf = mslice
+    let int i
     for i in range(shape[0]):
         print buf[i],
     print 'END'
@@ -624,8 +624,8 @@ def printbuf_td_h_cy_short(td_h_cy_short[:] mslice, shape):
        ...
     ValueError: Buffer dtype mismatch, expected 'td_h_cy_short' but got 'int'
     """
-    cdef object buf = mslice
-    cdef int i
+    let object buf = mslice
+    let int i
     for i in range(shape[0]):
         print buf[i],
     print 'END'
@@ -639,8 +639,8 @@ def printbuf_td_h_ushort(td_h_ushort[:] mslice, shape):
        ...
     ValueError: Buffer dtype mismatch, expected 'td_h_ushort' but got 'short'
     """
-    cdef object buf = mslice
-    cdef int i
+    let object buf = mslice
+    let int i
     for i in range(shape[0]):
         print buf[i],
     print 'END'
@@ -654,8 +654,8 @@ def printbuf_td_h_double(td_h_double[:] mslice, shape):
        ...
     ValueError: Buffer dtype mismatch, expected 'td_h_double' but got 'float'
     """
-    cdef object buf = mslice
-    cdef int i
+    let object buf = mslice
+    let int i
     for i in range(shape[0]):
         print buf[i],
     print 'END'
@@ -694,8 +694,8 @@ def printbuf_object(object[:] mslice, shape):
     {4: 23} 2
     [34, 3] 2
     """
-    cdef object buf = mslice
-    cdef int i
+    let object buf = mslice
+    let int i
     for i in range(shape[0]):
         print repr(buf[i]), (<PyObject*>buf[i]).ob_refcnt
 
@@ -715,7 +715,7 @@ def assign_to_object(object[:] mslice, int idx, obj):
     (2, 3)
     >>> decref(b)
     """
-    cdef object buf = mslice
+    let object buf = mslice
     buf[idx] = obj
 
 def assign_temporary_to_object(object[:] mslice):
@@ -742,7 +742,7 @@ def assign_temporary_to_object(object[:] mslice):
     >>> assign_to_object(A, 1, a)
     >>> decref(a)
     """
-    cdef object buf = mslice
+    let object buf = mslice
     buf[1] = {3-2: 2+(2*4)-2}
 
 
@@ -789,8 +789,8 @@ def test_generic_slicing(arg, indirect=False):
     released A
 
     """
-    cdef int[::view.generic, ::view.generic, :] _a = arg
-    cdef object a = _a
+    fn int[::view.generic, ::view.generic, :] _a = arg
+    let object a = _a
     b = a[2:8:2, -4:1:-1, 1:3]
 
     print b.shape
@@ -803,7 +803,7 @@ def test_generic_slicing(arg, indirect=False):
         print_int_offsets(b.strides[0], b.strides[1], b.strides[2])
         print_int_offsets(b.suboffsets[0], b.suboffsets[1], b.suboffsets[2])
 
-    cdef int i, j, k
+    let int i, j, k
     for i in range(b.shape[0]):
         for j in range(b.shape[1]):
             for k in range(b.shape[2]):
@@ -838,7 +838,7 @@ def test_indirect_slicing(arg):
     2412
     released A
     """
-    cdef int[::view.indirect, ::view.indirect, :] _a = arg
+    fn int[::view.indirect, ::view.indirect, :] _a = arg
     a = _a
     b = a[-5:, ..., -5:100:2]
 
@@ -872,15 +872,15 @@ def test_direct_slicing(arg):
     -1 -1 -1
     released A
     """
-    cdef int[:, :, :] _a = arg
-    cdef object a = _a
+    fn int[:, :, :] _a = arg
+    let object a = _a
     b = a[2:8:2, -4:1:-1, 1:3]
 
     print b.shape
     print_int_offsets(*b.strides)
     print_int_offsets(*b.suboffsets)
 
-    cdef int i, j, k
+    let int i, j, k
     for i in range(b.shape[0]):
         for j in range(b.shape[1]):
             for k in range(b.shape[2]):
@@ -900,8 +900,8 @@ def test_slicing_and_indexing(arg):
     [111]
     released A
     """
-    cdef int[:, :, :] _a = arg
-    cdef object a = _a
+    fn int[:, :, :] _a = arg
+    let object a = _a
     b = a[-5:, 1, 1::2]
     c = b[4:1:-1, ::-1]
     d = c[2, 1:2]
@@ -909,7 +909,7 @@ def test_slicing_and_indexing(arg):
     print b.shape
     print_int_offsets(*b.strides)
 
-    cdef int i, j
+    let int i, j
     for i in range(b.shape[0]):
         for j in range(b.shape[1]):
             itemA = a[-5 + i, 1, 1 + 2 * j]
@@ -926,7 +926,7 @@ def test_oob():
        ...
     IndexError: Index out of bounds (axis 1)
     """
-    cdef int[:, :] a = IntMockBuffer("A", range(4 * 9), shape=(4, 9))
+    fn int[:, :] a = IntMockBuffer("A", range(4 * 9), shape=(4, 9))
     print a[:, 20]
 
 def test_acquire_memoryview():
@@ -940,8 +940,8 @@ def test_acquire_memoryview():
     22
     released A
     """
-    cdef int[:, :] a = IntMockBuffer("A", range(4 * 9), shape=(4, 9))
-    cdef object b = a
+    fn int[:, :] a = IntMockBuffer("A", range(4 * 9), shape=(4, 9))
+    let object b = a
 
     print a[2, 4]
 
@@ -949,7 +949,7 @@ def test_acquire_memoryview():
     del a
 
     print b
-    cdef int[:, :] c = b
+    fn int[:, :] c = b
     print b[2, 4]
     print c[2, 4]
 
@@ -963,10 +963,10 @@ def test_acquire_memoryview_slice():
     31
     released A
     """
-    cdef int[:, :] a = IntMockBuffer("A", range(4 * 9), shape=(4, 9))
+    fn int[:, :] a = IntMockBuffer("A", range(4 * 9), shape=(4, 9))
     a = a[1:, :6]
 
-    cdef object b = a
+    let object b = a
 
     print a[2, 4]
 
@@ -974,7 +974,7 @@ def test_acquire_memoryview_slice():
     del a
 
     print b
-    cdef int[:, :] c = b
+    fn int[:, :] c = b
     print b[2, 4]
     print c[2, 4]
 
@@ -1058,8 +1058,8 @@ def test_contig_scalar_to_slice_assignment():
     14 14 14 14
     20 20 20 20
     """
-    cdef int[5][10] a
-    cdef int[:, ::1] _m = a
+    let int[5][10] a
+    fn int[:, ::1] _m = a
     m = _m
 
     m[...] = 14
@@ -1072,7 +1072,7 @@ def test_dtype_object_scalar_assignment():
     """
     >>> test_dtype_object_scalar_assignment()
     """
-    cdef object[:] m = array((10,), sizeof(PyObject *), 'O')
+    fn object[:] m = array((10,), sizeof(PyObject *), 'O')
     m[:] = SingleObject(2)
     assert m[0] == m[4] == m[-1] == 2
 
@@ -1093,8 +1093,8 @@ def test_assignment_in_conditional_expression(bint left):
     3.0
     4.0
     """
-    cdef double a[2]
-    cdef double b[2]
+    let double a[2]
+    let double b[2]
     a[:] = [1, 2]
     b[:] = [3, 4]
 
@@ -1119,7 +1119,7 @@ def test_cpython_offbyone_issue_23349():
     >>> print(test_cpython_offbyone_issue_23349())
     testing
     """
-    cdef unsigned char[:] v = bytearray(b"testing")
+    fn unsigned char[:] v = bytearray(b"testing")
     # the following returns 'estingt' without the workaround
     return bytearray(v).decode('ascii')
 
@@ -1134,9 +1134,9 @@ def min_max_tree_restructuring():
     >>> min_max_tree_restructuring()
     (1, 3)
     """
-    cdef char a[5]
+    let char a[5]
     a = [1, 2, 3, 4, 5]
-    cdef char[:] aview = a
+    fn char[:] aview = a
 
     return max(<char>1, aview[0]), min(<char>5, aview[2])
 
@@ -1208,8 +1208,8 @@ def test_assign_from_byteslike(byteslike):
     def assign(m):
         m[:] = byteslike
 
-    cdef void *buf
-    cdef unsigned char[:] mview
+    let void *buf
+    fn unsigned char[:] mview
     buf = malloc(5)
     try:
         mview = <unsigned char[:5]>(buf)
@@ -1292,7 +1292,7 @@ def test_assignment_typedef():
     1
     2
     """
-    cdef int[2] x
+    let int[2] x
     cdef aliasT[:] y
     x[:] = [1, 2]
     y = x

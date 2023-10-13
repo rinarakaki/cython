@@ -5,7 +5,7 @@ from cython.operator import (preincrement, predecrement,
                              postincrement, postdecrement)
 from libcpp cimport bool
 
-cdef extern from "cpp_operator_exc_handling_helper.hpp" nogil:
+extern from "cpp_operator_exc_handling_helper.hpp" nogil:
     cppclass wrapped_int:
         long long val
         wrapped_int()
@@ -68,153 +68,153 @@ def initialization(long long a, long long b):
     return w.val
 
 def addition(long long a, long long b):
-    cdef wrapped_int wa = wrapped_int(a)
-    cdef wrapped_int wb = wrapped_int(b)
+    let wrapped_int wa = wrapped_int(a)
+    let wrapped_int wb = wrapped_int(b)
     return (wa + wb).val
 
 def subtraction(long long a, long long b):
-    cdef wrapped_int wa = wrapped_int(a)
-    cdef wrapped_int wb = wrapped_int(b)
+    let wrapped_int wa = wrapped_int(a)
+    let wrapped_int wb = wrapped_int(b)
     return (wa - wb).val
 
 def multiplication(long long a, long long b):
-    cdef wrapped_int wa = wrapped_int(a)
-    cdef wrapped_int wb = wrapped_int(b)
+    let wrapped_int wa = wrapped_int(a)
+    let wrapped_int wb = wrapped_int(b)
     return (wa * wb).val
 
 def division(long long a, long long b):
-    cdef wrapped_int wa = wrapped_int(a)
-    cdef wrapped_int wb = wrapped_int(b)
+    let wrapped_int wa = wrapped_int(a)
+    let wrapped_int wb = wrapped_int(b)
     return (wa / wb).val
 
 def mod(long long a, long long b):
-    cdef wrapped_int wa = wrapped_int(a)
-    cdef wrapped_int wb = wrapped_int(b)
+    let wrapped_int wa = wrapped_int(a)
+    let wrapped_int wb = wrapped_int(b)
     return (wa % wb).val
 
 def minus(long long a):
-    cdef wrapped_int wa = wrapped_int(a)
+    let wrapped_int wa = wrapped_int(a)
     return (-wa).val
 
 def plus(long long a):
-    cdef wrapped_int wa = wrapped_int(a)
+    let wrapped_int wa = wrapped_int(a)
     return (+wa).val
 
 def xor(long long a, long long b):
-    cdef wrapped_int wa = wrapped_int(a)
-    cdef wrapped_int wb = wrapped_int(b)
+    let wrapped_int wa = wrapped_int(a)
+    let wrapped_int wb = wrapped_int(b)
     return wa ^ wb
 
 def bitwise_and(long long a, long long b):
-    cdef wrapped_int wa = wrapped_int(a)
-    cdef wrapped_int wb = wrapped_int(b)
+    let wrapped_int wa = wrapped_int(a)
+    let wrapped_int wb = wrapped_int(b)
     return wa & wb
 
 def bitwise_or(long long a, long long b):
-    cdef wrapped_int wa = wrapped_int(a)
-    cdef wrapped_int wb = wrapped_int(b)
+    let wrapped_int wa = wrapped_int(a)
+    let wrapped_int wb = wrapped_int(b)
     return wa | wb
 
 def bitwise_not(long long a):
-    cdef wrapped_int wa = wrapped_int(a)
+    let wrapped_int wa = wrapped_int(a)
     return (~a).val
 
 def address(long long a):
-    cdef wrapped_int wa = wrapped_int(a)
+    let wrapped_int wa = wrapped_int(a)
     return &wa
 
 def iseq(long long a, long long b):
-    cdef wrapped_int wa = wrapped_int(a)
-    cdef wrapped_int wb = wrapped_int(b)
+    let wrapped_int wa = wrapped_int(a)
+    let wrapped_int wb = wrapped_int(b)
     return wa == wb
 
 def neq(long long a, long long b):
-    cdef wrapped_int wa = wrapped_int(a)
-    cdef wrapped_int wb = wrapped_int(b)
+    let wrapped_int wa = wrapped_int(a)
+    let wrapped_int wb = wrapped_int(b)
     return wa != wb
 
 def less(long long a, long long b):
-    cdef wrapped_int wa = wrapped_int(a)
-    cdef wrapped_int wb = wrapped_int(b)
+    let wrapped_int wa = wrapped_int(a)
+    let wrapped_int wb = wrapped_int(b)
     return wa < wb
 
 def leq(long long a, long long b):
-    cdef wrapped_int wa = wrapped_int(a)
-    cdef wrapped_int wb = wrapped_int(b)
+    let wrapped_int wa = wrapped_int(a)
+    let wrapped_int wb = wrapped_int(b)
     return wa <= wb
 
 def greater(long long a, long long b):
-    cdef wrapped_int wa = wrapped_int(a)
-    cdef wrapped_int wb = wrapped_int(b)
+    let wrapped_int wa = wrapped_int(a)
+    let wrapped_int wb = wrapped_int(b)
     return wa > wb
 
 def geq(long long a, long long b):
-    cdef wrapped_int wa = wrapped_int(a)
-    cdef wrapped_int wb = wrapped_int(b)
+    let wrapped_int wa = wrapped_int(a)
+    let wrapped_int wb = wrapped_int(b)
     return wa < wb
 
 def left_shift(long long a, long long b):
-    cdef wrapped_int wa = wrapped_int(a)
+    let wrapped_int wa = wrapped_int(a)
     return (wa << b).val
 
 def right_shift(long long a, long long b):
-    cdef wrapped_int wa = wrapped_int(a)
+    let wrapped_int wa = wrapped_int(a)
     return (wa >> b).val
 
 def cpp_preincrement(long long a):
-    cdef wrapped_int wa = wrapped_int(a)
+    let wrapped_int wa = wrapped_int(a)
     return preincrement(wa).val
 
 def cpp_predecrement(long long a):
-    cdef wrapped_int wa = wrapped_int(a)
+    let wrapped_int wa = wrapped_int(a)
     return predecrement(wa).val
 
 def cpp_postincrement(long long a):
-    cdef wrapped_int wa = wrapped_int(a)
+    let wrapped_int wa = wrapped_int(a)
     return postincrement(wa).val
 
 def cpp_postdecrement(long long a):
-    cdef wrapped_int wa = wrapped_int(a)
+    let wrapped_int wa = wrapped_int(a)
     return postdecrement(wa).val
 
 def negate(long long a):
-    cdef wrapped_int wa = wrapped_int(a)
+    let wrapped_int wa = wrapped_int(a)
     return (not wa).val
 
 def bool_cast(long long a):
-    cdef wrapped_int wa = wrapped_int(a)
+    let wrapped_int wa = wrapped_int(a)
     if wa:
         return True
     else:
         return False
 
 def index(long long a, long long b):
-    cdef wrapped_int wa = wrapped_int(a)
+    let wrapped_int wa = wrapped_int(a)
     return wa[b].val
 
 def assign_index(long long a, long long b, long long c):
-    cdef wrapped_int wa = wrapped_int(a)
-    cdef wrapped_int wb = wrapped_int(b)
+    let wrapped_int wa = wrapped_int(a)
+    let wrapped_int wb = wrapped_int(b)
     wb[c] = wa
     return wb.val
 
 def call(long long a):
-    cdef wrapped_int wa = wrapped_int(a)
+    let wrapped_int wa = wrapped_int(a)
     return wa()
 
 def assign_same(long long a, long long b):
-    cdef wrapped_int wa = wrapped_int(a)
-    cdef wrapped_int wb = wrapped_int(b)
+    let wrapped_int wa = wrapped_int(a)
+    let wrapped_int wb = wrapped_int(b)
     wa = wb
     return wa.val
 
 def assign_different(long long a, long long b):
-    cdef wrapped_int wa = wrapped_int(a)
+    let wrapped_int wa = wrapped_int(a)
     wa = b
     return wa.val
 
 def cascaded_assign(long long a, long long b, long long c):
-    cdef wrapped_int wa = wrapped_int(a)
+    let wrapped_int wa = wrapped_int(a)
     a = b = c
     return a.val
 
@@ -280,5 +280,5 @@ def test_only_single_call():
     >>> test_only_single_call()
     False
     """
-    cdef second_call_is_different inst
+    let second_call_is_different inst
     return inst<inst

@@ -21,9 +21,9 @@ LOG_NONE, LOG_ALL = range(2)
 @cython.final
 cdef class Context(object):
     cdef readonly object name, filename
-    cdef readonly dict refs
-    cdef readonly list errors
-    cdef readonly Py_ssize_t start
+    let readonly dict refs
+    let readonly list errors
+    let readonly Py_ssize_t start
 
     def __cinit__(self, name, line=0, filename=None):
         self.name = name
@@ -119,7 +119,7 @@ cdef void GOTREF(PyObject* ctx, PyObject* p_obj, Py_ssize_t lineno):
 cdef bint GIVEREF_and_report(PyObject* ctx, PyObject* p_obj, Py_ssize_t lineno):
     if ctx == NULL: return 1
     cdef (PyObject*) ty = NULL, value = NULL, tb = NULL
-    cdef bint decref_ok = False
+    let bint decref_ok = False
     PyErr_Fetch(&ty, &value, &tb)
     try:
         decref_ok = (<Context>ctx).delref(
@@ -149,8 +149,8 @@ cdef void DECREF(PyObject* ctx, PyObject* obj, Py_ssize_t lineno):
 cdef void FinishContext(PyObject** ctx):
     if ctx == NULL or ctx[0] == NULL: return
     cdef (PyObject*) ty = NULL, value = NULL, tb = NULL
-    cdef object errors = None
-    cdef Context context
+    let object errors = None
+    let Context context
     PyThreadState_Get()  # Check that we hold the GIL
     PyErr_Fetch(&ty, &value, &tb)
     try:
@@ -178,7 +178,7 @@ struct RefNannyAPIStruct:
     PyObject* (*SetupContext)(char*, Py_ssize_t, char*) except NULL
     void (*FinishContext)(PyObject**)
 
-cdef RefNannyAPIStruct api
+let RefNannyAPIStruct api
 api.INCREF = INCREF
 api.DECREF =  DECREF
 api.GOTREF =  GOTREF
@@ -186,7 +186,7 @@ api.GIVEREF = GIVEREF
 api.SetupContext = SetupContext
 api.FinishContext = FinishContext
 
-cdef extern from "Python.h":
+extern from "Python.h":
     object PyLong_FromVoidPtr(void*)
 
 RefNannyAPI = PyLong_FromVoidPtr(<void*>&api)

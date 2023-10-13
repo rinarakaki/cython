@@ -16,7 +16,7 @@ from libc.stdlib cimport malloc, free
 include "../testsupport/cythonarrayutil.pxi"
 
 cdef class NotADataclass:
-    cdef cython.int a
+    let cython.int a
     b: float
 
     def __repr__(self):
@@ -158,12 +158,12 @@ cdef class InitClassVars:
     b2: py_dataclasses.InitVar[cython.double] = 1.0
     c1: ClassVar[float] = 2.0
     c2: typing.ClassVar[float] = 2.0
-    cdef InitVar[cython.int] d1
-    cdef py_dataclasses.InitVar[cython.int] d2
+    let InitVar[cython.int] d1
+    let py_dataclasses.InitVar[cython.int] d2
     d1 = 5
     d2 = 5
-    cdef ClassVar[list] e1
-    cdef typing.ClassVar[list] e2
+    let ClassVar[list] e1
+    let typing.ClassVar[list] e2
     e1 = []
     e2 = []
 
@@ -204,12 +204,12 @@ cdef class TestVisibility:
     >>> hasattr(inst, "d")
     True
     """
-    cdef double a
+    let double a
     a = 1.0
     b: cython.double = 2.0
-    cdef public double c
+    let public double c
     c = 3.0
-    cdef public object d
+    let public object d
     d = object()
 
 @dataclass(frozen=True)

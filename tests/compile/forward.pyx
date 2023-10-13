@@ -16,16 +16,16 @@ struct StructB:
     StructB *b
 
 cdef class ClassA:
-    cdef ClassA a
-    cdef ClassB b
+    let ClassA a
+    let ClassB b
 
 pub class ClassB [ object ClassB, type TypeB ]:
-    cdef ClassA a
-    cdef ClassB b
+    let ClassA a
+    let ClassB b
 
 
-cdef StructA struct_a
-cdef StructB struct_b
+let StructA struct_a
+let StructB struct_b
 
 struct_a.a = &struct_a
 struct_a.b = &struct_b
@@ -33,8 +33,8 @@ struct_a.b = &struct_b
 struct_b.a = &struct_a
 struct_b.b = &struct_b
 
-cdef ClassA class_a = ClassA()
-cdef ClassB class_b = ClassB()
+let ClassA class_a = ClassA()
+let ClassB class_b = ClassB()
 
 class_a.a = class_a
 class_a.b = class_b

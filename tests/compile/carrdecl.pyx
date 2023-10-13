@@ -1,4 +1,4 @@
 # mode: compile
 
-cdef extern:
-    cdef func(int[])
+extern:
+    let func(int[])

@@ -1,6 +1,6 @@
 # mode: compile
 
-cdef swallow
+let swallow
 
 def spam(w, int x = 42, y = "grail", z = swallow):
     pass

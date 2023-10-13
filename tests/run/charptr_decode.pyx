@@ -1,7 +1,7 @@
 
 cimport cython
 
-cdef extern from *:
+extern from *:
     const Py_ssize_t PY_SSIZE_T_MIN
     const Py_ssize_t PY_SSIZE_T_MAX
 
@@ -9,7 +9,7 @@ cdef extern from *:
 ############################################################
 # tests for char* slicing
 
-cdef const char* cstring = "abcABCqtp"
+let const char* cstring = "abcABCqtp"
 
 @cython.test_assert_path_exists("//PythonCapiCallNode")
 @cython.test_fail_if_path_exists("//AttributeNode")
@@ -29,8 +29,8 @@ def slice_charptr_decode_platform_encoding():
     >>> print(str(slice_charptr_decode()).replace("u'", "'"))
     ('a', 'abc', 'abcABCqtp')
     """
-    cdef bytes s = u'abcABCqtp'.encode()
-    cdef char* cstr = s
+    let bytes s = u'abcABCqtp'.encode()
+    let char* cstr = s
     return (cstr[:1].decode(),
             cstr[:3].decode(),
             cstr[:9].decode())
@@ -42,8 +42,8 @@ def slice_charptr_decode_unknown_encoding():
     >>> print(str(slice_charptr_decode_unknown_encoding()).replace("u'", "'"))
     ('abcABCqtp', 'abcABCqtp', 'abc', 'abcABCqt')
     """
-    cdef const char* enc = 'UTF-8'
-    cdef const char* error_handling = 'strict'
+    let const char* enc = 'UTF-8'
+    let const char* error_handling = 'strict'
     return (cstring.decode(enc),
             cstring.decode(enc, error_handling),
             cstring[:3].decode(enc),

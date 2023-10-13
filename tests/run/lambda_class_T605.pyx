@@ -2,7 +2,7 @@
 # tag: lambda
 # ticket: t605
 
-cdef int cdef_CONST = 123
+let int cdef_CONST = 123
 CONST = 456
 
 cdef class Foo:

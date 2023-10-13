@@ -1,4 +1,4 @@
 # mode: compile
 
-cdef int x
+let int x
 x = 0xFFFFFFFF

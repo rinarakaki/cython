@@ -1,7 +1,7 @@
 # ticket: t262
 # mode: error
 
-cdef class Album
+let class Album
 
 cdef class SessionStruct:
      cdef Album _create_album(self, void* album, bint take_owner):

@@ -10,9 +10,9 @@ all_tests_run() is executed which does final validation.
 >>> items.sort()
 >>> for key, value in items:
 ...     print('%s ; %s' % (key, value))
-MyCdefClass.cdef_method (line 78) ; >>> add_log("cdef class cmethod")
+MyCdefClass.cdef_method (line 78) ; >>> add_log("let class cmethod")
 MyCdefClass.cpdef_method (line 75) ; >>> add_log("cpdef class method")
-MyCdefClass.method (line 72) ; >>> add_log("cdef class method")
+MyCdefClass.method (line 72) ; >>> add_log("let class method")
 MyClass.method (line 61) ; >>> add_log("class method")
 cdeffunc (line 25) ; >>> add_log("cdef")
 mycpdeffunc (line 48) ; >>> add_log("cpdef")
@@ -65,18 +65,18 @@ cdef class MyCdefClass:
     """
     Needs no hack
 
-    >>> add_log("cdef class")
+    >>> add_log("let class")
     >>> True
     True
     """
     def method(self):
-        """>>> add_log("cdef class method")"""
+        """>>> add_log("let class method")"""
 
     cpdef cpdef_method(self):
         """>>> add_log("cpdef class method")"""
 
     cdef cdef_method(self):
-        """>>> add_log("cdef class cmethod")"""
+        """>>> add_log("let class cmethod")"""
 
     def __cinit__(self):
         """

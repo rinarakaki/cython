@@ -1,8 +1,8 @@
 # mode: compile
 
-cdef char *p1
-cdef int *p2
-cdef int x
+let char *p1
+let int *p2
+let int x
 
 p1 = NULL
 p2 = NULL

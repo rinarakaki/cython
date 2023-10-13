@@ -18,7 +18,7 @@ def mt19937_seed_test():
     >>> print(mt19937_seed_test())
     1608637542
     """
-    cdef mt19937 gen = mt19937(42)
+    let mt19937 gen = mt19937(42)
     return gen()
 
 
@@ -27,7 +27,7 @@ def mt19937_reseed_test():
     >>> print(mt19937_reseed_test())
     1608637542
     """
-    cdef mt19937 gen
+    let mt19937 gen
     gen.seed(42)
     return gen()
 
@@ -40,7 +40,7 @@ def mt19937_min_max():
     >>> print(y)  # 2 ** 32 - 1 because mt19937 is 32 bit.
     4294967295
     """
-    cdef mt19937 gen
+    let mt19937 gen
     return gen.min(), gen.max()
 
 
@@ -52,7 +52,7 @@ def mt19937_discard(z):
     >>> print(y)
     1972458954
     """
-    cdef mt19937 gen = mt19937(42)
+    let mt19937 gen = mt19937(42)
     # Throw away z random numbers.
     gen.discard(z)
     a = gen()
@@ -69,7 +69,7 @@ def mt19937_64_seed_test():
     >>> print(mt19937_64_seed_test())
     13930160852258120406
     """
-    cdef mt19937_64 gen = mt19937_64(42)
+    let mt19937_64 gen = mt19937_64(42)
     return gen()
 
 
@@ -78,7 +78,7 @@ def mt19937_64_reseed_test():
     >>> print(mt19937_64_reseed_test())
     13930160852258120406
     """
-    cdef mt19937_64 gen
+    let mt19937_64 gen
     gen.seed(42)
     return gen()
 
@@ -91,7 +91,7 @@ def mt19937_64_min_max():
     >>> print(y)  # 2 ** 64 - 1 because mt19937_64 is 64 bit.
     18446744073709551615
     """
-    cdef mt19937_64 gen
+    let mt19937_64 gen
     return gen.min(), gen.max()
 
 
@@ -103,7 +103,7 @@ def mt19937_64_discard(z):
     >>> print(y)
     11756813601242511406
     """
-    cdef mt19937_64 gen = mt19937_64(42)
+    let mt19937_64 gen = mt19937_64(42)
     # Throw away z random numbers.
     gen.discard(z)
     a = gen()
@@ -141,7 +141,7 @@ cdef sample_or_range(any_dist dist, bint sample):
     if `sample` is falsy. We use a fused type to avoid duplicating the conditional statement in each
     distribution test.
     """
-    cdef random_device rd
+    let random_device rd
     if sample:
         dist(mt19937(rd()))
     else:
@@ -174,7 +174,7 @@ def bernoulli_distribution_test(proba, sample=True):
     >>> bernoulli_distribution_test(0.7, False)
     (False, True)
     """
-    cdef bernoulli_distribution dist = bernoulli_distribution(proba)
+    let bernoulli_distribution dist = bernoulli_distribution(proba)
     return sample_or_range[bernoulli_distribution](dist, sample)
 
 
@@ -194,7 +194,7 @@ def geometric_distribution_test(proba, sample=True):
     >>> geometric_distribution_test(0.2, False)  # 2147483647 = 2 ** 32 - 1
     (0, 2147483647)
     """
-    cdef geometric_distribution[int] dist = geometric_distribution[int](proba)
+    let geometric_distribution[int] dist = geometric_distribution[int](proba)
     return sample_or_range[geometric_distribution[int]](dist, sample)
 
 
@@ -214,7 +214,7 @@ def poisson_distribution_test(rate, sample=True):
     >>> poisson_distribution_test(7, False)  # 2147483647 = 2 ** 32 - 1
     (0, 2147483647)
     """
-    cdef poisson_distribution[int] dist = poisson_distribution[int](rate)
+    let poisson_distribution[int] dist = poisson_distribution[int](rate)
     return sample_or_range[poisson_distribution[int]](dist, sample)
 
 
@@ -227,7 +227,7 @@ def exponential_distribution_test(rate, sample=True):
     >>> u == DBL_MAX or u == float("inf")
     True
     """
-    cdef exponential_distribution[double] dist = exponential_distribution[double](rate)
+    let exponential_distribution[double] dist = exponential_distribution[double](rate)
     return sample_or_range[exponential_distribution[double]](dist, sample)
 
 
@@ -305,7 +305,7 @@ def chi_squared_distribution_test(dof, sample=True):
     >>> u == DBL_MAX or u == float("inf")
     True
     """
-    cdef chi_squared_distribution[double] dist = chi_squared_distribution[double](dof)
+    let chi_squared_distribution[double] dist = chi_squared_distribution[double](dof)
     return sample_or_range[chi_squared_distribution[double]](dist, sample)
 
 
@@ -344,5 +344,5 @@ def student_t_distribution_test(dof, sample=True):
     >>> u == DBL_MAX or u == float("inf")
     True
     """
-    cdef student_t_distribution[double] dist = student_t_distribution[double](dof)
+    let student_t_distribution[double] dist = student_t_distribution[double](dof)
     return sample_or_range[student_t_distribution[double]](dist, sample)

@@ -8,7 +8,7 @@ from cpython.ref cimport PyObject, Py_TYPE
 
 # Force non-gc'd PyTypeObject when safety is guaranteed by user but not provable
 
-cdef extern from *:
+extern from *:
     struct PyTypeObject:
         void (*tp_clear)(object)
         void (*tp_traverse)(object)
@@ -34,7 +34,7 @@ cdef class DisableGC:
     True
     """
 
-    cdef public object requires_cleanup
+    let public object requires_cleanup
 
     def __cinit__(self):
         self.requires_cleanup = (

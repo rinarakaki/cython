@@ -6,10 +6,10 @@ from libcpp.vector cimport vector
 
 cdef class Matrix:
 
-    cdef int view_count
+    let int view_count
 
-    cdef Py_ssize_t ncols
-    cdef vector[float] v
+    let Py_ssize_t ncols
+    let vector[float] v
     # ...
 
     def __cinit__(self, Py_ssize_t ncols):

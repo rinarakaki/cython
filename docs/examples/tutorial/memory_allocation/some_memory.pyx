@@ -2,7 +2,7 @@ from cpython.mem cimport PyMem_Malloc, PyMem_Realloc, PyMem_Free
 
 
 cdef class SomeMemory:
-    cdef double* data
+    let double* data
 
     def __cinit__(self, size_t number):
         # allocate some memory (uninitialised, may contain arbitrary data)

@@ -29,7 +29,7 @@ cdef class Prop:
     >>> list(p.generator_prop)
     [42]
     """
-    cdef _value
+    let _value
     def __init__(self):
         self._value = None
 

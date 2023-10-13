@@ -1,3 +1,3 @@
 from package.inpackage cimport Spam
 
-cdef Spam s2
+let Spam s2

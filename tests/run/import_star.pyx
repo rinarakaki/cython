@@ -1,14 +1,14 @@
 # mode: run
 
-cdef object executable, version_info
-cdef long hexversion
+let object executable, version_info
+let long hexversion
 
 struct MyStruct:
     int x, y, z
 
 # conversion code for this struct will be generated but not used
 # (there used to be a problem getting Cython conversion code generated here)
-cdef MyStruct _no_such_name_ = MyStruct(1, 2, 3)
+let MyStruct _no_such_name_ = MyStruct(1, 2, 3)
 
 from libc.math cimport M_PI
 

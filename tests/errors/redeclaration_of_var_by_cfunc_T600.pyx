@@ -2,9 +2,9 @@
 # mode: error
 
 cdef class Bar:
-    cdef list _operands
+    let list _operands
 
-    cdef int _operands(self):
+    fn int _operands(self):
         return -1
 
 

@@ -20,7 +20,7 @@ cdef iout(int s, result_type=None):
     print '%s [%s]' % (s, result_type)
 
 
-cdef extern from "cpp_operators_helper.h" nogil:
+extern from "cpp_operators_helper.h" nogil:
     cdef cppclass TestOps:
 
         const_char* operator+() except +
@@ -156,7 +156,7 @@ def test_unops():
     unary * [const_char *]
     unary ! [const_char *]
     """
-    cdef TestOps* t = new TestOps()
+    let TestOps* t = new TestOps()
     out(+t[0], typeof(+t[0]))
     out(-t[0], typeof(-t[0]))
     out(~t[0], typeof(~t[0]))
@@ -173,7 +173,7 @@ def test_incdec():
     post ++ [const_char *]
     post -- [const_char *]
     """
-    cdef TestOps* t = new TestOps()
+    let TestOps* t = new TestOps()
     a = cython.operator.preincrement(t[0])
     out(a, typeof(a))
     b = cython.operator.predecrement(t[0])
@@ -199,7 +199,7 @@ def test_binop():
     binary >> [const_char *]
     binary COMMA [const_char *]
     """
-    cdef TestOps* t = new TestOps()
+    let TestOps* t = new TestOps()
     out(t[0] + 1, typeof(t[0] + 1))
     out(t[0] - 1, typeof(t[0] - 1))
     out(t[0] * 1, typeof(t[0] * 1))
@@ -242,7 +242,7 @@ def test_nonmember_binop():
     nonmember binary2 COMMA [const_char *]
     """
 
-    cdef TestOps* t = new TestOps()
+    let TestOps* t = new TestOps()
     out(1 + t[0], typeof(1 + t[0]))
     out(1 - t[0], typeof(1 - t[0]))
     # * deliberately omitted
@@ -269,7 +269,7 @@ def test_nonmember_binop():
     out(1. << t[0], typeof(1. << t[0]))
     out(1. >> t[0], typeof(1. >> t[0]))
 
-    # for some reason we need a cdef here - not sure this is quite right
+    # for some reason we need a let here - not sure this is quite right
     y = cython.operator.comma(1., t[0])
     out(y, typeof(y))
     del t
@@ -284,7 +284,7 @@ def test_cmp():
     binary <= [const_char *]
     binary < [const_char *]
     """
-    cdef TestOps* t = new TestOps()
+    let TestOps* t = new TestOps()
     out(t[0] == 1, typeof(t[0] == 1))
     out(t[0] != 1, typeof(t[0] != 1))
     out(t[0] >= 1, typeof(t[0] >= 1))
@@ -300,7 +300,7 @@ def test_index_call():
     binary [] [const_char *]
     binary () [const_char *]
     """
-    cdef TestOps* t = new TestOps()
+    let TestOps* t = new TestOps()
     out(t[0][100], typeof(t[0][100]))
     out(t[0](100), typeof(t[0](100)))
     del t
@@ -312,7 +312,7 @@ def test_index_assignment():
     0 [int &]
     123 [int [&]]
     """
-    cdef RefTestOps* t = new RefTestOps()
+    let RefTestOps* t = new RefTestOps()
     iout(t[0][100], typeof(t[0][100]))
     t[0][99] = 123
     iout(t[0](100), typeof(t[0](100)))
@@ -323,8 +323,8 @@ def test_bool_op():
     """
     >>> test_bool_op()
     """
-    cdef TruthClass yes = TruthClass(True)
-    cdef TruthClass no = TruthClass(False)
+    let TruthClass yes = TruthClass(True)
+    let TruthClass no = TruthClass(False)
     if yes:
         pass
     else:
@@ -353,10 +353,10 @@ def test_typeid_op():
     """
     >>> test_typeid_op()
     """
-    cdef TruthClass* test_1 = new TruthClass()
-    cdef TruthSubClass* test_2 = new TruthSubClass()
-    cdef TruthClass* test_3 = <TruthClass*> test_2
-    cdef TruthClass* test_4 = <TruthClass*> 0
+    let TruthClass* test_1 = new TruthClass()
+    let TruthSubClass* test_2 = new TruthSubClass()
+    let TruthClass* test_3 = <TruthClass*> test_2
+    let TruthClass* test_4 = <TruthClass*> 0
 
     assert typeid(TruthClass).name()
     assert typeid(test_1).name()

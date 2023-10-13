@@ -3,7 +3,7 @@
 
 cdef class Spam:
 
-    cdef int tons
+    let int tons
 
     cdef void add_tons(self, int x):
         self.tons += x
@@ -29,8 +29,8 @@ def test_spam():
     20
     5
     """
-    cdef Spam s
-    cdef SubSpam ss
+    let Spam s
+    let SubSpam ss
     s = Spam()
     s.eat()
     s.add_tons(5)
@@ -47,14 +47,14 @@ def test_spam():
 
 
 cdef class SpamDish:
-    cdef int spam
+    let int spam
 
     cdef void describe(self):
         print "This dish contains", self.spam, "tons of spam."
 
 
 cdef class FancySpamDish(SpamDish):
-    cdef int lettuce
+    let int lettuce
 
     cdef void describe(self):
         print "This dish contains", self.spam, "tons of spam",
@@ -71,8 +71,8 @@ def test_spam_dish():
     This dish contains 42 tons of spam.
     This dish contains 88 tons of spam and 5 milligrams of lettuce.
     """
-    cdef SpamDish s
-    cdef FancySpamDish ss
+    let SpamDish s
+    let FancySpamDish ss
     s = SpamDish()
     s.spam = 42
     ss = FancySpamDish()

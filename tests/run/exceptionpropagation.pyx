@@ -1,8 +1,8 @@
-cdef int CHKERR(int ierr) except -1:
+fn int CHKERR(int ierr) except -1:
     if ierr==0: return 0
     raise RuntimeError
 
-cdef int obj2int(object ob) except *:
+fn int obj2int(object ob) except *:
     return ob
 
 def foo(a):
@@ -12,10 +12,10 @@ def foo(a):
     Traceback (most recent call last):
     RuntimeError
     """
-    cdef int i = obj2int(a)
+    let int i = obj2int(a)
     CHKERR(i)
 
-cdef int* except_expr(bint fire) except <int*>-1:
+fn int* except_expr(bint fire) except <int*>-1:
     if fire:
         raise RuntimeError
 
@@ -44,7 +44,7 @@ def test_except_big_result(bint fire):
     except_big_result(fire)
 
 
-cdef unsigned short except_promotion_compare(bint fire) except *:
+fn unsigned short except_promotion_compare(bint fire) except *:
     if fire:
         raise RuntimeError
 
@@ -59,10 +59,10 @@ def test_except_promotion_compare(bint fire):
     except_promotion_compare(fire)
 
 
-cdef int cdef_function_that_raises():
+fn int cdef_function_that_raises():
     raise RuntimeError
 
-cdef int cdef_noexcept_function_that_raises() noexcept:
+fn int cdef_noexcept_function_that_raises() noexcept:
     raise RuntimeError
 
 def test_except_raise_by_default():
@@ -81,7 +81,7 @@ def test_noexcept():
     cdef_noexcept_function_that_raises()
 
 
-cdef int* cdef_ptr_func(int* input, int failure_mode):
+fn int* cdef_ptr_func(int* input, int failure_mode):
     # should have except NULL? by default
     # failure mode is 0, 1, or 2
     if failure_mode == 0:
@@ -103,8 +103,8 @@ def test_ptr_func(int failure_mode):
     exception
     """
     # check that the signature is what we think it is
-    cdef cdef_ptr_func_ptr fptr = cdef_ptr_func
-    cdef int a = 100
+    let cdef_ptr_func_ptr fptr = cdef_ptr_func
+    let int a = 100
     try:
         out = fptr(&a, failure_mode)
         if out:
@@ -124,7 +124,7 @@ def test_ptr_func2(int failure_mode):
     exception
     """
     # as above, but don't go through a function pointer
-    cdef int a = 100
+    let int a = 100
     try:
         out = cdef_ptr_func(&a, failure_mode)
         if out:

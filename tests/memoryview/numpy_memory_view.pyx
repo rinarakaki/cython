@@ -176,7 +176,7 @@ def test_transpose():
     numpy_obj = np.arange(4 * 3, dtype=np.int32).reshape(4, 3)
 
     a = numpy_obj
-    cdef object a_obj = a
+    let object a_obj = a
 
     cdef dtype_t[:, :] b = a.T
     print a.T.shape[0], a.T.shape[1]
@@ -219,7 +219,7 @@ def test_numpy_like_attributes(cyarray):
     assert cyarray.size == numarray.size, (cyarray.size, numarray.size)
     assert cyarray.nbytes == numarray.nbytes, (cyarray.nbytes, numarray.nbytes)
 
-    cdef int[:, :] mslice = numarray
+    fn int[:, :] mslice = numarray
     assert (<object> mslice).base is numarray
 
 def test_copy_and_contig_attributes(a):
@@ -228,7 +228,7 @@ def test_copy_and_contig_attributes(a):
     >>> test_copy_and_contig_attributes(a)
     """
     cdef np.int32_t[:, :] mslice = a
-    cdef object m = mslice  #  object copy
+    let object m = mslice  #  object copy
 
     # Test object copy attributes
     assert np.all(a == np.array(m.copy()))
@@ -242,7 +242,7 @@ def test_copy_and_contig_attributes(a):
     assert m.copy_fortran().is_f_contig() and not m.is_f_contig()
 
 ctypedef int td_cy_int
-cdef extern from "bufaccess.h":
+extern from "bufaccess.h":
     ctypedef td_cy_int td_h_short # Defined as short, but Cython doesn't know this!
     ctypedef float td_h_double # Defined as double
     ctypedef unsigned int td_h_ushort # Defined as unsigned short
@@ -303,30 +303,30 @@ def test_coerce_to_numpy():
     #
     ### First set up some C arrays that will be used to hold data
     #
-    cdef MyStruct[20] mystructs
-    cdef SmallStruct[20] smallstructs
-    cdef NestedStruct[20] nestedstructs
-    cdef PackedStruct[20] packedstructs
+    let MyStruct[20] mystructs
+    let SmallStruct[20] smallstructs
+    let NestedStruct[20] nestedstructs
+    let PackedStruct[20] packedstructs
 
-    cdef signed char[20] chars
-    cdef short[20] shorts
-    cdef int[20] ints
-    cdef long long[20] longlongs
-    cdef td_h_short[20] externs
+    let signed char[20] chars
+    let short[20] shorts
+    let int[20] ints
+    let long long[20] longlongs
+    let td_h_short[20] externs
 
-    cdef float[20] floats
-    cdef double[20] doubles
-    cdef long double[20] longdoubles
+    let float[20] floats
+    let double[20] doubles
+    let long double[20] longdoubles
 
-    cdef float complex[20] floatcomplex
-    cdef double complex[20] doublecomplex
-    cdef long double complex[20] longdoublecomplex
+    let float complex[20] floatcomplex
+    let double complex[20] doublecomplex
+    let long double complex[20] longdoublecomplex
 
-    cdef td_h_short[20] h_shorts
-    cdef td_h_double[20] h_doubles
-    cdef td_h_ushort[20] h_ushorts
+    let td_h_short[20] h_shorts
+    let td_h_double[20] h_doubles
+    let td_h_ushort[20] h_ushorts
 
-    cdef Py_ssize_t idx = 17
+    let Py_ssize_t idx = 17
 
     #
     ### Initialize one element in each array
@@ -405,7 +405,7 @@ def test_memslice_getbuffer():
      [10 12 14]]
     callback called
     """
-    cdef int[:, :] array = create_array((4, 5), mode="c", use_callback=True)
+    fn int[:, :] array = create_array((4, 5), mode="c", use_callback=True)
     print(np.asarray(array)[::2, ::2])
 
 cdef class DeallocateMe(object):
@@ -423,7 +423,7 @@ def acquire_release_cycle(obj):
     """
     import gc
 
-    cdef object[:] buf = obj
+    fn object[:] buf = obj
     buf[1] = buf
 
     gc.collect()
@@ -485,7 +485,7 @@ def test_memslice_structarray(data, dtype):
     a = np.empty((3,), dtype=dtype)
     a[:] = data
     cdef StructArray[:] myslice = a
-    cdef int i, j
+    let int i, j
     for i in range(3):
         for j in range(4):
             print myslice[i].a[j]
@@ -564,7 +564,7 @@ def test_struct_attributes():
     2.0
     c
     """
-    cdef AttributesStruct[10] a
+    let AttributesStruct[10] a
     cdef AttributesStruct[:] myslice = a
     myslice[0].attrib1 = 1
     myslice[0].attrib2 = 2.0
@@ -591,10 +591,10 @@ cdef getbuffer(Buffer self, Py_buffer *info):
     info.format = self.format
 
 cdef class Buffer(object):
-    cdef Py_ssize_t[2] _shape
-    cdef bytes format
+    let Py_ssize_t[2] _shape
+    let bytes format
     cdef float[:, :] m
-    cdef object shape, strides
+    let object shape, strides
 
     def __init__(self):
         a = np.arange(200, dtype=np.float32).reshape(10, 20)
@@ -624,7 +624,7 @@ def test_null_strides(Buffer buffer_obj):
     assert (<object> m2).strides == buffer_obj.strides, ((<object> m2).strides, buffer_obj.strides)
     assert (<object> m3).strides == buffer_obj.strides
 
-    cdef int i, j
+    let int i, j
     for i in range(m1.shape[0]):
         for j in range(m1.shape[1]):
             assert m1[i, j] == buffer_obj.m[i, j]
@@ -690,8 +690,8 @@ def test_boundscheck_and_wraparound(double[:, :] x):
     >>> test_boundscheck_and_wraparound(array)
     """
     # Make sure we don't generate C compiler warnings for unused code here.
-    cdef Py_ssize_t numrow = x.shape[0]
-    cdef Py_ssize_t i
+    let Py_ssize_t numrow = x.shape[0]
+    let Py_ssize_t i
     for i in range(numrow):
         x[i, 0]
         x[i]
@@ -709,7 +709,7 @@ def same_type_after_arrays_simple():
     >>> same_type_after_arrays_simple()
     """
 
-    cdef SameTypeAfterArraysStructSimple element
+    let SameTypeAfterArraysStructSimple element
     arr = np.ones(2, np.asarray(<SameTypeAfterArraysStructSimple[:1]>&element).dtype)
     cdef SameTypeAfterArraysStructSimple[:] memview = arr
 
@@ -731,7 +731,7 @@ def same_type_after_arrays_composite():
     >>> same_type_after_arrays_composite() if sys.version_info[:2] == (2, 7) else None
     """
 
-    cdef SameTypeAfterArraysStructComposite element
+    let SameTypeAfterArraysStructComposite element
     arr = np.ones(2, np.asarray(<SameTypeAfterArraysStructComposite[:1]>&element).dtype)
     cdef SameTypeAfterArraysStructComposite[:] memview = arr
 

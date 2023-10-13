@@ -4,15 +4,15 @@
 # These tests check for unsupported use of rvalue-references (&&)
 # and should be removed or cleaned up when support is added.
 
-cdef int&& x
+let int&& x
 
 cdef void foo(int&& x):
     pass
 
-cdef int&& bar():
+fn int&& bar():
     pass
 
-cdef extern from *:
+extern from *:
     """
     void baz(int x, int&& y) {}
 
@@ -20,7 +20,7 @@ cdef extern from *:
     void qux(const T&& x) {}
     """
     cdef void baz(int x, int&& y)
-    cdef void qux[T](const T&& x)
+    fn void qux[T](const T&& x)
 
 
 _ERRORS="""

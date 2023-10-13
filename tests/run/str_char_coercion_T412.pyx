@@ -1,8 +1,8 @@
 # ticket: t412
 
-cdef int   i = 'x'
-cdef char  c = 'x'
-cdef char* s = 'x'
+let int   i = 'x'
+let char  c = 'x'
+let char* s = 'x'
 
 def test_eq():
     """

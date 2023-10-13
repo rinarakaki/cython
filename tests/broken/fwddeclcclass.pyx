@@ -4,6 +4,6 @@ cdef class Widget:
 cdef class Container:
     pass
 
-cdef Widget w
-cdef Container c
+let Widget w
+let Container c
 w.parent = c

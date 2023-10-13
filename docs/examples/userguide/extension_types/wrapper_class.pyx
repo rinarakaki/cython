@@ -10,8 +10,8 @@ struct my_c_struct:
 
 cdef class WrapperClass:
     """A wrapper class for a C/C++ data structure"""
-    cdef my_c_struct *_ptr
-    cdef bint ptr_owner
+    let my_c_struct *_ptr
+    let bint ptr_owner
 
     def __cinit__(self):
         self.ptr_owner = False
@@ -46,7 +46,7 @@ cdef class WrapperClass:
         the extension type to ``free`` the structure pointed to by ``_ptr``
         when the wrapper object is deallocated."""
         # Fast call to __new__() that bypasses the __init__() constructor.
-        cdef WrapperClass wrapper = WrapperClass.__new__(WrapperClass)
+        let WrapperClass wrapper = WrapperClass.__new__(WrapperClass)
         wrapper._ptr = _ptr
         wrapper.ptr_owner = owner
         return wrapper
@@ -56,7 +56,7 @@ cdef class WrapperClass:
     cdef WrapperClass new_struct():
         """Factory function to create WrapperClass objects with
         newly allocated my_c_struct"""
-        cdef my_c_struct *_ptr = <my_c_struct *>malloc(sizeof(my_c_struct))
+        let my_c_struct *_ptr = <my_c_struct *>malloc(sizeof(my_c_struct))
 
         if _ptr is NULL:
             raise MemoryError

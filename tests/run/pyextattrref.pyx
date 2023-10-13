@@ -5,16 +5,16 @@ __doc__ = u"""
 """
 
 cdef class Eggs:
-    cdef object ham
+    let object ham
     def __init__(self, ham):
         self.ham = ham
 
 cdef class Spam:
-    cdef Eggs eggs
+    let Eggs eggs
     def __init__(self, eggs):
         self.eggs = eggs
 
-cdef object tomato(Spam s):
+fn object tomato(Spam s):
     food = s.eggs.ham
     return food
 

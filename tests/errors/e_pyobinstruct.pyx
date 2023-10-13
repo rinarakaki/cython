@@ -1,6 +1,6 @@
 # mode: error
 
-cdef object x
+let object x
 
 struct spam:
 	object parrot

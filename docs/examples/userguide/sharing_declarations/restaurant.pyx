@@ -7,6 +7,6 @@ cdef void prepare(spamdish *d):
     d.filler = dishes.sausage
 
 def serve():
-    cdef spamdish d
+    let spamdish d
     prepare(&d)
     print(f'{d.oz_of_spam} oz spam, filler no. {d.filler}')

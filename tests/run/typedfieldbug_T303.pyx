@@ -7,12 +7,12 @@ __doc__ = """
 """
 
 
-cdef extern from "external_defs.h":
+extern from "external_defs.h":
     ctypedef float DoubleTypedef
     ctypedef float LongDoubleTypedef
 
-cdef public DoubleTypedef global_tdef
-cdef public double global_double
+let public DoubleTypedef global_tdef
+let public double global_double
 
 cdef class MyClass:
     cdef readonly:
@@ -41,7 +41,7 @@ def f():
     42.0
     42.0
     """
-    cdef object c = MyClass()
+    let object c = MyClass()
     print c.actual_double
     print c.float_isreally_double
 
@@ -50,10 +50,10 @@ def longdouble_access():
     >>> longdouble_access()
     42.0
     """
-    cdef object c = MyClass()
+    let object c = MyClass()
     print c.float_isreally_longdouble
 
 
 def readonly():
-    cdef object c = MyClass()
+    let object c = MyClass()
     c.actual_double = 3

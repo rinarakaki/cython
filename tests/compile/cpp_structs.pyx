@@ -3,7 +3,7 @@
 
 from cython.view import array
 
-cdef extern from "point.h" namespace "geometry":
+extern from "point.h" namespace "geometry":
     struct Point:
         f64 x
         f64 y
@@ -12,4 +12,4 @@ cdef extern from "point.h" namespace "geometry":
 let Point p = Point(0.0, 0.0, 0)
 the_point = p
 
-let Point[::1] ps = array((10,), itemsize=sizeof(Point), format='ddi')
+fn Point[::1] ps = array((10,), itemsize=sizeof(Point), format='ddi')

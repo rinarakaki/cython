@@ -85,27 +85,27 @@ if sys.version_info < (2,5):
 
 cdef class A:
 
-    cdef public short h
-    cdef public int i
-    cdef public long l
-    cdef public long long q
-    cdef public float f
-    cdef public double d
-    cdef public long double g
-    cdef public float complex Zf
-    cdef public double complex Zd
-    cdef public long double complex Zg
+    let public short h
+    let public int i
+    let public long l
+    let public long long q
+    let public float f
+    let public double d
+    let public long double g
+    let public float complex Zf
+    let public double complex Zd
+    let public long double complex Zg
 
-    cdef readonly short ro_h
-    cdef readonly int ro_i
-    cdef readonly long ro_l
-    cdef readonly long long ro_q
-    cdef readonly float ro_f
-    cdef readonly double ro_d
-    cdef readonly long double ro_g
-    cdef readonly float complex ro_Zf
-    cdef readonly double complex ro_Zd
-    cdef readonly long double complex ro_Zg
+    let readonly short ro_h
+    let readonly int ro_i
+    let readonly long ro_l
+    let readonly long long ro_q
+    let readonly float ro_f
+    let readonly double ro_d
+    let readonly long double ro_g
+    let readonly float complex ro_Zf
+    let readonly double complex ro_Zd
+    let readonly long double complex ro_Zg
 
     def __cinit__(self):
         self.ro_h = 7
@@ -122,17 +122,17 @@ cdef class A:
 
 cdef class B:
 
-    cdef object a0
-    cdef public object a1
-    cdef readonly object a2
+    let object a0
+    let public object a1
+    let readonly object a2
 
-    cdef list b0
-    cdef public list b1
-    cdef readonly list b2
+    let list b0
+    let public list b1
+    let readonly list b2
 
-    cdef A c0
-    cdef public A c1
-    cdef readonly A c2
+    let A c0
+    let public A c1
+    let readonly A c2
 
     def __cinit__(self):
         self.b0 = self.b1 = self.b2 = []

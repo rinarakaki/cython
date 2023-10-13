@@ -2,7 +2,7 @@
 
 cimport cython
 
-cdef extern from *:
+extern from *:
     cdef cppclass Foo:
         Foo operator++()
         Foo operator--()
@@ -12,8 +12,8 @@ cdef extern from *:
         Bar operator--(int)
 
 cdef void foo():
-    cdef Foo f
-    cdef Bar b
+    let Foo f
+    let Bar b
     cython.operator.postincrement(f)
     cython.operator.postincrement(b)
     cython.operator.postdecrement(f)

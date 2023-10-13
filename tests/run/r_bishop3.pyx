@@ -9,7 +9,7 @@ Foo bof 0
 """
 
 cdef class Foo:
-  cdef int val
+  let int val
 
   def __init__(self):
     self.val = 0

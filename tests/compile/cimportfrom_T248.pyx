@@ -16,4 +16,4 @@ from declandimpl cimport (Sandwich
 
                           Tomato)
 
-cdef extern Foo yummy
+extern Foo yummy

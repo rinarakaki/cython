@@ -3,7 +3,7 @@
 
 from libcpp.limits cimport numeric_limits
 
-cdef extern from *:
+extern from *:
     """
     enum class Enum1 {
         Item1,
@@ -15,7 +15,7 @@ cdef extern from *:
         Item2
 
 
-cdef extern from * namespace "Namespace1":
+extern from * namespace "Namespace1":
     """
     namespace Namespace1 {
         enum class Enum2 {
@@ -34,7 +34,7 @@ enum class Enum3(int):
     b = 2
 
 
-cdef extern from *:
+extern from *:
     """
     enum class sorted
     {
@@ -47,7 +47,7 @@ cdef extern from *:
         b
 
 
-cdef extern from *:
+extern from *:
     """
     #include <limits>
 
@@ -64,7 +64,7 @@ def test_compare_enums():
     >>> test_compare_enums()
     (True, True, False, False)
     """
-    cdef Enum1 x, y
+    let Enum1 x, y
     x = Enum1.Item1
     y = Enum1.Item2
 
@@ -81,7 +81,7 @@ def test_compare_namespace_enums():
     >>> test_compare_enums()
     (True, True, False, False)
     """
-    cdef Enum2 z, w
+    let Enum2 z, w
     
     z = Enum2.Item1
     w = Enum2.Item2
@@ -109,7 +109,7 @@ def test_coerce_to_from_py_value(object i):
     Traceback (most recent call last):
     OverflowError: Python int too large to convert to C long
     """
-    cdef Enum3 x = i
+    let Enum3 x = i
     y = Enum3.b
 
     return (
@@ -123,7 +123,7 @@ def test_reserved_cname():
     >>> test_reserved_cname()
     True
     """
-    cdef Enum4 x = Enum4.a
+    let Enum4 x = Enum4.a
     return Enum4.a == int(1)
 
 

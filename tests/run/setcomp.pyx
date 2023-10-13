@@ -47,7 +47,7 @@ def typed():
     >>> list(typed())
     [A, A, A]
     """
-    cdef A obj
+    let A obj
     return {obj for obj in {A(), A(), A()}}
 
 def iterdict():

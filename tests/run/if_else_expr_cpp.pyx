@@ -1,16 +1,16 @@
 # mode: run
 # tag: condexpr, cpp
 
-cdef extern from "if_else_expr_cpp_helper.h":
+extern from "if_else_expr_cpp_helper.h":
     cdef cppclass Holder:
         int value
         Holder()
         Holder(int value)
 
-    cdef Holder v1
-    cdef Holder v2
-    cdef Holder& get_v1()
-    cdef Holder& get_v2()
+    let Holder v1
+    let Holder v2
+    fn Holder& get_v1()
+    fn Holder& get_v2()
 
 cdef reset() :
     v1.value = 1

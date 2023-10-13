@@ -1,6 +1,6 @@
 
 cdef class Owner:
-    cdef object x
+    let object x
 
 cdef call_me_with_owner(Owner owner, x):
     owner.x = "def" # overwrite external reference

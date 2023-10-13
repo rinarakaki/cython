@@ -23,7 +23,7 @@ def from_int_array():
     >>> from_int_array()
     [1, 2, 3]
     """
-    cdef int[3] v
+    let int[3] v
     v[0] = 1
     v[1] = 2
     v[2] = 3
@@ -35,7 +35,7 @@ cpdef tuple tuple_from_int_array():
     >>> tuple_from_int_array()
     (1, 2, 3)
     """
-    cdef int[3] v
+    let int[3] v
     v[0] = 1
     v[1] = 2
     v[2] = 3
@@ -43,7 +43,7 @@ cpdef tuple tuple_from_int_array():
     return v
 
 
-cdef extern from "stdint.h":
+extern from "stdint.h":
     ctypedef unsigned long uint32_t
 
 
@@ -52,7 +52,7 @@ def from_typedef_int_array():
     >>> unlongify(from_typedef_int_array())
     '[1, 2, 3]'
     """
-    cdef uint32_t[3] v
+    let uint32_t[3] v
     v[0] = 1
     v[1] = 2
     v[2] = 3
@@ -64,7 +64,7 @@ cpdef tuple tuple_from_typedef_int_array():
     >>> unlongify(tuple_from_typedef_int_array())
     '(1, 2, 3)'
     """
-    cdef uint32_t[3] v
+    let uint32_t[3] v
     v[0] = 1
     v[1] = 2
     v[2] = 3
@@ -76,7 +76,7 @@ def from_cimported_int_array():
     >>> from_cimported_int_array()
     [1, 2, 3]
     """
-    cdef stdint.int32_t[3] v
+    let stdint.int32_t[3] v
     v[0] = 1
     v[1] = 2
     v[2] = 3
@@ -88,7 +88,7 @@ def from_cimported_as_int_array():
     >>> from_cimported_as_int_array()
     [1, 2, 3]
     """
-    cdef my_int16_t[3] v
+    let my_int16_t[3] v
     v[0] = 1
     v[1] = 2
     v[2] = 3
@@ -100,7 +100,7 @@ def from_int_array_array():
     >>> from_int_array_array()
     [[11, 12, 13], [21, 22, 23]]
     """
-    cdef int[2][3] v
+    let int[2][3] v
     v[0][0] = 11
     v[0][1] = 12
     v[0][2] = 13
@@ -115,7 +115,7 @@ def assign_int_array_array():
     >>> assign_int_array_array()
     [[11, 12, 13], [21, 22, 23]]
     """
-    cdef int[2][3] v = [[11, 12, 13], [21, 22, 23]]
+    let int[2][3] v = [[11, 12, 13], [21, 22, 23]]
     return v
 
 
@@ -124,7 +124,7 @@ def assign_int_array_array_from_tuples():
     >>> assign_int_array_array_from_tuples()
     [[11, 12, 13], [21, 22, 23]]
     """
-    cdef int[2][3] v = ([11, 12, 13], [21, 22, 23])
+    let int[2][3] v = ([11, 12, 13], [21, 22, 23])
     return v
 
 
@@ -134,7 +134,7 @@ def assign_int_array_array_from_tuples():
     >>> assign_int_array_array_from_tuples()
     [[11, 12, 13], [21, 22, 23]]
     """
-    cdef int[2][3] v = ((11, 12, 13), (21, 22, 23))
+    let int[2][3] v = ((11, 12, 13), (21, 22, 23))
     return v
 '''
 
@@ -144,9 +144,9 @@ def build_from_list_of_arrays():
     >>> build_from_list_of_arrays()
     [[11, 12, 13], [21, 22, 23]]
     """
-    cdef int[3] x = [11, 12, 13]
-    cdef int[3] y = [21, 22, 23]
-    cdef int[2][3] v = [x, y]
+    let int[3] x = [11, 12, 13]
+    let int[3] y = [21, 22, 23]
+    let int[2][3] v = [x, y]
     return v
 
 
@@ -155,9 +155,9 @@ def build_from_tuple_of_arrays():
     >>> build_from_tuple_of_arrays()
     [[11, 12, 13], [21, 22, 23]]
     """
-    cdef int[3] x = [11, 12, 13]
-    cdef int[3] y = [21, 22, 23]
-    cdef int[2][3] v = (x, y)
+    let int[3] x = [11, 12, 13]
+    let int[3] y = [21, 22, 23]
+    let int[2][3] v = (x, y)
     return v
 
 
@@ -179,8 +179,8 @@ def from_struct_array():
     >>> b['x'], b['y']
     (3, 4.0)
     """
-    cdef MyStructType[2] v
-    cdef MyStruct[2] w
+    let MyStructType[2] v
+    let MyStruct[2] w
     v[0] = MyStructType(1, 2)
     v[1] = MyStructType(3, 4)
     assert isinstance(<tuple>v, tuple)
@@ -205,7 +205,7 @@ def to_int_array(x):
     Traceback (most recent call last):
     IndexError: too many values found during array assignment, expected 3
     """
-    cdef int[3] v = x
+    let int[3] v = x
     return v[0], v[1], v[2]
 
 
@@ -237,7 +237,7 @@ def to_int_array_array(x):
     Traceback (most recent call last):
     IndexError: too many values found during array assignment, expected 3
     """
-    cdef int[2][3] v = x
+    let int[2][3] v = x
     return v[0][0], v[0][1], v[0][2], v[1][0], v[1][1], v[1][2]
 
 
@@ -260,7 +260,7 @@ def to_int_array_array_enumsize(x):
     Traceback (most recent call last):
     IndexError: too many values found during array assignment, expected 3
     """
-    cdef int[SIZE_A][SIZE_B] v = x
+    let int[SIZE_A][SIZE_B] v = x
     return v[0][0], v[0][1], v[0][2], v[1][0], v[1][1], v[1][2]
 '''
 
@@ -287,7 +287,7 @@ def to_int_array_slice(x):
     Traceback (most recent call last):
     IndexError: too many values found during array assignment, expected 3
     """
-    cdef int[3] v
+    let int[3] v
     v[:] = x[:3]
     assert v[0] == x[0]
     assert v[1] == x[1]
@@ -311,7 +311,7 @@ def iterable_to_int_array(x):
     Traceback (most recent call last):
     IndexError: too many values found during array assignment, expected 3
     """
-    cdef int[3] v
+    let int[3] v
     v[:] = x
     return v[0], v[1], v[2]
 
@@ -324,10 +324,10 @@ def to_struct_array(x):
     >>> b['x'], b['y']
     (3, 4.0)
     """
-    cdef MyStructType[2] v
+    let MyStructType[2] v
     v[:] = x
 
-    cdef MyStruct[2] w
+    let MyStruct[2] w
     w[:] = x
 
     assert w[0].x == v[0].x
@@ -349,7 +349,7 @@ def to_struct_array_array(x):
     >>> b3['x'], b3['y']
     (25, 26.0)
     """
-    cdef MyStructType[2][3] v = x
+    let MyStructType[2][3] v = x
     return v[0], v[1]
 
 
@@ -382,7 +382,7 @@ def to_struct_with_array(x):
     >>> sorted(sorted(v.items()) for v in y['b'])
     [[('x', 22), ('y', 23.0)], [('x', 24), ('y', 25.0)]]
     """
-    cdef StructWithArray[2] v
+    let StructWithArray[2] v
     v = x
     return v
 
@@ -411,7 +411,7 @@ def to_struct_with_array_slice(x):
     >>> sorted(sorted(v.items()) for v in y['b'])
     [[('x', 22), ('y', 23.0)], [('x', 24), ('y', 25.0)]]
     """
-    cdef StructWithArray[2] v
+    let StructWithArray[2] v
     v[:] = x
     return v
 
@@ -435,7 +435,7 @@ def to_struct_with_array_slice_end(x):
     Traceback (most recent call last):
     IndexError: too many values found during array assignment, expected 1
     """
-    cdef StructWithArray[2] v
+    let StructWithArray[2] v
     v[:1] = x
     return v
 
@@ -445,7 +445,7 @@ def to_int_array_slice_start_end(x):
     >>> to_int_array_slice_start_end([1, 2, 3])
     (1, 2, 3, 2, 3)
     """
-    cdef int[5] v
+    let int[5] v
     v[2:] = x
     v[:3] = x
     return v[0], v[1], v[2], v[3], v[4]

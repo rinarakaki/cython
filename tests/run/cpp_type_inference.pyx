@@ -1,7 +1,7 @@
 # mode: run
 # tag: cpp, werror
 
-cdef extern from "shapes.h" namespace "shapes":
+extern from "shapes.h" namespace "shapes":
     cdef cppclass Shape:
         float area()
 
@@ -31,7 +31,7 @@ def test_reversed_vector_iteration(L):
     int: 1
     int
     """
-    cdef vector[int] v = L
+    let vector[int] v = L
 
     it = v.rbegin()
     while it != v.rend():
@@ -65,7 +65,7 @@ def test_stack_allocated(bint b=True):
     assert typeof(e2) == "Empty", typeof(e2)
     assert typeof(e) == "Empty", typeof(e)
 
-cdef extern from *:
+extern from *:
     """
     template <typename T>
     struct MyTemplate {};

@@ -1,5 +1,5 @@
-cdef int f():
+fn int f():
     pass
 
-cdef char *g(int k, float z):
+fn char *g(int k, float z):
     pass

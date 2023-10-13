@@ -55,7 +55,7 @@ def nousage():
     """
     The challenge here is just compilation.
     """
-    cdef int[:, :] buf
+    fn int[:, :] buf
 
 @testcase
 def acquire_release(o1, o2):
@@ -71,7 +71,7 @@ def acquire_release(o1, o2):
     acquired B
     released B
     """
-    cdef int[:] buf
+    fn int[:] buf
     buf = o1
     buf = o2
 
@@ -92,7 +92,7 @@ def acquire_raise(o):
     released A
 
     """
-    cdef int[:] buf
+    fn int[:] buf
     buf = o
     raise Exception("on purpose")
 
@@ -105,7 +105,7 @@ def acquire_failure1():
     0 3
     released working
     """
-    cdef int[:] buf
+    fn int[:] buf
     buf = IntMockBuffer("working", range(4))
     print buf[0], buf[3]
     try:
@@ -123,7 +123,7 @@ def acquire_failure2():
     0 3
     released working
     """
-    cdef int[:] buf = IntMockBuffer("working", range(4))
+    fn int[:] buf = IntMockBuffer("working", range(4))
     print buf[0], buf[3]
     try:
         buf = ErrorBuffer()
@@ -140,7 +140,7 @@ def acquire_failure3():
     0 3
     released working
     """
-    cdef int[:] buf
+    fn int[:] buf
     buf = IntMockBuffer("working", range(4))
     print buf[0], buf[3]
     try:
@@ -169,7 +169,7 @@ def acquire_nonbuffer1(first, second=None):
       ...
     TypeError:... 'int'...
     """
-    cdef int[:] buf
+    fn int[:] buf
     buf = first
     buf = second
 
@@ -182,7 +182,7 @@ def acquire_nonbuffer2():
     0 3
     released working
     """
-    cdef int[:] buf = IntMockBuffer("working", range(4))
+    fn int[:] buf = IntMockBuffer("working", range(4))
     print buf[0], buf[3]
     try:
         buf = ErrorBuffer
@@ -199,7 +199,7 @@ def as_argument(int[:] bufarg, int n):
     0 1 2 3 4 5 END
     released A
     """
-    cdef int i
+    let int i
     for i in range(n):
         print bufarg[i],
     print 'END'
@@ -215,7 +215,7 @@ def as_argument_defval(int[:] bufarg=IntMockBuffer('default', range(6)), int n=6
     0 1 2 3 4 5 END
     released A
     """
-    cdef int i
+    let int i
     for i in range(n):
         print bufarg[i],
     print 'END'
@@ -230,8 +230,8 @@ def cdef_assignment(obj, n):
     released A
 
     """
-    cdef int[:] buf = obj
-    cdef int i
+    fn int[:] buf = obj
+    let int i
     for i in range(n):
         print buf[i],
     print 'END'
@@ -255,7 +255,7 @@ def forin_assignment(objs, int pick):
     2
     released A
     """
-    cdef int[:] buf
+    fn int[:] buf
     for buf in objs:
         print buf[pick]
 
@@ -267,7 +267,7 @@ def cascaded_buffer_assignment(obj):
     acquired A
     released A
     """
-    cdef int[:] a, b
+    fn int[:] a, b
     a = b = obj
 
 @testcase
@@ -281,7 +281,7 @@ def tuple_buffer_assignment1(a, b):
     released A
     released B
     """
-    cdef int[:] x, y
+    fn int[:] x, y
     x, y = a, b
 
 @testcase
@@ -295,7 +295,7 @@ def tuple_buffer_assignment2(tup):
     released A
     released B
     """
-    cdef int[:] x, y
+    fn int[:] x, y
     x, y = tup
 
 @testcase
@@ -306,7 +306,7 @@ def explicitly_release_buffer():
     released A
     After release
     """
-    cdef int[:] x = IntMockBuffer("A", range(10))  # , writable=False)
+    fn int[:] x = IntMockBuffer("A", range(10))  # , writable=False)
     del x
     print "After release"
 
@@ -589,7 +589,7 @@ def list_comprehension(int[:] buf, len):
     >>> list_comprehension(IntMockBuffer(None, [1,2,3]), 3)  # , writable=False), 3)
     1|2|3
     """
-    cdef int i
+    let int i
     print "|".join([str(buf[i]) for i in range(len)])
 
 @testcase
@@ -606,7 +606,7 @@ def wraparound_directive(int[:] buf, int pos_idx, int neg_idx):
         ...
     IndexError: Out of bounds on buffer access (axis 0)
     """
-    cdef int byneg
+    let int byneg
     with cython.wraparound(True):
         byneg = buf[neg_idx]
     return buf[pos_idx] + byneg
@@ -626,7 +626,7 @@ def writable(obj):
     >>> [str(x) for x in R.received_flags] # Py2/3
     ['FORMAT', 'ND', 'STRIDES', 'WRITABLE']
     """
-    cdef unsigned short int[:, :, :] buf = obj
+    fn unsigned short int[:, :, :] buf = obj
     buf[2, 2, 1] = 23
 
 @testcase
@@ -889,7 +889,7 @@ def mixed_get(int[:] buf, int unsafe_idx, int safe_idx):
 
 def printbuf_int(int[:] buf, shape):
     # Utility func
-    cdef int i
+    let int i
     for i in range(shape[0]):
         print buf[i],
     print 'END'
@@ -922,7 +922,7 @@ def printbuf_int_2d(o, shape):
     # should make shape builtin
     cdef const int[::view.generic, ::view.generic] buf
     buf = o
-    cdef int i, j
+    let int i, j
     for i in range(shape[0]):
         for j in range(shape[1]):
             print buf[i, j],
@@ -940,7 +940,7 @@ def printbuf_float(o, shape):
     # should make shape builtin
     cdef const float[:] buf
     buf = o
-    cdef int i, j
+    let int i, j
     for i in range(shape[0]):
         print buf[i],
     print "END"
@@ -957,7 +957,7 @@ def inplace_operators(int[:] buf):
     >>> printbuf_int(buf, (2,))
     0 3 END
     """
-    cdef int j = 0
+    let int j = 0
     buf[1] += 1
     buf[j] *= 2
     buf[0] -= 4
@@ -971,7 +971,7 @@ def inplace_operators(int[:] buf):
 # simply a header file typedef for floats and unsigned.
 
 ctypedef int td_cy_int
-cdef extern from "bufaccess.h":
+extern from "bufaccess.h":
     ctypedef td_cy_int td_h_short # Defined as short, but Cython doesn't know this!
     ctypedef float td_h_double # Defined as double
     ctypedef unsigned int td_h_ushort # Defined as unsigned short
@@ -987,7 +987,7 @@ def printbuf_td_cy_int(td_cy_int[:] buf, shape):
        ...
     ValueError: Buffer dtype mismatch, expected 'td_cy_int' but got 'short'
     """
-    cdef int i
+    let int i
     for i in range(shape[0]):
         print buf[i],
     print 'END'
@@ -1002,7 +1002,7 @@ def printbuf_td_h_short(td_h_short[:] buf, shape):
        ...
     ValueError: Buffer dtype mismatch, expected 'td_h_short' but got 'int'
     """
-    cdef int i
+    let int i
     for i in range(shape[0]):
         print buf[i],
     print 'END'
@@ -1017,7 +1017,7 @@ def printbuf_td_h_cy_short(const td_h_cy_short[:] buf, shape):
        ...
     ValueError: Buffer dtype mismatch, expected 'const td_h_cy_short' but got 'int'
     """
-    cdef int i
+    let int i
     for i in range(shape[0]):
         print buf[i],
     print 'END'
@@ -1032,7 +1032,7 @@ def printbuf_td_h_ushort(const td_h_ushort[:] buf, shape):
        ...
     ValueError: Buffer dtype mismatch, expected 'const td_h_ushort' but got 'short'
     """
-    cdef int i
+    let int i
     for i in range(shape[0]):
         print buf[i],
     print 'END'
@@ -1047,7 +1047,7 @@ def printbuf_td_h_double(const td_h_double[:] buf, shape):
        ...
     ValueError: Buffer dtype mismatch, expected 'const td_h_double' but got 'float'
     """
-    cdef int i
+    let int i
     for i in range(shape[0]):
         print buf[i],
     print 'END'
@@ -1088,7 +1088,7 @@ def printbuf_object(object[:] buf, shape):
     {4: 23} 2
     [34, 3] 2
     """
-    cdef int i
+    let int i
     for i in range(shape[0]):
         print repr(buf[i]), (<PyObject*>buf[i]).ob_refcnt
 
@@ -1153,8 +1153,8 @@ def check_object_nulled_1d(object[:] buf, int idx, obj):
     >>> get_refcount(a) == rc1
     True
     """
-    cdef ObjectMockBuffer omb = buf.base
-    cdef PyObject **data = <PyObject**>(omb.buffer)
+    let ObjectMockBuffer omb = buf.base
+    let PyObject **data = <PyObject**>(omb.buffer)
     Py_CLEAR(data[idx])
     res = buf[idx]  # takes None
     buf[idx] = obj
@@ -1173,8 +1173,8 @@ def check_object_nulled_2d(object[:, ::1] buf, int idx1, int idx2, obj):
     >>> get_refcount(a) == rc1
     True
     """
-    cdef ObjectMockBuffer omb = buf.base
-    cdef PyObject **data = <PyObject**>(omb.buffer)
+    let ObjectMockBuffer omb = buf.base
+    let PyObject **data = <PyObject**>(omb.buffer)
     Py_CLEAR(data[idx1 + 2*idx2])
     res = buf[idx1, idx2]  # takes None
     buf[idx1, idx2] = obj
@@ -1357,8 +1357,8 @@ def buffer_nogil():
     >>> buffer_nogil()
     (10, 10)
     """
-    cdef int[:] buf = IntMockBuffer(None, [1,2,3])
-    cdef int[:] buf2 = IntMockBuffer(None, [4,5,6])
+    fn int[:] buf = IntMockBuffer(None, [1,2,3])
+    fn int[:] buf2 = IntMockBuffer(None, [4,5,6])
 
     with nogil:
         buf[1] = 10
@@ -1367,7 +1367,7 @@ def buffer_nogil():
     return buf[1], buf2[1]
 
 #
-### Test cdef functions
+### Test let functions
 #
 class UniqueObject(object):
     def __init__(self, value):
@@ -1379,7 +1379,7 @@ class UniqueObject(object):
 objs = [[UniqueObject("spam")], [UniqueObject("ham")], [UniqueObject("eggs")]]
 addref(*[obj for L in objs for obj in L])
 cdef cdef_function(int[:] buf1, object[::view.indirect, :] buf2 = ObjectMockBuffer(None, objs)):
-    print 'cdef called'
+    print 'let called'
     print buf1[6], buf2[1, 0]
     buf2[1, 0] = UniqueObject("eggs")
 
@@ -1389,11 +1389,11 @@ def test_cdef_function(o1, o2=None):
     >>> A = IntMockBuffer("A", range(10))
     >>> test_cdef_function(A)
     acquired A
-    cdef called
+    let called
     6 ham
     released A
     acquired A
-    cdef called
+    let called
     6 eggs
     released A
 
@@ -1403,16 +1403,16 @@ def test_cdef_function(o1, o2=None):
 
     >>> test_cdef_function(A, B)
     acquired A
-    cdef called
+    let called
     6 eggs
     released A
     acquired A
-    cdef called
+    let called
     6 eggs
     released A
     acquired A
     acquired B
-    cdef called
+    let called
     6 1
     released A
     released B
@@ -1423,10 +1423,10 @@ def test_cdef_function(o1, o2=None):
     if o2:
         cdef_function(o1, o2)
 
-cdef int[:] global_A = IntMockBuffer("Global_A", range(10))
+fn int[:] global_A = IntMockBuffer("Global_A", range(10))
 
 addref(*[obj for L in objs for obj in L])
-cdef object[::view.indirect, :] global_B = ObjectMockBuffer(None, objs)
+fn object[::view.indirect, :] global_B = ObjectMockBuffer(None, objs)
 
 cdef cdef_function2(int[:] buf1, object[::view.indirect, :] buf2 = global_B):
     print 'cdef2 called'
@@ -1443,8 +1443,8 @@ def test_cdef_function2():
     cdef2 called
     6 eggs
     """
-    cdef int[:] A = global_A
-    cdef object[::view.indirect, :] B = global_B
+    fn int[:] A = global_A
+    fn object[::view.indirect, :] B = global_B
 
     cdef_function2(A, B)
 
@@ -1488,8 +1488,8 @@ def test_generic_slicing(arg, indirect=False):
     released A
 
     """
-    cdef int[::view.generic, ::view.generic, :] a = arg
-    cdef int[::view.generic, ::view.generic, :] b = a[2:8:2, -4:1:-1, 1:3]
+    fn int[::view.generic, ::view.generic, :] a = arg
+    fn int[::view.generic, ::view.generic, :] b = a[2:8:2, -4:1:-1, 1:3]
 
     print b.shape[0], b.shape[1], b.shape[2]
 
@@ -1501,7 +1501,7 @@ def test_generic_slicing(arg, indirect=False):
         print_int_offsets(b.strides[0], b.strides[1], b.strides[2])
         print_int_offsets(b.suboffsets[0], b.suboffsets[1], b.suboffsets[2])
 
-    cdef int i, j, k
+    let int i, j, k
     for i in range(b.shape[0]):
         for j in range(b.shape[1]):
             for k in range(b.shape[2]):
@@ -1543,17 +1543,17 @@ def test_indirect_slicing(arg):
     2412
     released A
     """
-    cdef int[::view.indirect, ::view.indirect, :] a = arg
-    cdef int[::view.indirect, ::view.indirect, :] b = a[-5:, ..., -5:100:2]
-    cdef int[::view.generic , :: view.generic, :] generic_b = a[-5:, ..., -5:100:2]
-    cdef int[::view.indirect, ::view.indirect] c = b[..., 0]
+    fn int[::view.indirect, ::view.indirect, :] a = arg
+    fn int[::view.indirect, ::view.indirect, :] b = a[-5:, ..., -5:100:2]
+    fn int[::view.generic , :: view.generic, :] generic_b = a[-5:, ..., -5:100:2]
+    fn int[::view.indirect, ::view.indirect] c = b[..., 0]
 
     # try indexing away leading indirect dimensions
-    cdef int[::view.indirect, :] d = b[4]
-    cdef int[:] e = b[4, 2]
+    fn int[::view.indirect, :] d = b[4]
+    fn int[:] e = b[4, 2]
 
-    cdef int[::view.generic, :] generic_d = generic_b[4]
-    cdef int[:] generic_e = generic_b[4, 2]
+    fn int[::view.generic, :] generic_d = generic_b[4]
+    fn int[:] generic_e = generic_b[4, 2]
 
     print b.shape[0], b.shape[1], b.shape[2]
     print b.suboffsets[0] // sizeof(int *),
@@ -1576,14 +1576,14 @@ def test_indirect_slicing(arg):
 cdef class TestIndexSlicingDirectIndirectDims(object):
     "Test a int[:, ::view.indirect, :] slice"
 
-    cdef Py_ssize_t[3] shape, strides, suboffsets
+    let Py_ssize_t[3] shape, strides, suboffsets
 
-    cdef int[5] c_array
-    cdef int *myarray[5][5]
-    cdef bytes format
+    let int[5] c_array
+    let int *myarray[5][5]
+    let bytes format
 
     def __init__(self):
-        cdef int i
+        let int i
         self.c_array[3] = 20
         self.myarray[1][2] = self.c_array
 
@@ -1627,8 +1627,8 @@ def test_index_slicing_away_direct_indirect():
     20
     All dimensions preceding dimension 1 must be indexed and not sliced
     """
-    cdef int[:, ::view.indirect, :] a = TestIndexSlicingDirectIndirectDims()
-    cdef object a_obj = a
+    fn int[:, ::view.indirect, :] a = TestIndexSlicingDirectIndirectDims()
+    let object a_obj = a
 
     print a[1][2][3]
     print a[1, 2, 3]
@@ -1668,14 +1668,14 @@ def test_direct_slicing(arg):
     -1 -1 -1
     released A
     """
-    cdef int[:, :, ::1] a = arg
-    cdef int[:, :, :] b = a[2:8:2, -4:1:-1, 1:3]
+    fn int[:, :, ::1] a = arg
+    fn int[:, :, :] b = a[2:8:2, -4:1:-1, 1:3]
 
     print b.shape[0], b.shape[1], b.shape[2]
     print_int_offsets(b.strides[0], b.strides[1], b.strides[2])
     print_int_offsets(b.suboffsets[0], b.suboffsets[1], b.suboffsets[2])
 
-    cdef int i, j, k
+    let int i, j, k
     for i in range(b.shape[0]):
         for j in range(b.shape[1]):
             for k in range(b.shape[2]):
@@ -1695,15 +1695,15 @@ def test_slicing_and_indexing(arg):
     [111]
     released A
     """
-    cdef int[:, :, :] a = arg
-    cdef int[:, :] b = a[-5:, 1, 1::2]
-    cdef int[:, :] c = b[4:1:-1, ::-1]
-    cdef int[:] d = c[2, 1:2]
+    fn int[:, :, :] a = arg
+    fn int[:, :] b = a[-5:, 1, 1::2]
+    fn int[:, :] c = b[4:1:-1, ::-1]
+    fn int[:] d = c[2, 1:2]
 
     print b.shape[0], b.shape[1]
     print_int_offsets(b.strides[0], b.strides[1])
 
-    cdef int i, j
+    let int i, j
     for i in range(b.shape[0]):
         for j in range(b.shape[1]):
             itemA = a[-5 + i, 1, 1 + 2 * j]
@@ -1722,11 +1722,11 @@ def test_oob():
        ...
     IndexError: Index out of bounds (axis 1)
     """
-    cdef int[:, :] a = IntMockBuffer("A", range(4 * 9), shape=(4, 9))  # , writable=False)
+    fn int[:, :] a = IntMockBuffer("A", range(4 * 9), shape=(4, 9))  # , writable=False)
     print a[:, 20]
 
 
-cdef int nogil_oob(int[:, :] a) except 0 nogil:
+fn int nogil_oob(int[:, :] a) except 0 nogil:
     a[100, 9:]
     return 1
 
@@ -1744,7 +1744,7 @@ def test_nogil_oob1():
     Index out of bounds (axis 0)
     released A
     """
-    cdef int[:, :] a = IntMockBuffer("A", range(4 * 9), shape=(4, 9))
+    fn int[:, :] a = IntMockBuffer("A", range(4 * 9), shape=(4, 9))
 
     try:
         nogil_oob(IntMockBuffer("B", range(4 * 9), shape=(4, 9)))
@@ -1765,14 +1765,14 @@ def test_nogil_oob2():
        ...
     IndexError: Index out of bounds (axis 0)
     """
-    cdef int[:, :] a = IntMockBuffer("A", range(4 * 9), shape=(4, 9))  # , writable=False)
+    fn int[:, :] a = IntMockBuffer("A", range(4 * 9), shape=(4, 9))  # , writable=False)
     with nogil:
         a[100, 9:]
 
 @cython.boundscheck(False)
-cdef int cdef_nogil(int[:, :] a) except 0 nogil:
-    cdef int i, j
-    cdef int[:, :] b = a[::-1, 3:10:2]
+fn int cdef_nogil(int[:, :] a) except 0 nogil:
+    let int i, j
+    fn int[:, :] b = a[::-1, 3:10:2]
     for i in range(b.shape[0]):
         for j in range(b.shape[1]):
             b[i, j] = -b[i, j]
@@ -1791,10 +1791,10 @@ def test_nogil():
     """
     _a = IntMockBuffer("A", range(4 * 9), shape=(4, 9))
     assert cdef_nogil(_a) == 4
-    cdef int[:, :] a = _a
+    fn int[:, :] a = _a
     print a[2, 7]
 
-    cdef int length
+    let int length
     with nogil:
         length = cdef_nogil(a)
     assert length == 4
@@ -1811,7 +1811,7 @@ def test_convert_slicenode_to_indexnode():
     2
     released A
     """
-    cdef int[:] a = IntMockBuffer("A", range(10), shape=(10,))  # , writable=False)
+    fn int[:] a = IntMockBuffer("A", range(10), shape=(10,))  # , writable=False)
     with nogil:
         a = a[2:4]
     print a[0]
@@ -1828,13 +1828,13 @@ def test_memslice_prange(arg):
     acquired A
     released A
     """
-    cdef int[:, :, :] src, dst
+    fn int[:, :, :] src, dst
 
     src = arg
 
     dst = array((<object> src).shape, sizeof(int), format="i")
 
-    cdef int i, j, k
+    let int i, j, k
 
     for i in prange(src.shape[0], nogil=True):
         for j in range(src.shape[1]):
@@ -1857,7 +1857,7 @@ def test_clean_temps_prange(int[:, :] buf):
     acquired A
     released A
     """
-    cdef int i
+    let int i
     try:
         for i in prange(buf.shape[0], nogil=True):
             buf[1:10, 20] = 0
@@ -1875,7 +1875,7 @@ def test_clean_temps_parallel(int[:, :] buf):
     acquired A
     released A
     """
-    cdef int i
+    let int i
     try:
         with nogil, parallel():
             try:
@@ -1908,15 +1908,15 @@ def test_memslice_struct_with_arrays():
     abc
     abc
     """
-    cdef ArrayStruct[10] a1
-    cdef PackedArrayStruct[10] a2
+    let ArrayStruct[10] a1
+    let PackedArrayStruct[10] a2
 
     test_structs_with_arr(a1)
     test_structs_with_arr(a2)
 
 cdef test_structs_with_arr(FusedStruct array[10]):
     cdef FusedStruct[:] myslice1, myslice2, myslice3, myslice4
-    cdef int i, j
+    let int i, j
 
     myslice1 = <FusedStruct[:10]> array
 
@@ -1956,7 +1956,7 @@ def test_struct_attributes_format():
     >>> test_struct_attributes_format()
     T{i:int_attrib:c:char_attrib:}
     """
-    cdef TestAttrs[10] array
+    let TestAttrs[10] array
     cdef TestAttrs[:] struct_memview = array
     print builtins.memoryview(struct_memview).format
 
@@ -2017,14 +2017,14 @@ def test_padded_structs():
     """
     >>> test_padded_structs()
     """
-    cdef ArrayStruct[10] a1
-    cdef PackedArrayStruct[10] a2
-    cdef AlignedNested[10] a3
-    cdef AlignedNestedNormal[10] a4
-    cdef A[10] a5
-    cdef B[10] a6
-    cdef C[10] a7
-    cdef D[10] a8
+    let ArrayStruct[10] a1
+    let PackedArrayStruct[10] a2
+    let AlignedNested[10] a3
+    let AlignedNestedNormal[10] a4
+    let A[10] a5
+    let B[10] a6
+    let C[10] a7
+    let D[10] a8
 
     _test_padded(a1)
     _test_padded(a2)
@@ -2051,9 +2051,9 @@ def test_object_indices():
     1
     2
     """
-    cdef int[3] array
-    cdef int[:] myslice = array
-    cdef int j
+    let int[3] array
+    fn int[:] myslice = array
+    let int j
 
     for i in range(3):
         myslice[i] = i
@@ -2076,8 +2076,8 @@ def test_ellipsis_expr():
     8
     8
     """
-    cdef int[10] a
-    cdef int[:] m = a
+    let int[10] a
+    fn int[:] m = a
 
     _test_ellipsis_expr(m)
     _test_ellipsis_expr(<object> m)
@@ -2092,21 +2092,21 @@ def test_slice_assignment():
     """
     >>> test_slice_assignment()
     """
-    cdef int[10][100] carray
-    cdef int i, j
+    let int[10][100] carray
+    let int i, j
 
     for i in range(10):
         for j in range(100):
             carray[i][j] = i * 100 + j
 
-    cdef int[:, :] m = carray
-    cdef int[:, :] copy = m[-6:-1, 60:65].copy()
+    fn int[:, :] m = carray
+    fn int[:, :] copy = m[-6:-1, 60:65].copy()
 
     _test_slice_assignment(m, copy)
     _test_slice_assignment(<object> m, <object> copy)
 
 cdef _test_slice_assignment(slice_2d m, slice_2d copy):
-    cdef int i, j
+    let int i, j
 
     m[...] = m[::-1, ::-1]
     m[:, :] = m[::-1, ::-1]
@@ -2121,15 +2121,15 @@ def test_slice_assignment_broadcast_leading():
     """
     >>> test_slice_assignment_broadcast_leading()
     """
-    cdef int[1][10] array1
-    cdef int[10] array2
-    cdef int i
+    let int[1][10] array1
+    let int[10] array2
+    let int i
 
     for i in range(10):
         array1[0][i] = i
 
-    cdef int[:, :] a = array1
-    cdef int[:] b = array2
+    fn int[:, :] a = array1
+    fn int[:] b = array2
 
     _test_slice_assignment_broadcast_leading(a, b)
 
@@ -2139,7 +2139,7 @@ def test_slice_assignment_broadcast_leading():
     _test_slice_assignment_broadcast_leading(<object> a, <object> b)
 
 cdef _test_slice_assignment_broadcast_leading(slice_2d a, slice_1d b):
-    cdef int i
+    let int i
 
     b[:] = a[:, :]
     b = b[::-1]
@@ -2153,22 +2153,22 @@ def test_slice_assignment_broadcast_strides():
     """
     >>> test_slice_assignment_broadcast_strides()
     """
-    cdef int[10] src_array
-    cdef int[10][5] dst_array
-    cdef int i, j
+    let int[10] src_array
+    let int[10][5] dst_array
+    let int i, j
 
     for i in range(10):
         src_array[i] = 10 - 1 - i
 
-    cdef int[:] src = src_array
-    cdef int[:, :] dst = dst_array
-    cdef int[:, :] dst_f = dst.copy_fortran()
+    fn int[:] src = src_array
+    fn int[:, :] dst = dst_array
+    fn int[:, :] dst_f = dst.copy_fortran()
 
     _test_slice_assignment_broadcast_strides(src, dst, dst_f)
     _test_slice_assignment_broadcast_strides(<object> src, <object> dst, <object> dst_f)
 
 cdef _test_slice_assignment_broadcast_strides(slice_1d src, slice_2d dst, slice_2d dst_f):
-    cdef int i, j
+    let int i, j
 
     dst[1:] = src[-1:-6:-1]
     dst_f[1:] = src[-1:-6:-1]
@@ -2196,8 +2196,8 @@ def test_borrowed_slice():
     5
     5
     """
-    cdef int i
-    cdef int[10] carray
+    let int i
+    let int[10] carray
     carray[:] = range(10)
     _borrowed(carray)
     _not_borrowed(carray)
@@ -2212,7 +2212,7 @@ cdef _not_borrowed(int[:] m):
         del m
 
 cdef _not_borrowed2(int[:] m):
-    cdef int[10] carray
+    let int[10] carray
     print m[5]
     if object():
         m = carray
@@ -2249,13 +2249,13 @@ def test_object_dtype_copying():
     5
     1 5
     """
-    cdef int i
+    let int i
 
     unique = object()
     unique_refcount = get_refcount(unique)
 
-    cdef object[:] m1 = _get_empty_object_slice()
-    cdef object[:] m2 = _get_empty_object_slice()
+    fn object[:] m1 = _get_empty_object_slice()
+    fn object[:] m2 = _get_empty_object_slice()
 
     for i in range(10):
         m1[i] = SingleObject(i)
@@ -2302,18 +2302,18 @@ def test_scalar_slice_assignment():
     6
     9
     """
-    cdef int[10] a
-    cdef int[:] m = a
+    let int[10] a
+    fn int[:] m = a
 
-    cdef int[5][10] a2
-    cdef int[:, ::1] m2 = a2
+    let int[5][10] a2
+    fn int[:, ::1] m2 = a2
 
     _test_scalar_slice_assignment(m, m2)
     print
     _test_scalar_slice_assignment(<object> m, <object> m2)
 
 cdef _test_scalar_slice_assignment(slice_1d m, slice_2d m2):
-    cdef int i, j
+    let int i, j
     for i in range(10):
         m[i] = i
 
@@ -2325,15 +2325,15 @@ cdef _test_scalar_slice_assignment(slice_1d m, slice_2d m2):
         for j in range(m2.shape[1]):
             m2[i, j] = i * m2.shape[1] + j
 
-    cdef int x = 2, y = -2
-    cdef long value = 1
+    let int x = 2, y = -2
+    let long value = 1
     m2[::2,    ::-1] = value
     m2[-2::-2, ::-1] = 2
     m2[::2,    -2::-2] = 0
     m2[-2::-2, -2::-2] = 0
 
 
-    cdef int[:, :] s = m2[..., 1::2]
+    fn int[:, :] s = m2[..., 1::2]
     for i in range(s.shape[0]):
         for j in range(s.shape[1]):
             assert s[i, j] == i % 2 + 1, (s[i, j], i)
@@ -2363,8 +2363,8 @@ def test_contig_scalar_to_slice_assignment():
     20 20 20 20
     30 30 20 20
     """
-    cdef int[5][10] a
-    cdef int[:, ::1] m = a
+    let int[5][10] a
+    fn int[:, ::1] m = a
 
     m[...] = 14
     print m[0, 0], m[-1, -1], m[3, 2], m[4, 9]
@@ -2383,7 +2383,7 @@ def test_dtype_object_scalar_assignment():
     """
     >>> test_dtype_object_scalar_assignment()
     """
-    cdef object[:] m = array((10,), sizeof(PyObject *), 'O')
+    fn object[:] m = array((10,), sizeof(PyObject *), 'O')
     m[:] = SingleObject(2)
     assert m[0] == m[4] == m[-1] == 2
 
@@ -2428,7 +2428,7 @@ def test_noneslice_ext_attr():
     AttributeError Memoryview is not initialized
     None
     """
-    cdef NoneSliceAttr obj = NoneSliceAttr()
+    let NoneSliceAttr obj = NoneSliceAttr()
 
     with cython.nonecheck(True):
         try: print obj.m
@@ -2445,8 +2445,8 @@ def test_noneslice_del():
        ...
     UnboundLocalError: local variable 'm' referenced before assignment
     """
-    cdef int[10] a
-    cdef int[:] m = a
+    let int[10] a
+    fn int[:] m = a
 
     with cython.nonecheck(True):
         m = None
@@ -2459,8 +2459,8 @@ def test_noneslice_nogil_check_none(double[:] m):
     >>> test_noneslice_nogil_check_none(None)
     (True, False)
     """
-    cdef bint is_none = False
-    cdef bint not_none = True
+    let bint is_none = False
+    let bint not_none = True
 
     with nogil:
         is_none = m is None and None is m and m == None and None == m
@@ -2485,8 +2485,8 @@ def test_inplace_assignment():
     >>> test_inplace_assignment()
     10
     """
-    cdef int[10] a
-    cdef int[:] m = a
+    let int[10] a
+    fn int[:] m = a
 
     m[0] = get_int()
     print m[0]
@@ -2503,10 +2503,10 @@ def test_newaxis(int[:] one_D):
     3
     released A
     """
-    cdef int[:, :] two_D_1 = one_D[None]
-    cdef int[:, :] two_D_2 = one_D[None, :]
-    cdef int[:, :] two_D_3 = one_D[:, None]
-    cdef int[:, :] two_D_4 = one_D[..., None]
+    fn int[:, :] two_D_1 = one_D[None]
+    fn int[:, :] two_D_2 = one_D[None, :]
+    fn int[:, :] two_D_3 = one_D[:, None]
+    fn int[:, :] two_D_4 = one_D[..., None]
 
     print two_D_1[0, 3]
     print two_D_2[0, 3]
@@ -2536,10 +2536,10 @@ def test_newaxis2(int[:, :] two_D):
     suboffsets: -1 -1 -1 -1
     released A
     """
-    cdef int[:, :, :] a = two_D[..., None, 1, None]
-    cdef int[:, :, :] b = two_D[None, 1, ..., None]
-    cdef int[:, :, :, :] c = two_D[..., None, 1:, None]
-    cdef int[:, :, :, :] d = two_D[None, 1:, ..., None]
+    fn int[:, :, :] a = two_D[..., None, 1, None]
+    fn int[:, :, :] b = two_D[None, 1, ..., None]
+    fn int[:, :, :, :] c = two_D[..., None, 1:, None]
+    fn int[:, :, :, :] d = two_D[None, 1:, ..., None]
 
     _print_attributes(a)
     print
@@ -2580,7 +2580,7 @@ def test_loop(int[:] a, throw_exception):
     acquired A
     released A
     """
-    cdef int sum = 0
+    let int sum = 0
     for ai in a:
         sum += ai
     if throw_exception:
@@ -2603,7 +2603,7 @@ def test_loop_reassign(int[:] a):
     15
     released A
     """
-    cdef int sum = 0
+    let int sum = 0
     for ai in a:
         sum += ai
         print(ai)
@@ -2663,7 +2663,7 @@ def test_local_in_closure(a):
     >>> del inner; ignore_me = gc.collect()
     released A
     """
-    cdef int[:] a_view = a
+    fn int[:] a_view = a
     def inner():
         return (a_view[0], a_view[1])
     return inner
@@ -2689,7 +2689,7 @@ def test_local_in_generator_expression(a, initialize, execute_now):
     released A2
     2
     """
-    cdef int[:] a_view
+    fn int[:] a_view
     if initialize:
         a_view = a
     if execute_now:

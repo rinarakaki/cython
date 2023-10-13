@@ -1,7 +1,7 @@
 # mode: error
 
-cdef pass
-cdef void
+let pass
+let void
 cdef nogil class test: pass
 
 _ERRORS = u"""

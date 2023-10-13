@@ -3,7 +3,7 @@ cimport cython
 
 @cython.freelist(8)
 cdef class Penguin:
-    cdef object food
+    let object food
     def __cinit__(self, food):
         self.food = food
 

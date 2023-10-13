@@ -6,7 +6,7 @@ from Rectangle cimport Rectangle
 # as an attribute and create a bunch of forwarding methods
 # Python extension type.
 cdef class PyRectangle:
-    cdef Rectangle c_rect  # Hold a C++ instance which we're wrapping
+    let Rectangle c_rect  # Hold a C++ instance which we're wrapping
 
     def __init__(self, int x0, int y0, int x1, int y1):
         self.c_rect = Rectangle(x0, y0, x1, y1)
@@ -15,7 +15,7 @@ cdef class PyRectangle:
         return self.c_rect.getArea()
 
     def get_size(self):
-        cdef int width, height
+        let int width, height
         self.c_rect.getSize(&width, &height)
         return width, height
 

@@ -1,4 +1,4 @@
-cdef extern from *:
+extern from *:
     """
     #if defined(_WIN32) || defined(MS_WINDOWS) || defined(_MSC_VER)
       #include "stdlib.h"

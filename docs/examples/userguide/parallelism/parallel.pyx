@@ -7,9 +7,9 @@ cdef void func(int *buf) nogil:
     pass
     # ...
 
-cdef Py_ssize_t idx, i, j, n = 100
-cdef int * local_buf
-cdef size_t size = 10
+let Py_ssize_t idx, i, j, n = 100
+let int * local_buf
+let size_t size = 10
 
 
 

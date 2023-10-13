@@ -4,7 +4,7 @@ cimport cython
 
 
 # Count number of times an object was deallocated twice. This should remain 0.
-cdef int double_deallocations = 0
+let int double_deallocations = 0
 def assert_no_double_deallocations():
     global double_deallocations
     err = double_deallocations
@@ -19,7 +19,7 @@ def assert_no_double_deallocations():
 # See also https://github.com/python/cpython/pull/11841
 def recursion_test(f, int n=2**20):
     x = None
-    cdef int i
+    let int i
     for i in range(n):
         x = f(x)
 
@@ -30,8 +30,8 @@ cdef class Recurse:
     >>> recursion_test(Recurse)
     >>> assert_no_double_deallocations()
     """
-    cdef public attr
-    cdef int deallocated
+    let public attr
+    let int deallocated
 
     def __cinit__(self, x):
         self.attr = x
@@ -48,7 +48,7 @@ cdef class RecurseSub(Recurse):
     >>> recursion_test(RecurseSub)
     >>> assert_no_double_deallocations()
     """
-    cdef int subdeallocated
+    let int subdeallocated
 
     def __dealloc__(self):
         # Check that we're not being deallocated twice
@@ -65,8 +65,8 @@ cdef class RecurseFreelist:
     >>> recursion_test(RecurseFreelist, 1000)
     >>> assert_no_double_deallocations()
     """
-    cdef public attr
-    cdef int deallocated
+    let public attr
+    let int deallocated
 
     def __cinit__(self, x):
         self.attr = x
@@ -95,8 +95,8 @@ cdef class RecurseList(list):
 # in a big recursive deallocation, the __dealloc__s of the base classes are
 # only run after the __dealloc__s of the subclasses.
 # We use this to detect trashcan usage.
-cdef int base_deallocated = 0
-cdef int trashcan_used = 0
+let int base_deallocated = 0
+let int trashcan_used = 0
 def assert_no_trashcan_used():
     global base_deallocated, trashcan_used
     err = trashcan_used
@@ -116,7 +116,7 @@ cdef class Sub1(Base):
     >>> recursion_test(Sub1, 100)
     >>> assert_no_trashcan_used()
     """
-    cdef public attr
+    let public attr
 
     def __cinit__(self, x):
         self.attr = x
@@ -128,7 +128,7 @@ cdef class Sub1(Base):
 
 @cython.trashcan(True)
 cdef class Middle(Base):
-    cdef public foo
+    let public foo
 
 
 # Trashcan disabled explicitly
@@ -138,7 +138,7 @@ cdef class Sub2(Middle):
     >>> recursion_test(Sub2, 1000)
     >>> assert_no_trashcan_used()
     """
-    cdef public attr
+    let public attr
 
     def __cinit__(self, x):
         self.attr = x

@@ -7,9 +7,9 @@ enum G:
     b
 
 cdef void f():
-    cdef E e=a
-    cdef G g=b
-    cdef int i, j=0
+    let E e=a
+    let G g=b
+    let int i, j=0
     cdef float f, h=0
     i = j | e
     i = e | j

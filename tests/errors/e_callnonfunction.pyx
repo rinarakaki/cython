@@ -1,16 +1,16 @@
 # mode: error
 
-cdef int i
+let int i
 i()
 
-cdef float f
+let float f
 f()
 
 struct s:    # FIXME: this might be worth an error ...
     int x
 s()
 
-cdef int x():
+fn int x():
     return 0
 
 x()()

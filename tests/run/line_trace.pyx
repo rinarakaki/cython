@@ -7,7 +7,7 @@ import sys
 
 from cpython.ref cimport PyObject, Py_INCREF, Py_XDECREF
 
-cdef extern from "frameobject.h":
+extern from "frameobject.h":
     struct PyFrameObject:
         PyObject *f_trace
 
@@ -16,7 +16,7 @@ from cpython.pystate cimport (
     PyTrace_CALL, PyTrace_EXCEPTION, PyTrace_LINE, PyTrace_RETURN,
     PyTrace_C_CALL, PyTrace_C_EXCEPTION, PyTrace_C_RETURN)
 
-cdef extern from *:
+extern from *:
     void PyEval_SetProfile(Py_tracefunc cfunc, PyObject *obj)
     void PyEval_SetTrace(Py_tracefunc cfunc, PyObject *obj)
 
@@ -32,11 +32,11 @@ map_trace_types = {
 }.get
 
 
-cdef int trace_trampoline(PyObject* _traceobj, PyFrameObject* _frame, int what, PyObject* _arg) except -1:
+fn int trace_trampoline(PyObject* _traceobj, PyFrameObject* _frame, int what, PyObject* _arg) except -1:
     """
     This is (more or less) what CPython does in sysmodule.c, function trace_trampoline().
     """
-    cdef PyObject *tmp
+    let PyObject *tmp
 
     if what == PyTrace_CALL:
         if _traceobj is NULL:
@@ -143,7 +143,7 @@ def cy_add(a,b):
 
 
 def cy_add_with_nogil(a,b):
-    cdef int z, x=a, y=b         # 1
+    let int z, x=a, y=b         # 1
     with nogil:                  # 2
         z = 0                    # 3
         z += cy_add_nogil(x, y)  # 4
@@ -155,7 +155,7 @@ def global_name(global_name):
     return global_name + 321
 
 
-cdef int cy_add_nogil(int a, int b) except -1 nogil:
+fn int cy_add_nogil(int a, int b) except -1 nogil:
     x = a + b   # 1
     return x    # 2
 
@@ -378,7 +378,7 @@ def fail_on_line_trace(fail_func, add_func, nogil_add_func):
     >>> result[5:]  # py
     [('call', 0), ('line', 1), ('line', 2), ('line', 3), ('line', 4), ('call', 0)]
     """
-    cdef int x = 1
+    let int x = 1
     trace = ['NO ERROR']
     exception = None
     trace_func = _create__failing_line_trace_func(trace)

@@ -7,9 +7,9 @@ cdef class A:
     pass
 
 def main():
-    cdef vector[object] vo
+    let vector[object] vo
     vo.push_back(object())
-    cdef vector[A] va
+    let vector[A] va
     va.push_back(A())
 
 def memview():

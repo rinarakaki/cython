@@ -9,8 +9,8 @@ def f(a):
 cdef void g():
     return
 
-cdef int h(a):
-    cdef int i
+fn int h(a):
+    let int i
     i = a
     return i
 

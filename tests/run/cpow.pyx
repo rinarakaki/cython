@@ -60,7 +60,7 @@ def pow_double_double_coerced_directly(double a, double b):
     """
     # Because we're assigning directly to a double assume 'cpow'
     # but warn.
-    cdef double c = a**b
+    let double c = a**b
     return cfunc_taking_double(a**b) + c
 
 def pow_double_int(double a, int b):
@@ -97,7 +97,7 @@ def soft_complex_coerced_to_double(double a, double b):
     """
     c = a**b
     assert cython.typeof(c) == "soft double complex"
-    cdef double d = c  # will raise if complex
+    let double d = c  # will raise if complex
     return d
 
 def soft_complex_coerced_to_complex(double a, double b):
@@ -113,7 +113,7 @@ def soft_complex_coerced_to_complex(double a, double b):
     # This is always fine, but just check it works
     c = a**b
     assert cython.typeof(c) == "soft double complex"
-    cdef double complex d = c
+    let double complex d = c
     return d
 
 def soft_complex_type_inference_1(double a, double b, pick):
@@ -176,7 +176,7 @@ def pow_int_int_coerced_directly(int a, int b):
     >>> pow_int_int_coerced_directly(2, 2)
     8
     """
-    cdef int c = a**b
+    let int c = a**b
     return cfunc_taking_int(a**b) + c
 
 def pow_int_int_non_negative(int a, unsigned int b):
@@ -203,7 +203,7 @@ def pythagoras_with_typedef(double a, double b):
     >>> pyresult - 0.001 < rc < pyresult + 0.001  or  (rc, pyresult)
     True
     """
-    cdef f64 result = a * a + b * b
+    let f64 result = a * a + b * b
     result = 1.0 / result ** 0.5
     return result
 
@@ -218,7 +218,7 @@ def power_coercion_in_nogil_1(double a, double b):
     ...
     TypeError: Cannot convert 'complex' with non-zero imaginary component to 'double' (this most likely comes from the '**' operator; use 'cython.cpow(True)' to return 'nan' instead of a complex number).
     """
-    cdef double c
+    let double c
     with nogil:
         c = a**b
     return c

@@ -1,11 +1,11 @@
 # mode: run
 # tag: closures
 cdef class Test:
-    cdef int x
+    let int x
 
 cdef class SelfInClosure(object):
-    cdef Test _t
-    cdef int x
+    let Test _t
+    let int x
 
     def plain(self):
         """

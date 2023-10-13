@@ -1,6 +1,6 @@
 
-cdef int[10] data
-cdef int[:] myslice = data
+let int[10] data
+fn int[:] myslice = data
 
 def test_memoryview_namespace():
     """

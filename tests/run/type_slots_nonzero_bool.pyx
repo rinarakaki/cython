@@ -23,14 +23,14 @@ True
 """
 
 cdef class BoolA:
-    cdef bint value
+    let bint value
     def __cinit__(self, bint value):
         self.value = value
     def __nonzero__(self):
         return self.value
 
 cdef class BoolB:
-    cdef bint value
+    let bint value
     def __cinit__(self, bint value):
         self.value = value
     def __bool__(self):

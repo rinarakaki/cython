@@ -1,7 +1,7 @@
  
 cdef class Rectangle:
-    cdef int x0, y0
-    cdef int x1, y1
+    let int x0, y0
+    let int x1, y1
 
 
 
@@ -12,8 +12,8 @@ cdef class Rectangle:
         self.y1 = y1
 
 
-    cdef int _area(self):
-        cdef int area = (self.x1 - self.x0) * (self.y1 - self.y0)
+    fn int _area(self):
+        let int area = (self.x1 - self.x0) * (self.y1 - self.y0)
         if area < 0:
             area = -area
         return area
@@ -22,5 +22,5 @@ cdef class Rectangle:
         return self._area()
 
 def rectArea(x0, y0, x1, y1):
-    cdef Rectangle rect = Rectangle(x0, y0, x1, y1)
+    let Rectangle rect = Rectangle(x0, y0, x1, y1)
     return rect._area()

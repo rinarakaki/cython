@@ -32,12 +32,12 @@ extern from *:
     enum FlatHam: pass
 
 
-cdef extern Spam s
-cdef extern FlatSpam fs
-cdef extern FlatSpamType fst
+extern Spam s
+extern FlatSpam fs
+extern FlatSpamType fst
 
-cdef extern Eggs e
-cdef extern FlatEggs fe
+extern Eggs e
+extern FlatEggs fe
 
-cdef extern Ham h
-cdef extern FlatHam fh
+extern Ham h
+extern FlatHam fh

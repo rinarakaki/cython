@@ -4,7 +4,7 @@ import weakref
 foo_dict = weakref.WeakValueDictionary()
 
 cdef class Foo:
-    cdef object __weakref__
+    let object __weakref__
 
 def test_weakref(key):
     """

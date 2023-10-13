@@ -18,8 +18,8 @@ def test(int x):
     return x
 
 
-cdef int f_nogil(int x) nogil:
-    cdef int y
+fn int f_nogil(int x) nogil:
+    let int y
     y = x + 10
     return y
 
@@ -30,11 +30,11 @@ def f_gil(x):
     return y
 
 
-cdef int with_gil_func() except? -1 with gil:
+fn int with_gil_func() except? -1 with gil:
     raise Exception("error!")
 
 
-cdef int nogil_func() except? -1 nogil:
+fn int nogil_func() except? -1 nogil:
     with_gil_func()
 
 
@@ -51,7 +51,7 @@ def test_nogil_exception_propagation():
                 nogil_func()
 
 
-cdef int write_unraisable() noexcept nogil:
+fn int write_unraisable() noexcept nogil:
     with gil:
         raise ValueError()
 
@@ -77,7 +77,7 @@ def test_nested():
     >>> test_nested()
     240
     """
-    cdef int res = 0
+    let int res = 0
 
     with nogil(True):
         res = f_nogil(res)
@@ -105,7 +105,7 @@ def test_nested_condition_false():
     >>> test_nested_condition_false()
     220
     """
-    cdef int res = 0
+    let int res = 0
 
     with gil(FREE_GIL_FALSE):
         res = f_gil(res)
@@ -124,7 +124,7 @@ def test_try_finally():
     >>> test_try_finally()
     113
     """
-    cdef int res = 0
+    let int res = 0
 
     try:
         with nogil(True):
@@ -160,7 +160,7 @@ def test_fused(number_or_object x) -> number_or_object:
     >>> test_fused[object](1.0)
     2.0
     """
-    cdef number_or_object res = x
+    let number_or_object res = x
 
     with nogil(number_or_object is not object):
         res = res + 1
@@ -180,7 +180,7 @@ def test_fused_object(int_or_object x):
     >>> test_fused_object[int](1000)
     1000
     """
-    cdef int res = 0
+    let int res = 0
 
     if int_or_object is object:
         with nogil(False):
@@ -229,7 +229,7 @@ def test_fused_int(int_or_object x):
     >>> test_fused_int[int](1000)
     1452
     """
-    cdef int res = 0
+    let int res = 0
 
     if int_or_object is int:
         res += x

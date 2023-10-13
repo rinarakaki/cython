@@ -3,7 +3,7 @@
 
 from libcpp.set cimport set
 
-cdef extern from *:
+extern from *:
     void cpp_function_set1(set[int] arg)
     void cpp_function_set2(set[int]& arg)
 

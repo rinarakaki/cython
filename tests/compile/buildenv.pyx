@@ -9,7 +9,7 @@ import sys
 from distutils import sysconfig
 
 
-cdef extern from *:
+extern from *:
     """
     #ifndef PyLong_SHIFT
     #define PyLong_SHIFT 0
@@ -30,42 +30,42 @@ cdef extern from *:
     #endif
     """
     # Python runtime
-    cdef long PY_VERSION_HEX
+    let long PY_VERSION_HEX
 
     # Cython config
-    cdef int CYTHON_COMPILING_IN_CPYTHON
-    cdef int CYTHON_COMPILING_IN_LIMITED_API
-    cdef int CYTHON_COMPILING_IN_PYPY
-    cdef int CYTHON_COMPILING_IN_GRAAL
-    cdef int CYTHON_COMPILING_IN_NOGIL
-    cdef int CYTHON_USE_PYLONG_INTERNALS
-    cdef int CYTHON_USE_PYLIST_INTERNALS
-    cdef int CYTHON_USE_UNICODE_INTERNALS
-    cdef int CYTHON_USE_UNICODE_WRITER
-    cdef int CYTHON_AVOID_BORROWED_REFS
-    cdef int CYTHON_ASSUME_SAFE_MACROS
-    cdef int CYTHON_USE_TYPE_SLOTS
-    cdef int CYTHON_UNPACK_METHODS
-    cdef int CYTHON_FAST_THREAD_STATE
-    cdef int CYTHON_FAST_PYCALL
-    cdef int CYTHON_PEP489_MULTI_PHASE_INIT
-    cdef int CYTHON_USE_TP_FINALIZE
+    let int CYTHON_COMPILING_IN_CPYTHON
+    let int CYTHON_COMPILING_IN_LIMITED_API
+    let int CYTHON_COMPILING_IN_PYPY
+    let int CYTHON_COMPILING_IN_GRAAL
+    let int CYTHON_COMPILING_IN_NOGIL
+    let int CYTHON_USE_PYLONG_INTERNALS
+    let int CYTHON_USE_PYLIST_INTERNALS
+    let int CYTHON_USE_UNICODE_INTERNALS
+    let int CYTHON_USE_UNICODE_WRITER
+    let int CYTHON_AVOID_BORROWED_REFS
+    let int CYTHON_ASSUME_SAFE_MACROS
+    let int CYTHON_USE_TYPE_SLOTS
+    let int CYTHON_UNPACK_METHODS
+    let int CYTHON_FAST_THREAD_STATE
+    let int CYTHON_FAST_PYCALL
+    let int CYTHON_PEP489_MULTI_PHASE_INIT
+    let int CYTHON_USE_TP_FINALIZE
 
     # C and platform specifics
-    cdef int SIZEOF_INT
-    cdef int SIZEOF_LONG
-    cdef int SIZEOF_SIZE_T
-    cdef int SIZEOF_LONG_LONG
-    cdef int SIZEOF_VOID_P
-    cdef int SIZEOF_OFF_T
-    cdef int SIZEOF_UINTPTR_T
+    let int SIZEOF_INT
+    let int SIZEOF_LONG
+    let int SIZEOF_SIZE_T
+    let int SIZEOF_LONG_LONG
+    let int SIZEOF_VOID_P
+    let int SIZEOF_OFF_T
+    let int SIZEOF_UINTPTR_T
 
     # PyLong internals
-    cdef long PyLong_BASE
-    cdef long PyLong_MASK
-    cdef int PyLong_SHIFT
-    cdef int digit
-    cdef int sdigit
+    let long PyLong_BASE
+    let long PyLong_MASK
+    let int PyLong_SHIFT
+    let int digit
+    let int sdigit
 
 
 def config_var(name, default=''):

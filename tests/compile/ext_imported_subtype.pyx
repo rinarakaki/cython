@@ -3,7 +3,7 @@
 from crunchytype cimport Crunchy
 
 cdef class Sub2(Crunchy):
-    cdef char character
+    let char character
 
 cdef class Sub1(Sub2):
     pass

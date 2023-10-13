@@ -58,7 +58,7 @@ Traceback (most recent call last):
 NameError: ...name 'IntEnum' is not defined
 """
 
-cdef extern from *:
+extern from *:
     enum: # ExternPyx
         ONE "1"
         TEN "10"
@@ -89,7 +89,7 @@ enum cdefPyxDocEnum:
     """
     FIVE_AND_SEVEN = 5077
 
-cdef extern from *:
+extern from *:
     """
     enum ExternHasDuplicates {
         EX_DUP_A,
@@ -126,10 +126,10 @@ def test_as_variable_from_cython():
     assert list(PyxEnum) == [TWO, THREE, FIVE], list(PyxEnum)
     assert list(PxdEnum) == [RANK_0, RANK_1, RANK_2], list(PxdEnum)
 
-cdef int verify_pure_c() nogil:
-    cdef int x = TWO
-    cdef int y = PyxEnum.THREE
-    cdef int z = SecretPyxEnum.SEVEN
+fn int verify_pure_c() nogil:
+    let int x = TWO
+    let int y = PyxEnum.THREE
+    let int z = SecretPyxEnum.SEVEN
     return x + y + z
 
 # Use it to suppress warning.

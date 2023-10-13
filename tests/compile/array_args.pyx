@@ -2,17 +2,17 @@
 
 extern from *:
 
-    cdef void foo(int[])
+    fn void foo(int[])
 
     ctypedef int MyInt
-    cdef void foo(MyInt[])
+    fn void foo(MyInt[])
 
     struct MyStruct:
         pass
-    cdef void bar(MyStruct[])
+    fn void bar(MyStruct[])
 
     ctypedef MyStruct* MyStructP
-    cdef void baz(MyStructP[])
+    fn void baz(MyStructP[])
 
 
 struct OtherStruct:

@@ -3,7 +3,7 @@
 cimport cython
 from cython.operator import dereference as deref
 
-cdef extern from "cpp_templates_helper.h":
+extern from "cpp_templates_helper.h":
     cdef cppclass Wrap[T, AltType=*, UndeclarableAltType=*]:
         Wrap(T)
         void set(T)
@@ -148,8 +148,8 @@ def test_cast_template_pointer():
     """
     >>> test_cast_template_pointer()
     """
-    cdef SubClass[int, float] *sub = new SubClass[int, float]()
-    cdef SuperClass[int, float] *sup
+    let SubClass[int, float] *sub = new SubClass[int, float]()
+    let SuperClass[int, float] *sup
 
     sup = sub
     sup = <SubClass[int, float] *> sub

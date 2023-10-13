@@ -54,7 +54,7 @@ def c():
     >>> c()
     120
     """
-    cdef char c = CHAR
+    let char c = CHAR
     return c
 
 def i0():
@@ -62,7 +62,7 @@ def i0():
     >>> i0() == -1
     True
     """
-    cdef int i = INT0
+    let int i = INT0
     return i
 
 def i1():
@@ -70,7 +70,7 @@ def i1():
     >>> i1() == 42
     True
     """
-    cdef int i = INT1
+    let int i = INT1
     return i
 
 def i2():
@@ -78,7 +78,7 @@ def i2():
     >>> i2() == 0x42
     True
     """
-    cdef int i = INT2
+    let int i = INT2
     return i
 
 def i3():
@@ -86,7 +86,7 @@ def i3():
     >>> i3() == -0x42
     True
     """
-    cdef int i = INT3
+    let int i = INT3
     return i
 
 def l():
@@ -94,7 +94,7 @@ def l():
     >>> l()
     666
     """
-    cdef long l = LONG
+    let long l = LONG
     return l
 
 def large_nums():
@@ -109,10 +109,10 @@ def large_nums():
     >>> print_large_number(n64)
     -4294967295
     """
-    cdef unsigned long ul32 = LARGE_NUM32
-    cdef unsigned long long ul64 = LARGE_NUM64
-    cdef long long l64 = LARGE_NUM32
-    cdef long long n64 = -LARGE_NUM32
+    let unsigned long ul32 = LARGE_NUM32
+    let unsigned long long ul64 = LARGE_NUM64
+    let long long l64 = LARGE_NUM32
+    let long long n64 = -LARGE_NUM32
     return ul32, ul64, l64, n64
 
 def f():
@@ -120,14 +120,14 @@ def f():
     >>> f()
     12.5
     """
-    cdef float f = FLOAT
+    let float f = FLOAT
     return f
 
 def s():
     """
     see module docstring above
     """
-    cdef char* s = BYTES
+    let char* s = BYTES
     return s
 
 def type_of_bytes():
@@ -158,7 +158,7 @@ def constant_tuple():
     >>> print(constant_tuple()[-1])
     buckle my shoe
     """
-    cdef object t = TUPLE
+    let object t = TUPLE
     return t
 
 @cython.test_assert_path_exists('//IntNode')
@@ -167,7 +167,7 @@ def tuple_indexing():
     >>> tuple_indexing()
     2
     """
-    cdef int two = INT_TUPLE1[-1]
+    let int two = INT_TUPLE1[-1]
     return two
 
 def two():
@@ -175,7 +175,7 @@ def two():
     >>> two()
     2
     """
-    cdef int two = TWO
+    let int two = TWO
     return two
 
 def five():
@@ -183,7 +183,7 @@ def five():
     >>> five()
     5
     """
-    cdef int five = FIVE
+    let int five = FIVE
     return five
 
 @cython.test_assert_path_exists('//BoolNode')
@@ -192,7 +192,7 @@ def true():
     >>> true()
     True
     """
-    cdef bint true = TRUE
+    let bint true = TRUE
     return true
 
 @cython.test_assert_path_exists('//BoolNode')
@@ -201,7 +201,7 @@ def false():
     >>> false()
     False
     """
-    cdef bint false = FALSE
+    let bint false = FALSE
     return false
 
 def ellipsis():
@@ -218,7 +218,7 @@ def expression():
     >>> expression()
     16
     """
-    cdef int i = EXPRESSION
+    let int i = EXPRESSION
     return i
 
 

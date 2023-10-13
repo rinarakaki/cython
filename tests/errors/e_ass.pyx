@@ -1,9 +1,9 @@
 # mode: error
 
 cdef void foo(obj):
-    cdef int i1
-    cdef char *p1
-    cdef int *p2
+    let int i1
+    let char *p1
+    let int *p2
     i1 = p1 # error
     p2 = obj # error
 

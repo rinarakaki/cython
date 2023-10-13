@@ -1,7 +1,7 @@
 # cython: optimize.use_switch=False
 # cython: linetrace=True
 
-cdef extern from *:
+extern from *:
     enum:
         ONE "1"
         ONE_AGAIN "1+0"

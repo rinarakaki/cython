@@ -67,7 +67,7 @@ cdef class SelfCast:
         return orbit.index(self)
 
 
-cdef extern from *:
+extern from *:
     """
     #ifdef NDEBUG
     int DEBUG_MODE = 0;

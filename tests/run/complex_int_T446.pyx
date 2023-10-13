@@ -2,7 +2,7 @@
 
 import cython
 
-cdef extern from *:
+extern from *:
     """
     #if defined _MSC_VER && defined __cplusplus
     #define CYTHON_CCOMPLEX 0
@@ -41,7 +41,7 @@ def test_coercion(int a, long b, int complex c):
     (3-3j)
     (5-6j)
     """
-    cdef double complex z
+    let double complex z
     z = a; print z
     z = b; print z
     z = c; print z

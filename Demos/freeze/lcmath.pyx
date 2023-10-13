@@ -1,6 +1,6 @@
 # cython: language_level=3
 
-cdef extern from "math.h":
+extern from "math.h":
     double c_lgamma "lgamma" (double)
     double c_exp "exp" (double)
 

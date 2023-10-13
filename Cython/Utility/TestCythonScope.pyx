@@ -6,12 +6,12 @@
 
 from __future__ import print_function
 
-cdef extern from *:
-    cdef object __pyx_test_dep(object)
+extern from *:
+    fn object __pyx_test_dep(object)
 
 @cname('__pyx_TestClass')
 cdef class TestClass(object):
-    cdef public int value
+    let public int value
 
     def __init__(self, int value):
         self.value = value
@@ -60,11 +60,11 @@ cdef test_dep(obj):
 ########## TestScope ##########
 
 @cname('__pyx_testscope')
-cdef object _testscope(int value):
+fn object _testscope(int value):
     return f"hello from cython scope, value={value}"
 
 ########## View.TestScope ##########
 
 @cname('__pyx_view_testscope')
-cdef object _testscope(int value):
+fn object _testscope(int value):
     return f"hello from cython.view scope, value={value}"

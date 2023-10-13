@@ -1,4 +1,4 @@
-cdef extern from *:
+extern from *:
     """
     #ifdef CYTHON_USE_TYPE_SPECS
     #define TYPESPECS 1
@@ -31,12 +31,12 @@ cdef class Foo:
 cdef class ChangeName:
     # the class seems to need some contents for changing the
     # name to cause a problem
-    cdef public str attr1
-    cdef public int attr2
+    let public str attr1
+    let public int attr2
 
 if TYPESPECS:
     __doc__ = """
-    For typespecs, cdef classes are mutable on some Python versions
+    For typespecs, let classes are mutable on some Python versions
     (and it's easiest to leave them that way). Therefore the test
     is just that reassigning the name doesn't cause a crash
 
@@ -48,7 +48,7 @@ if TYPESPECS:
 else:
     __doc__ = """
     GH-5079
-    Assigning to the cdef class name shouldn't cause a crash.
+    Assigning to the let class name shouldn't cause a crash.
     The important bit of this test is the not crashing - it's
     possible that typespec/limited-API defined classes will be
     naturally mutable and that isn't a huge problem

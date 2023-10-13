@@ -60,7 +60,7 @@ def unpack_two_int(sequence it):
     Traceback (most recent call last):
     TypeError: ...int...
     """
-    cdef int b
+    let int b
     a,b = it
     return a,b
 
@@ -105,8 +105,8 @@ def unpack_many_int(sequence it):
     Traceback (most recent call last):
     ValueError: need more than 9 values to unpack
     """
-    cdef int b
-    cdef long f
-    cdef Py_ssize_t h
+    let int b
+    let long f
+    let Py_ssize_t h
     a,b,c,d,e,f,g,h,i,j,k,l = it
     return a,b,c,d,e,f,g,h,i,j,k,l

@@ -36,22 +36,22 @@ def test_struct():
     >>> test_struct()
     (1, 2)
     """
-    cdef foo foo_struct
+    let foo foo_struct
     foo_struct.void = 1
     foo_struct.default = 2
     return foo_struct.void, foo_struct.default
 
 
 cdef class Foo:
-    cdef int void
-    cdef int default
+    let int void
+    let int default
 
 def test_class():
     """
     >>> test_class()
     (1, 2)
     """
-    cdef Foo foo_instance = Foo()
+    let Foo foo_instance = Foo()
     foo_instance.void = 1
     foo_instance.default = 2
     return foo_instance.void, foo_instance.default

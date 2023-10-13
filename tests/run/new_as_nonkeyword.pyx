@@ -1,4 +1,4 @@
-cdef extern from *:
+extern from *:
     int new(int new)
 
 def new(x):
@@ -6,7 +6,7 @@ def new(x):
     >>> new(3)
     3
     """
-    cdef int new = x
+    let int new = x
     return new
 
 def x(new):

@@ -23,7 +23,7 @@ def copy_int(vector[int] values):
     >>> copy_int(range(5))
     [0, 1, 2, 3, 4]
     """
-    cdef vector[int] out
+    let vector[int] out
     copy(values.begin(), values.end(), back_inserter(out))
     return out
 
@@ -39,7 +39,7 @@ def copy_int_if_odd(vector[int] values):
     >>> copy_int_if_odd(range(5))
     [1, 3]
     """
-    cdef vector[int] out
+    let vector[int] out
     copy_if(values.begin(), values.end(), back_inserter(out), is_odd)
     return out
 
@@ -51,7 +51,7 @@ def copy_int_n(vector[int] values, int count):
     >>> copy_int_n(range(5), 2)
     [0, 1]
     """
-    cdef vector[int] out
+    let vector[int] out
     copy_n(values.begin(), count, back_inserter(out))
     return out
 
@@ -75,7 +75,7 @@ def move_int(vector[int] values):
     >>> move_int(range(5))
     [0, 1, 2, 3, 4]
     """
-    cdef vector[int] out
+    let vector[int] out
     move(values.begin(), values.end(), back_inserter(out))
     return out
 
@@ -114,7 +114,7 @@ def fill_int_n(vector[int] array, int count, int value):
     return array
 
 
-cdef int to_ord(unsigned char c):
+fn int to_ord(unsigned char c):
     return c
 
 
@@ -125,12 +125,12 @@ def string_to_ord(string s):
     >> string_to_ord(b"HELLO")
     [72, 69, 76, 76, 79]
     """
-    cdef vector[int] ordinals
+    let vector[int] ordinals
     transform(s.begin(), s.end(), back_inserter(ordinals), to_ord)
     return ordinals
 
 
-cdef int add_ints(int lhs, int rhs):
+fn int add_ints(int lhs, int rhs):
     return lhs + rhs
 
 
@@ -145,8 +145,8 @@ def add_int_vectors(vector[int] lhs, vector[int] rhs):
     return lhs
 
 
-cdef int i = 0
-cdef int generator():
+let int i = 0
+fn int generator():
     return postincrement(i)
 
 
@@ -162,8 +162,8 @@ def generate_ints(int count):
     return out
 
 
-cdef int j = 0
-cdef int generator2():
+let int j = 0
+fn int generator2():
     return postincrement(j)
 
 
@@ -213,7 +213,7 @@ def remove_spaces2(string s):
     >>> print(remove_spaces2(b"Text with some   spaces").decode("ascii"))
     Textwithsomespaces
     """
-    cdef string out
+    let string out
     remove_copy(s.begin(), s.end(), back_inserter(out), ord(" "))
     return out
 
@@ -225,7 +225,7 @@ def remove_whitespace2(string s):
     >>> print(remove_whitespace2(b"Text\n with\tsome \t  whitespaces\n\n").decode("ascii"))
     Textwithsomewhitespaces
     """
-    cdef string out
+    let string out
     remove_copy_if(s.begin(), s.end(), back_inserter(out), &is_whitespace)
     return out
 
@@ -263,7 +263,7 @@ def replace_ints2(vector[int] values, int old, int new):
     >>> replace_ints2([5, 7, 4, 2, 8, 6, 1, 9, 0, 3], 8, 88)
     [5, 7, 4, 2, 88, 6, 1, 9, 0, 3]
     """
-    cdef vector[int] out
+    let vector[int] out
     replace_copy(values.begin(), values.end(), back_inserter(out), old, new)
     return out
 
@@ -275,7 +275,7 @@ def replace_ints_less_than_five2(vector[int] values, int new):
     >>> replace_ints_less_than_five2([5, 7, 4, 2, 88, 6, 1, 9, 0, 3], 55)
     [5, 7, 55, 55, 88, 6, 55, 9, 55, 55]
     """
-    cdef vector[int] out
+    let vector[int] out
     replace_copy_if(values.begin(), values.end(), back_inserter(out), less_than_five, new)
     return out
 
@@ -286,7 +286,7 @@ def test_swap_ints():
     5 3
     3 5
     """
-    cdef int a = 5, b = 3
+    let int a = 5, b = 3
     print(a, b)
     swap(a, b)
     print(a, b)
@@ -351,7 +351,7 @@ def reverse_ints2(vector[int] values):
     >>> reverse_ints2([1, 2, 3])
     [3, 2, 1]
     """
-    cdef vector[int] out
+    let vector[int] out
     reverse_copy(values.begin(), values.end(), back_inserter(out))
     return out
 
@@ -377,8 +377,8 @@ def rotate_ints_about_middle(vector[int] values):
     >>> rotate_ints_about_middle([1, 2, 3, 4, 5])
     [3, 4, 5, 1, 2]
     """
-    cdef vector[int] out
-    cdef vector[int].iterator pivot = values.begin() + values.size()/2
+    let vector[int] out
+    let vector[int].iterator pivot = values.begin() + values.size()/2
     rotate_copy(values.begin(), pivot, values.end(), back_inserter(out))
     return out
 
@@ -418,7 +418,7 @@ def unique_ints2(vector[int] values):
     >>> unique_ints2([1, 2, 3, 1, 2, 3, 3, 4, 5, 4, 5, 6, 7])
     [1, 2, 3, 4, 5, 6, 7]
     """
-    cdef vector[int] out
+    let vector[int] out
     sort(values.begin(), values.end())
     unique_copy(values.begin(), values.end(), back_inserter(out))
     return out
@@ -431,6 +431,6 @@ def collapse_spaces2(string text):
     >>> print(collapse_spaces2(b"The      string    with many       spaces!").decode("ascii"))
     The string with many spaces!
     """
-    cdef string out
+    let string out
     unique_copy(text.begin(), text.end(), back_inserter(out), &both_space)
     return out

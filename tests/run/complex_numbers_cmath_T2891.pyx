@@ -1,7 +1,7 @@
 # ticket: 2891
 # tag: c, no-cpp
 
-cdef extern from "complex_numbers_c99_T398.h": pass
+extern from "complex_numbers_c99_T398.h": pass
 
 from libc.complex cimport cimag, creal, cabs, carg
 

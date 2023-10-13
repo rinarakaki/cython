@@ -1,28 +1,28 @@
 # mode: run
 # tag: cpp, werror
 
-cdef int raise_py_error() except *:
+fn int raise_py_error() except *:
     raise TypeError("custom")
 
-cdef extern from "cpp_exceptions_helper.h":
-    cdef int raise_int_raw "raise_int"(bint fire) except +
-    cdef int raise_int_value "raise_int"(bint fire) except +ValueError
-    cdef int raise_int_custom "raise_int"(bint fire) except +raise_py_error
+extern from "cpp_exceptions_helper.h":
+    let int raise_int_raw "raise_int"(bint fire) except +
+    let int raise_int_value "raise_int"(bint fire) except +ValueError
+    let int raise_int_custom "raise_int"(bint fire) except +raise_py_error
 
-    cdef int raise_index_raw "raise_index"(bint fire) except +
-    cdef int raise_index_value "raise_index"(bint fire) except +ValueError
-    cdef int raise_index_custom "raise_index"(bint fire) except +raise_py_error
+    let int raise_index_raw "raise_index"(bint fire) except +
+    let int raise_index_value "raise_index"(bint fire) except +ValueError
+    let int raise_index_custom "raise_index"(bint fire) except +raise_py_error
 
-    cdef void raise_domain_error() except +
-    cdef void raise_ios_failure() except +
-    cdef void raise_memory() except +
-    cdef void raise_overflow() except +
-    cdef void raise_range_error() except +
-    cdef void raise_typeerror() except +
-    cdef void raise_underflow() except +
+    let void raise_domain_error() except +
+    let void raise_ios_failure() except +
+    let void raise_memory() except +
+    let void raise_overflow() except +
+    let void raise_range_error() except +
+    let void raise_typeerror() except +
+    let void raise_underflow() except +
 
-    cdef raise_or_throw(bint py) except +
-    cdef int raise_or_throw_int(bint py) except +*
+    let raise_or_throw(bint py) except +
+    let int raise_or_throw_int(bint py) except +*
 
     cdef cppclass Foo:
         int bar_raw "bar"(bint fire) except +

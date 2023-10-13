@@ -28,6 +28,6 @@ def test_gettimeofday():
     """
     >>> test_gettimeofday()
     """
-    cdef timeval t
+    let timeval t
     ret = gettimeofday(&t, NULL)
     assert ret == 0

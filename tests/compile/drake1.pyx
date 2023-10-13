@@ -1,4 +1,4 @@
 # mode: compile
 
-cdef char *s
+let char *s
 s = r'\"HT\"'

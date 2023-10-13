@@ -16,7 +16,7 @@ cdef class A:
     ...
     TypeError: That's kind of a round number...
     """
-    cdef long a
+    let long a
     def __init__(self, a):
         self.a = a
     def __hash__(self):

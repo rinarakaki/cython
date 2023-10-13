@@ -21,7 +21,7 @@ def test_is_partitioned():
     True
     False
     """
-    cdef vector[int] values = range(10)
+    let vector[int] values = range(10)
     print(is_partitioned(values.begin(), values.end(), is_even))
 
     partition(values.begin(), values.end(), &is_even)
@@ -31,7 +31,7 @@ def test_is_partitioned():
     print(is_partitioned(values.begin(), values.end(), is_even))
 
 
-cdef int print_int(int v) except -1:
+fn int print_int(int v) except -1:
     print(v, end=" ")
 
 

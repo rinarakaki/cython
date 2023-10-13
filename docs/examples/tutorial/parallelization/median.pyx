@@ -12,10 +12,10 @@ import numpy as np
 @cython.wraparound(False)
 def median_along_axis0(const double[:,:] x):
     cdef double[::1] out = np.empty(x.shape[1])
-    cdef Py_ssize_t i, j
+    let Py_ssize_t i, j
 
-    cdef vector[double] *scratch
-    cdef vector[double].iterator median_it
+    let vector[double] *scratch
+    let vector[double].iterator median_it
     with nogil, parallel():
         # allocate scratch space per loop
         scratch = new vector[double](x.shape[0])

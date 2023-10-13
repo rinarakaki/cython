@@ -9,10 +9,10 @@ __doc__ = u"""
 """
 
 cdef class A:
-    cdef double[3] x
+    let double[3] x
 
     def __init__(self, *args):
-        cdef int i, max
+        let int i, max
         max = len(args)
         if max > 3:
             max = 3

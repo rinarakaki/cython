@@ -1,6 +1,6 @@
 # mode: error
 
-cdef int x = 3
+let int x = 3
 
 if x == NONEXISTING:
     print 2

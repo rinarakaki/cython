@@ -21,8 +21,8 @@ def test_parallel_numpy_arrays():
     3
     4
     """
-    cdef Py_ssize_t i, length
-    cdef np.ndarray[np.int_t] x
+    let Py_ssize_t i, length
+    let np.ndarray[np.int_t] x
 
     try:
         import numpy

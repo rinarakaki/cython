@@ -168,7 +168,7 @@ __doc__ = u"""
     abcdef
 """
 
-cdef extern from *:
+extern from *:
     const Py_ssize_t PY_SSIZE_T_MIN
     const Py_ssize_t PY_SSIZE_T_MAX
 

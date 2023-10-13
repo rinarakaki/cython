@@ -1,7 +1,7 @@
  
 cdef class Rectangle:
-    cdef int x0, y0
-    cdef int x1, y1
+    let int x0, y0
+    let int x1, y1
 
 
 

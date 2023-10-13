@@ -31,7 +31,7 @@ def convert_from_list(*o):
     Traceback (most recent call last):
     TypeError: Expected a sequence of size 2, got size 3
     """
-    cdef object values = list(o)
+    let object values = list(o)
     cdef (int, double) xy = values
     return xy
 
@@ -49,7 +49,7 @@ def convert_from_deque(*o):
     TypeError: Expected a sequence of size 2, got size 3
     """
     from collections import deque
-    cdef object values = deque(o)
+    let object values = deque(o)
     cdef (int, double) xy = values
     return xy
 
@@ -123,8 +123,8 @@ def c_types(int a, double b):
     >>> c_types(1, 2)
     (1, 2.0)
     """
-    cdef int* a_ptr
-    cdef double* b_ptr
+    let int* a_ptr
+    let double* b_ptr
     cdef (int*, double*) ab = (&a, &b)
     a_ptr, b_ptr = ab
     return a_ptr[0], b_ptr[0]
@@ -184,8 +184,8 @@ def cast_to_ctuple(*o):
     >>> cast_to_ctuple(1, 2.)
     (1, 2.0)
     """
-    cdef int x
-    cdef double y
+    let int x
+    let double y
     x, y = <(int, double)>o
     return x, y
 
@@ -195,9 +195,9 @@ def test_type_inference():
     """
     >>> test_type_inference()
     """
-    cdef int x = 1
-    cdef double y = 2
-    cdef object o = 3
+    let int x = 1
+    let double y = 2
+    let object o = 3
     xy = (x, y)
     assert cython.typeof(xy) == "(int, double)", cython.typeof(xy)
     xo = (x, o)

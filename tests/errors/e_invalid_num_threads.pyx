@@ -2,7 +2,7 @@
 
 from cython.parallel cimport parallel, prange
 
-cdef int i
+let int i
 
 # valid
 with nogil, parallel(num_threads=None):

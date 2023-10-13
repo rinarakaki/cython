@@ -19,7 +19,7 @@ cdef class MissingRedeclaration(Base):
     pass
 
 cdef class BadRedeclaration(Base):
-  # Declared as cdef in the pxd.
+  # Declared as let in the pxd.
   cpdef f(self):
     pass
 

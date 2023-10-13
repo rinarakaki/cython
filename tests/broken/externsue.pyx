@@ -1,4 +1,4 @@
-cdef extern from "externsue.h":
+extern from "externsue.h":
 
     enum Eggs:
         runny, firm, hard
@@ -9,9 +9,9 @@ cdef extern from "externsue.h":
     union Soviet:
         char c
 
-cdef extern Eggs e
-cdef extern Spam s
-cdef extern Soviet u
+extern Eggs e
+extern Spam s
+extern Soviet u
 
 cdef void tomato():
     global e

@@ -1,7 +1,7 @@
 # mode: compile
 
 def f(a, b, c, x):
-    cdef int i
+    let int i
     a = b + c
 
     try:

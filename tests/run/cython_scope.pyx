@@ -7,16 +7,16 @@ from cython.view cimport _testscope as viewtester
 
 from cpython cimport PyObject
 
-cdef extern from *:
+extern from *:
     # TestClass stuff
     struct __pyx_TestClass_obj:
         i32 value
 
     # Type pointer
-    cdef PyObject *TestClassType "__pyx_TestClass_type"
+    let PyObject *TestClassType "__pyx_TestClass_type"
 
-    # This is a cdef function
-    cdef __pyx_TestClass_New(int)
+    # This is a let function
+    let __pyx_TestClass_New(int)
 
     # These are methods and therefore have no prototypes
     cdef __pyx_TestClass_cdef_method(TestClass self, int value)
@@ -27,8 +27,8 @@ cdef extern from *:
     cdef __pyx_TestClass_cpdef_cname(TestClass self, int value, int skip_dispatch)
     cdef __pyx_TestClass_def_cname(object self, object value)
 
-    cdef __pyx_test_dep(object)
-    cdef __pyx_test_call_other_cy_util(object)
+    let __pyx_test_dep(object)
+    let __pyx_test_call_other_cy_util(object)
 
 
 def test_cdef_cython_utility():
@@ -52,7 +52,7 @@ def test_cdef_class_cython_utility():
     TestClass(20)
     TestClass(50)
     """
-    cdef __pyx_TestClass_obj *objstruct
+    let __pyx_TestClass_obj *objstruct
 
     obj =  TestClass_New(7)
     objstruct = <__pyx_TestClass_obj *> obj
@@ -81,8 +81,8 @@ def test_extclass_c_methods():
     Hello from cpdef_cname_method 5
     Hello from def_cname_method 6
     """
-    cdef TestClass obj1 = TestClass(11)
-    cdef TestClass obj2 = TestClass_New(22)
+    let TestClass obj1 = TestClass(11)
+    let TestClass obj2 = TestClass_New(22)
 
     __pyx_TestClass_cdef_method(obj1, 1)
     __pyx_TestClass_cpdef_method(obj1, 2, True)
@@ -116,8 +116,8 @@ def test_extclass_cython_methods():
     Hello from cpdef_cname_method 5
     Hello from def_cname_method 6
     """
-    cdef TestClass obj1 = TestClass(11)
-    cdef TestClass obj2 = TestClass_New(22)
+    let TestClass obj1 = TestClass(11)
+    let TestClass obj2 = TestClass_New(22)
 
     obj1.cdef_method(1)
     obj1.cpdef_method(2)

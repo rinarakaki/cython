@@ -9,7 +9,7 @@ __doc__ = u"""
 """
 
 cdef class fmatrix:
-  cdef int foo
+  let int foo
 
   def __setitem__(self, int key, int value):
     if key:

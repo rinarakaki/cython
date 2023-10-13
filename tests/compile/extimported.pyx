@@ -1,8 +1,8 @@
 # mode: compile
 
-cdef extern class Spam.Eggs.Ham:
+extern class Spam.Eggs.Ham:
     pass
 
-cdef Ham ham
+let Ham ham
 
 ham = None

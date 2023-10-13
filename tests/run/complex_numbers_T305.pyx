@@ -37,8 +37,8 @@ def test_object_conversion(o):
     >>> test_object_conversion(2j - 0.5)
     ((-0.5+2j), (-0.5+2j))
     """
-    cdef float complex a = o
-    cdef double complex b = o
+    let float complex a = o
+    let double complex b = o
     return (a, b)
 
 
@@ -129,7 +129,7 @@ def test_coercion(int a, float b, double c, float complex d, double complex e):
     10j
     (9+21j)
     """
-    cdef double complex z
+    let double complex z
     z = a; print z
     z = b; print z
     z = c; print z
@@ -194,7 +194,7 @@ def test_real_imag_assignment(object a, double b):
     >>> test_real_imag_assignment(1.5, -3.5)
     (1.5-3.5j)
     """
-    cdef double complex z
+    let double complex z
     z.real = a
     z.imag = b
     return z
@@ -226,7 +226,7 @@ cdef cdouble test_conjugate_nogil(cdouble z) nogil:
     return z.conjugate()
 test_conjugate_nogil(0) # use it
 
-## cdef extern from "complex_numbers_T305.h":
+## extern from "complex_numbers_T305.h":
 ##     ctypedef double double_really_float "myfloat"
 ##     ctypedef float float_really_double "mydouble"
 ##     ctypedef float real_float "myfloat"
@@ -241,7 +241,7 @@ test_conjugate_nogil(0) # use it
 ##     >>> ["%.2f" % x.imag for x in test_conjugate_nosizeassumptions(2e300, 2e300, 2e300, 2e300)]
 ##     ['-inf', '-2e+300', '-inf', '-2e+300']
 ##     """
-##     cdef double complex I = 1j
+##     let double complex I = 1j
 ##     return ((x*I).conjugate(), (y*I).conjugate(), (z*I).conjugate(), (w*I).conjugate())
 
 ctypedef double mydouble
@@ -274,8 +274,8 @@ def stress_test():
     (doesn't cover inf and NaN as inputs though)
     >>> stress_test()
     """
-    cdef double complex x
-    cdef double complex y
+    let double complex x
+    let double complex y
 
     from random import Random
     from math import ldexp

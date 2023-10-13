@@ -1,7 +1,7 @@
 # ticket: t232
 
 cdef class MyExt:
-    cdef object attr
+    let object attr
 
 def set_attr(value):
     """

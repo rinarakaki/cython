@@ -62,7 +62,7 @@ def test_map_erase(vals, int to_remove):
     [(-1, -1), (1, 1), (3, 3)]
     """
     cdef map[int,int] m = map[int,int]()
-    cdef size_t ret
+    let size_t ret
     for v in vals:
         m.insert(v)
     ret = m.erase(to_remove)
@@ -139,7 +139,7 @@ def test_unordered_map_erase(vals, int to_remove):
     [(-1, -1), (1, 1), (3, 3)]
     """
     cdef unordered_map[int,int] um = unordered_map[int,int]()
-    cdef size_t ret
+    let size_t ret
     for v in vals:
         um.insert(v)
     ret = um.erase(to_remove)
@@ -168,7 +168,7 @@ def test_iterator_stack_allocated():
     """
     cdef map[int,int] mymap = map[int,int]()
     cdef unordered_map[int,int] myumap = unordered_map[int,int]()
-    cdef int ckey = 5
+    let int ckey = 5
     it = mymap.const_find(ckey)
     assert it == mymap.const_end()
     uit = myumap.const_find(ckey)

@@ -14,7 +14,7 @@ __doc__ = u"""
 """
 
 cdef class Fiche:
-    cdef int i
+    let int i
 
     def __setitem__(self, element, valeur):
         self.i = 0

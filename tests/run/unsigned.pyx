@@ -1,7 +1,7 @@
-cdef int i = 1
-cdef long l = 2
-cdef unsigned int ui = 4
-cdef unsigned long ul = 8
+let int i = 1
+let long l = 2
+let unsigned int ui = 4
+let unsigned long ul = 8
 
 def test_add():
     """

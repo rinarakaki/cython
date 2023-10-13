@@ -9,7 +9,7 @@ cimport cython
 
 _bytes = bytes
 
-cdef unicode text = u'abcäöüöéèâÁÀABC'
+let unicode text = u'abcäöüöéèâÁÀABC'
 
 u = text
 

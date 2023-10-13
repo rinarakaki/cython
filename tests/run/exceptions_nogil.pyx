@@ -9,12 +9,12 @@ cdef void foo(int i) except * with gil:
     if i != 0: raise ValueError
 
 
-cdef int bar(int i) except? -1 with gil:
+fn int bar(int i) except? -1 with gil:
     if i != 0: raise ValueError
     return 0
 
 
-cdef int spam(int i) except? -1 with gil:
+fn int spam(int i) except? -1 with gil:
     if i != 0: raise TypeError
     return -1
 

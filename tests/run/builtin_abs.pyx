@@ -2,7 +2,7 @@
 # ticket: t698
 # distutils: extra_compile_args=-fwrapv
 
-cdef extern from *:
+extern from *:
     int INT_MAX
     long LONG_MAX
 
@@ -63,7 +63,7 @@ def int_abs(int a):
 @cython.overflowcheck(True)
 @cython.test_assert_path_exists("//ReturnStatNode//NameNode[@entry.name = 'abs']",
                                 "//ReturnStatNode//NameNode[@entry.cname = 'abs']")
-cdef int c_int_abs(int a) except * nogil:
+fn int c_int_abs(int a) except * nogil:
     return abs(a)
 
 def test_c_int_abs(int a):
@@ -94,7 +94,7 @@ def uint_abs(unsigned int a):
 @cython.test_assert_path_exists("//ReturnStatNode//NameNode[@entry.name = 'abs']")
 @cython.test_fail_if_path_exists("//ReturnStatNode//NameNode[@entry.cname = 'abs']",
                                  "//ReturnStatNode//NameNode[@entry.cname = 'labs']")
-cdef unsigned int c_uint_abs(unsigned int a) nogil:
+fn unsigned int c_uint_abs(unsigned int a) nogil:
     return abs(a)
 
 def test_c_uint_abs(unsigned int a):
@@ -125,7 +125,7 @@ def long_abs(long a):
 @cython.overflowcheck(True)
 @cython.test_assert_path_exists("//ReturnStatNode//NameNode[@entry.name = 'abs']",
                                 "//ReturnStatNode//NameNode[@entry.cname = 'labs']")
-cdef long c_long_abs(long a) except * nogil:
+fn long c_long_abs(long a) except * nogil:
     return abs(a)
 
 def test_c_long_abs(long a):
@@ -158,7 +158,7 @@ def ulong_abs(unsigned long a):
 @cython.test_assert_path_exists("//ReturnStatNode//NameNode[@entry.name = 'abs']")
 @cython.test_fail_if_path_exists("//ReturnStatNode//NameNode[@entry.cname = 'abs']",
                                  "//ReturnStatNode//NameNode[@entry.cname = 'labs']")
-cdef unsigned long c_ulong_abs(unsigned long a) nogil:
+fn unsigned long c_ulong_abs(unsigned long a) nogil:
     return abs(a)
 
 def test_c_ulong_abs(unsigned long a):
@@ -189,7 +189,7 @@ def long_long_abs(long long a):
 @cython.overflowcheck(True)
 @cython.test_assert_path_exists("//ReturnStatNode//NameNode[@entry.name = 'abs']",
                                 "//ReturnStatNode//NameNode[@entry.cname = '__Pyx_abs_longlong']")
-cdef long long c_long_long_abs(long long a) except * nogil:
+fn long long c_long_long_abs(long long a) except * nogil:
     return abs(a)
 
 def test_c_long_long_abs(long long a):

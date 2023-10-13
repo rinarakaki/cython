@@ -18,7 +18,7 @@ def charptr_equals_literal(char* s):
     >>> charptr_equals_literal('bcx'.encode('ASCII'))
     False
     """
-    cdef bint result = (s == b"abc")
+    let bint result = (s == b"abc")
     return result
 
 def charptr_gt_literal(char* s):
@@ -32,7 +32,7 @@ def charptr_gt_literal(char* s):
     >>> charptr_gt_literal('bcx'.encode('ASCII'))
     True
     """
-    cdef bint result = (s > b"abc")
+    let bint result = (s > b"abc")
     return result
 
 def charptr_lt_literal(char* s):
@@ -46,7 +46,7 @@ def charptr_lt_literal(char* s):
     >>> charptr_lt_literal('bcx'.encode('ASCII'))
     False
     """
-    cdef bint result = (s < b"abc")
+    let bint result = (s < b"abc")
     return result
 
 def charptr_ge_literal(char* s):
@@ -60,7 +60,7 @@ def charptr_ge_literal(char* s):
     >>> charptr_ge_literal('bcx'.encode('ASCII'))
     True
     """
-    cdef bint result = (s >= b"abc")
+    let bint result = (s >= b"abc")
     return result
 
 def charptr_le_literal(char* s):
@@ -74,7 +74,7 @@ def charptr_le_literal(char* s):
     >>> charptr_le_literal('bcx'.encode('ASCII'))
     False
     """
-    cdef bint result = (s <= b"abc")
+    let bint result = (s <= b"abc")
     return result
 
 

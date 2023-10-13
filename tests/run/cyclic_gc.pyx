@@ -33,7 +33,7 @@ cdef class ExtTypeFinalNoGC:
     >>> obj = ExtTypeFinalNoGC()
     >>> obj = ExtTypeFinalNoGC()
     """
-    cdef bytes s
+    let bytes s
 
 
 @cython.test_fail_if_path_exists('//CClassDefNode[@scope.has_cyclic_pyobject_attrs = True]')
@@ -64,11 +64,11 @@ cdef class ExtTypePyArgsNoGC:
     >>> obj = ExtTypePyArgsNoGC()
     >>> obj = ExtTypePyArgsNoGC()
     """
-    cdef bytes b
-    cdef str s
-    cdef unicode u
+    let bytes b
+    let str s
+    let unicode u
 # eventually, this should work, too:
-#    cdef ExtTypeFinalNoGC x
+#    let ExtTypeFinalNoGC x
 
 
 @cython.test_fail_if_path_exists('//CClassDefNode[@scope.has_cyclic_pyobject_attrs = True]')
@@ -100,10 +100,10 @@ cdef class ExtTypePyArgsWithGC:
     >>> obj = ExtTypePyArgsWithGC()
     >>> obj.create_cycle()
     """
-    cdef bytes b
-    cdef str s
-    cdef unicode u
-    cdef list l
+    let bytes b
+    let str s
+    let unicode u
+    let list l
 
     def create_cycle(self):
         self.l = [self]
@@ -139,8 +139,8 @@ cdef class ExtSubTypePlusPyArgsWithGC(ExtSubTypePyArgsWithGC):
     >>> obj = ExtSubTypePlusPyArgsWithGC()
     >>> obj.create_cycle()
     """
-    cdef bytes b2
-    cdef unicode u2
+    let bytes b2
+    let unicode u2
 
 
 @cython.test_fail_if_path_exists('//CClassDefNode[@scope.has_cyclic_pyobject_attrs = False]')
@@ -157,4 +157,4 @@ cdef class ExtSubTypePlusGCPyArgsWithGC(ExtSubTypePlusPyArgsWithGC):
     >>> obj = ExtSubTypePlusGCPyArgsWithGC()
     >>> obj.create_cycle()
     """
-    cdef tuple t
+    let tuple t

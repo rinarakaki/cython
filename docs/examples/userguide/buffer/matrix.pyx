@@ -4,8 +4,8 @@ from libcpp.vector cimport vector
 
 
 cdef class Matrix:
-    cdef unsigned ncols
-    cdef vector[float] v
+    let unsigned ncols
+    let vector[float] v
 
     def __cinit__(self, unsigned ncols):
         self.ncols = ncols

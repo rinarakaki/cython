@@ -33,12 +33,12 @@ cdef public api void bar():
 cdef api void spam():
     pass
 
-cdef api int    ten = 10
-cdef api double pi = 3.14
-cdef api object obj = object()
-cdef api dict   dct = {}
+let api int    ten = 10
+let api double pi = 3.14
+let api object obj = object()
+let api dict   dct = {}
 
-cdef public api tuple tpl = ()
-cdef public api float one = 1
-cdef public     float two = 2
+let public api tuple tpl = ()
+let public api float one = 1
+let public     float two = 2
 

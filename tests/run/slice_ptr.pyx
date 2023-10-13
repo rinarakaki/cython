@@ -14,7 +14,7 @@ def double_ptr_slice(x, L, int a, int b):
     >>> double_ptr_slice(EqualsEvens(), L, 0, 10)
     >>> double_ptr_slice(EqualsEvens(), L, 1, 10)
     """
-    cdef double *L_c = NULL
+    let double *L_c = NULL
     try:
         L_c = <double*>malloc(<unsigned long> len(L) * sizeof(double))
         for i, a in enumerate(L):
@@ -39,8 +39,8 @@ def void_ptr_slice(py_x, L, int a, int b):
     >>> void_ptr_slice(9, L, 3, 7)
     """
     # I'm using the fact that small Python ints are cached.
-    cdef void **L_c = NULL
-    cdef void *x = <void*>py_x
+    let void **L_c = NULL
+    let void *x = <void*>py_x
     try:
         L_c = <void**>malloc(<unsigned long> len(L) * sizeof(void*))
         for i, a in enumerate(L):

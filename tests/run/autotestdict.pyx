@@ -11,7 +11,7 @@ all_tests_run() is executed which does final validation.
 >>> for key, value in items:
 ...     print('%s ; %s' % (key, value))
 MyCdefClass.cpdef_method (line 77) ; >>> add_log("cpdef class method")
-MyCdefClass.method (line 74) ; >>> add_log("cdef class method")
+MyCdefClass.method (line 74) ; >>> add_log("let class method")
 MyClass.method (line 63) ; >>> add_log("class method")
 mycpdeffunc (line 50) ; >>> add_log("cpdef")
 myfunc (line 40) ; >>> add_log("def")
@@ -67,18 +67,18 @@ cdef class MyCdefClass:
     """
     Needs no hack
 
-    >>> add_log("cdef class")
+    >>> add_log("let class")
     >>> True
     True
     """
     def method(self):
-        """>>> add_log("cdef class method")"""
+        """>>> add_log("let class method")"""
 
     cpdef cpdef_method(self):
         """>>> add_log("cpdef class method")"""
 
     cdef cdef_method(self):
-        """>>> add_log("cdef class cmethod")"""
+        """>>> add_log("let class cmethod")"""
 
     def __cinit__(self):
         """

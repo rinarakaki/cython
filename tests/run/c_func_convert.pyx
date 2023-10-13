@@ -19,9 +19,9 @@ def call_empty_cfunc():
     here
     there
     """
-    cdef object py_func = empty_cfunc
+    let object py_func = empty_cfunc
     py_func()
-    cdef object another_py_func = another_empty_cfunc
+    let object another_py_func = another_empty_cfunc
     another_py_func()
 
 
@@ -35,7 +35,7 @@ def call_square_c(x):
     >>> call_square_c(-7)
     49.0
     """
-    cdef object py_func = square_c
+    let object py_func = square_c
     return py_func(x)
 
 
@@ -82,7 +82,7 @@ def test_global():
 
 
 fn i64 rad(i64 x):
-    cdef i64 rad = 1
+    let i64 rad = 1
     for p in range(2, <i64>sqrt(<double>x) + 1):  # MSVC++ fails without the input cast
         if x % p == 0:
             rad *= p
@@ -112,7 +112,7 @@ def call_abc(a, b, c):
     ...
     ValueError: Not a valid abc candidate: (1, 1, 1)
     """
-    cdef object py_func = abc
+    let object py_func = abc
     return py_func(a, b, c)
 
 def return_abc():
@@ -147,7 +147,7 @@ struct my_struct:
     my_union y
 
 cdef my_struct c_struct_builder(int which, int a, double b):
-    cdef my_struct value
+    let my_struct value
     value.which = which
     if which:
         value.y.a = a
@@ -261,7 +261,7 @@ def make_map():
     Traceback (most recent call last):
     TypeError: ...
     """
-    cdef map = {
+    let map = {
         "f1": cfunc_dup_f1,
         "f2": cfunc_dup_f2,
     }
@@ -269,11 +269,11 @@ def make_map():
 
 
 cdef class HasCdefFunc:
-    cdef int x
+    let int x
     def __init__(self, x):
         self.x = x
 
-    cdef int func(self, int y):
+    fn int func(self, int y):
         return self.x + y
 
 def test_unbound_methods():

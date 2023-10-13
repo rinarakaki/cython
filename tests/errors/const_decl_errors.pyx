@@ -1,11 +1,11 @@
 # mode: error
 
-cdef const object o
+let const object o
 
 # TODO: This requires making the assignment at declaration time.
 # (We could fake this case by dropping the const here in the C code,
 # as it's not needed for agreeing with external libraries.
-cdef const int x = 10
+let const int x = 10
 
 struct S:
     i32 member
@@ -25,7 +25,7 @@ fn func(const int a, const int* b, const (int*) c, const S s, int *const d, int 
     f = NULL     # ok
     t = &s
 
-cdef volatile object v
+let volatile object v
 
 
 _ERRORS = """

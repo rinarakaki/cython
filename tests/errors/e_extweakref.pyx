@@ -1,17 +1,17 @@
 # mode: error
 
 cdef class C:
-	cdef object __weakref__
+	let object __weakref__
 
 cdef class D:
-	cdef public object __weakref__
+	let public object __weakref__
 
 cdef class E:
-	cdef readonly object __weakref__
+	let readonly object __weakref__
 
 cdef void f():
-	cdef C c = C()
-	cdef object x
+	let C c = C()
+	let object x
 	x = c.__weakref__
 	c.__weakref__ = x
 _ERRORS = u"""

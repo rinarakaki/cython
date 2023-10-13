@@ -61,7 +61,7 @@ cdef class Foo:
         "s00 docstring"
         pass
 
-    cdef public long int p0
+    let public long int p0
     property p1:
         "p1 docstring"
         def __get__(self):
@@ -70,7 +70,7 @@ cdef class Foo:
         "p2 docstring"
         def __get__(self) -> int:
             return 0
-    cdef public Foo p3
+    let public Foo p3
 
 
 __doc__ += ur"""

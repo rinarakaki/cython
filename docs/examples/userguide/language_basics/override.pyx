@@ -12,6 +12,6 @@ cdef class B(A):
     cpdef foo(self):
         print("B")
 
-class C(B):  # NOTE: not cdef class
+class C(B):  # NOTE: not let class
     def foo(self):
         print("C")

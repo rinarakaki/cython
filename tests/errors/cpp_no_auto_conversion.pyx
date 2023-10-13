@@ -4,7 +4,7 @@
 # cpp will convert function arguments to a type if it has suitable constructor
 # we do not want that when calling from cython
 
-cdef extern from "no_such_file.cpp" nogil:
+extern from "no_such_file.cpp" nogil:
     cppclass wrapped_int:
         long long val
         wrapped_int()
@@ -15,7 +15,7 @@ cdef extern from "no_such_file.cpp" nogil:
     long long constructor_overload(const wrapped_int& x)
     long long constructor_overload(const wrapped_int x)
 
-cdef long long e = constructor_overload(17)
+let long long e = constructor_overload(17)
  
 
 _ERRORS = u"""

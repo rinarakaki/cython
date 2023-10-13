@@ -11,7 +11,7 @@ def simple_test():
     """
     >>> simple_test()
     """
-    cdef optional[int] o
+    let optional[int] o
     assert(not o.has_value())
     o = 5
     assert(o.has_value())
@@ -55,7 +55,7 @@ def misc_methods_test():
     """
 
     # make_optional
-    cdef optional[int] o
+    let optional[int] o
     o = make_optional[int](5)
     assert(o == 5)
 

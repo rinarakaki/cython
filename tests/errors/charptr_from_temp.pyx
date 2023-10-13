@@ -1,15 +1,15 @@
 # mode: error
 # tag: werror, charptr, conversion, temp, py_unicode_strings
 
-cdef bytes c_s = b"abc"
+let bytes c_s = b"abc"
 s = b"abc"
 
-cdef char* cptr
+let char* cptr
 
 # constant => ok
 cptr = b"xyz"
 
-# global cdef variable => ok
+# global let variable => ok
 cptr = c_s
 
 # pyglobal => warning
@@ -20,21 +20,21 @@ cptr = s + b"cba"
 
 # indexing => error (but not clear enough to make it a compiler error)
 cptr = s[0]
-cdef char* x = <char*>s[0]
+let char* x = <char*>s[0]
 
 # slicing => error
 cptr = s[:2]
 
 
-cdef unicode  c_u = u"abc"
+let unicode  c_u = u"abc"
 u = u"abc"
 
-cdef Py_UNICODE* cuptr
+let Py_UNICODE* cuptr
 
 # constant => ok
 cuptr = u"xyz"
 
-# global cdef variable => ok
+# global let variable => ok
 cuptr = c_u
 
 # pyglobal => warning

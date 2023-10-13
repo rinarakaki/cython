@@ -10,7 +10,7 @@ cdef class A:
 
 from libc.string cimport strcmp
 
-cdef extern from "string.h":
+extern from "string.h":
     char *strstr(char*, char*)
 
 
@@ -28,7 +28,7 @@ some_function(x=1, y=2, z=3)
 some_function(x=1, y=2, x=1)
 some_function(x=1, y=2, x=1, z=3)
 
-cdef A a = A()
+let A a = A()
 # ok
 a.some_method(1)
 a.some_method(1, 2)

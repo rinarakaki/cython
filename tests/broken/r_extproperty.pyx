@@ -1,5 +1,5 @@
 cdef class CheeseShop:
-    cdef object cheeses
+    let object cheeses
 
     def __cinit__(self):
         self.cheeses = []

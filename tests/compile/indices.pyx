@@ -1,7 +1,7 @@
 # mode: compile
 
-cdef int* a
-cdef object x
+let int* a
+let object x
 
 fn i32 f(i32 i):
     print i

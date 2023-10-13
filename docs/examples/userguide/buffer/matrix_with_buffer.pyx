@@ -4,10 +4,10 @@ from libcpp.vector cimport vector
 
 
 cdef class Matrix:
-    cdef Py_ssize_t ncols
-    cdef Py_ssize_t[2] shape
-    cdef Py_ssize_t[2] strides
-    cdef vector[float] v
+    let Py_ssize_t ncols
+    let Py_ssize_t[2] shape
+    let Py_ssize_t[2] strides
+    let vector[float] v
 
     def __cinit__(self, Py_ssize_t ncols):
         self.ncols = ncols
@@ -17,7 +17,7 @@ cdef class Matrix:
         self.v.resize(self.v.size() + self.ncols)
 
     def __getbuffer__(self, Py_buffer *buffer, int flags):
-        cdef Py_ssize_t itemsize = sizeof(self.v[0])
+        let Py_ssize_t itemsize = sizeof(self.v[0])
 
         self.shape[0] = self.v.size() // self.ncols
         self.shape[1] = self.ncols

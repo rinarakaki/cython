@@ -1,11 +1,11 @@
 # mode: error
 
-cdef signed   float       e
-cdef unsigned float       f
-cdef signed   double      g
-cdef unsigned double      h
-cdef signed   long double i
-cdef unsigned long double j
+let signed   float       e
+let unsigned float       f
+let signed   double      g
+let unsigned double      h
+let signed   long double i
+let unsigned long double j
 
 
 _ERRORS = u"""

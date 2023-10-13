@@ -159,7 +159,7 @@ def test_restore_exception():
 ##     ['s', 'p', 'a', 'm']
 ##     ['s', 'p', 'a', 'm']
 ##     """
-##     cdef object somevar
+##     let object somevar
 ##
 ##     print somevar
 ##
@@ -199,7 +199,7 @@ def test_loops_and_boxing():
     m
     done looping
     """
-    cdef char c, *string = "spamham"
+    let char c, *string = "spamham"
 
     with nogil:
         with gil:
@@ -210,7 +210,7 @@ def test_loops_and_boxing():
                 print "done looping"
 
 cdef class SomeExtClass(object):
-    cdef int some_attribute
+    let int some_attribute
 
 @cython.infer_types(True)
 def test_infer_types():
@@ -257,7 +257,7 @@ cpdef test_cpdef():
         puts("Or does it?")
 
 
-# Now test some cdef functions with different return types
+# Now test some let functions with different return types
 
 cdef void void_nogil_ignore_exception() noexcept nogil:
     with gil:
@@ -444,7 +444,7 @@ def test_nogil_try_finally_return():
     with nogil:
         nogil_try_finally_return()
 
-cdef int error_func() except -1 with gil:
+fn int error_func() except -1 with gil:
     raise Exception("propagate this")
 
 def test_nogil_try_finally_error_label():

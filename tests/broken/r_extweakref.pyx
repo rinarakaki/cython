@@ -1,3 +1,3 @@
 cdef class Animal:
-    cdef object __weakref__
-    cdef public object name
+    let object __weakref__
+    let public object name

@@ -2,5 +2,5 @@
 
 cdef class C:
 
-    cdef object foo
-    cdef object __weakref__
+    let object foo
+    let object __weakref__

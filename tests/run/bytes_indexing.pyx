@@ -1,7 +1,7 @@
 
 cimport cython
 
-cdef bytes b12345 = b'12345'
+let bytes b12345 = b'12345'
 
 def index_literal(int i):
     """
@@ -117,7 +117,7 @@ def index_literal_char_coerce(int i):
     Traceback (most recent call last):
     IndexError: string index out of range
     """
-    cdef char result = b"12345"[i]
+    let char result = b"12345"[i]
     return result
 
 
@@ -138,7 +138,7 @@ def index_nonliteral_char_coerce(int i):
     Traceback (most recent call last):
     IndexError: string index out of range
     """
-    cdef char result = b12345[i]
+    let char result = b12345[i]
     return result
 
 
@@ -157,7 +157,7 @@ def index_literal_char_coerce_no_check(int i):
     >>> index_literal_char_coerce_no_check(4) == ord('5')
     True
     """
-    cdef char result = b"12345"[i]
+    let char result = b"12345"[i]
     return result
 
 
@@ -176,5 +176,5 @@ def index_nonliteral_char_coerce_no_check(int i):
     >>> index_nonliteral_char_coerce_no_check(4) == ord('5')
     True
     """
-    cdef char result = b12345[i]
+    let char result = b12345[i]
     return result

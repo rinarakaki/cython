@@ -45,7 +45,7 @@ def test_add_schar(x, y):
        ...
    OverflowError: value too large to convert to signed char
    """
-   cdef signed char r = x + y
+   let signed char r = x + y
    return r
 
 UCHAR_MAX = <unsigned char>((<unsigned char>-1))
@@ -78,7 +78,7 @@ def test_add_uchar(x, y):
        ...
    OverflowError: value too large to convert to unsigned char
    """
-   cdef unsigned char r = x + y
+   let unsigned char r = x + y
    return r
 
 # chars may be signed or unsigned
@@ -131,7 +131,7 @@ def test_add_char(x, y):
        ...
    OverflowError: value too large to convert to char
    """
-   cdef char r = x + y
+   let char r = x + y
    return r
 
 # -------------------------------------------------------------------
@@ -181,7 +181,7 @@ def test_add_short(x, y):
        ...
    OverflowError: value too large to convert to short
    """
-   cdef short r = x + y
+   let short r = x + y
    return r
 
 SSHORT_MAX = <signed short>((<unsigned short>-1)>>1)
@@ -229,7 +229,7 @@ def test_add_sshort(x, y):
        ...
    OverflowError: value too large to convert to short
    """
-   cdef signed short r = x + y
+   let signed short r = x + y
    return r
 
 USHORT_MAX = <unsigned short>((<unsigned short>-1))
@@ -262,7 +262,7 @@ def test_add_ushort(x, y):
        ...
    OverflowError: value too large to convert to unsigned short
    """
-   cdef unsigned short r = x + y
+   let unsigned short r = x + y
    return r
 
 # -------------------------------------------------------------------
@@ -312,7 +312,7 @@ def test_add_int(x, y):
        ...
    OverflowError: ...
    """
-   cdef int r = x + y
+   let int r = x + y
    return r
 
 SINT_MAX = <signed int>((<unsigned int>-1)>>1)
@@ -360,7 +360,7 @@ def test_add_sint(x, y):
        ...
    OverflowError: ...
    """
-   cdef signed int r = x + y
+   let signed int r = x + y
    return r
 
 UINT_MAX = <unsigned int>(<unsigned int>-1)
@@ -393,7 +393,7 @@ def test_add_uint(x, y):
        ...
    OverflowError: ...
    """
-   cdef unsigned int r = x + y
+   let unsigned int r = x + y
    return r
 
 # -------------------------------------------------------------------
@@ -443,7 +443,7 @@ def test_add_long(x, y):
        ...
    OverflowError: ...
    """
-   cdef long r = x + y
+   let long r = x + y
    return r
 
 SLONG_MAX = <signed long>((<unsigned long>-1)>>1)
@@ -491,7 +491,7 @@ def test_add_slong(x, y):
        ...
    OverflowError: ...
    """
-   cdef signed long r = x + y
+   let signed long r = x + y
    return r
 
 ULONG_MAX = <unsigned long>(<unsigned long>-1)
@@ -524,7 +524,7 @@ def test_add_ulong(x, y):
        ...
    OverflowError: ...
    """
-   cdef unsigned long r = x + y
+   let unsigned long r = x + y
    return r
 
 # -------------------------------------------------------------------
@@ -574,7 +574,7 @@ def test_add_longlong(x, y):
        ...
    OverflowError: ...
    """
-   cdef long long r = x + y
+   let long long r = x + y
    return r
 
 SLONGLONG_MAX = <signed long long>((<unsigned long long>-1)>>1)
@@ -622,7 +622,7 @@ def test_add_slonglong(x, y):
        ...
    OverflowError: ...
    """
-   cdef signed long long r = x + y
+   let signed long long r = x + y
    return r
 
 ULONGLONG_MAX = <unsigned long long>(<unsigned long long>-1)
@@ -655,7 +655,7 @@ def test_add_ulonglong(x, y):
        ...
    OverflowError: ...
    """
-   cdef unsigned long long r = x + y
+   let unsigned long long r = x + y
    return r
 
 # -------------------------------------------------------------------
@@ -714,7 +714,7 @@ def test_convert_pyint(x):
    MyInt.__int__()
    True
    """
-   cdef long r = x
+   let long r = x
    return r
 
 class MyLong(object):
@@ -762,7 +762,7 @@ def test_convert_pylong(x):
    MyInt.__long__()
    True
    """
-   cdef long long r = x
+   let long long r = x
    return r
 
 

@@ -4,7 +4,7 @@
 from numpy cimport ndarray
 # np.import_array not called - should generate warning
 
-cdef extern from *:
+extern from *:
     """
     static void** _check_array_api(void) {
         return PyArray_API; /* should be non NULL */

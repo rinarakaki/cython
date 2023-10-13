@@ -112,7 +112,7 @@ cdef class AppendBug:
     # https://github.com/cython/cython/issues/4828
     # if the attribute "append" is found it shouldn't be replaced with
     # __Pyx_PyObject_Append
-    cdef object append
+    let object append
     def __init__(self, append):
         self.append = append
 

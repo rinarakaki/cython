@@ -5,7 +5,7 @@ cdef double f(double x) except? -2:
 
 
 def integrate_f(double a, double b, int N):
-    cdef int i
+    let int i
     s = 0.0
     dx = (b-a)/N
     for i in range(N):

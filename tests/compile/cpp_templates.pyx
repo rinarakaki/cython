@@ -2,7 +2,7 @@
 # mode: compile
 # ticket: t767
 
-cdef extern from "templates.h":
+extern from "templates.h":
     cdef cppclass TemplateTest1[T]:
         TemplateTest1()
         T value
@@ -18,25 +18,25 @@ cdef extern from "templates.h":
 
     void template_function[T](TemplateTest1[T] &)
 
-cdef TemplateTest1[int] a
-cdef TemplateTest1[int]* b = new TemplateTest1[int]()
+let TemplateTest1[int] a
+let TemplateTest1[int]* b = new TemplateTest1[int]()
 
-cdef int c = a.getValue()
+let int c = a.getValue()
 c = b.getValue()
 
-cdef TemplateTest2[int, char] d
-cdef TemplateTest2[int, char]* e = new TemplateTest2[int, char]()
+let TemplateTest2[int, char] d
+let TemplateTest2[int, char]* e = new TemplateTest2[int, char]()
 
 c = d.getValue1()
 c = e.getValue2()
 
-cdef char f = d.getValue2()
+let char f = d.getValue2()
 f = e.getValue2()
 
 del b, e
 
 ctypedef TemplateTest1[int] TemplateTest1_int
-cdef TemplateTest1_int aa
+let TemplateTest1_int aa
 
 # Verify that T767 is fixed.
 cdef public int func(int arg):
@@ -47,5 +47,5 @@ cdef public int func(int arg):
 # which is valid C++11, but not valid C++98 because the ">>" would be
 # parsed as a single token.
 cdef public void use_nested_templates():
-    cdef TemplateTest1[TemplateTest1[int]] t
+    let TemplateTest1[TemplateTest1[int]] t
     template_function(t)

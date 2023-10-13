@@ -3,15 +3,15 @@ import numpy as np
 
 # Memoryview on a NumPy array
 narr = np.arange(27, dtype=np.dtype("i")).reshape((3, 3, 3))
-cdef int [:, :, :] narr_view = narr
+fn int [:, :, :] narr_view = narr
 
 # Memoryview on a C array
-cdef int[3][3][3] carr
-cdef int [:, :, :] carr_view = carr
+let int[3][3][3] carr
+fn int [:, :, :] carr_view = carr
 
 # Memoryview on a Cython array
 cyarr = cvarray(shape=(3, 3, 3), itemsize=sizeof(int), format="i")
-cdef int [:, :, :] cyarr_view = cyarr
+fn int [:, :, :] cyarr_view = cyarr
 
 # Show the sum of all the arrays before altering it
 print("NumPy sum of the NumPy array before assignments: %s" % narr.sum())
@@ -33,7 +33,7 @@ print("NumPy sum of NumPy array after assignments: %s" % narr.sum())
 # A function using a memoryview does not usually need the GIL
 cpdef int sum3d(int[:, :, :] arr) nogil:
     cdef size_t i, j, k, I, J, K
-    cdef int total = 0
+    let int total = 0
     I = arr.shape[0]
     J = arr.shape[1]
     K = arr.shape[2]

@@ -14,7 +14,7 @@ def test_len(a):
     3
     >>> assert len(a) == test_len(a)
     """
-    cdef array.array ca = a  # for C-fast array usage
+    let array.array ca = a  # for C-fast array usage
     return len(ca)
 
 def test_copy(a):
@@ -23,8 +23,8 @@ def test_copy(a):
     >>> test_copy(a)
     array('f', [1.0, 2.0, 3.0])
     """
-    cdef array.array ca = a
-    cdef array.array b
+    let array.array ca = a
+    let array.array b
     b = array.copy(ca)
     assert a == b
     a[2] = 3.5
@@ -38,9 +38,9 @@ def test_fast_access(a):
     >>> test_fast_access(a)
     """
     
-    cdef array.array ca = a
+    let array.array ca = a
     
-    cdef float value
+    let float value
     with nogil:
         value = ca.data.as_floats[1]
     assert value == 2.0, value
@@ -58,9 +58,9 @@ def test_fast_buffer_access(a):
     >>> test_fast_buffer_access(a)
     """
     
-    cdef array.array[float] ca = a
+    let array.array[float] ca = a
     
-    cdef float value
+    let float value
     with nogil:
         value = ca[1]
     assert value == 2.0, value
@@ -87,7 +87,7 @@ def test_set_zero(a):
     >>> test_set_zero(a)
     array('f', [0.0, 0.0, 0.0])
     """
-    cdef array.array cb = array.copy(a)
+    let array.array cb = array.copy(a)
     array.zero(cb)
     assert a[1] != 0.0, a
     assert cb[1] == 0.0, cb
@@ -98,7 +98,7 @@ def test_resize(a):
     >>> a = array.array('f', [1.0, 2.0, 3.0])
     >>> test_resize(a)
     """
-    cdef array.array cb = array.copy(a)
+    let array.array cb = array.copy(a)
     array.resize(cb, 10)
     for i in range(10):
         cb.data.as_floats[i] = i
@@ -111,7 +111,7 @@ def test_resize_smart(a):
     >>> test_resize_smart(a)
     2
     """
-    cdef array.array cb = array.copy(a)
+    let array.array cb = array.copy(a)
     array.resize_smart(cb, 2)
     return len(cb)
 
@@ -119,8 +119,8 @@ def test_buffer():
     """
     >>> test_buffer()
     """
-    cdef object a = array.array('i', [1, 2, 3])
-    cdef object[int] ca = a
+    let object a = array.array('i', [1, 2, 3])
+    let object[int] ca = a
     assert ca[0] == 1
     assert ca[2] == 3
 
@@ -129,7 +129,7 @@ def test_buffer_typed():
     >>> test_buffer_typed()
     """
     cdef array.array a = array.array('i', [1, 2, 3])
-    cdef object[int] ca = a
+    let object[int] ca = a
     assert ca[0] == 1
     assert ca[2] == 3
 
@@ -137,8 +137,8 @@ def test_view():
     """
     >>> test_view()
     """
-    cdef object a = array.array('i', [1, 2, 3])
-    cdef int[:] ca = a
+    let object a = array.array('i', [1, 2, 3])
+    fn int[:] ca = a
     assert ca[0] == 1
     assert ca[2] == 3
 
@@ -147,7 +147,7 @@ def test_view_typed():
     >>> test_view_typed()
     """
     cdef array.array a = array.array('i', [1, 2, 3])
-    cdef int[:] ca = a
+    fn int[:] ca = a
     assert ca[0] == 1
     assert ca[2] == 3
 
@@ -184,7 +184,7 @@ def test_extend_buffer():
     array('l', [15, 37, 389, 5077])
     """
     cdef array.array ca = array.array('l', [15, 37])
-    cdef long[2] s
+    let long[2] s
     s[0] = 389
     s[1] = 5077
     array.extend_buffer(ca, <char*> &s, 2)

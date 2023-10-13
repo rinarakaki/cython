@@ -2,8 +2,8 @@ from cython.parallel import prange
 
 
 
-cdef int func(Py_ssize_t n) except -1:
-    cdef Py_ssize_t i
+fn int func(Py_ssize_t n) except -1:
+    let Py_ssize_t i
 
     for i in prange(n, nogil=True):
         if i == 8:

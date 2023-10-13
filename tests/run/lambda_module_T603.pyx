@@ -23,7 +23,7 @@ pow2 = lambda x: x * x
 with_closure = lambda x:(lambda: x)()
 typed_lambda = lambda int x : (lambda int y: x + y)
 
-cdef int xxx = 123
+let int xxx = 123
 cdef_const_lambda = lambda: xxx
 
 yyy = 321

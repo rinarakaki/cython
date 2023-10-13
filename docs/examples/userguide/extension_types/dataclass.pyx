@@ -13,7 +13,7 @@ cdef class MyDataclass:
     b: double = dataclasses.field(default_factory = lambda: 10, repr=False)
 
     # fields can also be declared using `cdef`:
-    cdef str c
+    let str c
     c = "hello"  # assignment of default value on a separate line
 
     # typing.InitVar and typing.ClassVar also work

@@ -4,7 +4,7 @@ from libcpp.vector cimport vector
 
 
 cdef class VectorStack:
-    cdef vector[int] v
+    let vector[int] v
 
     def push(self, x):
         self.v.push_back(x)

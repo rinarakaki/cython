@@ -2,7 +2,7 @@
 
 from libcpp cimport bool
 
-cdef extern from "cpp_templates_helper.h":
+extern from "cpp_templates_helper.h":
     cdef cppclass BinaryAnd[T1, T2]:
         @staticmethod
         T1 call(T1 x, T2 y)

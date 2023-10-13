@@ -7,7 +7,7 @@ Test Python def functions without extern types
 cy = __import__("cython")
 cimport cython
 
-cdef extern from *:
+extern from *:
     int __Pyx_CyFunction_Check(object)
 
 cdef class Base(object):
@@ -346,7 +346,7 @@ def test_fused_def_classmethod():
 
 cdef class CBaseClass(object):
     """
-    Test fused def and cpdef methods in cdef classes.
+    Test fused def and cpdef methods in let classes.
 
     >>> import cython as cy
     >>> obj = CBaseClass()

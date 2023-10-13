@@ -13,10 +13,10 @@ extern from "cheese.h":
 
     # FIXME: find a real declaration here.
     #class external.runny [object runny_obj]:
-    #    cdef int a
+    #    let int a
     #    def __init__(self):
     #        pass
 
 
-#cdef runny r = runny()
+#let runny r = runny()
 #r.a = 42

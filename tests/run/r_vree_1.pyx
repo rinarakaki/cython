@@ -33,7 +33,7 @@ else:
     """
 
 def test(k):
-    cdef unsigned long m
+    let unsigned long m
     m = k
     return m
 

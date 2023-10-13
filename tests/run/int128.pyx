@@ -1,6 +1,6 @@
 # mode: run
 
-cdef extern from *:
+extern from *:
     ctypedef long long int128_t "__int128_t"
     ctypedef unsigned long long uint128_t "__uint128_t"
 
@@ -72,7 +72,7 @@ def unsigned_conversion(x):
     Traceback (most recent call last):
     OverflowError: ... to convert...
     """
-    cdef uint128_t n = x
+    let uint128_t n = x
     return n
 
 
@@ -136,7 +136,7 @@ def signed_conversion(x):
     Traceback (most recent call last):
     OverflowError: ... to convert...
     """
-    cdef int128_t n = x
+    let int128_t n = x
     return n
 
 

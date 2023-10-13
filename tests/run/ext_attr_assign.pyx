@@ -7,10 +7,10 @@ struct X:
 
 
 cdef class A:
-    cdef int i
-    cdef list l
-    cdef object o
-    cdef X x
+    let int i
+    let list l
+    let object o
+    let X x
 
     def assign_A(self):
         """
@@ -31,7 +31,7 @@ cdef class A:
         >>> A().assign_A_struct()
         (5, 2, 2, 5)
         """
-        cdef X x
+        let X x
         a = A()
         a.x.ix = 2
         a.x.x = &x
@@ -51,9 +51,9 @@ cdef class A:
 
 
 cdef class B(A):
-    cdef int ib
-    cdef object ob
-    cdef A a
+    let int ib
+    let object ob
+    let A a
 
     def assign_B(self):
         """
@@ -97,7 +97,7 @@ cdef class B(A):
         >>> B().cascaded_assign_B()
         (2, 2)
         """
-        cdef B b = B()
+        let B b = B()
         b.ib = 1
         b.a = A()
         b.a.o = B()   # only one reference!

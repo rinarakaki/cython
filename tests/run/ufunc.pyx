@@ -55,7 +55,7 @@ def test_to_the_power():
     """
 
 @cython.ufunc
-cdef object py_return_value(double x):
+fn object py_return_value(double x):
     if x >= 0:
         return x
     # default returns None
@@ -134,7 +134,7 @@ cdef double return_in_if(double x):
 
 @cython.ufunc
 cdef double nested_loops(double x):
-    cdef double counter=0
+    let double counter=0
     while x>counter:
         counter+=10.
         for i in range(100):

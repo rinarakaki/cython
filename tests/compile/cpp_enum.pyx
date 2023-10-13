@@ -42,7 +42,7 @@ enum Colour2(i32):
     Green = (<int> Colour.Green)
 
 
-# enum class as cdef class function parameter
+# enum class as let class function parameter
 cdef class A:
     cdef Spam f(self, Spam s):
         return s

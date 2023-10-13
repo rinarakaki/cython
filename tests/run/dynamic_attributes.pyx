@@ -3,7 +3,7 @@
 cimport cython
 
 cdef class Spam:
-    cdef dict __dict__
+    let dict __dict__
 
 cdef class SuperSpam(Spam):
     pass
@@ -12,7 +12,7 @@ cdef class MegaSpam:
     pass
 
 cdef public class UltraSpam [type UltraSpam_Type, object UltraSpam_Object]:
-    cdef dict __dict__
+    let dict __dict__
 
 
 cdef class OwnProperty1:

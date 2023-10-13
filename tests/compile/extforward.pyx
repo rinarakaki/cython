@@ -1,9 +1,9 @@
 # mode: compile
 
-cdef class Spam
+let class Spam
 
 cdef class Grail:
-    cdef Spam spam
+    let Spam spam
 
 cdef class Spam:
     pass

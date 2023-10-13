@@ -2,7 +2,7 @@
 
 from cpython.version cimport PY_MAJOR_VERSION
 
-cdef bint IS_PY2 = PY_MAJOR_VERSION == 2
+let bint IS_PY2 = PY_MAJOR_VERSION == 2
 
 
 cdef cfunc1(char* s):
@@ -76,7 +76,7 @@ def test_more_args_adding(s):
     return cfunc3(1, b"a" + b"b" + s + b"q" + b"r", 'xyz%d' % 3)
 
 
-cdef char* ret_charptr(char* s):
+fn char* ret_charptr(char* s):
     return s
 
 

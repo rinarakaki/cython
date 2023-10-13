@@ -16,7 +16,7 @@ if not hasattr(platform, 'python_implementation') or platform.python_implementat
 
 cdef class Spam:
 
-    cdef int tons
+    let int tons
 
     def __cinit__(self):
         self.tons = 17

@@ -1,13 +1,13 @@
 from time import time
 from math import sin
 
-cdef double first_time = 0
+let double first_time = 0
 
 def timeit(f, label):
     global first_time
     t = time()
     f(1.0, 2.0, 10**7)
-    cdef double elapsed = time() - t
+    let double elapsed = time() - t
     if first_time == 0:
         first_time = elapsed
     print label, elapsed, (100*elapsed/first_time), '% or', first_time/elapsed, 'x'
@@ -53,7 +53,7 @@ def f1(double x):
     return x**2-x
 
 def integrate_f1(double a, double b, int N):
-    cdef int i
+    let int i
     cdef double s, dx
     s = 0
     dx = (b-a)/N
@@ -70,7 +70,7 @@ cdef double f2(double x) except? -2:
     return x**2-x
 
 def integrate_f2(double a, double b, int N):
-    cdef int i
+    let int i
     cdef double s, dx
     s = 0
     dx = (b-a)/N

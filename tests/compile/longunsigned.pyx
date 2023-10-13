@@ -1,4 +1,4 @@
 # mode: compile
 
-cdef extern unsigned long x
-cdef extern long unsigned y
+extern unsigned long x
+extern long unsigned y

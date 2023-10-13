@@ -1,6 +1,6 @@
-cdef int(*ptr_add)(int, int)
+let int(*ptr_add)(int, int)
 
-cdef int add(int a, int b):
+fn int add(int a, int b):
     return a + b
 
 ptr_add = add

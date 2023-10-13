@@ -3,7 +3,7 @@ from libc.stdlib cimport free
 
 
 cdef class OwnedPointer:
-    cdef void* ptr
+    let void* ptr
 
     def __dealloc__(self):
         if self.ptr is not NULL:

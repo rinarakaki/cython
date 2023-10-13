@@ -1,2 +1,2 @@
-cdef int f() except -1:
+fn int f() except -1:
     g = getattr3

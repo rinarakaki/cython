@@ -1,6 +1,6 @@
 # mode: error
 
-cdef extern from *:
+extern from *:
     void foo(void)
 
 _ERRORS = u"""

@@ -5,7 +5,7 @@ from libcpp.vector cimport vector
 def main():
     cdef vector[int] v = [4, 6, 5, 10, 3]
 
-    cdef int value
+    let int value
     for value in v:
         print(value)
 

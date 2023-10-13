@@ -4,13 +4,13 @@ from sin_of_square cimport Function
 cdef class WaveFunction(Function):
 
     # Not available in Python-space:
-    cdef double offset
+    let double offset
 
     # Available in Python-space:
-    cdef public double freq
+    let public double freq
 
     # Available in Python-space, but only for reading:
-    cdef readonly double scale
+    let readonly double scale
 
     # Available in Python-space:
     @property

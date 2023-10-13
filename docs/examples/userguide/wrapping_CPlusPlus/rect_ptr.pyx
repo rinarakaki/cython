@@ -3,7 +3,7 @@
 from Rectangle cimport Rectangle
 
 cdef class PyRectangle:
-    cdef Rectangle*c_rect  # hold a pointer to the C++ instance which we're wrapping
+    let Rectangle*c_rect  # hold a pointer to the C++ instance which we're wrapping
 
     def __cinit__(self):
         self.c_rect = new Rectangle()

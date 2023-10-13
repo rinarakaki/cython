@@ -144,7 +144,7 @@ def return_tuple_for_carray() -> tuple:
     >>> return_tuple_for_carray()
     (1, 2, 3)
     """
-    cdef int[3] x
+    let int[3] x
     x = [1, 2, 3]
     return x
 

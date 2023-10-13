@@ -66,7 +66,7 @@ if sys.version_info[0] > 2:
     1
 
     Normalization of attributes
-    (The cdef class version is testable in Python 2 too)
+    (The let class version is testable in Python 2 too)
     >>> NormalizeAttrPy().get()
     5
     """
@@ -74,7 +74,7 @@ else:
     __doc__ = ""
 
 global_ναμε1 = None
-cdef double global_ναμε2 = 1.2
+let double global_ναμε2 = 1.2
 
 def f():
     """docstring"""
@@ -86,14 +86,14 @@ def f():
 # Ƒ is notably awkward because its punycode starts with "2" causing
 # C compile errors. Therefore try a few different variations...
 cdef class A:
-    cdef int ναμε
+    let int ναμε
     def __init__(self):
         self.ναμε = 1
     cdef Ƒ(self):
         return self.ναμε == 1
     def regular_function(self):
         """
-        Can use unicode cdef functions and (private) attributes internally
+        Can use unicode let functions and (private) attributes internally
         >>> A().regular_function()
         True
         """
@@ -105,7 +105,7 @@ cdef class C:
     def Ƒ(self):
         pass
 cdef class D:
-    cdef int Ƒ
+    let int Ƒ
 
 def regular_function():
     """
@@ -113,7 +113,7 @@ def regular_function():
     >>> regular_function()
     10
     """
-    cdef int variableƑ = 5
+    let int variableƑ = 5
     ναμε2 = 2
     return variableƑ*ναμε2
 
@@ -181,7 +181,7 @@ cdef class Γναμε2:
 cdef class Derived(Γναμε2):
     pass
 
-cdef Γναμε2 global_ναμε3 = Γναμε2()
+let Γναμε2 global_ναμε3 = Γναμε2()
 
 
 @cython.always_allow_keywords(False)  # METH_O signature
@@ -231,7 +231,7 @@ cdef class NormalizeAttrCdef:
     >>> NormalizeAttrCdef().get()
     5
     """
-    cdef int ﬁ # note unicode ligature symbol
+    let int ﬁ # note unicode ligature symbol
     def __init__(self):
         self.fi = 5
     def get(self):

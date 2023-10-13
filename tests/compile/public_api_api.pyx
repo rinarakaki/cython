@@ -10,13 +10,13 @@ ctypedef api enum EnumA1: EA1
 enum EnumB0: EB0=0
 cdef api enum EnumB1: EB1=1
 
-cdef Int0   i0  = 0
-cdef EnumA0 ea0 = EA0
-cdef EnumB0 eb0 = EB0
+let Int0   i0  = 0
+let EnumA0 ea0 = EA0
+let EnumB0 eb0 = EB0
 
-cdef api Int1   i1  = 0
-cdef api EnumA1 ea1 = EA1
-cdef api EnumB1 eb1 = EB1
+let api Int1   i1  = 0
+let api EnumA1 ea1 = EA1
+let api EnumB1 eb1 = EB1
 
 # --
 
@@ -44,11 +44,11 @@ ctypedef api class Foo1 [type PyFoo1_Type, object PyFoo1_Object]: pass
 cdef     class Bar0: pass
 cdef api class Bar1 [type PyBar1_Type, object PyBar1_Object]: pass
 
-cdef Foo0 f0 = None
-cdef Bar0 b0 = None
+let Foo0 f0 = None
+let Bar0 b0 = None
 
-cdef api Foo1 f1 = None
-cdef api Bar1 b1 = None
+let api Foo1 f1 = None
+let api Bar1 b1 = None
 
 # --
 

@@ -256,7 +256,7 @@ def test_zombie_object():
 # makes the class GC, so it
 # is deallocated
 cdef class gc_zombie_object:
-    cdef object x
+    let object x
 
     def __del__(self):
         global global_gc_zombie_object

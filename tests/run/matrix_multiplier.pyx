@@ -67,7 +67,7 @@ cdef class ExtMatMult:
     Note: support for providing Python special methods despite missing the C-level slot
     is currently not supported.
     """
-    cdef object myself
+    let object myself
     def __init__(self, myself):
         self.myself = myself
 

@@ -15,7 +15,7 @@ cdef class Norwegian(Parrot):
         Parrot.describe(self)
         print("Lovely plumage!")
 
-cdef Parrot p1, p2
+let Parrot p1, p2
 p1 = Parrot()
 p2 = Norwegian()
 print("p2:")

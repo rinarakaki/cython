@@ -1,20 +1,20 @@
 # mode: error
 # -*- coding: iso-8859-1 -*-
 
-cdef Py_UCS4 char_ASCII = u'A'
-cdef Py_UCS4 char_KLINGON = u'\uF8D2'
+let Py_UCS4 char_ASCII = u'A'
+let Py_UCS4 char_KLINGON = u'\uF8D2'
 
 def char_too_long_ASCII():
-    cdef Py_UCS4 c = u'AB'
+    let Py_UCS4 c = u'AB'
 
 def char_too_long_Unicode():
-    cdef Py_UCS4 c = u'A\uF8D2'
+    let Py_UCS4 c = u'A\uF8D2'
 
 def char_too_long_bytes():
-    cdef Py_UCS4 c = b'AB'
+    let Py_UCS4 c = b'AB'
 
 def char_too_long_latin1():
-    cdef Py_UCS4 char_bytes_latin1 = b'\xf6'
+    let Py_UCS4 char_bytes_latin1 = b'\xf6'
 
 
 _ERRORS = """

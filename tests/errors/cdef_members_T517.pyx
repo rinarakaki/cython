@@ -4,17 +4,17 @@
 ctypedef void* VoidP
 
 cdef class Spam:
-    cdef          VoidP vp0
-    cdef readonly VoidP vp2
-    cdef public   VoidP vp1
+    let          VoidP vp0
+    let readonly VoidP vp2
+    let public   VoidP vp1
 
 struct Foo:
     i32 i
 
 cdef class Bar:
-    cdef          Foo foo0
-    cdef readonly Foo foo2
-    cdef public   Foo foo1
+    let          Foo foo0
+    let readonly Foo foo2
+    let public   Foo foo1
     pass
 
 _ERRORS = u"""

@@ -39,7 +39,7 @@ def nousage():
     """
     The challenge here is just compilation.
     """
-    cdef object[int, ndim=2] buf
+    let object[int, ndim=2] buf
 
 
 @testcase
@@ -49,7 +49,7 @@ def disabled_usage(obj):
 
     >>> disabled_usage(None)
     """
-    cdef object[int, ndim=2] buf
+    let object[int, ndim=2] buf
     if False:
         buf = obj
     return obj
@@ -63,7 +63,7 @@ def nousage_cleanup(x):
     Traceback (most recent call last):
     RuntimeError
     """
-    cdef object[int, ndim=2] buf
+    let object[int, ndim=2] buf
     if x:
         raise RuntimeError()
 
@@ -83,7 +83,7 @@ def acquire_release(o1, o2):
     acquired B
     released B
     """
-    cdef object[int] buf
+    let object[int] buf
     buf = o1
     buf = o2
 
@@ -104,7 +104,7 @@ def acquire_raise(o):
     released A
 
     """
-    cdef object[int] buf
+    let object[int] buf
     buf = o
     raise Exception("on purpose")
 
@@ -117,7 +117,7 @@ def acquire_failure1():
     0 3
     released working
     """
-    cdef object[int] buf
+    let object[int] buf
     buf = IntMockBuffer("working", range(4))
     print buf[0], buf[3]
     try:
@@ -135,7 +135,7 @@ def acquire_failure2():
     0 3
     released working
     """
-    cdef object[int] buf = IntMockBuffer("working", range(4))
+    let object[int] buf = IntMockBuffer("working", range(4))
     print buf[0], buf[3]
     try:
         buf = ErrorBuffer()
@@ -154,7 +154,7 @@ def acquire_failure3():
     0 3
     released working
     """
-    cdef object[int] buf
+    let object[int] buf
     buf = IntMockBuffer("working", range(4))
     print buf[0], buf[3]
     try:
@@ -174,7 +174,7 @@ def acquire_failure4():
     0 3
     released working
     """
-    cdef object[int] buf = IntMockBuffer("working", range(4))
+    let object[int] buf = IntMockBuffer("working", range(4))
     print buf[0], buf[3]
     try:
         buf = 2
@@ -190,7 +190,7 @@ def acquire_failure5():
        ...
     ValueError: Buffer acquisition failed on assignment; and then reacquiring the old buffer failed too!
     """
-    cdef object[int] buf
+    let object[int] buf
     buf = IntMockBuffer("working", range(4))
     buf.fail = True
     buf = 3
@@ -209,7 +209,7 @@ def acquire_nonbuffer1(first, second=None):
     Traceback (most recent call last):
     TypeError:... 'int'...
     """
-    cdef object[int] buf
+    let object[int] buf
     buf = first
     buf = second
 
@@ -224,7 +224,7 @@ def acquire_nonbuffer2():
     0 3
     released working
     """
-    cdef object[int] buf = IntMockBuffer("working", range(4))
+    let object[int] buf = IntMockBuffer("working", range(4))
     print buf[0], buf[3]
     try:
         buf = ErrorBuffer
@@ -242,7 +242,7 @@ def as_argument(object[int] bufarg, int n):
     0 1 2 3 4 5 END
     released A
     """
-    cdef int i
+    let int i
     for i in range(n):
         print bufarg[i],
     print 'END'
@@ -274,7 +274,7 @@ def as_argument_defval(object[int] bufarg=IntMockBuffer('default', range(6)), in
     0 1 2 3 4 5 END
     released A
     """
-    cdef int i
+    let int i
     for i in range(n):
         print bufarg[i],
     print 'END'
@@ -289,8 +289,8 @@ def cdef_assignment(obj, n):
     released A
 
     """
-    cdef object[int] buf = obj
-    cdef int i
+    let object[int] buf = obj
+    let int i
     for i in range(n):
         print buf[i],
     print 'END'
@@ -314,7 +314,7 @@ def forin_assignment(objs, int pick):
     2
     released A
     """
-    cdef object[int] buf
+    let object[int] buf
     for buf in objs:
         print buf[pick]
 
@@ -328,7 +328,7 @@ def cascaded_buffer_assignment(obj):
     released A
     released A
     """
-    cdef object[int] a, b
+    let object[int] a, b
     a = b = obj
 
 @testcase
@@ -342,7 +342,7 @@ def tuple_buffer_assignment1(a, b):
     released A
     released B
     """
-    cdef object[int] x, y
+    let object[int] x, y
     x, y = a, b
 
 @testcase
@@ -356,7 +356,7 @@ def tuple_buffer_assignment2(tup):
     released A
     released B
     """
-    cdef object[int] x, y
+    let object[int] x, y
     x, y = tup
 
 @testcase
@@ -367,7 +367,7 @@ def explicitly_release_buffer():
     released A
     After release
     """
-    cdef object[int] x = IntMockBuffer("A", range(10))
+    let object[int] x = IntMockBuffer("A", range(10))
     x = None
     print "After release"
 
@@ -533,7 +533,7 @@ def set_int_2d_cascaded(object[int, ndim=2] buf, int i, int j, int value):
     IndexError: Out of bounds on buffer access (axis 1)
 
     """
-    cdef int casc_value
+    let int casc_value
     buf[i, j] = casc_value = value
     return casc_value
 
@@ -543,7 +543,7 @@ def list_comprehension(object[int] buf, len):
     >>> list_comprehension(IntMockBuffer(None, [1,2,3]), 3)
     1|2|3
     """
-    cdef int i
+    let int i
     print u"|".join([unicode(buf[i]) for i in range(len)])
 
 #
@@ -579,7 +579,7 @@ def wraparound_directive(object[int] buf, int pos_idx, int neg_idx):
         ...
     IndexError: Out of bounds on buffer access (axis 0)
     """
-    cdef int byneg
+    let int byneg
     with cython.wraparound(True):
         byneg = buf[neg_idx]
     return buf[pos_idx] + byneg
@@ -599,7 +599,7 @@ def readonly(obj):
     >>> [str(x) for x in R.received_flags]  # Works in both py2 and py3
     ['FORMAT', 'INDIRECT', 'ND', 'STRIDES']
     """
-    cdef object[unsigned short int, ndim=3] buf = obj
+    let object[unsigned short int, ndim=3] buf = obj
     print buf[2, 2, 1]
 
 @testcase
@@ -612,7 +612,7 @@ def writable(obj):
     >>> [str(x) for x in R.received_flags] # Py2/3
     ['FORMAT', 'INDIRECT', 'ND', 'STRIDES', 'WRITABLE']
     """
-    cdef object[unsigned short int, ndim=3] buf = obj
+    let object[unsigned short int, ndim=3] buf = obj
     buf[2, 2, 1] = 23
 
 @testcase
@@ -772,8 +772,8 @@ def mixed_get(object[int] buf, int unsafe_idx, int safe_idx):
 ##     uc[0] = <int>3.14
 ##     print uc[0]
 
-##     cdef char* ch = b"asfd"
-##     cdef object[object] objbuf
+##     let char* ch = b"asfd"
+##     let object[object] objbuf
 ##     objbuf[3] = ch
 
 
@@ -784,7 +784,7 @@ def mixed_get(object[int] buf, int unsafe_idx, int safe_idx):
 
 def printbuf_int(object[int] buf, shape):
     # Utility func
-    cdef int i
+    let int i
     for i in range(shape[0]):
         print buf[i],
     print 'END'
@@ -815,9 +815,9 @@ def printbuf_int_2d(o, shape):
     released A
     """
     # should make shape builtin
-    cdef object[int, ndim=2] buf
+    let object[int, ndim=2] buf
     buf = o
-    cdef int i, j
+    let int i, j
     for i in range(shape[0]):
         for j in range(shape[1]):
             print buf[i, j],
@@ -833,9 +833,9 @@ def printbuf_float(o, shape):
     """
 
     # should make shape builtin
-    cdef object[float] buf
+    let object[float] buf
     buf = o
-    cdef int i, j
+    let int i, j
     for i in range(shape[0]):
         print buf[i],
     print "END"
@@ -852,7 +852,7 @@ def inplace_operators(object[int] buf):
     >>> printbuf_int(buf, (2,))
     0 3 END
     """
-    cdef int j = 0
+    let int j = 0
     buf[1] += 1
     buf[j] *= 2
     buf[0] -= 4
@@ -866,7 +866,7 @@ def inplace_operators(object[int] buf):
 # simply a header file typedef for floats and unsigned.
 
 ctypedef int td_cy_int
-cdef extern from "bufaccess.h":
+extern from "bufaccess.h":
     ctypedef td_cy_int td_h_short # Defined as short, but Cython doesn't know this!
     ctypedef float td_h_double # Defined as double
     ctypedef unsigned int td_h_ushort # Defined as unsigned short
@@ -882,7 +882,7 @@ def printbuf_td_cy_int(object[td_cy_int] buf, shape):
        ...
     ValueError: Buffer dtype mismatch, expected 'td_cy_int' but got 'short'
     """
-    cdef int i
+    let int i
     for i in range(shape[0]):
         print buf[i],
     print 'END'
@@ -897,7 +897,7 @@ def printbuf_td_h_short(object[td_h_short] buf, shape):
        ...
     ValueError: Buffer dtype mismatch, expected 'td_h_short' but got 'int'
     """
-    cdef int i
+    let int i
     for i in range(shape[0]):
         print buf[i],
     print 'END'
@@ -912,7 +912,7 @@ def printbuf_td_h_cy_short(object[td_h_cy_short] buf, shape):
        ...
     ValueError: Buffer dtype mismatch, expected 'td_h_cy_short' but got 'int'
     """
-    cdef int i
+    let int i
     for i in range(shape[0]):
         print buf[i],
     print 'END'
@@ -927,7 +927,7 @@ def printbuf_td_h_ushort(object[td_h_ushort] buf, shape):
        ...
     ValueError: Buffer dtype mismatch, expected 'td_h_ushort' but got 'short'
     """
-    cdef int i
+    let int i
     for i in range(shape[0]):
         print buf[i],
     print 'END'
@@ -942,7 +942,7 @@ def printbuf_td_h_double(object[td_h_double] buf, shape):
        ...
     ValueError: Buffer dtype mismatch, expected 'td_h_double' but got 'float'
     """
-    cdef int i
+    let int i
     for i in range(shape[0]):
         print buf[i],
     print 'END'
@@ -983,7 +983,7 @@ def printbuf_object(object[object] buf, shape):
     {4: 23} 2
     [34, 3] 2
     """
-    cdef int i
+    let int i
     for i in range(shape[0]):
         print repr(buf[i]), (<PyObject*>buf[i]).ob_refcnt
 
@@ -1022,7 +1022,7 @@ def check_object_nulled_1d(MockBuffer[object, ndim=1] buf, int idx, obj):
     >>> get_refcount(a) == rc1
     True
     """
-    cdef PyObject **data = <PyObject **>buf.buffer
+    let PyObject **data = <PyObject **>buf.buffer
     Py_CLEAR(data[idx])
     res = buf[idx]  # takes None
     buf[idx] = obj
@@ -1041,7 +1041,7 @@ def check_object_nulled_2d(MockBuffer[object, ndim=2] buf, int idx1, int idx2, o
     >>> get_refcount(a) == rc1
     True
     """
-    cdef PyObject **data = <PyObject **>buf.buffer
+    let PyObject **data = <PyObject **>buf.buffer
     Py_CLEAR(data[idx1 + 2*idx2])
     res = buf[idx1, idx2]  # takes None
     buf[idx1, idx2] = obj
@@ -1085,7 +1085,7 @@ def buffer_cast(object[unsigned int, cast=True] buf, int idx):
     >>> buffer_cast(A, 0)
     -100
     """
-    cdef unsigned int data = buf[idx]
+    let unsigned int data = buf[idx]
     return <int>data
 
 @testcase
@@ -1115,7 +1115,7 @@ def typedbuffer1(obj):
        ...
     TypeError: Cannot convert int to bufaccess.IntMockBuffer
     """
-    cdef IntMockBuffer[int, ndim=1] buf = obj
+    let IntMockBuffer[int, ndim=1] buf = obj
 
 @testcase
 def typedbuffer2(IntMockBuffer[int, ndim=1] obj):
@@ -1252,7 +1252,7 @@ def buffer_nogil():
     >>> buffer_nogil()
     10
     """
-    cdef object[int] buf = IntMockBuffer(None, [1,2,3])
+    let object[int] buf = IntMockBuffer(None, [1,2,3])
     with nogil:
         buf[1] = 10
     return buf[1]
@@ -1265,7 +1265,7 @@ def buffer_nogil_oob():
         ...
     IndexError: Out of bounds on buffer access (axis 0)
     """
-    cdef object[int] buf = IntMockBuffer(None, [1,2,3])
+    let object[int] buf = IntMockBuffer(None, [1,2,3])
     with nogil:
         buf[5] = 10
     return buf[1]
@@ -1279,7 +1279,7 @@ def test_inplace_assignment():
     >>> test_inplace_assignment()
     10
     """
-    cdef object[int, ndim=1] buf = IntMockBuffer(None, [1, 2, 3])
+    let object[int, ndim=1] buf = IntMockBuffer(None, [1, 2, 3])
 
     buf[0] = get_int()
     print buf[0]
@@ -1290,7 +1290,7 @@ def test_nested_assignment():
     >>> test_nested_assignment()
     100
     """
-    cdef object[int] inner = IntMockBuffer(None, [1, 2, 3])
-    cdef object[int] outer = IntMockBuffer(None, [1, 2, 3])
+    let object[int] inner = IntMockBuffer(None, [1, 2, 3])
+    let object[int] outer = IntMockBuffer(None, [1, 2, 3])
     outer[inner[0]] = 100
     return outer[inner[0]]

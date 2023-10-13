@@ -16,7 +16,7 @@ def nonzero(int x):
     True
 
     """
-    cdef jmp_buf ctx
+    let jmp_buf ctx
     if setjmp(ctx) == 0:
         check_nonzero(ctx, x)
         return True
@@ -25,8 +25,8 @@ def nonzero(int x):
 
 
 from libc.string cimport strcpy
-cdef char[256] error_msg
-cdef jmp_buf error_ctx
+let char[256] error_msg
+let jmp_buf error_ctx
 cdef void error(char msg[]) nogil:
     strcpy(error_msg,msg)
     longjmp(error_ctx, 1)

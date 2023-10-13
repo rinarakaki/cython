@@ -1,25 +1,25 @@
 # cython: remove_unreachable=False
 # mode: error
 
-cdef object f(object x) nogil:
+fn object f(object x) nogil:
     pass
 
 cdef void g(int x) nogil:
-    cdef object z
+    let object z
     z = None
 
 cdef void h(int x) nogil:  # allowed
     p()
 
-cdef object p() nogil:
+fn object p() nogil:
     pass
 
 cdef void r() nogil:  # allowed
     q()  # allowed
 
-cdef object m():
-    cdef object x, y = 0, obj
-    cdef int i, j, k
+fn object m():
+    let object x, y = 0, obj
+    let int i, j, k
     global fred
     q()
     with nogil:
@@ -81,7 +81,7 @@ cdef void t(C c) nogil:
     pass
 
 def ticket_338():
-    cdef object obj
+    let object obj
     with nogil:
         for obj from 0 <= obj < 4:
             pass
@@ -90,7 +90,7 @@ def bare_pyvar_name(object x):
     with nogil:
         x
 
-cdef int fstrings(int x, object obj) except -1 nogil:
+fn int fstrings(int x, object obj) except -1 nogil:
     f""         # allowed
     f"a"        # allowed
     f"a"f"b"    # allowed
@@ -100,10 +100,10 @@ cdef int fstrings(int x, object obj) except -1 nogil:
 cdef void slice_array() nogil:
     with gil:
         b = [1, 2, 3, 4]
-    cdef int[4] a = b[:]
+    fn int[4] a = b[:]
 
-cdef int[:] main() nogil:
-    cdef int[4] a = [1,2,3,4]
+fn int[:] main() nogil:
+    let int[4] a = [1,2,3,4]
     return a
 
 

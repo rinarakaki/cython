@@ -5,9 +5,9 @@ cimport cython
 from libcpp.pair cimport pair
 from libcpp.vector cimport vector
 
-cdef extern from "cpp_template_functions_helper.h":
-    cdef T no_arg[T]()
-    cdef T one_param[T](T)
+extern from "cpp_template_functions_helper.h":
+    fn T no_arg[T]()
+    fn T one_param[T](T)
     cdef pair[T, U] two_params[T, U](T, U)
     cdef cppclass A[T]:
         pair[T, U] method[U](T, U)
@@ -17,9 +17,9 @@ cdef extern from "cpp_template_functions_helper.h":
         T overloaded(pair[T, T])
         U overloaded[U](vector[U])
         X overloaded[X](char* s, vector[X])
-    cdef T nested_deduction[T](const T*)
+    fn T nested_deduction[T](const T*)
     pair[T, U] pair_arg[T, U](pair[T, U] a)
-    cdef T* pointer_param[T](T*)
+    fn T* pointer_param[T](T*)
     cdef cppclass double_pair(pair[double, double]):
         double_pair(double, double)
 
@@ -49,8 +49,8 @@ def test_method(int x, int y):
     >>> test_method(5, 10)
     ((5, 10.0), (5.0, 10), (5, 10), (5.0, 10))
     """
-    cdef A[int] a_int
-    cdef A[double] a_double
+    let A[int] a_int
+    let A[double] a_double
     return (a_int.method[float](x, y), a_double.method[int](x, y),
         a_int.method(x, y), a_double.method(x, y))
 #    return a_int.method[double](x, y), a_double.method[int](x, y)
@@ -60,9 +60,9 @@ def test_part_method(int x, int y):
     >>> test_part_method(5, 10)
     (10.0, 10, 10.0)
     """
-    cdef A[int] a_int
+    let A[int] a_int
     cdef pair[int, double] p_int = (x, y)
-    cdef A[double] a_double
+    let A[double] a_double
     cdef pair[double, int] p_double = (x, y)
     return (a_int.part_method(p_int),
         a_double.part_method(p_double),
@@ -94,7 +94,7 @@ def test_deduce_through_pointers(int k):
     >>> test_deduce_through_pointers(5)
     (5, 5.0)
     """
-    cdef double x = k
+    let double x = k
     return pointer_param(&k)[0], pointer_param(&x)[0]
 
 def test_inference(int k):
@@ -110,7 +110,7 @@ def test_overload_GH1583():
     """
     >>> test_overload_GH1583()
     """
-    cdef A[int] a
+    let A[int] a
     assert a.overloaded(1.5) == 1
     cdef pair[int, int] p = (2, 3)
     assert a.overloaded(p) == 2

@@ -1,16 +1,16 @@
 cimport cython
 
-cdef class B
+let class B
 
 cdef class A(object):
-    cdef list dealloc1
+    let list dealloc1
 
 cdef class Y(X): pass
 cdef class X(C): pass
 cdef class C: pass
 
 cdef class B(A):
-    cdef list dealloc2
+    let list dealloc2
 
 cdef class Z(A): pass
 

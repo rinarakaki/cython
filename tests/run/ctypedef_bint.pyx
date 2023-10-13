@@ -4,9 +4,9 @@ from cython cimport typeof
 
 ctypedef bint mybool
 
-cdef mybool mybul = True
-cdef bint bul = True
-cdef int num = 42
+let mybool mybul = True
+let bint bul = True
+let int num = 42
 
 
 def CondExprNode_to_obj(test):
@@ -36,7 +36,7 @@ def BoolBinopNode_to_obj():
     return (mybul or num) + (bul or num)
 
 
-cdef int test_bool(mybool arg):
+fn int test_bool(mybool arg):
     return <int>arg
 
 

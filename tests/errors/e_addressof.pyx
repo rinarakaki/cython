@@ -1,14 +1,14 @@
 # mode: error
 
 cdef class Ext:
-    cdef int a
-    cdef object o
+    let int a
+    let object o
 
 def f(int a):
-    cdef Ext e = Ext()
+    let Ext e = Ext()
     x = &a  # ok
 
-    cdef object o = &a  # pointer != object
+    let object o = &a  # pointer != object
 
     po1 = &o        # pointer to Python variable
     po2 = &o.xyz    # pointer to Python expression

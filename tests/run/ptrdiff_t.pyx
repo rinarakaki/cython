@@ -34,22 +34,22 @@ cdef class A:
     ... except (OverflowError, TypeError): print("ERROR")
     ERROR
     """
-    cdef public ptrdiff_t a
-    cdef readonly ptrdiff_t b
+    let public ptrdiff_t a
+    let readonly ptrdiff_t b
 
     def __init__(self, ptrdiff_t a, object b):
         self.a = a
         self.b = b
 
     cpdef ptrdiff_t foo(self, ptrdiff_t x):
-        cdef object o = x
+        let object o = x
         return o
 
 def test_types():
     """
     >>> test_types()
     """
-    cdef int a = 1, b = 2
+    let int a = 1, b = 2
     assert typeof(&a - &b) == "ptrdiff_t", typeof(&a - &b)
     assert typeof((&a - &b) + 1) == "ptrdiff_t", typeof((&a - &b) + 1)
     assert typeof(&a + (&b - &a)) == "int *", typeof(&a + (&b - &a))

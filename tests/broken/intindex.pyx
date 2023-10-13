@@ -1,7 +1,7 @@
-cdef int f() except -1:
-    cdef object x, y, z
-    cdef int i
-    cdef unsigned int ui
+fn int f() except -1:
+    let object x, y, z
+    let int i
+    let unsigned int ui
     z = x[y]
     z = x[i]
     x[y] = z

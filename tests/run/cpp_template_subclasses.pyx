@@ -5,7 +5,7 @@ from cython.operator import dereference as deref
 from libcpp.pair cimport pair
 from libcpp.vector cimport vector
 
-cdef extern from "cpp_template_subclasses_helper.h":
+extern from "cpp_template_subclasses_helper.h":
     cdef cppclass Base:
         char* name()
 
@@ -29,8 +29,8 @@ def testA(x):
     >>> testA(10)
     10.0
     """
-    cdef Base *base
-    cdef A[double] *a = NULL
+    let Base *base
+    let A[double] *a = NULL
     try:
         a = new A[double]()
         base = a
@@ -44,9 +44,9 @@ def testB(x, y):
     >>> testB(1, 2)
     >>> testB(1, 1.5)
     """
-    cdef Base *base
-    cdef A[double] *a
-    cdef B[long, double] *b = NULL
+    let Base *base
+    let A[double] *a
+    let B[long, double] *b = NULL
     try:
         base = a = b = new B[long, double]()
         assert base.name() == b"B", base.name()
@@ -61,10 +61,10 @@ def testC(x, y):
     >>> testC(25, [1, 5, 25])
     >>> testC(105, [1, 3, 5, 7, 15, 21, 35, 105])
     """
-    cdef Base *base
-    cdef A[vector[long]] *a
-    cdef B[long, vector[long]] *b
-    cdef C[vector[long]] *c = NULL
+    let Base *base
+    let A[vector[long]] *a
+    let B[long, vector[long]] *b
+    let C[vector[long]] *c = NULL
     try:
         base = a = b = c = new C[vector[long]]()
         assert base.name() == b"C", base.name()
@@ -80,11 +80,11 @@ def testD(x, y):
     >>> testD(2, 0.5)
     >>> testD(4, 0.25)
     """
-    cdef Base *base
-    cdef A[pair[double, double]] *a
-    cdef B[long, pair[double, double]] *b
-    cdef C[pair[double, double]] *c
-    cdef D[double] *d = NULL
+    let Base *base
+    let A[pair[double, double]] *a
+    let B[long, pair[double, double]] *b
+    let C[pair[double, double]] *c
+    let D[double] *d = NULL
     try:
         base = a = b = c = d = new D[double]()
         assert base.name() == b"D", base.name()
@@ -100,12 +100,12 @@ def testE(x, y):
     >>> testD(2, 0.5)
     >>> testD(4, 0.25)
     """
-    cdef Base *base
-    cdef A[pair[double, double]] *a
-    cdef B[long, pair[double, double]] *b
-    cdef C[pair[double, double]] *c
-    cdef D[double] *d
-    cdef E *e = NULL
+    let Base *base
+    let A[pair[double, double]] *a
+    let B[long, pair[double, double]] *b
+    let C[pair[double, double]] *c
+    let D[double] *d
+    let E *e = NULL
     try:
         base = a = b = c = d = e = new E()
         assert base.name() == b"E", base.name()
@@ -163,5 +163,5 @@ def test_subclass_exception_values(bint fire):
     ...
     RuntimeError
     """
-    cdef GetInt getter
+    let GetInt getter
     return getter.get(fire)

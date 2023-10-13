@@ -1,5 +1,5 @@
-cdef extern from "foo.h":
+extern from "foo.h":
     ctypedef long long big_t
-    cdef void spam(big_t b)
+    fn void spam(big_t b)
 
 spam(grail)

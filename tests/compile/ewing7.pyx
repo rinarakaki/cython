@@ -8,7 +8,7 @@ cdef class B(A):
     cdef void f(self, object x):
         pass
 
-cdef extern void g(A a, b)
+extern void g(A a, b)
 
-cdef extern void g(A a, b)
+extern void g(A a, b)
 

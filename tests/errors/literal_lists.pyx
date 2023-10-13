@@ -1,7 +1,7 @@
 # mode: error
 
 def f():
-    cdef int* p
+    let int* p
     if false():
         p = [1, 2, 3]
 

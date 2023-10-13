@@ -5,7 +5,7 @@ cimport cython
 DTYPE = np.intc
 
 
-cdef int clip(int a, int min_value, int max_value):
+fn int clip(int a, int min_value, int max_value):
     return min(max(a, min_value), max_value)
 
 
@@ -19,10 +19,10 @@ def compute(int[:, ::1] array_1, int[:, ::1] array_2, int a, int b, int c):
     assert tuple(array_1.shape) == tuple(array_2.shape)
 
     result = np.zeros((x_max, y_max), dtype=DTYPE)
-    cdef int[:, ::1] result_view = result
+    fn int[:, ::1] result_view = result
 
-    cdef int tmp
-    cdef Py_ssize_t x, y
+    let int tmp
+    let Py_ssize_t x, y
 
     for x in range(x_max):
         for y in range(y_max):

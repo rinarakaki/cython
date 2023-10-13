@@ -1,10 +1,10 @@
-cdef extern from "graminit.c":
+extern from "graminit.c":
     struct grammar:
         pass
-    cdef grammar _PyParser_Grammar
-    cdef int Py_file_input
+    let grammar _PyParser_Grammar
+    let int Py_file_input
 
-cdef extern from "node.h":
+extern from "node.h":
     struct node
     void PyNode_Free(node* n)
     int NCH(node* n)
@@ -13,11 +13,11 @@ cdef extern from "node.h":
     short TYPE(node* n)
     char* STR(node* n)
 
-cdef extern from "parsetok.h":
+extern from "parsetok.h":
     struct perrdetail:
         pass
-    cdef void PyParser_SetError(perrdetail *err) except *
-    cdef node * PyParser_ParseStringFlagsFilenameEx(
+    let void PyParser_SetError(perrdetail *err) except *
+    let node * PyParser_ParseStringFlagsFilenameEx(
         const char * s,
         const char * filename,
         grammar * g,
@@ -42,7 +42,7 @@ def extract_names(path):
                     pass
     return type_names
 
-cdef dict type_names = {}
+let dict type_names = {}
 
 cdef print_tree(node* n, indent=""):
     if not type_names:
@@ -68,9 +68,9 @@ def handle_includes(source, path):
     return re.sub(r'^include\s+([^\n]+[\'"])\s*(#.*)?$', include_here, source, flags=re.M)
 
 def p_module(path):
-    cdef perrdetail err
-    cdef int flags
-    cdef node* n
+    let perrdetail err
+    let int flags
+    let node* n
     with open(path) as fid:
         source = fid.read()
     if '\ninclude ' in source:

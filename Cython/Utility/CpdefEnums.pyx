@@ -2,10 +2,10 @@
 
 cimport cython
 
-cdef extern from *:
+extern from *:
     int PY_VERSION_HEX
 
-cdef object __Pyx_OrderedDict
+let object __Pyx_OrderedDict
 
 if PY_VERSION_HEX >= 0x03060000:
     __Pyx_OrderedDict = dict
@@ -23,7 +23,7 @@ cdef class __Pyx_EnumMeta(type):
         return cls.__members__[name]
 
 # @cython.internal
-cdef object __Pyx_EnumBase
+let object __Pyx_EnumBase
 class __Pyx_EnumBase(int, metaclass=__Pyx_EnumMeta):
     def __new__(cls, value, name=None):
         for v in cls:
@@ -44,7 +44,7 @@ class __Pyx_EnumBase(int, metaclass=__Pyx_EnumMeta):
 if PY_VERSION_HEX >= 0x03040000:
     from enum import IntEnum as __Pyx_EnumBase
 
-cdef object __Pyx_FlagBase
+let object __Pyx_FlagBase
 class __Pyx_FlagBase(int, metaclass=__Pyx_EnumMeta):
     def __new__(cls, value, name=None):
         for v in cls:
@@ -70,10 +70,10 @@ if PY_VERSION_HEX >= 0x03060000:
 #################### EnumType ####################
 #@requires: EnumBase
 
-cdef extern from *:
+extern from *:
     object {{enum_to_pyint_func}}({{name}} value)
 
-cdef dict __Pyx_globals = globals()
+let dict __Pyx_globals = globals()
 if PY_VERSION_HEX >= 0x03060000:
     # create new IntFlag() - the assumption is that C enums are sufficiently commonly
     # used as flags that this is the most appropriate base class
@@ -107,7 +107,7 @@ else:
 
 #################### CppScopedEnumType ####################
 #@requires: EnumBase
-cdef dict __Pyx_globals = globals()
+let dict __Pyx_globals = globals()
 
 if PY_VERSION_HEX >= 0x03040000:
     __Pyx_globals["{{name}}"] = __Pyx_EnumBase('{{name}}', [
@@ -130,7 +130,7 @@ __Pyx_globals["{{name}}"].__doc__ = {{ repr(enum_doc) }}
 
 @cname("{{funcname}}")
 cdef {{funcname}}({{name}} c_val):
-    cdef object __pyx_enum
+    let object __pyx_enum
     # There's a complication here: the Python enum wrapping is only generated
     # for enums defined in the same module that they're used in. Therefore, if
     # the enum was cimported from a different module, we try to import it.

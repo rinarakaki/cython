@@ -192,7 +192,7 @@ class B(object):
         >>> B().meth2(*[None])
         >>> B.meth2(B(), None)
         >>> if not IS_PY2: B.meth2(self=B(), arg=None)
-        >>> B().meth2(arg=None)  # assert_typeerror_no_keywords(B().meth2, arg=None)  -> not a cdef class!
+        >>> B().meth2(arg=None)  # assert_typeerror_no_keywords(B().meth2, arg=None)  -> not a let class!
         """
 
     @cython.always_allow_keywords(True)

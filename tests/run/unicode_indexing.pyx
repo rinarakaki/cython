@@ -1,7 +1,7 @@
 
 cimport cython
 
-cdef unicode _ustring = u'azerty123456'
+let unicode _ustring = u'azerty123456'
 ustring = _ustring
 
 
@@ -104,7 +104,7 @@ def index_literal_pyunicode_coerce(int i):
     Traceback (most recent call last):
     IndexError: string index out of range
     """
-    cdef Py_UNICODE result = u"12345"[i]
+    let Py_UNICODE result = u"12345"[i]
     return result
 
 
@@ -122,7 +122,7 @@ def index_literal_pyunicode_coerce_no_check(int i):
     >>> index_literal_pyunicode_coerce_no_check(4) == '5'
     True
     """
-    cdef Py_UNICODE result = u"12345"[i]
+    let Py_UNICODE result = u"12345"[i]
     return result
 
 
@@ -250,8 +250,8 @@ def index_concat_loop(unicode ustring):
     >>> index_concat_loop(ustring) == ustring
     True
     """
-    cdef int i
-    cdef unicode s = u''
+    let int i
+    let unicode s = u''
     for i in range(len(ustring)):
         s += ustring[i]
     return s
@@ -266,5 +266,5 @@ def index_join_loop(unicode ustring):
     >>> index_join_loop(ustring) == ustring
     True
     """
-    cdef int i
+    let int i
     return u''.join([ ustring[i] for i in range(len(ustring)) ])

@@ -1,7 +1,7 @@
 # mode: run
 # tag: internal
 
-cdef extern from *:
+extern from *:
     int check_binary_version "__Pyx_check_binary_version" (unsigned long ct_version, unsigned long rt_version, int allow_newer) except -1
     unsigned long get_runtime_version "__Pyx_get_runtime_version" ()
     unsigned long PY_VERSION_HEX
@@ -12,12 +12,12 @@ def test_get_runtime_version():
     >>> test_get_runtime_version()
     True
     """
-    cdef unsigned long rt_version = get_runtime_version()
+    let unsigned long rt_version = get_runtime_version()
     return PY_VERSION_HEX & ~0xFF == rt_version or  (hex(PY_VERSION_HEX), hex(rt_version))
 
 
 def iter_hex_versions():
-    cdef long major, minor, dot
+    let long major, minor, dot
     for major in range(0, 20):
         for minor in range(0, 20, 3):
             for dot in range(0, 20, 3):
@@ -31,8 +31,8 @@ def test_compare_binary_versions_exact():
     >>> test_compare_binary_versions_exact()
     >>> warnings.resetwarnings()
     """
-    cdef long major_and_minor = 0xFFFF0000
-    cdef long rt_version, ct_version
+    let long major_and_minor = 0xFFFF0000
+    let long rt_version, ct_version
 
     versions = list(iter_hex_versions())
     for ct_version in versions:
@@ -55,8 +55,8 @@ def test_compare_binary_versions_minimum():
     >>> test_compare_binary_versions_minimum()
     >>> warnings.resetwarnings()
     """
-    cdef long major_and_minor = 0xFFFF0000
-    cdef long rt_version, ct_version
+    let long major_and_minor = 0xFFFF0000
+    let long rt_version, ct_version
 
     versions = list(iter_hex_versions())
     for ct_version in versions:

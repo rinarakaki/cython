@@ -1,6 +1,6 @@
 # Test that variable visible outside of the local scope (e.g. closure, cglobals)
 # is set before original value is decrefed.
-cdef object g
+let object g
 
 def test_cglobals_reassignment():
     """

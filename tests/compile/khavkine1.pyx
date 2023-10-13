@@ -3,7 +3,7 @@
 cdef class T:
     let i32[1] a
 
-cdef object b
+let object b
 
 fn void f(void *obj):
     (<T> obj).a[0] = 1

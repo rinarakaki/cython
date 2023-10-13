@@ -80,9 +80,9 @@ def pointer_cmp():
     False
     True
     """
-    cdef int* a = NULL
-    cdef double* b = NULL
-    cdef double** c = NULL
+    let int* a = NULL
+    let double* b = NULL
+    let double** c = NULL
     print a is NULL
     print b is not NULL
     print c == NULL

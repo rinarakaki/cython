@@ -1,4 +1,4 @@
-cdef unicode ustring = u'Hello world'
+let unicode ustring = u'Hello world'
 
 # NOTE: no typing required for 'uchar' !
 for uchar in ustring:

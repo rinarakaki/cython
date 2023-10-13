@@ -13,13 +13,13 @@ pub type Zax = Foo
 pub class C[type C_Type, object C_Obj]:
     pass
 
-cdef pub Zax *blarg
+let pub Zax *blarg
 
-cdef pub C c_pub = C()
-cdef api C c_api = C()
+let pub C c_pub = C()
+let api C c_api = C()
 
-cdef pub dict o_pub = C()
-cdef api list o_api = C()
+let pub dict o_pub = C()
+let api list o_api = C()
 
 cdef api float f(Foo *x):
     pass
