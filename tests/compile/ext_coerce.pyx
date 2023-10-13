@@ -1,17 +1,16 @@
 # mode: compile
 
 cdef class Grail:
-
-    def __add__(int x, float y):
+    def __add__(i32 x, f32 y):
         pass
 
 cdef class Swallow:
     pass
 
 def f(Grail g):
-    cdef int i = 0
-    cdef Swallow s = Swallow()
-    cdef object x = Grail()
+    let i32 i = 0
+    let Swallow s = Swallow()
+    let object x = Grail()
     g = x
     x = g
     g = i
