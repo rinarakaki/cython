@@ -88,22 +88,22 @@ cdef PyObject* SetupContext(char* funcname, Py_ssize_t lineno, char* filename) e
         # In that case, we don't want to be doing anything fancy
         # like caching and resetting exceptions.
         return NULL
-    cdef (PyObject*) type = NULL, value = NULL, tb = NULL, result = NULL
+    cdef (PyObject*) ty = NULL, value = NULL, tb = NULL, result = NULL
     PyThreadState_Get()  # Check that we hold the GIL
-    PyErr_Fetch(&type, &value, &tb)
+    PyErr_Fetch(&ty, &value, &tb)
     try:
         ctx = Context(funcname, lineno, filename)
         Py_INCREF(ctx)
         result = <PyObject*>ctx
     except Exception, e:
         report_unraisable(filename, lineno, e)
-    PyErr_Restore(type, value, tb)
+    PyErr_Restore(ty, value, tb)
     return result
 
 cdef void GOTREF(PyObject* ctx, PyObject* p_obj, Py_ssize_t lineno):
     if ctx == NULL: return
-    cdef (PyObject*) type = NULL, value = NULL, tb = NULL
-    PyErr_Fetch(&type, &value, &tb)
+    cdef (PyObject*) ty = NULL, value = NULL, tb = NULL
+    PyErr_Fetch(&ty, &value, &tb)
     try:
         (<Context>ctx).regref(
             <object>p_obj if p_obj is not NULL else None,
@@ -113,14 +113,14 @@ cdef void GOTREF(PyObject* ctx, PyObject* p_obj, Py_ssize_t lineno):
     except:
         report_unraisable((<Context>ctx).filename, lineno=(<Context>ctx).start)
     finally:
-        PyErr_Restore(type, value, tb)
+        PyErr_Restore(ty, value, tb)
         return  # swallow any exceptions
 
 cdef bint GIVEREF_and_report(PyObject* ctx, PyObject* p_obj, Py_ssize_t lineno):
     if ctx == NULL: return 1
-    cdef (PyObject*) type = NULL, value = NULL, tb = NULL
+    cdef (PyObject*) ty = NULL, value = NULL, tb = NULL
     cdef bint decref_ok = False
-    PyErr_Fetch(&type, &value, &tb)
+    PyErr_Fetch(&ty, &value, &tb)
     try:
         decref_ok = (<Context>ctx).delref(
             <object>p_obj if p_obj is not NULL else None,
@@ -130,7 +130,7 @@ cdef bint GIVEREF_and_report(PyObject* ctx, PyObject* p_obj, Py_ssize_t lineno):
     except:
         report_unraisable((<Context>ctx).filename, lineno=(<Context>ctx).start)
     finally:
-        PyErr_Restore(type, value, tb)
+        PyErr_Restore(ty, value, tb)
         return decref_ok  # swallow any exceptions
 
 cdef void GIVEREF(PyObject* ctx, PyObject* p_obj, Py_ssize_t lineno):
@@ -148,11 +148,11 @@ cdef void DECREF(PyObject* ctx, PyObject* obj, Py_ssize_t lineno):
 
 cdef void FinishContext(PyObject** ctx):
     if ctx == NULL or ctx[0] == NULL: return
-    cdef (PyObject*) type = NULL, value = NULL, tb = NULL
+    cdef (PyObject*) ty = NULL, value = NULL, tb = NULL
     cdef object errors = None
     cdef Context context
     PyThreadState_Get()  # Check that we hold the GIL
-    PyErr_Fetch(&type, &value, &tb)
+    PyErr_Fetch(&ty, &value, &tb)
     try:
         context = <Context>ctx[0]
         errors = context.end()
@@ -167,7 +167,7 @@ cdef void FinishContext(PyObject** ctx):
         )
     finally:
         Py_CLEAR(ctx[0])
-        PyErr_Restore(type, value, tb)
+        PyErr_Restore(ty, value, tb)
         return  # swallow any exceptions
 
 ctypedef struct RefNannyAPIStruct:
