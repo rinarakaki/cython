@@ -1,6 +1,6 @@
 # mode: compile
 
-cdef class spam:
+cdef class pam:
     pass
 
 cdef spam s
