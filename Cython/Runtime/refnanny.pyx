@@ -186,7 +186,7 @@ api.GIVEREF = GIVEREF
 api.SetupContext = SetupContext
 api.FinishContext = FinishContext
 
-extern from "Python.h":
+cdef extern from "Python.h":
     object PyLong_FromVoidPtr(void*)
 
 RefNannyAPI = PyLong_FromVoidPtr(<void*>&api)
