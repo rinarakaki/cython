@@ -2,7 +2,7 @@
 
 set -x
 
-GCC_VERSION=${GCC_VERSION:=11}
+GCC_VERSION=${GCC_VERSION:=13}
 
 # Set up compilers
 if [[ $TEST_CODE_STYLE == "1" ]]; then
@@ -109,11 +109,10 @@ else
   if [[ $PYTHON_VERSION != *"-dev" ]]; then
     if [[ $BACKEND == *"cpp"* ]]; then
       echo "WARNING: Currently not installing pythran due to compatibility issues"
-      # python -m pip install pythran==0.9.5 || exit 1
+      # python -m pip install pythran || exit 1
     fi
 
-    if [[ $BACKEND != "cpp" && $PYTHON_VERSION != "pypy"* &&
-          $PYTHON_VERSION != "2"* && $PYTHON_VERSION != "3.4"* ]]; then
+    if [[ $BACKEND != "cpp" ]]; then
       python -m pip install mypy || exit 1
     fi
   fi
@@ -148,7 +147,7 @@ elif [[ $ODD_VERSION == "0" ]]; then
     CFLAGS="$CFLAGS -UNDEBUG"
 fi
 
-if [[ $NO_CYTHON_COMPILE != "1" && $PYTHON_VERSION != "pypy"* ]]; then
+if [[ $NO_CYTHON_COMPILE != "1" ]]; then
 
   BUILD_CFLAGS="$CFLAGS -O2"
   if [[ $CYTHON_COMPILE_ALL == "1" && $OSTYPE != "msys" ]]; then
@@ -188,7 +187,7 @@ fi
 
 if [[ $TEST_CODE_STYLE == "1" ]]; then
   make -C docs html || exit 1
-elif [[ $PYTHON_VERSION != "pypy"* && $OSTYPE != "msys" ]]; then
+elif [[ $OSTYPE != "msys" ]]; then
   # Run the debugger tests in python-dbg if available
   # (but don't fail, because they currently do fail)
   PYTHON_DBG=$(python -c 'import sys; print("%d.%d" % sys.version_info[:2])')
