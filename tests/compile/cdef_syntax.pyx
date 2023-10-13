@@ -2,13 +2,13 @@
 
 # the following are valid syntax constructs and should not produce errors
 
-ctypedef int x;
+type X = i32
 
-cdef no_semi():
-    cdef int i
+fn no_semi():
+    let i32 i
 
-cdef with_semi():
-    cdef int i;
+fn with_semi():
+    let i32 i;
 
 def use_cdef():
-  &no_semi, &with_semi
+    &no_semi, &with_semi

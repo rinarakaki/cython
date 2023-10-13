@@ -281,8 +281,11 @@ builtin_types_table = [
 #    ("bool",    "PyBool_Type",     []),
 
     ("int",     "PyInt_Type",      []),
+    ("i32",     "PyInt_Type",      []),
     ("long",    "PyLong_Type",     []),
+    ("i64",     "PyLong_Type",     []),
     ("float",   "PyFloat_Type",    []),
+    ("f32",     "PyFloat_Type",    []),
 
     ("complex", "PyComplex_Type",  [BuiltinAttribute('cval', field_type_name = 'Py_complex'),
                                     BuiltinAttribute('real', 'cval.real', field_type = PyrexTypes.c_double_type),

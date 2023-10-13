@@ -1,9 +1,8 @@
-cdef struct point:
-    double x
-    double y
-    double z
+struct Point:
+    f64 x
+    f64 y
+    f64 z
 
-cdef foo(int, int i,
-         list, list L,
-         point, point p, point* ps)
-
+fn foo(i32, i32 i,
+       list, list L,
+       Point, Point p, Point* ps)
