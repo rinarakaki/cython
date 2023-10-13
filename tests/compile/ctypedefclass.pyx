@@ -1,8 +1,8 @@
 # mode: compile
 
-ctypedef class spam:
+class Spam:
     pass
 
-cdef spam s
+let Spam s
 
 s = None
