@@ -1,0 +1,44 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "Cython"
+description = "The Cython compiler for writing C extensions in the Python language."
+authors = [
+    { name = "Robert Bradshaw, Stefan Behnel, Dag Seljebotn, Greg Ewing, et al.", email = "cython-devel@python.org" }
+]
+license = { file = "Apache-2.0" }
+requires-python = ">=3.12"
+dependencies = [
+]
+
+[project.urls]
+"Homepage" = "https://cython.org/"
+"Documentation" = "https://cython.readthedocs.io/",
+"Donate" = "https://cython.readthedocs.io/en/latest/src/donating.html",
+"Source Code" = "https://github.com/cython/cython",
+"Bug Tracker" = "https://github.com/cython/cython/issues",
+"User Group" = "https://groups.google.com/g/cython-users",
+
+[project.optional-dependencies]
+dev = [
+]
+
+[tool.setuptools.packages.find]
+include = ["Cython"]
+
+[tool.ruff]
+select = ["E", "F", "I", "UP"]  # https://beta.ruff.rs/docs/rules/
+line-length = 120
+target-version = "py312"
+
+[tool.ruff.isort]
+
+[tool.pytest.ini_options]
+addopts = [
+    "--verbose",
+    "--doctest-modules",
+    "--doctest-glob=*.md"
+]
+doctest_optionflags = "NORMALIZE_WHITESPACE NUMBER ELLIPSIS"
