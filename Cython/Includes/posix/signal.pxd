@@ -3,18 +3,17 @@
 from posix.types cimport pid_t, sigset_t, uid_t
 
 cdef extern from "<signal.h>" nogil:
-
-    cdef union sigval:
+    union sigval:
         int  sival_int
         void *sival_ptr
 
-    cdef struct sigevent:
+    struct sigevent:
         int    sigev_notify
         int    sigev_signo
         sigval sigev_value
         void   sigev_notify_function(sigval)
 
-    ctypedef struct siginfo_t:
+    struct siginfo_t:
         int    si_signo
         int    si_code
         int    si_errno
@@ -25,13 +24,13 @@ cdef extern from "<signal.h>" nogil:
         long   si_band
         sigval si_value
 
-    cdef struct sigaction_t "sigaction":
+    struct sigaction_t "sigaction":
         void     sa_handler(int)
         void     sa_sigaction(int, siginfo_t *, void *)
         sigset_t sa_mask
         int      sa_flags
 
-    ctypedef struct stack_t:
+    struct stack_t:
         void  *ss_sp
         int ss_flags
         size_t ss_size
