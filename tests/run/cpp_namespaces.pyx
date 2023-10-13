@@ -3,8 +3,8 @@
 
 cdef extern from "cpp_namespaces_helper.h" namespace "A":
     ctypedef int A_t
-    cdef struct S:
-        double x
+    struct S:
+        f64 x
         A_t k
     A_t A_func(A_t first, A_t)
     cdef void f(A_t)

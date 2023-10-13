@@ -9,8 +9,8 @@ from cpython cimport PyObject
 
 cdef extern from *:
     # TestClass stuff
-    cdef struct __pyx_TestClass_obj:
-        int value
+    struct __pyx_TestClass_obj:
+        i32 value
 
     # Type pointer
     cdef PyObject *TestClassType "__pyx_TestClass_type"

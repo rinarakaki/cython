@@ -1,9 +1,9 @@
 # ticket: t252
 
-cdef cf(default=None):
+fn cf(default=None):
     return default
 
-cpdef cpf(default=100):
+fn cpf(default=100):
     """
     >>> cpf()
     100
@@ -27,9 +27,9 @@ def pf(default=100):
     return default
 
 
-cdef struct foo:
-    int void
-    int default
+struct foo:
+    i32 void
+    i32 default
 
 def test_struct():
     """

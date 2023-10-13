@@ -526,8 +526,8 @@ def test_structarray_errors(StructArray[:] a):
     ValueError: Expected 1 dimension(s), got 2
     """
 
-cdef struct StringStruct:
-    signed char c[4][4]
+struct StringStruct:
+    i8 c[4][4]
 
 ctypedef signed char String[4][4]
 
@@ -552,7 +552,7 @@ def test_string_invalid_dims():
     ValueError: Expected 2 dimensions, got 1
     """
 
-ctypedef struct AttributesStruct:
+struct AttributesStruct:
     int attrib1
     float attrib2
     StringStruct attrib3
@@ -699,7 +699,7 @@ def test_boundscheck_and_wraparound(double[:, :] x):
         x[i, :]
 
 
-ctypedef struct SameTypeAfterArraysStructSimple:
+struct SameTypeAfterArraysStructSimple:
     double a[16]
     double b[16]
     double c
@@ -714,7 +714,7 @@ def same_type_after_arrays_simple():
     cdef SameTypeAfterArraysStructSimple[:] memview = arr
 
 
-ctypedef struct SameTypeAfterArraysStructComposite:
+struct SameTypeAfterArraysStructComposite:
     int a
     float b[8]
     float c

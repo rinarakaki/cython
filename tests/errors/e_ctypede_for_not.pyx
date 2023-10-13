@@ -1,19 +1,19 @@
 # mode: error
 
-cdef struct Foo
+struct Foo
 
-ctypedef struct Foo:
-	int i
+struct Foo:
+	i32 i
 
-ctypedef struct Blarg:
+struct Blarg:
 	char c
 
-cdef struct Blarg
+struct Blarg
 
 cdef Foo f
 cdef Blarg b
 
-_ERRORS = u"""
+_ERRORS = """
 5:0: 'Foo' previously declared using 'cdef'
 11:5: 'Blarg' previously declared using 'ctypedef'
 """

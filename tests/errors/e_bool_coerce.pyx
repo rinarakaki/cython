@@ -1,35 +1,35 @@
 # mode: error
 
-ctypedef struct struct_type_not_boolean:
-    int i
-    float f
+struct struct_type_not_boolean:
+    i32 i
+    f32 f
 
 if struct_type_not_boolean:
     print("INVALID CODE")
 
-cdef struct struct_not_boolean:
-    int i
-    float f
+struct struct_not_boolean:
+    i32 i
+    f32 f
 
 if struct_not_boolean:
     print("INVALID CODE")
 
-ctypedef union union_type_not_boolean:
-    int i
-    float f
+union union_type_not_boolean:
+    i32 i
+    f32 f
 
 if union_type_not_boolean:
     print("INVALID CODE")
 
-cdef union union_not_boolean:
-    int i
-    float f
+union union_not_boolean:
+    i32 i
+    f32 f
 
 if union_not_boolean:
     print("INVALID CODE")
 
 
-_ERRORS = u"""
+_ERRORS = """
 7:3: 'struct_type_not_boolean' is not a constant, variable or function identifier
 7:3: Type 'struct_type_not_boolean' not acceptable as a boolean
 

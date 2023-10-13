@@ -161,14 +161,14 @@ def build_from_tuple_of_arrays():
     return v
 
 
-ctypedef struct MyStructType:
-    int x
-    double y
+struct MyStructType:
+    i32 x
+    f64 y
 
 
-cdef struct MyStruct:
-    int x
-    double y
+struct MyStruct:
+    i32 x
+    f64 y
 
 
 def from_struct_array():
@@ -243,7 +243,7 @@ def to_int_array_array(x):
 
 '''
 # FIXME: this isn't currently allowed
-cdef enum:
+enum:
     SIZE_A = 2
     SIZE_B = 3
 
@@ -353,8 +353,8 @@ def to_struct_array_array(x):
     return v[0], v[1]
 
 
-cdef struct StructWithArray:
-    int a
+struct StructWithArray:
+    i32 a
     MyStruct[2] b
 
 

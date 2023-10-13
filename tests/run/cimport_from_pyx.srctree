@@ -44,8 +44,8 @@ cimport cython
 cdef enum Benum:
     Benum_value
 
-cdef struct Bstruct:
-    int value
+struct Bstruct:
+    i32 value
 
 ctypedef long *Btypedef
 

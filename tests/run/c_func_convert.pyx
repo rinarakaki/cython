@@ -6,11 +6,11 @@ cimport cython
 
 from libc.math cimport sqrt
 
-cdef void empty_cfunc():
+fn void empty_cfunc():
     print "here"
 
 # same signature
-cdef void another_empty_cfunc():
+fn void another_empty_cfunc():
     print "there"
 
 def call_empty_cfunc():
@@ -25,7 +25,7 @@ def call_empty_cfunc():
     another_py_func()
 
 
-cdef double square_c(double x):
+fn f64 square_c(f64 x):
     return x * x
 
 def call_square_c(x):
@@ -81,9 +81,9 @@ def test_global():
     print cython.typeof(global_csqrt)
 
 
-cdef long long rad(long long x):
-    cdef long long rad = 1
-    for p in range(2, <long long>sqrt(<double>x) + 1):  # MSVC++ fails without the input cast
+fn i64 rad(i64 x):
+    cdef i64 rad = 1
+    for p in range(2, <i64>sqrt(<double>x) + 1):  # MSVC++ fails without the input cast
         if x % p == 0:
             rad *= p
             while x % p == 0:
@@ -92,7 +92,7 @@ cdef long long rad(long long x):
             break
     return rad
 
-cdef bint abc(long long a, long long b, long long c) except -1:
+fn bint abc(i64 a, i64 b, i64 c) except -1:
     if a + b != c:
         raise ValueError("Not a valid abc candidate: (%s, %s, %s)" % (a, b, c))
     return rad(a*b*c) < c
@@ -121,13 +121,13 @@ def return_abc():
     >>> abc(2, 3, 5)
     False
     >>> abc.__doc__
-    "wrap(a: 'long long', b: 'long long', c: 'long long') -> bool"
+    "wrap(a: 'i64', b: 'i64', c: 'i64') -> bool"
     """
     return abc
 
 
-ctypedef double foo
-cdef foo test_typedef_cfunc(foo x):
+ctypedef f64 foo
+fn foo test_typedef_cfunc(foo x):
     return x
 
 def test_typedef(x):
@@ -138,12 +138,12 @@ def test_typedef(x):
     return (<object>test_typedef_cfunc)(x)
 
 
-cdef union my_union:
-    int a
-    double b
+union my_union:
+    i32 a
+    f64 b
 
-cdef struct my_struct:
-    int which
+struct my_struct:
+    i32 which
     my_union y
 
 cdef my_struct c_struct_builder(int which, int a, double b):
@@ -174,7 +174,7 @@ def return_struct_builder():
     return c_struct_builder
 
 
-cdef object test_object_params_cfunc(a, b):
+fn object test_object_params_cfunc(a, b):
     return a, b
 
 def test_object_params(a, b):
@@ -185,7 +185,7 @@ def test_object_params(a, b):
     return (<object>test_object_params_cfunc)(a, b)
 
 
-cdef tuple test_builtin_params_cfunc(list a, dict b):
+fn tuple test_builtin_params_cfunc(list a, dict b):
     return a, b
 
 def test_builtin_params(a, b):
@@ -217,7 +217,7 @@ cdef class A:
 cdef class B(A):
     pass
 
-cdef A test_cdef_class_params_cfunc(A a, B b):
+fn A test_cdef_class_params_cfunc(A a, B b):
     return b
 
 def test_cdef_class_params(a, b):
@@ -234,10 +234,10 @@ def test_cdef_class_params(a, b):
 # There were a few cases where duplicate utility code definitions (i.e. with the same name)
 # could be generated, causing C compile errors. This file tests them.
 
-cdef cfunc_dup_f1(x, r):
+fn cfunc_dup_f1(x, r):
     return "f1"
 
-cdef cfunc_dup_f2(x1, r):
+fn cfunc_dup_f2(x1, r):
     return "f2"
 
 def make_map():

@@ -4,8 +4,6 @@
 
 # Note: see also bufaccess.pyx
 
-from __future__ import unicode_literals
-
 from cpython.object cimport PyObject
 from cpython.ref cimport Py_INCREF, Py_DECREF, Py_CLEAR
 
@@ -18,10 +16,7 @@ from functools import wraps
 import gc
 import sys
 
-if sys.version_info[0] < 3:
-    import __builtin__ as builtins
-else:
-    import builtins
+import builtins
 
 try:
     from Cython.Tests.this_module_does_not_exist import *
@@ -1894,8 +1889,8 @@ def test_clean_temps_parallel(int[:, :] buf):
 
 
 # Test arrays in structs
-cdef struct ArrayStruct:
-    int ints[10]
+struct ArrayStruct:
+    i32 ints[10]
     char chars[3]
 
 cdef packed struct PackedArrayStruct:
@@ -1951,8 +1946,8 @@ cdef test_structs_with_arr(FusedStruct array[10]):
 
     print myslice1[0].chars[:3].decode('ascii')
 
-cdef struct TestAttrs:
-    int int_attrib
+struct TestAttrs:
+    i32 int_attrib
     char char_attrib
 
 @testcase
@@ -1967,41 +1962,41 @@ def test_struct_attributes_format():
 
 
 # Test padding at the end of structs in the buffer support
-cdef struct PaddedAtEnd:
+struct PaddedAtEnd:
     int a[3]
     char b[3]
 
-cdef struct AlignedNested:
+struct AlignedNested:
     PaddedAtEnd a
     char chars[1]
 
-cdef struct PaddedAtEndNormal:
+struct PaddedAtEndNormal:
     int a
     char b
     char c
     char d
 
-cdef struct AlignedNestedNormal:
+struct AlignedNestedNormal:
     PaddedAtEndNormal a
     char chars
 
 # Test nested structs in a struct, make sure we compute padding each time
 # accordingly. If the first struct member is a struct, align on the first
 # member of that struct (recursively)
-cdef struct A:
+struct A:
     double d
     char c
 
-cdef struct B:
+struct B:
     char c1
     A a
     char c2
 
-cdef struct C:
+struct C:
     A a
     char c1
 
-cdef struct D:
+struct D:
     B b
     C cstruct
     int a[2]

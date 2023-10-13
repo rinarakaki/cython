@@ -2,12 +2,12 @@
 # tag: werror, control-flow
 # cython: warn.unused=True, warn.unused_arg=True, warn.unused_result=True
 
-cdef struct S:
-    int x
-    float y
+struct S:
+    i32 x
+    f32 y
 
 
-cdef stack_alloc_test(int[2] array_arg, S struct_arg):
+fn stack_alloc_test(int[2] array_arg, S struct_arg):
     cdef int[2] array_var
     cdef S struct_var, struct_var_by_value
 

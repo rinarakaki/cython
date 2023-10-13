@@ -1,4 +1,3 @@
-
 cimport cython
 
 ############################################################
@@ -256,8 +255,8 @@ def iter_doublearray_for_loop_c():
     print [ d for d in cdoubles ]
 
 
-cdef struct MyStruct:
-    int i
+struct MyStruct:
+    i32 i
 
 @cython.test_assert_path_exists("//ForFromStatNode",
                                 "//ForFromStatNode//IndexNode")

@@ -164,17 +164,17 @@ def test_complex_inplace(double complex x, double complex y):
 
 # The following is more subtle than one might expect.
 
-cdef struct Inner:
-    int x
+struct Inner:
+    i32 x
 
-cdef struct Aa:
-    int value
+struct Aa:
+    i32 value
     Inner inner
 
-cdef struct NestedA:
+struct NestedA:
     Aa a
 
-cdef struct ArrayOfA:
+struct ArrayOfA:
     Aa[10] a
 
 def nested_struct_assignment():

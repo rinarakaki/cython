@@ -1,9 +1,10 @@
 # mode: error
 
-cdef struct Foo
+struct Foo
 
 def f(Foo *p):
 	pass
-_ERRORS = u"""
+
+_ERRORS = """
 5:6: Cannot convert Python object argument to type 'Foo *'
 """

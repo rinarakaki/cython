@@ -3,11 +3,6 @@
 cimport cython
 from cython cimport view
 
-
-
-
-
-
 cdef signed short[::1, ::1] both
 cdef signed short[::1, :, :, ::1] both2
 cdef signed char[::2] err0
@@ -46,9 +41,9 @@ cdef intp[:, :] myarray
 cdef int[:] a10 = <int[:10]> object()
 cdef int[:] a11 = <int[:5.4]> <int *> 1
 
-cdef struct Valid:
+struct Valid:
     int array[1][2][3][4][5][6][7][8]
-cdef struct Invalid:
+struct Invalid:
     int array[1][2][3][4][5][6][7][8][9]
 
 cdef Valid[:] validslice

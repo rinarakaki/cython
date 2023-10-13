@@ -103,12 +103,12 @@ cdef class InheritsFromNotADataclass(NotADataclass):
 
     c: cython.int = 1
 
-cdef struct S:
-    int a
+struct S:
+    i32 a
 
 ctypedef S* S_ptr
 
-cdef S_ptr malloc_a_struct():
+fn S_ptr malloc_a_struct():
     return <S_ptr>malloc(sizeof(S))
 
 @dataclass

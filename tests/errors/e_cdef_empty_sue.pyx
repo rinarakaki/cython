@@ -1,23 +1,22 @@
 # mode: error
 
-cdef struct spam:
+struct Spam:
 	pass
 
-ctypedef union eggs:
+union Eggs:
 	pass
 
-cdef enum ham:
+enum Ham:
 	pass
 
+struct FlatSpam: pass
 
-cdef struct flat_spam: pass
+union FlatEggs: pass
 
-ctypedef union flat_eggs: pass
-
-cdef enum flat_ham: pass
+enum FlatHam: pass
 
 
-_ERRORS = u"""
+_ERRORS = """
 3:5: Empty struct or union definition not allowed outside a 'cdef extern from' block
 6:0: Empty struct or union definition not allowed outside a 'cdef extern from' block
 9:5: Empty enum definition not allowed outside a 'cdef extern from' block

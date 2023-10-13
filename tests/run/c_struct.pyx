@@ -1,32 +1,32 @@
-cdef struct Grail
+struct Grail
 
-cdef struct Spam:
-    int i
+struct Spam:
+    i32 i
     char c
-    float *p[42]
+    f32 *p[42]
     Grail *g
 
-cdef struct Grail:
+struct Grail:
     Spam *s
 
 cdef Spam spam, ham
 
-cdef void eggs_i(Spam s):
+fn void eggs_i(Spam s):
     cdef int j
     j = s.i
     s.i = j
 
-cdef void eggs_c(Spam s):
+fn void eggs_c(Spam s):
     cdef char c
     c = s.c
     s.c = c
 
-cdef void eggs_p(Spam s):
+fn void eggs_p(Spam s):
     cdef float *p
     p = s.p[0]
     s.p[0] = p
 
-cdef void eggs_g(Spam s):
+fn void eggs_g(Spam s):
     cdef float *p
     p = s.p[0]
     s.p[0] = p
@@ -64,8 +64,8 @@ def test_g():
     eggs_g(spam)
 
 
-cdef struct Ints:
-    int a, b
+struct Ints:
+    i32 a, b
 
 def assign_fields_in_loop():
     """

@@ -6,8 +6,8 @@ struct Spam:
     f64[42] *p
     obj             # error - py object
 
-#cdef struct Spam: # error - redefined (not an error in Cython, should it be?)
-#    int j
+# struct Spam: # error - redefined (not an error in Cython, should it be?)
+#     i32 j
 
 struct Grail
 

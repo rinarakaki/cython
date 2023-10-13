@@ -7,9 +7,6 @@ __doc__ = """
 
 import sys
 
-if sys.version_info[0] < 3:
-    __doc__ = __doc__.replace(u"b'", u"'")
-
 def repeated_literals():
     """
     >>> repeated_literals()
@@ -37,12 +34,12 @@ def test_chars(foo):
     cdef char** ss = [b"a", b"bc", foo]
     return ss[0], ss[1], ss[2]
 
-cdef struct MyStruct:
-    int x
-    int y
-    double** data
+struct MyStruct:
+    i32 x
+    i32 y
+    d64** data
 
-cdef print_struct(MyStruct a):
+fn print_struct(MyStruct a):
     print a.x, a.y, a.data == NULL
 
 def test_struct(int x, y):
@@ -77,4 +74,4 @@ def test_module_level():
 
 # Make sure it's still naturally an object.
 
-[0,1,2,3].append(4)
+[0, 1, 2, 3].append(4)

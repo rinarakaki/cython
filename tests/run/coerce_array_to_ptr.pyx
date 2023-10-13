@@ -1,6 +1,6 @@
 cdef char* cstring = "abcdefg"
 
-cdef void spam(char *target):
+fn void spam(char *target):
     cdef char* s = cstring
     while s[0]:
         target[0] = s[0]
@@ -8,7 +8,7 @@ cdef void spam(char *target):
         target += 1
     target[0] = c'\0'
 
-cdef struct Grail:
+struct Grail:
     char silly[42]
 
 def eggs():

@@ -7,10 +7,10 @@ cdef const object o
 # as it's not needed for agreeing with external libraries.
 cdef const int x = 10
 
-cdef struct S:
-    int member
+struct S:
+    i32 member
 
-cdef func(const int a, const int* b, const (int*) c, const S s, int *const d, int **const e, int *const *f,
+fn func(const int a, const int* b, const (int*) c, const S s, int *const d, int **const e, int *const *f,
           const S *const t):
     a = 10
     c = NULL

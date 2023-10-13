@@ -225,9 +225,9 @@ class NoPyMembersPySubclass(NoPyMembers):
                 [:-1] + ', s=%r)' % self.s)
 
 
-cdef struct MyStruct:
-    int i
-    double x
+struct MyStruct:
+    i32 i
+    f64 x
 
 cdef class StructMemberDefault(object):
     """
