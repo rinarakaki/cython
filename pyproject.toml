@@ -59,33 +59,33 @@ cygdb = "Cython.Debugger.Cygdb:main"
 "User Group" = "https://groups.google.com/g/cython-users"
 
 [tool.setuptools.packages.find]
-include = [
-    "Cython",
-    "Cython.Build",
-    "Cython.Compiler",
-    "Cython.Runtime",
-    "Cython.Distutils",
-    "Cython.Debugger",
-    "Cython.Debugger.Tests",
-    "Cython.Plex",
-    "Cython.Tests",
-    "Cython.Build.Tests",
-    "Cython.Compiler.Tests",
-    "Cython.Utility",
-    "Cython.Tempita",
+# include = [
+#     "Cython",
+#     "Cython.Build",
+#     "Cython.Compiler",
+#     "Cython.Runtime",
+#     "Cython.Distutils",
+#     "Cython.Debugger",
+#     "Cython.Debugger.Tests",
+#     "Cython.Plex",
+#     "Cython.Tests",
+#     "Cython.Build.Tests",
+#     "Cython.Compiler.Tests",
+#     "Cython.Utility",
+#     "Cython.Tempita",
     "pyximport",
 ]
 
-[tool.setuptools.package-data]
-"Cython.Plex" = ["*.pxd"]
-"Cython.Compiler" = ["*.pxd"]
-"Cython.Runtime" = ["*.pyx", "*.pxd"]
-"Cython.Utility" = ["*.pyx", "*.pxd", "*.c", "*.h", "*.cpp"]
-# "Cython" = [ p[7:] for p in pxd_include_patterns ]
-"Cython.Debugger.Tests" = ["codefile", "cfuncs.c"]
+# [tool.setuptools.package-data]
+# "Cython.Plex" = ["*.pxd"]
+# "Cython.Compiler" = ["*.pxd"]
+# "Cython.Runtime" = ["*.pyx", "*.pxd"]
+# "Cython.Utility" = ["*.pyx", "*.pxd", "*.c", "*.h", "*.cpp"]
+# # "Cython" = [ p[7:] for p in pxd_include_patterns ]
+# "Cython.Debugger.Tests" = ["codefile", "cfuncs.c"]
 
 [tool.setuptools.dynamic]
-version = { attr = "__version__" }
+version = { attr = "Cython.__version__" }
 
 [tool.pytest.ini_options]
 addopts = [
