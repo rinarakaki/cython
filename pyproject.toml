@@ -90,6 +90,14 @@ version = { attr = "Cython.__version__" }
 addopts = [
 ]
 
+[tool.coverage.run]
+branch = true
+concurrency = ["multiprocessing", "thread"]
+include = ["Cython/*"]
+omit = ["Test*"]
+parallel = true
+source = ["Cython"]
+
 [tool.ruff]
 line-length = 150
 
