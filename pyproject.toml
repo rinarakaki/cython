@@ -61,7 +61,6 @@ cygdb = "Cython.Debugger.Cygdb:main"
 
 [tool.setuptools]
 py-modules = ["cython"]
-include-package-data = false
 packages = [
     "Cython",
     "Cython.Build",
