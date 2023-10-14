@@ -84,7 +84,7 @@ include = [
 "Cython.Debugger.Tests" = ["codefile", "cfuncs.c"]
 
 [tool.setuptools.dynamic]
-version = { attr = "Cython.__version__" }
+version = { attr = "__version__" }
 
 [tool.pytest.ini_options]
 addopts = [
