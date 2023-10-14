@@ -1,8 +1,8 @@
 # mode: compile
 
-cdef void spam():
-    let long long L
-    let unsigned long long U
+fn void spam():
+    let i64 L
+    let u64 U
     let object x = object()
     L = x
     x = L
