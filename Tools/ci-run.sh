@@ -87,7 +87,7 @@ echo "===================="
 echo "Installing requirements [python]"
 if [[ $PYTHON_VERSION == "3.1"[2-9]* ]]; then
   python -m pip install wheel || exit 1
-  python -m pip install --pre -r test-requirements-312.txt || exit 1
+  python -m pip install --pre .[test] || exit 1
 else
   python -m pip install -U pip "setuptools<60" wheel || exit 1
 
@@ -101,7 +101,7 @@ fi
 
 if [[ $TEST_CODE_STYLE == "1" ]]; then
   STYLE_ARGS="--no-unit --no-doctest --no-file --no-pyregr --no-examples"
-  python -m pip install -r doc-requirements.txt || exit 1
+  python -m pip install .[doc] || exit 1
 else
   STYLE_ARGS="--no-code-style"
 
