@@ -70,8 +70,20 @@ class TestCyCache(CythonTest):
             f.write('pass')
         self.fresh_cythonize(a_pyx, cache=self.cache_dir)
         a_cache = os.path.join(self.cache_dir, os.listdir(self.cache_dir)[0])
+        print("########## DEBUG ##########")
+        print("a_cache:", a_cache)
         gzip.GzipFile(a_cache, 'wb').write('fake stuff'.encode('ascii'))
+        # BEGIN debug
+        with open(a_c) as f:
+            a_contents = f.read()
+            print("a_contents BEFORE unlike:", a_contents)
+        # END debug
         os.unlink(a_c)
+        # BEGIN debug
+        with open(a_c) as f:
+            a_contents = f.read()
+            print("a_contents AFTER unlike:", a_contents)
+        # END debug
         self.fresh_cythonize(a_pyx, cache=self.cache_dir)
         with open(a_c) as f:
             a_contents = f.read()
