@@ -1,8 +1,5 @@
 #!/usr/bin/env python
-try:
-    from setuptools import setup, Extension
-except ImportError:
-    from distutils.core import setup, Extension
+from setuptools import setup, Extension
 import os
 import stat
 import subprocess
@@ -11,10 +8,6 @@ import sys
 
 import platform
 is_cpython = platform.python_implementation() == 'CPython'
-
-# this specifies which versions of python we support, pip >= 9 knows to skip
-# versions of packages which are not compatible with the running python
-PYTHON_REQUIRES = '>=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*'
 
 if sys.platform == "darwin":
     # Don't create resource files on OS X tar.
@@ -62,21 +55,12 @@ setup_args['package_data'] = {
 setuptools_extra_args = {}
 
 if 'setuptools' in sys.modules:
-    setuptools_extra_args['python_requires'] = PYTHON_REQUIRES
-    setuptools_extra_args['zip_safe'] = False
-    setuptools_extra_args['entry_points'] = {
-        'console_scripts': [
-            'cython = Cython.Compiler.Main:setuptools_main',
-            'cythonize = Cython.Build.Cythonize:main',
-            'cygdb = Cython.Debugger.Cygdb:main',
-        ]
-    }
-    scripts = []
+    pass
 else:
     if os.name == "posix":
-        scripts = ["bin/cython", "bin/cythonize", "bin/cygdb"]
+        scripts = ["bin/cython"]
     else:
-        scripts = ["cython.py", "cythonize.py", "cygdb.py"]
+        scripts = ["cython.py"]
 
 
 def compile_cython_modules(profile=False, coverage=False, compile_minimal=False, compile_more=False, cython_with_refnanny=False):
@@ -219,31 +203,11 @@ def dev_status(version):
         return 'Development Status :: 5 - Production/Stable'
 
 
-packages = [
-    'Cython',
-    'Cython.Build',
-    'Cython.Compiler',
-    'Cython.Runtime',
-    'Cython.Distutils',
-    'Cython.Debugger',
-    'Cython.Debugger.Tests',
-    'Cython.Plex',
-    'Cython.Tests',
-    'Cython.Build.Tests',
-    'Cython.Compiler.Tests',
-    'Cython.Utility',
-    'Cython.Tempita',
-    'pyximport',
-]
-
-
 def run_build():
     if compile_cython_itself and (is_cpython or cython_compile_more or cython_compile_minimal):
         compile_cython_modules(cython_profile, cython_coverage, cython_compile_minimal, cython_compile_more, cython_with_refnanny)
 
-    from Cython import __version__ as version
     setup(
-        version=version,
         long_description=textwrap.dedent("""\
         The Cython language makes writing C extensions for the Python language as
         easy as Python itself.  Cython is a source code translator based on Pyrex_,
@@ -271,8 +235,6 @@ def run_build():
         classifiers=[
             dev_status(version),
         ],
-        scripts=scripts,
-        packages=packages,
         py_modules=["cython"],
         **setup_args
     )
