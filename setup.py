@@ -6,9 +6,6 @@ import subprocess
 import textwrap
 import sys
 
-import platform
-is_cpython = platform.python_implementation() == 'CPython'
-
 if sys.platform == "darwin":
     # Don't create resource files on OS X tar.
     os.environ['COPY_EXTENDED_ATTRIBUTES_DISABLE'] = 'true'
@@ -185,7 +182,7 @@ def dev_status(version):
 
 
 def run_build():
-    if compile_cython_itself and (is_cpython or cython_compile_more or cython_compile_minimal):
+    if compile_cython_itself:
         compile_cython_modules(cython_profile, cython_coverage, cython_compile_minimal, cython_compile_more, cython_with_refnanny)
 
     setup(
