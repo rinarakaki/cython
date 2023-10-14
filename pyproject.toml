@@ -36,6 +36,7 @@ test = [
     "pycodestyle",
     "pytest",
     "ruff",
+    "setuptools"
 ]
 doc = [
     "jinja2",
