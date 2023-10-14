@@ -118,10 +118,11 @@ def compile_cython_modules(profile=False, coverage=False, compile_minimal=False,
     extensions.sort(key=lambda ext: os.path.getsize(ext.sources[0]), reverse=True)
 
     print("listdir", os.listdir('.'))
+    import Cython
     print("BEFORE import Cython.Distutils")
-    from .Cython.Distutils.build_ext import build_ext
+    from Cython.Distutils.build_ext import build_ext
     print("AFTER import Cython.Distutils")
-    from .Cython.Compiler.Options import get_directive_defaults
+    from Cython.Compiler.Options import get_directive_defaults
     print("AFTER import Cython.Compiler")
     get_directive_defaults().update(
         language_level=2,
