@@ -177,12 +177,7 @@ def run_build():
     if compile_cython_itself:
         compile_cython_modules(cython_profile, cython_coverage, cython_compile_minimal, cython_compile_more, cython_with_refnanny)
 
-    setup(
-        classifiers=[
-            dev_status(version),
-        ],
-        **setup_args
-    )
+    setup(**setup_args)
 
 
 if __name__ == '__main__':
