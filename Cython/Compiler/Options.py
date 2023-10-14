@@ -2,8 +2,6 @@
 #  Cython - Compilation-wide options and pragma declarations
 #
 
-from __future__ import absolute_import
-
 import os
 
 from Cython import Utils
@@ -153,6 +151,7 @@ def get_directive_defaults():
     # To add an item to this list, all accesses should be changed to use the new
     # directive, and the global option itself should be set to an instance of
     # ShouldBeFromDirective.
+    print("BEGIN get_directive_defaults")
     for old_option in ShouldBeFromDirective.known_directives:
         value = globals().get(old_option.options_name)
         assert old_option.directive_name in _directive_defaults
@@ -164,6 +163,7 @@ def get_directive_defaults():
             else:
                 # Warn?
                 _directive_defaults[old_option.directive_name] = value
+    print("END get_directive_defaults")
     return _directive_defaults
 
 def copy_inherited_directives(outer_directives, **new_directives):
