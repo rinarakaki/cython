@@ -73,7 +73,7 @@ jobs:
       BACKEND: ${{ matrix.backend }}
       PYTHON_VERSION: ${{ matrix.python-version }}
       MACOSX_DEPLOYMENT_TARGET: 10.15
-      GCC_VERSION: 13
+      GCC_VERSION: 11
       USE_CCACHE: 1
       CCACHE_SLOPPINESS: "pch_defines,time_macros"
       CCACHE_COMPRESS: 1
@@ -90,8 +90,8 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Compilation Cache
-        uses: hendrikmuhs/ccache-action@v1.2.10
+      - name: hendrikmuhs/ccache-action@v1.2
+        uses: hendrikmuhs/ccache-action@v1.2
         with:
           variant: ${{ startsWith(runner.os, 'windows') && 'sccache' || 'ccache' }}  # fake ternary
           key: ${{ runner.os }}-hendrikmuhs-ccache${{ matrix.extra_hash }}-${{ matrix.python-version }}-${{ matrix.backend == 'c' || matrix.backend == 'c,cpp' }}-${{ contains(matrix.backend, 'cpp') }}-${{ hashFiles('test-requirements*.txt', '.github/**/ci.yml', 'Tools/**/ci-run.sh') }}
