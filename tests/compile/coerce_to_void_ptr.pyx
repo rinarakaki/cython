@@ -1,8 +1,8 @@
 # mode: compile
 
-cdef void f():
+fn void f():
     let void *p
-    let char *q=NULL
+    let char *q = NULL
     p = q
 
 f()
