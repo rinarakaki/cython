@@ -59,7 +59,7 @@ cygdb = "Cython.Debugger.Cygdb:main"
 "User Group" = "https://groups.google.com/g/cython-users"
 
 [tool.setuptools.packages.find]
-# include = [
+include = [
 #     "Cython",
 #     "Cython.Build",
 #     "Cython.Compiler",
@@ -76,13 +76,13 @@ cygdb = "Cython.Debugger.Cygdb:main"
     "pyximport",
 ]
 
-# [tool.setuptools.package-data]
-# "Cython.Plex" = ["*.pxd"]
-# "Cython.Compiler" = ["*.pxd"]
-# "Cython.Runtime" = ["*.pyx", "*.pxd"]
-# "Cython.Utility" = ["*.pyx", "*.pxd", "*.c", "*.h", "*.cpp"]
-# # "Cython" = [ p[7:] for p in pxd_include_patterns ]
-# "Cython.Debugger.Tests" = ["codefile", "cfuncs.c"]
+[tool.setuptools.package-data]
+"Cython.Plex" = ["*.pxd"]
+"Cython.Compiler" = ["*.pxd"]
+"Cython.Runtime" = ["*.pyx", "*.pxd"]
+"Cython.Utility" = ["*.pyx", "*.pxd", "*.c", "*.h", "*.cpp"]
+"Cython" = ["Cython/Includes/**/*.(pxd|pyx)"]
+"Cython.Debugger.Tests" = ["codefile", "cfuncs.c"]
 
 [tool.setuptools.dynamic]
 version = { attr = "Cython.__version__" }
