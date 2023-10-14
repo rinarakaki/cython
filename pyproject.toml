@@ -64,7 +64,7 @@ cygdb = "Cython.Debugger.Cygdb:main"
 "Cython.Compiler" = ["*.pxd"]
 "Cython.Runtime" = ["*.pyx", "*.pxd"]
 "Cython.Utility" = ["*.pyx", "*.pxd", "*.c", "*.h", "*.cpp"]
-"Cython" = [ p[7:] for p in pxd_include_patterns ]
+# "Cython" = [ p[7:] for p in pxd_include_patterns ]
 "Cython.Debugger.Tests" = ["codefile", "cfuncs.c"]
 
 [tool.setuptools.dynamic]
