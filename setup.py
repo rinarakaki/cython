@@ -43,6 +43,7 @@ else:
 
 def compile_cython_modules(profile=False, coverage=False, compile_minimal=False, compile_more=False, cython_with_refnanny=False):
     source_root = os.path.abspath(os.path.dirname(__file__))
+    print("source_root:", source_root)
     compiled_modules = [
         "Cython.Plex.Actions",
         "Cython.Plex.Scanners",
@@ -107,16 +108,12 @@ def compile_cython_modules(profile=False, coverage=False, compile_minimal=False,
     extensions = []
     for module in compiled_modules:
         source_file = os.path.join(source_root, *module.split('.'))
-        print("source_file:", source_file)
         pyx_source_file = source_file + ".py"
-        print("pyx_source_file:", pyx_source_file)
         if not os.path.exists(pyx_source_file):
-            print("pyx_source_file EXISTS")
             pyx_source_file += "x"  # .py -> .pyx
 
         dep_files = []
         if os.path.exists(source_file + '.pxd'):
-            print(f"{source_file}.pxd EXISTS")
             dep_files.append(source_file + '.pxd')
 
         extensions.append(Extension(
@@ -125,10 +122,10 @@ def compile_cython_modules(profile=False, coverage=False, compile_minimal=False,
             depends=dep_files))
         # XXX hack around setuptools quirk for '*.pyx' sources
         extensions[-1].sources[0] = pyx_source_file
-        print("an extension appended: ", extensions[-1])
 
     # optimise build parallelism by starting with the largest modules
     extensions.sort(key=lambda ext: os.path.getsize(ext.sources[0]), reverse=True)
+    print("AFTER extensions.sort")
 
     from Cython.Distutils.build_ext import build_ext
     from Cython.Compiler.Options import get_directive_defaults
