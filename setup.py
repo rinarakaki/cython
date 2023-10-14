@@ -235,7 +235,6 @@ def run_build():
         classifiers=[
             dev_status(version),
         ],
-        py_modules=["cython"],
         **setup_args
     )
 
