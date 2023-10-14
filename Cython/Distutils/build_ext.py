@@ -1,11 +1,6 @@
 import sys
 import os
 
-try:
-    from __builtin__ import basestring
-except ImportError:
-    basestring = str
-
 # Always inherit from the "build_ext" in distutils since setuptools already imports
 # it from Cython if available, and does the proper distutils fallback otherwise.
 # https://github.com/pypa/setuptools/blob/9f1822ee910df3df930a98ab99f66d18bb70659b/setuptools/command/build_ext.py#L16
@@ -13,15 +8,8 @@ except ImportError:
 # setuptools imports Cython's "build_ext", so make sure we go first.
 _build_ext_module = sys.modules.get('setuptools.command.build_ext')
 if _build_ext_module is None:
-    try:
-        import distutils.command.build_ext as _build_ext_module
-    except ImportError:
-        # Python 3.12 no longer has distutils, but setuptools can replace it.
-        try:
-            import setuptools.command.build_ext as _build_ext_module
-        except ImportError:
-            raise ImportError("'distutils' cannot be imported. Please install setuptools.")
-
+    # Python 3.12 no longer has distutils, but setuptools can replace it.
+    import setuptools.command.build_ext as _build_ext_module
 
 # setuptools remembers the original distutils "build_ext" as "_du_build_ext"
 _build_ext = getattr(_build_ext_module, '_du_build_ext', None)
@@ -32,7 +20,6 @@ if _build_ext is None:
 
 
 class build_ext(_build_ext, object):
-
     user_options = _build_ext.user_options + [
         ('cython-cplus', None,
              "generate C++ source files"),
@@ -75,7 +62,7 @@ class build_ext(_build_ext, object):
         super(build_ext, self).finalize_options()
         if self.cython_include_dirs is None:
             self.cython_include_dirs = []
-        elif isinstance(self.cython_include_dirs, basestring):
+        elif isinstance(self.cython_include_dirs, str):
             self.cython_include_dirs = \
                 self.cython_include_dirs.split(os.pathsep)
         if self.cython_directives is None:
@@ -133,6 +120,3 @@ class build_ext(_build_ext, object):
 
         ext.sources = new_ext.sources
         super(build_ext, self).build_extension(ext)
-
-# backward compatibility
-new_build_ext = build_ext
