@@ -32,14 +32,6 @@ add_command_class('sdist', sdist)
 # specific to setup
 setuptools_extra_args = {}
 
-if 'setuptools' in sys.modules:
-    pass
-else:
-    if os.name == "posix":
-        pass
-    else:
-        scripts = ["cython.py"]
-
 
 def compile_cython_modules(profile=False, coverage=False, compile_minimal=False, compile_more=False, cython_with_refnanny=False):
     source_root = os.path.abspath(os.path.dirname(__file__))
