@@ -3,7 +3,7 @@ requires = ["Cython", "setuptools"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "Cython"
+name = "cython"
 description = "The Cython compiler for writing C extensions in the Python language."
 readme = "README.rst"
 authors = [
