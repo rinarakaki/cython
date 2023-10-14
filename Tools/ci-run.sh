@@ -87,7 +87,7 @@ echo "===================="
 echo "Installing requirements [python]"
 if [[ $PYTHON_VERSION == "3.1"[2-9]* ]]; then
   python -m pip install build wheel || exit 1
-  python -m build || exit 1
+  # python -m build || exit 1
   python -m pip install --pre .[test] || exit 1
 else
   python -m pip install -U pip "setuptools<60" wheel || exit 1
