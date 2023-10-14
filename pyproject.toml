@@ -60,21 +60,19 @@ cygdb = "Cython.Debugger.Cygdb:main"
 
 [tool.setuptools.packages.find]
 include = [
-    ".",
     "Cython",
-    "Cython/*",
-    "Cython/Build",
-    "Cython/Compiler",
-    "Cython/Runtime",
-    "Cython/Distutils",
-    "Cython/Debugger",
-    "Cython/Debugger.Tests",
-    "Cython/Plex",
-    "Cython/Tests",
-    "Cython/Build.Tests",
-    "Cython/Compiler.Tests",
-    "Cython/Utility",
-    "Cython/Tempita",
+    "Cython.Build",
+    "Cython.Compiler",
+    "Cython.Runtime",
+    "Cython.Distutils",
+    "Cython.Debugger",
+    "Cython.Debugger.Tests",
+    "Cython.Plex",
+    "Cython.Tests",
+    "Cython.Build.Tests",
+    "Cython.Compiler.Tests",
+    "Cython.Utility",
+    "Cython.Tempita",
     "pyximport",
 ]
 
