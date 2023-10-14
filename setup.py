@@ -58,7 +58,7 @@ if 'setuptools' in sys.modules:
     pass
 else:
     if os.name == "posix":
-        scripts = ["bin/cython"]
+        pass
     else:
         scripts = ["cython.py"]
 
