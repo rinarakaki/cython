@@ -43,7 +43,6 @@ else:
 
 def compile_cython_modules(profile=False, coverage=False, compile_minimal=False, compile_more=False, cython_with_refnanny=False):
     source_root = os.path.abspath(os.path.dirname(__file__))
-    print("source_root:", source_root)
     compiled_modules = [
         "Cython.Plex.Actions",
         "Cython.Plex.Scanners",
@@ -125,7 +124,6 @@ def compile_cython_modules(profile=False, coverage=False, compile_minimal=False,
 
     # optimise build parallelism by starting with the largest modules
     extensions.sort(key=lambda ext: os.path.getsize(ext.sources[0]), reverse=True)
-    print("AFTER extensions.sort")
 
     from Cython.Distutils.build_ext import build_ext
     from Cython.Compiler.Options import get_directive_defaults
