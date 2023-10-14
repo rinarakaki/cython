@@ -26,6 +26,28 @@ classifiers = [
 ]
 dependencies = [
 ]
+dynamic = ["version"]
+
+[project.optional-dependencies]
+test = [
+    "numpy",
+    "coverage",
+    "pycodestyle",
+    "pytest",
+    "ruff",
+]
+doc = [
+    "jinja2",
+    "jupyter",
+    "sphinx",
+    "sphinx-issues",
+    "sphinx-tabs",
+]
+
+[project.scripts]
+cython = "Cython.Compiler.Main:setuptools_main"
+cythonize = "Cython.Build.Cythonize:main"
+cygdb = "Cython.Debugger.Cygdb:main"
 
 [project.urls]
 "Homepage" = "https://cython.org/"
@@ -35,24 +57,20 @@ dependencies = [
 "Bug Tracker" = "https://github.com/cython/cython/issues"
 "User Group" = "https://groups.google.com/g/cython-users"
 
-[project.optional-dependencies]
-dev = [
-]
-
 [tool.setuptools.packages.find]
-include = ["Cython"]
 
-[tool.ruff]
-select = ["E", "F", "I", "UP"]  # https://beta.ruff.rs/docs/rules/
-line-length = 120
-target-version = "py312"
+[tool.setuptools.package-data]
+"Cython.Plex" = ["*.pxd"]
+"Cython.Compiler" = ["*.pxd"]
+"Cython.Runtime" = ["*.pyx", "*.pxd"]
+"Cython.Utility" = ["*.pyx", "*.pxd", "*.c", "*.h", "*.cpp"]
+"Cython" = [ p[7:] for p in pxd_include_patterns ]
+"Cython.Debugger.Tests" = ["codefile", "cfuncs.c"]
 
-[tool.ruff.isort]
+[tool.setuptools.dynamic]
+version = { attr = "Cython.__version__" }
+entry-points = { file = [] }
 
 [tool.pytest.ini_options]
 addopts = [
-    "--verbose",
-    "--doctest-modules",
-    "--doctest-glob=*.md"
 ]
-doctest_optionflags = "NORMALIZE_WHITESPACE NUMBER ELLIPSIS"
