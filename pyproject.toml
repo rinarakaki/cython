@@ -89,3 +89,6 @@ version = { attr = "Cython.__version__" }
 [tool.pytest.ini_options]
 addopts = [
 ]
+
+[tool.ruff.mccabe]
+max-complexity = 10
