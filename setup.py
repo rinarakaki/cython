@@ -1,11 +1,15 @@
 #!/usr/bin/env python
-from setuptools import setup, Extension
 import os
 import shutil
 import stat
 import subprocess
 import sys
 import sysconfig
+
+from setuptools import setup, Extension
+
+from Cython.Distutils.build_ext import build_ext
+from Cython.Compiler.Options import get_directive_defaults
 
 if sys.platform == "darwin":
     # Don't create resource files on OS X tar.
@@ -19,7 +23,7 @@ def add_command_class(name, cls):
     cmdclasses[name] = cls
     setup_args['cmdclass'] = cmdclasses
 
-from distutils.command.sdist import sdist as sdist_orig
+from setuptools.command.sdist import sdist as sdist_orig
 class sdist(sdist_orig):
     def run(self):
         self.force_manifest = 1
@@ -29,13 +33,8 @@ class sdist(sdist_orig):
         sdist_orig.run(self)
 add_command_class('sdist', sdist)
 
-# This dict is used for passing extra arguments that are setuptools
-# specific to setup
-setuptools_extra_args = {}
-
 
 def compile_cython_modules(profile=False, coverage=False, compile_minimal=False, compile_more=False, cython_with_refnanny=False):
-    source_root = os.path.abspath(os.path.dirname(__file__))
     compiled_modules = [
         "Cython.Plex.Actions",
         "Cython.Plex.Scanners",
@@ -97,7 +96,7 @@ def compile_cython_modules(profile=False, coverage=False, compile_minimal=False,
 
     extensions = []
     for module in compiled_modules:
-        source_file = os.path.join(source_root, *module.split('.'))
+        source_file = os.path.join(*module.split('.'))
         pyx_source_file = source_file + ".py"
         if not os.path.exists(pyx_source_file):
             pyx_source_file += "x"  # .py -> .pyx
@@ -116,8 +115,6 @@ def compile_cython_modules(profile=False, coverage=False, compile_minimal=False,
     # optimise build parallelism by starting with the largest modules
     extensions.sort(key=lambda ext: os.path.getsize(ext.sources[0]), reverse=True)
 
-    from Cython.Distutils.build_ext import build_ext
-    from Cython.Compiler.Options import get_directive_defaults
     get_directive_defaults().update(
         language_level=2,
         binding=False,
@@ -157,8 +154,6 @@ compile_cython_itself = not check_option('no-cython-compile')
 if compile_cython_itself:
     cython_compile_more = check_option('cython-compile-all')
     cython_compile_minimal = check_option('cython-compile-minimal')
-
-setup_args.update(setuptools_extra_args)
 
 
 def dev_status(version):

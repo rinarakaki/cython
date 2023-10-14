@@ -97,7 +97,7 @@ def get_distutils_distro(_cache=[]):
     if _cache:
         return _cache[0]
     # late import to accommodate for setuptools override
-    from distutils.dist import Distribution
+    from setuptools import Distribution
     distutils_distro = Distribution()
 
     if sys.platform == 'win32':
@@ -1287,7 +1287,7 @@ class CythonCompileTestCase(unittest.TestCase):
             related_files = self.related_files(test_directory, module)
             self.copy_files(test_directory, workdir, related_files)
 
-            from distutils.core import Extension
+            from setuptools import Extension
             extension = Extension(
                 module,
                 sources=self.source_files(workdir, module, related_files),
@@ -1343,7 +1343,7 @@ class CythonCompileTestCase(unittest.TestCase):
             build_extension.build_lib  = workdir
 
             from Cython.Utils import captured_fd, prepare_captured
-            from distutils.errors import CompileError
+            from setuptools.errors import CompileError
 
             error = None
             with captured_fd(2) as get_stderr:
@@ -1445,7 +1445,7 @@ class CythonCompileTestCase(unittest.TestCase):
         so_path = None
         if not self.cython_only:
             from Cython.Utils import captured_fd, print_bytes
-            from distutils.errors import CompileError, LinkError
+            from setuptools.errors import CompileError, LinkError
             show_output = True
             get_stderr = get_stdout = None
             try:

@@ -1,5 +1,5 @@
 [build-system]
-requires = ["Cython", "setuptools"]
+requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -62,9 +62,7 @@ cygdb = "Cython.Debugger.Cygdb:main"
 [tool.setuptools]
 py-modules = ["cython"]
 include-package-data = false
-
-[tool.setuptools.packages.find]
-include = [
+packages = [
     "Cython",
     "Cython.Build",
     "Cython.Compiler",
