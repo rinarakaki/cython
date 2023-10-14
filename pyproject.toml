@@ -3,7 +3,7 @@ requires = ["Cython", "setuptools"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "cython"
+name = "Cython"
 description = "The Cython compiler for writing C extensions in the Python language."
 readme = "README.rst"
 authors = [
@@ -60,6 +60,7 @@ cygdb = "Cython.Debugger.Cygdb:main"
 "User Group" = "https://groups.google.com/g/cython-users"
 
 [tool.setuptools]
+py-modules = ["cython"]
 include-package-data = false
 
 [tool.setuptools.packages.find]
