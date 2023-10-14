@@ -6,7 +6,7 @@ Classes for building NFAs and DFAs
 """
 from __future__ import absolute_import
 
-import cython
+import Cython as cython
 from .Transitions import TransitionMap
 
 maxint = 2**31-1  # sentinel value

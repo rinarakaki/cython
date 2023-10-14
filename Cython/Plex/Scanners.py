@@ -7,7 +7,7 @@ Scanning an input stream
 """
 from __future__ import absolute_import
 
-import cython
+import Cython as cython
 
 cython.declare(BOL=object, EOL=object, EOF=object, NOT_FOUND=object)  # noqa:E402
 
