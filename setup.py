@@ -107,12 +107,16 @@ def compile_cython_modules(profile=False, coverage=False, compile_minimal=False,
     extensions = []
     for module in compiled_modules:
         source_file = os.path.join(source_root, *module.split('.'))
+        print("source_file:", source_file)
         pyx_source_file = source_file + ".py"
+        print("pyx_source_file:", pyx_source_file)
         if not os.path.exists(pyx_source_file):
+            print("pyx_source_file EXISTS")
             pyx_source_file += "x"  # .py -> .pyx
 
         dep_files = []
         if os.path.exists(source_file + '.pxd'):
+            print(f"{source_file}.pxd EXISTS")
             dep_files.append(source_file + '.pxd')
 
         extensions.append(Extension(
@@ -121,6 +125,7 @@ def compile_cython_modules(profile=False, coverage=False, compile_minimal=False,
             depends=dep_files))
         # XXX hack around setuptools quirk for '*.pyx' sources
         extensions[-1].sources[0] = pyx_source_file
+        print("an extension appended: ", extensions[-1])
 
     # optimise build parallelism by starting with the largest modules
     extensions.sort(key=lambda ext: os.path.getsize(ext.sources[0]), reverse=True)
@@ -133,6 +138,7 @@ def compile_cython_modules(profile=False, coverage=False, compile_minimal=False,
         always_allow_keywords=False,
         autotestdict=False,
     )
+    print("AFTER get_directive_defaults")
     if profile:
         get_directive_defaults()['profile'] = True
         sys.stderr.write("Enabled profiling for the Cython binary modules\n")
@@ -142,6 +148,7 @@ def compile_cython_modules(profile=False, coverage=False, compile_minimal=False,
 
     # not using cythonize() directly to let distutils decide whether building extensions was requested
     add_command_class("build_ext", build_ext)
+    print("AFTER add_command_class")
     setup_args['ext_modules'] = extensions
 
 
