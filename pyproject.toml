@@ -57,7 +57,23 @@ cygdb = "Cython.Debugger.Cygdb:main"
 "Bug Tracker" = "https://github.com/cython/cython/issues"
 "User Group" = "https://groups.google.com/g/cython-users"
 
-[tool.setuptools.packages.find]
+[tool.setuptools]
+packages = [
+    "Cython",
+    "Cython.Build",
+    "Cython.Compiler",
+    "Cython.Runtime",
+    "Cython.Distutils",
+    "Cython.Debugger",
+    "Cython.Debugger.Tests",
+    "Cython.Plex",
+    "Cython.Tests",
+    "Cython.Build.Tests",
+    "Cython.Compiler.Tests",
+    "Cython.Utility",
+    "Cython.Tempita",
+    "pyximport",
+]
 
 [tool.setuptools.package-data]
 "Cython.Plex" = ["*.pxd"]
