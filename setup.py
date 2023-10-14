@@ -126,8 +126,9 @@ def compile_cython_modules(profile=False, coverage=False, compile_minimal=False,
     extensions.sort(key=lambda ext: os.path.getsize(ext.sources[0]), reverse=True)
 
     from Cython.Distutils.build_ext import build_ext
+    print("AFTER import Cython.Distutils")
     from Cython.Compiler.Options import get_directive_defaults
-    print("AFTER imports")
+    print("AFTER import Cython.Compiler")
     get_directive_defaults().update(
         language_level=2,
         binding=False,
