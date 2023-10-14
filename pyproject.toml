@@ -57,9 +57,8 @@ cygdb = "Cython.Debugger.Cygdb:main"
 "Bug Tracker" = "https://github.com/cython/cython/issues"
 "User Group" = "https://groups.google.com/g/cython-users"
 
-[tool.setuptools]
-# py-modules = ["cython"]
-packages = [
+[tool.setuptools.packages.find]
+include = [
     "Cython",
     "Cython.Build",
     "Cython.Compiler",
