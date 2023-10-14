@@ -2,9 +2,7 @@
 Cython -- Things that don't belong anywhere else in particular
 """
 
-from __future__ import absolute_import
-
-import cython
+import Cython as cython
 
 cython.declare(
     basestring=object,
@@ -13,15 +11,7 @@ cython.declare(
     _function_caches=list, _parse_file_version=object, _match_file_encoding=object,
 )
 
-try:
-    from __builtin__ import basestring
-except ImportError:
-    basestring = str
 
-try:
-    FileNotFoundError
-except NameError:
-    FileNotFoundError = OSError
 
 import os
 import sys
@@ -466,7 +456,7 @@ def strip_py2_long_suffix(value_str):
 
 
 def long_literal(value):
-    if isinstance(value, basestring):
+    if isinstance(value, str):
         value = str_to_number(value)
     return not -2**31 <= value < 2**31
 
