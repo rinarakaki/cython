@@ -1,10 +1,11 @@
 #!/usr/bin/env python
 from setuptools import setup, Extension
 import os
+import shutil
 import stat
 import subprocess
-import textwrap
 import sys
+import sysconfig
 
 if sys.platform == "darwin":
     # Don't create resource files on OS X tar.
@@ -67,10 +68,8 @@ def compile_cython_modules(profile=False, coverage=False, compile_minimal=False,
             "Cython.Compiler.Optimize",
             ])
 
-    from distutils.spawn import find_executable
-    from distutils.sysconfig import get_python_inc
-    pgen = find_executable(
-        'pgen', os.pathsep.join([os.environ['PATH'], os.path.join(get_python_inc(), '..', 'Parser')]))
+    pgen = shutil.which(
+        'pgen', os.pathsep.join([os.environ['PATH'], os.path.join(sysconfig.get_path('platstdlib'), 'Parser')]))
     if not pgen:
         sys.stderr.write("Unable to find pgen, not compiling formal grammar.\n")
     else:
