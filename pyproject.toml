@@ -85,7 +85,6 @@ packages = [
 
 [tool.setuptools.dynamic]
 version = { attr = "Cython.__version__" }
-entry-points = { file = [] }
 
 [tool.pytest.ini_options]
 addopts = [
