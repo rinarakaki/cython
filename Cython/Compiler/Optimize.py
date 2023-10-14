@@ -8,7 +8,7 @@ import itertools
 
 from . import TypeSlots
 from .ExprNodes import not_a_constant
-import cython
+import Cython as cython
 cython.declare(UtilityCode=object, EncodedString=object, bytes_literal=object, encoded_string=object,
                Nodes=object, ExprNodes=object, PyrexTypes=object, Builtin=object,
                UtilNodes=object, _py_int_types=object)

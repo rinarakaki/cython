@@ -4,7 +4,7 @@ from __future__ import absolute_import
 
 from .PyrexTypes import CType, CTypedefType, CStructOrUnionType
 
-import cython
+import Cython as cython
 
 try:
     import pythran

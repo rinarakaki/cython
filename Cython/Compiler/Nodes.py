@@ -4,7 +4,7 @@
 
 from __future__ import absolute_import
 
-import cython
+import Cython as cython
 
 cython.declare(sys=object, os=object, copy=object,
                Builtin=object, error=object, warning=object, Naming=object, PyrexTypes=object,

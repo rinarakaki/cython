@@ -19,7 +19,7 @@ from . import Errors
 from . import DebugFlags
 from . import Future
 
-import cython
+import Cython as cython
 
 
 cython.declare(_PRINTABLE=tuple)

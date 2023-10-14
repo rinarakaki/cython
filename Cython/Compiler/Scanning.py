@@ -5,7 +5,7 @@
 
 from __future__ import absolute_import
 
-import cython
+import Cython as cython
 cython.declare(make_lexicon=object, lexicon=object,
                print_function=object, error=object, warning=object,
                os=object, platform=object)

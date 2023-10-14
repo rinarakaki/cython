@@ -2,7 +2,7 @@
 
 from __future__ import absolute_import
 
-import cython
+import Cython as cython
 cython.declare(PyrexTypes=object, Naming=object, ExprNodes=object, Nodes=object,
                Options=object, UtilNodes=object, LetNode=object,
                LetRefNode=object, TreeFragment=object, EncodedString=object,
