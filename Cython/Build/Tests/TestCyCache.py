@@ -70,6 +70,7 @@ class TestCyCache(CythonTest):
             f.write('pass')
         self.fresh_cythonize(a_pyx, cache=self.cache_dir)
         a_cache = os.path.join(self.cache_dir, os.listdir(self.cache_dir)[0])
+        import sys
         sys.stderr.write("########## DEBUG ##########")
         sys.stderr.write("a_cache:", a_cache)
         gzip.GzipFile(a_cache, 'wb').write('fake stuff'.encode('ascii'))
