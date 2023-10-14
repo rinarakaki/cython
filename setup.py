@@ -117,20 +117,14 @@ def compile_cython_modules(profile=False, coverage=False, compile_minimal=False,
     # optimise build parallelism by starting with the largest modules
     extensions.sort(key=lambda ext: os.path.getsize(ext.sources[0]), reverse=True)
 
-    print("listdir", os.listdir('.'))
-    import Cython
-    print("BEFORE import Cython.Distutils")
     from Cython.Distutils.build_ext import build_ext
-    print("AFTER import Cython.Distutils")
     from Cython.Compiler.Options import get_directive_defaults
-    print("AFTER import Cython.Compiler")
     get_directive_defaults().update(
         language_level=2,
         binding=False,
         always_allow_keywords=False,
         autotestdict=False,
     )
-    print("AFTER get_directive_defaults")
     if profile:
         get_directive_defaults()['profile'] = True
         sys.stderr.write("Enabled profiling for the Cython binary modules\n")
@@ -140,7 +134,6 @@ def compile_cython_modules(profile=False, coverage=False, compile_minimal=False,
 
     # not using cythonize() directly to let distutils decide whether building extensions was requested
     add_command_class("build_ext", build_ext)
-    print("AFTER add_command_class")
     setup_args['ext_modules'] = extensions
 
 
