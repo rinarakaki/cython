@@ -60,19 +60,19 @@ cygdb = "Cython.Debugger.Cygdb:main"
 
 [tool.setuptools.packages.find]
 include = [
-#     "Cython",
-#     "Cython.Build",
-#     "Cython.Compiler",
-#     "Cython.Runtime",
-#     "Cython.Distutils",
-#     "Cython.Debugger",
-#     "Cython.Debugger.Tests",
-#     "Cython.Plex",
-#     "Cython.Tests",
-#     "Cython.Build.Tests",
-#     "Cython.Compiler.Tests",
-#     "Cython.Utility",
-#     "Cython.Tempita",
+    "Cython",
+    "Cython.Build",
+    "Cython.Compiler",
+    "Cython.Runtime",
+    "Cython.Distutils",
+    "Cython.Debugger",
+    "Cython.Debugger.Tests",
+    "Cython.Plex",
+    "Cython.Tests",
+    "Cython.Build.Tests",
+    "Cython.Compiler.Tests",
+    "Cython.Utility",
+    "Cython.Tempita",
     "pyximport",
 ]
 
@@ -81,7 +81,7 @@ include = [
 "Cython.Compiler" = ["*.pxd"]
 "Cython.Runtime" = ["*.pyx", "*.pxd"]
 "Cython.Utility" = ["*.pyx", "*.pxd", "*.c", "*.h", "*.cpp"]
-"Cython" = ["Cython/Includes/**/*.(pxd|pyx)"]
+"Cython" = ["Cython/Includes/**/*.pxd", "Cython/Includes/**/*.pyx"]
 "Cython.Debugger.Tests" = ["codefile", "cfuncs.c"]
 
 [tool.setuptools.dynamic]
