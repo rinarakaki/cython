@@ -5,6 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "Cython"
 description = "The Cython compiler for writing C extensions in the Python language."
+readme = "README.rst"
 authors = [
     { name = "Robert Bradshaw, Stefan Behnel, Dag Seljebotn, Greg Ewing, et al.", email = "cython-devel@python.org" }
 ]
