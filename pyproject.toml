@@ -83,7 +83,7 @@ packages = [
 "Cython.Compiler" = ["*.pxd"]
 "Cython.Runtime" = ["*.pyx", "*.pxd"]
 "Cython.Utility" = ["*.pyx", "*.pxd", "*.c", "*.h", "*.cpp"]
-"Cython" = ["Cython/Includes/**/*.pxd", "Cython/Includes/**/*.pyx"]
+"Cython" = ["*.pyx", "*.pxd"]
 "Cython.Debugger.Tests" = ["codefile", "cfuncs.c"]
 
 [tool.setuptools.dynamic]
