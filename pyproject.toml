@@ -90,5 +90,8 @@ version = { attr = "Cython.__version__" }
 addopts = [
 ]
 
+[tool.ruff]
+line-length = 150
+
 [tool.ruff.mccabe]
 max-complexity = 10
