@@ -88,12 +88,6 @@ echo "Installing requirements [python]"
 if [[ $PYTHON_VERSION == "3.1"[2-9]* ]]; then
   python -m pip install wheel || exit 1
   python -m pip install --pre -r test-requirements-312.txt || exit 1
-else
-  python -m pip install -U pip "setuptools<60" wheel || exit 1
-
-  if [[ $PYTHON_VERSION != *"-dev" || $COVERAGE == "1" ]]; then
-    python -m pip install -r test-requirements.txt || exit 1
-  fi
 fi
 
 if [[ $TEST_CODE_STYLE == "1" ]]; then
