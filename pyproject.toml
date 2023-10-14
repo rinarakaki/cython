@@ -60,7 +60,9 @@ cygdb = "Cython.Debugger.Cygdb:main"
 
 [tool.setuptools.packages.find]
 include = [
+    "."
     "Cython",
+    "Cython/*",
     "Cython/Build",
     "Cython/Compiler",
     "Cython/Runtime",
