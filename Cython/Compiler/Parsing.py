@@ -3015,7 +3015,9 @@ def p_c_simple_declarator(s, ctx, empty, is_type, cmethod_flag,
     else:
         rhs = None
         if s.sy == 'IDENT' or s.sy in ("impl",):
-            name = s.systring
+            print("!!!!!!!!!!!!!!!!!!! IMPL as id !!!!!!!!!!!!!!!!!!!")
+            print(s)
+            name = s.systring or s.sy
             if empty:
                 error(s.position(), "Declarator should be empty")
             s.next()
