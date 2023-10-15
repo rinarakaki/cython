@@ -21,7 +21,7 @@ from ..Compiler.StringEncoding import _unicode
 from .Dependencies import strip_string_literals, cythonize, cached_function
 from ..Compiler import Pipeline
 from ..Utils import get_cython_cache_dir
-import cython as cython_module
+import Cython as cython_module
 
 
 IS_PY3 = sys.version_info >= (3,)

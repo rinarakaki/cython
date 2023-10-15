@@ -160,9 +160,9 @@ def test_struct(n, x):
         a[2] = MyStruct(is_integral=False, data=MyUnion(x=x))
     return a[0].data.n, a[1].data.x, a[2].is_integral
 
-import cython as cy
-from cython import declare, cast, locals, address, typedef, p_void, compiled
-from cython import declare as my_declare, locals as my_locals, p_void as my_void_star, typedef as my_typedef, compiled as my_compiled
+import Cython as cy
+from Cython import declare, cast, locals, address, typedef, p_void, compiled
+from Cython import declare as my_declare, locals as my_locals, p_void as my_void_star, typedef as my_typedef, compiled as my_compiled
 
 @my_locals(a=cython.p_void)
 def test_imports():
