@@ -63,13 +63,13 @@ class Ctx(object):
         return ctx
 
 
-def p_ident(s, message="Expected an identifier, got '{}'"):
+def p_ident(s, message="Expected an identifier, found '{}'"):
     if s.sy == 'IDENT' or s.sy in ('enum', 'struct', 'mod'):
         name = s.context.intern_ustring(s.systring)
         s.next()
         return name
     else:
-        s.error(message.format(s.systring))
+        s.error(message.format(s.sy))
 
 def p_ident_list(s):
     names = []
@@ -730,7 +730,7 @@ def p_atom(s):
             return ExprNodes.StringNode(pos, value = bytes_value, unicode_value = unicode_value)
         else:
             s.error("invalid string kind '%s'" % kind)
-    elif sy in ('IDENT', 'const', 'struct'):
+    elif sy in ('IDENT', 'const', 'struct', 'mod'):
         name = s.systring
         if name == "None":
             result = ExprNodes.NoneNode(pos)
@@ -745,7 +745,7 @@ def p_atom(s):
         s.next()
         return result
     else:
-        s.error(f"Expected an identifier or literal, got '{s.systring}'")
+        s.error(f"[p_atom] Expected an identifier or literal, found '{s.sy}'")
 
 def p_int_literal(s):
     pos = s.position()
@@ -2635,7 +2635,7 @@ def p_c_simple_base_type(s, nonempty, templates=None):
             base_type=base_type, is_const=is_const, is_volatile=is_volatile)
 
     if s.sy != 'IDENT':
-        error(pos, "Expected an identifier, found '%s'" % s.sy)
+        error(pos, "[p_c_simple_base_type] Expected an identifier, found '%s'" % s.sy)
     if looking_at_base_type(s):
         #print "p_c_simple_base_type: looking_at_base_type at", s.position()
         is_basic = 1
