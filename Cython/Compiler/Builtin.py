@@ -280,6 +280,8 @@ builtin_types_table = [
 # resulting in unintuitive runtime behavior and segfaults.
 #    ("bool",    "PyBool_Type",     []),
 
+    ("isize",   "intptr_t",        []),
+    ("usize",   "uintptr_t",       []),
     ("i8",      "int8_t",          []),
     ("i16",     "int16_t",         []),
     ("i32",     "int32_t",         []),
