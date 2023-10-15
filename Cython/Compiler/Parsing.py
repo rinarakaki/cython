@@ -64,7 +64,7 @@ class Ctx(object):
 
 
 def p_ident(s, message="Expected an identifier, found '{}'"):
-    if s.sy == 'IDENT' or s.sy in ('enum', 'struct', 'mod'):
+    if s.sy == 'IDENT' or s.sy in ("enum", "struct", "mod", "impl"):
         name = s.context.intern_ustring(s.systring)
         s.next()
         return name
@@ -730,7 +730,7 @@ def p_atom(s):
             return ExprNodes.StringNode(pos, value = bytes_value, unicode_value = unicode_value)
         else:
             s.error("invalid string kind '%s'" % kind)
-    elif sy in ('IDENT', 'const', 'struct', 'mod'):
+    elif sy in ("IDENT", "const", "struct", "mod", "impl"):
         name = s.systring
         if name == "None":
             result = ExprNodes.NoneNode(pos)
