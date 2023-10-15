@@ -2613,8 +2613,8 @@ def p_c_simple_base_type(s, nonempty, templates=None):
 
     # Handle const/volatile
     is_const = is_volatile = 0
-    while s.sy == 'IDENT':
-        if s.systring == 'const':
+    while s.sy in ('const', 'IDENT'):
+        if s.sy == 'const':
             if is_const: error(pos, "Duplicate 'const'")
             is_const = 1
         elif s.systring == 'volatile':
@@ -2992,7 +2992,7 @@ def p_c_simple_declarator(s, ctx, empty, is_type, cmethod_flag,
         s.next()
 
         const_pos = s.position()
-        is_const = s.systring == 'const' and s.sy == 'IDENT'
+        is_const = s.sy == 'const'
         if is_const:
             s.next()
 
@@ -3502,7 +3502,7 @@ def p_c_func_or_var_declaration(s, pos, ctx):
     declarator = p_c_declarator(s, ctx(modifiers=modifiers), cmethod_flag = cmethod_flag,
                                 assignable = 1, nonempty = 1)
     declarator.overridable = ctx.overridable
-    if s.sy == 'IDENT' and s.systring == 'const' and ctx.level == 'cpp_class':
+    if s.sy == 'const' and ctx.level == 'cpp_class':
         s.next()
         is_const_method = 1
     else:
