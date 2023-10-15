@@ -2386,6 +2386,7 @@ def p_statement(s, ctx, first_statement = 0):
         s.next()
     elif s.sy in ('fn', 'struct', 'enum', 'let', 'trait', 'union', 'type', 'extern', 'pub', 'use'):
         cdef_flag = 1
+        overridable = 1
     if cdef_flag:
         if ctx.level not in ('module', 'module_pxd', 'function', 'c_class', 'c_class_pxd'):
             s.error('cdef statement not allowed here')
