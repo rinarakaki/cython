@@ -63,13 +63,13 @@ class Ctx(object):
         return ctx
 
 
-def p_ident(s, message="Expected an identifier"):
+def p_ident(s, message="Expected an identifier, found {}: '{}'"):
     if s.sy == 'IDENT' or s.sy in ('enum', 'struct'):
         name = s.context.intern_ustring(s.systring)
         s.next()
         return name
     else:
-        s.error(message)
+        s.error(message.format(s.sy, s.systring))
 
 def p_ident_list(s):
     names = []
