@@ -3398,7 +3398,7 @@ def p_c_struct_or_union_definition(s, pos, ctx):
     if s.systring == 'packed':
         packed = True
         s.next()
-        if s.sy != 'IDENT' or s.systring != 'struct':
+        if s.sy != 'struct':
             s.expected('struct')
     # s.sy == ident 'struct' or 'union'
     kind = s.systring
