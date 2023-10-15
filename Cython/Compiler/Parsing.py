@@ -2615,8 +2615,6 @@ def p_c_simple_base_type(s, nonempty, templates=None):
     # Handle const/volatile
     is_const = is_volatile = 0
     while s.sy in ('const', 'IDENT'):
-        print("!!!!!!!!!!! p_c_simple_base_type cont or IDENT !!!!!!!!!!!")
-        print(s.sy)
         if s.sy == 'const':
             if is_const: error(pos, "Duplicate 'const'")
             is_const = 1
@@ -2796,7 +2794,7 @@ def looking_at_name(s):
 def looking_at_expr(s):
     if s.systring in base_type_start_words:
         return False
-    elif s.sy == 'IDENT':
+    elif s.sy in ("IDENT", "const"):
         is_type = False
         name = s.systring
         name_pos = s.position()
