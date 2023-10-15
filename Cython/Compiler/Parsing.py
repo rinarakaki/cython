@@ -2634,7 +2634,7 @@ def p_c_simple_base_type(s, nonempty, templates=None):
         return Nodes.CConstOrVolatileTypeNode(pos,
             base_type=base_type, is_const=is_const, is_volatile=is_volatile)
 
-    if s.sy != 'IDENT' or s.sy not in ("mod",):
+    if s.sy != 'IDENT':
         error(pos, "Expected an identifier, found '%s'" % s.sy)
     if looking_at_base_type(s):
         #print "p_c_simple_base_type: looking_at_base_type at", s.position()
