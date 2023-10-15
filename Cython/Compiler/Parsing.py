@@ -2848,7 +2848,6 @@ def looking_at_dotted_name(s):
         return 0
 
 rust_type_names = cython.declare(frozenset, frozenset((
-    "char", "bool",
     "i8", "i16", "i32", "i64",
     "u8", "u16", "u32", "u64"
     "f32", "f64",
