@@ -3015,7 +3015,7 @@ def p_c_simple_declarator(s, ctx, empty, is_type, cmethod_flag,
     else:
         rhs = None
         if s.sy == 'IDENT' or s.sy in ("impl",):
-            print("!!!!!!!!!!!!!!!!!!!!!! s.sy:", s.sy)
+            print("!!!!!!!!!!!!!!!!!!!!!! s.systring:", s.systring)
             is_impl = False
             if s.sy in ("impl",):
                 is_impl = True
