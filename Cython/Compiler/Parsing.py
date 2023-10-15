@@ -2794,7 +2794,7 @@ def looking_at_name(s):
 def looking_at_expr(s):
     if s.systring in base_type_start_words:
         return False
-    elif s.sy == 'IDENT':
+    elif s.sy in ("IDENT", "const"):
         is_type = False
         name = s.systring
         name_pos = s.position()
@@ -2827,7 +2827,7 @@ def looking_at_expr(s):
             s.put_back(u'IDENT', *p)
             s.put_back(u'.', u'.', p[1])  # gets the position slightly wrong
 
-        s.put_back(u'IDENT', name, name_pos)
+        s.put_back(s.sy, name, name_pos)
         return not is_type and saved[0]
     else:
         return True
