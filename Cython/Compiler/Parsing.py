@@ -64,7 +64,7 @@ class Ctx(object):
 
 
 def p_ident(s, message="Expected an identifier"):
-    if s.sy == 'IDENT':
+    if s.sy == 'IDENT' or s.sy in ('enum', 'struct'):
         name = s.context.intern_ustring(s.systring)
         s.next()
         return name
