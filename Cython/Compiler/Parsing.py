@@ -3015,12 +3015,13 @@ def p_c_simple_declarator(s, ctx, empty, is_type, cmethod_flag,
     else:
         rhs = None
         if s.sy == 'IDENT' or s.sy in ("impl",):
-            print("!!!!!!!!!!!!!!!!!!! IMPL as id !!!!!!!!!!!!!!!!!!!")
-            print(s)
+            if s.sy in ("impl",):
+                print("!!!!!!!!!!!!!!!!!!! IMPL as id !!!!!!!!!!!!!!!!!!!")
             name = s.systring or s.sy
             if empty:
                 error(s.position(), "Declarator should be empty")
             s.next()
+            print("NEXT:", s.sy)
             cname = p_opt_cname(s)
             if name != 'operator' and s.sy == '=' and assignable:
                 s.next()
