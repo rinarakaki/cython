@@ -2644,7 +2644,7 @@ def p_c_simple_base_type(s, nonempty, templates=None):
             name = s.systring
             s.next()
         elif s.sy == 'IDENT' and s.systring in rust_type_names:
-            signed, longness = 1, 0  # TODO
+            signed, longness = None, None
             name = s.systring
             s.next()
         else:
