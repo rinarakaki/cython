@@ -730,7 +730,7 @@ def p_atom(s):
             return ExprNodes.StringNode(pos, value = bytes_value, unicode_value = unicode_value)
         else:
             s.error("invalid string kind '%s'" % kind)
-    elif sy == 'IDENT':
+    elif sy in ('IDENT', 'const'):
         name = s.systring
         if name == "None":
             result = ExprNodes.NoneNode(pos)
@@ -745,7 +745,7 @@ def p_atom(s):
         s.next()
         return result
     else:
-        s.error(f"Expected an identifier or literal, got {s.sy}: '{s.systring}'")
+        s.error(f"Expected an identifier or literal, got '{s.systring}'")
 
 def p_int_literal(s):
     pos = s.position()
