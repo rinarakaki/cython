@@ -280,10 +280,19 @@ builtin_types_table = [
 # resulting in unintuitive runtime behavior and segfaults.
 #    ("bool",    "PyBool_Type",     []),
 
+    ("i8",      "int8_t",          []),
+    ("i16",     "int16_t",         []),
+    ("i32",     "int32_t",         []),
+    ("i64",     "int64_t",         []),
+    ("u8",      "uint8_t",         []),
+    ("u16",     "uint16_t",        []),
+    ("u32",     "uint32_t",        []),
+    ("u64",     "uint64_t",        []),
+    ("f32",     "float",           []),
+    ("f64",     "double",          []),
     ("int",     "PyInt_Type",      []),
     ("long",    "PyLong_Type",     []),
     ("float",   "PyFloat_Type",    []),
-
     ("complex", "PyComplex_Type",  [BuiltinAttribute('cval', field_type_name = 'Py_complex'),
                                     BuiltinAttribute('real', 'cval.real', field_type = PyrexTypes.c_double_type),
                                     BuiltinAttribute('imag', 'cval.imag', field_type = PyrexTypes.c_double_type),
