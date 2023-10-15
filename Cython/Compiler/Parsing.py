@@ -3264,7 +3264,7 @@ def p_cdef_statement(s, ctx):
     elif s.sy in struct_enum_union or s.sy == 'IDENT' and s.systring in struct_enum_union:
         if ctx.level not in ('module', 'module_pxd'):
             error(pos, "C struct/union/enum definition not allowed here")
-        if ctx.overridable:
+        if False and ctx.overridable:
             if s.systring != 'enum':
                 error(pos, "C struct/union cannot be declared cpdef")
         return p_struct_enum(s, pos, ctx)
