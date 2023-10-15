@@ -2384,6 +2384,8 @@ def p_statement(s, ctx, first_statement = 0):
         cdef_flag = 1
         overridable = 1
         s.next()
+    elif s.sy in ('fn', 'struct', 'enum', 'let', 'trait', 'union', 'type', 'extern', 'pub', 'use'):
+        cdef_flag = 1
     if cdef_flag:
         if ctx.level not in ('module', 'module_pxd', 'function', 'c_class', 'c_class_pxd'):
             s.error('cdef statement not allowed here')
@@ -2640,6 +2642,10 @@ def p_c_simple_base_type(s, nonempty, templates=None):
             signed, longness = special_basic_c_types[s.systring]
             name = s.systring
             s.next()
+        elif s.sy == 'IDENT' and s.systring in rust_type_names:
+            signed, longness = 1, 0  # TODO
+            name = s.systring
+            s.next()
         else:
             signed, longness = p_sign_and_longness(s)
             if s.sy == 'IDENT' and s.systring in basic_c_type_names:
@@ -2840,6 +2846,12 @@ def looking_at_dotted_name(s):
     else:
         return 0
 
+rust_type_names = cython.declare(frozenset, frozenset((
+    "char", "bool",
+    "i8", "i16", "i32", "i64",
+    "u8", "u16", "u32", "u64"
+    "f32", "f64",
+    "isize", "usize")))
 
 basic_c_type_names = cython.declare(frozenset, frozenset((
     "void", "char", "int", "float", "double", "bint")))
@@ -2861,7 +2873,8 @@ sign_and_longness_words = cython.declare(frozenset, frozenset((
 
 base_type_start_words = cython.declare(
     frozenset,
-    basic_c_type_names
+    rust_type_names
+    | basic_c_type_names
     | sign_and_longness_words
     | frozenset(special_basic_c_types))
 
@@ -3223,7 +3236,7 @@ def p_cdef_statement(s, ctx):
     ctx.visibility = p_visibility(s, ctx.visibility)
     ctx.api = ctx.api or p_api(s)
     if ctx.api:
-        if ctx.visibility not in ('private', 'public'):
+        if ctx.visibility not in ('private', 'pub', 'public'):
             error(pos, "Cannot combine 'api' with '%s'" % ctx.visibility)
     if (ctx.visibility == 'extern') and s.sy == 'from':
         return p_cdef_extern_block(s, pos, ctx)
@@ -3247,7 +3260,7 @@ def p_cdef_statement(s, ctx):
         return p_c_class_definition(s, pos, ctx)
     elif s.sy == 'IDENT' and s.systring == 'cppclass':
         return p_cpp_class_definition(s, pos, ctx)
-    elif s.sy == 'IDENT' and s.systring in struct_enum_union:
+    elif s.sy in struct_enum_union or s.sy == 'IDENT' and s.systring in struct_enum_union:
         if ctx.level not in ('module', 'module_pxd'):
             error(pos, "C struct/union/enum definition not allowed here")
         if ctx.overridable:
@@ -3256,6 +3269,12 @@ def p_cdef_statement(s, ctx):
         return p_struct_enum(s, pos, ctx)
     elif s.sy == 'IDENT' and s.systring == 'fused':
         return p_fused_definition(s, pos, ctx)
+    elif s.sy == 'fn':
+        s.next()
+        return p_c_func_or_var_declaration(s, pos, ctx)
+    elif s.sy == 'let':
+        s.next()
+        return p_c_func_or_var_declaration(s, pos, ctx)
     else:
         return p_c_func_or_var_declaration(s, pos, ctx)
 
@@ -3461,7 +3480,7 @@ def p_struct_enum(s, pos, ctx):
 def p_visibility(s, prev_visibility):
     pos = s.position()
     visibility = prev_visibility
-    if s.sy == 'IDENT' and s.systring in ('extern', 'public', 'readonly'):
+    if s.sy in ('extern', 'pub') or s.sy == 'IDENT' and s.systring in ('extern', 'public', 'readonly'):
         visibility = s.systring
         if prev_visibility != 'private' and visibility != prev_visibility:
             s.error("Conflicting visibility options '%s' and '%s'"
@@ -3716,7 +3735,7 @@ def p_c_class_definition(s, pos,  ctx):
         bases = ExprNodes.TupleNode(pos, args=[])
 
     if s.sy == '[':
-        if ctx.visibility not in ('public', 'extern') and not ctx.api:
+        if ctx.visibility not in ('pub', 'public', 'extern') and not ctx.api:
             error(s.position(), "Name options only allowed for 'public', 'api', or 'extern' C class")
         objstruct_name, typeobj_name, check_size = p_c_class_options(s)
     if s.sy == ':':
@@ -3734,7 +3753,7 @@ def p_c_class_definition(s, pos,  ctx):
             error(pos, "Module name required for 'extern' C class")
         if typeobj_name:
             error(pos, "Type object name specification not allowed for 'extern' C class")
-    elif ctx.visibility == 'public':
+    elif ctx.visibility in ('pub', 'public'):
         if not objstruct_name:
             error(pos, "Object struct name specification required for 'public' C class")
         if not typeobj_name:
