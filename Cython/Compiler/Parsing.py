@@ -730,7 +730,7 @@ def p_atom(s):
             return ExprNodes.StringNode(pos, value = bytes_value, unicode_value = unicode_value)
         else:
             s.error("invalid string kind '%s'" % kind)
-    elif sy in ("IDENT", "const", "struct", "mod", "impl"):
+    elif sy in ("IDENT", "const", "enum", "struct", "mod", "impl"):
         name = s.systring
         if name == "None":
             result = ExprNodes.NoneNode(pos)
