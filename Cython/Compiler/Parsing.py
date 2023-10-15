@@ -2400,6 +2400,9 @@ def p_statement(s, ctx, first_statement = 0):
     else:
         if ctx.api:
             s.error("'api' not allowed with this statement", fatal=False)
+        elif s.sy in ('fn', 'enum', 'struct', 'let', 'trait', 'union', 'type', 'extern', 'pub', 'use'):     
+            s.level = ctx.level
+            return p_cdef_statement(s, ctx(overridable=overridable))
         elif s.sy == 'def':
             # def statements aren't allowed in pxd files, except
             # as part of a cdef class
