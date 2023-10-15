@@ -3570,7 +3570,7 @@ def p_ctypedef_statement(s, ctx):
         ctx.api = 1
     if s.sy == 'class':
         return p_c_class_definition(s, pos, ctx)
-    elif s.sy == 'IDENT' and s.systring in struct_enum_union:
+    elif s.sy in struct_enum_union or s.sy == 'IDENT' and s.systring in struct_enum_union:
         return p_struct_enum(s, pos, ctx)
     elif s.sy == 'IDENT' and s.systring == 'fused':
         return p_fused_definition(s, pos, ctx)
