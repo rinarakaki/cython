@@ -48,7 +48,7 @@ py_reserved_words = [
 ]
 
 pyx_reserved_words = py_reserved_words + [
-    "mod", "use", "pub", "extern", "enum", "struct", "union", "fn", "let", "mut", "const", "static", "trait",  # TODO "impl",
+    "mod", "use", "pub", "extern", "enum", "struct", "union", "fn", "let", "mut", "const", "static", "trait", "impl",
     "include", "ctypedef", "cdef", "cpdef",
     "cimport", "DEF", "IF", "ELIF", "ELSE"
 ]
