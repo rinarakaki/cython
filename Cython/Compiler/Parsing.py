@@ -3014,7 +3014,7 @@ def p_c_simple_declarator(s, ctx, empty, is_type, cmethod_flag,
         result = node_class(pos, base=base)
     else:
         rhs = None
-        if s.sy == 'IDENT':
+        if s.sy == 'IDENT' or s.sy in ("impl",):
             name = s.systring
             if empty:
                 error(s.position(), "Declarator should be empty")
