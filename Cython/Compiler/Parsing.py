@@ -63,6 +63,9 @@ class Ctx(object):
         return ctx
 
 
+def just(s, word):
+    return s.sy == "IDENT" and s.systring == word
+
 def can_be_ident(sy):
     return sy == "IDENT" or sy in contextual_keywords
 
@@ -337,7 +340,7 @@ def _p_factor(s):
             return ExprNodes.AmpersandNode(pos, operand = arg)
         elif sy == "<":
             return p_typecast(s)
-        elif sy == 'IDENT' and s.systring == "sizeof":
+        elif just(s, "sizeof"):
             return p_sizeof(s)
     return p_power(s)
 
@@ -1877,7 +1880,7 @@ def p_dotted_name(s, as_allowed):
 
 
 def p_as_name(s):
-    if s.sy == 'IDENT' and s.systring == 'as':
+    if just(s, "as"):
         s.next()
         return p_ident(s)
     else:
@@ -2001,7 +2004,7 @@ def p_for_from_relation(s):
         s.error("Expected one of '<', '<=', '>' '>='")
 
 def p_for_from_step(s):
-    if s.sy == 'IDENT' and s.systring == 'by':
+    if just(s, "by"):
         s.next()
         step = p_bit_expr(s)
         return step
@@ -2081,11 +2084,11 @@ def p_except_clause(s):
             exc_type = exc_type.args
         else:
             exc_type = [exc_type]
-        if s.sy == ',' or (s.sy == 'IDENT' and s.systring == 'as'
+        if s.sy == ',' or (just(s, "as")
                            and s.context.language_level == 2):
             s.next()
             exc_value = p_test(s)
-        elif s.sy == 'IDENT' and s.systring == 'as':
+        elif just(s, "as")
             # Py3 syntax requires a name here
             s.next()
             pos2 = s.position()
@@ -2195,7 +2198,7 @@ def p_with_item(s, is_async):
     else:
         manager = p_test(s)
         target = None
-        if s.sy == 'IDENT' and s.systring == 'as':
+        if just(s, "as"):
             s.next()
             target = p_starred_expr(s)
         return Nodes.WithStatNode, pos, {"manager": manager, "target": target, "is_async": is_async}
@@ -2371,7 +2374,7 @@ def p_statement(s, ctx, first_statement = 0):
         s.level = ctx.level
         decorators = p_decorators(s)
         if not ctx.allow_struct_enum_decorator and s.sy not in ('def', 'cdef', 'cpdef', 'class', 'async'):
-            if s.sy == 'IDENT' and s.systring == 'async':
+            if just(s, "async"):
                 pass  # handled below
             else:
                 s.error("Decorators can only be followed by functions or classes")
@@ -2421,7 +2424,7 @@ def p_statement(s, ctx, first_statement = 0):
             if ctx.level not in ('module', 'module_pxd'):
                 s.error("include statement not allowed here")
             return p_include_statement(s, ctx)
-        elif ctx.level == 'c_class' and s.sy == 'IDENT' and s.systring == 'property':
+        elif ctx.level == 'c_class' and just(s, "property"):
             return p_property_decl(s)
         elif s.sy == 'pass' and ctx.level != 'property':
             return p_pass_statement(s, with_newline=True)
@@ -2445,7 +2448,7 @@ def p_statement(s, ctx, first_statement = 0):
                 s.next()
                 return p_async_statement(s, ctx, decorators)
             else:
-                if s.sy == 'IDENT' and s.systring == 'async':
+                if just(s, "async"):
                     ident_name = s.systring
                     ident_pos = s.position()
                     # PEP 492 enables the async/await keywords when it spots "async def ..."
@@ -2520,7 +2523,7 @@ def p_positional_and_keyword_args(s, end_sy_set, templates = None):
             s.error('Argument expansion not allowed here.', fatal=False)
 
         parsed_type = False
-        if s.sy == 'IDENT' and s.peek()[0] == '=':
+        if can_be_ident(s.sy) and s.peek()[0] == '=':
             ident = s.systring
             s.next()  # s.sy is '='
             s.next()
@@ -2657,7 +2660,7 @@ def p_c_simple_base_type(s, nonempty, templates=None):
                 s.next()
             else:
                 name = 'int'  # long [int], short [int], long [int] complex, etc.
-        if s.sy == 'IDENT' and s.systring == 'complex':
+        if just(s, "complex"):
             complex = 1
             s.next()
     elif looking_at_dotted_name(s):
@@ -2672,7 +2675,7 @@ def p_c_simple_base_type(s, nonempty, templates=None):
         name = s.systring
         name_pos = s.position()
         s.next()
-        if nonempty and s.sy != 'IDENT':
+        if nonempty and not can_be_ident(s.sy):
             # Make sure this is not a declaration of a variable or function.
             if s.sy == '(':
                 old_pos = s.position()
