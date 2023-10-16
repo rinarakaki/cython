@@ -733,7 +733,7 @@ def p_atom(s):
             return ExprNodes.StringNode(pos, value = bytes_value, unicode_value = unicode_value)
         else:
             s.error("invalid string kind '%s'" % kind)
-    elif sy in ("IDENT", "const", "enum", "struct", "mod", "impl", "fn"):
+    elif can_be_ident(sy):
         name = s.systring
         if name == "None":
             result = ExprNodes.NoneNode(pos)
@@ -2617,7 +2617,7 @@ def p_c_simple_base_type(s, nonempty, templates=None):
 
     # Handle const/volatile
     is_const = is_volatile = 0
-    while s.sy in ('const', 'IDENT'):
+    while can_be_ident(s.sy):
         if s.sy == 'const':
             if is_const: error(pos, "Duplicate 'const'")
             is_const = 1
@@ -2637,7 +2637,7 @@ def p_c_simple_base_type(s, nonempty, templates=None):
         return Nodes.CConstOrVolatileTypeNode(pos,
             base_type=base_type, is_const=is_const, is_volatile=is_volatile)
 
-    if s.sy not in ("IDENT", "mod"):
+    if not can_be_ident(s.sy):
         error(pos, "Expected an identifier, found '%s'" % s.sy)
     if looking_at_base_type(s):
         #print "p_c_simple_base_type: looking_at_base_type at", s.position()
@@ -3661,7 +3661,7 @@ def p_varargslist(s, terminator=')', annotated=1):
             s.error("Syntax error in Python function argument list")
     if s.sy == '*':
         s.next()
-        if s.sy == 'IDENT':
+        if can_be_ident(s.sy):
             star_arg = p_py_arg_decl(s, annotated=annotated)
         if s.sy == ',':
             s.next()
@@ -3791,7 +3791,7 @@ def p_c_class_options(s):
     check_size = None
     s.expect('[')
     while 1:
-        if s.sy != 'IDENT':
+        if not can_be_ident(s.sy):
             break
         if s.systring == 'object':
             s.next()
