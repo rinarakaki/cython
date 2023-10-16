@@ -2088,7 +2088,7 @@ def p_except_clause(s):
                            and s.context.language_level == 2):
             s.next()
             exc_value = p_test(s)
-        elif just(s, "as")
+        elif just(s, "as"):
             # Py3 syntax requires a name here
             s.next()
             pos2 = s.position()
