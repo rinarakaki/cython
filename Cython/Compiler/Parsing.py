@@ -22,7 +22,7 @@ import sys
 from unicodedata import lookup as lookup_unicodechar, category as unicode_category
 from functools import partial, reduce
 
-from .Scanning import PyrexScanner, FileSourceDescriptor, tentatively_scan
+from .Scanning import PyrexScanner, FileSourceDescriptor, contextual_keywords, tentatively_scan
 from . import Nodes
 from . import ExprNodes
 from . import Builtin
@@ -63,8 +63,11 @@ class Ctx(object):
         return ctx
 
 
+def can_be_ident(sy):
+    return sy == "IDENT" or sy in contextual_keywords
+
 def p_ident(s, message="Expected an identifier, found '{}'"):
-    if s.sy == 'IDENT' or s.sy in ("enum", "struct", "mod", "impl"):
+    if can_be_ident(s.sy):
         name = s.context.intern_ustring(s.systring)
         s.next()
         return name
@@ -73,7 +76,7 @@ def p_ident(s, message="Expected an identifier, found '{}'"):
 
 def p_ident_list(s):
     names = []
-    while s.sy == 'IDENT':
+    while can_be_ident(s.sy):
         names.append(s.context.intern_ustring(s.systring))
         s.next()
         if s.sy != ',':
