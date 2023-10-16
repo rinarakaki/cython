@@ -4,7 +4,7 @@
 
 import os
 
-from Cython import Utils
+from .. import Utils
 
 
 class ShouldBeFromDirective(object):
