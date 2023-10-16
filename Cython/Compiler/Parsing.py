@@ -442,7 +442,7 @@ def p_async_statement(s, ctx, decorators):
 #atom_expr: ['await'] atom trailer*
 
 def p_power(s):
-    if s.systring == 'new' and s.peek()[0] == 'IDENT':
+    if s.systring == 'new' and can_be_ident(s.peek()[0]):
         return p_new_expr(s)
     await_pos = None
     if s.sy == 'await':
@@ -2797,7 +2797,7 @@ def looking_at_name(s):
 def looking_at_expr(s):
     if s.systring in base_type_start_words:
         return False
-    elif s.sy in ("IDENT", "const"):
+    elif can_be_ident(s.sy):
         is_type = False
         name = s.systring
         name_pos = s.position()
@@ -2810,7 +2810,7 @@ def looking_at_expr(s):
             s.expect('IDENT')
 
         saved = s.sy, s.systring, s.position()
-        if s.sy == 'IDENT':
+        if can_be_ident(s.sy):
             is_type = True
         elif s.sy == '*' or s.sy == '**':
             s.next()
@@ -2840,7 +2840,7 @@ def looking_at_base_type(s):
     return s.sy == 'IDENT' and s.systring in base_type_start_words
 
 def looking_at_dotted_name(s):
-    if s.sy == 'IDENT':
+    if can_be_ident(s.sy):
         name = s.systring
         name_pos = s.position()
         s.next()
@@ -3016,7 +3016,7 @@ def p_c_simple_declarator(s, ctx, empty, is_type, cmethod_flag,
         result = node_class(pos, base=base)
     else:
         rhs = None
-        if s.sy == 'IDENT' or s.sy in ("impl",):
+        if can_be_ident(s.sy):
             name = s.systring or s.sy
             if empty:
                 error(s.position(), "Declarator should be empty")
@@ -3123,7 +3123,7 @@ def p_exception_value_clause(s, is_extern):
             exc_check = '+'
             plus_char_pos = s.position()[2]
             s.next()
-            if s.sy == 'IDENT':
+            if can_be_ident(s.sy):
                 name = s.systring
                 if name == 'nogil':
                     if s.position()[2] == plus_char_pos + 1:
@@ -3318,7 +3318,7 @@ def p_c_enum_definition(s, pos, ctx):
         scoped = True
         s.next()
 
-    if s.sy == 'IDENT':
+    if can_be_ident(s.sy):
         name = s.systring
         s.next()
         cname = p_opt_cname(s)
