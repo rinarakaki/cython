@@ -2636,7 +2636,11 @@ def p_c_simple_base_type(s, nonempty, templates=None):
     if looking_at_base_type(s):
         #print "p_c_simple_base_type: looking_at_base_type at", s.position()
         is_basic = 1
-        if s.sy == 'IDENT' and s.systring in special_basic_c_types:
+         if s.sy == 'IDENT' and s.systring in builtin_type_names:
+            signed, longness = None, None
+            name = s.systring
+            s.next()
+        elif s.sy == 'IDENT' and s.systring in special_basic_c_types:
             signed, longness = special_basic_c_types[s.systring]
             name = s.systring
             s.next()
