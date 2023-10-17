@@ -24,13 +24,13 @@ cdef TemplateTest1[int]* b = new TemplateTest1[int]()
 cdef int c = a.getValue()
 c = b.getValue()
 
-cdef TemplateTest2[int, char] d
-cdef TemplateTest2[int, char]* e = new TemplateTest2[int, char]()
+cdef TemplateTest2[int, i8] d
+cdef TemplateTest2[int, i8]* e = new TemplateTest2[int, i8]()
 
 c = d.getValue1()
 c = e.getValue2()
 
-cdef char f = d.getValue2()
+cdef i8 f = d.getValue2()
 f = e.getValue2()
 
 del b, e
