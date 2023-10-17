@@ -10,7 +10,7 @@ cdef void f():
     cdef E e=a
     cdef G g=b
     cdef int i, j=0
-    cdef float f, h=0
+    cdef f32 f, h=0
     i = j | e
     i = e | j
     i = j ^ e
