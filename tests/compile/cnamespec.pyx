@@ -13,8 +13,8 @@ ctypedef enum blarg "c_blarg":
     x "c_x"
     y "c_y" = 42
 
-cdef double spam "c_spam" (int i, float f):
-    cdef double d "c_d"
+cdef f64 spam "c_spam" (int i, f32 f):
+    cdef f64 d "c_d"
     cdef foo *p
     global b
     if i:
@@ -26,5 +26,5 @@ cdef double spam "c_spam" (int i, float f):
     p.i = x
     p.i = y
 
-cdef inline double spam2 "c_spam2" (int i, float f):
+cdef inline f64 spam2 "c_spam2" (int i, f32 f):
     return spam(i,f)
