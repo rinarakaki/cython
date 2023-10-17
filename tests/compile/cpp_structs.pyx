@@ -6,8 +6,8 @@ from cython.view import array
 cdef extern from "point.h" namespace "geometry":
 
     cdef struct Point:
-        double x
-        double y
+        f64 x
+        f64 y
         int color
 
 cdef Point p = Point(0.0, 0.0, 0)
