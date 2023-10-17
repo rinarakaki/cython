@@ -2649,7 +2649,7 @@ def p_c_simple_base_type(s, nonempty, templates=None):
             signed, longness = special_basic_c_types[s.systring]
             name = s.systring
             s.next()
-        elif s.sy == 'IDENT' and s.systring in rust_type_names:
+        elif s.sy == 'IDENT' and s.systring in builtin_type_names:
             signed, longness = None, None
             name = s.systring
             s.next()
