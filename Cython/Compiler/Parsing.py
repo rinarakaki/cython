@@ -2853,9 +2853,9 @@ def looking_at_dotted_name(s):
     else:
         return 0
 
-rust_type_names = cython.declare(frozenset, frozenset((
+builtin_type_names = cython.declare(frozenset, frozenset((
     "i8", "i16", "i32", "i64",
-    "u8", "u16", "u32", "u64"
+    "u8", "u16", "u32", "u64",
     "f32", "f64",
     "isize", "usize")))
 
@@ -2879,7 +2879,7 @@ sign_and_longness_words = cython.declare(frozenset, frozenset((
 
 base_type_start_words = cython.declare(
     frozenset,
-    rust_type_names
+    builtin_type_names
     | basic_c_type_names
     | sign_and_longness_words
     | frozenset(special_basic_c_types))
