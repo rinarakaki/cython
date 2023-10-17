@@ -2,10 +2,9 @@
 
 ctypedef union pet:
     int cat
-    float dog
+    f32 dog
 
 cdef pet sam
 
 sam.cat = 1
 sam.dog = 2.7
-
