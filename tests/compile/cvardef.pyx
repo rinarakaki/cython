@@ -2,23 +2,23 @@
 # tag: cdef
 
 def f():
-    cdef char a_char
-    cdef short a_short
+    cdef i8 a_char
+    cdef i16 a_short
     cdef int i1, i2
     cdef long a_long
-    cdef float a_float
-    cdef double a_double
-    cdef unsigned char an_unsigned_char
-    cdef unsigned short an_unsigned_short
+    cdef f32 a_float
+    cdef f64 a_double
+    cdef u8 an_unsigned_char
+    cdef u16 an_unsigned_short
     cdef unsigned int an_unsigned_int
     cdef unsigned long an_unsigned_long
-    cdef char *a_char_ptr, *another_char_ptr
-    cdef char **a_char_ptr_ptr
-    cdef char ***a_char_ptr_ptr_ptr
-    cdef char[10] a_sized_char_array
-    cdef char[10][20] a_2d_char_array
-    cdef char *a_2d_char_ptr_array[10][20]
-    cdef char **a_2d_char_ptr_ptr_array[10][20]
+    cdef i8 *a_char_ptr, *another_char_ptr
+    cdef i8 **a_char_ptr_ptr
+    cdef i8 ***a_char_ptr_ptr_ptr
+    cdef i8[10] a_sized_char_array
+    cdef i8[10][20] a_2d_char_array
+    cdef i8 *a_2d_char_ptr_array[10][20]
+    cdef i8 **a_2d_char_ptr_ptr_array[10][20]
     cdef int (*a_0arg_function)()
     cdef int (*a_1arg_function)(int i)
     cdef int (*a_2arg_function)(int i, int j)
