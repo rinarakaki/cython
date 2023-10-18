@@ -1,27 +1,24 @@
-
 cimport cython
 
 cdef extern from "math.h":
-    cpdef double sqrt(double x)
+    cpdef f64 sqrt(f64 x)
 
 @cython.final
 cdef class GVector:
-    cdef public double x, y, z
+    cdef public f64 x, y, z
 
-    cpdef double Mag(self)
-    cpdef double dist(self, GVector other)
+    cpdef f64 Mag(self)
+    cpdef f64 dist(self, GVector other)
 
-
-cpdef list GetKnots(list points, long degree)
-
+cpdef list GetKnots(list points, i64 degree)
 
 @cython.final
 cdef class Spline:
     cdef list knots
     cdef list points
-    cdef long degree
+    cdef i64 degree
 
-    cpdef (long, long) GetDomain(self)
+    cpdef (i64, i64) GetDomain(self)
     cpdef long GetIndex(self, u)
 
 
