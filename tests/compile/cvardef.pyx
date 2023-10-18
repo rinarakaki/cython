@@ -5,13 +5,13 @@ def f():
     cdef i8 a_char
     cdef i16 a_short
     cdef i32 i1, i2
-    cdef long a_long
+    cdef i64 a_long
     cdef f32 a_float
     cdef f64 a_double
     cdef u8 an_unsigned_char
     cdef u16 an_unsigned_short
     cdef u32 an_unsigned_int
-    cdef unsigned long an_unsigned_long
+    cdef u64 an_unsigned_long
     cdef i8 *a_char_ptr, *another_char_ptr
     cdef i8 **a_char_ptr_ptr
     cdef i8 ***a_char_ptr_ptr_ptr
