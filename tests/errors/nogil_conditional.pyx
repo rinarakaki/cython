@@ -1,8 +1,8 @@
 # cython: remove_unreachable=False
 # mode: error
 
-cdef int f_nogil(int x) nogil:
-    cdef int y
+cdef i32 f_nogil(i32 x) nogil:
+    cdef i32 y
     y = x + 10
     return y
 
@@ -14,7 +14,7 @@ def f_gil(x):
 
 
 def illegal_gil_usage():
-    cdef int res = 0
+    cdef i32 res = 0
     with nogil(True):
         res = f_gil(res)
 
@@ -32,8 +32,8 @@ def foo(a):
     return a < 10
 
 
-def non_constant_condition(int x) -> int:
-    cdef int res = x
+def non_constant_condition(int x) -> i32:
+    cdef i32 res = x
     with nogil(x < 10):
         res = f_nogil(res)
 
@@ -42,7 +42,7 @@ def non_constant_condition(int x) -> int:
 
 
 ctypedef fused number_or_object:
-    float
+    f32
     object
 
 
