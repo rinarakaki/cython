@@ -48,7 +48,7 @@ _ERRORS = """
 14:95: typing.Optional[...] cannot be applied to type long long
 24:30: typing.Optional[...] cannot be applied to type int
 24:47: typing.Optional[...] cannot be applied to type float
-24:87: typing.Optional[...] cannot be applied to type long
+24:85: typing.Optional[...] cannot be applied to type long
 
 20:30: typing.Optional[...] cannot be applied to type MyStruct
 
