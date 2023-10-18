@@ -1,13 +1,11 @@
 from __future__ import print_function
 
 ctypedef fused char_or_float:
-    char
-    float
-
+    i8
+    f32
 
 cpdef char_or_float plus_one(char_or_float var):
     return var + 1
-
 
 def show_me():
     cdef:
