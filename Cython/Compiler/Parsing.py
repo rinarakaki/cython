@@ -69,13 +69,13 @@ def just(s, word):
 def can_be_ident(sy):
     return sy == "IDENT" or sy in contextual_keywords
 
-def p_ident(s, message="Expected an identifier, found '{}'"):
+def p_ident(s, message="Expected an identifier, found '%s'"):
     if can_be_ident(s.sy):
         name = s.context.intern_ustring(s.systring)
         s.next()
         return name
     else:
-        s.error(message.format(s.sy))
+        s.error(message % s.sy)
 
 def p_ident_list(s):
     names = []
