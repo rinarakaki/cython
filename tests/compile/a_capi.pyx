@@ -1,10 +1,10 @@
 # mode: compile
 
 cdef public struct Foo:
-    int a, b
+    i32 a, b
 
 ctypedef struct Blarg:
-    int c, d
+    i32 c, d
 
 ctypedef public Foo Zax
 
