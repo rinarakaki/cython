@@ -8,7 +8,6 @@ cdef extern from "C_func_file.h":
 import numpy as np
 
 def multiply_by_10(arr): # 'arr' is a one-dimensional numpy array
-
     if not arr.flags['C_CONTIGUOUS']:
         arr = np.ascontiguousarray(arr) # Makes a contiguous copy of the numpy array.
 
