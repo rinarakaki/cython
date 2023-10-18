@@ -10,9 +10,7 @@ DTYPE = np.intc
 cdef i32 clip(i32 a, i32 min_value, i32 max_value):
     return min(max(a, min_value), max_value)
 
-
 def compute(array_1, array_2, i32 a, i32 b, i32 c):
-
     # The "cdef" keyword is also used within functions to type variables. It
     # can only be used at the top indentation level (there are non-trivial
     # problems with allowing them in other places, though we'd love to see
