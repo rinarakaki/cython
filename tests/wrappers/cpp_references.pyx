@@ -55,7 +55,7 @@ def test_ref_assign(i32 x):
     >>> test_ref_assign(19)
     19.0
     """
-    cdef double d = ref_func(x)
+    cdef f64 d = ref_func(x)
     return d
 
 @cython.infer_types(True)
