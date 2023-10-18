@@ -2688,10 +2688,10 @@ def p_c_simple_base_type(s, nonempty, templates=None):
                     s.put_back(u'(', u'(', old_pos)
                 else:
                     s.put_back(u'(', u'(', old_pos)
-                    s.put_back(s.sy, name, name_pos)
+                    s.put_back(u'IDENT', name, name_pos)
                     name = None
             elif s.sy not in ('*', '**', '[', '&'):
-                s.put_back(s.sy, name, name_pos)
+                s.put_back(u'IDENT', name, name_pos)
                 name = None
 
     type_node = Nodes.CSimpleBaseTypeNode(pos,
