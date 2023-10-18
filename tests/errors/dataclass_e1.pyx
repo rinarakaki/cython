@@ -5,8 +5,8 @@ cimport cython
 @cython.dataclasses.dataclass(1, shouldnt_be_here=True, init=5, unsafe_hash=True)
 cdef class C:
     a: list = []  # mutable
-    b: i32 = cython.dataclasses.field(default=5, default_factory=int)
-    c: i32
+    b: int = cython.dataclasses.field(default=5, default_factory=int)
+    c: int
 
     def __hash__(self):
         pass
