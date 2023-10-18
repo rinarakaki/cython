@@ -2833,10 +2833,10 @@ def looking_at_expr(s):
 
         dotted_path.reverse()
         for p in dotted_path:
-            s.put_back(s.sy, *p)
+            s.put_back(u'IDENT', *p)
             s.put_back(u'.', u'.', p[1])  # gets the position slightly wrong
 
-        s.put_back(s.sy, name, name_pos)
+        s.put_back(u'IDENT', name, name_pos)
         return not is_type and saved[0]
     else:
         return True
@@ -2851,7 +2851,7 @@ def looking_at_dotted_name(s):
         name_pos = s.position()
         s.next()
         result = s.sy == '.'
-        s.put_back(s.sy, name, name_pos)
+        s.put_back(u'IDENT', name, name_pos)
         return result
     else:
         return 0
