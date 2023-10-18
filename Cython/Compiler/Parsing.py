@@ -2851,7 +2851,7 @@ def looking_at_dotted_name(s):
         name_pos = s.position()
         s.next()
         result = s.sy == '.'
-        s.put_back(u'IDENT', name, name_pos)
+        s.put_back(s.sy, name, name_pos)
         return result
     else:
         return 0
