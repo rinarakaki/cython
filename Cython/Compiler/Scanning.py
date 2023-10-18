@@ -48,7 +48,7 @@ py_reserved_words = [
 ]
 
 contextual_keywords = [
-    "mod", "use", "pub", "extern", "enum", "struct", "union", "fn", "let", "mut", "const", "static", "trait",  # TODO "impl",
+#    "mod", "use", "pub", "extern", "enum", "struct", "union", "fn", "let", "mut", "const", "static", "trait",  # TODO "impl",
 ]
 
 pyx_reserved_words = py_reserved_words + contextual_keywords + [
