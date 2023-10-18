@@ -1793,14 +1793,14 @@ def p_from_import_statement(s, first_statement = 0):
             s.next()
     else:
         level = None
-    if level is not None and just(s, ("use", "import", "cimport")):
+    if level is not None and just(s, ("import", "cimport")):
         # we are dealing with "from .. import foo, bar"
         dotted_name_pos, dotted_name = s.position(), s.context.intern_ustring('')
     else:
         if level is None and Future.absolute_import in s.context.future_directives:
             level = 0
         (dotted_name_pos, _, dotted_name, _) = p_dotted_name(s, as_allowed=False)
-    if not just(s, ("use", "import", "cimport")):
+    if not just(s, ("import", "cimport")):
         s.error("Expected 'import' or 'cimport'")
     kind = s.sy
     s.next()
@@ -2251,7 +2251,7 @@ def p_simple_statement(s, first_statement = 0):
         node = p_return_statement(s)
     elif s.sy == 'raise':
         node = p_raise_statement(s)
-    elif just(s, ("use", "import", "cimport")):
+    elif just(s, ("import", "cimport")):
         node = p_import_statement(s)
     elif s.sy == 'from':
         node = p_from_import_statement(s, first_statement = first_statement)
