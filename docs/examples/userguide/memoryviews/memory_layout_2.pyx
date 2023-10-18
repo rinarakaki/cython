@@ -14,5 +14,5 @@ def main():
 
 _ERRORS = u"""
 12:12: Only dimension 2 may be contiguous and direct
-12:12: Indirect dimension may not follow Fortran contiguous dimension
+13:12: Indirect dimension may not follow Fortran contiguous dimension
 """
