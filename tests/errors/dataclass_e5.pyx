@@ -5,7 +5,7 @@ cimport cython
 
 @cython.dataclasses.dataclass
 cdef class C:
-    a: i32
+    a: int
     b: long
     c: Py_ssize_t
     d: f32
