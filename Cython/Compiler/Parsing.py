@@ -3020,7 +3020,7 @@ def p_c_simple_declarator(s, ctx, empty, is_type, cmethod_flag,
     else:
         rhs = None
         if can_be_ident(s.sy):
-            name = s.systring or s.sy
+            name = s.systring
             if empty:
                 error(s.position(), "Declarator should be empty")
             s.next()
@@ -3273,14 +3273,8 @@ def p_cdef_statement(s, ctx):
             if s.systring != 'enum':
                 error(pos, "C struct/union cannot be declared cpdef")
         return p_struct_enum(s, pos, ctx)
-    elif s.sy == 'IDENT' and s.systring == 'fused':
+    elif just(s, "fused"):
         return p_fused_definition(s, pos, ctx)
-    elif s.sy == 'fn':
-        s.next()
-        return p_c_func_or_var_declaration(s, pos, ctx)
-    elif s.sy == 'let':
-        s.next()
-        return p_c_func_or_var_declaration(s, pos, ctx)
     else:
         return p_c_func_or_var_declaration(s, pos, ctx)
 
@@ -3486,7 +3480,7 @@ def p_struct_enum(s, pos, ctx):
 def p_visibility(s, prev_visibility):
     pos = s.position()
     visibility = prev_visibility
-    if s.sy in ('extern', 'pub') or s.sy == 'IDENT' and s.systring in ('extern', 'public', 'readonly'):
+    if s.sy in ('extern', 'pub') or s.sy == 'IDENT' and s.systring in ('public', 'readonly'):
         visibility = s.systring
         if prev_visibility != 'private' and visibility != prev_visibility:
             s.error("Conflicting visibility options '%s' and '%s'"
