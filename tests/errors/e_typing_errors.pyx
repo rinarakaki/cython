@@ -21,7 +21,7 @@ def optional_cstruct(Optional[MyStruct] x):
     pass
 
 
-def optional_pytypes(Optional[int] i, Optional[float] f, Optional[complex] c, Optional[long] l):
+def optional_pytypes(Optional[i32] i, Optional[f32] f, Optional[complex] c, Optional[i64] l):
     pass
 
 
@@ -30,7 +30,7 @@ cdef ClassVar[list] x
 
 # OK
 
-def optional_memoryview(double[:] d, Optional[double[:]] o):
+def optional_memoryview(f64[:] d, Optional[f64[:]] o):
     pass
 
 
