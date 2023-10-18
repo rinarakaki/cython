@@ -70,9 +70,9 @@ cdef public     f64 d1 = 1
 cdef        api f64 d2 = 2
 cdef public api f64 d3 = 3
 
-cdef            f64 o0 = None
-cdef public     f64 o1 = None
-cdef        api f64 o2 = None
-cdef public api f64 o3 = None
+cdef            object o0 = None
+cdef public     object o1 = None
+cdef        api object o2 = None
+cdef public api object o3 = None
 
 # --
