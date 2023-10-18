@@ -3001,7 +3001,7 @@ def p_c_simple_declarator(s, ctx, empty, is_type, cmethod_flag,
         s.next()
 
         const_pos = s.position()
-        is_const = s.sy == 'const'
+        is_const = just(s, "const")
         if is_const:
             s.next()
 
