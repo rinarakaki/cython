@@ -6,10 +6,10 @@ cimport cython
 @cython.dataclasses.dataclass
 cdef class C:
     a: i32
-    b: i64
+    b: long
     c: Py_ssize_t
     d: f32
-    e: f64
+    e: double
 
 
 _WARNINGS = """
