@@ -1,21 +1,16 @@
-cdef extern from "C_func_file.c":
-    # C is include here so that it doesn't need to be compiled externally
-    pass
-
-cdef extern from "C_func_file.h":
-    void multiply_by_10_in_C(f64 *, u32)
-
 import numpy as np
 
 def multiply_by_10(arr):  # 'arr' is a one-dimensional numpy array
+
     if not arr.flags['C_CONTIGUOUS']:
         arr = np.ascontiguousarray(arr)  # Makes a contiguous copy of the numpy array.
 
-    cdef f64[::1] arr_memview = arr
+    arr_memview: cython.double[::1] = arr
 
-    multiply_by_10_in_C(&arr_memview[0], arr_memview.shape[0])
+    multiply_by_10_in_C(cython.address(arr_memview[0]), arr_memview.shape[0])
 
     return arr
+
 
 a = np.ones(5, dtype=np.double)
 print(multiply_by_10(a))
