@@ -8,26 +8,26 @@ from cython import fused_type
 # ctypedef foo(int) dtype1
 # ctypedef foo.bar(float) dtype2
 # ctypedef fused_type(foo) dtype3
-dtype4 = cython.fused_type(int, long, kw=None)
+dtype4 = cython.fused_type(i32, i64, kw=None)
 
 # ctypedef public cython.fused_type(int, long) dtype7
 # ctypedef api cython.fused_type(int, long) dtype8
 
-int_t = cython.fused_type(short, short, int)
-int2_t = cython.fused_type(int, long)
-dtype9 = cython.fused_type(int2_t, int)
+int_t = cython.fused_type(i16, i16, i32)
+int2_t = cython.fused_type(i32, i64)
+dtype9 = cython.fused_type(int2_t, i32)
 
-floating = cython.fused_type(float, double)
+floating = cython.fused_type(f32, f64)
 
 cdef func(floating x, int2_t y):
     print x, y
 
-cdef float x = 10.0
-cdef int y = 10
-func[float](x, y)
-func[float][int](x, y)
-func[float, int](x)
-func[float, int](x, y, y)
+cdef f32 x = 10.0
+cdef i32 y = 10
+func[f32](x, y)
+func[f32][i32](x, y)
+func[f32, i32](x)
+func[f32, i32](x, y, y)
 func(x, y=y)
 
 ctypedef fused memslice_dtype_t:
@@ -52,8 +52,8 @@ def outer(cython.floating f):
 
 # Mixing const and non-const type makes fused type ambiguous
 cdef fused mix_const_t:
-    int
-    const int
+    i32
+    const i32
 
 cdef cdef_func_with_mix_const_type(mix_const_t val):
     print(val)
@@ -62,17 +62,17 @@ cdef_func_with_mix_const_type(1)
 
 
 # This is all valid
-dtype5 = fused_type(int, long, float)
-dtype6 = cython.fused_type(int, long)
-func[float, int](x, y)
+dtype5 = fused_type(i32, i64, f32)
+dtype6 = cython.fused_type(i32, i64)
+func[f32, i32](x, y)
 
 cdef fused fused1:
-    int
-    long long
+    i32
+    i128
 
 ctypedef fused fused2:
-    int
-    long long
+    i32
+    i128
 
 func(x, y)
 
