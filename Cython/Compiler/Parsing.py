@@ -2621,7 +2621,7 @@ def p_c_simple_base_type(s, nonempty, templates=None):
     # Handle const/volatile
     is_const = is_volatile = 0
     while can_be_ident(s.sy):
-        if s.sy == 'const':
+        if s.systring == 'const':
             if is_const: error(pos, "Duplicate 'const'")
             is_const = 1
         elif s.systring == 'volatile':
