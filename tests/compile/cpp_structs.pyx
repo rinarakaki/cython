@@ -8,7 +8,7 @@ cdef extern from "point.h" namespace "geometry":
     cdef struct Point:
         f64 x
         f64 y
-        int color
+        i32 color
 
 cdef Point p = Point(0.0, 0.0, 0)
 the_point = p
