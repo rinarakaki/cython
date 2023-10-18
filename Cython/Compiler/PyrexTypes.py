@@ -5481,4 +5481,3 @@ def remove_cv_ref(tp, remove_fakeref=False):
         if tp.is_reference and (not tp.is_fake_reference or remove_fakeref):
             tp = tp.ref_base_type
     return tp
-    
