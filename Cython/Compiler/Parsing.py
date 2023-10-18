@@ -745,7 +745,7 @@ def p_atom(s):
         s.next()
         return result
     else:
-        s.error("Expected an identifier or literal")
+        s.error("Expected an identifier or literal, found '%s'" % s.sy)
 
 def p_int_literal(s):
     pos = s.position()
