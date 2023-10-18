@@ -5,11 +5,11 @@ from libcpp.vector cimport vector
 
 cdef class Matrix:
     cdef i32 view_count
-    cdef Py_ssize_t ncols
+    cdef isize ncols
     cdef vector[f32] v
     # ...
 
-    def __cinit__(self, Py_ssize_t ncols):
+    def __cinit__(self, isize ncols):
         self.ncols = ncols
         self.view_count = 0
 
