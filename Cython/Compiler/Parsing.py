@@ -64,7 +64,10 @@ class Ctx(object):
 
 
 def just(s, word):
-    return s.sy == "IDENT" and s.systring == word
+    if isinstance(word, string):
+        return s.systring == word
+    else:
+        return s.systring in word
 
 def can_be_ident(sy):
     return sy == "IDENT" or sy in contextual_keywords
@@ -146,11 +149,11 @@ def p_test(s):
     return expr
 
 def p_test_allow_walrus_after(s):
-    if s.sy == 'lambda':
+    if just(s, "lambda"):
         return p_lambdef(s)
     pos = s.position()
     expr = p_or_test(s)
-    if s.sy == 'if':
+    if just(s, "if"):
         s.next()
         test = p_or_test(s)
         s.expect('else')
@@ -209,7 +212,7 @@ def p_and_test(s):
 #not_test: 'not' not_test | comparison
 
 def p_not_test(s):
-    if s.sy == 'not':
+    if just(s, "not"):
         pos = s.position()
         s.next()
         return ExprNodes.NotNode(pos, operand = p_not_test(s))
@@ -266,13 +269,13 @@ def p_cascaded_cmp(s):
     return result
 
 def p_cmp_op(s):
-    if s.sy == 'not':
+    if just(s, "not"):
         s.next()
         s.expect('in')
         op = 'not_in'
-    elif s.sy == 'is':
+    elif just(s, "is"):
         s.next()
-        if s.sy == 'not':
+        if just(s, "not"):
             s.next()
             op = 'is_not'
         else:
@@ -399,7 +402,7 @@ def p_yield_expression(s):
     pos = s.position()
     s.next()
     is_yield_from = False
-    if s.sy == 'from':
+    if just(s, "from"):
         is_yield_from = True
         s.next()
     if s.sy != ')' and s.sy not in statement_terminators:
@@ -424,7 +427,7 @@ def p_yield_statement(s):
 
 def p_async_statement(s, ctx, decorators):
     # s.sy >> 'async' ...
-    if s.sy == 'def':
+    if just(s, "def"):
         # 'async def' statements aren't allowed in pxd files
         if 'pxd' in ctx.level:
             s.error('def statement not allowed here')
@@ -432,9 +435,9 @@ def p_async_statement(s, ctx, decorators):
         return p_def_statement(s, decorators, is_async_def=True)
     elif decorators:
         s.error("Decorators can only be followed by functions or classes")
-    elif s.sy == 'for':
+    elif just(s, "for"):
         return p_for_statement(s, is_async=True)
-    elif s.sy == 'with':
+    elif just(s, "with"):
         s.next()
         return p_with_items(s, is_async=True)
     else:
@@ -448,7 +451,7 @@ def p_power(s):
     if s.systring == 'new' and can_be_ident(s.peek()[0]):
         return p_new_expr(s)
     await_pos = None
-    if s.sy == 'await':
+    if just(s, "await"):
         await_pos = s.position()
         s.next()
     n1 = p_atom(s)
@@ -538,7 +541,7 @@ def p_call_parse_args(s, allow_genexp=True):
             break
         s.next()
 
-    if s.sy in ('for', 'async'):
+    if just(s, ("for", "async")):
         if not keyword_args and not last_was_tuple_unpack:
             if len(positional_args) == 1 and len(positional_args[0]) == 1:
                 positional_args = [[p_genexp(s, positional_args[0][0])]]
@@ -697,7 +700,7 @@ def p_atom(s):
         s.next()
         if s.sy == ')':
             result = ExprNodes.TupleNode(pos, args = [])
-        elif s.sy == 'yield':
+        elif just(s, "yield"):
             result = p_yield_expression(s)
         else:
             result = p_testlist_comp(s)
@@ -1285,7 +1288,7 @@ def p_list_maker(s):
         return ExprNodes.ListNode(pos, args=[])
 
     expr = p_namedexpr_test_or_starred_expr(s)
-    if s.sy in ('for', 'async'):
+    if just(s, ("for", "async")):
         if expr.is_starred:
             s.error("iterable unpacking cannot be used in comprehension")
         append = ExprNodes.ComprehensionAppendNode(pos, expr=expr)
@@ -1307,9 +1310,9 @@ def p_list_maker(s):
 
 
 def p_comp_iter(s, body):
-    if s.sy in ('for', 'async'):
+    if just(s, ("for", "async")):
         return p_comp_for(s, body)
-    elif s.sy == 'if':
+    elif just(s, "if"):
         return p_comp_if(s, body)
     else:
         # insert the 'append' operation into the loop
@@ -1399,7 +1402,7 @@ def p_dict_or_set_maker(s):
         else:
             break
 
-    if s.sy in ('for', 'async'):
+    if just(s, ("for", "async")):
         # dict/set comprehension
         if len(parts) == 1 and isinstance(parts[0], list) and len(parts[0]) == 1:
             item = parts[0][0]
@@ -1592,7 +1595,7 @@ def p_expression_or_assignment(s):
     expr_list = [expr]
     while s.sy == '=':
         s.next()
-        if s.sy == 'yield':
+        if just(s, "yield"):
             expr = p_yield_expression(s)
         else:
             expr = p_testlist_star_expr(s)
@@ -1610,7 +1613,7 @@ def p_expression_or_assignment(s):
                 error(lhs.pos, "Illegal operand for inplace operation.")
             operator = s.sy[:-1]
             s.next()
-            if s.sy == 'yield':
+            if just(s, "yield"):
                 rhs = p_yield_expression(s)
             else:
                 rhs = p_testlist(s)
@@ -1669,7 +1672,7 @@ def p_exec_statement(s):
     else:
         tuple_variant = False
         args = [code]
-    if s.sy == 'in':
+    if just(s, "in"):
         if tuple_variant:
             s.error("tuple variant of exec does not support additional 'in' arguments",
                     fatal=False)
@@ -1733,7 +1736,7 @@ def p_raise_statement(s):
             if s.sy == ',':
                 s.next()
                 exc_tb = p_test(s)
-        elif s.sy == 'from':
+        elif just(s, "from"):
             s.next()
             cause = p_test(s)
     if exc_type or exc_value or exc_tb:
@@ -1790,14 +1793,14 @@ def p_from_import_statement(s, first_statement = 0):
             s.next()
     else:
         level = None
-    if level is not None and s.sy in ('import', 'cimport'):
+    if level is not None and just(s, ("use", "import", "cimport")):
         # we are dealing with "from .. import foo, bar"
         dotted_name_pos, dotted_name = s.position(), s.context.intern_ustring('')
     else:
         if level is None and Future.absolute_import in s.context.future_directives:
             level = 0
         (dotted_name_pos, _, dotted_name, _) = p_dotted_name(s, as_allowed=False)
-    if s.sy not in ('import', 'cimport'):
+    if not just(s, ("use", "import", "cimport")):
         s.error("Expected 'import' or 'cimport'")
     kind = s.sy
     s.next()
@@ -1908,7 +1911,7 @@ def p_if_statement(s):
     pos = s.position()
     s.next()
     if_clauses = [p_if_clause(s)]
-    while s.sy == 'elif':
+    while just(s, "elif"):
         s.next()
         if_clauses.append(p_if_clause(s))
     else_clause = p_else_clause(s)
@@ -1923,7 +1926,7 @@ def p_if_clause(s):
         condition = test, body = body)
 
 def p_else_clause(s):
-    if s.sy == 'else':
+    if just(s, "else"):
         s.next()
         return p_suite(s)
     else:
@@ -1954,12 +1957,12 @@ def p_for_statement(s, is_async=False):
 
 def p_for_bounds(s, allow_testlist=True, is_async=False):
     target = p_for_target(s)
-    if s.sy == 'in':
+    if just(s, "in"):
         s.next()
         iterator = p_for_iterator(s, allow_testlist, is_async=is_async)
         return dict(target=target, iterator=iterator)
     elif not s.in_python_file and not is_async:
-        if s.sy == 'from':
+        if just(s, "from"):
             s.next()
             bound1 = p_bit_expr(s)
         else:
@@ -2050,19 +2053,19 @@ def p_try_statement(s):
     body = p_suite(s)
     except_clauses = []
     else_clause = None
-    if s.sy in ('except', 'else'):
-        while s.sy == 'except':
+    if just(s, ("except", "else")):
+        while just(s, "except"):
             except_clauses.append(p_except_clause(s))
-        if s.sy == 'else':
+        if just(s, "else"):
             s.next()
             else_clause = p_suite(s)
         body = Nodes.TryExceptStatNode(pos,
             body = body, except_clauses = except_clauses,
             else_clause = else_clause)
-        if s.sy != 'finally':
+        if not just(s, "finally"):
             return body
         # try-except-finally is equivalent to nested try-except/try-finally
-    if s.sy == 'finally':
+    if just(s, "finally"):
         s.next()
         finally_clause = p_suite(s)
         return Nodes.TryFinallyStatNode(pos,
