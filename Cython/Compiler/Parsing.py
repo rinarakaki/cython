@@ -64,7 +64,7 @@ class Ctx(object):
 
 
 def just(s, word):
-    if isinstance(word, string):
+    if isinstance(word, str):
         return s.systring == word
     else:
         return s.systring in word
