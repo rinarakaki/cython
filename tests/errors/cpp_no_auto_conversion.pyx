@@ -19,5 +19,5 @@ cdef i128 e = constructor_overload(17)
  
 
 _ERRORS = u"""
-18:40: Cannot assign type 'long' to 'const wrapped_int'
+18:35: Cannot assign type 'long' to 'const wrapped_int'
 """
