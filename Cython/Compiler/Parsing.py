@@ -2460,7 +2460,7 @@ def p_statement(s, ctx, first_statement = 0):
                         return p_async_statement(s, ctx, decorators)
                     elif decorators:
                         s.error("Decorators can only be followed by functions or classes")
-                    s.put_back(s.sy, ident_name, ident_pos)  # re-insert original token
+                    s.put_back(u'IDENT', ident_name, ident_pos)  # re-insert original token
                 return p_simple_statement_list(s, ctx, first_statement=first_statement)
 
 
