@@ -8,7 +8,7 @@ cdef extern from "nogil.h":
         int *e2() nogil
 
 cdef void f(int x) nogil:
-        cdef int y
+        cdef i32 y
         y = 42
 
 cdef void h(object x) nogil:
