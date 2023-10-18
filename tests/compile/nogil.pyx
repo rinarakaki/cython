@@ -5,9 +5,9 @@ cdef extern void g2(object x) nogil
 
 cdef extern from "nogil.h":
         void e1() nogil
-        int *e2() nogil
+        i32 *e2() nogil
 
-cdef void f(int x) nogil:
+cdef void f(i32 x) nogil:
         cdef i32 y
         y = 42
 
