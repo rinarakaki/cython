@@ -10,7 +10,7 @@ cdef extern from "stdlib.h":
     volatile void* malloc(size_t)
 
 cdef volatile i64* test(volatile size_t s):
-    cdef volatile i64* arr = <i64*><volatile long*>malloc(s)
+    cdef volatile i64* arr = <i64*><volatile i64*>malloc(s)
     return arr
 
 
