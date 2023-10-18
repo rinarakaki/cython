@@ -3,7 +3,7 @@ from dishes cimport SpamDish
 
 cdef void prepare(SpamDish *d):
     d.oz_of_spam = 42
-    d.filler = dishes.sausage
+    d.filler = dishes.Sausage
 
 def serve():
     cdef SpamDish d
