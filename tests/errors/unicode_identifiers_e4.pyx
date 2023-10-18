@@ -9,5 +9,5 @@ cdef class C:
 
 _ERRORS = u"""
 7:13: Previous declaration is here
-8:16: 'ṩomething' redeclared
+8:13: 'ṩomething' redeclared
 """
