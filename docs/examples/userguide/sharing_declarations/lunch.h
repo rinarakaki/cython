@@ -1,1 +1,1 @@
-void eject_tomato(f32 speed);
+void eject_tomato(float speed);
