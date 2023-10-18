@@ -2833,7 +2833,7 @@ def looking_at_expr(s):
 
         dotted_path.reverse()
         for p in dotted_path:
-            s.put_back(u'IDENT', *p)
+            s.put_back(s.sy, *p)
             s.put_back(u'.', u'.', p[1])  # gets the position slightly wrong
 
         s.put_back(s.sy, name, name_pos)
@@ -2843,7 +2843,7 @@ def looking_at_expr(s):
 
 def looking_at_base_type(s):
     #print "looking_at_base_type?", s.sy, s.systring, s.position()
-    return s.sy == 'IDENT' and s.systring in base_type_start_words
+    return just(s, base_type_start_words)
 
 def looking_at_dotted_name(s):
     if can_be_ident(s.sy):
@@ -2857,8 +2857,8 @@ def looking_at_dotted_name(s):
         return 0
 
 builtin_type_names = cython.declare(frozenset, frozenset((
-    "i8", "i16", "i32", "i64",
-    "u8", "u16", "u32", "u64",
+    "i8", "i16", "i32", "i64", "i128",
+    "u8", "u16", "u32", "u64", "u128",
     "f32", "f64",
     "isize", "usize")))
 
@@ -2893,7 +2893,7 @@ struct_enum_union = cython.declare(frozenset, frozenset((
 def p_sign_and_longness(s):
     signed = 1
     longness = 0
-    while s.sy == 'IDENT' and s.systring in sign_and_longness_words:
+    while just(s, sign_and_longness_words):
         if s.systring == 'unsigned':
             signed = 0
         elif s.systring == 'signed':
@@ -3072,14 +3072,14 @@ def p_c_simple_declarator(s, ctx, empty, is_type, cmethod_flag,
     return result
 
 def p_nogil(s):
-    if s.sy == 'IDENT' and s.systring == 'nogil':
+    if just(s, "nogil"):
         s.next()
         return 1
     else:
         return 0
 
 def p_with_gil(s):
-    if s.sy == 'with':
+    if just(s, "with"):
         s.next()
         s.expect_keyword('gil')
         return 1
@@ -3115,11 +3115,11 @@ def p_exception_value_clause(s, is_extern):
     exc_val = None
     exc_check = False if is_extern else True
 
-    if s.sy == 'IDENT' and s.systring == 'noexcept':
+    if just(s, "noexcept"):
         exc_clause = True
         s.next()
         exc_check = False
-    elif s.sy == 'except':
+    elif just(s, "except"):
         exc_clause = True
         s.next()
         if s.sy == '*':
@@ -3197,10 +3197,10 @@ def p_c_arg_decl(s, ctx, in_pyfunc, cmethod_flag = 0, nonempty = 0,
     else:
         base_type = p_c_base_type(s, nonempty=nonempty)
     declarator = p_c_declarator(s, ctx, nonempty = nonempty)
-    if s.sy in ('not', 'or') and not s.in_python_file:
+    if just(s, ("not", "or")) and not s.in_python_file:
         kind = s.sy
         s.next()
-        if s.sy == 'IDENT' and s.systring == 'None':
+        if just(s, "None"):
             s.next()
         else:
             s.error("Expected 'None'")
@@ -3234,7 +3234,7 @@ def p_c_arg_decl(s, ctx, in_pyfunc, cmethod_flag = 0, nonempty = 0,
         kw_only = kw_only)
 
 def p_api(s):
-    if s.sy == 'IDENT' and s.systring == 'api':
+    if just(s, "api"):
         s.next()
         return 1
     else:
@@ -3247,9 +3247,9 @@ def p_cdef_statement(s, ctx):
     if ctx.api:
         if ctx.visibility not in ('private', 'pub', 'public'):
             error(pos, "Cannot combine 'api' with '%s'" % ctx.visibility)
-    if (ctx.visibility == 'extern') and s.sy == 'from':
+    if (ctx.visibility == 'extern') and just(s, "from"):
         return p_cdef_extern_block(s, pos, ctx)
-    elif s.sy == 'import':
+    elif just(s, "import"):
         s.next()
         return p_cdef_extern_block(s, pos, ctx)
     elif p_nogil(s):
@@ -3261,13 +3261,13 @@ def p_cdef_statement(s, ctx):
         if ctx.overridable:
             error(pos, "cdef blocks cannot be declared cpdef")
         return p_cdef_block(s, ctx)
-    elif s.sy == 'class':
+    elif just(s, "class"):
         if ctx.level not in ('module', 'module_pxd'):
             error(pos, "Extension type definition not allowed here")
         if ctx.overridable:
             error(pos, "Extension types cannot be declared cpdef")
         return p_c_class_definition(s, pos, ctx)
-    elif s.sy == 'IDENT' and s.systring == 'cppclass':
+    elif just(s, "cppclass"):
         return p_cpp_class_definition(s, pos, ctx)
     elif s.sy in struct_enum_union or s.sy == 'IDENT' and s.systring in struct_enum_union:
         if ctx.level not in ('module', 'module_pxd'):
@@ -3372,7 +3372,7 @@ def p_c_enum_definition(s, pos, ctx):
         api=ctx.api, in_pxd=ctx.level == 'module_pxd', doc=doc)
 
 def p_c_enum_line(s, ctx, items):
-    if s.sy != 'pass':
+    if not just(s, "pass"):
         p_c_enum_item(s, ctx, items)
         while s.sy == ',':
             s.next()
@@ -3398,10 +3398,10 @@ def p_c_enum_item(s, ctx, items):
 
 def p_c_struct_or_union_definition(s, pos, ctx):
     packed = False
-    if s.systring == 'packed':
+    if just(s, "packed"):
         packed = True
         s.next()
-        if s.sy != 'struct':
+        if not just(s, "struct"):
             s.expected('struct')
     # s.sy == ident 'struct' or 'union'
     kind = s.systring
@@ -3414,7 +3414,7 @@ def p_c_struct_or_union_definition(s, pos, ctx):
     if s.sy == ':':
         s.next()
         attributes = []
-        if s.sy == 'pass':
+        if just(s, "pass"):
             s.next()
             s.expect_newline("Expected a newline", ignore_semicolon=True)
         else:
@@ -3422,7 +3422,7 @@ def p_c_struct_or_union_definition(s, pos, ctx):
             s.expect_indent()
             body_ctx = Ctx(visibility=ctx.visibility)
             while s.sy != 'DEDENT':
-                if s.sy != 'pass':
+                if not just(s, "pass"):
                     attributes.append(
                         p_c_func_or_var_declaration(s, s.position(), body_ctx))
                 else:
@@ -3459,7 +3459,7 @@ def p_fused_definition(s, pos, ctx):
 
     types = []
     while s.sy != 'DEDENT':
-        if s.sy != 'pass':
+        if not just(s, "pass"):
             #types.append(p_c_declarator(s))
             types.append(p_c_base_type(s))  #, nonempty=1))
         else:
@@ -3475,7 +3475,7 @@ def p_fused_definition(s, pos, ctx):
     return Nodes.FusedTypeNode(pos, name=name, types=types)
 
 def p_struct_enum(s, pos, ctx):
-    if s.systring == 'enum':
+    if just(s, "enum"):
         return p_c_enum_definition(s, pos, ctx)
     else:
         return p_c_struct_or_union_definition(s, pos, ctx)
@@ -3483,7 +3483,7 @@ def p_struct_enum(s, pos, ctx):
 def p_visibility(s, prev_visibility):
     pos = s.position()
     visibility = prev_visibility
-    if s.sy in ('extern', 'pub') or s.sy == 'IDENT' and s.systring in ('public', 'readonly'):
+    if just(s, ("pub", "extern")) or s.sy == 'IDENT' and s.systring in ('public', 'readonly'):
         visibility = s.systring
         if prev_visibility != 'private' and visibility != prev_visibility:
             s.error("Conflicting visibility options '%s' and '%s'"
@@ -3492,7 +3492,7 @@ def p_visibility(s, prev_visibility):
     return visibility
 
 def p_c_modifiers(s):
-    if s.sy == 'IDENT' and s.systring in ('inline',):
+    if just(s, ("inline",)):
         modifier = s.systring
         s.next()
         return [modifier] + p_c_modifiers(s)
@@ -3505,7 +3505,7 @@ def p_c_func_or_var_declaration(s, pos, ctx):
     declarator = p_c_declarator(s, ctx(modifiers=modifiers), cmethod_flag = cmethod_flag,
                                 assignable = 1, nonempty = 1)
     declarator.overridable = ctx.overridable
-    if s.sy == 'const' and ctx.level == 'cpp_class':
+    if just(s, "const") and ctx.level == 'cpp_class':
         s.next()
         is_const_method = 1
     else:
@@ -3571,11 +3571,11 @@ def p_ctypedef_statement(s, ctx):
     ctx = ctx(typedef_flag = 1, visibility = visibility)
     if api:
         ctx.api = 1
-    if s.sy == 'class':
+    if just(s, "class"):
         return p_c_class_definition(s, pos, ctx)
-    elif s.sy in struct_enum_union or s.sy == 'IDENT' and s.systring in struct_enum_union:
+    elif just(s, struct_enum_union) or s.sy == 'IDENT' and s.systring in struct_enum_union:
         return p_struct_enum(s, pos, ctx)
-    elif s.sy == 'IDENT' and s.systring == 'fused':
+    elif just(s, "fused"):
         return p_fused_definition(s, pos, ctx)
     else:
         base_type = p_c_base_type(s, nonempty = 1)
@@ -3793,10 +3793,10 @@ def p_c_class_options(s):
     while 1:
         if not can_be_ident(s.sy):
             break
-        if s.systring == 'object':
+        if just(s, "object"):
             s.next()
             objstruct_name = p_ident(s)
-        elif s.systring == 'type':
+        elif just(s, "type"):
             s.next()
             typeobj_name = p_ident(s)
         elif s.systring == 'check_size':
@@ -4034,11 +4034,11 @@ def p_cpp_class_attribute(s, ctx):
     decorators = None
     if s.sy == '@':
         decorators = p_decorators(s)
-    if s.systring == 'cppclass':
+    if just(s, "cppclass"):
         return p_cpp_class_definition(s, s.position(), ctx)
-    elif s.systring == 'ctypedef':
+    elif just(s, "ctypedef"):
         return p_ctypedef_statement(s, ctx)
-    elif s.sy == 'IDENT' and s.systring in struct_enum_union:
+    elif just(s, struct_enum_union):
         if s.systring != 'enum':
             return p_cpp_class_definition(s, s.position(), ctx)
         else:
