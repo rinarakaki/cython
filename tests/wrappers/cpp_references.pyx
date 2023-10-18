@@ -2,14 +2,12 @@
 
 cimport cython
 
-
 cdef extern from "cpp_references_helper.h":
     cdef i32& ref_func(i32&)
     cdef i32& except_ref_func "ref_func" (i32&) except +
 
     cdef i32 ref_var_value
     cdef i32& ref_var
-
 
 def test_ref_func(i32 x):
     """
