@@ -4,14 +4,14 @@ cimport cython
 
 
 cdef extern from "cpp_references_helper.h":
-    cdef int& ref_func(int&)
-    cdef int& except_ref_func "ref_func" (int&) except +
+    cdef i32& ref_func(i32&)
+    cdef i32& except_ref_func "ref_func" (i32&) except +
 
-    cdef int ref_var_value
-    cdef int& ref_var
+    cdef i32 ref_var_value
+    cdef i32& ref_var
 
 
-def test_ref_func(int x):
+def test_ref_func(i32 x):
     """
     >>> test_ref_func(2)
     2
@@ -20,27 +20,27 @@ def test_ref_func(int x):
     """
     return ref_func(x)
 
-def test_ref_func_address(int x):
+def test_ref_func_address(i32 x):
     """
     >>> test_ref_func_address(5)
     5
     >>> test_ref_func_address(7)
     7
     """
-    cdef int* i_ptr = &ref_func(x)
+    cdef i32* i_ptr = &ref_func(x)
     return i_ptr[0]
 
-def test_except_ref_func_address(int x):
+def test_except_ref_func_address(i32 x):
     """
     >>> test_except_ref_func_address(5)
     5
     >>> test_except_ref_func_address(7)
     7
     """
-    cdef int* i_ptr = &except_ref_func(x)
+    cdef i32* i_ptr = &except_ref_func(x)
     return i_ptr[0]
 
-def test_ref_var(int x):
+def test_ref_var(i32 x):
     """
     >>> test_ref_func(11)
     11
@@ -50,7 +50,7 @@ def test_ref_var(int x):
     ref_var = x
     return ref_var_value
 
-def test_ref_assign(int x):
+def test_ref_assign(i32 x):
     """
     >>> test_ref_assign(17)
     17.0
@@ -61,7 +61,7 @@ def test_ref_assign(int x):
     return d
 
 @cython.infer_types(True)
-def test_ref_inference(int x):
+def test_ref_inference(i32 x):
     """
     >>> test_ref_inference(23)
     23
