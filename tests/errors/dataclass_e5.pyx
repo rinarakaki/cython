@@ -8,7 +8,7 @@ cdef class C:
     a: int
     b: long
     c: Py_ssize_t
-    d: f32
+    d: double
     e: double
 
 
