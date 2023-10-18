@@ -2184,7 +2184,7 @@ def p_with_item(s, is_async):
     # This is because GILStatNode does a reasonable amount of initialization in its
     # constructor, and requires "body" to be set, which we don't currently have
     pos = s.position()
-    if not s.in_python_file and s.sy == 'IDENT' and s.systring in ('nogil', 'gil'):
+    if not s.in_python_file and just(s, ("nogil", "gil")):
         if is_async:
             s.error("with gil/nogil cannot be async")
         state = s.systring
@@ -2233,7 +2233,7 @@ def p_with_template(s):
 
 def p_simple_statement(s, first_statement = 0):
     #print "p_simple_statement:", s.sy, s.systring ###
-    if s.sy == 'global':
+    if just(s, "global"):
         node = p_global_statement(s)
     elif s.sy == 'nonlocal':
         node = p_nonlocal_statement(s)
@@ -2251,7 +2251,7 @@ def p_simple_statement(s, first_statement = 0):
         node = p_return_statement(s)
     elif s.sy == 'raise':
         node = p_raise_statement(s)
-    elif s.sy in ('import', 'cimport'):
+    elif just(s, ("use", "import", "cimport")):
         node = p_import_statement(s)
     elif s.sy == 'from':
         node = p_from_import_statement(s, first_statement = first_statement)
@@ -2351,7 +2351,7 @@ def p_IF_statement(s, ctx):
 def p_statement(s, ctx, first_statement = 0):
     cdef_flag = ctx.cdef_flag
     decorators = None
-    if s.sy == 'ctypedef':
+    if just(s, "ctypedef"):
         if ctx.level not in ('module', 'module_pxd'):
             s.error("ctypedef statement not allowed here")
         #if ctx.api:
@@ -2386,10 +2386,10 @@ def p_statement(s, ctx, first_statement = 0):
         return p_pass_statement(s, with_newline=1)
 
     overridable = 0
-    if s.sy == 'cdef':
+    if just(s, "cdef"):
         cdef_flag = 1
         s.next()
-    elif s.sy == 'cpdef':
+    elif just(s, "cpdef"):
         cdef_flag = 1
         overridable = 1
         s.next()
@@ -2412,18 +2412,18 @@ def p_statement(s, ctx, first_statement = 0):
         # elif s.sy in ('fn', 'enum', 'struct', 'let', 'trait', 'union', 'type', 'extern', 'pub', 'use'):     
         #     s.level = ctx.level
         #     return p_cdef_statement(s, ctx(overridable=overridable))
-        elif s.sy == 'def':
+        elif just(s, "def"):
             # def statements aren't allowed in pxd files, except
             # as part of a cdef class
             if ('pxd' in ctx.level) and (ctx.level != 'c_class_pxd'):
                 s.error('def statement not allowed here')
             s.level = ctx.level
             return p_def_statement(s, decorators)
-        elif s.sy == 'class':
+        elif just(s, "class"):
             if ctx.level not in ('module', 'function', 'class', 'other'):
                 s.error("class definition not allowed here")
             return p_class_statement(s, decorators)
-        elif s.sy == 'include':
+        elif just(s, "include"):
             if ctx.level not in ('module', 'module_pxd'):
                 s.error("include statement not allowed here")
             return p_include_statement(s, ctx)
@@ -2456,7 +2456,7 @@ def p_statement(s, ctx, first_statement = 0):
                     ident_pos = s.position()
                     # PEP 492 enables the async/await keywords when it spots "async def ..."
                     s.next()
-                    if s.sy == 'def':
+                    if just(s, "def"):
                         return p_async_statement(s, ctx, decorators)
                     elif decorators:
                         s.error("Decorators can only be followed by functions or classes")
@@ -2572,7 +2572,7 @@ def p_c_base_type(s, nonempty=False, templates=None):
         return p_c_simple_base_type(s, nonempty=nonempty, templates=templates)
 
 def p_calling_convention(s):
-    if s.sy == 'IDENT' and s.systring in calling_convention_words:
+    if just(s, calling_convention_words):
         result = s.systring
         s.next()
         return result
@@ -2624,10 +2624,10 @@ def p_c_simple_base_type(s, nonempty, templates=None):
     # Handle const/volatile
     is_const = is_volatile = 0
     while can_be_ident(s.sy):
-        if s.systring == 'const':
+        if just(s, "const"):
             if is_const: error(pos, "Duplicate 'const'")
             is_const = 1
-        elif s.systring == 'volatile':
+        elif just(s, "volatile"):
             if is_volatile: error(pos, "Duplicate 'volatile'")
             is_volatile = 1
         else:
@@ -2648,12 +2648,12 @@ def p_c_simple_base_type(s, nonempty, templates=None):
     if looking_at_base_type(s):
         #print "p_c_simple_base_type: looking_at_base_type at", s.position()
         is_basic = 1
-        if s.sy == 'IDENT' and s.systring in special_basic_c_types:
-            signed, longness = special_basic_c_types[s.systring]
+        if just(s, builtin_type_names):
+            signed, longness = None, None
             name = s.systring
             s.next()
-        elif s.sy == 'IDENT' and s.systring in builtin_type_names:
-            signed, longness = None, None
+        elif just(s, special_basic_c_types):
+            signed, longness = special_basic_c_types[s.systring]
             name = s.systring
             s.next()
         else:
@@ -2684,14 +2684,14 @@ def p_c_simple_base_type(s, nonempty, templates=None):
                 old_pos = s.position()
                 s.next()
                 if (s.sy == '*' or s.sy == '**' or s.sy == '&'
-                        or (s.sy == 'IDENT' and s.systring in calling_convention_words)):
+                        or just(s, calling_convention_words)):
                     s.put_back(u'(', u'(', old_pos)
                 else:
                     s.put_back(u'(', u'(', old_pos)
-                    s.put_back(u'IDENT', name, name_pos)
+                    s.put_back(s.sy, name, name_pos)
                     name = None
             elif s.sy not in ('*', '**', '[', '&'):
-                s.put_back(u'IDENT', name, name_pos)
+                s.put_back(s.sy, name, name_pos)
                 name = None
 
     type_node = Nodes.CSimpleBaseTypeNode(pos,
@@ -2798,7 +2798,7 @@ def p_memoryviewslice_access(s, base_type_node):
     return result
 
 def looking_at_name(s):
-    return s.sy == 'IDENT' and s.systring not in calling_convention_words
+    return can_be_ident(s.sy) and s.systring not in calling_convention_words
 
 def looking_at_expr(s):
     if s.systring in base_type_start_words:
