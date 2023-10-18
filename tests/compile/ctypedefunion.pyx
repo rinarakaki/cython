@@ -1,7 +1,7 @@
 # mode: compile
 
 ctypedef union pet:
-    int cat
+    i32 cat
     f32 dog
 
 cdef pet sam
