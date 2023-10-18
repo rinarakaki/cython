@@ -1,5 +1,5 @@
 cdef struct Sandwich:
-	int i
+	i32 i
 	i8 *s
 
 cdef class Tomato:
