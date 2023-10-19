@@ -22,12 +22,12 @@ floating = cython.fused_type(float, double)
 cdef func(floating x, int2_t y):
     print x, y
 
-cdef float x = 10.0
-cdef int y = 10
-func[float](x, y)
-func[float][int](x, y)
-func[float, int](x)
-func[float, int](x, y, y)
+cdef f32 x = 10.0
+cdef i32 y = 10
+func[f32](x, y)
+func[f32][i32](x, y)
+func[f32, i32](x)
+func[f32, i32](x, y, y)
 func(x, y=y)
 
 ctypedef fused memslice_dtype_t:
@@ -39,7 +39,6 @@ def f(memslice_dtype_t[:, :] a):
 
 lambda cython.integral i: i
 
-
 cdef cython.floating x
 
 cdef class Foo(object):
@@ -49,30 +48,28 @@ def outer(cython.floating f):
     def inner():
         cdef cython.floating g
 
-
 # Mixing const and non-const type makes fused type ambiguous
 cdef fused mix_const_t:
-    int
-    const int
+    i32
+    const i32
 
 cdef cdef_func_with_mix_const_type(mix_const_t val):
     print(val)
 
 cdef_func_with_mix_const_type(1)
 
-
 # This is all valid
 dtype5 = fused_type(int, long, float)
 dtype6 = cython.fused_type(int, long)
-func[float, int](x, y)
+func[f32, i32](x, y)
 
 cdef fused fused1:
-    int
-    long long
+    i32
+    i128
 
 ctypedef fused fused2:
-    int
-    long long
+    i32
+    i128
 
 func(x, y)
 
@@ -86,7 +83,7 @@ cdef void contents_unfindable1(cython.integral x):
     z: floating = 1  # note: cdef variables also fail with an error but not by the time this test aborts
     sz = sizeof(floating)
 
-
+    
 _ERRORS = u"""
 11:15: fused_type does not take keyword arguments
 16:33: Type specified multiple times
