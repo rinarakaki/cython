@@ -8,16 +8,16 @@ from cython import fused_type
 # ctypedef foo(int) dtype1
 # ctypedef foo.bar(float) dtype2
 # ctypedef fused_type(foo) dtype3
-dtype4 = cython.fused_type(int, long, kw=None)
+dtype4 = cython.fused_type(i32, i64, kw=None)
 
 # ctypedef public cython.fused_type(int, long) dtype7
 # ctypedef api cython.fused_type(int, long) dtype8
 
-int_t = cython.fused_type(short, short, int)
-int2_t = cython.fused_type(int, long)
-dtype9 = cython.fused_type(int2_t, int)
+int_t = cython.fused_type(i16, i16, i32)
+int2_t = cython.fused_type(i32, i64)
+dtype9 = cython.fused_type(int2_t, i32)
 
-floating = cython.fused_type(float, double)
+floating = cython.fused_type(f32, f64)
 
 cdef func(floating x, int2_t y):
     print x, y
