@@ -3,9 +3,9 @@ import numpy as np
 cimport cython
 
 ctypedef fused my_type:
-    int
-    double
-    long long
+    i32
+    f64
+    i128
 
 cdef my_type clip(my_type a, my_type min_value, my_type max_value):
     return min(max(a, min_value), max_value)
@@ -18,9 +18,9 @@ def compute(my_type[:, ::1] array_1, my_type[:, ::1] array_2, my_type a, my_type
 
     assert tuple(array_1.shape) == tuple(array_2.shape)
 
-    if my_type is int:
+    if my_type is i32:
         dtype = np.intc
-    elif my_type is double:
+    elif my_type is f64:
         dtype = np.double
     elif my_type is cython.longlong:
         dtype = np.longlong
