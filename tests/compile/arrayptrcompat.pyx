@@ -8,7 +8,7 @@ cdef void f():
     cdef void *v
     cdef i32[5] a
     cdef i32 i = 0
-    cdef E e=Z
+    cdef E e = Z
     p = a
     v = a
     p = a + i
