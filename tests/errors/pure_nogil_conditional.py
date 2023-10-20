@@ -72,10 +72,10 @@ _ERRORS = u"""
 23:23: Coercion from Python not allowed without the GIL
 23:23: Constructing Python tuple not allowed without gil
 23:24: Converting to Python object not allowed without gil
-35:24: Non-constant condition in a `with nogil(<condition>)` statement
-42:8: Assignment of Python object not allowed without gil
-42:16: Calling gil-requiring function not allowed without gil
-52:9: Compiler directive nogil accepts one positional argument.
-57:9: Compiler directive nogil accepts one positional argument.
-61:0: The gil compiler directive is not allowed in function scope
+33:24: Non-constant condition in a `with nogil(<condition>)` statement
+40:8: Assignment of Python object not allowed without gil
+40:16: Calling gil-requiring function not allowed without gil
+50:9: Compiler directive nogil accepts one positional argument.
+55:9: Compiler directive nogil accepts one positional argument.
+59:0: The gil compiler directive is not allowed in function scope
 """
