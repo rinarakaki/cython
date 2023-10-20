@@ -74,7 +74,7 @@ _ERRORS = u'''
 14:8: Fortran contiguous specifier must follow an indirect dimension
 15:22: Invalid axis specification.
 16:19: Invalid axis specification.
-17:22: no expressions allowed in axis spec, only names and literals.
+17:19: no expressions allowed in axis spec, only names and literals.
 20:37: Memoryview 'object[::1, :]' not conformable to memoryview 'object[:, ::1]'.
 23:17: Different base types for memoryviews (int, Python object)
 26:8: Dimension may not be contiguous
