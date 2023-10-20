@@ -6,4 +6,4 @@
 ctypedef fused cinteger:
     i32
     i64
-    Py_ssize_t
+    isize

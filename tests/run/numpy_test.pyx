@@ -125,7 +125,7 @@ def print_long_2d(np.ndarray[i64, ndim=2] arr):
     3 8
     4 9
     """
-    cdef int i, j
+    cdef i32 i, j
     for i in range(arr.shape[0]):
         print u" ".join([unicode(arr[i, j]) for j in range(arr.shape[1])])
 
@@ -196,7 +196,7 @@ def test_f_contig(np.ndarray[i32, ndim=2, mode='fortran'] arr):
        ...
     ValueError: ndarray is not Fortran contiguous
     """
-    cdef int i, j
+    cdef i32 i, j
     for i in range(arr.shape[0]):
         print u" ".join([unicode(arr[i, j]) for j in range(arr.shape[1])])
 

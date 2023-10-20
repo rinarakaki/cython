@@ -5312,7 +5312,7 @@ def parse_basic_type(name):
     if base:
         return CPtrType(base)
     #
-    basic_type = simple_c_type(1, 0, name)
+    basic_type = simple_c_type(None, None, name) or simple_c_type(1, 0, name)
     if basic_type:
         return basic_type
     #
