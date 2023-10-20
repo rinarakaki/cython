@@ -169,7 +169,7 @@ def binomial_distribution_test(n, proba, sample=True):
     >>> binomial_distribution_test(75, 0.3, False)
     (0, 75)
     """
-    cdef binomial_distribution[i32] dist = binomial_distribution[int](n, proba)
+    cdef binomial_distribution[i32] dist = binomial_distribution[i32](n, proba)
     return sample_or_range[binomial_distribution[i32]](dist, sample)
 
 def geometric_distribution_test(proba, sample=True):
@@ -178,8 +178,8 @@ def geometric_distribution_test(proba, sample=True):
     >>> geometric_distribution_test(0.2, False)  # 2147483647 = 2 ** 32 - 1
     (0, 2147483647)
     """
-    cdef geometric_distribution[i32] dist = geometric_distribution[int](proba)
-    return sample_or_range[geometric_distribution[int]](dist, sample)
+    cdef geometric_distribution[i32] dist = geometric_distribution[i32](proba)
+    return sample_or_range[geometric_distribution[i32]](dist, sample)
 
 def negative_binomial_distribution_test(n, p, sample=True):
     """
@@ -187,8 +187,8 @@ def negative_binomial_distribution_test(n, p, sample=True):
     >>> negative_binomial_distribution_test(10, 0.2, False)  # 2147483647 = 2 ** 32 - 1
     (0, 2147483647)
     """
-    cdef negative_binomial_distribution[i32] dist = negative_binomial_distribution[int](n, p)
-    return sample_or_range[negative_binomial_distribution[int]](dist, sample)
+    cdef negative_binomial_distribution[i32] dist = negative_binomial_distribution[i32](n, p)
+    return sample_or_range[negative_binomial_distribution[i32]](dist, sample)
 
 def poisson_distribution_test(rate, sample=True):
     """
@@ -196,7 +196,7 @@ def poisson_distribution_test(rate, sample=True):
     >>> poisson_distribution_test(7, False)  # 2147483647 = 2 ** 32 - 1
     (0, 2147483647)
     """
-    cdef poisson_distribution[int] dist = poisson_distribution[i32](rate)
+    cdef poisson_distribution[i32] dist = poisson_distribution[i32](rate)
     return sample_or_range[poisson_distribution[i32]](dist, sample)
 
 def exponential_distribution_test(rate, sample=True):
