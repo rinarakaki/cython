@@ -180,7 +180,7 @@ def test_composed_types():
     spam eggs
     spam
     """
-    cdef f64 complex a = 0.5 + 0.6j, b = 0.4 -0.2j, result
+    cdef double complex a = 0.5 + 0.6j, b = 0.4 -0.2j, result
     cdef i32 c = 7, d = 8
     cdef i32 *cp = &c, *dp = &d
     cdef string_t e = "spam", f = "eggs"
