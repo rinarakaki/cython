@@ -250,7 +250,7 @@ def basic_struct(MyStruct[:] mslice):
     [('a', 1), ('b', 2), ('c', 3), ('d', 4), ('e', 5)]
     """
     cdef object buf = mslice
-    print sorted([(k, i32(v)) for k, v in buf[0].items()])
+    print sorted([(k, int(v)) for k, v in buf[0].items()])
 
 def nested_struct(NestedStruct[:] mslice):
     """
