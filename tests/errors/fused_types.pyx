@@ -91,7 +91,7 @@ _ERRORS = u"""
 27:4: Not enough types specified to specialize the function, int2_t is still fused
 28:0: Invalid use of fused types, type cannot be specialized
 28:4: Not enough types specified to specialize the function, int2_t is still fused
-29:16: Call with wrong number of arguments (expected 2, got 1)
+29:14: Call with wrong number of arguments (expected 2, got 1)
 30:16: Call with wrong number of arguments (expected 2, got 3)
 37:6: Invalid base type for memoryview slice: int *
 40:0: Fused lambdas not allowed
