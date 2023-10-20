@@ -21,4 +21,4 @@ def func(fused_type1 a, fused_type2 b):
 cfunc[f64](5.0, 1.0)
 cpfunc[f32, f64](1.0, 2.0)
 # Indexing def function in Cython code requires string names
-func["float", "double"](1.0, 2.0)
+func["f32", "f64"](1.0, 2.0)
