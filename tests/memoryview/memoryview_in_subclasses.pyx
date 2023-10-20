@@ -6,7 +6,6 @@ import gc
 
 from cython.view cimport array
 
-
 def count_memoryviews():
     gc.collect()
     return sum([1 if 'memoryview' in str(type(o)) else 0
