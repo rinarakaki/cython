@@ -98,15 +98,15 @@ _ERRORS = u"""
 42:5: Fused types not allowed here
 42:21: cdef variable 'x' declared after it is used
 45:9: Fused types not allowed here
-60:0: Invalid use of fused types, type cannot be specialized
-60:29: ambiguous overloaded method
+59:0: Invalid use of fused types, type cannot be specialized
+59:29: ambiguous overloaded method
 # Possibly duplicates the errors more often than we want
-78:5: Return type is a fused type that cannot be determined from the function arguments
-81:6: Return type is a fused type that cannot be determined from the function arguments
-85:4: 'z' cannot be specialized since its type is not a fused argument to this function
-85:4: 'z' cannot be specialized since its type is not a fused argument to this function
-85:4: 'z' cannot be specialized since its type is not a fused argument to this function
-86:16: Type cannot be specialized since it is not a fused argument to this function
-86:16: Type cannot be specialized since it is not a fused argument to this function
-86:16: Type cannot be specialized since it is not a fused argument to this function
+77:5: Return type is a fused type that cannot be determined from the function arguments
+80:6: Return type is a fused type that cannot be determined from the function arguments
+84:4: 'z' cannot be specialized since its type is not a fused argument to this function
+84:4: 'z' cannot be specialized since its type is not a fused argument to this function
+84:4: 'z' cannot be specialized since its type is not a fused argument to this function
+85:16: Type cannot be specialized since it is not a fused argument to this function
+85:16: Type cannot be specialized since it is not a fused argument to this function
+85:16: Type cannot be specialized since it is not a fused argument to this function
 """
