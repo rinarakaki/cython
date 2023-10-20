@@ -6,12 +6,10 @@ cdef i32 f_nogil(i32 x) nogil:
     y = x + 10
     return y
 
-
 def f_gil(x):
     y = 0
     y = x + 100
     return y
-
 
 def illegal_gil_usage():
     cdef i32 res = 0
@@ -27,10 +25,8 @@ def illegal_gil_usage():
     with nogil(False):
         res = f_nogil(res)
 
-
 def foo(a):
     return a < 10
-
 
 def non_constant_condition(int x) -> i32:
     cdef i32 res = x
@@ -40,18 +36,16 @@ def non_constant_condition(int x) -> i32:
     with gil(foo(x)):
          res = f_gil(res)
 
-
 ctypedef fused number_or_object:
     f32
     object
-
 
 def fused_type(number_or_object x):
     with nogil(number_or_object is object):
         res = x + 1
 
     # This should be fine
-    with nogil(number_or_object is float):
+    with nogil(number_or_object is f32):
         res = x + 1
 
     return res
