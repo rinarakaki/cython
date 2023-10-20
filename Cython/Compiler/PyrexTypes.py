@@ -3399,9 +3399,6 @@ class CFuncType(CType):
         assert self.is_fused
 
         if self.entry.fused_cfunction:
-            if len(self.entry.fused_cfunction.nodes) == 0:
-                print("!!!!!!!!!!!!!!!!!!!!!!! [get_all_specialized_function_types] !!!!!!!!!!!!!!!!!!!!!!!")
-                print(self, self.entry, self.entry.fused_cfunction)
             return [n.type for n in self.entry.fused_cfunction.nodes]
         elif self.cached_specialized_types is not None:
             return self.cached_specialized_types
@@ -5032,9 +5029,6 @@ def best_match(arg_types, functions, pos=None, env=None, args=None):
         return candidates[0][0]
     elif len(candidates) == 0:
         if pos is not None:
-            if len(errors) == 0:
-                print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-                print(arg_types, functions, pos, env, args)
             func, errmsg = errors[0]
             if len(errors) == 1 or [1 for func, e in errors if e == errmsg]:
                 error(pos, errmsg)
