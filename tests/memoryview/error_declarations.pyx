@@ -71,7 +71,7 @@ _ERRORS = u'''
 11:10: Start must not be given.
 12:17: Start must not be given.
 13:12: Axis specification only allowed in the 'step' slot.
-14:18: Fortran contiguous specifier must follow an indirect dimension
+14:8: Fortran contiguous specifier must follow an indirect dimension
 15:22: Invalid axis specification.
 16:19: Invalid axis specification.
 17:22: no expressions allowed in axis spec, only names and literals.
