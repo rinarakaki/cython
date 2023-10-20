@@ -429,20 +429,29 @@ py_complex = typedef(complex, "double complex")
 # Predefined types
 
 int_types = [
+    'i8',
     'char',
+    'i16',
     'short',
     'Py_UNICODE',
+    'i32',
     'int',
     'Py_UCS4',
+    'i64',
     'long',
+    'i128',
     'longlong',
     'Py_hash_t',
+    'isize',
     'Py_ssize_t',
+    'usize',
     'size_t',
 ]
 float_types = [
     'longdouble',
+    'f32',
     'double',
+    'f64',
     'float',
 ]
 complex_types = [
