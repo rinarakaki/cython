@@ -397,7 +397,7 @@ def test_bad_cast():
     ValueError: Item size of buffer (1 byte) does not match size of 'int' (4 bytes)
     """
     # This should raise an exception
-    cdef np.ndarray[in32, cast=True] arr = np.array([1], dtype='b')
+    cdef np.ndarray[i32, cast=True] arr = np.array([1], dtype='b')
 
 cdef packed struct PackedStruct:
     i8 a
