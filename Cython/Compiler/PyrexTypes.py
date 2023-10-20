@@ -3398,9 +3398,10 @@ class CFuncType(CType):
         """
         assert self.is_fused
 
-        print("!!!!!!!!!!!!!!!!!!!!!!!")
-        print(self, self.entry, self.entry.fused_cfunction)
         if self.entry.fused_cfunction:
+            if len(self.entry.fused_cfunction.nodes) == 0:
+                print("!!!!!!!!!!!!!!!!!!!!!!! [get_all_specialized_function_types] !!!!!!!!!!!!!!!!!!!!!!!")
+                print(self, self.entry, self.entry.fused_cfunction)
             return [n.type for n in self.entry.fused_cfunction.nodes]
         elif self.cached_specialized_types is not None:
             return self.cached_specialized_types
