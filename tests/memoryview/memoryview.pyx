@@ -30,7 +30,7 @@ include "../buffers/mockbuffers.pxi"
 def init_obj():
     return 3
 
-cdef passmvs(f32[:,::1] mvs, object foo):
+cdef passmvs(f32[:, ::1] mvs, object foo):
     mvs = array((10,10), itemsize=sizeof(f32), format='f')
     foo = init_obj()
 
@@ -93,7 +93,6 @@ def test_external_dtype():
     print obj.arr_float[4, 4]
     print obj.arr_double[4, 4]
 
-
 cdef class ExtClassMockedAttr(object):
     cdef i32[:, :] arr
 
@@ -147,7 +146,7 @@ def test_extclass_attribute_dealloc():
     cdef ExtClassMockedAttr obj = ExtClassMockedAttr()
     print obj.arr[4, 4]
 
-cdef f32[:,::1] global_mv = array((10,10), itemsize=sizeof(f32), format='f')
+cdef f32[:, ::1] global_mv = array((10,10), itemsize=sizeof(f32), format='f')
 global_mv = array((10,10), itemsize=sizeof(f32), format='f')
 cdef object global_obj
 
@@ -295,7 +294,6 @@ def nested_packed_struct(NestedPackedStruct[:] mslice):
     d = buf[0]
     print d['a'], d['b'], d['sub']['a'], d['sub']['b'], d['c']
 
-
 def complex_dtype(long double complex[:] mslice):
     """
     >>> complex_dtype(LongComplexMockBuffer(None, [(0, -1)]))
@@ -414,7 +412,6 @@ def set_int_2d(i32[:, :] mslice, i32 i, i32 j, i32 value):
     cdef object buf = mslice
     buf[i, j] = value
 
-
 #
 # auto type inference
 # (note that for most numeric types "might_overflow" stops the type inference from working well)
@@ -431,9 +428,9 @@ def type_infer(f64[:, :] arg):
     print(cython.typeof(a))
     b = arg[0]
     print(cython.typeof(b))
-    c = arg[0,:]
+    c = arg[0, :]
     print(cython.typeof(c))
-    d = arg[:,:]
+    d = arg[:, :]
     print(cython.typeof(d))
 
 #
@@ -744,7 +741,6 @@ def assign_temporary_to_object(object[:] mslice):
     cdef object buf = mslice
     buf[1] = {3-2: 2+(2*4)-2}
 
-
 def test_pyview_of_memview(i32[:] ints):
     """
     >>> A = IntMockBuffer(None, [1, 2, 3])
@@ -752,7 +748,6 @@ def test_pyview_of_memview(i32[:] ints):
     3
     """
     return ints
-
 
 def test_generic_slicing(arg, indirect=False):
     """
@@ -887,7 +882,6 @@ def test_direct_slicing(arg):
                 itemB = b[i, j, k]
                 assert itemA == itemB, (i, j, k, itemA, itemB)
 
-
 def test_slicing_and_indexing(arg):
     """
     >>> a = IntStridedMockBuffer("A", range(10 * 3 * 5), shape=(10, 3, 5))
@@ -1003,7 +997,7 @@ cdef class TestPassMemoryviewToSetter:
         return None
 
     @prop.setter
-    def prop(self, double[:] x):
+    def prop(self, f64[:] x):
         print("In prop setter")
 
     @property
@@ -1011,7 +1005,7 @@ cdef class TestPassMemoryviewToSetter:
         return None
 
     @prop_with_reassignment.setter
-    def prop_with_reassignment(self, double[:] x):
+    def prop_with_reassignment(self, f64[:] x):
         # reassignment again requires slightly different code
         if x[0]:
             x = x[1:]
@@ -1050,7 +1044,6 @@ def test_assign_scalar(i32[:, :] m):
     for i in range(6):
         print " ".join([str(m[i, j]) for j in range(m.shape[1])])
 
-
 def test_contig_scalar_to_slice_assignment():
     """
     >>> test_contig_scalar_to_slice_assignment()
@@ -1078,7 +1071,6 @@ def test_dtype_object_scalar_assignment():
     (<object> m)[:] = SingleObject(3)
     assert m[0] == m[4] == m[-1] == 3
 
-
 def test_assignment_in_conditional_expression(bint left):
     """
     >>> test_assignment_in_conditional_expression(True)
@@ -1092,14 +1084,14 @@ def test_assignment_in_conditional_expression(bint left):
     3.0
     4.0
     """
-    cdef double a[2]
-    cdef double b[2]
+    cdef f64 a[2]
+    cdef f64 b[2]
     a[:] = [1, 2]
     b[:] = [3, 4]
 
-    cdef double[:] A = a
-    cdef double[:] B = b
-    cdef double[:] C, c
+    cdef f64[:] A = a
+    cdef f64[:] B = b
+    cdef f64[:] C, c
 
     # assign new memoryview references
     C = A if left else B
@@ -1112,16 +1104,14 @@ def test_assignment_in_conditional_expression(bint left):
     for i in range(c.shape[0]):
         print c[i]
 
-
 def test_cpython_offbyone_issue_23349():
     """
     >>> print(test_cpython_offbyone_issue_23349())
     testing
     """
-    cdef unsigned char[:] v = bytearray(b"testing")
+    cdef u8[:] v = bytearray(b"testing")
     # the following returns 'estingt' without the workaround
     return bytearray(v).decode('ascii')
-
 
 @cython.test_fail_if_path_exists('//SimpleCallNode')
 @cython.test_assert_path_exists(
@@ -1133,12 +1123,11 @@ def min_max_tree_restructuring():
     >>> min_max_tree_restructuring()
     (1, 3)
     """
-    cdef char a[5]
+    cdef i8 a[5]
     a = [1, 2, 3, 4, 5]
-    cdef char[:] aview = a
+    cdef i8[:] aview = a
 
-    return max(<char>1, aview[0]), min(<char>5, aview[2])
-
+    return max(<i8>1, aview[0]), min(<i8>5, aview[2])
 
 @cython.test_fail_if_path_exists(
     '//MemoryViewSliceNode',
@@ -1183,7 +1172,6 @@ def optimised_index_of_slice(i32[:, :, :] arr, i32 x, i32 y, i32 z):
     print(arr[x, y, z], arr[:][x][:][y][:][:][z])
     print(arr[x, y, z], arr[:, :][x][:, :][y][:][z])
 
-
 def test_assign_from_byteslike(byteslike):
     # Once https://python3statement.org/ is accepted, should be just
     # >>> test_assign_from_byteslike(bytes(b'hello'))
@@ -1208,22 +1196,22 @@ def test_assign_from_byteslike(byteslike):
         m[:] = byteslike
 
     cdef void *buf
-    cdef unsigned char[:] mview
+    cdef u8[:] mview
     buf = malloc(5)
     try:
-        mview = <unsigned char[:5]>(buf)
+        mview = <u8[:5]>(buf)
         assign(mview)
-        return (<unsigned char*>buf)[:5]
+        return (<u8*>buf)[:5]
     finally:
         free(buf)
 
-def multiple_memoryview_def(double[:] a, double[:] b):
+def multiple_memoryview_def(f64[:] a, f64[:] b):
     return a[0] + b[0]
 
-cpdef multiple_memoryview_cpdef(double[:] a, double[:] b):
+cpdef multiple_memoryview_cpdef(f64[:] a, f64[:] b):
     return a[0] + b[0]
 
-cdef multiple_memoryview_cdef(double[:] a, double[:] b):
+cdef multiple_memoryview_cdef(f64[:] a, f64[:] b):
     return a[0] + b[0]
 
 multiple_memoryview_cdef_wrapper = multiple_memoryview_cdef
@@ -1250,7 +1238,7 @@ def test_conversion_failures():
             else:
                 assert False, "Conversion should fail!"
 
-def test_is_Sequence(double[:] a):
+def test_is_Sequence(f64[:] a):
     """
     >>> test_is_Sequence(DoubleMockBuffer(None, range(6), shape=(6,)))
     1
@@ -1282,7 +1270,6 @@ match arr:
         assert globs['res']
 
     return isinstance(<object>a, Sequence)
-
 
 ctypedef i32 aliasT
 def test_assignment_typedef():
