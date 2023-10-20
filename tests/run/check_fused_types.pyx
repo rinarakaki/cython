@@ -58,9 +58,9 @@ def test_int_int():
     """
     >>> test_int_int()
     fused_t is other_t
-    fused_t is int
+    fused_t is i32
     fused_t in unresolved_t
-    int in unresolved_t
+    i32 in unresolved_t
     """
     cdef i32 x = 1
     cdef i32 y = 2
@@ -70,9 +70,9 @@ def test_int_int():
 def test_int_long():
     """
     >>> test_int_long()
-    fused_t is int
+    fused_t is i32
     fused_t in unresolved_t
-    int in unresolved_t
+    i32 in unresolved_t
     """
     cdef i32 x = 1
     cdef i64 y = 2
@@ -83,7 +83,7 @@ def test_float_int():
     """
     >>> test_float_int()
     fused_t in unresolved_t
-    int in unresolved_t
+    i32 in unresolved_t
     """
     cdef f32 x = 1
     cdef i32 y = 2
@@ -94,7 +94,7 @@ def test_string_int():
     """
     >>> test_string_int()
     fused_t is string_t
-    int in unresolved_t
+    i32 in unresolved_t
     """
     cdef string_t x = b"spam"
     cdef i32 y = 2
@@ -186,7 +186,7 @@ def test_composed_types():
     cdef string_t e = "spam", f = "eggs"
 
     result = composed(a, b)
-    print i32(math.ceil(result.real * 10)), i32(math.ceil(result.imag * 10))
+    print int(math.ceil(result.real * 10)), int(math.ceil(result.imag * 10))
     print
 
     print composed(c, d)
