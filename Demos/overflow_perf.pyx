@@ -149,7 +149,7 @@ def most_orthogonal_overflow(C_INT[:,::1] vectors):
     cdef C_INT n = vectors.shape[0]
     cdef C_INT* a
     cdef C_INT* b
-    cdef double min_dot = 2 # actual max is 1
+    cdef f64 min_dot = 2 # actual max is 1
     for i in range(n):
         for j in range(i):
             a = &vectors[i, 0]
