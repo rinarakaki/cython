@@ -497,7 +497,7 @@ for name in builtin_types:
     if name[0] in ('i', 'u'):
         gs[name] = typedef(py_int, name)
     elif name[0] == 'f':
-        gs[name] = typedef(py_float, to_repr(name, name))
+        gs[name] = typedef(py_float, name)
     else:
         raise ValueError(name)
 
