@@ -57,19 +57,19 @@ _ERRORS = u"""
 17:19: Coercion from Python not allowed without the GIL
 17:19: Constructing Python tuple not allowed without gil
 17:20: Converting to Python object not allowed without gil
-21:13: Trying to release the GIL while it was previously released.
-22:18: Accessing Python global or builtin not allowed without gil
-22:23: Calling gil-requiring function not allowed without gil
-22:23: Coercion from Python not allowed without the GIL
-22:23: Constructing Python tuple not allowed without gil
-22:24: Converting to Python object not allowed without gil
-25:18: Accessing Python global or builtin not allowed without gil
-25:23: Calling gil-requiring function not allowed without gil
-25:23: Coercion from Python not allowed without the GIL
-25:23: Constructing Python tuple not allowed without gil
-25:24: Converting to Python object not allowed without gil
-37:17: Non-constant condition in a `with nogil(<condition>)` statement
-40:16: Non-constant condition in a `with gil(<condition>)` statement
-51:8: Assignment of Python object not allowed without gil
-51:16: Calling gil-requiring function not allowed without gil
+19:13: Trying to release the GIL while it was previously released.
+20:18: Accessing Python global or builtin not allowed without gil
+20:23: Calling gil-requiring function not allowed without gil
+20:23: Coercion from Python not allowed without the GIL
+20:23: Constructing Python tuple not allowed without gil
+20:24: Converting to Python object not allowed without gil
+23:18: Accessing Python global or builtin not allowed without gil
+23:23: Calling gil-requiring function not allowed without gil
+23:23: Coercion from Python not allowed without the GIL
+23:23: Constructing Python tuple not allowed without gil
+23:24: Converting to Python object not allowed without gil
+35:17: Non-constant condition in a `with nogil(<condition>)` statement
+38:16: Non-constant condition in a `with gil(<condition>)` statement
+49:8: Assignment of Python object not allowed without gil
+49:16: Calling gil-requiring function not allowed without gil
 """
