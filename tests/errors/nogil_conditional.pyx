@@ -52,11 +52,11 @@ def fused_type(number_or_object x):
 
 
 _ERRORS = u"""
-19:14: Accessing Python global or builtin not allowed without gil
-19:19: Calling gil-requiring function not allowed without gil
-19:19: Coercion from Python not allowed without the GIL
-19:19: Constructing Python tuple not allowed without gil
-19:20: Converting to Python object not allowed without gil
+17:14: Accessing Python global or builtin not allowed without gil
+17:19: Calling gil-requiring function not allowed without gil
+17:19: Coercion from Python not allowed without the GIL
+17:19: Constructing Python tuple not allowed without gil
+17:20: Converting to Python object not allowed without gil
 21:13: Trying to release the GIL while it was previously released.
 22:18: Accessing Python global or builtin not allowed without gil
 22:23: Calling gil-requiring function not allowed without gil
