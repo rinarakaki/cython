@@ -1,5 +1,6 @@
 import numpy as np
 
+
 exporting_object = np.arange(0, 15 * 10 * 20, dtype=np.intc).reshape((15, 10, 20))
 
 fn int[:, :, :] my_view = exporting_object
