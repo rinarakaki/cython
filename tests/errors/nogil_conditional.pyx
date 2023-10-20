@@ -70,6 +70,6 @@ _ERRORS = u"""
 23:24: Converting to Python object not allowed without gil
 33:17: Non-constant condition in a `with nogil(<condition>)` statement
 36:16: Non-constant condition in a `with gil(<condition>)` statement
-47:8: Assignment of Python object not allowed without gil
-47:16: Calling gil-requiring function not allowed without gil
+45:8: Assignment of Python object not allowed without gil
+45:16: Calling gil-requiring function not allowed without gil
 """
