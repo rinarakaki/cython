@@ -117,12 +117,12 @@ ctypedef fused any_dist:
     gamma_distribution[f64]
     weibull_distribution[f64]
     extreme_value_distribution[f64]
-    normal_distribution[double]
-    lognormal_distribution[double]
-    chi_squared_distribution[double]
-    cauchy_distribution[double]
-    fisher_f_distribution[double]
-    student_t_distribution[double]
+    normal_distribution[f64]
+    lognormal_distribution[f64]
+    chi_squared_distribution[f64]
+    cauchy_distribution[f64]
+    fisher_f_distribution[f64]
+    student_t_distribution[f64]
 
 cdef sample_or_range(any_dist dist, bint sample):
     """
@@ -208,8 +208,8 @@ def exponential_distribution_test(rate, sample=True):
     >>> u == DBL_MAX or u == float("inf")
     True
     """
-    cdef exponential_distribution[double] dist = exponential_distribution[double](rate)
-    return sample_or_range[exponential_distribution[double]](dist, sample)
+    cdef exponential_distribution[f64] dist = exponential_distribution[f64](rate)
+    return sample_or_range[exponential_distribution[f64]](dist, sample)
 
 def gamma_distribution_test(shape, scale, sample=True):
     """
@@ -220,8 +220,8 @@ def gamma_distribution_test(shape, scale, sample=True):
     >>> u == DBL_MAX or u == float("inf")
     True
     """
-    cdef gamma_distribution[double] dist = gamma_distribution[double](shape, scale)
-    return sample_or_range[gamma_distribution[double]](dist, sample)
+    cdef gamma_distribution[f64] dist = gamma_distribution[f64](shape, scale)
+    return sample_or_range[gamma_distribution[f64]](dist, sample)
 
 def weibull_distribution_test(shape, scale, sample=True):
     """
@@ -232,8 +232,8 @@ def weibull_distribution_test(shape, scale, sample=True):
     >>> u == DBL_MAX or u == float("inf")
     True
     """
-    cdef weibull_distribution[double] dist = weibull_distribution[double](shape, scale)
-    return sample_or_range[weibull_distribution[double]](dist, sample)
+    cdef weibull_distribution[f64] dist = weibull_distribution[f64](shape, scale)
+    return sample_or_range[weibull_distribution[f64]](dist, sample)
 
 def extreme_value_distribution_test(shape, scale, sample=True):
     """
@@ -244,8 +244,8 @@ def extreme_value_distribution_test(shape, scale, sample=True):
     >>> u == DBL_MAX or u == float("inf")
     True
     """
-    cdef extreme_value_distribution[double] dist = extreme_value_distribution[double](shape, scale)
-    return sample_or_range[extreme_value_distribution[double]](dist, sample)
+    cdef extreme_value_distribution[f64] dist = extreme_value_distribution[f64](shape, scale)
+    return sample_or_range[extreme_value_distribution[f64]](dist, sample)
 
 def normal_distribution_test(loc, scale, sample=True):
     """
@@ -256,7 +256,7 @@ def normal_distribution_test(loc, scale, sample=True):
     >>> u == DBL_MAX or u == float("inf")
     True
     """
-    cdef normal_distribution[double] dist = normal_distribution[f64](loc, scale)
+    cdef normal_distribution[f64] dist = normal_distribution[f64](loc, scale)
     return sample_or_range[normal_distribution[f64]](dist, sample)
 
 def lognormal_distribution_test(loc, scale, sample=True):
@@ -268,8 +268,8 @@ def lognormal_distribution_test(loc, scale, sample=True):
     >>> u == DBL_MAX or u == float("inf")
     True
     """
-    cdef lognormal_distribution[double] dist = lognormal_distribution[double](loc, scale)
-    return sample_or_range[lognormal_distribution[double]](dist, sample)
+    cdef lognormal_distribution[f64] dist = lognormal_distribution[f64](loc, scale)
+    return sample_or_range[lognormal_distribution[f64]](dist, sample)
 
 def chi_squared_distribution_test(dof, sample=True):
     """
@@ -280,8 +280,8 @@ def chi_squared_distribution_test(dof, sample=True):
     >>> u == DBL_MAX or u == float("inf")
     True
     """
-    cdef chi_squared_distribution[double] dist = chi_squared_distribution[double](dof)
-    return sample_or_range[chi_squared_distribution[double]](dist, sample)
+    cdef chi_squared_distribution[f64] dist = chi_squared_distribution[f64](dof)
+    return sample_or_range[chi_squared_distribution[f64]](dist, sample)
 
 def cauchy_distribution_test(loc, scale, sample=True):
     """
@@ -292,8 +292,8 @@ def cauchy_distribution_test(loc, scale, sample=True):
     >>> u == DBL_MAX or u == float("inf")
     True
     """
-    cdef cauchy_distribution[double] dist = cauchy_distribution[double](loc, scale)
-    return sample_or_range[cauchy_distribution[double]](dist, sample)
+    cdef cauchy_distribution[f64] dist = cauchy_distribution[f64](loc, scale)
+    return sample_or_range[cauchy_distribution[f64]](dist, sample)
 
 def fisher_f_distribution_test(m, n, sample=True):
     """
@@ -304,8 +304,8 @@ def fisher_f_distribution_test(m, n, sample=True):
     >>> u == DBL_MAX or u == float("inf")
     True
     """
-    cdef fisher_f_distribution[double] dist = fisher_f_distribution[double](m, n)
-    return sample_or_range[fisher_f_distribution[double]](dist, sample)
+    cdef fisher_f_distribution[f64] dist = fisher_f_distribution[f64](m, n)
+    return sample_or_range[fisher_f_distribution[f64]](dist, sample)
 
 def student_t_distribution_test(dof, sample=True):
     """
@@ -316,5 +316,5 @@ def student_t_distribution_test(dof, sample=True):
     >>> u == DBL_MAX or u == float("inf")
     True
     """
-    cdef student_t_distribution[double] dist = student_t_distribution[double](dof)
-    return sample_or_range[student_t_distribution[double]](dist, sample)
+    cdef student_t_distribution[f64] dist = student_t_distribution[f64](dof)
+    return sample_or_range[student_t_distribution[f64]](dist, sample)
