@@ -458,7 +458,7 @@ def memview_iter(f64[:, :] arg):
 # Test all kinds of indexing and flags
 #
 
-def writable(unsigned short i32[:, :, :] mslice):
+def writable(u16[:, :, :] mslice):
     """
     >>> R = UnsignedShortMockBuffer("R", range(27), shape=(3, 3, 3))
     >>> writable(R)
