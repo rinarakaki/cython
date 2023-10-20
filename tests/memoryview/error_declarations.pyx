@@ -63,29 +63,29 @@ cdef i32[::view.indirect_contiguous, ::view.contiguous] a9
 four_D[None, None, None]
 
 _ERRORS = u'''
-11:25: Cannot specify an array that is both C and Fortran contiguous.
-12:31: Cannot specify an array that is both C and Fortran contiguous.
-13:19: Step must be omitted, 1, or a valid specifier.
-14:20: Step must be omitted, 1, or a valid specifier.
-15:20: Step must be omitted, 1, or a valid specifier.
-16:15: Start must not be given.
-17:17: Start must not be given.
-18:22: Axis specification only allowed in the 'step' slot.
-19:18: Fortran contiguous specifier must follow an indirect dimension
-20:22: Invalid axis specification.
-21:19: Invalid axis specification.
-22:22: no expressions allowed in axis spec, only names and literals.
-25:37: Memoryview 'object[::1, :]' not conformable to memoryview 'object[:, ::1]'.
-28:17: Different base types for memoryviews (int, Python object)
-31:8: Dimension may not be contiguous
-37:8: Only one direct contiguous axis may be specified.
-38:8:Only dimensions 3 and 2 may be contiguous and direct
-44:9: Invalid base type for memoryview slice: intp
-46:35: Can only create cython.array from pointer or array
-47:24: Cannot assign type 'double' to 'Py_ssize_t'
-55:12: Invalid base type for memoryview slice: Invalid
-58:6: More dimensions than the maximum number of buffer dimensions were used.
-59:6: More dimensions than the maximum number of buffer dimensions were used.
-61:8: More dimensions than the maximum number of buffer dimensions were used.
-64:13: Cannot take address of memoryview slice
+6:25: Cannot specify an array that is both C and Fortran contiguous.
+7:31: Cannot specify an array that is both C and Fortran contiguous.
+8:19: Step must be omitted, 1, or a valid specifier.
+9:20: Step must be omitted, 1, or a valid specifier.
+10:20: Step must be omitted, 1, or a valid specifier.
+11:15: Start must not be given.
+12:17: Start must not be given.
+13:22: Axis specification only allowed in the 'step' slot.
+14:18: Fortran contiguous specifier must follow an indirect dimension
+15:22: Invalid axis specification.
+16:19: Invalid axis specification.
+17:22: no expressions allowed in axis spec, only names and literals.
+20:37: Memoryview 'object[::1, :]' not conformable to memoryview 'object[:, ::1]'.
+23:17: Different base types for memoryviews (int, Python object)
+26:8: Dimension may not be contiguous
+32:8: Only one direct contiguous axis may be specified.
+33:8:Only dimensions 3 and 2 may be contiguous and direct
+39:9: Invalid base type for memoryview slice: intp
+41:35: Can only create cython.array from pointer or array
+42:24: Cannot assign type 'double' to 'Py_ssize_t'
+50:12: Invalid base type for memoryview slice: Invalid
+53:6: More dimensions than the maximum number of buffer dimensions were used.
+54:6: More dimensions than the maximum number of buffer dimensions were used.
+56:8: More dimensions than the maximum number of buffer dimensions were used.
+59:13: Cannot take address of memoryview slice
 '''
