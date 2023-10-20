@@ -33,9 +33,7 @@ def non_constant_condition(x: cython.i32) -> cython.i32:
     with cython.nogil(x < 10):
         res = f_nogil(res)
 
-
 number_or_object = cython.fused_type(cython.f32, cython.object)
-
 
 def fused_type(x: number_or_object):
     with cython.nogil(number_or_object is object):
@@ -75,9 +73,9 @@ _ERRORS = u"""
 23:23: Constructing Python tuple not allowed without gil
 23:24: Converting to Python object not allowed without gil
 35:24: Non-constant condition in a `with nogil(<condition>)` statement
-44:8: Assignment of Python object not allowed without gil
-44:16: Calling gil-requiring function not allowed without gil
-54:9: Compiler directive nogil accepts one positional argument.
-59:9: Compiler directive nogil accepts one positional argument.
-63:0: The gil compiler directive is not allowed in function scope
+42:8: Assignment of Python object not allowed without gil
+42:16: Calling gil-requiring function not allowed without gil
+52:9: Compiler directive nogil accepts one positional argument.
+57:9: Compiler directive nogil accepts one positional argument.
+61:0: The gil compiler directive is not allowed in function scope
 """
