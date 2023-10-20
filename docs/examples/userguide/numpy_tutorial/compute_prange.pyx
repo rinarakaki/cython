@@ -30,7 +30,7 @@ def compute(my_type[:, ::1] array_1, my_type[:, ::1] array_2, my_type a, my_type
         dtype = np.intc
     elif my_type is f64:
         dtype = np.double
-    elif my_type is cython.longlong:
+    elif my_type is cython.i128:
         dtype = np.longlong
 
     result = np.zeros((x_max, y_max), dtype=dtype)
