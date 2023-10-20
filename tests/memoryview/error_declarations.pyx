@@ -70,7 +70,7 @@ _ERRORS = u'''
 10:20: Step must be omitted, 1, or a valid specifier.
 11:10: Start must not be given.
 12:17: Start must not be given.
-13:22: Axis specification only allowed in the 'step' slot.
+13:12: Axis specification only allowed in the 'step' slot.
 14:18: Fortran contiguous specifier must follow an indirect dimension
 15:22: Invalid axis specification.
 16:19: Invalid axis specification.
