@@ -77,5 +77,5 @@ _ERRORS = u"""
 40:16: Calling gil-requiring function not allowed without gil
 50:9: Compiler directive nogil accepts one positional argument.
 55:9: Compiler directive nogil accepts one positional argument.
-59:0: The gil compiler directive is not allowed in function scope
+58:0: The gil compiler directive is not allowed in function scope
 """
