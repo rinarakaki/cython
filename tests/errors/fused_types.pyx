@@ -101,12 +101,12 @@ _ERRORS = u"""
 59:0: Invalid use of fused types, type cannot be specialized
 59:29: ambiguous overloaded method
 # Possibly duplicates the errors more often than we want
-77:5: Return type is a fused type that cannot be determined from the function arguments
-80:6: Return type is a fused type that cannot be determined from the function arguments
-84:4: 'z' cannot be specialized since its type is not a fused argument to this function
-84:4: 'z' cannot be specialized since its type is not a fused argument to this function
-84:4: 'z' cannot be specialized since its type is not a fused argument to this function
-85:16: Type cannot be specialized since it is not a fused argument to this function
-85:16: Type cannot be specialized since it is not a fused argument to this function
-85:16: Type cannot be specialized since it is not a fused argument to this function
+76:5: Return type is a fused type that cannot be determined from the function arguments
+79:6: Return type is a fused type that cannot be determined from the function arguments
+83:4: 'z' cannot be specialized since its type is not a fused argument to this function
+83:4: 'z' cannot be specialized since its type is not a fused argument to this function
+83:4: 'z' cannot be specialized since its type is not a fused argument to this function
+84:16: Type cannot be specialized since it is not a fused argument to this function
+84:16: Type cannot be specialized since it is not a fused argument to this function
+84:16: Type cannot be specialized since it is not a fused argument to this function
 """
