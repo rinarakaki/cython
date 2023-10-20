@@ -3,68 +3,63 @@
 cimport cython
 from cython cimport view
 
-
-
-
-
-
 cdef signed short[::1, ::1] both
 cdef signed short[::1, :, :, ::1] both2
 cdef signed char[::2] err0
 cdef signed char[::-100] err1
 cdef signed char[::-1] err2
-cdef long long[01::1, 0x01:, '0'   :, False:] fort_contig0
+cdef i128[01::1, 0x01:, '0'   :, False:] fort_contig0
 cdef signed char[1::] bad_start
-cdef unsigned long[:,:1] bad_stop
-cdef unsigned long[:,::1,:] neither_c_or_f
+cdef u64[:,:1] bad_stop
+cdef u64[:,::1,:] neither_c_or_f
 cdef signed char[::1-1+1] expr_spec
 cdef signed char[::blargh] bad_name
-cdef double[::alist[0]['view'].full] expr_attribute
+cdef f64[::alist[0]['view'].full] expr_attribute
 
 cdef object[::1, :] unconformable1 = object()
 cdef object[:, ::1] unconformable2 = unconformable1
 
-cdef int[::1, :] dtype_unconformable = object()
+cdef i32[::1, :] dtype_unconformable = object()
 unconformable1 = dtype_unconformable
 
 # These are INVALID
-cdef int[::view.contiguous, ::1] a1
-#cdef int[::view.generic_contiguous, ::1] a2
+cdef i32[::view.contiguous, ::1] a1
+#cdef i32[::view.generic_contiguous, ::1] a2
 
-#cdef int[::view.contiguous, ::view.generic_contiguous] a3
-#cdef int[::view.generic_contiguous, ::view.generic_contiguous] a4
+#cdef i32[::view.contiguous, ::view.generic_contiguous] a3
+#cdef i32[::view.generic_contiguous, ::view.generic_contiguous] a4
 
-cdef int[::view.contiguous, ::view.contiguous] a5
-cdef int[:, ::view.contiguous, ::view.indirect_contiguous] a6
+cdef i32[::view.contiguous, ::view.contiguous] a5
+cdef i32[:, ::view.contiguous, ::view.indirect_contiguous] a6
 
-#cdef int[::view.generic_contiguous, ::view.contiguous] a7
-#cdef int[::view.contiguous, ::view.generic_contiguous] a8
+#cdef i32[::view.generic_contiguous, ::view.contiguous] a7
+#cdef i32[::view.contiguous, ::view.generic_contiguous] a8
 
-ctypedef int *intp
+ctypedef i32 *intp
 cdef intp[:, :] myarray
 
-cdef int[:] a10 = <int[:10]> object()
-cdef int[:] a11 = <int[:5.4]> <int *> 1
+cdef i32[:] a10 = <i32[:10]> object()
+cdef i32[:] a11 = <i32[:5.4]> <i32 *> 1
 
 cdef struct Valid:
-    int array[1][2][3][4][5][6][7][8]
+    i32 array[1][2][3][4][5][6][7][8]
 cdef struct Invalid:
-    int array[1][2][3][4][5][6][7][8][9]
+    i32 array[1][2][3][4][5][6][7][8][9]
 
 cdef Valid[:] validslice
 cdef Invalid[:] invalidslice
 
-cdef int[:, :, :, :] four_D
+cdef i32[:, :, :, :] four_D
 four_D[None, None, None, None]
 four_D[None, None, None, None, None]
 
-cdef int[:, :, :, :, :, :, :, :] eight_D = object()
+cdef i32[:, :, :, :, :, :, :, :] eight_D = object()
 
-cdef double[:] m
-print <long> &m
+cdef f64[:] m
+print <i64> &m
 
 # These are VALID
-cdef int[::view.indirect_contiguous, ::view.contiguous] a9
+cdef i32[::view.indirect_contiguous, ::view.contiguous] a9
 four_D[None, None, None]
 
 _ERRORS = u'''
