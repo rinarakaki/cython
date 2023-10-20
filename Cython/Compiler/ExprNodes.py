@@ -6178,9 +6178,7 @@ class SimpleCallNode(CallNode):
                 alternatives = [f.entry for f in functypes]
             else:
                 alternatives = overloaded_entry.all_alternatives()
-            if len(alternatives) == 0:
-                print("!!!!!!!!!!!!!!!!!!!!!")
-                print(self.function, self.function.type, self.function.type.is_fused)
+
             entry = PyrexTypes.best_match([arg.type for arg in args],
                                           alternatives, self.pos, env, args)
 
