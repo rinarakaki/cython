@@ -87,5 +87,5 @@ _ERRORS = u'''
 53:6: More dimensions than the maximum number of buffer dimensions were used.
 54:6: More dimensions than the maximum number of buffer dimensions were used.
 56:8: More dimensions than the maximum number of buffer dimensions were used.
-59:13: Cannot take address of memoryview slice
+59:12: Cannot take address of memoryview slice
 '''
