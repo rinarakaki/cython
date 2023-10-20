@@ -83,7 +83,7 @@ cdef void contents_unfindable1(cython.integral x):
     z: floating = 1  # note: cdef variables also fail with an error but not by the time this test aborts
     sz = sizeof(floating)
 
-    
+
 _ERRORS = u"""
 11:15: fused_type does not take keyword arguments
 16:31: Type specified multiple times
@@ -95,18 +95,18 @@ _ERRORS = u"""
 30:14: Call with wrong number of arguments (expected 2, got 3)
 37:6: Invalid base type for memoryview slice: int *
 40:0: Fused lambdas not allowed
-43:5: Fused types not allowed here
-43:21: cdef variable 'x' declared after it is used
-46:9: Fused types not allowed here
-61:0: Invalid use of fused types, type cannot be specialized
-61:29: ambiguous overloaded method
+42:5: Fused types not allowed here
+42:21: cdef variable 'x' declared after it is used
+45:9: Fused types not allowed here
+60:0: Invalid use of fused types, type cannot be specialized
+60:29: ambiguous overloaded method
 # Possibly duplicates the errors more often than we want
-79:5: Return type is a fused type that cannot be determined from the function arguments
-82:6: Return type is a fused type that cannot be determined from the function arguments
-86:4: 'z' cannot be specialized since its type is not a fused argument to this function
-86:4: 'z' cannot be specialized since its type is not a fused argument to this function
-86:4: 'z' cannot be specialized since its type is not a fused argument to this function
-87:16: Type cannot be specialized since it is not a fused argument to this function
-87:16: Type cannot be specialized since it is not a fused argument to this function
-87:16: Type cannot be specialized since it is not a fused argument to this function
+78:5: Return type is a fused type that cannot be determined from the function arguments
+81:6: Return type is a fused type that cannot be determined from the function arguments
+85:4: 'z' cannot be specialized since its type is not a fused argument to this function
+85:4: 'z' cannot be specialized since its type is not a fused argument to this function
+85:4: 'z' cannot be specialized since its type is not a fused argument to this function
+86:16: Type cannot be specialized since it is not a fused argument to this function
+86:16: Type cannot be specialized since it is not a fused argument to this function
+86:16: Type cannot be specialized since it is not a fused argument to this function
 """
