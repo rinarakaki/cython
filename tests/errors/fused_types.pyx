@@ -86,7 +86,7 @@ cdef void contents_unfindable1(cython.integral x):
     
 _ERRORS = u"""
 11:15: fused_type does not take keyword arguments
-16:33: Type specified multiple times
+16:31: Type specified multiple times
 27:0: Invalid use of fused types, type cannot be specialized
 27:4: Not enough types specified to specialize the function, int2_t is still fused
 28:0: Invalid use of fused types, type cannot be specialized
