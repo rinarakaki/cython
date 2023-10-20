@@ -4,20 +4,18 @@ import cython
 
 @cython.nogil
 @cython.cfunc
-def f_nogil(x: cython.int) -> cython.int:
-    y: cython.int
+def f_nogil(x: cython.i32) -> cython.i32:
+    y: cython.i32
     y = x + 10
     return y
-
 
 def f_gil(x):
     y = 0
     y = x + 100
     return y
 
-
 def illegal_gil_usage():
-    res: cython.int = 0
+    res: cython.i32 = 0
     with cython.nogil(True):
         res = f_gil(res)
 
@@ -27,18 +25,16 @@ def illegal_gil_usage():
     with cython.nogil(False):
         res = f_nogil(res)
 
-
 def foo(a):
     return a < 10
 
-
-def non_constant_condition(x: cython.int) -> cython.int:
-    res: cython.int = x
+def non_constant_condition(x: cython.i32) -> cython.i32:
+    res: cython.i32 = x
     with cython.nogil(x < 10):
         res = f_nogil(res)
 
 
-number_or_object = cython.fused_type(cython.float, cython.object)
+number_or_object = cython.fused_type(cython.f32, cython.object)
 
 
 def fused_type(x: number_or_object):
@@ -46,27 +42,25 @@ def fused_type(x: number_or_object):
         res = x + 1
 
     # This should be fine
-    with cython.nogil(number_or_object is cython.float):
+    with cython.nogil(number_or_object is cython.f32):
         res = x + 1
 
     return res
 
-def nogil_multiple_arguments(x: cython.int) -> cython.int:
-    res: cython.int = x
+def nogil_multiple_arguments(x: cython.i32) -> cython.i32:
+    res: cython.i32 = x
     with cython.nogil(1, 2):
         res = f_nogil(res)
 
-def nogil_keyworkd_arguments(x: cython.int) -> cython.int:
-    res: cython.int = x
+def nogil_keyworkd_arguments(x: cython.i32) -> cython.i32:
+    res: cython.i32 = x
     with cython.nogil(kw=2):
         res = f_nogil(res)
 
-
 @cython.gil(True)
 @cython.cfunc
-def wrong_decorator() -> cython.int:
+def wrong_decorator() -> cython.i32:
     return 0
-
 
 _ERRORS = u"""
 22:14: Accessing Python global or builtin not allowed without gil
