@@ -5,9 +5,9 @@ string_t = cython.fused_type(cython.p_char, bytes, unicode)
 @cython.cfunc
 def myfunc(i: cython.integral, s: bunch_of_types) -> cython.integral:
     # Only one of these branches will be compiled for each specialization!
-    if cython.integral is i32:
+    if cython.integral is int:
         print('i is an int')
-    elif cython.integral is i64:
+    elif cython.integral is long:
         print('i is a long')
     else:
         print('i is a short')
