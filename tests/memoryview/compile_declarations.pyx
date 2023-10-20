@@ -7,12 +7,12 @@ from cython.view cimport (generic, strided, indirect,
                           contiguous, indirect_contiguous)
 
 cdef char[:] one_dim
-cdef char[:,:,:] three_dim
+cdef char[:, :, :] three_dim
 cdef u32[::1, :] view1
 cdef u32[:, ::1] view2
 cdef i128[::1, :, :, :] fort_contig
 cdef u64[:, :, :, ::1] c_contig
-cdef unsigned short int[::1] c_and_fort
+cdef u16[::1] c_and_fort
 cdef u64[:, :, :, ::0x0001] c_contig0
 
 cdef i32[::generic, ::generic] a1
