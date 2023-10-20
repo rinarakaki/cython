@@ -68,8 +68,8 @@ _ERRORS = u"""
 23:23: Coercion from Python not allowed without the GIL
 23:23: Constructing Python tuple not allowed without gil
 23:24: Converting to Python object not allowed without gil
-35:17: Non-constant condition in a `with nogil(<condition>)` statement
-38:16: Non-constant condition in a `with gil(<condition>)` statement
-49:8: Assignment of Python object not allowed without gil
-49:16: Calling gil-requiring function not allowed without gil
+33:17: Non-constant condition in a `with nogil(<condition>)` statement
+36:16: Non-constant condition in a `with gil(<condition>)` statement
+47:8: Assignment of Python object not allowed without gil
+47:16: Calling gil-requiring function not allowed without gil
 """
