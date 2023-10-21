@@ -83,7 +83,7 @@ cpdef pytypes_cpdef(a: list, b: int = 2, c: long = 3, d: float = 4.0, n: list = 
     a.append(o)
     return a
 
-cdef c_pytypes_cdef(a: list, b: i32 = 2, c: i64 = 3, d: f32 = 4.0, n: list = None):
+cdef c_pytypes_cdef(a: list, b: int = 2, c: long = 3, d: float = 4.0, n: list = None):
     print(typeof(a), typeof(b), typeof(c), typeof(d), typeof(n))
     a.append(b)
     a.append(c)
