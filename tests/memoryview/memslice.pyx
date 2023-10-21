@@ -1987,7 +1987,7 @@ cdef struct AlignedNestedNormal:
 # accordingly. If the first struct member is a struct, align on the first
 # member of that struct (recursively)
 cdef struct A:
-    double d
+    f64 d
     char c
 
 cdef struct B:
@@ -2401,7 +2401,7 @@ def test_dtype_object_scalar_assignment():
 # nonecheck.pyx
 
 @testcase
-def test_coerce_to_from_None(double[:] m1, double[:] m2 = None):
+def test_coerce_to_from_None(f64[:] m1, f64[:] m2 = None):
     """
     >>> test_coerce_to_from_None(None)
     (None, None)
@@ -2411,7 +2411,7 @@ def test_coerce_to_from_None(double[:] m1, double[:] m2 = None):
     return m1, m2
 
 @testcase
-def test_noneslice_compare(double[:] m):
+def test_noneslice_compare(f64[:] m):
     """
     >>> test_noneslice_compare(None)
     (True, True)
@@ -2422,7 +2422,7 @@ def test_noneslice_compare(double[:] m):
     return result, m is None
 
 cdef class NoneSliceAttr(object):
-    cdef double[:] m
+    cdef f64[:] m
 
 @testcase
 def test_noneslice_ext_attr():
@@ -2457,7 +2457,7 @@ def test_noneslice_del():
         print m
 
 @testcase
-def test_noneslice_nogil_check_none(double[:] m):
+def test_noneslice_nogil_check_none(f64[:] m):
     """
     >>> test_noneslice_nogil_check_none(None)
     (True, False)
@@ -2472,7 +2472,7 @@ def test_noneslice_nogil_check_none(double[:] m):
     return is_none, not_none
 
 @testcase
-def test_noneslice_not_none(double[:] m not None):
+def test_noneslice_not_none(f64[:] m not None):
     """
     >>> test_noneslice_not_none(None)
     Traceback (most recent call last):

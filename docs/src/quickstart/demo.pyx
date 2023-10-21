@@ -1,17 +1,16 @@
 from time import time
 from math import sin
 
-cdef double first_time = 0
+cdef f64 first_time = 0
 
 def timeit(f, label):
     global first_time
     t = time()
     f(1.0, 2.0, 10**7)
-    cdef double elapsed = time() - t
+    cdef f64 elapsed = time() - t
     if first_time == 0:
         first_time = elapsed
     print label, elapsed, (100*elapsed/first_time), '% or', first_time/elapsed, 'x'
-
 
 # Pure Python
 
@@ -46,15 +45,14 @@ def integrate_f0(a, b, N):
 
 timeit(integrate_f0, "Cython")
 
-
 # Typed vars
 
-def f1(double x):
+def f1(f64 x):
     return x**2-x
 
-def integrate_f1(double a, double b, int N):
+def integrate_f1(f64 a, f64 b, int N):
     cdef int i
-    cdef double s, dx
+    cdef f64 s, dx
     s = 0
     dx = (b-a)/N
     for i in range(N):
@@ -63,15 +61,14 @@ def integrate_f1(double a, double b, int N):
 
 timeit(integrate_f1, "Typed vars")
 
-
 # Typed func
 
-cdef double f2(double x) except? -2:
+cdef f64 f2(f64 x) except? -2:
     return x**2-x
 
-def integrate_f2(double a, double b, int N):
+def integrate_f2(f64 a, f64 b, int N):
     cdef int i
-    cdef double s, dx
+    cdef f64 s, dx
     s = 0
     dx = (b-a)/N
     for i in range(N):

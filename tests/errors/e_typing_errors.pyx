@@ -7,36 +7,29 @@ try:
 except ImportError:
     pass
 
-
 # not OK
 
-def optional_cython_types(Optional[cython.int] i, Optional[cython.double] d, Optional[cython.float] f,
-                          Optional[cython.complex] c, Optional[cython.long] l, Optional[cython.longlong] ll):
+def optional_cython_types(Optional[cython.i32] i, Optional[cython.f64] d, Optional[cython.f32] f,
+                          Optional[cython.complex] c, Optional[cython.i64] l, Optional[cython.i128] ll):
     pass
 
-
-MyStruct = cython.struct(a=cython.int, b=cython.double)
+MyStruct = cython.struct(a=cython.i32, b=cython.f64)
 
 def optional_cstruct(Optional[MyStruct] x):
     pass
 
-
 def optional_pytypes(Optional[i32] i, Optional[f32] f, Optional[complex] c, Optional[i64] l):
     pass
 
-
 cdef ClassVar[list] x
-
 
 # OK
 
 def optional_memoryview(f64[:] d, Optional[f64[:]] o):
     pass
 
-
 cdef class Cls(object):
     cdef ClassVar[list] x
-
 
 
 _ERRORS = """

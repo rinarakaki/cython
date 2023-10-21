@@ -5,11 +5,11 @@ cimport cython
 
 @cython.dataclasses.dataclass
 cdef class C:
-    a: int
-    b: long
-    c: Py_ssize_t
-    d: float
-    e: double
+    a: i32
+    b: i64
+    c: isize
+    d: f32
+    e: f64
 
 
 _WARNINGS = """
