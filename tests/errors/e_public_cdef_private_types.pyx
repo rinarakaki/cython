@@ -34,7 +34,7 @@ cdef opt_func(x = None):
     pass
 
 _ERRORS = u"""
-e_public_cdef_private_types.pyx:8:22: Function declared public or api may not have private types
+e_public_cdef_private_types.pyx:8:19: Function declared public or api may not have private types
 e_public_cdef_private_types.pyx:11:19: Function declared public or api may not have private types
 e_public_cdef_private_types.pyx:14:5: Function declared public or api may not have private types
 e_public_cdef_private_types.pyx:17:5: Function declared public or api may not have private types
