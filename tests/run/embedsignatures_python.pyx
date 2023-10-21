@@ -62,7 +62,7 @@ cdef class Foo:
         """p2 docstring"""
         def __get__(self) -> int:
             return 0
-    cdef public Foo p3
+    cdef pub Foo p3
 
 
 __doc__ += ur"""

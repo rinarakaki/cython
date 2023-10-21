@@ -4,7 +4,7 @@ cdef class C:
 	cdef object __weakref__
 
 cdef class D:
-	cdef public object __weakref__
+	cdef pub object __weakref__
 
 cdef class E:
 	cdef readonly object __weakref__

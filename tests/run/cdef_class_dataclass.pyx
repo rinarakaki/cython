@@ -209,7 +209,7 @@ cdef class TestVisibility:
     b: cython.double = 2.0
     cdef public double c
     c = 3.0
-    cdef public object d
+    cdef pub object d
     d = object()
 
 @dataclass(frozen=true)

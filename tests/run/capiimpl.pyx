@@ -24,11 +24,11 @@ Traceback (most recent call last):
 KeyError: 'two'
 """
 
-cdef public api class Foo [type FooType, object FooObject]:
+cdef pub api class Foo [type FooType, object FooObject]:
     cdef void bar(self):
         pass
 
-cdef public api void bar():
+cdef pub api void bar():
     pass
 cdef api void spam():
     pass
@@ -38,7 +38,7 @@ cdef api double pi = 3.14
 cdef api object obj = object()
 cdef api dict   dct = {}
 
-cdef public api tuple tpl = ()
-cdef public api float one = 1
-cdef public     float two = 2
+cdef pub api tuple tpl = ()
+cdef pub api float one = 1
+cdef pub     float two = 2
 

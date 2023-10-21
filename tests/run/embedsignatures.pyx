@@ -207,10 +207,10 @@ cdef class Ext:
 
     cdef public int  attr0
     """attr0 docstring"""
-    cdef public      attr1
+    cdef pub      attr1
     """attr1 docstring"""
-    cdef public list attr2
-    cdef public Ext attr3
+    cdef pub list attr2
+    cdef pub Ext attr3
 
     """NOT attr3 docstring"""
     cdef        int  attr4
