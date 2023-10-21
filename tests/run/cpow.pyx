@@ -26,7 +26,7 @@ def pow_double_double(f64 a, f64 b, delta):
     object_c = (<object>a)**(<object>b)
     assert abs((c/object_c) - 1) < delta
 
-@cython.cpow(True)
+@cython.cpow(true)
 def pow_double_double_cpow(f64 a, f64 b, delta=None):
     """
     >>> pow_double_double_cpow(2, 2, 1e-15)
@@ -154,7 +154,7 @@ def pow_int_int(int a, int b):
     c = a**b
     print(cython.typeof(c), c)
 
-@cython.cpow(True)
+@cython.cpow(true)
 def pow_int_int_cpow(int a, int b):
     """
     >>> pow_int_int_cpow(2, 2)
@@ -206,7 +206,8 @@ def pythagoras_with_typedef(f64 a, f64 b):
     result = 1.0 / result ** 0.5
     return result
 
-@cython.cpow(False)
+
+@cython.cpow(false)
 def power_coercion_in_nogil_1(f64 a, f64 b):
     """
     >>> power_coercion_in_nogil_1(2., 2.)

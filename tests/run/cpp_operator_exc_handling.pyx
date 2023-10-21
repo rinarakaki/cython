@@ -184,9 +184,9 @@ def negate(i128 a):
 def bool_cast(i128 a):
     cdef wrapped_int wa = wrapped_int(a)
     if wa:
-        return True
+        return true
     else:
-        return False
+        return false
 
 def index(i128 a, i128 b):
     cdef wrapped_int wa = wrapped_int(a)

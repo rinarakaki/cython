@@ -21,7 +21,8 @@ cdef class ImplicitAttrCache(object):
     cdef public i32 x
     cdef object y
 
-@cython.type_version_tag(True)
+
+@cython.type_version_tag(true)
 cdef class ExplicitAttrCache(object):
     """
     >>> flag = test_flag(ImplicitAttrCache)
@@ -31,7 +32,8 @@ cdef class ExplicitAttrCache(object):
     cdef public i32 x
     cdef object y
 
-@cython.type_version_tag(False)
+
+@cython.type_version_tag(false)
 cdef class NoAttrCache(object):
     """
     >>> test_flag(NoAttrCache)
