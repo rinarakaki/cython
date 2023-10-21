@@ -10,8 +10,8 @@ cdef signed char[::-100] err1
 cdef signed char[::-1] err2
 cdef i128[01::1, 0x01:, '0'   :, False:] fort_contig0
 cdef signed char[1::] bad_start
-cdef u64[:,:1] bad_stop
-cdef u64[:,::1,:] neither_c_or_f
+cdef u64[:, :1] bad_stop
+cdef u64[:, ::1, :] neither_c_or_f
 cdef signed char[::1-1+1] expr_spec
 cdef signed char[::blargh] bad_name
 cdef f64[::alist[0]['view'].full] expr_attribute

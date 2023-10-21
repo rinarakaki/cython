@@ -173,7 +173,7 @@ def test_c_contig(np.ndarray[i32, ndim=2, mode='c'] arr):
     Traceback (most recent call last):
        ...
     ValueError: ndarray is not C...contiguous
-    >>> test_c_contig(c_arr[::2,::2]) #doctest: +ELLIPSIS
+    >>> test_c_contig(c_arr[::2, ::2]) #doctest: +ELLIPSIS
     Traceback (most recent call last):
        ...
     ValueError: ndarray is not C...contiguous
