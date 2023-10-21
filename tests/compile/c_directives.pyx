@@ -21,7 +21,7 @@ def f(object[i32, ndim=2] buf):
 @cy.boundscheck(true)
 def g(object[i32, ndim=2] buf):
     # The below line should have no meaning
-# cython: boundscheck = False
+# cython: boundscheck = false
     # even if the above line doesn't follow indentation.
     print buf[3, 2] # bc
 

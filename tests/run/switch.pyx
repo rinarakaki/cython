@@ -326,9 +326,9 @@ def compile_time_tuple_constant(int x):
     False
     """
     if x in t:
-        return True
+        return true
     else:
-        return False
+        return false
 
 
 cdef enum X:

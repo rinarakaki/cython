@@ -37,9 +37,9 @@ def test_cpp_pyobject_cast(Foo obj1, Foo obj2, cond):
 
 def test_charptr_coercion(x):
     """
-    >>> print(test_charptr_coercion(True))
+    >>> print(test_charptr_coercion(true))
     abc
-    >>> print(test_charptr_coercion(False))
+    >>> print(test_charptr_coercion(false))
     def
     """
     cdef char* s = b'abc' if x else b'def'

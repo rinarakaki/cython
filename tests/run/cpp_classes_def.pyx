@@ -70,9 +70,9 @@ cdef cppclass SubClass(BaseClass):
 
 def test_BaseMethods(x):
     """
-    >>> test_BaseMethods(True)
+    >>> test_BaseMethods(true)
     0
-    >>> test_BaseMethods(False)
+    >>> test_BaseMethods(false)
     1
     """
     cdef SubClass* subClass

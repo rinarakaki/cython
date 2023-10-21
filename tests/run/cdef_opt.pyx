@@ -2,7 +2,7 @@ __doc__ = u"""
     >>> a = A()
     >>> a.foo()
     (True, 'yo')
-    >>> a.foo(False)
+    >>> a.foo(false)
     (False, 'yo')
     >>> a.foo(10, 'yes')
     (True, 'yes')
@@ -27,7 +27,7 @@ def call1():
     (False, 'yo')
     """
     cdef A a = A()
-    return a.foo(False)
+    return a.foo(false)
 
 def call2():
     """

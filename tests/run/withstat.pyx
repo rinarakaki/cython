@@ -63,7 +63,7 @@ def with_exception(exit_ret):
     value
     exit <type 'type'> <type 'MyException'> <type 'traceback'>
     outer except
-    >>> with_exception(True)
+    >>> with_exception(true)
     enter
     value
     exit <type 'type'> <type 'MyException'> <type 'traceback'>
@@ -157,7 +157,7 @@ class Dummy(object):
         self.exit_called = True
         self.exc_info = exc_info
         if self.gobble:
-            return True
+            return true
 
 class InitRaises(object):
     def __init__(self): raise RuntimeError()

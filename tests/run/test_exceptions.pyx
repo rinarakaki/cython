@@ -659,7 +659,7 @@ class ExceptionTests(unittest.TestCase):
             def __enter__(self):
                 return self
             def __exit__ (self, exc_type, exc_value, exc_tb):
-                return True
+                return true
         obj = MyObj()
         wr = weakref.ref(obj)
         with Context():

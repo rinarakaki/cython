@@ -170,7 +170,7 @@ def test_list_pop_all():
         i = 3
     except IndexError:
         return i == 2
-    return False
+    return false
 
 
 @cython.test_assert_path_exists(

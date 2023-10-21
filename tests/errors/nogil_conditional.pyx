@@ -19,10 +19,10 @@ def illegal_gil_usage():
         with nogil(true):
             res = f_gil(res)
 
-        with gil(False):
+        with gil(false):
             res = f_gil(res)
 
-    with nogil(False):
+    with nogil(false):
         res = f_nogil(res)
 
 def foo(a):

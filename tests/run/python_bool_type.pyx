@@ -18,35 +18,35 @@ def test_int():
     """
     >>> test_int()
     """
-    assertEqual(int(False), 0)
-    assertIsNot(int(False), False)
-    assertEqual(int(True), 1)
-    assertIsNot(int(True), True)
+    assertEqual(int(false), 0)
+    assertIsNot(int(false), False)
+    assertEqual(int(true), 1)
+    assertIsNot(int(true), True)
 
 def test_float():
     """
     >>> test_float()
     """
-    assertEqual(float(False), 0.0)
-    assertIsNot(float(False), False)
-    assertEqual(float(True), 1.0)
-    assertIsNot(float(True), True)
+    assertEqual(float(false), 0.0)
+    assertIsNot(float(false), False)
+    assertEqual(float(true), 1.0)
+    assertIsNot(float(true), True)
 
 def test_repr():
     """
     >>> test_repr()
     """
-    assertEqual(repr(False), 'False')
-    assertEqual(repr(True), 'True')
-    assertEqual(eval(repr(False)), False)
-    assertEqual(eval(repr(True)), True)
+    assertEqual(repr(false), 'False')
+    assertEqual(repr(true), 'True')
+    assertEqual(eval(repr(false)), False)
+    assertEqual(eval(repr(true)), True)
 
 def test_str():
     """
     >>> test_str()
     """
-    assertEqual(str(False), 'False')
-    assertEqual(str(True), 'True')
+    assertEqual(str(false), 'False')
+    assertEqual(str(true), 'True')
 
 def test_math():
     """
@@ -56,13 +56,13 @@ def test_math():
     assertIsNot(+False, False)
     assertEqual(-False, 0)
     assertIsNot(-False, False)
-    assertEqual(abs(False), 0)
-    assertIsNot(abs(False), False)
+    assertEqual(abs(false), 0)
+    assertIsNot(abs(false), False)
     assertEqual(+True, 1)
     assertIsNot(+True, True)
     assertEqual(-True, -1)
-    assertEqual(abs(True), 1)
-    assertIsNot(abs(True), True)
+    assertEqual(abs(true), 1)
+    assertIsNot(abs(true), True)
     assertEqual(~False, -1)
     assertEqual(~True, -2)
 

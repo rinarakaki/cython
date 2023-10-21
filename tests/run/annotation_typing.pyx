@@ -347,7 +347,7 @@ class HasPtr:
         return f"HasPtr({self.a[0]}, {self.b})"
 
 
-@cython.annotation_typing(False)
+@cython.annotation_typing(false)
 def turn_off_typing(x: float, d: dict):
     """
     >>> turn_off_typing('not a float', [])  # ignore the typing
@@ -356,7 +356,7 @@ def turn_off_typing(x: float, d: dict):
     return typeof(x), typeof(d), x, d
 
 
-@cython.annotation_typing(False)
+@cython.annotation_typing(false)
 cdef class ClassTurnOffTyping:
     x: float
     d: dict

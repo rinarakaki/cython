@@ -215,7 +215,7 @@ def test_cdef_attribute():
 
     print ExtClass().mview
 
-@cython.boundscheck(False)
+@cython.boundscheck(false)
 def test_nogil_unbound_localerror():
     """
     >>> test_nogil_unbound_localerror()
@@ -664,8 +664,8 @@ def addref(*args):
 def decref(*args):
     for item in args: Py_DECREF(item)
 
-@cython.binding(False)
-@cython.always_allow_keywords(False)
+@cython.binding(false)
+@cython.always_allow_keywords(false)
 def get_refcount(x):
     return (<PyObject*>x).ob_refcnt
 
@@ -1078,7 +1078,7 @@ def test_assignment_in_conditional_expression(bint left):
     2.0
     1.0
     2.0
-    >>> test_assignment_in_conditional_expression(False)
+    >>> test_assignment_in_conditional_expression(false)
     3.0
     4.0
     3.0
@@ -1135,7 +1135,7 @@ def min_max_tree_restructuring():
 @cython.test_assert_path_exists(
     '//MemoryViewIndexNode',
 )
-#@cython.boundscheck(False)  # reduce C code clutter
+#@cython.boundscheck(false)  # reduce C code clutter
 def optimised_index_of_slice(i32[:, :, :] arr, i32 x, i32 y, i32 z):
     """
     >>> arr = IntMockBuffer("A", list(range(10*10*10)), shape=(10,10,10))

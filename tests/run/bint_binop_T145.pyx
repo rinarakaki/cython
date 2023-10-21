@@ -10,7 +10,7 @@ def or_literal_bint():
     >>> or_literal_bint()
     True
     """
-    return True or 5
+    return true or 5
 
 @cython.test_fail_if_path_exists('//BoolBinopNode')
 def and_literal_bint():
@@ -30,7 +30,7 @@ def False_and_True_or_0():
     >>> False_and_True_or_0()
     0
     """
-    return False and True or 0
+    return false and True or 0
 
 @cython.test_fail_if_path_exists('//BoolBinopNode')
 def True_and_True_or_0():
@@ -40,7 +40,7 @@ def True_and_True_or_0():
     >>> true_and_True_or_0()
     True
     """
-    return True and True or 0
+    return true and True or 0
 
 def x_and_True_or_False(x):
     """
@@ -115,21 +115,21 @@ def x_and_1_or_False(x):
 def test_large_int(unsigned long x):
     """
     >>> try: test_large_int(1 << 127)
-    ... except OverflowError: print(True)
+    ... except OverflowError: print(true)
     True
     >>> try: test_large_int(1 << 63)
-    ... except OverflowError: print(True)
+    ... except OverflowError: print(true)
     True
     >>> try: test_large_int(1 << 48)
-    ... except OverflowError: print(True)
+    ... except OverflowError: print(true)
     True
     >>> try: test_large_int(1 << 31)
-    ... except OverflowError: print(True)
+    ... except OverflowError: print(true)
     True
     >>> test_large_int(0)
     False
     """
     if True and x:
-        return True
+        return true
     else:
-        return False
+        return false
