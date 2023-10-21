@@ -4,10 +4,8 @@ import sys
 IS_PY3 = sys.version_info[0] >= 3
 IS_32BIT_PY2 = not IS_PY3 and sys.maxint < 2**32
 
-
 from libc cimport stdint
 from libc.stdint cimport int16_t as my_int16_t
-
 
 def unlongify(v):
     # on 32bit Py2.x platforms, 'unsigned int' coerces to a Python long => fix doctest output here.
@@ -16,7 +14,6 @@ def unlongify(v):
         assert s.count('L') == s.count(',') + 1, s
         s = s.replace('L', '')
     return s
-
 
 def from_int_array():
     """
@@ -28,7 +25,6 @@ def from_int_array():
     v[1] = 2
     v[2] = 3
     return v
-
 
 cpdef tuple tuple_from_int_array():
     """
@@ -42,10 +38,8 @@ cpdef tuple tuple_from_int_array():
     assert isinstance(<tuple>v, tuple)
     return v
 
-
 cdef extern from "stdint.h":
-    ctypedef unsigned long uint32_t
-
+    ctypedef u64 uint32_t
 
 def from_typedef_int_array():
     """
@@ -58,7 +52,6 @@ def from_typedef_int_array():
     v[2] = 3
     return v
 
-
 cpdef tuple tuple_from_typedef_int_array():
     """
     >>> unlongify(tuple_from_typedef_int_array())
@@ -69,7 +62,6 @@ cpdef tuple tuple_from_typedef_int_array():
     v[1] = 2
     v[2] = 3
     return v
-
 
 def from_cimported_int_array():
     """
@@ -82,7 +74,6 @@ def from_cimported_int_array():
     v[2] = 3
     return v
 
-
 def from_cimported_as_int_array():
     """
     >>> from_cimported_as_int_array()
@@ -93,7 +84,6 @@ def from_cimported_as_int_array():
     v[1] = 2
     v[2] = 3
     return v
-
 
 def from_int_array_array():
     """
@@ -109,7 +99,6 @@ def from_int_array_array():
     v[1][2] = 23
     return v
 
-
 def assign_int_array_array():
     """
     >>> assign_int_array_array()
@@ -118,7 +107,6 @@ def assign_int_array_array():
     cdef int[2][3] v = [[11, 12, 13], [21, 22, 23]]
     return v
 
-
 def assign_int_array_array_from_tuples():
     """
     >>> assign_int_array_array_from_tuples()
@@ -126,7 +114,6 @@ def assign_int_array_array_from_tuples():
     """
     cdef int[2][3] v = ([11, 12, 13], [21, 22, 23])
     return v
-
 
 ''' FIXME: this currently crashes:
 def assign_int_array_array_from_tuples():
@@ -138,7 +125,6 @@ def assign_int_array_array_from_tuples():
     return v
 '''
 
-
 def build_from_list_of_arrays():
     """
     >>> build_from_list_of_arrays()
@@ -148,7 +134,6 @@ def build_from_list_of_arrays():
     cdef int[3] y = [21, 22, 23]
     cdef int[2][3] v = [x, y]
     return v
-
 
 def build_from_tuple_of_arrays():
     """
@@ -160,7 +145,6 @@ def build_from_tuple_of_arrays():
     cdef int[2][3] v = (x, y)
     return v
 
-
 ctypedef struct MyStructType:
     int x
     double y
@@ -169,7 +153,6 @@ ctypedef struct MyStructType:
 cdef struct MyStruct:
     int x
     double y
-
 
 def from_struct_array():
     """
@@ -193,7 +176,6 @@ def from_struct_array():
 
     return v
 
-
 def to_int_array(x):
     """
     >>> to_int_array([1, 2, 3])
@@ -207,7 +189,6 @@ def to_int_array(x):
     """
     cdef int[3] v = x
     return v[0], v[1], v[2]
-
 
 def to_int_array_array(x):
     """
@@ -240,7 +221,6 @@ def to_int_array_array(x):
     cdef int[2][3] v = x
     return v[0][0], v[0][1], v[0][2], v[1][0], v[1][1], v[1][2]
 
-
 '''
 # FIXME: this isn't currently allowed
 cdef enum:
@@ -264,7 +244,6 @@ def to_int_array_array_enumsize(x):
     return v[0][0], v[0][1], v[0][2], v[1][0], v[1][1], v[1][2]
 '''
 
-
 '''
 # FIXME: this isn't currently supported
 def array_as_argument(int[2] x):
@@ -274,7 +253,6 @@ def array_as_argument(int[2] x):
     """
     return x[0], x[1]
 '''
-
 
 def to_int_array_slice(x):
     """
@@ -299,7 +277,6 @@ def to_int_array_slice(x):
     v[:] = x
     return v[0], v[1], v[2]
 
-
 def iterable_to_int_array(x):
     """
     >>> iterable_to_int_array(iter([1, 2, 3]))
@@ -314,7 +291,6 @@ def iterable_to_int_array(x):
     cdef int[3] v
     v[:] = x
     return v[0], v[1], v[2]
-
 
 def to_struct_array(x):
     """
@@ -337,7 +313,6 @@ def to_struct_array(x):
 
     return v[0], w[1]
 
-
 def to_struct_array_array(x):
     """
     >>> (a1, a2, a3), (b1, b2, b3) = to_struct_array_array([
@@ -352,11 +327,9 @@ def to_struct_array_array(x):
     cdef MyStructType[2][3] v = x
     return v[0], v[1]
 
-
 cdef struct StructWithArray:
     int a
     MyStruct[2] b
-
 
 def to_struct_with_array(x):
     """
@@ -386,7 +359,6 @@ def to_struct_with_array(x):
     v = x
     return v
 
-
 def to_struct_with_array_slice(x):
     """
     >>> x, y = to_struct_with_array_slice([
@@ -415,7 +387,6 @@ def to_struct_with_array_slice(x):
     v[:] = x
     return v
 
-
 '''
 # FIXME: this isn't currently allowed
 def to_struct_with_array_slice_end(x):
@@ -438,7 +409,6 @@ def to_struct_with_array_slice_end(x):
     cdef StructWithArray[2] v
     v[:1] = x
     return v
-
 
 def to_int_array_slice_start_end(x):
     """

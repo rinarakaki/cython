@@ -82,13 +82,12 @@ if sys.version_info < (2,5):
     __doc__ = (__doc__.split('TYPE_FIXES_REQUIRED')[0] +
                __doc__.split('TYPE_FIXES_REQUIRED')[1].replace('\nAttributeError: ...', '\nTypeError: ...'))
 
-
 cdef class A:
 
     cdef public short h
     cdef public int i
     cdef public long l
-    cdef public long long q
+    cdef public i128 q
     cdef public float f
     cdef public double d
     cdef public long double g
@@ -99,7 +98,7 @@ cdef class A:
     cdef readonly short ro_h
     cdef readonly int ro_i
     cdef readonly long ro_l
-    cdef readonly long long ro_q
+    cdef readonly i128 ro_q
     cdef readonly float ro_f
     cdef readonly double ro_d
     cdef readonly long double ro_g
@@ -119,9 +118,7 @@ cdef class A:
         self.ro_Zd = 3+4j
         self.ro_Zg = 5+6j
 
-
 cdef class B:
-
     cdef object a0
     cdef public object a1
     cdef readonly object a2

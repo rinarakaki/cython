@@ -348,7 +348,7 @@ def test_add_ulong(x, y):
 SLONGLONG_MAX = <SLongLong>((<ULongLong>-1)>>1)
 SLONGLONG_MIN = (-SLONGLONG_MAX-1)
 
-def test_slonglong(long long x):
+def test_slonglong(i128 x):
    u"""
    >>> test_slonglong(SLONGLONG_MIN-1) #doctest: +ELLIPSIS
    Traceback (most recent call last):

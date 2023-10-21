@@ -10,7 +10,7 @@ __doc__ = u"""
 cdef extern from "math.h":
   f64 M_PI
 
-#cdef unsigned long int n1
+#cdef u64 n1
 #n1 = 4293858116
 
 cdef f64 pi

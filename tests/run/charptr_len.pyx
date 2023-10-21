@@ -2,8 +2,8 @@ cimport cython
 
 cdef char* s = b"abcdefg"
 cdef const char* cs = b"abcdefg"
-cdef unsigned char* us = b"abcdefg"
-cdef const unsigned char* cus = b"abcdefg"
+cdef u8* us = b"abcdefg"
+cdef const u8* cus = b"abcdefg"
 cdef bytes pystr =  b"abcdefg"
 
 

@@ -81,9 +81,9 @@ def test_global():
     print cython.typeof(global_csqrt)
 
 
-cdef long long rad(long long x):
-    cdef long long rad = 1
-    for p in range(2, <long long>sqrt(<double>x) + 1):  # MSVC++ fails without the input cast
+cdef i128 rad(i128 x):
+    cdef i128 rad = 1
+    for p in range(2, <i128>sqrt(<double>x) + 1):  # MSVC++ fails without the input cast
         if x % p == 0:
             rad *= p
             while x % p == 0:
@@ -92,7 +92,7 @@ cdef long long rad(long long x):
             break
     return rad
 
-cdef bint abc(long long a, long long b, long long c) except -1:
+cdef bint abc(i128 a, i128 b, i128 c) except -1:
     if a + b != c:
         raise ValueError("Not a valid abc candidate: (%s, %s, %s)" % (a, b, c))
     return rad(a*b*c) < c

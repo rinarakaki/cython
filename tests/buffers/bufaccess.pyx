@@ -762,7 +762,7 @@ def mixed_get(object[i32] buf, i32 unsafe_idx, i32 safe_idx):
 # Coercions
 #
 ## @testcase
-## def coercions(object[unsigned char] uc):
+## def coercions(object[u8] uc):
 ##     """
 ## TODO
 ##     """

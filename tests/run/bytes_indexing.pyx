@@ -77,7 +77,7 @@ def index_literal_uchar_cast(int i):
     Traceback (most recent call last):
     IndexError: string index out of range
     """
-    return <unsigned char>(b"12345"[i])
+    return <u8>(b"12345"[i])
 
 
 @cython.test_assert_path_exists("//PythonCapiCallNode")
@@ -97,7 +97,7 @@ def index_nonliteral_uchar_cast(int i):
     Traceback (most recent call last):
     IndexError: string index out of range
     """
-    return <unsigned char>(b12345[i])
+    return <u8>(b12345[i])
 
 
 @cython.test_assert_path_exists("//PythonCapiCallNode")

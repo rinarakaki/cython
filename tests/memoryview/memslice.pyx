@@ -629,7 +629,7 @@ def writable(obj):
     >>> [str(x) for x in R.received_flags] # Py2/3
     ['FORMAT', 'ND', 'STRIDES', 'WRITABLE']
     """
-    cdef unsigned short int[:, :, :] buf = obj
+    cdef u16[:, :, :] buf = obj
     buf[2, 2, 1] = 23
 
 @testcase

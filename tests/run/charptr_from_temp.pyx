@@ -93,4 +93,4 @@ def test_charptr_and_ucharptr(char* s):
     >>> test_charptr_and_ucharptr(b'abc') == b'abc'
     True
     """
-    return s and <unsigned char*>s
+    return s and <u8*>s

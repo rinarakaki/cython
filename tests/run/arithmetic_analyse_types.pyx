@@ -12,7 +12,7 @@ cdef extern from "arithmetic_analyse_types_helper.h":
         char *msg
     cdef short_return f(short)
     cdef int_return f(int)
-    cdef longlong_return f(long long)
+    cdef longlong_return f(i128)
 
 def short_binop(short val):
     """
@@ -37,7 +37,7 @@ def short_unnop(short val):
     cdef int_return x = f(-val)
     return x.msg.decode('ASCII')
 
-def longlong_binop(long long val):
+def longlong_binop(i128 val):
     """
     >>> print(longlong_binop(3))
     long long called
@@ -45,7 +45,7 @@ def longlong_binop(long long val):
     cdef longlong_return x = f(val * val)
     return x.msg.decode('ASCII')
 
-def longlong_unnop(long long val):
+def longlong_unnop(i128 val):
     """
     >>> print(longlong_unnop(3))
     long long called
