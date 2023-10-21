@@ -229,9 +229,9 @@ with cython.cdivision(True):
 
 _WARNINGS = """
 181:27: Strings should no longer be used for type declarations. Use 'cython.int' etc. directly.
-193:4: Directive does not change previous value (cdivision=true)
+193:4: Directive does not change previous value (cdivision=True)
 213:4: Directive does not change previous value (cdivision=False)
 214:4: Directive does not change previous value (cdivision=False)
-218:4: Directive does not change previous value (cdivision=true)
-219:4: Directive does not change previous value (cdivision=true)
+218:4: Directive does not change previous value (cdivision=True)
+219:4: Directive does not change previous value (cdivision=True)
 """
