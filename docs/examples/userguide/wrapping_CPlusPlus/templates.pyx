@@ -17,12 +17,12 @@ cdef extern from "<vector>" namespace "std":
         iterator begin()
         iterator end()
 
-cdef vector[int] *v = new vector[int]()
+cdef vector[i32] *v = new vector[i32]()
 cdef int i
 for i in range(10):
     v.push_back(i)
 
-cdef vector[int].iterator it = v.begin()
+cdef vector[i32].iterator it = v.begin()
 while it != v.end():
     print(deref(it))
     inc(it)
