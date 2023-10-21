@@ -12,8 +12,8 @@ cdef extern from "<vector>" namespace "std":
             bint operator!=(iterator)
         vector()
         void push_back(T&)
-        T& operator[](int)
-        T& at(int)
+        T& operator[](usize)
+        T& at(usize)
         iterator begin()
         iterator end()
 
