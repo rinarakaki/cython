@@ -18,7 +18,7 @@ cdef class Machine:
 cdef class Node:
     cdef readonly TransitionMap transitions
     cdef readonly Action action
-    cdef public dict epsilon_closure
+    cdef pub dict epsilon_closure
     cdef readonly isize number
     cdef readonly i32 action_priority
 

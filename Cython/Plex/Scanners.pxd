@@ -5,27 +5,27 @@ import cython
 from Cython.Plex.Actions cimport Action
 
 cdef class Scanner:
-    cdef public lexicon
-    cdef public stream
-    cdef public name
-    cdef public unicode buffer
-    cdef public isize buf_start_pos
-    cdef public isize next_pos
-    cdef public isize cur_pos
-    cdef public isize cur_line
-    cdef public isize cur_line_start
-    cdef public isize start_pos
+    cdef pub lexicon
+    cdef pub stream
+    cdef pub name
+    cdef pub unicode buffer
+    cdef pub isize buf_start_pos
+    cdef pub isize next_pos
+    cdef pub isize cur_pos
+    cdef pub isize cur_line
+    cdef pub isize cur_line_start
+    cdef pub isize start_pos
     cdef tuple current_scanner_position_tuple
-    cdef public tuple last_token_position_tuple
-    cdef public text
-    cdef public initial_state # int?
-    cdef public state_name
-    cdef public list queue
-    cdef public bint trace
-    cdef public cur_char
-    cdef public i64 input_state
+    cdef pub tuple last_token_position_tuple
+    cdef pub text
+    cdef pub initial_state # int?
+    cdef pub state_name
+    cdef pub list queue
+    cdef pub bint trace
+    cdef pub cur_char
+    cdef pub i64 input_state
 
-    cdef public level
+    cdef pub level
 
     @cython.locals(input_state=i64)
     cdef inline next_char(self)
