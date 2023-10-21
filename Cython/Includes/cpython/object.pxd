@@ -2,7 +2,6 @@ from libc.stdio cimport FILE
 cimport cpython.type
 
 cdef extern from "Python.h":
-
     ctypedef struct PyObject  # forward declaration
 
     ctypedef object (*newfunc)(cpython.type.type, PyObject*, PyObject*)  # (type, args|NULL, kwargs|NULL)
