@@ -412,14 +412,14 @@ def test_pylong(int_t i):
     >>> try:    long = long # Python 2
     ... except: long = int  # Python 3
 
-    >>> test_pylong[i32](int(0))
+    >>> test_pylong[int](int(0))
     int
     >>> test_pylong[cython.i32](int(0))
     int
     >>> test_pylong(int(0))
     int
 
-    >>> test_pylong[i32](long(0))
+    >>> test_pylong[int](long(0))
     int
     >>> test_pylong[cython.i32](long(0))
     int
