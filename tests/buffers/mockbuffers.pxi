@@ -16,10 +16,10 @@ available_flags = (
 cdef class MockBuffer:
     cdef object format, offset
     cdef void* buffer
-    cdef Py_ssize_t len, itemsize
-    cdef Py_ssize_t* strides
-    cdef Py_ssize_t* shape
-    cdef Py_ssize_t* suboffsets
+    cdef isize len, itemsize
+    cdef isize* strides
+    cdef isize* shape
+    cdef isize* suboffsets
     cdef object label, log
     cdef int ndim
     cdef bint writable
@@ -30,7 +30,7 @@ cdef class MockBuffer:
     def __init__(self, label, data, shape=None, strides=None, format=None, writable=True, offset=0):
         # It is important not to store references to data after the constructor
         # as refcounting is checked on object buffers.
-        cdef Py_ssize_t x, s, cumprod, itemsize
+        cdef isize x, s, cumprod, itemsize
         self.label = label
         self.release_ok = True
         self.log = u""
@@ -90,7 +90,7 @@ cdef class MockBuffer:
             stdlib.free(self.buffer)
 
     cdef void* create_buffer(self, data) except NULL:
-        cdef size_t n = <size_t>(len(data) * self.itemsize)
+        cdef usize n = <usize>(len(data) * self.itemsize)
         cdef char* buf = <char*>stdlib.malloc(n)
         if buf == NULL:
             raise MemoryError
@@ -101,14 +101,14 @@ cdef class MockBuffer:
         return buf
 
     cdef void* create_indirect_buffer(self, data, shape) except NULL:
-        cdef size_t n = 0
+        cdef usize n = 0
         cdef void** buf
         assert shape[0] == len(data), (shape[0], len(data))
         if len(shape) == 1:
             return self.create_buffer(data)
         else:
             shape = shape[1:]
-            n = <size_t>len(data) * sizeof(void*)
+            n = <usize>len(data) * sizeof(void*)
             buf = <void**>stdlib.malloc(n)
             if buf == NULL:
                 return NULL
@@ -118,10 +118,10 @@ cdef class MockBuffer:
 
             return buf
 
-    cdef Py_ssize_t* list_to_sizebuf(self, l):
-        cdef Py_ssize_t i, x
-        cdef size_t n = <size_t>len(l) * sizeof(Py_ssize_t)
-        cdef Py_ssize_t* buf = <Py_ssize_t*>stdlib.malloc(n)
+    cdef isize* list_to_sizebuf(self, l):
+        cdef isize i, x
+        cdef usize n = <usize>len(l) * sizeof(isize)
+        cdef isize* buf = <isize*>stdlib.malloc(n)
         for i, x in enumerate(l):
             buf[i] = x
         return buf
