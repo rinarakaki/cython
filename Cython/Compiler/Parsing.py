@@ -3473,7 +3473,10 @@ def p_visibility(s, prev_visibility):
     pos = s.position()
     visibility = prev_visibility
     if s.sy == 'IDENT' and s.systring in ("extern", "pub", "public", "readonly"):
-        visibility = s.systring
+        if s.systring == "pub":
+            visibility = "public"
+        else:
+            visibility = s.systring
         if prev_visibility != 'private' and visibility != prev_visibility:
             s.error("Conflicting visibility options '%s' and '%s'"
                 % (prev_visibility, visibility), fatal=False)
