@@ -1,4 +1,4 @@
-# cython: profile=true
+# cython: profile=True
 
 cimport cython
 
