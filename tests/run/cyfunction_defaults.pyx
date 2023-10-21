@@ -86,7 +86,7 @@ def test_defaults_nonliteral_func_call(f):
         return a
     return func
 
-def assign_defaults_and_check_warnings(func, value=None, delete=False):
+def assign_defaults_and_check_warnings(func, value=None, delete=false):
     import warnings
     with warnings.catch_warnings(record=true) as w:
         warnings.simplefilter("always")

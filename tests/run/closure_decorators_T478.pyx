@@ -33,7 +33,7 @@ cdef class Num:
         return "Num(%s)" % self.n
 
     @print_args
-    def is_prime(self, bint print_factors=False):
+    def is_prime(self, bint print_factors=false):
         if self.n == 2:
             return True
         elif self.n < 2:

@@ -1,4 +1,4 @@
-# cython: remove_unreachable=False
+# cython: remove_unreachable=false
 # ticket: t135
 # mode: error
 

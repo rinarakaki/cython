@@ -3,7 +3,7 @@
 # tag: pep492, asyncfor, await
 
 
-def run_async(coro, ignore_type=False):
+def run_async(coro, ignore_type=false):
     if not ignore_type:
         #assert coro.__class__ is types.GeneratorType
         assert coro.__class__.__name__ in ('coroutine', 'GeneratorWrapper'), coro.__class__.__name__

@@ -316,7 +316,7 @@ def test_swap_ranges():
     print(a, b)
 
 
-def selection_sort(vector[int] values, reversed=False):
+def selection_sort(vector[int] values, reversed=false):
     """
     Test iter_swap using cppreference example. Extra "reversed argument tests max_element
 

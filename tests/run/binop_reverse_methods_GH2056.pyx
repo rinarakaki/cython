@@ -15,11 +15,11 @@ class Base(object):
     >>> 2 + Base()
     'Base.__radd__(Base(), 2)'
 
-    >>> Base(implemented=False) + 2  #doctest: +ELLIPSIS
+    >>> Base(implemented=false) + 2  #doctest: +ELLIPSIS
     Traceback (most recent call last):
     ...
     TypeError: unsupported operand type...
-    >>> 2 + Base(implemented=False)  #doctest: +ELLIPSIS
+    >>> 2 + Base(implemented=false)  #doctest: +ELLIPSIS
     Traceback (most recent call last):
     ...
     TypeError: unsupported operand type...
@@ -126,11 +126,11 @@ class OverloadLeft(Base):
     >>> Base() + OverloadLeft()
     'Base.__add__(Base(), OverloadLeft())'
 
-    >>> OverloadLeft(implemented=False) + Base(implemented=False)  #doctest: +ELLIPSIS
+    >>> OverloadLeft(implemented=false) + Base(implemented=false)  #doctest: +ELLIPSIS
     Traceback (most recent call last):
     ...
     TypeError: unsupported operand type...
-    >>> Base(implemented=False) + OverloadLeft(implemented=False)  #doctest: +ELLIPSIS
+    >>> Base(implemented=false) + OverloadLeft(implemented=false)  #doctest: +ELLIPSIS
     Traceback (most recent call last):
     ...
     TypeError: unsupported operand type...
@@ -163,11 +163,11 @@ class OverloadRight(Base):
     >>> Base() + OverloadRight()
     'OverloadRight.__radd__(OverloadRight(), Base())'
 
-    >>> OverloadRight(implemented=False) + Base(implemented=False)  #doctest: +ELLIPSIS
+    >>> OverloadRight(implemented=false) + Base(implemented=false)  #doctest: +ELLIPSIS
     Traceback (most recent call last):
     ...
     TypeError: unsupported operand type...
-    >>> Base(implemented=False) + OverloadRight(implemented=False)  #doctest: +ELLIPSIS
+    >>> Base(implemented=false) + OverloadRight(implemented=false)  #doctest: +ELLIPSIS
     Traceback (most recent call last):
     ...
     TypeError: unsupported operand type...
@@ -200,11 +200,11 @@ class OverloadCApi(Base):
     >>> Base() + OverloadCApi()
     'OverloadCApi.__add__(Base(), OverloadCApi())'
 
-    >>> OverloadCApi(derived_implemented=False) + 2 #doctest: +ELLIPSIS
+    >>> OverloadCApi(derived_implemented=false) + 2 #doctest: +ELLIPSIS
     Traceback (most recent call last):
     ...
     TypeError: unsupported operand type...
-    >>> 2 + OverloadCApi(derived_implemented=False) #doctest: +ELLIPSIS
+    >>> 2 + OverloadCApi(derived_implemented=false) #doctest: +ELLIPSIS
     Traceback (most recent call last):
     ...
     TypeError: unsupported operand type...

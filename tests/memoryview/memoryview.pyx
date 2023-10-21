@@ -749,7 +749,7 @@ def test_pyview_of_memview(i32[:] ints):
     """
     return ints
 
-def test_generic_slicing(arg, indirect=False):
+def test_generic_slicing(arg, indirect=false):
     """
     Test simple slicing
     >>> test_generic_slicing(IntMockBuffer("A", range(8 * 14 * 11), shape=(8, 14, 11)))

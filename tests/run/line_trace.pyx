@@ -186,7 +186,7 @@ def py_return(retval=123): return retval
 """, plain_python_functions)
 
 
-def run_trace(func, *args, bint with_sys=False):
+def run_trace(func, *args, bint with_sys=false):
     """
     >>> py_add = plain_python_functions['py_add']
     >>> run_trace(py_add, 1, 2)
@@ -249,7 +249,7 @@ def run_trace(func, *args, bint with_sys=False):
     return trace
 
 
-def run_trace_with_exception(func, bint with_sys=False, bint fail=False):
+def run_trace_with_exception(func, bint with_sys=false, bint fail=false):
     """
     >>> py_return = plain_python_functions["py_return"]
     >>> run_trace_with_exception(py_return)
@@ -403,7 +403,7 @@ def fail_on_line_trace(fail_func, add_func, nogil_add_func):
     return trace
 
 
-def disable_trace(func, *args, bint with_sys=False):
+def disable_trace(func, *args, bint with_sys=false):
     """
     >>> py_add = plain_python_functions["py_add"]
     >>> disable_trace(py_add, 1, 2)

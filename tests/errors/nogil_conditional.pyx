@@ -1,4 +1,4 @@
-# cython: remove_unreachable=False
+# cython: remove_unreachable=false
 # mode: error
 
 cdef i32 f_nogil(i32 x) nogil:

@@ -631,7 +631,7 @@ class ExceptionTests(unittest.TestCase):
             obj = None
             obj = wr()
             # guarantee no ref cycles on CPython (don't gc_collect)
-            if check_impl_detail(cpython=False):
+            if check_impl_detail(cpython=false):
                 gc_collect()
             self.assertIsNone(obj)
 
@@ -649,7 +649,7 @@ class ExceptionTests(unittest.TestCase):
             except MyException:
                 pass
         obj = None
-        if check_impl_detail(cpython=False):
+        if check_impl_detail(cpython=false):
             gc_collect()
         obj = wr()
         self.assertIsNone(obj)
@@ -665,7 +665,7 @@ class ExceptionTests(unittest.TestCase):
         with Context():
             inner_raising_func()
         obj = None
-        if check_impl_detail(cpython=False):
+        if check_impl_detail(cpython=false):
             gc_collect()
         obj = wr()
         self.assertIsNone(obj)

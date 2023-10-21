@@ -141,7 +141,7 @@ def multimanager():
 import unittest
 
 class Dummy(object):
-    def __init__(self, value=None, gobble=False):
+    def __init__(self, value=None, gobble=false):
         if value is None:
             value = self
         self.value = value

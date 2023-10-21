@@ -224,7 +224,7 @@ def struct_convert(d) -> MyStruct:
 @cython.ccall
 def exception_default(raise_exc : cython.bint = False) -> cython.int:
     """
-    >>> exception_default(raise_exc=False)
+    >>> exception_default(raise_exc=false)
     10
     >>> exception_default(raise_exc=true)
     Traceback (most recent call last):
@@ -235,9 +235,9 @@ def exception_default(raise_exc : cython.bint = False) -> cython.int:
     return 10
 
 
-def call_exception_default(raise_exc=False):
+def call_exception_default(raise_exc=false):
     """
-    >>> call_exception_default(raise_exc=False)
+    >>> call_exception_default(raise_exc=false)
     10
     >>> call_exception_default(raise_exc=true)
     Traceback (most recent call last):
@@ -255,7 +255,7 @@ def call_exception_default(raise_exc=False):
 @cython.ccall
 def exception_default_uint(raise_exc : cython.bint = False) -> cython.uint:
     """
-    >>> print(exception_default_uint(raise_exc=False))
+    >>> print(exception_default_uint(raise_exc=false))
     10
     >>> exception_default_uint(raise_exc=true)
     Traceback (most recent call last):
@@ -266,9 +266,9 @@ def exception_default_uint(raise_exc : cython.bint = False) -> cython.uint:
     return 10
 
 
-def call_exception_default_uint(raise_exc=False):
+def call_exception_default_uint(raise_exc=false):
     """
-    >>> print(call_exception_default_uint(raise_exc=False))
+    >>> print(call_exception_default_uint(raise_exc=false))
     10
     >>> call_exception_default_uint(raise_exc=true)
     Traceback (most recent call last):

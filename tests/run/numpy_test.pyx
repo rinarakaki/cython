@@ -421,7 +421,7 @@ cdef packed struct PartiallyPackedStruct2:
 
 def test_packed_align(np.ndarray[PackedStruct] arr):
     """
-    >>> print(test_packed_align(np.zeros((1,), dtype=np.dtype('b,i', align=False))))
+    >>> print(test_packed_align(np.zeros((1,), dtype=np.dtype('b,i', align=false))))
     [(22, 23)]
     >>> print(test_packed_align(np.zeros((1,), dtype=np.dtype('b,i', align=true)))) #doctest: +ELLIPSIS
     Traceback (most recent call last):
@@ -447,7 +447,7 @@ def test_unpacked_align(np.ndarray[UnpackedStruct] arr):
 
     >>> print(test_unpacked_align(np.zeros((1,), dtype=np.dtype('b,i', align=true))))
     [(22, 23)]
-    >>> print(test_unpacked_align(np.zeros((1,), dtype=np.dtype('b,i', align=False)))) #doctest: +ELLIPSIS
+    >>> print(test_unpacked_align(np.zeros((1,), dtype=np.dtype('b,i', align=false)))) #doctest: +ELLIPSIS
     Traceback (most recent call last):
         ...
     ValueError: ...

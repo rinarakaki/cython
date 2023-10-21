@@ -17,7 +17,7 @@ if sys.version_info >= (3, 5, 0, 'beta'):
 >>> buffer
 []
 
->>> yielded, _ = run_async(testfunc(), check_type=False)
+>>> yielded, _ = run_async(testfunc(), check_type=false)
 >>> yielded == [i * 100 for i in range(1, 11)] or yielded
 True
 >>> buffer == [i*2 for i in range(1, 101)] or buffer

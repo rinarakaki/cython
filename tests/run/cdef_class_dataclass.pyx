@@ -125,10 +125,10 @@ cdef class ContainsNonPyFields:
     Traceback (most recent call last):
     TypeError: __init__() got an unexpected keyword argument 'mystruct_ptr'
     """
-    mystruct: S = cython.dataclasses.field(compare=False)
-    mystruct_ptr: S_ptr = field(init=False, repr=False, default_factory=malloc_a_struct)
+    mystruct: S = cython.dataclasses.field(compare=false)
+    mystruct_ptr: S_ptr = field(init=false, repr=false, default_factory=malloc_a_struct)
     memview: cython.int[:, ::1] = field(default=create_array((3,1), "c"),  # mutable so not great but OK for a test
-                                        compare=False)
+                                        compare=false)
 
     def __dealloc__(self):
         free(self.mystruct_ptr)

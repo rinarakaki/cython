@@ -238,7 +238,7 @@ def test_list_extend_unbound(seq=None, x=4):
     '//PythonCapiCallNode//PythonCapiFunctionNode[@cname = "__Pyx_ListComp_Append"]',
     '//PythonCapiCallNode//PythonCapiFunctionNode[@cname = "__Pyx_PyList_Append"]',
 )
-def test_list_extend_sideeffect(seq=None, exc=False):
+def test_list_extend_sideeffect(seq=None, exc=false):
     """
     >>> test_list_extend_sideeffect()
     ([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], [4, 6, 7, 8])

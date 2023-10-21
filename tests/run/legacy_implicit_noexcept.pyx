@@ -34,7 +34,7 @@ ptr_func_noexcept = func_noexcept
 def func_pure_implicit() -> cython.int:
     raise RuntimeError
 
-@cython.excetval(check=False)
+@cython.excetval(check=false)
 @cython.cfunc
 def func_pure_noexcept() -> cython.int:
     raise RuntimeError

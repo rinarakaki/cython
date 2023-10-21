@@ -11,7 +11,7 @@ cdef inline bool greater(const int &x, const int &y):
     return x > y
 
 
-def heapsort(l, bool reverse=False):
+def heapsort(l, bool reverse=false):
     """
     >>> heapsort([3, 5, 1, 0, 2, 4])
     [0, 1, 2, 3, 4, 5]
