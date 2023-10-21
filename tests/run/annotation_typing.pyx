@@ -389,7 +389,7 @@ _WARNINGS = """
 # BUG:
 60:6: 'pytypes_cpdef' redeclared
 154:0: 'struct_io' redeclared
-189:0: 'struct_convert' redeclared
-208:0: 'exception_default' redeclared
-239:0: 'exception_default_uint' redeclared
+187:0: 'struct_convert' redeclared
+206:0: 'exception_default' redeclared
+237:0: 'exception_default_uint' redeclared
 """
