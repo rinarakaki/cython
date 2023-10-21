@@ -21,7 +21,7 @@ cdef extern from "Python.h":
     bint PyLong_CheckExact(object p)
     # Return true if its argument is a PyLongObject, but not a subtype of PyLongObject.
 
-    object PyLong_FromLong(long v)
+    object PyLong_FromLong(i64 v)
     # Return value: New reference.
     # Return a new PyLongObject object from v, or NULL on failure.
 
@@ -84,11 +84,11 @@ cdef extern from "Python.h":
     # PyLong_AsVoidPtr().  If the integer is larger than LONG_MAX, a
     # positive long integer is returned.
 
-    long PyLong_AsLong(object pylong) except? -1
+    i64 PyLong_AsLong(object pylong) except? -1
     # Return a C long representation of the contents of pylong. If
     # pylong is greater than LONG_MAX, an OverflowError is raised.
 
-    long PyLong_AsLongAndOverflow(object pylong, i32 *overflow) except? -1
+    i64 PyLong_AsLongAndOverflow(object pylong, i32 *overflow) except? -1
     # Return a C long representation of the contents of pylong. If pylong is
     # greater than LONG_MAX or less than LONG_MIN, set *overflow to 1 or -1,
     # respectively, and return -1; otherwise, set *overflow to 0. If any other
