@@ -833,7 +833,7 @@ def printbuf_float(o, shape):
     """
 
     # should make shape builtin
-    cdef object[float] buf
+    cdef object[f32] buf
     buf = o
     cdef i32 i, j
     for i in range(shape[0]):
@@ -868,7 +868,7 @@ def inplace_operators(object[i32] buf):
 ctypedef i32 td_cy_int
 cdef extern from "bufaccess.h":
     ctypedef td_cy_int td_h_short # Defined as short, but Cython doesn't know this!
-    ctypedef float td_h_double # Defined as double
+    ctypedef f32 td_h_double # Defined as double
     ctypedef u32 td_h_ushort # Defined as unsigned short
 ctypedef td_h_short td_h_cy_short
 
