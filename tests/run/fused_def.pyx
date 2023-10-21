@@ -66,7 +66,7 @@ def opt_func(fused_t obj, cython.floating myf = 1.2, cython.integral myi = 7,
     >>> opt_func("spam", myf=f, myi=i)
     str object double long
     spam 5.60 9 5.60 9
-    >>> opt_func[str, f32, i32]("spam", f, i)
+    >>> opt_func[str, cy.f32, cy.i32]("spam", f, i)
     str object float int
     spam 5.60 9 5.60 9
     >>> opt_func[str, cy.f64, cy.i64]("spam", f, i)
@@ -75,7 +75,7 @@ def opt_func(fused_t obj, cython.floating myf = 1.2, cython.integral myi = 7,
     >>> opt_func[str, cy.f64, cy.i64]("spam", f, myi=i)
     str object double long
     spam 5.60 9 5.60 9
-    >>> opt_func[str, f32, cy.i32]("spam", f, i)
+    >>> opt_func[str, cy.f32, cy.i32]("spam", f, i)
     str object float int
     spam 5.60 9 5.60 9
 
@@ -83,7 +83,7 @@ def opt_func(fused_t obj, cython.floating myf = 1.2, cython.integral myi = 7,
     >>> opt_func(ExtClassA(), f, i)
     ExtClassA double long
     ExtClassA 5.60 9 5.60 9
-    >>> opt_func[ExtClassA, f32, i32](ExtClassA(), f, i)
+    >>> opt_func[ExtClassA, cy.f32, cy.i32](ExtClassA(), f, i)
     ExtClassA float int
     ExtClassA 5.60 9 5.60 9
     >>> opt_func[ExtClassA, cy.f64, cy.i64](ExtClassA(), f, i)
@@ -100,14 +100,14 @@ def opt_func(fused_t obj, cython.floating myf = 1.2, cython.integral myi = 7,
     >>> opt_func(10, f)
     long double long
     10 5.60 7 5.60 9
-    >>> opt_func[i32, f32, i32](10, f)
+    >>> opt_func[cy.i32, cy.f32, cy.i32](10, f)
     int float int
     10 5.60 7 5.60 9
 
     >>> opt_func(10 + 2j, myf = 2.6)
     double complex double long
     (10+2j) 2.60 7 5.60 9
-    >>> opt_func[cy.py_complex, f32, i32](10 + 2j, myf = 2.6)
+    >>> opt_func[cy.py_complex, cy.f32, cy.i32](10 + 2j, myf = 2.6)
     double complex float int
     (10+2j) 2.60 7 5.60 9
     >>> opt_func[cy.doublecomplex, cy.f32, cy.i32](10 + 2j, myf = 2.6)
