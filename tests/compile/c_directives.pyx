@@ -14,11 +14,11 @@ cimport cython as cy
 def e(object[i32, ndim=2] buf):
     print buf[3, 2] # no bc
 
-@cy.boundscheck(False)
+@cy.boundscheck(false)
 def f(object[i32, ndim=2] buf):
     print buf[3, 2] # no bc
 
-@cy.boundscheck(True)
+@cy.boundscheck(true)
 def g(object[i32, ndim=2] buf):
     # The below line should have no meaning
 # cython: boundscheck = False
@@ -27,7 +27,7 @@ def g(object[i32, ndim=2] buf):
 
 def h(object[i32, ndim=2] buf):
     print buf[3, 2] # no bc
-    with cy.boundscheck(True):
+    with cy.boundscheck(true):
         print buf[3, 2] # bc
 
 from cython cimport boundscheck as bc
@@ -38,6 +38,6 @@ def i(object[i32] buf):
 
 from cython cimport warn as my_warn
 
-@my_warn(undeclared=True)
+@my_warn(undeclared=true)
 def j():
     pass
