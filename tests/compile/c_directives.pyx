@@ -33,7 +33,7 @@ def h(object[i32, ndim=2] buf):
 from cython cimport boundscheck as bc
 
 def i(object[i32] buf):
-    with bc(True):
+    with bc(true):
         print buf[3] # bs
 
 from cython cimport warn as my_warn
