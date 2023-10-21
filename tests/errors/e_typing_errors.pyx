@@ -38,7 +38,7 @@ _ERRORS = """
 12:90: typing.Optional[...] cannot be applied to type float
 13:42: typing.Optional[...] cannot be applied to type double complex
 13:70: typing.Optional[...] cannot be applied to type long
-13:95: typing.Optional[...] cannot be applied to type long long
+13:94: typing.Optional[...] cannot be applied to type long long
 23:30: typing.Optional[...] cannot be applied to type int
 23:47: typing.Optional[...] cannot be applied to type float
 23:85: typing.Optional[...] cannot be applied to type long
