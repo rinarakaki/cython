@@ -57,7 +57,7 @@ def pytypes_def(a: list, b: int = 2, c: long = 3, d: float = 4.0, n: list = None
     a.append(o)
     return a
 
-cpdef pytypes_cpdef(a: list, b: i32 = 2, c: i64 = 3, d: f32 = 4.0, n: list = None, o: Optional[tuple] = ()):
+cpdef pytypes_cpdef(a: list, b: int = 2, c: long = 3, d: float = 4.0, n: list = None, o: Optional[tuple] = ()):
     """
     >>> pytypes_cpdef([1])
     ('list object', 'Python object', 'Python object', 'double', 'list object', 'tuple object')
