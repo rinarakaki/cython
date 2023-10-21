@@ -39,11 +39,11 @@ _ERRORS = """
 13:42: typing.Optional[...] cannot be applied to type double complex
 13:70: typing.Optional[...] cannot be applied to type long
 13:94: typing.Optional[...] cannot be applied to type long long
-23:30: typing.Optional[...] cannot be applied to type int
-23:47: typing.Optional[...] cannot be applied to type float
-23:85: typing.Optional[...] cannot be applied to type long
+21:30: typing.Optional[...] cannot be applied to type int
+21:47: typing.Optional[...] cannot be applied to type float
+21:85: typing.Optional[...] cannot be applied to type long
 
 18:30: typing.Optional[...] cannot be applied to type MyStruct
 
-27:20: Modifier 'typing.ClassVar' is not allowed here.
+25:20: Modifier 'typing.ClassVar' is not allowed here.
 """
