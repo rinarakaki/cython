@@ -377,19 +377,19 @@ _WARNINGS = """
 34:66: PEP-484 recommends 'typing.Optional[...]' for arguments that can be None.
 60:44: Found Python 2.x type 'long' in a Python annotation. Did you mean to use 'cython.long'?
 60:70: PEP-484 recommends 'typing.Optional[...]' for arguments that can be None.
-87:44: Found Python 2.x type 'long' in a Python annotation. Did you mean to use 'cython.long'?
-87:70: PEP-484 recommends 'typing.Optional[...]' for arguments that can be None.
-149:30: Tuples cannot be declared as simple tuples of types. Use 'tuple[type1, type2, ...]'.
-149:59: Tuples cannot be declared as simple tuples of types. Use 'tuple[type1, type2, ...]'.
-154:13: Tuples cannot be declared as simple tuples of types. Use 'tuple[type1, type2, ...]'.
-289:44: Unknown type declaration in annotation, ignoring
-317:15: Annotation ignored since class-level attributes must be Python objects. Were you trying to set up an instance attribute?
+86:44: Found Python 2.x type 'long' in a Python annotation. Did you mean to use 'cython.long'?
+86:70: PEP-484 recommends 'typing.Optional[...]' for arguments that can be None.
+148:30: Tuples cannot be declared as simple tuples of types. Use 'tuple[type1, type2, ...]'.
+148:59: Tuples cannot be declared as simple tuples of types. Use 'tuple[type1, type2, ...]'.
+153:13: Tuples cannot be declared as simple tuples of types. Use 'tuple[type1, type2, ...]'.
+288:44: Unknown type declaration in annotation, ignoring
+316:15: Annotation ignored since class-level attributes must be Python objects. Were you trying to set up an instance attribute?
 # DUPLICATE:
 60:44: Found Python 2.x type 'long' in a Python annotation. Did you mean to use 'cython.long'?
 # BUG:
 60:6: 'pytypes_cpdef' redeclared
-161:0: 'struct_io' redeclared
-196:0: 'struct_convert' redeclared
-215:0: 'exception_default' redeclared
-246:0: 'exception_default_uint' redeclared
+160:0: 'struct_io' redeclared
+195:0: 'struct_convert' redeclared
+214:0: 'exception_default' redeclared
+245:0: 'exception_default_uint' redeclared
 """
