@@ -373,23 +373,23 @@ _WARNINGS = """
 13:77: Dicts should no longer be used as type annotations. Use 'cython.int' etc. directly.
 13:85: Python type declaration in signature annotation does not refer to a Python type
 13:85: Strings should no longer be used for type declarations. Use 'cython.int' etc. directly.
-35:40: Found Python 2.x type 'long' in a Python annotation. Did you mean to use 'cython.long'?
-35:66: PEP-484 recommends 'typing.Optional[...]' for arguments that can be None.
-62:44: Found Python 2.x type 'long' in a Python annotation. Did you mean to use 'cython.long'?
-62:70: PEP-484 recommends 'typing.Optional[...]' for arguments that can be None.
-89:44: Found Python 2.x type 'long' in a Python annotation. Did you mean to use 'cython.long'?
-89:70: PEP-484 recommends 'typing.Optional[...]' for arguments that can be None.
-151:30: Tuples cannot be declared as simple tuples of types. Use 'tuple[type1, type2, ...]'.
-151:59: Tuples cannot be declared as simple tuples of types. Use 'tuple[type1, type2, ...]'.
-156:13: Tuples cannot be declared as simple tuples of types. Use 'tuple[type1, type2, ...]'.
-291:44: Unknown type declaration in annotation, ignoring
-319:15: Annotation ignored since class-level attributes must be Python objects. Were you trying to set up an instance attribute?
+34:40: Found Python 2.x type 'long' in a Python annotation. Did you mean to use 'cython.long'?
+34:66: PEP-484 recommends 'typing.Optional[...]' for arguments that can be None.
+61:44: Found Python 2.x type 'long' in a Python annotation. Did you mean to use 'cython.long'?
+61:70: PEP-484 recommends 'typing.Optional[...]' for arguments that can be None.
+88:44: Found Python 2.x type 'long' in a Python annotation. Did you mean to use 'cython.long'?
+88:70: PEP-484 recommends 'typing.Optional[...]' for arguments that can be None.
+150:30: Tuples cannot be declared as simple tuples of types. Use 'tuple[type1, type2, ...]'.
+150:59: Tuples cannot be declared as simple tuples of types. Use 'tuple[type1, type2, ...]'.
+155:13: Tuples cannot be declared as simple tuples of types. Use 'tuple[type1, type2, ...]'.
+290:44: Unknown type declaration in annotation, ignoring
+318:15: Annotation ignored since class-level attributes must be Python objects. Were you trying to set up an instance attribute?
 # DUPLICATE:
-62:44: Found Python 2.x type 'long' in a Python annotation. Did you mean to use 'cython.long'?
+61:44: Found Python 2.x type 'long' in a Python annotation. Did you mean to use 'cython.long'?
 # BUG:
-62:6: 'pytypes_cpdef' redeclared
-163:0: 'struct_io' redeclared
-198:0: 'struct_convert' redeclared
-217:0: 'exception_default' redeclared
-248:0: 'exception_default_uint' redeclared
+61:6: 'pytypes_cpdef' redeclared
+162:0: 'struct_io' redeclared
+197:0: 'struct_convert' redeclared
+216:0: 'exception_default' redeclared
+247:0: 'exception_default_uint' redeclared
 """
