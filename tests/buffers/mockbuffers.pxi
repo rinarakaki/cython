@@ -17,9 +17,9 @@ cdef class MockBuffer:
     cdef object format, offset
     cdef void* buffer
     cdef isize len, itemsize
-    cdef isize* strides
-    cdef isize* shape
-    cdef isize* suboffsets
+    cdef Py_ssize_t* strides
+    cdef Py_ssize_t* shape
+    cdef Py_ssize_t* suboffsets
     cdef object label, log
     cdef i32 ndim
     cdef bint writable
