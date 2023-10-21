@@ -57,7 +57,7 @@ def naive_convolve(cnp.ndarray f, cnp.ndarray g):
     cdef i32 smid = smax // 2
     cdef i32 tmid = tmax // 2
     cdef i32 xmax = vmax + 2 * smid
-    cdef int ymax = wmax + 2 * tmid
+    cdef i32 ymax = wmax + 2 * tmid
     cdef cnp.ndarray h = np.zeros([xmax, ymax], dtype=DTYPE)
     cdef i32 x, y, s, t, v, w
 
