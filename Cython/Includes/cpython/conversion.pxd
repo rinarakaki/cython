@@ -31,6 +31,6 @@ cdef extern from "Python.h":
     # Case insensitive comparison of strings. The function works almost identically
     # to strcmp() except that it ignores the case.
 
-    i32 PyOS_strnicmp(const char *s1, const char *s2, isize  size)
+    i32 PyOS_strnicmp(const char *s1, const char *s2, isize size)
     # Case insensitive comparison of strings. The function works almost identically
     # to strncmp() except that it ignores the case.
