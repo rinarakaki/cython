@@ -33,12 +33,11 @@ cdef pub api void bar():
 cdef api void spam():
     pass
 
-cdef api int    ten = 10
-cdef api double pi = 3.14
+cdef api i32 ten = 10
+cdef api f64 pi = 3.14
 cdef api object obj = object()
 cdef api dict   dct = {}
 
 cdef pub api tuple tpl = ()
-cdef pub api float one = 1
-cdef pub     float two = 2
-
+cdef pub api f32 one = 1
+cdef pub     f32 two = 2
