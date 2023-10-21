@@ -8,7 +8,7 @@ except ImportError:
 @dataclasses.dataclass
 cdef class MyDataclass:
     # fields can be declared using annotations
-    a: cython.int = 0
+    a: cython.i32 = 0
     b: f64 = dataclasses.field(default_factory = lambda: 10, repr=False)
 
     # fields can also be declared using `cdef`:

@@ -10,8 +10,7 @@ try:
 except ImportError:
     pass
 
-
-def old_dict_syntax(a: list, b: "int" = 2, c: {'ctype': 'long int'} = 3, d: {'type': 'long int'} = 4) -> list:
+def old_dict_syntax(a: list, b: "i32" = 2, c: {'ctype': 'long int'} = 3, d: {'type': 'long int'} = 4) -> list:
     """
     >>> old_dict_syntax([1])
     ('list object', 'Python object', 'long', 'long')
@@ -32,8 +31,7 @@ def old_dict_syntax(a: list, b: "int" = 2, c: {'ctype': 'long int'} = 3, d: {'ty
     a.append(d)
     return a
 
-
-def pytypes_def(a: list, b: int = 2, c: long = 3, d: float = 4.0, n: list = None, o: Optional[tuple] = ()) -> list:
+def pytypes_def(a: list, b: i32 = 2, c: i64 = 3, d: f32 = 4.0, n: list = None, o: Optional[tuple] = ()) -> list:
     """
     >>> pytypes_def([1])
     ('list object', 'Python object', 'Python object', 'double', 'list object', 'tuple object')
@@ -59,8 +57,7 @@ def pytypes_def(a: list, b: int = 2, c: long = 3, d: float = 4.0, n: list = None
     a.append(o)
     return a
 
-
-cpdef pytypes_cpdef(a: list, b: int = 2, c: long = 3, d: float = 4.0, n: list = None, o: Optional[tuple] = ()):
+cpdef pytypes_cpdef(a: list, b: i32 = 2, c: i64 = 3, d: f32 = 4.0, n: list = None, o: Optional[tuple] = ()):
     """
     >>> pytypes_cpdef([1])
     ('list object', 'Python object', 'Python object', 'double', 'list object', 'tuple object')
@@ -86,15 +83,13 @@ cpdef pytypes_cpdef(a: list, b: int = 2, c: long = 3, d: float = 4.0, n: list = 
     a.append(o)
     return a
 
-
-cdef c_pytypes_cdef(a: list, b: int = 2, c: long = 3, d: float = 4.0, n: list = None):
+cdef c_pytypes_cdef(a: list, b: i32 = 2, c: i64 = 3, d: f32 = 4.0, n: list = None):
     print(typeof(a), typeof(b), typeof(c), typeof(d), typeof(n))
     a.append(b)
     a.append(c)
     a.append(d)
     a.append(n)
     return a
-
 
 def pytypes_cdef(a, b=2, c=3, d=4):
     """
@@ -111,7 +106,7 @@ def pytypes_cdef(a, b=2, c=3, d=4):
     return c_pytypes_cdef(a, b, c, d)
 
 
-def pyint(a: int):
+def pyint(a: i32):
     """
     >>> large_int = eval('0x'+'F'*64)  # definitely bigger than C int64
     >>> pyint(large_int) == large_int
@@ -119,8 +114,7 @@ def pyint(a: int):
     """
     return a
 
-
-def ctypes_def(a: list, b: cython.int = 2, c: cython.long = 3, d: cython.float = 4) -> list:
+def ctypes_def(a: list, b: cython.i32 = 2, c: cython.i64 = 3, d: cython.f32 = 4) -> list:
     """
     >>> ctypes_def([1])
     ('list object', 'int', 'long', 'float')
@@ -138,28 +132,24 @@ def ctypes_def(a: list, b: cython.int = 2, c: cython.long = 3, d: cython.float =
     a.append(d)
     return a
 
-
 def return_tuple_for_carray() -> tuple:
     """
     >>> return_tuple_for_carray()
     (1, 2, 3)
     """
-    cdef int[3] x
+    cdef i32[3] x
     x = [1, 2, 3]
     return x
 
-
-def invalid_ctuple_syntax(a: (cython.int, cython.int), b: (int, int)):
+def invalid_ctuple_syntax(a: (cython.i32, cython.i32), b: (i32, i32)):
     """
     >>> invalid_ctuple_syntax([1, 2], [3, 4])
     [1, 2, 3, 4]
     """
-    result: (cython.int, cython.int, cython.int, cython.int) = a + b
+    result: (cython.i32, cython.i32, cython.i32, cython.i32) = a + b
     return result
 
-
-MyStruct = cython.struct(x=cython.int, y=cython.int, data=cython.double)
-
+MyStruct = cython.struct(x=cython.i32, y=cython.i32, data=cython.f64)
 
 @cython.ccall
 def struct_io(s : MyStruct) -> MyStruct:
@@ -174,7 +164,6 @@ def struct_io(s : MyStruct) -> MyStruct:
     t = s
     t.x, t.y = s.y, s.x
     return t
-
 
 @cython.test_fail_if_path_exists(
     "//CoerceFromPyTypeNode",
@@ -195,7 +184,6 @@ def call_struct_io(s : MyStruct) -> MyStruct:
     """
     return struct_io(s)
 
-
 @cython.test_assert_path_exists(
     "//CFuncDefNode",
     "//CFuncDefNode//DefNode",
@@ -214,7 +202,6 @@ def struct_convert(d) -> MyStruct:
     """
     return d
 
-
 @cython.test_assert_path_exists(
     "//CFuncDefNode",
     "//CFuncDefNode//DefNode",
@@ -222,7 +209,7 @@ def struct_convert(d) -> MyStruct:
     "//CFuncDefNode[@return_type.is_int = True]",
 )
 @cython.ccall
-def exception_default(raise_exc : cython.bint = False) -> cython.int:
+def exception_default(raise_exc : cython.bint = false) -> cython.i32:
     """
     >>> exception_default(raise_exc=false)
     10
@@ -234,7 +221,6 @@ def exception_default(raise_exc : cython.bint = False) -> cython.int:
         raise ValueError("huhu!")
     return 10
 
-
 def call_exception_default(raise_exc=false):
     """
     >>> call_exception_default(raise_exc=false)
@@ -244,7 +230,6 @@ def call_exception_default(raise_exc=false):
     ValueError: huhu!
     """
     return exception_default(raise_exc)
-
 
 @cython.test_assert_path_exists(
     "//CFuncDefNode",
@@ -265,7 +250,6 @@ def exception_default_uint(raise_exc : cython.bint = False) -> cython.uint:
         raise ValueError("huhu!")
     return 10
 
-
 def call_exception_default_uint(raise_exc=false):
     """
     >>> print(call_exception_default_uint(raise_exc=false))
@@ -275,7 +259,6 @@ def call_exception_default_uint(raise_exc=false):
     ValueError: huhu!
     """
     return exception_default_uint(raise_exc)
-
 
 class EarlyClass(object):
     """
@@ -294,7 +277,6 @@ class EarlyClass(object):
 
 class LateClass(object):
     pass
-
 
 def py_float_default(price : Optional[float]=None, ndigits=4):
     """
@@ -315,10 +297,8 @@ def py_float_default(price : Optional[float]=None, ndigits=4):
     """
     return price, ndigits
 
-
 cdef class ClassAttribute:
     cls_attr : cython.float = 1.
-
 
 @cython.cfunc
 def take_ptr(obj: cython.pointer(PyObject)):
@@ -337,15 +317,14 @@ class HasPtr:
     >>> HasPtr()
     HasPtr(1, 1)
     """
-    a: cython.pointer(cython.int)
-    b: cython.int
+    a: cython.pointer(cython.i32)
+    b: cython.i32
 
     def __init__(self):
         self.b = 1
         self.a = cython.address(self.b)
     def __repr__(self):
         return f"HasPtr({self.a[0]}, {self.b})"
-
 
 @cython.annotation_typing(false)
 def turn_off_typing(x: float, d: dict):
@@ -354,7 +333,6 @@ def turn_off_typing(x: float, d: dict):
     ('Python object', 'Python object', 'not a float', [])
     """
     return typeof(x), typeof(d), x, d
-
 
 @cython.annotation_typing(false)
 cdef class ClassTurnOffTyping:
@@ -376,11 +354,9 @@ cdef class ClassTurnOffTyping:
         """
         return typeof(self.x), typeof(self.d), typeof(arg)
 
+from cython cimport i32 as cy_i
 
-from cython cimport int as cy_i
-
-
-def int_alias(a: cython.int, b: cy_i):
+def int_alias(a: cython.i32, b: cy_i):
     """
     >>> int_alias(1, 2)
     int

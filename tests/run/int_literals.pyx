@@ -144,7 +144,7 @@ def c_oct_py2_legacy():
     cdef i32 a = 001
     cdef i32 b = -021
     cdef i32 c = 077
-    return a,b,c
+    return a, b, c
 
 def py_oct():
     """

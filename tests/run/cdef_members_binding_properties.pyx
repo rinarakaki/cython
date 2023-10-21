@@ -84,23 +84,23 @@ if sys.version_info < (2,5):
 
 cdef class A:
 
-    cdef public short h
-    cdef public int i
-    cdef public long l
+    cdef public i16 h
+    cdef public i32 i
+    cdef public i64 l
     cdef public i128 q
-    cdef public float f
-    cdef public double d
+    cdef public f32 f
+    cdef public f64 d
     cdef public long double g
     cdef public float complex Zf
     cdef public double complex Zd
     cdef public long double complex Zg
 
-    cdef readonly short ro_h
-    cdef readonly int ro_i
-    cdef readonly long ro_l
+    cdef readonly i16 ro_h
+    cdef readonly i32 ro_i
+    cdef readonly i64 ro_l
     cdef readonly i128 ro_q
-    cdef readonly float ro_f
-    cdef readonly double ro_d
+    cdef readonly f32 ro_f
+    cdef readonly f64 ro_d
     cdef readonly long double ro_g
     cdef readonly float complex ro_Zf
     cdef readonly double complex ro_Zd

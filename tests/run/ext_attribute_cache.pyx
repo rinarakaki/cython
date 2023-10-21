@@ -21,7 +21,6 @@ cdef class ImplicitAttrCache(object):
     cdef public i32 x
     cdef object y
 
-
 @cython.type_version_tag(true)
 cdef class ExplicitAttrCache(object):
     """
@@ -31,7 +30,6 @@ cdef class ExplicitAttrCache(object):
     """
     cdef public i32 x
     cdef object y
-
 
 @cython.type_version_tag(false)
 cdef class NoAttrCache(object):

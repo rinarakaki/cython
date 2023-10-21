@@ -35,7 +35,7 @@ cdef class Cls(object):
 _ERRORS = """
 12:42: typing.Optional[...] cannot be applied to type int
 12:66: typing.Optional[...] cannot be applied to type double
-12:93: typing.Optional[...] cannot be applied to type float
+12:90: typing.Optional[...] cannot be applied to type float
 13:42: typing.Optional[...] cannot be applied to type double complex
 13:70: typing.Optional[...] cannot be applied to type long
 13:95: typing.Optional[...] cannot be applied to type long long

@@ -280,7 +280,7 @@ cdef class Ext:
     cpdef i32 get_int(self):
         return 0
 
-    cpdef float get_float(self):
+    cpdef f32 get_float(self):
         return 0.0
 
     cpdef str get_str(self):
@@ -438,7 +438,7 @@ cdef class Foo:
     def m28(self, a: list(range(3))[::1]): pass
     def m29(self, a: list(range(3))[0:1:1]): pass
     def m30(self, a: list(range(3))[7, 3:2:1, ...]): pass
-    def m31(self, double[::1] a): pass
+    def m31(self, f64[::1] a): pass
     def m32(self, a: tuple[()]) -> tuple[tuple[()]]: pass
 
 __doc__ += ur"""

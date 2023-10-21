@@ -500,7 +500,7 @@ def test_point_record():
     cdef np.ndarray[Point] test
     Point_dtype = np.dtype([('x', np.float64), ('y', np.float64)])
     test = np.zeros(3, Point_dtype)
-    cdef int i
+    cdef i32 i
     for i in range(3):
         test[i].x = i
         test[i].y = -i
@@ -590,7 +590,7 @@ def test_fused_ndarray_integral_dtype(np.ndarray[cython.integral, ndim=1] a):
     >>> sorted(test_fused_ndarray_integral_dtype.__signatures__)
     ['int', 'long', 'short']
 
-    >>> test_fused_ndarray_integral_dtype[cython.int](np.arange(10, dtype=np.dtype('i')))
+    >>> test_fused_ndarray_integral_dtype[cython.i32](np.arange(10, dtype=np.dtype('i')))
     5 6
     >>> test_fused_ndarray_integral_dtype(np.arange(10, dtype=np.dtype('i')))
     5 6
@@ -829,9 +829,9 @@ def test_dispatch_memoryview_object():
     >>> test_dispatch_memoryview_object()
     int[:] int[:] 5 6
     """
-    cdef int[:] m = np.arange(10, dtype=np.dtype('i'))
-    cdef int[:] m2 = m
-    cdef int[:] m3 = <object> m
+    cdef i32[:] m = np.arange(10, dtype=np.dtype('i'))
+    cdef i32[:] m2 = m
+    cdef i32[:] m3 = <object> m
     test_fused_memslice(m3)
 
 cdef fused ndim_t:

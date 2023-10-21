@@ -19,7 +19,6 @@ f02(a: float) -> float
 
 """
 
-
 cdef class Foo:
     "Foo docstring"
 
@@ -29,8 +28,8 @@ cdef class Foo:
 
     def m00(self, a): return a
     def m01(self, u32 a): return a
-    def m02(self, u32 a: int): return a
-    def m03(self: Self, u32 a: int) -> float: return a
+    def m02(self, u32 a: i32): return a
+    def m03(self: Self, u32 a: i32) -> float: return a
     def m04(self, const char* a): return a
     def m05(self, const char a[]): return a
     def m06(self, const char* a: bytes) -> bytes: return a
@@ -40,27 +39,27 @@ cdef class Foo:
     @classmethod
     def c01(type cls, u32 a): return a
     @classmethod
-    def c02(cls: type[Foo], u32 a: int): return a
+    def c02(cls: type[Foo], u32 a: i32): return a
     @classmethod
-    def c03(type cls: type[Foo], u32 a: int) -> float: return a
+    def c03(type cls: type[Foo], u32 a: i32) -> float: return a
 
     @staticmethod
     def s00(a): return a
     @staticmethod
     def s01(u32 a): return a
     @staticmethod
-    def s02(u32 a: int): return a
+    def s02(u32 a: i32): return a
     @staticmethod
-    def s03(u32 a: int) -> float: return a
+    def s03(u32 a: i32) -> float: return a
 
-    cdef public long int p0
+    cdef public i64 p0
     property p1:
         """p1 docstring"""
         def __get__(self):
             return 0
     property p2:
         """p2 docstring"""
-        def __get__(self) -> int:
+        def __get__(self) -> i32:
             return 0
     cdef public Foo p3
 

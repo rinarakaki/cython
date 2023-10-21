@@ -35,7 +35,6 @@ f02 docstring
 
 """
 
-
 cdef class Foo:
     "Foo docstring"
 

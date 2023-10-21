@@ -1486,8 +1486,8 @@ def test_generic_slicing(arg, indirect=false):
     print b.shape[0], b.shape[1], b.shape[2]
 
     if indirect:
-        print b.suboffsets[0] // sizeof(int *),
-        print b.suboffsets[1] // sizeof(int),
+        print b.suboffsets[0] // sizeof(i32 *),
+        print b.suboffsets[1] // sizeof(i32),
         print b.suboffsets[2]
     else:
         print_int_offsets(b.strides[0], b.strides[1], b.strides[2])

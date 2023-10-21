@@ -119,7 +119,7 @@ def f():
     >>> f()
     12.5
     """
-    cdef float f = FLOAT
+    cdef f32 f = FLOAT
     return f
 
 def s():
@@ -219,7 +219,6 @@ def expression():
     """
     cdef i32 i = EXPRESSION
     return i
-
 
 def unicode_expression():
     """

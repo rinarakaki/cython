@@ -267,10 +267,10 @@ def test_add_ushort(x, y):
 
 # -------------------------------------------------------------------
 
-INT_MAX = <int>((<u32>-1)>>1)
+INT_MAX = <i32>((<u32>-1)>>1)
 INT_MIN = (-INT_MAX-1)
 
-def test_int(int x):
+def test_int(i32 x):
    u"""
    >>> test_int(INT_MIN-1) #doctest: +ELLIPSIS
    Traceback (most recent call last):
@@ -312,7 +312,7 @@ def test_add_int(x, y):
        ...
    OverflowError: ...
    """
-   cdef int r = x + y
+   cdef i32 r = x + y
    return r
 
 SINT_MAX = <signed int>((<u32>-1)>>1)

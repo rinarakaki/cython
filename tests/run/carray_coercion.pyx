@@ -20,7 +20,7 @@ def from_int_array():
     >>> from_int_array()
     [1, 2, 3]
     """
-    cdef int[3] v
+    cdef i32[3] v
     v[0] = 1
     v[1] = 2
     v[2] = 3
@@ -31,7 +31,7 @@ cpdef tuple tuple_from_int_array():
     >>> tuple_from_int_array()
     (1, 2, 3)
     """
-    cdef int[3] v
+    cdef i32[3] v
     v[0] = 1
     v[1] = 2
     v[2] = 3
@@ -90,7 +90,7 @@ def from_int_array_array():
     >>> from_int_array_array()
     [[11, 12, 13], [21, 22, 23]]
     """
-    cdef int[2][3] v
+    cdef i32[2][3] v
     v[0][0] = 11
     v[0][1] = 12
     v[0][2] = 13
@@ -104,7 +104,7 @@ def assign_int_array_array():
     >>> assign_int_array_array()
     [[11, 12, 13], [21, 22, 23]]
     """
-    cdef int[2][3] v = [[11, 12, 13], [21, 22, 23]]
+    cdef i32[2][3] v = [[11, 12, 13], [21, 22, 23]]
     return v
 
 def assign_int_array_array_from_tuples():
@@ -112,7 +112,7 @@ def assign_int_array_array_from_tuples():
     >>> assign_int_array_array_from_tuples()
     [[11, 12, 13], [21, 22, 23]]
     """
-    cdef int[2][3] v = ([11, 12, 13], [21, 22, 23])
+    cdef i32[2][3] v = ([11, 12, 13], [21, 22, 23])
     return v
 
 ''' FIXME: this currently crashes:
@@ -121,7 +121,7 @@ def assign_int_array_array_from_tuples():
     >>> assign_int_array_array_from_tuples()
     [[11, 12, 13], [21, 22, 23]]
     """
-    cdef int[2][3] v = ((11, 12, 13), (21, 22, 23))
+    cdef i32[2][3] v = ((11, 12, 13), (21, 22, 23))
     return v
 '''
 
@@ -130,9 +130,9 @@ def build_from_list_of_arrays():
     >>> build_from_list_of_arrays()
     [[11, 12, 13], [21, 22, 23]]
     """
-    cdef int[3] x = [11, 12, 13]
-    cdef int[3] y = [21, 22, 23]
-    cdef int[2][3] v = [x, y]
+    cdef i32[3] x = [11, 12, 13]
+    cdef i32[3] y = [21, 22, 23]
+    cdef i32[2][3] v = [x, y]
     return v
 
 def build_from_tuple_of_arrays():
@@ -140,19 +140,19 @@ def build_from_tuple_of_arrays():
     >>> build_from_tuple_of_arrays()
     [[11, 12, 13], [21, 22, 23]]
     """
-    cdef int[3] x = [11, 12, 13]
-    cdef int[3] y = [21, 22, 23]
-    cdef int[2][3] v = (x, y)
+    cdef i32[3] x = [11, 12, 13]
+    cdef i32[3] y = [21, 22, 23]
+    cdef i32[2][3] v = (x, y)
     return v
 
 ctypedef struct MyStructType:
-    int x
-    double y
+    i32 x
+    f64 y
 
 
 cdef struct MyStruct:
-    int x
-    double y
+    i32 x
+    f64 y
 
 def from_struct_array():
     """
@@ -187,7 +187,7 @@ def to_int_array(x):
     Traceback (most recent call last):
     IndexError: too many values found during array assignment, expected 3
     """
-    cdef int[3] v = x
+    cdef i32[3] v = x
     return v[0], v[1], v[2]
 
 def to_int_array_array(x):
@@ -218,7 +218,7 @@ def to_int_array_array(x):
     Traceback (most recent call last):
     IndexError: too many values found during array assignment, expected 3
     """
-    cdef int[2][3] v = x
+    cdef i32[2][3] v = x
     return v[0][0], v[0][1], v[0][2], v[1][0], v[1][1], v[1][2]
 
 '''
@@ -240,13 +240,13 @@ def to_int_array_array_enumsize(x):
     Traceback (most recent call last):
     IndexError: too many values found during array assignment, expected 3
     """
-    cdef int[SIZE_A][SIZE_B] v = x
+    cdef i32[SIZE_A][SIZE_B] v = x
     return v[0][0], v[0][1], v[0][2], v[1][0], v[1][1], v[1][2]
 '''
 
 '''
 # FIXME: this isn't currently supported
-def array_as_argument(int[2] x):
+def array_as_argument(i32[2] x):
     """
     >>> array_as_argument([1, 2])
     (1, 2)
@@ -265,7 +265,7 @@ def to_int_array_slice(x):
     Traceback (most recent call last):
     IndexError: too many values found during array assignment, expected 3
     """
-    cdef int[3] v
+    cdef i32[3] v
     v[:] = x[:3]
     assert v[0] == x[0]
     assert v[1] == x[1]
@@ -288,7 +288,7 @@ def iterable_to_int_array(x):
     Traceback (most recent call last):
     IndexError: too many values found during array assignment, expected 3
     """
-    cdef int[3] v
+    cdef i32[3] v
     v[:] = x
     return v[0], v[1], v[2]
 
@@ -328,7 +328,7 @@ def to_struct_array_array(x):
     return v[0], v[1]
 
 cdef struct StructWithArray:
-    int a
+    i32 a
     MyStruct[2] b
 
 def to_struct_with_array(x):
@@ -415,7 +415,7 @@ def to_int_array_slice_start_end(x):
     >>> to_int_array_slice_start_end([1, 2, 3])
     (1, 2, 3, 2, 3)
     """
-    cdef int[5] v
+    cdef i32[5] v
     v[2:] = x
     v[:3] = x
     return v[0], v[1], v[2], v[3], v[4]

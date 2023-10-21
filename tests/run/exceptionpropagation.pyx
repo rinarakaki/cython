@@ -29,7 +29,7 @@ def test_except_expr(bint fire):
     """
     except_expr(fire)
 
-cdef double except_big_result(bint fire) except 100000000000000000000000000000000:
+cdef f64 except_big_result(bint fire) except 100000000000000000000000000000000:
     if fire:
         raise RuntimeError
 

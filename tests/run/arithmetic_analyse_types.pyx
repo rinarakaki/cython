@@ -10,11 +10,11 @@ cdef extern from "arithmetic_analyse_types_helper.h":
         char *msg
     cdef struct longlong_return:
         char *msg
-    cdef short_return f(short)
-    cdef int_return f(int)
+    cdef short_return f(i16)
+    cdef int_return f(i32)
     cdef longlong_return f(i128)
 
-def short_binop(short val):
+def short_binop(i16 val):
     """
     Arithmetic in C is always done with at least int precision.
     
@@ -27,7 +27,7 @@ def short_binop(short val):
     cdef int_return x = f(val + val)
     return x.msg.decode('ASCII')
 
-def short_unnop(short val):
+def short_unnop(i16 val):
     """
     Arithmetic in C is always done with at least int precision.
     
@@ -52,7 +52,6 @@ def longlong_unnop(i128 val):
     """
     cdef longlong_return x = f(~val)
     return x.msg.decode('ASCII')
-
 
 def test_bint(bint a):
     """

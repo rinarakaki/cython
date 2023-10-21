@@ -1,7 +1,7 @@
 from libc.stdlib cimport malloc, free
 from cpython.object cimport Py_EQ, Py_NE
 
-def double_ptr_slice(x, L, int a, int b):
+def double_ptr_slice(x, L, i32 a, i32 b):
     """
     >>> L = list(range(10))
     >>> double_ptr_slice(5, L, 0, 10)
@@ -28,7 +28,7 @@ def double_ptr_slice(x, L, int a, int b):
     finally:
         free(L_c)
 
-def void_ptr_slice(py_x, L, int a, int b):
+def void_ptr_slice(py_x, L, i32 a, i32 b):
     """
     >>> L = list(range(10))
     >>> void_ptr_slice(5, L, 0, 10)
@@ -64,7 +64,7 @@ cdef class EqualsEvens:
     >>> [e == k for k in range(4)]
     [True, False, True, False]
     """
-    def __richcmp__(self, other, int op):
+    def __richcmp__(self, other, i32 op):
         if op == Py_EQ:
             return other % 2 == 0
         elif op == Py_NE:

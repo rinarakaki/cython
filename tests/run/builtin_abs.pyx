@@ -206,7 +206,7 @@ def test_c_long_long_abs(i128 a):
 
 @cython.test_assert_path_exists("//ReturnStatNode//NameNode[@entry.name = 'abs']",
                                 "//ReturnStatNode//NameNode[@entry.cname = 'fabs']")
-def double_abs(double a):
+def double_abs(f64 a):
     """
     >>> double_abs(-5)
     5.0
@@ -217,10 +217,10 @@ def double_abs(double a):
 
 @cython.test_assert_path_exists("//ReturnStatNode//NameNode[@entry.name = 'abs']",
                                 "//ReturnStatNode//NameNode[@entry.cname = 'fabs']")
-cdef double c_double_abs(double a) nogil:
+cdef f64 c_double_abs(f64 a) nogil:
     return abs(a)
 
-def test_c_double_abs(double a):
+def test_c_double_abs(f64 a):
     """
     >>> test_c_double_abs(-5)
     5.0
@@ -267,7 +267,7 @@ def complex_abs(complex a):
 
 @cython.test_assert_path_exists("//ReturnStatNode//NameNode[@entry.name = 'abs']",
                                 "//ReturnStatNode//NameNode[@entry.cname = '__Pyx_c_abs_double']")
-cdef double c_complex_abs(complex a) nogil:
+cdef f64 c_complex_abs(complex a) nogil:
     return abs(a)
 
 def test_c_complex_abs(complex a):

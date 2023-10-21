@@ -280,14 +280,14 @@ def test_nested(o):
     return m
 
 cpdef enum Color:
-    RED = 0
-    GREEN
-    BLUE
+    Red = 0
+    Green
+    Blue
 
 def test_enum_map(o):
     """
-    >>> test_enum_map({RED: GREEN})
-    {<Color.RED: 0>: <Color.GREEN: 1>}
+    >>> test_enum_map({Red: Green})
+    {<Color.Red: 0>: <Color.Green: 1>}
     """
     cdef map[Color, Color] m = o
     return m
