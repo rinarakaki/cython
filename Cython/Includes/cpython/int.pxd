@@ -16,7 +16,7 @@ cdef extern from "Python.h":
     # Return true if o is of type PyInt_Type, but not a subtype of
     # PyInt_Type.
 
-    object PyInt_FromString(char *str, char **pend, int base)
+    object PyInt_FromString(char *str, char **pend, i32 base)
     # Return value: New reference.
     # Return a new PyIntObject or PyLongObject based on the string
     # value in str, which is interpreted according to the radix in
