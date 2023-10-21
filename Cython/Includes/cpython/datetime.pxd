@@ -164,12 +164,12 @@ cdef extern from "datetime.h":
         pass
 
     ctypedef struct PyDateTime_Time:
-        unsigned char fold
+        u8 fold
         char hastzinfo
         PyObject *tzinfo
 
     ctypedef struct PyDateTime_DateTime:
-        unsigned char fold
+        u8 fold
         char hastzinfo
         PyObject *tzinfo
 
