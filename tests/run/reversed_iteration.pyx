@@ -782,7 +782,7 @@ def reversed_unsigned(int a, int b):
     >>> reversed_unsigned(1, 1)
     []
     """
-    cdef unsigned int i
+    cdef u32 i
     return [i for i in reversed(range(a, b))]
 
 @cython.test_assert_path_exists('//ForFromStatNode')
@@ -793,7 +793,7 @@ def reversed_unsigned_by_3(int a, int b):
     >>> unlongify(reversed_unsigned_by_3(0, 7))
     '[6, 3, 0]'
     """
-    cdef unsigned int i
+    cdef u32 i
     return [i for i in reversed(range(a, b, 3))]
 
 @cython.test_assert_path_exists('//ForFromStatNode')
@@ -804,5 +804,5 @@ def range_unsigned_by_neg_3(int a, int b):
     >>> unlongify(range_unsigned_by_neg_3(0, 7))
     '[7, 4, 1]'
     """
-    cdef unsigned int i
+    cdef u32 i
     return [i for i in range(b, a, -3)]

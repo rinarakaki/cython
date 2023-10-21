@@ -738,7 +738,7 @@ def test_int_typedef_inference():
     """
     cdef long x = 1
     cdef my_long y = 2
-    cdef long long z = 3
+    cdef i128 z = 3
     assert typeof(x + y) == typeof(y + x) == 'my_long', typeof(x + y)
     assert typeof(y + z) == typeof(z + y) == 'long long', typeof(y + z)
 
@@ -747,7 +747,7 @@ def int64_long_sum():
     cdef long x = 1
     cdef int32_t x32 = 2
     cdef int64_t x64 = 3
-    cdef unsigned long ux = 4
+    cdef u64 ux = 4
     assert typeof(x + x32) == typeof(x32 + x) == 'long', typeof(x + x32)
     assert typeof(x + x64) == typeof(x64 + x) == 'int64_t', typeof(x + x64)
     # The correct answer here is either unsigned long or int64_t, depending on
