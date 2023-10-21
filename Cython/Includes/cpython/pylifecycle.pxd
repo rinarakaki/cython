@@ -17,8 +17,8 @@ cdef extern from "Python.h":
     int Py_SetStandardStreamEncoding(const char *encoding, const char *errors)
 
     void Py_Initialize()
-    void Py_InitializeEx(int)
-    void _Py_InitializeEx_Private(int, int)
+    void Py_InitializeEx(i32)
+    void _Py_InitializeEx_Private(i32, i32)
     void Py_Finalize()
     i32 Py_FinalizeEx()
     i32 Py_IsInitialized()
