@@ -12,7 +12,7 @@ cdef extern from "external_defs.h":
     ctypedef float LongDoubleTypedef
 
 cdef pub DoubleTypedef global_tdef
-cdef public double global_double
+cdef pub double global_double
 
 cdef class MyClass:
     cdef readonly:

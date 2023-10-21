@@ -60,7 +60,7 @@ cdef class Foo:
         "s00 docstring"
         pass
 
-    cdef public i64 p0
+    cdef pub i64 p0
     property p1:
         "p1 docstring"
         def __get__(self):

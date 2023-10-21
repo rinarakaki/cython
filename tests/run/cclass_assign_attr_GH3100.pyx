@@ -32,7 +32,7 @@ cdef class ChangeName:
     # the class seems to need some contents for changing the
     # name to cause a problem
     cdef pub str attr1
-    cdef public int attr2
+    cdef pub int attr2
 
 if TYPESPECS:
     __doc__ = """

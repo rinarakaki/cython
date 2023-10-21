@@ -52,7 +52,7 @@ cdef class Foo:
     @staticmethod
     def s03(u32 a: i32) -> float: return a
 
-    cdef public i64 p0
+    cdef pub i64 p0
     property p1:
         """p1 docstring"""
         def __get__(self):
