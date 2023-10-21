@@ -31,7 +31,7 @@ def old_dict_syntax(a: list, b: "i32" = 2, c: {'ctype': 'long int'} = 3, d: {'ty
     a.append(d)
     return a
 
-def pytypes_def(a: list, b: i32 = 2, c: i64 = 3, d: f32 = 4.0, n: list = None, o: Optional[tuple] = ()) -> list:
+def pytypes_def(a: list, b: int = 2, c: long = 3, d: float = 4.0, n: list = None, o: Optional[tuple] = ()) -> list:
     """
     >>> pytypes_def([1])
     ('list object', 'Python object', 'Python object', 'double', 'list object', 'tuple object')
@@ -373,12 +373,7 @@ _WARNINGS = """
 13:77: Dicts should no longer be used as type annotations. Use 'cython.int' etc. directly.
 13:85: Python type declaration in signature annotation does not refer to a Python type
 13:85: Strings should no longer be used for type declarations. Use 'cython.int' etc. directly.
-34:28: Found C type 'i32' in a Python annotation. Did you mean to use 'cython.i32'?
-34:28: Unknown type declaration 'i32' in annotation, ignoring
-34:40: Found C type 'i64' in a Python annotation. Did you mean to use 'cython.i64'?
-34:40: Unknown type declaration 'i64' in annotation, ignoring
-34:52: Found C type 'f32' in a Python annotation. Did you mean to use 'cython.f32'?
-34:52: Unknown type declaration 'f32' in annotation, ignoring
+34:40: Found Python 2.x type 'long' in a Python annotation. Did you mean to use 'cython.long'?
 34:66: PEP-484 recommends 'typing.Optional[...]' for arguments that can be None.
 61:44: Found Python 2.x type 'long' in a Python annotation. Did you mean to use 'cython.long'?
 61:70: PEP-484 recommends 'typing.Optional[...]' for arguments that can be None.
