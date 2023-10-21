@@ -374,6 +374,7 @@ _WARNINGS = """
 13:85: Python type declaration in signature annotation does not refer to a Python type
 13:85: Strings should no longer be used for type declarations. Use 'cython.int' etc. directly.
 34:28: Found C type 'i32' in a Python annotation. Did you mean to use 'cython.i32'?
+34:28: Unknown type declaration 'i32' in annotation, ignoring
 34:66: PEP-484 recommends 'typing.Optional[...]' for arguments that can be None.
 61:44: Found Python 2.x type 'long' in a Python annotation. Did you mean to use 'cython.long'?
 61:70: PEP-484 recommends 'typing.Optional[...]' for arguments that can be None.
