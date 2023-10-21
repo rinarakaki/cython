@@ -43,7 +43,7 @@ _ERRORS = """
 23:47: typing.Optional[...] cannot be applied to type float
 23:85: typing.Optional[...] cannot be applied to type long
 
-19:30: typing.Optional[...] cannot be applied to type MyStruct
+18:30: typing.Optional[...] cannot be applied to type MyStruct
 
 27:20: Modifier 'typing.ClassVar' is not allowed here.
 """
