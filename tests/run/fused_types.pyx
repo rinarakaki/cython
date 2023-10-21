@@ -147,7 +147,7 @@ def test_fused_pointer_except_null(value):
     Traceback (most recent call last):
     AssertionError
     """
-    if isinstance(value, i32):
+    if isinstance(value, int):
         test_int = cython.declare(cython.i32, value)
         print(fused_pointer_except_null(&test_int)[0])
     elif isinstance(value, float):
