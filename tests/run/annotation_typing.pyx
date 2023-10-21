@@ -379,17 +379,17 @@ _WARNINGS = """
 60:70: PEP-484 recommends 'typing.Optional[...]' for arguments that can be None.
 86:44: Found Python 2.x type 'long' in a Python annotation. Did you mean to use 'cython.long'?
 86:70: PEP-484 recommends 'typing.Optional[...]' for arguments that can be None.
-148:30: Tuples cannot be declared as simple tuples of types. Use 'tuple[type1, type2, ...]'.
-148:59: Tuples cannot be declared as simple tuples of types. Use 'tuple[type1, type2, ...]'.
-153:13: Tuples cannot be declared as simple tuples of types. Use 'tuple[type1, type2, ...]'.
-288:44: Unknown type declaration in annotation, ignoring
-316:15: Annotation ignored since class-level attributes must be Python objects. Were you trying to set up an instance attribute?
+144:30: Tuples cannot be declared as simple tuples of types. Use 'tuple[type1, type2, ...]'.
+144:59: Tuples cannot be declared as simple tuples of types. Use 'tuple[type1, type2, ...]'.
+149:13: Tuples cannot be declared as simple tuples of types. Use 'tuple[type1, type2, ...]'.
+284:44: Unknown type declaration in annotation, ignoring
+312:15: Annotation ignored since class-level attributes must be Python objects. Were you trying to set up an instance attribute?
 # DUPLICATE:
 60:44: Found Python 2.x type 'long' in a Python annotation. Did you mean to use 'cython.long'?
 # BUG:
 60:6: 'pytypes_cpdef' redeclared
-160:0: 'struct_io' redeclared
-195:0: 'struct_convert' redeclared
-214:0: 'exception_default' redeclared
-245:0: 'exception_default_uint' redeclared
+156:0: 'struct_io' redeclared
+191:0: 'struct_convert' redeclared
+210:0: 'exception_default' redeclared
+241:0: 'exception_default_uint' redeclared
 """
