@@ -6,7 +6,7 @@ cdef double _helper(double a):
     return a + 1
 
 cdef class A:
-    cdef public int a, b
+    cdef pub int a, b
     def __init__(self, b=0):
         self.a = 3
         self.b = b
