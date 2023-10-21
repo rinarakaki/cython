@@ -388,8 +388,8 @@ _WARNINGS = """
 60:44: Found Python 2.x type 'long' in a Python annotation. Did you mean to use 'cython.long'?
 # BUG:
 60:6: 'pytypes_cpdef' redeclared
-156:0: 'struct_io' redeclared
-191:0: 'struct_convert' redeclared
-210:0: 'exception_default' redeclared
-241:0: 'exception_default_uint' redeclared
+154:0: 'struct_io' redeclared
+189:0: 'struct_convert' redeclared
+208:0: 'exception_default' redeclared
+239:0: 'exception_default_uint' redeclared
 """
