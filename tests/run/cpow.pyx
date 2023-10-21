@@ -206,7 +206,6 @@ def pythagoras_with_typedef(f64 a, f64 b):
     result = 1.0 / result ** 0.5
     return result
 
-
 @cython.cpow(false)
 def power_coercion_in_nogil_1(f64 a, f64 b):
     """
@@ -254,7 +253,7 @@ def power_coercion_in_nogil_3(f64 a, f64 b, f64 c):
 
 
 _WARNINGS = """
-63:21: Treating '**' as if 'cython.cpow(True)' since it is directly assigned to a a non-complex C numeric type. This is likely to be fragile and we recommend setting 'cython.cpow' explicitly.
+63:18: Treating '**' as if 'cython.cpow(True)' since it is directly assigned to a a non-complex C numeric type. This is likely to be fragile and we recommend setting 'cython.cpow' explicitly.
 64:32: Treating '**' as if 'cython.cpow(True)' since it is directly assigned to a a non-complex C numeric type. This is likely to be fragile and we recommend setting 'cython.cpow' explicitly.
 179:18: Treating '**' as if 'cython.cpow(True)' since it is directly assigned to a an integer C numeric type. This is likely to be fragile and we recommend setting 'cython.cpow' explicitly.
 180:29: Treating '**' as if 'cython.cpow(True)' since it is directly assigned to a an integer C numeric type. This is likely to be fragile and we recommend setting 'cython.cpow' explicitly.

@@ -33,17 +33,17 @@ cdef class Cls(object):
 
 
 _ERRORS = """
-13:42: typing.Optional[...] cannot be applied to type int
-13:66: typing.Optional[...] cannot be applied to type double
-13:93: typing.Optional[...] cannot be applied to type float
-14:42: typing.Optional[...] cannot be applied to type double complex
-14:70: typing.Optional[...] cannot be applied to type long
-14:95: typing.Optional[...] cannot be applied to type long long
-24:30: typing.Optional[...] cannot be applied to type int
-24:47: typing.Optional[...] cannot be applied to type float
-24:85: typing.Optional[...] cannot be applied to type long
+12:42: typing.Optional[...] cannot be applied to type int
+12:66: typing.Optional[...] cannot be applied to type double
+12:93: typing.Optional[...] cannot be applied to type float
+13:42: typing.Optional[...] cannot be applied to type double complex
+13:70: typing.Optional[...] cannot be applied to type long
+13:95: typing.Optional[...] cannot be applied to type long long
+23:30: typing.Optional[...] cannot be applied to type int
+23:47: typing.Optional[...] cannot be applied to type float
+23:85: typing.Optional[...] cannot be applied to type long
 
-20:30: typing.Optional[...] cannot be applied to type MyStruct
+19:30: typing.Optional[...] cannot be applied to type MyStruct
 
-28:20: Modifier 'typing.ClassVar' is not allowed here.
+27:20: Modifier 'typing.ClassVar' is not allowed here.
 """
