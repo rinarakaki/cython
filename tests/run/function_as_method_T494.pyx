@@ -1,5 +1,5 @@
 # ticket: t494
-# cython: binding=True
+# cython: binding=true
 
 __doc__ = """
     >>> A.foo = foo

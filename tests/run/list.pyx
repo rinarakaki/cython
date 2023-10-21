@@ -66,7 +66,7 @@ def test_list_sort():
 def test_list_sort_reversed():
     cdef list l1
     l1 = [2,3,1,4]
-    l1.sort(reversed=True)
+    l1.sort(reversed=true)
     return l1
 
 def test_list_reverse():
@@ -244,11 +244,11 @@ def test_list_extend_sideeffect(seq=None, exc=False):
     ([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], [4, 6, 7, 8])
     >>> test_list_extend_sideeffect([])
     ([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], [4, 6, 7, 8])
-    >>> test_list_extend_sideeffect([], exc=True)
+    >>> test_list_extend_sideeffect([], exc=true)
     ([1, 2, 3, 10, 11, 12, 13, 14, 15, 16], [4, 7, 8])
     >>> test_list_extend_sideeffect([1])
     ([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 1], [4, 6, 7, 8])
-    >>> test_list_extend_sideeffect([1], exc=True)
+    >>> test_list_extend_sideeffect([1], exc=true)
     ([1, 2, 3, 10, 11, 12, 13, 14, 15, 16, 1], [4, 7, 8])
     >>> test_list_extend_sideeffect([1, 2])
     ([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 1, 2], [4, 6, 7, 8])

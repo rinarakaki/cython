@@ -34,15 +34,15 @@ def propagate(i, bint nogil=false):
     >>> propagate(4)
     TypeError('dummy')
 
-    >>> propagate(0, nogil=True)
+    >>> propagate(0, nogil=true)
     TypeError('Memoryview return value is not initialized')
-    >>> propagate(1, nogil=True)
+    >>> propagate(1, nogil=true)
     AttributeError('dummy')
-    >>> propagate(2, nogil=True)
+    >>> propagate(2, nogil=true)
     RuntimeError('dummy')
-    >>> propagate(3, nogil=True)
+    >>> propagate(3, nogil=true)
     ValueError('dummy')
-    >>> propagate(4, nogil=True)
+    >>> propagate(4, nogil=true)
     TypeError('dummy')
     """
     try:

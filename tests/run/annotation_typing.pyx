@@ -226,7 +226,7 @@ def exception_default(raise_exc : cython.bint = False) -> cython.int:
     """
     >>> exception_default(raise_exc=False)
     10
-    >>> exception_default(raise_exc=True)
+    >>> exception_default(raise_exc=true)
     Traceback (most recent call last):
     ValueError: huhu!
     """
@@ -239,7 +239,7 @@ def call_exception_default(raise_exc=False):
     """
     >>> call_exception_default(raise_exc=False)
     10
-    >>> call_exception_default(raise_exc=True)
+    >>> call_exception_default(raise_exc=true)
     Traceback (most recent call last):
     ValueError: huhu!
     """
@@ -257,7 +257,7 @@ def exception_default_uint(raise_exc : cython.bint = False) -> cython.uint:
     """
     >>> print(exception_default_uint(raise_exc=False))
     10
-    >>> exception_default_uint(raise_exc=True)
+    >>> exception_default_uint(raise_exc=true)
     Traceback (most recent call last):
     ValueError: huhu!
     """
@@ -270,7 +270,7 @@ def call_exception_default_uint(raise_exc=False):
     """
     >>> print(call_exception_default_uint(raise_exc=False))
     10
-    >>> call_exception_default_uint(raise_exc=True)
+    >>> call_exception_default_uint(raise_exc=true)
     Traceback (most recent call last):
     ValueError: huhu!
     """
@@ -368,7 +368,7 @@ cdef class ClassTurnOffTyping:
         """
         return typeof(self.x), typeof(self.d), typeof(arg)
 
-    @cython.annotation_typing(True)
+    @cython.annotation_typing(true)
     def and_turn_it_back_on_again(self, arg: float):
         """
         >>> ClassTurnOffTyping().and_turn_it_back_on_again(1.0)

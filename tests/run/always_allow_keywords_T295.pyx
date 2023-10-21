@@ -57,7 +57,7 @@ def func2_unused(arg):
     >>> assert_typeerror_no_keywords(func2_unused, arg=None)
     """
 
-@cython.always_allow_keywords(True)
+@cython.always_allow_keywords(true)
 def func3(arg):
     """
     >>> func3(None)
@@ -66,7 +66,7 @@ def func3(arg):
     """
     return arg
 
-@cython.always_allow_keywords(True)
+@cython.always_allow_keywords(true)
 def func3_unused(arg):
     """
     >>> func3_unused(None)
@@ -103,7 +103,7 @@ cdef class A:
         ... else: pass  #assert False, "No TypeError for missing 'self' positional argument"
         """
 
-    @cython.always_allow_keywords(True)
+    @cython.always_allow_keywords(true)
     def meth0_kw(self):
         """
         >>> A().meth0_kw()
@@ -115,7 +115,7 @@ cdef class A:
         ... else: pass  #assert False, "No TypeError when passing 'self' argument twice"
         """
 
-    @cython.always_allow_keywords(True)
+    @cython.always_allow_keywords(true)
     def meth1_kw(self, arg):
         """
         >>> A().meth1_kw(None)
@@ -145,7 +145,7 @@ cdef class A:
         >>> assert_typeerror_no_keywords(A().meth2, arg=None)
         """
 
-    @cython.always_allow_keywords(True)
+    @cython.always_allow_keywords(true)
     def meth3(self, arg):
         """
         >>> A().meth3(None)
@@ -163,7 +163,7 @@ class B(object):
         >>> if not IS_PY2: assert_typeerror_no_keywords(B.meth0_nokw, self=B())
         """
 
-    @cython.always_allow_keywords(True)
+    @cython.always_allow_keywords(true)
     def meth0_kw(self):
         """
         >>> B().meth0_kw()
@@ -175,7 +175,7 @@ class B(object):
         ... else: assert False, "No TypeError when passing 'self' argument twice"
         """
 
-    @cython.always_allow_keywords(True)
+    @cython.always_allow_keywords(true)
     def meth1(self, arg):
         """
         >>> B().meth1(None)
@@ -195,7 +195,7 @@ class B(object):
         >>> B().meth2(arg=None)  # assert_typeerror_no_keywords(B().meth2, arg=None)  -> not a cdef class!
         """
 
-    @cython.always_allow_keywords(True)
+    @cython.always_allow_keywords(true)
     def meth3(self, arg):
         """
         >>> B().meth3(None)

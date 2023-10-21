@@ -1,4 +1,4 @@
-# cython: language_level=3, binding=True, annotation_typing=False
+# cython: language_level=3, binding=true, annotation_typing=False
 # mode: run
 # tag: generators, python3, exceptions, gh2230, gh2811
 
@@ -276,9 +276,9 @@ def nested_except_gh3666(a=False, b=False):
     """
     >>> print(nested_except_gh3666())
     A
-    >>> print(nested_except_gh3666(a=True))
+    >>> print(nested_except_gh3666(a=true))
     B-V
-    >>> print(nested_except_gh3666(a=True, b=True))
+    >>> print(nested_except_gh3666(a=true, b=true))
     B-V-T
     """
     try:

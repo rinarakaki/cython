@@ -24,7 +24,7 @@ else:
     break
 
 def bool_result():
-    return True
+    return true
 
 
 def break_after_loop():

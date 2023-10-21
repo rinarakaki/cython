@@ -10,7 +10,7 @@ __doc__ = u"""
 """
 
 cdef class A:
-    cpdef foo(self, bint a=True, b="yo"):
+    cpdef foo(self, bint a=true, b="yo"):
         return a, b
 
 def call0():

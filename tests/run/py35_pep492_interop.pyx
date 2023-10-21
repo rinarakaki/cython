@@ -1,4 +1,4 @@
-# cython: language_level=3, binding=True
+# cython: language_level=3, binding=true
 # mode: run
 # tag: pep492, asyncfor, await
 
@@ -111,21 +111,21 @@ def yield_from_cyobject():
     >>> buffer, result = run_async(run_await(awaiting(simple_it())))
     >>> result
     10
-    >>> buffer, result = run_async(awaiting(run_await(simple_it())), ignore_type=True)
+    >>> buffer, result = run_async(awaiting(run_await(simple_it())), ignore_type=true)
     >>> result
     10
     >>> buffer, result = run_async(run_await(py_simple_nonit()))
     >>> result
     10
 
-    >>> buffer, result = run_async(run_yield_from(awaiting(run_await(simple_it()))), ignore_type=True)
+    >>> buffer, result = run_async(run_yield_from(awaiting(run_await(simple_it()))), ignore_type=true)
     >>> result
     10
 
-    >>> buffer, result = run_async(run_yield_from(simple_it()), ignore_type=True)
+    >>> buffer, result = run_async(run_yield_from(simple_it()), ignore_type=true)
     >>> result
     10
-    >>> buffer, result = run_async(yield_from(simple_it()), ignore_type=True)
+    >>> buffer, result = run_async(yield_from(simple_it()), ignore_type=true)
     >>> result
     10
 

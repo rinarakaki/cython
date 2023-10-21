@@ -1,4 +1,4 @@
-# cython: optimize.inline_defnode_calls=True
+# cython: optimize.inline_defnode_calls=true
 # mode: run
 cimport cython
 

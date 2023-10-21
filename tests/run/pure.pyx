@@ -69,7 +69,7 @@ def test_cast_object(x, typecheck):
     (1, 2, 3)
     """
     if typecheck:
-        as_list = cython.cast(list, x, typecheck=True)
+        as_list = cython.cast(list, x, typecheck=true)
     else:
         as_list = cython.cast(list, x, typecheck=False)
     return as_list
@@ -229,9 +229,9 @@ with cython.cdivision(True):
 
 _WARNINGS = """
 181:27: Strings should no longer be used for type declarations. Use 'cython.int' etc. directly.
-193:4: Directive does not change previous value (cdivision=True)
+193:4: Directive does not change previous value (cdivision=true)
 213:4: Directive does not change previous value (cdivision=False)
 214:4: Directive does not change previous value (cdivision=False)
-218:4: Directive does not change previous value (cdivision=True)
-219:4: Directive does not change previous value (cdivision=True)
+218:4: Directive does not change previous value (cdivision=true)
+219:4: Directive does not change previous value (cdivision=true)
 """

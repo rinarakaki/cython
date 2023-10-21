@@ -50,7 +50,7 @@ def run_async(coro, check_type='coroutine'):
 
     buffer = []
     result = None
-    while True:
+    while true:
         try:
             buffer.append(coro.send(None))
         except StopIteration as ex:

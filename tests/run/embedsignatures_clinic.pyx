@@ -1,4 +1,4 @@
-# cython: embedsignature=True
+# cython: embedsignature=true
 # cython: embedsignature.format=clinic
 # cython: annotation_typing=False
 # cython: binding=False

@@ -2,7 +2,7 @@
 # tag: cpp, cpp17, no-cpp-locals
 # no-cpp-locals because the test is already run with it explicitly set
 
-# cython: cpp_locals=True
+# cython: cpp_locals=true
 
 cimport cython
 

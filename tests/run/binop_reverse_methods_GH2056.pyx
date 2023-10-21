@@ -39,7 +39,7 @@ class Base(object):
     """
     implemented: cython.bint
 
-    def __init__(self, *, implemented=True):
+    def __init__(self, *, implemented=true):
         self.implemented = implemented
 
     def __add__(self, other):
@@ -137,7 +137,7 @@ class OverloadLeft(Base):
     """
     derived_implemented: cython.bint
 
-    def __init__(self, *, implemented=True):
+    def __init__(self, *, implemented=true):
         super().__init__(implemented=implemented)
         self.derived_implemented = implemented
 
@@ -174,7 +174,7 @@ class OverloadRight(Base):
     """
     derived_implemented: cython.bint
 
-    def __init__(self, *, implemented=True):
+    def __init__(self, *, implemented=true):
         super().__init__(implemented=implemented)
         self.derived_implemented = implemented
 
@@ -211,8 +211,8 @@ class OverloadCApi(Base):
     """
     derived_implemented: cython.bint
 
-    def __init__(self, *, derived_implemented=True):
-        super().__init__(implemented=True)
+    def __init__(self, *, derived_implemented=true):
+        super().__init__(implemented=true)
         self.derived_implemented = derived_implemented
 
     def __add__(self, other):

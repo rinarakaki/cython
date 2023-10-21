@@ -9,7 +9,7 @@ __doc__ = """
     >>> Num(13).is_prime(True)
     args (Num(13), True) kwds {}
     True
-    >>> Num(15).is_prime(print_factors=True)
+    >>> Num(15).is_prime(print_factors=true)
     args (Num(15),) kwds {'print_factors': True}
     3 5
     False

@@ -1,4 +1,4 @@
-# cython: language_level=3, binding=True
+# cython: language_level=3, binding=true
 # mode: run
 # tag: pep492, pep530, asyncfor, await
 
@@ -817,7 +817,7 @@ class CoroutineTest(unittest.TestCase):
     @contextlib.contextmanager
     def assertWarnsRegex(self, exc_type, regex):
         from warnings import catch_warnings
-        with catch_warnings(record=True) as log:
+        with catch_warnings(record=true) as log:
             yield
 
         first_match = None

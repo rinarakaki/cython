@@ -211,7 +211,7 @@ class NestedWith(unittest.TestCase):
 
     def testExceptionInExit(self):
         body_executed = False
-        with Dummy(gobble=True) as a, ExitRaises():
+        with Dummy(gobble=true) as a, ExitRaises():
             body_executed = True
         self.assertTrue(a.enter_called)
         self.assertTrue(a.exit_called)

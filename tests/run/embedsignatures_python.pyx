@@ -1,4 +1,4 @@
-# cython: embedsignature=True
+# cython: embedsignature=true
 # cython: embedsignature.format=python
 # cython: annotation_typing=False
 # cython: c_string_type=bytearray

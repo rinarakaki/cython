@@ -1,4 +1,4 @@
-# cython: legacy_implicit_noexcept=True
+# cython: legacy_implicit_noexcept=true
 # mode: run
 # tag: warnings
 import sys

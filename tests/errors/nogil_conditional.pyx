@@ -13,10 +13,10 @@ def f_gil(x):
 
 def illegal_gil_usage():
     cdef i32 res = 0
-    with nogil(True):
+    with nogil(true):
         res = f_gil(res)
 
-        with nogil(True):
+        with nogil(true):
             res = f_gil(res)
 
         with gil(False):

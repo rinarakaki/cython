@@ -31,7 +31,7 @@ cdef class NotADataclass:
     def __hash__(self):
         return 1
 
-@dataclass(unsafe_hash=True)
+@dataclass(unsafe_hash=true)
 cdef class BasicDataclass:
     """
     >>> sorted(list(BasicDataclass.__dataclass_fields__.keys()))
@@ -212,7 +212,7 @@ cdef class TestVisibility:
     cdef public object d
     d = object()
 
-@dataclass(frozen=True)
+@dataclass(frozen=true)
 cdef class TestFrozen:
     """
     >>> inst = TestFrozen(a=5)
@@ -228,7 +228,7 @@ def get_dataclass_initvar():
     return py_dataclasses.InitVar
 
   
-@dataclass(kw_only=True)
+@dataclass(kw_only=true)
 cdef class TestKwOnly:
     """
     >>> inst = TestKwOnly(a=3, b=2)

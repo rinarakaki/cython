@@ -5,7 +5,7 @@ cimport cython
 @cython.test_fail_if_path_exists('//BoolBinopNode')
 def or_literal_bint():
     """
-    >>> True or 5
+    >>> true or 5
     True
     >>> or_literal_bint()
     True
@@ -35,9 +35,9 @@ def False_and_True_or_0():
 @cython.test_fail_if_path_exists('//BoolBinopNode')
 def True_and_True_or_0():
     """
-    >>> True and True or 0
+    >>> true and True or 0
     True
-    >>> True_and_True_or_0()
+    >>> true_and_True_or_0()
     True
     """
     return True and True or 0

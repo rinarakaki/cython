@@ -24,7 +24,7 @@ else:
     continue
 
 def bool_result():
-    return True
+    return true
 
 
 _ERRORS = '''

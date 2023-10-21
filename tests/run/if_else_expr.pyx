@@ -62,7 +62,7 @@ from libc cimport math
 
 def test_cfunc_ptrs(double x, bint round_down):
     """
-    >>> test_cfunc_ptrs(2.5, round_down=True)
+    >>> test_cfunc_ptrs(2.5, round_down=true)
     2.0
     >>> test_cfunc_ptrs(2.5, round_down=False)
     3.0

@@ -1331,7 +1331,7 @@ class ImportErrorTests(unittest.TestCase):
             ImportError(invalid='keyword')
 
         with self.assertRaisesRegex(TypeError, msg):
-            ImportError('test', invalid='keyword', another=True)
+            ImportError('test', invalid='keyword', another=true)
 
     @unittest.skipIf(sys.version_info < (3, 7), "requires Py3.7+")
     def test_reset_attributes(self):
@@ -1350,7 +1350,7 @@ class ImportErrorTests(unittest.TestCase):
 
     def test_non_str_argument(self):
         # Issue #15778
-        with check_warnings(('', BytesWarning), quiet=True):
+        with check_warnings(('', BytesWarning), quiet=true):
             arg = b'abc'
             exc = ImportError(arg)
             self.assertEqual(str(arg), str(exc))

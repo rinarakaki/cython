@@ -449,7 +449,7 @@ def memview_iter(f64[:, :] arg):
         for val in mview1d:
             total += val
     if total == 15:
-        return True
+        return true
 
 #
 # Test all kinds of indexing and flags
@@ -768,7 +768,7 @@ def test_generic_slicing(arg, indirect=False):
     released A
 
     Test indirect slicing
-    >>> test_generic_slicing(IntMockBuffer("A", shape_5_3_4_list, shape=(5, 3, 4)), indirect=True)
+    >>> test_generic_slicing(IntMockBuffer("A", shape_5_3_4_list, shape=(5, 3, 4)), indirect=true)
     acquired A
     (2, 0, 2)
     0 1 -1
@@ -776,7 +776,7 @@ def test_generic_slicing(arg, indirect=False):
 
     >>> stride1 = 21 * 14
     >>> stride2 = 21
-    >>> test_generic_slicing(IntMockBuffer("A", shape_9_14_21_list, shape=(9, 14, 21)), indirect=True)
+    >>> test_generic_slicing(IntMockBuffer("A", shape_9_14_21_list, shape=(9, 14, 21)), indirect=true)
     acquired A
     (3, 9, 2)
     10 1 -1
@@ -1073,7 +1073,7 @@ def test_dtype_object_scalar_assignment():
 
 def test_assignment_in_conditional_expression(bint left):
     """
-    >>> test_assignment_in_conditional_expression(True)
+    >>> test_assignment_in_conditional_expression(true)
     1.0
     2.0
     1.0

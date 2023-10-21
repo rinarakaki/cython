@@ -1,5 +1,5 @@
 # cython: optimize.use_switch=False
-# cython: linetrace=True
+# cython: linetrace=true
 
 cdef extern from *:
     enum:
