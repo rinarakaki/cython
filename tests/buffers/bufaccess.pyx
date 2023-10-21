@@ -540,7 +540,7 @@ def set_int_2d_cascaded(object[i32, ndim=2] buf, i32 i, i32 j, i32 value):
 @testcase
 def list_comprehension(object[i32] buf, len):
     """
-    >>> list_comprehension(IntMockBuffer(None, [1,2,3]), 3)
+    >>> list_comprehension(IntMockBuffer(None, [1, 2, 3]), 3)
     1|2|3
     """
     cdef i32 i
@@ -1252,7 +1252,7 @@ def buffer_nogil():
     >>> buffer_nogil()
     10
     """
-    cdef object[i32] buf = IntMockBuffer(None, [1,2,3])
+    cdef object[i32] buf = IntMockBuffer(None, [1, 2, 3])
     with nogil:
         buf[1] = 10
     return buf[1]
@@ -1265,7 +1265,7 @@ def buffer_nogil_oob():
         ...
     IndexError: Out of bounds on buffer access (axis 0)
     """
-    cdef object[i32] buf = IntMockBuffer(None, [1,2,3])
+    cdef object[i32] buf = IntMockBuffer(None, [1, 2, 3])
     with nogil:
         buf[5] = 10
     return buf[1]
