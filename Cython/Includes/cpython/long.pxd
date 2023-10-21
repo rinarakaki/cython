@@ -45,7 +45,7 @@ cdef extern from "Python.h":
     # Return value: New reference.
     # Return a new PyLongObject object from a C unsigned long long, or NULL on failure.
 
-    object PyLong_FromDouble(double v)
+    object PyLong_FromDouble(f64 v)
     # Return value: New reference.
     # Return a new PyLongObject object from the integer part of v, or NULL on failure.
 
@@ -135,7 +135,7 @@ cdef extern from "Python.h":
     # Return a C unsigned long long from a Python long integer,
     # without checking for overflow.
 
-    double PyLong_AsDouble(object pylong) except? -1.0
+    f64 PyLong_AsDouble(object pylong) except? -1.0
     # Return a C double representation of the contents of pylong. If
     # pylong cannot be approximately represented as a double, an
     # OverflowError exception is raised and -1.0 will be returned.
