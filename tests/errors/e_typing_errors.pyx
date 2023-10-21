@@ -45,5 +45,5 @@ _ERRORS = """
 
 18:30: typing.Optional[...] cannot be applied to type MyStruct
 
-25:20: Modifier 'typing.ClassVar' is not allowed here.
+24:20: Modifier 'typing.ClassVar' is not allowed here.
 """
