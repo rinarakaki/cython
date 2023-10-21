@@ -106,7 +106,7 @@ def pytypes_cdef(a, b=2, c=3, d=4):
     return c_pytypes_cdef(a, b, c, d)
 
 
-def pyint(a: i32):
+def pyint(a: int):
     """
     >>> large_int = eval('0x'+'F'*64)  # definitely bigger than C int64
     >>> pyint(large_int) == large_int
