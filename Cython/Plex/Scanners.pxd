@@ -5,17 +5,16 @@ import cython
 from Cython.Plex.Actions cimport Action
 
 cdef class Scanner:
-
     cdef public lexicon
     cdef public stream
     cdef public name
     cdef public unicode buffer
-    cdef public Py_ssize_t buf_start_pos
-    cdef public Py_ssize_t next_pos
-    cdef public Py_ssize_t cur_pos
-    cdef public Py_ssize_t cur_line
-    cdef public Py_ssize_t cur_line_start
-    cdef public Py_ssize_t start_pos
+    cdef public isize buf_start_pos
+    cdef public isize next_pos
+    cdef public isize cur_pos
+    cdef public isize cur_line
+    cdef public isize cur_line_start
+    cdef public isize start_pos
     cdef tuple current_scanner_position_tuple
     cdef public tuple last_token_position_tuple
     cdef public text
@@ -24,11 +23,11 @@ cdef class Scanner:
     cdef public list queue
     cdef public bint trace
     cdef public cur_char
-    cdef public long input_state
+    cdef public i64 input_state
 
     cdef public level
 
-    @cython.locals(input_state=long)
+    @cython.locals(input_state=i64)
     cdef inline next_char(self)
     @cython.locals(action=Action)
     cpdef tuple read(self)
@@ -38,10 +37,10 @@ cdef class Scanner:
     ##cdef tuple position(self)  # used frequently by Parsing.py
 
     @cython.final
-    @cython.locals(cur_pos=Py_ssize_t, cur_line=Py_ssize_t, cur_line_start=Py_ssize_t,
-                   input_state=long, next_pos=Py_ssize_t, state=dict,
-                   buf_start_pos=Py_ssize_t, buf_len=Py_ssize_t, buf_index=Py_ssize_t,
-                   trace=bint, discard=Py_ssize_t, data=unicode, buffer=unicode)
+    @cython.locals(cur_pos=isize, cur_line=isize, cur_line_start=isize,
+                   input_state=i64, next_pos=isize, state=dict,
+                   buf_start_pos=isize, buf_len=isize, buf_index=isize,
+                   trace=bint, discard=isize, data=unicode, buffer=unicode)
     cdef run_machine_inlined(self)
 
     cdef inline begin(self, state)
