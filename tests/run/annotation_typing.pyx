@@ -375,21 +375,21 @@ _WARNINGS = """
 13:85: Strings should no longer be used for type declarations. Use 'cython.int' etc. directly.
 34:40: Found Python 2.x type 'long' in a Python annotation. Did you mean to use 'cython.long'?
 34:66: PEP-484 recommends 'typing.Optional[...]' for arguments that can be None.
-61:44: Found Python 2.x type 'long' in a Python annotation. Did you mean to use 'cython.long'?
-61:70: PEP-484 recommends 'typing.Optional[...]' for arguments that can be None.
-88:44: Found Python 2.x type 'long' in a Python annotation. Did you mean to use 'cython.long'?
-88:70: PEP-484 recommends 'typing.Optional[...]' for arguments that can be None.
-150:30: Tuples cannot be declared as simple tuples of types. Use 'tuple[type1, type2, ...]'.
-150:59: Tuples cannot be declared as simple tuples of types. Use 'tuple[type1, type2, ...]'.
-155:13: Tuples cannot be declared as simple tuples of types. Use 'tuple[type1, type2, ...]'.
-290:44: Unknown type declaration in annotation, ignoring
-318:15: Annotation ignored since class-level attributes must be Python objects. Were you trying to set up an instance attribute?
+60:44: Found Python 2.x type 'long' in a Python annotation. Did you mean to use 'cython.long'?
+60:70: PEP-484 recommends 'typing.Optional[...]' for arguments that can be None.
+87:44: Found Python 2.x type 'long' in a Python annotation. Did you mean to use 'cython.long'?
+87:70: PEP-484 recommends 'typing.Optional[...]' for arguments that can be None.
+149:30: Tuples cannot be declared as simple tuples of types. Use 'tuple[type1, type2, ...]'.
+149:59: Tuples cannot be declared as simple tuples of types. Use 'tuple[type1, type2, ...]'.
+154:13: Tuples cannot be declared as simple tuples of types. Use 'tuple[type1, type2, ...]'.
+289:44: Unknown type declaration in annotation, ignoring
+317:15: Annotation ignored since class-level attributes must be Python objects. Were you trying to set up an instance attribute?
 # DUPLICATE:
-61:44: Found Python 2.x type 'long' in a Python annotation. Did you mean to use 'cython.long'?
+60:44: Found Python 2.x type 'long' in a Python annotation. Did you mean to use 'cython.long'?
 # BUG:
-61:6: 'pytypes_cpdef' redeclared
-162:0: 'struct_io' redeclared
-197:0: 'struct_convert' redeclared
-216:0: 'exception_default' redeclared
-247:0: 'exception_default_uint' redeclared
+60:6: 'pytypes_cpdef' redeclared
+161:0: 'struct_io' redeclared
+196:0: 'struct_convert' redeclared
+215:0: 'exception_default' redeclared
+246:0: 'exception_default_uint' redeclared
 """
