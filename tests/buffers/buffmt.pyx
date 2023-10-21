@@ -242,8 +242,8 @@ def int_and_long_are_same():
     >>> int_and_long_are_same()
     """
     cdef object[i32] intarr
-    cdef object[long] longarr
-    if sizeof(i32) == sizeof(long):
+    cdef object[i64] longarr
+    if sizeof(i32) == sizeof(i64):
         intarr = MockBuffer("l", sizeof(i32))
         longarr = MockBuffer("i", sizeof(i32))
 
