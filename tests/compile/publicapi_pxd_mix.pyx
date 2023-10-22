@@ -15,7 +15,7 @@ pub  api void bar3(): pass
 
 cdef     void* spam0(object o) except NULL: return NULL
 pub      void* spam1(object o) except NULL: return NULL
-cde  api void* spam2(object o) except NULL nogil: return NULL
+cdef api void* spam2(object o) except NULL nogil: return NULL
 pub  api void* spam3(object o) except NULL with gil: return NULL
 
 cdef     i32 i0 = 0 # XXX This should not be required!
