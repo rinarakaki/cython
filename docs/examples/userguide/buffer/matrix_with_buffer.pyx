@@ -6,7 +6,7 @@ from libcpp.vector cimport vector
 cdef class Matrix:
     cdef isize ncols
     cdef isize[2] shape
-    cdef isize[2] strides
+    cdef Py_ssize_t[2] strides
     cdef vector[f32] v
 
     def __cinit__(self, isize ncols):
