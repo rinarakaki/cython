@@ -1114,7 +1114,7 @@ def typedbuffer1(obj):
        ...
     TypeError: Cannot convert int to bufaccess.IntMockBuffer
     """
-    let ntMockBuffer[i32, ndim=1] buf = obj
+    let IntMockBuffer[i32, ndim=1] buf = obj
 
 @testcase
 def typedbuffer2(IntMockBuffer[i32, ndim=1] obj):
