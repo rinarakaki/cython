@@ -109,7 +109,7 @@ cdef i32[:] main() nogil:
 
 _ERRORS = u"""
 4:5: Function with Python return type cannot be declared nogil
-7:5: Function declared nogil has Python locals or temporaries
+7:0: Function declared nogil has Python locals or temporaries
 9:4: Assignment of Python object not allowed without gil
 12:5: Discarding owned Python object not allowed without gil
 14:5: Function with Python return type cannot be declared nogil
