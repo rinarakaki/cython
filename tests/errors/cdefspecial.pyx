@@ -9,5 +9,5 @@ cdef class Test:
 
 _ERRORS = u"""
 4:4: Special methods must be declared with 'def', not 'cdef'
-7:9: Special methods must be declared with 'def', not 'cdef'
+7:4: Special methods must be declared with 'def', not 'cdef'
 """

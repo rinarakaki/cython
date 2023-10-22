@@ -135,7 +135,7 @@ def test_pure_noexcept():
     func_pure_noexcept()
 
 _WARNINGS = """
-12:5: Unraisable exception in function 'legacy_implicit_noexcept.func_implicit'.
+12:0: Unraisable exception in function 'legacy_implicit_noexcept.func_implicit'.
 12:36: Implicit noexcept declaration is deprecated. Function declaration should contain 'noexcept' keyword.
 15:5: Unraisable exception in function 'legacy_implicit_noexcept.func_noexcept'.
 24:43: Implicit noexcept declaration is deprecated. Function declaration should contain 'noexcept' keyword.
