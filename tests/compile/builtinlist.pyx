@@ -1,7 +1,7 @@
 # mode: compile
 
 cdef i32 f() except -1:
-    cdef list l
+    let list l
     cdef object x = (), y = (1,), z
     z = list
     l = list(x)

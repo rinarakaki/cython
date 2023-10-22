@@ -5,7 +5,7 @@ cdef object f(object x) nogil:
     pass
 
 cdef void g(i32 x) nogil:
-    cdef object z
+    let object z
     z = None
 
 cdef void h(i32 x) nogil:  # allowed
@@ -18,8 +18,8 @@ cdef void r() nogil:  # allowed
     q()  # allowed
 
 cdef object m():
-    cdef object x, y = 0, obj
-    cdef int i, j, k
+    let object x, y = 0, obj
+    let int i, j, k
     global fred
     q()
     with nogil:
@@ -81,7 +81,7 @@ cdef void t(C c) nogil:
     pass
 
 def ticket_338():
-    cdef object obj
+    let object obj
     with nogil:
         for obj from 0 <= obj < 4:
             pass
@@ -100,10 +100,10 @@ cdef int fstrings(i32 x, object obj) except -1 nogil:
 cdef void slice_array() nogil:
     with gil:
         b = [1, 2, 3, 4]
-    cdef int[4] a = b[:]
+    let int[4] a = b[:]
 
 cdef i32[:] main() nogil:
-    cdef i32[4] a = [1,2,3,4]
+    let i32[4] a = [1,2,3,4]
     return a
 
 

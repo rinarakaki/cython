@@ -224,7 +224,7 @@ def alignment_string(fmt, exc=None):
     >>> alignment_string("%si" % other_endian, "X-endian buffer not supported on X-endian compiler")
     >>> alignment_string("=i")
     """
-    cdef object[i32] buf
+    let object[i32] buf
     try:
         buf = MockBuffer(fmt, sizeof(i32))
     except ValueError, e:
@@ -241,8 +241,8 @@ def int_and_long_are_same():
     """
     >>> int_and_long_are_same()
     """
-    cdef object[i32] intarr
-    cdef object[i64] longarr
+    let object[i32] intarr
+    let object[i64] longarr
     if sizeof(i32) == sizeof(i64):
         intarr = MockBuffer("l", sizeof(i32))
         longarr = MockBuffer("i", sizeof(i32))

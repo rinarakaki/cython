@@ -20,7 +20,7 @@ def main():
     cpp_function_vector2(arr)
     cpp_function_2_vec_refs(arr, arr)
 
-    cdef vector[i32] vec
+    let vector[i32] vec
     vec.push_back(0)
     cpp_function_vector2(vec)
 

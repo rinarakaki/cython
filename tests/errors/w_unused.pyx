@@ -32,8 +32,8 @@ def used(x, y):
     lambda x: x
 
 def unused_and_unassigned():
-    cdef object foo
-    cdef int i
+    let object foo
+    let int i
 
 def unused_generic(*args, **kwargs):
     pass

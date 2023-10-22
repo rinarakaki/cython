@@ -9,7 +9,7 @@ cdef class Swallow:
     pass
 
 def f(Grail g):
-    cdef i32 i = 0
+    let i32 i = 0
     cdef Swallow s = Swallow()
     cdef object x = Grail()
     g = x

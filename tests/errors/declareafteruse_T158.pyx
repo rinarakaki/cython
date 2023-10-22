@@ -4,24 +4,24 @@
 def mult_decl_test():
     print "%s" % vv
     print "%s" % s
-    cdef str s, vv = "Test"
+    let str s, vv = "Test"
 
 def def_test():
-    cdef i32 j = 10
+    let i32 j = 10
     i[0] = j
-    cdef i32 *i = NULL # pointer variables are special case
+    let i32 *i = NULL # pointer variables are special case
 
 cdef cdef_test():
-    cdef i32 j = 10
+    let i32 j = 10
     i[0] = j
     print "%d" % i[0]
-    cdef i32 *i = NULL
+    let i32 *i = NULL
 
 cpdef cpdef_test():
-    cdef i32 j = 10
+    let i32 j = 10
     i[0] = j
     print "%d" % i[0]
-    cdef i32 *i = NULL
+    let i32 *i = NULL
 
 s.upper()
 cdef str s = "Test"
@@ -34,7 +34,7 @@ class Foo(object):
 
 cdef class Foo2(object):
     print '%s' % r # check error inside class scope
-    cdef str r
+    let str r
     def bar(self, x, y):
         cdef u64 w = 20
         self.r = c'r'
