@@ -74,7 +74,7 @@ fn object m():
 fn void q():
     pass
 
-fn class C:
+cdef class C:
     pass
 
 fn void t(C c) nogil:
