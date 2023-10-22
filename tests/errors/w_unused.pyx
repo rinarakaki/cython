@@ -56,7 +56,7 @@ _ERRORS = """
 21:4: Unused entry '_unused_one'
 25:4: Unused entry 'Unused'
 35:15: Unused entry 'foo'
-36:13: Unused entry 'i'
+36:12: Unused entry 'i'
 38:20: Unused argument 'args'
 38:28: Unused argument 'kwargs'
 41:26: Unused argument 'c'
