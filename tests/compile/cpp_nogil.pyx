@@ -18,6 +18,6 @@ with nogil:
     NoGilTest2().doSomething()
 
 # We can override nogil methods as with gil methods.
-fn cppclass WithGilSubclass(NoGilTest1):
+cdef cppclass WithGilSubclass(NoGilTest1):
     void doSomething() noexcept with gil:
         print "have the gil"
