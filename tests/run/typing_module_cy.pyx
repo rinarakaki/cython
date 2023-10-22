@@ -33,6 +33,6 @@ cdef class TestClassVar:
         ...
     AttributeError:
     """
-    let int regular
-    let typing.ClassVar[int] cls
+    cdef int regular
+    cdef typing.ClassVar[int] cls
     cls = 5
