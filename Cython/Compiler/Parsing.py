@@ -3741,7 +3741,6 @@ def p_c_class_definition(s, pos,  ctx):
         bases = ExprNodes.TupleNode(pos, args=[])
 
     if s.sy == '[':
-        if ctx.visibility not in ('pub', 'public', 'extern') and not ctx.api:
         if ctx.visibility not in ("pub", "public", "extern") and not ctx.api:
             error(s.position(), "Name options only allowed for 'public', 'api', or 'extern' C class")
         objstruct_name, typeobj_name, check_size = p_c_class_options(s)
