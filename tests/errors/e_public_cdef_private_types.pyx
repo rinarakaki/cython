@@ -38,6 +38,6 @@ e_public_cdef_private_types.pyx:8:14: Function declared public or api may not ha
 e_public_cdef_private_types.pyx:11:19: Function declared public or api may not have private types
 e_public_cdef_private_types.pyx:14:0: Function declared public or api may not have private types
 e_public_cdef_private_types.pyx:17:5: Function declared public or api may not have private types
-e_public_cdef_private_types.pyx:20:21: Function with optional arguments may not be declared public or api
+e_public_cdef_private_types.pyx:20:16: Function with optional arguments may not be declared public or api
 e_public_cdef_private_types.pyx:23:21: Function with optional arguments may not be declared public or api
 """
