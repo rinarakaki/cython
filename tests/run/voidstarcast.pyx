@@ -1,5 +1,5 @@
 cdef class C:
-    let int i
+    cdef int i
 
     def foo(self):
         self.i = 42
