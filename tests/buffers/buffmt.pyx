@@ -69,13 +69,13 @@ def _int(fmt):
        ...
     ValueError: Does not understand character buffer dtype format string ('$')
     """
-    cdef object[i32] buf = MockBuffer(fmt, sizeof(i32))
+    let object[i32] buf = MockBuffer(fmt, sizeof(i32))
 
 def _ulong(fmt):
     """
     >>> _ulong("L")
     """
-    cdef object[u64] buf = MockBuffer(fmt, sizeof(u64))
+    let object[u64] buf = MockBuffer(fmt, sizeof(u64))
 
 def wrongsize():
     """
@@ -85,7 +85,7 @@ def wrongsize():
     ValueError: Item size of buffer (1 byte) does not match size of 'float' (4 bytes)
 
     """
-    cdef object[f32] buf = MockBuffer("f", 1)
+    let object[f32] buf = MockBuffer("f", 1)
 
 def _obj(fmt):
     """
@@ -95,7 +95,7 @@ def _obj(fmt):
        ...
     ValueError: Buffer dtype mismatch, expected 'Python object' but got 'int'
     """
-    cdef object[object] buf = MockBuffer(fmt, sizeof(void*))
+    let object[object] buf = MockBuffer(fmt, sizeof(void*))
 
 cdef struct ComplexFloat:
     f32 real
@@ -169,14 +169,14 @@ def char3int(fmt):
        ...
     ValueError: Buffer dtype mismatch, expected 'int' but got end in 'Char3Int.d'
     """
-    cdef object obj = MockBuffer(fmt, sizeof(Char3Int))
+    let object obj = MockBuffer(fmt, sizeof(Char3Int))
     let object[Char3Int, ndim=1] buf = obj
 
 def long_string(fmt):
     """
     >>> long_string("90198s")
     """
-    cdef object obj = MockBuffer(fmt, sizeof(LongString))
+    let object obj = MockBuffer(fmt, sizeof(LongString))
     let object[LongString, ndim=1] buf = obj
 
 def unpacked_struct(fmt):
@@ -192,7 +192,7 @@ def unpacked_struct(fmt):
     """
     assert (sizeof(UnpackedStruct1) == sizeof(UnpackedStruct2)
             == sizeof(UnpackedStruct3) == sizeof(UnpackedStruct4))
-    cdef object obj = MockBuffer(fmt, sizeof(UnpackedStruct1))
+    let object obj = MockBuffer(fmt, sizeof(UnpackedStruct1))
     let object[UnpackedStruct1, ndim=1] buf1 = obj
     let object[UnpackedStruct2, ndim=1] buf2 = obj
     let object[UnpackedStruct3, ndim=1] buf3 = obj
@@ -214,7 +214,7 @@ def complex_test(fmt):
     ValueError: Buffer dtype mismatch, expected 'float' but got 'complex float' in 'ComplexFloat.imag'
 
     """
-    cdef object obj = MockBuffer(fmt, sizeof(ComplexTest))
+    let object obj = MockBuffer(fmt, sizeof(ComplexTest))
     let object[ComplexTest] buf1 = obj
 
 def alignment_string(fmt, exc=None):
@@ -260,7 +260,7 @@ def mixed_complex_struct():
         ...
     ValueError: Buffer dtype mismatch, expected 'double' but got 'complex double' in 'MixedComplex.real'
     """
-    cdef object[MixedComplex] buf = MockBuffer("Zd",
+    let object[MixedComplex] buf = MockBuffer("Zd",
         sizeof(MixedComplex))
 
 cdef packed struct PackedSubStruct:
@@ -307,7 +307,7 @@ def packed_struct(fmt):
     ValueError: Buffer dtype mismatch; next field is at offset 4 but 1 expected
 
     """
-    cdef object[PackedStruct] buf = MockBuffer(fmt, sizeof(PackedStruct))
+    let object[PackedStruct] buf = MockBuffer(fmt, sizeof(PackedStruct))
 
 def partially_packed_struct(fmt):
     """
@@ -333,7 +333,7 @@ def partially_packed_struct(fmt):
     ValueError: Buffer dtype mismatch; next field is at offset 1 but 4 expected
 
     """
-    cdef object[PartiallyPackedStruct] buf = MockBuffer(
+    let object[PartiallyPackedStruct] buf = MockBuffer(
         fmt, sizeof(PartiallyPackedStruct))
 
 def partially_packed_struct_2(fmt):
@@ -360,7 +360,7 @@ def partially_packed_struct_2(fmt):
     ValueError: Buffer dtype mismatch; next field is at offset 4 but 5 expected
 
     """
-    cdef object[PartiallyPackedStruct2] buf = MockBuffer(
+    let object[PartiallyPackedStruct2] buf = MockBuffer(
         fmt, sizeof(PartiallyPackedStruct2))
 
 cdef packed struct PackedStructWithCharArrays:
@@ -373,7 +373,7 @@ def packed_struct_with_strings(fmt):
     """
     >>> packed_struct_with_strings("T{f:a:i:b:5s:c:3s:d:}")
     """
-    cdef object[PackedStructWithCharArrays] buf = MockBuffer(
+    let object[PackedStructWithCharArrays] buf = MockBuffer(
         fmt, sizeof(PackedStructWithCharArrays))
 
 ctypedef struct PackedStructWithArrays:
@@ -403,7 +403,7 @@ def packed_struct_with_arrays(fmt):
     >>> packed_struct_with_arrays("T{(16)d:a:(16)d:b:d:c:}")
     """
 
-    cdef object[PackedStructWithArrays] buf = MockBuffer(
+    let object[PackedStructWithArrays] buf = MockBuffer(
         fmt, sizeof(PackedStructWithArrays))
 
 def unpacked_struct_with_arrays(fmt):
@@ -414,7 +414,7 @@ def unpacked_struct_with_arrays(fmt):
     ...     unpacked_struct_with_arrays("T{i:a:(8)f:b:f:c:Q:d:(5)i:e:i:f:i:g:(4)d:h:i:i:}")
     """
 
-    cdef object[UnpackedStructWithArrays] buf = MockBuffer(
+    let object[UnpackedStructWithArrays] buf = MockBuffer(
         fmt, sizeof(UnpackedStructWithArrays))
 
 def packed_struct_with_ndarrays(fmt):
@@ -422,7 +422,7 @@ def packed_struct_with_ndarrays(fmt):
     >>> packed_struct_with_ndarrays("T{d:a:(2,2)d:b:f:c:f:d:}")
     """
 
-    cdef object[PackedStructWithNDArrays] buf = MockBuffer(
+    let object[PackedStructWithNDArrays] buf = MockBuffer(
         fmt, sizeof(PackedStructWithNDArrays))
 
 

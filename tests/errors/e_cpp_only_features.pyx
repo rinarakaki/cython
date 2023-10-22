@@ -11,16 +11,16 @@ cdef cppclass A:
     pass
 
 def use_new():
-    cdef A* x = new A()
+    let A* x = new A()
 
 def use_del():
-    cdef A a = A()
+    let A a = A()
     let A *p = &a
     del p
 
 _ERRORS = """
 8:10: typeid operator only allowed in c++
 8:23: typeid operator only allowed in c++
-14:16: Operation only allowed in c++
+14:15: Operation only allowed in c++
 19:4: Operation only allowed in c++
 """

@@ -134,7 +134,7 @@ def test_memslice_copy(f64[:] buf):
     Traceback (most recent call last):
     AttributeError: Cannot access 'copy' attribute of None memoryview slice
     """
-    cdef f64[:] copy = buf.copy()
+    let f64[:] copy = buf.copy()
 
 @cython.nonecheck(true)
 def test_memslice_transpose(f64[:] buf):
