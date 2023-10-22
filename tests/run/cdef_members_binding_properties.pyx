@@ -1,7 +1,7 @@
-# cython: embedsignature=True, binding=True
+# cython: embedsignature=true, binding=true
 # mode: run
 
-# same test as "cdef_members_T517.pyx" but "binding=True"
+# same test as "cdef_members_T517.pyx" but "binding=true"
 
 __doc__ = u"""
 >>> a = A()
@@ -82,26 +82,24 @@ if sys.version_info < (2,5):
     __doc__ = (__doc__.split('TYPE_FIXES_REQUIRED')[0] +
                __doc__.split('TYPE_FIXES_REQUIRED')[1].replace('\nAttributeError: ...', '\nTypeError: ...'))
 
-
 cdef class A:
+    cdef pub i16 h
+    cdef pub i32 i
+    cdef pub i64 l
+    cdef pub i128 q
+    cdef pub f32 f
+    cdef pub f64 d
+    cdef pub long double g
+    cdef pub float complex Zf
+    cdef pub double complex Zd
+    cdef pub long double complex Zg
 
-    cdef public short h
-    cdef public int i
-    cdef public long l
-    cdef public long long q
-    cdef public float f
-    cdef public double d
-    cdef public long double g
-    cdef public float complex Zf
-    cdef public double complex Zd
-    cdef public long double complex Zg
-
-    cdef readonly short ro_h
-    cdef readonly int ro_i
-    cdef readonly long ro_l
-    cdef readonly long long ro_q
-    cdef readonly float ro_f
-    cdef readonly double ro_d
+    cdef readonly i16 ro_h
+    cdef readonly i32 ro_i
+    cdef readonly i64 ro_l
+    cdef readonly i128 ro_q
+    cdef readonly f32 ro_f
+    cdef readonly f64 ro_d
     cdef readonly long double ro_g
     cdef readonly float complex ro_Zf
     cdef readonly double complex ro_Zd
@@ -119,19 +117,17 @@ cdef class A:
         self.ro_Zd = 3+4j
         self.ro_Zg = 5+6j
 
-
 cdef class B:
-
     cdef object a0
-    cdef public object a1
+    cdef pub object a1
     cdef readonly object a2
 
     cdef list b0
-    cdef public list b1
+    cdef pub list b1
     cdef readonly list b2
 
     cdef A c0
-    cdef public A c1
+    cdef pub A c1
     cdef readonly A c2
 
     def __cinit__(self):

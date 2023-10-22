@@ -743,9 +743,9 @@ def p_atom(s):
         name = s.systring
         if name == "None":
             result = ExprNodes.NoneNode(pos)
-        elif name == "True":
+        elif name in ("true", "True"):
             result = ExprNodes.BoolNode(pos, value=True)
-        elif name == "False":
+        elif name in ("false", "False"):
             result = ExprNodes.BoolNode(pos, value=False)
         elif name == "NULL" and not s.in_python_file:
             result = ExprNodes.NullNode(pos)
@@ -3245,7 +3245,7 @@ def p_cdef_statement(s, ctx):
     ctx.visibility = p_visibility(s, ctx.visibility)
     ctx.api = ctx.api or p_api(s)
     if ctx.api:
-        if ctx.visibility not in ('private', 'pub', 'public'):
+        if ctx.visibility not in ("private", "pub", "public"):
             error(pos, "Cannot combine 'api' with '%s'" % ctx.visibility)
     if (ctx.visibility == 'extern') and just(s, "from"):
         return p_cdef_extern_block(s, pos, ctx)
@@ -3484,7 +3484,10 @@ def p_visibility(s, prev_visibility):
     pos = s.position()
     visibility = prev_visibility
     if just(s, ("pub", "extern")) or s.sy == 'IDENT' and s.systring in ('public', 'readonly'):
-        visibility = s.systring
+        if s.systring == "pub":
+            visibility = "public"
+        else:
+            visibility = s.systring
         if prev_visibility != 'private' and visibility != prev_visibility:
             s.error("Conflicting visibility options '%s' and '%s'"
                 % (prev_visibility, visibility), fatal=False)
@@ -3739,6 +3742,7 @@ def p_c_class_definition(s, pos,  ctx):
 
     if s.sy == '[':
         if ctx.visibility not in ('pub', 'public', 'extern') and not ctx.api:
+        if ctx.visibility not in ("pub", "public", "extern") and not ctx.api:
             error(s.position(), "Name options only allowed for 'public', 'api', or 'extern' C class")
         objstruct_name, typeobj_name, check_size = p_c_class_options(s)
     if s.sy == ':':
@@ -3756,7 +3760,7 @@ def p_c_class_definition(s, pos,  ctx):
             error(pos, "Module name required for 'extern' C class")
         if typeobj_name:
             error(pos, "Type object name specification not allowed for 'extern' C class")
-    elif ctx.visibility in ('pub', 'public'):
+    elif ctx.visibility in ("pub", "public"):
         if not objstruct_name:
             error(pos, "Object struct name specification required for 'public' C class")
         if not typeobj_name:

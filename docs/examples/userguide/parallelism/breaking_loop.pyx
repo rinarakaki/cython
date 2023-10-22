@@ -1,9 +1,9 @@
 from cython.parallel import prange
 
-cdef i32 func(Py_ssize_t n) except -1:
-    cdef Py_ssize_t i
+cdef i32 func(isize n) except -1:
+    cdef isize i
 
-    for i in prange(n, nogil=True):
+    for i in prange(n, nogil=true):
         if i == 8:
             with gil:
                 raise Exception()
