@@ -22,7 +22,7 @@ import sys
 from unicodedata import lookup as lookup_unicodechar, category as unicode_category
 from functools import partial, reduce
 
-from .Scanning import PyrexScanner, FileSourceDescriptor, tentatively_scan
+from .Scanning import PyrexScanner, FileSourceDescriptor, contextual_keywords, tentatively_scan
 from . import Nodes
 from . import ExprNodes
 from . import Builtin
@@ -3472,8 +3472,8 @@ def p_struct_enum(s, pos, ctx):
 def p_visibility(s, prev_visibility):
     pos = s.position()
     visibility = prev_visibility
-    if s.sy == 'IDENT' and s.systring in ("extern", "pub", "public", "readonly"):
-        if s.systring == "pub":
+    if s.sy in ("pub",) or s.sy == 'IDENT' and s.systring in ("extern", "pub", "public", "readonly"):
+        if s.sy == "pub":
             visibility = "public"
         else:
             visibility = s.systring
