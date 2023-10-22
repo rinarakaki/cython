@@ -179,7 +179,7 @@ _ERRORS = u"""
 98:4: Discarding owned Python object not allowed without gil
 98:6: String formatting not allowed without gil
 
-103:21: Coercion from Python not allowed without the GIL
-103:21: Slicing Python object not allowed without gil
+103:20: Coercion from Python not allowed without the GIL
+103:20: Slicing Python object not allowed without gil
 107:11: Operation not allowed without gil
 """
