@@ -1,4 +1,4 @@
-cdef int f() except -1:
+fn int f() except -1:
     cdef type t
     cdef object x
     t = buffer

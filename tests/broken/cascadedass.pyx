@@ -1,4 +1,4 @@
-cdef void foo():
+fn void foo():
     cdef i32 i, j, k
     i = j = k
     a = b = c

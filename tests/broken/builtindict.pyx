@@ -1,4 +1,4 @@
-cdef i32 f() except -1:
+fn i32 f() except -1:
     cdef dict d
     cdef object x, z
     cdef i32 i

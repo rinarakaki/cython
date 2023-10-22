@@ -3,7 +3,7 @@ cdef int tomato() except -1:
     raise Exception("Eject! Eject! Eject!")
     print "Leaving tomato"
 
-cdef void sandwich():
+fn void sandwich():
     print "Entering sandwich"
     tomato()
     print "Leaving sandwich"

@@ -13,7 +13,7 @@ ctypedef enum blarg "c_blarg":
     x "c_x"
     y "c_y" = 42
 
-cdef f64 spam "c_spam" (i32 i, f32 f):
+fn f64 spam "c_spam" (i32 i, f32 f):
     cdef f64 d "c_d"
     cdef foo *p
     global b
