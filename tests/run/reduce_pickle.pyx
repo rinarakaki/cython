@@ -27,7 +27,7 @@ cdef class A:
     A(3)
     """
 
-    cdef int value
+    let int value
 
     def __init__(self, value):
         self.value = value
@@ -47,7 +47,7 @@ cdef class B:
     B(x=37, y=389)
     """
 
-    cdef int x, y
+    let int x, y
 
     def __cinit__(self):
         self.x = self.y = -1
@@ -87,8 +87,8 @@ cdef class DefaultReduce(object):
     DefaultReduce(i=11, s=None)
     """
 
-    cdef readonly int i
-    cdef readonly str s
+    let readonly int i
+    let readonly str s
 
     def __init__(self, i=0, s=None):
         self.i = i
@@ -107,7 +107,7 @@ cdef class DefaultReduceSubclass(DefaultReduce):
     DefaultReduceSubclass(i=11, s='abc', x=1.5)
     """
 
-    cdef double x
+    let double x
 
     def __init__(self, **kwargs):
         self.x = kwargs.pop('x', 0)
@@ -159,7 +159,7 @@ cdef class NoReduceDueToIntPtr(object):
     ...
     TypeError: self.int_ptr cannot be converted to a Python object for pickling
     """
-    cdef int* int_ptr
+    let int* int_ptr
 
 cdef class NoReduceDueToNontrivialCInit(object):
     """
@@ -189,8 +189,8 @@ cdef class NoPyMembers(object):
     >>> pickle.loads(pickle.dumps(NoPyMembers(2, 1.75)))
     NoPyMembers(ii=[2, 4, 8], x=1.75)
     """
-    cdef int[3] ii
-    cdef double x
+    let int[3] ii
+    let double x
 
     def __init__(self, i, x):
         self.ii[0] = i
@@ -239,7 +239,7 @@ cdef class StructMemberDefault(object):
     TypeError: ...my_struct...
     """
 
-    cdef MyStruct my_struct
+    let MyStruct my_struct
 
     def __init__(self, i, x):
         self.my_struct.i = i

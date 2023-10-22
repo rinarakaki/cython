@@ -19,7 +19,7 @@ def assert_no_double_deallocations():
 # See also https://github.com/python/cpython/pull/11841
 def recursion_test(f, int n=2**20):
     x = None
-    cdef int i
+    let int i
     for i in range(n):
         x = f(x)
 
@@ -31,7 +31,7 @@ cdef class Recurse:
     >>> assert_no_double_deallocations()
     """
     pub attr
-    cdef int deallocated
+    let int deallocated
 
     def __cinit__(self, x):
         self.attr = x
@@ -48,7 +48,7 @@ cdef class RecurseSub(Recurse):
     >>> recursion_test(RecurseSub)
     >>> assert_no_double_deallocations()
     """
-    cdef int subdeallocated
+    let int subdeallocated
 
     def __dealloc__(self):
         # Check that we're not being deallocated twice
@@ -66,7 +66,7 @@ cdef class RecurseFreelist:
     >>> assert_no_double_deallocations()
     """
     pub attr
-    cdef int deallocated
+    let int deallocated
 
     def __cinit__(self, x):
         self.attr = x

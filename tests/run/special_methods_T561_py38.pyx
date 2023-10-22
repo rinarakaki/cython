@@ -19,7 +19,7 @@ cdef class TwoOrThreeArgIPow:
     >>> print(ipow(TwoOrThreeArgIPow('a'), 'x', 'y'))
     a**x[y]
     """
-    cdef str name
+    let str name
 
     def __init__(self, name):
         self.name = name
@@ -39,7 +39,7 @@ cdef class ThreeArgIPow:
     >>> print(ipow(ThreeArgIPow('a'), 'x', 'y'))
     a**x[y]
     """
-    cdef str name
+    let str name
 
     def __init__(self, name):
         self.name = name

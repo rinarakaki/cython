@@ -16,9 +16,9 @@ def test_subscripted_types():
     list object
     set object
     """
-    cdef typing.Dict[int, float] a = {}
-    cdef List[int] b = []
-    cdef _SET_[object] c = set()
+    let typing.Dict[int, float] a = {}
+    let List[int] b = []
+    let _SET_[object] c = set()
 
     print(cython.typeof(a))
     print(cython.typeof(b))
@@ -33,6 +33,6 @@ cdef class TestClassVar:
         ...
     AttributeError:
     """
-    cdef int regular
-    cdef typing.ClassVar[int] cls
+    let int regular
+    let typing.ClassVar[int] cls
     cls = 5
