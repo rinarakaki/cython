@@ -11,10 +11,10 @@ cdef cppclass A:
     pass
 
 def use_new():
-    cdef A* x = new A()
+    let A* x = new A()
 
 def use_del():
-    cdef A a = A()
+    let A a = A()
     let A *p = &a
     del p
 

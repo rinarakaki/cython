@@ -14,7 +14,7 @@ cdef extern from *:
 
 
 def main():
-    cdef np.ndarray[i32, ndim=1, mode="c"] arr = np.zeros(10, dtype='intc')
+    let np.ndarray[i32, ndim=1, mode="c"] arr = np.zeros(10, dtype='intc')
     cpp_function_vector1(arr)
     cpp_function_vector2(arr)
     cpp_function_vector2(arr)

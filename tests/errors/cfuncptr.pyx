@@ -7,9 +7,9 @@ cdef int exceptmaybeminus2(i32 bad) except ?-2:
         return 0
 
 def fail_exceptmaybeminus2(bad):
-    cdef i32 (*fptr_a)(i32) except -2
-    cdef i32 (*fptr_b)(i32) except -1
-    cdef i32 (*fptr_c)(i32) except ?-1
+    let i32 (*fptr_a)(i32) except -2
+    let i32 (*fptr_b)(i32) except -1
+    let i32 (*fptr_c)(i32) except ?-1
     fptr_a = exceptmaybeminus2
     fptr_b = exceptmaybeminus2
     fptr_c = exceptmaybeminus2
@@ -23,9 +23,9 @@ cdef extern from *:
         void (*func_ptr_void)(i32 param) nogil
 
 def fail_exceptstar(bad):
-    cdef i32 (*fptr_a)(i32) noexcept
-    cdef i32 (*fptr_b)(i32) except -1
-    cdef i32 (*fptr_c)(i32) except ?-1
+    let i32 (*fptr_a)(i32) noexcept
+    let i32 (*fptr_b)(i32) except -1
+    let i32 (*fptr_c)(i32) except ?-1
     fptr_a = exceptstar
     fptr_b = exceptstar
     fptr_c = exceptstar
@@ -37,7 +37,7 @@ cdef void cb_void(i32 param) except * nogil:
     return
 
 def fail_struct_pointer():
-    cdef mystruct ms = mystruct(&cb, &cb_void)
+    let mystruct ms = mystruct(&cb, &cb_void)
 
 
 _ERRORS = """
