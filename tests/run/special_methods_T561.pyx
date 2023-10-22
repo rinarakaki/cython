@@ -337,7 +337,7 @@ cdef class VerySpecial:
     >>> vs0_init(0)
     VS __init__ 0
     """
-    let readonly int value
+    cdef readonly int value
 
     def __init__(self, v):
         self.value = v
@@ -567,7 +567,7 @@ cdef class GetAttrGetItemRedirect:
 
     >>> assert item_value is attr_value, repr((item_value, attr_value))
     """
-    let object obj
+    cdef object obj
     def __cinit__(self):
         self.obj = object()
 
@@ -1014,7 +1014,7 @@ cdef class TwoArgPow:
         ...
     TypeError: special_methods_T561.TwoArgPow.__pow__() takes 3 arguments but 2 were given
     """
-    let str name
+    cdef str name
 
     def __init__(self, name):
         self.name = name
@@ -1034,7 +1034,7 @@ cdef class TwoArgRPow:
         ...
     TypeError: special_methods_T561.TwoArgRPow.__rpow__() takes 3 arguments but 2 were given
     """
-    let str name
+    cdef str name
 
     def __init__(self, name):
         self.name = name
@@ -1056,7 +1056,7 @@ cdef class TwoArgIPow:
     >>> print(a)
     a**2
     """
-    let str name
+    cdef str name
 
     def __init__(self, name):
         self.name = name
@@ -1083,7 +1083,7 @@ cdef class TwoOrThreeArgPow:
     >>> print(pow(TwoOrThreeArgPow('a'), 'x', 'y'))
     a**x[y]
     """
-    let str name
+    cdef str name
 
     def __init__(self, name):
         self.name = name
@@ -1101,7 +1101,7 @@ cdef class TwoOrThreeArgRPow:
     >>> print(pow('x', TwoOrThreeArgRPow('a'), 'y'))
     a**x[y]
     """
-    let str name
+    cdef str name
 
     def __init__(self, name):
         self.name = name
