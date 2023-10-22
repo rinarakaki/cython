@@ -2,7 +2,7 @@
 
 import math
 
-cdef f64 cfunc(f64 x) except math.nan:
+fn f64 cfunc(f64 x) except math.nan:
     return x
 
 

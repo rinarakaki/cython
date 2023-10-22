@@ -221,7 +221,7 @@ def power_coercion_in_nogil_1(f64 a, f64 b):
         c = a**b
     return c
 
-cdef f64 nogil_fun(f64 x) nogil:
+fn f64 nogil_fun(f64 x) nogil:
     return x
 
 def power_coercion_in_nogil_2(f64 a, f64 b):

@@ -45,7 +45,7 @@ cdef extern from *:
     C make_C(int) except +  # needs a temp to receive
 
 # this function just makes sure the output from the destructor can be captured by doctest
-cdef void print_C_destructor "print_C_destructor" () with gil:
+fn void print_C_destructor "print_C_destructor" () with gil:
     print("~C()")
 
 def maybe_assign_infer(assign, value, do_print):

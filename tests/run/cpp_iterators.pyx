@@ -191,7 +191,7 @@ cdef extern from *:
     """
     let vector[i32] make_vec1() except +
 
-cdef vector[i32] make_vec2() except *:
+fn vector[i32] make_vec2() except *:
     return make_vec1()
 
 fn vector[i32] make_vec3():

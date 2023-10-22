@@ -228,7 +228,7 @@ def test_template_class_member():
            destructor_count - start_destructor_count
 
 ctypedef vector[int]* vector_int_ptr
-cdef vector[vector_int_ptr] create_to_delete() except *:
+fn vector[vector_int_ptr] create_to_delete() except *:
     let vector[vector_int_ptr] v
     v.push_back(new vector[int]())
     return v

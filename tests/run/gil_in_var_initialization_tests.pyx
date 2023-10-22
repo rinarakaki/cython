@@ -120,7 +120,7 @@ def test_method_with_error_return():
     assert future.get()
 
 
-cdef inline float[:] _get_left_edge(float[::1] arr) nogil:
+fn inline float[:] _get_left_edge(float[::1] arr) nogil:
     return arr[:3]
 
 cdef class D:

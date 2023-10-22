@@ -4,7 +4,7 @@
 
 from libcpp.vector cimport vector
 
-cdef cppclass Wrapper[T]:
+fn cppclass Wrapper[T]:
     T value
     __init__(T &value):
         this.value = value

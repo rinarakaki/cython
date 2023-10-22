@@ -12,7 +12,7 @@ cdef extern from "if_else_expr_cpp_helper.h":
     cdef Holder& get_v1()
     cdef Holder& get_v2()
 
-cdef reset() :
+fn reset() :
     v1.value = 1
     v2.value = 2
 

@@ -1,6 +1,6 @@
 # mode: error
 
-cdef inline func() -> int:
+fn inline func() -> int:
     pass
 
 cpdef inline func() -> int:

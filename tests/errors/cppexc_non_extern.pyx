@@ -6,11 +6,11 @@ fn inline void handle_exception():
 
 # GH 3064 - cppfunc caused invalid code to be generated with +handle_exception
 # error to prevent this
-cdef test_func1(self) except +handle_exception:
+fn test_func1(self) except +handle_exception:
     pass
 
 # warning
-cdef test_func2(self) except +:
+fn test_func2(self) except +:
     pass
 
 _ERRORS = """

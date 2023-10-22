@@ -2,7 +2,7 @@
 
 cimport numpy as np
 
-cdef void func(np.ndarray[np.double_t, ndim=1] myarray) nogil:
+fn void func(np.ndarray[np.double_t, ndim=1] myarray) nogil:
     pass
 
 _ERRORS = u"""

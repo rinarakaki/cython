@@ -1718,7 +1718,7 @@ def test_oob():
     print a[:, 20]
 
 
-cdef i32 nogil_oob(i32[:, :] a) except 0 nogil:
+fn i32 nogil_oob(i32[:, :] a) except 0 nogil:
     a[100, 9:]
     return 1
 
@@ -1762,7 +1762,7 @@ def test_nogil_oob2():
         a[100, 9:]
 
 @cython.boundscheck(false)
-cdef i32 cdef_nogil(i32[:, :] a) except 0 nogil:
+fn i32 cdef_nogil(i32[:, :] a) except 0 nogil:
     let i32 i, j
     let i32[:, :] b = a[::-1, 3:10:2]
     for i in range(b.shape[0]):

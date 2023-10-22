@@ -11,7 +11,7 @@ fn f64[:] foo(i32 i):
     if i == 4:
         raise TypeError('dummy')
 
-cdef f64[:] foo_nogil(i32 i) nogil:
+fn f64[:] foo_nogil(i32 i) nogil:
     if i == 1:
         raise AttributeError('dummy')
     if i == 2:

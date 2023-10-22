@@ -12,13 +12,13 @@ except ImportError:
 fn int func_implicit(int a, int b):
     raise RuntimeError
 
-cdef int func_noexcept(int a, int b) noexcept:
+fn int func_noexcept(int a, int b) noexcept:
     raise RuntimeError
 
-cdef int func_star(int a, int b) except *:
+fn int func_star(int a, int b) except *:
     raise RuntimeError
 
-cdef int func_value(int a, int b) except -1:
+fn int func_value(int a, int b) except -1:
     raise RuntimeError
 
 fn func_return_obj_implicit(int a, int b):

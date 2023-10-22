@@ -4,7 +4,7 @@
 from functools import wraps
 
 @wraps
-cdef cant_be_decoratored():
+fn cant_be_decoratored():
     pass
 
 @wraps

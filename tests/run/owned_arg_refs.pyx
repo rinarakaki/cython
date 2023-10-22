@@ -15,7 +15,7 @@ def test_ext_type_attr():
     owner.x = ''.join("abc%d" % 5) # non-interned object
     return call_me_with_owner(owner, owner.x)
 
-cdef void call_me_without_gil(Owner owner, x) with gil:
+fn void call_me_without_gil(Owner owner, x) with gil:
     owner.x = "def" # overwrite external reference
     print x         # crashes if x is not owned by function or caller
 

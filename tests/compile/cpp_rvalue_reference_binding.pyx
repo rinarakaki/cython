@@ -8,11 +8,11 @@ cdef extern from *:
     """
     cdef void accept[T](T&& x)
 
-cdef int make_int_py() except *:
+fn int make_int_py() except *:
     # might raise Python exception (thus needs a temp)
     return 1
 
-cdef int make_int_cpp() except +:
+fn int make_int_cpp() except +:
     # might raise C++ exception (thus needs a temp)
     return 1
 

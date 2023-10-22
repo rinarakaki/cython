@@ -28,7 +28,7 @@ def test_is_partitioned():
     reverse(values.begin(), values.end())
     print(is_partitioned(values.begin(), values.end(), is_even))
 
-cdef int print_int(int v) except -1:
+fn int print_int(int v) except -1:
     print(v, end=" ")
 
 def print_partition(vector[int] values):

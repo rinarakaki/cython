@@ -87,7 +87,7 @@ fn i128 rad(i128 x):
             break
     return rad
 
-cdef bint abc(i128 a, i128 b, i128 c) except -1:
+fn bint abc(i128 a, i128 b, i128 c) except -1:
     if a + b != c:
         raise ValueError("Not a valid abc candidate: (%s, %s, %s)" % (a, b, c))
     return rad(a*b*c) < c

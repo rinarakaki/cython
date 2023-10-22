@@ -36,7 +36,7 @@ def call_cfuncptr():
     spam = grail
     spam()
 
-cdef int exceptminus2(int bad) except -2:
+fn int exceptminus2(int bad) except -2:
     if bad:
         raise RuntimeError
     else:

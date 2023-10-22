@@ -9,7 +9,7 @@ __doc__ = u"""
 ctypedef double*  dp
 ctypedef double** dpp
 
-cdef void foo(vector[dpp] &bar, vector[vector[dp]] &baz) nogil:
+fn void foo(vector[dpp] &bar, vector[vector[dp]] &baz) nogil:
     bar[0] = &baz[0][0]
 
 def test_lvalue_ref_assignment():

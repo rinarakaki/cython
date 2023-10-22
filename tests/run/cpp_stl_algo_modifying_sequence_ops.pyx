@@ -171,7 +171,7 @@ def remove_spaces(string s):
     s.erase(remove(s.begin(), s.end(), ord(" ")), s.end())
     return s
 
-cdef bool is_whitespace(u8 c) except -1:
+fn bool is_whitespace(u8 c) except -1:
     # std::isspace from <cctype>
     return chr(c) in " \f\n\r\t\v"
 

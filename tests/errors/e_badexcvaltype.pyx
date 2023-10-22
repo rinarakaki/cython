@@ -1,6 +1,6 @@
 # mode: error
 
-cdef char *spam() except -1:
+fn char *spam() except -1:
 	pass
 
 _ERRORS = u"""

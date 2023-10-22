@@ -1,7 +1,7 @@
 # mode: run
 # tag: cpp, werror
 
-cdef int raise_py_error() except *:
+fn int raise_py_error() except *:
     raise TypeError("custom")
 
 cdef extern from "cpp_exceptions_helper.h":
