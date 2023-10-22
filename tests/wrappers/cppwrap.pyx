@@ -15,7 +15,7 @@ cdef class DoubleKeeper:
     >>> d.transmogrify(3.0) == 6.0
     True
     """
-    let cppwrap_lib.DoubleKeeper* keeper
+    cdef cppwrap_lib.DoubleKeeper* keeper
 
     def __cinit__(self, f64 number):
         self.keeper = new cppwrap_lib.DoubleKeeper(number)
