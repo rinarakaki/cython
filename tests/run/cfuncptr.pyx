@@ -1,7 +1,7 @@
 # mode: run
 
 
-cdef int grail():
+fn int grail():
     let int (*spam)()
     spam = &grail
     spam = grail
@@ -9,19 +9,16 @@ cdef int grail():
     assert spam == grail
     assert spam == &grail
 
-
 ctypedef int funcptr_t()
 
-cdef funcptr_t* get_grail():
+fn funcptr_t* get_grail():
     return &grail
-
 
 def test_assignments():
     """
     >>> test_assignments()
     """
     grail()
-
 
 def test_return_value():
     """
@@ -30,7 +27,6 @@ def test_return_value():
     """
     g = get_grail()
     return g == &grail
-
 
 def call_cfuncptr():
     """

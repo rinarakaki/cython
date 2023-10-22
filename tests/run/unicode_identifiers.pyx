@@ -117,7 +117,7 @@ def regular_function():
     ναμε2 = 2
     return variableƑ*ναμε2
 
-cdef Fα1():
+fn Fα1():
     """docstring"""
     ναμε2 = 2
     raise RuntimeError() # forces generation of a traceback

@@ -39,7 +39,7 @@ cdef cppclass AA:
     my_int negate(my_int x):
         return -x
 
-cdef cppclass DD(AA):
+fn cppclass DD(AA):
     ctypedef i32 my_other_int
 
 ctypedef A AliasA1

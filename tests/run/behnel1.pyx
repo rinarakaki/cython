@@ -2,7 +2,7 @@ cdef class Spam:
     fn eggs(self, a):
         return a
 
-cdef Spam spam():
+fn Spam spam():
     return Spam()
 
 def viking(a):

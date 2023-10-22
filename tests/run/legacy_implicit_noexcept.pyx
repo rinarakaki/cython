@@ -9,7 +9,7 @@ try:
 except ImportError:
     from io import StringIO
 
-cdef int func_implicit(int a, int b):
+fn int func_implicit(int a, int b):
     raise RuntimeError
 
 cdef int func_noexcept(int a, int b) noexcept:
@@ -21,7 +21,7 @@ cdef int func_star(int a, int b) except *:
 cdef int func_value(int a, int b) except -1:
     raise RuntimeError
 
-cdef func_return_obj_implicit(int a, int b):
+fn func_return_obj_implicit(int a, int b):
     raise RuntimeError
 
 cdef int(*ptr_func_implicit)(int, int)

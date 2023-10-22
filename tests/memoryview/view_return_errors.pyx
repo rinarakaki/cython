@@ -1,7 +1,7 @@
 # mode: run
 # tag: memoryview
 
-cdef f64[:] foo(i32 i):
+fn f64[:] foo(i32 i):
     if i == 1:
         raise AttributeError('dummy')
     if i == 2:

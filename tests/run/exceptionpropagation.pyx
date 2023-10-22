@@ -57,8 +57,7 @@ def test_except_promotion_compare(bint fire):
     """
     except_promotion_compare(fire)
 
-
-cdef i32 cdef_function_that_raises():
+fn i32 cdef_function_that_raises():
     raise RuntimeError
 
 cdef i32 cdef_noexcept_function_that_raises() noexcept:
@@ -79,8 +78,7 @@ def test_noexcept():
     """
     cdef_noexcept_function_that_raises()
 
-
-cdef i32* cdef_ptr_func(i32* input, i32 failure_mode):
+fn i32* cdef_ptr_func(i32* input, i32 failure_mode):
     # should have except NULL? by default
     # failure mode is 0, 1, or 2
     if failure_mode == 0:

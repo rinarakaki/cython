@@ -1,7 +1,7 @@
 # mode: error
 # tag: warnings
 
-cdef inline void handle_exception():
+fn inline void handle_exception():
     pass
 
 # GH 3064 - cppfunc caused invalid code to be generated with +handle_exception

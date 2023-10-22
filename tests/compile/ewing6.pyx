@@ -18,7 +18,7 @@ cdef class D(C):
 cdef class E:
     pass
 
-cdef void f(D d, E e):
+fn void f(D d, E e):
     d.m(e)
 
 f(D(),E())

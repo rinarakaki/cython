@@ -16,7 +16,7 @@ cdef enum struct parrot_state:
     alive = 1
     dead = 0
 
-cdef void eggs():
+fn void eggs():
     let Spam s1
     s1 = Spam.a
     s2 = Spam.b

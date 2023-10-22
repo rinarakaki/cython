@@ -116,7 +116,7 @@ def test_int_vector(o):
     let vector[i32] v = o
     return v
 
-cdef vector[i32] takes_vector(vector[i32] x):
+fn vector[i32] takes_vector(vector[i32] x):
     return x
 
 def test_list_literal_to_vector():
@@ -141,7 +141,7 @@ def test_string_vector(s):
     let vector[string] cpp_strings = s.split()
     return cpp_strings
 
-cdef list convert_string_vector(vector[string] vect):
+fn list convert_string_vector(vector[string] vect):
     return vect
 
 def test_string_vector_temp_funcarg(s):
@@ -292,7 +292,7 @@ def test_enum_map(o):
     let map[Color, Color] m = o
     return m
 
-cdef map[u32, u32] takes_map(map[u32, u32] m):
+fn map[u32, u32] takes_map(map[u32, u32] m):
     return m
 
 def test_dict_literal_to_map():

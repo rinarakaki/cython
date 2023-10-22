@@ -159,13 +159,13 @@ def test_profile(long N):
 def f_def(long a):
     return a
 
-cdef long f_cdef(long a):
+fn long f_cdef(long a):
     return a
 
 cpdef long f_cpdef(long a):
     return a
 
-cdef inline long f_inline(long a):
+fn inline long f_inline(long a):
     return a
 
 @cython.profile(true)

@@ -6,10 +6,10 @@
 
 cdef i32&& x
 
-cdef void foo(i32&& x):
+fn void foo(i32&& x):
     pass
 
-cdef i32&& bar():
+fn i32&& bar():
     pass
 
 cdef extern from *:

@@ -3,7 +3,7 @@
 def call_cdt_private_cdef(CDefTest o):
     return o._CDefTest__private_cdef()
 
-cdef __c_func():
+fn __c_func():
     return "cdef function"
 
 cdef __c_var = "Shouldn't see this"

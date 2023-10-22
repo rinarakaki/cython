@@ -53,7 +53,7 @@ cdef class FancySpamDish(SpamDish):
         print "This dish contains", self.spam, "tons of spam",
         print "and", self.lettuce, "milligrams of lettuce."
 
-cdef void describe_dish(SpamDish d):
+fn void describe_dish(SpamDish d):
     d.describe()
 
 def test_spam_dish():

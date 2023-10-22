@@ -3,7 +3,7 @@
 def foo1():
   foo2()
 
-cdef foo2():
+fn foo2():
   foo3()
 
 cdef int foo3() except -1:

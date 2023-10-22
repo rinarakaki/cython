@@ -1,7 +1,7 @@
 # ticket: t241
 # mode: error
 
-cdef some_function(x, y):
+fn some_function(x, y):
     pass
 
 cdef class A:

@@ -9,7 +9,7 @@ cdef class Spam:
 cdef class SuperSpam(Spam):
     pass
 
-cdef void tomato():
+fn void tomato():
     let Spam spam
     let SuperSpam superspam = SuperSpam()
     spam = superspam

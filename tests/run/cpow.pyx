@@ -47,7 +47,7 @@ def pow_double_double_cpow(f64 a, f64 b, delta=None):
     else:
         return c
 
-cdef cfunc_taking_double(f64 x):
+fn cfunc_taking_double(f64 x):
     return x
 
 def pow_double_double_coerced_directly(f64 a, f64 b):
@@ -165,7 +165,7 @@ def pow_int_int_cpow(int a, int b):
     c = a**b
     print(cython.typeof(c), c)
 
-cdef cfunc_taking_int(int x):
+fn cfunc_taking_int(int x):
     return x
 
 def pow_int_int_coerced_directly(int a, int b):

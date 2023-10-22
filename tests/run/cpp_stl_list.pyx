@@ -95,7 +95,7 @@ def nogil_test(L):
     finally:
         del l
 
-cdef list to_pylist(cpp_list[i32]& l):
+fn list to_pylist(cpp_list[i32]& l):
     let list L = []
     it = l.begin()
     while it != l.end():
@@ -146,7 +146,7 @@ def test_insert():
         assert element == value, '%s != %s' % (element, count)
 
 #  Tests GitHub issue #1788.
-cdef cppclass MyList[T](cpp_list):
+fn cppclass MyList[T](cpp_list):
     pass
 
 cdef cppclass Ints(MyList[i32]):

@@ -94,7 +94,7 @@ def side_effect(x):
     print u"side effect", x
     return x
 
-cdef int c_side_effect(int x):
+fn int c_side_effect(int x):
     print u"c side effect", x
     return x
 

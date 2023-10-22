@@ -19,7 +19,7 @@ dtype9 = cython.fused_type(int2_t, i32)
 
 floating = cython.fused_type(f32, f64)
 
-cdef func(floating x, int2_t y):
+fn func(floating x, int2_t y):
     print x, y
 
 cdef f32 x = 10.0
@@ -53,7 +53,7 @@ cdef fused mix_const_t:
     i32
     const i32
 
-cdef cdef_func_with_mix_const_type(mix_const_t val):
+fn cdef_func_with_mix_const_type(mix_const_t val):
     print(val)
 
 cdef_func_with_mix_const_type(1)
@@ -73,13 +73,13 @@ ctypedef fused fused2:
 
 func(x, y)
 
-cdef floating return_type_unfindable1(cython.integral x):
+fn floating return_type_unfindable1(cython.integral x):
     return 1.0
 
 cpdef floating return_type_unfindable2(cython.integral x):
     return 1.0
 
-cdef void contents_unfindable1(cython.integral x):
+fn void contents_unfindable1(cython.integral x):
     z: floating = 1  # note: cdef variables also fail with an error but not by the time this test aborts
     sz = sizeof(floating)
 

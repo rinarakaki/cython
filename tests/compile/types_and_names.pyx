@@ -2,7 +2,7 @@
 
 print sizeof(point*)
 
-cdef foo(i32 i0, i32 i, list L0, list L, point p0, point p, point* ps):
+fn foo(i32 i0, i32 i, list L0, list L, point p0, point p, point* ps):
     pass
 
 cdef class A:

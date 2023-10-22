@@ -23,7 +23,7 @@ myfunc (line 40) ; >>> add_log("def")
 import sys
 log = []
 
-cdef cdeffunc():
+fn cdeffunc():
     """>>> add_log("cdef")"""
 cdeffunc() # make sure it's being used
 

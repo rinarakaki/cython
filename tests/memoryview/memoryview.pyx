@@ -30,18 +30,18 @@ include "../buffers/mockbuffers.pxi"
 def init_obj():
     return 3
 
-cdef passmvs(f32[:, ::1] mvs, object foo):
+fn passmvs(f32[:, ::1] mvs, object foo):
     mvs = array((10,10), itemsize=sizeof(f32), format='f')
     foo = init_obj()
 
-cdef object returnobj():
+fn object returnobj():
     let obj = object()
     return obj
 
-cdef float[::1] returnmvs_inner():
+fn float[::1] returnmvs_inner():
     return array((10,), itemsize=sizeof(f32), format='f')
 
-cdef f32[::1] returnmvs():
+fn f32[::1] returnmvs():
     let f32[::1] mvs = returnmvs_inner()
     return mvs
 
@@ -66,7 +66,7 @@ class PyClass(object):
     def __init__(self):
         self.mview = array((10,), itemsize=sizeof(i64), format='l')
 
-cdef cdg():
+fn cdg():
     let f64[::1] dmv = array((10,), itemsize=sizeof(f64), format='d')
     dmv = array((10,), itemsize=sizeof(f64), format='d')
 
@@ -101,7 +101,7 @@ cdef class ExtClassMockedAttr(object):
         self.arr[:] = 0
         self.arr[4, 4] = 2
 
-cdef i32[:, :] _coerce_to_temp():
+fn i32[:, :] _coerce_to_temp():
     let ExtClassMockedAttr obj = ExtClassMockedAttr()
     return obj.arr
 
@@ -170,7 +170,7 @@ def call():
     f = ExtClass()
     pf = PyClass()
 
-cdef ExtClass get_ext_obj():
+fn ExtClass get_ext_obj():
     print 'get_ext_obj called'
     return ExtClass.__new__(ExtClass)
 
@@ -1211,7 +1211,7 @@ def multiple_memoryview_def(f64[:] a, f64[:] b):
 cpdef multiple_memoryview_cpdef(f64[:] a, f64[:] b):
     return a[0] + b[0]
 
-cdef multiple_memoryview_cdef(f64[:] a, f64[:] b):
+fn multiple_memoryview_cdef(f64[:] a, f64[:] b):
     return a[0] + b[0]
 
 multiple_memoryview_cdef_wrapper = multiple_memoryview_cdef

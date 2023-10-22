@@ -16,8 +16,8 @@ cdef class A:
     def test(self, s):
         return self.do_it(s)
 
-cdef A first_call(A x):
+fn A first_call(A x):
     return x
 
-cdef int func(int s):
+fn int func(int s):
     return s*s
