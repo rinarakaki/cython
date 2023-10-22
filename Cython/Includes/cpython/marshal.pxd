@@ -56,7 +56,7 @@ cdef extern from "Python.h":
     # On error, sets the appropriate exception (EOFError, ValueError or
     # TypeError) and returns NULL.
 
-    object PyMarshal_ReadObjectFromString(const char *data, Py_ssize_t len)
+    object PyMarshal_ReadObjectFromString(const char *data, isize len)
     # Return value: New reference.
     # Return a Python object from the data stream in a byte buffer containing
     # len bytes pointed to by data.
