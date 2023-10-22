@@ -2,7 +2,7 @@
 #cython: autotestdict=true
 
 cdef class Foo:
-    let int i
+    cdef int i
     def __cinit__(self):
         self.i = 1
 
