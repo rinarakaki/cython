@@ -31,7 +31,7 @@ cdef class Recurse:
     >>> assert_no_double_deallocations()
     """
     pub attr
-    let int deallocated
+    cdef int deallocated
 
     def __cinit__(self, x):
         self.attr = x
@@ -48,7 +48,7 @@ cdef class RecurseSub(Recurse):
     >>> recursion_test(RecurseSub)
     >>> assert_no_double_deallocations()
     """
-    let int subdeallocated
+    cdef int subdeallocated
 
     def __dealloc__(self):
         # Check that we're not being deallocated twice
@@ -66,7 +66,7 @@ cdef class RecurseFreelist:
     >>> assert_no_double_deallocations()
     """
     pub attr
-    let int deallocated
+    cdef int deallocated
 
     def __cinit__(self, x):
         self.attr = x
