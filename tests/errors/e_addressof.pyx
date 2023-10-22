@@ -20,7 +20,7 @@ def f(int a):
 
 
 _ERRORS="""
-11:20: Cannot convert 'int *' to Python object
+11:19: Cannot convert 'int *' to Python object
 13:10: Cannot take address of Python variable 'o'
 14:10: Cannot take address of Python object attribute 'xyz'
 15:10: Cannot take address of Python object attribute 'o'
