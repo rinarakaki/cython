@@ -6,7 +6,7 @@ import struct
 from libc cimport stdlib
 
 def little_endian():
-    cdef u32 n = 1
+    let u32 n = 1
     return (<u8*>&n)[0] != 0
 
 if little_endian():
@@ -170,14 +170,14 @@ def char3int(fmt):
     ValueError: Buffer dtype mismatch, expected 'int' but got end in 'Char3Int.d'
     """
     cdef object obj = MockBuffer(fmt, sizeof(Char3Int))
-    cdef object[Char3Int, ndim=1] buf = obj
+    let object[Char3Int, ndim=1] buf = obj
 
 def long_string(fmt):
     """
     >>> long_string("90198s")
     """
     cdef object obj = MockBuffer(fmt, sizeof(LongString))
-    cdef object[LongString, ndim=1] buf = obj
+    let object[LongString, ndim=1] buf = obj
 
 def unpacked_struct(fmt):
     """
@@ -193,10 +193,10 @@ def unpacked_struct(fmt):
     assert (sizeof(UnpackedStruct1) == sizeof(UnpackedStruct2)
             == sizeof(UnpackedStruct3) == sizeof(UnpackedStruct4))
     cdef object obj = MockBuffer(fmt, sizeof(UnpackedStruct1))
-    cdef object[UnpackedStruct1, ndim=1] buf1 = obj
-    cdef object[UnpackedStruct2, ndim=1] buf2 = obj
-    cdef object[UnpackedStruct3, ndim=1] buf3 = obj
-    cdef object[UnpackedStruct4, ndim=1] buf4 = obj
+    let object[UnpackedStruct1, ndim=1] buf1 = obj
+    let object[UnpackedStruct2, ndim=1] buf2 = obj
+    let object[UnpackedStruct3, ndim=1] buf3 = obj
+    let object[UnpackedStruct4, ndim=1] buf4 = obj
 
 cdef struct ComplexTest:
     ComplexFloat a, b, c
@@ -215,7 +215,7 @@ def complex_test(fmt):
 
     """
     cdef object obj = MockBuffer(fmt, sizeof(ComplexTest))
-    cdef object[ComplexTest] buf1 = obj
+    let object[ComplexTest] buf1 = obj
 
 def alignment_string(fmt, exc=None):
     """

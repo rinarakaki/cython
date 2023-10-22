@@ -5,10 +5,10 @@
 ctypedef i32 x;
 
 fn no_semi():
-    cdef i32 i
+    let i32 i
 
 fn with_semi():
-    cdef i32 i;
+    let i32 i;
 
 def use_cdef():
     &no_semi, &with_semi

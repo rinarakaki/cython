@@ -5,5 +5,5 @@ fn void foo(object blarg):
     pass
 
 fn void xyzzy():
-    cdef Spam spam
+    let Spam spam
     foo(spam)
