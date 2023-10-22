@@ -34,7 +34,7 @@ class Foo(object):
 
 cdef class Foo2(object):
     print '%s' % r # check error inside class scope
-    let str r
+    cdef str r
     def bar(self, x, y):
         cdef u64 w = 20
         self.r = c'r'

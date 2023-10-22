@@ -18,7 +18,7 @@ def length(shape):
     >>> len(length((5,3,2)))
     5
     """
-    cdef array cvarray = array(shape=shape, itemsize=sizeof(i32), format="i", mode='c')
+    let array cvarray = array(shape=shape, itemsize=sizeof(i32), format="i", mode='c')
     assert len(cvarray) == shape[0]
     return cvarray
 
@@ -33,7 +33,7 @@ def contiguity():
     2 3
     2
     '''
-    cdef v.array cvarray = cy.view.array(shape=(2, 3), itemsize=sizeof(i32), format="i", mode='c')
+    let v.array cvarray = cy.view.array(shape=(2, 3), itemsize=sizeof(i32), format="i", mode='c')
     assert cvarray.len == 2*3*sizeof(i32), (cvarray.len, 2*3*sizeof(i32))
     assert cvarray.itemsize == sizeof(i32)
     print cvarray.strides[0], cvarray.strides[1]
@@ -42,7 +42,7 @@ def contiguity():
 
     print
 
-    cdef v.array farray = v.array(shape=(2, 3), itemsize=sizeof(i32), format="i", mode='fortran')
+    let v.array farray = v.array(shape=(2, 3), itemsize=sizeof(i32), format="i", mode='fortran')
     assert farray.len == 2*3*sizeof(i32)
     assert farray.itemsize == sizeof(i32)
     print farray.strides[0], farray.strides[1]
@@ -76,7 +76,7 @@ def dont_allocate_buffer():
     >>> dont_allocate_buffer()
     callback called
     """
-    cdef array result = array((10, 10), itemsize=sizeof(i32), format='i', allocate_buffer=false)
+    let array result = array((10, 10), itemsize=sizeof(i32), format='i', allocate_buffer=false)
     assert result.data == NULL
     result.callback_free_data = callback
     result = None
@@ -89,8 +89,8 @@ def test_cython_array_getbuffer():
     98
     61
     """
-    cdef i32[:, ::1] cslice = create_array((14, 10), 'c')
-    cdef i32[::1, :] fslice = create_array((14, 10), 'fortran')
+    let i32[:, ::1] cslice = create_array((14, 10), 'c')
+    let i32[::1, :] fslice = create_array((14, 10), 'fortran')
 
     print cslice[9, 8]
     print cslice[6, 1]
@@ -118,7 +118,7 @@ def test_cython_array_index():
 cdef i32 *getp(i32 dim1=10, i32 dim2=10, dim3=1) except NULL:
     print "getp()"
 
-    cdef i32 *p = <i32 *> malloc(dim1 * dim2 * dim3 * sizeof(i32))
+    let i32 *p = <i32 *> malloc(dim1 * dim2 * dim3 * sizeof(i32))
 
     if p == NULL:
         raise MemoryError
@@ -149,7 +149,7 @@ def test_array_from_pointer():
     119
     callback free data called
     """
-    cdef i32 *p = getp()
+    let i32 *p = getp()
     let array c_arr = <i32[:10, :10]> p
     c_arr.callback_free_data = callback_free_data
     print c_arr[6, 9]
@@ -181,7 +181,7 @@ def test_array_from_pointer_3d():
     3 3
     True True
     """
-    cdef i32 *p = getp(2, 2, 2)
+    let i32 *p = getp(2, 2, 2)
     let array c_arr = <i32[:2, :2, :2:1]> p
     let array f_arr = <i32[:2:1, :2, :2]> p
 

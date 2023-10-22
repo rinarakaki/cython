@@ -118,7 +118,7 @@ def test_parallel_call_exception_checked_function():
     test_parallel_call_exception_checked_function()
     """
     cdef int maxthreads = openmp.omp_get_max_threads()
-    cdef int *buf = <int *> malloc(sizeof(int) * maxthreads)
+    let int *buf = <int *> malloc(sizeof(int) * maxthreads)
 
     if buf == NULL:
         raise MemoryError

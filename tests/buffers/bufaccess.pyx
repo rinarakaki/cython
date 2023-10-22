@@ -135,7 +135,7 @@ def acquire_failure2():
     0 3
     released working
     """
-    cdef object[i32] buf = IntMockBuffer("working", range(4))
+    let object[i32] buf = IntMockBuffer("working", range(4))
     print buf[0], buf[3]
     try:
         buf = ErrorBuffer()
@@ -174,7 +174,7 @@ def acquire_failure4():
     0 3
     released working
     """
-    cdef object[i32] buf = IntMockBuffer("working", range(4))
+    let object[i32] buf = IntMockBuffer("working", range(4))
     print buf[0], buf[3]
     try:
         buf = 2
@@ -224,7 +224,7 @@ def acquire_nonbuffer2():
     0 3
     released working
     """
-    cdef object[i32] buf = IntMockBuffer("working", range(4))
+    let object[i32] buf = IntMockBuffer("working", range(4))
     print buf[0], buf[3]
     try:
         buf = ErrorBuffer
@@ -367,7 +367,7 @@ def explicitly_release_buffer():
     released A
     After release
     """
-    cdef object[i32] x = IntMockBuffer("A", range(10))
+    let object[i32] x = IntMockBuffer("A", range(10))
     x = None
     print "After release"
 
@@ -1251,7 +1251,7 @@ def buffer_nogil():
     >>> buffer_nogil()
     10
     """
-    cdef object[i32] buf = IntMockBuffer(None, [1, 2, 3])
+    let object[i32] buf = IntMockBuffer(None, [1, 2, 3])
     with nogil:
         buf[1] = 10
     return buf[1]
@@ -1264,7 +1264,7 @@ def buffer_nogil_oob():
         ...
     IndexError: Out of bounds on buffer access (axis 0)
     """
-    cdef object[i32] buf = IntMockBuffer(None, [1, 2, 3])
+    let object[i32] buf = IntMockBuffer(None, [1, 2, 3])
     with nogil:
         buf[5] = 10
     return buf[1]
@@ -1278,7 +1278,7 @@ def test_inplace_assignment():
     >>> test_inplace_assignment()
     10
     """
-    cdef object[i32, ndim=1] buf = IntMockBuffer(None, [1, 2, 3])
+    let object[i32, ndim=1] buf = IntMockBuffer(None, [1, 2, 3])
 
     buf[0] = get_int()
     print buf[0]
@@ -1289,7 +1289,7 @@ def test_nested_assignment():
     >>> test_nested_assignment()
     100
     """
-    cdef object[i32] inner = IntMockBuffer(None, [1, 2, 3])
-    cdef object[i32] outer = IntMockBuffer(None, [1, 2, 3])
+    let object[i32] inner = IntMockBuffer(None, [1, 2, 3])
+    let object[i32] outer = IntMockBuffer(None, [1, 2, 3])
     outer[inner[0]] = 100
     return outer[inner[0]]

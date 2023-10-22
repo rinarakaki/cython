@@ -2,7 +2,7 @@
 
 fn i32 f() except -1:
     let list l
-    cdef object x = (), y = (1,), z
+    let object x = (), y = (1,), z
     z = list
     l = list(x)
     l = list(*y)

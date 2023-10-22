@@ -112,7 +112,7 @@ def assign_int_array_array_from_tuples():
     >>> assign_int_array_array_from_tuples()
     [[11, 12, 13], [21, 22, 23]]
     """
-    cdef i32[2][3] v = ([11, 12, 13], [21, 22, 23])
+    let i32[2][3] v = ([11, 12, 13], [21, 22, 23])
     return v
 
 ''' FIXME: this currently crashes:
@@ -121,7 +121,7 @@ def assign_int_array_array_from_tuples():
     >>> assign_int_array_array_from_tuples()
     [[11, 12, 13], [21, 22, 23]]
     """
-    cdef i32[2][3] v = ((11, 12, 13), (21, 22, 23))
+    let i32[2][3] v = ((11, 12, 13), (21, 22, 23))
     return v
 '''
 
@@ -142,7 +142,7 @@ def build_from_tuple_of_arrays():
     """
     let i32[3] x = [11, 12, 13]
     let i32[3] y = [21, 22, 23]
-    cdef i32[2][3] v = (x, y)
+    let i32[2][3] v = (x, y)
     return v
 
 ctypedef struct MyStructType:
