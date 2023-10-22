@@ -1,7 +1,6 @@
 # mode: compile
 
 cdef:
-
     struct PrivFoo:
         i32 i
 
@@ -11,7 +10,7 @@ cdef:
         global priv_i
         priv_i = 42
 
-cdef pub:
+pub:
     struct PubFoo:
         i32 i
 

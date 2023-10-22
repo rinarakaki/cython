@@ -105,8 +105,8 @@ def test():
 ######## pkg/a.pxd ########
 
 cdef class test_pxd:
-    cdef pub int x
-    cdef pub int y
+    pub int x
+    pub int y
 
 
 ######## pkg/b.pyx ########
