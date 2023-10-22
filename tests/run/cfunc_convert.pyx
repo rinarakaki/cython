@@ -258,7 +258,7 @@ def make_map():
     return map
 
 cdef class HasCdefFunc:
-    let i32 x
+    cdef i32 x
     def __init__(self, x):
         self.x = x
 
