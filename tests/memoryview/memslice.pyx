@@ -1568,7 +1568,7 @@ def test_indirect_slicing(arg):
 cdef class TestIndexSlicingDirectIndirectDims(object):
     "Test a int[:, ::view.indirect, :] slice"
 
-    cdef Py_ssize_t[3] shape, strides, suboffsets
+    cdef isize[3] shape, strides, suboffsets
 
     cdef i32[5] c_array
     cdef i32 *myarray[5][5]
@@ -1919,7 +1919,7 @@ cdef test_structs_with_arr(FusedStruct array[10]):
             myslice1[i].chars[j] = 97 + j
 
     if (2, 7) <= sys.version_info[:2] < (3, 3):
-        size1 = <Py_ssize_t>sizeof(FusedStruct)
+        size1 = <isize>sizeof(FusedStruct)
         size2 = len(builtins.memoryview(myslice1)[0])
         assert size1 == size2, (size1, size2, builtins.memoryview(myslice1).format)
 
