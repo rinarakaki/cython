@@ -20,6 +20,6 @@ def char_too_long_latin1():
 _ERRORS = """
  8:20: Only single-character Unicode string literals or surrogate pairs can be coerced into Py_UCS4/Py_UNICODE.
 11:20: Only single-character Unicode string literals or surrogate pairs can be coerced into Py_UCS4/Py_UNICODE.
-14:21: Only single-character string literals can be coerced into ints.
+14:20: Only single-character string literals can be coerced into ints.
 17:37: Bytes literals cannot coerce to Py_UNICODE/Py_UCS4, use a unicode literal instead.
 """
