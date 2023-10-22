@@ -20,5 +20,5 @@ def memview():
 _ERRORS = u"""
 10:14: Python object type 'Python object' cannot be used as a template argument
 12:14: Python object type 'A' cannot be used as a template argument
-17:15: Reference-counted type 'int[:]' cannot be used as a template argument
+17:14: Reference-counted type 'int[:]' cannot be used as a template argument
 """
