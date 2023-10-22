@@ -5,7 +5,7 @@ cdef class Ext:
     cdef object o
 
 def f(int a):
-    cdef Ext e = Ext()
+    let Ext e = Ext()
     x = &a  # ok
 
     let object o = &a  # pointer != object
