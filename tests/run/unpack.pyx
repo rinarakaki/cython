@@ -10,8 +10,8 @@ def _it(N):
 
 
 cdef class ItCount(object):
-    let object values
-    let readonly count
+    cdef object values
+    cdef readonly count
     def __init__(self, values):
         self.values = iter(values)
         self.count = 0
