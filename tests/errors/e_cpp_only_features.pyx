@@ -4,7 +4,7 @@
 from cython.operator import typeid
 
 def use_typeid():
-    cdef i32 i = 0
+    let i32 i = 0
     print typeid(i) == typeid(i)
 
 cdef cppclass A:
@@ -15,7 +15,7 @@ def use_new():
 
 def use_del():
     cdef A a = A()
-    cdef A *p = &a
+    let A *p = &a
     del p
 
 _ERRORS = """

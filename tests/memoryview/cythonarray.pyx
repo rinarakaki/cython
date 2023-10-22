@@ -53,22 +53,22 @@ def acquire():
     '''
     >>> acquire()
     '''
-    cdef object[i32, ndim=1, mode="c"] buf1d = \
+    let object[i32, ndim=1, mode="c"] buf1d = \
             array(shape=(10,), itemsize=sizeof(i32), format='i', mode='c')
-    cdef object[i32, ndim=2, mode="c"] buf2d = \
+    let object[i32, ndim=2, mode="c"] buf2d = \
             array(shape=(10,10), itemsize=sizeof(i32), format='i')
-    cdef object[u64, ndim=3, mode='fortran'] buf3d = \
+    let object[u64, ndim=3, mode='fortran'] buf3d = \
             array(shape=(1, 2, 3), itemsize=sizeof(u64), format='L', mode='fortran')
-    cdef object[long double, ndim=3, mode='fortran'] bufld = \
+    let object[long double, ndim=3, mode='fortran'] bufld = \
             array(shape=(1, 2, 3), itemsize=sizeof(long double), format='g', mode='fortran')
 
 def full_or_strided():
     '''
     >>> full_or_strided()
     '''
-    cdef object[f32, ndim=2, mode='full'] fullbuf = \
+    let object[f32, ndim=2, mode='full'] fullbuf = \
             array(shape=(10, 10), itemsize=sizeof(f32), format='f', mode='c')
-    cdef object[i128, ndim=3, mode='strided'] stridedbuf = \
+    let object[i128, ndim=3, mode='strided'] stridedbuf = \
             array(shape=(1, 2, 3), itemsize=sizeof(i128), format='q', mode='fortran')
 
 def dont_allocate_buffer():
@@ -150,7 +150,7 @@ def test_array_from_pointer():
     callback free data called
     """
     cdef i32 *p = getp()
-    cdef array c_arr = <i32[:10, :10]> p
+    let array c_arr = <i32[:10, :10]> p
     c_arr.callback_free_data = callback_free_data
     print c_arr[6, 9]
     print c_arr.mode
@@ -161,15 +161,15 @@ def test_array_from_pointer():
 
     c_arr =  <i32[:10, :10]> getp()
     c_arr.callback_free_data = free
-    cdef i32[:, ::1] mslice = c_arr
+    let i32[:, ::1] mslice = c_arr
     print mslice[5, 6]
 
     c_arr = <i32[:12, :10]> getp(12, 10)
     c_arr.callback_free_data = free
     print c_arr[5, 6]
 
-    cdef i32 m = 12
-    cdef i32 n = 10
+    let i32 m = 12
+    let i32 n = 10
     c_arr = <i32[:m, :n]> getp(m, n)
     c_arr.callback_free_data = callback_free_data
     print c_arr[m - 1, n - 1]
@@ -182,11 +182,11 @@ def test_array_from_pointer_3d():
     True True
     """
     cdef i32 *p = getp(2, 2, 2)
-    cdef array c_arr = <i32[:2, :2, :2:1]> p
-    cdef array f_arr = <i32[:2:1, :2, :2]> p
+    let array c_arr = <i32[:2, :2, :2:1]> p
+    let array f_arr = <i32[:2:1, :2, :2]> p
 
-    cdef i32[:, :, ::1] m1 = c_arr
-    cdef i32[::1, :, :] m2 = f_arr
+    let i32[:, :, ::1] m1 = c_arr
+    let i32[::1, :, :] m2 = f_arr
 
     print m1[0, 1, 1], m2[1, 1, 0]
     print m1.is_c_contig(), m2.is_f_contig()
@@ -197,12 +197,12 @@ def test_cyarray_from_carray():
     0 8 21
     0 8 21
     """
-    cdef i32[7][8] a
+    let i32[7][8] a
     for i in range(7):
         for j in range(8):
             a[i][j] = i * 8 + j
 
-    cdef i32[:, :] mslice = <i32[:, :]> a
+    let i32[:, :] mslice = <i32[:, :]> a
     print mslice[0, 0], mslice[1, 0], mslice[2, 5]
 
     mslice = a

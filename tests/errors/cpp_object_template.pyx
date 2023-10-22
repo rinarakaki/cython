@@ -7,14 +7,14 @@ cdef class A:
     pass
 
 def main():
-    cdef vector[object] vo
+    let vector[object] vo
     vo.push_back(object())
-    cdef vector[A] va
+    let vector[A] va
     va.push_back(A())
 
 def memview():
     import array
-    cdef vector[i32[:]] vmv
+    let vector[i32[:]] vmv
     vmv.push_back(array.array("i", [1,2,3]))
 
 _ERRORS = u"""

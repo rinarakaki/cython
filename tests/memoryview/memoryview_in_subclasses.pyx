@@ -24,7 +24,7 @@ cdef class BaseType:
     >>> run_test(BaseType, 10)
     0
     """
-    cdef f64[:] buffer
+    let f64[:] buffer
 
     def __cinit__(self, n):
         self.buffer = array((n,), sizeof(f64), 'd')
@@ -34,7 +34,7 @@ cdef class Subtype(BaseType):
     >>> run_test(Subtype, 10)
     0
     """
-    cdef f64[:] buffer2
+    let f64[:] buffer2
 
     def __cinit__(self, n):
         self.buffer2 = array((n,), sizeof(f64), 'd')
@@ -44,7 +44,7 @@ cdef class SubtypeWithUserDealloc(BaseType):
     >>> run_test(SubtypeWithUserDealloc, 10)
     0
     """
-    cdef f64[:] buffer2
+    let f64[:] buffer2
 
     def __cinit__(self, n):
         self.buffer2 = array((n,), sizeof(f64), 'd')

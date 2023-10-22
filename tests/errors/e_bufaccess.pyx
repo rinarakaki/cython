@@ -5,14 +5,14 @@ cdef class A:
     cdef object[i32] buf
 
 def f():
-    cdef object[fakeoption=true] buf1
-    cdef object[i32, -1] buf1b
-    cdef object[ndim=-1] buf2
-    cdef object[i32, 'a'] buf3
-    cdef object[i32,2,3,4,5,6] buf4
-    cdef object[i32, 2, 'foo'] buf5
-    cdef object[i32, 2, well] buf6
-    cdef object[x, 1] buf0
+    let object[fakeoption=true] buf1
+    let object[i32, -1] buf1b
+    let object[ndim=-1] buf2
+    let object[i32, 'a'] buf3
+    let object[i32,2,3,4,5,6] buf4
+    let object[i32, 2, 'foo'] buf5
+    let object[i32, 2, well] buf6
+    let object[x, 1] buf0
 
 _ERRORS = u"""
 3:17: Buffer types only allowed as function local variables
