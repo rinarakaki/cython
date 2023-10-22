@@ -27,7 +27,7 @@ cdef api:
     void api_f():
         pass
 
-cdef pub api:
+pub api:
     void pub_api_f():
         pass
 

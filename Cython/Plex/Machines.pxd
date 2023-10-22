@@ -20,7 +20,7 @@ cdef class Machine:
 cdef class Node:
     cdef readonly TransitionMap transitions
     cdef readonly Action action
-    cdef pub dict epsilon_closure
+    pub dict epsilon_closure
     cdef readonly Py_ssize_t number
     cdef readonly int action_priority
 
