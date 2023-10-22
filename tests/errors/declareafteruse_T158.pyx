@@ -56,7 +56,7 @@ _ERRORS = u"""
 5:17: local variable 'vv' referenced before assignment
 6:17: local variable 's' referenced before assignment
 7:12: cdef variable 's' declared after it is used
-7:16: cdef variable 'vv' declared after it is used
+7:15: cdef variable 'vv' declared after it is used
 12:14: cdef variable 'i' declared after it is used
 18:14: cdef variable 'i' declared after it is used
 24:14: cdef variable 'i' declared after it is used

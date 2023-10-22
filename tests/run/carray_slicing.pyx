@@ -80,7 +80,7 @@ def slice_charptr_for_loop_c_step():
     ptqC ['p', 't', 'q', 'C']
     pq ['p', 'q']
     """
-    cdef object ustring = cstring.decode('ASCII')
+    let object ustring = cstring.decode('ASCII')
     let char c
     print ustring[3::-1],     [ chr(c) for c in cstring[3::-1] ]
     print ustring[3:None:-1], [ chr(c) for c in cstring[3:None:-1] ]
