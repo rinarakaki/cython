@@ -45,11 +45,11 @@ class MyPyFoo(PyFoo):
 # this doesn't:
 
 cdef class CyFoo:
-    cdef public int bar = 5
+    pub i32 bar = 5
     pub object baz = u"someval"
 
 cdef class MyCyFoo(CyFoo):
-    cdef public int bar = 7
+    pub i32 bar = 7
     pub object baz = u"anotherval"
 
 class AnotherFoo(CyFoo):
