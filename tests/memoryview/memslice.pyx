@@ -1568,7 +1568,7 @@ def test_indirect_slicing(arg):
 cdef class TestIndexSlicingDirectIndirectDims(object):
     "Test a int[:, ::view.indirect, :] slice"
 
-    cdef isize[3] shape, strides, suboffsets
+    cdef Py_ssize_t[3] shape, strides, suboffsets
 
     cdef i32[5] c_array
     cdef i32 *myarray[5][5]

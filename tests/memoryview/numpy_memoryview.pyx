@@ -591,7 +591,7 @@ cdef getbuffer(Buffer self, Py_buffer *info):
     info.format = self.format
 
 cdef class Buffer(object):
-    cdef isize[2] _shape
+    cdef Py_ssize_t[2] _shape
     cdef bytes format
     cdef f32[:, :] m
     cdef object shape, strides
