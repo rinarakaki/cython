@@ -204,7 +204,7 @@ def varargs():
 
 
 cdef class ExtType:
-    cdef cmeth(self, a, b, c, d):
+    fn cmeth(self, a, b, c, d):
         return (a,b,c,d)
 
     @cython.test_fail_if_path_exists('//GeneralCallNode')
@@ -254,7 +254,7 @@ cdef class ExtType:
         print ext.cpmeth(1,2,c=3,d=4)
         print ext.cpmeth(a=1,b=2,c=3,d=4)
 
-    cdef optargs(self, a=1, b=2):
+    fn optargs(self, a=1, b=2):
         return (a,b)
 
     @cython.test_fail_if_path_exists('//GeneralCallNode')

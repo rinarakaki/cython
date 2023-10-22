@@ -77,7 +77,7 @@ cdef class MyCdefClass:
     cpdef cpdef_method(self):
         """>>> add_log("cpdef class method")"""
 
-    cdef cdef_method(self):
+    fn cdef_method(self):
         """>>> add_log("cdef class cmethod")"""
 
     def __cinit__(self):

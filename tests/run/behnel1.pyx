@@ -1,5 +1,5 @@
 cdef class Spam:
-    cdef eggs(self, a):
+    fn eggs(self, a):
         return a
 
 cdef Spam spam():

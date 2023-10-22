@@ -8,11 +8,11 @@ cdef class D(C)
 cdef class E
 
 cdef class C:
-    cdef void a(self):
+    fn void a(self):
         pass
 
 cdef class D(C):
-    cdef void m(self, E e):
+    fn void m(self, E e):
         pass
 
 cdef class E:

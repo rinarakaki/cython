@@ -203,7 +203,7 @@ cdef class A(object):
         return a
     cpdef m_cpdef(self, long a):
         return a
-    cdef m_cdef(self, long a):
+    fn m_cdef(self, long a):
         return a
 
 def test_generators():

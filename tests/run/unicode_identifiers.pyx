@@ -89,7 +89,7 @@ cdef class A:
     cdef int ναμε
     def __init__(self):
         self.ναμε = 1
-    cdef Ƒ(self):
+    fn Ƒ(self):
         return self.ναμε == 1
     def regular_function(self):
         """
@@ -164,10 +164,10 @@ cdef class Γναμε2:
             pass
         return nestεd
 
-    cdef boring_cdef(self):
+    fn boring_cdef(self):
         """docstring"""
         pass
-    cdef εxciting_cdef(self):
+    fn εxciting_cdef(self):
         """docstring"""
         pass
 

@@ -1,7 +1,7 @@
 # mode: error
 
 class Pyclass(object):
-    cdef bad(self):
+    fn bad(self):
         pass
 
 _ERRORS = """

@@ -1,16 +1,13 @@
 # mode: compile
 
 cdef class Spam:
-
     cdef i32 tons
 
-    cdef void add_tons(self, i32 x):
+    fn void add_tons(self, i32 x):
         pass
-
 
 cdef class SuperSpam(Spam):
     pass
-
 
 cdef void tomato():
     cdef Spam spam

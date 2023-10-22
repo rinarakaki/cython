@@ -262,7 +262,7 @@ cdef class HasCdefFunc:
     def __init__(self, x):
         self.x = x
 
-    cdef i32 func(self, i32 y):
+    fn i32 func(self, i32 y):
         return self.x + y
 
 def test_unbound_methods():

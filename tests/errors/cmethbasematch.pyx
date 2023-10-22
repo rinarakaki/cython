@@ -1,11 +1,11 @@
 # mode: error
 
 cdef class C:
-    cdef void f(self):
+    fn void f(self):
         pass
 
 cdef class D(C):
-    cdef void f(self, i32 x):
+    fn void f(self, i32 x):
         pass
 
 # These are declared in the pxd.

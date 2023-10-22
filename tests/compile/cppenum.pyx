@@ -37,5 +37,5 @@ cdef enum class Color2(int):
 
 # enum class as cdef class function parameter
 cdef class A:
-    cdef Spam f(self, Spam s):
+    fn Spam f(self, Spam s):
         return s

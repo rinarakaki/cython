@@ -1,10 +1,10 @@
 # mode: error
 
 cdef class Test:
-    cdef __cinit__(self):
+    fn __cinit__(self):
         pass
 
-    cdef __len__(self):
+    fn __len__(self):
         pass
 
 _ERRORS = u"""

@@ -13,7 +13,7 @@ cdef class BaseClass:
 
 
 cdef class SubType(BaseClass):
-    cdef cdef_method(self):
+    fn cdef_method(self):
         pass
 
 _ERRORS = """
