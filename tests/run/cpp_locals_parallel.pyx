@@ -11,7 +11,7 @@ extern from *:
     class Test {
     public:
         Test() = delete;
-        Test(i32 v) : value(v) {}
+        Test(int v) : value(v) {}
 
         int get_value() const { return value; }
     private:

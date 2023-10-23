@@ -44,6 +44,6 @@ _ERRORS = u"""
 26:12: more than 1 starred expression in assignment
 
 # types()
-32:15: Cannot coerce list to type 'int'
+32:16: Cannot coerce list to type 'int'
 33:8: starred target must have Python object (list) type
 """

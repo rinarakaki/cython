@@ -8,5 +8,5 @@ def f():
 
 _ERRORS = u"""
 6:11: Invalid operand type for '-' (char *)
-7:8: Invalid operand type for '~' (char *)
+7:11: Invalid operand type for '~' (char *)
 """

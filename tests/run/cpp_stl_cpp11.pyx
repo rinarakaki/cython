@@ -156,10 +156,10 @@ def test_unordered_map_functionality():
     'pass'
     """
     cdef:
-        unordered_map[int, int] int_map = unordered_map[int,int]()
+        unordered_map[int, int] int_map = unordered_map[i32, i32]()
         pair[int, int] pair_insert = pair[int, int](1, 2)
-        unordered_map[int,int].iterator iterator = int_map.begin()
-        pair[unordered_map[int,int].iterator, bint] pair_iter  = int_map.insert(pair_insert)
+        unordered_map[i32, i32].iterator iterator = int_map.begin()
+        pair[unordered_map[i32, i32].iterator, bint] pair_iter  = int_map.insert(pair_insert)
         unordered_map[int, int] int_map2
         unordered_map[int, int*] intptr_map
         const i32* intptr
@@ -180,7 +180,7 @@ def test_unordered_map_functionality():
     int_map.clear()
     int_map.insert(int_map2.begin(), int_map2.end())
     assert int_map.size() == 2
-    assert int_map.erase(unordered_map[int,int].const_iterator(int_map.begin()), unordered_map[int,int].const_iterator(int_map.end())) == int_map.end()
+    assert int_map.erase(unordered_map[i32, i32].const_iterator(int_map.begin()), unordered_map[i32, i32].const_iterator(int_map.end())) == int_map.end()
 
     int_map.max_load_factor(0.5)
     assert int_map.max_load_factor() == 0.5

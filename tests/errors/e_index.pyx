@@ -13,6 +13,6 @@ def f(obj1, obj2):
 _ERRORS = u"""
 7:17: Invalid index type 'float'
 8:17: Invalid index type 'float *'
-9:12: Attempting to index non-array type 'int'
+9:15: Attempting to index non-array type 'int'
 10:13: Cannot convert 'float *' to Python object
 """

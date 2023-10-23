@@ -8,5 +8,5 @@ def f():
 
 _ERRORS = u"""
 6:16: Invalid operand types for '-' (int; char *)
-7:13: Cannot assign type 'ptrdiff_t' to 'char *'
+7:16: Cannot assign type 'ptrdiff_t' to 'char *'
 """

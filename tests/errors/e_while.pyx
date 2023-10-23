@@ -8,5 +8,5 @@ def f(a, b):
 
 _ERRORS = u"""
 6:4: break statement not inside loop
-7:1: continue statement not inside loop
+7:4: continue statement not inside loop
 """
