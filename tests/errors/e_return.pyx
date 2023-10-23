@@ -2,7 +2,7 @@
 # mode: error
 
 fn void g():
-    cdef i32 i
+    let i32 i
     return i  # error
 
 fn i32 h():
