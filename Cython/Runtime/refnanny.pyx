@@ -32,7 +32,7 @@ cdef class Context(object):
         self.refs = {} # id -> (count, [lineno])
         self.errors = []
 
-    cdef regref(self, obj, isize lineno, bint is_null):
+    fn regref(self, obj, isize lineno, bint is_null):
         log(LOG_ALL, u'regref', u"<NULL>" if is_null else obj, lineno)
         if is_null:
             self.errors.append(f"NULL argument on line {lineno}")
@@ -42,7 +42,7 @@ cdef class Context(object):
         self.refs[id_] = (count + 1, linenumbers)
         linenumbers.append(lineno)
 
-    cdef bint delref(self, obj, isize lineno, bint is_null) except -1:
+    fn bint delref(self, obj, isize lineno, bint is_null) except -1:
         # returns whether it is ok to do the decref operation
         log(LOG_ALL, u'delref', u"<NULL>" if is_null else obj, lineno)
         if is_null:
@@ -59,7 +59,7 @@ cdef class Context(object):
             self.refs[id_] = (count - 1, linenumbers)
         return true
 
-    cdef end(self):
+    fn end(self):
         if self.refs:
             msg = u"References leaked:"
             for count, linenos in self.refs.itervalues():

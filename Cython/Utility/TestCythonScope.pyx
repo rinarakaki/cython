@@ -7,7 +7,7 @@
 from __future__ import print_function
 
 cdef extern from *:
-    cdef object __pyx_test_dep(object)
+    fn object __pyx_test_dep(object)
 
 @cname('__pyx_TestClass')
 cdef class TestClass(object):
@@ -19,7 +19,7 @@ cdef class TestClass(object):
     def __str__(self):
         return f'TestClass({self.value})'
 
-    cdef cdef_method(self, i32 value):
+    fn cdef_method(self, i32 value):
         print('Hello from cdef_method', value)
 
     cpdef cpdef_method(self, i32 value):
@@ -29,7 +29,7 @@ cdef class TestClass(object):
         print('Hello from def_method', value)
 
     @cname('cdef_cname')
-    cdef cdef_cname_method(self, i32 value):
+    fn cdef_cname_method(self, i32 value):
         print("Hello from cdef_cname_method", value)
 
     @cname('cpdef_cname')

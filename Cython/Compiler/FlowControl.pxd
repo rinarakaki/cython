@@ -81,7 +81,7 @@ cdef class ControlFlow:
     cpdef set map_one(self, istate, entry)
 
     @cython.locals(block=ControlBlock, parent=ControlBlock)
-    cdef reaching_definitions(self)
+    fn reaching_definitions(self)
 
 cdef class Uninitialized:
     pass

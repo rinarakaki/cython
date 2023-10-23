@@ -12,12 +12,12 @@ cdef class StateMap:
     cdef dict old_to_new_dict
     cdef dict new_to_old_dict
 
-    cdef old_to_new(self, dict old_state_set)
+    fn old_to_new(self, dict old_state_set)
 
     @cython.locals(state=Machines.Node)
-    cdef highest_priority_action(self, dict state_set)
+    fn highest_priority_action(self, dict state_set)
 
-    cdef make_key(self, dict state_set)
+    fn make_key(self, dict state_set)
 
 
 @cython.locals(new_machine=Machines.FastMachine, transitions=TransitionMap)

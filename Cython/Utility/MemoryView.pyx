@@ -427,7 +427,7 @@ cdef class memoryview:
         else:
             self.setitem_indexed(index, value)
 
-    cdef is_slice(self, obj):
+    fn is_slice(self, obj):
         if not isinstance(obj, memoryview):
             try:
                 obj = memoryview(obj, self.flags & ~PyBUF_WRITABLE | PyBUF_ANY_CONTIGUOUS,
@@ -437,7 +437,7 @@ cdef class memoryview:
 
         return obj
 
-    cdef setitem_slice_assignment(self, dst, src):
+    fn setitem_slice_assignment(self, dst, src):
         cdef {{memviewslice_name}} dst_slice
         cdef {{memviewslice_name}} src_slice
         cdef {{memviewslice_name}} msrc = get_slice_from_memview(src, &src_slice)[0]
@@ -445,7 +445,7 @@ cdef class memoryview:
 
         memoryview_copy_contents(msrc, mdst, src.ndim, dst.ndim, self.dtype_is_object)
 
-    cdef setitem_slice_assign_scalar(self, memoryview dst, value):
+    fn setitem_slice_assign_scalar(self, memoryview dst, value):
         cdef i32 array[128]
         cdef void *tmp = NULL
         cdef void *item
@@ -477,11 +477,11 @@ cdef class memoryview:
         finally:
             PyMem_Free(tmp)
 
-    cdef setitem_indexed(self, index, value):
+    fn setitem_indexed(self, index, value):
         cdef char *itemp = self.get_item_pointer(index)
         self.assign_item_from_object(itemp, value)
 
-    cdef convert_item_to_object(self, char *itemp):
+    fn convert_item_to_object(self, char *itemp):
         """Only used if instantiated manually by the user, or if Cython doesn't
         know how to convert the type"""
         import struct
@@ -497,7 +497,7 @@ cdef class memoryview:
                 return result[0]
             return result
 
-    cdef assign_item_from_object(self, char *itemp, object value):
+    fn assign_item_from_object(self, char *itemp, object value):
         """Only used if instantiated manually by the user, or if Cython doesn't
         know how to convert the type"""
         import struct
@@ -556,7 +556,7 @@ cdef class memoryview:
     def base(self):
         return self._get_base()
 
-    cdef _get_base(self):
+    fn _get_base(self):
         return self.obj
 
     @property
@@ -958,19 +958,19 @@ cdef class _memoryviewslice(memoryview):
     def __dealloc__(self):
         __PYX_XCLEAR_MEMVIEW(&self.from_slice, 1)
 
-    cdef convert_item_to_object(self, char *itemp):
+    fn convert_item_to_object(self, char *itemp):
         if self.to_object_func != NULL:
             return self.to_object_func(itemp)
         else:
             return memoryview.convert_item_to_object(self, itemp)
 
-    cdef assign_item_from_object(self, char *itemp, object value):
+    fn assign_item_from_object(self, char *itemp, object value):
         if self.to_dtype_func != NULL:
             self.to_dtype_func(itemp, value)
         else:
             memoryview.assign_item_from_object(self, itemp, value)
 
-    cdef _get_base(self):
+    fn _get_base(self):
         return self.from_object
 
     # Sequence methods

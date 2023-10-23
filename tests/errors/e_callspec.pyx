@@ -84,8 +84,8 @@ p8 = pt8 = h8
 #p2 = h4 # fail
 
 _ERRORS = u"""
-30:25: cannot have both '__stdcall' and '__cdecl' calling conventions
-33:26: cannot have both '__fastcall' and '__cdecl' calling conventions
+30:23: cannot have both '__stdcall' and '__cdecl' calling conventions
+33:24: cannot have both '__fastcall' and '__cdecl' calling conventions
 """
 #31:14: Cannot assign type 'void (__cdecl )(void)' to 'void (*)(void)'
 #32:14: Cannot assign type 'void (__stdcall )(void)' to 'void (*)(void)'

@@ -4,7 +4,7 @@ cimport cython
 
 cdef class BaseClass:
     @cython.final
-    cdef cdef_method(self):
+    fn cdef_method(self):
         pass
 
     @cython.final
