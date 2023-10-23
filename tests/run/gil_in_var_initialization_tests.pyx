@@ -138,8 +138,8 @@ def test_method_with_memoryview_handling():
     """
     >>> test_method_with_memoryview_handling()
     """
-    let float[10] static_arr
-    let float[::1] view_of_static_arr = <float[:10:1]>static_arr
+    let f32[10] static_arr
+    let f32[::1] view_of_static_arr = <float[:10:1]>static_arr
     future = run_block_and_wait_with_gil()
     d = D(5.)
     with nogil:

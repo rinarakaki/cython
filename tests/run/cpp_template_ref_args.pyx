@@ -49,5 +49,5 @@ def test_template_ref_const_attr(i32 x):
     let vector[int] v
     v.push_back(x)
     let const vector[int] *configs = &v
-    let int value = configs.at(0)
+    let i32 value = configs.at(0)
     return value

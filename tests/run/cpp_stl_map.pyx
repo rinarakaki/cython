@@ -168,7 +168,7 @@ def test_iterator_stack_allocated():
     """
     let map[int,int] mymap = map[int,int]()
     let unordered_map[int,int] myumap = unordered_map[int,int]()
-    let int ckey = 5
+    let i32 ckey = 5
     it = mymap.const_find(ckey)
     assert it == mymap.const_end()
     uit = myumap.const_find(ckey)

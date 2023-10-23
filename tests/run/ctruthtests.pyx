@@ -62,7 +62,7 @@ def test_Py_ssize_t(isize i):
         return false
 
 cdef class TestExtInt:
-    let int i
+    let i32 i
     def __init__(self, i): self.i = i
 
 def test_attr_int(TestExtInt e):

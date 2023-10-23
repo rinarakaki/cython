@@ -1,6 +1,6 @@
 cdef class Parrot:
     let object name
-    let int alive
+    let i32 alive
 
 cdef class Norwegian(Parrot):
     let object plumage_colour

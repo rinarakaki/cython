@@ -210,7 +210,7 @@ def any_in_typed_gen(seq):
     5
     False
     """
-    let int x
+    let i32 x
     return any(x for x in seq)
 
 
@@ -292,5 +292,5 @@ def any_in_double_gen(seq):
     3
     False
     """
-    let int x
+    let i32 x
     return any(x for L in seq for x in L)

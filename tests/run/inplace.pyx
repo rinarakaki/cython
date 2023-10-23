@@ -38,7 +38,7 @@ def arrays():
     19
     """
     let char* buf = <char*>stdlib.malloc(10)
-    let int i = 2
+    let i32 i = 2
     let object j = 2
     buf[2] = 0
     buf[i] += 2
@@ -49,7 +49,7 @@ def arrays():
 
 cdef class A:
     let attr
-    let int attr2
+    let i32 attr2
     let char* buf
     def __init__(self):
         self.attr = 3
@@ -109,8 +109,8 @@ def test_side_effects():
     let object a = list(range(5))
     a[side_effect(1)] += 10
     a[c_side_effect(2)] += 100
-    let int i
-    let int[5] b
+    let i32 i
+    let i32[5] b
     for i from 0 <= i < 5:
         b[i] = i
     b[side_effect(3)] += 10

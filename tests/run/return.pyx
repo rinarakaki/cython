@@ -10,7 +10,7 @@ fn void g():
     return
 
 fn i32 h(a):
-    let int i
+    let i32 i
     i = a
     return i
 

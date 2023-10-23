@@ -22,7 +22,7 @@ def g(a,b):
     >>> g(2,(1,2,3))
     1
     """
-    let int result = a in b
+    let i32 result = a in b
     return result
 
 def h(b):
@@ -42,7 +42,7 @@ def j(b):
     >>> j([1,3,4])
     0
     """
-    let int result = 2 in b
+    let i32 result = 2 in b
     return result
 
 @cython.test_fail_if_path_exists("//SwitchStatNode")
@@ -53,7 +53,7 @@ def k(a):
     >>> k(5)
     0
     """
-    let int result = a in [1,2,3,4]
+    let i32 result = a in [1,2,3,4]
     return result
 
 @cython.test_assert_path_exists("//SwitchStatNode")
@@ -65,7 +65,7 @@ def m_list(i32 a):
     >>> m_list(5)
     0
     """
-    let int result = a in [1,2,3,4]
+    let i32 result = a in [1,2,3,4]
     return result
 
 @cython.test_assert_path_exists("//SwitchStatNode")
@@ -77,7 +77,7 @@ def m_tuple(i32 a):
     >>> m_tuple(5)
     0
     """
-    let int result = a in (1,2,3,4)
+    let i32 result = a in (1,2,3,4)
     return result
 
 @cython.test_assert_path_exists("//SwitchStatNode")
@@ -89,7 +89,7 @@ def m_set(i32 a):
     >>> m_set(5)
     0
     """
-    let int result = a in {1,2,3,4}
+    let i32 result = a in {1,2,3,4}
     return result
 
 cdef bytes bytes_string = b'ab\0cde\0f\0g'
@@ -110,7 +110,7 @@ def m_bytes(char a, bytes bytes_string):
     Traceback (most recent call last):
     TypeError: argument of type 'NoneType' is not iterable
     """
-    let int result = a in bytes_string
+    let i32 result = a in bytes_string
     return result
 
 @cython.test_assert_path_exists("//PrimaryCmpNode")
@@ -128,7 +128,7 @@ def m_bytes_unsigned(u8 a, bytes bytes_string):
     Traceback (most recent call last):
     TypeError: argument of type 'NoneType' is not iterable
     """
-    let int result = a in bytes_string
+    let i32 result = a in bytes_string
     return result
 
 @cython.test_assert_path_exists("//SwitchStatNode")
@@ -140,7 +140,7 @@ def m_bytes_literal(char a):
     >>> m_bytes_literal(ord('X'))
     0
     """
-    let int result = a in b'ab\0cde\0f\0g'
+    let i32 result = a in b'ab\0cde\0f\0g'
     return result
 
 @cython.test_assert_path_exists("//SwitchStatNode")
@@ -152,7 +152,7 @@ def m_bytes_literal_unsigned(u8 a):
     >>> m_bytes_literal(ord('X'))
     0
     """
-    let int result = a in b'ab\0cde\0f\0g'
+    let i32 result = a in b'ab\0cde\0f\0g'
     return result
 
 cdef unicode unicode_string = u'abc\0defg\u1234\uF8D2'
@@ -176,7 +176,7 @@ def m_unicode(Py_UNICODE a, unicode unicode_string):
     Traceback (most recent call last):
     TypeError: argument of type 'NoneType' is not iterable
     """
-    let int result = a in unicode_string
+    let i32 result = a in unicode_string
     return result
 
 cdef unicode klingon_character = u'\uF8D2'
@@ -193,7 +193,7 @@ def m_unicode_literal(Py_UNICODE a):
     >>> m_unicode_literal(ord(py_klingon_character))
     1
     """
-    let int result = a in u'abc\0defg\u1234\uF8D2'
+    let i32 result = a in u'abc\0defg\u1234\uF8D2'
     return result
 
 cdef unicode wide_unicode_character = u'\U0010FEDC'
@@ -219,7 +219,7 @@ def m_wide_unicode_literal(Py_UCS4 a):
     1
     1
     """
-    let int result = a in u'abc\0defg\u1234\uF8D2\U0010FEDC'
+    let i32 result = a in u'abc\0defg\u1234\uF8D2\U0010FEDC'
     return result
 
 @cython.test_assert_path_exists("//SwitchStatNode")
@@ -298,7 +298,7 @@ def n(a):
     >>> n('xxx')
     0
     """
-    let int result = a.lower() in [u'a *',u'b *',u'c *',u'd *']
+    let i32 result = a.lower() in [u'a *',u'b *',u'c *',u'd *']
     return result
 
 def p(a):
@@ -309,7 +309,7 @@ def p(a):
     1
     """
     let dict d = {u'a': 1, u'b': 2}
-    let int result = a in d
+    let i32 result = a in d
     return result
 
 def q(a):
@@ -323,7 +323,7 @@ def q(a):
     True
     """
     let dict d = None
-    let int result = a in d # should fail with a TypeError
+    let i32 result = a in d # should fail with a TypeError
     return result
 
 def r(a):
@@ -333,7 +333,7 @@ def r(a):
     """
     let object l = [1,2,3,4]
     let object l2 = [l[1:],l[:-1],l]
-    let int result = a in l in l2
+    let i32 result = a in l in l2
     return result
 
 def s(a):
@@ -341,7 +341,7 @@ def s(a):
     >>> s(2)
     1
     """
-    let int result = a in [1,2,3,4] in [[1,2,3],[2,3,4],[1,2,3,4]]
+    let i32 result = a in [1,2,3,4] in [[1,2,3],[2,3,4],[1,2,3,4]]
     return result
 
 #@cython.test_assert_path_exists("//ReturnStatNode//BoolNode")

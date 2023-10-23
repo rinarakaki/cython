@@ -457,7 +457,7 @@ def test_with_gil_section():
     >>> list(test_with_gil_section())
     [0, 1, 2]
     """
-    let int i
+    let i32 i
     with nogil:
         for i in range(3):
             with gil:
@@ -469,7 +469,7 @@ def test_double_with_gil_section():
     >>> list(test_double_with_gil_section())
     [0, 1, 2, 3]
     """
-    let int i,j
+    let i32 i,j
     with nogil:
         for i in range(2):
             with gil:

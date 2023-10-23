@@ -136,7 +136,7 @@ def cy_add(a, b):
     return x      # 2
 
 def cy_add_with_nogil(a, b):
-    let int z, x=a, y=b         # 1
+    let i32 z, x=a, y=b         # 1
     with nogil:                  # 2
         z = 0                    # 3
         z += cy_add_nogil(x, y)  # 4
@@ -363,7 +363,7 @@ def fail_on_line_trace(fail_func, add_func, nogil_add_func):
     >>> result[5:]  # py
     [('call', 0), ('line', 1), ('line', 2), ('line', 3), ('line', 4), ('call', 0)]
     """
-    let int x = 1
+    let i32 x = 1
     trace = ['NO ERROR']
     exception = None
     trace_func = _create__failing_line_trace_func(trace)

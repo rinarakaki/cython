@@ -37,7 +37,7 @@ def c_longs():
     >>> c_longs() == (1, 1, -1, 18446744073709551615)  or  c_longs()
     True
     """
-    let long a = 1L
+    let i64 a = 1L
     let u64 ua = 1UL
     let i128 aa = 0xFFFFFFFFFFFFFFFFLL
     let u128 uaa = 0xFFFFFFFFFFFFFFFFULL
@@ -53,7 +53,7 @@ def negative_c_longs():
     >>> negative_c_longs() == (-1, -9223285636854775809)  or  negative_c_longs()
     True
     """
-    let long a = -1L
+    let i64 a = -1L
     let i128 aa = -9223285636854775809LL
     return a, aa
 

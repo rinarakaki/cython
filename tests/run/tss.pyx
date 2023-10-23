@@ -59,8 +59,8 @@ def tss_set_get():
     1
     """
     let Py_tss_t tss_key
-    let int the_value = 1
-    let int ret_value
+    let i32 the_value = 1
+    let i32 ret_value
     if PyThread_tss_create(&tss_key) != 0:
         raise MemoryError()
     if PyThread_tss_get(&tss_key) == NULL:

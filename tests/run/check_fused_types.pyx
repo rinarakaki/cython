@@ -180,7 +180,7 @@ def test_composed_types():
     spam eggs
     spam
     """
-    let double complex a = 0.5 + 0.6j, b = 0.4 -0.2j, result
+    let f64 complex a = 0.5 + 0.6j, b = 0.4 -0.2j, result
     let i32 c = 7, d = 8
     let i32 *cp = &c, *dp = &d
     let string_t e = "spam", f = "eggs"

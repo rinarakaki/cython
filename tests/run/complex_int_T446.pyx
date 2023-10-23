@@ -40,7 +40,7 @@ def test_coercion(i32 a, i64 b, int complex c):
     (3-3j)
     (5-6j)
     """
-    let double complex z
+    let f64 complex z
     z = a; print z
     z = b; print z
     z = c; print z

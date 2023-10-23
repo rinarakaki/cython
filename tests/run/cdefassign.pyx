@@ -7,11 +7,11 @@ def test(x, i32 y):
     """
     if True:
         before = 0
-    let int a = 4, b = x, c = y
-    let int *p = &y
+    let i32 a = 4, b = x, c = y
+    let i32 *p = &y
     let object o = int(8)
     print a, b, c, p[0], before, g, o
 
 # Also test that pruning cdefs doesn't hurt
 def empty():
-    let int i
+    let i32 i

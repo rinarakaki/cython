@@ -33,7 +33,7 @@ def used(x, y):
 
 def unused_and_unassigned():
     let object foo
-    let int i
+    let i32 i
 
 def unused_generic(*args, **kwargs):
     pass

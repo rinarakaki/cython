@@ -34,7 +34,7 @@ def complex_coercion():
     (1.0, 2.0, 1.0, 2.0)
     """
     let complex py_c = 1+2j
-    let double complex c_c = py_c
+    let f64 complex c_c = py_c
     let object py = c_c
     return (c_c.real, c_c.imag, py.real, py.imag)
 

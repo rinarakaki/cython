@@ -310,7 +310,7 @@ def reversed_range_step3_py_obj_left(a, i32 b):
     Traceback (most recent call last):
     TypeError: ...int...
     """
-    let long i
+    let i64 i
     result = []
     for i in reversed(range(a, b, 3)):
         result.append(i)
@@ -321,7 +321,7 @@ def reversed_range_step3_py_obj_right(i32 a, b):
     Traceback (most recent call last):
     TypeError: ...int...
     """
-    let long i
+    let i64 i
     result = []
     for i in reversed(range(a, b, 3)):
         result.append(i)
@@ -332,7 +332,7 @@ def reversed_range_step3_neg_py_obj_left(a, i32 b):
     Traceback (most recent call last):
     TypeError: ...int...
     """
-    let long i
+    let i64 i
     result = []
     for i in reversed(range(a, b, -3)):
         result.append(i)
@@ -343,7 +343,7 @@ def reversed_range_step3_neg_py_obj_right(i32 a, b):
     Traceback (most recent call last):
     TypeError: ...int...
     """
-    let long i
+    let i64 i
     result = []
     for i in reversed(range(a, b, -3)):
         result.append(i)

@@ -14,7 +14,7 @@ def double_to_short_int(f64 x):
     Traceback (most recent call last):
     TypeError: ...
     """
-    let short r = int(x)
+    let i16 r = int(x)
     return r
 
 @cython.test_assert_path_exists("//SingleAssignmentNode/TypecastNode")
@@ -82,7 +82,7 @@ def short_to_float_float(i16 x):
     Traceback (most recent call last):
     TypeError: ...integer...
     """
-    let float r = float(x)
+    let f32 r = float(x)
     return r
 
 @cython.test_assert_path_exists("//SingleAssignmentNode/TypecastNode")
@@ -95,7 +95,7 @@ def short_to_double_float(i16 x):
     Traceback (most recent call last):
     TypeError: ...integer...
     """
-    let double r = float(x)
+    let f64 r = float(x)
     return r
 
 @cython.test_assert_path_exists("//SingleAssignmentNode/TypecastNode")
@@ -108,7 +108,7 @@ def short_to_double_int(i16 x):
     Traceback (most recent call last):
     TypeError: ...integer...
     """
-    let double r = int(x)
+    let f64 r = int(x)
     return r
 
 @cython.test_fail_if_path_exists("//SimpleCallNode")

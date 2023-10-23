@@ -3,7 +3,7 @@ def test1():
     >>> test1()
     2
     """
-    let int[2][2] x
+    let i32[2][2] x
     x[0][0] = 1
     x[0][1] = 2
     x[1][0] = 3
@@ -18,9 +18,9 @@ def assign_index_in_loop():
     >>> assign_index_in_loop()
     2
     """
-    let int i = 0
-    let int[1] a
-    let int[1] b
+    let i32 i = 0
+    let i32[1] a
+    let i32[1] b
     for a[0], b[0] in enumerate(range(3)):
         assert a[0] == b[0]
         assert a[0] == i
@@ -34,8 +34,8 @@ def test2():
     >>> test2()
     0
     """
-    let int[5] a1
-    let int a2[2+3]
+    let i32[5] a1
+    let i32 a2[2+3]
     return sizeof(a1) - sizeof(a2)
 
 cdef enum:
@@ -47,8 +47,8 @@ def test3():
     >>> test3()
     (2, 3)
     """
-    let int a[MY_SIZE_A]
-    let int b[MY_SIZE_B]
+    let i32 a[MY_SIZE_A]
+    let i32 b[MY_SIZE_B]
     return sizeof(a)/sizeof(int), sizeof(b)/sizeof(int)
 
 from libc cimport limits

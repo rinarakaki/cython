@@ -19,7 +19,7 @@ def test_letnode_enumerate(a):
     >>> [i() for i in test_letnode_enumerate("abc")]
     [0, 1, 2]
     """
-    let int n
+    let i32 n
     ret = []
     for n, i in enumerate(a):
         def bar(x=n):

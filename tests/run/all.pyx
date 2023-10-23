@@ -222,7 +222,7 @@ def all_in_typed_gen(seq):
     4
     False
     """
-    let int x
+    let i32 x
     return all(x for x in seq)
 
 
@@ -286,5 +286,5 @@ def all_in_double_gen(seq):
     1
     False
     """
-    let int x
+    let i32 x
     return all(x for L in seq for x in L)

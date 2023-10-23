@@ -17,7 +17,7 @@ def test(i32 x):
     return x
 
 fn i32 f_nogil(i32 x) nogil:
-    let int y
+    let i32 y
     y = x + 10
     return y
 
@@ -68,7 +68,7 @@ def test_nested():
     >>> test_nested()
     240
     """
-    let int res = 0
+    let i32 res = 0
 
     with nogil(true):
         res = f_nogil(res)
@@ -94,7 +94,7 @@ def test_nested_condition_false():
     >>> test_nested_condition_false()
     220
     """
-    let int res = 0
+    let i32 res = 0
 
     with gil(FREE_GIL_FALSE):
         res = f_gil(res)
@@ -113,7 +113,7 @@ def test_try_finally():
     >>> test_try_finally()
     113
     """
-    let int res = 0
+    let i32 res = 0
 
     try:
         with nogil(true):
@@ -165,7 +165,7 @@ def test_fused_object(int_or_object x):
     >>> test_fused_object[int](1000)
     1000
     """
-    let int res = 0
+    let i32 res = 0
 
     if int_or_object is object:
         with nogil(false):

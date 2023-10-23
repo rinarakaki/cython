@@ -269,7 +269,7 @@ def modint(int int2, int int3):
     >>> modint(9,2)
     1
     """
-    let int int1
+    let i32 int1
     int1 = int2 % int3
     return int1
 

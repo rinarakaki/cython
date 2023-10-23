@@ -97,8 +97,8 @@ def div_int_c(i32 a, i32 b):
 
 @cython.cdivision(false)
 def test_cdiv_cmod(i16 a, i16 b):
-    let short q = cython.cdiv(a, b)
-    let short r = cython.cmod(a, b)
+    let i16 q = cython.cdiv(a, b)
+    let i16 r = cython.cmod(a, b)
     return q, r
 
 @cython.cdivision(true)

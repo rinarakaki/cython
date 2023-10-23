@@ -113,7 +113,7 @@ def soft_complex_coerced_to_complex(f64 a, f64 b):
     # This is always fine, but just check it works
     c = a**b
     assert cython.typeof(c) == "soft double complex"
-    let double complex d = c
+    let f64 complex d = c
     return d
 
 def soft_complex_type_inference_1(f64 a, f64 b, pick):
@@ -176,7 +176,7 @@ def pow_int_int_coerced_directly(i32 a, i32 b):
     >>> pow_int_int_coerced_directly(2, 2)
     8
     """
-    let int c = a**b
+    let i32 c = a**b
     return cfunc_taking_int(a**b) + c
 
 def pow_int_int_non_negative(i32 a, u32 b):

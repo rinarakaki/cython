@@ -5,7 +5,7 @@ def f():
     """
     >>> f()
     """
-    let int i, j, k
+    let i32 i, j, k
     let char *p
     i = sizeof(p)
     i = sizeof(j + k)

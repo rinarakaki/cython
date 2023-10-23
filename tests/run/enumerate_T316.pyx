@@ -48,7 +48,7 @@ def go_c_enumerate():
     2 3
     3 4
     """
-    let int i, k
+    let i32 i, k
     for i, k in enumerate(range(1, 5)):
         print i, k
 
@@ -146,7 +146,7 @@ def empty_c_enumerate():
     >>> empty_c_enumerate()
     (55, 99)
     """
-    let int i = 55, k = 99
+    let i32 i = 55, k = 99
     for i,k in enumerate(range(0)):
         print i, k
     return i, k

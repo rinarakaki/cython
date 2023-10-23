@@ -31,7 +31,7 @@ def int_runvar():
     >>> int_runvar()
     [0, 4, 8]
     """
-    let int x
+    let i32 x
     print [x*2 for x in range(5) if x % 2 == 0]
 
 

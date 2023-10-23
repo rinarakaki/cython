@@ -1,5 +1,5 @@
 fn void ftang():
-    let int x
+    let i32 x
     x = 0
 
 fn i32 foo(i32 i, char c):

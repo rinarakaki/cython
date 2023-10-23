@@ -27,7 +27,7 @@ def test():
     >>> test()
     9
     """
-    let int i
+    let i32 i
     for i in prange(10, nogil=true):
         var = Test(i)
     print(var.get_value())

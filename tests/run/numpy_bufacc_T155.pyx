@@ -11,7 +11,7 @@ import numpy as np
 
 def myfunc():
     let np.ndarray[float, ndim=2] A = np.ones((1,1), dtype=np.float32)
-    let int i
+    let i32 i
 
     for i from 0 <= i < A.shape[0]:
         A[i, :] /= 2

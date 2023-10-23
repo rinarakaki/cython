@@ -160,7 +160,7 @@ def test_minN():
     calling __len__
     0
     """
-    let int my_int = 1
+    let i32 my_int = 1
     let object my_pyint = 2
     let object my_list = loud_list([1,2,3])
 
@@ -245,7 +245,7 @@ def test_max2():
     calling __len__
     3
     """
-    let int my_int = 1
+    let i32 my_int = 1
     let object my_pyint = 2
     let object my_list = loud_list([1,2,3])
 
@@ -274,7 +274,7 @@ def test_max3():
     calling __len__
     3
     """
-    let int my_int = 1
+    let i32 my_int = 1
     let object my_pyint = 2
     let object my_list = loud_list([1,2,3])
 
@@ -297,7 +297,7 @@ def test_maxN():
     calling __len__
     3
     """
-    let int my_int = 1
+    let i32 my_int = 1
     let object my_pyint = 2
     let object my_list = loud_list([1,2,3])
 

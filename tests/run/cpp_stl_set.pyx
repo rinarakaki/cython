@@ -168,7 +168,7 @@ def test_iterator_stack_allocated():
     """
     let set[int] myset = set[int]()
     let unordered_set[int] myuset = unordered_set[int]()
-    let int ckey = 5
+    let i32 ckey = 5
     it = myset.const_find(ckey)
     assert it == myset.const_end()
     uit = myuset.const_find(ckey)

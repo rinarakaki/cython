@@ -37,7 +37,7 @@ def test_assign_to_basic_ref():
     >>> test_assign_to_basic_ref()
     123
     """
-    let int x=0
+    let i32 x=0
     assign_to_basic_reference(x)
     print x
 

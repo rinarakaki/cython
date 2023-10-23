@@ -199,7 +199,7 @@ def deep_inner():
     >>> deep_inner()()
     2
     """
-    let int x = 1
+    let i32 x = 1
     def f():
         def g():
             def h():

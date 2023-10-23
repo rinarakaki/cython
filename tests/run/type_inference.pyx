@@ -526,7 +526,7 @@ def safe_only():
     assert typeof(abs(c_int)) == "int", typeof(abs(c_int))
 
     # float can be inferred
-    let float fl = 5.0
+    let f32 fl = 5.0
     from_fl = fl
     assert typeof(from_fl) == "float", typeof(from_fl)
 
@@ -727,7 +727,7 @@ def test_int_typedef_inference():
     """
     >>> test_int_typedef_inference()
     """
-    let long x = 1
+    let i64 x = 1
     let my_long y = 2
     let i128 z = 3
     assert typeof(x + y) == typeof(y + x) == 'my_long', typeof(x + y)
@@ -735,7 +735,7 @@ def test_int_typedef_inference():
 
 from libc.stdint cimport int32_t, int64_t
 def int64_long_sum():
-    let long x = 1
+    let i64 x = 1
     let int32_t x32 = 2
     let int64_t x64 = 3
     let u64 ux = 4

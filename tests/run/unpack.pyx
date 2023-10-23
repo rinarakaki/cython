@@ -162,7 +162,7 @@ def unpack_partial_typed(it):
     >>> it.count
     4
     """
-    let int a,b,c
+    let i32 a,b,c
     a = b = c = 0
     try:
         a, b, c = it
@@ -202,8 +202,8 @@ def unpack_typed(it):
     >>> it.count
     4
     """
-    let int a
-    let float b
+    let i32 a
+    let f32 b
     let list c
     a,b,c = it
     return a,b,c

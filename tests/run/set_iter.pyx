@@ -25,7 +25,7 @@ def set_iter_comp_typed(set s):
     >>> sorted(set_iter_comp(s))
     [1, 2, 3]
     """
-    let int x
+    let i32 x
     return [x for x in s]
 
 
@@ -90,7 +90,7 @@ def set_iter_enumerate(set s):
     >>> sorted(values)
     ['a', 'b', 'c']
     """
-    let int i
+    let i32 i
     numbers = []
     values = []
     for i, x in enumerate(s):

@@ -119,8 +119,8 @@ def c_types(i32 a, f64 b):
     >>> c_types(1, 2)
     (1, 2.0)
     """
-    let int* a_ptr
-    let double* b_ptr
+    let i32* a_ptr
+    let f64* b_ptr
     let (int*, double*) ab = (&a, &b)
     a_ptr, b_ptr = ab
     return a_ptr[0], b_ptr[0]
@@ -174,8 +174,8 @@ def cast_to_ctuple(*o):
     >>> cast_to_ctuple(1, 2.)
     (1, 2.0)
     """
-    let int x
-    let double y
+    let i32 x
+    let f64 y
     x, y = <(int, double)>o
     return x, y
 
@@ -184,8 +184,8 @@ def test_type_inference():
     """
     >>> test_type_inference()
     """
-    let int x = 1
-    let double y = 2
+    let i32 x = 1
+    let f64 y = 2
     let object o = 3
     xy = (x, y)
     assert cython.typeof(xy) == "(int, double)", cython.typeof(xy)

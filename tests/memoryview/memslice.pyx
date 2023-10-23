@@ -2318,7 +2318,7 @@ fn _test_scalar_slice_assignment(slice_1d m, slice_2d m2):
             m2[i, j] = i * m2.shape[1] + j
 
     let i32 x = 2, y = -2
-    let long value = 1
+    let i64 value = 1
     m2[::2,    ::-1] = value
     m2[-2::-2, ::-1] = 2
     m2[::2,    -2::-2] = 0

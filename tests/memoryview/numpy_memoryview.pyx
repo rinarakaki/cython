@@ -318,8 +318,8 @@ def test_coerce_to_numpy():
     let f64[20] doubles
     let long double[20] longdoubles
 
-    let float complex[20] floatcomplex
-    let double complex[20] doublecomplex
+    let f32 complex[20] floatcomplex
+    let f64 complex[20] doublecomplex
     let long double complex[20] longdoublecomplex
 
     let td_h_short[20] h_shorts
