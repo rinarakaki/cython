@@ -53,8 +53,8 @@ def test_optimised():
     assert isinstance(True, bool)
 
     let object intval = int()
-    assert isinstance(intval, i32)
-    assert isinstance(i32(), i32)
+    assert isinstance(intval, int)
+    assert isinstance(int(), int)
 
     let object longval = long()
     assert isinstance(longval, long)
@@ -100,7 +100,7 @@ def test_optimised():
     assert isinstance(complexval, complex)
     assert isinstance(complex(), complex)
 
-    assert not isinstance(u"foo", i32)
+    assert not isinstance(u"foo", int)
     assert isinstance(A, type)
     assert isinstance(A(), A)
     let type typed_type = A
@@ -119,14 +119,14 @@ def test_optimised_tuple():
     >>> test_optimised_tuple()
     True
     """
-    assert isinstance(i32(),   (i32, long, float, bytes, str, unicode, tuple, list, dict, set, slice, type, A))
-    assert isinstance(list(),  (i32, long, float, bytes, str, unicode, tuple, list, dict, set, slice, type, A))
-    assert isinstance(A(),  (i32, long, float, bytes, str, unicode, tuple, list, dict, set, slice, type, A))
-    assert isinstance(A(),  (i32, long, float, bytes, str, unicode, tuple, list, dict, set, slice, type, A, a_as_obj))
-    assert isinstance(A(),  (i32, long, float, bytes, str, unicode, tuple, list, dict, set, slice, type, a_as_obj, A))
-    assert isinstance(A(),  (i32, long, float, bytes, str, unicode, a_as_obj, tuple, list, dict, set, slice, type, A))
-    assert isinstance(0, (i32, long))
-    assert not isinstance(u"xyz", (i32, long))
+    assert isinstance(int(),   (int, long, float, bytes, str, unicode, tuple, list, dict, set, slice, type, A))
+    assert isinstance(list(),  (int, long, float, bytes, str, unicode, tuple, list, dict, set, slice, type, A))
+    assert isinstance(A(),  (int, long, float, bytes, str, unicode, tuple, list, dict, set, slice, type, A))
+    assert isinstance(A(),  (int, long, float, bytes, str, unicode, tuple, list, dict, set, slice, type, A, a_as_obj))
+    assert isinstance(A(),  (int, long, float, bytes, str, unicode, tuple, list, dict, set, slice, type, a_as_obj, A))
+    assert isinstance(A(),  (int, long, float, bytes, str, unicode, a_as_obj, tuple, list, dict, set, slice, type, A))
+    assert isinstance(0, (int, long))
+    assert not isinstance(u"xyz", (int, long))
     return true
 
 
@@ -171,6 +171,6 @@ def test_nested(x):
     False
     """
     let object a = (x, None)
-    if isinstance(a[0], (i32, float)):
+    if isinstance(a[0], (int, float)):
         return true
     return false

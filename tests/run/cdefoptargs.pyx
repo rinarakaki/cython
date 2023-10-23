@@ -23,8 +23,7 @@ def call4():
 fn b(a, b, c=1, d=2):
     pass
 
-
-fn i32 foo(i32 a, int b=1, int c=1):
+fn i32 foo(i32 a, i32 b=1, i32 c=1):
     return a + b * c
 
 def test_foo():
@@ -49,7 +48,7 @@ cdef class A:
         return typeof(self)
 
 cdef class B(A):
-    cpdef method(self, int x = 0):
+    cpdef method(self, i32 x = 0):
         """
         >>> B().method()
         ('B', 0)
@@ -59,7 +58,7 @@ cdef class B(A):
         return typeof(self), x
 
 cdef class C(B):
-    cpdef method(self, int x = 10):
+    cpdef method(self, i32 x = 10):
         """
         >>> C().method()
         ('C', 10)

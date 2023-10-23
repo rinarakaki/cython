@@ -1,4 +1,4 @@
-cdef int g = 7
+cdef i32 g = 7
 
 def test(x, i32 y):
     """

@@ -16,10 +16,10 @@ def test_int():
     """
     >>> test_int()
     """
-    assertEqual(i32(false), 0)
-    assertIsNot(i32(false), false)
-    assertEqual(i32(true), 1)
-    assertIsNot(i32(true), true)
+    assertEqual(int(false), 0)
+    assertIsNot(int(false), false)
+    assertEqual(int(true), 1)
+    assertIsNot(int(true), true)
 
 def test_float():
     """
@@ -97,25 +97,25 @@ def test_math():
     for b in false, true:
         for i in 0, 1, 2:
             assertEqual(b**i, int(b)**i)
-            assertIsNot(b**i, bool(i32(b)**i))
+            assertIsNot(b**i, bool(int(b)**i))
 
     for a in false, true:
         for b in false, true:
-            assertIs(a&b, bool(i32(a)&int(b)))
-            assertIs(a|b, bool(i32(a)|int(b)))
-            assertIs(a^b, bool(i32(a)^int(b)))
+            assertIs(a&b, bool(int(a)&int(b)))
+            assertIs(a|b, bool(int(a)|int(b)))
+            assertIs(a^b, bool(int(a)^int(b)))
             assertEqual(a&int(b), int(a)&int(b))
-            assertIsNot(a&int(b), bool(i32(a)&int(b)))
+            assertIsNot(a&int(b), bool(int(a)&int(b)))
             assertEqual(a|int(b), int(a)|int(b))
-            assertIsNot(a|int(b), bool(i32(a)|int(b)))
+            assertIsNot(a|int(b), bool(int(a)|int(b)))
             assertEqual(a^int(b), int(a)^int(b))
-            assertIsNot(a^int(b), bool(i32(a)^int(b)))
-            assertEqual(i32(a)&b, int(a)&int(b))
-            assertIsNot(i32(a)&b, bool(i32(a)&int(b)))
-            assertEqual(i32(a)|b, int(a)|int(b))
-            assertIsNot(i32(a)|b, bool(i32(a)|int(b)))
-            assertEqual(i32(a)^b, int(a)^int(b))
-            assertIsNot(i32(a)^b, bool(i32(a)^int(b)))
+            assertIsNot(a^int(b), bool(int(a)^int(b)))
+            assertEqual(int(a)&b, int(a)&int(b))
+            assertIsNot(int(a)&b, bool(int(a)&int(b)))
+            assertEqual(int(a)|b, int(a)|int(b))
+            assertIsNot(int(a)|b, bool(int(a)|int(b)))
+            assertEqual(int(a)^b, int(a)^int(b))
+            assertIsNot(int(a)^b, bool(int(a)^int(b)))
 
     assertIs(1==1, true)
     assertIs(1==0, false)
@@ -169,8 +169,8 @@ def test_isinstance():
     """
     assertIs(isinstance(true, bool), true)
     assertIs(isinstance(false, bool), true)
-    assertIs(isinstance(true, i32), true)
-    assertIs(isinstance(false, i32), true)
+    assertIs(isinstance(true, int), true)
+    assertIs(isinstance(false, int), true)
     assertIs(isinstance(1, bool), false)
     assertIs(isinstance(0, bool), false)
 
@@ -178,8 +178,8 @@ def test_issubclass():
     """
     >>> test_issubclass()
     """
-    assertIs(issubclass(bool, i32), true)
-    assertIs(issubclass(i32, bool), false)
+    assertIs(issubclass(bool, int), true)
+    assertIs(issubclass(int, bool), false)
 
 def test_boolean():
     """
