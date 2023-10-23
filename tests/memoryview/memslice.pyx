@@ -937,7 +937,7 @@ def printbuf_float(o, shape):
     """
 
     # should make shape builtin
-    let const float[:] buf
+    let const f32[:] buf
     buf = o
     let i32 i, j
     for i in range(shape[0]):
