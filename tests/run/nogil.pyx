@@ -206,7 +206,7 @@ _PERFORMANCE_HINTS = """
 39:6: Exception check on 'release_gil_in_nogil2' will always require the GIL to be acquired.
 49:28: Exception check will always require the GIL to be acquired.
 51:29: Exception check will always require the GIL to be acquired.
-55:5: Exception check on 'get_gil_in_nogil' will always require the GIL to be acquired.
+55:0: Exception check on 'get_gil_in_nogil' will always require the GIL to be acquired.
 59:6: Exception check on 'get_gil_in_nogil2' will always require the GIL to be acquired.
 68:24: Exception check will always require the GIL to be acquired.
 70:25: Exception check will always require the GIL to be acquired.
