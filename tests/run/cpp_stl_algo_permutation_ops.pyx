@@ -7,7 +7,7 @@ from libcpp.algorithm cimport is_permutation, next_permutation, prev_permutation
 from libcpp.vector cimport vector
 from libcpp.string cimport string
 
-fn bool compare(int a, int b):
+fn bool compare(i32 a, i32 b):
     return a == b
 
 fn bool less_than(char a, char b):

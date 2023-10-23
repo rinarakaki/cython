@@ -14,7 +14,7 @@ from libcpp cimport bool
 fn out(s, result_type=None):
     print '%s [%s]' % (s.decode('ascii'), result_type)
 
-fn iout(int s, result_type=None):
+fn iout(i32 s, result_type=None):
     print '%s [%s]' % (s, result_type)
 
 extern from "cpp_operators_helper.h" nogil:

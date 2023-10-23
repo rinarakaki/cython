@@ -12,7 +12,6 @@ def f(obj2, obj3):
     obj1 = obj2 ** obj3
     return flt1, obj1
 
-
 def g(i):
     """
     >>> g(4)
@@ -20,14 +19,12 @@ def g(i):
     """
     return i ** 5
 
-
 def h(i):
     """
     >>> h(4)
     625
     """
     return 5 ** i
-
 
 def constant_py():
     """
@@ -37,7 +34,6 @@ def constant_py():
     result = (<object>2) ** 10
     return result
 
-
 def constant_long():
     """
     >>> constant_long() == 2 ** 36
@@ -46,8 +42,7 @@ def constant_long():
     result = (<object>2L) ** 36
     return result
 
-
-def small_int_pow(long s):
+def small_int_pow(i64 s):
     """
     >>> small_int_pow(3)
     (1, 3, 9, 27, 81)
@@ -56,9 +51,8 @@ def small_int_pow(long s):
     """
     return s**0, s**1, s**2, s**3, s**4
 
-
 @cython.cpow(true)
-def int_pow_cpow(short a, short b):
+def int_pow_cpow(i16 a, i16 b):
     """
     >>> int_pow_cpow(7, 2)
     49
@@ -70,7 +64,7 @@ def int_pow_cpow(short a, short b):
     return a**b
 
 @cython.cpow(false)
-def int_pow(short a, short b):
+def int_pow(i16 a, i16 b):
     """
     >>> int_pow(7, 2)
     49.0
@@ -79,10 +73,9 @@ def int_pow(short a, short b):
     >>> int_pow(2, 10)
     1024.0
     """
-    return a**b
+    return a ** b
 
-
-class I(int):
+class I(i32):
     """
     Copied from CPython's test_descr.py
 
@@ -108,7 +101,6 @@ class I(int):
 
     def pow2(self):
         return 2 ** self
-
 
 def optimised_pow2(n):
     """
@@ -142,11 +134,10 @@ def optimised_pow2(n):
     Traceback (most recent call last):
     TypeError: ...operand... **...
     """
-    if isinstance(n, (int, long)) and 0 <= n < 1000:
+    if isinstance(n, (i32, i64)) and 0 <= n < 1000:
         assert isinstance(2.0 ** n, float), 'float %s' % n
         assert isinstance(2 ** n, (int, long)), 'int %s' % n
     return 2 ** n
-
 
 def optimised_pow2_inplace(n):
     """

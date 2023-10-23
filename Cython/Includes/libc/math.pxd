@@ -1,62 +1,62 @@
 extern from "<math.h>" nogil:
-    const double M_E
-    const double e "M_E"  # as in Python's math module
-    const double M_LOG2E
-    const double M_LOG10E
-    const double M_LN2
-    const double M_LN10
-    const double M_PI
-    const double pi "M_PI"  # as in Python's math module
-    const double M_PI_2
-    const double M_PI_4
-    const double M_1_PI
-    const double M_2_PI
-    const double M_2_SQRTPI
-    const double M_SQRT2
-    const double M_SQRT1_2
+    const f64 M_E
+    const f64 e "M_E"  # as in Python's math module
+    const f64 M_LOG2E
+    const f64 M_LOG10E
+    const f64 M_LN2
+    const f64 M_LN10
+    const f64 M_PI
+    const f64 pi "M_PI"  # as in Python's math module
+    const f64 M_PI_2
+    const f64 M_PI_4
+    const f64 M_1_PI
+    const f64 M_2_PI
+    const f64 M_2_SQRTPI
+    const f64 M_SQRT2
+    const f64 M_SQRT1_2
 
     # C99 constants
     const float INFINITY
     const float NAN
     # note: not providing "nan" and "inf" aliases here as nan() is a function in C
-    const double HUGE_VAL
+    const f64 HUGE_VAL
     const float HUGE_VALF
     const long double HUGE_VALL
 
     # All C99 functions in alphabetical order
-    double acos(double x)
+    double acos(f64 x)
     float acosf(float)
-    double acosh(double x)
+    double acosh(f64 x)
     float acoshf(float)
     long double acoshl(long double)
     long double acosl(long double)
-    double asin(double x)
+    double asin(f64 x)
     float asinf(float)
-    double asinh(double x)
+    double asinh(f64 x)
     float asinhf(float)
     long double asinhl(long double)
     long double asinl(long double)
-    double atan(double x)
-    double atan2(double y, double x)
+    double atan(f64 x)
+    double atan2(f64 y, f64 x)
     float atan2f(float, float)
     long double atan2l(long double, long double)
     float atanf(float)
-    double atanh(double x)
+    double atanh(f64 x)
     float atanhf(float)
     long double atanhl(long double)
     long double atanl(long double)
-    double cbrt(double x)
+    double cbrt(f64 x)
     float cbrtf(float)
     long double cbrtl(long double)
-    double ceil(double x)
+    double ceil(f64 x)
     float ceilf(float)
     long double ceill(long double)
     double copysign(double, double)
     float copysignf(float, float)
     long double copysignl(long double, long double)
-    double cos(double x)
+    double cos(f64 x)
     float cosf(float)
-    double cosh(double x)
+    double cosh(f64 x)
     float coshf(float)
     long double coshl(long double)
     long double cosl(long double)
@@ -66,49 +66,49 @@ extern from "<math.h>" nogil:
     long double erfcl(long double)
     float erff(float)
     long double erfl(long double)
-    double exp(double x)
-    double exp2(double x)
+    double exp(f64 x)
+    double exp2(f64 x)
     float exp2f(float)
     long double exp2l(long double)
     float expf(float)
     long double expl(long double)
-    double expm1(double x)
+    double expm1(f64 x)
     float expm1f(float)
     long double expm1l(long double)
-    double fabs(double x)
+    double fabs(f64 x)
     float fabsf(float)
     long double fabsl(long double)
-    double fdim(double x, double y)
+    double fdim(f64 x, f64 y)
     float fdimf(float, float)
     long double fdiml(long double, long double)
-    double floor(double x)
+    double floor(f64 x)
     float floorf(float)
     long double floorl(long double)
-    double fma(double x, double y, double z)
+    double fma(f64 x, f64 y, f64 z)
     float fmaf(float, float, float)
     long double fmal(long double, long double, long double)
-    double fmax(double x, double y)
+    double fmax(f64 x, f64 y)
     float fmaxf(float, float)
     long double fmaxl(long double, long double)
-    double fmin(double x, double y)
+    double fmin(f64 x, f64 y)
     float fminf(float, float)
     long double fminl(long double, long double)
-    double fmod(double x, double y)
+    double fmod(f64 x, f64 y
     float fmodf(float, float)
     long double fmodl(long double, long double)
-    double frexp(double x, int* exponent)
+    double frexp(f64 x, int* exponent)
     float frexpf(float, int* exponent)
     long double frexpl(long double, int*)
-    double hypot(double x, double y)
+    double hypot(f64 x, f64 y)
     float hypotf(float, float)
     long double hypotl(long double, long double)
-    int ilogb(double x)
+    int ilogb(f64 x)
     int ilogbf(float)
     int ilogbl(long double)
-    double ldexp(double x, int exponent)
+    double ldexp(f64 x, int exponent)
     float ldexpf(float, int exponent)
     long double ldexpl(long double, int exponent)
-    double lgamma(double x)
+    double lgamma(f64 x)
     float lgammaf(float)
     long double lgammal(long double)
     long long llrint(double)
@@ -117,17 +117,17 @@ extern from "<math.h>" nogil:
     long long llround(double)
     long long llroundf(float)
     long long llroundl(long double)
-    double log(double x)
-    double log10(double x)
+    double log(f64 x)
+    double log10(f64 x)
     float log10f(float)
     long double log10l(long double)
-    double log1p(double x)
+    double log1p(f64 x)
     float log1pf(float)
     long double log1pl(long double)
-    double log2(double x)
+    double log2(f64 x)
     float log2f(float)
     long double log2l(long double)
-    double logb(double x)
+    double logb(f64 x)
     float logbf(float)
     long double logbl(long double)
     float logf(float)
@@ -138,13 +138,13 @@ extern from "<math.h>" nogil:
     long lround(double)
     long lroundf(float)
     long lroundl(long double)
-    double modf(double x, double* iptr)
+    double modf(f64 x, double* iptr)
     float modff(float, float* iptr)
     long double modfl(long double, long double* iptr)
     double nan(const char*)
     float nanf(const char*)
     long double nanl(const char*)
-    double nearbyint(double x)
+    double nearbyint(f64 x)
     float nearbyintf(float)
     long double nearbyintl(long double)
     double nextafter(double, double)
@@ -153,46 +153,46 @@ extern from "<math.h>" nogil:
     double nexttoward(double, long double)
     float nexttowardf(float, long double)
     long double nexttowardl(long double, long double)
-    double pow(double x, double y)
+    double pow(f64 x
     float powf(float, float)
     long double powl(long double, long double)
-    double remainder(double x, double y)
+    double remainder(f64 x, f64 y)
     float remainderf(float, float)
     long double remainderl(long double, long double)
-    double remquo(double x, double y, int* quot)
+    double remquo(f64 x, f64 y, int* quot)
     float remquof(float, float, int* quot)
     long double remquol(long double, long double, int* quot)
-    double rint(double x)
+    double rint(f64 x
     float rintf(float)
     long double rintl(long double)
-    double round(double x)
+    double round(f64 x
     float roundf(float)
     long double roundl(long double)
-    double scalbln(double x, long n)
+    double scalbln(f64 x, i64 n)
     float scalblnf(float, long)
     long double scalblnl(long double, long)
-    double scalbn(double x, int n)
+    double scalbn(f64 x, i32 n)
     float scalbnf(float, int)
     long double scalbnl(long double, int)
-    double sin(double x)
+    double sin(f64 x)
     float sinf(float)
-    double sinh(double x)
+    double sinh(f64 x)
     float sinhf(float)
     long double sinhl(long double)
     long double sinl(long double)
-    double sqrt(double x)
+    double sqrt(f64 x)
     float sqrtf(float)
     long double sqrtl(long double)
-    double tan(double x)
+    double tan(f64 x)
     float tanf(float)
-    double tanh(double x)
+    double tanh(f64 x)
     float tanhf(float)
     long double tanhl(long double)
     long double tanl(long double)
-    double tgamma(double x)
+    double tgamma(f64 x)
     float tgammaf(float)
     long double tgammal(long double)
-    double trunc(double x)
+    double trunc(f64 x
     float truncf(float)
     long double truncl(long double)
 

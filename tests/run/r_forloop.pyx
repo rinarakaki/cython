@@ -42,7 +42,7 @@ def go_c_enumerate():
     for i,k in enumerate(range(4)):
         print i == k
 
-def go_c_int(int a, int b):
+def go_c_int(i32 a, i32 b):
     """
     >>> go_c_int(1,5)
     Spam!

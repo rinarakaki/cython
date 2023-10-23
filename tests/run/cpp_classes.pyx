@@ -8,7 +8,7 @@ extern from "shapes.h" namespace "shapes":
         float area()
 
     cdef cppclass Ellipse(Shape):
-        Ellipse(int a, int b) except + nogil
+        Ellipse(i32 a, i32 b) except + nogil
 
     cdef cppclass Circle(Ellipse):
         int radius
@@ -18,9 +18,9 @@ extern from "shapes.h" namespace "shapes":
         int width
         int height
         Rectangle() except +
-        Rectangle(int h, int w) except +
-        int method(i32 x)
-        int method(bint b)
+        Rectangle(i32 h, i32 w) except +
+        fn i32 method(i32 x)
+        fn iew method(bint b)
 
     cdef cppclass Square(Rectangle):
         int side
@@ -111,7 +111,7 @@ def test_square_area(w):
     finally:
         del sqr
 
-fn double get_area(Rectangle s):
+fn f64 get_area(Rectangle s):
     return s.area()
 
 def test_value_call(i32 w):
@@ -133,7 +133,7 @@ cdef struct StructWithEmpty:
 def get_destructor_count():
     return destructor_count
 
-def test_stack_allocation(int w, int h):
+def test_stack_allocation(i32 w, i32 h):
     """
     >>> d = test_stack_allocation(10, 12)
     125

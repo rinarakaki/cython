@@ -276,7 +276,7 @@ def test_transform_exclusive_scan_with_execpolicy(vector[int] v, int init):
     transform_exclusive_scan(seq, v.begin(), v.end(), out.begin(), init, add_integers, multiply_with_2)
     return out
 
-def test_gcd(int a, int b):
+def test_gcd(i32 a, i32 b):
     """
     Test gcd
     >>> test_gcd(12, 18)
@@ -284,7 +284,7 @@ def test_gcd(int a, int b):
     """
     return gcd[int](a, b)
 
-def test_lcm(int a, int b):
+def test_lcm(i32 a, i32 b):
     """
     Test lcm
     >>> test_lcm(45, 75)

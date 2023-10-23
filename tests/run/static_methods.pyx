@@ -52,7 +52,7 @@ def call_static_cdef(i32 x):
     let int *x_ptr = &x
     return A.static_cdef(x_ptr)
 
-def call_static_cdef2(int x, int y):
+def call_static_cdef2(i32 x, i32 y):
     """
     >>> call_static_cdef2(2, 3)
     ('cdef2', 5)

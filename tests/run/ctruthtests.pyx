@@ -37,7 +37,7 @@ def test_int(i32 i):
     else:
         return false
 
-def test_short(short i):
+def test_short(i16 i):
     """
     >>> test_short(0)
     False
@@ -83,7 +83,7 @@ ctypedef union _aux:
 
 cdef class TestExtPtr:
     let void* p
-    def __init__(self, int i):
+    def __init__(self, i32 i):
         cdef _aux aux
         aux.i = i
         self.p = aux.p

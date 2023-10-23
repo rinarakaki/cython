@@ -4,7 +4,7 @@ cimport cython
 
 @cython.test_assert_path_exists("//SingleAssignmentNode/TypecastNode")
 @cython.test_fail_if_path_exists("//SimpleCallNode")
-def double_to_short_int(double x):
+def double_to_short_int(f64 x):
     """
     >>> double_to_short_int(4.1)
     4
@@ -19,7 +19,7 @@ def double_to_short_int(double x):
 
 @cython.test_assert_path_exists("//SingleAssignmentNode/TypecastNode")
 @cython.test_fail_if_path_exists("//SimpleCallNode")
-def double_to_pyssizet_int(double x):
+def double_to_pyssizet_int(f64 x):
     """
     >>> double_to_pyssizet_int(4.1)
     4
@@ -49,7 +49,7 @@ def int_to_pyssizet_int(i32 x):
 
 ## @cython.test_assert_path_exists("//SingleAssignmentNode/TypecastNode")
 ## @cython.test_fail_if_path_exists("//SimpleCallNode")
-## def double_to_pyssizet_float(double x):
+## def double_to_pyssizet_float(f64 x):
 ##     """
 ##     >>> double_to_pyssizet_float(4.1)
 ##     4

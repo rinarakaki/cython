@@ -57,7 +57,7 @@ def eq_if_statement(a, b, c):
     else:
         return false
 
-def eq_if_statement_semi_optimized(a, int b, int c):
+def eq_if_statement_semi_optimized(a, i32 b, i32 c):
     """
     Some but not all of the cascade ends up optimized
     (probably not as much as should be). The test is mostly

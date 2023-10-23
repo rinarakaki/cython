@@ -62,7 +62,7 @@ def sort_ints_reverse(vector[int] values):
     sort(values.begin(), values.end(), greater[int]())
     return values
 
-def partial_sort_ints(vector[int] values, int k):
+def partial_sort_ints(vector[int] values, i32 k):
     """
     Test partial_sort using the default operator<.
 
@@ -72,7 +72,7 @@ def partial_sort_ints(vector[int] values, int k):
     partial_sort(values.begin(), values.begin() + k, values.end())
     return values
 
-def partial_sort_ints_reverse(vector[int] values, int k):
+def partial_sort_ints_reverse(vector[int] values, i32 k):
     """
     Test partial_sort using a standard library comparison function object.
 
@@ -82,7 +82,7 @@ def partial_sort_ints_reverse(vector[int] values, int k):
     partial_sort(values.begin(), values.begin() + k, values.end(), greater[int]())
     return values
 
-def partial_sort_ints2(vector[int] values, int k):
+def partial_sort_ints2(vector[int] values, i32 k):
     """
     Test partial_sort_copy using the default operator<.
 
@@ -93,7 +93,7 @@ def partial_sort_ints2(vector[int] values, int k):
     partial_sort_copy(values.begin(), values.end(), output.begin(), output.end())
     return output
 
-def partial_sort_ints_reverse2(vector[int] values, int k):
+def partial_sort_ints_reverse2(vector[int] values, i32 k):
     """
     Test partial_sort_copy using a standard library comparison function object.
 

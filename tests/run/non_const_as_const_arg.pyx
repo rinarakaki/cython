@@ -1,4 +1,4 @@
-fn double f(const double a, const double b, const double c):
+fn f64 f(const f64 a, const f64 b, const f64 c):
     return a + b - c
 
 def test_non_const_as_const_arg():

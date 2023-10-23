@@ -990,7 +990,7 @@ cdef class ArgumentTypeConversions:
     RuntimeError: From __getbuffer__ with flags ....0
     """
     # force conversion of object to int
-    def __getitem__(self, int x):
+    def __getitem__(self, i32 x):
         return x
 
     # force conversion of comparison (int) to object

@@ -125,7 +125,7 @@ fn inline float[:] _get_left_edge(float[::1] arr) nogil:
 
 cdef class D:
     cdef float _a
-    def __cinit__(self, float a):
+    def __cinit__(self, f32 a):
         self._a = a
 
     fn void call_me(self, float[::1] my_arr) noexcept nogil:

@@ -10,7 +10,7 @@ from libcpp.vector cimport vector
 from libcpp.pair cimport pair
 from libcpp.execution cimport seq
 
-fn bool less(int a, int b):
+fn bool less(i32 a, i32 b):
     return a < b
 
 def test_min_element(vector[int] v):
@@ -73,7 +73,7 @@ def test_max_element_with_exec(vector[int] v):
     let vector[int].iterator it = max_element(seq, v.begin(), v.end())
     return deref(it)
 
-def test_minmax(int a, int b):
+def test_minmax(i32 a, i32 b):
     """
     Test minmax.
 
@@ -83,7 +83,7 @@ def test_minmax(int a, int b):
     let pair[int, int] p = minmax(a, b)
     return [p.first, p.second]
 
-def test_minmax_with_pred(int a, int b):
+def test_minmax_with_pred(i32 a, i32 b):
     """
     Test minmax with binary predicate.
 
@@ -123,7 +123,7 @@ def test_minmax_element_with_exec(vector[int] v):
     let pair[vector[int].iterator, vector[int].iterator] p = minmax_element(seq, v.begin(), v.end())
     return [deref(p.first), deref(p.second)]
 
-def test_clamp(int v, int lo, int hi):
+def test_clamp(i32 v, int lo, int hi):
     """
     Test clamp.
 
@@ -132,7 +132,7 @@ def test_clamp(int v, int lo, int hi):
     """
     return clamp(v, lo, hi)
 
-def test_clamp_with_pred(int v, int lo, int hi):
+def test_clamp_with_pred(i32 v, int lo, int hi):
     """
     Test clamp with binary predicate
 

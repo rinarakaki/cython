@@ -10,7 +10,7 @@ def f(a,b):
     a **= b
     return a
 
-def g(int a, int b):
+def g(i32 a, i32 b):
     """
     >>> g(13, 4)
     32
@@ -20,7 +20,7 @@ def g(int a, int b):
     a <<= b
     return a
 
-def h(double a, double b):
+def h(f64 a, f64 b):
     """
     >>> h(56, 7)
     105.0
@@ -74,7 +74,7 @@ def attributes():
     print a.attr, a.attr2, b.attr
 
 def get_2(): return 2
-fn i32 identity(int value): return value
+fn i32 identity(i32 value): return value
 
 def smoketest():
     """
@@ -88,7 +88,6 @@ def smoketest():
     (a.buf + identity(4) - <int>(2*get_2() - 1))[get_2() - 2*identity(1)] += 10
     print a.buf[1]
     stdlib.free(buf)
-
 
 def side_effect(x):
     print u"side effect", x
@@ -119,7 +118,7 @@ def test_side_effects():
     return a, [b[i] for i from 0 <= i < 5]
 
 @cython.cdivision(true)
-def test_inplace_cdivision(int a, int b):
+def test_inplace_cdivision(i32 a, i32 b):
     """
     >>> test_inplace_cdivision(13, 10)
     3
@@ -134,7 +133,7 @@ def test_inplace_cdivision(int a, int b):
     return a
 
 @cython.cdivision(false)
-def test_inplace_pydivision(int a, int b):
+def test_inplace_pydivision(i32 a, i32 b):
     """
     >>> test_inplace_pydivision(13, 10)
     3

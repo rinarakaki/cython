@@ -733,7 +733,7 @@ def test_clean_temps():
         print e.args[0]
 
 
-def test_pointer_temps(double x):
+def test_pointer_temps(f64 x):
     """
     >>> test_pointer_temps(1.0)
     4.0

@@ -1,6 +1,6 @@
 cdef int g = 7
 
-def test(x, int y):
+def test(x, i32 y):
     """
     >>> test(1, 2)
     4 1 2 2 0 7 8

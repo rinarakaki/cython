@@ -11,8 +11,8 @@ cpdef cpfunc(a,b,c,d):
 fn optargs(a, b=2, c=3):
     return (a,b,c)
 
-ctypedef int (*cfuncptr_type)(int a, int b)
-fn i32 cfuncptr(int a, int b):
+ctypedef i32 (*cfuncptr_type)(i32 a, i32 b)
+fn i32 cfuncptr(i32 a, i32 b):
     print a, b
 
 fn cfuncptr_type get_cfuncptr():

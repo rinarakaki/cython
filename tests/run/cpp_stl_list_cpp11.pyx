@@ -34,7 +34,7 @@ fn list const_to_pylist(cpp_list[int]& l):
         incr(it)
     return L
 
-def const_item_ptr_test(L, int x):
+def const_item_ptr_test(L, i32 x):
     """
     >>> const_item_ptr_test(range(10), 100)
     [100, 1, 2, 3, 4, 5, 6, 7, 8, 9]

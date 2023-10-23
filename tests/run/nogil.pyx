@@ -9,7 +9,7 @@ except ImportError:
     from io import StringIO
 
 
-def test(int x):
+def test(i32 x):
     """
     >>> test(5)
     47

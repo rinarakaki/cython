@@ -111,7 +111,7 @@ def test_pop_back(char *a):
     s.pop_back()
     return s
 
-def test_insert(char *a, char *b, int i):
+def test_insert(char *a, char *b, i32 i):
     """
     >>> test_insert('AAAA'.encode('ASCII'), 'BBBB'.encode('ASCII'), 2) == 'AABBBBAA'.encode('ASCII')
     True

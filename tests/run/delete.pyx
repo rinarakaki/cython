@@ -74,7 +74,7 @@ def del_list(list L, o):
     del L[o]
     return L
 
-def del_int(L, int i):
+def del_int(L, i32 i):
     """
     >>> del_int(list(range(5)), 3)
     [0, 1, 2, 4]
@@ -84,7 +84,7 @@ def del_int(L, int i):
     del L[i]
     return L
 
-def del_list_int(L, int i):
+def del_list_int(L, i32 i):
     """
     >>> del_list_int(list(range(5)), 3)
     [0, 1, 2, 4]

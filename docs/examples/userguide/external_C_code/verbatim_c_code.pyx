@@ -5,6 +5,6 @@ extern from *:
     static long square(long x) {return x * x;}
     #define assign(x, y) ((x) = (y))
     """
-    i64 square(i64 x)
+    fn i64 square(i64 x)
 
-    void assign(i64& x, i64 y)
+    fn void assign(i64& x, i64 y)

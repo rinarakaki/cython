@@ -25,10 +25,10 @@ cdef class RefCountInMeth(object):
     def __cinit__(self):
         self.value = 1.5
 
-    fn double c_get_value(self) nogil:
+    fn f64 c_get_value(self) nogil:
         return self.value
 
-    fn double c_get_value_if(self) nogil:
+    fn f64 c_get_value_if(self) nogil:
         cdef double v
         if 9>4:
             v = 2.3

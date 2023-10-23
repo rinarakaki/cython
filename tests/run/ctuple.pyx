@@ -82,7 +82,7 @@ def unpacking_with_side_effect((int, double) xy):
     x, y = side_effect(xy)
     return x, y
 
-def packing_tuple(int x, double y):
+def packing_tuple(i32 x, f64 y):
     """
     >>> packing_tuple(1, 2)
     (1, 2.0)
@@ -94,7 +94,7 @@ def packing_tuple(int x, double y):
     xy = 1 * (x, y)
     return xy
 
-def packing_list(int x, double y):
+def packing_list(i32 x, f64 y):
     """
     >>> packing_list(1, 2)
     (1, 2.0)
@@ -106,7 +106,7 @@ def packing_list(int x, double y):
     xy = 1 * [x, y]
     return xy
 
-def coerce_packing_tuple(int x, int y):
+def coerce_packing_tuple(i32 x, i32 y):
     let (int, double) xy = (x, y)
     """
     >>> coerce_packing_tuple(1, 2)
@@ -114,7 +114,7 @@ def coerce_packing_tuple(int x, int y):
     """
     return xy
 
-def c_types(int a, double b):
+def c_types(i32 a, f64 b):
     """
     >>> c_types(1, 2)
     (1, 2.0)
@@ -126,8 +126,8 @@ def c_types(int a, double b):
     return a_ptr[0], b_ptr[0]
 
 cdef union Union:
-    int x
-    double y
+    i32 x
+    f64 y
 
 def union_in_ctuple_literal():
     """
@@ -151,7 +151,7 @@ def union_in_ctuple_dynamic(*values):
     let (int, Union) a = values
     return a[1].x if a[0] == 1 else a[1].y
 
-fn (int, int*) cdef_ctuple_return_type(int x, int* x_ptr):
+fn (i32, i32*) cdef_ctuple_return_type(i32 x, int* x_ptr):
     return x, x_ptr
 
 def call_cdef_ctuple_return_type(i32 x):
@@ -162,7 +162,7 @@ def call_cdef_ctuple_return_type(i32 x):
     let (int, int*) res = cdef_ctuple_return_type(x, &x)
     return res[0], res[1][0]
 
-cpdef (int, double) cpdef_ctuple_return_type(int x, double y):
+cpdef (i32, f64) cpdef_ctuple_return_type(i32 x, f64 y):
     """
     >>> cpdef_ctuple_return_type(1, 2)
     (1, 2.0)
@@ -213,7 +213,7 @@ def test_pure_python_declaration(x, y):
     print(cython.typeof(b))
     return (a, b)
 
-def test_equality((int, int) ab, (int, int) cd, (int, int) ef):
+def test_equality((i32, i32) ab, (i32, i32) cd, (i32, i32) ef):
     """
     >>> test_equality((1, 2), (3, 4), (5, 6))
     True
@@ -224,7 +224,7 @@ def test_equality((int, int) ab, (int, int) cd, (int, int) ef):
     """
     return ab < cd <= ef
 
-def test_equality_different_types((double, int) ab, (int, int) cd, (long, int) ef):
+def test_equality_different_types((f64, i32) ab, (i32, i32) cd, (i64, i32) ef):
     """
     >>> test_equality((1, 2), (3, 4), (5, 6))
     True
@@ -235,21 +235,21 @@ def test_equality_different_types((double, int) ab, (int, int) cd, (long, int) e
     """
     return ab < cd <= ef
 
-def test_binop((int, int) ab, (double, double) cd):
+def test_binop((i32, i32) ab, (f64, f64) cd):
     """
     >>> test_binop((1, 2), (3, 4))
     (1, 2, 3.0, 4.0)
     """
     return ab + cd
 
-def test_mul((int, int) ab, int c):
+def test_mul((i32, i32) ab, i32 c):
     """
     >>> test_mul((1, 2), 3)
     (1, 2, 1, 2, 1, 2)
     """
     return ab * c
 
-def test_mul_to_ctuple((int, int) ab, int c):
+def test_mul_to_ctuple((i32, i32) ab, i32 c):
     """
     >>> test_mul_to_ctuple((1, 2), 2)
     (1, 2, 1, 2)
@@ -260,7 +260,7 @@ def test_mul_to_ctuple((int, int) ab, int c):
     result: tuple[cython.int, cython.int, cython.int, cython.int] = ab * c
     return result
 
-def test_unop((int, int) ab):
+def test_unop((i32, i32) ab):
     """
     >>> test_unop((1, 2))
     True

@@ -64,7 +64,7 @@ def mod_int_py(i32 a, i32 b):
     return a % b
 
 @cython.cdivision(false)
-def mod_short_py(short a, short b):
+def mod_short_py(i16 a, i16 b):
     return a % b
 
 @cython.cdivision(false)
@@ -72,7 +72,7 @@ def mod_double_py(f64 a, f64 b):
     return a % b
 
 @cython.cdivision(false)
-def mod_float_py(float a, float b):
+def mod_float_py(f32 a, f32 b):
     return a % b
 
 @cython.cdivision(true)
@@ -80,7 +80,7 @@ def mod_int_c(i32 a, i32 b):
     return a % b
 
 @cython.cdivision(true)
-def mod_float_c(float a, float b):
+def mod_float_c(f32 a, f32 b):
     return a % b
 
 @cython.cdivision(true)
@@ -96,7 +96,7 @@ def div_int_c(i32 a, i32 b):
     return a // b
 
 @cython.cdivision(false)
-def test_cdiv_cmod(short a, short b):
+def test_cdiv_cmod(i16 a, i16 b):
     let short q = cython.cdiv(a, b)
     let short r = cython.cmod(a, b)
     return q, r
@@ -164,7 +164,7 @@ def mod_div_zero_int(i32 a, i32 b, i32 c):
         return unicode(ex)
 
 @cython.cdivision(false)
-def mod_div_zero_float(float a, float b, float c):
+def mod_div_zero_float(f32 a, f32 b, f32 c):
     """
     >>> mod_div_zero_float(25, 10, 2)
     2.5

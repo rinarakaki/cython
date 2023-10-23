@@ -119,9 +119,9 @@ def methods():
         return c()
     return f
 
-def class_body(int x, y):
+def class_body(i32 x, y):
     """
-    >>> c = class_body(2,99)
+    >>> c = class_body(2, 99)
     >>> c.z
     (3, 2)
     >>> c.x     #doctest: +ELLIPSIS

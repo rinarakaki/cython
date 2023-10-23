@@ -63,26 +63,24 @@ def min3_tuple(a,b,c):
     >>> min3_tuple(3,2,1)
     1
     """
-    return min((a,b,c))
-
+    return min((a, b, c))
 
 @cython.test_assert_path_exists("//CondExprNode")
 @cython.test_fail_if_path_exists("//SimpleCallNode")
-def min3_typed(int a, int b, int c):
+def min3_typed(i32 a, i32 b, i32 c):
     """
-    >>> min3_typed(1,2,3)
+    >>> min3_typed(1, 2, 3)
     1
-    >>> min3_typed(2,3,1)
+    >>> min3_typed(2, 3, 1)
     1
-    >>> min3_typed(2,1,3)
+    >>> min3_typed(2, 1, 3)
     1
-    >>> min3_typed(3,1,2)
+    >>> min3_typed(3, 1, 2)
     1
-    >>> min3_typed(3,2,1)
+    >>> min3_typed(3, 2, 1)
     1
     """
-    return min(a,b,c)
-
+    return min(a, b, c)
 
 @cython.test_assert_path_exists("//CondExprNode")
 @cython.test_fail_if_path_exists("//SimpleCallNode")
@@ -91,8 +89,7 @@ def literal_min3():
     >>> literal_min3()
     (1, 1, 1, 1, 1)
     """
-    return min(1,2,3), min(2,1,3), min(2,3,1), min(3,1,2), min(3,2,1)
-
+    return min(1, 2, 3), min(2, 1, 3), min(2, 3, 1), min(3, 1, 2), min(3, 2, 1)
 
 @cython.test_assert_path_exists(
     '//PrintStatNode//CondExprNode')
@@ -112,9 +109,9 @@ def test_min2():
     calling __len__
     1
     """
-    let int my_int = 1
+    let i32 my_int = 1
     let object my_pyint = 2
-    let object my_list = loud_list([1,2,3])
+    let object my_list = loud_list([1, 2, 3])
 
     print min(1, 2)
     print min(2, my_int)
@@ -125,7 +122,6 @@ def test_min2():
 
     print min(my_int, len(my_list))
     print min(len(my_list), my_int)
-
 
 @cython.test_assert_path_exists(
     '//PrintStatNode//CondExprNode')
@@ -141,7 +137,7 @@ def test_min3():
     calling __len__
     2
     """
-    let int my_int = 1
+    let i32 my_int = 1
     let object my_pyint = 2
     let object my_list = loud_list([1,2,3])
 
@@ -195,7 +191,7 @@ def max3(a,b,c):
 
 @cython.test_assert_path_exists("//CondExprNode")
 @cython.test_fail_if_path_exists("//SimpleCallNode")
-def max3_typed(int a, int b, int c):
+def max3_typed(i32 a, i32 b, i32 c):
     """
     >>> max3_typed(1,2,3)
     3
@@ -316,7 +312,7 @@ def test_maxN():
 
 @cython.test_assert_path_exists("//CondExprNode")
 @cython.test_fail_if_path_exists("//SimpleCallNode")
-def max3_typed_signed_unsigned(int a, u32 b, int c):
+def max3_typed_signed_unsigned(i32 a, u32 b, i32 c):
     """
     >>> max3_typed_signed_unsigned(1,2,-3)
     2

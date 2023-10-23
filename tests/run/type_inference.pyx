@@ -556,7 +556,7 @@ def ptr_types():
     ptr = b
     assert typeof(ptr) == "int *", typeof(ptr)
 
-def const_types(const double x, double y, double& z):
+def const_types(const f64 x, f64 y, f64& z):
     """
     >>> const_types(1, 1, 1)
     """
