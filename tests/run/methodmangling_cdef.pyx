@@ -35,7 +35,7 @@ cdef class CDefTest:
 
     def __private(self): return 8
 
-    cdef __private_cdef(self): return 8
+    fn __private_cdef(self): return 8
 
     def get(self):
         """
@@ -92,4 +92,4 @@ cdef class InPxd:
     def __init__(self):
         self.__y = 2
 
-    cdef int __private_cdef(self): return 8
+    fn int __private_cdef(self): return 8

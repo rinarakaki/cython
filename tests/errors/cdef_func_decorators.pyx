@@ -13,11 +13,11 @@ cpdef also_cant_be_decorated():
 
 cdef class C:
     @wraps
-    cdef still_cant_be_decorated(self):
+    fn still_cant_be_decorated(self):
         pass
 
     @property
-    cdef property_only_works_for_extern_classes(self):
+    fn property_only_works_for_extern_classes(self):
         pass
 
     @wraps
@@ -26,7 +26,7 @@ cdef class C:
 
     @wraps
     @wraps
-    cdef two_is_just_as_bad_as_one(self):
+    fn two_is_just_as_bad_as_one(self):
         pass
 
 _ERRORS = """

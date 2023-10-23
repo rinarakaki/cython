@@ -377,8 +377,8 @@ _WARNINGS = """
 34:66: PEP-484 recommends 'typing.Optional[...]' for arguments that can be None.
 60:44: Found Python 2.x type 'long' in a Python annotation. Did you mean to use 'cython.long'?
 60:70: PEP-484 recommends 'typing.Optional[...]' for arguments that can be None.
-86:43: Found Python 2.x type 'long' in a Python annotation. Did you mean to use 'cython.long'?
-86:69: PEP-484 recommends 'typing.Optional[...]' for arguments that can be None.
+86:42: Found Python 2.x type 'long' in a Python annotation. Did you mean to use 'cython.long'?
+86:68: PEP-484 recommends 'typing.Optional[...]' for arguments that can be None.
 144:30: Tuples cannot be declared as simple tuples of types. Use 'tuple[type1, type2, ...]'.
 144:59: Tuples cannot be declared as simple tuples of types. Use 'tuple[type1, type2, ...]'.
 149:13: Tuples cannot be declared as simple tuples of types. Use 'tuple[type1, type2, ...]'.

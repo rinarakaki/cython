@@ -16,7 +16,7 @@ def fail_exceptmaybeminus2(bad):
 
 cdef extern from *:
     # define this as extern since Cython converts internal "except*" to "except -1"
-    cdef i32 exceptstar(i32 bad) except *
+    fn i32 exceptstar(i32 bad) except *
 
     struct mystruct:
         i32 (*func_ptr)(i32 param) nogil
