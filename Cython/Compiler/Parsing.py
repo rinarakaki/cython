@@ -3480,7 +3480,7 @@ def p_struct_enum(s, pos, ctx):
 def p_visibility(s, prev_visibility):
     pos = s.position()
     visibility = prev_visibility
-    if s.sy in ("pub",) or s.sy == 'IDENT' and s.systring in ("extern", "pub", "public", "readonly"):
+    if s.sy in ("pub", "extern") or s.sy == 'IDENT' and s.systring in ("public", "readonly"):
         if s.sy == "pub":
             visibility = "public"
         else:
