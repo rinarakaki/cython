@@ -53,10 +53,10 @@ cdef class Pos:
 
     cdef Pos clone(self)
 
-cdef bint constraint_pass(Pos pos, last_move=*) except -123
-cdef list find_moves(Pos pos, i32 strategy, i32 order)
-cdef inline i32 play_move(Pos pos, tuple move) except -123
-cdef print_pos(Pos pos, output)
-cdef i32 solved(Pos pos, output, bint verbose=*) except -123
-cdef i32 solve_step(Pos prev, i32 strategy, order, output, bint first=*) except -123
-cdef check_valid(Pos pos)
+fn bint constraint_pass(Pos pos, last_move=*) except -123
+fn list find_moves(Pos pos, i32 strategy, i32 order)
+fn inline i32 play_move(Pos pos, tuple move) except -123
+fn print_pos(Pos pos, output)
+fn i32 solved(Pos pos, output, bint verbose=*) except -123
+fn i32 solve_step(Pos prev, i32 strategy, order, output, bint first=*) except -123
+fn check_valid(Pos pos)

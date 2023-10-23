@@ -6,8 +6,8 @@ from ..Plex.Scanners cimport Scanner
 
 cdef unicode any_string_prefix, IDENT
 
-cdef get_lexicon()
-cdef initial_compile_time_env()
+fn get_lexicon()
+fn initial_compile_time_env()
 
 ## methods commented with '##' out are used by Parsing.py when compiled.
 

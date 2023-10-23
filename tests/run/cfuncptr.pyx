@@ -68,7 +68,7 @@ def call_exceptminus2_through_exceptmaybeminus2_pointer(bad):
     fptr = exceptminus2
     return fptr(bad)
 
-cdef int noexcept_func():  # noexcept
+fn int noexcept_func():  # noexcept
     return 0
 
 def call_noexcept_func_except_star():

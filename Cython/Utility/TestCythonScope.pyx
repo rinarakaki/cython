@@ -41,12 +41,12 @@ cdef class TestClass(object):
         print("Hello from def_cname_method", value)
 
 @cname('__pyx_test_call_other_cy_util')
-cdef test_call(obj):
+fn test_call(obj):
     print('test_call')
     __pyx_test_dep(obj)
 
 @cname('__pyx_TestClass_New')
-cdef _testclass_new(i32 value):
+fn _testclass_new(i32 value):
     return TestClass(value)
 
 ########### TestDep ##########
@@ -54,17 +54,17 @@ cdef _testclass_new(i32 value):
 from __future__ import print_function
 
 @cname('__pyx_test_dep')
-cdef test_dep(obj):
+fn test_dep(obj):
     print('test_dep', obj)
 
 ########## TestScope ##########
 
 @cname('__pyx_testscope')
-cdef object _testscope(i32 value):
+fn object _testscope(i32 value):
     return f"hello from cython scope, value={value}"
 
 ########## View.TestScope ##########
 
 @cname('__pyx_view_testscope')
-cdef object _testscope(i32 value):
+fn object _testscope(i32 value):
     return f"hello from cython.view scope, value={value}"

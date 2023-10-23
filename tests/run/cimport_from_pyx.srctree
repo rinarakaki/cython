@@ -60,7 +60,7 @@ cdef class Bclass:
     cdef f64 getOtherValue(self):
         return self.anotherValue
 
-cdef i64 Bfunc(Btypedef x):
+fn i64 Bfunc(Btypedef x):
     return x[0]
 
 @cython.cclass

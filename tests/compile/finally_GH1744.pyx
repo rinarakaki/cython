@@ -3,7 +3,7 @@
 # This caused a "maximum recursion depth exceeded" at some point,
 # see https://github.com/cython/cython/issues/1744
 
-cdef inline bint g(i32 x, i32 y): return true
+fn inline bint g(i32 x, i32 y): return true
 
 fn cython_bug(i32 u):
     try:

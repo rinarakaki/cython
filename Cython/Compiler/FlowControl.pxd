@@ -94,7 +94,7 @@ cdef class MessageCollection:
 
 @cython.locals(dirty=bint, block=ControlBlock, parent=ControlBlock,
                assmt=NameAssignment)
-cdef check_definitions(ControlFlow flow, dict compiler_directives)
+fn check_definitions(ControlFlow flow, dict compiler_directives)
 
 @cython.final
 cdef class ControlFlowAnalysis(CythonTransform):

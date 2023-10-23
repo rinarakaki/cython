@@ -21,7 +21,7 @@ fn int any_exception_value3(int x, int y) except -2:
 fn int any_exception_value4(int x, int y) except? -2:
     return 2
 
-cdef int optimised_exception_value(int x, int y) except *:  # => except? -1
+fn int optimised_exception_value(int x, int y) except *:  # => except? -1
     return 2
 
 

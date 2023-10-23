@@ -9,7 +9,7 @@ cimport cython
 loglevel = 0
 reflog = []
 
-cdef log(level, action, obj, lineno):
+fn log(level, action, obj, lineno):
     if reflog is None:
         # can happen during finalisation
         return
@@ -67,7 +67,7 @@ cdef class Context(object):
             self.errors.append(msg)
         return u"\n".join([f'REFNANNY: {error}' for error in self.errors]) if self.errors else None
 
-cdef void report_unraisable(filename, isize lineno, object e=None):
+fn void report_unraisable(filename, isize lineno, object e=None):
     try:
         if e is None:
             import sys
@@ -80,7 +80,7 @@ cdef void report_unraisable(filename, isize lineno, object e=None):
 # exception has been fetched, in case we are called from
 # exception-handling code.
 
-cdef PyObject* SetupContext(char* funcname, isize lineno, char* filename) except NULL:
+fn PyObject* SetupContext(char* funcname, isize lineno, char* filename) except NULL:
     if Context is None:
         # Context may be None during finalize phase.
         # In that case, we don't want to be doing anything fancy
@@ -98,7 +98,7 @@ cdef PyObject* SetupContext(char* funcname, isize lineno, char* filename) except
     PyErr_Restore(type, value, tb)
     return result
 
-cdef void GOTREF(PyObject* ctx, PyObject* p_obj, isize lineno):
+fn void GOTREF(PyObject* ctx, PyObject* p_obj, isize lineno):
     if ctx == NULL: return
     cdef (PyObject*) type = NULL, value = NULL, tb = NULL
     PyErr_Fetch(&type, &value, &tb)
@@ -114,7 +114,7 @@ cdef void GOTREF(PyObject* ctx, PyObject* p_obj, isize lineno):
         PyErr_Restore(type, value, tb)
         return  # swallow any exceptions
 
-cdef bint GIVEREF_and_report(PyObject* ctx, PyObject* p_obj, isize lineno):
+fn bint GIVEREF_and_report(PyObject* ctx, PyObject* p_obj, isize lineno):
     if ctx == NULL: return 1
     cdef (PyObject*) type = NULL, value = NULL, tb = NULL
     cdef bint decref_ok = false
@@ -131,20 +131,20 @@ cdef bint GIVEREF_and_report(PyObject* ctx, PyObject* p_obj, isize lineno):
         PyErr_Restore(type, value, tb)
         return decref_ok  # swallow any exceptions
 
-cdef void GIVEREF(PyObject* ctx, PyObject* p_obj, isize lineno):
+fn void GIVEREF(PyObject* ctx, PyObject* p_obj, isize lineno):
     GIVEREF_and_report(ctx, p_obj, lineno)
 
-cdef void INCREF(PyObject* ctx, PyObject* obj, isize lineno):
+fn void INCREF(PyObject* ctx, PyObject* obj, isize lineno):
     Py_XINCREF(obj)
     PyThreadState_Get()  # Check that we hold the GIL
     GOTREF(ctx, obj, lineno)
 
-cdef void DECREF(PyObject* ctx, PyObject* obj, isize lineno):
+fn void DECREF(PyObject* ctx, PyObject* obj, isize lineno):
     if GIVEREF_and_report(ctx, obj, lineno):
         Py_XDECREF(obj)
     PyThreadState_Get()  # Check that we hold the GIL
 
-cdef void FinishContext(PyObject** ctx):
+fn void FinishContext(PyObject** ctx):
     if ctx == NULL or ctx[0] == NULL: return
     cdef (PyObject*) type = NULL, value = NULL, tb = NULL
     cdef object errors = None

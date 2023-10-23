@@ -44,7 +44,7 @@ def extract_names(path):
 
 cdef dict type_names = {}
 
-cdef print_tree(node* n, indent=""):
+fn print_tree(node* n, indent=""):
     if not type_names:
         type_names.update(extract_names(
             os.path.join(distutils.sysconfig.get_python_inc(), 'token.h')))

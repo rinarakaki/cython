@@ -23,8 +23,8 @@ cdef class StateMap:
 @cython.locals(new_machine=Machines.FastMachine, transitions=TransitionMap)
 cpdef nfa_to_dfa(Machines.Machine old_machine, debug=*)
 
-cdef set_epsilon_closure(dict state_set)
-cdef dict epsilon_closure(Machines.Node state)
+fn set_epsilon_closure(dict state_set)
+fn dict epsilon_closure(Machines.Node state)
 
 @cython.locals(state_set_2=dict, state2=Machines.Node)
-cdef add_to_epsilon_closure(dict state_set, Machines.Node state)
+fn add_to_epsilon_closure(dict state_set, Machines.Node state)

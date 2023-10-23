@@ -23,8 +23,8 @@ cdef class PostParse(ScopeTrackingTransform):
 #def eliminate_rhs_duplicates(list expr_list_list, list ref_node_sequence)
 #def sort_common_subsequences(list items)
 @cython.locals(starred_targets=isize, lhs_size=isize, rhs_size=isize)
-cdef flatten_parallel_assignments(list input, list output)
-cdef map_starred_assignment(list lhs_targets, list starred_assignments, list lhs_args, list rhs_args)
+fn flatten_parallel_assignments(list input, list output)
+fn map_starred_assignment(list lhs_targets, list starred_assignments, list lhs_args, list rhs_args)
 
 #class PxdPostParse(CythonTransform, SkipDeclarations):
 #class InterpretCompilerDirectives(CythonTransform, SkipDeclarations):
