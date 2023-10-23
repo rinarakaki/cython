@@ -38,7 +38,7 @@ def unused_and_unassigned():
 def unused_generic(*args, **kwargs):
     pass
 
-def unused_in_closure(a,b,c):
+def unused_in_closure(a, b, c):
     x = 1
     def inner():
         nonlocal c

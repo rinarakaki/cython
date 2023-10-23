@@ -50,7 +50,7 @@ def truediv_int(i32 x):
 
 def print_function(*args):
     """
-    >>> print_function(1,2,3)
+    >>> print_function(1, 2, 3)
     1 2 3
     """
     print(*args) # this isn't valid Py2 syntax

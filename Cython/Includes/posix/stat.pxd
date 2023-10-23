@@ -36,12 +36,12 @@ extern from "<sys/stat.h>" nogil:
 extern from "<unistd.h>" nogil:
     int chmod(const char *, mode_t)
     int fchmod(int, mode_t)
-    int fchmodat(int, const char *, mode_t, int flags)
+    int fchmodat(int, const char *, mode_t, i32 flags)
 
     int stat(const char *, struct_stat *)
     int lstat(const char *, struct_stat *)
     int fstat(int, struct_stat *)
-    int fstatat(int, const char *, struct_stat *, int flags)
+    int fstatat(int, const char *, struct_stat *, i32 flags)
 
     int mkdir(const char *, mode_t)
     int mkdirat(int, const char *, mode_t)
@@ -51,7 +51,7 @@ extern from "<unistd.h>" nogil:
     int mknodat(int, const char *, mode_t, dev_t)
 
     int futimens(int, const timespec *)
-    int utimensat(int, const char *, const timespec *, int flags)
+    int utimensat(int, const char *, const timespec *, i32 flags)
 
     # Macros for st_mode
     mode_t S_ISREG(mode_t)

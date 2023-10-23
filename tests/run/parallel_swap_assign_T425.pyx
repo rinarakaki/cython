@@ -65,13 +65,13 @@ def swap_cmp5(a, b, c, d, e):
 @cython.test_fail_if_path_exists(
     "//ParallelAssignmentNode/SingleAssignmentNode//CoerceToTempNode[@use_managed_ref=False]",
     )
-def swap_py(a,b):
+def swap_py(a, b):
     """
     >>> swap_py(1, 2)
     (1, 2)
     """
     a,a = b,a
-    return a,b
+    return a, b
 
 cdef class A:
     cdef readonly object x
@@ -129,7 +129,7 @@ def swap_recursive_attr_values(B a, B b):
     (1, 2, 3, 4)
     >>> b.a1.x, b.a1.y, b.a2.x, b.a2.y
     (5, 6, 7, 8)
-    >>> swap_recursive_attr_values(a,b)
+    >>> swap_recursive_attr_values(a, b)
     >>> a.a1.x, a.a1.y, a.a2.x, a.a2.y
     (2, 1, 4, 4)
     >>> b.a1.x, b.a1.y, b.a2.x, b.a2.y
@@ -142,7 +142,7 @@ def swap_recursive_attr_values(B a, B b):
     >>> class B:
     ...     def __init__(self, x1, y1, x2, y2):
     ...         self.a1, self.a2 = A(x1, y1), A(x2, y2)
-    >>> a, b = B(1,2,3,4), B(5,6,7,8)
+    >>> a, b = B(1, 2, 3, 4), B(5,6,7,8)
     >>> a.a1, a.a2 = a.a2, a.a1
     >>> b.a1, b.a2 = b.a2, b.a1
     >>> a.a1, a.a1.x, a.a2.y, a.a2, a.a1.y, a.a2.x = a.a2, a.a2.y, a.a1.x, a.a1, a.a2.x, a.a1.y

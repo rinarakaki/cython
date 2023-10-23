@@ -103,7 +103,7 @@ fn void slice_array() nogil:
     let i32[4] a = b[:]
 
 fn i32[:] main() nogil:
-    let i32[4] a = [1,2,3,4]
+    let i32[4] a = [1, 2, 3, 4]
     return a
 
 

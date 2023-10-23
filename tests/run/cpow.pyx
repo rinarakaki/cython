@@ -113,7 +113,7 @@ def soft_complex_coerced_to_complex(f64 a, f64 b):
     # This is always fine, but just check it works
     c = a**b
     assert cython.typeof(c) == "soft double complex"
-    let f64 complex d = c
+    let double complex d = c
     return d
 
 def soft_complex_type_inference_1(f64 a, f64 b, pick):

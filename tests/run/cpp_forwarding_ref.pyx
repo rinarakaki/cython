@@ -7,12 +7,12 @@ extern from *:
     """
     #include <utility>
 
-    const char* f(int& x) {
+    const char* f(i32& x) {
         (void) x;
         return "lvalue-ref";
     }
 
-    const char* f(int&& x) {
+    const char* f(i32&& x) {
         (void) x;
         return "rvalue-ref";
     }

@@ -1,8 +1,8 @@
-a,b = 'a *','b *' # use non-interned strings
+a, b = 'a *','b *' # use non-interned strings
 
-def and2_assign(a,b):
+def and2_assign(a, b):
     """
-    >>> a,b = 'a *','b *' # use non-interned strings
+    >>> a, b = 'a *','b *' # use non-interned strings
     >>> and2_assign(2,3) == (2 and 3)
     True
     >>> and2_assign('a', 'b') == ('a' and 'b')
@@ -13,7 +13,7 @@ def and2_assign(a,b):
     c = a and b
     return c
 
-def and2(a,b):
+def and2(a, b):
     """
     >>> and2(2,3) == (2 and 3)
     True
@@ -32,7 +32,7 @@ def and2(a,b):
     """
     return a and b
 
-def and3(a,b,c):
+def and3(a, b, c):
     """
     >>> and3(0,1,2) == (0 and 1 and 2)
     True
@@ -42,12 +42,12 @@ def and3(a,b,c):
     d = a and b and c
     return d
 
-def and2_no_result(a,b):
+def and2_no_result(a, b):
     """
     >>> and2_no_result(2,3)
     >>> and2_no_result(0,2)
     >>> and2_no_result('a','b')
-    >>> and2_no_result(a,b)
+    >>> and2_no_result(a, b)
     >>> a and b
     'b *'
     """

@@ -17,12 +17,12 @@ extern from "<limits.h>":
 
     const i32 INT_MIN
     const i32 INT_MAX
-    const unsigned int UINT_MAX
+    const u32 UINT_MAX
 
     const i64 LONG_MIN
     const i64 LONG_MAX
-    const unsigned long ULONG_MAX
+    const u64 ULONG_MAX
 
     const i128 LLONG_MIN
     const i128 LLONG_MAX
-    const unsigned long long ULLONG_MAX
+    const u64 long ULLONG_MAX

@@ -28,7 +28,7 @@ def c(a=10, b=20, **kwds):
     10 20 0
     >>> c(1)
     1 20 0
-    >>> c(1,2)
+    >>> c(1, 2)
     1 2 0
     >>> c(key=None)
     10 20 1
@@ -46,9 +46,9 @@ def d(a, b=1, *args, **kwds):
     TypeError: d() takes at least 1 positional argument (0 given)
     >>> d(1)
     1 1 0 0
-    >>> d(1,2)
+    >>> d(1, 2)
     1 2 0 0
-    >>> d(1,2,3)
+    >>> d(1, 2, 3)
     1 2 1 0
     >>> d(key=None)
     Traceback (most recent call last):
@@ -69,9 +69,9 @@ def e(*args, **kwargs):
     0 0
     >>> e(1)
     1 0
-    >>> e(1,2)
+    >>> e(1, 2)
     2 0
-    >>> e(1,2)
+    >>> e(1, 2)
     2 0
     >>> e(a=4)
     0 1
@@ -141,7 +141,7 @@ def g(**kwargs):
     >>> g(1,2, d=5)
     Traceback (most recent call last):
     TypeError: g() takes exactly 0 positional arguments (2 given)
-    >>> g(1,2)
+    >>> g(1, 2)
     Traceback (most recent call last):
     TypeError: g() takes exactly 0 positional arguments (2 given)
     >>> g(1)
@@ -205,7 +205,7 @@ def test_pos_args(f):
     3
     3
     """
-    f(1,2,3)
+    f(1, 2, 3)
     f(1,2, *args)
     f(1,2, *(7,8,9))
     f(*args)

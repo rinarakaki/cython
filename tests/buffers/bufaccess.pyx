@@ -807,7 +807,7 @@ def printbuf_int_2d(o, shape):
     released A
 
     Indirect:
-    >>> printbuf_int_2d(IntMockBuffer("A", [[1,2],[3,4]]), (2,2))
+    >>> printbuf_int_2d(IntMockBuffer("A", [[1, 2],[3,4]]), (2,2))
     acquired A
     1 2 END
     3 4 END

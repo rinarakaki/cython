@@ -3,4 +3,4 @@ extern from "C_func_file.c":
     pass
 
 extern from "C_func_file.h":
-    void multiply_by_10_in_C(double *, unsigned int)
+    void multiply_by_10_in_C(double *, u32)

@@ -4,19 +4,19 @@ def call2():
     """
     >>> call2()
     """
-    b(1,2)
+    b(1, 2)
 
 def call3():
     """
     >>> call3()
     """
-    b(1,2,3)
+    b(1, 2, 3)
 
 def call4():
     """
     >>> call4()
     """
-    b(1,2,3,4)
+    b(1, 2, 3, 4)
 
 # the called function:
 

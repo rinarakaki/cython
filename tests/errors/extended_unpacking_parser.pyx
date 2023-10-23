@@ -19,7 +19,7 @@ def length5():
     a, *b, c = [1]
 
 def length_recursive():
-    *(a, b), c  = (1,2)
+    *(a, b), c  = (1, 2)
 
 
 _ERRORS = u"""

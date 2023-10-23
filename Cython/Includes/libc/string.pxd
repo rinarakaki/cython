@@ -8,32 +8,32 @@ extern from *:
     ctypedef const void const_void "const void"
 
 extern from "<string.h>" nogil:
-    fn void *memcpy  (void *pto, const void *pfrom, size_t size)
-    fn void *memmove (void *pto, const void *pfrom, size_t size)
-    fn void *memset  (void *block, i32 c, size_t size)
-    fn i32  memcmp   (const void *a1, const void *a2, size_t size)
-    fn void *memchr  (const void *block, i32 c, size_t size)
+    fn void *memcpy  (void *pto, const void *pfrom, usize size)
+    fn void *memmove (void *pto, const void *pfrom, usize size)
+    fn void *memset  (void *block, i32 c, usize size)
+    fn i32  memcmp   (const void *a1, const void *a2, usize size)
+    fn void *memchr  (const void *block, i32 c, usize size)
 
-    fn void *memchr  (const void *block, i32 c, size_t size)
-    fn void *memrchr (const void *block, i32 c, size_t size)
+    fn void *memchr  (const void *block, i32 c, usize size)
+    fn void *memrchr (const void *block, i32 c, usize size)
 
     fn usize strlen   (const char *s)
     fn char   *strcpy  (char *pto, const char *pfrom)
-    fn char   *strncpy (char *pto, const char *pfrom, size_t size)
+    fn char   *strncpy (char *pto, const char *pfrom, usize size)
     fn char   *strdup  (const char *s)
-    fn char   *strndup (const char *s, size_t size)
+    fn char   *strndup (const char *s, usize size)
     fn char   *strcat  (char *pto, const char *pfrom)
-    fn char   *strncat (char *pto, const char *pfrom, size_t size)
+    fn char   *strncat (char *pto, const char *pfrom, usize size)
 
     fn i32 strcmp (const char *s1, const char *s2)
     fn i32 strcasecmp (const char *s1, const char *s2)
-    fn i32 strncmp (const char *s1, const char *s2, size_t size)
-    fn i32 strncasecmp (const char *s1, const char *s2, size_t n)
+    fn i32 strncmp (const char *s1, const char *s2, usize size)
+    fn i32 strncasecmp (const char *s1, const char *s2, usize n)
 
     fn i32    strcoll (const char *s1, const char *s2)
-    fn usize strxfrm (char *pto, const char *pfrom, size_t size)
+    fn usize strxfrm (char *pto, const char *pfrom, usize size)
 
-    fn char *strerror (int errnum)
+    fn char *strerror (i32 errnum)
 
     fn char *strchr  (const char *string, i32 c)
     fn char *strrchr (const char *string, i32 c)

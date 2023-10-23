@@ -56,7 +56,7 @@ def set_iter_comp_frozenset(set s):
 @cython.test_assert_path_exists(
     "//SetIterationNextNode",
 )
-def set_iter_modify(set s, int value):
+def set_iter_modify(set s, i32 value):
     """
     >>> s = set([1, 2, 3])
     >>> sorted(set_iter_modify(s, 1))

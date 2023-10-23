@@ -12,8 +12,8 @@ extern from "<bit>" namespace "std" nogil:
     fn i32 bit_width[T](T)
 
     # rotating (gcc >= 9.0, clang >= 9.0)
-    fn T rotl[T](T, int shift)
-    fn T rotr[T](T, int shift)
+    fn T rotl[T](T, i32 shift)
+    fn T rotr[T](T, i32 shift)
 
     # counting (gcc >= 9.0, clang >= 9.0)
     fn i32 countl_zero[T](T)

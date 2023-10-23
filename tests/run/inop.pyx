@@ -1,25 +1,25 @@
 
 cimport cython
 
-def f(a,b):
+def f(a, b):
     """
     >>> f(1,[1, 2, 3])
     True
     >>> f(5,[1, 2, 3])
     False
-    >>> f(2,(1,2,3))
+    >>> f(2,(1, 2, 3))
     True
     """
     let object result = a in b
     return result
 
-def g(a,b):
+def g(a, b):
     """
     >>> g(1,[1, 2, 3])
     1
     >>> g(5,[1, 2, 3])
     0
-    >>> g(2,(1,2,3))
+    >>> g(2,(1, 2, 3))
     1
     """
     let i32 result = a in b
@@ -27,7 +27,7 @@ def g(a,b):
 
 def h(b):
     """
-    >>> h([1,2,3,4])
+    >>> h([1, 2, 3, 4])
     True
     >>> h([1,3,4])
     False
@@ -37,7 +37,7 @@ def h(b):
 
 def j(b):
     """
-    >>> j([1,2,3,4])
+    >>> j([1, 2, 3, 4])
     1
     >>> j([1,3,4])
     0
@@ -53,7 +53,7 @@ def k(a):
     >>> k(5)
     0
     """
-    let i32 result = a in [1,2,3,4]
+    let i32 result = a in [1, 2, 3, 4]
     return result
 
 @cython.test_assert_path_exists("//SwitchStatNode")
@@ -65,7 +65,7 @@ def m_list(i32 a):
     >>> m_list(5)
     0
     """
-    let i32 result = a in [1,2,3,4]
+    let i32 result = a in [1, 2, 3, 4]
     return result
 
 @cython.test_assert_path_exists("//SwitchStatNode")
@@ -77,7 +77,7 @@ def m_tuple(i32 a):
     >>> m_tuple(5)
     0
     """
-    let i32 result = a in (1,2,3,4)
+    let i32 result = a in (1, 2, 3, 4)
     return result
 
 @cython.test_assert_path_exists("//SwitchStatNode")
@@ -233,7 +233,7 @@ def conditional_int(i32 a):
     >>> conditional_int(5)
     2
     """
-    return 1 if a in (1,2,3,4) else 2
+    return 1 if a in (1, 2, 3, 4) else 2
 
 @cython.test_assert_path_exists("//SwitchStatNode")
 @cython.test_fail_if_path_exists("//BoolBinopNode", "//PrimaryCmpNode")
@@ -246,7 +246,7 @@ def conditional_object(i32 a):
     >>> conditional_object(5)
     '2'
     """
-    return 1 if a in (1,2,3,4) else '2'
+    return 1 if a in (1, 2, 3, 4) else '2'
 
 @cython.test_assert_path_exists("//SwitchStatNode")
 @cython.test_fail_if_path_exists("//BoolBinopNode", "//PrimaryCmpNode")
@@ -317,7 +317,7 @@ def q(a):
     >>> q(1)
     Traceback (most recent call last):
     TypeError: 'NoneType' object is not iterable
-        >>> l = [1,2,3,4]
+        >>> l = [1, 2, 3, 4]
     >>> l2 = [l[1:],l[:-1],l]
     >>> 2 in l in l2
     True
@@ -331,7 +331,7 @@ def r(a):
     >>> r(2)
     1
     """
-    let object l = [1,2,3,4]
+    let object l = [1, 2, 3, 4]
     let object l2 = [l[1:],l[:-1],l]
     let i32 result = a in l in l2
     return result
@@ -341,7 +341,7 @@ def s(a):
     >>> s(2)
     1
     """
-    let i32 result = a in [1,2,3,4] in [[1, 2, 3],[2,3,4],[1,2,3,4]]
+    let i32 result = a in [1, 2, 3, 4] in [[1, 2, 3],[2,3,4],[1, 2, 3, 4]]
     return result
 
 #@cython.test_assert_path_exists("//ReturnStatNode//BoolNode")
@@ -445,4 +445,4 @@ def test_inop_cascaded_int(i32 x):
     >>> test_inop_cascaded_int(3)
     False
     """
-    return 1 != x in [1,2]
+    return 1 != x in [1, 2]

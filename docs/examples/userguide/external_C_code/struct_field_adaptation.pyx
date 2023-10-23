@@ -21,7 +21,7 @@ extern from "struct_field_adaptation.h":
     # Special declarations conditionally provided above:
     bint HAS_NEWLY_ADDED_FIELD
     int get_newly_added_field "_mylib_get_newly_added_field" (StructType *struct_ptr)
-    void set_newly_added_field "_mylib_set_newly_added_field" (StructType *struct_ptr, int value)
+    void set_newly_added_field "_mylib_set_newly_added_field" (StructType *struct_ptr, i32 value)
 
 
 cdef StructType *some_struct_ptr = get_struct_ptr()

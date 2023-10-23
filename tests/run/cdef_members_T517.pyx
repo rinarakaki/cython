@@ -88,7 +88,7 @@ cdef class A:
     pub f32 f
     pub f64 d
     pub long double g
-    pub f32 complex Zf
+    pub float complex Zf
     pub double complex Zd
     pub long double complex Zg
 
@@ -99,7 +99,7 @@ cdef class A:
     cdef readonly f32 ro_f
     cdef readonly f64 ro_d
     cdef readonly long double ro_g
-    cdef readonly f32 complex ro_Zf
+    cdef readonly float complex ro_Zf
     cdef readonly double complex ro_Zd
     cdef readonly long double complex ro_Zg
 

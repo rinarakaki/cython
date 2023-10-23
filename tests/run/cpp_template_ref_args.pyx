@@ -25,7 +25,7 @@ def test_template_ref_arg(i32 x):
     # Templated reference parameters in method
     # of templated classes were not properly coalesced.
 
-    let Foo[size_t] foo
+    let Foo[usize] foo
     let Bar[int] bar
 
     bar.value = x

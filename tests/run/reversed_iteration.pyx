@@ -25,9 +25,9 @@ def _reversed(it):
 @cython.test_fail_if_path_exists('//ForInStatNode/IteratorNode//SimpleCallNode')
 def reversed_list(list l):
     """
-    >>> [ i for i in _reversed([1,2,3,4]) ]
+    >>> [ i for i in _reversed([1, 2, 3, 4]) ]
     [4, 3, 2, 1]
-    >>> reversed_list([1,2,3,4])
+    >>> reversed_list([1, 2, 3, 4])
     [4, 3, 2, 1]
     >>> reversed_list([])
     []
@@ -47,9 +47,9 @@ def reversed_list(list l):
 @cython.test_fail_if_path_exists('//ForInStatNode/IteratorNode//SimpleCallNode')
 def reversed_tuple(tuple t):
     """
-    >>> [ i for i in _reversed((1,2,3,4)) ]
+    >>> [ i for i in _reversed((1, 2, 3, 4)) ]
     [4, 3, 2, 1]
-    >>> reversed_tuple((1,2,3,4))
+    >>> reversed_tuple((1, 2, 3, 4))
     [4, 3, 2, 1]
     >>> reversed_tuple(())
     []

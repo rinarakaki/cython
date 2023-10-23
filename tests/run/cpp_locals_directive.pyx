@@ -39,10 +39,10 @@ extern from *:
     }
     """
     cdef cppclass C:
-        C(int)
+        C(i32)
         C(int, cppbool)
         int getX() const
-    C make_C(int) except +  # needs a temp to receive
+    C make_C(i32) except +  # needs a temp to receive
 
 # this function just makes sure the output from the destructor can be captured by doctest
 fn void print_C_destructor "print_C_destructor" () with gil:

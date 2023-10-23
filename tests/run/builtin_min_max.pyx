@@ -14,9 +14,9 @@ class loud_list(list):
 
 @cython.test_assert_path_exists("//CondExprNode")
 @cython.test_fail_if_path_exists("//SimpleCallNode")
-def min3(a,b,c):
+def min3(a, b, c):
     """
-    >>> min3(1,2,3)
+    >>> min3(1, 2, 3)
     1
     >>> min3(2,3,1)
     1
@@ -27,14 +27,14 @@ def min3(a,b,c):
     >>> min3(3,2,1)
     1
     """
-    return min(a,b,c)
+    return min(a, b, c)
 
 
 @cython.test_assert_path_exists("//CondExprNode")
 @cython.test_fail_if_path_exists("//SimpleCallNode")
-def min3_list(a,b,c):
+def min3_list(a, b, c):
     """
-    >>> min3_list(1,2,3)
+    >>> min3_list(1, 2, 3)
     1
     >>> min3_list(2,3,1)
     1
@@ -45,14 +45,14 @@ def min3_list(a,b,c):
     >>> min3_list(3,2,1)
     1
     """
-    return min([a,b,c])
+    return min([a, b, c])
 
 
 @cython.test_assert_path_exists("//CondExprNode")
 @cython.test_fail_if_path_exists("//SimpleCallNode")
-def min3_tuple(a,b,c):
+def min3_tuple(a, b, c):
     """
-    >>> min3_tuple(1,2,3)
+    >>> min3_tuple(1, 2, 3)
     1
     >>> min3_tuple(2,3,1)
     1
@@ -173,9 +173,9 @@ def test_minN():
 
 @cython.test_assert_path_exists("//CondExprNode")
 @cython.test_fail_if_path_exists("//SimpleCallNode")
-def max3(a,b,c):
+def max3(a, b, c):
     """
-    >>> max3(1,2,3)
+    >>> max3(1, 2, 3)
     3
     >>> max3(2,3,1)
     3
@@ -186,14 +186,14 @@ def max3(a,b,c):
     >>> max3(3,2,1)
     3
     """
-    return max(a,b,c)
+    return max(a, b, c)
 
 
 @cython.test_assert_path_exists("//CondExprNode")
 @cython.test_fail_if_path_exists("//SimpleCallNode")
 def max3_typed(i32 a, i32 b, i32 c):
     """
-    >>> max3_typed(1,2,3)
+    >>> max3_typed(1, 2, 3)
     3
     >>> max3_typed(2,3,1)
     3
@@ -204,7 +204,7 @@ def max3_typed(i32 a, i32 b, i32 c):
     >>> max3_typed(3,2,1)
     3
     """
-    return max(a,b,c)
+    return max(a, b, c)
 
 
 @cython.test_assert_path_exists("//CondExprNode")
@@ -214,7 +214,7 @@ def literal_max3():
     >>> literal_max3()
     (3, 3, 3, 3, 3)
     """
-    return max(1,2,3), max(2,1,3), max(2,3,1), max(3,1,2), max(3,2,1)
+    return max(1, 2, 3), max(2,1,3), max(2,3,1), max(3,1,2), max(3,2,1)
 
 
 def max1(x):
@@ -325,5 +325,5 @@ def max3_typed_signed_unsigned(i32 a, u32 b, i32 c):
     >>> max3_typed_signed_unsigned(-3,2,1)
     2
     """
-    return max(a,b,c)
+    return max(a, b, c)
 '''

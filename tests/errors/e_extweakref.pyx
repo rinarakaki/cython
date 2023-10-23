@@ -1,19 +1,19 @@
 # mode: error
 
 cdef class C:
-	cdef object __weakref__
+    cdef object __weakref__
 
 cdef class D:
-	pub object __weakref__
+    pub object __weakref__
 
 cdef class E:
-	cdef readonly object __weakref__
+    cdef readonly object __weakref__
 
 fn void f():
-	cdef C c = C()
-	cdef object x
-	x = c.__weakref__
-	c.__weakref__ = x
+    cdef C c = C()
+    cdef object x
+    x = c.__weakref__
+    c.__weakref__ = x
 
 _ERRORS = u"""
 7:12: Illegal use of special attribute __weakref__

@@ -2,14 +2,14 @@ cimport cython
 
 from libc.string cimport strstr
 
-fn cfunc(a,b,c,d):
-    return (a,b,c,d)
+fn cfunc(a, b, c, d):
+    return (a, b, c, d)
 
-cpdef cpfunc(a,b,c,d):
-    return (a,b,c,d)
+cpdef cpfunc(a, b, c, d):
+    return (a, b, c, d)
 
 fn optargs(a, b=2, c=3):
-    return (a,b,c)
+    return (a, b, c)
 
 ctypedef i32 (*cfuncptr_type)(i32 a, i32 b)
 fn i32 cfuncptr(i32 a, i32 b):
@@ -192,7 +192,7 @@ def varargs():
 
 cdef class ExtType:
     fn cmeth(self, a, b, c, d):
-        return (a,b,c,d)
+        return (a, b, c, d)
 
     @cython.test_fail_if_path_exists('//GeneralCallNode')
     @cython.test_assert_path_exists('//SimpleCallNode')
@@ -208,16 +208,16 @@ cdef class ExtType:
         (1, 2, 3, 4)
         (1, 2, 3, 4)
         """
-        print self.cmeth(1,2,3,4)
+        print self.cmeth(1, 2, 3, 4)
         print self.cmeth(1,2,c=3,d=4)
         print self.cmeth(a=1,b=2,c=3,d=4)
         print "EXT"
-        print ext.cmeth(1,2,3,4)
+        print ext.cmeth(1, 2, 3, 4)
         print ext.cmeth(1,2,c=3,d=4)
         print ext.cmeth(a=1,b=2,c=3,d=4)
 
     cpdef cpmeth(self, a, b, c, d):
-        return (a,b,c,d)
+        return (a, b, c, d)
 
     @cython.test_fail_if_path_exists('//GeneralCallNode')
     @cython.test_assert_path_exists('//SimpleCallNode')
@@ -233,16 +233,16 @@ cdef class ExtType:
         (1, 2, 3, 4)
         (1, 2, 3, 4)
         """
-        print self.cpmeth(1,2,3,4)
+        print self.cpmeth(1, 2, 3, 4)
         print self.cpmeth(1,2,c=3,d=4)
         print self.cpmeth(a=1,b=2,c=3,d=4)
         print "EXT"
-        print ext.cpmeth(1,2,3,4)
+        print ext.cpmeth(1, 2, 3, 4)
         print ext.cpmeth(1,2,c=3,d=4)
         print ext.cpmeth(a=1,b=2,c=3,d=4)
 
     fn optargs(self, a=1, b=2):
-        return (a,b)
+        return (a, b)
 
     @cython.test_fail_if_path_exists('//GeneralCallNode')
     @cython.test_assert_path_exists('//SimpleCallNode')
@@ -281,7 +281,7 @@ cdef class ExtType:
         #print ext.optargs(b=4)
 
     cpdef cpmeth_optargs(self, a=1, b=2):
-        return (a,b)
+        return (a, b)
 
     @cython.test_fail_if_path_exists('//GeneralCallNode')
     @cython.test_assert_path_exists('//SimpleCallNode')

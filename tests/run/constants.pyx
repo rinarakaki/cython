@@ -5,7 +5,7 @@ cimport cython
 
 DEF INT_VAL = 1
 
-def _func(a,b,c):
+def _func(a, b, c):
     return a+b+c
 
 @cython.test_fail_if_path_exists("//AddNode")
@@ -212,16 +212,16 @@ def multiplied_nonconst_tuple_arg(x):
     >>> multiplied_nonconst_tuple_arg(0) == (1, 2) * 0
     True
 
-    >>> try: (1,2) * 'abc'
+    >>> try: (1, 2) * 'abc'
     ... except TypeError: pass
     >>> try: multiplied_nonconst_tuple_arg('abc')
     ... except TypeError: pass
-    >>> try: (1,2) * 1.0
+    >>> try: (1, 2) * 1.0
     ... except TypeError: pass
     >>> try: multiplied_nonconst_tuple_arg(1.0)
     ... except TypeError: pass
     """
-    return (1,2) * x
+    return (1, 2) * x
 
 @cython.test_fail_if_path_exists("//MulNode")
 def multiplied_nonconst_tuple_int_arg(i32 x):

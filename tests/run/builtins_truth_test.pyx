@@ -98,7 +98,7 @@ def if_tuple_literal(t):
     False
     """
     if t:
-        if (1,2,3):
+        if (1, 2, 3):
             return true
         else:
             return false

@@ -29,7 +29,7 @@ def fail0(a, b):
 
 def fail1(a, b):
     """
-    >>> fail1(1,2)
+    >>> fail1(1, 2)
     Traceback (most recent call last):
     TypeError: f() takes exactly 2 positional arguments (1 given)
     """

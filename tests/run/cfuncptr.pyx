@@ -36,7 +36,7 @@ def call_cfuncptr():
     spam = grail
     spam()
 
-fn i32 exceptminus2(int bad) except -2:
+fn i32 exceptminus2(i32 bad) except -2:
     if bad:
         raise RuntimeError
     else:
@@ -51,7 +51,7 @@ def call_exceptminus2_through_exceptstar_pointer(bad):
     >>> call_exceptminus2_through_exceptstar_pointer(false)
     0
     """
-    let i32 (*fptr)(int) except *  # GH4770 - should not be treated as except? -1
+    let i32 (*fptr)(i32) except *  # GH4770 - should not be treated as except? -1
     fptr = exceptminus2
     return fptr(bad)
 
@@ -64,7 +64,7 @@ def call_exceptminus2_through_exceptmaybeminus2_pointer(bad):
     >>> call_exceptminus2_through_exceptmaybeminus2_pointer(false)
     0
     """
-    let i32 (*fptr)(int) except ?-2  # exceptions should be compatible
+    let i32 (*fptr)(i32) except ?-2  # exceptions should be compatible
     fptr = exceptminus2
     return fptr(bad)
 

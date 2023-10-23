@@ -19,7 +19,7 @@ extern from *:
     };
     """
     cdef cppclass Test:
-        Test(int) nogil
+        Test(i32) nogil
         int get_value()
 
 def test():

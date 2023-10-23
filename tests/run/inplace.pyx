@@ -1,6 +1,6 @@
 cimport cython
 
-def f(a,b):
+def f(a, b):
     """
     >>> str(f(5, 7))
     '29509034655744'

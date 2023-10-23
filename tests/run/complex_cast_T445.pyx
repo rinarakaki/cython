@@ -5,8 +5,8 @@ def complex_double_cast(f64 x, double complex z):
     >>> complex_double_cast(1, 4-3j)
     ((1+0j), (4-3j))
     """
-    let f64 complex xx = <double complex>x
-    let f64 complex zz = <double complex>z
+    let double complex xx = <double complex>x
+    let double complex zz = <double complex>z
     xx = x
     return xx, zz
 
@@ -15,8 +15,8 @@ def complex_double_int_cast(i32 x, int complex z):
     >>> complex_double_int_cast(2, 2 + 3j)
     ((2+0j), (3+3j))
     """
-    let f64 complex xx = <double complex>x
-    let f64 complex zz = <double complex>(z+1)
+    let double complex xx = <double complex>x
+    let double complex zz = <double complex>(z+1)
     return xx, zz
 
 def complex_int_double_cast(f64 x, double complex z):
@@ -30,7 +30,7 @@ def complex_int_double_cast(f64 x, double complex z):
 
 cdef i32 side_effect_counter = 0
 
-fn f64 complex side_effect(double complex z):
+fn double complex side_effect(double complex z):
     global side_effect_counter
     side_effect_counter += 1
     print "side effect", side_effect_counter, z

@@ -10,8 +10,8 @@ extern from "<signal.h>" nogil:
     sighandler_t SIG_IGN
     sighandler_t SIG_ERR
 
-    sighandler_t signal        (int signum, sighandler_t action)
-    int          raise_"raise" (int signum)
+    sighandler_t signal        (i32 signum, sighandler_t action)
+    int          raise_"raise" (i32 signum)
 
     # Signals
     enum:

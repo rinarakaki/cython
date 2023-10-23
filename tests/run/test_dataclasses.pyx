@@ -761,7 +761,7 @@ class TestCase(unittest.TestCase):
     def test_is_dataclass(self):
         NotDataClass = NotDataClass_TestCase_test_is_dataclass
         self.assertFalse(is_dataclass(0))
-        self.assertFalse(is_dataclass(int))
+        self.assertFalse(is_dataclass(i32))
         self.assertFalse(is_dataclass(NotDataClass))
         self.assertFalse(is_dataclass(NotDataClass()))
         C = C_TestCase_test_is_dataclass
@@ -819,7 +819,7 @@ class TestCase(unittest.TestCase):
         with self.assertRaises(TypeError):
             asdict(C)
         with self.assertRaises(TypeError):
-            asdict(int)
+            asdict(i32)
 
     def test_helper_asdict_copy_values(self):
         C = C_TestCase_test_helper_asdict_copy_values
@@ -916,7 +916,7 @@ class TestCase(unittest.TestCase):
         with self.assertRaises(TypeError):
             astuple(C)
         with self.assertRaises(TypeError):
-            astuple(int)
+            astuple(i32)
 
     def test_helper_astuple_copy_values(self):
         C = C_TestCase_test_helper_astuple_copy_values

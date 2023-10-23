@@ -1,12 +1,12 @@
 
-def pow3(a,b,c):
+def pow3(a, b, c):
     """
     >>> pow3(2,3,5)
     3
     >>> pow3(3,3,5)
     2
     """
-    return pow(a,b,c)
+    return pow(a, b, c)
 
 def pow3_const():
     """
@@ -15,14 +15,14 @@ def pow3_const():
     """
     return pow(2,3,5)
 
-def pow2(a,b):
+def pow2(a, b):
     """
     >>> pow2(2,3)
     8
     >>> pow2(3,3)
     27
     """
-    return pow(a,b)
+    return pow(a, b)
 
 def pow2_const():
     """

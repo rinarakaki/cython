@@ -8,7 +8,7 @@ extern from *:
     """
     class NoAssignIterator {
         public:
-            explicit NoAssignIterator(int pos) : pos_(pos) {}
+            explicit NoAssignIterator(i32 pos) : pos_(pos) {}
             NoAssignIterator(NoAssignIterator&) = delete;
             NoAssignIterator(NoAssignIterator&&) {}
             NoAssignIterator& operator=(NoAssignIterator&) = delete;

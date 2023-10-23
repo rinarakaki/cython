@@ -110,7 +110,7 @@ def mismatch_ints(vector[i32] values1, vector[i32] values2):
         return
     return deref(result.first), deref(result.second)
 
-def is_int_in(vector[i32] values, int target):
+def is_int_in(vector[i32] values, i32 target):
     """
     Test find.
 
@@ -163,7 +163,7 @@ def find_last_int_sequence(vector[i32] values, vector[i32] target):
     else:
         return None
 
-fn bool is_equal(int lhs, int rhs):
+fn bool is_equal(i32 lhs, i32 lhs):
     return lhs == rhs
 
 def find_last_int_sequence2(vector[i32] values, vector[i32] target):
@@ -260,7 +260,7 @@ def in_quote2(string quote, string word):
     """
     return search(quote.begin(), quote.end(), word.begin(), word.end(), &is_equal) != quote.end()
 
-def consecutive_values(string c, int count, char v):
+def consecutive_values(string c, i32 count, char v):
     """
     Test search_n using cppreference example (without std::begin and std::end).
 
@@ -271,7 +271,7 @@ def consecutive_values(string c, int count, char v):
     """
     return search_n(c.begin(), c.end(), count, v) != c.end()
 
-def consecutive_values2(string c, int count, char v):
+def consecutive_values2(string c, i32 count, char v):
     """
     Test search_n using cppreference example (with is_equal predicate).
 

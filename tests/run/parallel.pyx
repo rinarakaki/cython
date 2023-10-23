@@ -16,7 +16,7 @@ def test_parallel():
     >>> test_parallel()
     """
     let i32 maxthreads = openmp.omp_get_max_threads()
-    let i32 *buf = <int *> malloc(sizeof(int) * maxthreads)
+    let i32 *buf = <(i32 *)> malloc(sizeof(int) * maxthreads)
 
     if buf == NULL:
         raise MemoryError
@@ -98,7 +98,7 @@ def test_parallel_catch():
 '''
 
 
-fn void parallel_exception_checked_function(int* ptr, int id) except * nogil:
+fn void parallel_exception_checked_function(int* ptr, i32 id) except * nogil:
     # requires the GIL after each call
     ptr[0] = id;
 
@@ -118,7 +118,7 @@ def test_parallel_call_exception_checked_function():
     test_parallel_call_exception_checked_function()
     """
     let i32 maxthreads = openmp.omp_get_max_threads()
-    let i32 *buf = <int *> malloc(sizeof(int) * maxthreads)
+    let i32 *buf = <(i32 *)> malloc(sizeof(int) * maxthreads)
 
     if buf == NULL:
         raise MemoryError

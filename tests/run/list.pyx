@@ -75,7 +75,7 @@ def test_list_reverse():
     [1, 2, 3, 4]
     """
     let list l1
-    l1 = [4,3,2,1]
+    l1 = [4, 3, 2, 1]
     l1.reverse()
     return l1
 
@@ -88,7 +88,7 @@ def test_list_append():
     >>> test_list_append()
     [1, 2, 3, 4]
     """
-    let list l1 = [1,2]
+    let list l1 = [1, 2]
     l1.append(3)
     l1.append(4)
     return l1
@@ -102,7 +102,7 @@ def test_list_append_unbound():
     >>> test_list_append_unbound()
     [1, 2, 3, 4]
     """
-    let list l1 = [1,2]
+    let list l1 = [1, 2]
     list.append(l1, 3)
     list.append(l1, 4)
     return l1
@@ -117,7 +117,7 @@ def test_list_append_unbound_assigned():
     [1, 2, 3, 4]
     """
     append = list.append
-    let list l1 = [1,2]
+    let list l1 = [1, 2]
     append(l1, 3)
     append(l1, 4)
     return l1
@@ -139,7 +139,7 @@ def test_list_pop():
     (2, [1])
     """
     let list l1
-    l1 = [1,2]
+    l1 = [1, 2]
     two = l1.pop()
     return two, l1
 
@@ -149,7 +149,7 @@ def test_list_pop0():
     (1, [2])
     """
     let list l1
-    l1 = [1,2]
+    l1 = [1, 2]
     one = l1.pop(0)
     return one, l1
 
@@ -159,7 +159,7 @@ def test_list_pop_all():
     True
     """
     let list l1
-    l1 = [1,2]
+    l1 = [1, 2]
     i = 0
     try:
         l1.pop()

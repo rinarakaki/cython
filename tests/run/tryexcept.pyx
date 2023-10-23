@@ -88,7 +88,7 @@ def single_except_global_tuple(x):
     return i
 
 
-def double_except_no_raise(a,b):
+def double_except_no_raise(a, b):
     """
     >>> double_except_no_raise(TypeError, ValueError)
     1
@@ -274,7 +274,7 @@ def tuple_except_index_target_raise(x, a, b, c):
             raise x
     except (a, b), c[1]:
         i = 2
-        assert isinstance(c[1], (a,b))
+        assert isinstance(c[1], (a, b))
     return i
 
 def loop_bare_except_no_raise(a, b, i32 c):

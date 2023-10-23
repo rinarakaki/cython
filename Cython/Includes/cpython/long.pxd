@@ -35,7 +35,7 @@ extern from "Python.h":
 
     object PyLong_FromSize_t(usize v)
     # Return value: New reference.
-    # Return a new PyLongObject object from a C size_t, or NULL on failure.
+    # Return a new PyLongObject object from a C usize, or NULL on failure.
 
     object PyLong_FromLongLong(PY_LONG_LONG v)
     # Return value: New reference.

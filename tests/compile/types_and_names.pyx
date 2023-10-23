@@ -17,7 +17,7 @@ cdef class B(A):
         pass
 
 cdef point P
-cdef point *Ps
+cdef po(i32 *)Ps
 cdef A a
 
 foo(2, 3, [], [], P, P, &P)

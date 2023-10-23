@@ -290,7 +290,7 @@ cdef class ExtTypeWithCMethods:
     fn i32 get_cattr(self):
         return self.cattr
 
-    fn set_cattr(self, int value):
+    fn set_cattr(self, i32 value):
         self.cattr = value
 
 
@@ -400,7 +400,7 @@ cdef class ExtSubTypeWithMoreCMethods(ExtSubTypeWithCMethods):
     fn i32 get_cattr2(self):
         return self.cattr
 
-    fn set_cattr2(self, int value):
+    fn set_cattr2(self, i32 value):
         self.cattr = value
 
 

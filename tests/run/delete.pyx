@@ -10,7 +10,7 @@ class A(object):
     (False, True)
     """
     def f(self):
-        self.refs = [3,2,1]
+        self.refs = [3, 2, 1]
         del self.refs[0]
         return self.refs
 

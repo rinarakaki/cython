@@ -17,7 +17,7 @@ extern from *:
         }
     }
     """
-    void cppf(int) except+*
+    void cppf(i32) except+*
 
 def callcppf(int raiseCpp):
     """

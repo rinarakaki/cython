@@ -18,7 +18,7 @@ def f(a, b, c):
     for a[b] in c:
         i = 1
 
-    for a,b in c:
+    for a, b in c:
         i = 1
 
     for a in b,c:

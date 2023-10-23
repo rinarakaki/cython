@@ -49,7 +49,7 @@ def test3():
     """
     let i32 a[MY_SIZE_A]
     let i32 b[MY_SIZE_B]
-    return sizeof(a)/sizeof(int), sizeof(b)/sizeof(int)
+    return sizeof(a)/sizeof(i32), sizeof(b)/sizeof(i32)
 
 from libc cimport limits
 

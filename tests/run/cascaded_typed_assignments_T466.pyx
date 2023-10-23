@@ -10,7 +10,7 @@ def simple_parallel_typed():
     (1, 2, [1, 2], [1, 2])
     """
     let i32 a,c
-    a, c = d = e = [1,2]
+    a, c = d = e = [1, 2]
     return a, c, d, e
 
 def simple_parallel_int_mix():
@@ -21,7 +21,7 @@ def simple_parallel_int_mix():
     let i32 ai,bi
     let i64 al,bl
     let object ao, bo
-    ai, bi = al, bl = ao, bo = c = d = [1,2]
+    ai, bi = al, bl = ao, bo = c = d = [1, 2]
     return ao, bo, ai, bi, al, bl, c, d
 
 def simple_parallel_int_mix_recursive():

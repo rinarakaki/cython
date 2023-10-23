@@ -28,44 +28,44 @@ extern from "cpp_operators_helper.h" nogil:
         # FIXME: using 'except +' here leads to wrong calls ???
         const_char* operator++()
         const_char* operator--()
-        const_char* operator++(int)
-        const_char* operator--(int)
+        const_char* operator++(i32)
+        const_char* operator--(i32)
 
-        const_char* operator+(int) except +
+        const_char* operator+(i32) except +
         const_char* operator+(int,const TestOps&) except +
-        const_char* operator-(int) except +
+        const_char* operator-(i32) except +
         const_char* operator-(int,const TestOps&) except +
-        const_char* operator*(int) except +
+        const_char* operator*(i32) except +
         # deliberately omitted operator* to test case where only defined outside class
-        const_char* operator/(int) except +
+        const_char* operator/(i32) except +
         const_char* operator/(int,const TestOps&) except +
-        const_char* operator%(int) except +
+        const_char* operator%(i32) except +
         const_char* operator%(int,const TestOps&) except +
 
-        const_char* operator|(int) except +
+        const_char* operator|(i32) except +
         const_char* operator|(int,const TestOps&) except +
-        const_char* operator&(int) except +
+        const_char* operator&(i32) except +
         const_char* operator&(int,const TestOps&) except +
-        const_char* operator^(int) except +
+        const_char* operator^(i32) except +
         const_char* operator^(int,const TestOps&) except +
-        const_char* operator,(int) except +
+        const_char* operator,(i32) except +
         const_char* operator,(int,const TestOps&) except +
 
-        const_char* operator<<(int) except +
+        const_char* operator<<(i32) except +
         const_char* operator<<(int,const TestOps&) except +
-        const_char* operator>>(int) except +
+        const_char* operator>>(i32) except +
         const_char* operator>>(int,const TestOps&) except +
 
         # FIXME: using 'except +' here leads to invalid C++ code ???
-        const_char* operator==(int)
-        const_char* operator!=(int)
-        const_char* operator>=(int)
-        const_char* operator<=(int)
-        const_char* operator>(int)
-        const_char* operator<(int)
+        const_char* operator==(i32)
+        const_char* operator!=(i32)
+        const_char* operator>=(i32)
+        const_char* operator<=(i32)
+        const_char* operator>(i32)
+        const_char* operator<(i32)
 
-        const_char* operator[](int) except +
-        const_char* operator()(int) except +
+        const_char* operator[](i32) except +
+        const_char* operator()(i32) except +
 
     # Defining the operator outside the class does work
     # but doesn't help when importing from pxd files
@@ -86,51 +86,51 @@ extern from "cpp_operators_helper.h" nogil:
 
     cdef cppclass RefTestOps:
 
-        int& operator+() except +
-        int& operator-() except +
-        int& operator*() except +
-        int& operator~() except +
-        int& operator!() except +
+        i32& operator+() except +
+        i32& operator-() except +
+        i32& operator*() except +
+        i32& operator~() except +
+        i32& operator!() except +
 
-        int& operator++() except +
-        int& operator--() except +
-        int& operator++(int) except +
-        int& operator--(int) except +
+        i32& operator++() except +
+        i32& operator--() except +
+        i32& operator++(i32) except +
+        i32& operator--(i32) except +
 
-        int& operator+(int) except +
-        int& operator+(int,const TestOps&) except +
-        int& operator-(int) except +
-        int& operator-(int,const TestOps&) except +
-        int& operator*(int) except +
+        i32& operator+(i32) except +
+        i32& operator+(int,const TestOps&) except +
+        i32& operator-(i32) except +
+        i32& operator-(int,const TestOps&) except +
+        i32& operator*(i32) except +
         # deliberately omitted operator* to test case where only defined outside class
-        int& operator/(int) except +
-        int& operator/(int,const TestOps&) except +
-        int& operator%(int) except +
-        int& operator%(int,const TestOps&) except +
+        i32& operator/(i32) except +
+        i32& operator/(int,const TestOps&) except +
+        i32& operator%(i32) except +
+        i32& operator%(int,const TestOps&) except +
 
-        int& operator|(int) except +
-        int& operator|(int,const TestOps&) except +
-        int& operator&(int) except +
-        int& operator&(int,const TestOps&) except +
-        int& operator^(int) except +
-        int& operator^(int,const TestOps&) except +
-        int& operator,(int) except +
-        int& operator,(int,const TestOps&) except +
+        i32& operator|(i32) except +
+        i32& operator|(int,const TestOps&) except +
+        i32& operator&(i32) except +
+        i32& operator&(int,const TestOps&) except +
+        i32& operator^(i32) except +
+        i32& operator^(int,const TestOps&) except +
+        i32& operator,(i32) except +
+        i32& operator,(int,const TestOps&) except +
 
-        int& operator<<(int) except +
-        int& operator<<(int,const TestOps&) except +
-        int& operator>>(int) except +
-        int& operator>>(int,const TestOps&) except +
+        i32& operator<<(i32) except +
+        i32& operator<<(int,const TestOps&) except +
+        i32& operator>>(i32) except +
+        i32& operator>>(int,const TestOps&) except +
 
-        int& operator==(int) except +
-        int& operator!=(int) except +
-        int& operator>=(int) except +
-        int& operator<=(int) except +
-        int& operator>(int) except +
-        int& operator<(int) except +
+        i32& operator==(i32) except +
+        i32& operator!=(i32) except +
+        i32& operator>=(i32) except +
+        i32& operator<=(i32) except +
+        i32& operator>(i32) except +
+        i32& operator<(i32) except +
 
-        int& operator[](int) except +
-        int& operator()(int) except +
+        i32& operator[](i32) except +
+        i32& operator()(i32) except +
 
     cdef cppclass TruthClass:
         TruthClass()

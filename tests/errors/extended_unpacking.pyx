@@ -21,15 +21,15 @@ def syntax1():
 
 
 def syntax2():
-    list_of_sequences = [[1,2], [3,4]]
+    list_of_sequences = [[1, 2], [3, 4]]
 
-    for *a,*b in list_of_sequences:
+    for *a, *b in list_of_sequences:
         pass
 
 
 def types(l):
-    let i32 a,b
-    a, *b = (1,2,3,4)
+    let i32 a, b
+    a, *b = (1, 2, 3, 4)
     a, *b = l
 
 

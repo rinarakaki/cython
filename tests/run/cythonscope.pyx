@@ -19,12 +19,12 @@ extern from *:
     fn __pyx_TestClass_New(int)
 
     # These are methods and therefore have no prototypes
-    fn __pyx_TestClass_cdef_method(TestClass self, int value)
-    fn __pyx_TestClass_cpdef_method(TestClass self, int value, int skip_dispatch)
+    fn __pyx_TestClass_cdef_method(TestClass self, i32 value)
+    fn __pyx_TestClass_cpdef_method(TestClass self, i32 value, int skip_dispatch)
     fn __pyx_TestClass_def_method(object self, object value)
 
-    fn __pyx_TestClass_cdef_cname(TestClass self, int value)
-    fn __pyx_TestClass_cpdef_cname(TestClass self, int value, int skip_dispatch)
+    fn __pyx_TestClass_cdef_cname(TestClass self, i32 value)
+    fn __pyx_TestClass_cpdef_cname(TestClass self, i32 value, int skip_dispatch)
     fn __pyx_TestClass_def_cname(object self, object value)
 
     fn __pyx_test_dep(object)

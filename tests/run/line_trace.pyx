@@ -160,11 +160,11 @@ def cy_try_except(func):
 # https://github.com/python/cpython/issues/94381
 plain_python_functions = {}
 exec("""
-def py_add(a,b):
+def py_add(a, b):
     x = a+b
     return x
 
-def py_add_with_nogil(a,b):
+def py_add_with_nogil(a, b):
     x=a; y=b                     # 1
     for _ in range(1):           # 2
         z = 0                    # 3

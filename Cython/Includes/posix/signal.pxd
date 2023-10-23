@@ -26,7 +26,7 @@ extern from "<signal.h>" nogil:
         sigval si_value
 
     cdef struct sigaction_t "sigaction":
-        void     sa_handler(int)
+        void     sa_handler(i32)
         void     sa_sigaction(int, siginfo_t *, void *)
         sigset_t sa_mask
         int      sa_flags
@@ -34,7 +34,7 @@ extern from "<signal.h>" nogil:
     ctypedef struct stack_t:
         void  *ss_sp
         int ss_flags
-        size_t ss_size
+        usize ss_size
 
     enum: SA_NOCLDSTOP
     enum: SIG_BLOCK

@@ -4,16 +4,16 @@
 def test_exec_tuples():
     exec()
     exec(1,)
-    exec(1,2,3,4)
+    exec(1, 2, 3, 4)
 
 def test_exec_tuples_with_in(d1, d2):
-    exec(1,2) in d1
-    exec(1,2,3) in d1
-    exec(1,2) in d1, d2
-    exec(1,2,3) in d1, d2
+    exec(1, 2) in d1
+    exec(1, 2, 3) in d1
+    exec(1, 2) in d1, d2
+    exec(1, 2, 3) in d1, d2
     exec() in d1, d2
     exec(1,) in d1, d2
-    exec(1,2,3,4) in d1, d2
+    exec(1, 2, 3, 4) in d1, d2
 
 
 _ERRORS = """

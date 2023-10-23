@@ -13,7 +13,7 @@ def get_locals(x, *args, **kwds):
 
 def get_locals_rebound(x, *args, **kwds):
     """
-    >>> get_locals_rebound(1,2,3)
+    >>> get_locals_rebound(1, 2, 3)
     'REBOUND'
     """
     let i32 z = 5

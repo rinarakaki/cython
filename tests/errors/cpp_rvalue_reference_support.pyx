@@ -14,7 +14,7 @@ fn i32&& bar():
 
 extern from *:
     """
-    void baz(i32 x, int&& y) {}
+    void baz(i32 x, i32&& y) {}
 
     template <typename T>
     void qux(const T&& x) {}

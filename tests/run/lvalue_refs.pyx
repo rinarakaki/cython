@@ -29,7 +29,7 @@ def test_lvalue_ref_assignment():
     assert bar[0] == &baz[0][0]
     assert bar[0][0] == bongle
 
-fn void assign_to_basic_reference(int& ref):
+fn void assign_to_basic_reference(i32& ref):
     ref = 123
 
 def test_assign_to_basic_ref():

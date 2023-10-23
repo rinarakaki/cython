@@ -240,7 +240,7 @@ def c_functions():
     >>> c_functions()
     """
     f = cfunc
-    assert typeof(f) == 'int (*)(int) except? -1', typeof(f)
+    assert typeof(f) == 'int (*)(i32) except? -1', typeof(f)
     assert 2 == f(1)
 
 def builtin_functions():
@@ -536,7 +536,7 @@ def safe_c_functions():
     >>> safe_c_functions()
     """
     f = cfunc
-    assert typeof(f) == 'int (*)(int) except? -1', typeof(f)
+    assert typeof(f) == 'int (*)(i32) except? -1', typeof(f)
     assert 2 == f(1)
 
 @infer_types(None)
@@ -546,15 +546,15 @@ def ptr_types():
     """
     let i32 a
     a_ptr = &a
-    assert typeof(a_ptr) == "int *", typeof(a_ptr)
+    assert typeof(a_ptr) == "(i32 *)", typeof(a_ptr)
     a_ptr_ptr = &a_ptr
-    assert typeof(a_ptr_ptr) == "int **", typeof(a_ptr_ptr)
+    assert typeof(a_ptr_ptr) == "(i32 *)*", typeof(a_ptr_ptr)
     let i32[1] b
     b_ref = b
-    assert typeof(b_ref) == "int *", typeof(b_ref)
+    assert typeof(b_ref) == "(i32 *)", typeof(b_ref)
     ptr = &a
     ptr = b
-    assert typeof(ptr) == "int *", typeof(ptr)
+    assert typeof(ptr) == "(i32 *)", typeof(ptr)
 
 def const_types(const f64 x, f64 y, f64& z):
     """

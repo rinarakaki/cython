@@ -49,7 +49,7 @@ def go_c_int(i32 a, i32 b):
     Spam!
     """
     let i32 i
-    for i in range(a,b,2):
+    for i in range(a, b,2):
         print u"Spam!"
 
 def go_c_all():

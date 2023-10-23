@@ -10,7 +10,7 @@ def f():
     i = sizeof(p)
     i = sizeof(j + k)
     i = sizeof(int)
-    i = sizeof(long int)
+    i = sizeof(i64)
     i = sizeof(void*)
     i = sizeof(Spam)
     i = sizeof(Spam*)

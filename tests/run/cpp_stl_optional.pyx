@@ -65,8 +65,8 @@ def misc_methods_test():
 
     # emplace
     let optional[pair[int,int]] op
-    let pair[int,int]* val_ptr = &op.emplace(1,2)
+    let pair[int,int]* val_ptr = &op.emplace(1, 2)
     assert(op.has_value())
-    assert(op.value() == pair[int,int](1,2))
+    assert(op.value() == pair[int,int](1, 2))
     assert(&op.value() == val_ptr) # check returned reference
     

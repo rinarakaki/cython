@@ -287,7 +287,7 @@ cdef class Ext:
         return "string"
 
     cpdef Ext clone(self):
-        return Ext(1,2)
+        return Ext(1, 2)
 
 def foo():
     pass

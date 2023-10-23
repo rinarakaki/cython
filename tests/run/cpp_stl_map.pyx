@@ -62,7 +62,7 @@ def test_map_erase(vals, int to_remove):
     [(-1, -1), (1, 1), (3, 3)]
     """
     let map[int,int] m = map[int,int]()
-    let size_t ret
+    let usize ret
     for v in vals:
         m.insert(v)
     ret = m.erase(to_remove)
@@ -139,7 +139,7 @@ def test_unordered_map_erase(vals, int to_remove):
     [(-1, -1), (1, 1), (3, 3)]
     """
     let unordered_map[int,int] um = unordered_map[int,int]()
-    let size_t ret
+    let usize ret
     for v in vals:
         um.insert(v)
     ret = um.erase(to_remove)

@@ -36,8 +36,8 @@ def test_object_conversion(o):
     >>> test_object_conversion(2j - 0.5)
     ((-0.5+2j), (-0.5+2j))
     """
-    let f32 complex a = o
-    let f64 complex b = o
+    let float complex a = o
+    let double complex b = o
     return (a, b)
 
 
@@ -126,7 +126,7 @@ def test_coercion(i32 a, f32 b, f64 c, float complex d, double complex e):
     10j
     (9+21j)
     """
-    let f64 complex z
+    let double complex z
     z = a; print z
     z = b; print z
     z = c; print z
@@ -187,7 +187,7 @@ def test_real_imag_assignment(object a, f64 b):
     >>> test_real_imag_assignment(1.5, -3.5)
     (1.5-3.5j)
     """
-    let f64 complex z
+    let double complex z
     z.real = a
     z.imag = b
     return z
@@ -267,8 +267,8 @@ def stress_test():
     (doesn't cover inf and NaN as inputs though)
     >>> stress_test()
     """
-    let f64 complex x
-    let f64 complex y
+    let double complex x
+    let double complex y
 
     from random import Random
     from math import ldexp

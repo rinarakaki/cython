@@ -93,7 +93,7 @@ _ERRORS = u"""
 28:4: Not enough types specified to specialize the function, int2_t is still fused
 29:14: Call with wrong number of arguments (expected 2, got 1)
 30:14: Call with wrong number of arguments (expected 2, got 3)
-37:6: Invalid base type for memoryview slice: int *
+37:6: Invalid base type for memoryview slice: (i32 *)
 40:0: Fused lambdas not allowed
 42:5: Fused types not allowed here
 42:21: cdef variable 'x' declared after it is used

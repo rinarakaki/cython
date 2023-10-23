@@ -48,14 +48,14 @@ cdef class RefCountInMeth(object):
         return v
 
     def chk_meth(self):
-        cdef int a,b
+        cdef int a, b
 
         a = get_refcount(self)
         b = self.c_meth()
         return a==b
 
     def chk_meth_if(self):
-        cdef int a,b
+        cdef int a, b
 
         a = get_refcount(self)
         b = self.c_meth_if()

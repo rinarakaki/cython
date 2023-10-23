@@ -26,10 +26,10 @@ def test_tuple(tuple t):
     """
     Actual builtin types are restrictive wrt subclassing so optimizations can be safely performed.
 
-    >>> test_tuple((1,2))
+    >>> test_tuple((1, 2))
     2
     >>> class tuple_subclass(tuple): pass
-    >>> test_tuple(tuple_subclass((1,2)))
+    >>> test_tuple(tuple_subclass((1, 2)))
     Traceback (most recent call last):
     ...
     TypeError: Argument 't' has incorrect type (expected tuple, got tuple_subclass)

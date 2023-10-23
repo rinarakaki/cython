@@ -12,11 +12,11 @@ extern from "Python.h":
     # least-significant 32 bits of value, regardless of the size of the native
     # long type. version indicates the file format.
 
-    void PyMarshal_WriteObjectToFile(object value, FILE *file, int version)
+    void PyMarshal_WriteObjectToFile(object value, FILE *file, i32 version)
     # Marshal a Python object, value, to file. version indicates the file
     # format.
 
-    bytes PyMarshal_WriteObjectToString(object value, int version)
+    bytes PyMarshal_WriteObjectToString(object value, i32 version)
     # Return value: New reference.
     # Return a bytes object containing the marshalled representation of value.
     # version indicates the file format.

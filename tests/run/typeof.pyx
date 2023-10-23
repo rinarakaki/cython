@@ -16,8 +16,8 @@ def simple():
     int
     long
     long long
-    int *
-    int **
+    (i32 *)
+    (i32 *)*
     A
     B
     X

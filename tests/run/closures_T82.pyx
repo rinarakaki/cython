@@ -160,7 +160,7 @@ def call_ignore_func():
     """
     >>> call_ignore_func()
     """
-    ignore_func((1,2,3))
+    ignore_func((1, 2, 3))
 
 def more_inner_funcs(x):
     """

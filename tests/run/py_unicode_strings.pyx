@@ -6,7 +6,7 @@ import sys
 from libc.string cimport memcpy
 
 fn assert_Py_UNICODE_equal(const Py_UNICODE* u1, const Py_UNICODE* u2):
-    let size_t i = 0
+    let usize i = 0
     while u1[i] != 0 and u2[i] != 0 and u1[i] == u2[i]:
         i += 1
     assert u1[i] == u2[i], f"Mismatch at position {i}: {<long>u1[i]} != {<long>u2[i]} ({u1!r} != {u2!r})"

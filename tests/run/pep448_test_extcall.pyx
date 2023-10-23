@@ -51,7 +51,7 @@ except ImportError:
 
 # We're defining four helper functions
 
-def e(a,b):
+def e(a, b):
     print(a, b)
 
 def f(*a, **k):
@@ -493,7 +493,7 @@ def call_kwargs_modified_while_building():
 
     x = {Name("a"):1, Name("b"):2}
     def f(a, b):
-        print(a,b)
+        print(a, b)
     f(**x)
 '''
 

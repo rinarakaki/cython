@@ -10,7 +10,7 @@ def bigints(values):
 
 def doit(x,y):
     """
-    >>> doit(1,2)
+    >>> doit(1, 2)
     (0.5, 0)
     >>> doit(4,3)
     (1.3333333333333333, 1)
@@ -23,7 +23,7 @@ def doit(x,y):
 
 def doit_inplace(x,y):
     """
-    >>> doit_inplace(1,2)
+    >>> doit_inplace(1, 2)
     0.5
     """
     x /= y
@@ -31,7 +31,7 @@ def doit_inplace(x,y):
 
 def doit_inplace_floor(x,y):
     """
-    >>> doit_inplace_floor(1,2)
+    >>> doit_inplace_floor(1, 2)
     0
     """
     x //= y
