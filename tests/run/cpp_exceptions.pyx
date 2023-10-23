@@ -4,7 +4,7 @@
 fn i32 raise_py_error() except *:
     raise TypeError("custom")
 
-cdef extern from "cpp_exceptions_helper.h":
+extern from "cpp_exceptions_helper.h":
     fn i32 raise_int_raw "raise_int"(bint fire) except +
     fn i32 raise_int_value "raise_int"(bint fire) except +ValueError
     fn i32 raise_int_custom "raise_int"(bint fire) except +raise_py_error

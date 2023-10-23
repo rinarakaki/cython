@@ -1,5 +1,4 @@
-cdef extern from "numeric.h":
-
+extern from "numeric.h":
     struct PyArray_Descr:
         i32 type_num, elsize
         char type

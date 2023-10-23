@@ -2,9 +2,7 @@
 
 from libcpp.vector cimport vector
 
-
-cdef extern from "cpp_template_ref_args.h":
-
+extern from "cpp_template_ref_args.h":
     cdef cppclass Bar[T]:
         Bar()
         # bug: Bar[T] created before class fully defined
