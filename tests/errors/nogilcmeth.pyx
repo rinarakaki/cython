@@ -5,6 +5,6 @@ cdef class C:
         pass
 
 _ERRORS = u"""
-2:15: Previous declaration is here
+2:13: Previous declaration is here
 4:4: Signature not compatible with previous declaration
 """
