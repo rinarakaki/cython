@@ -24,7 +24,7 @@ cdef class __Pyx_EnumMeta(type):
 
 # @cython.internal
 cdef object __Pyx_EnumBase
-class __Pyx_EnumBase(i32, metaclass=__Pyx_EnumMeta):
+class __Pyx_EnumBase(int, metaclass=__Pyx_EnumMeta):
     def __new__(cls, value, name=None):
         for v in cls:
             if v == value:
@@ -45,7 +45,7 @@ if PY_VERSION_HEX >= 0x03040000:
     from enum import IntEnum as __Pyx_EnumBase
 
 cdef object __Pyx_FlagBase
-class __Pyx_FlagBase(i32, metaclass=__Pyx_EnumMeta):
+class __Pyx_FlagBase(int, metaclass=__Pyx_EnumMeta):
     def __new__(cls, value, name=None):
         for v in cls:
             if v == value:
