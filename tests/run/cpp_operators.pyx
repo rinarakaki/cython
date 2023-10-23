@@ -339,7 +339,7 @@ def test_bool_cond():
     assert (TruthClass(true) and TruthClass(false)).value == False
     assert (TruthClass(true) and TruthClass(true)).value == True
 
-ctypedef int* int_ptr
+ctypedef i32* int_ptr
 
 def test_typeid_op():
     """

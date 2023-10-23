@@ -4,7 +4,7 @@ ctypedef void (*sighandler_t)(i32 SIGNUM) noexcept nogil
 
 extern from "<signal.h>" nogil:
 
-    ctypedef int sig_atomic_t
+    ctypedef i32 sig_atomic_t
 
     sighandler_t SIG_DFL
     sighandler_t SIG_IGN

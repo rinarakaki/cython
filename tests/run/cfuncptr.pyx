@@ -9,7 +9,7 @@ fn i32 grail():
     assert spam == grail
     assert spam == &grail
 
-ctypedef int funcptr_t()
+ctypedef i32 funcptr_t()
 
 fn funcptr_t* get_grail():
     return &grail

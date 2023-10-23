@@ -179,7 +179,7 @@ extern from *:
     # following functions. Support is optimized if Python's own
     # Py_UNICODE type is identical to the system's wchar_t.
 
-    #ctypedef int wchar_t
+    #ctypedef i32 wchar_t
 
     # Create a Unicode object from the wchar_t buffer w of the given
     # size. Return NULL on failure.

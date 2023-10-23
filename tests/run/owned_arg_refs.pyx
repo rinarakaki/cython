@@ -40,5 +40,5 @@ def test_index():
     >>> test_index()
     [3, 4]
     """
-    l = [[1, 2],[3,4]]
+    l = [[1, 2], [3, 4]]
     return call_me_with_list(l, l[1])

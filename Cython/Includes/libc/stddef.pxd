@@ -6,4 +6,4 @@ extern from "<stddef.h>":
 
     ctypedef u32 size_t
 
-    ctypedef int wchar_t
+    ctypedef i32 wchar_t

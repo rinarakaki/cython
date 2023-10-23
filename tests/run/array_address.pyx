@@ -1,4 +1,4 @@
-ctypedef int five_ints[5]
+ctypedef i32 five_ints[5]
 
 def test_array_address(i32 ix, i32 x):
     """
