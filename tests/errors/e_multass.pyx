@@ -7,5 +7,5 @@ def f(obj1a, obj1b):
 
 
 _ERRORS = u"""
-6:27: Cannot assign type '(i32 *)' to 'int'
+6:27: Cannot assign type 'int *' to 'int'
 """

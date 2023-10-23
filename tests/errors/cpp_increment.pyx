@@ -26,8 +26,8 @@ fn void foo():
 
 
 _ERRORS = u"""
-17:19: No 'operator++(i32)' declared for postfix '++' (operand type is 'Foo')
-19:19: No 'operator--(i32)' declared for postfix '--' (operand type is 'Foo')
+17:19: No 'operator++(int)' declared for postfix '++' (operand type is 'Foo')
+19:19: No 'operator--(int)' declared for postfix '--' (operand type is 'Foo')
 23:19: No match for 'operator++' (operand type is 'Bar')
 25:19: No match for 'operator--' (operand type is 'Bar')
 """

@@ -13,8 +13,8 @@ cdef class C:
 
 
 _WARNINGS = """
-8:7: Found C type 'int *' in a Python annotation. Did you mean to use 'cython.i32'?
-8:7: Unknown type declaration 'int *' in annotation, ignoring
+8:7: Found C type 'i32' in a Python annotation. Did you mean to use 'cython.i32'?
+8:7: Unknown type declaration 'i32' in annotation, ignoring
 9:7: Found C type 'i64' in a Python annotation. Did you mean to use 'cython.i64'?
 9:7: Unknown type declaration 'i64' in annotation, ignoring
 10:7: Found C type 'isize' in a Python annotation. Did you mean to use 'cython.isize'?

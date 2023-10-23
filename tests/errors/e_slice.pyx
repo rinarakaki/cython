@@ -17,9 +17,9 @@ for a in int_ptr[2:2:a]:
     pass
 
 _ERRORS = u"""
-5:16: Cannot convert '(i32 *)' to Python object
-6:17: Cannot convert '(i32 *)' to Python object
-7:18: Cannot convert '(i32 *)' to Python object
+5:16: Cannot convert 'int *' to Python object
+6:17: Cannot convert 'int *' to Python object
+7:18: Cannot convert 'int *' to Python object
 12:9: C array iteration requires known end index
 14:16: C array iteration requires known end index
 16:21: C array iteration requires known step size and end index

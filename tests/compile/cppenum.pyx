@@ -32,8 +32,8 @@ cdef enum class Color(i32):
     GREEN = 2
 
 cdef enum class Color2(i32):
-    RED = (<int> Color.RED)
-    GREEN = (<int> Color.GREEN)
+    RED = (<i32>Color.RED)
+    GREEN = (<i32>Color.GREEN)
 
 # enum class as cdef class function parameter
 cdef class A:
