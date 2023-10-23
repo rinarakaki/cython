@@ -15,12 +15,12 @@ cdef Grail a_g[42]     # incomplete element type
 cdef void a_nada[88]   # incomplete element type
 
 cdef struct Eggs:
-	i32 spam[]
+    i32 spam[]
 
 fn f(Grail g,   # incomplete argument type
-	void v,         # incomplete argument type
-	i32 a[]):
-		pass
+     void v,         # incomplete argument type
+     i32 a[]):
+    pass
 
 cdef NoSuchType* ptr
 ptr = None             # This should not produce another error
