@@ -28,5 +28,5 @@ _ERRORS = """
 18:25: Cannot pass Python object as C++ data structure reference (vector[int] &), will pass by copy.
 19:25: Cannot pass Python object as C++ data structure reference (vector[int] &), will pass by copy.
 20:28: Cannot pass Python object as C++ data structure reference (vector[int] &), will pass by copy.
-20s:33: Cannot pass Python object as C++ data structure reference (vector[int] &), will pass by copy.
+20:33: Cannot pass Python object as C++ data structure reference (vector[int] &), will pass by copy.
 """
