@@ -740,7 +740,7 @@ def test_pointer_temps(f64 x):
     """
     let isize i
     let f64* f
-    let f64[:] arr = array(format="d", shape=(10,), itemsize=sizeof(double))
+    let f64[:] arr = array(format="d", shape=(10,), itemsize=sizeof(f64))
     arr[0] = 4.0
     arr[1] = 3.0
 

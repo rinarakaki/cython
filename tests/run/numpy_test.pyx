@@ -296,7 +296,7 @@ def test_dtype(dtype, inc1):
     """
     if dtype in ("g", np.longdouble,
                  "G", np.clongdouble):
-        if sizeof(double) == sizeof(long double): # MSVC
+        if sizeof(f64) == sizeof(long double): # MSVC
             return
     if dtype in ('F', 'D', 'G'):
         a = np.array([0, 10+10j], dtype=dtype)

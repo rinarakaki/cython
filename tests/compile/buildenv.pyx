@@ -104,7 +104,7 @@ sys.int_info  {getattr(sys, 'int_info', '-')}
 sys.getsizeof(1, 2**14, 2**15, 2**29, 2**30, 2**59, 2**60, 2**64)  {tuple(sys.getsizeof(n) for n in (1, 2**14, 2**15, 2**29, 2**30, 2**59, 2**60, 2**64))}
 
 SIZEOF_INT  {SIZEOF_INT}  ({sizeof(i32)})
-SIZEOF_LONG  {SIZEOF_LONG}  ({sizeof(long)})
+SIZEOF_LONG  {SIZEOF_LONG}  ({sizeof(i32)})
 SIZEOF_SIZE_T  {SIZEOF_SIZE_T}  ({sizeof(Py_ssize_t)}, {getattr(sys, 'maxsize', getattr(sys, 'maxint', None))})
 SIZEOF_LONG_LONG  {SIZEOF_LONG_LONG}  ({sizeof(long long)})
 SIZEOF_VOID_P  {SIZEOF_VOID_P}  ({sizeof(void*)})

@@ -21,7 +21,7 @@ def test_pycalloc():
     >>> test_pycalloc()
     3
     """
-    let i16* s = <short*> mem.PyMem_Calloc(10, sizeof(short))
+    let i16* s = <short*> mem.PyMem_Calloc(10, sizeof(i16))
     if not s:
         raise MemoryError()
     try:
@@ -39,7 +39,7 @@ def test_pymalloc_raw():
     let char* m
     let char* m2 = NULL
     with nogil:
-        s = <short*> mem.PyMem_RawCalloc(10, sizeof(short))
+        s = <short*> mem.PyMem_RawCalloc(10, sizeof(i16))
         if not s:
             raise MemoryError()
         try:

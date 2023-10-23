@@ -742,7 +742,7 @@ def int64_long_sum():
     assert typeof(x + x32) == typeof(x32 + x) == 'long', typeof(x + x32)
     assert typeof(x + x64) == typeof(x64 + x) == 'int64_t', typeof(x + x64)
     # The correct answer here is either unsigned long or int64_t, depending on
-    # whether sizeof(long) == 64 or not.  Incorrect signedness is probably
+    # whether sizeof(i32) == 64 or not.  Incorrect signedness is probably
     # preferable to incorrect width.
     assert typeof(ux + x64) == typeof(x64 + ux) == 'int64_t', typeof(ux + x64)
 
