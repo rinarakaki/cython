@@ -20,7 +20,7 @@ cpdef test_type_cast(Foo obj, cond):
     """
     return [obj] if cond else obj
 
-fn nc(Foo foo, dict data):
+fn func(Foo foo, dict data):
     return foo, data
 
 @cython.test_fail_if_path_exists('//PyTypeTestNode')
