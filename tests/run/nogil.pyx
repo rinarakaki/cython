@@ -210,9 +210,9 @@ _PERFORMANCE_HINTS = """
 59:6: Exception check on 'get_gil_in_nogil2' will always require the GIL to be acquired.
 68:24: Exception check will always require the GIL to be acquired.
 70:25: Exception check will always require the GIL to be acquired.
-133:5: Exception check on 'copy_array_exception' will always require the GIL to be acquired.
+133:0: Exception check on 'copy_array_exception' will always require the GIL to be acquired.
 184:28: Exception check will always require the GIL to be acquired.
-187:5: Exception check on 'voidexceptnogil_in_pxd' will always require the GIL to be acquired.
+187:0: Exception check on 'voidexceptnogil_in_pxd' will always require the GIL to be acquired.
 195:30: Exception check will always require the GIL to be acquired.
 198:36: Exception check will always require the GIL to be acquired.
 """
