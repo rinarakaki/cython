@@ -136,7 +136,7 @@ def optimised_pow2(n):
     """
     if isinstance(n, (int, long)) and 0 <= n < 1000:
         assert isinstance(2.0 ** n, float), 'float %s' % n
-        assert isinstance(2 ** n, (i32, long)), 'int %s' % n
+        assert isinstance(2 ** n, (int, long)), 'int %s' % n
     return 2 ** n
 
 def optimised_pow2_inplace(n):
