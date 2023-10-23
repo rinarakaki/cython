@@ -247,25 +247,25 @@ cdef extern from "numpy/arrayobject.h":
         # Instead, we use properties that map to the corresponding C-API functions.
 
         @property
-        cdef inline PyObject* base(self) nogil:
+        fn inline PyObject* base(self) nogil:
             """Returns a borrowed reference to the object owning the data/memory.
             """
             return PyArray_BASE(self)
 
         @property
-        cdef inline dtype descr(self):
+        fn inline dtype descr(self):
             """Returns an owned reference to the dtype of the array.
             """
             return <dtype>PyArray_DESCR(self)
 
         @property
-        cdef inline int ndim(self) nogil:
+        fn inline int ndim(self) nogil:
             """Returns the number of dimensions in the array.
             """
             return PyArray_NDIM(self)
 
         @property
-        cdef inline npy_intp *shape(self) nogil:
+        fn inline npy_intp *shape(self) nogil:
             """Returns a pointer to the dimensions/shape of the array.
             The number of elements matches the number of dimensions of the array (ndim).
             Can return NULL for 0-dimensional arrays.
@@ -273,20 +273,20 @@ cdef extern from "numpy/arrayobject.h":
             return PyArray_DIMS(self)
 
         @property
-        cdef inline npy_intp *strides(self) nogil:
+        fn inline npy_intp *strides(self) nogil:
             """Returns a pointer to the strides of the array.
             The number of elements matches the number of dimensions of the array (ndim).
             """
             return PyArray_STRIDES(self)
 
         @property
-        cdef inline npy_intp size(self) nogil:
+        fn inline npy_intp size(self) nogil:
             """Returns the total size (in number of elements) of the array.
             """
             return PyArray_SIZE(self)
 
         @property
-        cdef inline char* data(self) nogil:
+        fn inline char* data(self) nogil:
             """The pointer to the data buffer as a char*.
             This is provided for legacy reasons to avoid direct struct field access.
             For new code that needs this access, you probably want to cast the result
