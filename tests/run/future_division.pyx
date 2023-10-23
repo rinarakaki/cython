@@ -111,14 +111,14 @@ def py_mix_rev(a):
     """
     return 1/a, 1//a, 5.0/a, 5.0//a, 5/a, 5//a
 
-def int_mix(int a):
+def int_mix(i32 a):
     """
     >>> int_mix(1)
     (0.5, 0, 0.5, 0.0, 0.5, 0)
     """
     return a/2, a//2, a/2.0, a//2.0, a/2, a//2
 
-def int_mix_rev(int a):
+def int_mix_rev(i32 a):
     """
     >>> int_mix_rev(4)
     (0.25, 0, 1.25, 1.0, 1.25, 1)

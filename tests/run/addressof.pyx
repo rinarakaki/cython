@@ -1,4 +1,4 @@
-def f(int a):
+def f(i32 a):
     """
     >>> f(5)
     5

@@ -25,7 +25,7 @@ def test_ptr2():
     else:
         return 3
 
-def test_int(int i):
+def test_int(i32 i):
     """
     >>> test_int(0)
     False

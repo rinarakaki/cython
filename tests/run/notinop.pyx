@@ -60,7 +60,7 @@ def k(a):
 
 @cython.test_assert_path_exists("//SwitchStatNode")
 @cython.test_fail_if_path_exists("//PrimaryCmpNode")
-def m_list(int a):
+def m_list(i32 a):
     """
     >>> m_list(2)
     0
@@ -72,7 +72,7 @@ def m_list(int a):
 
 @cython.test_assert_path_exists("//SwitchStatNode")
 @cython.test_fail_if_path_exists("//PrimaryCmpNode")
-def m_tuple(int a):
+def m_tuple(i32 a):
     """
     >>> m_tuple(2)
     0
@@ -84,7 +84,7 @@ def m_tuple(int a):
 
 @cython.test_assert_path_exists("//SwitchStatNode")
 @cython.test_fail_if_path_exists("//BoolBinopNode", "//BoolBinopNode", "//PrimaryCmpNode")
-def m_set(int a):
+def m_set(i32 a):
     """
     >>> m_set(2)
     0
@@ -162,7 +162,7 @@ def m_unicode_literal(Py_UNICODE a):
 
 @cython.test_assert_path_exists("//SwitchStatNode", "//BoolBinopNode")
 @cython.test_fail_if_path_exists("//PrimaryCmpNode")
-def m_tuple_in_or_notin(int a):
+def m_tuple_in_or_notin(i32 a):
     """
     >>> m_tuple_in_or_notin(2)
     0
@@ -176,7 +176,7 @@ def m_tuple_in_or_notin(int a):
 
 @cython.test_assert_path_exists("//SwitchStatNode", "//BoolBinopNode")
 @cython.test_fail_if_path_exists("//PrimaryCmpNode")
-def m_tuple_notin_or_notin(int a):
+def m_tuple_notin_or_notin(i32 a):
     """
     >>> m_tuple_notin_or_notin(2)
     1
@@ -190,7 +190,7 @@ def m_tuple_notin_or_notin(int a):
 
 @cython.test_assert_path_exists("//SwitchStatNode")
 @cython.test_fail_if_path_exists("//BoolBinopNode", "//BoolBinopNode", "//PrimaryCmpNode")
-def m_tuple_notin_and_notin(int a):
+def m_tuple_notin_and_notin(i32 a):
     """
     >>> m_tuple_notin_and_notin(2)
     0
@@ -204,7 +204,7 @@ def m_tuple_notin_and_notin(int a):
 
 @cython.test_assert_path_exists("//SwitchStatNode", "//BoolBinopNode")
 @cython.test_fail_if_path_exists("//PrimaryCmpNode")
-def m_tuple_notin_and_notin_overlap(int a):
+def m_tuple_notin_and_notin_overlap(i32 a):
     """
     >>> m_tuple_notin_and_notin_overlap(2)
     0
@@ -218,7 +218,7 @@ def m_tuple_notin_and_notin_overlap(int a):
 
 @cython.test_assert_path_exists("//SwitchStatNode")
 @cython.test_fail_if_path_exists("//BoolBinopNode", "//BoolBinopNode", "//PrimaryCmpNode")
-def conditional_int(int a):
+def conditional_int(i32 a):
     """
     >>> conditional_int(1)
     2
@@ -231,7 +231,7 @@ def conditional_int(int a):
 
 @cython.test_assert_path_exists("//SwitchStatNode")
 @cython.test_fail_if_path_exists("//BoolBinopNode", "//BoolBinopNode", "//PrimaryCmpNode")
-def conditional_object(int a):
+def conditional_object(i32 a):
     """
     >>> conditional_object(1)
     '2'
@@ -270,7 +270,7 @@ def conditional_unicode(Py_UNICODE a):
 
 @cython.test_assert_path_exists("//SwitchStatNode")
 @cython.test_fail_if_path_exists("//BoolBinopNode", "//BoolBinopNode", "//PrimaryCmpNode")
-def conditional_none(int a):
+def conditional_none(i32 a):
     """
     >>> conditional_none(1)
     1

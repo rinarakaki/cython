@@ -154,7 +154,7 @@ def union_in_ctuple_dynamic(*values):
 fn (int, int*) cdef_ctuple_return_type(int x, int* x_ptr):
     return x, x_ptr
 
-def call_cdef_ctuple_return_type(int x):
+def call_cdef_ctuple_return_type(i32 x):
     """
     >>> call_cdef_ctuple_return_type(2)
     (2, 2)

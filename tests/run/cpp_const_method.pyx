@@ -13,7 +13,7 @@ fn cppclass Wrapper[T]:
     T get() const:
         return this.value
 
-def test_const_get(int x):
+def test_const_get(i32 x):
     """
     >>> test_const_get(10)
     10
@@ -27,7 +27,7 @@ def test_const_get(int x):
 fn i32 const_get(const Wrapper[int] wrapper):
     return wrapper.get()
 
-def test_const_ref_get(int x):
+def test_const_ref_get(i32 x):
     """
     >>> test_const_ref_get(100)
     100
@@ -41,7 +41,7 @@ def test_const_ref_get(int x):
 fn i32 const_ref_get(const Wrapper[int] &wrapper):
     return wrapper.get()
 
-def test_const_pointer_get(int x):
+def test_const_pointer_get(i32 x):
     """
     >>> test_const_pointer_get(1000)
     1000

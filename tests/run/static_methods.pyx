@@ -1,6 +1,6 @@
 cdef class A:
     @staticmethod
-    def static_def(int x):
+    def static_def(i32 x):
         """
         >>> A.static_def(2)
         ('def', 2)
@@ -22,7 +22,7 @@ cdef class A:
         return 'cdef_utyped', a, b
 
 #     @staticmethod
-#     cpdef static_cpdef(int x):
+#     cpdef static_cpdef(i32 x):
 #         """
 #         >>> A.static_def
 #         >>> A.static_cpdef
@@ -37,14 +37,14 @@ cdef class A:
 #         """
 #         return 'cpdef', x
 
-def call_static_def(int x):
+def call_static_def(i32 x):
     """
     >>> call_static_def(2)
     ('def', 2)
     """
     return A.static_def(x)
 
-def call_static_cdef(int x):
+def call_static_cdef(i32 x):
     """
     >>> call_static_cdef(2)
     ('cdef', 2)
@@ -59,7 +59,7 @@ def call_static_cdef2(int x, int y):
     """
     return A.static_cdef2(&x, &y)
 
-def call_static_list_comprehension_GH1540(int x):
+def call_static_list_comprehension_GH1540(i32 x):
     """
     >>> call_static_list_comprehension_GH1540(5)
     [('cdef', 5), ('cdef', 5), ('cdef', 5)]
@@ -75,7 +75,7 @@ def call_static_list_comprehension_GH1540(int x):
 #    return A.static_cdef_untyped(a, b)
 
 # UNIMPLEMENTED
-# def call_static_cpdef(int x):
+# def call_static_cpdef(i32 x):
 #     """
 #     >>> call_static_cpdef(2)
 #     ('cpdef', 2)
@@ -91,7 +91,7 @@ cdef class FromPxd:
     fn static_cdef_with_implicit_object(obj):
         return obj+1
 
-def call_static_pxd_cdef(int x):
+def call_static_pxd_cdef(i32 x):
     """
     >>> call_static_pxd_cdef(2)
     ('pxd_cdef', 2)
@@ -99,7 +99,7 @@ def call_static_pxd_cdef(int x):
     let int *x_ptr = &x
     return FromPxd.static_cdef(x_ptr)
 
-def call_static_pxd_cdef_with_implicit_object(int x):
+def call_static_pxd_cdef_with_implicit_object(i32 x):
     """
     # https://github.com/cython/cython/issues/3174
     >>> call_static_pxd_cdef_with_implicit_object(2)

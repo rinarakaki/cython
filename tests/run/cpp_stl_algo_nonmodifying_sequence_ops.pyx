@@ -10,7 +10,7 @@ from libcpp.iterator cimport distance
 from libcpp.string cimport string
 from libcpp.vector cimport vector
 
-fn bool is_odd(int i):
+fn bool is_odd(i32 i):
     return i % 2
 
 def all_odd(vector[int] values):

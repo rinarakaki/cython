@@ -165,7 +165,7 @@ def pow_int_int_cpow(int a, int b):
     c = a**b
     print(cython.typeof(c), c)
 
-fn cfunc_taking_int(int x):
+fn cfunc_taking_int(i32 x):
     return x
 
 def pow_int_int_coerced_directly(int a, int b):

@@ -36,8 +36,8 @@ cdef class Queue:
         for value in values:
             self.append(value)
 
-    cdef extend_ints(self, i32* values, usize count):
-        cdef int value
+    fn extend_ints(self, i32* values, usize count):
+        let i32 value
         for value in values[:count]:  # Slicing pointer to limit the iteration boundaries.
             self.append(value)
 

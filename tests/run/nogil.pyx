@@ -8,8 +8,7 @@ try:
 except ImportError:
     from io import StringIO
 
-
-def test(int x):
+def test(i32 x):
     """
     >>> test(5)
     47
@@ -21,15 +20,15 @@ def test(int x):
         x = g(x)
     return x
 
-fn void f(int x) nogil:
-        cdef int y
-        y = x + 42
-        g(y)
+fn void f(i32 x) nogil:
+    let i32 y
+    y = x + 42
+    g(y)
 
-fn i32 g(int x) nogil:
-        cdef int y
-        y = x + 42
-        return y
+fn i32 g(i32 x) nogil:
+    let i32 y
+    y = x + 42
+    return y
 
 fn void release_gil_in_nogil() nogil:
     # This should generate valid code with/without the GIL
@@ -87,11 +86,9 @@ def test_nogil_exception_propagation():
     with nogil:
         nogil_func()
 
-
 fn i32 write_unraisable() noexcept nogil:
     with gil:
         raise ValueError()
-
 
 def test_unraisable():
     """
@@ -110,29 +107,29 @@ def test_unraisable():
 
 
 fn i32 initialize_array() nogil:
-    let int[4] a = [1, 2, 3, 4]
+    let32[4] a = [1, 2, 3, 4]
     return a[0] + a[1] + a[2] + a[3]
 
 fn i32 copy_array() nogil:
-    let int[4] a
+    let i32[4] a
     a[:] = [0, 1, 2, 3]
     return a[0] + a[1] + a[2] + a[3]
 
 fn double copy_array2() nogil:
-    let double[4] x = [1.0, 3.0, 5.0, 7.0]
-    let double[4] y
+    let f64[4] x = [1.0, 3.0, 5.0, 7.0]
+    let f64[4] y
     y[:] = x[:]
     return y[0] + y[1] + y[2] + y[3]
 
 fn double copy_array3() nogil:
-    let double[4] x = [2.0, 4.0, 6.0, 8.0]
-    let double[4] y
+    let f64[4] x = [2.0, 4.0, 6.0, 8.0]
+    let f64[4] y
     y = x
     return y[0] + y[1] + y[2] + y[3]
 
-fn void copy_array_exception(int n) nogil:
-    let double[5] a = [1,2,3,4,5]
-    let double[6] b
+fn void copy_array_exception(i32 n) nogil:
+    let f64[5] a = [1, 2, 3, 4, 5]
+    let f64[6] b
     b[:n] = a
 
 def test_initalize_array():
@@ -200,19 +197,19 @@ def test_performance_hint_nogil():
 
 # Note that we're only able to check the first line of the performance hint
 _PERFORMANCE_HINTS = """
-20:9: Exception check will always require the GIL to be acquired.
-24:0: Exception check on 'f' will always require the GIL to be acquired.
-34:0: Exception check on 'release_gil_in_nogil' will always require the GIL to be acquired.
-39:6: Exception check on 'release_gil_in_nogil2' will always require the GIL to be acquired.
-49:28: Exception check will always require the GIL to be acquired.
-51:29: Exception check will always require the GIL to be acquired.
-55:0: Exception check on 'get_gil_in_nogil' will always require the GIL to be acquired.
-59:6: Exception check on 'get_gil_in_nogil2' will always require the GIL to be acquired.
-68:24: Exception check will always require the GIL to be acquired.
-70:25: Exception check will always require the GIL to be acquired.
-133:0: Exception check on 'copy_array_exception' will always require the GIL to be acquired.
-184:28: Exception check will always require the GIL to be acquired.
-187:0: Exception check on 'voidexceptnogil_in_pxd' will always require the GIL to be acquired.
-195:30: Exception check will always require the GIL to be acquired.
-198:36: Exception check will always require the GIL to be acquired.
+19:9: Exception check will always require the GIL to be acquired.
+23:0: Exception check on 'f' will always require the GIL to be acquired.
+33:0: Exception check on 'release_gil_in_nogil' will always require the GIL to be acquired.
+38:6: Exception check on 'release_gil_in_nogil2' will always require the GIL to be acquired.
+48:28: Exception check will always require the GIL to be acquired.
+50:29: Exception check will always require the GIL to be acquired.
+54:0: Exception check on 'get_gil_in_nogil' will always require the GIL to be acquired.
+58:6: Exception check on 'get_gil_in_nogil2' will always require the GIL to be acquired.
+67:24: Exception check will always require the GIL to be acquired.
+69:25: Exception check will always require the GIL to be acquired.
+130:0: Exception check on 'copy_array_exception' will always require the GIL to be acquired.
+181:28: Exception check will always require the GIL to be acquired.
+184:0: Exception check on 'voidexceptnogil_in_pxd' will always require the GIL to be acquired.
+192:30: Exception check will always require the GIL to be acquired.
+195:36: Exception check will always require the GIL to be acquired.
 """

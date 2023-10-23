@@ -52,7 +52,7 @@ def arg(x):
     print x
     return
 
-def argtype(int n):
+def argtype(i32 n):
     """
     >>> argtype(0)
     1

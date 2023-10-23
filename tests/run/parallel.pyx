@@ -8,7 +8,7 @@ from libc.stdlib cimport malloc, free
 
 openmp.omp_set_nested(1)
 
-fn i32 forward(int x) nogil:
+fn i32 forward(i32 x) nogil:
     return x
 
 def test_parallel():

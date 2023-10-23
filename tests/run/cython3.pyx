@@ -56,7 +56,7 @@ def truediv(x):
     return x / 2
 
 
-def truediv_int(int x):
+def truediv_int(i32 x):
     """
     >>> truediv_int(4)
     2.0
@@ -67,7 +67,7 @@ def truediv_int(int x):
 
 
 @cython.cdivision(true)
-def cdiv_int(int x):
+def cdiv_int(i32 x):
     """
     >>> cdiv_int(4)
     2

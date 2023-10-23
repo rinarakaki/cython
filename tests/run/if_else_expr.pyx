@@ -107,7 +107,7 @@ def performance_gh5197(patternsList):
         except Exception as e:
             matched.append('Error at Indx:%s-%s' %(_, patternsList[_]))
 
-fn accept_int(int x):
+fn accept_int(i32 x):
     return x
 
 def test_mixed_int_bool_coercion(x):

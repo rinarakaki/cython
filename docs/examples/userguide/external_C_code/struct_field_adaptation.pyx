@@ -13,8 +13,8 @@ cdef extern from "struct_field_adaptation.h":
 
     # Normal declarations provided by the C header file:
     ctypedef struct StructType:
-        int field1
-        int field2
+        i32 field1
+        i32 field2
 
     StructType *get_struct_ptr()
 

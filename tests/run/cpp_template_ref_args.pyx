@@ -18,7 +18,7 @@ cdef extern from "cpp_template_ref_args.h":
         int bar_value(Bar[int] & bar)
 
 
-def test_template_ref_arg(int x):
+def test_template_ref_arg(i32 x):
     """
     >>> test_template_ref_arg(4)
     4
@@ -34,7 +34,7 @@ def test_template_ref_arg(int x):
 
     return foo.bar_value(bar.ref())
 
-def test_template_ref_attr(int x):
+def test_template_ref_attr(i32 x):
     """
     >>> test_template_ref_attr(4)
     (4, 4)
@@ -43,7 +43,7 @@ def test_template_ref_attr(int x):
     bar.value = x
     return bar.ref().value, bar.const_ref().value
 
-def test_template_ref_const_attr(int x):
+def test_template_ref_const_attr(i32 x):
     """
     >>> test_template_ref_const_attr(4)
     4

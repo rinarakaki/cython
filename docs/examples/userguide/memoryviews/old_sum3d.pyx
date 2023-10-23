@@ -1,5 +1,5 @@
-cpdef int old_sum3d(object[int, ndim=3, mode='strided'] arr):
-    cdef int I, J, K, total = 0
+cpdef i32 old_sum3d(object[i32, ndim=3, mode='strided'] arr):
+    let int I, J, K, total = 0
     I = arr.shape[0]
     J = arr.shape[1]
     K = arr.shape[2]

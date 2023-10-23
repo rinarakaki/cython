@@ -60,7 +60,7 @@ def and2_literal():
     """
     return true and 5
 
-def c_int_results(int x):
+def c_int_results(i32 x):
     """
     >>> c_int_results(7)
     (0, 0)

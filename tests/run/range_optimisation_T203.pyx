@@ -1,6 +1,6 @@
 # ticket: t203
 
-fn i32 get_bound(int m):
+fn i32 get_bound(i32 m):
     print u"get_bound(%s)"%m
     return m
 
@@ -138,7 +138,7 @@ def for_in_target_reassignment(int bound, int factor):
         i *= factor
     return i
 
-def test_func(int n):
+def test_func(i32 n):
     """
     >>> test_func(5)
     get_bound(5)

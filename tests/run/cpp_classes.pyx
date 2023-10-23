@@ -13,19 +13,19 @@ cdef extern from "shapes.h" namespace "shapes":
 
     cdef cppclass Circle(Ellipse):
         int radius
-        Circle(int r) except +
+        Circle(i32 r) except +
 
     cdef cppclass Rectangle(Shape):
         int width
         int height
         Rectangle() except +
         Rectangle(int h, int w) except +
-        int method(int x)
+        int method(i32 x)
         int method(bint b)
 
     cdef cppclass Square(Rectangle):
         int side
-        Square(int s) except +
+        Square(i32 s) except +
 
     cdef cppclass Empty(Shape):
         pass
@@ -115,7 +115,7 @@ def test_square_area(w):
 fn double get_area(Rectangle s):
     return s.area()
 
-def test_value_call(int w):
+def test_value_call(i32 w):
     """
     >>> test_value_call(5)
     (25.0, 25.0)
@@ -232,7 +232,7 @@ fn vector[vector_int_ptr] create_to_delete() except *:
     let vector[vector_int_ptr] v
     v.push_back(new vector[int]())
     return v
-fn i32 f(int x):
+fn i32 f(i32 x):
     return x
 
 def test_nested_del():

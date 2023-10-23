@@ -57,7 +57,7 @@ def int_cast():
     >>> int_cast() == 1 + 2 * 6000
     True
     """
-    return <int>(1 + 2 * 6000)
+    return <i32>(1 + 2 * 6000)
 
 @cython.test_fail_if_path_exists("//MulNode")
 def mul():
@@ -156,7 +156,6 @@ def multiplied_lists_nonconst_left(x):
     """
     return x * [1,2,3]
 
-
 @cython.test_fail_if_path_exists("//MulNode")
 def multiplied_nonconst_list_const_int(x):
     """
@@ -164,7 +163,6 @@ def multiplied_nonconst_list_const_int(x):
     [1, 2, 3, 1, 2, 3]
     """
     return [1,x,3] * 2
-
 
 @cython.test_fail_if_path_exists("//MulNode//ListNode")
 def multiplied_lists_nonconst_expression(x):
@@ -176,16 +174,16 @@ def multiplied_lists_nonconst_expression(x):
     >>> multiplied_lists_nonconst_expression(0) == [1,2,3] * (0 * 2)
     True
     """
-    return [1,2,3] * (x*2)
+    return [1, 2, 3] * (x * 2)
 
-fn side_effect(int x):
+fn side_effect(i32 x):
     print x
     return x
 
 @cython.test_fail_if_path_exists("//MulNode")
 def multiplied_lists_with_side_effects():
     """
-    >>> multiplied_lists_with_side_effects() == [1,2,3] * 5
+    >>> multiplied_lists_with_side_effects() == [1, 2, 3] * 5
     1
     2
     3
@@ -196,7 +194,7 @@ def multiplied_lists_with_side_effects():
 @cython.test_fail_if_path_exists("//MulNode")
 def multiplied_lists_nonconst_with_side_effects(x):
     """
-    >>> multiplied_lists_nonconst_with_side_effects(5) == [1,2,3] * 5
+    >>> multiplied_lists_nonconst_with_side_effects(5) == [1, 2, 3] * 5
     1
     2
     3
@@ -207,11 +205,11 @@ def multiplied_lists_nonconst_with_side_effects(x):
 @cython.test_fail_if_path_exists("//MulNode")
 def multiplied_nonconst_tuple_arg(x):
     """
-    >>> multiplied_nonconst_tuple_arg(5) == (1,2) * 5
+    >>> multiplied_nonconst_tuple_arg(5) == (1, 2) * 5
     True
-    >>> multiplied_nonconst_tuple_arg(-5) == (1,2) * -5
+    >>> multiplied_nonconst_tuple_arg(-5) == (1, 2) * -5
     True
-    >>> multiplied_nonconst_tuple_arg(0) == (1,2) * 0
+    >>> multiplied_nonconst_tuple_arg(0) == (1, 2) * 0
     True
 
     >>> try: (1,2) * 'abc'
@@ -226,27 +224,27 @@ def multiplied_nonconst_tuple_arg(x):
     return (1,2) * x
 
 @cython.test_fail_if_path_exists("//MulNode")
-def multiplied_nonconst_tuple_int_arg(int x):
+def multiplied_nonconst_tuple_int_arg(i32 x):
     """
-    >>> multiplied_nonconst_tuple_int_arg(5) == (1,2) * 5
+    >>> multiplied_nonconst_tuple_int_arg(5) == (1, 2) * 5
     True
     """
-    return (1,2) * x
+    return (1, 2) * x
 
 @cython.test_fail_if_path_exists("//MulNode")
 def multiplied_nonconst_tuple(x):
     """
-    >>> multiplied_nonconst_tuple(5) == (1,2) * (5+1)
+    >>> multiplied_nonconst_tuple(5) == (1, 2) * (5 + 1)
     True
     """
-    return (1,2) * (x + 1)
+    return (1, 2) * (x + 1)
 
 MULT = 5
 
 @cython.test_fail_if_path_exists("//MulNode")
 def multiplied_global_nonconst_tuple():
     """
-    >>> multiplied_global_nonconst_tuple() == (1,2,3) * 5
+    >>> multiplied_global_nonconst_tuple() == (1, 2, 3) * 5
     1
     2
     3
@@ -257,10 +255,10 @@ def multiplied_global_nonconst_tuple():
 @cython.test_fail_if_path_exists("//MulNode")
 def multiplied_const_tuple():
     """
-    >>> multiplied_const_tuple() == (1,2) * 5
+    >>> multiplied_const_tuple() == (1, 2) * 5
     True
     """
-    return (1,2) * 5
+    return (1, 2) * 5
 
 @cython.test_fail_if_path_exists("//MulNode")
 def multiplied_const_tuple_len1():

@@ -9,7 +9,7 @@ from libcpp.algorithm cimport for_each, copy, reverse
 from libcpp.iterator cimport back_inserter
 from libcpp.vector cimport vector
 
-fn bool is_even(int i):
+fn bool is_even(i32 i):
     return i % 2 == 0
 
 def test_is_partitioned():
@@ -28,7 +28,7 @@ def test_is_partitioned():
     reverse(values.begin(), values.end())
     print(is_partitioned(values.begin(), values.end(), is_even))
 
-fn i32 print_int(int v) except -1:
+fn i32 print_int(i32 v) except -1:
     print(v, end=" ")
 
 def print_partition(vector[int] values):
@@ -55,7 +55,7 @@ def partition_ints_even(vector[int] values):
     partition_copy(values.begin(), values.end(), back_inserter(even_values), back_inserter(odd_values), &is_even)
     return even_values, odd_values
 
-fn bool is_positive(int v):
+fn bool is_positive(i32 v):
     return v > 0
 
 def partition_ints_positive(vector[int] values):

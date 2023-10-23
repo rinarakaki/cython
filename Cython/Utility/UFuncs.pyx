@@ -1,7 +1,7 @@
 ##################### UFuncDefinition ######################
 
 cdef extern from *:
-    ctypedef int npy_intp
+    ctypedef i32 npy_intp
     struct PyObject
     PyObject* __Pyx_NewRef(object)
     {{inline_func_declaration}}

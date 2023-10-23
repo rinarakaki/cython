@@ -146,7 +146,7 @@ __doc__ = ur"""
 
 
     >>> print(funcdoc(f_i))
-    f_i(int i) -> int
+    f_i(i32 i) -> int
 
     >>> print(funcdoc(f_ui))
     f_ui(unsigned int i) -> unsigned int

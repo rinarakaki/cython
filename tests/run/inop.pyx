@@ -58,7 +58,7 @@ def k(a):
 
 @cython.test_assert_path_exists("//SwitchStatNode")
 @cython.test_fail_if_path_exists("//BoolBinopNode", "//PrimaryCmpNode")
-def m_list(int a):
+def m_list(i32 a):
     """
     >>> m_list(2)
     1
@@ -70,7 +70,7 @@ def m_list(int a):
 
 @cython.test_assert_path_exists("//SwitchStatNode")
 @cython.test_fail_if_path_exists("//BoolBinopNode", "//PrimaryCmpNode")
-def m_tuple(int a):
+def m_tuple(i32 a):
     """
     >>> m_tuple(2)
     1
@@ -82,7 +82,7 @@ def m_tuple(int a):
 
 @cython.test_assert_path_exists("//SwitchStatNode")
 @cython.test_fail_if_path_exists("//BoolBinopNode", "//PrimaryCmpNode")
-def m_set(int a):
+def m_set(i32 a):
     """
     >>> m_set(2)
     1
@@ -224,7 +224,7 @@ def m_wide_unicode_literal(Py_UCS4 a):
 
 @cython.test_assert_path_exists("//SwitchStatNode")
 @cython.test_fail_if_path_exists("//BoolBinopNode", "//PrimaryCmpNode")
-def conditional_int(int a):
+def conditional_int(i32 a):
     """
     >>> conditional_int(1)
     1
@@ -237,7 +237,7 @@ def conditional_int(int a):
 
 @cython.test_assert_path_exists("//SwitchStatNode")
 @cython.test_fail_if_path_exists("//BoolBinopNode", "//PrimaryCmpNode")
-def conditional_object(int a):
+def conditional_object(i32 a):
     """
     >>> conditional_object(1)
     1
@@ -276,7 +276,7 @@ def conditional_unicode(Py_UNICODE a):
 
 @cython.test_assert_path_exists("//SwitchStatNode")
 @cython.test_fail_if_path_exists("//BoolBinopNode", "//PrimaryCmpNode")
-def conditional_none(int a):
+def conditional_none(i32 a):
     """
     >>> conditional_none(1)
     >>> conditional_none(0)
@@ -411,7 +411,7 @@ def test_inop_cascaded_one():
     """
     return 1 < 1 > 1 == 1 >= 1 <= 1 != 1 in 1 not in 1 is 1 is not 1
 
-def test_inop_cascaded_int_orig(int x):
+def test_inop_cascaded_int_orig(i32 x):
     """
     >>> test_inop_cascaded_int_orig(1)
     False
@@ -426,7 +426,7 @@ def test_inop_cascaded_one_err():
     """
     return 1 == 1 >= 1 <= 1 in 1 not in 1 is 1 is not 1
 
-def test_inop_cascaded_int_orig_err(int x):
+def test_inop_cascaded_int_orig_err(i32 x):
     """
     >>> test_inop_cascaded_int_orig_err(1)   # doctest: +ELLIPSIS
     Traceback (most recent call last):
@@ -436,7 +436,7 @@ def test_inop_cascaded_int_orig_err(int x):
 
 ###
 
-def test_inop_cascaded_int(int x):
+def test_inop_cascaded_int(i32 x):
     """
     >>> test_inop_cascaded_int(1)
     False

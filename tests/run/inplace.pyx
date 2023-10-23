@@ -94,7 +94,7 @@ def side_effect(x):
     print u"side effect", x
     return x
 
-fn i32 c_side_effect(int x):
+fn i32 c_side_effect(i32 x):
     print u"c side effect", x
     return x
 

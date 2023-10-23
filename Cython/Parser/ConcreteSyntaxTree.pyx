@@ -8,7 +8,7 @@ cdef extern from "node.h":
     ctypedef struct node
     void PyNode_Free(node* n)
     int NCH(node* n)
-    node* CHILD(node* n, int ix)
+    node* CHILD(node* n, i32 ix)
     node* RCHILD(node* n, int ix)
     short TYPE(node* n)
     char* STR(node* n)

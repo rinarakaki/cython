@@ -435,7 +435,7 @@ def test_inside_lambda():
     """
     return lambda:((yield 1), (yield 2))
 
-def test_nested_gen(int n):
+def test_nested_gen(i32 n):
     """
     >>> [list(a) for a in test_nested_gen(5)]
     [[], [0], [0, 1], [0, 1, 2], [0, 1, 2, 3]]

@@ -34,7 +34,7 @@ def double_to_pyssizet_int(double x):
 
 @cython.test_assert_path_exists("//SingleAssignmentNode/TypecastNode")
 @cython.test_fail_if_path_exists("//SimpleCallNode")
-def int_to_pyssizet_int(int x):
+def int_to_pyssizet_int(i32 x):
     """
     >>> int_to_pyssizet_int(4.1)
     4
@@ -61,7 +61,7 @@ def int_to_pyssizet_int(int x):
 
 @cython.test_assert_path_exists("//SingleAssignmentNode/TypecastNode")
 @cython.test_fail_if_path_exists("//SimpleCallNode")
-def int_to_short_int(int x):
+def int_to_short_int(i32 x):
     """
     >>> int_to_short_int(4)
     4
