@@ -473,9 +473,9 @@ def test_composite(fused_composite x):
     else:
         return 2 * x
 
-cdef cdef_func_const_fused_arg(const cython.floating val,
-                               const fused_type1 * ptr_to_const,
-                               const (cython.floating *) const_ptr):
+fn cdef_func_const_fused_arg(const cython.floating val,
+                             const fused_type1 * ptr_to_const,
+                             const (cython.floating *) const_ptr):
     print((val, cython.typeof(val)))
     print((ptr_to_const[0], cython.typeof(ptr_to_const[0])))
     print((const_ptr[0], cython.typeof(const_ptr[0])))
@@ -530,9 +530,9 @@ fn unrelated(cython.floating x):
     let cython.floating t = 1
     return t
 
-cdef handle_float(float* x): return 'float'
+fn handle_float(float* x): return 'float'
 
-cdef handle_double(f64* x): return 'double'
+fn handle_double(f64* x): return 'double'
 
 def convert_to_ptr(cython.floating x):
     """

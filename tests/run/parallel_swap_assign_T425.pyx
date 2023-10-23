@@ -45,7 +45,7 @@ def swap5(a,b,c,d,e):
 @cython.test_fail_if_path_exists(
     "//ParallelAssignmentNode/SingleAssignmentNode//CoerceToTempNode[@use_managed_ref=true]",
     )
-cdef bint c_swap_cmp5(a, b, c, d, e):
+fn bint c_swap_cmp5(a, b, c, d, e):
     a,b,c,d,e = e,d,c,b,a
     return a > b > c > d > e
 

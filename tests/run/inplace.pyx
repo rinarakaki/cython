@@ -74,7 +74,7 @@ def attributes():
     print a.attr, a.attr2, b.attr
 
 def get_2(): return 2
-cdef int identity(int value): return value
+fn int identity(int value): return value
 
 def smoketest():
     """
