@@ -66,7 +66,7 @@ def listcomp():
 
 def genexpr_in_listcomp(L):
     """
-    >>> genexpr_in_listcomp( [[1,2,3]]*2 )
+    >>> genexpr_in_listcomp( [[1, 2, 3]]*2 )
     [[1, 2, 3], [1, 2, 3]]
     """
     return list(d for d in [list(d for d in d) for d in L])
@@ -75,7 +75,7 @@ def genexpr_in_listcomp(L):
 @cython.test_assert_path_exists('//ForFromStatNode')
 def genexpr_range_in_listcomp(L):
     """
-    >>> genexpr_range_in_listcomp( [1,2,3] )
+    >>> genexpr_range_in_listcomp( [1, 2, 3] )
     [[0], [0, 1], [0, 1, 2]]
     """
     let i32 z,d

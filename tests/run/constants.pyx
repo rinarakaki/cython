@@ -86,10 +86,10 @@ def parameters():
 #@cython.test_fail_if_path_exists("//AddNode")
 def lists():
     """
-    >>> lists() == [1,2,3] + [4,5,6]
+    >>> lists() == [1, 2, 3] + [4, 5, 6]
     True
     """
-    return [1,2,3] + [4,5,6]
+    return [1, 2, 3] + [4, 5, 6]
 
 @cython.test_fail_if_path_exists("//MulNode")
 def multiplied_lists_right_len1():
@@ -102,59 +102,59 @@ def multiplied_lists_right_len1():
 @cython.test_fail_if_path_exists("//MulNode")
 def multiplied_lists_right():
     """
-    >>> multiplied_lists_right() == [1,2,3] * 5
+    >>> multiplied_lists_right() == [1, 2, 3] * 5
     True
     """
-    return [1,2,3] * 5
+    return [1, 2, 3] * 5
 
 @cython.test_fail_if_path_exists("//MulNode")
 def multiplied_lists_left():
     """
-    >>> multiplied_lists_left() == [1,2,3] * 5
+    >>> multiplied_lists_left() == [1, 2, 3] * 5
     True
     """
-    return 5 * [1,2,3]
+    return 5 * [1, 2, 3]
 
 @cython.test_fail_if_path_exists("//MulNode")
 def multiplied_lists_neg():
     """
-    >>> multiplied_lists_neg() == [1,2,3] * -5
+    >>> multiplied_lists_neg() == [1, 2, 3] * -5
     True
     """
-    return [1,2,3] * -5
+    return [1, 2, 3] * -5
 
 @cython.test_fail_if_path_exists("//MulNode")
 def multiplied_lists_nonconst(x):
     """
-    >>> multiplied_lists_nonconst(5) == [1,2,3] * 5
+    >>> multiplied_lists_nonconst(5) == [1, 2, 3] * 5
     True
-    >>> multiplied_lists_nonconst(-5) == [1,2,3] * -5
+    >>> multiplied_lists_nonconst(-5) == [1, 2, 3] * -5
     True
-    >>> multiplied_lists_nonconst(0) == [1,2,3] * 0
+    >>> multiplied_lists_nonconst(0) == [1, 2, 3] * 0
     True
 
-    >>> try: [1,2,3] * 'abc'
+    >>> try: [1, 2, 3] * 'abc'
     ... except TypeError: pass
     >>> try: multiplied_nonconst_tuple_arg('abc')
     ... except TypeError: pass
-    >>> try: [1,2,3] * 1.0
+    >>> try: [1, 2, 3] * 1.0
     ... except TypeError: pass
     >>> try: multiplied_nonconst_tuple_arg(1.0)
     ... except TypeError: pass
     """
-    return [1,2,3] * x
+    return [1, 2, 3] * x
 
 @cython.test_assert_path_exists("//MulNode")
 def multiplied_lists_nonconst_left(x):
     """
-    >>> multiplied_lists_nonconst_left(5) == 5 * [1,2,3]
+    >>> multiplied_lists_nonconst_left(5) == 5 * [1, 2, 3]
     True
-    >>> multiplied_lists_nonconst_left(-5) == -5 * [1,2,3]
+    >>> multiplied_lists_nonconst_left(-5) == -5 * [1, 2, 3]
     True
-    >>> multiplied_lists_nonconst_left(0) == 0 * [1,2,3]
+    >>> multiplied_lists_nonconst_left(0) == 0 * [1, 2, 3]
     True
     """
-    return x * [1,2,3]
+    return x * [1, 2, 3]
 
 @cython.test_fail_if_path_exists("//MulNode")
 def multiplied_nonconst_list_const_int(x):
@@ -167,11 +167,11 @@ def multiplied_nonconst_list_const_int(x):
 @cython.test_fail_if_path_exists("//MulNode//ListNode")
 def multiplied_lists_nonconst_expression(x):
     """
-    >>> multiplied_lists_nonconst_expression(5) == [1,2,3] * (5 * 2)
+    >>> multiplied_lists_nonconst_expression(5) == [1, 2, 3] * (5 * 2)
     True
-    >>> multiplied_lists_nonconst_expression(-5) == [1,2,3] * (-5 * 2)
+    >>> multiplied_lists_nonconst_expression(-5) == [1, 2, 3] * (-5 * 2)
     True
-    >>> multiplied_lists_nonconst_expression(0) == [1,2,3] * (0 * 2)
+    >>> multiplied_lists_nonconst_expression(0) == [1, 2, 3] * (0 * 2)
     True
     """
     return [1, 2, 3] * (x * 2)

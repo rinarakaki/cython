@@ -95,7 +95,7 @@ def del_list_int(L, i32 i):
 def del_temp_slice(a):
     """
     >>> class A(object):
-    ...     attr = [1,2,3]
+    ...     attr = [1, 2, 3]
     >>> a = A()
     >>> a.attr
     [1, 2, 3]

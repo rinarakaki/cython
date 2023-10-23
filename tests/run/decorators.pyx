@@ -107,7 +107,7 @@ def outer(arg1, arg2):
     ensure decorators are analysed in the correct scope
     https://github.com/cython/cython/issues/4367
     mainly intended as a compile-time test (but it does run...)
-    >>> outer(append_to_list_decorator, [1,2,3])
+    >>> outer(append_to_list_decorator, [1, 2, 3])
     [1, 2, 3, 4]
     """
     @arg1([x for x in arg2])

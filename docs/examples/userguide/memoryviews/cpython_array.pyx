@@ -1,7 +1,7 @@
 def sum_array(int[:] view):
     """
     >>> from array import array
-    >>> sum_array( array('i', [1,2,3]) )
+    >>> sum_array( array('i', [1, 2, 3]) )
     6
     """
     let i32 total = 0

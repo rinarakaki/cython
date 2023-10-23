@@ -79,7 +79,7 @@ def slice_list_copy(list l):
     """
     >>> slice_list_copy([])
     []
-    >>> slice_list_copy([1,2,3])
+    >>> slice_list_copy([1, 2, 3])
     [1, 2, 3]
     """
     return l[:]

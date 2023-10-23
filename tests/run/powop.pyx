@@ -75,7 +75,7 @@ def int_pow(i16 a, i16 b):
     """
     return a ** b
 
-class I(i32):
+class I(int):
     """
     Copied from CPython's test_descr.py
 

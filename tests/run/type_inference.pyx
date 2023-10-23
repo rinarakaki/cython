@@ -29,7 +29,7 @@ def simple():
     assert typeof(s) == "str object", typeof(s)
     u = u"xyz"
     assert typeof(u) == "unicode object", typeof(u)
-    L = [1,2,3]
+    L = [1, 2, 3]
     assert typeof(L) == "list object", typeof(L)
     t = (4,5,6,())
     assert typeof(t) == "tuple object", typeof(t)
@@ -75,7 +75,7 @@ def slicing():
     assert typeof(s1) == "str object", typeof(s1)
     s2 = s[1:2:2]
     assert typeof(s2) == "str object", typeof(s2)
-    L = [1,2,3]
+    L = [1, 2, 3]
     assert typeof(L) == "list object", typeof(L)
     L1 = L[1:2]
     assert typeof(L1) == "list object", typeof(L1)
@@ -104,7 +104,7 @@ def indexing():
     assert typeof(s) == "str object", typeof(s)
     s1 = s[1]
     assert typeof(s1) == "str object", typeof(s1)
-    L = [1,2,3]
+    L = [1, 2, 3]
     assert typeof(L) == "list object", typeof(L)
     L1 = L[1]
     assert typeof(L1) == "Python object", typeof(L1)
@@ -142,7 +142,7 @@ def multiple_assignments():
     assert typeof(b) == "double", typeof(b)
     c = a
     c = b
-    c = [1,2,3]
+    c = [1, 2, 3]
     assert typeof(c) == "Python object", typeof(c)
     d = b'abc'
     d = bytes()

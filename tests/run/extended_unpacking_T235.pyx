@@ -152,7 +152,7 @@ def unpack_right(l):
     (1, [2])
     >>> unpack_right('123')
     ('1', ['2', '3'])
-    >>> unpack_right([1,2,3])
+    >>> unpack_right([1, 2, 3])
     (1, [2, 3])
     """
     a, *b = l
@@ -167,7 +167,7 @@ def unpack_right_list(list l):
     (1, [])
     >>> unpack_right_list([1,2])
     (1, [2])
-    >>> unpack_right_list([1,2,3])
+    >>> unpack_right_list([1, 2, 3])
     (1, [2, 3])
     """
     a, *b = l
@@ -204,7 +204,7 @@ def unpack_left(l):
     ([1], 2)
     >>> unpack_left('123')
     (['1', '2'], '3')
-    >>> unpack_left([1,2,3])
+    >>> unpack_left([1, 2, 3])
     ([1, 2], 3)
     """
     *a, b = l
@@ -219,7 +219,7 @@ def unpack_left_list(list l):
     ([], 1)
     >>> unpack_left_list([1,2])
     ([1], 2)
-    >>> unpack_left_list([1,2,3])
+    >>> unpack_left_list([1, 2, 3])
     ([1, 2], 3)
     """
     *a, b = l
@@ -264,7 +264,7 @@ def unpack_middle(l):
     (1, [], 2)
     >>> unpack_middle('123')
     ('1', ['2'], '3')
-    >>> unpack_middle([1,2,3])
+    >>> unpack_middle([1, 2, 3])
     (1, [2], 3)
     """
     a, *b, c = l
@@ -280,7 +280,7 @@ def unpack_middle_list(list l):
     ValueError: need more than 1 value to unpack
     >>> unpack_middle_list([1,2])
     (1, [], 2)
-    >>> unpack_middle_list([1,2,3])
+    >>> unpack_middle_list([1, 2, 3])
     (1, [2], 3)
     """
     a, *b, c = l

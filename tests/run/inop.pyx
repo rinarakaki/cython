@@ -3,9 +3,9 @@ cimport cython
 
 def f(a,b):
     """
-    >>> f(1,[1,2,3])
+    >>> f(1,[1, 2, 3])
     True
-    >>> f(5,[1,2,3])
+    >>> f(5,[1, 2, 3])
     False
     >>> f(2,(1,2,3))
     True
@@ -15,9 +15,9 @@ def f(a,b):
 
 def g(a,b):
     """
-    >>> g(1,[1,2,3])
+    >>> g(1,[1, 2, 3])
     1
-    >>> g(5,[1,2,3])
+    >>> g(5,[1, 2, 3])
     0
     >>> g(2,(1,2,3))
     1
@@ -341,7 +341,7 @@ def s(a):
     >>> s(2)
     1
     """
-    let i32 result = a in [1,2,3,4] in [[1,2,3],[2,3,4],[1,2,3,4]]
+    let i32 result = a in [1,2,3,4] in [[1, 2, 3],[2,3,4],[1,2,3,4]]
     return result
 
 #@cython.test_assert_path_exists("//ReturnStatNode//BoolNode")

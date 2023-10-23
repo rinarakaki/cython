@@ -188,11 +188,11 @@ def test_list_extend(seq=None, x=4):
     >>> test_list_extend([1, 2])
     [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 1, 2]
     """
-    let list l = [1,2,3]
+    let list l = [1, 2, 3]
     l.extend([])
     l.extend(())
     l.extend(set())  # not currently optimised (not worth the trouble)
-    assert l == [1,2,3]
+    assert l == [1, 2, 3]
     assert len(l) == 3
     l.extend([4,x+1,6])
     l.extend([7,8,9,10,11,12,13,14,15,16])
@@ -216,7 +216,7 @@ def test_list_extend_unbound(seq=None, x=4):
     >>> test_list_extend_unbound([1, 2])
     [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 1, 2]
     """
-    let list l = [1,2,3]
+    let list l = [1, 2, 3]
     list.extend(l, [])
     list.extend(l, ())
     try:
@@ -226,7 +226,7 @@ def test_list_extend_unbound(seq=None, x=4):
     else:
         assert False, "TypeError not raised!"
     list.extend(l, set())  # not currently optimised (not worth the trouble)
-    assert l == [1,2,3]
+    assert l == [1, 2, 3]
     assert len(l) == 3
     list.extend(l, [4,x+1,6])
     list.extend(l, [7,8,9,10,11,12,13,14,15,16])
@@ -262,11 +262,11 @@ def test_list_extend_sideeffect(seq=None, exc=false):
             raise TypeError("HUHU")
         return value
 
-    let list l = [1,2,3]
+    let list l = [1, 2, 3]
     l.extend([])
     l.extend(())
     l.extend(set())  # not currently optimised (not worth the trouble)
-    assert l == [1,2,3]
+    assert l == [1, 2, 3]
     assert len(l) == 3
 
     # Must first build all items, then append them in order.
@@ -303,7 +303,7 @@ def test_none_list_extend(list l):
     123
     """
     try:
-        l.extend([1,2,3])
+        l.extend([1, 2, 3])
     except AttributeError:
         return 123
     return l

@@ -50,7 +50,7 @@ def unpack_tuple(tuple it):
 
 def unpack_list(list it):
     """
-    >>> unpack_list([1,2,3])
+    >>> unpack_list([1, 2, 3])
     (1, 2, 3)
 
     >>> a,b,c = None   # doctest: +ELLIPSIS

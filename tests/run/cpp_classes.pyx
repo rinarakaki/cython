@@ -19,8 +19,8 @@ extern from "shapes.h" namespace "shapes":
         int height
         Rectangle() except +
         Rectangle(i32 h, i32 w) except +
-        fn i32 method(i32 x)
-        fn iew method(bint b)
+        i32 method(i32 x)
+        i32 method(bint b)
 
     cdef cppclass Square(Rectangle):
         int side

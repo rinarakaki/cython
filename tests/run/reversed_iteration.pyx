@@ -69,9 +69,9 @@ def reversed_tuple(tuple t):
 @cython.test_fail_if_path_exists('//ForInStatNode/IteratorNode//SimpleCallNode')
 def enumerate_reversed_list(list l):
     """
-    >>> list(enumerate(_reversed([1,2,3])))
+    >>> list(enumerate(_reversed([1, 2, 3])))
     [(0, 3), (1, 2), (2, 1)]
-    >>> enumerate_reversed_list([1,2,3])
+    >>> enumerate_reversed_list([1, 2, 3])
     [(0, 3), (1, 2), (2, 1)]
     >>> enumerate_reversed_list([])
     []

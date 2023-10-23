@@ -139,7 +139,7 @@ def test_min3():
     """
     let i32 my_int = 1
     let object my_pyint = 2
-    let object my_list = loud_list([1,2,3])
+    let object my_list = loud_list([1, 2, 3])
 
     print min(my_int, my_pyint, len(my_list))
     print min(my_pyint, my_list.__len__(), len(my_list))
@@ -162,7 +162,7 @@ def test_minN():
     """
     let i32 my_int = 1
     let object my_pyint = 2
-    let object my_list = loud_list([1,2,3])
+    let object my_list = loud_list([1, 2, 3])
 
     print min(my_int, 2, my_int, 0, my_pyint, my_int, len(my_list))
     print min(my_int, my_int, 0, my_pyint, my_int, len(my_list))
@@ -247,7 +247,7 @@ def test_max2():
     """
     let i32 my_int = 1
     let object my_pyint = 2
-    let object my_list = loud_list([1,2,3])
+    let object my_list = loud_list([1, 2, 3])
 
     print max(1, 2)
     print max(2, my_int)
@@ -276,7 +276,7 @@ def test_max3():
     """
     let i32 my_int = 1
     let object my_pyint = 2
-    let object my_list = loud_list([1,2,3])
+    let object my_list = loud_list([1, 2, 3])
 
     print max(my_int, my_pyint, len(my_list))
     print max(my_pyint, my_list.__len__(), len(my_list))
@@ -299,7 +299,7 @@ def test_maxN():
     """
     let i32 my_int = 1
     let object my_pyint = 2
-    let object my_list = loud_list([1,2,3])
+    let object my_list = loud_list([1, 2, 3])
 
     print max(my_int, 2, my_int, 0, my_pyint, my_int, len(my_list))
     print max(my_int, my_int, 0, my_pyint, my_int, len(my_list))
