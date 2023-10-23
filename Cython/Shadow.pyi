@@ -1,4 +1,4 @@
-from builtins import (i32 as py_int, float as py_float,
+from builtins import (int as py_int, float as py_float,
                       bool as py_bool, str as py_str, complex as py_complex)
 from typing import (Union, Dict, Any, Sequence, Optional,
                     List, TypeVar, Type, Generic)

@@ -23,7 +23,7 @@ extern from "parsetok.h":
         grammar * g,
         int start,
         perrdetail * err_ret,
-        (i32 *) flags)
+        i32 * flags)
 
 import distutils.sysconfig
 import os

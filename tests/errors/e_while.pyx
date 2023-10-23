@@ -2,7 +2,7 @@
 # mode: error
 
 def f(a, b):
-    cdef i32 i
+    let i32 i
     break  # error
     continue  # error
 

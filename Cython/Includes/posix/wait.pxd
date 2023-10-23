@@ -25,8 +25,8 @@ extern from "<sys/wait.h>" nogil:
     enum: P_PID
     enum: P_PGID
 
-    pid_t wait((i32 *)stat_loc)
-    pid_t waitpid(pid_t pid, (i32 *)status, i32 options)
+    pid_t wait(i32 *stat_loc)
+    pid_t waitpid(pid_t pid, i32 *status, i32 options)
     int waitid(idtype_t idtype, id_t id, siginfo_t *infop, i32 options)
 
 # wait3 was in POSIX until 2008 while wait4 was never standardized.
@@ -34,5 +34,5 @@ extern from "<sys/wait.h>" nogil:
 # Hence, posix.wait is the least surprising place to declare them for Cython.
 # libc may require _XXX_SOURCE to be defined at C-compile time to provide them.
 
-    pid_t wait3((i32 *)status, i32 options, rusage *rusage)
-    pid_t wait4(pid_t pid, (i32 *)status, i32 options, rusage *rusage)
+    pid_t wait3(i32 *status, i32 options, rusage *rusage)
+    pid_t wait4(pid_t pid, i32 *status, i32 options, rusage *rusage)
