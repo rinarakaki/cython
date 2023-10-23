@@ -15,9 +15,9 @@ def and2_assign(a, b):
 
 def and2(a, b):
     """
-    >>> and2(2,3) == (2 and 3)
+    >>> and2(2, 3) == (2 and 3)
     True
-    >>> and2(0,2) == (0 and 2)
+    >>> and2(0, 2) == (0 and 2)
     True
     >>> and2('a', 'b') == ('a' and 'b')
     True
@@ -44,8 +44,8 @@ def and3(a, b, c):
 
 def and2_no_result(a, b):
     """
-    >>> and2_no_result(2,3)
-    >>> and2_no_result(0,2)
+    >>> and2_no_result(2, 3)
+    >>> and2_no_result(0, 2)
     >>> and2_no_result('a','b')
     >>> and2_no_result(a, b)
     >>> a and b

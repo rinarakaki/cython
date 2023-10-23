@@ -228,7 +228,7 @@ def index_and_in():
     8
     """
     let i32 i
-    for i in range(1,9):
+    for i in range(1, 9):
         if u'abcdefgh'[-i] in u'abCDefGh':
             print i
 

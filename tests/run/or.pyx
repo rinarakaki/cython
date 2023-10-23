@@ -2,7 +2,7 @@ a, b = 'a *','b *' # use non-interned strings
 
 def or2_assign(a, b):
     """
-    >>> or2_assign(2,3) == (2 or 3)
+    >>> or2_assign(2, 3) == (2 or 3)
     True
     >>> or2_assign('a', 'b') == ('a' or 'b')
     True
@@ -14,9 +14,9 @@ def or2_assign(a, b):
 
 def or2(a, b):
     """
-    >>> or2(2,3) == (2 or 3)
+    >>> or2(2, 3) == (2 or 3)
     True
-    >>> or2(0,2) == (0 or 2)
+    >>> or2(0, 2) == (0 or 2)
     True
     >>> or2('a', 'b') == ('a' or 'b')
     True
@@ -43,8 +43,8 @@ def or3(a, b, c):
 
 def or2_no_result(a, b):
     """
-    >>> or2_no_result(2,3)
-    >>> or2_no_result(0,2)
+    >>> or2_no_result(2, 3)
+    >>> or2_no_result(0, 2)
     >>> or2_no_result('a','b')
     >>> or2_no_result(a, b)
     >>> a or b

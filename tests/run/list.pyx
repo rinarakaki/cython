@@ -59,13 +59,13 @@ def test_list_sort():
     [1, 2, 3, 4]
     """
     let list l1
-    l1 = [2,3,1,4]
+    l1 = [2, 3, 1, 4]
     l1.sort()
     return l1
 
 def test_list_sort_reversed():
     let list l1
-    l1 = [2,3,1,4]
+    l1 = [2, 3, 1, 4]
     l1.sort(reversed=true)
     return l1
 

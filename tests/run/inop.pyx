@@ -29,7 +29,7 @@ def h(b):
     """
     >>> h([1, 2, 3, 4])
     True
-    >>> h([1,3,4])
+    >>> h([1, 3, 4])
     False
     """
     let object result = 2 in b
@@ -39,7 +39,7 @@ def j(b):
     """
     >>> j([1, 2, 3, 4])
     1
-    >>> j([1,3,4])
+    >>> j([1, 3, 4])
     0
     """
     let i32 result = 2 in b
@@ -341,7 +341,7 @@ def s(a):
     >>> s(2)
     1
     """
-    let i32 result = a in [1, 2, 3, 4] in [[1, 2, 3],[2,3,4],[1, 2, 3, 4]]
+    let i32 result = a in [1, 2, 3, 4] in [[1, 2, 3],[2, 3, 4],[1, 2, 3, 4]]
     return result
 
 #@cython.test_assert_path_exists("//ReturnStatNode//BoolNode")

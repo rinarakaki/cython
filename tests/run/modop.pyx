@@ -3,7 +3,7 @@ import sys
 
 def modobj(obj2, obj3):
     """
-    >>> modobj(9,2)
+    >>> modobj(9, 2)
     1
     >>> modobj('%d', 5)
     '5'
@@ -266,7 +266,7 @@ def mod_obj_m2f(obj2):
 
 def modint(i32 int2, int int3):
     """
-    >>> modint(9,2)
+    >>> modint(9, 2)
     1
     """
     let i32 int1

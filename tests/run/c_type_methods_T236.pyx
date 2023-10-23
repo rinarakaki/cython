@@ -8,7 +8,7 @@ True
 >>> float_is_integer(1.1)
 False
 '''
-if sys.version_info >= (3,1):
+if sys.version_info >= (3, 1):
     __doc__ += '''
 >>> int_bit_length(1) == (1).bit_length()
 True

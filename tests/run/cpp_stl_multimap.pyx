@@ -9,7 +9,7 @@ from libcpp.utility cimport pair
 
 def test_multimap_insert(vals):
     """
-    >>> test_multimap_insert([(1,1),(2,2),(2,2),(3,3),(-1,-1)])
+    >>> test_multimap_insert([(1, 1),(2, 2),(2, 2),(3, 3),(-1,-1)])
     [(-1, -1), (1, 1), (2, 2), (2, 2), (3, 3)]
     """
     let multimap[int,int] mm = multimap[int, int]()
@@ -20,7 +20,7 @@ def test_multimap_insert(vals):
 
 def test_multimap_insert_it(vals):
     """
-    >>> test_multimap_insert_it([(1,1),(2,2),(2,2),(3,3),(-1,-1)])
+    >>> test_multimap_insert_it([(1, 1),(2, 2),(2, 2),(3, 3),(-1,-1)])
     [(-1, -1), (1, 1), (2, 2), (2, 2), (3, 3)]
     """
     let unordered_multimap[int,int] umm = unordered_multimap[int,int]()
@@ -32,7 +32,7 @@ def test_multimap_insert_it(vals):
 
 def test_const_multimap_insert_it(vals):
     """
-    >>> test_const_multimap_insert_it([(1,1),(2,2),(2,2),(3,3),(-1,-1)])
+    >>> test_const_multimap_insert_it([(1, 1),(2, 2),(2, 2),(3, 3),(-1,-1)])
     [(-1, -1), (1, 1), (2, 2), (2, 2), (3, 3)]
     """
     let unordered_multimap[int,int] umm = unordered_multimap[int,int]()
@@ -44,9 +44,9 @@ def test_const_multimap_insert_it(vals):
 
 def test_multimap_count(vals, to_find):
     """
-    >>> test_multimap_count([(1,1),(2,2),(2,2),(3,3),(-1,-1)], 1)
+    >>> test_multimap_count([(1, 1),(2, 2),(2, 2),(3, 3),(-1,-1)], 1)
     1
-    >>> test_multimap_count([(1,1),(2,2),(2,2),(3,3),(-1,-1)], 2)
+    >>> test_multimap_count([(1, 1),(2, 2),(2, 2),(3, 3),(-1,-1)], 2)
     2
     """
     let multimap[int,int] mm = multimap[int,int]()
@@ -56,9 +56,9 @@ def test_multimap_count(vals, to_find):
 
 def test_multimap_erase(vals, int to_remove):
     """
-    >>> test_multimap_erase([(1,1),(2,2),(2,2),(3,3),(-1,-1)], 1)
+    >>> test_multimap_erase([(1, 1),(2, 2),(2, 2),(3, 3),(-1,-1)], 1)
     [(-1, -1), (2, 2), (2, 2), (3, 3)]
-    >>> test_multimap_erase([(1,1),(2,2),(2,2),(3,3),(-1,-1)], 2)
+    >>> test_multimap_erase([(1, 1),(2, 2),(2, 2),(3, 3),(-1,-1)], 2)
     [(-1, -1), (1, 1), (3, 3)]
     """
     let multimap[int,int] mm = multimap[int,int]()
@@ -69,9 +69,9 @@ def test_multimap_erase(vals, int to_remove):
 
 def test_multimap_find_erase(vals, to_remove):
     """
-    >>> test_multimap_find_erase([(1,1),(2,2),(2,2),(3,3),(-1,-1)], 1)
+    >>> test_multimap_find_erase([(1, 1),(2, 2),(2, 2),(3, 3),(-1,-1)], 1)
     [(-1, -1), (2, 2), (2, 2), (3, 3)]
-    >>> test_multimap_find_erase([(1,1),(2,2),(2,2),(3,3),(-1,-1)], 2)
+    >>> test_multimap_find_erase([(1, 1),(2, 2),(2, 2),(3, 3),(-1,-1)], 2)
     [(-1, -1), (1, 1), (2, 2), (3, 3)]
     """
     let multimap[int,int] mm = multimap[int,int]()
@@ -85,7 +85,7 @@ def test_multimap_find_erase(vals, to_remove):
 
 def test_unordered_multimap_insert(vals):
     """
-    >>> test_unordered_multimap_insert([(1,1),(2,2),(2,2),(3,3),(-1,-1)])
+    >>> test_unordered_multimap_insert([(1, 1),(2, 2),(2, 2),(3, 3),(-1,-1)])
     [(-1, -1), (1, 1), (2, 2), (2, 2), (3, 3)]
     """
     let unordered_multimap[int,int] umm = unordered_multimap[int,int]()
@@ -96,7 +96,7 @@ def test_unordered_multimap_insert(vals):
 
 def test_unordered_multimap_insert_it(vals):
     """
-    >>> test_unordered_multimap_insert_it([(1,1),(2,2),(2,2),(3,3),(-1,-1)])
+    >>> test_unordered_multimap_insert_it([(1, 1),(2, 2),(2, 2),(3, 3),(-1,-1)])
     [(-1, -1), (1, 1), (2, 2), (2, 2), (3, 3)]
     """
     let multimap[int,int] mm = multimap[int,int]()
@@ -108,7 +108,7 @@ def test_unordered_multimap_insert_it(vals):
 
 def test_const_unordered_multimap_insert_it(vals):
     """
-    >>> test_const_unordered_multimap_insert_it([(1,1),(2,2),(2,2),(3,3),(-1,-1)])
+    >>> test_const_unordered_multimap_insert_it([(1, 1),(2, 2),(2, 2),(3, 3),(-1,-1)])
     [(-1, -1), (1, 1), (2, 2), (2, 2), (3, 3)]
     """
     let multimap[int,int] mm = multimap[int,int]()
@@ -120,9 +120,9 @@ def test_const_unordered_multimap_insert_it(vals):
 
 def test_unordered_multimap_count(vals, to_find):
     """
-    >>> test_unordered_multimap_count([(1,1),(2,2),(2,2),(3,3),(-1,-1)], 1)
+    >>> test_unordered_multimap_count([(1, 1),(2, 2),(2, 2),(3, 3),(-1,-1)], 1)
     1
-    >>> test_unordered_multimap_count([(1,1),(2,2),(2,2),(3,3),(-1,-1)], 2)
+    >>> test_unordered_multimap_count([(1, 1),(2, 2),(2, 2),(3, 3),(-1,-1)], 2)
     2
     """
     let unordered_multimap[int,int] umm = unordered_multimap[int,int]()
@@ -132,9 +132,9 @@ def test_unordered_multimap_count(vals, to_find):
 
 def test_unordered_multimap_erase(vals, int to_remove):
     """
-    >>> test_unordered_multimap_erase([(1,1),(2,2),(2,2),(3,3),(-1,-1)], 1)
+    >>> test_unordered_multimap_erase([(1, 1),(2, 2),(2, 2),(3, 3),(-1,-1)], 1)
     [(-1, -1), (2, 2), (2, 2), (3, 3)]
-    >>> test_unordered_multimap_erase([(1,1),(2,2),(2,2),(3,3),(-1,-1)], 2)
+    >>> test_unordered_multimap_erase([(1, 1),(2, 2),(2, 2),(3, 3),(-1,-1)], 2)
     [(-1, -1), (1, 1), (3, 3)]
     """
     let unordered_multimap[int,int] umm = unordered_multimap[int,int]()
@@ -145,9 +145,9 @@ def test_unordered_multimap_erase(vals, int to_remove):
 
 def test_unordered_multimap_find_erase(vals, to_remove):
     """
-    >>> test_unordered_multimap_find_erase([(1,1),(2,2),(2,2),(3,3),(-1,-1)], 1)
+    >>> test_unordered_multimap_find_erase([(1, 1),(2, 2),(2, 2),(3, 3),(-1,-1)], 1)
     [(-1, -1), (2, 2), (2, 2), (3, 3)]
-    >>> test_unordered_multimap_find_erase([(1,1),(2,2),(2,2),(3,3),(-1,-1)], 2)
+    >>> test_unordered_multimap_find_erase([(1, 1),(2, 2),(2, 2),(3, 3),(-1,-1)], 2)
     [(-1, -1), (1, 1), (2, 2), (3, 3)]
     """
     let unordered_multimap[int,int] umm = unordered_multimap[int,int]()

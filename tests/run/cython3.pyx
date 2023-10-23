@@ -612,7 +612,7 @@ def annotation_syntax(a: "test new test", b : "other" = 2, *args: "ARGS", **kwar
     """
     >>> annotation_syntax(1)
     3
-    >>> annotation_syntax(1,3)
+    >>> annotation_syntax(1, 3)
     4
 
     >>> len(annotation_syntax.__annotations__)

@@ -217,5 +217,5 @@ def return_typed_sum_cond_exp_in(seq):
     3
     """
     let i32 i
-    return <int>sum( 0 if i%3 in (0,1) else 1
+    return <int>sum( 0 if i%3 in (0, 1) else 1
                      for i in seq )

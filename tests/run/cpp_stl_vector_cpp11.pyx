@@ -8,7 +8,7 @@ from libcpp.vector cimport vector
 
 def const_iteration_test(L):
     """
-    >>> const_iteration_test([1,2,4,8])
+    >>> const_iteration_test([1, 2, 4, 8])
     1
     2
     4

@@ -140,5 +140,5 @@ def slice_of_temporary_smoketest():
     """
     x = A()
     x.a = [1, 2]
-    x.a[:] = [3,2]
+    x.a[:] = [3, 2]
     return x.a

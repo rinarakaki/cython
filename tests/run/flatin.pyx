@@ -19,7 +19,7 @@ def test_in(s):
         return 2
     elif len(s) in (1, 2):
         return 3
-    elif len(s) in (3,4):
+    elif len(s) in (3, 4):
         return 4
     else:
         return 5

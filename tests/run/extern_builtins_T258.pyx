@@ -9,7 +9,7 @@ extern from "Python.h":
 
     fn isize Py_SIZE(object o)
 
-cdef list L = [1,2,4]
+cdef list L = [1, 2, 4]
 cdef dict d = {'A': 'a'}
 
 def test_list(list L):

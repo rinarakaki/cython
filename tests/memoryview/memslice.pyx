@@ -319,7 +319,7 @@ def explicitly_release_buffer():
 @testcase
 def get_int_2d(i32[:, :] buf, i32 i, i32 j):
     """
-    >>> C = IntMockBuffer("C", range(6), (2,3))
+    >>> C = IntMockBuffer("C", range(6), (2, 3))
     >>> get_int_2d(C, 1, 1)
     acquired C
     released C
@@ -355,7 +355,7 @@ def get_int_2d(i32[:, :] buf, i32 i, i32 j):
 def get_int_2d_uintindex(i32[:, :] buf, u32 i, u32 j):
     """
     Unsigned indexing:
-    >>> C = IntMockBuffer("C", range(6), (2,3))  # , writable=false)
+    >>> C = IntMockBuffer("C", range(6), (2, 3))  # , writable=false)
     >>> get_int_2d_uintindex(C, 0, 0)
     acquired C
     released C
@@ -375,7 +375,7 @@ def set_int_2d(i32[:, :] buf, i32 i, i32 j, i32 value):
     Uses get_int_2d to read back the value afterwards. For pure
     unit test, one should support reading in MockBuffer instead.
 
-    >>> C = IntMockBuffer("C", range(6), (2,3))
+    >>> C = IntMockBuffer("C", range(6), (2, 3))
     >>> set_int_2d(C, 1, 1, 10)
     acquired C
     released C

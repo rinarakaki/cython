@@ -142,7 +142,7 @@ def swap_recursive_attr_values(B a, B b):
     >>> class B:
     ...     def __init__(self, x1, y1, x2, y2):
     ...         self.a1, self.a2 = A(x1, y1), A(x2, y2)
-    >>> a, b = B(1, 2, 3, 4), B(5,6,7,8)
+    >>> a, b = B(1, 2, 3, 4), B(5, 6, 7, 8)
     >>> a.a1, a.a2 = a.a2, a.a1
     >>> b.a1, b.a2 = b.a2, b.a1
     >>> a.a1, a.a1.x, a.a2.y, a.a2, a.a1.y, a.a2.x = a.a2, a.a2.y, a.a1.x, a.a1, a.a2.x, a.a1.y

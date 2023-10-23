@@ -158,7 +158,7 @@ def h(a, b, c, *args, **kwargs):
     """
     print a, b, c, u'*', len(args), len(kwargs)
 
-args = (9,8,7)
+args = (9, 8, 7)
 
 import sys
 if sys.version_info[0] >= 3:
@@ -185,7 +185,7 @@ def test_kw_args(f):
     """
     f(1,2, c=3)
     f(1,2, d=3, *args)
-    f(1,2, d=3, *(7,8,9))
+    f(1,2, d=3, *(7, 8, 9))
     f(1,2, d=3, *args, **kwargs)
     f(1,2, d=3, *args, e=5)
     f(1,2, d=3, *args, e=5, **kwargs)
@@ -207,9 +207,9 @@ def test_pos_args(f):
     """
     f(1, 2, 3)
     f(1,2, *args)
-    f(1,2, *(7,8,9))
+    f(1,2, *(7, 8, 9))
     f(*args)
-    f(*(7,8,9))
+    f(*(7, 8, 9))
 
 def test_kw(f):
     """

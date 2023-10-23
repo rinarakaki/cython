@@ -44,7 +44,7 @@ def go_c_enumerate():
 
 def go_c_int(i32 a, i32 b):
     """
-    >>> go_c_int(1,5)
+    >>> go_c_int(1, 5)
     Spam!
     Spam!
     """

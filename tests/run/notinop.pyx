@@ -30,7 +30,7 @@ def h(b):
     """
     >>> h([1, 2, 3, 4])
     False
-    >>> h([1,3,4])
+    >>> h([1, 3, 4])
     True
     """
     result = 2 not in b
@@ -40,7 +40,7 @@ def j(b):
     """
     >>> j([1, 2, 3, 4])
     0
-    >>> j([1,3,4])
+    >>> j([1, 3, 4])
     1
     """
     let i32 result
@@ -171,7 +171,7 @@ def m_tuple_in_or_notin(i32 a):
     >>> m_tuple_in_or_notin(5)
     1
     """
-    let i32 result = a not in (1, 2, 3, 4) or a in (3,4)
+    let i32 result = a not in (1, 2, 3, 4) or a in (3, 4)
     return result
 
 @cython.test_assert_path_exists("//SwitchStatNode", "//BoolBinopNode")
@@ -185,7 +185,7 @@ def m_tuple_notin_or_notin(i32 a):
     >>> m_tuple_notin_or_notin(4)
     0
     """
-    let i32 result = a not in (1, 2, 3, 4) or a not in (4,5)
+    let i32 result = a not in (1, 2, 3, 4) or a not in (4, 5)
     return result
 
 @cython.test_assert_path_exists("//SwitchStatNode")
@@ -199,7 +199,7 @@ def m_tuple_notin_and_notin(i32 a):
     >>> m_tuple_notin_and_notin(5)
     1
     """
-    let i32 result = a not in (1, 2, 3, 4) and a not in (6,7)
+    let i32 result = a not in (1, 2, 3, 4) and a not in (6, 7)
     return result
 
 @cython.test_assert_path_exists("//SwitchStatNode", "//BoolBinopNode")
@@ -213,7 +213,7 @@ def m_tuple_notin_and_notin_overlap(i32 a):
     >>> m_tuple_notin_and_notin_overlap(5)
     1
     """
-    let i32 result = a not in (1, 2, 3, 4) and a not in (3,4)
+    let i32 result = a not in (1, 2, 3, 4) and a not in (3, 4)
     return result
 
 @cython.test_assert_path_exists("//SwitchStatNode")

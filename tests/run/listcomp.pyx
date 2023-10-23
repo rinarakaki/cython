@@ -133,7 +133,7 @@ def sorted_listcomp(sequence):
     []
     >>> sorted_listcomp([1])
     [2]
-    >>> sorted_listcomp([3,2,4])
+    >>> sorted_listcomp([3, 2, 4])
     [3, 4, 5]
     """
     return sorted([ n+1 for n in sequence ])

@@ -422,7 +422,7 @@ def call_many_kwargs():
     for i in range(512):
         key = 'k%d' % i
         d[key] = i
-    a, b = f2(1, *(2,3), **d)
+    a, b = f2(1, *(2, 3), **d)
     return len(a), len(b), b == d
 
 

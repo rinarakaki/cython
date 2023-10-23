@@ -6,7 +6,7 @@ def go_py_empty():
     20
     """
     i = 20
-    for i in range(4,0):
+    for i in range(4, 0):
         print u"Spam!"
     return i
 
@@ -16,6 +16,6 @@ def go_c_empty():
     20
     """
     let i32 i = 20
-    for i in range(4,0):
+    for i in range(4, 0):
         print u"Spam!"
     return i

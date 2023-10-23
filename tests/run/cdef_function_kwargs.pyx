@@ -264,7 +264,7 @@ cdef class ExtType:
         (3, 2)
         (3, 2)
         """
-        print self.optargs(3,4)
+        print self.optargs(3, 4)
         print self.optargs(3,b=4)
         print self.optargs(a=3,b=4)
         print self.optargs()
@@ -272,7 +272,7 @@ cdef class ExtType:
         print self.optargs(a=3)
         #print self.optargs(b=4)
         print "EXT"
-        print ext.optargs(3,4)
+        print ext.optargs(3, 4)
         print ext.optargs(3,b=4)
         print ext.optargs(a=3,b=4)
         print ext.optargs()
@@ -303,7 +303,7 @@ cdef class ExtType:
         (3, 2)
         (3, 2)
         """
-        print self.cpmeth_optargs(3,4)
+        print self.cpmeth_optargs(3, 4)
         print self.cpmeth_optargs(3,b=4)
         print self.cpmeth_optargs(a=3,b=4)
         print self.cpmeth_optargs()
@@ -311,7 +311,7 @@ cdef class ExtType:
         print self.cpmeth_optargs(a=3)
         #print self.cpmeth_optargs(b=4)
         print "EXT"
-        print ext.cpmeth_optargs(3,4)
+        print ext.cpmeth_optargs(3, 4)
         print ext.cpmeth_optargs(3,b=4)
         print ext.cpmeth_optargs(a=3,b=4)
         print ext.cpmeth_optargs()

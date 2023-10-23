@@ -90,24 +90,24 @@ def test_literal_list_slice_end_param(e):
 
 def test_literal_list_slice_start_end_param(s,e):
     """
-    >>> test_literal_list_slice_start_end_param(2,7)
+    >>> test_literal_list_slice_start_end_param(2, 7)
     (1, 2, 3, 4, 5)
-    >>> test_literal_list_slice_start_end_param(3,7)
+    >>> test_literal_list_slice_start_end_param(3, 7)
     Traceback (most recent call last):
     ValueError: Assignment to slice of wrong length, expected 5, got 4
-    >>> test_literal_list_slice_start_end_param(1,7)
+    >>> test_literal_list_slice_start_end_param(1, 7)
     Traceback (most recent call last):
     ValueError: Assignment to slice of wrong length, expected 5, got 6
-    >>> test_literal_list_slice_start_end_param(2,6)
+    >>> test_literal_list_slice_start_end_param(2, 6)
     Traceback (most recent call last):
     ValueError: Assignment to slice of wrong length, expected 5, got 4
-    >>> test_literal_list_slice_start_end_param(2,8)
+    >>> test_literal_list_slice_start_end_param(2, 8)
     Traceback (most recent call last):
     ValueError: Assignment to slice of wrong length, expected 5, got 6
-    >>> test_literal_list_slice_start_end_param(3,6)
+    >>> test_literal_list_slice_start_end_param(3, 6)
     Traceback (most recent call last):
     ValueError: Assignment to slice of wrong length, expected 5, got 3
-    >>> test_literal_list_slice_start_end_param(1,8)
+    >>> test_literal_list_slice_start_end_param(1, 8)
     Traceback (most recent call last):
     ValueError: Assignment to slice of wrong length, expected 5, got 7
     """
@@ -121,7 +121,7 @@ def test_ptr_literal_list_slice_all():
     >>> test_ptr_literal_list_slice_all()
     (1, 2, 3, 4, 5)
     """
-    let i32 *a = [6,5,4,3,2]
+    let i32 *a = [6, 5, 4, 3, 2]
     a[:] = [1, 2, 3, 4, 5]
     return (a[0], a[1], a[2], a[3], a[4])
 

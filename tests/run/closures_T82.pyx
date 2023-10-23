@@ -185,7 +185,7 @@ def more_inner_funcs(x):
             return a + b + x
         return f
     def resolve(a_f, b_g, b_h):
-        # called with (2,4,8)
+        # called with (2, 4, 8)
         return f(a_f), g(b_g), h(b_h)
     return resolve
 

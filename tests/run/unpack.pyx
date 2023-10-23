@@ -23,7 +23,7 @@ cdef class ItCount(object):
 
 def kunterbunt(obj1, obj2, obj3, obj4, obj5):
     """
-    >>> kunterbunt(1, (2,), (3,4,5), (6,(7,(8,9))), 0)
+    >>> kunterbunt(1, (2,), (3, 4, 5), (6,(7,(8, 9))), 0)
     (8, 9, (8, 9), (6, (7, (8, 9))), 0)
     """
     obj1, = obj2
