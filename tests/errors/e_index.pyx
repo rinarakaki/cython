@@ -1,9 +1,9 @@
 # mode: error
 
 def f(obj1, obj2):
-    cdef i32 int1, int2, int3
-    cdef f32 flt1, *ptr1
-    cdef i32 array1[42]
+    let i32 int1, int2, int3
+    let f32 flt1, *ptr1
+    let i32 array1[42]
     int1 = array1[flt1] # error
     int1 = array1[ptr1] # error
     int1 = int2[int3] # error
