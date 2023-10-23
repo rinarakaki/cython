@@ -546,15 +546,15 @@ def ptr_types():
     """
     let i32 a
     a_ptr = &a
-    assert typeof(a_ptr) == "(i32 *)", typeof(a_ptr)
+    assert typeof(a_ptr) == "int *", typeof(a_ptr)
     a_ptr_ptr = &a_ptr
-    assert typeof(a_ptr_ptr) == "(i32 *)*", typeof(a_ptr_ptr)
+    assert typeof(a_ptr_ptr) == "int **", typeof(a_ptr_ptr)
     let i32[1] b
     b_ref = b
-    assert typeof(b_ref) == "(i32 *)", typeof(b_ref)
+    assert typeof(b_ref) == "int *", typeof(b_ref)
     ptr = &a
     ptr = b
-    assert typeof(ptr) == "(i32 *)", typeof(ptr)
+    assert typeof(ptr) == "int *", typeof(ptr)
 
 def const_types(const f64 x, f64 y, f64& z):
     """

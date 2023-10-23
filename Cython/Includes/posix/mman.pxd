@@ -94,7 +94,7 @@ extern from "<sys/mman.h>" nogil:
     enum: POSIX_TYPED_MEM_MAP_ALLOCATABLE
     int posix_typed_mem_open(const char *name, i32 oflag, i32 oflag)
     int posix_mem_offset(const void *addr, usize Len, off_t *off,
-                         usize *contig_len, (i32 *)fildes)
+                         usize *contig_len, i32 *fildes)
 
     cdef struct posix_typed_mem_info:
         usize posix_tmi_length

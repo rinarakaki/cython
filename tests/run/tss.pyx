@@ -65,6 +65,6 @@ def tss_set_get():
         raise MemoryError()
     if PyThread_tss_get(&tss_key) == NULL:
         PyThread_tss_set(&tss_key, <void *>&the_value)
-    ret_value = (<(i32 *)>PyThread_tss_get(&tss_key))[0]
+    ret_value = (<i32 *>PyThread_tss_get(&tss_key))[0]
     PyThread_tss_delete(&tss_key)
     return ret_value

@@ -16,7 +16,7 @@ def test_parallel():
     >>> test_parallel()
     """
     let i32 maxthreads = openmp.omp_get_max_threads()
-    let i32 *buf = <(i32 *)> malloc(sizeof(i32) * maxthreads)
+    let i32 *buf = <i32 *> malloc(sizeof(i32) * maxthreads)
 
     if buf == NULL:
         raise MemoryError
@@ -118,7 +118,7 @@ def test_parallel_call_exception_checked_function():
     test_parallel_call_exception_checked_function()
     """
     let i32 maxthreads = openmp.omp_get_max_threads()
-    let i32 *buf = <(i32 *)> malloc(sizeof(i32) * maxthreads)
+    let i32 *buf = <i32 *> malloc(sizeof(i32) * maxthreads)
 
     if buf == NULL:
         raise MemoryError
