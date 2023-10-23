@@ -35,7 +35,7 @@ _ERRORS = u"""
 13:15: Array element type 'int []' is incomplete
 14:14: Array element type 'Grail' is incomplete
 15:16: Array element type 'void' is incomplete
-18:9: Variable type 'int []' is incomplete
+18:12: Variable type 'int []' is incomplete
 #19:1: Function argument cannot be void
 21:1: Use spam() rather than spam(void) to declare a function with no arguments.
 20:5: Argument type 'Grail' is incomplete
