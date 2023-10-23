@@ -9,7 +9,7 @@ extern from *:
     #endif
     """
 
-def test_arith(i32 complex a, int complex b):
+def test_arith(int complex a, int complex b):
     """
     >>> test_arith(4, 2)
     ((-4+0j), (6+0j), (2+0j), (8+0j))
@@ -18,7 +18,7 @@ def test_arith(i32 complex a, int complex b):
     >>> test_arith(29+11j, 5+7j)
     ((-29-11j), (34+18j), (24+4j), (68+258j))
     """
-    return -a, a+b, a-b, a*b
+    return -a, a + b, a - b, a * b
 
 @cython.cdivision(false)
 def test_div_by_zero(long complex z):
