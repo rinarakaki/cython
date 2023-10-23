@@ -4,7 +4,7 @@ cdef extern i32 i
 cdef extern char *s[]
 cdef extern void spam(char c)
 
-fn extern i32 eggs():
+cdef extern i32 eggs():
     pass
 
 fn i32 grail():

@@ -146,7 +146,7 @@ def test_insert():
         assert element == value, '%s != %s' % (element, count)
 
 #  Tests GitHub issue #1788.
-fn cppclass MyList[T](cpp_list):
+cdef cppclass MyList[T](cpp_list):
     pass
 
 cdef cppclass Ints(MyList[i32]):
