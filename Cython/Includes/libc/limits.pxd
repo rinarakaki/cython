@@ -11,9 +11,9 @@ extern from "<limits.h>":
     const signed char SCHAR_MAX
     const unsigned char UCHAR_MAX
 
-    const short SHRT_MIN
-    const short SHRT_MAX
-    const unsigned short USHRT_MAX
+    const i16 SHRT_MIN
+    const i16 SHRT_MAX
+    const u16 USHRT_MAX
 
     const i32 INT_MIN
     const i32 INT_MAX
@@ -25,4 +25,4 @@ extern from "<limits.h>":
 
     const i128 LLONG_MIN
     const i128 LLONG_MAX
-    const u64 long ULLONG_MAX
+    const u128 ULLONG_MAX
