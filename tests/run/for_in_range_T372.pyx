@@ -141,6 +141,6 @@ def test_enum_range():
     """
     let RangeEnum n = EnumValue3
     for i in range(n):
-        assert 0 <= <int>i < <int>n
+        assert 0 <= <i32>i < <int>n
         assert cython.typeof(i) == "RangeEnum", cython.typeof(i)
     return cython.typeof(i)

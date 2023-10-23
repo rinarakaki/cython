@@ -19,12 +19,12 @@ def range_loop_indices():
     Optimized integer for loops using range() should follow Python behavior,
     and leave the index variable with the last value of the range.
     """
-    let i32 i, j, k=0, l=10, m=10
+    let i32 i, j, k = 0, l = 10, m = 10
     for i in range(10): pass
-    for j in range(2,10): pass
-    for k in range(0,10,get_step()): pass
-    for l in range(10,0,-1): pass
-    for m in range(10,0,-2): pass
+    for j in range(2, 10): pass
+    for k in range(0, 10, get_step()): pass
+    for l in range(10, 0, -1): pass
+    for m in range(10, 0, -2): pass
     return i, j, k, l, m
 
 def from_loop_indices():

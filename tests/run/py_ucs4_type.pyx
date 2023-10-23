@@ -387,7 +387,7 @@ def uchar_cast_to_int(Py_UCS4 uchar):
     let object ustr_object = uchar
     let str ustr_str = str(uchar)
     let unicode ustr_unicode = uchar
-    return <int>uchar, <int>int(ustr_object[0]), <int>int(ustr_str[0]), <int>int(ustr_unicode[0]), <int>int(uchar)
+    return <i32>uchar, <i32>int(ustr_object[0]), <i32>int(ustr_str[0]), <i32>int(ustr_unicode[0]), <i32>int(uchar)
 
 
 def uchar_cast_to_float(Py_UCS4 uchar):

@@ -80,7 +80,7 @@ def test_minmax(i32 a, i32 b):
     >>> test_minmax(10, 20)
     [10, 20]
     """
-    let pair[int, int] p = minmax(a, b)
+    let pair[i32, i32] p = minmax(a, b)
     return [p.first, p.second]
 
 def test_minmax_with_pred(i32 a, i32 b):
@@ -90,7 +90,7 @@ def test_minmax_with_pred(i32 a, i32 b):
     >>> test_minmax_with_pred(10, 20)
     [10, 20]
     """
-    let pair[int, int] p = minmax(a, b, less)
+    let pair[i32, i32] p = minmax(a, b, less)
     return [p.first, p.second]
 
 def test_minmax_element(vector[i32] v):

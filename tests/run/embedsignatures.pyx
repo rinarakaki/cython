@@ -118,7 +118,7 @@ __doc__ = ur"""
     'with_doc_3(a, b, c)\nExisting string'
 
     >>> funcdoc(with_doc_4)
-    'with_doc_4(i32 a, str b, list c) -> str\n\n    Existing string\n    '
+    'with_doc_4(int a, str b, list c) -> str\n\n    Existing string\n    '
 
     >>> funcdoc(f_sd)
     "f_sd(str s='spam')"
@@ -146,7 +146,7 @@ __doc__ = ur"""
 
 
     >>> print(funcdoc(f_i))
-    f_i(i32 i) -> int
+    f_i(int i) -> int
 
     >>> print(funcdoc(f_ui))
     f_ui(unsigned int i) -> unsigned int
@@ -185,19 +185,19 @@ __doc__ = ur"""
     f_my_f(MyFloat f) -> MyFloat
 
     >>> print(funcdoc(f_defexpr1))
-    f_defexpr1(i32 x=FLAG1, int y=FLAG2)
+    f_defexpr1(int x=FLAG1, int y=FLAG2)
 
     >>> print(funcdoc(f_defexpr2))
-    f_defexpr2(i32 x=FLAG1 | FLAG2, y=FLAG1 & FLAG2)
+    f_defexpr2(int x=FLAG1 | FLAG2, y=FLAG1 & FLAG2)
 
     >>> print(funcdoc(f_defexpr3))
-    f_defexpr3(i32 x=Ext.CONST1, f=__builtins__.abs)
+    f_defexpr3(int x=Ext.CONST1, f=__builtins__.abs)
 
     >>> print(funcdoc(f_defexpr4))
-    f_defexpr4(i32 x=(Ext.CONST1 + FLAG1) * Ext.CONST2)
+    f_defexpr4(int x=(Ext.CONST1 + FLAG1) * Ext.CONST2)
 
     >>> print(funcdoc(f_defexpr5))
-    f_defexpr5(i32 x=2 + 2)
+    f_defexpr5(int x=2 + 2)
 
     >>> print(funcdoc(f_charptr_null))
     f_charptr_null(char *s=NULL) -> char *
@@ -327,10 +327,10 @@ cpdef char f_c(char c):
 cpdef u8 f_uc(u8 c):
     return c
 
-cpdef u8 f_sc(u8 c):
+cpdef signed char f_sc(signed char c):
     return c
 
-cpdef short f_s(i16 s):
+cpdef i16 f_s(i16 s):
     return s
 
 cpdef u16 f_us(u16 s):

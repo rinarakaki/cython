@@ -55,7 +55,7 @@ def return_range_sum_cast(i32 N):
     >>> return_range_sum_cast(10)
     45
     """
-    return <int>sum(i for i in range(N))
+    return <i32>sum(i for i in range(N))
 
 
 @cython.test_assert_path_exists('//ForFromStatNode',
@@ -146,7 +146,7 @@ def return_typed_sum_squares_start(seq, i32 start):
     332833509
     """
     let i32 i
-    return <int>sum((i*i for i in seq), start)
+    return <i32>sum((i*i for i in seq), start)
 
 
 @cython.test_assert_path_exists('//ForInStatNode',
@@ -186,7 +186,7 @@ def return_typed_sum_of_listcomp_consts_start(seq, i32 start):
     >>> print(return_typed_sum_of_listcomp_consts_start(range(10000), 9))
     10005
     """
-    return <int>sum([1 for i in seq if i > 3], start)
+    return <i32>sum([1 for i in seq if i > 3], start)
 
 
 @cython.test_assert_path_exists(
@@ -201,7 +201,7 @@ def return_typed_sum_cond_exp(seq):
     2
     """
     let i32 i
-    return <int>sum( 0 if i%2 else 1
+    return <i32>sum( 0 if i%2 else 1
                      for i in seq )
 
 
@@ -217,5 +217,5 @@ def return_typed_sum_cond_exp_in(seq):
     3
     """
     let i32 i
-    return <int>sum( 0 if i%3 in (0, 1) else 1
+    return <i32>sum( 0 if i%3 in (0, 1) else 1
                      for i in seq )

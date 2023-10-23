@@ -384,7 +384,7 @@ def test_to_string(x):
     >>> print(test_to_string(-5))
     si=-5 sl=-5 ss=5 sss=-5
     """
-    si = to_string(<int>x).decode('ascii')
+    si = to_string(<i32>x).decode('ascii')
     sl = to_string(<i64>x).decode('ascii')
     ss = to_string(<usize>abs(x)).decode('ascii')
     sss = to_string(<ssize_t>x).decode('ascii')
@@ -413,7 +413,7 @@ def test_to_string(x):
     >>> print(test_to_string(-5))
     si=-5 sl=-5 ss=5 sss=-5
     """
-    si = to_string(<int>x).decode('ascii')
+    si = to_string(<i32>x).decode('ascii')
     sl = to_string(<i64>x).decode('ascii')
     ss = to_string(<usize>abs(x)).decode('ascii')
     sss = to_string(<ssize_t>x).decode('ascii')

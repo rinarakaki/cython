@@ -19,7 +19,7 @@ class MyFloat(float):
         return float(self)
 
 
-class MyInt(i32):
+class MyInt(int):
     """
     >>> x = MyInt(1)
     >>> x

@@ -167,11 +167,11 @@ fn i64 f_cdef(i64 a):
 cpdef long f_cpdef(i64 a):
     return a
 
-fn inline long f_inline(i64 a):
+fn inline i64 f_inline(i64 a):
     return a
 
 @cython.profile(true)
-fn inline long f_inline_prof(i64 a):
+fn inline i64 f_inline_prof(i64 a):
     return a
 
 @cython.profile(false)

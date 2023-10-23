@@ -12,8 +12,8 @@ def test_multimap_insert(vals):
     >>> test_multimap_insert([(1, 1),(2, 2),(2, 2),(3, 3),(-1,-1)])
     [(-1, -1), (1, 1), (2, 2), (2, 2), (3, 3)]
     """
-    let multimap[i32, i32] mm = multimap[int, int]()
-    let multimap[int, int].iterator it
+    let multimap[i32, i32] mm = multimap[i32, i32]()
+    let multimap[i32, i32].iterator it
     for v in vals:
         it = mm.insert(v)
     return [ (item.first, item.second) for item in mm ]

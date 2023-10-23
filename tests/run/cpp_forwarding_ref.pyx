@@ -7,12 +7,12 @@ extern from *:
     """
     #include <utility>
 
-    const char* f(i32& x) {
+    const char* f(int& x) {
         (void) x;
         return "lvalue-ref";
     }
 
-    const char* f(i32&& x) {
+    const char* f(int&& x) {
         (void) x;
         return "rvalue-ref";
     }
@@ -49,7 +49,7 @@ def test_forwarding_ref():
     """
     let i32 x = 1
     assert foo(x) == b"lvalue-ref"
-    assert foo(<int>(1)) == b"rvalue-ref"
+    assert foo(<i32>(1)) == b"rvalue-ref"
     assert foo(move(x)) == b"rvalue-ref"
 
 def test_forwarding_ref_overload():

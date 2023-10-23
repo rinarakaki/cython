@@ -384,9 +384,9 @@ def test_non_built_in_reversed_function(py_v):
 extern from *:
     """
     struct ConstNumberHolder {
-        const i32 num;
+        const int num;
 
-        explicit ConstNumberHolder(i32 num) :
+        explicit ConstNumberHolder(int num) :
             num(num)
         {}
     };

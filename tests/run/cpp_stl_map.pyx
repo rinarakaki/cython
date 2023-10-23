@@ -12,8 +12,8 @@ def test_map_insert(vals):
     >>> test_map_insert([(1, 1),(2, 2),(2, 2),(3, 3),(-1,-1)])
     [(-1, -1), (1, 1), (2, 2), (3, 3)]
     """
-    let map[i32, i32] m = map[int, int]()
-    let pair[map[int, int].iterator, bint] ret
+    let map[i32, i32] m = map[i32, i32]()
+    let pair[map[i32, i32].iterator, bint] ret
     for v in vals:
         ret = m.insert(v)
     return [ (item.first, item.second) for item in m ]

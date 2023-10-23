@@ -9,7 +9,7 @@ extern from *:
     """
     #include <stdexcept>
 
-    void cppf(i32 raiseCpp) {
+    void cppf(int raiseCpp) {
         if (raiseCpp) {
             throw std::runtime_error("cpp");
         } else {
