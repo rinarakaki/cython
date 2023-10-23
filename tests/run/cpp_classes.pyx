@@ -232,7 +232,7 @@ fn vector[vector_int_ptr] create_to_delete() except *:
     let vector[vector_int_ptr] v
     v.push_back(new vector[int]())
     return v
-fn int f(int x):
+fn i32 f(int x):
     return x
 
 def test_nested_del():

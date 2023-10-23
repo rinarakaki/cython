@@ -1,7 +1,7 @@
 # mode: run
 
 
-fn int grail():
+fn i32 grail():
     let int (*spam)()
     spam = &grail
     spam = grail
@@ -36,7 +36,7 @@ def call_cfuncptr():
     spam = grail
     spam()
 
-fn int exceptminus2(int bad) except -2:
+fn i32 exceptminus2(int bad) except -2:
     if bad:
         raise RuntimeError
     else:
@@ -68,7 +68,7 @@ def call_exceptminus2_through_exceptmaybeminus2_pointer(bad):
     fptr = exceptminus2
     return fptr(bad)
 
-fn int noexcept_func():  # noexcept
+fn i32 noexcept_func():  # noexcept
     return 0
 
 def call_noexcept_func_except_star():

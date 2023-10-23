@@ -24,7 +24,7 @@ def test_const_get(int x):
     finally:
         del wrapper
 
-fn int const_get(const Wrapper[int] wrapper):
+fn i32 const_get(const Wrapper[int] wrapper):
     return wrapper.get()
 
 def test_const_ref_get(int x):
@@ -38,7 +38,7 @@ def test_const_ref_get(int x):
     finally:
         del wrapper
 
-fn int const_ref_get(const Wrapper[int] &wrapper):
+fn i32 const_ref_get(const Wrapper[int] &wrapper):
     return wrapper.get()
 
 def test_const_pointer_get(int x):

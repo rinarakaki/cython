@@ -9,12 +9,12 @@ fn void foo(int i) except * with gil:
     if i != 0: raise ValueError
 
 
-fn int bar(int i) except? -1 with gil:
+fn i32 bar(int i) except? -1 with gil:
     if i != 0: raise ValueError
     return 0
 
 
-fn int spam(int i) except? -1 with gil:
+fn i32 spam(int i) except? -1 with gil:
     if i != 0: raise TypeError
     return -1
 

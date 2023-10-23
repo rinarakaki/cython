@@ -6,7 +6,7 @@
 
 arg_order = []
 
-fn int f():
+fn i32 f():
     arg_order.append(1)
     return 1
 

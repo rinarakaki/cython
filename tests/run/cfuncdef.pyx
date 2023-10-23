@@ -2,7 +2,7 @@ fn void ftang():
     let int x
     x = 0
 
-fn int foo(int i, char c):
+fn i32 foo(int i, char c):
     let float f, g
     f = 0
     g = 0

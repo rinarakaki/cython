@@ -12,7 +12,7 @@ fn optargs(a, b=2, c=3):
     return (a,b,c)
 
 ctypedef int (*cfuncptr_type)(int a, int b)
-fn int cfuncptr(int a, int b):
+fn i32 cfuncptr(int a, int b):
     print a, b
 
 fn cfuncptr_type get_cfuncptr():

@@ -178,24 +178,24 @@ fn inline long f_inline_prof(long a):
     return a
 
 @cython.profile(false)
-fn int f_noprof(long a):
+fn i32 f_noprof(long a):
     return a
 
 fn long f_raise(long) except -2:
     raise RuntimeError
 
 @cython.profile(false)
-fn int withgil_noprof(long a) with gil:
+fn i32 withgil_noprof(long a) with gil:
     return (a)
 @cython.profile(true)
-fn int withgil_prof(long a) with gil:
+fn i32 withgil_prof(long a) with gil:
     return (a)
 
 @cython.profile(false)
-fn int nogil_noprof(long a) nogil:
+fn i32 nogil_noprof(long a) nogil:
     return a
 @cython.profile(true)
-fn int nogil_prof(long a) nogil:
+fn i32 nogil_prof(long a) nogil:
     return a
 
 cdef class A(object):

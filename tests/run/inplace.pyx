@@ -74,7 +74,7 @@ def attributes():
     print a.attr, a.attr2, b.attr
 
 def get_2(): return 2
-fn int identity(int value): return value
+fn i32 identity(int value): return value
 
 def smoketest():
     """
@@ -94,7 +94,7 @@ def side_effect(x):
     print u"side effect", x
     return x
 
-fn int c_side_effect(int x):
+fn i32 c_side_effect(int x):
     print u"c side effect", x
     return x
 

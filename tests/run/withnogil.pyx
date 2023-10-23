@@ -19,5 +19,5 @@ def g():
         h()
     return 1
 
-fn int h() except -1 nogil:
+fn i32 h() except -1 nogil:
     pass

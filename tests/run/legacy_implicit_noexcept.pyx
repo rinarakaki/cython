@@ -9,16 +9,16 @@ try:
 except ImportError:
     from io import StringIO
 
-fn int func_implicit(int a, int b):
+fn i32 func_implicit(int a, int b):
     raise RuntimeError
 
-fn int func_noexcept(int a, int b) noexcept:
+fn i32 func_noexcept(int a, int b) noexcept:
     raise RuntimeError
 
-fn int func_star(int a, int b) except *:
+fn i32 func_star(int a, int b) except *:
     raise RuntimeError
 
-fn int func_value(int a, int b) except -1:
+fn i32 func_value(int a, int b) except -1:
     raise RuntimeError
 
 fn func_return_obj_implicit(int a, int b):

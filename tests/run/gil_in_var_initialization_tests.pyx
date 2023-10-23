@@ -101,10 +101,10 @@ cdef extern from *:
     bool_future run_block_and_wait_with_gil() nogil
 
 cdef class C:
-    fn int some_c_method(self) except -1 nogil:
+    fn i32 some_c_method(self) except -1 nogil:
         return 0
 
-    fn int call_a_method_with_an_error_return(self) except -1 nogil:
+    fn i32 call_a_method_with_an_error_return(self) except -1 nogil:
         return self.some_c_method()
 
 def test_method_with_error_return():

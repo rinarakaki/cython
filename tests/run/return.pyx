@@ -9,7 +9,7 @@ def f(a):
 fn void g():
     return
 
-fn int h(a):
+fn i32 h(a):
     let int i
     i = a
     return i

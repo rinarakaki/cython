@@ -10,7 +10,7 @@ def test1():
     x[1][1] = 4
     return f(x)[1]
 
-fn int* f(int x[2][2]):
+fn i32* f(int x[2][2]):
     return x[0]
 
 def assign_index_in_loop():

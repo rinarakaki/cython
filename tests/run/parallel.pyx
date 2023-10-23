@@ -8,7 +8,7 @@ from libc.stdlib cimport malloc, free
 
 openmp.omp_set_nested(1)
 
-fn int forward(int x) nogil:
+fn i32 forward(int x) nogil:
     return x
 
 def test_parallel():
@@ -32,7 +32,7 @@ def test_parallel():
 
     free(buf)
 
-fn int get_num_threads() noexcept with gil:
+fn i32 get_num_threads() noexcept with gil:
     print "get_num_threads called"
     return 3
 

@@ -64,7 +64,7 @@ fn reset():
     call_count = 0
     next_expected_arg = 1
 
-fn int intval(int x) except -1:
+fn i32 intval(int x) except -1:
     global call_count, next_expected_arg
     call_count += 1
     assert next_expected_arg == x, "calls not in source code order: expected %d, found %d" % (next_expected_arg, x)

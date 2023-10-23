@@ -5,7 +5,7 @@ fn void g():
 	cdef i32 i
 	return i # error
 
-fn int h():
+fn i32 h():
 	cdef i32 *p
 	return # error
 	return p # error

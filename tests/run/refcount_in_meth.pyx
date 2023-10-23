@@ -34,13 +34,13 @@ cdef class RefCountInMeth(object):
             v = 2.3
         return self.value
 
-    fn int c_meth(self):
+    fn i32 c_meth(self):
         cdef int v
 
         v = get_refcount(self)
         return v
 
-    fn int c_meth_if(self):
+    fn i32 c_meth_if(self):
         cdef int v
         if 5>6:
             v = 7

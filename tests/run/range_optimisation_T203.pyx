@@ -1,6 +1,6 @@
 # ticket: t203
 
-fn int get_bound(int m):
+fn i32 get_bound(int m):
     print u"get_bound(%s)"%m
     return m
 

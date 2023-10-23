@@ -26,7 +26,7 @@ fn void f(int x) nogil:
         y = x + 42
         g(y)
 
-fn int g(int x) nogil:
+fn i32 g(int x) nogil:
         cdef int y
         y = x + 42
         return y
@@ -71,10 +71,10 @@ def test_get_gil_in_nogil():
     get_gil_in_nogil()
     get_gil_in_nogil2()
 
-fn int with_gil_func() except -1 with gil:
+fn i32 with_gil_func() except -1 with gil:
     raise Exception("error!")
 
-fn int nogil_func() except -1 nogil:
+fn i32 nogil_func() except -1 nogil:
     with_gil_func()
 
 def test_nogil_exception_propagation():
@@ -88,7 +88,7 @@ def test_nogil_exception_propagation():
         nogil_func()
 
 
-fn int write_unraisable() noexcept nogil:
+fn i32 write_unraisable() noexcept nogil:
     with gil:
         raise ValueError()
 
@@ -109,11 +109,11 @@ def test_unraisable():
     return stderr.getvalue().strip()
 
 
-fn int initialize_array() nogil:
+fn i32 initialize_array() nogil:
     let int[4] a = [1, 2, 3, 4]
     return a[0] + a[1] + a[2] + a[3]
 
-fn int copy_array() nogil:
+fn i32 copy_array() nogil:
     let int[4] a
     a[:] = [0, 1, 2, 3]
     return a[0] + a[1] + a[2] + a[3]

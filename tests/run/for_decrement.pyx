@@ -7,7 +7,7 @@
 (10, 10, 0)
 """
 
-fn int get_step():
+fn i32 get_step():
     """
     This should only be called once, when used in range().
     """

@@ -33,7 +33,7 @@ def BoolBinopNode_to_obj():
 
     return (mybul or num) + (bul or num)
 
-fn int test_bool(mybool arg):
+fn i32 test_bool(mybool arg):
     return <int>arg
 
 def CondExprNode_to_bool(test):

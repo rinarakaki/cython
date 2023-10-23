@@ -9,18 +9,18 @@ cdef extern from "<bit>" namespace "std" nogil:
     fn bint has_single_bit[T](T)
     fn T bit_ceil[T](T)
     fn T bit_floor[T](T)
-    fn int bit_width[T](T)
+    fn i32 bit_width[T](T)
 
     # rotating (gcc >= 9.0, clang >= 9.0)
     fn T rotl[T](T, int shift)
     fn T rotr[T](T, int shift)
 
     # counting (gcc >= 9.0, clang >= 9.0)
-    fn int countl_zero[T](T)
-    fn int countl_one[T](T)
-    fn int countr_zero[T](T)
-    fn int countr_one[T](T)
-    fn int popcount[T](T)
+    fn i32 countl_zero[T](T)
+    fn i32 countl_one[T](T)
+    fn i32 countr_zero[T](T)
+    fn i32 countr_one[T](T)
+    fn i32 popcount[T](T)
 
     # endian
     cpdef enum class endian(int):
