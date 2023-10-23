@@ -18,5 +18,5 @@ _ERRORS = """
 """
 
 _WARNINGS = """
-13:5: Only extern functions can throw C++ exceptions.
+13:0: Only extern functions can throw C++ exceptions.
 """

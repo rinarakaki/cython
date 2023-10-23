@@ -30,7 +30,7 @@ cdef class C:
         pass
 
 _ERRORS = """
-6:0: Cdef functions cannot take arbitrary decorators.
+7:0: Cdef functions cannot take arbitrary decorators.
 10:0: Cdef functions cannot take arbitrary decorators.
 15:4: Cdef functions cannot take arbitrary decorators.
 19:4: Cdef functions cannot take arbitrary decorators.
