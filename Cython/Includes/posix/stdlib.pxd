@@ -20,7 +20,7 @@ extern from "<stdlib.h>" nogil:
     long   random()
     char  *realpath(const char *, char *)
     unsigned short *seed48(unsigned short *)
-    int    setenv(const char *, const char *, int)
+    int    setenv(const char *, const char *, i32)
     void   setkey(const char *)
     char  *setstate(char *)
     void   srand48(long)

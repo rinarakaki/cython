@@ -7,7 +7,7 @@ from posix.types cimport off_t
 
 extern from "<stdio.h>" nogil:
     # File descriptors
-    FILE *fdopen(int, const char *)
+    FILE *fdopen(i32, const char *)
     int fileno(FILE *)
 
     # Pipes
@@ -20,7 +20,7 @@ extern from "<stdio.h>" nogil:
     FILE *open_wmemstream(wchar_t **, usize *)
 
     # Seek and tell with off_t
-    int fseeko(FILE *, off_t, int)
+    int fseeko(FILE *, off_t, i32)
     off_t ftello(FILE *)
 
     # Locking (for multithreading)
@@ -29,7 +29,7 @@ extern from "<stdio.h>" nogil:
     void funlockfile(FILE *)
     int getc_unlocked(FILE *)
     int getchar_unlocked()
-    int putc_unlocked(int, FILE *)
+    int putc_unlocked(i32, FILE *)
     int putchar_unlocked(i32)
 
     # Reading lines and records (POSIX.2008)

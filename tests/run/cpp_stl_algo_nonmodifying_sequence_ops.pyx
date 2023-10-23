@@ -55,7 +55,7 @@ def count_ones(vector[i32] values):
     """
     return count(values.begin(), values.end(), 1)
 
-fn void add_one(int &i):
+fn void add_one(i32 &i):
     # https://github.com/cython/cython/issues/1863
     (&i)[0] += 1
 

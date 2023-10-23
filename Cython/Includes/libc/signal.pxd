@@ -1,6 +1,6 @@
 # 7.14 Signal handling <signal.h>
 
-ctypedef void (*sighandler_t)(int SIGNUM) noexcept nogil
+ctypedef void (*sighandler_t)(i32 SIGNUM) noexcept nogil
 
 extern from "<signal.h>" nogil:
 

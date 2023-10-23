@@ -15,6 +15,6 @@ fn void foo():
 
 _ERRORS = u"""
 10:13: Invalid types for '==' ((i32 *), Python object)
-11:13: Invalid types for '==' (int, char *)
+11:13: Invalid types for '==' (i32, char *)
 12:13: Invalid types for '==' (char *, (i32 *))
 """

@@ -172,7 +172,7 @@ extern from "<math.h>" nogil:
     fn f32 scalblnf(f32, long)
     fn long double scalblnl(long double, i64)
     fn f64 scalbn(f64 x, i32 n)
-    fn f32 scalbnf(f32, int)
+    fn f32 scalbnf(f32, i32)
     fn long double scalbnl(long double, i32)
     fn f64 sin(f64 x)
     fn f32 sinf(f32)

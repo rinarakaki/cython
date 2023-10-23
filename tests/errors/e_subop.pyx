@@ -6,6 +6,6 @@ def f():
     ptr1 = int2 - ptr3 # error
     ptr1 = ptr2 - ptr3 # error
 _ERRORS = u"""
-6:13: Invalid operand types for '-' (int; char *)
+6:13: Invalid operand types for '-' (i32; char *)
 7:13: Cannot assign type 'ptrdiff_t' to 'char *'
 """

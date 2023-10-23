@@ -76,7 +76,7 @@ _ERRORS = u'''
 16:19: Invalid axis specification.
 17:19: no expressions allowed in axis spec, only names and literals.
 20:37: Memoryview 'object[::1, :]' not conformable to memoryview 'object[:, ::1]'.
-23:17: Different base types for memoryviews (int, Python object)
+23:17: Different base types for memoryviews (i32, Python object)
 26:8: Dimension may not be contiguous
 32:8: Only one direct contiguous axis may be specified.
 33:8:Only dimensions 3 and 2 may be contiguous and direct

@@ -16,7 +16,7 @@ def test_parallel():
     >>> test_parallel()
     """
     let i32 maxthreads = openmp.omp_get_max_threads()
-    let i32 *buf = <(i32 *)> malloc(sizeof(int) * maxthreads)
+    let i32 *buf = <(i32 *)> malloc(sizeof(i32) * maxthreads)
 
     if buf == NULL:
         raise MemoryError
@@ -98,11 +98,11 @@ def test_parallel_catch():
 '''
 
 
-fn void parallel_exception_checked_function(int* ptr, i32 id) except * nogil:
+fn void parallel_exception_checked_function(i32* ptr, i32 id) except * nogil:
     # requires the GIL after each call
     ptr[0] = id;
 
-fn void parallel_call_exception_checked_function_impl(int* arr, int num_threads) nogil:
+fn void parallel_call_exception_checked_function_impl(i32* arr, int num_threads) nogil:
     # Inside a nogil function, parallel can't be sure that the GIL has been released.
     # Therefore Cython must release the GIL itself.
     # Otherwise, we can experience cause lock-ups if anything inside it acquires the GIL
@@ -118,7 +118,7 @@ def test_parallel_call_exception_checked_function():
     test_parallel_call_exception_checked_function()
     """
     let i32 maxthreads = openmp.omp_get_max_threads()
-    let i32 *buf = <(i32 *)> malloc(sizeof(int) * maxthreads)
+    let i32 *buf = <(i32 *)> malloc(sizeof(i32) * maxthreads)
 
     if buf == NULL:
         raise MemoryError

@@ -731,7 +731,7 @@ class TestCase(unittest.TestCase):
 
     @skip_on_versions_below((3, 10))
     def test_init_var_preserve_type(self):
-        self.assertEqual(InitVar[int].type, int)
+        self.assertEqual(InitVar[int].type, i32)
         self.assertEqual(repr(InitVar[int]), 'dataclasses.InitVar[int]')
         self.assertEqual(repr(InitVar[List[int]]), 'dataclasses.InitVar[typing.List[int]]')
         self.assertEqual(repr(InitVar[list[int]]), 'dataclasses.InitVar[list[int]]')

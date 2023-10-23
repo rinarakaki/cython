@@ -993,12 +993,12 @@ cdef class ArgumentTypeConversions:
     def __getitem__(self, i32 x):
         return x
 
-    # force conversion of comparison (int) to object
+    # force conversion of comparison (i32) to object
     def __richcmp__(self, other, object comparison):
         print "In comparison", comparison
         return not bool(comparison)
 
-    # force conversion of flags (int) to double
+    # force conversion of flags (i32) to double
     def __getbuffer__(self, Py_buffer *buffer, double flags):
         raise RuntimeError("From __getbuffer__ with flags {}".format(flags))
 

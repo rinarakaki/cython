@@ -10,11 +10,11 @@ cdef class A:
         return 'def', x
 
     @staticmethod
-    fn static_cdef(int* x):
+    fn static_cdef(i32* x):
         return 'cdef', x[0]
 
     @staticmethod
-    fn static_cdef2(int* x, int* y):
+    fn static_cdef2(i32* x, int* y):
         return 'cdef2', x[0] + y[0]
 
     @staticmethod
@@ -84,7 +84,7 @@ def call_static_list_comprehension_GH1540(i32 x):
 
 cdef class FromPxd:
     @staticmethod
-    fn static_cdef(int* x):
+    fn static_cdef(i32* x):
         return 'pxd_cdef', x[0]
 
     @staticmethod

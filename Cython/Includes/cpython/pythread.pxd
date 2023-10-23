@@ -31,7 +31,7 @@ extern from "pythread.h":
     # Thread Local Storage (TLS) API deprecated in CPython 3.7+
     int PyThread_create_key()
     void PyThread_delete_key(i32)
-    int PyThread_set_key_value(int, void *)
+    int PyThread_set_key_value(i32, void *)
     void * PyThread_get_key_value(i32)
     void PyThread_delete_key_value(i32 key)
 

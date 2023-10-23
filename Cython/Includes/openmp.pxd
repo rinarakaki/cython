@@ -39,8 +39,8 @@ extern from "<omp.h>":
     extern double omp_get_wtime() nogil
     extern double omp_get_wtick() nogil
 
-    void omp_set_schedule(omp_sched_t, int) nogil
-    void omp_get_schedule(omp_sched_t *, (i32 *)) nogil
+    void omp_set_schedule(omp_sched_t, i32) nogil
+    void omp_get_schedule(omp_sched_t *, i32 *) nogil
     int omp_get_thread_limit() nogil
     void omp_set_max_active_levels(i32) nogil
     int omp_get_max_active_levels() nogil

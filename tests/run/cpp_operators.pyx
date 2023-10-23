@@ -32,29 +32,29 @@ extern from "cpp_operators_helper.h" nogil:
         const_char* operator--(i32)
 
         const_char* operator+(i32) except +
-        const_char* operator+(int,const TestOps&) except +
+        const_char* operator+(i32,const TestOps&) except +
         const_char* operator-(i32) except +
-        const_char* operator-(int,const TestOps&) except +
+        const_char* operator-(i32,const TestOps&) except +
         const_char* operator*(i32) except +
         # deliberately omitted operator* to test case where only defined outside class
         const_char* operator/(i32) except +
-        const_char* operator/(int,const TestOps&) except +
+        const_char* operator/(i32,const TestOps&) except +
         const_char* operator%(i32) except +
-        const_char* operator%(int,const TestOps&) except +
+        const_char* operator%(i32,const TestOps&) except +
 
         const_char* operator|(i32) except +
-        const_char* operator|(int,const TestOps&) except +
+        const_char* operator|(i32,const TestOps&) except +
         const_char* operator&(i32) except +
-        const_char* operator&(int,const TestOps&) except +
+        const_char* operator&(i32,const TestOps&) except +
         const_char* operator^(i32) except +
-        const_char* operator^(int,const TestOps&) except +
+        const_char* operator^(i32,const TestOps&) except +
         const_char* operator,(i32) except +
-        const_char* operator,(int,const TestOps&) except +
+        const_char* operator,(i32,const TestOps&) except +
 
         const_char* operator<<(i32) except +
-        const_char* operator<<(int,const TestOps&) except +
+        const_char* operator<<(i32,const TestOps&) except +
         const_char* operator>>(i32) except +
-        const_char* operator>>(int,const TestOps&) except +
+        const_char* operator>>(i32,const TestOps&) except +
 
         # FIXME: using 'except +' here leads to invalid C++ code ???
         const_char* operator==(i32)
@@ -98,29 +98,29 @@ extern from "cpp_operators_helper.h" nogil:
         i32& operator--(i32) except +
 
         i32& operator+(i32) except +
-        i32& operator+(int,const TestOps&) except +
+        i32& operator+(i32,const TestOps&) except +
         i32& operator-(i32) except +
-        i32& operator-(int,const TestOps&) except +
+        i32& operator-(i32,const TestOps&) except +
         i32& operator*(i32) except +
         # deliberately omitted operator* to test case where only defined outside class
         i32& operator/(i32) except +
-        i32& operator/(int,const TestOps&) except +
+        i32& operator/(i32,const TestOps&) except +
         i32& operator%(i32) except +
-        i32& operator%(int,const TestOps&) except +
+        i32& operator%(i32,const TestOps&) except +
 
         i32& operator|(i32) except +
-        i32& operator|(int,const TestOps&) except +
+        i32& operator|(i32,const TestOps&) except +
         i32& operator&(i32) except +
-        i32& operator&(int,const TestOps&) except +
+        i32& operator&(i32,const TestOps&) except +
         i32& operator^(i32) except +
-        i32& operator^(int,const TestOps&) except +
+        i32& operator^(i32,const TestOps&) except +
         i32& operator,(i32) except +
-        i32& operator,(int,const TestOps&) except +
+        i32& operator,(i32,const TestOps&) except +
 
         i32& operator<<(i32) except +
-        i32& operator<<(int,const TestOps&) except +
+        i32& operator<<(i32,const TestOps&) except +
         i32& operator>>(i32) except +
-        i32& operator>>(int,const TestOps&) except +
+        i32& operator>>(i32,const TestOps&) except +
 
         i32& operator==(i32) except +
         i32& operator!=(i32) except +

@@ -75,7 +75,7 @@ def int_pow(i16 a, i16 b):
     """
     return a ** b
 
-class I(int):
+class I(i32):
     """
     Copied from CPython's test_descr.py
 
@@ -90,14 +90,14 @@ class I(int):
         return 'I(%s)' % int(self)
     def __pow__(self, other, mod=None):
         if mod is None:
-            return I(pow(int(self), int(other)))
+            return I(pow(i32(self), int(other)))
         else:
-            return I(pow(int(self), int(other), int(mod)))
+            return I(pow(i32(self), int(other), int(mod)))
     def __rpow__(self, other, mod=None):
         if mod is None:
-            return I(pow(int(other), int(self), mod))
+            return I(pow(i32(other), int(self), mod))
         else:
-            return I(pow(int(other), int(self), int(mod)))
+            return I(pow(i32(other), int(self), int(mod)))
 
     def pow2(self):
         return 2 ** self
@@ -134,9 +134,9 @@ def optimised_pow2(n):
     Traceback (most recent call last):
     TypeError: ...operand... **...
     """
-    if isinstance(n, (int, long)) and 0 <= n < 1000:
+    if isinstance(n, (i32, long)) and 0 <= n < 1000:
         assert isinstance(2.0 ** n, float), 'float %s' % n
-        assert isinstance(2 ** n, (int, long)), 'int %s' % n
+        assert isinstance(2 ** n, (i32, long)), 'int %s' % n
     return 2 ** n
 
 def optimised_pow2_inplace(n):

@@ -12,7 +12,7 @@ cdef class MyInt(i32):
     """
     cdef readonly object attr
 
-cdef class MyInt2(int):
+cdef class MyInt2(i32):
     """
     >>> MyInt2(2) == 2
     True

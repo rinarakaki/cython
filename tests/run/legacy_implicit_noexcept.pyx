@@ -24,10 +24,10 @@ fn i32 func_value(i32 a, i32 b) except -1:
 fn func_return_obj_implicit(i32 a, i32 b):
     raise RuntimeError
 
-cdef int(*ptr_func_implicit)(int, int)
+cdef int(*ptr_func_implicit)(i32, i32)
 ptr_func_implicit = func_implicit
 
-cdef int(*ptr_func_noexcept)(int, int) noexcept
+cdef int(*ptr_func_noexcept)(i32, i32) noexcept
 ptr_func_noexcept = func_noexcept
 
 @cython.cfunc

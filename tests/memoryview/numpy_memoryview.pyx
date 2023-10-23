@@ -18,7 +18,7 @@ include "../buffers/mockbuffers.pxi"
 ctypedef np.int32_t dtype_t
 
 IS_PYPY = hasattr(sys, 'pypy_version_info')
-NUMPY_VERSION = tuple(int(v) for v in np.__version__.split('.')[:2])
+NUMPY_VERSION = tuple(i32(v) for v in np.__version__.split('.')[:2])
 print(NUMPY_VERSION)
 
 def get_array():
@@ -181,7 +181,7 @@ def test_transpose():
     let dtype_t[:, :] b = a.T
     print a.T.shape[0], a.T.shape[1]
     print a_obj.T.shape
-    print tuple(map(int, numpy_obj.T.shape)) # might use longs in Py2
+    print tuple(map(i32, numpy_obj.T.shape)) # might use longs in Py2
 
     let dtype_t[:, :] c
     with nogil:

@@ -1,7 +1,7 @@
 
 cimport cython
 
-## def range_tuple_genexp(int N):
+## def range_tuple_genexp(i32 N):
 ##     """
 ##     >>> range_tuple_genexp(5)
 ##     (0, 1, 2, 3, 4)
@@ -13,7 +13,7 @@ cimport cython
                                 "//InlinedGeneratorExpressionNode")
 @cython.test_fail_if_path_exists('//SimpleCallNode',
                                  '//ForInStatNode')
-def range_sum(int N):
+def range_sum(i32 N):
     """
     >>> sum(range(10))
     45
@@ -29,7 +29,7 @@ def range_sum(int N):
 @cython.test_fail_if_path_exists('//SimpleCallNode',
                                  '//CoerceFromPyTypeNode//InlinedGeneratorExpressionNode',
                                  '//ForInStatNode')
-def range_sum_typed(int N):
+def range_sum_typed(i32 N):
     """
     >>> sum(range(10))
     45
@@ -48,7 +48,7 @@ def range_sum_typed(int N):
                                  '//CoerceFromPyTypeNode//InlinedGeneratorExpressionNode',
                                  '//TypecastNode//InlinedGeneratorExpressionNode',
                                  '//ForInStatNode')
-def return_range_sum_cast(int N):
+def return_range_sum_cast(i32 N):
     """
     >>> sum(range(10))
     45
@@ -62,7 +62,7 @@ def return_range_sum_cast(int N):
                                 "//InlinedGeneratorExpressionNode")
 @cython.test_fail_if_path_exists('//SimpleCallNode',
                                  '//ForInStatNode')
-def return_range_sum(int N):
+def return_range_sum(i32 N):
     """
     >>> sum(range(10))
     45
@@ -76,7 +76,7 @@ def return_range_sum(int N):
                                 "//InlinedGeneratorExpressionNode")
 @cython.test_fail_if_path_exists('//SimpleCallNode',
                                  '//ForInStatNode')
-def return_range_sum_squares(int N):
+def return_range_sum_squares(i32 N):
     """
     >>> sum([i*i for i in range(10)])
     285

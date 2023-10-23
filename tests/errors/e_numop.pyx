@@ -5,5 +5,5 @@ def f():
     cdef i32 *ptr
     int1 = int2 * ptr # error
 _ERRORS = u"""
-6:13: Invalid operand types for '*' (int; (i32 *))
+6:13: Invalid operand types for '*' (i32; (i32 *))
 """

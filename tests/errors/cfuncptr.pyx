@@ -41,14 +41,14 @@ def fail_struct_pointer():
 
 
 _ERRORS = """
-13:13: Cannot assign type 'int (int) except? -2' to 'int (*)(int) except -2'. Exception values are incompatible.
-14:13: Cannot assign type 'int (int) except? -2' to 'int (*)(int) except -1'. Exception values are incompatible.
-15:13: Cannot assign type 'int (int) except? -2' to 'int (*)(int) except? -1'. Exception values are incompatible.
-29:13: Cannot assign type 'int (int) except *' to 'int (*)(int) noexcept'. Exception values are incompatible. Suggest adding 'noexcept' to type 'int (int) except *'.
-30:13: Cannot assign type 'int (int) except *' to 'int (*)(int) except -1'. Exception values are incompatible.
-31:13: Cannot assign type 'int (int) except *' to 'int (*)(int) except? -1'. Exception values are incompatible.
-40:31: Cannot assign type 'int (*)(int) except? -1 nogil' to 'int (*)(int) noexcept nogil'. Exception values are incompatible. Suggest adding 'noexcept' to type 'int (int) except? -1 nogil'.
-40:31: Cannot assign type 'int (*)(int) except? -1 nogil' to 'int (*)(int) noexcept nogil'. Exception values are incompatible. Suggest adding 'noexcept' to type 'int (int) except? -1 nogil'.
-40:36: Cannot assign type 'void (*)(int) except * nogil' to 'void (*)(int) noexcept nogil'. Exception values are incompatible. Suggest adding 'noexcept' to type 'void (int) except * nogil'.
-40:36: Cannot assign type 'void (*)(int) except * nogil' to 'void (*)(int) noexcept nogil'. Exception values are incompatible. Suggest adding 'noexcept' to type 'void (int) except * nogil'.
+13:13: Cannot assign type 'int (i32) except? -2' to 'int (*)(i32) except -2'. Exception values are incompatible.
+14:13: Cannot assign type 'int (i32) except? -2' to 'int (*)(i32) except -1'. Exception values are incompatible.
+15:13: Cannot assign type 'int (i32) except? -2' to 'int (*)(i32) except? -1'. Exception values are incompatible.
+29:13: Cannot assign type 'int (i32) except *' to 'int (*)(i32) noexcept'. Exception values are incompatible. Suggest adding 'noexcept' to type 'int (i32) except *'.
+30:13: Cannot assign type 'int (i32) except *' to 'int (*)(i32) except -1'. Exception values are incompatible.
+31:13: Cannot assign type 'int (i32) except *' to 'int (*)(i32) except? -1'. Exception values are incompatible.
+40:31: Cannot assign type 'int (*)(i32) except? -1 nogil' to 'int (*)(i32) noexcept nogil'. Exception values are incompatible. Suggest adding 'noexcept' to type 'int (i32) except? -1 nogil'.
+40:31: Cannot assign type 'int (*)(i32) except? -1 nogil' to 'int (*)(i32) noexcept nogil'. Exception values are incompatible. Suggest adding 'noexcept' to type 'int (i32) except? -1 nogil'.
+40:36: Cannot assign type 'void (*)(i32) except * nogil' to 'void (*)(i32) noexcept nogil'. Exception values are incompatible. Suggest adding 'noexcept' to type 'void (i32) except * nogil'.
+40:36: Cannot assign type 'void (*)(i32) except * nogil' to 'void (*)(i32) noexcept nogil'. Exception values are incompatible. Suggest adding 'noexcept' to type 'void (i32) except * nogil'.
 """

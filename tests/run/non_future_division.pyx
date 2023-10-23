@@ -77,21 +77,21 @@ def py_mix_by_neg1(a):
     (0, 0, -0.0, -0.0, 0, 0)
     >>> py_mix_by_neg1(-1)
     (1, 1, 1.0, 1.0, 1, 1)
-    >>> py_mix_by_neg1(int(2**31-1))
+    >>> py_mix_by_neg1(i32(2**31-1))
     (-2147483647, -2147483647, -2147483647.0, -2147483647.0, -2147483647, -2147483647)
-    >>> bigints(py_mix_by_neg1(int(-2**31-1)))
+    >>> bigints(py_mix_by_neg1(i32(-2**31-1)))
     2147483649
     2147483649
     2147483649.0
     2147483649.0
     2147483649
     2147483649
-    >>> results = py_mix_by_neg1(int(2**63-1))
+    >>> results = py_mix_by_neg1(i32(2**63-1))
     >>> results[2] == results[3] == float(2**63-1) / -1.0 or results
     True
     >>> results[0] == results[1] == results[4] == results[5] == (2**63-1) // -1 or results
     True
-    >>> results = py_mix_by_neg1(int(-2**63-1))
+    >>> results = py_mix_by_neg1(i32(-2**63-1))
     >>> results[2] == results[3] == float(-2**63-1) / -1.0 or results
     True
     >>> results[0] == results[1] == results[4] == results[5] == (-2**63-1) // -1 or results

@@ -28,7 +28,7 @@ import numpy as np
 
 numpy_version = np.__version__.split('.')[:2]
 try:
-    numpy_version = tuple(map(int, numpy_version))
+    numpy_version = tuple(map(i32, numpy_version))
 except ValueError:
     numpy_version = (20, 0)
 

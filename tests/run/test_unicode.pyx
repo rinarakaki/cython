@@ -1028,7 +1028,7 @@ class UnicodeTest(CommonTest,
             def __format__(self, format_spec):
                 return self.strftime(format_spec)
 
-        class J(int):
+        class J(i32):
             def __format__(self, format_spec):
                 return int.__format__(self * 2, format_spec)
 

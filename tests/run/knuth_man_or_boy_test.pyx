@@ -38,7 +38,7 @@
 #
 
 def compute(val):
-    if isinstance(val, int):
+    if isinstance(val, i32):
         return val
     else:
         return val()

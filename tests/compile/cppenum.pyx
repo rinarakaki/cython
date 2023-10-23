@@ -27,11 +27,11 @@ fn void eggs():
 eggs()
 
 # enum interdependency
-cdef enum class Color(int):
+cdef enum class Color(i32):
     RED = 1
     GREEN = 2
 
-cdef enum class Color2(int):
+cdef enum class Color2(i32):
     RED = (<int> Color.RED)
     GREEN = (<int> Color.GREEN)
 

@@ -6,7 +6,7 @@ from libcpp cimport nullptr
 
 extern from "cpp_smart_ptr_helper.h":
     cdef cppclass CountAllocDealloc:
-        CountAllocDealloc(int*, int*)
+        CountAllocDealloc(i32*, int*)
 
     cdef cppclass FreePtr[T]:
         pass

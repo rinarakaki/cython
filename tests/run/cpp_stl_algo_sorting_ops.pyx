@@ -109,7 +109,7 @@ extern from *:
     struct Employee
     {
         Employee() = default;
-        Employee(int age, std::string name): age(age), name(name) {}
+        Employee(i32 age, std::string name): age(age), name(name) {}
         int age;
         std::string name;  // Does not participate in comparisons
     };
@@ -121,7 +121,7 @@ extern from *:
     """
     cppclass Employee:
         Employee()
-        Employee(int, string)
+        Employee(i32, string)
         int age
         string name
 

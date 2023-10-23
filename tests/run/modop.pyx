@@ -81,7 +81,7 @@ def mod_obj_10(int2):
     8
     >>> int((-2**31-1) % 10)
     1
-    >>> int(mod_obj_10(int(-2**31-1)))
+    >>> int(mod_obj_10(i32(-2**31-1)))
     1
     >>> int((2**50) % 10)
     4
@@ -152,7 +152,7 @@ def mod_obj_17(int2):
     15
     >>> int((-2**31-1) % 17)
     7
-    >>> int(mod_obj_17(int(-2**31-1)))
+    >>> int(mod_obj_17(i32(-2**31-1)))
     7
     >>> int((2**50) % 17)
     4
@@ -179,7 +179,7 @@ def mod_obj_17(int2):
     return int1
 
 
-def mod_int_17(int int2):
+def mod_int_17(i32 int2):
     """
     >>> 0 % 17
     0
@@ -264,7 +264,7 @@ def mod_obj_m2f(obj2):
     return result
 
 
-def modint(int int2, int int3):
+def modint(i32 int2, int int3):
     """
     >>> modint(9,2)
     1

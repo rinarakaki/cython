@@ -6,19 +6,19 @@ extern from *:
     struct Foo
     {
 
-      static const char* bar(int x, int y) {
+      static const char* bar(i32 x, int y) {
         return "second";
       }
 
-      static const char* bar(int x) {
+      static const char* bar(i32 x) {
         return "first";
       }
 
-      const char* baz(int x, int y) {
+      const char* baz(i32 x, int y) {
         return "second";
       }
 
-      const char* baz(int x) {
+      const char* baz(i32 x) {
         return "first";
       }
     };

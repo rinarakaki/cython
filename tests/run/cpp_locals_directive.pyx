@@ -15,7 +15,7 @@ extern from *:
     class C {
         public:
             C() = delete; // look! No default constructor
-            C(int x, bool print_destructor=true) : x(x), print_destructor(print_destructor) {}
+            C(i32 x, bool print_destructor=true) : x(x), print_destructor(print_destructor) {}
             C(C&& rhs) : x(rhs.x), print_destructor(rhs.print_destructor) {
                 rhs.print_destructor = false; // moved-from instances are deleted silently
             }
@@ -34,13 +34,13 @@ extern from *:
             bool print_destructor;
     };
 
-    C make_C(int x) {
+    C make_C(i32 x) {
         return C(x);
     }
     """
     cdef cppclass C:
         C(i32)
-        C(int, cppbool)
+        C(i32, cppbool)
         int getX() const
     C make_C(i32) except +  # needs a temp to receive
 

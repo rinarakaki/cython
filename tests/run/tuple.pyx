@@ -152,7 +152,7 @@ def unused_literals():
     (1, 2, 3)
     (1, 2, 3 + 4)
     ("abc", 'def')
-    #(int(), 2, 3)
+    #(i32(), 2, 3)
 
 
 @cython.test_assert_path_exists(

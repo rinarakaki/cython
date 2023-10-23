@@ -9,7 +9,7 @@ extern from *:
     #endif
     """
 
-def test_arith(int complex a, int complex b):
+def test_arith(i32 complex a, int complex b):
     """
     >>> test_arith(4, 2)
     ((-4+0j), (6+0j), (2+0j), (8+0j))

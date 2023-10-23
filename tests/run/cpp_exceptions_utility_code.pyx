@@ -9,7 +9,7 @@ extern from *:
     """
     #include <stdexcept>
 
-    void cppf(int raiseCpp) {
+    void cppf(i32 raiseCpp) {
         if (raiseCpp) {
             throw std::runtime_error("cpp");
         } else {
@@ -19,7 +19,7 @@ extern from *:
     """
     void cppf(i32) except+*
 
-def callcppf(int raiseCpp):
+def callcppf(i32 raiseCpp):
     """
     >>> callcppf(0)
     py

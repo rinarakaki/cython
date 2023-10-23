@@ -8,9 +8,9 @@ extern from "<sys/select.h>" nogil:
         pass
 
     int FD_SETSIZE
-    void FD_SET(int, fd_set*)
-    void FD_CLR(int, fd_set*)
-    bint FD_ISSET(int, fd_set*)
+    void FD_SET(i32, fd_set*)
+    void FD_CLR(i32, fd_set*)
+    bint FD_ISSET(i32, fd_set*)
     void FD_ZERO(fd_set*)
 
     int select(i32 nfds, fd_set *readfds, fd_set *writefds,

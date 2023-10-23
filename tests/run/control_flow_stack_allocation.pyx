@@ -6,7 +6,7 @@ cdef struct S:
     int x
     float y
 
-fn stack_alloc_test(int[2] array_arg, S struct_arg):
+fn stack_alloc_test(i32[2] array_arg, S struct_arg):
     let i32[2] array_var
     let S struct_var, struct_var_by_value
 

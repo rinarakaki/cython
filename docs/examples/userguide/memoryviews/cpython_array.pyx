@@ -1,4 +1,4 @@
-def sum_array(int[:] view):
+def sum_array(i32[:] view):
     """
     >>> from array import array
     >>> sum_array( array('i', [1, 2, 3]) )
