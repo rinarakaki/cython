@@ -197,7 +197,7 @@ def test_performance_hint_nogil():
 
 # Note that we're only able to check the first line of the performance hint
 _PERFORMANCE_HINTS = """
-19:9: Exception check will always require the GIL to be acquired.
+20:9: Exception check will always require the GIL to be acquired.
 23:0: Exception check on 'f' will always require the GIL to be acquired.
 33:0: Exception check on 'release_gil_in_nogil' will always require the GIL to be acquired.
 38:6: Exception check on 'release_gil_in_nogil2' will always require the GIL to be acquired.
