@@ -14,7 +14,7 @@ def const_iteration_test(L):
     4
     8
     """
-    v = new vector[int]()
+    v = new vector[i32]()
     try:
         for a in L:
             v.push_back(a)

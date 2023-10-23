@@ -3,7 +3,7 @@
 
 from libcpp.vector cimport vector
 
-def stack_vector_in_generator(vector[int] vint):
+def stack_vector_in_generator(vector[i32] vint):
     """
     >>> tuple( stack_vector_in_generator([1,2]) )
     (1, 2)

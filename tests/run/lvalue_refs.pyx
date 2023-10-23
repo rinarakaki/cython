@@ -49,6 +49,6 @@ def test_ref_used_for_indexing():
     >>> test_ref_used_for_indexing()
     'looked up correctly'
     """
-    let vector[int] idx = [1,2,3]
+    let vector[i32] idx = [1,2,3]
     d = {1: "looked up correctly", 2:"oops"}
     return d[idx[0]]

@@ -93,7 +93,7 @@ extern from "<math.h>" nogil:
     double fmin(f64 x, f64 y)
     float fminf(float, float)
     long double fminl(long double, long double)
-    double fmod(f64 x, f64 y
+    double fmod(f64 x, f64 y)
     float fmodf(float, float)
     long double fmodl(long double, long double)
     double frexp(f64 x, int* exponent)
@@ -153,7 +153,7 @@ extern from "<math.h>" nogil:
     double nexttoward(double, long double)
     float nexttowardf(float, long double)
     long double nexttowardl(long double, long double)
-    double pow(f64 x
+    double pow(f64 x)
     float powf(float, float)
     long double powl(long double, long double)
     double remainder(f64 x, f64 y)
@@ -162,10 +162,10 @@ extern from "<math.h>" nogil:
     double remquo(f64 x, f64 y, int* quot)
     float remquof(float, float, int* quot)
     long double remquol(long double, long double, int* quot)
-    double rint(f64 x
+    double rint(f64 x)
     float rintf(float)
     long double rintl(long double)
-    double round(f64 x
+    double round(f64 x)
     float roundf(float)
     long double roundl(long double)
     double scalbln(f64 x, i64 n)
@@ -192,7 +192,7 @@ extern from "<math.h>" nogil:
     double tgamma(f64 x)
     float tgammaf(float)
     long double tgammal(long double)
-    double trunc(f64 x
+    double trunc(f64 x)
     float truncf(float)
     long double truncl(long double)
 
@@ -202,8 +202,8 @@ extern from "<math.h>" nogil:
     bint isnormal(long double)
     bint signbit(long double)
     int fpclassify(long double)
-    const int FP_NAN
-    const int FP_INFINITE
-    const int FP_ZERO
-    const int FP_SUBNORMAL
-    const int FP_NORMAL
+    const i32 FP_NAN
+    const i32 FP_INFINITE
+    const i32 FP_ZERO
+    const i32 FP_SUBNORMAL
+    const i32 FP_NORMAL

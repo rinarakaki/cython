@@ -14,7 +14,7 @@ fn i32 h(a):
     i = a
     return i
 
-fn const int p():
+fn const i32 p():
     return 1
 
 def test_g():

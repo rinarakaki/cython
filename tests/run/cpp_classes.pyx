@@ -208,7 +208,7 @@ def test_class_in_struct_member():
            destructor_count - start_destructor_count
 
 cdef class TemplateClassMember:
-    let vector[int] x
+    let vector[i32] x
     let vector[vector[Empty]] vec
 
 def test_template_class_member():
@@ -226,10 +226,10 @@ def test_template_class_member():
     assert destructor_count - start_destructor_count == 2, \
            destructor_count - start_destructor_count
 
-ctypedef vector[int]* vector_int_ptr
+ctypedef vector[i32]* vector_int_ptr
 fn vector[vector_int_ptr] create_to_delete() except *:
     let vector[vector_int_ptr] v
-    v.push_back(new vector[int]())
+    v.push_back(new vector[i32]())
     return v
 fn i32 f(i32 x):
     return x
@@ -239,7 +239,7 @@ def test_nested_del():
     >>> test_nested_del()
     """
     let vector[vector_int_ptr] v
-    v.push_back(new vector[int]())
+    v.push_back(new vector[i32]())
     del v[0]
     del create_to_delete()[f(f(0))]
 
@@ -248,7 +248,7 @@ def test_nested_del_repeat():
     >>> test_nested_del_repeat()
     """
     let vector[vector_int_ptr] v
-    v.push_back(new vector[int]())
+    v.push_back(new vector[i32]())
     del v[0]
     del create_to_delete()[f(f(0))]
     del create_to_delete()[f(f(0))]

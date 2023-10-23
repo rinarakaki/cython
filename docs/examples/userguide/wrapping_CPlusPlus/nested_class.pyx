@@ -14,4 +14,4 @@ extern from "<vector>" namespace "std":
         iterator begin()
         iterator end()
 
-cdef vector[int].iterator iter  #iter is declared as being of type vector<int>::iterator
+cdef vector[i32].iterator iter  #iter is declared as being of type vector<int>::iterator

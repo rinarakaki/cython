@@ -10,5 +10,5 @@ def vector_is_none(vector[i32] iv):
 
 
 _ERRORS = """
-8:10: Invalid types for 'is' (vector[int], Python object)
+8:10: Invalid types for 'is' (vector[i32], Python object)
 """
