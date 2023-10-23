@@ -33,7 +33,7 @@ def or2(a, b):
 
 def or3(a, b, c):
     """
-    >>> or3(0,1,2) == (0 or 1 or 2)
+    >>> or3(0, 1, 2) == (0 or 1 or 2)
     True
     >>> or3([],(),[1]) == ([] or () or [1])
     True
