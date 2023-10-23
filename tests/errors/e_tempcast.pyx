@@ -3,7 +3,7 @@
 cdef object blarg
 
 def foo(obj):
-    cdef void *p
+    let void *p
     p = <void *>blarg # ok
     p = <void *>(obj + blarg) # error - temporary
 
