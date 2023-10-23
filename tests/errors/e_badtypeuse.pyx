@@ -37,8 +37,8 @@ _ERRORS = u"""
 15:16: Array element type 'void' is incomplete
 18:12: Variable type 'int []' is incomplete
 #19:1: Function argument cannot be void
-21:1: Use spam() rather than spam(void) to declare a function with no arguments.
+21:5: Use spam() rather than spam(void) to declare a function with no arguments.
 20:5: Argument type 'Grail' is incomplete
-21:1: Invalid use of 'void'
+21:5: Invalid use of 'void'
 25:5: 'NoSuchType' is not a type identifier
 """
