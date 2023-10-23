@@ -14,7 +14,7 @@ def simple_convert(*o):
     Traceback (most recent call last):
     TypeError: Expected a sequence of size 2, got size 3
     """
-    let (i32, double) xy = o
+    let ((i32, f64)) xy = o
     return xy
 
 def convert_from_list(*o):
@@ -30,7 +30,7 @@ def convert_from_list(*o):
     TypeError: Expected a sequence of size 2, got size 3
     """
     let object values = list(o)
-    let (i32, double) xy = values
+    let ((i32, f64)) xy = values
     return xy
 
 def convert_from_deque(*o):
@@ -47,10 +47,10 @@ def convert_from_deque(*o):
     """
     from collections import deque
     let object values = deque(o)
-    let (i32, double) xy = values
+    let ((i32, f64)) xy = values
     return xy
 
-def indexing((i32, double) xy):
+def indexing(((i32, f64)) xy):
     """
     >>> indexing((1, 2))
     (2, 3.0)
@@ -61,7 +61,7 @@ def indexing((i32, double) xy):
     xy[1] = y + 1
     return xy
 
-def unpacking((i32, double) xy):
+def unpacking(((i32, f64)) xy):
     """
     >>> unpacking((1, 2))
     (1, 2.0)
@@ -69,11 +69,11 @@ def unpacking((i32, double) xy):
     x, y = xy
     return x, y
 
-fn (i32, double) side_effect((i32, double) xy):
+fn ((i32, f64)) side_effect(((i32, f64)) xy):
     print "called with", xy
     return xy
 
-def unpacking_with_side_effect((i32, double) xy):
+def unpacking_with_side_effect(((i32, f64)) xy):
     """
     >>> unpacking_with_side_effect((1, 2))
     called with (1, 2.0)
@@ -87,7 +87,7 @@ def packing_tuple(i32 x, f64 y):
     >>> packing_tuple(1, 2)
     (1, 2.0)
     """
-    let (i32, double) xy = (x, y)
+    let ((i32, f64)) xy = (x, y)
     assert xy == (x, y), xy
     xy = (x, y) * 1
     assert xy == (x, y), xy
@@ -99,7 +99,7 @@ def packing_list(i32 x, f64 y):
     >>> packing_list(1, 2)
     (1, 2.0)
     """
-    let (i32, double) xy = [x, y]
+    let ((i32, f64)) xy = [x, y]
     assert xy == (x, y), xy
     xy = [x, y] * 1
     assert xy == (x, y), xy
@@ -107,7 +107,7 @@ def packing_list(i32 x, f64 y):
     return xy
 
 def coerce_packing_tuple(i32 x, i32 y):
-    let (i32, double) xy = (x, y)
+    let ((i32, f64)) xy = (x, y)
     """
     >>> coerce_packing_tuple(1, 2)
     (1, 2.0)
@@ -176,7 +176,7 @@ def cast_to_ctuple(*o):
     """
     let i32 x
     let f64 y
-    x, y = <(i32, double)>o
+    x, y = <((i32, f64))>o
     return x, y
 
 @cython.infer_types(true)
@@ -188,7 +188,7 @@ def test_type_inference():
     let f64 y = 2
     let object o = 3
     xy = (x, y)
-    assert cython.typeof(xy) == "(i32, double)", cython.typeof(xy)
+    assert cython.typeof(xy) == "((i32, f64))", cython.typeof(xy)
     xo = (x, o)
     assert cython.typeof(xo) == "tuple object", cython.typeof(xo)
 
