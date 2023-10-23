@@ -16,10 +16,10 @@ fn void f():
     c.__weakref__ = x
 
 _ERRORS = u"""
-7:12: Illegal use of special attribute __weakref__
-7:12: Illegal use of special attribute __weakref__
-7:12: Illegal use of special attribute __weakref__
-7:12: Special attribute __weakref__ cannot be exposed to Python
+7:15: Illegal use of special attribute __weakref__
+7:15: Illegal use of special attribute __weakref__
+7:15: Illegal use of special attribute __weakref__
+7:15: Special attribute __weakref__ cannot be exposed to Python
 10:22: Illegal use of special attribute __weakref__
 10:22: Special attribute __weakref__ cannot be exposed to Python
 15:6: Illegal use of special attribute __weakref__

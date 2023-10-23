@@ -63,7 +63,7 @@ class TestClassGetitem(unittest.TestCase):
 
     def test_class_getitem(self):
         Unpack[int, str]
-        self.assertEqual(Unpack.para_list[0], (Unpack, (i32, str)))
+        self.assertEqual(Unpack.para_list[0], (Unpack, (int, str)))
         self.assertEqual(Unpack.para_list[1], {})
 
     def test_class_getitem_format(self):

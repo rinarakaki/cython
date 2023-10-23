@@ -8,6 +8,6 @@ def foo(obj):
     p = <void *>(obj + blarg) # error - temporary
 
 _ERRORS = u"""
-8:5: Casting temporary Python object to non-numeric non-Python type
-8:5: Storing unsafe C derivative of temporary Python reference
+8:8: Casting temporary Python object to non-numeric non-Python type
+8:8: Storing unsafe C derivative of temporary Python reference
 """

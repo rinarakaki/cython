@@ -41,7 +41,7 @@ _ERRORS = u"""
 14: 4: starred expression is not allowed here
 
 # syntax2()
-26:11: more than 1 starred expression in assignment
+26:12: more than 1 starred expression in assignment
 
 # types()
 32:15: Cannot coerce list to type 'int'

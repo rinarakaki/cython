@@ -7,6 +7,6 @@ def f():
     flt1 = flt2 ** str1  # error
 
 _ERRORS = u"""
-6:13: Invalid operand types for '**' (char *; float)
+6:16: Invalid operand types for '**' (char *; float)
 7:13: Invalid operand types for '**' (float; char *)
 """
