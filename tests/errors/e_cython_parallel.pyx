@@ -161,7 +161,7 @@ _ERRORS = u"""
 21:29: The parallel section may only be used without the GIL
 27:8: target may not be a Python object as we don't have the GIL
 30:9: Can only iterate over an iteration variable
-33:8: Must be of numeric type, not (i32 *)
+33:8: Must be of numeric type, not int *
 36:33: Nested parallel with blocks are disallowed
 39:12: The parallel directive must be called
 45:8: local variable 'y' referenced before assignment

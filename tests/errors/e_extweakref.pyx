@@ -10,8 +10,8 @@ cdef class E:
     cdef readonly object __weakref__
 
 fn void f():
-    cdef C c = C()
-    cdef object x
+    let C c = C()
+    let object x
     x = c.__weakref__
     c.__weakref__ = x
 
