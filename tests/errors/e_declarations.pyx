@@ -5,10 +5,10 @@ cdef extern i32 af()[5]
 cdef extern i32 ff()()
 
 fn void f():
-	cdef void *p
-	cdef i32 (*h)()
-	h = <i32 ()()>f # this is an error
-	h = <i32 (*)()>f # this is OK
+    let void *p
+    let i32 (*h)()
+    h = <i32 ()()>f # this is an error
+    h = <i32 (*)()>f # this is OK
 
 
 _ERRORS = u"""
