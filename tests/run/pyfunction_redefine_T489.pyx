@@ -47,7 +47,7 @@ class ClassScope(object):
     def __init__(self):
         r = []
         for x in self.x:
-            if isinstance(x, i32):
+            if isinstance(x, int):
                 r.append(x)
             else:
                 r.append(x(self))
