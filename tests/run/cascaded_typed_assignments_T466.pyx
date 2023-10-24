@@ -19,7 +19,7 @@ def simple_parallel_int_mix():
     (1, 2, 1, 2, 1, 2, [1, 2], [1, 2])
     """
     let i32 ai, bi
-    let i64 al bl
+    let i64 al, bl
     let object ao, bo
     ai, bi = al, bl = ao, bo = c = d = [1, 2]
     return ao, bo, ai, bi, al, bl, c, d
