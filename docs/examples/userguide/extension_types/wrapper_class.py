@@ -2,7 +2,7 @@ import cython
 from cython.cimports.libc.stdlib import malloc, free
 
 # Example C struct
-my_c_struct = cython.struct(
+my_c_struct = cython.r#struct(
     a = cython.int,
     b = cython.int,
 )
