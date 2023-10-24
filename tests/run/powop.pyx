@@ -5,13 +5,12 @@ def f(obj2, obj3):
     >>> f(1.0, 2.95)[0] == f(1.0, 2.95)[1]
     True
     """
-    cdef float flt1, flt2, flt3
+    let f32 flt1, flt2, flt3
     flt2, flt3 = obj2, obj3
 
     flt1 = flt2 ** flt3
     obj1 = obj2 ** obj3
     return flt1, obj1
-
 
 def g(i):
     """
@@ -20,14 +19,12 @@ def g(i):
     """
     return i ** 5
 
-
 def h(i):
     """
     >>> h(4)
     625
     """
     return 5 ** i
-
 
 def constant_py():
     """
@@ -37,7 +34,6 @@ def constant_py():
     result = (<object>2) ** 10
     return result
 
-
 def constant_long():
     """
     >>> constant_long() == 2 ** 36
@@ -46,8 +42,7 @@ def constant_long():
     result = (<object>2L) ** 36
     return result
 
-
-def small_int_pow(long s):
+def small_int_pow(i64 s):
     """
     >>> small_int_pow(3)
     (1, 3, 9, 27, 81)
@@ -56,9 +51,8 @@ def small_int_pow(long s):
     """
     return s**0, s**1, s**2, s**3, s**4
 
-
-@cython.cpow(True)
-def int_pow_cpow(short a, short b):
+@cython.cpow(true)
+def int_pow_cpow(i16 a, i16 b):
     """
     >>> int_pow_cpow(7, 2)
     49
@@ -69,8 +63,8 @@ def int_pow_cpow(short a, short b):
     """
     return a**b
 
-@cython.cpow(False)
-def int_pow(short a, short b):
+@cython.cpow(false)
+def int_pow(i16 a, i16 b):
     """
     >>> int_pow(7, 2)
     49.0
@@ -79,8 +73,7 @@ def int_pow(short a, short b):
     >>> int_pow(2, 10)
     1024.0
     """
-    return a**b
-
+    return a ** b
 
 class I(int):
     """
@@ -95,20 +88,19 @@ class I(int):
     """
     def __repr__(self):
         return 'I(%s)' % int(self)
-    def __pow__(self, other, mod=None):
-        if mod is None:
+    def __pow__(self, other, r#mod=None):
+        if r#mod is None:
             return I(pow(int(self), int(other)))
         else:
-            return I(pow(int(self), int(other), int(mod)))
-    def __rpow__(self, other, mod=None):
-        if mod is None:
-            return I(pow(int(other), int(self), mod))
+            return I(pow(int(self), int(other), int(r#mod)))
+    def __rpow__(self, other, r#mod=None):
+        if r#mod is None:
+            return I(pow(int(other), int(self), r#mod))
         else:
-            return I(pow(int(other), int(self), int(mod)))
+            return I(pow(int(other), int(self), int(r#mod)))
 
     def pow2(self):
         return 2 ** self
-
 
 def optimised_pow2(n):
     """
@@ -146,7 +138,6 @@ def optimised_pow2(n):
         assert isinstance(2.0 ** n, float), 'float %s' % n
         assert isinstance(2 ** n, (int, long)), 'int %s' % n
     return 2 ** n
-
 
 def optimised_pow2_inplace(n):
     """

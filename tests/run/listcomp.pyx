@@ -31,7 +31,7 @@ def int_runvar():
     >>> int_runvar()
     [0, 4, 8]
     """
-    cdef int x
+    let i32 x
     print [x*2 for x in range(5) if x % 2 == 0]
 
 
@@ -43,7 +43,7 @@ def typed():
     >>> typed()
     [A, A, A]
     """
-    cdef A obj
+    let A obj
     print [obj for obj in [A(), A(), A()]]
 
 
@@ -68,7 +68,7 @@ def iterdict():
     >>> iterdict()
     [1, 2, 3]
     """
-    cdef dict d = dict(a=1,b=2,c=3)
+    let dict d = dict(a=1,b=2,c=3)
     l = [d[key] for key in d]
     l.sort()
     print l
@@ -121,8 +121,8 @@ def listcomp_as_condition(sequence):
     False
     """
     if [1 for c in sequence if c in '+-*/<=>!%&|([^~,']:
-        return True
-    return False
+        return true
+    return false
 
 
 @cython.test_fail_if_path_exists("//SimpleCallNode//ComprehensionNode")
@@ -133,7 +133,7 @@ def sorted_listcomp(sequence):
     []
     >>> sorted_listcomp([1])
     [2]
-    >>> sorted_listcomp([3,2,4])
+    >>> sorted_listcomp([3, 2, 4])
     [3, 4, 5]
     """
     return sorted([ n+1 for n in sequence ])
@@ -181,8 +181,8 @@ def listcomp_const_condition_false_if():
     True
     """
     if not [l for l in [1] if False]:
-        return True
-    return False
+        return true
+    return false
 
 
 @cython.test_fail_if_path_exists("//ComprehensionNode//IfStatNode",
@@ -195,10 +195,10 @@ def listcomp_const_condition_false_typed_error():
     Traceback (most recent call last):
     TypeError: ...
     """
-    cdef str l
+    let str l
     if not [l for l in [1] if False]:
-        return True
-    return False
+        return true
+    return false
 
 
 @cython.test_fail_if_path_exists("//IfStatNode")

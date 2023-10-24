@@ -1,11 +1,11 @@
 # mode: compile
 # tag: cpp, warnings
 
-cdef extern from "templates.h":
+extern from "templates.h":
     cdef cppclass TemplateTest1[T]:
         TemplateTest1()
         T value
-        int t
+        i32 t
         T getValue()
 
     cdef cppclass TemplateTest1[T]

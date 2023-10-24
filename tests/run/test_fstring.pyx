@@ -20,7 +20,7 @@ from Cython.TestUtils import CythonTest
 from Cython.Compiler.Errors import CompileError, hold_errors, init_thread, held_errors
 
 def cy_eval(s, **kwargs):
-    return cython_inline('return ' + s, force=True, **kwargs)
+    return cython_inline('return ' + s, force=true, **kwargs)
 
 a_global = 'global variable'
 
@@ -46,7 +46,7 @@ class TestCase(CythonTest):
                     init_thread()  # reset error status
             else:
                 try:
-                    cython_inline(str, quiet=True)
+                    cython_inline(str, quiet=true)
                 except exception_type:
                     assert True
                 else:
@@ -767,19 +767,19 @@ non-important content
     def test_yield(self):
         # Not terribly useful, but make sure the yield turns
         #  a function into a generator
-        def fn(y):
+        def r#fn(y):
             f'y:{yield y*2}'
             f'{yield}'
 
-        g = fn(4)
+        g = r#fn(4)
         self.assertEqual(next(g), 8)
         self.assertEqual(next(g), None)
 
     def test_yield_send(self):
-        def fn(x):
+        def r#fn(x):
             yield f'x:{yield (lambda i: x * i)}'
 
-        g = fn(10)
+        g = r#fn(10)
         the_lambda = next(g)
         self.assertEqual(the_lambda(4), 40)
         self.assertEqual(g.send('string'), 'x:string')

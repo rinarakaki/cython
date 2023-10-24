@@ -9,7 +9,7 @@ except ImportError:
     from io import StringIO
 
 
-def test(int x):
+def test(i32 x):
     """
     >>> test(5)
     47
@@ -21,17 +21,17 @@ def test(int x):
         x = g(x)
     return x
 
-cdef void f(int x) nogil:
-        cdef int y
-        y = x + 42
-        g(y)
+fn void f(i32 x) nogil:
+    let i32 y
+    y = x + 42
+    g(y)
 
-cdef int g(int x) nogil:
-        cdef int y
-        y = x + 42
-        return y
+fn i32 g(i32 x) nogil:
+    let i32 y
+    y = x + 42
+    return y
 
-cdef void release_gil_in_nogil() nogil:
+fn void release_gil_in_nogil() nogil:
     # This should generate valid code with/without the GIL
     with nogil:
         pass
@@ -52,7 +52,7 @@ def test_release_gil_in_nogil():
     release_gil_in_nogil()
     release_gil_in_nogil2()
 
-cdef void get_gil_in_nogil() nogil:
+fn void get_gil_in_nogil() nogil:
     with gil:
         pass
 
@@ -71,10 +71,10 @@ def test_get_gil_in_nogil():
     get_gil_in_nogil()
     get_gil_in_nogil2()
 
-cdef int with_gil_func() except -1 with gil:
+fn i32 with_gil_func() except -1 with gil:
     raise Exception("error!")
 
-cdef int nogil_func() except -1 nogil:
+fn i32 nogil_func() except -1 nogil:
     with_gil_func()
 
 def test_nogil_exception_propagation():
@@ -88,7 +88,7 @@ def test_nogil_exception_propagation():
         nogil_func()
 
 
-cdef int write_unraisable() noexcept nogil:
+fn i32 write_unraisable() noexcept nogil:
     with gil:
         raise ValueError()
 
@@ -109,30 +109,30 @@ def test_unraisable():
     return stderr.getvalue().strip()
 
 
-cdef int initialize_array() nogil:
-    cdef int[4] a = [1, 2, 3, 4]
+fn i32 initialize_array() nogil:
+    let i32[4] a = [1, 2, 3, 4]
     return a[0] + a[1] + a[2] + a[3]
 
-cdef int copy_array() nogil:
-    cdef int[4] a
+fn i32 copy_array() nogil:
+    let i32[4] a
     a[:] = [0, 1, 2, 3]
     return a[0] + a[1] + a[2] + a[3]
 
-cdef double copy_array2() nogil:
-    cdef double[4] x = [1.0, 3.0, 5.0, 7.0]
-    cdef double[4] y
+fn f64 copy_array2() nogil:
+    let f64[4] x = [1.0, 3.0, 5.0, 7.0]
+    let f64[4] y
     y[:] = x[:]
     return y[0] + y[1] + y[2] + y[3]
 
-cdef double copy_array3() nogil:
-    cdef double[4] x = [2.0, 4.0, 6.0, 8.0]
-    cdef double[4] y
+fn f64 copy_array3() nogil:
+    let f64[4] x = [2.0, 4.0, 6.0, 8.0]
+    let f64[4] y
     y = x
     return y[0] + y[1] + y[2] + y[3]
 
-cdef void copy_array_exception(int n) nogil:
-    cdef double[5] a = [1,2,3,4,5]
-    cdef double[6] b
+fn void copy_array_exception(i32 n) nogil:
+    let f64[5] a = [1, 2, 3, 4, 5]
+    let f64[6] b
     b[:n] = a
 
 def test_initalize_array():
@@ -179,12 +179,12 @@ def test_copy_array_exception_nogil(n):
         ...
     ValueError: Assignment to slice of wrong length, expected 5, got 20
     """
-    cdef int cn = n
+    let i32 cn = n
     with nogil:
         copy_array_exception(cn)
 
 # Should still get a warning even though it's declared in a pxd
-cdef void voidexceptnogil_in_pxd() nogil:
+fn void voidexceptnogil_in_pxd() nogil:
     pass
 
 def test_performance_hint_nogil():
@@ -201,18 +201,18 @@ def test_performance_hint_nogil():
 # Note that we're only able to check the first line of the performance hint
 _PERFORMANCE_HINTS = """
 20:9: Exception check will always require the GIL to be acquired.
-24:5: Exception check on 'f' will always require the GIL to be acquired.
-34:5: Exception check on 'release_gil_in_nogil' will always require the GIL to be acquired.
+24:0: Exception check on 'f' will always require the GIL to be acquired.
+34:0: Exception check on 'release_gil_in_nogil' will always require the GIL to be acquired.
 39:6: Exception check on 'release_gil_in_nogil2' will always require the GIL to be acquired.
 49:28: Exception check will always require the GIL to be acquired.
 51:29: Exception check will always require the GIL to be acquired.
-55:5: Exception check on 'get_gil_in_nogil' will always require the GIL to be acquired.
+55:0: Exception check on 'get_gil_in_nogil' will always require the GIL to be acquired.
 59:6: Exception check on 'get_gil_in_nogil2' will always require the GIL to be acquired.
 68:24: Exception check will always require the GIL to be acquired.
 70:25: Exception check will always require the GIL to be acquired.
-133:5: Exception check on 'copy_array_exception' will always require the GIL to be acquired.
+133:0: Exception check on 'copy_array_exception' will always require the GIL to be acquired.
 184:28: Exception check will always require the GIL to be acquired.
-187:5: Exception check on 'voidexceptnogil_in_pxd' will always require the GIL to be acquired.
+187:0: Exception check on 'voidexceptnogil_in_pxd' will always require the GIL to be acquired.
 195:30: Exception check will always require the GIL to be acquired.
 198:36: Exception check will always require the GIL to be acquired.
 """

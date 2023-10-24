@@ -1,7 +1,7 @@
 from libc.stdint cimport uint_fast32_t, uint_fast64_t
 
 
-cdef extern from "<random>" namespace "std" nogil:
+extern from "<random>" namespace "std" nogil:
     cdef cppclass random_device:
         ctypedef uint_fast32_t result_type
         random_device() except +
@@ -14,7 +14,7 @@ cdef extern from "<random>" namespace "std" nogil:
         result_type operator()() except +
         result_type min() except +
         result_type max() except +
-        void discard(size_t z) except +
+        void discard(usize z) except +
         void seed(result_type seed) except +
 
     cdef cppclass mt19937_64:
@@ -25,7 +25,7 @@ cdef extern from "<random>" namespace "std" nogil:
         result_type operator()() except +
         result_type min() except +
         result_type max() except +
-        void discard(size_t z) except +
+        void discard(usize z) except +
         void seed(result_type seed) except +
 
     cdef cppclass uniform_int_distribution[T]:

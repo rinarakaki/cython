@@ -31,14 +31,14 @@ def from_object():
     """
     >>> from_object()
     """
-    cdef bytes b = b"abc"
-    cdef str s = "abc"
-    cdef unicode u = u"abc"
+    let bytes b = b"abc"
+    let str s = "abc"
+    let unicode u = u"abc"
     assert strcmp(<char*>b, "abc") == 0
     assert strcmp(<char*>s, "abc") == 0
     assert strcmp(<char*>u, "abc") == 0
 
-def slice_as_objects(char* ascii_data, int start, int end):
+def slice_as_objects(char* ascii_data, i32 start, i32 end):
     """
     >>> x = slice_as_objects('grok', 1, 3)
     >>> isinstance(x, auto_string_type) or type(x)

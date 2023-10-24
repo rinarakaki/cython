@@ -226,9 +226,9 @@ def test_first_assignment():
     >>> next(gen)
     (5, 10)
     """
-    cdef x = 5 # first
+    let x = 5 # first
     yield x
-    cdef y = 10 # first
+    let y = 10 # first
     yield y
     yield (x,y)
 
@@ -435,7 +435,7 @@ def test_inside_lambda():
     """
     return lambda:((yield 1), (yield 2))
 
-def test_nested_gen(int n):
+def test_nested_gen(i32 n):
     """
     >>> [list(a) for a in test_nested_gen(5)]
     [[], [0], [0, 1], [0, 1, 2], [0, 1, 2, 3]]
@@ -457,7 +457,7 @@ def test_with_gil_section():
     >>> list(test_with_gil_section())
     [0, 1, 2]
     """
-    cdef int i
+    let i32 i
     with nogil:
         for i in range(3):
             with gil:
@@ -469,7 +469,7 @@ def test_double_with_gil_section():
     >>> list(test_double_with_gil_section())
     [0, 1, 2, 3]
     """
-    cdef int i,j
+    let i32 i, j
     with nogil:
         for i in range(2):
             with gil:

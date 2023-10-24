@@ -1,35 +1,35 @@
 # OK
 
-cdef int wider_exception_check(int x, int y) except? 0
+fn i32 wider_exception_check(i32 x, i32 y) except? 0
 
-cdef int no_exception_raised(int x, int y) except *
+fn i32 no_exception_raised(i32 x, i32 y) except *
 
-cdef int any_exception_value1(int x, int y) except *
+fn i32 any_exception_value1(i32 x, i32 y) except *
 
-cdef int any_exception_value2(int x, int y) except *
+fn i32 any_exception_value2(i32 x, i32 y) except *
 
-cdef int any_exception_value3(int x, int y) except *
+fn i32 any_exception_value3(i32 x, i32 y) except *
 
-cdef int any_exception_value4(int x, int y) except *
+fn i32 any_exception_value4(i32 x, i32 y) except *
 
-cdef int optimised_exception_value(int x, int y) except? -1
+fn i32 optimised_exception_value(i32 x, i32 y) except? -1
 
 # NOK
 
-cdef int wrong_args(int x, long y)
+fn i32 wrong_args(i32 x, i64 y)
 
-cdef long wrong_return_type(int x, int y)
+fn i64 wrong_return_type(i32 x, i32 y)
 
-cdef int foreign_exception_value(int x, int y) except 0
+fn i32 foreign_exception_value(i32 x, i32 y) except 0
 
-cdef int narrower_exception_check(int x, int y) except 0
+fn i32 narrower_exception_check(i32 x, i32 y) except 0
 
-cdef int wrong_exception_value(int x, int y) except 0
+fn i32 wrong_exception_value(i32 x, i32 y) except 0
 
-cdef int wrong_exception_value_check(int x, int y) except 0
+fn i32 wrong_exception_value_check(i32 x, i32 y) except 0
 
-cdef int wrong_exception_value_optimised_check(int x, int y) except? -2
+fn i32 wrong_exception_value_optimised_check(i32 x, i32 y) except? -2
 
-cdef int wrong_exception_value_optimised(int x, int y) except -2
+fn i32 wrong_exception_value_optimised(i32 x, i32 y) except -2
 
-cdef int narrower_exception_check_optimised(int x, int y) except -1
+fn i32 narrower_exception_check_optimised(i32 x, i32 y) except -1

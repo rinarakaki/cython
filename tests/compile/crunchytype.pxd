@@ -1,4 +1,4 @@
-cdef extern from *:
+extern from *:
     """
     struct CrunchyType {
         int number;
@@ -6,5 +6,5 @@ cdef extern from *:
     };
     """
     cdef class crunchytype.Crunchy [ object CrunchyType ]:
-        cdef int number
+        cdef i32 number
         cdef object string

@@ -1,8 +1,8 @@
 # mode: compile
 
-cdef int f() except -1:
-    cdef list l
-    cdef object x = (), y = (1,), z
+fn i32 f() except -1:
+    let list l
+    let object x = (), y = (1,), z
     z = list
     l = list(x)
     l = list(*y)
@@ -13,7 +13,6 @@ cdef int f() except -1:
     l.reverse()
     z = l.as_tuple()
     return z is not None
-
 
 def test():
     f()

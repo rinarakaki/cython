@@ -1,10 +1,8 @@
-
 cimport cython
 
-cdef extern from *:
-    const Py_ssize_t PY_SSIZE_T_MIN
-    const Py_ssize_t PY_SSIZE_T_MAX
-
+extern from *:
+    const isize PY_SSIZE_T_MIN
+    const isize PY_SSIZE_T_MAX
 
 ############################################################
 # tests for char* slicing
@@ -29,8 +27,8 @@ def slice_charptr_decode_platform_encoding():
     >>> print(str(slice_charptr_decode()).replace("u'", "'"))
     ('a', 'abc', 'abcABCqtp')
     """
-    cdef bytes s = u'abcABCqtp'.encode()
-    cdef char* cstr = s
+    let bytes s = u'abcABCqtp'.encode()
+    let char* cstr = s
     return (cstr[:1].decode(),
             cstr[:3].decode(),
             cstr[:9].decode())
@@ -42,8 +40,8 @@ def slice_charptr_decode_unknown_encoding():
     >>> print(str(slice_charptr_decode_unknown_encoding()).replace("u'", "'"))
     ('abcABCqtp', 'abcABCqtp', 'abc', 'abcABCqt')
     """
-    cdef const char* enc = 'UTF-8'
-    cdef const char* error_handling = 'strict'
+    let const char* enc = 'UTF-8'
+    let const char* error_handling = 'strict'
     return (cstring.decode(enc),
             cstring.decode(enc, error_handling),
             cstring[:3].decode(enc),
@@ -135,9 +133,8 @@ def slice_charptr_decode_large_bounds():
             cstring[PY_SSIZE_T_MIN:PY_SSIZE_T_MIN].decode('UTF-8'),
             cstring[PY_SSIZE_T_MAX:PY_SSIZE_T_MAX].decode('UTF-8'))
 
-
-cdef return1(): return 1
-cdef return3(): return 3
-cdef return4(): return 4
-cdef return5(): return 5
-cdef return9(): return 9
+fn return1(): return 1
+fn return3(): return 3
+fn return4(): return 4
+fn return5(): return 5
+fn return9(): return 9

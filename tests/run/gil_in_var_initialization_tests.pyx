@@ -28,7 +28,7 @@ from libcpp cimport bool
 # This isn't specifically a C++ test, but the C++ standard library concurrency tools
 # are a convenient way of getting condition variables and mutexes.
 
-cdef extern from *:
+extern from *:
     """
     #include <condition_variable>
     #include <mutex>
@@ -94,17 +94,17 @@ cdef extern from *:
             });
     }
     """
-    void wait_for_waiting() nogil
-    void set_triggered() nogil
+    fn void wait_for_waiting() nogil
+    fn void set_triggered() nogil
     cppclass bool_future:
         bool get() nogil
-    bool_future run_block_and_wait_with_gil() nogil
+    fn bool_future run_block_and_wait_with_gil() nogil
 
 cdef class C:
-    cdef int some_c_method(self) except -1 nogil:
+    fn i32 some_c_method(self) except -1 nogil:
         return 0
 
-    cdef int call_a_method_with_an_error_return(self) except -1 nogil:
+    fn i32 call_a_method_with_an_error_return(self) except -1 nogil:
         return self.some_c_method()
 
 def test_method_with_error_return():
@@ -120,17 +120,17 @@ def test_method_with_error_return():
     assert future.get()
 
 
-cdef inline float[:] _get_left_edge(float[::1] arr) nogil:
+fn inline float[:] _get_left_edge(float[::1] arr) nogil:
     return arr[:3]
 
 cdef class D:
     cdef float _a
-    def __cinit__(self, float a):
+    def __cinit__(self, f32 a):
         self._a = a
 
-    cdef void call_me(self, float[::1] my_arr) noexcept nogil:
-        cdef Py_ssize_t idx
-        cdef float[:] my_arr2 = _get_left_edge(my_arr)
+    fn void call_me(self, float[::1] my_arr) noexcept nogil:
+        let isize idx
+        let f32[:] my_arr2 = _get_left_edge(my_arr)
         for idx in range(my_arr2.shape[0]):
             my_arr2[idx] = self._a
 
@@ -138,8 +138,8 @@ def test_method_with_memoryview_handling():
     """
     >>> test_method_with_memoryview_handling()
     """
-    cdef float[10] static_arr
-    cdef float[::1] view_of_static_arr = <float[:10:1]>static_arr
+    let f32[10] static_arr
+    let f32[::1] view_of_static_arr = <float[:10:1]>static_arr
     future = run_block_and_wait_with_gil()
     d = D(5.)
     with nogil:

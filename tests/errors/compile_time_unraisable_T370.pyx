@@ -1,7 +1,7 @@
 # ticket: t370
 # mode: error
 
-cdef int raiseit():
+fn i32 raiseit():
     raise IndexError
 
 try: raiseit()

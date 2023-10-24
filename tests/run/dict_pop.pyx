@@ -18,7 +18,6 @@ def dict_pop(dict d, key):
     """
     return d.pop(key), d
 
-
 @cython.test_assert_path_exists("//PythonCapiCallNode")
 @cython.test_fail_if_path_exists("//AttributeNode")
 def dict_pop_default(dict d, key, default):
@@ -35,12 +34,10 @@ def dict_pop_default(dict d, key, default):
     """
     return d.pop(key, default), d
 
-
 cdef class MyType:
-    cdef public int i
+    pub i32 i
     def __init__(self, i):
         self.i = i
-
 
 @cython.test_assert_path_exists("//SingleAssignmentNode//PythonCapiCallNode")
 @cython.test_fail_if_path_exists("//SingleAssignmentNode//AttributeNode")
@@ -54,5 +51,5 @@ def dict_pop_default_typed(dict d, key, default):
     Traceback (most recent call last):
     TypeError: Cannot convert str to ...MyType
     """
-    cdef MyType x = d.pop(key, default)
+    let MyType x = d.pop(key, default)
     return x.i if x is not None else None

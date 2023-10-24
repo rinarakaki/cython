@@ -6,15 +6,15 @@ def f(a):
     return a
     return 42
 
-cdef void g():
+fn void g():
     return
 
-cdef int h(a):
-    cdef int i
+fn i32 h(a):
+    let i32 i
     i = a
     return i
 
-cdef const int p():
+fn const i32 p():
     return 1
 
 def test_g():

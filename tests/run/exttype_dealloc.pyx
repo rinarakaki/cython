@@ -4,19 +4,15 @@
 import gc
 import sys
 
-
 test_results = []
 
-
-cdef void add_name(obj):
+fn void add_name(obj):
     name = type(obj).__name__.rsplit('.', 1)[-1]
     test_results.append(name)
-
 
 def find_name(exttype):
     name = exttype.__name__.rsplit('.', 1)[-1]
     return test_results.count(name)
-
 
 cdef class ExtTypeSimple:
     """
@@ -33,7 +29,6 @@ cdef class ExtTypeSimple:
         add_name(self)
         self.x = 0
 
-
 class PySubTypeSimple(ExtTypeSimple):
     """
     >>> obj = PySubTypeSimple()
@@ -44,7 +39,6 @@ class PySubTypeSimple(ExtTypeSimple):
     >>> find_name(PySubTypeSimple)
     1
     """
-
 
 class PySubTypeDel(ExtTypeSimple):
     """
@@ -58,7 +52,6 @@ class PySubTypeDel(ExtTypeSimple):
     """
     def __del__(self):
         add_name(self)
-
 
 cdef class ExtSubTypeObjAttr(ExtTypeSimple):
     """
@@ -77,7 +70,6 @@ cdef class ExtSubTypeObjAttr(ExtTypeSimple):
         add_name(self)
         self.x = 1
 
-
 cdef class ExtTypeRaise:
     """
     >>> obj = ExtTypeRaise()
@@ -92,7 +84,6 @@ cdef class ExtTypeRaise:
         add_name(self)
         raise RuntimeError("HUHU !")
 
-
 class PySubTypeRaise(ExtTypeRaise):
     """
     >>> obj = PySubTypeRaise()
@@ -105,7 +96,6 @@ class PySubTypeRaise(ExtTypeRaise):
     1
     """
 
-
 cdef class ExtTypeRefCycle:
     """
     >>> obj = ExtTypeRefCycle()
@@ -117,12 +107,11 @@ cdef class ExtTypeRefCycle:
     >>> find_name(ExtTypeRefCycle)
     1
     """
-    cdef public object ref
+    pub object ref
     cdef int x
     def __dealloc__(self):
         add_name(self)
         self.x = 1
-
 
 class PySubTypeRefCycleDel(ExtTypeRefCycle):
     """
@@ -142,7 +131,6 @@ class PySubTypeRefCycleDel(ExtTypeRefCycle):
     def __del__(self):
         add_name(self)
 
-
 cdef class ExtTypeRefCycleRaise:
     """
     >>> obj = ExtTypeRefCycleRaise()
@@ -154,11 +142,10 @@ cdef class ExtTypeRefCycleRaise:
     >>> find_name(ExtTypeRefCycleRaise)
     1
     """
-    cdef public object ref
+    pub object ref
     def __dealloc__(self):
         add_name(self)
         raise RuntimeError("Cleaning up !")
-
 
 class PySubTypeRefCycleRaise(ExtTypeRefCycleRaise):
     """

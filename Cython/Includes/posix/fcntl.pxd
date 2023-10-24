@@ -2,7 +2,7 @@
 
 from posix.types cimport mode_t, off_t, pid_t
 
-cdef extern from "<fcntl.h>" nogil:
+extern from "<fcntl.h>" nogil:
 
     enum: F_DUPFD
     enum: F_DUPFD_CLOEXEC
@@ -79,8 +79,8 @@ cdef extern from "<fcntl.h>" nogil:
         pid_t l_pid
 
     int creat(const char *, mode_t)
-    int fcntl(int, int, ...)
+    int fcntl(i32, int, ...)
     int open(const char *, int, ...)
-    int openat(int, const char *, int, ...)
-    int posix_fadvise(int, off_t, off_t, int)
-    int posix_fallocate(int, off_t, off_t)
+    int openat(i32, const char *, int, ...)
+    int posix_fadvise(i32, off_t, off_t, i32)
+    int posix_fallocate(i32, off_t, off_t)

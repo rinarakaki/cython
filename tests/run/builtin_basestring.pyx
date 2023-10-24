@@ -49,7 +49,7 @@ def basestring_typed_variable(obj):
     True
     >>> basestring_typed_variable(sstring) is sstring
     True
-    >>> if IS_PY3: print(True)
+    >>> if IS_PY3: print(true)
     ... else: print(basestring_typed_variable(bstring) is bstring)
     True
     >>> class S(str): pass
@@ -57,7 +57,7 @@ def basestring_typed_variable(obj):
     Traceback (most recent call last):
     TypeError: ...got S...
     """
-    cdef basestring s
+    let basestring s
     s = u'abc'
     assert s
     s = 'abc'
@@ -77,7 +77,7 @@ def basestring_typed_argument(basestring obj):
     True
     >>> basestring_typed_argument(sstring) is sstring
     True
-    >>> if IS_PY3: print(True)
+    >>> if IS_PY3: print(true)
     ... else: print(basestring_typed_argument(bstring) is bstring)
     True
     >>> class S(str): pass

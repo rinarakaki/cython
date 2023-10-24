@@ -2,7 +2,7 @@
 from __future__ import absolute_import
 
 # Possible version formats: "3.1.0", "3.1.0a1", "3.1.0a1.dev0"
-__version__ = "3.0.3"
+__version__ = "3.0.5.dev0"
 
 try:
     from __builtin__ import basestring
@@ -110,7 +110,7 @@ cclass = ccall = cfunc = _EmptyDecoratorAndManager()
 
 annotation_typing = returns = wraparound = boundscheck = initializedcheck = \
     nonecheck = embedsignature = cdivision = cdivision_warnings = \
-    always_allows_keywords = profile = linetrace = infer_types = \
+    always_allow_keywords = profile = linetrace = infer_types = \
     unraisable_tracebacks = freelist = \
         lambda _: _EmptyDecoratorAndManager()
 
@@ -428,6 +428,22 @@ py_complex = typedef(complex, "double complex")
 
 # Predefined types
 
+builtin_types = [
+    'i8',
+    'i16',
+    'i32',
+    'i64',
+    'i128',
+    'u8',
+    'u16',
+    'u32',
+    'u64',
+    'u128',
+    'f32',
+    'f64',
+    'isize',
+    'usize',
+]
 int_types = [
     'char',
     'short',
@@ -476,6 +492,14 @@ except ImportError:  # Py3
 gs['unicode'] = typedef(getattr(builtins, 'unicode', str), 'unicode')
 del builtins
 
+for name in builtin_types:
+    if name[0] in ('i', 'u'):
+        gs[name] = typedef(py_int, name)
+    elif name[0] == 'f':
+        gs[name] = typedef(py_float, name)
+    else:
+        raise ValueError(name)
+
 for name in int_types:
     reprname = to_repr(name, name)
     gs[name] = typedef(py_int, reprname)
@@ -493,7 +517,7 @@ bint = typedef(bool, "bint")
 void = typedef(None, "void")
 Py_tss_t = typedef(None, "Py_tss_t")
 
-for t in int_types + float_types + complex_types + other_types:
+for t in builtin_types + int_types + float_types + complex_types + other_types:
     for i in range(1, 4):
         gs["%s_%s" % ('p'*i, t)] = gs[t]._pointer(i)
 

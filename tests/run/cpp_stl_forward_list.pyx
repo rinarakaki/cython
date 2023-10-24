@@ -7,21 +7,20 @@ from cython.operator cimport preincrement as incr
 from libcpp.forward_list cimport forward_list
 from libcpp cimport bool as cbool
 
-
 def simple_iteration_test(L):
     """
-    >>> iteration_test([1,2,4,8])
+    >>> iteration_test([1, 2, 4, 8])
     8
     4
     2
     1
-    >>> iteration_test([8,4,2,1])
+    >>> iteration_test([8, 4, 2, 1])
     1
     2
     4
     8
     """
-    cdef forward_list[int] l
+    let forward_list[i32] l
     for a in L:
         l.push_front(a)
     for a in l:
@@ -29,18 +28,18 @@ def simple_iteration_test(L):
 
 def iteration_test(L):
     """
-    >>> iteration_test([1,2,4,8])
+    >>> iteration_test([1, 2, 4, 8])
     8
     4
     2
     1
-    >>> iteration_test([8,4,2,1])
+    >>> iteration_test([8, 4, 2, 1])
     1
     2
     4
     8
     """
-    l = new forward_list[int]()
+    l = new forward_list[i32]()
     try:
         for a in L:
             l.push_front(a)
@@ -59,7 +58,7 @@ def test_value_type(x):
     >>> test_value_type(2.5)
     2.5
     """
-    cdef forward_list[double].value_type val = x
+    let forward_list[f64].value_type val = x
     return val
 
 def test_value_type_complex(x):
@@ -67,7 +66,7 @@ def test_value_type_complex(x):
     >>> test_value_type_complex(2)
     (2+0j)
     """
-    cdef forward_list[double complex].value_type val = x
+    let forward_list[double complex].value_type val = x
     return val
 
 
@@ -75,5 +74,5 @@ def test_value_type_complex(x):
 cdef cppclass MyForwardList[T](forward_list):
     pass
 
-cdef cppclass Ints(MyForwardList[int]):
+cdef cppclass Ints(MyForwardList[i32]):
     pass

@@ -7,7 +7,6 @@ import sys
 IS_PY3 = sys.version_info[0] >= 3
 IS_32BIT_PY2 = not IS_PY3 and sys.maxint < 2**32
 
-
 def unlongify(v):
     # on 32bit Py2.x platforms, 'unsigned int' coerces to a Python long => fix doctest output here.
     s = repr(v)
@@ -15,7 +14,6 @@ def unlongify(v):
         assert s.count('L') == s.count(',') + 1, s
         s = s.replace('L', '')
     return s
-
 
 def _reversed(it):
     return list(it)[::-1]
@@ -27,9 +25,9 @@ def _reversed(it):
 @cython.test_fail_if_path_exists('//ForInStatNode/IteratorNode//SimpleCallNode')
 def reversed_list(list l):
     """
-    >>> [ i for i in _reversed([1,2,3,4]) ]
+    >>> [ i for i in _reversed([1, 2, 3, 4]) ]
     [4, 3, 2, 1]
-    >>> reversed_list([1,2,3,4])
+    >>> reversed_list([1, 2, 3, 4])
     [4, 3, 2, 1]
     >>> reversed_list([])
     []
@@ -49,9 +47,9 @@ def reversed_list(list l):
 @cython.test_fail_if_path_exists('//ForInStatNode/IteratorNode//SimpleCallNode')
 def reversed_tuple(tuple t):
     """
-    >>> [ i for i in _reversed((1,2,3,4)) ]
+    >>> [ i for i in _reversed((1, 2, 3, 4)) ]
     [4, 3, 2, 1]
-    >>> reversed_tuple((1,2,3,4))
+    >>> reversed_tuple((1, 2, 3, 4))
     [4, 3, 2, 1]
     >>> reversed_tuple(())
     []
@@ -71,9 +69,9 @@ def reversed_tuple(tuple t):
 @cython.test_fail_if_path_exists('//ForInStatNode/IteratorNode//SimpleCallNode')
 def enumerate_reversed_list(list l):
     """
-    >>> list(enumerate(_reversed([1,2,3])))
+    >>> list(enumerate(_reversed([1, 2, 3])))
     [(0, 3), (1, 2), (2, 1)]
-    >>> enumerate_reversed_list([1,2,3])
+    >>> enumerate_reversed_list([1, 2, 3])
     [(0, 3), (1, 2), (2, 1)]
     >>> enumerate_reversed_list([])
     []
@@ -82,13 +80,13 @@ def enumerate_reversed_list(list l):
     TypeError: 'NoneType' object is not iterable
     """
     result = []
-    cdef Py_ssize_t i
+    let isize i
     for i, item in enumerate(reversed(l)):
         result.append((i, item))
     return result
 
 @cython.test_assert_path_exists('//ForFromStatNode')
-def reversed_range(int N):
+def reversed_range(i32 N):
     """
     >>> [ i for i in _reversed(range(5)) ]
     [4, 3, 2, 1, 0]
@@ -100,14 +98,14 @@ def reversed_range(int N):
     >>> reversed_range(0)
     ([], 99)
     """
-    cdef int i = 99
+    let i32 i = 99
     result = []
     for i in reversed(range(N)):
         result.append(i)
     return result, i
 
 @cython.test_assert_path_exists('//ForFromStatNode')
-def reversed_range_step_pos(int a, int b):
+def reversed_range_step_pos(i32 a, i32 b):
     """
     >>> [ i for i in _reversed(range(0, 5, 1)) ]
     [4, 3, 2, 1, 0]
@@ -119,14 +117,14 @@ def reversed_range_step_pos(int a, int b):
     >>> reversed_range_step_pos(5, 0)
     ([], 99)
     """
-    cdef int i = 99
+    let i32 i = 99
     result = []
     for i in reversed(range(a, b, 1)):
         result.append(i)
     return result, i
 
 @cython.test_assert_path_exists('//ForFromStatNode')
-def reversed_range_step_neg(int a, int b):
+def reversed_range_step_neg(i32 a, i32 b):
     """
     >>> [ i for i in _reversed(range(5, -1, -1)) ]
     [0, 1, 2, 3, 4, 5]
@@ -138,7 +136,7 @@ def reversed_range_step_neg(int a, int b):
     >>> reversed_range_step_neg(0, 5)
     ([], 99)
     """
-    cdef int i = 99
+    let i32 i = 99
     result = []
     for i in reversed(range(a, b, -1)):
         result.append(i)
@@ -146,7 +144,7 @@ def reversed_range_step_neg(int a, int b):
 
 @cython.test_assert_path_exists('//ForFromStatNode')
 @cython.test_fail_if_path_exists('//ForInStatNode')
-def reversed_range_step3(int a, int b):
+def reversed_range_step3(i32 a, i32 b):
     """
     >>> [ i for i in _reversed(range(-5, 0, 3)) ]
     [-2, -5]
@@ -168,7 +166,7 @@ def reversed_range_step3(int a, int b):
     >>> reversed_range_step3(1, 1)
     ([], 99)
     """
-    cdef int i = 99
+    let i32 i = 99
     result = []
     for i in reversed(range(a, b, 3)):
         result.append(i)
@@ -176,14 +174,14 @@ def reversed_range_step3(int a, int b):
 
 @cython.test_assert_path_exists('//ForFromStatNode')
 @cython.test_fail_if_path_exists('//ForInStatNode')
-def reversed_range_step3_expr(int a, int b):
+def reversed_range_step3_expr(i32 a, i32 b):
     """
     >>> [ i for i in _reversed(range(0, 5, 3)) ]
     [3, 0]
     >>> reversed_range_step3_expr(0, 5)
     ([3, 0], 0)
     """
-    cdef int i = 99, c = 100
+    let i32 i = 99, c = 100
     result = []
     for i in reversed(range(c-c + a + c-c, c-c + b + c-c, 3)):
         result.append(i)
@@ -191,7 +189,7 @@ def reversed_range_step3_expr(int a, int b):
 
 @cython.test_assert_path_exists('//ForFromStatNode')
 @cython.test_fail_if_path_exists('//ForInStatNode')
-def reversed_range_step3_neg(int a, int b):
+def reversed_range_step3_neg(i32 a, i32 b):
     """
     >>> [ i for i in _reversed(range(0, -5, -3)) ]
     [-3, 0]
@@ -213,7 +211,7 @@ def reversed_range_step3_neg(int a, int b):
     >>> reversed_range_step3_neg(1, 1)
     ([], 99)
     """
-    cdef int i = 99
+    let i32 i = 99
     result = []
     for i in reversed(range(a, b, -3)):
         result.append(i)
@@ -221,14 +219,14 @@ def reversed_range_step3_neg(int a, int b):
 
 @cython.test_assert_path_exists('//ForFromStatNode')
 @cython.test_fail_if_path_exists('//ForInStatNode')
-def reversed_range_step3_neg_expr(int a, int b):
+def reversed_range_step3_neg_expr(i32 a, i32 b):
     """
     >>> [ i for i in _reversed(range(5, 0, -3)) ]
     [2, 5]
     >>> reversed_range_step3_neg_expr(5, 0)
     ([2, 5], 5)
     """
-    cdef int i = 99, c = 100
+    let i32 i = 99, c = 100
     result = []
     for i in reversed(range(c-c + a + c-c, c-c + b + c-c, -3)):
         result.append(i)
@@ -306,46 +304,46 @@ def reversed_range_step3_neg_py_args(a, b):
         result.append(i)
     return result, i
 
-def reversed_range_step3_py_obj_left(a, int b):
+def reversed_range_step3_py_obj_left(a, i32 b):
     """
     >>> reversed_range_step3_py_obj_left(set(), 0)  # doctest: +ELLIPSIS
     Traceback (most recent call last):
     TypeError: ...int...
     """
-    cdef long i
+    let i64 i
     result = []
     for i in reversed(range(a, b, 3)):
         result.append(i)
 
-def reversed_range_step3_py_obj_right(int a, b):
+def reversed_range_step3_py_obj_right(i32 a, b):
     """
     >>> reversed_range_step3_py_obj_right(0, set())  # doctest: +ELLIPSIS
     Traceback (most recent call last):
     TypeError: ...int...
     """
-    cdef long i
+    let i64 i
     result = []
     for i in reversed(range(a, b, 3)):
         result.append(i)
 
-def reversed_range_step3_neg_py_obj_left(a, int b):
+def reversed_range_step3_neg_py_obj_left(a, i32 b):
     """
     >>> reversed_range_step3_neg_py_obj_left(set(), 0)  # doctest: +ELLIPSIS
     Traceback (most recent call last):
     TypeError: ...int...
     """
-    cdef long i
+    let i64 i
     result = []
     for i in reversed(range(a, b, -3)):
         result.append(i)
 
-def reversed_range_step3_neg_py_obj_right(int a, b):
+def reversed_range_step3_neg_py_obj_right(i32 a, b):
     """
     >>> reversed_range_step3_py_obj_right(0, set())  # doctest: +ELLIPSIS
     Traceback (most recent call last):
     TypeError: ...int...
     """
-    cdef long i
+    let i64 i
     result = []
     for i in reversed(range(a, b, -3)):
         result.append(i)
@@ -358,7 +356,7 @@ def reversed_range_constant():
     >>> reversed_range_constant()
     ([-4, -8, -12], -12)
     """
-    cdef int i = 99
+    let i32 i = 99
     result = []
     for i in reversed(range(1, 1, 4)):
         result.append(i)
@@ -449,7 +447,7 @@ def reversed_range_constant_neg():
     [-10, -6, -2]
     >>> reversed_range_constant_neg()
     """
-    cdef int i = 99
+    let i32 i = 99
     result = []
     for i in reversed(range(1, 1, -4)):
         result.append(i)
@@ -720,7 +718,7 @@ def reversed_bytes(bytes s):
     >>> reversed_bytes(bytes_string)
     [70, 69, 68, 99, 98, 97]
     """
-    cdef char c
+    let char c
     result = []
     for c in reversed(s):
         result.append(c)
@@ -735,7 +733,7 @@ def reversed_bytes_slice(bytes s):
     >>> reversed_bytes_slice(bytes_string)
     [68, 99, 98]
     """
-    cdef char c
+    let char c
     result = []
     for c in reversed(s[1:-2]):
         result.append(c)
@@ -750,7 +748,7 @@ def reversed_bytes_slice_step(bytes s):
     >>> reversed_bytes_slice_step(bytes_string)
     [99, 68, 69]
     """
-    cdef char c
+    let char c
     result = []
     for c in reversed(s[-2:1:-1]):
         result.append(c)
@@ -765,7 +763,7 @@ def reversed_bytes_slice_step_only(bytes s):
     >>> reversed_bytes_slice_step_only(bytes_string)
     [97, 98, 99, 68, 69, 70]
     """
-    cdef char c
+    let char c
     result = []
     for c in reversed(s[::-1]):
         result.append(c)
@@ -773,7 +771,7 @@ def reversed_bytes_slice_step_only(bytes s):
 
 
 @cython.test_assert_path_exists('//ForFromStatNode')
-def reversed_unsigned(int a, int b):
+def reversed_unsigned(i32 a, i32 b):
     """
     >>> unlongify(reversed_unsigned(0, 5))
     '[4, 3, 2, 1, 0]'
@@ -782,27 +780,27 @@ def reversed_unsigned(int a, int b):
     >>> reversed_unsigned(1, 1)
     []
     """
-    cdef unsigned int i
+    let u32 i
     return [i for i in reversed(range(a, b))]
 
 @cython.test_assert_path_exists('//ForFromStatNode')
-def reversed_unsigned_by_3(int a, int b):
+def reversed_unsigned_by_3(i32 a, i32 b):
     """
     >>> unlongify(reversed_unsigned_by_3(0, 5))
     '[3, 0]'
     >>> unlongify(reversed_unsigned_by_3(0, 7))
     '[6, 3, 0]'
     """
-    cdef unsigned int i
+    let u32 i
     return [i for i in reversed(range(a, b, 3))]
 
 @cython.test_assert_path_exists('//ForFromStatNode')
-def range_unsigned_by_neg_3(int a, int b):
+def range_unsigned_by_neg_3(i32 a, i32 b):
     """
     >>> unlongify(range_unsigned_by_neg_3(-1, 6))
     '[6, 3, 0]'
     >>> unlongify(range_unsigned_by_neg_3(0, 7))
     '[7, 4, 1]'
     """
-    cdef unsigned int i
+    let u32 i
     return [i for i in range(b, a, -3)]

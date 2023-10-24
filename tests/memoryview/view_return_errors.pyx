@@ -1,8 +1,7 @@
 # mode: run
 # tag: memoryview
 
-
-cdef double[:] foo(int i):
+fn f64[:] foo(i32 i):
     if i == 1:
         raise AttributeError('dummy')
     if i == 2:
@@ -12,8 +11,7 @@ cdef double[:] foo(int i):
     if i == 4:
         raise TypeError('dummy')
 
-
-cdef double[:] foo_nogil(int i) nogil:
+fn f64[:] foo_nogil(i32 i) nogil:
     if i == 1:
         raise AttributeError('dummy')
     if i == 2:
@@ -23,8 +21,7 @@ cdef double[:] foo_nogil(int i) nogil:
     if i == 4:
         raise TypeError('dummy')
 
-
-def propagate(i, bint nogil=False):
+def propagate(i, bint nogil=false):
     """
     >>> propagate(0)
     TypeError('Memoryview return value is not initialized')
@@ -37,15 +34,15 @@ def propagate(i, bint nogil=False):
     >>> propagate(4)
     TypeError('dummy')
 
-    >>> propagate(0, nogil=True)
+    >>> propagate(0, nogil=true)
     TypeError('Memoryview return value is not initialized')
-    >>> propagate(1, nogil=True)
+    >>> propagate(1, nogil=true)
     AttributeError('dummy')
-    >>> propagate(2, nogil=True)
+    >>> propagate(2, nogil=true)
     RuntimeError('dummy')
-    >>> propagate(3, nogil=True)
+    >>> propagate(3, nogil=true)
     ValueError('dummy')
-    >>> propagate(4, nogil=True)
+    >>> propagate(4, nogil=true)
     TypeError('dummy')
     """
     try:

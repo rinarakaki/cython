@@ -1,4 +1,4 @@
-# cython: warn.undeclared=True
+# cython: warn.undeclared=true
 # mode: error
 # tag: werror
 
@@ -7,7 +7,7 @@ def foo():
     return a
 
 cdef class Bar:
-    cdef int baz(self, a):
+    fn i32 baz(self, a):
         res = 0
         for i in range(3):
             res += i

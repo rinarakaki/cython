@@ -150,7 +150,7 @@ def len_uchar(Py_UNICODE uchar):
     assert uchar  # just to avoid C compiler unused arg warning
     return len(uchar)
 
-def index_uchar(Py_UNICODE uchar, Py_ssize_t i):
+def index_uchar(Py_UNICODE uchar, isize i):
     """
     >>> index_uchar(ord('A'), 0) == ('A', 'A', 'A')
     True
@@ -177,7 +177,7 @@ def count_lower_case_characters(unicode ustring):
     >>> count_lower_case_characters(lower_ustring)
     16
     """
-    cdef Py_ssize_t count = 0
+    let isize count = 0
     for uchar in ustring:
          if uchar.islower():
              count += 1
@@ -194,7 +194,7 @@ def count_lower_case_characters_slice(unicode ustring):
     >>> count_lower_case_characters_slice(lower_ustring)
     14
     """
-    cdef Py_ssize_t count = 0
+    let isize count = 0
     for uchar in ustring[1:-1]:
          if uchar.islower():
              count += 1
@@ -227,8 +227,8 @@ def index_and_in():
     7
     8
     """
-    cdef int i
-    for i in range(1,9):
+    let i32 i
+    for i in range(1, 9):
         if u'abcdefgh'[-i] in u'abCDefGh':
             print i
 
@@ -245,7 +245,7 @@ def uchar_lookup_in_dict(obj, Py_UNICODE uchar):
     >>> uchar_lookup_in_dict(d, u1)
     (1, 1)
     """
-    cdef dict d = obj
+    let dict d = obj
     dval = d[uchar]
     objval = obj[uchar]
     return dval, objval

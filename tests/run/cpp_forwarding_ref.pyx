@@ -3,8 +3,7 @@
 
 from libcpp.utility cimport move
 
-
-cdef extern from *:
+extern from *:
     """
     #include <utility>
 
@@ -26,8 +25,7 @@ cdef extern from *:
     """
     const char* foo[T](T&& x)
 
-
-cdef extern from *:
+extern from *:
     """
     #include <utility>
 
@@ -49,18 +47,17 @@ def test_forwarding_ref():
     """
     >>> test_forwarding_ref()
     """
-    cdef int x = 1
+    let i32 x = 1
     assert foo(x) == b"lvalue-ref"
-    assert foo(<int>(1)) == b"rvalue-ref"
+    assert foo(<i32>(1)) == b"rvalue-ref"
     assert foo(move(x)) == b"rvalue-ref"
-
 
 def test_forwarding_ref_overload():
     """
     >>> test_forwarding_ref_overload()
     """
-    cdef int x = 1
-    cdef int y = 2
-    cdef int z = 3
+    let i32 x = 1
+    let i32 y = 2
+    let i32 z = 3
     assert bar(x, y) == b"first"
     assert bar(x, y, z) == b"second"

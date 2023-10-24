@@ -1,16 +1,16 @@
 # mode: run
 # tag: autowrap
-# cython: always_allow_keywords=True
+# cython: always_allow_keywords=true
 
 cimport cython
 
 from libc.math cimport sqrt
 
-cdef void empty_cfunc():
+fn void empty_cfunc():
     print "here"
 
 # same signature
-cdef void another_empty_cfunc():
+fn void another_empty_cfunc():
     print "there"
 
 def call_empty_cfunc():
@@ -19,13 +19,12 @@ def call_empty_cfunc():
     here
     there
     """
-    cdef object py_func = empty_cfunc
+    let object py_func = empty_cfunc
     py_func()
-    cdef object another_py_func = another_empty_cfunc
+    let object another_py_func = another_empty_cfunc
     another_py_func()
 
-
-cdef double square_c(double x):
+fn f64 square_c(f64 x):
     return x * x
 
 def call_square_c(x):
@@ -35,9 +34,8 @@ def call_square_c(x):
     >>> call_square_c(-7)
     49.0
     """
-    cdef object py_func = square_c
+    let object py_func = square_c
     return py_func(x)
-
 
 def return_square_c():
     """
@@ -51,7 +49,6 @@ def return_square_c():
     """
     return square_c
 
-
 def return_libc_sqrt():
     """
     >>> sqrt = return_libc_sqrt()
@@ -63,7 +60,6 @@ def return_libc_sqrt():
     'wrap(x: float) -> float'
     """
     return sqrt
-
 
 global_csqrt = sqrt
 
@@ -80,10 +76,9 @@ def test_global():
     print cython.typeof(sqrt)
     print cython.typeof(global_csqrt)
 
-
-cdef long long rad(long long x):
-    cdef long long rad = 1
-    for p in range(2, <long long>sqrt(<double>x) + 1):  # MSVC++ fails without the input cast
+fn i128 rad(i128 x):
+    let i128 rad = 1
+    for p in range(2, <i128>sqrt(<f64>x) + 1):  # MSVC++ fails without the input cast
         if x % p == 0:
             rad *= p
             while x % p == 0:
@@ -92,7 +87,7 @@ cdef long long rad(long long x):
             break
     return rad
 
-cdef bint abc(long long a, long long b, long long c) except -1:
+fn bint abc(i128 a, i128 b, i128 c) except -1:
     if a + b != c:
         raise ValueError("Not a valid abc candidate: (%s, %s, %s)" % (a, b, c))
     return rad(a*b*c) < c
@@ -112,7 +107,7 @@ def call_abc(a, b, c):
     ...
     ValueError: Not a valid abc candidate: (1, 1, 1)
     """
-    cdef object py_func = abc
+    let object py_func = abc
     return py_func(a, b, c)
 
 def return_abc():
@@ -125,9 +120,8 @@ def return_abc():
     """
     return abc
 
-
-ctypedef double foo
-cdef foo test_typedef_cfunc(foo x):
+ctypedef f64 foo
+fn foo test_typedef_cfunc(foo x):
     return x
 
 def test_typedef(x):
@@ -137,17 +131,16 @@ def test_typedef(x):
     """
     return (<object>test_typedef_cfunc)(x)
 
-
 cdef union my_union:
-    int a
-    double b
+    f32 a
+    f64 b
 
-cdef struct my_struct:
-    int which
+struct my_struct:
+    f32 which
     my_union y
 
-cdef my_struct c_struct_builder(int which, int a, double b):
-    cdef my_struct value
+fn my_struct c_struct_builder(f32 which, f32 a, f64 b):
+    let my_struct value
     value.which = which
     if which:
         value.y.a = a
@@ -173,8 +166,7 @@ def return_struct_builder():
     """
     return c_struct_builder
 
-
-cdef object test_object_params_cfunc(a, b):
+fn object test_object_params_cfunc(a, b):
     return a, b
 
 def test_object_params(a, b):
@@ -184,8 +176,7 @@ def test_object_params(a, b):
     """
     return (<object>test_object_params_cfunc)(a, b)
 
-
-cdef tuple test_builtin_params_cfunc(list a, dict b):
+fn tuple test_builtin_params_cfunc(list a, dict b):
     return a, b
 
 def test_builtin_params(a, b):
@@ -209,7 +200,6 @@ def return_builtin_params_cfunc():
     """
     return test_builtin_params_cfunc
 
-
 cdef class A:
     def __repr__(self):
         return self.__class__.__name__
@@ -217,7 +207,7 @@ cdef class A:
 cdef class B(A):
     pass
 
-cdef A test_cdef_class_params_cfunc(A a, B b):
+fn A test_cdef_class_params_cfunc(A a, B b):
     return b
 
 def test_cdef_class_params(a, b):
@@ -234,10 +224,10 @@ def test_cdef_class_params(a, b):
 # There were a few cases where duplicate utility code definitions (i.e. with the same name)
 # could be generated, causing C compile errors. This file tests them.
 
-cdef cfunc_dup_f1(x, r):
+fn cfunc_dup_f1(x, r):
     return "f1"
 
-cdef cfunc_dup_f2(x1, r):
+fn cfunc_dup_f2(x1, r):
     return "f2"
 
 def make_map():
@@ -261,19 +251,18 @@ def make_map():
     Traceback (most recent call last):
     TypeError: ...
     """
-    cdef map = {
+    let map = {
         "f1": cfunc_dup_f1,
         "f2": cfunc_dup_f2,
     }
     return map
 
-
 cdef class HasCdefFunc:
-    cdef int x
+    cdef i32 x
     def __init__(self, x):
         self.x = x
 
-    cdef int func(self, int y):
+    fn i32 func(self, i32 y):
         return self.x + y
 
 def test_unbound_methods():

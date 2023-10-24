@@ -5,12 +5,11 @@ import sys
 
 from libc.string cimport memcpy
 
-cdef assert_Py_UNICODE_equal(const Py_UNICODE* u1, const Py_UNICODE* u2):
-    cdef size_t i = 0
+fn assert_Py_UNICODE_equal(const Py_UNICODE* u1, const Py_UNICODE* u2):
+    let usize i = 0
     while u1[i] != 0 and u2[i] != 0 and u1[i] == u2[i]:
         i += 1
-    assert u1[i] == u2[i], f"Mismatch at position {i}: {<long>u1[i]} != {<long>u2[i]} ({u1!r} != {u2!r})"
-
+    assert u1[i] == u2[i], f"Mismatch at position {i}: {<i64>u1[i]} != {<i64>u2[i]} ({u1!r} != {u2!r})"
 
 ctypedef Py_UNICODE* LPWSTR
 
@@ -25,7 +24,6 @@ cdef unicode uwide_literal = u'\U00020000\U00020001'
 cdef Py_UNICODE* c_pu_wide_literal = u'\U00020000\U00020001'
 
 memcpy(c_pu_arr, c_pu_str, sizeof(Py_UNICODE) * (len(uobj) + 1))
-
 
 def test_c_to_python():
     """
@@ -48,7 +46,7 @@ def test_c_to_python():
     assert c_pu_str[1:7] == uobj[1:7]
     assert c_wstr[1:7] == uobj[1:7]
 
-    cdef Py_UNICODE ch = uobj[1]  # Py_UCS4 is unsigned, Py_UNICODE is usually signed.
+    let Py_UNICODE ch = uobj[1]  # Py_UCS4 is unsigned, Py_UNICODE is usually signed.
     assert c_pu_arr[1] == ch
     assert c_pu_str[1] == ch
     assert c_wstr[1] == ch
@@ -75,12 +73,11 @@ def test_c_to_python():
     assert c_pu_str
     assert c_pu_empty
 
-
 def test_python_to_c():
     """
     >>> test_python_to_c()
     """
-    cdef unicode u
+    let unicode u
 
     assert_Py_UNICODE_equal(c_pu_arr, uobj)
     assert_Py_UNICODE_equal(c_pu_str, uobj)

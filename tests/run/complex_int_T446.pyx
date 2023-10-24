@@ -2,13 +2,12 @@
 
 import cython
 
-cdef extern from *:
+extern from *:
     """
     #if defined _MSC_VER && defined __cplusplus
     #define CYTHON_CCOMPLEX 0
     #endif
     """
-
 
 def test_arith(int complex a, int complex b):
     """
@@ -19,9 +18,9 @@ def test_arith(int complex a, int complex b):
     >>> test_arith(29+11j, 5+7j)
     ((-29-11j), (34+18j), (24+4j), (68+258j))
     """
-    return -a, a+b, a-b, a*b
+    return -a, a + b, a - b, a * b
 
-@cython.cdivision(False)
+@cython.cdivision(false)
 def test_div_by_zero(long complex z):
     """
     >>> test_div_by_zero(4j)
@@ -33,7 +32,7 @@ def test_div_by_zero(long complex z):
     """
     return 100/z
 
-def test_coercion(int a, long b, int complex c):
+def test_coercion(i32 a, i64 b, int complex c):
     """
     >>> test_coercion(1, -2, 3-3j)
     (1+0j)
@@ -41,12 +40,11 @@ def test_coercion(int a, long b, int complex c):
     (3-3j)
     (5-6j)
     """
-    cdef double complex z
+    let double complex z
     z = a; print z
     z = b; print z
     z = c; print z
     return z + a + b + c
-
 
 def test_conjugate(long complex z):
     """

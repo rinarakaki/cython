@@ -1,14 +1,13 @@
 from __future__ import unicode_literals
-import struct
+import r#struct
 
 # Tests buffer format string parsing.
-
 
 from libc cimport stdlib
 
 def little_endian():
-    cdef unsigned int n = 1
-    return (<unsigned char*>&n)[0] != 0
+    let u32 n = 1
+    return (<u8*>&n)[0] != 0
 
 if little_endian():
     current_endian = '<'
@@ -17,23 +16,22 @@ else:
     current_endian = '>'
     other_endian = '<'
 
-cdef struct align_of_float_helper:
+struct align_of_float_helper:
     char ch
-    float d
-cdef struct align_of_int_helper:
+    f32 d
+struct align_of_int_helper:
     char ch
-    int i
-float_align = sizeof(align_of_float_helper) - sizeof(float)
-int_align = sizeof(align_of_int_helper) - sizeof(int)
-if float_align != 4 or sizeof(float) != 4:
+    i32 i
+float_align = sizeof(align_of_float_helper) - sizeof(f32)
+int_align = sizeof(align_of_int_helper) - sizeof(i32)
+if float_align != 4 or sizeof(f32) != 4:
     raise RuntimeError("Alignment or size of float is %d on this system, please report to cython-dev for a testcase fix" % float_align)
-if int_align != 4 or sizeof(int) != 4:
+if int_align != 4 or sizeof(i32) != 4:
     raise RuntimeError("Alignment or size of int is %d on this system, please report to cython-dev for a testcase fix" % int_align)
 
-
 cdef class MockBuffer:
-    cdef Py_ssize_t zero
-    cdef Py_ssize_t minusone
+    cdef isize zero
+    cdef isize minusone
     cdef bytes format
     cdef object itemsize
 
@@ -43,7 +41,7 @@ cdef class MockBuffer:
         self.zero = 0
         self.minusone = -1
 
-    def __getbuffer__(self, Py_buffer* info, int flags):
+    def __getbuffer__(self, Py_buffer* info, i32 flags):
         info.buf = NULL
         info.strides = &self.zero
         info.suboffsets = &self.minusone
@@ -71,13 +69,13 @@ def _int(fmt):
        ...
     ValueError: Does not understand character buffer dtype format string ('$')
     """
-    cdef object[int] buf = MockBuffer(fmt, sizeof(int))
+    let object[i32] buf = MockBuffer(fmt, sizeof(i32))
 
 def _ulong(fmt):
     """
     >>> _ulong("L")
     """
-    cdef object[unsigned long] buf = MockBuffer(fmt, sizeof(unsigned long))
+    let object[u64] buf = MockBuffer(fmt, sizeof(u64))
 
 def wrongsize():
     """
@@ -87,7 +85,7 @@ def wrongsize():
     ValueError: Item size of buffer (1 byte) does not match size of 'float' (4 bytes)
 
     """
-    cdef object[float] buf = MockBuffer("f", 1)
+    let object[f32] buf = MockBuffer("f", 1)
 
 def _obj(fmt):
     """
@@ -97,33 +95,32 @@ def _obj(fmt):
        ...
     ValueError: Buffer dtype mismatch, expected 'Python object' but got 'int'
     """
-    cdef object[object] buf = MockBuffer(fmt, sizeof(void*))
+    let object[object] buf = MockBuffer(fmt, sizeof(void*))
 
-
-cdef struct ComplexFloat:
-    float real
-    float imag
+struct ComplexFloat:
+    f32 real
+    f32 imag
 
 ctypedef struct Char3Int:
     char a
-    int b
-    int c
-    int d
+    i32 b
+    i32 c
+    i32 d
 
 ctypedef struct LongString:
     char[90198] c
 
-cdef struct CharIntCFloat:
+struct CharIntCFloat:
     char a
-    int b
+    i32 b
     ComplexFloat c
-    float d
+    f32 d
 
-cdef struct UnpackedStruct1:
+struct UnpackedStruct1:
     char a
-    int b
+    i32 b
     ComplexFloat c
-    float c2
+    f32 c2
     Char3Int d
 
 ctypedef struct UnpackedStruct2:
@@ -133,15 +130,15 @@ ctypedef struct UnpackedStruct2:
 ctypedef struct UnpackedStruct3:
     CharIntCFloat a
     char b
-    int c, d, e
+    i32 c, d, e
 
-cdef struct UnpackedStruct4:
+struct UnpackedStruct4:
     char a
-    int b
+    i32 b
     ComplexFloat c
-    float c2
+    f32 c2
     char d
-    int e, f, g
+    i32 e, f, g
 
 def char3int(fmt):
     """
@@ -172,17 +169,15 @@ def char3int(fmt):
        ...
     ValueError: Buffer dtype mismatch, expected 'int' but got end in 'Char3Int.d'
     """
-    cdef object obj = MockBuffer(fmt, sizeof(Char3Int))
-    cdef object[Char3Int, ndim=1] buf = obj
-
+    let object obj = MockBuffer(fmt, sizeof(Char3Int))
+    let object[Char3Int, ndim=1] buf = obj
 
 def long_string(fmt):
     """
     >>> long_string("90198s")
     """
-    cdef object obj = MockBuffer(fmt, sizeof(LongString))
-    cdef object[LongString, ndim=1] buf = obj
-
+    let object obj = MockBuffer(fmt, sizeof(LongString))
+    let object[LongString, ndim=1] buf = obj
 
 def unpacked_struct(fmt):
     """
@@ -195,16 +190,15 @@ def unpacked_struct(fmt):
     >>> unpacked_struct("ciZffc3T{i}")
     >>> unpacked_struct("T{c}T{T{iZffT{ci}}}2T{T{i}}")
     """
-
     assert (sizeof(UnpackedStruct1) == sizeof(UnpackedStruct2)
             == sizeof(UnpackedStruct3) == sizeof(UnpackedStruct4))
-    cdef object obj = MockBuffer(fmt, sizeof(UnpackedStruct1))
-    cdef object[UnpackedStruct1, ndim=1] buf1 = obj
-    cdef object[UnpackedStruct2, ndim=1] buf2 = obj
-    cdef object[UnpackedStruct3, ndim=1] buf3 = obj
-    cdef object[UnpackedStruct4, ndim=1] buf4 = obj
+    let object obj = MockBuffer(fmt, sizeof(UnpackedStruct1))
+    let object[UnpackedStruct1, ndim=1] buf1 = obj
+    let object[UnpackedStruct2, ndim=1] buf2 = obj
+    let object[UnpackedStruct3, ndim=1] buf3 = obj
+    let object[UnpackedStruct4, ndim=1] buf4 = obj
 
-cdef struct ComplexTest:
+struct ComplexTest:
     ComplexFloat a, b, c
 
 def complex_test(fmt):
@@ -220,9 +214,8 @@ def complex_test(fmt):
     ValueError: Buffer dtype mismatch, expected 'float' but got 'complex float' in 'ComplexFloat.imag'
 
     """
-    cdef object obj = MockBuffer(fmt, sizeof(ComplexTest))
-    cdef object[ComplexTest] buf1 = obj
-
+    let object obj = MockBuffer(fmt, sizeof(ComplexTest))
+    let object[ComplexTest] buf1 = obj
 
 def alignment_string(fmt, exc=None):
     """
@@ -231,9 +224,9 @@ def alignment_string(fmt, exc=None):
     >>> alignment_string("%si" % other_endian, "X-endian buffer not supported on X-endian compiler")
     >>> alignment_string("=i")
     """
-    cdef object[int] buf
+    let object[i32] buf
     try:
-        buf = MockBuffer(fmt, sizeof(int))
+        buf = MockBuffer(fmt, sizeof(i32))
     except ValueError, e:
         msg = unicode(e).replace("Big", "X").replace("Little", "X").replace("big", "X").replace("little", "X")
         if msg != exc:
@@ -244,20 +237,19 @@ def alignment_string(fmt, exc=None):
     if exc:
         print "fail"
 
-
 def int_and_long_are_same():
     """
     >>> int_and_long_are_same()
     """
-    cdef object[int] intarr
-    cdef object[long] longarr
-    if sizeof(int) == sizeof(long):
-        intarr = MockBuffer("l", sizeof(int))
-        longarr = MockBuffer("i", sizeof(int))
+    let object[i32] intarr
+    let object[i64] longarr
+    if sizeof(i32) == sizeof(i64):
+        intarr = MockBuffer("l", sizeof(i32))
+        longarr = MockBuffer("i", sizeof(i32))
 
-cdef struct MixedComplex:
-    double real
-    float imag
+struct MixedComplex:
+    f64 real
+    f32 imag
 
 def mixed_complex_struct():
     """
@@ -268,33 +260,32 @@ def mixed_complex_struct():
         ...
     ValueError: Buffer dtype mismatch, expected 'double' but got 'complex double' in 'MixedComplex.real'
     """
-    cdef object[MixedComplex] buf = MockBuffer("Zd",
+    let object[MixedComplex] buf = MockBuffer("Zd",
         sizeof(MixedComplex))
-
 
 cdef packed struct PackedSubStruct:
     char x
-    int y
+    i32 y
 
-cdef struct UnpackedSubStruct:
+struct UnpackedSubStruct:
     char x
-    int y
+    i32 y
 
 cdef packed struct PackedStruct:
     char a
-    int b
+    i32 b
     PackedSubStruct sub
 
-cdef struct PartiallyPackedStruct:
+struct PartiallyPackedStruct:
     char a
-    int b
+    i32 b
     PackedSubStruct sub
 
 cdef packed struct PartiallyPackedStruct2:
     char a
     UnpackedSubStruct sub
     char b
-    int c
+    i32 c
 
 def packed_struct(fmt):
     """
@@ -316,7 +307,7 @@ def packed_struct(fmt):
     ValueError: Buffer dtype mismatch; next field is at offset 4 but 1 expected
 
     """
-    cdef object[PackedStruct] buf = MockBuffer(fmt, sizeof(PackedStruct))
+    let object[PackedStruct] buf = MockBuffer(fmt, sizeof(PackedStruct))
 
 def partially_packed_struct(fmt):
     """
@@ -342,7 +333,7 @@ def partially_packed_struct(fmt):
     ValueError: Buffer dtype mismatch; next field is at offset 1 but 4 expected
 
     """
-    cdef object[PartiallyPackedStruct] buf = MockBuffer(
+    let object[PartiallyPackedStruct] buf = MockBuffer(
         fmt, sizeof(PartiallyPackedStruct))
 
 def partially_packed_struct_2(fmt):
@@ -369,75 +360,69 @@ def partially_packed_struct_2(fmt):
     ValueError: Buffer dtype mismatch; next field is at offset 4 but 5 expected
 
     """
-    cdef object[PartiallyPackedStruct2] buf = MockBuffer(
+    let object[PartiallyPackedStruct2] buf = MockBuffer(
         fmt, sizeof(PartiallyPackedStruct2))
 
-
 cdef packed struct PackedStructWithCharArrays:
-    float a
-    int b
+    f32 a
+    i32 b
     char[5] c
     char[3] d
-
 
 def packed_struct_with_strings(fmt):
     """
     >>> packed_struct_with_strings("T{f:a:i:b:5s:c:3s:d:}")
     """
-    cdef object[PackedStructWithCharArrays] buf = MockBuffer(
+    let object[PackedStructWithCharArrays] buf = MockBuffer(
         fmt, sizeof(PackedStructWithCharArrays))
 
-
 ctypedef struct PackedStructWithArrays:
-    double a[16]
-    double b[16]
-    double c
+    f64 a[16]
+    f64 b[16]
+    f64 c
 
 ctypedef struct UnpackedStructWithArrays:
-    int a
-    float b[8]
-    float c
-    unsigned long long d
-    int e[5]
-    int f
-    int g
-    double h[4]
-    int i
+    i32 a
+    f32 b[8]
+    f32 c
+    u128 d
+    i32 e[5]
+    i32 f
+    i32 g
+    f64 h[4]
+    i32 i
 
 ctypedef struct PackedStructWithNDArrays:
-    double a
-    double b[2][2]
-    float c
-    float d
-
+    f64 a
+    f64 b[2][2]
+    f32 c
+    f32 d
 
 def packed_struct_with_arrays(fmt):
     """
     >>> packed_struct_with_arrays("T{(16)d:a:(16)d:b:d:c:}")
     """
 
-    cdef object[PackedStructWithArrays] buf = MockBuffer(
+    let object[PackedStructWithArrays] buf = MockBuffer(
         fmt, sizeof(PackedStructWithArrays))
-
 
 def unpacked_struct_with_arrays(fmt):
     """
-    >>> if struct.calcsize('P') == 8:  # 64 bit
+    >>> if r#struct.calcsize('P') == 8:  # 64 bit
     ...     unpacked_struct_with_arrays("T{i:a:(8)f:b:f:c:Q:d:(5)i:e:i:f:i:g:xxxx(4)d:h:i:i:}")
-    ... elif struct.calcsize('P') == 4:  # 32 bit
+    ... elif r#struct.calcsize('P') == 4:  # 32 bit
     ...     unpacked_struct_with_arrays("T{i:a:(8)f:b:f:c:Q:d:(5)i:e:i:f:i:g:(4)d:h:i:i:}")
     """
 
-    cdef object[UnpackedStructWithArrays] buf = MockBuffer(
+    let object[UnpackedStructWithArrays] buf = MockBuffer(
         fmt, sizeof(UnpackedStructWithArrays))
-
 
 def packed_struct_with_ndarrays(fmt):
     """
     >>> packed_struct_with_ndarrays("T{d:a:(2,2)d:b:f:c:f:d:}")
     """
 
-    cdef object[PackedStructWithNDArrays] buf = MockBuffer(
+    let object[PackedStructWithNDArrays] buf = MockBuffer(
         fmt, sizeof(PackedStructWithNDArrays))
 
 

@@ -2,7 +2,7 @@
 
 from libc.stddef cimport wchar_t
 
-cdef extern from "<time.h>" nogil:
+extern from "<time.h>" nogil:
     ctypedef long clock_t
     ctypedef long time_t
 
@@ -10,7 +10,7 @@ cdef extern from "<time.h>" nogil:
     clock_t clock()             # CPU time
     time_t  time(time_t *)      # wall clock time since Unix epoch
 
-    cdef struct tm:
+    struct tm:
         int  tm_sec
         int  tm_min
         int  tm_hour
@@ -21,8 +21,8 @@ cdef extern from "<time.h>" nogil:
         int  tm_yday
         int  tm_isdst
         # GNU specific extensions
-        #char *tm_zone
-        #long tm_gmtoff
+        # char *tm_zone
+        # long tm_gmtoff
 
     int     daylight            # global state
     long    timezone
@@ -40,8 +40,8 @@ cdef extern from "<time.h>" nogil:
     tm      *localtime(const time_t *)
     tm      *localtime_r(const time_t *, tm *)
     time_t  mktime(tm *)
-    size_t  strftime(char *, size_t, const char *, const tm *)
-    size_t  wcsftime(wchar_t *str, size_t cnt, const wchar_t *fmt, tm *time)
+    usize  strftime(char *, usize, const char *, const tm *)
+    usize  wcsftime(wchar_t *str, usize cnt, const wchar_t *fmt, tm *time)
 
     # POSIX not stdC
     char    *strptime(const char *, const char *, tm *)

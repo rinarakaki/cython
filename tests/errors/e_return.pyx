@@ -1,18 +1,18 @@
-# cython: remove_unreachable=False
+# cython: remove_unreachable=false
 # mode: error
 
-cdef void g():
-	cdef int i
-	return i # error
+fn void g():
+    let i32 i
+    return i  # error
 
-cdef int h():
-	cdef int *p
-	return # error
-	return p # error
+fn i32 h():
+    let i32 *p
+    return  # error
+    return p  # error
 
 
 _ERRORS = u"""
-6:8: Return with value in void function
-10:1: Return value required
-11:8: Cannot assign type 'int *' to 'int'
+6:11: Return with value in void function
+10:4: Return value required
+11:11: Cannot assign type 'int *' to 'int'
 """

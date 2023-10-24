@@ -1,16 +1,16 @@
 # mode: compile
 
-cdef enum Spam:
-    a
-    b, c,
-    d, e, f
-    g = 42
+enum Spam:
+    A
+    B, C,
+    D, E, F
+    G = 42
 
-cdef void eggs():
-    cdef Spam s1, s2=a
-    cdef int i
+fn void eggs():
+    let Spam s1, s2 = A
+    let i32 i
     s1 = s2
-    s1 = c
+    s1 = C
     i = s1
 
 eggs()

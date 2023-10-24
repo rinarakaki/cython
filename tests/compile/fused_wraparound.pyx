@@ -12,11 +12,11 @@ cimport cython
 
 ctypedef fused fused_t:
     str
-    int
-    long
+    i32
+    i64
     complex
 
-@cython.wraparound(False)
-@cython.boundscheck(False)
+@cython.wraparound(false)
+@cython.boundscheck(false)
 def func(fused_t a, cython.floating b):
     return a, b

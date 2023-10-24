@@ -5,10 +5,9 @@ cimport cython
 
 include "../buffers/mockbuffers.pxi"
 
-
-def get_int_2d(mslice: cython.int[:, :], i: cython.int, j: cython.int) -> cython.int:
+def get_int_2d(mslice: cython.i32[:, :], i: cython.i32, j: cython.i32) -> cython.i32:
     """
-    >>> C = IntMockBuffer("C", range(6), (2,3))
+    >>> C = IntMockBuffer("C", range(6), (2, 3))
     >>> get_int_2d(C, 1, 1)
     acquired C
     released C
@@ -41,13 +40,12 @@ def get_int_2d(mslice: cython.int[:, :], i: cython.int, j: cython.int) -> cython
     buf = mslice
     return buf[i, j]
 
-
-def set_int_2d(mslice: cython.int[:, :], i: cython.int, j: cython.int, value: cython.int) -> cython.int:
+def set_int_2d(mslice: cython.i32[:, :], i: cython.i32, j: cython.i32, value: cython.i32) -> cython.i32:
     """
     Uses get_int_2d to read back the value afterwards. For pure
     unit test, one should support reading in MockBuffer instead.
 
-    >>> C = IntMockBuffer("C", range(6), (2,3))
+    >>> C = IntMockBuffer("C", range(6), (2, 3))
     >>> set_int_2d(C, 1, 1, 10)
     acquired C
     released C

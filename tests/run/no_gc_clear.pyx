@@ -12,22 +12,19 @@ from cpython.ref cimport PyObject, Py_TYPE
 # Pull tp_clear for PyTypeObject as I did not find another way to access it
 # from Cython code.
 
-cdef extern from *:
+extern from *:
     ctypedef struct PyTypeObject:
         void (*tp_clear)(object)
 
     ctypedef struct __pyx_CyFunctionObject:
         PyObject* func_closure
 
-
 def is_tp_clear_null(obj):
     return (<PyTypeObject*>Py_TYPE(obj)).tp_clear is NULL
-
 
 def is_closure_tp_clear_null(func):
     return is_tp_clear_null(
         <object>(<__pyx_CyFunctionObject*>func).func_closure)
-
 
 @cython.no_gc_clear
 cdef class DisableTpClear:
@@ -44,7 +41,7 @@ cdef class DisableTpClear:
     >>> del uut
     """
 
-    cdef public object requires_cleanup
+    pub object requires_cleanup
 
     def __cinit__(self):
         self.requires_cleanup = [
@@ -54,7 +51,6 @@ cdef class DisableTpClear:
         cdef PyTypeObject *pto = Py_TYPE(self)
         if pto.tp_clear != NULL:
             pto.tp_clear(self)
-
 
 cdef class ReallowTpClear(DisableTpClear):
     """
@@ -68,8 +64,7 @@ cdef class ReallowTpClear(DisableTpClear):
 
     # Problem: cannot really validate that the cycle was cleaned up without using weakrefs etc...
     """
-    cdef public object attr
-
+    pub object attr
 
 def test_closure_without_clear(str x):
     """
@@ -84,7 +79,6 @@ def test_closure_without_clear(str x):
     def c(str s):
         return x + 'xyz' + s
     return c
-
 
 def test_closure_with_clear(list x):
     """

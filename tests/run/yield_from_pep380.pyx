@@ -1060,10 +1060,10 @@ def yield_in_return(x):
     ...     try:
     ...         print(next(x))
     ...     except StopIteration:
-    ...         if sys.version_info >= (3,3):
+    ...         if sys.version_info >= (3, 3):
     ...             print(sys.exc_info()[1].value is None)
     ...         else:
-    ...             print(True)
+    ...             print(true)
     ...         break
     0
     1

@@ -1,4 +1,4 @@
-# cython: autotestdict=True
+# cython: autotestdict=true
 
 cdef class Spam:
 
@@ -8,7 +8,7 @@ cdef class Spam:
             """
             This is the docstring for Spam.eggs.__get__
 
-            >>> True
+            >>> true
             True
             """
             return 42
@@ -26,21 +26,21 @@ def tomato():
     >>> 'tomato (line 16)' in lines or lines
     True
     """
-    cdef Spam spam
-    cdef object lettuce
+    let Spam spam
+    let object lettuce
     spam = Spam()
     lettuce = spam.eggs
     return lettuce
 
 cdef class Bacon(object):
     cdef object number_of_slices
-    cdef public object is_a_vegetable
+    pub object is_a_vegetable
 
 def breakfast():
     """
     >>> breakfast()
     """
-    cdef Bacon myslices = Bacon()
+    let Bacon myslices = Bacon()
     myslices.is_a_vegetable = True
     assert myslices.is_a_vegetable, myslices.is_a_vegetable
     del myslices.is_a_vegetable

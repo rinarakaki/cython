@@ -12,10 +12,10 @@ NameError: ...name 'NONPUBLIC' is not defined
 True
 """
 
-cdef enum SECRET:
+enum SECRET:
     NONPUBLIC = 23 + 42
 
-cdef public enum FOO:
+pub enum FOO:
     BAR = 3
     HONK = 3+2+1
     NOWPUBLIC = NONPUBLIC

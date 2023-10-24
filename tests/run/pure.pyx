@@ -69,7 +69,7 @@ def test_cast_object(x, typecheck):
     (1, 2, 3)
     """
     if typecheck:
-        as_list = cython.cast(list, x, typecheck=True)
+        as_list = cython.cast(list, x, typecheck=true)
     else:
         as_list = cython.cast(list, x, typecheck=False)
     return as_list
@@ -93,8 +93,8 @@ def test_locals(x):
     y = x
     return y
 
-MyUnion = cython.union(n=cython.int, x=cython.double)
-MyStruct = cython.struct(is_integral=cython.bint, data=MyUnion)
+MyUnion = cython.r#union(n=cython.int, x=cython.double)
+MyStruct = cython.r#struct(is_integral=cython.bint, data=MyUnion)
 MyStruct2 = cython.typedef(MyStruct[2])
 
 def test_struct(n, x):
@@ -154,11 +154,11 @@ def test_declare_c_types(n):
     i13 = cython.declare(cython.longlong, n)
     i14 = cython.declare(cython.ulonglong, n)
 
-    i20 = cython.declare(cython.Py_ssize_t, n)
-    i21 = cython.declare(cython.size_t, n)
+    i20 = cython.declare(cython.isize, n)
+    i21 = cython.declare(cython.usize, n)
     #
-    f00 = cython.declare(cython.float, n)
-    f01 = cython.declare(cython.double, n)
+    f00 = cython.declare(cython.f32, n)
+    f01 = cython.declare(cython.f64, n)
     f02 = cython.declare(cython.longdouble, n)
     #
     #z00 = cython.declare(cython.complex, n+1j)
@@ -187,41 +187,41 @@ def ext_type_string_ref(x: "ExtType"):
     return cython.typeof(x)
 
 
-with cython.cdivision(True):
+with cython.cdivision(true):
 
-    @cython.cdivision(False)
-    @cython.cdivision(True)
+    @cython.cdivision(false)
+    @cython.cdivision(true)
     def test_override_reset(x: cython.int):
         """
-        >>> test_override_reset(-3)  # @cdivision(False)
+        >>> test_override_reset(-3)  # @cdivision(false)
         -2
         """
         return x / 2
 
-    @cython.cdivision(True)
-    @cython.cdivision(False)
+    @cython.cdivision(true)
+    @cython.cdivision(false)
     def test_override_set(x: cython.int):
         """
-        >>> test_override_set(-5)  # @cdivision(True)
+        >>> test_override_set(-5)  # @cdivision(true)
         -1
         """
         return x / 3
 
-    @cython.cdivision(True)
-    @cython.cdivision(False)
-    @cython.cdivision(True)
-    @cython.cdivision(False)
-    @cython.cdivision(False)
-    @cython.cdivision(False)
-    @cython.cdivision(True)
-    @cython.cdivision(False)
-    @cython.cdivision(True)
-    @cython.cdivision(True)
-    @cython.cdivision(True)
-    @cython.cdivision(False)
+    @cython.cdivision(true)
+    @cython.cdivision(false)
+    @cython.cdivision(true)
+    @cython.cdivision(false)
+    @cython.cdivision(false)
+    @cython.cdivision(false)
+    @cython.cdivision(true)
+    @cython.cdivision(false)
+    @cython.cdivision(true)
+    @cython.cdivision(true)
+    @cython.cdivision(true)
+    @cython.cdivision(false)
     def test_override_set_repeated(x: cython.int):
         """
-        >>> test_override_set_repeated(-5)  # @cdivision(True)
+        >>> test_override_set_repeated(-5)  # @cdivision(true)
         -1
         """
         return x / 3

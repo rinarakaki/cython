@@ -8,15 +8,15 @@ from libc.stdlib cimport malloc, free
 
 openmp.omp_set_nested(1)
 
-cdef int forward(int x) nogil:
+fn i32 forward(i32 x) nogil:
     return x
 
 def test_parallel():
     """
     >>> test_parallel()
     """
-    cdef int maxthreads = openmp.omp_get_max_threads()
-    cdef int *buf = <int *> malloc(sizeof(int) * maxthreads)
+    let i32 maxthreads = openmp.omp_get_max_threads()
+    let i32 *buf = <i32 *> malloc(sizeof(i32) * maxthreads)
 
     if buf == NULL:
         raise MemoryError
@@ -32,7 +32,7 @@ def test_parallel():
 
     free(buf)
 
-cdef int get_num_threads() noexcept with gil:
+fn i32 get_num_threads() noexcept with gil:
     print "get_num_threads called"
     return 3
 
@@ -45,9 +45,9 @@ def test_num_threads():
     get_num_threads called
     3
     """
-    cdef int dyn = openmp.omp_get_dynamic()
-    cdef int num_threads
-    cdef int *p = &num_threads
+    let i32 dyn = openmp.omp_get_dynamic()
+    let i32 num_threads
+    let i32 *p = &num_threads
 
     openmp.omp_set_dynamic(0)
 
@@ -61,9 +61,9 @@ def test_num_threads():
 
     print num_threads
 
-    cdef int i
+    let i32 i
     num_threads = 0xbad
-    for i in prange(1, nogil=True, num_threads=get_num_threads()):
+    for i in prange(1, nogil=true, num_threads=get_num_threads()):
         p[0] = openmp.omp_get_num_threads()
         break
 
@@ -77,15 +77,15 @@ def test_parallel_catch():
     >>> test_parallel_catch()
     True
     """
-    cdef int i, j, num_threads
+    let i32 i, j, num_threads
     exceptions = []
 
-    for i in prange(100, nogil=True, num_threads=4):
+    for i in prange(100, nogil=true, num_threads=4):
         num_threads = openmp.omp_get_num_threads()
 
         with gil:
             try:
-                for j in prange(100, nogil=True):
+                for j in prange(100, nogil=true):
                     if i + j > 60:
                         with gil:
                             raise Exception("try and catch me if you can!")
@@ -98,11 +98,11 @@ def test_parallel_catch():
 '''
 
 
-cdef void parallel_exception_checked_function(int* ptr, int id) except * nogil:
+fn void parallel_exception_checked_function(i32* ptr, i32 id) except * nogil:
     # requires the GIL after each call
     ptr[0] = id;
 
-cdef void parallel_call_exception_checked_function_impl(int* arr, int num_threads) nogil:
+fn void parallel_call_exception_checked_function_impl(i32* arr, int num_threads) nogil:
     # Inside a nogil function, parallel can't be sure that the GIL has been released.
     # Therefore Cython must release the GIL itself.
     # Otherwise, we can experience cause lock-ups if anything inside it acquires the GIL
@@ -117,8 +117,8 @@ def test_parallel_call_exception_checked_function():
     """
     test_parallel_call_exception_checked_function()
     """
-    cdef int maxthreads = openmp.omp_get_max_threads()
-    cdef int *buf = <int *> malloc(sizeof(int) * maxthreads)
+    let i32 maxthreads = openmp.omp_get_max_threads()
+    let i32 *buf = <i32 *> malloc(sizeof(i32) * maxthreads)
 
     if buf == NULL:
         raise MemoryError

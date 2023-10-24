@@ -1,8 +1,8 @@
 # POSIX dynamic linking/loading interface.
 # https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/dlfcn.h.html
 
-cdef extern from "<dlfcn.h>" nogil:
-    void *dlopen(const char *, int)
+extern from "<dlfcn.h>" nogil:
+    void *dlopen(const char *, i32)
     char *dlerror()
     void *dlsym(void *, const char *)
     int dlclose(void *)

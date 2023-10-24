@@ -1,10 +1,10 @@
 from cython.parallel import prange
 
-cdef int i
-cdef int n = 30
-cdef int sum = 0
+cdef i32 i
+cdef i32 n = 30
+cdef i32 sum = 0
 
-for i in prange(n, nogil=True):
+for i in prange(n, nogil=true):
     sum += i
 
 print(sum)

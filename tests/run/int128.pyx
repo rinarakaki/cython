@@ -1,13 +1,11 @@
 # mode: run
 
-cdef extern from *:
-    ctypedef long long int128_t "__int128_t"
-    ctypedef unsigned long long uint128_t "__uint128_t"
-
+extern from *:
+    ctypedef i128 int128_t "__int128_t"
+    ctypedef u128 uint128_t "__uint128_t"
 
 def bigint(x):
     print(str(x).rstrip('L'))
-
 
 def unsigned_conversion(x):
     """
@@ -72,9 +70,8 @@ def unsigned_conversion(x):
     Traceback (most recent call last):
     OverflowError: ... to convert...
     """
-    cdef uint128_t n = x
+    let uint128_t n = x
     return n
-
 
 def signed_conversion(x):
     """
@@ -136,11 +133,10 @@ def signed_conversion(x):
     Traceback (most recent call last):
     OverflowError: ... to convert...
     """
-    cdef int128_t n = x
+    let int128_t n = x
     return n
 
-
-def get_int_distribution(shuffle=True):
+def get_int_distribution(shuffle=true):
     """
     >>> L = get_int_distribution()
     >>> bigint(L[0])
@@ -163,7 +159,6 @@ def get_int_distribution(shuffle=True):
     ]
     return ints * 3  # longer list, but keeps median in the middle
 
-
 def intsum(L):
     """
     >>> L = get_int_distribution()
@@ -177,11 +172,10 @@ def intsum(L):
     >>> bigint(intsum(L))
     61084913298497804284622382871263
     """
-    cdef uint128_t i, x = 0
+    let uint128_t i, x = 0
     for i in L:
         x += i
     return x
-
 
 def intxor(L):
     """
@@ -204,7 +198,7 @@ def intxor(L):
     >>> bigint(intxor(L * 2))
     0
     """
-    cdef uint128_t i, x = 0
+    let uint128_t i, x = 0
     for i in L:
         x ^= i
     return x

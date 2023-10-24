@@ -1,5 +1,4 @@
 # mode: compile
 
-cdef extern from *:
-    int spam
-
+extern from *:
+    i32 spam

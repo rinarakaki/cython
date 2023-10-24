@@ -17,7 +17,7 @@ py_set = set
 py_xrange = xrange
 py_unicode = unicode
 
-cdef string add_strings(string a, string b) except *:
+fn string add_strings(string a, string b) except *:
     return a + b
 
 def normalize(bytes b):
@@ -33,7 +33,7 @@ def test_string(o):
     >>> normalize(test_string("abc\\x00def".encode('ascii')))
     'abc\\x00def'
     """
-    cdef string s = o
+    let string s = o
     return s
 
 def test_encode_to_string(o):
@@ -43,7 +43,7 @@ def test_encode_to_string(o):
     >>> normalize(test_encode_to_string('abc\\x00def'))
     'abc\\x00def'
     """
-    cdef string s = o.encode('ascii')
+    let string s = o.encode('ascii')
     return s
 
 def test_encode_to_string_cast(o):
@@ -63,7 +63,7 @@ def test_unicode_encode_to_string(unicode o):
     >>> normalize(test_unicode_encode_to_string(py_unicode('abc\\x00def')))
     'abc\\x00def'
     """
-    cdef string s = o.encode('ascii')
+    let string s = o.encode('ascii')
     return s
 
 def test_string_call(a, b):
@@ -78,7 +78,7 @@ def test_c_string_convert(char *c_string):
     >>> normalize(test_c_string_convert("abc".encode('ascii')))
     'abc'
     """
-    cdef string s
+    let string s
     with nogil:
         s = c_string
     return s
@@ -91,13 +91,13 @@ def test_bint_vector(o):
 
     >>> test_bint_vector([False, True])
     [False, True]
-    >>> test_bint_vector(py_xrange(0,5))
+    >>> test_bint_vector(py_xrange(0, 5))
     [False, True, True, True, True]
     >>> test_bint_vector(["", "hello"])
     [False, True]
     """
 
-    cdef vector[bint] v = o
+    let vector[bint] v = o
     return v
 
 def test_int_vector(o):
@@ -113,10 +113,10 @@ def test_int_vector(o):
     ...
     OverflowError: ...
     """
-    cdef vector[int] v = o
+    let vector[i32] v = o
     return v
 
-cdef vector[int] takes_vector(vector[int] x):
+fn vector[i32] takes_vector(vector[i32] x):
     return x
 
 def test_list_literal_to_vector():
@@ -138,10 +138,10 @@ def test_string_vector(s):
     >>> list(map(normalize, test_string_vector('ab cd ef gh'.encode('ascii'))))
     ['ab', 'cd', 'ef', 'gh']
     """
-    cdef vector[string] cpp_strings = s.split()
+    let vector[string] cpp_strings = s.split()
     return cpp_strings
 
-cdef list convert_string_vector(vector[string] vect):
+fn list convert_string_vector(vector[string] vect):
     return vect
 
 def test_string_vector_temp_funcarg(s):
@@ -158,18 +158,18 @@ def test_double_vector(o):
     >>> test_double_vector([10**20])
     [1e+20]
     """
-    cdef vector[double] v = o
+    let vector[f64] v = o
     return v
 
-def test_repeated_double_vector(a, b, int n):
+def test_repeated_double_vector(a, b, i32 n):
     """
     >>> test_repeated_double_vector(1, 1.5, 3)
     [1.0, 1.5, 1.0, 1.5, 1.0, 1.5]
     """
-    cdef vector[double] v = [a, b] * n
+    let vector[f64] v = [a, b] * n
     return v
 
-ctypedef int my_int
+ctypedef i32 my_int
 
 def test_typedef_vector(o):
     """
@@ -186,7 +186,7 @@ def test_typedef_vector(o):
     ...
     TypeError: ...int...
     """
-    cdef vector[my_int] v = o
+    let vector[my_int] v = o
     return v
 
 def test_pair(o):
@@ -194,7 +194,7 @@ def test_pair(o):
     >>> test_pair((1, 2))
     (1, 2.0)
     """
-    cdef pair[long, double] p = o
+    let pair[long, f64] p = o
     return p
 
 def test_list(o):
@@ -202,7 +202,7 @@ def test_list(o):
     >>> test_list([1, 2, 3])
     [1, 2, 3]
     """
-    cdef cpp_list[int] l = o
+    let cpp_list[i32] l = o
     return l
 
 def test_set(o):
@@ -214,7 +214,7 @@ def test_set(o):
     >>> type(test_set([])) is py_set
     True
     """
-    cdef cpp_set[long] s = o
+    let cpp_set[long] s = o
     return s
 
 def test_unordered_set(o):
@@ -239,7 +239,7 @@ def test_map(o):
     >>> test_map(dd)  # try with a non-dict
     {1: 1.0, 2: 0.5, 3: 0.25}
     """
-    cdef map[int, double] m = o
+    let map[i32, f64] m = o
     return m
 
 def test_unordered_map(o):
@@ -259,7 +259,7 @@ def test_unordered_map(o):
     >>> (m[1], m[2], m[3])
     (1.0, 0.5, 0.25)
     """
-    cdef unordered_map[int, double] m = o
+    let unordered_map[i32, f64] m = o
     return m
 
 def test_nested(o):
@@ -276,23 +276,23 @@ def test_nested(o):
     >>> d[(1.0, 2.0)]
     [1, 2, 3]
     """
-    cdef map[pair[double, double], vector[int]] m = o
+    let map[pair[f64, f64], vector[i32]] m = o
     return m
 
 cpdef enum Color:
-    RED = 0
-    GREEN
-    BLUE
+    Red = 0
+    Green
+    Blue
 
 def test_enum_map(o):
     """
-    >>> test_enum_map({RED: GREEN})
-    {<Color.RED: 0>: <Color.GREEN: 1>}
+    >>> test_enum_map({Red: Green})
+    {<Color.Red: 0>: <Color.Green: 1>}
     """
-    cdef map[Color, Color] m = o
+    let map[Color, Color] m = o
     return m
 
-cdef map[unsigned int, unsigned int] takes_map(map[unsigned int, unsigned int] m):
+fn map[u32, u32] takes_map(map[u32, u32] m):
     return m
 
 def test_dict_literal_to_map():

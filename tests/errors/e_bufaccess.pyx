@@ -1,23 +1,23 @@
 # mode: error
 
-cdef object[int] buf
+cdef object[i32] buf
 cdef class A:
-    cdef object[int] buf
+    cdef object[i32] buf
 
 def f():
-    cdef object[fakeoption=True] buf1
-    cdef object[int, -1] buf1b
-    cdef object[ndim=-1] buf2
-    cdef object[int, 'a'] buf3
-    cdef object[int,2,3,4,5,6] buf4
-    cdef object[int, 2, 'foo'] buf5
-    cdef object[int, 2, well] buf6
-    cdef object[x, 1] buf0
+    let object[fakeoption=true] buf1
+    let object[i32, -1] buf1b
+    let object[ndim=-1] buf2
+    let object[i32, 'a'] buf3
+    let object[i32,2,3,4,5,6] buf4
+    let object[i32, 2, 'foo'] buf5
+    let object[i32, 2, well] buf6
+    let object[x, 1] buf0
 
 _ERRORS = u"""
 3:17: Buffer types only allowed as function local variables
 5:21: Buffer types only allowed as function local variables
-8:27: "fakeoption" is not a buffer option
+8:26: "fakeoption" is not a buffer option
 """
 #TODO:
 #7:22: "ndim" must be non-negative

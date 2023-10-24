@@ -1,4 +1,4 @@
-# cython: legacy_implicit_noexcept=True
+# cython: legacy_implicit_noexcept=true
 # mode: run
 # tag: warnings
 import sys
@@ -9,32 +9,32 @@ try:
 except ImportError:
     from io import StringIO
 
-cdef int func_implicit(int a, int b):
+fn i32 func_implicit(i32 a, i32 b):
     raise RuntimeError
 
-cdef int func_noexcept(int a, int b) noexcept:
+fn i32 func_noexcept(i32 a, i32 b) noexcept:
     raise RuntimeError
 
-cdef int func_star(int a, int b) except *:
+fn i32 func_star(i32 a, i32 b) except *:
     raise RuntimeError
 
-cdef int func_value(int a, int b) except -1:
+fn i32 func_value(i32 a, i32 b) except -1:
     raise RuntimeError
 
-cdef func_return_obj_implicit(int a, int b):
+fn func_return_obj_implicit(i32 a, i32 b):
     raise RuntimeError
 
-cdef int(*ptr_func_implicit)(int, int)
+cdef int(*ptr_func_implicit)(i32, i32)
 ptr_func_implicit = func_implicit
 
-cdef int(*ptr_func_noexcept)(int, int) noexcept
+cdef int(*ptr_func_noexcept)(i32, i32) noexcept
 ptr_func_noexcept = func_noexcept
 
 @cython.cfunc
 def func_pure_implicit() -> cython.int:
     raise RuntimeError
 
-@cython.excetval(check=False)
+@cython.excetval(check=false)
 @cython.cfunc
 def func_pure_noexcept() -> cython.int:
     raise RuntimeError
@@ -135,9 +135,9 @@ def test_pure_noexcept():
     func_pure_noexcept()
 
 _WARNINGS = """
-12:5: Unraisable exception in function 'legacy_implicit_noexcept.func_implicit'.
-12:36: Implicit noexcept declaration is deprecated. Function declaration should contain 'noexcept' keyword.
-15:5: Unraisable exception in function 'legacy_implicit_noexcept.func_noexcept'.
-24:43: Implicit noexcept declaration is deprecated. Function declaration should contain 'noexcept' keyword.
+12:0: Unraisable exception in function 'legacy_implicit_noexcept.func_implicit'.
+12:34: Implicit noexcept declaration is deprecated. Function declaration should contain 'noexcept' keyword.
+15:0: Unraisable exception in function 'legacy_implicit_noexcept.func_noexcept'.
+24:41: Implicit noexcept declaration is deprecated. Function declaration should contain 'noexcept' keyword.
 27:38: Implicit noexcept declaration is deprecated. Function declaration should contain 'noexcept' keyword.
 """

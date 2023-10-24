@@ -1,5 +1,4 @@
-
-cdef extern from "Python.h":
+extern from "Python.h":
 
     ############################################################################
     # 7.2.2 Boolean Objects
@@ -32,6 +31,6 @@ cdef extern from "Python.h":
     # Py_RETURN_TRUE
     # Return Py_True from a function, properly incrementing its reference count.
 
-    object PyBool_FromLong(long v)
+    object PyBool_FromLong(i64 v)
     # Return value: New reference.
     # Return a new reference to Py_True or Py_False depending on the truth value of v.

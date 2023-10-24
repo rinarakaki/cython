@@ -11,9 +11,9 @@ False
 def testme(func):
     try:
         am_i_buggy
-        return True
+        return true
     except NameError:
-        return False
+        return false
 
 @testme
 def am_i_buggy():
@@ -22,15 +22,15 @@ def am_i_buggy():
 def testclass(klass):
     try:
         Foo
-        return True
+        return true
     except NameError:
-        return False
+        return false
 @testclass
 class Foo:
     pass
 
 
-def called_deco(a,b,c):
+def called_deco(a, b, c):
     def count(f):
         a.append( (b,c) )
         return f
@@ -58,7 +58,7 @@ def class_in_closure(x):
     >>> C1, c0 = class_in_closure(5)
     >>> C1().smeth1()
     (5, ())
-    >>> C1.smeth1(1,2)
+    >>> C1.smeth1(1, 2)
     (5, (1, 2))
     >>> C1.smeth1()
     (5, ())

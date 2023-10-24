@@ -1,4 +1,4 @@
-# cython: optimize.inline_defnode_calls=True
+# cython: optimize.inline_defnode_calls=true
 # mode: run
 cimport cython
 
@@ -13,23 +13,20 @@ def simple_noargs():
         return 123
     return inner()
 
-
 @cython.test_fail_if_path_exists('//SimpleCallNode')
 @cython.test_assert_path_exists('//InlinedDefNodeCallNode')
-def test_coerce(a, int b):
+def test_coerce(a, i32 b):
     """
     >>> test_coerce(2, 2)
     4
     """
-    def inner(int a, b):
+    def inner(i32 a, b):
         return a * b
     return inner(a, b)
-
 
 cdef class Foo(object):
     def __repr__(self):
         return '<Foo>'
-
 
 @cython.test_fail_if_path_exists('//SimpleCallNode')
 @cython.test_assert_path_exists('//InlinedDefNodeCallNode')
@@ -113,7 +110,6 @@ def test_global_calls_still_work():
 
 global_call_result = test_global_calls_still_work()
 
-
 @cython.test_fail_if_path_exists(
     '//InlinedDefNodeCallNode//SimpleCallNode')
 @cython.test_assert_path_exists(
@@ -134,12 +130,11 @@ def test_sideeffect_call_order():
     call(1, sideeffect(2), 3, sideeffect(4), sideeffect(5))
     return L
 
-
 def test_redef(redefine):
     """
-    >>> test_redef(False)
+    >>> test_redef(false)
     1
-    >>> test_redef(True)
+    >>> test_redef(true)
     2
     """
     def inner():
@@ -155,7 +150,6 @@ def test_redef(redefine):
     else:
         assert inner != inner2
     return inner()
-
 
 def test_with_statement():
     """

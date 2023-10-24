@@ -63,13 +63,13 @@ class Ctx(object):
         return ctx
 
 
-def p_ident(s, message="Expected an identifier"):
+def p_ident(s, message="Expected an identifier, found '%s'"):
     if s.sy == 'IDENT':
         name = s.context.intern_ustring(s.systring)
         s.next()
         return name
     else:
-        s.error(message)
+        s.error(message % s.sy)
 
 def p_ident_list(s):
     names = []
@@ -734,9 +734,9 @@ def p_atom(s):
         name = s.systring
         if name == "None":
             result = ExprNodes.NoneNode(pos)
-        elif name == "True":
+        elif name in ("true", "True"):
             result = ExprNodes.BoolNode(pos, value=True)
-        elif name == "False":
+        elif name in ("false", "False"):
             result = ExprNodes.BoolNode(pos, value=False)
         elif name == "NULL" and not s.in_python_file:
             result = ExprNodes.NullNode(pos)
@@ -745,7 +745,7 @@ def p_atom(s):
         s.next()
         return result
     else:
-        s.error("Expected an identifier or literal")
+        s.error("Expected an identifier or literal, found '%s'" % s.sy)
 
 def p_int_literal(s):
     pos = s.position()
@@ -2367,7 +2367,7 @@ def p_statement(s, ctx, first_statement = 0):
             s.error('decorator not allowed here')
         s.level = ctx.level
         decorators = p_decorators(s)
-        if not ctx.allow_struct_enum_decorator and s.sy not in ('def', 'cdef', 'cpdef', 'class', 'async'):
+        if not ctx.allow_struct_enum_decorator and s.sy not in ("def", "fn", "cdef", "cpdef", "class", "async"):
             if s.sy == 'IDENT' and s.systring == 'async':
                 pass  # handled below
             else:
@@ -2384,6 +2384,8 @@ def p_statement(s, ctx, first_statement = 0):
         cdef_flag = 1
         overridable = 1
         s.next()
+    elif s.sy in ("pub", "fn", "let", "enum", "struct", "extern"):
+        cdef_flag = 1
     if cdef_flag:
         if ctx.level not in ('module', 'module_pxd', 'function', 'c_class', 'c_class_pxd'):
             s.error('cdef statement not allowed here')
@@ -2636,7 +2638,11 @@ def p_c_simple_base_type(s, nonempty, templates=None):
     if looking_at_base_type(s):
         #print "p_c_simple_base_type: looking_at_base_type at", s.position()
         is_basic = 1
-        if s.sy == 'IDENT' and s.systring in special_basic_c_types:
+        if s.sy == 'IDENT' and s.systring in builtin_type_names:
+            signed, longness = None, None
+            name = s.systring
+            s.next()
+        elif s.sy == 'IDENT' and s.systring in special_basic_c_types:
             signed, longness = special_basic_c_types[s.systring]
             name = s.systring
             s.next()
@@ -2841,6 +2847,12 @@ def looking_at_dotted_name(s):
         return 0
 
 
+builtin_type_names = cython.declare(frozenset, frozenset((
+    "i8", "i16", "i32", "i64", "i128",
+    "u8", "u16", "u32", "u64", "u128",
+    "f32", "f64",
+    "isize", "usize")))
+
 basic_c_type_names = cython.declare(frozenset, frozenset((
     "void", "char", "int", "float", "double", "bint")))
 
@@ -2861,7 +2873,8 @@ sign_and_longness_words = cython.declare(frozenset, frozenset((
 
 base_type_start_words = cython.declare(
     frozenset,
-    basic_c_type_names
+    builtin_type_names
+    | basic_c_type_names
     | sign_and_longness_words
     | frozenset(special_basic_c_types))
 
@@ -3223,7 +3236,7 @@ def p_cdef_statement(s, ctx):
     ctx.visibility = p_visibility(s, ctx.visibility)
     ctx.api = ctx.api or p_api(s)
     if ctx.api:
-        if ctx.visibility not in ('private', 'public'):
+        if ctx.visibility not in ("private", "pub", "public"):
             error(pos, "Cannot combine 'api' with '%s'" % ctx.visibility)
     if (ctx.visibility == 'extern') and s.sy == 'from':
         return p_cdef_extern_block(s, pos, ctx)
@@ -3247,7 +3260,7 @@ def p_cdef_statement(s, ctx):
         return p_c_class_definition(s, pos, ctx)
     elif s.sy == 'IDENT' and s.systring == 'cppclass':
         return p_cpp_class_definition(s, pos, ctx)
-    elif s.sy == 'IDENT' and s.systring in struct_enum_union:
+    elif s.sy in struct_enum_union or s.sy == 'IDENT' and s.systring in ("union", "packed"):
         if ctx.level not in ('module', 'module_pxd'):
             error(pos, "C struct/union/enum definition not allowed here")
         if ctx.overridable:
@@ -3256,6 +3269,12 @@ def p_cdef_statement(s, ctx):
         return p_struct_enum(s, pos, ctx)
     elif s.sy == 'IDENT' and s.systring == 'fused':
         return p_fused_definition(s, pos, ctx)
+    elif s.sy == "fn":
+        s.next()
+        return p_c_func_or_var_declaration(s, pos, ctx)
+    elif s.sy == "let":
+        s.next()
+        return p_c_func_or_var_declaration(s, pos, ctx)
     else:
         return p_c_func_or_var_declaration(s, pos, ctx)
 
@@ -3292,7 +3311,7 @@ def p_c_enum_definition(s, pos, ctx):
     s.next()
 
     scoped = False
-    if s.context.cpp and (s.sy == 'class' or (s.sy == 'IDENT' and s.systring == 'struct')):
+    if s.context.cpp and s.sy in ("class", "struct"):
         scoped = True
         s.next()
 
@@ -3379,7 +3398,7 @@ def p_c_struct_or_union_definition(s, pos, ctx):
     if s.systring == 'packed':
         packed = True
         s.next()
-        if s.sy != 'IDENT' or s.systring != 'struct':
+        if s.sy != "struct":
             s.expected('struct')
     # s.sy == ident 'struct' or 'union'
     kind = s.systring
@@ -3461,8 +3480,11 @@ def p_struct_enum(s, pos, ctx):
 def p_visibility(s, prev_visibility):
     pos = s.position()
     visibility = prev_visibility
-    if s.sy == 'IDENT' and s.systring in ('extern', 'public', 'readonly'):
-        visibility = s.systring
+    if s.sy in ("pub", "extern") or s.sy == 'IDENT' and s.systring in ("public", "readonly"):
+        if s.sy == "pub":
+            visibility = "public"
+        else:
+            visibility = s.systring
         if prev_visibility != 'private' and visibility != prev_visibility:
             s.error("Conflicting visibility options '%s' and '%s'"
                 % (prev_visibility, visibility), fatal=False)
@@ -3551,7 +3573,7 @@ def p_ctypedef_statement(s, ctx):
         ctx.api = 1
     if s.sy == 'class':
         return p_c_class_definition(s, pos, ctx)
-    elif s.sy == 'IDENT' and s.systring in struct_enum_union:
+    elif s.sy in struct_enum_union or s.sy == 'IDENT' and s.systring in ("union", "packed"):
         return p_struct_enum(s, pos, ctx)
     elif s.sy == 'IDENT' and s.systring == 'fused':
         return p_fused_definition(s, pos, ctx)
@@ -3716,7 +3738,7 @@ def p_c_class_definition(s, pos,  ctx):
         bases = ExprNodes.TupleNode(pos, args=[])
 
     if s.sy == '[':
-        if ctx.visibility not in ('public', 'extern') and not ctx.api:
+        if ctx.visibility not in ("pub", "public", "extern") and not ctx.api:
             error(s.position(), "Name options only allowed for 'public', 'api', or 'extern' C class")
         objstruct_name, typeobj_name, check_size = p_c_class_options(s)
     if s.sy == ':':
@@ -3734,7 +3756,7 @@ def p_c_class_definition(s, pos,  ctx):
             error(pos, "Module name required for 'extern' C class")
         if typeobj_name:
             error(pos, "Type object name specification not allowed for 'extern' C class")
-    elif ctx.visibility == 'public':
+    elif ctx.visibility in ("pub", "public"):
         if not objstruct_name:
             error(pos, "Object struct name specification required for 'public' C class")
         if not typeobj_name:
@@ -4016,7 +4038,7 @@ def p_cpp_class_attribute(s, ctx):
         return p_cpp_class_definition(s, s.position(), ctx)
     elif s.systring == 'ctypedef':
         return p_ctypedef_statement(s, ctx)
-    elif s.sy == 'IDENT' and s.systring in struct_enum_union:
+    elif s.sy in struct_enum_union or s.sy == 'IDENT' and s.systring in ("union", "packed"):
         if s.systring != 'enum':
             return p_cpp_class_definition(s, s.position(), ctx)
         else:

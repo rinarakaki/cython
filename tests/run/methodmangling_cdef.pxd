@@ -1,3 +1,3 @@
 cdef class InPxd:
-    cdef public int __y
-    cdef int __private_cdef(self)
+    pub i32 __y
+    fn i32 __private_cdef(self)

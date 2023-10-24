@@ -11,18 +11,14 @@ from cython.operator cimport typeid, dereference as deref
 from libc.string cimport const_char
 from libcpp cimport bool
 
-
-cdef out(s, result_type=None):
+fn out(s, result_type=None):
     print '%s [%s]' % (s.decode('ascii'), result_type)
 
-
-cdef iout(int s, result_type=None):
+fn iout(i32 s, result_type=None):
     print '%s [%s]' % (s, result_type)
 
-
-cdef extern from "cpp_operators_helper.h" nogil:
+extern from "cpp_operators_helper.h" nogil:
     cdef cppclass TestOps:
-
         const_char* operator+() except +
         const_char* operator-() except +
         const_char* operator*() except +
@@ -32,44 +28,44 @@ cdef extern from "cpp_operators_helper.h" nogil:
         # FIXME: using 'except +' here leads to wrong calls ???
         const_char* operator++()
         const_char* operator--()
-        const_char* operator++(int)
-        const_char* operator--(int)
+        const_char* operator++(i32)
+        const_char* operator--(i32)
 
-        const_char* operator+(int) except +
-        const_char* operator+(int,const TestOps&) except +
-        const_char* operator-(int) except +
-        const_char* operator-(int,const TestOps&) except +
-        const_char* operator*(int) except +
+        const_char* operator+(i32) except +
+        const_char* operator+(i32,const TestOps&) except +
+        const_char* operator-(i32) except +
+        const_char* operator-(i32,const TestOps&) except +
+        const_char* operator*(i32) except +
         # deliberately omitted operator* to test case where only defined outside class
-        const_char* operator/(int) except +
-        const_char* operator/(int,const TestOps&) except +
-        const_char* operator%(int) except +
-        const_char* operator%(int,const TestOps&) except +
+        const_char* operator/(i32) except +
+        const_char* operator/(i32,const TestOps&) except +
+        const_char* operator%(i32) except +
+        const_char* operator%(i32,const TestOps&) except +
 
-        const_char* operator|(int) except +
-        const_char* operator|(int,const TestOps&) except +
-        const_char* operator&(int) except +
-        const_char* operator&(int,const TestOps&) except +
-        const_char* operator^(int) except +
-        const_char* operator^(int,const TestOps&) except +
-        const_char* operator,(int) except +
-        const_char* operator,(int,const TestOps&) except +
+        const_char* operator|(i32) except +
+        const_char* operator|(i32,const TestOps&) except +
+        const_char* operator&(i32) except +
+        const_char* operator&(i32,const TestOps&) except +
+        const_char* operator^(i32) except +
+        const_char* operator^(i32,const TestOps&) except +
+        const_char* operator,(i32) except +
+        const_char* operator,(i32,const TestOps&) except +
 
-        const_char* operator<<(int) except +
-        const_char* operator<<(int,const TestOps&) except +
-        const_char* operator>>(int) except +
-        const_char* operator>>(int,const TestOps&) except +
+        const_char* operator<<(i32) except +
+        const_char* operator<<(i32,const TestOps&) except +
+        const_char* operator>>(i32) except +
+        const_char* operator>>(i32,const TestOps&) except +
 
         # FIXME: using 'except +' here leads to invalid C++ code ???
-        const_char* operator==(int)
-        const_char* operator!=(int)
-        const_char* operator>=(int)
-        const_char* operator<=(int)
-        const_char* operator>(int)
-        const_char* operator<(int)
+        const_char* operator==(i32)
+        const_char* operator!=(i32)
+        const_char* operator>=(i32)
+        const_char* operator<=(i32)
+        const_char* operator>(i32)
+        const_char* operator<(i32)
 
-        const_char* operator[](int) except +
-        const_char* operator()(int) except +
+        const_char* operator[](i32) except +
+        const_char* operator()(i32) except +
 
     # Defining the operator outside the class does work
     # but doesn't help when importing from pxd files
@@ -90,51 +86,51 @@ cdef extern from "cpp_operators_helper.h" nogil:
 
     cdef cppclass RefTestOps:
 
-        int& operator+() except +
-        int& operator-() except +
-        int& operator*() except +
-        int& operator~() except +
-        int& operator!() except +
+        i32& operator+() except +
+        i32& operator-() except +
+        i32& operator*() except +
+        i32& operator~() except +
+        i32& operator!() except +
 
-        int& operator++() except +
-        int& operator--() except +
-        int& operator++(int) except +
-        int& operator--(int) except +
+        i32& operator++() except +
+        i32& operator--() except +
+        i32& operator++(i32) except +
+        i32& operator--(i32) except +
 
-        int& operator+(int) except +
-        int& operator+(int,const TestOps&) except +
-        int& operator-(int) except +
-        int& operator-(int,const TestOps&) except +
-        int& operator*(int) except +
+        i32& operator+(i32) except +
+        i32& operator+(i32,const TestOps&) except +
+        i32& operator-(i32) except +
+        i32& operator-(i32,const TestOps&) except +
+        i32& operator*(i32) except +
         # deliberately omitted operator* to test case where only defined outside class
-        int& operator/(int) except +
-        int& operator/(int,const TestOps&) except +
-        int& operator%(int) except +
-        int& operator%(int,const TestOps&) except +
+        i32& operator/(i32) except +
+        i32& operator/(i32,const TestOps&) except +
+        i32& operator%(i32) except +
+        i32& operator%(i32,const TestOps&) except +
 
-        int& operator|(int) except +
-        int& operator|(int,const TestOps&) except +
-        int& operator&(int) except +
-        int& operator&(int,const TestOps&) except +
-        int& operator^(int) except +
-        int& operator^(int,const TestOps&) except +
-        int& operator,(int) except +
-        int& operator,(int,const TestOps&) except +
+        i32& operator|(i32) except +
+        i32& operator|(i32,const TestOps&) except +
+        i32& operator&(i32) except +
+        i32& operator&(i32,const TestOps&) except +
+        i32& operator^(i32) except +
+        i32& operator^(i32,const TestOps&) except +
+        i32& operator,(i32) except +
+        i32& operator,(i32,const TestOps&) except +
 
-        int& operator<<(int) except +
-        int& operator<<(int,const TestOps&) except +
-        int& operator>>(int) except +
-        int& operator>>(int,const TestOps&) except +
+        i32& operator<<(i32) except +
+        i32& operator<<(i32,const TestOps&) except +
+        i32& operator>>(i32) except +
+        i32& operator>>(i32,const TestOps&) except +
 
-        int& operator==(int) except +
-        int& operator!=(int) except +
-        int& operator>=(int) except +
-        int& operator<=(int) except +
-        int& operator>(int) except +
-        int& operator<(int) except +
+        i32& operator==(i32) except +
+        i32& operator!=(i32) except +
+        i32& operator>=(i32) except +
+        i32& operator<=(i32) except +
+        i32& operator>(i32) except +
+        i32& operator<(i32) except +
 
-        int& operator[](int) except +
-        int& operator()(int) except +
+        i32& operator[](i32) except +
+        i32& operator()(i32) except +
 
     cdef cppclass TruthClass:
         TruthClass()
@@ -156,7 +152,7 @@ def test_unops():
     unary * [const_char *]
     unary ! [const_char *]
     """
-    cdef TestOps* t = new TestOps()
+    let TestOps* t = new TestOps()
     out(+t[0], typeof(+t[0]))
     out(-t[0], typeof(-t[0]))
     out(~t[0], typeof(~t[0]))
@@ -173,7 +169,7 @@ def test_incdec():
     post ++ [const_char *]
     post -- [const_char *]
     """
-    cdef TestOps* t = new TestOps()
+    let TestOps* t = new TestOps()
     a = cython.operator.preincrement(t[0])
     out(a, typeof(a))
     b = cython.operator.predecrement(t[0])
@@ -199,7 +195,7 @@ def test_binop():
     binary >> [const_char *]
     binary COMMA [const_char *]
     """
-    cdef TestOps* t = new TestOps()
+    let TestOps* t = new TestOps()
     out(t[0] + 1, typeof(t[0] + 1))
     out(t[0] - 1, typeof(t[0] - 1))
     out(t[0] * 1, typeof(t[0] * 1))
@@ -242,7 +238,7 @@ def test_nonmember_binop():
     nonmember binary2 COMMA [const_char *]
     """
 
-    cdef TestOps* t = new TestOps()
+    let TestOps* t = new TestOps()
     out(1 + t[0], typeof(1 + t[0]))
     out(1 - t[0], typeof(1 - t[0]))
     # * deliberately omitted
@@ -284,7 +280,7 @@ def test_cmp():
     binary <= [const_char *]
     binary < [const_char *]
     """
-    cdef TestOps* t = new TestOps()
+    let TestOps* t = new TestOps()
     out(t[0] == 1, typeof(t[0] == 1))
     out(t[0] != 1, typeof(t[0] != 1))
     out(t[0] >= 1, typeof(t[0] >= 1))
@@ -293,18 +289,16 @@ def test_cmp():
     out(t[0] < 1, typeof(t[0] < 1))
     del t
 
-
 def test_index_call():
     """
     >>> test_index_call()
     binary [] [const_char *]
     binary () [const_char *]
     """
-    cdef TestOps* t = new TestOps()
+    let TestOps* t = new TestOps()
     out(t[0][100], typeof(t[0][100]))
     out(t[0](100), typeof(t[0](100)))
     del t
-
 
 def test_index_assignment():
     """
@@ -312,19 +306,18 @@ def test_index_assignment():
     0 [int &]
     123 [int [&]]
     """
-    cdef RefTestOps* t = new RefTestOps()
+    let RefTestOps* t = new RefTestOps()
     iout(t[0][100], typeof(t[0][100]))
     t[0][99] = 123
     iout(t[0](100), typeof(t[0](100)))
     del t
 
-
 def test_bool_op():
     """
     >>> test_bool_op()
     """
-    cdef TruthClass yes = TruthClass(True)
-    cdef TruthClass no = TruthClass(False)
+    let TruthClass yes = TruthClass(true)
+    let TruthClass no = TruthClass(false)
     if yes:
         pass
     else:
@@ -336,27 +329,26 @@ def test_bool_cond():
     """
     >>> test_bool_cond()
     """
-    assert (TruthClass(False) or TruthClass(False)).value == False
-    assert (TruthClass(False) or TruthClass(True)).value == True
-    assert (TruthClass(True) or TruthClass(False)).value == True
-    assert (TruthClass(True) or TruthClass(True)).value == True
+    assert (TruthClass(false) or TruthClass(false)).value == False
+    assert (TruthClass(false) or TruthClass(true)).value == True
+    assert (TruthClass(true) or TruthClass(false)).value == True
+    assert (TruthClass(true) or TruthClass(true)).value == True
 
-    assert (TruthClass(False) and TruthClass(False)).value == False
-    assert (TruthClass(False) and TruthClass(True)).value == False
-    assert (TruthClass(True) and TruthClass(False)).value == False
-    assert (TruthClass(True) and TruthClass(True)).value == True
+    assert (TruthClass(false) and TruthClass(false)).value == False
+    assert (TruthClass(false) and TruthClass(true)).value == False
+    assert (TruthClass(true) and TruthClass(false)).value == False
+    assert (TruthClass(true) and TruthClass(true)).value == True
 
-
-ctypedef int* int_ptr
+ctypedef i32* int_ptr
 
 def test_typeid_op():
     """
     >>> test_typeid_op()
     """
-    cdef TruthClass* test_1 = new TruthClass()
-    cdef TruthSubClass* test_2 = new TruthSubClass()
-    cdef TruthClass* test_3 = <TruthClass*> test_2
-    cdef TruthClass* test_4 = <TruthClass*> 0
+    let TruthClass* test_1 = new TruthClass()
+    let TruthSubClass* test_2 = new TruthSubClass()
+    let TruthClass* test_3 = <TruthClass*> test_2
+    let TruthClass* test_4 = <TruthClass*> 0
 
     assert typeid(TruthClass).name()
     assert typeid(test_1).name()

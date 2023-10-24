@@ -1,22 +1,20 @@
 # mode: compile
 
 cdef:
-
     struct PrivFoo:
-        int i
+        i32 i
 
-    int priv_i
+    i32 priv_i
 
     void priv_f():
         global priv_i
         priv_i = 42
 
-cdef public:
-
+pub:
     struct PubFoo:
-        int i
+        i32 i
 
-    int pub_v
+    i32 pub_v
 
     void pub_f():
         pass
@@ -29,8 +27,7 @@ cdef api:
     void api_f():
         pass
 
-cdef public api:
-
+pub api:
     void pub_api_f():
         pass
 

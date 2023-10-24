@@ -6,7 +6,7 @@ cimport cython
 s = "abc"
 l = [1, 2, 3]
 
-def normal_wraparound(int i, bytes B not None, list L not None):
+def normal_wraparound(i32 i, bytes B not None, list L not None):
     a = s[:]
     a = s[1:2]
     a = s[-2:-1]
@@ -24,8 +24,8 @@ def normal_wraparound(int i, bytes B not None, list L not None):
     b = [1, 2, 3][-2:i]
     b = L[-2:-1]
 
-@cython.wraparound(False)
-def no_wraparound(int i, bytes B not None, list L not None):
+@cython.wraparound(false)
+def no_wraparound(i32 i, bytes B not None, list L not None):
     a = s[:]
     a = s[1:2]
     a = s[-2:-1]

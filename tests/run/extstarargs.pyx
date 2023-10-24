@@ -1,11 +1,9 @@
 cimport cython
 
-cdef sorteditems(d):
+fn sorteditems(d):
     return tuple(sorted(d.items()))
 
-
 cdef class Silly:
-
     def __init__(self, *a):
         """
         >>> s = Silly(1,2,3, 'test')
@@ -14,12 +12,12 @@ cdef class Silly:
     def spam(self, x, y, z):
         """
         >>> s = Silly()
-        >>> s.spam(1,2,3)
+        >>> s.spam(1, 2, 3)
         (1, 2, 3)
-        >>> s.spam(1,2)
+        >>> s.spam(1, 2)
         Traceback (most recent call last):
         TypeError: spam() takes exactly 3 positional arguments (2 given)
-        >>> s.spam(1,2,3,4)
+        >>> s.spam(1, 2, 3, 4)
         Traceback (most recent call last):
         TypeError: spam() takes exactly 3 positional arguments (4 given)
         >>> s.spam(1,2,3, a=1)
@@ -31,13 +29,13 @@ cdef class Silly:
     def grail(self, x, y, z, *a):
         """
         >>> s = Silly()
-        >>> s.grail(1,2,3)
+        >>> s.grail(1, 2, 3)
         (1, 2, 3, ())
-        >>> s.grail(1,2,3,4)
+        >>> s.grail(1, 2, 3, 4)
         (1, 2, 3, (4,))
         >>> s.grail(1,2,3,4,5,6,7,8,9)
         (1, 2, 3, (4, 5, 6, 7, 8, 9))
-        >>> s.grail(1,2)
+        >>> s.grail(1, 2)
         Traceback (most recent call last):
         TypeError: grail() takes at least 3 positional arguments (2 given)
         >>> s.grail(1,2,3, a=1)
@@ -49,9 +47,9 @@ cdef class Silly:
     def swallow(self, x, y, z, **k):
         """
         >>> s = Silly()
-        >>> s.swallow(1,2,3)
+        >>> s.swallow(1, 2, 3)
         (1, 2, 3, ())
-        >>> s.swallow(1,2,3,4)
+        >>> s.swallow(1, 2, 3, 4)
         Traceback (most recent call last):
         TypeError: swallow() takes exactly 3 positional arguments (4 given)
         >>> s.swallow(1,2,3, a=1, b=2)
@@ -65,9 +63,9 @@ cdef class Silly:
     def creosote(self, x, y, z, *a, **k):
         """
         >>> s = Silly()
-        >>> s.creosote(1,2,3)
+        >>> s.creosote(1, 2, 3)
         (1, 2, 3, (), ())
-        >>> s.creosote(1,2,3,4)
+        >>> s.creosote(1, 2, 3, 4)
         (1, 2, 3, (4,), ())
         >>> s.creosote(1,2,3, a=1)
         (1, 2, 3, (), (('a', 1),))
@@ -84,7 +82,7 @@ cdef class Silly:
         >>> s = Silly()
         >>> s.onlyt(1)
         (1,)
-        >>> s.onlyt(1,2)
+        >>> s.onlyt(1, 2)
         (1, 2)
         >>> s.onlyt(a=1)
         Traceback (most recent call last):
@@ -95,13 +93,13 @@ cdef class Silly:
         """
         return a
 
-    @cython.binding(False)  # passthrough of exact same tuple can't work with binding
+    @cython.binding(false)  # passthrough of exact same tuple can't work with binding
     def onlyt_nobinding(self, *a):
         """
         >>> s = Silly()
         >>> s.onlyt_nobinding(1)
         (1,)
-        >>> s.onlyt_nobinding(1,2)
+        >>> s.onlyt_nobinding(1, 2)
         (1, 2)
         >>> s.onlyt_nobinding(a=1)
         Traceback (most recent call last):
@@ -149,7 +147,7 @@ cdef class Silly:
         """
         return a + sorteditems(k)
 
-    @cython.binding(False)  # passthrough of exact same tuple can't work with binding
+    @cython.binding(false)  # passthrough of exact same tuple can't work with binding
     def t_kwonly(self, *a, k):
         """
         >>> s = Silly()
@@ -157,7 +155,6 @@ cdef class Silly:
         True
         """
         return a
-
 
 def test_no_copy_args(func, **kw):
     """

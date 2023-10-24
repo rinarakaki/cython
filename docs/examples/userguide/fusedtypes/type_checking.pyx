@@ -2,15 +2,15 @@ cimport cython
 
 ctypedef fused bunch_of_types:
     bytes
-    int
-    float
+    i32
+    f32
 
 ctypedef fused string_t:
     cython.p_char
     bytes
     unicode
 
-cdef cython.integral myfunc(cython.integral i, bunch_of_types s):
+fn cython.integral myfunc(cython.integral i, bunch_of_types s):
     # Only one of these branches will be compiled for each specialization!
     if cython.integral is int:
         print('i is int')
@@ -23,6 +23,6 @@ cdef cython.integral myfunc(cython.integral i, bunch_of_types s):
         print("s is a string!")
     return i * 2
 
-myfunc(<int> 5, b'm')  # will print "i is an int" and "s is a string"
-myfunc(<long> 5, 3)    # will print "i is a long"
-myfunc(<short> 5, 3)   # will print "i is a short"
+myfunc(<i32>5, b'm')  # will print "i is an int" and "s is a string"
+myfunc(<i64>5, 3)    # will print "i is a long"
+myfunc(<i16>5, 3)   # will print "i is a short"

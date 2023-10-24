@@ -5,44 +5,49 @@ import cython
 from Cython.Plex.Actions cimport Action
 
 cdef class Scanner:
-
-    cdef public lexicon
-    cdef public stream
-    cdef public name
-    cdef public unicode buffer
-    cdef public Py_ssize_t buf_start_pos
-    cdef public Py_ssize_t next_pos
-    cdef public Py_ssize_t cur_pos
-    cdef public Py_ssize_t cur_line
-    cdef public Py_ssize_t cur_line_start
-    cdef public Py_ssize_t start_pos
+    pub lexicon
+    pub stream
+    pub name
+    pub unicode buffer
+    pub isize buf_start_pos
+    pub isize next_pos
+    pub isize cur_pos
+    pub isize cur_line
+    pub isize cur_line_start
+    pub isize start_pos
     cdef tuple current_scanner_position_tuple
-    cdef public tuple last_token_position_tuple
-    cdef public text
-    cdef public initial_state # int?
-    cdef public state_name
-    cdef public list queue
-    cdef public bint trace
-    cdef public cur_char
-    cdef public long input_state
+    pub tuple last_token_position_tuple
+    pub text
+    pub initial_state # int?
+    pub state_name
+    pub list queue
+    pub bint trace
+    pub cur_char
+    pub i64 input_state
 
-    cdef public level
+    pub level
 
-    @cython.locals(input_state=long)
-    cdef inline next_char(self)
+    @cython.locals(input_state=i64)
+    fn inline next_char(self)
+
     @cython.locals(action=Action)
     cpdef tuple read(self)
-    cdef inline unread(self, token, value, position)
-    cdef inline get_current_scan_pos(self)
-    cdef inline tuple scan_a_token(self)
+
+    fn inline unread(self, token, value, position)
+
+    fn inline get_current_scan_pos(self)
+
+    fn inline tuple scan_a_token(self)
+
     ##cdef tuple position(self)  # used frequently by Parsing.py
 
     @cython.final
-    @cython.locals(cur_pos=Py_ssize_t, cur_line=Py_ssize_t, cur_line_start=Py_ssize_t,
-                   input_state=long, next_pos=Py_ssize_t, state=dict,
-                   buf_start_pos=Py_ssize_t, buf_len=Py_ssize_t, buf_index=Py_ssize_t,
-                   trace=bint, discard=Py_ssize_t, data=unicode, buffer=unicode)
-    cdef run_machine_inlined(self)
+    @cython.locals(cur_pos=isize, cur_line=isize, cur_line_start=isize,
+                   input_state=i64, next_pos=isize, state=dict,
+                   buf_start_pos=isize, buf_len=isize, buf_index=isize,
+                   trace=bint, discard=isize, data=unicode, buffer=unicode)
+    fn run_machine_inlined(self)
 
-    cdef inline begin(self, state)
-    cdef inline produce(self, value, text = *)
+    fn inline begin(self, state)
+    
+    fn inline produce(self, value, text = *)

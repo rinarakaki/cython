@@ -6,8 +6,8 @@ from posix.types cimport (blkcnt_t, blksize_t, dev_t, gid_t, ino_t, mode_t,
 from posix.time cimport timespec
 
 
-cdef extern from "<sys/stat.h>" nogil:
-    cdef struct struct_stat "stat":
+extern from "<sys/stat.h>" nogil:
+    struct struct_stat "stat":
         dev_t   st_dev
         ino_t   st_ino
         mode_t  st_mode
@@ -33,25 +33,25 @@ cdef extern from "<sys/stat.h>" nogil:
         time_t  st_birthtime
 
 # POSIX prescribes including both <sys/stat.h> and <unistd.h> for these
-cdef extern from "<unistd.h>" nogil:
+extern from "<unistd.h>" nogil:
     int chmod(const char *, mode_t)
-    int fchmod(int, mode_t)
-    int fchmodat(int, const char *, mode_t, int flags)
+    int fchmod(i32, mode_t)
+    int fchmodat(i32, const char *, mode_t, i32 flags)
 
     int stat(const char *, struct_stat *)
     int lstat(const char *, struct_stat *)
-    int fstat(int, struct_stat *)
-    int fstatat(int, const char *, struct_stat *, int flags)
+    int fstat(i32, struct_stat *)
+    int fstatat(i32, const char *, struct_stat *, i32 flags)
 
     int mkdir(const char *, mode_t)
-    int mkdirat(int, const char *, mode_t)
+    int mkdirat(i32, const char *, mode_t)
     int mkfifo(const char *, mode_t)
-    int mkfifoat(int, const char *, mode_t)
+    int mkfifoat(i32, const char *, mode_t)
     int mknod(const char *, mode_t, dev_t)
-    int mknodat(int, const char *, mode_t, dev_t)
+    int mknodat(i32, const char *, mode_t, dev_t)
 
-    int futimens(int, const timespec *)
-    int utimensat(int, const char *, const timespec *, int flags)
+    int futimens(i32, const timespec *)
+    int utimensat(i32, const char *, const timespec *, i32 flags)
 
     # Macros for st_mode
     mode_t S_ISREG(mode_t)

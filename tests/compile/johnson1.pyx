@@ -3,8 +3,8 @@
 ctypedef enum foo:
     FOO
 
-cdef void func():
-    cdef foo x
+fn void func():
+    let foo x
     map = [FOO]
     x = map[0]
 

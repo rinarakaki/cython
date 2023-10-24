@@ -1,7 +1,7 @@
 # mode: compile
 # tag: struct, union, enum, cdefextern
 
-cdef extern from *:
+extern from *:
     """
     struct spam { int a; };
     struct flat_spam { int a; };
@@ -14,10 +14,10 @@ cdef extern from *:
     enum flat_ham { FLAT_TOAST };
     """
 
-    cdef struct spam:
+    struct Spam:
         pass
 
-    cdef struct flat_spam: pass
+    struct FlatSpam: pass
 
     ctypedef struct flat_spam_type: pass
 
@@ -26,18 +26,17 @@ cdef extern from *:
 
     ctypedef union flat_eggs: pass
 
-    cdef enum ham:
+    enum Ham:
         pass
 
-    cdef enum flat_ham: pass
+    enum FlatHam: pass
 
-
-cdef extern spam s
-cdef extern flat_spam fs
+cdef extern Spam s
+cdef extern FlatSpam fs
 cdef extern flat_spam_type fst
 
 cdef extern eggs e
 cdef extern flat_eggs fe
 
-cdef extern ham h
-cdef extern flat_ham fh
+cdef extern Ham h
+cdef extern FlatHam fh

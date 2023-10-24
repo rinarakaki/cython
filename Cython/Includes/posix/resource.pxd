@@ -4,7 +4,7 @@
 from posix.time  cimport timeval
 from posix.types cimport id_t
 
-cdef extern from "<sys/resource.h>" nogil:
+extern from "<sys/resource.h>" nogil:
 
     enum: PRIO_PROCESS
     enum: PRIO_PGRP
@@ -25,13 +25,13 @@ cdef extern from "<sys/resource.h>" nogil:
     enum: RLIMIT_STACK
     enum: RLIMIT_AS
 
-    ctypedef unsigned long rlim_t
+    ctypedef u64 rlim_t
 
-    cdef struct rlimit:
+    struct rlimit:
         rlim_t rlim_cur
         rlim_t rlim_max
 
-    cdef struct rusage:
+    struct rusage:
         timeval ru_utime
         timeval ru_stime
         # Linux-specific
@@ -50,8 +50,8 @@ cdef extern from "<sys/resource.h>" nogil:
         long    ru_nvcsw
         long    ru_nivcsw
 
-    int  getpriority(int, id_t)
-    int  getrlimit(int, rlimit *)
-    int  getrusage(int, rusage *)
-    int  setpriority(int, id_t, int)
-    int  setrlimit(int, const rlimit *)
+    int  getpriority(i32, id_t)
+    int  getrlimit(i32, rlimit *)
+    int  getrusage(i32, rusage *)
+    int  setpriority(i32, id_t, i32)
+    int  setrlimit(i32, const rlimit *)

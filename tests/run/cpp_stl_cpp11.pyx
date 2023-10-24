@@ -14,7 +14,6 @@ from libcpp.set cimport set
 from libcpp.deque cimport deque
 from libcpp.functional cimport reference_wrapper
 
-
 def test_reference_wrapper():
     """
     >>> test_reference_wrapper()
@@ -27,23 +26,21 @@ def test_reference_wrapper():
     assert ref_wrap_vector[0].get() == 1
     return "pass"
 
-
 def test_vector_functionality():
     """
     >>> test_vector_functionality()
     'pass'
     """
     cdef:
-        vector[int] int_vector = vector[int]()
+        vector[i32] int_vector = vector[i32]()
         int* data
-        const int* const_data
+        const i32* const_data
     int_vector.push_back(77)
     data = int_vector.data()
     const_data = int_vector.const_data()
     assert data[0] == 77
     assert const_data[0] == 77
     return "pass"
-
 
 def test_queue_functionality():
     """
@@ -59,7 +56,6 @@ def test_queue_functionality():
     assert int_queue2.size() == 1
     return "pass"
 
-
 def test_deque_functionality():
     """
     >>> test_deque_functionality()
@@ -70,7 +66,6 @@ def test_deque_functionality():
     int_deque.push_back(77)
     int_deque.shrink_to_fit()
     return "pass"
-
 
 def test_priority_queue_functionality():
     """
@@ -85,7 +80,6 @@ def test_priority_queue_functionality():
     assert int_queue.size() == 0
     assert int_queue2.size() == 1
     return "pass"
-
 
 def test_set_functionality():
     """
@@ -102,7 +96,6 @@ def test_set_functionality():
     assert int_set.erase(int_set.const_begin(), int_set.const_end()) == int_set.end()
     return "pass"
 
-
 def test_map_functionality():
     """
     >>> test_map_functionality()
@@ -114,7 +107,6 @@ def test_map_functionality():
     int_map[77] = NULL
     data = int_map.const_at(77)
     return "pass"
-
 
 def test_unordered_set_functionality():
     """
@@ -154,11 +146,9 @@ def test_unordered_set_functionality():
     assert int_set.load_factor() > 0
     return "pass"
 
-
-cdef extern from "cpp_unordered_map_helper.h":
+extern from "cpp_unordered_map_helper.h":
     cdef cppclass IntVectorHash:
         pass
-
 
 def test_unordered_map_functionality():
     """
@@ -166,15 +156,15 @@ def test_unordered_map_functionality():
     'pass'
     """
     cdef:
-        unordered_map[int, int] int_map = unordered_map[int,int]()
-        pair[int, int] pair_insert = pair[int, int](1, 2)
-        unordered_map[int,int].iterator iterator = int_map.begin()
-        pair[unordered_map[int,int].iterator, bint] pair_iter  = int_map.insert(pair_insert)
-        unordered_map[int, int] int_map2
+        unordered_map[i32, i32] int_map = unordered_map[i32, i32]()
+        pair[i32, i32] pair_insert = pair[i32, i32](1, 2)
+        unordered_map[i32, i32].iterator iterator = int_map.begin()
+        pair[unordered_map[i32, i32].iterator, bint] pair_iter  = int_map.insert(pair_insert)
+        unordered_map[i32, i32] int_map2
         unordered_map[int, int*] intptr_map
-        const int* intptr
-        unordered_map[vector[int], int, IntVectorHash] int_vector_map
-        vector[int] intvec
+        const i32* intptr
+        unordered_map[vector[i32], int, IntVectorHash] int_vector_map
+        vector[i32] intvec
     assert int_map[1] == 2
     assert int_map.size() == 1
     assert int_map.erase(1) == 1 # returns number of elements erased
@@ -190,7 +180,7 @@ def test_unordered_map_functionality():
     int_map.clear()
     int_map.insert(int_map2.begin(), int_map2.end())
     assert int_map.size() == 2
-    assert int_map.erase(unordered_map[int,int].const_iterator(int_map.begin()), unordered_map[int,int].const_iterator(int_map.end())) == int_map.end()
+    assert int_map.erase(unordered_map[i32, i32].const_iterator(int_map.begin()), unordered_map[i32, i32].const_iterator(int_map.end())) == int_map.end()
 
     int_map.max_load_factor(0.5)
     assert int_map.max_load_factor() == 0.5

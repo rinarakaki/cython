@@ -8,8 +8,7 @@ import os
 import sys
 from distutils import sysconfig
 
-
-cdef extern from *:
+extern from *:
     """
     #ifndef PyLong_SHIFT
     #define PyLong_SHIFT 0
@@ -67,7 +66,6 @@ cdef extern from *:
     cdef int digit
     cdef int sdigit
 
-
 def config_var(name, default=''):
     return sysconfig.get_config_var(name) or default
 
@@ -105,12 +103,12 @@ sizeof(sdigit)  {sizeof(sdigit)}
 sys.int_info  {getattr(sys, 'int_info', '-')}
 sys.getsizeof(1, 2**14, 2**15, 2**29, 2**30, 2**59, 2**60, 2**64)  {tuple(sys.getsizeof(n) for n in (1, 2**14, 2**15, 2**29, 2**30, 2**59, 2**60, 2**64))}
 
-SIZEOF_INT  {SIZEOF_INT}  ({sizeof(int)})
-SIZEOF_LONG  {SIZEOF_LONG}  ({sizeof(long)})
+SIZEOF_INT  {SIZEOF_INT}  ({sizeof(i32)})
+SIZEOF_LONG  {SIZEOF_LONG}  ({sizeof(i64)})
 SIZEOF_SIZE_T  {SIZEOF_SIZE_T}  ({sizeof(Py_ssize_t)}, {getattr(sys, 'maxsize', getattr(sys, 'maxint', None))})
 SIZEOF_LONG_LONG  {SIZEOF_LONG_LONG}  ({sizeof(long long)})
 SIZEOF_VOID_P  {SIZEOF_VOID_P}  ({sizeof(void*)})
-SIZEOF_UINTPTR_T  {SIZEOF_UINTPTR_T}  ({sizeof(unsigned int *)})
+SIZEOF_UINTPTR_T  {SIZEOF_UINTPTR_T}  ({sizeof(u32 *)})
 SIZEOF_OFF_T  {SIZEOF_OFF_T}
 
 Paths:

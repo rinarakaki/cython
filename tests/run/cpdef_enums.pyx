@@ -58,7 +58,7 @@ Traceback (most recent call last):
 NameError: ...name 'IntEnum' is not defined
 """
 
-cdef extern from *:
+extern from *:
     cpdef enum: # ExternPyx
         ONE "1"
         TEN "10"
@@ -81,15 +81,15 @@ cpdef enum cpdefPyxDocLineEnum:
     """Home is where..."""
     FOURTEEN = 14
 
-cdef enum SecretPyxEnum:
+enum SecretPyxEnum:
     SEVEN = 7
 
-cdef enum cdefPyxDocEnum:
+enum cdefPyxDocEnum:
     """the heart is.
     """
     FIVE_AND_SEVEN = 5077
 
-cdef extern from *:
+extern from *:
     """
     enum ExternHasDuplicates {
         EX_DUP_A,
@@ -126,10 +126,10 @@ def test_as_variable_from_cython():
     assert list(PyxEnum) == [TWO, THREE, FIVE], list(PyxEnum)
     assert list(PxdEnum) == [RANK_0, RANK_1, RANK_2], list(PxdEnum)
 
-cdef int verify_pure_c() nogil:
-    cdef int x = TWO
-    cdef int y = PyxEnum.THREE
-    cdef int z = SecretPyxEnum.SEVEN
+fn i32 verify_pure_c() nogil:
+    let i32 x = TWO
+    let i32 y = PyxEnum.THREE
+    let i32 z = SecretPyxEnum.SEVEN
     return x + y + z
 
 # Use it to suppress warning.
@@ -206,7 +206,7 @@ def to_from_py_conversion_with_duplicates4(CyDefinedHasDuplicates3 val):
     """
     Mainly a compile-time test - we can't optimize to a switch here
     >>> import sys
-    >>> True if sys.version_info < (3, 6, 0) else to_from_py_conversion_with_duplicates4(CY_DUP3_C) == CyDefinedHasDuplicates3.CY_DUP3_C
+    >>> true if sys.version_info < (3, 6, 0) else to_from_py_conversion_with_duplicates4(CY_DUP3_C) == CyDefinedHasDuplicates3.CY_DUP3_C
     True
     """
     return val

@@ -3,13 +3,13 @@
 # ticket: t768
 from cython cimport typeof
 
-cdef extern from "shapes.h" namespace "shapes":
+extern from "shapes.h" namespace "shapes":
     cdef cppclass Shape:
         float area()
 
     cdef cppclass Circle(Shape):
         int radius
-        Circle(int)
+        Circle(i32)
 
 def type_inference_del_cpp():
     """

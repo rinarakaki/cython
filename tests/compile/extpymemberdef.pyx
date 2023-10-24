@@ -1,16 +1,16 @@
 # mode: compile
 
 cdef class Spam:
-    cdef public char c
-    cdef public int i
-    cdef public long l
-    cdef public unsigned char uc
-    cdef public unsigned int ui
-    cdef public unsigned long ul
-    cdef public float f
-    cdef public double d
-    cdef public char *s
+    pub i8 c
+    pub i32 i
+    pub i64 l
+    pub u8 uc
+    pub u32 ui
+    pub u64 ul
+    pub f32 f
+    pub f64 d
+    pub char *s
     cdef readonly char[42] a
-    cdef public object o
-    cdef readonly int r
+    pub object o
+    cdef readonly i32 r
     cdef readonly Spam e

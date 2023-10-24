@@ -1,16 +1,16 @@
 # mode: compile
 
-cdef enum E:
-    a
+enum E:
+    A
 
-cdef enum G:
-    b
+enum G:
+    B
 
-cdef void f():
-    cdef E e=a
-    cdef G g=b
-    cdef int i, j=0
-    cdef float f, h=0
+fn void f():
+    let E e = A
+    let G g = B
+    let i32 i, j = 0
+    let f32 f, h = 0
     i = j | e
     i = e | j
     i = j ^ e
@@ -22,10 +22,10 @@ cdef void f():
     i = j * e
     i = j / e
     i = j % e
-    # f = j ** e # Cython prohibits this
+    # f = j ** e  # Cython prohibits this
     i = e + g
     f = h
-    i = ~a
-    i = -a
+    i = ~A
+    i = -A
 
 f()

@@ -20,16 +20,16 @@ setup(
 
 ######## a.pxd ########
 
-ctypedef api float flt
+ctypedef api f32 flt
 
-cdef int   int0
-cdef float flt0
+fn i32 int0
+fn f32 flt0
 
-cdef api int   int1
-cdef api float flt1
+cdef api i32 int1
+cdef api f32 flt1
 
-cdef public api int int2
-cdef public api flt flt2
+pub api i32 int2
+pub api flt flt2
 
 cdef class A0:
      pass
@@ -40,7 +40,7 @@ ctypedef api class A1 [
      ]:
      pass
 
-ctypedef public api class A2 [
+ctypedef pub api class A2 [
      type A2_Type, 
      object A2Object
      ]:
@@ -48,18 +48,18 @@ ctypedef public api class A2 [
 
 cdef A0 a0
 cdef api A1 a1
-cdef public api A2 a2
+pub api A2 a2
 
 ######## a.pyx ########
 
-cdef int   int0 = 1, int1 = 1, int2 = 1
-cdef float flt0 = 1, flt1 = 1, flt2 = 1
+cdef i32 int0 = 1, int1 = 1, int2 = 1
+cdef f32 flt0 = 1, flt1 = 1, flt2 = 1
 
-cdef api int int3 = 1
+cdef api i32 int3 = 1
 cdef api flt flt3 = 1
 
-cdef public int int4 = 1
-cdef public flt flt4 = 1
+pub i32 int4 = 1
+pub flt flt4 = 1
 
 def get_int():
     return (int0, int1, int2, int3, int4)
@@ -73,7 +73,7 @@ cdef class A2: pass
 
 cdef A0 a0 = A0()
 cdef api A1 a1 = A1()
-cdef public api A2 a2 = A2()
+pub api A2 a2 = A2()
 
 ######## b.pyx ########
 
@@ -86,10 +86,10 @@ flt0 = flt1 = flt2 = 7
 
 # distutils: language = c++
 
-cdef extern from "a_api.h":
-     int import_a() except -1
-     ctypedef float flt
-     int int1, int2, int3
+extern from "a_api.h":
+     i32 import_a() except -1
+     ctypedef f32 flt
+     i32 int1, int2, int3
      flt flt1, flt2, flt3
 
 import_a()
@@ -127,14 +127,14 @@ void inita(void)
 
 ######## d.pyx ########
 
-cdef extern from "a.h":
+extern from "a.h":
      pass
-cdef extern from "inita.h":
+extern from "inita.h":
      pass
-cdef extern from "a.h":
+extern from "a.h":
      void inita() except *
-     ctypedef float flt
-     int int2, int4
+     ctypedef f32 flt
+     i32 int2, int4
      flt flt2, flt4
 
 inita()

@@ -7,7 +7,7 @@ cdef class Curseur:
     def detail(self):
         return produire_fiches(self.tri)
 
-cdef produire_fiches(Tri tri):
+fn produire_fiches(Tri tri):
     return tri.test()
 
 def test():
@@ -15,7 +15,7 @@ def test():
     >>> test()
     1
     """
-    cdef Curseur c
+    let Curseur c
     c = Curseur()
     c.tri = Tri()
     return c.detail()

@@ -1,9 +1,9 @@
 cdef class Spam:
     pass
 
-cdef void foo(object blarg):
+fn void foo(object blarg):
     pass
 
-cdef void xyzzy():
-    cdef Spam spam
+fn void xyzzy():
+    let Spam spam
     foo(spam)

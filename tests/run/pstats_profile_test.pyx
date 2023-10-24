@@ -117,27 +117,24 @@ u"""
 
 cimport cython
 
-
 # FIXME: With type specs, cpdef methods are currently counted twice.
 # https://github.com/cython/cython/issues/2137
-cdef extern from *:
+extern from *:
     int CYTHON_USE_TYPE_SPECS
 
 CPDEF_METHODS_COUNT_TWICE = CYTHON_USE_TYPE_SPECS
 
-
 def callees(pstats, target_caller):
     pstats.calc_callees()
     for (_, _, caller), callees in pstats.all_callees.items():
-      if caller == target_caller:
-        for (file, line, callee) in callees.keys():
-            if 'pyx' in file:
-                yield callee
-
+        if caller == target_caller:
+            for (file, line, callee) in callees.keys():
+                if 'pyx' in file:
+                    yield callee
 
 def test_profile(long N):
-    cdef long i, n = 0
-    cdef A a = A()
+    let i64 i, n = 0
+    let A a = A()
     for i in range(N):
         n += f_def(i)
         n += f_cdef(i)
@@ -161,49 +158,49 @@ def test_profile(long N):
             pass
     return n
 
-def f_def(long a):
+def f_def(i64 a):
     return a
 
-cdef long f_cdef(long a):
+fn i64 f_cdef(i64 a):
     return a
 
-cpdef long f_cpdef(long a):
+cpdef long f_cpdef(i64 a):
     return a
 
-cdef inline long f_inline(long a):
+fn inline i64 f_inline(i64 a):
     return a
 
-@cython.profile(True)
-cdef inline long f_inline_prof(long a):
+@cython.profile(true)
+fn inline i64 f_inline_prof(i64 a):
     return a
 
-@cython.profile(False)
-cdef int f_noprof(long a):
+@cython.profile(false)
+fn i32 f_noprof(i64 a):
     return a
 
-cdef long f_raise(long) except -2:
+fn i64 f_raise(long) except -2:
     raise RuntimeError
 
-@cython.profile(False)
-cdef int withgil_noprof(long a) with gil:
+@cython.profile(false)
+fn i32 withgil_noprof(i64 a) with gil:
     return (a)
-@cython.profile(True)
-cdef int withgil_prof(long a) with gil:
+@cython.profile(true)
+fn i32 withgil_prof(i64 a) with gil:
     return (a)
 
-@cython.profile(False)
-cdef int nogil_noprof(long a) nogil:
+@cython.profile(false)
+fn i32 nogil_noprof(i64 a) nogil:
     return a
-@cython.profile(True)
-cdef int nogil_prof(long a) nogil:
+@cython.profile(true)
+fn i32 nogil_prof(i64 a) nogil:
     return a
 
 cdef class A(object):
-    def m_def(self, long a):
+    def m_def(self, i64 a):
         return a
-    cpdef m_cpdef(self, long a):
+    cpdef m_cpdef(self, i64 a):
         return a
-    cdef m_cdef(self, long a):
+    fn m_cdef(self, i64 a):
         return a
 
 def test_generators():

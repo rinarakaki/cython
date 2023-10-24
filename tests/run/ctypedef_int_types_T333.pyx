@@ -1,19 +1,19 @@
 # ticket: t333
-#cython: autotestdict=True
+#cython: autotestdict=true
 
 # -------------------------------------------------------------------
 
-cdef extern from "ctypedef_int_types_chdr_T333.h":
-     ctypedef int SChar     ## "signed char"
-     ctypedef int UChar     ## "unsigned char"
-     ctypedef int SShort    ## "signed short"
-     ctypedef int UShort    ## "unsigned short"
-     ctypedef int SInt      ## "signed int"
-     ctypedef int UInt      ## "unsigned int"
-     ctypedef int SLong     ## "signed long"
-     ctypedef int ULong     ## "unsigned long"
-     ctypedef int SLongLong ## "signed PY_LONG_LONG"
-     ctypedef int ULongLong ## "unsigned PY_LONG_LONG"
+extern from "ctypedef_int_types_chdr_T333.h":
+     ctypedef i32 SChar     ## "signed char"
+     ctypedef i32 UChar     ## "unsigned char"
+     ctypedef i32 SShort    ## "signed short"
+     ctypedef i32 UShort    ## "unsigned short"
+     ctypedef i32 SInt      ## "signed int"
+     ctypedef i32 UInt      ## "unsigned int"
+     ctypedef i32 SLong     ## "signed long"
+     ctypedef i32 ULong     ## "unsigned long"
+     ctypedef i32 SLongLong ## "signed PY_LONG_LONG"
+     ctypedef i32 ULongLong ## "unsigned PY_LONG_LONG"
 
 # -------------------------------------------------------------------
 
@@ -265,7 +265,7 @@ def test_add_uint(x, y):
 SLONG_MAX = <SLong>((<ULong>-1)>>1)
 SLONG_MIN = (-SLONG_MAX-1)
 
-def test_slong(long x):
+def test_slong(i64 x):
    u"""
    >>> test_slong(SLONG_MIN-1) #doctest: +ELLIPSIS
    Traceback (most recent call last):
@@ -348,7 +348,7 @@ def test_add_ulong(x, y):
 SLONGLONG_MAX = <SLongLong>((<ULongLong>-1)>>1)
 SLONGLONG_MIN = (-SLONGLONG_MAX-1)
 
-def test_slonglong(long long x):
+def test_slonglong(i128 x):
    u"""
    >>> test_slonglong(SLONGLONG_MIN-1) #doctest: +ELLIPSIS
    Traceback (most recent call last):
@@ -506,7 +506,7 @@ cdef class MyClass:
 
 # -------------------------------------------------------------------
 
-cdef extern from *:
+extern from *:
     ctypedef signed   MySInt1 "signed short"
     ctypedef unsigned MyUInt1 "unsigned short"
 
@@ -534,7 +534,7 @@ def test_MyUInt1(MyUInt1 x):
    """
    return x
 
-cdef extern from *:
+extern from *:
     ctypedef signed   MySInt2 "signed short"
     ctypedef unsigned MyUInt2 "unsigned short"
 

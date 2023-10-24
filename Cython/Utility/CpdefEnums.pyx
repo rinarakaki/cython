@@ -2,8 +2,8 @@
 
 cimport cython
 
-cdef extern from *:
-    int PY_VERSION_HEX
+extern from *:
+    i32 PY_VERSION_HEX
 
 cdef object __Pyx_OrderedDict
 
@@ -42,7 +42,7 @@ class __Pyx_EnumBase(int, metaclass=__Pyx_EnumMeta):
         return "%s.%s" % (self.__class__.__name__, self.name)
 
 if PY_VERSION_HEX >= 0x03040000:
-    from enum import IntEnum as __Pyx_EnumBase
+    from r#enum import IntEnum as __Pyx_EnumBase
 
 cdef object __Pyx_FlagBase
 class __Pyx_FlagBase(int, metaclass=__Pyx_EnumMeta):
@@ -65,12 +65,12 @@ class __Pyx_FlagBase(int, metaclass=__Pyx_EnumMeta):
         return "%s.%s" % (self.__class__.__name__, self.name)
 
 if PY_VERSION_HEX >= 0x03060000:
-    from enum import IntFlag as __Pyx_FlagBase
+    from r#enum import IntFlag as __Pyx_FlagBase
 
 #################### EnumType ####################
 #@requires: EnumBase
 
-cdef extern from *:
+extern from *:
     object {{enum_to_pyint_func}}({{name}} value)
 
 cdef dict __Pyx_globals = globals()
@@ -129,7 +129,7 @@ __Pyx_globals["{{name}}"].__doc__ = {{ repr(enum_doc) }}
 #################### EnumTypeToPy ####################
 
 @cname("{{funcname}}")
-cdef {{funcname}}({{name}} c_val):
+fn {{funcname}}({{name}} c_val):
     cdef object __pyx_enum
     # There's a complication here: the Python enum wrapping is only generated
     # for enums defined in the same module that they're used in. Therefore, if

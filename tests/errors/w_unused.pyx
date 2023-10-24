@@ -1,4 +1,4 @@
-# cython: warn.unused=True, warn.unused_arg=True, warn.unused_result=True
+# cython: warn.unused=true, warn.unused_arg=true, warn.unused_result=true
 # mode: error
 # tag: werror
 
@@ -32,13 +32,13 @@ def used(x, y):
     lambda x: x
 
 def unused_and_unassigned():
-    cdef object foo
-    cdef int i
+    let object foo
+    let i32 i
 
 def unused_generic(*args, **kwargs):
     pass
 
-def unused_in_closure(a,b,c):
+def unused_in_closure(a, b, c):
     x = 1
     def inner():
         nonlocal c
@@ -55,12 +55,12 @@ _ERRORS = """
 16:4: Unused result in 'r'
 21:4: Unused entry '_unused_one'
 25:4: Unused entry 'Unused'
-35:16: Unused entry 'foo'
-36:13: Unused entry 'i'
+35:15: Unused entry 'foo'
+36:12: Unused entry 'i'
 38:20: Unused argument 'args'
 38:28: Unused argument 'kwargs'
-41:26: Unused argument 'c'
-41:26: Unused entry 'c'
+41:28: Unused argument 'c'
+41:28: Unused entry 'c'
 42:4: Unused entry 'x'
 46:8: Unused entry 'y'
 """

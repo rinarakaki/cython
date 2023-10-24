@@ -5,7 +5,7 @@
 # This is intentionally in a file on its own. The issue was that it failed to generate utility-code
 # and so putting it with the other c++ exception checks wouldn't be a useful test
 
-cdef extern from *:
+extern from *:
     """
     #include <stdexcept>
 
@@ -17,10 +17,9 @@ cdef extern from *:
         }
     }
     """
-    void cppf(int) except+*
+    void cppf(i32) except+*
 
-
-def callcppf(int raiseCpp):
+def callcppf(i32 raiseCpp):
     """
     >>> callcppf(0)
     py

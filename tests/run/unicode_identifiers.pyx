@@ -45,7 +45,7 @@ if sys.version_info[0] > 2:
     >>> C().Ƒ()
 
     Test generation of locals()
-    >>> sorted(Γναμε2().boring_function(1,2).keys())
+    >>> sorted(Γναμε2().boring_function(1, 2).keys())
     ['self', 'somevalue', 'x', 'ναμε5', 'ναμε6']
 
     >>> Γναμε2().boring_cpdef() - Γναμε2().εxciting_cpdef()
@@ -89,7 +89,7 @@ cdef class A:
     cdef int ναμε
     def __init__(self):
         self.ναμε = 1
-    cdef Ƒ(self):
+    fn Ƒ(self):
         return self.ναμε == 1
     def regular_function(self):
         """
@@ -113,11 +113,11 @@ def regular_function():
     >>> regular_function()
     10
     """
-    cdef int variableƑ = 5
+    let i32 variableƑ = 5
     ναμε2 = 2
     return variableƑ*ναμε2
 
-cdef Fα1():
+fn Fα1():
     """docstring"""
     ναμε2 = 2
     raise RuntimeError() # forces generation of a traceback
@@ -164,10 +164,10 @@ cdef class Γναμε2:
             pass
         return nestεd
 
-    cdef boring_cdef(self):
+    fn boring_cdef(self):
         """docstring"""
         pass
-    cdef εxciting_cdef(self):
+    fn εxciting_cdef(self):
         """docstring"""
         pass
 
@@ -184,11 +184,11 @@ cdef class Derived(Γναμε2):
 cdef Γναμε2 global_ναμε3 = Γναμε2()
 
 
-@cython.always_allow_keywords(False)  # METH_O signature
+@cython.always_allow_keywords(false)  # METH_O signature
 def metho_function_taking_fancy_argument(Γναμε2 αrγ):
     return αrγ
 
-@cython.always_allow_keywords(True)
+@cython.always_allow_keywords(true)
 def function_taking_fancy_argument(Γναμε2 αrγ):
     return αrγ
 

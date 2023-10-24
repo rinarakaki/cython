@@ -5,7 +5,7 @@ from libcpp cimport bool
 
 def test_bool(bool a):
     """
-    >>> test_bool(True)
+    >>> test_bool(true)
     True
     >>> test_bool(1)
     True
@@ -21,7 +21,7 @@ def test_bool(bool a):
     return a
 
 
-cdef bool may_raise_exception(bool value, exception) except *:
+fn bool may_raise_exception(bool value, exception) except *:
     if exception:
         raise exception
     else:
@@ -29,9 +29,9 @@ cdef bool may_raise_exception(bool value, exception) except *:
 
 def test_may_raise_exception(bool value, exception=None):
     """
-    >>> test_may_raise_exception(False)
+    >>> test_may_raise_exception(false)
     False
-    >>> test_may_raise_exception(True)
+    >>> test_may_raise_exception(true)
     True
     >>> test_may_raise_exception(True, RuntimeError)
     Traceback (most recent call last):

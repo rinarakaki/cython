@@ -39,7 +39,7 @@ def genexp_set():
 
 cdef class A:
     def __repr__(self): return u"A"
-    def __richcmp__(one, other, int op): return one is other
+    def __richcmp__(one, other, i32 op): return one is other
     def __hash__(self): return id(self) % 65536
 
 def typed():
@@ -47,7 +47,7 @@ def typed():
     >>> list(typed())
     [A, A, A]
     """
-    cdef A obj
+    let A obj
     return {obj for obj in {A(), A(), A()}}
 
 def iterdict():
@@ -55,7 +55,7 @@ def iterdict():
     >>> sorted(iterdict())
     [1, 2, 3]
     """
-    cdef dict d = dict(a=1,b=2,c=3)
+    let dict d = dict(a=1,b=2,c=3)
     return {d[key] for key in d}
 
 def sorted(it):

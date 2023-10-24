@@ -30,9 +30,9 @@ True
 >>> [test_cdiv_cmod(a, b) for a, b in [(4, -4), (4, -2), (4, -1)]]
 [(-1, 0), (-2, 0), (-4, 0)]
 
->>> all([mod_int_py(a,b) == a % b for a in range(-10, 10) for b in range(-10, 10) if b != 0])
+>>> all([mod_int_py(a, b) == a % b for a in range(-10, 10) for b in range(-10, 10) if b != 0])
 True
->>> all([div_int_py(a,b) == a // b for a in range(-10, 10) for b in range(-10, 10) if b != 0])
+>>> all([div_int_py(a, b) == a // b for a in range(-10, 10) for b in range(-10, 10) if b != 0])
 True
 """
 
@@ -48,8 +48,8 @@ del true_py_functions
 def _all(seq):
     for x in seq:
         if not x:
-            return False
-    return True
+            return false
+    return true
 
 try:
     all
@@ -59,53 +59,51 @@ except NameError:
 
 cimport cython
 
-@cython.cdivision(False)
-def mod_int_py(int a, int b):
+@cython.cdivision(false)
+def mod_int_py(i32 a, i32 b):
     return a % b
 
-@cython.cdivision(False)
-def mod_short_py(short a, short b):
+@cython.cdivision(false)
+def mod_short_py(i16 a, i16 b):
     return a % b
 
-@cython.cdivision(False)
-def mod_double_py(double a, double b):
+@cython.cdivision(false)
+def mod_double_py(f64 a, f64 b):
     return a % b
 
-@cython.cdivision(False)
-def mod_float_py(float a, float b):
+@cython.cdivision(false)
+def mod_float_py(f32 a, f32 b):
     return a % b
 
-@cython.cdivision(True)
-def mod_int_c(int a, int b):
+@cython.cdivision(true)
+def mod_int_c(i32 a, i32 b):
     return a % b
 
-@cython.cdivision(True)
-def mod_float_c(float a, float b):
+@cython.cdivision(true)
+def mod_float_c(f32 a, f32 b):
     return a % b
 
-@cython.cdivision(True)
-def mod_double_c(double a, double b):
+@cython.cdivision(true)
+def mod_double_c(f64 a, f64 b):
     return a % b
 
-
-@cython.cdivision(False)
-def div_int_py(int a, int b):
+@cython.cdivision(false)
+def div_int_py(i32 a, i32 b):
     return a // b
 
-@cython.cdivision(True)
-def div_int_c(int a, int b):
+@cython.cdivision(true)
+def div_int_c(i32 a, i32 b):
     return a // b
 
-
-@cython.cdivision(False)
-def test_cdiv_cmod(short a, short b):
-    cdef short q = cython.cdiv(a, b)
-    cdef short r = cython.cmod(a, b)
+@cython.cdivision(false)
+def test_cdiv_cmod(i16 a, i16 b):
+    let i16 q = cython.cdiv(a, b)
+    let i16 r = cython.cmod(a, b)
     return q, r
 
-@cython.cdivision(True)
-@cython.cdivision_warnings(True)
-def mod_int_c_warn(int a, int b):
+@cython.cdivision(true)
+@cython.cdivision_warnings(true)
+def mod_int_c_warn(i32 a, i32 b):
     """
     >>> warnings.showwarning = simple_warn
     >>> mod_int_c_warn(-17, 10)
@@ -115,9 +113,9 @@ def mod_int_c_warn(int a, int b):
     """
     return a % b
 
-@cython.cdivision(True)
-@cython.cdivision_warnings(True)
-def div_int_c_warn(int a, int b):
+@cython.cdivision(true)
+@cython.cdivision_warnings(true)
+def div_int_c_warn(i32 a, i32 b):
     """
     >>> warnings.showwarning = simple_warn
     >>> div_int_c_warn(-17, 10)
@@ -127,9 +125,9 @@ def div_int_c_warn(int a, int b):
     """
     return a // b
 
-@cython.cdivision(False)
-@cython.cdivision_warnings(True)
-def complex_expression(int a, int b, int c, int d):
+@cython.cdivision(false)
+@cython.cdivision_warnings(true)
+def complex_expression(i32 a, i32 b, i32 c, i32 d):
     """
     >>> warnings.showwarning = simple_warn
     >>> complex_expression(-150, 20, 19, -7)
@@ -142,15 +140,14 @@ def complex_expression(int a, int b, int c, int d):
     """
     return (a // verbose_call(b)) % (verbose_call(c) // d)
 
-cdef int verbose_call(int x):
+fn i32 verbose_call(i32 x):
     print u"verbose_call(%s)" % x
     return x
 
-
 # These may segfault with cdivision
 
-@cython.cdivision(False)
-def mod_div_zero_int(int a, int b, int c):
+@cython.cdivision(false)
+def mod_div_zero_int(i32 a, i32 b, i32 c):
     """
     >>> mod_div_zero_int(25, 10, 2)
     verbose_call(5)
@@ -166,8 +163,8 @@ def mod_div_zero_int(int a, int b, int c):
     except ZeroDivisionError, ex:
         return unicode(ex)
 
-@cython.cdivision(False)
-def mod_div_zero_float(float a, float b, float c):
+@cython.cdivision(false)
+def mod_div_zero_float(f32 a, f32 b, f32 c):
     """
     >>> mod_div_zero_float(25, 10, 2)
     2.5
@@ -181,8 +178,8 @@ def mod_div_zero_float(float a, float b, float c):
     except ZeroDivisionError, ex:
         return unicode(ex)
 
-@cython.cdivision(False)
-def py_div_long(long a, long b):
+@cython.cdivision(false)
+def py_div_long(i64 a, i64 b):
     """
     >>> py_div_long(-5, -1)
     5
@@ -202,6 +199,6 @@ def c_div_const_test(a, b):
     """
     return c_div_const(a, b)
 
-cdef long c_div_const(const long a, int b):
-    cdef long c = a / b
+fn i64 c_div_const(const i64 a, i32 b):
+    let i64 c = a / b
     return c

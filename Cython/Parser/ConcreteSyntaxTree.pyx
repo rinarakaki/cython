@@ -1,29 +1,29 @@
-cdef extern from "graminit.c":
+extern from "graminit.c":
     ctypedef struct grammar:
         pass
     cdef grammar _PyParser_Grammar
     cdef int Py_file_input
 
-cdef extern from "node.h":
+extern from "node.h":
     ctypedef struct node
     void PyNode_Free(node* n)
     int NCH(node* n)
-    node* CHILD(node* n, int ix)
-    node* RCHILD(node* n, int ix)
+    node* CHILD(node* n, i32 ix)
+    node* RCHILD(node* n, i32 ix)
     short TYPE(node* n)
     char* STR(node* n)
 
-cdef extern from "parsetok.h":
+extern from "parsetok.h":
     ctypedef struct perrdetail:
         pass
-    cdef void PyParser_SetError(perrdetail *err) except *
-    cdef node * PyParser_ParseStringFlagsFilenameEx(
+    fn void PyParser_SetError(perrdetail *err) except *
+    fn node * PyParser_ParseStringFlagsFilenameEx(
         const char * s,
         const char * filename,
         grammar * g,
         int start,
         perrdetail * err_ret,
-        int * flags)
+        i32 * flags)
 
 import distutils.sysconfig
 import os
@@ -44,7 +44,7 @@ def extract_names(path):
 
 cdef dict type_names = {}
 
-cdef print_tree(node* n, indent=""):
+fn print_tree(node* n, indent=""):
     if not type_names:
         type_names.update(extract_names(
             os.path.join(distutils.sysconfig.get_python_inc(), 'token.h')))

@@ -1,33 +1,33 @@
-cdef struct Grail
+struct Grail
 
-cdef struct Spam:
-    int i
+struct Spam:
+    i32 i
     char c
-    float *p[42]
+    f32 *p[42]
     Grail *g
 
-cdef struct Grail:
+struct Grail:
     Spam *s
 
 cdef Spam spam, ham
 
-cdef void eggs_i(Spam s):
-    cdef int j
+fn void eggs_i(Spam s):
+    let i32 j
     j = s.i
     s.i = j
 
-cdef void eggs_c(Spam s):
-    cdef char c
+fn void eggs_c(Spam s):
+    let char c
     c = s.c
     s.c = c
 
-cdef void eggs_p(Spam s):
-    cdef float *p
+fn void eggs_p(Spam s):
+    let f32 *p
     p = s.p[0]
     s.p[0] = p
 
-cdef void eggs_g(Spam s):
-    cdef float *p
+fn void eggs_g(Spam s):
+    let f32 *p
     p = s.p[0]
     s.p[0] = p
 
@@ -51,7 +51,7 @@ def test_p():
     """
     >>> test_p()
     """
-    cdef float f
+    let f32 f
     spam.p[0] = &f
     eggs_p(spam)
 
@@ -59,21 +59,20 @@ def test_g():
     """
     >>> test_g()
     """
-    cdef Grail l
+    let Grail l
     spam.g = &l
     eggs_g(spam)
 
-
-cdef struct Ints:
-    int a, b
+struct Ints:
+    i32 a, b
 
 def assign_fields_in_loop():
     """
     >>> assign_fields_in_loop()
     2
     """
-    cdef int i = 0
-    cdef Ints s
+    let i32 i = 0
+    let Ints s
     for s.a, s.b in enumerate(range(3)):
         assert s.a == s.b
         assert s.a == i

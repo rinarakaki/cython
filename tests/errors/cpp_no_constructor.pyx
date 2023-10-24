@@ -1,10 +1,10 @@
 # tag: cpp
 # mode: error
 
-cdef extern from *:
+extern from *:
     cdef cppclass Foo:
         Foo()
-        Foo(int)
+        Foo(i32)
 
 new Foo(1, 2)
 

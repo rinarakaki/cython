@@ -75,7 +75,7 @@ cdef class C(B):
     pass
 
 
-@cython.auto_pickle(True)  # Not needed, just to test the directive.
+@cython.auto_pickle(true)  # Not needed, just to test the directive.
 cdef class DefaultReduce(object):
     """
     >>> a = DefaultReduce(11, 'abc'); a
@@ -224,10 +224,9 @@ class NoPyMembersPySubclass(NoPyMembers):
         return (super(NoPyMembersPySubclass, self).__repr__()
                 [:-1] + ', s=%r)' % self.s)
 
-
-cdef struct MyStruct:
-    int i
-    double x
+struct MyStruct:
+    i32 i
+    f64 x
 
 cdef class StructMemberDefault(object):
     """
@@ -249,7 +248,7 @@ cdef class StructMemberDefault(object):
         return "%s(i=%s, x=%s)" % (
             type(self).__name__, self.my_struct.i, self.my_struct.x)
 
-@cython.auto_pickle(True)  # Forced due to the (inherited) struct attribute.
+@cython.auto_pickle(true)  # Forced due to the (inherited) struct attribute.
 cdef class StructMemberForcedPickle(StructMemberDefault):
     """
     >>> import pickle
@@ -258,7 +257,6 @@ cdef class StructMemberForcedPickle(StructMemberDefault):
     >>> pickle.loads(pickle.dumps(s))
     StructMemberForcedPickle(i=1, x=1.5)
     """
-
 
 cdef _unset = object()
 
@@ -286,7 +284,7 @@ cdef class Wrapper(object):
   >>> w2.ref[0] is w2
   True
   """
-  cdef public object ref
+  pub object ref
   def __init__(self, ref=_unset):
       if ref is _unset:
           self.ref = self
@@ -297,7 +295,6 @@ cdef class Wrapper(object):
           return "Wrapper(...)"
       else:
           return "Wrapper(%r)" % self.ref
-
 
 # Non-regression test for pickling bound and unbound methods of non-extension
 # classes

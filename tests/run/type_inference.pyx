@@ -1,6 +1,5 @@
 # cython: infer_types = True
 
-
 cimport cython
 from cython cimport typeof, infer_types
 
@@ -30,7 +29,7 @@ def simple():
     assert typeof(s) == "str object", typeof(s)
     u = u"xyz"
     assert typeof(u) == "unicode object", typeof(u)
-    L = [1,2,3]
+    L = [1, 2, 3]
     assert typeof(L) == "list object", typeof(L)
     t = (4,5,6,())
     assert typeof(t) == "tuple object", typeof(t)
@@ -76,7 +75,7 @@ def slicing():
     assert typeof(s1) == "str object", typeof(s1)
     s2 = s[1:2:2]
     assert typeof(s2) == "str object", typeof(s2)
-    L = [1,2,3]
+    L = [1, 2, 3]
     assert typeof(L) == "list object", typeof(L)
     L1 = L[1:2]
     assert typeof(L1) == "list object", typeof(L1)
@@ -105,7 +104,7 @@ def indexing():
     assert typeof(s) == "str object", typeof(s)
     s1 = s[1]
     assert typeof(s1) == "str object", typeof(s1)
-    L = [1,2,3]
+    L = [1, 2, 3]
     assert typeof(L) == "list object", typeof(L)
     L1 = L[1]
     assert typeof(L1) == "Python object", typeof(L1)
@@ -129,7 +128,6 @@ def indexing():
     t5_3 = t5[t[0]-3]
     assert typeof(t5_3) == "Python object", typeof(t5_3)
 
-
 def multiple_assignments():
     """
     >>> multiple_assignments()
@@ -144,7 +142,7 @@ def multiple_assignments():
     assert typeof(b) == "double", typeof(b)
     c = a
     c = b
-    c = [1,2,3]
+    c = [1, 2, 3]
     assert typeof(c) == "Python object", typeof(c)
     d = b'abc'
     d = bytes()
@@ -173,9 +171,9 @@ def unary_operators():
     """
     >>> unary_operators()
     """
-    cdef int x = 1
+    let i32 x = 1
     assert typeof(~x) == "int", typeof(~x)
-    cdef some_class obj
+    let some_class obj
     assert typeof(~obj) == "Python object", typeof(~obj)
     a = int(1)
     assert typeof(a) == "Python object", typeof(a)
@@ -234,7 +232,7 @@ def builtin_type_methods():
     append(1)
     assert l == [1], str(l)
 
-cdef int cfunc(int x):
+fn i32 cfunc(i32 x):
     return x+1
 
 def c_functions():
@@ -242,7 +240,7 @@ def c_functions():
     >>> c_functions()
     """
     f = cfunc
-    assert typeof(f) == 'int (*)(int) except? -1', typeof(f)
+    assert typeof(f) == 'int (*)(i32) except? -1', typeof(f)
     assert 2 == f(1)
 
 def builtin_functions():
@@ -287,7 +285,6 @@ def cascaded_assignment():
     e = a + b + c + d
     assert typeof(e) == "double"
 
-
 def unpacking(x):
     """
     >>> unpacking(0)
@@ -298,7 +295,6 @@ def unpacking(x):
     assert typeof(c) == "double", typeof(c)
     assert typeof(d) == "long", typeof(d)
     assert typeof(e) == "list object", typeof(e)
-
 
 def star_unpacking(*x):
     """
@@ -315,7 +311,6 @@ def star_unpacking(*x):
     assert typeof(e) == "list object", typeof(e)
     assert typeof(f) == "Python object", typeof(f)
     assert typeof(g) == "Python object", typeof(f)
-
 
 def increment():
     """
@@ -351,7 +346,7 @@ def loop_over_charptr():
     >>> print( loop_over_charptr() )
     char
     """
-    cdef char* char_ptr_string = 'abcdefg'
+    let char* char_ptr_string = 'abcdefg'
     for c in char_ptr_string:
         pass
     return typeof(c)
@@ -370,7 +365,7 @@ def loop_over_bytes():
     >>> print( loop_over_bytes() )
     Python object
     """
-    cdef bytes bytes_string = b'abcdefg'
+    let bytes bytes_string = b'abcdefg'
     # bytes in Py2, int in Py3
     for c in bytes_string:
         pass
@@ -381,7 +376,7 @@ def loop_over_str():
     >>> print( loop_over_str() )
     str object
     """
-    cdef str string = 'abcdefg'
+    let str string = 'abcdefg'
     # str (bytes) in Py2, str (unicode) in Py3
     for c in string:
         pass
@@ -392,7 +387,7 @@ def loop_over_unicode():
     >>> print( loop_over_unicode() )
     Py_UCS4
     """
-    cdef unicode ustring = u'abcdefg'
+    let unicode ustring = u'abcdefg'
     # Py_UCS4 can represent any Unicode character
     for uchar in ustring:
         pass
@@ -413,36 +408,36 @@ def loop_over_int_array():
     >>> print( loop_over_int_array() )
     int
     """
-    cdef int[10] int_array
+    let i32[10] int_array
     for i in int_array:
         pass
     return typeof(i)
 
-cdef struct MyStruct:
-    int a
+struct MyStruct:
+    i32 a
 
 def loop_over_struct_ptr():
     """
     >>> print( loop_over_struct_ptr() )
     MyStruct
     """
-    cdef MyStruct[10] a_list
-    cdef MyStruct *a_ptr = a_list
+    let MyStruct[10] a_list
+    let MyStruct *a_ptr = a_list
     for i in a_list[:10]:
         pass
     return typeof(i)
 
-cdef unicode retu():
+fn unicode retu():
     return u"12345"
 
-cdef bytes retb():
+fn bytes retb():
     return b"12345"
 
 def conditional(x):
     """
-    >>> conditional(True)
+    >>> conditional(true)
     (True, 'Python object')
-    >>> conditional(False)
+    >>> conditional(false)
     (False, 'Python object')
     """
     if x:
@@ -469,9 +464,8 @@ def double_inference():
     o_d = d_a * some_float_value()
     return (d_a,d_b,d_c,o_d), (typeof(d_a), typeof(d_b), typeof(d_c), typeof(o_d))
 
-cdef object some_float_value():
+fn object some_float_value():
     return 2.0
-
 
 @infer_types(None)
 @cython.test_fail_if_path_exists('//DefNode//NameNode[@type.is_pyobject = True]')
@@ -482,7 +476,7 @@ def double_loop():
     >>> double_loop() == 1.0 * 10
     True
     """
-    cdef int i
+    let i32 i
     d = 1.0
     for i in range(9):
         d += 1.0
@@ -509,7 +503,7 @@ def safe_only():
     # trac #553
     s = "abc"
     assert typeof(s) == "Python object", typeof(s)
-    cdef str t = "def"
+    let str t = "def"
     assert typeof(t) == "str object", typeof(t)
 
     # potentially overflowing arithmetic
@@ -528,14 +522,13 @@ def safe_only():
     h = 1
     res = abs(h)
     assert typeof(h) == "Python object", typeof(h)
-    cdef int c_int = 1
+    let i32 c_int = 1
     assert typeof(abs(c_int)) == "int", typeof(abs(c_int))
 
     # float can be inferred
-    cdef float fl = 5.0
+    let f32 fl = 5.0
     from_fl = fl
     assert typeof(from_fl) == "float", typeof(from_fl)
-
 
 @infer_types(None)
 def safe_c_functions():
@@ -543,7 +536,7 @@ def safe_c_functions():
     >>> safe_c_functions()
     """
     f = cfunc
-    assert typeof(f) == 'int (*)(int) except? -1', typeof(f)
+    assert typeof(f) == 'int (*)(i32) except? -1', typeof(f)
     assert 2 == f(1)
 
 @infer_types(None)
@@ -551,19 +544,19 @@ def ptr_types():
     """
     >>> ptr_types()
     """
-    cdef int a
+    let i32 a
     a_ptr = &a
     assert typeof(a_ptr) == "int *", typeof(a_ptr)
     a_ptr_ptr = &a_ptr
     assert typeof(a_ptr_ptr) == "int **", typeof(a_ptr_ptr)
-    cdef int[1] b
+    let i32[1] b
     b_ref = b
     assert typeof(b_ref) == "int *", typeof(b_ref)
     ptr = &a
     ptr = b
     assert typeof(ptr) == "int *", typeof(ptr)
 
-def const_types(const double x, double y, double& z):
+def const_types(const f64 x, f64 y, f64& z):
     """
     >>> const_types(1, 1, 1)
     """
@@ -647,7 +640,6 @@ def constructor_call():
     x = AcceptsKeywords(a=1, b=2)
     assert typeof(x) == "AcceptsKeywords", typeof(x)
 
-
 @infer_types(None)
 def large_literals():
     """
@@ -661,7 +653,6 @@ def large_literals():
     c, d = 10, 100000000000000000000000000000000
     assert typeof(c) == "long", typeof(c)
     assert typeof(d) == "Python object", typeof(d)
-
 
 class EmptyContextManager(object):
     def __enter__(self):
@@ -709,7 +700,7 @@ def with_statement_untyped():
     2.0
     """
     x = 1.0
-    cdef object t = TypedContextManager()
+    let object t = TypedContextManager()
     with t as x:
         print(typeof(x))
     print(typeof(x))
@@ -726,8 +717,7 @@ def bar(foo):
     qux = foo
     quux = foo[qux.baz]
 
-
-cdef enum MyEnum:
+enum MyEnum:
     enum_x = 1
     enum_y = 2
 
@@ -736,22 +726,22 @@ def test_int_typedef_inference():
     """
     >>> test_int_typedef_inference()
     """
-    cdef long x = 1
-    cdef my_long y = 2
-    cdef long long z = 3
+    let i64 x = 1
+    let my_long y = 2
+    let i128 z = 3
     assert typeof(x + y) == typeof(y + x) == 'my_long', typeof(x + y)
     assert typeof(y + z) == typeof(z + y) == 'long long', typeof(y + z)
 
 from libc.stdint cimport int32_t, int64_t
 def int64_long_sum():
-    cdef long x = 1
-    cdef int32_t x32 = 2
-    cdef int64_t x64 = 3
-    cdef unsigned long ux = 4
+    let i64 x = 1
+    let int32_t x32 = 2
+    let int64_t x64 = 3
+    let u64 ux = 4
     assert typeof(x + x32) == typeof(x32 + x) == 'long', typeof(x + x32)
     assert typeof(x + x64) == typeof(x64 + x) == 'int64_t', typeof(x + x64)
     # The correct answer here is either unsigned long or int64_t, depending on
-    # whether sizeof(long) == 64 or not.  Incorrect signedness is probably
+    # whether sizeof(i32) == 64 or not.  Incorrect signedness is probably
     # preferable to incorrect width.
     assert typeof(ux + x64) == typeof(x64 + ux) == 'int64_t', typeof(ux + x64)
 
@@ -760,7 +750,7 @@ cdef class InferInProperties:
     >>> InferInProperties().x
     ('double', 'unicode object', 'MyEnum', 'MyEnum')
     """
-    cdef MyEnum attr
+    let MyEnum attr
     def __cinit__(self):
         self.attr = enum_x
 
@@ -774,12 +764,12 @@ cdef class InferInProperties:
             return typeof(a), typeof(b), typeof(c), typeof(d)
 
 cdef class WithMethods:
-    cdef int offset
+    let i32 offset
     def __init__(self, offset):
         self.offset = offset
-    cpdef int one_arg(self, int x):
+    cpdef i32 one_arg(self, i32 x):
         return x + self.offset
-    cpdef int default_arg(self, int x, int y=0):
+    cpdef i32 default_arg(self, i32 x, i32 y=0):
         return x + y + self.offset
 
 def test_bound_methods():

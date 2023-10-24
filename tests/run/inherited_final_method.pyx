@@ -10,8 +10,8 @@ cdef class BaseClass:
     >>> obj.call_base()
     True
     """
-    cdef method(self):
-        return True
+    fn method(self):
+        return true
 
     def call_base(self):
         return self.method()
@@ -26,8 +26,8 @@ cdef class Child(BaseClass):
     >>> obj.call_child()
     True
     """
-    cdef method(self):
-        return True
+    fn method(self):
+        return true
 
     def call_child(self):
         # original bug: this requires a proper cast for self

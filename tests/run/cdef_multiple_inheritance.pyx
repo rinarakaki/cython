@@ -2,7 +2,7 @@ cimport cython
 
 cdef class CBase(object):
     cdef int a
-    cdef c_method(self):
+    fn c_method(self):
         return "CBase"
     cpdef cpdef_method(self):
         return "CBase"
@@ -11,7 +11,7 @@ class PyBase(object):
     def py_method(self):
         return "PyBase"
 
-@cython.binding(True)
+@cython.binding(true)
 cdef class BothBound(CBase, PyBase):
     cdef dict __dict__
     """
@@ -28,7 +28,7 @@ cdef class BothBound(CBase, PyBase):
     >>> isinstance(b, PyBase)
     True
     """
-    cdef c_method(self):
+    fn c_method(self):
         return "Both"
     cpdef cp_method(self):
         return "Both"
@@ -47,7 +47,7 @@ cdef class BothSub(BothBound):
     """
     pass
 
-@cython.binding(False)
+@cython.binding(false)
 cdef class BothUnbound(CBase, PyBase):
     cdef dict __dict__
     """
@@ -64,7 +64,7 @@ cdef class BothUnbound(CBase, PyBase):
     >>> isinstance(b, PyBase)
     True
     """
-    cdef c_method(self):
+    fn c_method(self):
         return "Both"
     cpdef cp_method(self):
         return "Both"

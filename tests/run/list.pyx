@@ -58,15 +58,15 @@ def test_list_sort():
     >>> test_list_sort()
     [1, 2, 3, 4]
     """
-    cdef list l1
-    l1 = [2,3,1,4]
+    let list l1
+    l1 = [2, 3, 1, 4]
     l1.sort()
     return l1
 
 def test_list_sort_reversed():
-    cdef list l1
-    l1 = [2,3,1,4]
-    l1.sort(reversed=True)
+    let list l1
+    l1 = [2, 3, 1, 4]
+    l1.sort(reversed=true)
     return l1
 
 def test_list_reverse():
@@ -74,8 +74,8 @@ def test_list_reverse():
     >>> test_list_reverse()
     [1, 2, 3, 4]
     """
-    cdef list l1
-    l1 = [4,3,2,1]
+    let list l1
+    l1 = [4, 3, 2, 1]
     l1.reverse()
     return l1
 
@@ -88,7 +88,7 @@ def test_list_append():
     >>> test_list_append()
     [1, 2, 3, 4]
     """
-    cdef list l1 = [1,2]
+    let list l1 = [1, 2]
     l1.append(3)
     l1.append(4)
     return l1
@@ -102,7 +102,7 @@ def test_list_append_unbound():
     >>> test_list_append_unbound()
     [1, 2, 3, 4]
     """
-    cdef list l1 = [1,2]
+    let list l1 = [1, 2]
     list.append(l1, 3)
     list.append(l1, 4)
     return l1
@@ -117,7 +117,7 @@ def test_list_append_unbound_assigned():
     [1, 2, 3, 4]
     """
     append = list.append
-    cdef list l1 = [1,2]
+    let list l1 = [1, 2]
     append(l1, 3)
     append(l1, 4)
     return l1
@@ -128,7 +128,7 @@ def test_list_append_insert():
     >>> test_list_append_insert()
     ['first', 'second']
     """
-    cdef list l = []
+    let list l = []
     l.append("second")
     l.insert(0, "first")
     return l
@@ -138,8 +138,8 @@ def test_list_pop():
     >>> test_list_pop()
     (2, [1])
     """
-    cdef list l1
-    l1 = [1,2]
+    let list l1
+    l1 = [1, 2]
     two = l1.pop()
     return two, l1
 
@@ -148,8 +148,8 @@ def test_list_pop0():
     >>> test_list_pop0()
     (1, [2])
     """
-    cdef list l1
-    l1 = [1,2]
+    let list l1
+    l1 = [1, 2]
     one = l1.pop(0)
     return one, l1
 
@@ -158,8 +158,8 @@ def test_list_pop_all():
     >>> test_list_pop_all()
     True
     """
-    cdef list l1
-    l1 = [1,2]
+    let list l1
+    l1 = [1, 2]
     i = 0
     try:
         l1.pop()
@@ -170,7 +170,7 @@ def test_list_pop_all():
         i = 3
     except IndexError:
         return i == 2
-    return False
+    return false
 
 
 @cython.test_assert_path_exists(
@@ -188,11 +188,11 @@ def test_list_extend(seq=None, x=4):
     >>> test_list_extend([1, 2])
     [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 1, 2]
     """
-    cdef list l = [1,2,3]
+    let list l = [1, 2, 3]
     l.extend([])
     l.extend(())
     l.extend(set())  # not currently optimised (not worth the trouble)
-    assert l == [1,2,3]
+    assert l == [1, 2, 3]
     assert len(l) == 3
     l.extend([4,x+1,6])
     l.extend([7,8,9,10,11,12,13,14,15,16])
@@ -216,7 +216,7 @@ def test_list_extend_unbound(seq=None, x=4):
     >>> test_list_extend_unbound([1, 2])
     [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 1, 2]
     """
-    cdef list l = [1,2,3]
+    let list l = [1, 2, 3]
     list.extend(l, [])
     list.extend(l, ())
     try:
@@ -226,7 +226,7 @@ def test_list_extend_unbound(seq=None, x=4):
     else:
         assert False, "TypeError not raised!"
     list.extend(l, set())  # not currently optimised (not worth the trouble)
-    assert l == [1,2,3]
+    assert l == [1, 2, 3]
     assert len(l) == 3
     list.extend(l, [4,x+1,6])
     list.extend(l, [7,8,9,10,11,12,13,14,15,16])
@@ -238,17 +238,17 @@ def test_list_extend_unbound(seq=None, x=4):
     '//PythonCapiCallNode//PythonCapiFunctionNode[@cname = "__Pyx_ListComp_Append"]',
     '//PythonCapiCallNode//PythonCapiFunctionNode[@cname = "__Pyx_PyList_Append"]',
 )
-def test_list_extend_sideeffect(seq=None, exc=False):
+def test_list_extend_sideeffect(seq=None, exc=false):
     """
     >>> test_list_extend_sideeffect()
     ([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], [4, 6, 7, 8])
     >>> test_list_extend_sideeffect([])
     ([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], [4, 6, 7, 8])
-    >>> test_list_extend_sideeffect([], exc=True)
+    >>> test_list_extend_sideeffect([], exc=true)
     ([1, 2, 3, 10, 11, 12, 13, 14, 15, 16], [4, 7, 8])
     >>> test_list_extend_sideeffect([1])
     ([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 1], [4, 6, 7, 8])
-    >>> test_list_extend_sideeffect([1], exc=True)
+    >>> test_list_extend_sideeffect([1], exc=true)
     ([1, 2, 3, 10, 11, 12, 13, 14, 15, 16, 1], [4, 7, 8])
     >>> test_list_extend_sideeffect([1, 2])
     ([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 1, 2], [4, 6, 7, 8])
@@ -262,11 +262,11 @@ def test_list_extend_sideeffect(seq=None, exc=False):
             raise TypeError("HUHU")
         return value
 
-    cdef list l = [1,2,3]
+    let list l = [1, 2, 3]
     l.extend([])
     l.extend(())
     l.extend(set())  # not currently optimised (not worth the trouble)
-    assert l == [1,2,3]
+    assert l == [1, 2, 3]
     assert len(l) == 3
 
     # Must first build all items, then append them in order.
@@ -303,7 +303,7 @@ def test_none_list_extend(list l):
     123
     """
     try:
-        l.extend([1,2,3])
+        l.extend([1, 2, 3])
     except AttributeError:
         return 123
     return l

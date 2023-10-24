@@ -1,7 +1,7 @@
 from libcpp cimport bool
 from libcpp.typeinfo cimport type_info
 
-cdef extern from "<any>" namespace "std" nogil:
+extern from "<any>" namespace "std" nogil:
     cdef cppclass any:
         any()
         any(any&) except +
@@ -13,4 +13,4 @@ cdef extern from "<any>" namespace "std" nogil:
         any& operator=(any&) except +
         any& operator=[U](U&) except +
 
-    cdef T any_cast[T](any&) except +
+    fn T any_cast[T](any&) except +

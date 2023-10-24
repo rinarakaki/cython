@@ -2,7 +2,6 @@
 
 import cython
 
-
 def simple_convert(*o):
     """
     >>> simple_convert(1, 2)
@@ -15,9 +14,8 @@ def simple_convert(*o):
     Traceback (most recent call last):
     TypeError: Expected a sequence of size 2, got size 3
     """
-    cdef (int, double) xy = o
+    let (i32, f64) xy = o
     return xy
-
 
 def convert_from_list(*o):
     """
@@ -31,10 +29,9 @@ def convert_from_list(*o):
     Traceback (most recent call last):
     TypeError: Expected a sequence of size 2, got size 3
     """
-    cdef object values = list(o)
-    cdef (int, double) xy = values
+    let object values = list(o)
+    let (i32, f64) xy = values
     return xy
-
 
 def convert_from_deque(*o):
     """
@@ -49,12 +46,11 @@ def convert_from_deque(*o):
     TypeError: Expected a sequence of size 2, got size 3
     """
     from collections import deque
-    cdef object values = deque(o)
-    cdef (int, double) xy = values
+    let object values = deque(o)
+    let (i32, f64) xy = values
     return xy
 
-
-def indexing((int, double) xy):
+def indexing((i32, f64) xy):
     """
     >>> indexing((1, 2))
     (2, 3.0)
@@ -65,7 +61,7 @@ def indexing((int, double) xy):
     xy[1] = y + 1
     return xy
 
-def unpacking((int, double) xy):
+def unpacking((i32, f64) xy):
     """
     >>> unpacking((1, 2))
     (1, 2.0)
@@ -73,11 +69,11 @@ def unpacking((int, double) xy):
     x, y = xy
     return x, y
 
-cdef (int, double) side_effect((int, double) xy):
+fn (i32, f64) side_effect((i32, f64) xy):
     print "called with", xy
     return xy
 
-def unpacking_with_side_effect((int, double) xy):
+def unpacking_with_side_effect((i32, f64) xy):
     """
     >>> unpacking_with_side_effect((1, 2))
     called with (1, 2.0)
@@ -86,64 +82,61 @@ def unpacking_with_side_effect((int, double) xy):
     x, y = side_effect(xy)
     return x, y
 
-def packing_tuple(int x, double y):
+def packing_tuple(i32 x, f64 y):
     """
     >>> packing_tuple(1, 2)
     (1, 2.0)
     """
-    cdef (int, double) xy = (x, y)
+    let (i32, f64) xy = (x, y)
     assert xy == (x, y), xy
     xy = (x, y) * 1
     assert xy == (x, y), xy
     xy = 1 * (x, y)
     return xy
 
-def packing_list(int x, double y):
+def packing_list(i32 x, f64 y):
     """
     >>> packing_list(1, 2)
     (1, 2.0)
     """
-    cdef (int, double) xy = [x, y]
+    let (i32, f64) xy = [x, y]
     assert xy == (x, y), xy
     xy = [x, y] * 1
     assert xy == (x, y), xy
     xy = 1 * [x, y]
     return xy
 
-def coerce_packing_tuple(int x, int y):
-    cdef (int, double) xy = (x, y)
+def coerce_packing_tuple(i32 x, i32 y):
+    let (i32, f64) xy = (x, y)
     """
     >>> coerce_packing_tuple(1, 2)
     (1, 2.0)
     """
     return xy
 
-def c_types(int a, double b):
+def c_types(i32 a, f64 b):
     """
     >>> c_types(1, 2)
     (1, 2.0)
     """
-    cdef int* a_ptr
-    cdef double* b_ptr
-    cdef (int*, double*) ab = (&a, &b)
+    let i32* a_ptr
+    let f64* b_ptr
+    let (i32*, f64*) ab = (&a, &b)
     a_ptr, b_ptr = ab
     return a_ptr[0], b_ptr[0]
 
-
 cdef union Union:
-    int x
-    double y
-
+    i32 x
+    f64 y
 
 def union_in_ctuple_literal():
     """
     >>> union_in_ctuple_literal()
     (1, 2.0)
     """
-    cdef (Union,) a = ({"x": 1},)
-    cdef (Union,) b = ({"y": 2},)
+    let (Union,) a = ({"x": 1},)
+    let (Union,) b = ({"y": 2},)
     return a[0].x, b[0].y
-
 
 def union_in_ctuple_dynamic(*values):
     """
@@ -155,56 +148,51 @@ def union_in_ctuple_dynamic(*values):
     Traceback (most recent call last):
     ValueError: More than one union attribute passed: 'x' and 'y'
     """
-    cdef (int, Union) a = values
+    let (i32, Union) a = values
     return a[1].x if a[0] == 1 else a[1].y
 
-
-cdef (int, int*) cdef_ctuple_return_type(int x, int* x_ptr):
+fn (i32, i32*) cdef_ctuple_return_type(i32 x, i32* x_ptr):
     return x, x_ptr
 
-def call_cdef_ctuple_return_type(int x):
+def call_cdef_ctuple_return_type(i32 x):
     """
     >>> call_cdef_ctuple_return_type(2)
     (2, 2)
     """
-    cdef (int, int*) res = cdef_ctuple_return_type(x, &x)
+    let (i32, i32*) res = cdef_ctuple_return_type(x, &x)
     return res[0], res[1][0]
 
-
-cpdef (int, double) cpdef_ctuple_return_type(int x, double y):
+cpdef (i32, f64) cpdef_ctuple_return_type(i32 x, f64 y):
     """
     >>> cpdef_ctuple_return_type(1, 2)
     (1, 2.0)
     """
     return x, y
 
-
 def cast_to_ctuple(*o):
     """
     >>> cast_to_ctuple(1, 2.)
     (1, 2.0)
     """
-    cdef int x
-    cdef double y
-    x, y = <(int, double)>o
+    let i32 x
+    let f64 y
+    x, y = <(i32, f64)>o
     return x, y
 
-
-@cython.infer_types(True)
+@cython.infer_types(true)
 def test_type_inference():
     """
     >>> test_type_inference()
     """
-    cdef int x = 1
-    cdef double y = 2
-    cdef object o = 3
+    let i32 x = 1
+    let f64 y = 2
+    let object o = 3
     xy = (x, y)
     assert cython.typeof(xy) == "(int, double)", cython.typeof(xy)
     xo = (x, o)
     assert cython.typeof(xo) == "tuple object", cython.typeof(xo)
 
-
-@cython.locals(a=(int,int), b=(cython.long,cython.float))
+@cython.locals(a=(i32, i32), b=(cython.i64, cython.f64))
 def test_pure_python_declaration(x, y):
     """
     >>> test_pure_python_declaration(1, 2)
@@ -225,8 +213,7 @@ def test_pure_python_declaration(x, y):
     print(cython.typeof(b))
     return (a, b)
 
-
-def test_equality((int, int) ab, (int, int) cd, (int, int) ef):
+def test_equality((i32, i32) ab, (i32, i32) cd, (i32, i32) ef):
     """
     >>> test_equality((1, 2), (3, 4), (5, 6))
     True
@@ -237,7 +224,7 @@ def test_equality((int, int) ab, (int, int) cd, (int, int) ef):
     """
     return ab < cd <= ef
 
-def test_equality_different_types((double, int) ab, (int, int) cd, (long, int) ef):
+def test_equality_different_types((f64, i32) ab, (i32, i32) cd, (i64, i32) ef):
     """
     >>> test_equality((1, 2), (3, 4), (5, 6))
     True
@@ -248,21 +235,21 @@ def test_equality_different_types((double, int) ab, (int, int) cd, (long, int) e
     """
     return ab < cd <= ef
 
-def test_binop((int, int) ab, (double, double) cd):
+def test_binop((i32, i32) ab, (f64, f64) cd):
     """
     >>> test_binop((1, 2), (3, 4))
     (1, 2, 3.0, 4.0)
     """
     return ab + cd
 
-def test_mul((int, int) ab, int c):
+def test_mul((i32, i32) ab, i32 c):
     """
     >>> test_mul((1, 2), 3)
     (1, 2, 1, 2, 1, 2)
     """
     return ab * c
 
-def test_mul_to_ctuple((int, int) ab, int c):
+def test_mul_to_ctuple((i32, i32) ab, i32 c):
     """
     >>> test_mul_to_ctuple((1, 2), 2)
     (1, 2, 1, 2)
@@ -270,10 +257,10 @@ def test_mul_to_ctuple((int, int) ab, int c):
     Traceback (most recent call last):
     TypeError: Expected a sequence of size 4, got size 6
     """
-    result: tuple[cython.int, cython.int, cython.int, cython.int] = ab * c
+    result: tuple[cython.i32, cython.i32, cython.i32, cython.i32] = ab * c
     return result
 
-def test_unop((int, int) ab):
+def test_unop((i32, i32) ab):
     """
     >>> test_unop((1, 2))
     True

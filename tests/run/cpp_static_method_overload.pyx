@@ -1,7 +1,7 @@
 # mode: run
 # tag: cpp, no-cpp-locals
 
-cdef extern from *:
+extern from *:
     """
     struct Foo
     {
@@ -25,19 +25,19 @@ cdef extern from *:
     """
     cppclass Foo:
         @staticmethod
-        const char* bar(int x)
+        const char* bar(i32 x)
 
         @staticmethod
-        const char* bar(int x, int y)
+        const char* bar(i32 x, i32 y)
 
-        const char* baz(int x)
-        const char* baz(int x, int y)
+        const char* baz(i32 x)
+        const char* baz(i32 x, i32 y)
 
 def test_normal_method_overload():
     """
     >>> test_normal_method_overload()
     """
-    cdef Foo f
+    let Foo f
     assert f.baz(1) == b"first"
     assert f.baz(1, 2) == b"second"
 

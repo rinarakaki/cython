@@ -35,7 +35,7 @@ Traceback (most recent call last):
     ...
 OverflowError: ...
 
->>> a = A(1,2)
+>>> a = A(1, 2)
 >>> a.a == 1
 True
 >>> a.b == 2
@@ -48,7 +48,7 @@ Traceback (most recent call last):
 OverflowError: ...
 """
 
-cdef extern from *:
+extern from *:
     ctypedef long ssize_t # XXX This should generate a warning !!!
     ssize_t PY_SSIZE_T_MAX
     ssize_t PY_SSIZE_T_MIN
@@ -60,7 +60,7 @@ def test(ssize_t i):
     return i
 
 cdef class A:
-    cdef public ssize_t a
+    pub ssize_t a
     cdef readonly ssize_t b
 
     def __init__(self, ssize_t a, object b):

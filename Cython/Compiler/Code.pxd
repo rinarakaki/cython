@@ -3,62 +3,59 @@
 cimport cython
 from ..StringIOTree cimport StringIOTree
 
-
 cdef class UtilityCodeBase(object):
     cpdef format_code(self, code_string, replace_empty_lines=*)
 
-
 cdef class UtilityCode(UtilityCodeBase):
-    cdef public object name
-    cdef public object proto
-    cdef public object impl
-    cdef public object init
-    cdef public object cleanup
-    cdef public object proto_block
-    cdef public object requires
-    cdef public dict _cache
-    cdef public list specialize_list
-    cdef public object file
+    pub object name
+    pub object proto
+    pub object impl
+    pub object init
+    pub object cleanup
+    pub object proto_block
+    pub object requires
+    pub dict _cache
+    pub list specialize_list
+    pub object file
 
     cpdef none_or_sub(self, s, context)
 
-
 cdef class FunctionState:
-    cdef public set names_taken
-    cdef public object owner
-    cdef public object scope
+    pub set names_taken
+    pub object owner
+    pub object scope
 
-    cdef public object error_label
-    cdef public size_t label_counter
-    cdef public set labels_used
-    cdef public object return_label
-    cdef public object continue_label
-    cdef public object break_label
-    cdef public list yield_labels
+    pub object error_label
+    pub usize label_counter
+    pub set labels_used
+    pub object return_label
+    pub object continue_label
+    pub object break_label
+    pub list yield_labels
 
-    cdef public object return_from_error_cleanup_label # not used in __init__ ?
+    pub object return_from_error_cleanup_label # not used in __init__ ?
 
-    cdef public object exc_vars
-    cdef public object current_except
-    cdef public bint in_try_finally
-    cdef public bint can_trace
-    cdef public bint gil_owned
+    pub object exc_vars
+    pub object current_except
+    pub bint in_try_finally
+    pub bint can_trace
+    pub bint gil_owned
 
-    cdef public list temps_allocated
-    cdef public dict temps_free
-    cdef public dict temps_used_type
-    cdef public set zombie_temps
-    cdef public size_t temp_counter
-    cdef public list collect_temps_stack
+    pub list temps_allocated
+    pub dict temps_free
+    pub dict temps_used_type
+    pub set zombie_temps
+    pub usize temp_counter
+    pub list collect_temps_stack
 
-    cdef public object closure_temps
-    cdef public bint should_declare_error_indicator
-    cdef public bint uses_error_indicator
-    cdef public bint error_without_exception
+    pub object closure_temps
+    pub bint should_declare_error_indicator
+    pub bint uses_error_indicator
+    pub bint error_without_exception
 
-    cdef public bint needs_refnanny
+    pub bint needs_refnanny
 
-    @cython.locals(n=size_t)
+    @cython.locals(n=usize)
     cpdef new_label(self, name=*)
     cpdef tuple get_loop_labels(self)
     cpdef set_loop_labels(self, labels)
@@ -70,30 +67,30 @@ cdef class FunctionState:
     cpdef list temps_in_use(self)
 
 cdef class IntConst:
-    cdef public object cname
-    cdef public object value
-    cdef public bint is_long
+    pub object cname
+    pub object value
+    pub bint is_long
 
 cdef class PyObjectConst:
-    cdef public object cname
-    cdef public object type
+    pub object cname
+    pub object type
 
 cdef class StringConst:
-    cdef public object cname
-    cdef public object text
-    cdef public object escaped_value
-    cdef public dict py_strings
-    cdef public list py_versions
+    pub object cname
+    pub object text
+    pub object escaped_value
+    pub dict py_strings
+    pub list py_versions
 
     @cython.locals(intern=bint, is_str=bint, is_unicode=bint)
     cpdef get_py_string_const(self, encoding, identifier=*, is_str=*, py3str_cstring=*)
 
 ## cdef class PyStringConst:
-##     cdef public object cname
-##     cdef public object encoding
-##     cdef public bint is_str
-##     cdef public bint is_unicode
-##     cdef public bint intern
+##     pub object cname
+##     pub object encoding
+##     pub bint is_str
+##     pub bint is_unicode
+##     pub bint intern
 
 #class GlobalState(object):
 
@@ -107,25 +104,32 @@ cdef class CCodeWriter(object):
     cdef object code_config
     cdef object last_pos
     cdef object last_marked_pos
-    cdef Py_ssize_t level
-    cdef public Py_ssize_t call_level  # debug-only, see Nodes.py
+    cdef isize level
+    pub isize call_level  # debug-only, see Nodes.py
     cdef bint bol
 
     cpdef write(self, s)
-    @cython.final
-    cdef _write_lines(self, s)
-    cpdef _write_to_buffer(self, s)
-    cpdef put(self, code)
-    cpdef put_safe(self, code)
-    cpdef putln(self, code=*, bint safe=*)
-    @cython.final
-    cdef increase_indent(self)
-    @cython.final
-    cdef decrease_indent(self)
-    @cython.final
-    cdef indent(self)
 
+    @cython.final
+    fn _write_lines(self, s)
+
+    cpdef _write_to_buffer(self, s)
+
+    cpdef put(self, code)
+
+    cpdef put_safe(self, code)
+
+    cpdef putln(self, code=*, bint safe=*)
+
+    @cython.final
+    fn increase_indent(self)
+
+    @cython.final
+    fn decrease_indent(self)
+    
+    @cython.final
+    fn indent(self)
 
 cdef class PyrexCodeWriter:
-    cdef public object f
-    cdef public Py_ssize_t level
+    pub object f
+    pub isize level

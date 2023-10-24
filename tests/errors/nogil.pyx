@@ -1,25 +1,25 @@
-# cython: remove_unreachable=False
+# cython: remove_unreachable=false
 # mode: error
 
-cdef object f(object x) nogil:
+fn object f(object x) nogil:
     pass
 
-cdef void g(int x) nogil:
-    cdef object z
+fn void g(i32 x) nogil:
+    let object z
     z = None
 
-cdef void h(int x) nogil:  # allowed
+fn void h(i32 x) nogil:  # allowed
     p()
 
-cdef object p() nogil:
+fn object p() nogil:
     pass
 
-cdef void r() nogil:  # allowed
+fn void r() nogil:  # allowed
     q()  # allowed
 
-cdef object m():
-    cdef object x, y = 0, obj
-    cdef int i, j, k
+fn object m():
+    let object x, y = 0, obj
+    let i32 i, j, k
     global fred
     q()
     with nogil:
@@ -71,17 +71,17 @@ cdef object m():
         finally:
             pass
 
-cdef void q():
+fn void q():
     pass
 
 cdef class C:
     pass
 
-cdef void t(C c) nogil:
+fn void t(C c) nogil:
     pass
 
 def ticket_338():
-    cdef object obj
+    let object obj
     with nogil:
         for obj from 0 <= obj < 4:
             pass
@@ -90,29 +90,29 @@ def bare_pyvar_name(object x):
     with nogil:
         x
 
-cdef int fstrings(int x, object obj) except -1 nogil:
+fn i32 fstrings(i32 x, object obj) except -1 nogil:
     f""         # allowed
     f"a"        # allowed
     f"a"f"b"    # allowed
     f"{x}"
     f"{obj}"
 
-cdef void slice_array() nogil:
+fn void slice_array() nogil:
     with gil:
         b = [1, 2, 3, 4]
-    cdef int[4] a = b[:]
+    let i32[4] a = b[:]
 
-cdef int[:] main() nogil:
-    cdef int[4] a = [1,2,3,4]
+fn i32[:] main() nogil:
+    let i32[4] a = [1, 2, 3, 4]
     return a
 
 
 _ERRORS = u"""
-4:5: Function with Python return type cannot be declared nogil
-7:5: Function declared nogil has Python locals or temporaries
+4:0: Function with Python return type cannot be declared nogil
+7:0: Function declared nogil has Python locals or temporaries
 9:4: Assignment of Python object not allowed without gil
 12:5: Discarding owned Python object not allowed without gil
-14:5: Function with Python return type cannot be declared nogil
+14:0: Function with Python return type cannot be declared nogil
 18:5: Calling gil-requiring function not allowed without gil
 27:9: Calling gil-requiring function not allowed without gil
 29:8: Assignment of Python object not allowed without gil
@@ -179,7 +179,7 @@ _ERRORS = u"""
 98:4: Discarding owned Python object not allowed without gil
 98:6: String formatting not allowed without gil
 
-103:21: Coercion from Python not allowed without the GIL
-103:21: Slicing Python object not allowed without gil
+103:20: Coercion from Python not allowed without the GIL
+103:20: Slicing Python object not allowed without gil
 107:11: Operation not allowed without gil
 """

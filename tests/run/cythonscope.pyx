@@ -7,29 +7,28 @@ from cython.view cimport _testscope as viewtester
 
 from cpython cimport PyObject
 
-cdef extern from *:
+extern from *:
     # TestClass stuff
-    cdef struct __pyx_TestClass_obj:
-        int value
+    struct __pyx_TestClass_obj:
+        i32 value
 
     # Type pointer
     cdef PyObject *TestClassType "__pyx_TestClass_type"
 
     # This is a cdef function
-    cdef __pyx_TestClass_New(int)
+    fn __pyx_TestClass_New(i32)
 
     # These are methods and therefore have no prototypes
-    cdef __pyx_TestClass_cdef_method(TestClass self, int value)
-    cdef __pyx_TestClass_cpdef_method(TestClass self, int value, int skip_dispatch)
-    cdef __pyx_TestClass_def_method(object self, object value)
+    fn __pyx_TestClass_cdef_method(TestClass self, i32 value)
+    fn __pyx_TestClass_cpdef_method(TestClass self, i32 value, int skip_dispatch)
+    fn __pyx_TestClass_def_method(object self, object value)
 
-    cdef __pyx_TestClass_cdef_cname(TestClass self, int value)
-    cdef __pyx_TestClass_cpdef_cname(TestClass self, int value, int skip_dispatch)
-    cdef __pyx_TestClass_def_cname(object self, object value)
+    fn __pyx_TestClass_cdef_cname(TestClass self, i32 value)
+    fn __pyx_TestClass_cpdef_cname(TestClass self, i32 value, int skip_dispatch)
+    fn __pyx_TestClass_def_cname(object self, object value)
 
-    cdef __pyx_test_dep(object)
-    cdef __pyx_test_call_other_cy_util(object)
-
+    fn __pyx_test_dep(object)
+    fn __pyx_test_call_other_cy_util(object)
 
 def test_cdef_cython_utility():
     """
@@ -160,6 +159,6 @@ def viewobjs():
     print cython.view.generic
     print cython.view.strided
     print cython.view.indirect
-    #print cython.view.generic_contiguous
+    # print cython.view.generic_contiguous
     print cython.view.contiguous
     print cython.view.indirect_contiguous
