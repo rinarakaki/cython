@@ -1,3 +1,5 @@
+from __future__ import absolute_import, print_function
+
 import Cython as cython
 from .. import __version__
 
@@ -13,11 +15,18 @@ from io import open as io_open
 from os.path import relpath as _relpath
 import zipfile
 
-from collections.abc import Iterable
+try:
+    from collections.abc import Iterable
+except ImportError:
+    from collections import Iterable
 
-import gzip
-gzip_open = gzip.open
-gzip_ext = '.gz'
+try:
+    import gzip
+    gzip_open = gzip.open
+    gzip_ext = '.gz'
+except ImportError:
+    gzip_open = open
+    gzip_ext = ''
 
 try:
     import zlib
