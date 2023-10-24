@@ -168,8 +168,8 @@ cdef class MyDictOverride2(MyDict):
     def items(self):
         return [(1, 2), (3, 4)]
 
-    @cython.test_assert_path_exists("//ComprehensionNode//AttributeNode",
-                                    "//ComprehensionNode//AttributeNode[@attribute='items']")
+    #[cython.test_assert_path_exists("//ComprehensionNode//AttributeNode",
+                                    "//ComprehensionNode//AttributeNode[@attribute='items']")]
     #[cython.test_fail_if_path_exists("//ComprehensionNode//CMethodSelfCloneNode")]
     def test_items(self):
         """

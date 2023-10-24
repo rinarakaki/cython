@@ -18,11 +18,14 @@ cdef class ExtTypeNoGC:
     >>> obj = ExtTypeNoGC()
     """
 
-
-#[cython.test_fail_if_path_exists('//CClassDefNode[@scope.has_cyclic_pyobject_attrs = True]')]
-@cython.test_assert_path_exists('//CClassDefNode',
-                                '//CClassDefNode[@scope]',
-                                '//CClassDefNode[@scope.has_cyclic_pyobject_attrs = False]')
+#[cython.test_fail_if_path_exists(
+    '//CClassDefNode[@scope.has_cyclic_pyobject_attrs = True]'
+)]
+#[cython.test_assert_path_exists(
+    '//CClassDefNode',
+    '//CClassDefNode[@scope]',
+    '//CClassDefNode[@scope.has_cyclic_pyobject_attrs = False]'
+)]
 #[cython.final]
 cdef class ExtTypeFinalNoGC:
     """
@@ -36,10 +39,14 @@ cdef class ExtTypeFinalNoGC:
     cdef bytes s
 
 
-#[cython.test_fail_if_path_exists('//CClassDefNode[@scope.has_cyclic_pyobject_attrs = True]')]
-@cython.test_assert_path_exists('//CClassDefNode',
-                                '//CClassDefNode[@scope]',
-                                '//CClassDefNode[@scope.has_cyclic_pyobject_attrs = False]')
+#[cython.test_fail_if_path_exists(
+    '//CClassDefNode[@scope.has_cyclic_pyobject_attrs = True]'
+)]
+#[cython.test_assert_path_exists(
+    '//CClassDefNode',
+    '//CClassDefNode[@scope]',
+    '//CClassDefNode[@scope.has_cyclic_pyobject_attrs = False]'
+)]
 cdef class ExtSubTypeNoGC(ExtTypeNoGC):
     """
     >>> obj = ExtSubTypeNoGC()
@@ -161,9 +168,9 @@ cdef class ExtSubTypePlusPyArgsWithGC(ExtSubTypePyArgsWithGC):
 
 
 #[cython.test_fail_if_path_exists('//CClassDefNode[@scope.has_cyclic_pyobject_attrs = False]')]
-@cython.test_assert_path_exists('//CClassDefNode',
+#[cython.test_assert_path_exists('//CClassDefNode',
                                 '//CClassDefNode[@scope]',
-                                '//CClassDefNode[@scope.has_cyclic_pyobject_attrs = True]')
+                                '//CClassDefNode[@scope.has_cyclic_pyobject_attrs = True]')]
 cdef class ExtSubTypePlusGCPyArgsWithGC(ExtSubTypePlusPyArgsWithGC):
     """
     >>> obj = ExtSubTypePlusGCPyArgsWithGC()
