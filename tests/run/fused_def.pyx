@@ -5,7 +5,7 @@ Test Python def functions without extern types
 """
 
 cy = __import__("cython")
-cimport cython
+use cython
 
 extern from *:
     i32 __Pyx_CyFunction_Check(object)

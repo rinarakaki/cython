@@ -1,6 +1,6 @@
 # ticket: t245
 
-cimport crashT245_pxd
+use crashT245_pxd
 
 def f():
     """

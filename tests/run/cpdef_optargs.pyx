@@ -2,7 +2,7 @@
 # tag: cyfunction
 # cython: binding=true
 
-cimport cython
+use cython
 
 
 class PyClass(object):

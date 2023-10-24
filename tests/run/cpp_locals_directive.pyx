@@ -4,7 +4,7 @@
 
 # cython: cpp_locals=true
 
-cimport cython
+use cython
 
 from libcpp cimport bool as cppbool
 

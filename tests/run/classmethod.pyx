@@ -34,7 +34,7 @@ class4
 class5
 """
 
-cimport cython
+use cython
 
 def f_plus(cls, a):
     return cls.a + a

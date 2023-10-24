@@ -1,7 +1,7 @@
 # mode: run
 # tag: special_method
 
-cimport cython
+use cython
 
 text = u'ab jd  sdflk as sa  sadas asdas fsdf '
 

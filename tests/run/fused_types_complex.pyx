@@ -3,7 +3,7 @@
 # cython: language_level=3
 # distutils: define_macros=CYTHON_CCOMPLEX=0
 
-cimport cython
+use cython
 
 # We used to generate invalid C code for the fused default value assignment
 # (i32 -> complex) with CYTHON_CCOMPLEX=0.

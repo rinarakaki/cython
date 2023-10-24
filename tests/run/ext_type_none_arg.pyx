@@ -1,5 +1,5 @@
 
-cimport cython
+use cython
 try:
     import typing
     from typing import Optional

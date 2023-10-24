@@ -1,5 +1,5 @@
 from cython.parallel cimport prange
-cimport cython
+use cython
 from libc.math cimport sqrt
 
 @cython.boundscheck(false)

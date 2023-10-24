@@ -1,6 +1,6 @@
 # ticket: t462
 
-cimport cython
+use cython
 
 cdef class cclass:
     def test_self(self):

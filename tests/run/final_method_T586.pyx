@@ -1,7 +1,7 @@
 # mode: run
 # ticket: t568
 
-cimport cython
+use cython
 
 @cython.final
 cdef class FinalType(object):

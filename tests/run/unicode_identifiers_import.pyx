@@ -8,7 +8,7 @@
 
 # this test looks at [c]importing unicode stuff
 from unicode_identifiers cimport Fα1, Γναμε2
-cimport unicode_identifiers
+use unicode_identifiers
 from unicode_identifiers cimport Γναμε2 as Γναμε3
 
 from unicode_identifiers import NormalClassΓΓ

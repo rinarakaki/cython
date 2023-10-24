@@ -1,6 +1,6 @@
 # tag: cpp
 
-cimport cython
+use cython
 
 extern from "cpp_references_helper.h":
     fn i32& ref_func(i32&)

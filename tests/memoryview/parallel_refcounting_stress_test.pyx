@@ -2,7 +2,7 @@
 # tag: openmp
 
 from cython.parallel cimport prange
-cimport cython
+use cython
 from random import randint, random
 
 include "../buffers/mockbuffers.pxi"

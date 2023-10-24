@@ -5,7 +5,7 @@ __doc__ = u"""
    'test'
 """
 
-cimport cython
+use cython
 
 s = str
 z = str('test')

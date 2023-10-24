@@ -1,4 +1,4 @@
-cimport cython
+use cython
 
 ctypedef fused double_or_object:
     f64

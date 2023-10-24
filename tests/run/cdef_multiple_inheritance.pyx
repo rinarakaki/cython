@@ -1,4 +1,4 @@
-cimport cython
+use cython
 
 cdef class CBase(object):
     cdef int a

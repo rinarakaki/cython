@@ -1,4 +1,4 @@
-cimport cython
+use cython
 
 from cython cimport typeof, infer_types
 

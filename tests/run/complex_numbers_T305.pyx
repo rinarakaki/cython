@@ -2,7 +2,7 @@
 
 from cpython.object cimport Py_EQ, Py_NE
 
-cimport cython
+use cython
 
 DEF C21 = 2-1j
 

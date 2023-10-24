@@ -6,7 +6,7 @@ contents.
 Discussed here: https://article.gmane.org/gmane.comp.python.cython.devel/14986
 """
 
-cimport cython
+use cython
 from cpython.ref cimport PyObject, Py_TYPE
 
 # Pull tp_clear for PyTypeObject as I did not find another way to access it

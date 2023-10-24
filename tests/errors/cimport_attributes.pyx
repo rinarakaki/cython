@@ -2,10 +2,10 @@
 # tag: cpp
 
 
-cimport libcpp
+use libcpp
 print libcpp.no_such_attribute
 
-cimport libcpp.map
+use libcpp.map
 print libcpp.map.no_such_attribute
 
 from libcpp cimport vector

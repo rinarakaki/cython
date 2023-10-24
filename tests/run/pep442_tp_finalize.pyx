@@ -2,7 +2,7 @@
 
 from __future__ import print_function
 
-cimport cython
+use cython
 
 import gc
 

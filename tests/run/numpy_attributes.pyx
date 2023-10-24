@@ -1,10 +1,10 @@
 # mode: run
 # tag: numpy
 
-cimport cython
+use cython
 
 import numpy as np
-cimport numpy as cnp
+use numpy as cnp
 
 cnp.import_array()
 

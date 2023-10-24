@@ -1,4 +1,4 @@
-cimport cython
+use cython
 
 cdef char* s = b"abcdefg"
 cdef const char* cs = b"abcdefg"

@@ -1,6 +1,6 @@
 # ticket: t494
 
-cimport cython
+use cython
 
 class SomeNumber(object):
 

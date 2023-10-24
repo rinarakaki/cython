@@ -2,7 +2,7 @@
 # ticket: t466
 # extension to T409
 
-cimport cython
+use cython
 
 def simple_parallel_typed():
     """

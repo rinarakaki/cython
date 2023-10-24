@@ -2,7 +2,7 @@
 # tag: cyclicgc
 
 
-cimport cython
+use cython
 
 @cython.test_fail_if_path_exists('//CClassDefNode[@scope.has_cyclic_pyobject_attrs = True]')
 @cython.test_assert_path_exists('//CClassDefNode',

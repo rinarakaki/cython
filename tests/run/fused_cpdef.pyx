@@ -1,7 +1,7 @@
 # cython: language_level=3str
 # mode: run
 
-cimport cython
+use cython
 import sys, io
 
 cy = __import__("cython")

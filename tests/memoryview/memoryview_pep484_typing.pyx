@@ -1,7 +1,7 @@
 # mode: run
 # tag: pep484, memoryview
 
-cimport cython
+use cython
 
 include "../buffers/mockbuffers.pxi"
 

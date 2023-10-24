@@ -1,6 +1,6 @@
 # mode: error
 
-cimport cython
+use cython
 from cython cimport view
 
 cdef signed short[::1, ::1] both

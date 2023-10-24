@@ -1,7 +1,7 @@
 # mode: run
 # tag: cpp, warnings
 
-cimport cython
+use cython
 
 from libcpp.string cimport string, npos, to_string, stoi, stof
 

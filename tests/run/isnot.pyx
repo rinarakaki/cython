@@ -1,7 +1,7 @@
 # mode: run
 # tag: is_not
 
-cimport cython
+use cython
 
 # Use a single global object for identity checks.
 # PyPy can optimise away integer objects, for example, and may fail the 'is' test.

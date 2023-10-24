@@ -1,7 +1,7 @@
 # mode: run
 # tag: freelist, cyclicgc
 
-cimport cython
+use cython
 
 @cython.freelist(4)
 cdef class ExtTypeNoGC:

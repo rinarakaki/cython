@@ -1,6 +1,6 @@
 # cython: profile=True
 
-cimport cython
+use cython
 
 @cython.profile(false)
 fn inline f64 recip_square(i128 i) except -1.0:

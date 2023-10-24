@@ -3,7 +3,7 @@ Tests accessing attributes of extension type variables
 set to None
 """
 
-cimport cython
+use cython
 
 cdef class MyClass:
     cdef i32 a, b

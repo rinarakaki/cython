@@ -1,7 +1,7 @@
 # mode: run
 # tag: forin, builtins, reversed, enumerate
 
-cimport cython
+use cython
 
 import sys
 IS_PY3 = sys.version_info[0] >= 3

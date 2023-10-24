@@ -3,7 +3,7 @@
 from cython.parallel cimport parallel, prange
 from libcpp.vector cimport vector
 from libcpp.algorithm cimport nth_element
-cimport cython
+use cython
 from cython.operator cimport dereference
 
 import numpy as np

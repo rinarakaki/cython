@@ -6,7 +6,7 @@ from __future__ import print_function
 
 import sys
 
-cimport cython
+use cython
 #from cpython.memoryview cimport PyMemoryView_GET_BUFFER
 
 @cython.test_fail_if_path_exists("//SimpleCallNode")

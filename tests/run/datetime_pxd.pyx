@@ -1,6 +1,6 @@
 # coding: utf-8
 
-cimport cython
+use cython
 
 from cpython.datetime cimport import_datetime, timedelta
 from cpython.datetime cimport time_new, date_new, datetime_new, timedelta_new

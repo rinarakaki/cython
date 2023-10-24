@@ -91,7 +91,7 @@ fn cpp_list[X] {{cname}}(object o) except *:
 
 #################### list.to_py ####################
 
-cimport cython
+use cython
 
 extern from *:
     cdef cppclass cpp_list "std::list" [T]:
@@ -144,7 +144,7 @@ fn set[X] {{cname}}(object o) except *:
 
 #################### set.to_py ####################
 
-cimport cython
+use cython
 
 extern from *:
     cdef cppclass cpp_set "std::{{maybe_unordered}}set" [T]:
@@ -208,7 +208,7 @@ fn map[X, Y] {{cname}}(object o) except *:
 # TODO: Work out const so that this can take a const
 # reference rather than pass by value.
 
-cimport cython
+use cython
 
 extern from *:
     cdef cppclass map "std::{{maybe_unordered}}map" [T, U]:

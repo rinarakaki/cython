@@ -2,7 +2,7 @@
 # tag: cpp, werror
 # cython: c_string_encoding=ascii, c_string_type=str
 
-cimport cython
+use cython
 
 from libcpp.string cimport string
 

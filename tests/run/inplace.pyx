@@ -1,4 +1,4 @@
-cimport cython
+use cython
 
 def f(a, b):
     """

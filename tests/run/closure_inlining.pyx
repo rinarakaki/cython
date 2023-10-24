@@ -1,6 +1,6 @@
 # cython: optimize.inline_defnode_calls=true
 # mode: run
-cimport cython
+use cython
 
 @cython.test_fail_if_path_exists('//SimpleCallNode')
 @cython.test_assert_path_exists('//InlinedDefNodeCallNode')

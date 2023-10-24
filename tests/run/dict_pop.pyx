@@ -1,7 +1,7 @@
 # mode: run
 # tag: dict, pop, builtins
 
-cimport cython
+use cython
 
 @cython.test_assert_path_exists("//PythonCapiCallNode")
 @cython.test_fail_if_path_exists("//AttributeNode")

@@ -1,4 +1,4 @@
-cimport l_cfuncexport
+use l_cfuncexport
 from l_cfuncexport cimport g
 
 print l_cfuncexport.f(42)

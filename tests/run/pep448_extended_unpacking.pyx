@@ -1,7 +1,7 @@
 # mode: run
 # tag: all_language_levels
 
-cimport cython
+use cython
 
 
 class Iter(object):

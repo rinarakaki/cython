@@ -1,6 +1,6 @@
 #################### EnumBase ####################
 
-cimport cython
+use cython
 
 extern from *:
     i32 PY_VERSION_HEX

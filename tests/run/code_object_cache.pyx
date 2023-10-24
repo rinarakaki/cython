@@ -5,7 +5,7 @@
 
 ### low level tests
 
-cimport cython
+use cython
 
 extern from *:
     # evil hack to access the internal utility function

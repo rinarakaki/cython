@@ -564,7 +564,7 @@ def test_MyUInt2(MyUInt2 x):
 
 # -------------------------------------------------------------------
 
-cimport ctypedef_int_types_defs_T333 as defs
+use ctypedef_int_types_defs_T333 as defs
 
 def test_DefSInt(defs.SInt x):
    u"""

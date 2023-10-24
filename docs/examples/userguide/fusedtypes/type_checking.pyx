@@ -1,4 +1,4 @@
-cimport cython
+use cython
 
 ctypedef fused bunch_of_types:
     bytes

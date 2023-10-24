@@ -1,6 +1,6 @@
 # mode: error
 
-cimport cython
+use cython
 
 @cython.autotestdict(false)
 def foo():

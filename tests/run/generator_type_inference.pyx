@@ -1,7 +1,7 @@
 # mode: run
 # tag: typeinference, generators
 
-cimport cython
+use cython
 
 def test_type_inference():
     """

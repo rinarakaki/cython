@@ -1,6 +1,6 @@
 # mode: error
 
-cimport numpy as np
+use numpy as np
 
 fn void func(np.ndarray[np.double_t, ndim=1] myarray) nogil:
     pass

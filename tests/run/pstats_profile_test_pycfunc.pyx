@@ -120,7 +120,7 @@ __doc__ = u"""
     ...    pass
 """
 
-cimport cython
+use cython
 
 def callees(pstats, target_caller):
     pstats.calc_callees()
