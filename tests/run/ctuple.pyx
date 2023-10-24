@@ -14,7 +14,7 @@ def simple_convert(*o):
     Traceback (most recent call last):
     TypeError: Expected a sequence of size 2, got size 3
     """
-    let ((i32, f64)) xy = o
+    let (i32, f64) xy = o
     return xy
 
 def convert_from_list(*o):
@@ -30,7 +30,7 @@ def convert_from_list(*o):
     TypeError: Expected a sequence of size 2, got size 3
     """
     let object values = list(o)
-    let ((i32, f64)) xy = values
+    let (i32, f64) xy = values
     return xy
 
 def convert_from_deque(*o):
@@ -47,10 +47,10 @@ def convert_from_deque(*o):
     """
     from collections import deque
     let object values = deque(o)
-    let ((i32, f64)) xy = values
+    let (i32, f64) xy = values
     return xy
 
-def indexing(((i32, f64)) xy):
+def indexing((i32, f64) xy):
     """
     >>> indexing((1, 2))
     (2, 3.0)
@@ -61,7 +61,7 @@ def indexing(((i32, f64)) xy):
     xy[1] = y + 1
     return xy
 
-def unpacking(((i32, f64)) xy):
+def unpacking((i32, f64) xy):
     """
     >>> unpacking((1, 2))
     (1, 2.0)
@@ -69,11 +69,11 @@ def unpacking(((i32, f64)) xy):
     x, y = xy
     return x, y
 
-fn ((i32, f64)) side_effect(((i32, f64)) xy):
+fn (i32, f64) side_effect((i32, f64) xy):
     print "called with", xy
     return xy
 
-def unpacking_with_side_effect(((i32, f64)) xy):
+def unpacking_with_side_effect((i32, f64) xy):
     """
     >>> unpacking_with_side_effect((1, 2))
     called with (1, 2.0)
@@ -87,7 +87,7 @@ def packing_tuple(i32 x, f64 y):
     >>> packing_tuple(1, 2)
     (1, 2.0)
     """
-    let ((i32, f64)) xy = (x, y)
+    let (i32, f64) xy = (x, y)
     assert xy == (x, y), xy
     xy = (x, y) * 1
     assert xy == (x, y), xy
@@ -99,7 +99,7 @@ def packing_list(i32 x, f64 y):
     >>> packing_list(1, 2)
     (1, 2.0)
     """
-    let ((i32, f64)) xy = [x, y]
+    let (i32, f64) xy = [x, y]
     assert xy == (x, y), xy
     xy = [x, y] * 1
     assert xy == (x, y), xy
@@ -107,7 +107,7 @@ def packing_list(i32 x, f64 y):
     return xy
 
 def coerce_packing_tuple(i32 x, i32 y):
-    let ((i32, f64)) xy = (x, y)
+    let (i32, f64) xy = (x, y)
     """
     >>> coerce_packing_tuple(1, 2)
     (1, 2.0)
@@ -121,7 +121,7 @@ def c_types(i32 a, f64 b):
     """
     let i32* a_ptr
     let f64* b_ptr
-    let (i32*, double*) ab = (&a, &b)
+    let (i32*, f64*) ab = (&a, &b)
     a_ptr, b_ptr = ab
     return a_ptr[0], b_ptr[0]
 
@@ -151,7 +151,7 @@ def union_in_ctuple_dynamic(*values):
     let (i32, Union) a = values
     return a[1].x if a[0] == 1 else a[1].y
 
-fn (i32, i32*) cdef_ctuple_return_type(i32 x, int* x_ptr):
+fn (i32, i32*) cdef_ctuple_return_type(i32 x, i32* x_ptr):
     return x, x_ptr
 
 def call_cdef_ctuple_return_type(i32 x):
@@ -159,7 +159,7 @@ def call_cdef_ctuple_return_type(i32 x):
     >>> call_cdef_ctuple_return_type(2)
     (2, 2)
     """
-    let (i32, int*) res = cdef_ctuple_return_type(x, &x)
+    let (i32, i32*) res = cdef_ctuple_return_type(x, &x)
     return res[0], res[1][0]
 
 cpdef (i32, f64) cpdef_ctuple_return_type(i32 x, f64 y):
@@ -176,7 +176,7 @@ def cast_to_ctuple(*o):
     """
     let i32 x
     let f64 y
-    x, y = <((i32, f64))>o
+    x, y = <(i32, f64)>o
     return x, y
 
 @cython.infer_types(true)
@@ -188,19 +188,19 @@ def test_type_inference():
     let f64 y = 2
     let object o = 3
     xy = (x, y)
-    assert cython.typeof(xy) == "((i32, f64))", cython.typeof(xy)
+    assert cython.typeof(xy) == "(int, double)", cython.typeof(xy)
     xo = (x, o)
     assert cython.typeof(xo) == "tuple object", cython.typeof(xo)
 
-@cython.locals(a=(i32,int), b=(cython.long,cython.float))
+@cython.locals(a=(i32, i32), b=(cython.i64, cython.f64))
 def test_pure_python_declaration(x, y):
     """
     >>> test_pure_python_declaration(1, 2)
-    (i32, i32)
+    (int, int)
     (long, float)
     ((1, 2), (1, 2.0))
     >>> test_pure_python_declaration(1.0, 2.0)
-    (i32, i32)
+    (int, int)
     (long, float)
     ((1, 2), (1, 2.0))
     >>> test_pure_python_declaration('x', 'y')
@@ -257,7 +257,7 @@ def test_mul_to_ctuple((i32, i32) ab, i32 c):
     Traceback (most recent call last):
     TypeError: Expected a sequence of size 4, got size 6
     """
-    result: tuple[cython.int, cython.int, cython.int, cython.int] = ab * c
+    result: tuple[cython.i32, cython.i32, cython.i32, cython.i32] = ab * c
     return result
 
 def test_unop((i32, i32) ab):
