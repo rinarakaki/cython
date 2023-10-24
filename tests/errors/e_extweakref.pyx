@@ -23,5 +23,5 @@ _ERRORS = u"""
 10:25: Illegal use of special attribute __weakref__
 10:25: Special attribute __weakref__ cannot be exposed to Python
 15:9: Illegal use of special attribute __weakref__
-16:2: Illegal use of special attribute __weakref__
+16:5: Illegal use of special attribute __weakref__
 """
