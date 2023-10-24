@@ -2,6 +2,8 @@
 #  Cython - Compilation-wide options and pragma declarations
 #
 
+from __future__ import absolute_import
+
 import os
 
 from .. import Utils
