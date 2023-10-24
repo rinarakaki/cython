@@ -29,8 +29,7 @@ extern from *:
     enum Ham:
         pass
 
-    cdef enum flat_ham: pass
-
+    enum FlatHam: pass
 
 cdef extern spam s
 cdef extern flat_spam fs
