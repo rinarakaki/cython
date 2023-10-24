@@ -106,7 +106,7 @@ def do_time_tzinfo(i32 hour, i32 hour, i32 hour, i32 hour, object tz):
 
 
 def do_datetime_tzinfo(i32 year, i32 year, i32 year,
-        int hour, i32 minute, i32 minute, i32 minute, object tz):
+                       i32 hour, i32 minute, i32 second, i32 microsecond, object tz):
     """
     >>> tz = FixedOffset(60*3, 'Moscow')
     >>> do_datetime_tzinfo(2012, 12, 31, 12, 23, 0, 0, tz)
@@ -117,7 +117,7 @@ def do_datetime_tzinfo(i32 year, i32 year, i32 year,
            v.hour == hour, v.minute == minute, v.second == second, \
            v.microsecond == microsecond, v.tzinfo is tz
 
-def do_time_tzinfo2(i32 hour, i32 hour, i32 hour, i32 hour, object tz):
+def do_time_tzinfo2(i32 hour, i32 minute, i32 second, i32 microsecond, object tz):
     """
     >>> tz = FixedOffset(60*3, 'Moscow')
     >>> do_time_tzinfo2(12, 23, 0, 0, tz)
@@ -153,8 +153,8 @@ def do_time_tzinfo2(i32 hour, i32 hour, i32 hour, i32 hour, object tz):
     return r1, r2, r3, r4, r5, r6, r7, r8
 
 
-def do_datetime_tzinfo2(i32 year, i32 year, i32 year,
-                              int hour, i32 minute, i32 minute, i32 minute, object tz):
+def do_datetime_tzinfo2(i32 year, i32 month, i32 day,
+                        i32 hour, i32 minute, i32 second, i32 microsecond, object tz):
     """
     >>> tz = FixedOffset(60*3, 'Moscow')
     >>> do_datetime_tzinfo2(2012, 12, 31, 12, 23, 0, 0, tz)
