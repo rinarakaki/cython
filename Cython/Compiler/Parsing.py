@@ -1741,7 +1741,7 @@ def p_raise_statement(s):
 
 
 def p_import_statement(s):
-    # s.sy in ('import', 'cimport')
+    # s.sy in ("import", "use", "cimport")
     pos = s.position()
     kind = s.sy
     s.next()
@@ -1752,7 +1752,7 @@ def p_import_statement(s):
     stats = []
     is_absolute = Future.absolute_import in s.context.future_directives
     for pos, target_name, dotted_name, as_name in items:
-        if kind == 'cimport':
+        if kind in ("use", "cimport"):
             stat = Nodes.CImportStatNode(
                 pos,
                 module_name=dotted_name,
@@ -1784,14 +1784,14 @@ def p_from_import_statement(s, first_statement = 0):
             s.next()
     else:
         level = None
-    if level is not None and s.sy in ('import', 'cimport'):
+    if level is not None and s.sy in ("import", "cimport"):
         # we are dealing with "from .. import foo, bar"
         dotted_name_pos, dotted_name = s.position(), s.context.intern_ustring('')
     else:
         if level is None and Future.absolute_import in s.context.future_directives:
             level = 0
         (dotted_name_pos, _, dotted_name, _) = p_dotted_name(s, as_allowed=False)
-    if s.sy not in ('import', 'cimport'):
+    if s.sy not in ("import", "cimport"):
         s.error("Expected 'import' or 'cimport'")
     kind = s.sy
     s.next()
@@ -2242,7 +2242,7 @@ def p_simple_statement(s, first_statement = 0):
         node = p_return_statement(s)
     elif s.sy == 'raise':
         node = p_raise_statement(s)
-    elif s.sy in ('import', 'cimport'):
+    elif s.sy in ("import", "use", "cimport"):
         node = p_import_statement(s)
     elif s.sy == 'from':
         node = p_from_import_statement(s, first_statement = first_statement)
