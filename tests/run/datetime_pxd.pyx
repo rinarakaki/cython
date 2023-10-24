@@ -105,7 +105,7 @@ def do_time_tzinfo(i32 hour, i32 minute, i32 second, i32 microsecond, object tz)
            v.microsecond == microsecond, v.tzinfo is tz
 
 
-def do_datetime_tzinfo(i32 year, i32 year, i32 year,
+def do_datetime_tzinfo(i32 year, i32 month, i32 day,
                        i32 hour, i32 minute, i32 second, i32 microsecond, object tz):
     """
     >>> tz = FixedOffset(60*3, 'Moscow')
