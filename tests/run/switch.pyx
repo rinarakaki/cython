@@ -320,12 +320,12 @@ def compile_time_tuple_constant(i32 x):
         return false
 
 cdef enum X:
-    a = 1
-    b
-    c
-    d
-    e = 10
-    f = 100
+    A = 1
+    B
+    C
+    D
+    E = 10
+    F = 100
 
 @cython.test_assert_path_exists('//SwitchStatNode')
 @cython.test_fail_if_path_exists('//IfStatNode')
@@ -338,9 +338,9 @@ def enum_switch(X x):
     >>> enum_switch(100)
     2
     """
-    if x in [a, b, c, d]:
+    if x in [A, B, C, D]:
         return 0
-    elif x == e:
+    elif x == E:
         return 1
     else:
         return 2
@@ -358,11 +358,11 @@ def enum_duplicates(X x):
     >>> enum_duplicates(100)
     3
     """
-    if x in [a, b, c, d]:   # switch is ok here!
+    if x in [A, B, C, D]:   # switch is ok here!
         return 0
-    elif x == e:
+    elif x == E:
         return 1
-    elif x == b:  # duplicate => no switch here!
+    elif x == B:  # duplicate => no switch here!
         return 2
     else:
         return 3
@@ -382,9 +382,9 @@ def int_enum_switch_mix(i32 x):
     >>> int_enum_switch_mix(100)
     4
     """
-    if x in [a, b, c, d]:
+    if x in [A, B, C, D]:
         return 0
-    elif x == e:
+    elif x == E:
         return 1
     elif x == 'X':  # ASCII(88)
         return 2
