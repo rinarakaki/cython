@@ -21,8 +21,8 @@ def coerce_uchar_default(u8 c):
     return c
 
 
-@cython.test_assert_path_exists("//CoerceIntToBytesNode")
-@cython.test_fail_if_path_exists("//CoerceToPyTypeNode")
+#[cython.test_assert_path_exists("//CoerceIntToBytesNode")]
+#[cython.test_fail_if_path_exists("//CoerceToPyTypeNode")]
 def coerce_char_bytes_cast(char c):
     """
     Explicit char -> bytes coercion
@@ -33,8 +33,8 @@ def coerce_char_bytes_cast(char c):
     return <bytes>c
 
 
-@cython.test_assert_path_exists("//CoerceIntToBytesNode")
-@cython.test_fail_if_path_exists("//CoerceToPyTypeNode")
+#[cython.test_assert_path_exists("//CoerceIntToBytesNode")]
+#[cython.test_fail_if_path_exists("//CoerceToPyTypeNode")]
 def coerce_uchar_bytes_cast(u8 c):
     """
     Explicit uchar -> bytes coercion
@@ -48,8 +48,8 @@ def coerce_uchar_bytes_cast(u8 c):
     return <bytes>c
 
 
-@cython.test_assert_path_exists("//CoerceIntToBytesNode")
-@cython.test_fail_if_path_exists("//CoerceToPyTypeNode")
+#[cython.test_assert_path_exists("//CoerceIntToBytesNode")]
+#[cython.test_fail_if_path_exists("//CoerceToPyTypeNode")]
 def coerce_int_bytes_cast(i32 c):
     """
     Explicit int -> bytes coercion
@@ -66,8 +66,8 @@ def coerce_int_bytes_cast(i32 c):
     return <bytes>c
 
 
-@cython.test_assert_path_exists("//CoerceIntToBytesNode")
-@cython.test_fail_if_path_exists("//CoerceToPyTypeNode")
+#[cython.test_assert_path_exists("//CoerceIntToBytesNode")]
+#[cython.test_fail_if_path_exists("//CoerceToPyTypeNode")]
 def coerce_uint_bytes_cast(u32 c):
     """
     Explicit uint -> bytes coercion
@@ -85,8 +85,8 @@ def coerce_uint_bytes_cast(u32 c):
     return <bytes>c
 
 
-@cython.test_assert_path_exists("//CoerceIntToBytesNode")
-@cython.test_fail_if_path_exists("//CoerceToPyTypeNode")
+#[cython.test_assert_path_exists("//CoerceIntToBytesNode")]
+#[cython.test_fail_if_path_exists("//CoerceToPyTypeNode")]
 def coerce_char_bytes_assign(char c):
     """
     Implicit char -> bytes coercion in assignments
@@ -98,8 +98,8 @@ def coerce_char_bytes_assign(char c):
     return s
 
 
-@cython.test_assert_path_exists("//CoerceIntToBytesNode")
-@cython.test_fail_if_path_exists("//CoerceToPyTypeNode")
+#[cython.test_assert_path_exists("//CoerceIntToBytesNode")]
+#[cython.test_fail_if_path_exists("//CoerceToPyTypeNode")]
 def coerce_uchar_bytes_assign(u8 c):
     """
     Implicit uchar -> bytes coercion in assignments
@@ -114,8 +114,8 @@ def coerce_uchar_bytes_assign(u8 c):
     return s
 
 
-@cython.test_assert_path_exists("//CoerceIntToBytesNode")
-@cython.test_fail_if_path_exists("//CoerceToPyTypeNode")
+#[cython.test_assert_path_exists("//CoerceIntToBytesNode")]
+#[cython.test_fail_if_path_exists("//CoerceToPyTypeNode")]
 def coerce_int_bytes_assign(i32 c):
     """
     Implicit int -> bytes coercion in assignments
@@ -134,8 +134,8 @@ def coerce_int_bytes_assign(i32 c):
     return s
 
 
-@cython.test_assert_path_exists("//CoerceIntToBytesNode")
-@cython.test_fail_if_path_exists("//CoerceToPyTypeNode")
+#[cython.test_assert_path_exists("//CoerceIntToBytesNode")]
+#[cython.test_fail_if_path_exists("//CoerceToPyTypeNode")]
 def coerce_uint_bytes_assign(u32 c):
     """
     Implicit uint -> bytes coercion in assignments
@@ -168,7 +168,7 @@ def inplace_ops_use_arithmetic():
     return s
 
 
-@cython.test_fail_if_path_exists('//CoerceFromPyTypeNode')
+#[cython.test_fail_if_path_exists('//CoerceFromPyTypeNode')]
 def indexing_to_char(bytes s):
     """
     >>> ord('b')

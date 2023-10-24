@@ -114,7 +114,7 @@ def tuple_of_args_tuple(*args):
     return tuple(tuple(tuple(args)))
 
 
-@cython.test_fail_if_path_exists('//SimpleCallNode//SimpleCallNode')
+#[cython.test_fail_if_path_exists('//SimpleCallNode//SimpleCallNode')]
 def tuple_of_object(ob):
     """
     >>> tuple(type(1))  # doctest: +ELLIPSIS

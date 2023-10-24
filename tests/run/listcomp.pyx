@@ -125,8 +125,8 @@ def listcomp_as_condition(sequence):
     return false
 
 
-@cython.test_fail_if_path_exists("//SimpleCallNode//ComprehensionNode")
-@cython.test_assert_path_exists("//ComprehensionNode")
+#[cython.test_fail_if_path_exists("//SimpleCallNode//ComprehensionNode")]
+#[cython.test_assert_path_exists("//ComprehensionNode")]
 def sorted_listcomp(sequence):
     """
     >>> sorted_listcomp([])
@@ -141,7 +141,7 @@ def sorted_listcomp(sequence):
 
 @cython.test_fail_if_path_exists("//IfStatNode",
                                  "//ComprehensionAppendNode")
-@cython.test_assert_path_exists("//ComprehensionNode")
+#[cython.test_assert_path_exists("//ComprehensionNode")]
 def listcomp_const_condition_false():
     """
     >>> listcomp_const_condition_false()
@@ -152,7 +152,7 @@ def listcomp_const_condition_false():
 
 @cython.test_fail_if_path_exists("//IfStatNode",
                                  "//ComprehensionAppendNode")
-@cython.test_assert_path_exists("//ComprehensionNode")
+#[cython.test_assert_path_exists("//ComprehensionNode")]
 def listcomp_const_condition_false_bool_test():
     """
     >>> listcomp_const_condition_false_bool_test()
@@ -163,7 +163,7 @@ def listcomp_const_condition_false_bool_test():
 
 @cython.test_fail_if_path_exists("//IfStatNode",
                                  "//ComprehensionAppendNode")
-@cython.test_assert_path_exists("//ComprehensionNode")
+#[cython.test_assert_path_exists("//ComprehensionNode")]
 def listcomp_const_condition_false_assert():
     """
     >>> listcomp_const_condition_false_assert()
@@ -201,7 +201,7 @@ def listcomp_const_condition_false_typed_error():
     return false
 
 
-@cython.test_fail_if_path_exists("//IfStatNode")
+#[cython.test_fail_if_path_exists("//IfStatNode")]
 @cython.test_assert_path_exists("//ComprehensionNode",
                                 "//ComprehensionAppendNode")
 def listcomp_const_condition_true():

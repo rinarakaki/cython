@@ -6,16 +6,16 @@ ctypedef i32 USERTYPE
 
 # Functions
 
-@cython.callspec("")
+#[cython.callspec("")]
 fn void h1(): pass
 
-@cython.callspec("__cdecl")
+#[cython.callspec("__cdecl")]
 fn void __cdecl h2(): pass
 
-@cython.callspec("__stdcall")
+#[cython.callspec("__stdcall")]
 fn void __stdcall h3(): pass
 
-@cython.callspec("__fastcall")
+#[cython.callspec("__fastcall")]
 fn void __fastcall h4(): pass
 
 fn USERTYPE h5(): return 0
@@ -26,10 +26,10 @@ fn USERTYPE __stdcall h7(): return 0
 
 fn USERTYPE __fastcall h8(): return 0
 
-@cython.callspec("__cdecl")
+#[cython.callspec("__cdecl")]
 fn void __stdcall herr1(): pass # fail
 
-@cython.callspec("__cdecl")
+#[cython.callspec("__cdecl")]
 fn void __fastcall herr2(): pass # fail
 
 # Pointer typedefs

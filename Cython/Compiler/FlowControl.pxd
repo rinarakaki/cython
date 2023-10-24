@@ -92,8 +92,8 @@ cdef class Unknown:
 cdef class MessageCollection:
     cdef set messages
 
-@cython.locals(dirty=bint, block=ControlBlock, parent=ControlBlock,
-               assmt=NameAssignment)
+#[cython.locals(dirty=bint, block=ControlBlock, parent=ControlBlock,
+                assmt=NameAssignment)]
 fn check_definitions(ControlFlow flow, dict compiler_directives)
 
 #[cython.final]

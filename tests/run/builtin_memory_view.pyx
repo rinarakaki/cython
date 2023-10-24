@@ -9,7 +9,7 @@ import sys
 cimport cython
 #from cpython.memoryview cimport PyMemoryView_GET_BUFFER
 
-@cython.test_fail_if_path_exists("//SimpleCallNode")
+#[cython.test_fail_if_path_exists("//SimpleCallNode")]
 def test_convert_from_obj(o):
     """
     >>> abc = b'abc'
@@ -33,7 +33,7 @@ def test_create_from_buffer():
     return memoryview(buf)
 '''
 
-@cython.test_fail_if_path_exists("//AttributeNode")
+#[cython.test_fail_if_path_exists("//AttributeNode")]
 def test_optimized_attributes(memoryview view):
     """
     >>> test_optimized_attributes(memoryview(b'zzzzz'))

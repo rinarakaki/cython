@@ -60,7 +60,7 @@ def collatz(INT n):
     return int(k)
 
 #[cython.overflowcheck(true)]
-@cython.overflowcheck.fold(false)
+#[cython.overflowcheck.fold(false)]
 def collatz_overflow(INT n):
     """
     >>> collatz_overflow(1)
@@ -80,7 +80,7 @@ def collatz_overflow(INT n):
     return int(k)
 
 #[cython.overflowcheck(true)]
-@cython.overflowcheck.fold(true)
+#[cython.overflowcheck.fold(true)]
 def collatz_overflow_fold(INT n):
     """
     >>> collatz_overflow_fold(1)
@@ -144,7 +144,7 @@ def most_orthogonal(C_INT[:, ::1] vectors):
     return vectors[i], vectors[j]
 
 #[cython.overflowcheck(true)]
-@cython.overflowcheck.fold(false)
+#[cython.overflowcheck.fold(false)]
 def most_orthogonal_overflow(C_INT[:, ::1] vectors):
     let C_INT n = vectors.shape[0]
     let C_INT* a
@@ -166,7 +166,7 @@ def most_orthogonal_overflow(C_INT[:, ::1] vectors):
     return vectors[i], vectors[j]
 
 #[cython.overflowcheck(true)]
-@cython.overflowcheck.fold(true)
+#[cython.overflowcheck.fold(true)]
 def most_orthogonal_overflow_fold(C_INT[:, ::1] vectors):
     let C_INT n = vectors.shape[0]
     let C_INT* a

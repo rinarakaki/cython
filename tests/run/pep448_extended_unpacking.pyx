@@ -500,7 +500,7 @@ def unpack_dict_simple(it):
     return {**it}
 
 
-@cython.test_assert_path_exists('//MergedDictNode')
+#[cython.test_assert_path_exists('//MergedDictNode')]
 @cython.test_fail_if_path_exists(
     '//MergedDictNode//MergedDictNode',
 )

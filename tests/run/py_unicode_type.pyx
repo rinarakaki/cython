@@ -97,8 +97,8 @@ def ord_pyunicode(Py_UNICODE x):
     return ord(x)
 
 
-@cython.test_assert_path_exists('//PythonCapiCallNode')
-@cython.test_fail_if_path_exists('//SimpleCallNode')
+#[cython.test_assert_path_exists('//PythonCapiCallNode')]
+#[cython.test_fail_if_path_exists('//SimpleCallNode')]
 def unicode_type_methods(Py_UNICODE uchar):
     """
     >>> unicode_type_methods(ord('A'))
@@ -123,8 +123,8 @@ def unicode_type_methods(Py_UNICODE uchar):
         uchar.isupper(),
         ]
 
-#@cython.test_assert_path_exists('//PythonCapiCallNode')
-#@cython.test_fail_if_path_exists('//SimpleCallNode')
+##[cython.test_assert_path_exists('//PythonCapiCallNode')]
+##[cython.test_fail_if_path_exists('//SimpleCallNode')]
 def unicode_methods(Py_UNICODE uchar):
     """
     >>> unicode_methods(ord('A')) == ['a', 'A', 'A']
@@ -139,7 +139,7 @@ def unicode_methods(Py_UNICODE uchar):
         uchar.title(),
         ]
 
-@cython.test_assert_path_exists('//IntNode')
+#[cython.test_assert_path_exists('//IntNode')]
 @cython.test_fail_if_path_exists('//SimpleCallNode',
                                  '//PythonCapiCallNode')
 def len_uchar(Py_UNICODE uchar):
@@ -202,7 +202,7 @@ def count_lower_case_characters_slice(unicode ustring):
 
 @cython.test_assert_path_exists('//SwitchStatNode',
                                 '//ForFromStatNode')
-@cython.test_fail_if_path_exists('//ForInStatNode')
+#[cython.test_fail_if_path_exists('//ForInStatNode')]
 def iter_and_in():
     """
     >>> iter_and_in()
@@ -216,8 +216,8 @@ def iter_and_in():
         if c in u'abCDefGh':
             print c
 
-@cython.test_assert_path_exists('//SwitchStatNode')
-@cython.test_fail_if_path_exists('//ForInStatNode')
+#[cython.test_assert_path_exists('//SwitchStatNode')]
+#[cython.test_fail_if_path_exists('//ForInStatNode')]
 def index_and_in():
     """
     >>> index_and_in()

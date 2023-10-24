@@ -10,8 +10,8 @@ cdef class VerboseGetItem(object):
 
 cimport cython
 
-@cython.test_assert_path_exists("//SimpleCallNode")
-@cython.test_fail_if_path_exists("//ForInStatNode")
+#[cython.test_assert_path_exists("//SimpleCallNode")]
+#[cython.test_fail_if_path_exists("//ForInStatNode")]
 def any_item(x):
     """
     >>> any_item([0, 0, 1, 0, 0])

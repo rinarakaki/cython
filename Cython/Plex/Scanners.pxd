@@ -42,10 +42,10 @@ cdef class Scanner:
     ##cdef tuple position(self)  # used frequently by Parsing.py
 
     #[cython.final]
-    @cython.locals(cur_pos=isize, cur_line=isize, cur_line_start=isize,
-                   input_state=i64, next_pos=isize, state=dict,
-                   buf_start_pos=isize, buf_len=isize, buf_index=isize,
-                   trace=bint, discard=isize, data=unicode, buffer=unicode)
+    #[cython.locals(cur_pos=isize, cur_line=isize, cur_line_start=isize,
+                    input_state=i64, next_pos=isize, state=dict,
+                    buf_start_pos=isize, buf_len=isize, buf_index=isize,
+                    trace=bint, discard=isize, data=unicode, buffer=unicode)]
     fn run_machine_inlined(self)
 
     fn inline begin(self, state)

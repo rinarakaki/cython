@@ -4,7 +4,7 @@ import cython
     '//CascadedAssignmentNode//CoerceFromPyTypeNode',
     '//CascadedAssignmentNode//CoerceToPyTypeNode',
 )
-@cython.test_assert_path_exists('//CascadedAssignmentNode')
+#[cython.test_assert_path_exists('//CascadedAssignmentNode')]
 def test_cascaded_assignment_simple():
     """
     >>> test_cascaded_assignment_simple()
@@ -17,7 +17,7 @@ def test_cascaded_assignment_simple():
     '//CascadedAssignmentNode//CoerceFromPyTypeNode',
     '//CascadedAssignmentNode//CoerceToPyTypeNode',
 )
-@cython.test_assert_path_exists('//CascadedAssignmentNode')
+#[cython.test_assert_path_exists('//CascadedAssignmentNode')]
 def test_cascaded_assignment_typed():
     """
     >>> test_cascaded_assignment_typed()

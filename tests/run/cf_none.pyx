@@ -1,7 +1,7 @@
 
 cimport cython
 
-@cython.test_fail_if_path_exists('//NoneCheckNode')
+#[cython.test_fail_if_path_exists('//NoneCheckNode')]
 def none_checks(a):
     """
     >>> none_checks(1)
@@ -16,7 +16,7 @@ def none_checks(a):
     else:
         return d.get(11)
 
-@cython.test_assert_path_exists('//NoneCheckNode')
+#[cython.test_assert_path_exists('//NoneCheckNode')]
 def dict_arg(dict a):
     """
     >>> dict_arg({})
@@ -25,7 +25,7 @@ def dict_arg(dict a):
     """
     return a.get(1)
 
-@cython.test_fail_if_path_exists('//NoneCheckNode')
+#[cython.test_fail_if_path_exists('//NoneCheckNode')]
 def dict_arg_not_none(dict a not None):
     """
     >>> dict_arg_not_none({})
@@ -34,7 +34,7 @@ def dict_arg_not_none(dict a not None):
     """
     return a.get(1)
 
-@cython.test_assert_path_exists('//NoneCheckNode')
+#[cython.test_assert_path_exists('//NoneCheckNode')]
 def reassignment(dict d):
     """
     >>> reassignment({})
@@ -47,7 +47,7 @@ def reassignment(dict d):
     b = d.get(1)
     return a, b
 
-@cython.test_fail_if_path_exists('//NoneCheckNode')
+#[cython.test_fail_if_path_exists('//NoneCheckNode')]
 def conditional(a):
     """
     >>> conditional(true)
@@ -61,7 +61,7 @@ def conditional(a):
         d = {1:3}
     return d.get(1)
 
-@cython.test_assert_path_exists('//NoneCheckNode')
+#[cython.test_assert_path_exists('//NoneCheckNode')]
 def conditional_arg(a, dict d):
     """
     >>> conditional_arg(True,  {1:2})
@@ -72,7 +72,7 @@ def conditional_arg(a, dict d):
         d = {}
     return d.get(1)
 
-@cython.test_fail_if_path_exists('//NoneCheckNode')
+#[cython.test_fail_if_path_exists('//NoneCheckNode')]
 def conditional_not_none(a, dict d not None):
     """
     >>> conditional_not_none(True,  {1:2})
@@ -83,7 +83,7 @@ def conditional_not_none(a, dict d not None):
         d = {}
     return d.get(1)
 
-@cython.test_fail_if_path_exists('//NoneCheckNode')
+#[cython.test_fail_if_path_exists('//NoneCheckNode')]
 def self_dependency(i32 x):
     """
     >>> self_dependency(1)
@@ -98,7 +98,7 @@ def self_dependency(i32 x):
         a, b = b, a
     return a.get(2), b.get(1)
 
-@cython.test_assert_path_exists('//NoneCheckNode')
+#[cython.test_assert_path_exists('//NoneCheckNode')]
 def self_dependency_none(i32 x):
     """
     >>> self_dependency_none(false)
@@ -114,7 +114,7 @@ def self_dependency_none(i32 x):
         a, b = b, a
     return b.get(2)
 
-@cython.test_fail_if_path_exists('//NoneCheckNode')
+#[cython.test_fail_if_path_exists('//NoneCheckNode')]
 def in_place_op():
     vals = [0]
     vals += [1]

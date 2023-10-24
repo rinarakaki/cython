@@ -39,7 +39,7 @@ cimport cython
 def f_plus(a):
     return a + 1
 
-@cython.binding(false)
+#[cython.binding(false)]
 def f_plus_nobind(a):
     return a+1
 

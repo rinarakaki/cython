@@ -3,7 +3,7 @@
 
 cimport cython
 
-@cython.freelist(4)
+#[cython.freelist(4)]
 cdef class ExtTypeNoGC:
     """
     >>> obj = ExtTypeNoGC()
@@ -55,7 +55,7 @@ cdef class ExtSubTypeNoGC(ExtTypeNoGC):
     cdef bytes x
 
 
-@cython.freelist(4)
+#[cython.freelist(4)]
 cdef class ExtTypeWithGC:
     """
     >>> obj = ExtTypeWithGC()
@@ -151,7 +151,7 @@ cdef class LargerExtSubType(ExtSubType):
         self.attribute2 = object()
 
 
-@cython.freelist(4)
+#[cython.freelist(4)]
 cdef class ExtTypeWithCAttr:
     """
     >>> obj = ExtTypeWithCAttr()
@@ -237,7 +237,7 @@ cdef class ExtTypeWithCAttrNoFreelist:
         self.cattr = 1
 
 
-@cython.freelist(4)
+#[cython.freelist(4)]
 cdef class ExtTypeWithCMethods:
     """
     >>> obj = ExtTypeWithCMethods()
@@ -413,7 +413,7 @@ def test_more_cmethods(ExtSubTypeWithMoreCMethods obj not None):
     return x, obj.get_cattr(), obj.get_cattr2()
 
 
-@cython.freelist(4)
+#[cython.freelist(4)]
 cdef class ExtTypeWithRefCycle:
     """
     >>> obj = first = ExtTypeWithRefCycle()
@@ -453,7 +453,7 @@ cdef class ExtTypeWithRefCycle:
         self.attribute = obj
 
 
-@cython.freelist(3)
+#[cython.freelist(3)]
 @cython.cclass
 class DecoratedPyClass(object):
     """

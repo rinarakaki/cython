@@ -93,7 +93,7 @@ def return_range_sum_squares(i32 N):
 
 @cython.test_assert_path_exists('//ForInStatNode',
                                 "//InlinedGeneratorExpressionNode")
-@cython.test_fail_if_path_exists('//SimpleCallNode')
+#[cython.test_fail_if_path_exists('//SimpleCallNode')]
 def return_sum_squares(seq):
     """
     >>> sum([i*i for i in range(10)])
@@ -111,7 +111,7 @@ def return_sum_squares(seq):
 
 @cython.test_assert_path_exists('//ForInStatNode',
                                 "//InlinedGeneratorExpressionNode")
-@cython.test_fail_if_path_exists('//SimpleCallNode')
+#[cython.test_fail_if_path_exists('//SimpleCallNode')]
 def return_sum_squares_start(seq, i32 start):
     """
     >>> sum([i*i for i in range(10)], -1)
@@ -151,7 +151,7 @@ def return_typed_sum_squares_start(seq, i32 start):
 
 @cython.test_assert_path_exists('//ForInStatNode',
                                 "//InlinedGeneratorExpressionNode")
-@cython.test_fail_if_path_exists('//SimpleCallNode')
+#[cython.test_fail_if_path_exists('//SimpleCallNode')]
 def return_sum_of_listcomp_consts_start(seq, i32 start):
     """
     >>> sum([1 for i in range(10) if i > 3], -1)
@@ -173,7 +173,7 @@ def return_sum_of_listcomp_consts_start(seq, i32 start):
                                 # (see InlinedGeneratorExpressionNode.coerce_to()),
                                 # hope this breaks one day
                                 "//CoerceFromPyTypeNode//InlinedGeneratorExpressionNode")
-@cython.test_fail_if_path_exists('//SimpleCallNode')
+#[cython.test_fail_if_path_exists('//SimpleCallNode')]
 def return_typed_sum_of_listcomp_consts_start(seq, i32 start):
     """
     >>> sum([1 for i in range(10) if i > 3], -1)

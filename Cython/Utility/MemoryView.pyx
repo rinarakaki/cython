@@ -108,7 +108,7 @@ except:
 ### cython.array class
 #
 
-@cython.collection_type("sequence")
+#[cython.collection_type("sequence")]
 @cname("__pyx_array")
 cdef class array:
 
@@ -938,7 +938,7 @@ fn i32 transpose_memslice({{memviewslice_name}} *memslice) except -1 nogil:
 #
 ### Creating new memoryview objects from slices and memoryviews
 #
-@cython.collection_type("sequence")
+#[cython.collection_type("sequence")]
 @cname('__pyx_memoryviewslice')
 cdef class _memoryviewslice(memoryview):
     "Internal class for passing memoryview slices to Python"
@@ -1123,7 +1123,7 @@ fn char get_best_order({{memviewslice_name}} *mslice, i32 ndim) noexcept nogil:
     else:
         return 'F'
 
-@cython.cdivision(True)
+#[cython.cdivision(true)]
 fn void _copy_strided_to_strided(char *src_data, isize *src_strides,
                                    char *dst_data, isize *dst_strides,
                                    isize *src_shape, isize *dst_shape,

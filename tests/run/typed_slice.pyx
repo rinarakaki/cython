@@ -4,7 +4,7 @@
 cimport cython
 
 
-@cython.test_fail_if_path_exists("//CondExprNode")
+#[cython.test_fail_if_path_exists("//CondExprNode")]
 def slice_list(list l, i32 start, i32 stop):
     """
     >>> slice_list([1, 2, 3, 4], 1, 3)
@@ -26,7 +26,7 @@ def slice_list(list l, i32 start, i32 stop):
     """
     return l[start:stop]
 
-@cython.test_fail_if_path_exists("//CondExprNode")
+#[cython.test_fail_if_path_exists("//CondExprNode")]
 def slice_list_start(list l, i32 start):
     """
     >>> slice_list_start([1, 2, 3, 4], 1)
@@ -49,7 +49,7 @@ def slice_list_start(list l, i32 start):
     return l[start:]
 
 
-@cython.test_fail_if_path_exists("//CondExprNode")
+#[cython.test_fail_if_path_exists("//CondExprNode")]
 def slice_list_stop(list l, i32 stop):
     """
     >>> slice_list_stop([1, 2, 3, 4], 3)
@@ -74,7 +74,7 @@ def slice_list_stop(list l, i32 stop):
     return l[:stop]
 
 
-@cython.test_fail_if_path_exists("//CondExprNode")
+#[cython.test_fail_if_path_exists("//CondExprNode")]
 def slice_list_copy(list l):
     """
     >>> slice_list_copy([])
@@ -85,7 +85,7 @@ def slice_list_copy(list l):
     return l[:]
 
 
-@cython.test_fail_if_path_exists("//CondExprNode")
+#[cython.test_fail_if_path_exists("//CondExprNode")]
 def slice_tuple_copy(tuple l):
     """
     >>> slice_tuple_copy(())
@@ -96,7 +96,7 @@ def slice_tuple_copy(tuple l):
     return l[:]
 
 
-@cython.test_fail_if_path_exists("//CondExprNode")
+#[cython.test_fail_if_path_exists("//CondExprNode")]
 def slice_tuple(tuple t, i32 start, i32 stop):
     """
     >>> slice_tuple((1, 2, 3, 4), 1, 3)
@@ -119,7 +119,7 @@ def slice_tuple(tuple t, i32 start, i32 stop):
     return t[start:stop]
 
 
-@cython.test_fail_if_path_exists("//CondExprNode")
+#[cython.test_fail_if_path_exists("//CondExprNode")]
 def slice_tuple_start(tuple t, i32 start):
     """
     >>> slice_tuple_start((1, 2, 3, 4), 1)
@@ -140,7 +140,7 @@ def slice_tuple_start(tuple t, i32 start):
     return t[start:]
 
 
-@cython.test_fail_if_path_exists("//CondExprNode")
+#[cython.test_fail_if_path_exists("//CondExprNode")]
 def slice_tuple_stop(tuple t, i32 stop):
     """
     >>> slice_tuple_stop((1, 2, 3, 4), 3)
@@ -159,7 +159,7 @@ def slice_tuple_stop(tuple t, i32 stop):
     return t[:stop]
 
 
-@cython.test_fail_if_path_exists("//CondExprNode")
+#[cython.test_fail_if_path_exists("//CondExprNode")]
 def slice_list_assign_list(list l):
     """
     >>> l = [1, 2, 3, 4]
@@ -171,7 +171,7 @@ def slice_list_assign_list(list l):
     return l
 
 
-@cython.test_fail_if_path_exists("//CondExprNode")
+#[cython.test_fail_if_path_exists("//CondExprNode")]
 def slice_list_assign_tuple(list l):
     """
     >>> l = [1, 2, 3, 4]
@@ -183,7 +183,7 @@ def slice_list_assign_tuple(list l):
     return l
 
 
-@cython.test_fail_if_path_exists("//CondExprNode")
+#[cython.test_fail_if_path_exists("//CondExprNode")]
 def slice_list_assign(list l, value):
     """
     >>> l = [1, 2, 3, 4]
@@ -244,7 +244,7 @@ ctypedef fused sliceable:
     unicode
 
 
-@cython.test_assert_path_exists("//SliceIndexNode//CondExprNode")
+#[cython.test_assert_path_exists("//SliceIndexNode//CondExprNode")]
 def slice_fused_type_start(sliceable seq, start):
     """
     >>> l = [1, 2, 3, 4, 5]
@@ -288,7 +288,7 @@ def slice_fused_type_start(sliceable seq, start):
     return obj
 
 
-@cython.test_assert_path_exists("//SliceIndexNode//CondExprNode")
+#[cython.test_assert_path_exists("//SliceIndexNode//CondExprNode")]
 def slice_fused_type_stop(sliceable seq, stop):
     """
     >>> l = [1, 2, 3, 4, 5]
@@ -332,7 +332,7 @@ def slice_fused_type_stop(sliceable seq, stop):
     return obj
 
 
-@cython.test_assert_path_exists("//SliceIndexNode//CondExprNode")
+#[cython.test_assert_path_exists("//SliceIndexNode//CondExprNode")]
 def slice_fused_type_start_and_stop(sliceable seq, start, stop):
     """
     >>> l = [1, 2, 3, 4, 5]

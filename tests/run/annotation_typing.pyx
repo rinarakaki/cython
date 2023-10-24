@@ -326,7 +326,7 @@ class HasPtr:
     def __repr__(self):
         return f"HasPtr({self.a[0]}, {self.b})"
 
-@cython.annotation_typing(false)
+#[cython.annotation_typing(false)]
 def turn_off_typing(x: float, d: dict):
     """
     >>> turn_off_typing('not a float', [])  # ignore the typing
@@ -334,7 +334,7 @@ def turn_off_typing(x: float, d: dict):
     """
     return typeof(x), typeof(d), x, d
 
-@cython.annotation_typing(false)
+#[cython.annotation_typing(false)]
 cdef class ClassTurnOffTyping:
     x: float
     d: dict
@@ -346,7 +346,7 @@ cdef class ClassTurnOffTyping:
         """
         return typeof(self.x), typeof(self.d), typeof(arg)
 
-    @cython.annotation_typing(true)
+    #[cython.annotation_typing(true)]
     def and_turn_it_back_on_again(self, arg: float):
         """
         >>> ClassTurnOffTyping().and_turn_it_back_on_again(1.0)

@@ -1,6 +1,6 @@
 cimport cython
 
-@cython.freelist(8)
+#[cython.freelist(8)]
 cdef class Penguin:
     cdef object food
     def __cinit__(self, food):

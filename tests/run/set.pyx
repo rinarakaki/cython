@@ -210,7 +210,7 @@ def test_set_pop():
     return s1
 
 
-@cython.test_fail_if_path_exists("//SimpleCallNode//NameNode")
+#[cython.test_fail_if_path_exists("//SimpleCallNode//NameNode")]
 def test_object_pop(s):
     """
     >>> s = set([2])
@@ -312,7 +312,7 @@ def test_frozenset_sideeffect_unhashable_failure():
     return L
 
 
-@cython.test_assert_path_exists("//SetNode")
+#[cython.test_assert_path_exists("//SetNode")]
 @cython.test_fail_if_path_exists(
     "//SimpleCallNode",
     "//PythonCapiCallNode"
@@ -328,8 +328,8 @@ def test_set_of_list():
     return set([1, 2, 3])
 
 
-@cython.test_assert_path_exists("//PythonCapiCallNode")
-@cython.test_fail_if_path_exists("//SetNode")
+#[cython.test_assert_path_exists("//PythonCapiCallNode")]
+#[cython.test_fail_if_path_exists("//SetNode")]
 def test_frozenset_of_list():
     """
     >>> s = test_frozenset_of_list()
@@ -341,8 +341,8 @@ def test_frozenset_of_list():
     return frozenset([1, 2, 3])
 
 
-@cython.test_assert_path_exists("//SetNode")
-@cython.test_fail_if_path_exists("//SimpleCallNode")
+#[cython.test_assert_path_exists("//SetNode")]
+#[cython.test_fail_if_path_exists("//SimpleCallNode")]
 def test_set_of_tuple():
     """
     >>> s = test_set_of_tuple()
@@ -354,8 +354,8 @@ def test_set_of_tuple():
     return set((1, 2, 3))
 
 
-@cython.test_assert_path_exists("//PythonCapiCallNode")
-@cython.test_fail_if_path_exists("//SetNode")
+#[cython.test_assert_path_exists("//PythonCapiCallNode")]
+#[cython.test_fail_if_path_exists("//SetNode")]
 def test_frozenset_of_tuple():
     """
     >>> s = test_frozenset_of_tuple()
@@ -367,7 +367,7 @@ def test_frozenset_of_tuple():
     return frozenset((1, 2, 3))
 
 
-@cython.test_assert_path_exists("//PythonCapiCallNode")
+#[cython.test_assert_path_exists("//PythonCapiCallNode")]
 @cython.test_fail_if_path_exists(
     "//SimpleCallNode",
     "//SetNode"
@@ -383,7 +383,7 @@ def test_set_of_iterable(x):
     return set(x)
 
 
-@cython.test_assert_path_exists("//PythonCapiCallNode")
+#[cython.test_assert_path_exists("//PythonCapiCallNode")]
 @cython.test_fail_if_path_exists(
     "//SimpleCallNode",
     "//SetNode"
@@ -405,7 +405,7 @@ def test_frozenset_of_iterable(x):
     return frozenset(x)
 
 
-@cython.test_assert_path_exists("//PythonCapiCallNode")
+#[cython.test_assert_path_exists("//PythonCapiCallNode")]
 @cython.test_fail_if_path_exists(
     "//SimpleCallNode",
     "//SetNode"

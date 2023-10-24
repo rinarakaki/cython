@@ -95,14 +95,14 @@ def assert_fastcall(meth):
     if has_fastcall(getattr) and not has_fastcall(meth):
         raise AssertionError(f"{meth} does not use METH_FASTCALL")
 
-@cython.binding(false)
+#[cython.binding(false)]
 def fastcall_function(**kw):
     """
     >>> assert_fastcall(fastcall_function)
     """
     return kw
 
-@cython.binding(true)
+#[cython.binding(true)]
 def fastcall_cyfunction(**kw):
     """
     >>> assert_fastcall(fastcall_cyfunction)
@@ -110,7 +110,7 @@ def fastcall_cyfunction(**kw):
     return kw
 
 cdef class Dummy:
-    @cython.binding(false)
+    #[cython.binding(false)]
     def fastcall_method(self, x, *args, **kw):
         """
         >>> assert_fastcall(Dummy().fastcall_method)
@@ -118,7 +118,7 @@ cdef class Dummy:
         return tuple(args) + tuple(kw)
 
 cdef class CyDummy:
-    @cython.binding(true)
+    #[cython.binding(true)]
     def fastcall_method(self, x, *args, **kw):
         """
         >>> assert_fastcall(CyDummy.fastcall_method)

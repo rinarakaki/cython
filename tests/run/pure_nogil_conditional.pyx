@@ -52,7 +52,7 @@ def test_with_gil(x: cython.int):
 
 
 @cython.nogil
-@cython.exceptval(check=false)
+#[cython.exceptval(check=false)]
 @cython.cfunc
 def write_unraisable() -> cython.int:
     with cython.gil:

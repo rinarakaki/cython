@@ -12,10 +12,10 @@ import cython
 def f(f64[:] a):
     pass
 
-@cython.binding(false)
+#[cython.binding(false)]
 def g(f64[:] a):
     pass
 
-@cython.binding(true)
+#[cython.binding(true)]
 def h(f64[:] a):
     pass

@@ -188,7 +188,7 @@ cdef Γναμε2 global_ναμε3 = Γναμε2()
 def metho_function_taking_fancy_argument(Γναμε2 αrγ):
     return αrγ
 
-@cython.always_allow_keywords(true)
+#[cython.always_allow_keywords(true)]
 def function_taking_fancy_argument(Γναμε2 αrγ):
     return αrγ
 
