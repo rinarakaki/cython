@@ -454,7 +454,7 @@ cdef class ExtTypeWithRefCycle:
 
 
 #[cython.freelist(3)]
-@cython.cclass
+#[cython.cclass]
 class DecoratedPyClass(object):
     """
     >>> obj1 = DecoratedPyClass()

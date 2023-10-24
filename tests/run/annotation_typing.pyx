@@ -151,7 +151,7 @@ def invalid_ctuple_syntax(a: (cython.i32, cython.i32), b: (i32, i32)):
 
 MyStruct = cython.r#struct(x=cython.i32, y=cython.i32, data=cython.f64)
 
-@cython.ccall
+#[cython.ccall]
 def struct_io(s : MyStruct) -> MyStruct:
     """
     >>> d = struct_io(dict(x=1, y=2, data=3))
@@ -190,7 +190,7 @@ def call_struct_io(s : MyStruct) -> MyStruct:
     "//CFuncDefNode[@return_type]",
     "//CFuncDefNode[@return_type.is_struct_or_union = True]",
 )
-@cython.ccall
+#[cython.ccall]
 def struct_convert(d) -> MyStruct:
     """
     >>> d = struct_convert(dict(x=1, y=2, data=3))
@@ -208,7 +208,7 @@ def struct_convert(d) -> MyStruct:
     "//CFuncDefNode[@return_type]",
     "//CFuncDefNode[@return_type.is_int = True]",
 )
-@cython.ccall
+#[cython.ccall]
 def exception_default(raise_exc : cython.bint = false) -> cython.i32:
     """
     >>> exception_default(raise_exc=false)
@@ -237,7 +237,7 @@ def call_exception_default(raise_exc=false):
     "//CFuncDefNode[@return_type]",
     "//CFuncDefNode[@return_type.is_int = True]",
 )
-@cython.ccall
+#[cython.ccall]
 def exception_default_uint(raise_exc : cython.bint = False) -> cython.uint:
     """
     >>> print(exception_default_uint(raise_exc=false))
@@ -300,7 +300,7 @@ def py_float_default(price : Optional[float]=None, ndigits=4):
 cdef class ClassAttribute:
     cls_attr : cython.float = 1.
 
-@cython.cfunc
+#[cython.cfunc]
 def take_ptr(obj: cython.pointer(PyObject)):
     pass
 
@@ -311,7 +311,7 @@ def call_take_ptr():
     python_dict = {"abc": 123}
     take_ptr(cython.cast(cython.pointer(PyObject), python_dict))
 
-@cython.cclass
+#[cython.cclass]
 class HasPtr:
     """
     >>> HasPtr()

@@ -3,7 +3,7 @@
 
 import cython
 
-@cython.cclass
+#[cython.cclass]
 class ExtType(object):
     def const1(self):
         return 1
@@ -61,7 +61,7 @@ class ExtType(object):
         return func
 
 
-@cython.cclass
+#[cython.cclass]
 class GenType(object):
     def const1(self):
         return 1

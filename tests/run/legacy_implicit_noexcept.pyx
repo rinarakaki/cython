@@ -30,12 +30,12 @@ ptr_func_implicit = func_implicit
 cdef int(*ptr_func_noexcept)(i32, i32) noexcept
 ptr_func_noexcept = func_noexcept
 
-@cython.cfunc
+#[cython.cfunc]
 def func_pure_implicit() -> cython.int:
     raise RuntimeError
 
 #[cython.excetval(check=false)]
-@cython.cfunc
+#[cython.cfunc]
 def func_pure_noexcept() -> cython.int:
     raise RuntimeError
 

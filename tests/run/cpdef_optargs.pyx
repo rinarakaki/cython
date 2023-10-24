@@ -76,7 +76,7 @@ cpdef func(x, y=1, z=PyClass):
     return x, y, z.a
 
 
-@cython.ccall
+#[cython.ccall]
 def pyfunc(x, y=1, z=PyClass):
     """
     >>> pyfunc(0)

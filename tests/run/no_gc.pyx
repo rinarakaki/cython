@@ -19,7 +19,7 @@ def is_tp_clear_null(obj):
 def is_tp_traverse_null(obj):
     return (<PyTypeObject*>Py_TYPE(obj)).tp_traverse is NULL
 
-@cython.no_gc
+#[cython.no_gc]
 cdef class DisableGC:
     """
     An extension type that has tp_clear and tp_traverse methods generated 

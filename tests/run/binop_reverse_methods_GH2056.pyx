@@ -7,7 +7,7 @@ __doc__ = ""
 
 
 #[cython.c_api_binop_methods(false)]
-@cython.cclass
+#[cython.cclass]
 class Base(object):
     """
     >>> Base() + 2
@@ -113,7 +113,7 @@ if sys.version_info >= (3, 0):
 
 
 #[cython.c_api_binop_methods(false)]
-@cython.cclass
+#[cython.cclass]
 class OverloadLeft(Base):
     """
     >>> OverloadLeft() + 2
@@ -150,7 +150,7 @@ class OverloadLeft(Base):
 
 
 #[cython.c_api_binop_methods(false)]
-@cython.cclass
+#[cython.cclass]
 class OverloadRight(Base):
     """
     >>> OverloadRight() + 2
@@ -187,7 +187,7 @@ class OverloadRight(Base):
 
 
 #[cython.c_api_binop_methods(true)]
-@cython.cclass
+#[cython.cclass]
 class OverloadCApi(Base):
     """
     >>> OverloadCApi() + 2
@@ -242,7 +242,7 @@ if sys.version_info >= (3, 5):
 
 
 #[cython.c_api_binop_methods(false)]
-@cython.cclass
+#[cython.cclass]
 class PyVersionDependent:
     """
     >>> d = PyVersionDependent()
