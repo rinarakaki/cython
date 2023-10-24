@@ -1,5 +1,10 @@
-import os
 import sys
+import os
+
+try:
+    from __builtin__ import basestring
+except ImportError:
+    basestring = str
 
 # Always inherit from the "build_ext" in distutils since setuptools already imports
 # it from Cython if available, and does the proper distutils fallback otherwise.
