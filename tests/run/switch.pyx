@@ -284,7 +284,6 @@ def switch_off(i32 x):
         return 0
     return -1
 
-
 @cython.test_assert_path_exists('//SwitchStatNode')
 @cython.test_fail_if_path_exists('//IfStatNode')
 def switch_pass(i32 x):
@@ -299,7 +298,6 @@ def switch_pass(i32 x):
     else:
         pass
     return x
-
 
 DEF t = (1, 2, 3, 4, 5, 6)
 
@@ -319,7 +317,7 @@ def compile_time_tuple_constant(i32 x):
     else:
         return false
 
-cdef enum X:
+enum X:
     A = 1
     B
     C
@@ -429,7 +427,6 @@ def int_in_bool_binop(i32 x):
     False
     """
     return x == 1 or x == 2
-
 
 @cython.test_fail_if_path_exists('//BoolBinopNode', '//PrimaryCmpNode')
 def int_in_bool_binop_3(i32 x):
