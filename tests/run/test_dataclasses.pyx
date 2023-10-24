@@ -731,7 +731,7 @@ class TestCase(unittest.TestCase):
 
     @skip_on_versions_below((3, 10))
     def test_init_var_preserve_type(self):
-        self.assertEqual(InitVar[int].type, i32)
+        self.assertEqual(InitVar[int].type, int)
         self.assertEqual(repr(InitVar[int]), 'dataclasses.InitVar[int]')
         self.assertEqual(repr(InitVar[List[int]]), 'dataclasses.InitVar[typing.List[int]]')
         self.assertEqual(repr(InitVar[list[int]]), 'dataclasses.InitVar[list[int]]')
@@ -761,7 +761,7 @@ class TestCase(unittest.TestCase):
     def test_is_dataclass(self):
         NotDataClass = NotDataClass_TestCase_test_is_dataclass
         self.assertFalse(is_dataclass(0))
-        self.assertFalse(is_dataclass(i32))
+        self.assertFalse(is_dataclass(int))
         self.assertFalse(is_dataclass(NotDataClass))
         self.assertFalse(is_dataclass(NotDataClass()))
         C = C_TestCase_test_is_dataclass
@@ -819,7 +819,7 @@ class TestCase(unittest.TestCase):
         with self.assertRaises(TypeError):
             asdict(C)
         with self.assertRaises(TypeError):
-            asdict(i32)
+            asdict(int)
 
     def test_helper_asdict_copy_values(self):
         C = C_TestCase_test_helper_asdict_copy_values
@@ -916,7 +916,7 @@ class TestCase(unittest.TestCase):
         with self.assertRaises(TypeError):
             astuple(C)
         with self.assertRaises(TypeError):
-            astuple(i32)
+            astuple(int)
 
     def test_helper_astuple_copy_values(self):
         C = C_TestCase_test_helper_astuple_copy_values
