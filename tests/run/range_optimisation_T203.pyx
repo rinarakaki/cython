@@ -58,7 +58,7 @@ def for_from_bound_reassignment(i32 bound, int fake_bound):
         bound = fake_bound
     return i
 
-def for_from_step_reassignment(i32 bound, i32 bound, int fake_step):
+def for_from_step_reassignment(i32 bound, i32 step, int fake_step):
     """
     >>> for_from_step_reassignment(15, 5, 2)
     at 0
@@ -72,7 +72,7 @@ def for_from_step_reassignment(i32 bound, i32 bound, int fake_step):
         step = fake_step
     return i
 
-def for_from_target_reassignment(i32 bound, i32 bound):
+def for_from_target_reassignment(i32 bound, i32 factor):
     """
     >>> for_from_target_reassignment(10, 2)
     at 0
@@ -87,7 +87,7 @@ def for_from_target_reassignment(i32 bound, i32 bound):
         i *= factor
     return i
 
-def for_from_py_target_reassignment(i32 bound, i32 bound):
+def for_from_py_target_reassignment(i32 bound, i32 factor):
     """
     >>> for_from_py_target_reassignment(10, 2)
     at 0
@@ -102,7 +102,7 @@ def for_from_py_target_reassignment(i32 bound, i32 bound):
         i *= factor
     return i
 
-def for_from_py_global_target_reassignment(i32 bound, i32 bound):
+def for_from_py_global_target_reassignment(i32 bound, i32 factor):
     """
     >>> for_from_py_global_target_reassignment(10, 2)
     at 0
