@@ -2384,7 +2384,7 @@ def p_statement(s, ctx, first_statement = 0):
         cdef_flag = 1
         overridable = 1
         s.next()
-    elif s.sy in ("pub", "fn", "let", "extern"):
+    elif s.sy in ("pub", "fn", "let", "enum", "struct", "extern"):
         cdef_flag = 1
     if cdef_flag:
         if ctx.level not in ('module', 'module_pxd', 'function', 'c_class', 'c_class_pxd'):
@@ -3258,7 +3258,7 @@ def p_cdef_statement(s, ctx):
         if ctx.overridable:
             error(pos, "Extension types cannot be declared cpdef")
         return p_c_class_definition(s, pos, ctx)
-    elif s.sy == 'IDENT' and s.systring == 'cppclass':
+    elif s.sy in struct_enum_union or s.sy == 'IDENT' and s.systring == 'cppclass':
         return p_cpp_class_definition(s, pos, ctx)
     elif s.sy == 'IDENT' and s.systring in struct_enum_union:
         if ctx.level not in ('module', 'module_pxd'):
