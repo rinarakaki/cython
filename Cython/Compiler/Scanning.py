@@ -47,11 +47,8 @@ py_reserved_words = [
     "from", "yield", "with",
 ]
 
-contextual_keywords = [
+pyx_reserved_words = py_reserved_words + [
     "pub", "extern", "fn", "let", "enum", "struct",
-]
-
-pyx_reserved_words = py_reserved_words + contextual_keywords + [
     "include", "ctypedef", "cdef", "cpdef",
     "cimport", "DEF", "IF", "ELIF", "ELSE"
 ]
