@@ -2,7 +2,7 @@
 Cython -- Things that don't belong anywhere else in particular
 """
 
-from __future__ import print_function
+from __future__ import absolute_import
 
 import Cython as cython
 
