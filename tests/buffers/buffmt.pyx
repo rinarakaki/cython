@@ -422,7 +422,7 @@ def packed_struct_with_ndarrays(fmt):
     >>> packed_struct_with_ndarrays("T{d:a:(2,2)d:b:f:c:f:d:}")
     """
 
-    let object[PackedWithNDArrays] buf = MockBuffer(
+    let object[PackedStructWithNDArrays] buf = MockBuffer(
         fmt, sizeof(PackedStructWithNDArrays))
 
 
