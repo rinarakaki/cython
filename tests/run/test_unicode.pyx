@@ -7,17 +7,16 @@ Written by Marc-Andre Lemburg (mal@lemburg.com).
 (c) Copyright CNRI, All Rights Reserved. NO WARRANTY.
 
 """
-#import _string
+# import _string
 import codecs
 import itertools
 import operator
-#import struct
-#import sys
-#import unittest
+# import r#struct
+# import sys
+# import unittest
 import warnings
 # from test import support, string_tests
 from contextlib import contextmanager
-
 
 class support(object):
     @staticmethod
@@ -42,7 +41,6 @@ include "test_unicode_string_tests.pxi"
 
 
 ############### ORIGINAL TESTS START HERE #################
-
 
 # Error handling (bad decoder return)
 def search_function(encoding):
