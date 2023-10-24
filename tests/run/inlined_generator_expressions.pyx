@@ -1,5 +1,5 @@
 
-cimport cython
+use cython
 
 ## def range_tuple_genexp(i32 N):
 ##     """

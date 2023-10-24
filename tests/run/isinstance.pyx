@@ -1,5 +1,5 @@
 
-cimport cython
+use cython
 from cpython.bool cimport bool
 
 cdef class A:

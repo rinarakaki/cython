@@ -1,7 +1,7 @@
 import sys
 IS_PY3 = sys.version_info[0] >= 3
 
-cimport cython
+use cython
 
 DEF INT_VAL = 1
 

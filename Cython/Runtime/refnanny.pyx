@@ -4,7 +4,7 @@ from cpython.ref cimport PyObject, Py_INCREF, Py_CLEAR, Py_XDECREF, Py_XINCREF
 from cpython.exc cimport PyErr_Fetch, PyErr_Restore
 from cpython.pystate cimport PyThreadState_Get
 
-cimport cython
+use cython
 
 loglevel = 0
 reflog = []

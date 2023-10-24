@@ -1,6 +1,6 @@
 # ticket: t454
 
-cimport cython
+use cython
 
 cdef class TypeWithFactory:
     #[cython.test_assert_path_exists('//PythonCapiCallNode')]

@@ -1,4 +1,4 @@
-cimport cython
+use cython
 
 @cython.test_assert_path_exists(
     '//PythonCapiCallNode/PythonCapiFunctionNode[@cname="Py_TYPE"]')

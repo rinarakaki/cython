@@ -1,6 +1,6 @@
 # mode: run
 
-cimport cython
+use cython
 
 #[cython.final]
 cdef class TypedContextManager(object):

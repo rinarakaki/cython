@@ -1,7 +1,7 @@
 # mode: run
 # tag: list, tuple, slice, slicing
 
-cimport cython
+use cython
 
 
 #[cython.test_fail_if_path_exists("//CondExprNode")]

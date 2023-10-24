@@ -1,5 +1,5 @@
 
-cimport cython
+use cython
 
 cdef bytes b12345 = b'12345'
 

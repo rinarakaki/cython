@@ -1,7 +1,7 @@
 # mode: run
 # ticket: t295
 
-cimport cython
+use cython
 
 import sys
 IS_PY2 = sys.version_info[0] == 2

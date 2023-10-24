@@ -1,7 +1,8 @@
 # cython: infer_types=true
 
+use cython
+
 import numpy as np
-cimport cython
 
 ctypedef fused my_type:
     i32

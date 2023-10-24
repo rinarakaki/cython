@@ -2,7 +2,7 @@
 import sys
 IS_PY3 = sys.version_info[0] >= 3
 
-cimport cython
+use cython
 
 b_a = bytearray(b'a')
 b_b = bytearray(b'b')

@@ -1,5 +1,5 @@
 
-cimport cython
+use cython
 from cython cimport typeof
 
 from libc.string cimport const_char, const_uchar

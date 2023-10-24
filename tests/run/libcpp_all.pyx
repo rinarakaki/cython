@@ -2,19 +2,19 @@
 
 import cython
 
-cimport libcpp
+use libcpp
 
 # cimport libcpp.atomic
-cimport libcpp.deque
-cimport libcpp.list
-cimport libcpp.map
-cimport libcpp.pair
-cimport libcpp.queue
-cimport libcpp.set
-cimport libcpp.stack
-cimport libcpp.vector
-cimport libcpp.complex
-cimport libcpp.limits
+use libcpp.deque
+use libcpp.list
+use libcpp.map
+use libcpp.pair
+use libcpp.queue
+use libcpp.set
+use libcpp.stack
+use libcpp.vector
+use libcpp.complex
+use libcpp.limits
 
 # from libcpp.atomic cimport *
 from libcpp.deque  cimport *

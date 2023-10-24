@@ -1,6 +1,6 @@
 # cython: infer_types = True
 
-cimport cython
+use cython
 from cython cimport typeof, infer_types
 
 from cpython cimport bool

@@ -2,7 +2,7 @@
 # tag: condexpr
 # ticket: t267
 
-cimport cython
+use cython
 
 def ident(x): return x
 

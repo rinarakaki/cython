@@ -1,7 +1,7 @@
 # mode: run
 # tag: optimisation
 
-cimport cython
+use cython
 
 
 class loud_list(list):

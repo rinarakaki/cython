@@ -1,7 +1,7 @@
 # mode: run
 # tag: exttype, final
 
-cimport cython
+use cython
 
 
 cdef class BaseClass:

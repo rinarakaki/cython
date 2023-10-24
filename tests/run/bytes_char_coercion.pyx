@@ -1,5 +1,5 @@
 
-cimport cython
+use cython
 
 def coerce_char_default(char c):
     """

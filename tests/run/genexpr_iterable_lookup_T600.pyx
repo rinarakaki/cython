@@ -3,7 +3,7 @@
 # tag: genexpr
 # cython: language_level=3
 
-cimport cython
+use cython
 
 ##[cython.test_assert_path_exists('//ComprehensionNode')]
 ##[cython.test_fail_if_path_exists('//SimpleCallNode')]

@@ -2,7 +2,7 @@
 # ticket: t731
 # tag: locals, vars, dir
 
-cimport cython
+use cython
 
 LOCALS = locals()
 GLOBALS = globals()

@@ -4,7 +4,7 @@
 
 print(end='')  # test that language_level 3 applies immediately at the module start, for the first token.
 
-cimport cython
+use cython
 
 __doc__ = """
 >>> items = sorted(locals_function(1).items())

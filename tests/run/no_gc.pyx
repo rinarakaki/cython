@@ -3,7 +3,7 @@ Check that the @cython.no_gc decorator disables generation of the
 tp_clear and tp_traverse slots, that is, disables cycle collection.
 """
 
-cimport cython
+use cython
 from cpython.ref cimport PyObject, Py_TYPE
 
 # Force non-gc'd PyTypeObject when safety is guaranteed by user but not provable

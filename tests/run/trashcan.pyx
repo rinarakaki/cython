@@ -1,6 +1,6 @@
 # mode: run
 
-cimport cython
+use cython
 
 
 # Count number of times an object was deallocated twice. This should remain 0.

@@ -1,6 +1,6 @@
 # mode: error
 # tag: warnings
-cimport cython
+use cython
 
 #[cython.dataclasses.dataclass(1, shouldnt_be_here=true, init=5, unsafe_hash=true)]
 cdef class C:

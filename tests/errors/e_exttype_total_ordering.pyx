@@ -1,7 +1,7 @@
 # mode: error
 # tag: total_ordering, warnings
 
-cimport cython
+use cython
 
 
 # Test all combinations with not enough methods.

@@ -1,6 +1,6 @@
 # ticket: t183
 
-cimport cython
+use cython
 
 #[cython.cdivision(true)]
 cpdef cdiv_decorator(i32 a, i32 b):

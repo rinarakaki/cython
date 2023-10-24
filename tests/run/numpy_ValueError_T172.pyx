@@ -5,5 +5,5 @@ __doc__ = u"""
     >>> 1
     1
 """
-cimport numpy
+use numpy
 class ValueError(object): pass

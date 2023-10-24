@@ -4,7 +4,7 @@
 # preparse: id
 # preparse: def_to_cdef
 
-cimport cython
+use cython
 
 def add_n(i32 n):
     """

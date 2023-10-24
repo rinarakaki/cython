@@ -5,7 +5,7 @@
 (3+1j)
 """
 
-cimport cython
+use cython
 
 ctypedef isize index_t
 

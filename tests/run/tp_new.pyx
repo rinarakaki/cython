@@ -2,7 +2,7 @@
 # tag: exttype, tpnew
 # ticket: t808
 
-cimport cython
+use cython
 
 cdef class MyType:
     pub args, kwargs

@@ -2,7 +2,7 @@
 # tag: cpp, werror, numpy, no-cpp-locals
 
 import numpy as np
-cimport numpy as np
+use numpy as np
 from libcpp.vector cimport vector
 
 np.import_array()

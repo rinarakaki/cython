@@ -1,9 +1,9 @@
 # tag: numpy
 # tag: openmp
 
-cimport cython
+use cython
 from cython.parallel import prange
-cimport numpy as np
+use numpy as np
 
 
 #[cython.boundscheck(false)]

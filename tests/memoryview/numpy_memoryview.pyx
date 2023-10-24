@@ -7,9 +7,9 @@ Test slicing for memoryviews and memoryviewslices
 
 import sys
 
-cimport numpy as np
+use numpy as np
 import numpy as np
-cimport cython
+use cython
 from cython cimport view
 
 include "../testsupport/cythonarrayutil.pxi"

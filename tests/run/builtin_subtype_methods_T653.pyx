@@ -2,7 +2,7 @@
 # mode: run
 # ticket: t653
 
-cimport cython
+use cython
 
 # The "contains" tests relate to GH-4785 - replacing the method
 # call with PySequence_Contains was causing infinite recursion

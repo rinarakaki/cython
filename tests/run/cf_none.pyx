@@ -1,5 +1,5 @@
 
-cimport cython
+use cython
 
 #[cython.test_fail_if_path_exists('//NoneCheckNode')]
 def none_checks(a):

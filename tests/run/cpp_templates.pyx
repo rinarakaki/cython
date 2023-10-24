@@ -1,6 +1,6 @@
 # tag: cpp
 
-cimport cython
+use cython
 from cython.operator import dereference as deref
 
 extern from "cpp_templates_helper.h":

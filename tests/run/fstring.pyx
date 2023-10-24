@@ -5,7 +5,7 @@
 # Cython specific PEP 498 tests in addition to test_fstring.pyx from CPython
 ####
 
-cimport cython
+use cython
 
 import sys
 IS_PYPY = hasattr(sys, 'pypy_version_info')

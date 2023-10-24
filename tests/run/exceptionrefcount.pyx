@@ -29,7 +29,7 @@
 >>> run_test(50, test_finally)
 """
 
-cimport cython
+use cython
 from cpython.ref cimport PyObject
 
 #[cython.binding(false)]

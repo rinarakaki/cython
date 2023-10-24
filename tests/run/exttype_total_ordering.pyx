@@ -15,7 +15,7 @@ from __future__ import print_function
     True
 """
 
-cimport cython
+use cython
 import functools
 from functools import total_ordering as total_ordering_by_another_name
 import operator

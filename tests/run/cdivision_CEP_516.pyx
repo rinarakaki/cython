@@ -57,7 +57,7 @@ except NameError:
     all = _all
 
 
-cimport cython
+use cython
 
 #[cython.cdivision(false)]
 def mod_int_py(i32 a, i32 b):

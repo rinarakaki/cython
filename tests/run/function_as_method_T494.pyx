@@ -34,7 +34,7 @@ __doc__ += """
 2
 """
 
-cimport cython
+use cython
 
 def f_plus(a):
     return a + 1

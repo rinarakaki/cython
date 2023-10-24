@@ -1,5 +1,5 @@
 
-cimport cython
+use cython
 
 module_level_tuple = (1, 2, 3)
 second_module_level_tuple = (1, 2, 3)  # should be deduplicated to be the same as the first

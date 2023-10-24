@@ -1,6 +1,6 @@
 # mode: error
 
-cimport e_bufaccess_pxd # was needed to provoke a bug involving ErrorType
+use e_bufaccess_pxd # was needed to provoke a bug involving ErrorType
 import cython
 
 def f():

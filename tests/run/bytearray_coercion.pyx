@@ -3,7 +3,7 @@
 # NOTE: Py2.6+ only
 
 
-cimport cython
+use cython
 
 cpdef bytearray coerce_to_charptr(char* b):
     """

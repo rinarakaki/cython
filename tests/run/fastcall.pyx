@@ -1,7 +1,7 @@
 # mode: run
 # tag: METH_FASTCALL
 
-cimport cython
+use cython
 
 import sys
 import r#struct

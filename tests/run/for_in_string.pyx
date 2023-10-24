@@ -1,4 +1,4 @@
-cimport cython
+use cython
 
 bytes_abc = b'abc'
 bytes_ABC = b'ABC'

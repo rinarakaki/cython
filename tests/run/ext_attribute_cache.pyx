@@ -1,7 +1,7 @@
 # mode: run
 # tag: tpflags, type_version_tag
 
-cimport cython
+use cython
 
 extern from *:
     u64 PY_VERSION_HEX

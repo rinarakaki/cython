@@ -1,11 +1,11 @@
 # mode: run
 # tag: numpy
 
-cimport cython
+use cython
 from cython.view cimport array
 
 import numpy as np
-cimport numpy as np
+use numpy as np
 
 def test_shape_stride_suboffset():
     u'''

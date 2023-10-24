@@ -8,7 +8,7 @@ wraparound and boundscheck directives shouldn't break the fused
 dispatcher function
 """
 
-cimport cython
+use cython
 
 ctypedef fused fused_t:
     str

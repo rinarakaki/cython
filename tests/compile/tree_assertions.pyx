@@ -2,7 +2,7 @@
 
 # This is a sort of meta test - to test the functionality of "test_assert_path_exists"
 
-cimport cython
+use cython
 
 #[cython.test_assert_path_exists("//ReturnStatNode")]
 def not_in_inner_compiler_directives():

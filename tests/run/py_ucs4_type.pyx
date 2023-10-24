@@ -3,7 +3,7 @@
 # tag: warnings
 
 
-cimport cython
+use cython
 
 cdef Py_UCS4 char_ASCII = u'A'
 cdef Py_UCS4 char_KLINGON = u'\uF8D2'

@@ -1,7 +1,7 @@
 # mode: error
 # tag: freelist, werror
 
-cimport cython
+use cython
 
 #[cython.freelist(8)]
 cdef class ExtType:

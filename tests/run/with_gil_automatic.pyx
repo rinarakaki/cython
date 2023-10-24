@@ -2,7 +2,7 @@
 # tag: nogil
 # cython: language_level=2
 
-cimport cython
+use cython
 
 #### print
 

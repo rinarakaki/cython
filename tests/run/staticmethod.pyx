@@ -1,5 +1,4 @@
-cimport cython
-
+use cython
 
 class class1:
     u"""
@@ -21,7 +20,6 @@ class class1:
     def bplus1(a):
         return a + 1
 
-
 def nested_class():
     """
     >>> cls = nested_class()
@@ -39,7 +37,6 @@ def nested_class():
         def plus1(a):
             return a + 1
     return class2
-
 
 cdef class BaseClass(object):
     """
@@ -64,7 +61,6 @@ cdef class BaseClass(object):
     #[cython.binding(true)]
     def mystaticmethod2(a, b, c):
         print a, b, c
-
 
 cdef class SubClass(BaseClass):
     """
@@ -101,7 +97,6 @@ class SubSubClass(SubClass):
         print arg1
         super().mystaticmethod(self, arg1 + 1)
 
-
 cdef class ArgsKwargs(object):
     @staticmethod
     def with_first_arg(arg1, *args, **kwargs):
@@ -128,7 +123,6 @@ cdef class ArgsKwargs(object):
         OK!
         """
         print("OK!")
-
 
 class StaticmethodSubclass(staticmethod):
     """

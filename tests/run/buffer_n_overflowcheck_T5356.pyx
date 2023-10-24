@@ -1,7 +1,7 @@
 # mode: run
 # ticket: t5356
 
-cimport cython
+use cython
 
 
 #[cython.overflowcheck(true)]

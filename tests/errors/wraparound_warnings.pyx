@@ -1,7 +1,7 @@
 # mode: error
 # tag: werror
 
-cimport cython
+use cython
 
 s = "abc"
 l = [1, 2, 3]

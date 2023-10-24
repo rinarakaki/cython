@@ -1,7 +1,7 @@
 # mode: run
 # cython: linetrace=true
 
-cimport cython
+use cython
 
 #[cython.test_fail_if_path_exists('//SwitchStatNode')]
 #[cython.test_assert_path_exists('//IfStatNode')]

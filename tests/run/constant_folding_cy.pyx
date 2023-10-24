@@ -2,7 +2,7 @@
 # mode: run
 # tag: constant_folding
 
-cimport cython
+use cython
 
 
 bstring = b'abc\xE9def'

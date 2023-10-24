@@ -1,5 +1,5 @@
 
-cimport cython
+use cython
 
 #[cython.final]
 cdef class FinalClass:

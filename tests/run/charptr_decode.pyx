@@ -1,4 +1,4 @@
-cimport cython
+use cython
 
 extern from *:
     const isize PY_SSIZE_T_MIN

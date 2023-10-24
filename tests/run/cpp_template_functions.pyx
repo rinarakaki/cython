@@ -1,7 +1,7 @@
 # mode: run
 # tag: cpp, warnings, no-cpp-locals
 
-cimport cython
+use cython
 from libcpp.pair cimport pair
 from libcpp.vector cimport vector
 

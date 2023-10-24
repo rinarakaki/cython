@@ -6,7 +6,7 @@
 0.5
 """
 
-cimport numpy as np
+use numpy as np
 import numpy as np
 
 def myfunc():

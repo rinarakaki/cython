@@ -12,7 +12,7 @@
 # This is controlled by putting the Python3 only tests in the module __doc__ attribute
 # Most of the individual function and class docstrings are only present as a compile test
 
-cimport cython
+use cython
 
 import sys
 

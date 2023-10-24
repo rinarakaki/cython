@@ -1,7 +1,7 @@
 # mode: run
 # tag: warnings
 
-cimport cython
+use cython
 
 __doc__ = u"""
     >>> s()

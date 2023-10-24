@@ -1,5 +1,5 @@
 
-cimport cython
+use cython
 
 
 def f(obj1, obj2, obj3, obj4, obj5):

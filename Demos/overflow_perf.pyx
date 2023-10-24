@@ -1,7 +1,7 @@
 # cython: language_level=3
 # distutils: extra_compile_args = -O3
 
-cimport cython
+use cython
 
 ctypedef fused INT:
     i32

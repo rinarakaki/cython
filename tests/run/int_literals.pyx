@@ -3,7 +3,7 @@
 
 from __future__ import absolute_import
 
-cimport cython
+use cython
 from cython cimport typeof
 
 import sys

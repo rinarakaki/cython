@@ -1,6 +1,6 @@
 # mode: error
 
-cimport cython
+use cython
 
 cdef class BaseClass:
     #[cython.final]

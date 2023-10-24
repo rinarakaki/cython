@@ -115,7 +115,7 @@ u"""
     ...    pass
 """
 
-cimport cython
+use cython
 
 # FIXME: With type specs, cpdef methods are currently counted twice.
 # https://github.com/cython/cython/issues/2137

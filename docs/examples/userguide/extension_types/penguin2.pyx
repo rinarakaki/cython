@@ -1,4 +1,4 @@
-cimport cython
+use cython
 
 #[cython.freelist(8)]
 cdef class Penguin:
