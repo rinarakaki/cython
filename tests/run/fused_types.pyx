@@ -29,7 +29,7 @@ def test_pure():
     >>> test_pure()
     10
     """
-    mytype = pure_cython.typedef(pure_cython.fused_type(i32, long, complex))
+    mytype = pure_cython.typedef(pure_cython.fused_type(int, long, complex))
     print(mytype(10))
 
 
@@ -147,7 +147,7 @@ def test_fused_pointer_except_null(value):
     Traceback (most recent call last):
     AssertionError
     """
-    if isinstance(value, i32):
+    if isinstance(value, int):
         test_int = cython.declare(cython.i32, value)
         print(fused_pointer_except_null(&test_int)[0])
     elif isinstance(value, float):
@@ -412,11 +412,11 @@ def test_pylong(int_t i):
     >>> try:    long = long # Python 2
     ... except: long = int  # Python 3
 
-    >>> test_pylong[int](i32(0))
+    >>> test_pylong[int](int(0))
     int
-    >>> test_pylong[cython.i32](i32(0))
+    >>> test_pylong[cython.i32](int(0))
     int
-    >>> test_pylong(i32(0))
+    >>> test_pylong(int(0))
     int
 
     >>> test_pylong[int](long(0))
