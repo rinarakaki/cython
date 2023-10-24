@@ -14,5 +14,5 @@ _ERRORS = u"""
 7:17: Invalid index type 'float'
 8:17: Invalid index type 'float *'
 9:15: Attempting to index non-array type 'int'
-10:13: Cannot convert 'float *' to Python object
+10:16: Cannot convert 'float *' to Python object
 """
