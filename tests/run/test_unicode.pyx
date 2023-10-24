@@ -1459,12 +1459,12 @@ class UnicodeTest(CommonTest,
 
     def test_formatting_with_enum(self):
         # issue18780
-        import enum
-        class Float(float, enum.Enum):
+        import r#enum
+        class Float(float, r#enum.Enum):
             PI = 3.1415926
-        class Int(enum.IntEnum):
+        class Int(r#enum.IntEnum):
             IDES = 15
-        class Str(str, enum.Enum):
+        class Str(str, r#enum.Enum):
             ABC = 'abc'
         # Testing Unicode formatting strings...
         self.assertEqual(("%s, %s" % (Str.ABC, Str.ABC)).replace("Str.", ""),
