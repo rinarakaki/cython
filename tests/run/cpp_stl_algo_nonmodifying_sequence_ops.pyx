@@ -163,7 +163,7 @@ def find_last_int_sequence(vector[i32] values, vector[i32] target):
     else:
         return None
 
-fn bool is_equal(i32 lhs, i32 lhs):
+fn bool is_equal(i32 lhs, i32 rhs):
     return lhs == rhs
 
 def find_last_int_sequence2(vector[i32] values, vector[i32] target):
