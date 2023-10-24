@@ -117,7 +117,7 @@ def for_from_py_global_target_reassignment(i32 bound, i32 factor):
         g_var *= factor
     return g_var
 
-def for_in_target_reassignment(i32 bound, i32 bound):
+def for_in_target_reassignment(i32 bound, i32 factor):
     """
     >>> for_in_target_reassignment(10, 2)
     at 0
