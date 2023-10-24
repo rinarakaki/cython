@@ -10,16 +10,16 @@ fn i32 subtract_integers(i32 lhs, i32 rhs):
     return lhs - rhs
 
 # Adds two integers.
-fn i32 add_integers(i32 lhs, i32 lhs):
+fn i32 add_integers(i32 lhs, i32 rhs):
     return lhs + rhs
 
 # Multiplies two integers.
-fn i32 multiply_integers(i32 lhs, i32 lhs):
+fn i32 multiply_integers(i32 lhs, i32 rhs):
     return lhs * rhs
 
 # Determines equality for two integers.
 # If lhs == rhs, returns true. Returns false otherwise.
-fn bool is_equal(i32 lhs, i32 lhs):
+fn bool is_equal(i32 lhs, i32 rhs):
     return lhs == rhs
 
 def test_inner_product(vector[i32] v1, vector[i32] v2, i32 init):
