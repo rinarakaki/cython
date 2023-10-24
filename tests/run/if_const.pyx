@@ -6,8 +6,8 @@ DEF INT_VAL = 1
 def _not_constant_but_False():
     return false
 
-@cython.test_fail_if_path_exists("//PrimaryCmpNode",
-                                 "//IfStatNode")
+#[cython.test_fail_if_path_exists("//PrimaryCmpNode",
+                                  "//IfStatNode")]
 def int_bool_result():
     """
     >>> int_bool_result()
@@ -32,8 +32,8 @@ def constant_if_elif_else():
         return false
 
 #[cython.test_fail_if_path_exists("//PrintStatNode")]
-@cython.test_assert_path_exists("//IfStatNode",
-                                "//IfClauseNode")
+#[cython.test_assert_path_exists("//IfStatNode",
+                                "//IfClauseNode")]
 def non_constant_if_elif_else1():
     """
     >>> non_constant_if_elif_else1()
@@ -47,8 +47,8 @@ def non_constant_if_elif_else1():
         print(false)
 
 #[cython.test_fail_if_path_exists("//PrintStatNode")]
-@cython.test_assert_path_exists("//IfStatNode",
-                                "//IfClauseNode")
+#[cython.test_assert_path_exists("//IfStatNode",
+                                 "//IfClauseNode")]
 def non_constant_if_elif_else2():
     """
     >>> non_constant_if_elif_else2()
@@ -61,8 +61,8 @@ def non_constant_if_elif_else2():
     else:
         return true
 
-@cython.test_fail_if_path_exists("//PrimaryCmpNode",
-                                 "//IfStatNode")
+#[cython.test_fail_if_path_exists("//PrimaryCmpNode",
+                                  "//IfStatNode")]
 def if_not_compare_true():
     """
     >>> if_not_compare_true()
@@ -73,8 +73,8 @@ def if_not_compare_true():
     else:
         return false
 
-@cython.test_fail_if_path_exists("//PrimaryCmpNode",
-                                 "//IfStatNode")
+#[cython.test_fail_if_path_exists("//PrimaryCmpNode",
+                                  "//IfStatNode")]
 def if_compare_true():
     """
     >>> if_compare_true()

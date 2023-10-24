@@ -184,7 +184,7 @@ cdef class Derived(Γναμε2):
 cdef Γναμε2 global_ναμε3 = Γναμε2()
 
 
-@cython.always_allow_keywords(false)  # METH_O signature
+#[cython.always_allow_keywords(false)]  # METH_O signature
 def metho_function_taking_fancy_argument(Γναμε2 αrγ):
     return αrγ
 
