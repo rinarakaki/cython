@@ -3258,7 +3258,7 @@ def p_cdef_statement(s, ctx):
         if ctx.overridable:
             error(pos, "Extension types cannot be declared cpdef")
         return p_c_class_definition(s, pos, ctx)
-    elif s.sy in struct_enum_union or s.sy == 'IDENT' and s.systring == 'cppclass':
+    elif s.sy == 'IDENT' and s.systring == 'cppclass':
         return p_cpp_class_definition(s, pos, ctx)
     elif s.sy in struct_enum_union or s.sy == 'IDENT' and s.systring in struct_enum_union:
         if ctx.level not in ('module', 'module_pxd'):
