@@ -8,5 +8,5 @@ fn void f():
     A = 42      # assignment to non-lvalue
 
 _ERRORS = u"""
-8:4: Assignment to non-lvalue 'a'
+8:4: Assignment to non-lvalue 'A'
 """
