@@ -14,10 +14,10 @@ extern from *:
     enum flat_ham { FLAT_TOAST };
     """
 
-    cdef struct spam:
+    struct Spam:
         pass
 
-    cdef struct flat_spam: pass
+    struct FlatSpam: pass
 
     ctypedef struct flat_spam_type: pass
 
@@ -32,8 +32,8 @@ extern from *:
     cdef enum flat_ham: pass
 
 
-cdef extern spam s
-cdef extern flat_spam fs
+cdef extern Spam s
+cdef extern FlatSpam fs
 cdef extern flat_spam_type fst
 
 cdef extern eggs e
