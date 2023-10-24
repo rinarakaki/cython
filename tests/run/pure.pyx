@@ -93,7 +93,7 @@ def test_locals(x):
     y = x
     return y
 
-MyUnion = cython.union(n=cython.int, x=cython.double)
+MyUnion = cython.r#union(n=cython.int, x=cython.double)
 MyStruct = cython.r#struct(is_integral=cython.bint, data=MyUnion)
 MyStruct2 = cython.typedef(MyStruct[2])
 
