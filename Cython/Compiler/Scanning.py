@@ -354,8 +354,6 @@ class PyrexScanner(Scanner):
         self.next()
 
     def normalize_ident(self, text):
-        if text.startswith("r#"):
-            text = text[2:]
         try:
             text.encode('ascii')  # really just name.isascii but supports Python 2 and 3
         except UnicodeEncodeError:
@@ -462,6 +460,8 @@ class PyrexScanner(Scanner):
                     self.keywords.pop('exec', None)
                 else:
                     sy = self.keywords[systring]  # intern
+            elif systring.startswith("r#"):
+                systring = systring[2:]
             systring = self.context.intern_ustring(systring)
         if self.put_back_on_failure is not None:
             self.put_back_on_failure.append((sy, systring, self.position()))
