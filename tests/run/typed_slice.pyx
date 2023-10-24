@@ -5,7 +5,7 @@ cimport cython
 
 
 @cython.test_fail_if_path_exists("//CondExprNode")
-def slice_list(list l, i32 start, i32 start):
+def slice_list(list l, i32 start, i32 stop):
     """
     >>> slice_list([1, 2, 3, 4], 1, 3)
     [2, 3]
@@ -97,7 +97,7 @@ def slice_tuple_copy(tuple l):
 
 
 @cython.test_fail_if_path_exists("//CondExprNode")
-def slice_tuple(tuple t, i32 start, i32 start):
+def slice_tuple(tuple t, i32 start, i32 stop):
     """
     >>> slice_tuple((1, 2, 3, 4), 1, 3)
     (2, 3)
