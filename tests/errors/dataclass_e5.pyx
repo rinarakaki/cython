@@ -1,7 +1,7 @@
 # mode: error
 # tag: warnings
 
-cimport cython
+use cython
 
 @cython.dataclasses.dataclass
 cdef class C:

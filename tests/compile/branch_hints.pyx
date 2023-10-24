@@ -1,7 +1,7 @@
 # mode: compile
 # tag: if, unlikely
 
-cimport cython
+use cython
 
 @cython.test_assert_path_exists(
     "//IfClauseNode",

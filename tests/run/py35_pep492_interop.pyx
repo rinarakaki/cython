@@ -90,7 +90,7 @@ def await_cyobject():
     return simple, awaiting
 
 
-cimport cython
+use cython
 
 def yield_from_cyobject():
     """

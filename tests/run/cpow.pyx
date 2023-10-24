@@ -3,7 +3,7 @@
 
 from __future__ import print_function
 
-cimport cython
+use cython
 import sys
 
 if sys.version_info[0] > 2:

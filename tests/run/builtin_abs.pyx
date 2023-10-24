@@ -10,7 +10,7 @@ max_int = INT_MAX
 max_long = LONG_MAX
 max_long_long = (<object>2) ** (sizeof(i128) * 8 - 1) - 1
 
-cimport cython
+use cython
 
 def abs_as_name():
     """

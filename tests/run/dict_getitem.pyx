@@ -1,7 +1,7 @@
 # mode: run
 # tag: dict, getitem
 
-cimport cython
+use cython
 
 def test(dict d, index):
     """

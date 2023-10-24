@@ -1,7 +1,7 @@
 # mode: run
 # ticket: t372
 
-cimport cython
+use cython
 
 @cython.test_assert_path_exists("//ForFromStatNode")
 @cython.test_fail_if_path_exists("//ForInStatNode")

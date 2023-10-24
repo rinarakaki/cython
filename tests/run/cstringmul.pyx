@@ -32,7 +32,7 @@ uspam = u"eggs" * 4
 ugrail = 7 * u"tomato"
 ugrail_long = 700 * u"tomato"
 
-cimport cython
+use cython
 
 @cython.test_assert_path_exists("//StringNode[@value = '-----']")
 @cython.test_assert_path_exists("//StringNode[@unicode_value = '-----']")

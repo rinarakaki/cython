@@ -12,7 +12,7 @@ True
 True
 """
 
-cimport cython
+use cython
 from cpython.ref cimport PyObject
 
 @cython.always_allow_keywords(false)

@@ -1,7 +1,7 @@
 # mode: run
 # tag: pep484, warnings
 
-cimport cython
+use cython
 from cython cimport typeof
 from cpython.ref cimport PyObject
 

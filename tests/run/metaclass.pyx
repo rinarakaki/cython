@@ -1,5 +1,5 @@
 
-cimport cython
+use cython
 
 class Base(type):
     def __new__(cls, name, bases, attrs):

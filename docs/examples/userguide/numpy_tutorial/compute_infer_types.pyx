@@ -1,6 +1,8 @@
-# cython: infer_types=True
+# cython: infer_types=true
+
+use cython
+
 import numpy as np
-cimport cython
 
 DTYPE = np.intc
 

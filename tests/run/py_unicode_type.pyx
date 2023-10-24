@@ -2,7 +2,7 @@
 # mode: run
 # tag: warnings
 
-cimport cython
+use cython
 
 cdef Py_UNICODE char_ASCII = u'A'
 cdef Py_UNICODE char_KLINGON = u'\uF8D2'

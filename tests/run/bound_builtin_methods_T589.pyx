@@ -1,6 +1,6 @@
 # ticket: t589
 
-cimport cython
+use cython
 
 _set = set # CPython may not define it (in Py2.3), but Cython does :)
 

@@ -1,4 +1,4 @@
-cimport cython
+use cython
 
 from libc.string cimport strstr
 

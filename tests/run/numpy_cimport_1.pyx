@@ -1,7 +1,7 @@
 # mode: run
 # tag: warnings, numpy
 
-cimport numpy as np
+use numpy as np
 # np.import_array not called - should generate warning
 
 extern from *:
@@ -21,5 +21,5 @@ def check_array_api():
 
 
 _WARNINGS = """
-4:8: 'numpy.import_array()' has been added automatically since 'numpy' was cimported but 'numpy.import_array' was not called.
+4:4: 'numpy.import_array()' has been added automatically since 'numpy' was cimported but 'numpy.import_array' was not called.
 """

@@ -2,7 +2,7 @@
 # tag: autowrap
 # cython: always_allow_keywords=true
 
-cimport cython
+use cython
 
 from libc.math cimport sqrt
 

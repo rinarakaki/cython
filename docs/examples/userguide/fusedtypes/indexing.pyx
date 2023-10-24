@@ -1,4 +1,4 @@
-cimport cython
+use cython
 
 ctypedef fused fused_type1:
     f64

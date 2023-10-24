@@ -1,5 +1,5 @@
 
-cimport cython
+use cython
 
 cdef unicode _ustring = u'azerty123456'
 ustring = _ustring

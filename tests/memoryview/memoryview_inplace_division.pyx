@@ -1,7 +1,7 @@
 # mode: run
 # tag: memoryview, cdivision, array
 
-cimport cython
+use cython
 from cpython.array cimport array  # make Cython aware of the array type
 
 def div_memoryview(i32[:] A):

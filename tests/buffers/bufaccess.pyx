@@ -11,7 +11,7 @@ from __future__ import unicode_literals
 
 from cpython.object cimport PyObject
 from cpython.ref cimport Py_INCREF, Py_DECREF, Py_CLEAR
-cimport cython
+use cython
 
 import sys
 #import re

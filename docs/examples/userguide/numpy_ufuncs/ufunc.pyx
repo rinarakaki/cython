@@ -1,5 +1,5 @@
 # tag: numpy
-cimport cython
+use cython
 
 @cython.ufunc
 fn f64 add_one(f64 x):

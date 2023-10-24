@@ -1,5 +1,5 @@
 
-cimport cython
+use cython
 
 DEF INT_VAL = 1
 

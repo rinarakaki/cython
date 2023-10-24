@@ -1,6 +1,6 @@
 # mode: compile
 
-cimport cython
+use cython
 
 # Complex numbers defined in "cython.locals" weren't having their utility code imported directly
 # leading to compile-errors that the type wasn't defined. The test is intentionally minimal since

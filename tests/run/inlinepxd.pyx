@@ -16,7 +16,7 @@ __doc__ = u"""
 6
 """
 
-cimport inlinepxd_support
+use inlinepxd_support
 from inlinepxd_support cimport my_add as my_add3
 
 def f():

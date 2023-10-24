@@ -5,7 +5,7 @@ __doc__ = u"""
 15
 """
 
-cimport cython
+use cython
 
 _bytes = bytes
 

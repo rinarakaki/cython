@@ -2,7 +2,7 @@
 # tag: condexpr
 # ticket: 5197
 
-cimport cython
+use cython
 
 cdef class Foo:
     cdef dict data

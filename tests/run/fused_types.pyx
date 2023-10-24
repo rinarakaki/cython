@@ -2,7 +2,7 @@
 # ticket: 1772
 # cython: language_level=3str
 
-cimport cython
+use cython
 from cython.view cimport array
 
 from cython cimport integral

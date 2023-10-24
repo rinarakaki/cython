@@ -15,7 +15,7 @@ from cython cimport view
 
 from cpython.object cimport PyObject
 from cpython.ref cimport Py_INCREF, Py_DECREF
-cimport cython
+use cython
 
 import array as pyarray
 from libc.stdlib cimport malloc, free

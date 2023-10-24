@@ -1,7 +1,7 @@
 # mode: run
 # tag: numpy
 
-cimport cython
+use cython
 
 import numpy as np
 

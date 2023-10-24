@@ -7,7 +7,7 @@
 
 from __future__ import absolute_import
 
-cimport cython
+use cython
 
 # from cpython cimport ...
 extern from "Python.h":

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-cimport cython
+use cython
 
 import sys
 

@@ -1,5 +1,5 @@
-cimport spam
-cimport pkg.eggs
+use spam
+use pkg.eggs
 
 cdef spam.Spam yummy
 cdef pkg.eggs.Eggs fried

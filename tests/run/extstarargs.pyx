@@ -1,4 +1,4 @@
-cimport cython
+use cython
 
 fn sorteditems(d):
     return tuple(sorted(d.items()))

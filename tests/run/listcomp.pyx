@@ -1,7 +1,7 @@
 # mode: run
 # tag: listcomp, comprehension
 
-cimport cython
+use cython
 
 
 def smoketest():

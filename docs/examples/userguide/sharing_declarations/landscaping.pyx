@@ -1,4 +1,5 @@
-cimport shrubbing
+use shrubbing
+
 import shrubbing
 
 def main():

@@ -1,6 +1,6 @@
 # tag: cpp
 
-cimport cpp_overload_wrapper_lib as cppwrap_lib
+use cpp_overload_wrapper_lib as cppwrap_lib
 
 cdef class DoubleKeeper:
     """

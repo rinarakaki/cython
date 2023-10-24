@@ -1,6 +1,6 @@
 # mode: error
 
-cimport cython
+use cython
 
 ctypedef i32 USERTYPE
 

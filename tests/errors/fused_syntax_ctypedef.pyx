@@ -1,6 +1,6 @@
 # mode: error
 
-cimport cython
+use cython
 
 ctypedef cython.fused_type(i32, f32) fused_t
 

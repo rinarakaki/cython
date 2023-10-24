@@ -1,4 +1,5 @@
-cimport cython
+use cython
+
 try:
     import typing
     import dataclasses
