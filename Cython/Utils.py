@@ -11,6 +11,15 @@ cython.declare(
     _function_caches=list, _parse_file_version=object, _match_file_encoding=object,
 )
 
+try:
+    from __builtin__ import basestring
+except ImportError:
+    basestring = str
+
+try:
+    FileNotFoundError
+except NameError:
+    FileNotFoundError = OSError
 
 
 import os
