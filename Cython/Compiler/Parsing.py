@@ -4038,7 +4038,7 @@ def p_cpp_class_attribute(s, ctx):
         return p_cpp_class_definition(s, s.position(), ctx)
     elif s.systring == 'ctypedef':
         return p_ctypedef_statement(s, ctx)
-    elif s.sy == 'IDENT' and s.systring in struct_enum_union:
+    elif s.sy in struct_enum_union or s.sy == 'IDENT' and s.systring in struct_enum_union:
         if s.systring != 'enum':
             return p_cpp_class_definition(s, s.position(), ctx)
         else:
