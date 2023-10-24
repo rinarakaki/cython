@@ -2,6 +2,8 @@
 Cython -- Things that don't belong anywhere else in particular
 """
 
+from __future__ import print_function
+
 import Cython as cython
 
 cython.declare(
