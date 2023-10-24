@@ -39,4 +39,4 @@ cdef extern eggs e
 cdef extern flat_eggs fe
 
 cdef extern Ham h
-cdef extern flat_ham fh
+cdef extern FlatHam fh
