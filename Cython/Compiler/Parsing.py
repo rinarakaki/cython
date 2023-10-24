@@ -3599,7 +3599,6 @@ def p_attributes(s):
         decorator = p_namedexpr_test(s)
         decorators.append(Nodes.DecoratorNode(pos, decorator=decorator))
         s.expect("]")
-        s.next()
         s.expect_newline("Expected a newline after decorator")
     return decorators
 
