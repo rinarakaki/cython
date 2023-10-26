@@ -23,8 +23,8 @@ cdef fused composed_t:
     f32
     string_t
     cython.pp_int
-    float complex
-    double complex
+    c32
+    c64
     int complex
     long complex
 
