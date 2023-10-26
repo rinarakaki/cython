@@ -8,7 +8,7 @@ cdef class B(A):
 
 struct X:
     f64 a
-    f64 complex b
+    c64 b
 
 def simple():
     """
