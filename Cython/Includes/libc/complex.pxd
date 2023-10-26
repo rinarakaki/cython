@@ -16,20 +16,20 @@ extern from "<complex.h>" nogil:
     fn c64 ctanh(c64 z)
 
     # Exponential and logarithmic functions.
-    double complex cexp(double complex z)
-    double complex clog(double complex z)
-    double complex clog10(double complex z)
+    fn c64 cexp(c64 z)
+    fn c64 clog(c64 z)
+    fn c64 clog10(c64 z)
 
     # Power functions.
-    double complex cpow(double complex x, double complex y)
-    double complex csqrt(double complex z)
+    fn c64 cpow(c64 x, c64 y)
+    fn c64 csqrt(c64 z)
 
     # Absolute value, conjugates, and projection.
-    double cabs(double complex z)
-    double carg(double complex z)
-    double complex conj(double complex z)
-    double complex cproj(double complex z)
+    fn f64 cabs(c64 z)
+    fn f64 carg(c64 z)
+    fn c64 conj(c64 z)
+    fn c64 cproj(c64 z)
 
     # Decomposing complex values.
-    double cimag(double complex z)
-    double creal(double complex z)
+    fn f64 cimag(c64 z)
+    fn f64 creal(c64 z)
