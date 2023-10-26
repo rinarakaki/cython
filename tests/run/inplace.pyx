@@ -147,7 +147,7 @@ def test_inplace_pydivision(i32 a, i32 b):
     a %= b
     return a
 
-def test_complex_inplace(double complex x, double complex y):
+def test_complex_inplace(c64 x, c64 y):
     """
     >>> test_complex_inplace(1, 1)
     (2+0j)
