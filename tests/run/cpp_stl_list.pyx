@@ -128,7 +128,7 @@ def test_value_type_complex(x):
     >>> test_value_type_complex(2)
     (2+0j)
     """
-    let cpp_list[double complex].value_type val = x
+    let cpp_list[c64].value_type val = x
     return val
 
 def test_insert():
