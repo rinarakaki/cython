@@ -66,7 +66,7 @@ def test_value_type_complex(x):
     >>> test_value_type_complex(2)
     (2+0j)
     """
-    let forward_list[double complex].value_type val = x
+    let forward_list[c64].value_type val = x
     return val
 
 

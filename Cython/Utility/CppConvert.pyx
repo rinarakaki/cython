@@ -242,7 +242,7 @@ extern from *:
 
 @cname("{{cname}}")
 fn std_complex[X] {{cname}}(object o) except *:
-    cdef double complex z = o
+    cdef c64 z = o
     return std_complex[X](<X>z.real, <X>z.imag)
 
 #################### complex.to_py ####################
@@ -254,7 +254,7 @@ extern from *:
 
 @cname("{{cname}}")
 fn object {{cname}}(const std_complex[X]& z):
-    cdef double complex tmp
+    cdef c64 tmp
     tmp.real = <f64>z.real()
     tmp.imag = <f64>z.imag()
     return tmp

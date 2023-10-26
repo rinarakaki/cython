@@ -14,5 +14,5 @@ extern from "complexobject.h":
         fn inline f64 imag(self):
             return self.cval.imag
 
-def cprint(complex c):
+def cprint(c64 c):
     print(f"{c.real :.4f}{c.imag :+.4f}j")  # uses C calls to the above property methods.

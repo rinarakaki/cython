@@ -23,7 +23,7 @@ def optional_cstruct(x: Optional[MyStruct]):
 
 # OK
 
-def optional_pytypes(i: Optional[i32], f: Optional[f32], c: Optional[complex], l: Optional[i64]):
+def optional_pytypes(i: Optional[i32], f: Optional[f32], c: Optional[c64], l: Optional[i64]):
     pass
 
 

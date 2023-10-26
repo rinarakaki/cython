@@ -64,7 +64,7 @@ ctypedef struct Bar:
 
 ctypedef struct Foo:
     f32 f
-    f64 complex dc
+    c64 dc
     char c
     i32 i
     Bar b
@@ -72,7 +72,7 @@ ctypedef struct Foo:
 
 ctypedef struct OtherFoo:
     f32 f
-    double complex dc
+    c64 dc
     char c
     i32 i
     Bar b

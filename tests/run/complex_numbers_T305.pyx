@@ -36,35 +36,35 @@ def test_object_conversion(o):
     >>> test_object_conversion(2j - 0.5)
     ((-0.5+2j), (-0.5+2j))
     """
-    let float complex a = o
-    let double complex b = o
+    let c32 a = o
+    let c64 b = o
     return (a, b)
 
 
-def test_arithmetic(double complex z, double complex w):
+def test_arithmetic(c64 z, c64 w):
     """
     >>> test_arithmetic(2j, 4j)
-    (2j, -2j, 6j, -2j, (-8+0j), (0.5+0j))
-    >>> test_arithmetic(6+12j, 3j)
+    (2j, -2j, 6j, -2j, (-8+0j), (0.5 + 0j))
+    >>> test_arithmetic(6 + 12j, 3j)
     ((6+12j), (-6-12j), (6+15j), (6+9j), (-36+18j), (4-2j))
-    >>> test_arithmetic(5-10j, 3+4j)
+    >>> test_arithmetic(5 - 10j, 3 + 4j)
     ((5-10j), (-5+10j), (8-6j), (2-14j), (55-10j), (-1-2j))
     """
     return +z, -z+0, z+w, z-w, z*w, z/w
 
 
-def test_div(double complex a, double complex b, expected):
+def test_div(c64 a, c64 b, expected):
     """
-    >>> big = 2.0**1023
-    >>> test_div(1 + 1j, 1 + big*1j, 1/big - 1j/big)
-    >>> test_div(1 + 1j, 1/big + 1j/big, big)
+    >>> big = 2.0 ** 1023
+    >>> test_div(1 + 1j, 1 + big * 1j, 1 / big - 1j / big)
+    >>> test_div(1 + 1j, 1 / big + 1j / big, big)
     """
     # Can't count on good c99 complex division :(
     if '_c99_' not in __name__:
         assert a / b == expected, (a / b, expected)
 
 
-def test_pow(double complex z, double complex w, tol=None):
+def test_pow(c64 z, c64 w, tol=None):
     """
     Various implementations produce slightly different results...
 
@@ -83,12 +83,12 @@ def test_pow(double complex z, double complex w, tol=None):
     True
     """
     if tol is None:
-        return z**w
+        return z ** w
     else:
-        return abs(z**w / <object>z ** <object>w - 1) < tol
+        return abs(z ** w / <object>z ** <object>w - 1) < tol
 
 
-def test_int_pow(double complex z, i32 n, tol=None):
+def test_int_pow(c64 z, i32 n, tol=None):
     """
     >>> [test_int_pow(complex(0, 1), k, 1e-15) for k in range(-4, 5)]
     [True, True, True, True, True, True, True, True, True]
@@ -100,12 +100,12 @@ def test_int_pow(double complex z, i32 n, tol=None):
     True
     """
     if tol is None:
-        return z**n + <object>0 # add zero to normalize zero sign
+        return z ** n + <object>0  # add zero to normalize zero sign
     else:
-        return abs(z**n / <object>z ** <object>n - 1) < tol
+        return abs(z ** n / <object>z ** <object>n - 1) < tol
 
 @cython.cdivision(false)
-def test_div_by_zero(double complex z):
+def test_div_by_zero(c64 z):
     """
     >>> test_div_by_zero(4j)
     -0.25j
@@ -114,11 +114,11 @@ def test_div_by_zero(double complex z):
     ...
     ZeroDivisionError: float division
     """
-    return 1/z
+    return 1 / z
 
-def test_coercion(i32 a, f32 b, f64 c, float complex d, double complex e):
+def test_coercion(i32 a, f32 b, f64 c, c32 d, c64 e):
     """
-    >>> test_coercion(1, 1.5, 2.5, 4+1j, 10j)
+    >>> test_coercion(1, 1.5, 2.5, 4 + 1j, 10j)
     (1+0j)
     (1.5+0j)
     (2.5+0j)
@@ -126,7 +126,7 @@ def test_coercion(i32 a, f32 b, f64 c, float complex d, double complex e):
     10j
     (9+21j)
     """
-    let double complex z
+    let c64 z
     z = a; print z
     z = b; print z
     z = c; print z
@@ -134,7 +134,7 @@ def test_coercion(i32 a, f32 b, f64 c, float complex d, double complex e):
     z = e; print z
     return z + a + b + c + d + e
 
-def test_compare(double complex a, double complex b):
+def test_compare(c64 a, c64 b):
     """
     >>> test_compare(3, 3)
     (True, False, False, False, False, True, False)
@@ -144,12 +144,12 @@ def test_compare(double complex a, double complex b):
     (False, True, True, False, True, True, False)
     >>> test_compare(3, 4)
     (False, True, False, False, False, True, False)
-    >>> test_compare(2-1j, 4)
+    >>> test_compare(2 - 1j, 4)
     (False, True, False, False, False, True, True)
     """
     return a == b, a != b, a == 3j, 3j == b, a == Complex3j(), Complex3j() != b, a == C21
 
-def test_compare_coerce(double complex a, i32 b):
+def test_compare_coerce(c64 a, i32 b):
     """
     >>> test_compare_coerce(3, 4)
     (False, True, False, False, False, True)
@@ -160,7 +160,7 @@ def test_compare_coerce(double complex a, i32 b):
     >>> test_compare_coerce(3j, 4)
     (False, True, True, False, True, False)
     """
-    return a == b, a != b, a == 3j, 4+1j == a, a == Complex3j(), Complex3j() != a
+    return a == b, a != b, a == 3j, 4 + 1j == a, a == Complex3j(), Complex3j() != a
 
 def test_literal():
     """
@@ -169,9 +169,9 @@ def test_literal():
     """
     return 5j, 1-2.5j, C21
 
-def test_real_imag(double complex z):
+def test_real_imag(c64 z):
     """
-    >>> test_real_imag(1-3j)
+    >>> test_real_imag(1 - 3j)
     (1.0, -3.0)
     >>> test_real_imag(5)
     (5.0, 0.0)
@@ -187,29 +187,29 @@ def test_real_imag_assignment(object a, f64 b):
     >>> test_real_imag_assignment(1.5, -3.5)
     (1.5-3.5j)
     """
-    let double complex z
+    let c64 z
     z.real = a
     z.imag = b
     return z
 
-def test_conjugate(float complex z):
+def test_conjugate(c32 z):
     """
-    >>> test_conjugate(2+3j)
+    >>> test_conjugate(2 + 3j)
     (2-3j)
     """
     return z.conjugate()
 
-def test_conjugate_double(double complex z):
+def test_conjugate_double(c64 z):
     """
-    >>> test_conjugate_double(2+3j)
+    >>> test_conjugate_double(2 + 3j)
     (2-3j)
     """
     return z.conjugate()
 
-ctypedef double complex cdouble
+ctypedef c64 cdouble
 def test_conjugate_typedef(cdouble z):
     """
-    >>> test_conjugate_typedef(2+3j)
+    >>> test_conjugate_typedef(2 + 3j)
     (2-3j)
     """
     return z.conjugate()
@@ -234,26 +234,26 @@ test_conjugate_nogil(0) # use it
 ##     >>> ["%.2f" % x.imag for x in test_conjugate_nosizeassumptions(2e300, 2e300, 2e300, 2e300)]
 ##     ['-inf', '-2e+300', '-inf', '-2e+300']
 ##     """
-##     cdef double complex I = 1j
-##     return ((x*I).conjugate(), (y*I).conjugate(), (z*I).conjugate(), (w*I).conjugate())
+##     cdef c64 I = 1j
+##     return ((x * I).conjugate(), (y * I).conjugate(), (z * I).conjugate(), (w * I).conjugate())
 
 ctypedef f64 mydouble
-def test_coerce_typedef_multiply(mydouble x, double complex z):
+def test_coerce_typedef_multiply(mydouble x, c64 z):
     """
-    >>> test_coerce_typedef_multiply(3, 1+1j)
+    >>> test_coerce_typedef_multiply(3, 1 + 1j)
     (3+3j)
     """
     return x * z
 
 ctypedef i32 myint
-def test_coerce_typedef_multiply_int(myint x, double complex z):
+def test_coerce_typedef_multiply_int(myint x, c64 z):
     """
-    >>> test_coerce_typedef_multiply_int(3, 1+1j)
+    >>> test_coerce_typedef_multiply_int(3, 1 + 1j)
     (3+3j)
     """
     return x * z
 
-cpdef double complex complex_retval():
+cpdef c64 complex_retval():
     """
     >>> complex_retval()
     1j
@@ -267,8 +267,8 @@ def stress_test():
     (doesn't cover inf and NaN as inputs though)
     >>> stress_test()
     """
-    let double complex x
-    let double complex y
+    let c64 x
+    let c64 y
 
     from random import Random
     from math import ldexp
@@ -305,41 +305,41 @@ def stress_test():
         else:
             d = full_random()
 
-        x= a+1j*b
-        y = c+1j*d
+        x= a + 1j * b
+        y = c + 1j * d
         py_dict = dict(x=x, y=y)
 
-        sum_ = x+y
+        sum_ = x + y
         sum_py = eval("x+y", py_dict)
-        delta_sum = abs(sum_/sum_py - 1)
+        delta_sum = abs(sum_ / sum_py - 1)
         assert delta_sum < 1e-15, f"{x} {y} {sum_} {sum_py} {delta_sum}"
 
-        minus = x-y
+        minus = x - y
         minus_py = eval("x-y", py_dict)
-        delta_minus = abs(minus/minus_py - 1)
+        delta_minus = abs(minus / minus_py - 1)
         assert delta_minus < 1e-15, f"{x} {y} {minus} {minus_py} {delta_minus}"
 
-        times = x*y
+        times = x * y
         times_py = eval("x*y", py_dict)
-        delta_times = abs(times/times_py - 1)
+        delta_times = abs(times / times_py - 1)
         assert delta_times < 1e-15, f"{x} {y} {times} {times_py} {delta_times}"
 
-        divide = x/y
+        divide = x / y
         divide_py = eval("x/y", py_dict)
-        delta_divide = abs(divide/divide_py - 1)
+        delta_divide = abs(divide / divide_py - 1)
         assert delta_divide < 1e-15, f"{x} {y} {divide} {divide_py} {delta_divide}"
 
-        divide2 = y/x
+        divide2 = y / x
         divide2_py = eval("y/x", py_dict)
-        delta_divide2 = abs(divide2/divide2_py - 1)
+        delta_divide2 = abs(divide2 / divide2_py - 1)
         assert delta_divide2 < 1e-15, f"{x} {y} {divide2} {divide2_py} {delta_divide2}"
 
-        pow_ = x**y
+        pow_ = x ** y
         pow_py = eval("x**y", py_dict)
-        delta_pow = abs(pow_/pow_py - 1)
+        delta_pow = abs(pow_ / pow_py - 1)
         assert delta_pow < 1e-15, f"{x} {y} {pow_} {pow_py} {delta_pow}"
 
-        pow2 = y**x
+        pow2 = y ** x
         pow2_py = eval("y**x", py_dict)
-        delta_pow2 = abs(pow2/pow2_py - 1)
+        delta_pow2 = abs(pow2 / pow2_py - 1)
         assert delta_pow2 < 1e-15, f"{x} {y} {pow2} {pow2_py} {delta_pow2}"

@@ -750,8 +750,8 @@ ctypedef npy_float64    float64_t
 #ctypedef npy_float80    float80_t
 #ctypedef npy_float128   float128_t
 
-ctypedef float complex  complex64_t
-ctypedef double complex complex128_t
+ctypedef c32 complex64_t
+ctypedef c64 complex128_t
 
 # The int types are mapped a bit surprising --
 # numpy.int corresponds to 'l' and numpy.long to 'q'
