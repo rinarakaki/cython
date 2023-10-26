@@ -10,7 +10,7 @@ def complex_double_cast(f64 x, c64 z):
     xx = x
     return xx, zz
 
-def complex_double_int_cast(i32 x, c32 z):
+def complex_double_int_cast(i32 x, int complex z):
     """
     >>> complex_double_int_cast(2, 2 + 3j)
     ((2+0j), (3+3j))
@@ -24,8 +24,8 @@ def complex_int_double_cast(f64 x, c64 z):
     >>> complex_int_double_cast(2.5, 2.5 + 3.5j)
     ((2+0j), (2+3j))
     """
-    let c32 xx = <c32>x
-    let c32 zz = <c32>z
+    let int complex xx = <int complex>x
+    let int complex zz = <int complex>z
     return xx, zz
 
 cdef i32 side_effect_counter = 0
@@ -36,7 +36,7 @@ fn c64 side_effect(c64 z):
     print "side effect", side_effect_counter, z
     return z
 
-def test_side_effect(c32 z):
+def test_side_effect(int complex z):
     """
     >>> test_side_effect(5)
     side effect 1 (5+0j)
@@ -45,5 +45,5 @@ def test_side_effect(c32 z):
     side effect 2 (3-4j)
     (3-4j)
     """
-    let c32 zz = <c32>side_effect(z)
+    let int complex zz = <int complex>side_effect(z)
     return zz
