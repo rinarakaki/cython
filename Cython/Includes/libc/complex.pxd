@@ -1,19 +1,19 @@
 extern from "<complex.h>" nogil:
     # Trigonometric functions.
-    double complex cacos(double complex z)
-    double complex casin(double complex z)
-    double complex catan(double complex z)
-    double complex ccos(double complex z)
-    double complex csin(double complex z)
-    double complex ctan(double complex z)
+    fn c64 cacos(c64 z)
+    fn c64 casin(c64 z)
+    fn c64 catan(c64 z)
+    fn c64 ccos(c64 z)
+    fn c64 csin(c64 z)
+    fn c64 ctan(c64 z)
 
     # Hyperbolic functions.
-    double complex cacosh(double complex z)
-    double complex casinh(double complex z)
-    double complex catanh(double complex z)
-    double complex ccosh(double complex z)
-    double complex csinh(double complex z)
-    double complex ctanh(double complex z)
+    fn c64 cacosh(c64 z)
+    fn c64 casinh(c64 z)
+    fn c64 catanh(c64 z)
+    fn c64 ccosh(c64 z)
+    fn c64 csinh(c64 z)
+    fn c64 ctanh(c64 z)
 
     # Exponential and logarithmic functions.
     double complex cexp(double complex z)
