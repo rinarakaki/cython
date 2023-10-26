@@ -1,7 +1,7 @@
 # mode: run
 # ticket: t693
 
-fn double complex func(double complex x):                                                  
+fn c64 func(c64 x):                                                  
     print "hello"
     return x
 
