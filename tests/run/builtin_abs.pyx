@@ -256,7 +256,7 @@ def test_c_float_abs(f32 a):
 
 @cython.test_assert_path_exists("//ReturnStatNode//NameNode[@entry.name = 'abs']",
                                 "//ReturnStatNode//NameNode[@entry.cname = '__Pyx_c_abs_double']")
-def complex_abs(c32 a):
+def complex_abs(c64 a):
     """
     >>> complex_abs(-5j)
     5.0
@@ -267,10 +267,10 @@ def complex_abs(c32 a):
 
 @cython.test_assert_path_exists("//ReturnStatNode//NameNode[@entry.name = 'abs']",
                                 "//ReturnStatNode//NameNode[@entry.cname = '__Pyx_c_abs_double']")
-fn f64 c_complex_abs(c32 a) nogil:
+fn f64 c_complex_abs(c64 a) nogil:
     return abs(a)
 
-def test_c_complex_abs(c32 a):
+def test_c_complex_abs(c64 a):
     """
     >>> test_c_complex_abs(-5j)
     5.0
