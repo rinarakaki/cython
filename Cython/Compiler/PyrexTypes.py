@@ -4867,7 +4867,7 @@ memoryviewslice_type = CStructOrUnionType("memoryviewslice", "struct",
                                           None, 1, "__Pyx_memviewslice")
 
 modifiers_and_name_to_type = {
-    #(signed, longness, name) : type
+    # (signed, longness, name): type
     (None, None, "u8"): c_uchar_type,
     (None, None, "i8"): c_char_type,
     (0,  0, "char"): c_uchar_type,
@@ -4903,7 +4903,7 @@ modifiers_and_name_to_type = {
     (1,  0, "double"): c_double_type,
     (1,  1, "double"): c_longdouble_type,
 
-    (None, None, "c32"):  c_float_complex_type,
+    (None, None, "c32"): c_float_complex_type,
     (None, None, "c64"): c_double_complex_type,
     (1,  0, "complex"):  c_double_complex_type,  # C: float, Python: double => Python wins
     (1,  0, "floatcomplex"):  c_float_complex_type,
