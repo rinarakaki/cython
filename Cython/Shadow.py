@@ -443,6 +443,8 @@ builtin_types = [
     'f64',
     'isize',
     'usize',
+    'c32',
+    'c64',
 ]
 int_types = [
     'char',
@@ -497,6 +499,8 @@ for name in builtin_types:
         gs[name] = typedef(py_int, name)
     elif name[0] == 'f':
         gs[name] = typedef(py_float, name)
+    elif name[0] == 'c':
+        gs[name] = typedef(py_complex, name)
     else:
         raise ValueError(name)
 
