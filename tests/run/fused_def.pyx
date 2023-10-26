@@ -31,7 +31,7 @@ ctypedef fused fused_t:
     str
     i32
     i64
-    complex
+    c32
     ExtClassA
     ExtClassB
     MyEnum
