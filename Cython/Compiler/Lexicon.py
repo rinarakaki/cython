@@ -98,7 +98,7 @@ def make_lexicon():
 
         (beginstring, Method('begin_string_action')),
 
-        (comment + lineterm, IGNORE),
+        (comment, IGNORE),
         (spaces, IGNORE),
         (escaped_newline, IGNORE),
 
