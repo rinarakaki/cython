@@ -3596,8 +3596,8 @@ def p_attributes(s):
         pos = s.position()
         s.next()
         s.next()
-        attributes = p_namedexpr_test(s)
-        attributes.append(Nodes.DecoratorNode(pos, decorator=decorator))
+        attribute = p_namedexpr_test(s)
+        attributes.append(Nodes.DecoratorNode(pos, decorator=attribute))
         s.expect("]")
         s.expect_newline("Expected a newline after attribute")
     return attributes
