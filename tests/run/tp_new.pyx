@@ -53,11 +53,11 @@ def test_derived_vtab():
 
 # only these can be safely optimised:
 
-#[cython.test_assert_path_exists('//PythonCapiCallNode')]
-@cython.test_fail_if_path_exists(
-    '//SimpleCallNode/AttributeNode',
-    '//PyMethodCallNode',
-)
+#[cython.test_assert_path_exists("//PythonCapiCallNode")]
+#[cython.test_fail_if_path_exists(
+    "//SimpleCallNode/AttributeNode",
+    "//PyMethodCallNode",
+)]
 def make_new():
     """
     >>> isinstance(make_new(), MyType)
@@ -67,11 +67,11 @@ def make_new():
     m = MyType.__new__(MyType)
     return m
 
-#[cython.test_assert_path_exists('//PythonCapiCallNode')]
-@cython.test_fail_if_path_exists(
-    '//SimpleCallNode/AttributeNode',
-    '//PyMethodCallNode',
-)
+#[cython.test_assert_path_exists("//PythonCapiCallNode")]
+#[cython.test_fail_if_path_exists(
+    "//SimpleCallNode/AttributeNode",
+    "//PyMethodCallNode",
+)]
 def make_new_typed_target():
     """
     >>> isinstance(make_new_typed_target(), MyType)
@@ -82,11 +82,11 @@ def make_new_typed_target():
     m = MyType.__new__(MyType)
     return m
 
-#[cython.test_assert_path_exists('//PythonCapiCallNode')]
-@cython.test_fail_if_path_exists(
-    '//SimpleCallNode/AttributeNode',
-    '//PyMethodCallNode',
-)
+#[cython.test_assert_path_exists("//PythonCapiCallNode")]
+#[cython.test_fail_if_path_exists(
+    "//SimpleCallNode/AttributeNode",
+    "//PyMethodCallNode",
+)]
 def make_new_with_args():
     """
     >>> isinstance(make_new_with_args(), MyType)
@@ -101,10 +101,10 @@ def make_new_with_args():
     return m
 
 #[cython.test_assert_path_exists('//PythonCapiCallNode')]
-@cython.test_fail_if_path_exists(
+#[cython.test_fail_if_path_exists(
     '//SimpleCallNode/AttributeNode',
     '//PyMethodCallNode',
-)
+)]
 def make_new_with_args_kwargs():
     """
     >>> isinstance(make_new_with_args_kwargs(), MyType)
@@ -119,10 +119,10 @@ def make_new_with_args_kwargs():
     return m
 
 #[cython.test_assert_path_exists('//PythonCapiCallNode')]
-@cython.test_fail_if_path_exists(
+#[cython.test_fail_if_path_exists(
     '//SimpleCallNode/AttributeNode',
     '//PyMethodCallNode',
-)
+)]
 def make_new_builtin():
     """
     >>> isinstance(make_new_builtin(), tuple)
@@ -134,10 +134,10 @@ def make_new_builtin():
     return m
 
 #[cython.test_assert_path_exists('//PythonCapiCallNode')]
-@cython.test_fail_if_path_exists(
+#[cython.test_fail_if_path_exists(
     '//SimpleCallNode/AttributeNode',
     '//PyMethodCallNode',
-)
+)]
 def make_new_none(type t=None):
     """
     >>> make_new_none()  # doctest: +ELLIPSIS
@@ -148,10 +148,10 @@ def make_new_none(type t=None):
     return m
 
 #[cython.test_assert_path_exists('//PythonCapiCallNode')]
-@cython.test_fail_if_path_exists(
+#[cython.test_fail_if_path_exists(
     '//SimpleCallNode/AttributeNode',
     '//PyMethodCallNode',
-)
+)]
 def make_new_kwargs(type t=None):
     """
     >>> m = make_new_kwargs(MyType)
