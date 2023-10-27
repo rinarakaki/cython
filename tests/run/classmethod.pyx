@@ -53,8 +53,8 @@ class class1:
         print cls.__name__
     view = classmethod(view)
 
-    @classmethod
     #[cython.binding(true)]
+    @classmethod
     def bview(cls):
         print cls.__name__
 
@@ -79,8 +79,8 @@ cdef class class3:
         print cls.__name__
     view = classmethod(view)
 
-    @classmethod
     #[cython.binding(true)]
+    @classmethod
     def bview(cls):
         print cls.__name__
 
