@@ -2341,7 +2341,11 @@ def p_IF_statement(s, ctx):
 
 def p_statement(s, ctx, first_statement = 0):
     cdef_flag = ctx.cdef_flag
-    decorators = None
+    decorators = []
+    if s.sy == "#" and s.peek()[0] == "[":
+        s.level = ctx.level
+        decorators = p_attributes(s)
+
     if s.sy == 'ctypedef':
         if ctx.level not in ('module', 'module_pxd'):
             s.error("ctypedef statement not allowed here")
@@ -2362,23 +2366,11 @@ def p_statement(s, ctx, first_statement = 0):
                 "Consider using runtime conditions or C macros instead. "
                 "See https://github.com/cython/cython/issues/4310", level=1)
         return p_IF_statement(s, ctx)
-    elif s.sy == "#" and s.peek()[0] == "[":
-        print("!!!!!!!!!!! attribute found !!!!!!!!!!!!!!!")
-        print(s)
-        if ctx.level not in ('module', 'class', 'c_class', 'function', 'property', 'module_pxd', 'c_class_pxd', 'other'):
-            s.error('decorator not allowed here')
-        s.level = ctx.level
-        decorators = p_attributes(s)
-        if not ctx.allow_struct_enum_decorator and s.sy not in ("def", "fn", "cdef", "cpdef", "class", "async"):
-            if s.sy == 'IDENT' and s.systring == 'async':
-                pass  # handled below
-            else:
-                s.error("Decorators can only be followed by functions or classes")
     elif s.sy == '@':
         if ctx.level not in ('module', 'class', 'c_class', 'function', 'property', 'module_pxd', 'c_class_pxd', 'other'):
             s.error('decorator not allowed here')
         s.level = ctx.level
-        decorators = p_decorators(s)
+        decorators += p_decorators(s)
         if not ctx.allow_struct_enum_decorator and s.sy not in ("def", "fn", "cdef", "cpdef", "class", "async"):
             if s.sy == 'IDENT' and s.systring == 'async':
                 pass  # handled below
@@ -2403,7 +2395,7 @@ def p_statement(s, ctx, first_statement = 0):
             s.error('cdef statement not allowed here')
         s.level = ctx.level
         node = p_cdef_statement(s, ctx(overridable=overridable))
-        if decorators is not None:
+        if len(decorators) > 0:
             tup = (Nodes.CFuncDefNode, Nodes.CVarDefNode, Nodes.CClassDefNode)
             if ctx.allow_struct_enum_decorator:
                 tup += (Nodes.CStructOrUnionDefNode, Nodes.CEnumDefNode)
