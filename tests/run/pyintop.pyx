@@ -476,11 +476,11 @@ def not_equals_many(obj2):
     return tuple(not x for x in (a, b, c, d, e, f, g, h, i, j, k, l, m, n, o))
 
 
-#[cython.test_assert_path_exists('//PythonCapiCallNode')]
-@cython.test_fail_if_path_exists(
-    '//IntBinopNode',
-    '//PrimaryCmpNode',
-)
+#[cython.test_assert_path_exists("//PythonCapiCallNode")]
+#[cython.test_fail_if_path_exists(
+    "//IntBinopNode",
+    "//PrimaryCmpNode",
+)]
 def equals_zero(obj2):
     """
     >>> equals_zero(2)
