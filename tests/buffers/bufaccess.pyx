@@ -565,8 +565,8 @@ def no_negative_indices(object[i32, negative_indices=false] buf, i32 idx):
     """
     return buf[idx]
 
-@testcase
 #[cython.wraparound(false)]
+@testcase
 def wraparound_directive(object[i32] buf, i32 pos_idx, i32 neg_idx):
     """
     Again, the most interesting thing here is to inspect the C source.
@@ -712,9 +712,9 @@ def safe_get(object[i32] buf, i32 idx):
     """
     return buf[idx]
 
-@testcase
 #[cython.boundscheck(false)] # outer decorators should take precedence
 #[cython.boundscheck(true)]
+@testcase
 def unsafe_get(object[i32] buf, i32 idx):
     """
     Access outside of the area the buffer publishes.
@@ -728,8 +728,8 @@ def unsafe_get(object[i32] buf, i32 idx):
     """
     return buf[idx]
 
-@testcase
 #[cython.boundscheck(false)]
+@testcase
 def unsafe_get_nonegative(object[i32, negative_indices=false] buf, i32 idx):
     """
     Also inspect the C source to see that it is optimal...
