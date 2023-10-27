@@ -2362,7 +2362,7 @@ def p_statement(s, ctx, first_statement = 0):
                 "Consider using runtime conditions or C macros instead. "
                 "See https://github.com/cython/cython/issues/4310", level=1)
         return p_IF_statement(s, ctx)
-    elif s.sy == "#[":
+    elif s.sy == "#" and s.peek()[0] == "[":
         print("!!!!!!!!!!! attribute found !!!!!!!!!!!!!!!")
         print(s)
         if ctx.level not in ('module', 'class', 'c_class', 'function', 'property', 'module_pxd', 'c_class_pxd', 'other'):
@@ -3601,8 +3601,9 @@ def p_ctypedef_statement(s, ctx):
 
 def p_attributes(s):
     attributes = []
-    while s.sy == "#[":
+    while s.sy == "#" and s.peek()[0] == "[":
         pos = s.position()
+        s.next()
         s.next()
         attribute = p_namedexpr_test(s)
         attributes.append(Nodes.DecoratorNode(pos, decorator=attribute))
