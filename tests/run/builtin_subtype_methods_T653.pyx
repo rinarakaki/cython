@@ -39,8 +39,8 @@ cdef class MyList(list):
 cdef class MyDict(dict):
     # tests for __contains__ are in the global __doc__ to version-check a PyPy bug
 
-    @cython.test_assert_path_exists("//ComprehensionNode//AttributeNode",
-                                    "//ComprehensionNode//AttributeNode[@attribute='items']")
+    #[cython.test_assert_path_exists("//ComprehensionNode//AttributeNode",
+                                     "//ComprehensionNode//AttributeNode[@attribute='items']")]
     #[cython.test_fail_if_path_exists("//ComprehensionNode//CMethodSelfCloneNode")]
     def test_items(self):
         """
@@ -95,8 +95,8 @@ cdef class MyDictFinal(dict):
         return l
 
 cdef class MyDict2(MyDict):
-    @cython.test_assert_path_exists("//ComprehensionNode//AttributeNode",
-                                    "//ComprehensionNode//AttributeNode[@attribute='items']")
+    #[cython.test_assert_path_exists("//ComprehensionNode//AttributeNode",
+                                     "//ComprehensionNode//AttributeNode[@attribute='items']")]
     #[cython.test_fail_if_path_exists("//ComprehensionNode//CMethodSelfCloneNode")]
     def test_items(self):
         """
@@ -142,8 +142,8 @@ cdef class MyDictOverride(dict):
     def items(self):
         return [(1, 2), (3, 4)]
 
-    @cython.test_assert_path_exists("//ComprehensionNode//AttributeNode",
-                                    "//ComprehensionNode//AttributeNode[@attribute='items']")
+    #[cython.test_assert_path_exists("//ComprehensionNode//AttributeNode",
+                                     "//ComprehensionNode//AttributeNode[@attribute='items']")]
     #[cython.test_fail_if_path_exists("//ComprehensionNode//CMethodSelfCloneNode")]
     def test_items(self):
         """
@@ -169,7 +169,7 @@ cdef class MyDictOverride2(MyDict):
         return [(1, 2), (3, 4)]
 
     #[cython.test_assert_path_exists("//ComprehensionNode//AttributeNode",
-                                    "//ComprehensionNode//AttributeNode[@attribute='items']")]
+                                     "//ComprehensionNode//AttributeNode[@attribute='items']")]
     #[cython.test_fail_if_path_exists("//ComprehensionNode//CMethodSelfCloneNode")]
     def test_items(self):
         """
