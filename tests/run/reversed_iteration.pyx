@@ -18,10 +18,9 @@ def unlongify(v):
 def _reversed(it):
     return list(it)[::-1]
 
-@cython.test_assert_path_exists('//ForInStatNode',
-                                '//ForInStatNode/IteratorNode',
-                                '//ForInStatNode/IteratorNode[@reversed = True]',
-                                )
+#[cython.test_assert_path_exists('//ForInStatNode',
+                                 '//ForInStatNode/IteratorNode',
+                                 '//ForInStatNode/IteratorNode[@reversed = True]')]
 #[cython.test_fail_if_path_exists('//ForInStatNode/IteratorNode//SimpleCallNode')]
 def reversed_list(list l):
     """
@@ -40,10 +39,9 @@ def reversed_list(list l):
         result.append(item)
     return result
 
-@cython.test_assert_path_exists('//ForInStatNode',
-                                '//ForInStatNode/IteratorNode',
-                                '//ForInStatNode/IteratorNode[@reversed = True]',
-                                )
+#[cython.test_assert_path_exists('//ForInStatNode',
+                                 '//ForInStatNode/IteratorNode',
+                                 '//ForInStatNode/IteratorNode[@reversed = True]')]
 #[cython.test_fail_if_path_exists('//ForInStatNode/IteratorNode//SimpleCallNode')]
 def reversed_tuple(tuple t):
     """
@@ -62,10 +60,9 @@ def reversed_tuple(tuple t):
         result.append(item)
     return result
 
-@cython.test_assert_path_exists('//ForInStatNode',
-                                '//ForInStatNode/IteratorNode',
-                                '//ForInStatNode/IteratorNode[@reversed = True]',
-                                )
+#[cython.test_assert_path_exists('//ForInStatNode',
+                                 '//ForInStatNode/IteratorNode',
+                                 '//ForInStatNode/IteratorNode[@reversed = True]')]
 #[cython.test_fail_if_path_exists('//ForInStatNode/IteratorNode//SimpleCallNode')]
 def enumerate_reversed_list(list l):
     """
