@@ -250,5 +250,5 @@ def uchar_lookup_in_dict(obj, Py_UNICODE uchar):
 
 
 _WARNINGS = """
-250:16: Item lookup of unicode character codes now always converts to a Unicode string. Use an explicit C integer cast to get back the previous integer lookup behaviour.
+248:16: Item lookup of unicode character codes now always converts to a Unicode string. Use an explicit C integer cast to get back the previous integer lookup behaviour.
 """
