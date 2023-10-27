@@ -139,10 +139,10 @@ def switch_c(i32 x):
         return 0
     return -1
 
-@cython.test_assert_path_exists(
+#[cython.test_assert_path_exists(
     '//SwitchStatNode',
     '//SwitchStatNode//SwitchStatNode',
-)
+)]
 #[cython.test_fail_if_path_exists('//BoolBinopNode', '//PrimaryCmpNode')]
 def switch_in_switch(i32 x, i32 y):
     """
