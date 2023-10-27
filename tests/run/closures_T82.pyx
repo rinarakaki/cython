@@ -214,7 +214,7 @@ def deep_inner():
     "//DefNode//DefNode//DefNode[@needs_outer_scope = False]",  # a()
     "//DefNode//DefNode//DefNode[@needs_closure = False]",  # a(), g(), h()
 )]
-#[cython.test_fail_if_path_exists("//DefNode//DefNode//DefNode[@needs_closure = True]") # a(), g(), h()]
+#[cython.test_fail_if_path_exists("//DefNode//DefNode//DefNode[@needs_closure = True]")]  # a(), g(), h()
 def deep_inner_sibling():
     """
     >>> deep_inner_sibling()()
