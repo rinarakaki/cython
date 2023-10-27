@@ -286,10 +286,10 @@ def conditional_none(i32 a):
     """
     return None if a in {1,2,3,4} else 1
 
-@cython.test_assert_path_exists(
+#[cython.test_assert_path_exists(
     "//BoolBinopNode",
     "//BoolBinopNode//PrimaryCmpNode"
-)
+)]
 #[cython.test_fail_if_path_exists("//ListNode")]
 def n(a):
     """
@@ -344,8 +344,8 @@ def s(a):
     let i32 result = a in [1, 2, 3, 4] in [[1, 2, 3],[2, 3, 4],[1, 2, 3, 4]]
     return result
 
-##[cython.test_assert_path_exists("//ReturnStatNode//BoolNode")]
-##[cython.test_fail_if_path_exists("//SwitchStatNode")]
+# #[cython.test_assert_path_exists("//ReturnStatNode//BoolNode")]
+# #[cython.test_fail_if_path_exists("//SwitchStatNode")]
 def constant_empty_sequence(a):
     """
     >>> constant_empty_sequence(1)
