@@ -2363,8 +2363,17 @@ def p_statement(s, ctx, first_statement = 0):
                 "See https://github.com/cython/cython/issues/4310", level=1)
         return p_IF_statement(s, ctx)
     elif s.sy == "#[":
+        print("!!!!!!!!!!! attribute found !!!!!!!!!!!!!!!")
+        print(s)
+        if ctx.level not in ('module', 'class', 'c_class', 'function', 'property', 'module_pxd', 'c_class_pxd', 'other'):
+            s.error('decorator not allowed here')
         s.level = ctx.level
         decorators = p_attributes(s)
+        if not ctx.allow_struct_enum_decorator and s.sy not in ("def", "fn", "cdef", "cpdef", "class", "async"):
+            if s.sy == 'IDENT' and s.systring == 'async':
+                pass  # handled below
+            else:
+                s.error("Decorators can only be followed by functions or classes")
     elif s.sy == '@':
         if ctx.level not in ('module', 'class', 'c_class', 'function', 'property', 'module_pxd', 'c_class_pxd', 'other'):
             s.error('decorator not allowed here')
