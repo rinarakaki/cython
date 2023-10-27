@@ -3,7 +3,6 @@
 
 use cython
 
-
 class Iter(object):
     def __init__(self, it=()):
         self.it = iter(it)
@@ -12,7 +11,6 @@ class Iter(object):
     def __next__(self):
         return next(self.it)
     next = __next__
-
 
 class Map(object):
     def __init__(self, mapping={}):
@@ -24,21 +22,18 @@ class Map(object):
     def __getitem__(self, key):
         return self.mapping[key]
 
-
 #### tuples
 
-
-@cython.test_fail_if_path_exists(
+#[cython.test_fail_if_path_exists(
     "//TupleNode//TupleNode",
     "//MergedSequenceNode",
-)
+)]
 def unpack_tuple_literal():
     """
     >>> unpack_tuple_literal()
     (1, 2, 4, 5)
     """
     return (*(1, 2, *(4, 5)),)
-
 
 def unpack_tuple_literal_mult():
     """
@@ -47,18 +42,16 @@ def unpack_tuple_literal_mult():
     """
     return (*((1, 2, *((4, 5) * 2)) * 3),)
 
-
-@cython.test_fail_if_path_exists(
+#[cython.test_fail_if_path_exists(
     "//TupleNode//TupleNode",
     "//MergedSequenceNode",
-)
+)]
 def unpack_tuple_literal_empty():
     """
     >>> unpack_tuple_literal_empty()
     ()
     """
     return (*(*(), *()), *(), *(*(*(),),))
-
 
 def unpack_tuple_simple(it):
     """
@@ -82,7 +75,6 @@ def unpack_tuple_simple(it):
     (2, 1)
     """
     return (*it,)
-
 
 def unpack_tuple_from_iterable(it):
     """
@@ -118,7 +110,6 @@ def unpack_tuple_from_iterable(it):
     """
     return (1, 2, *it, 1, *(*it, *it), *it, 2, 1, *it)
 
-
 def unpack_tuple_keep_originals(a, b, c):
     """
     >>> a = b = [1, 2]
@@ -145,7 +136,6 @@ def unpack_tuple_keep_originals(a, b, c):
     """
     return (*a, *b, 2, *c)
 
-
 def unpack_tuple_in_string_formatting(a, *args):
     """
     >>> print(unpack_tuple_in_string_formatting(1, 2))
@@ -161,21 +151,18 @@ def unpack_tuple_in_string_formatting(a, *args):
     """
     return "%s %r" % (a, *args)
 
-
 #### lists
 
-
-@cython.test_fail_if_path_exists(
+#[cython.test_fail_if_path_exists(
     "//ListNode//ListNode",
     "//MergedSequenceNode",
-)
+)]
 def unpack_list_literal():
     """
     >>> unpack_list_literal()
     [1, 2, 4, 5]
     """
     return [*[1, 2, *[4, 5]]]
-
 
 def unpack_list_literal_mult():
     """
@@ -184,14 +171,12 @@ def unpack_list_literal_mult():
     """
     return [*([1, 2, *([4, 5] * 2)] * 3)]
 
-
 def unpack_list_tuple_mult():
     """
     >>> unpack_list_tuple_mult()
     [1, 1]
     """
     return [*(1,) * 2]
-
 
 def unpack_list_tuple_bad_mult():
     """
@@ -202,18 +187,16 @@ def unpack_list_tuple_bad_mult():
     """
     return [*(1,) * 1.5]
 
-
-@cython.test_fail_if_path_exists(
+#[cython.test_fail_if_path_exists(
     "//ListNode//ListNode",
     "//MergedSequenceNode",
-)
+)]
 def unpack_list_literal_empty():
     """
     >>> unpack_list_literal_empty()
     []
     """
     return [*[*[], *[]], *[], *[*[*[]]]]
-
 
 def unpack_list_simple(it):
     """
@@ -237,7 +220,6 @@ def unpack_list_simple(it):
     [2, 1]
     """
     return [*it]
-
 
 def unpack_list_from_iterable(it):
     """
@@ -273,7 +255,6 @@ def unpack_list_from_iterable(it):
     """
     return [1, 2, *it, 1, *[*it, *it], *it, 2, 1, *it]
 
-
 def unpack_list_keep_originals(a, b, c):
     """
     >>> a = b = [1, 2]
@@ -288,7 +269,6 @@ def unpack_list_keep_originals(a, b, c):
     [3, 4]
     """
     return [*a, *b, 2, *c]
-
 
 def unpack_starred_arg_for_in_operator(x, l, m):
     """
@@ -307,14 +287,12 @@ def unpack_starred_arg_for_in_operator(x, l, m):
     """
     return x in [*l, *m]
 
-
 ###### sets
 
-
-@cython.test_fail_if_path_exists(
+#[cython.test_fail_if_path_exists(
     "//SetNode//SetNode",
     "//MergedSequenceNode",
-)
+)]
 def unpack_set_literal():
     """
     >>> s = unpack_set_literal()
@@ -322,7 +300,6 @@ def unpack_set_literal():
     True
     """
     return {*{1, 2, *{4, 5}}}
-
 
 def unpack_set_simple(it):
     """
@@ -359,7 +336,6 @@ def unpack_set_simple(it):
     True
     """
     return {*it}
-
 
 def unpack_set_from_iterable(it):
     """
@@ -417,7 +393,6 @@ def unpack_set_from_iterable(it):
     """
     return {1, 2, *it, 1, *{*it, *it}, *it, 2, 1, *it, *it}
 
-
 def unpack_set_keep_originals(a, b, c):
     """
     >>> a = b = set([1, 2])
@@ -434,14 +409,12 @@ def unpack_set_keep_originals(a, b, c):
     """
     return {*a, *b, 2, *c}
 
-
 #### dicts
 
-
-@cython.test_fail_if_path_exists(
+#[cython.test_fail_if_path_exists(
     "//DictNode//DictNode",
     "//MergedDictNode",
-)
+)]
 def unpack_dict_literal():
     """
     >>> d = unpack_dict_literal()
@@ -450,18 +423,16 @@ def unpack_dict_literal():
     """
     return {**{'a': 1, 'b': 2, **{'c': 4, 'd': 5}}}
 
-
-@cython.test_fail_if_path_exists(
+#[cython.test_fail_if_path_exists(
     "//DictNode//DictNode",
     "//MergedDictNode",
-)
+)]
 def unpack_dict_literal_empty():
     """
     >>> unpack_dict_literal_empty()
     {}
     """
     return {**{**{}, **{}}, **{}, **{**{**{}}}}
-
 
 def unpack_dict_simple(it):
     """
@@ -499,11 +470,10 @@ def unpack_dict_simple(it):
     """
     return {**it}
 
-
 #[cython.test_assert_path_exists('//MergedDictNode')]
-@cython.test_fail_if_path_exists(
+#[cython.test_fail_if_path_exists(
     '//MergedDictNode//MergedDictNode',
-)
+)]
 def unpack_dict_from_iterable(it):
     """
     >>> d = unpack_dict_from_iterable(dict(a=1, b=2, c=3))
@@ -560,7 +530,6 @@ def unpack_dict_from_iterable(it):
     """
     return {'a': 2, 'b': 3, **it, 'a': 1, **{**it, **it}, **it, 'a': 4, 'b': 5, **it, **it}
 
-
 def unpack_dict_keep_originals(a, b, c):
     """
     >>> a = b = {1: 2}
@@ -577,12 +546,11 @@ def unpack_dict_keep_originals(a, b, c):
     """
     return {**a, **b, 2: 4, **c}
 
-
-@cython.test_assert_path_exists(
+#[cython.test_assert_path_exists(
     '//MergedDictNode',
     '//MergedDictNode//MergedDictNode',
     '//MergedDictNode//MergedDictNode//DictNode',
-)
+)]
 def unpack_in_call(f):
     """
     >>> def f(a=1, test=2, **kwargs):
