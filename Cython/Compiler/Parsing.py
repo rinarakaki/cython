@@ -2362,7 +2362,7 @@ def p_statement(s, ctx, first_statement = 0):
                 "Consider using runtime conditions or C macros instead. "
                 "See https://github.com/cython/cython/issues/4310", level=1)
         return p_IF_statement(s, ctx)
-    elif s.sy == "#" and s.peek()[0] == "[":
+    elif s.sy == "#[":
         s.level = ctx.level
         decorators = p_attributes(s)
     elif s.sy == '@':
@@ -3592,9 +3592,8 @@ def p_ctypedef_statement(s, ctx):
 
 def p_attributes(s):
     attributes = []
-    while s.sy == "#" and s.peek()[0] == "[":
+    while s.sy == "#[":
         pos = s.position()
-        s.next()
         s.next()
         attribute = p_namedexpr_test(s)
         attributes.append(Nodes.DecoratorNode(pos, decorator=attribute))
