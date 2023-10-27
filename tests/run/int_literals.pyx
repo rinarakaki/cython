@@ -43,10 +43,10 @@ def c_longs():
     let u128 uaa = 0xFFFFFFFFFFFFFFFFULL
     return a, ua, int(aa), uaa
 
-@cython.test_assert_path_exists(
+#[cython.test_assert_path_exists(
     '//IntNode[@longness = "LL"]',
     '//IntNode[@longness = "L"]',
-    )
+)]
 #[cython.test_fail_if_path_exists('//IntNode[@longness = ""]')]
 def negative_c_longs():
     """
@@ -87,7 +87,7 @@ def py_huge_computation_small_result():
     return (1 << 200) >> 199
 
 #[cython.test_fail_if_path_exists("//NumBinopNode", "//IntBinopNode")]
-##[cython.test_assert_path_exists("//ReturnStatNode/IntNode")]
+# #[cython.test_assert_path_exists("//ReturnStatNode/IntNode")]
 def py_huge_computation_small_result_neg():
     """
     >>> py_huge_computation_small_result_neg() == (
