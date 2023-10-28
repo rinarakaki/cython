@@ -42,7 +42,7 @@ def compute(my_type[:, ::1] array_1, my_type[:, ::1] array_2, my_type a, my_type
 
     # We use prange here.
     for x in prange(x_max, nogil=true):
-        for y in range(y_max):
+        for y in 0..y_max:
             tmp = clip(array_1[x, y], 2, 10)
             tmp = tmp * a + array_2[x, y] * b
             result_view[x, y] = tmp + c
