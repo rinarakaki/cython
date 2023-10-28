@@ -211,53 +211,53 @@ extern from "datetime.h":
         time (*Time_FromTimeAndFold)(i32, i32, i32 ,i32, object, i32, PyTypeObject*)
 
     # Check type of the object.
-    bint PyDate_Check(object op)
-    bint PyDate_CheckExact(object op)
+    fn bint PyDate_Check(object op)
+    fn bint PyDate_CheckExact(object op)
 
-    bint PyDateTime_Check(object op)
-    bint PyDateTime_CheckExact(object op)
+    fn bint PyDateTime_Check(object op)
+    fn bint PyDateTime_CheckExact(object op)
 
-    bint PyTime_Check(object op)
-    bint PyTime_CheckExact(object op)
+    fn bint PyTime_Check(object op)
+    fn bint PyTime_CheckExact(object op)
 
-    bint PyDelta_Check(object op)
-    bint PyDelta_CheckExact(object op)
+    fn bint PyDelta_Check(object op)
+    fn bint PyDelta_CheckExact(object op)
 
-    bint PyTZInfo_Check(object op)
-    bint PyTZInfo_CheckExact(object op)
+    fn bint PyTZInfo_Check(object op)
+    fn bint PyTZInfo_CheckExact(object op)
 
     # Getters for date and datetime (C macros).
-    i32 PyDateTime_GET_YEAR(object o)
-    i32 PyDateTime_GET_MONTH(object o)
-    i32 PyDateTime_GET_DAY(object o)
+    fn i32 PyDateTime_GET_YEAR(object o)
+    fn i32 PyDateTime_GET_MONTH(object o)
+    fn i32 PyDateTime_GET_DAY(object o)
 
     # Getters for datetime (C macros).
-    i32 PyDateTime_DATE_GET_HOUR(object o)
-    i32 PyDateTime_DATE_GET_MINUTE(object o)
-    i32 PyDateTime_DATE_GET_SECOND(object o)
-    i32 PyDateTime_DATE_GET_MICROSECOND(object o)
-    i32 PyDateTime_DATE_GET_FOLD(object o)
+    fn i32 PyDateTime_DATE_GET_HOUR(object o)
+    fn i32 PyDateTime_DATE_GET_MINUTE(object o)
+    fn i32 PyDateTime_DATE_GET_SECOND(object o)
+    fn i32 PyDateTime_DATE_GET_MICROSECOND(object o)
+    fn i32 PyDateTime_DATE_GET_FOLD(object o)
     PyObject* PyDateTime_DATE_GET_TZINFO(object o)  # returns a borrowed reference
 
     # Getters for time (C macros).
-    i32 PyDateTime_TIME_GET_HOUR(object o)
-    i32 PyDateTime_TIME_GET_MINUTE(object o)
-    i32 PyDateTime_TIME_GET_SECOND(object o)
-    i32 PyDateTime_TIME_GET_MICROSECOND(object o)
-    i32 PyDateTime_TIME_GET_FOLD(object o)
+    fn i32 PyDateTime_TIME_GET_HOUR(object o)
+    fn i32 PyDateTime_TIME_GET_MINUTE(object o)
+    fn i32 PyDateTime_TIME_GET_SECOND(object o)
+    fn i32 PyDateTime_TIME_GET_MICROSECOND(object o)
+    fn i32 PyDateTime_TIME_GET_FOLD(object o)
     PyObject* PyDateTime_TIME_GET_TZINFO(object o)  # returns a borrowed reference
 
     # Getters for timedelta (C macros).
-    i32 PyDateTime_DELTA_GET_DAYS(object o)
-    i32 PyDateTime_DELTA_GET_SECONDS(object o)
-    i32 PyDateTime_DELTA_GET_MICROSECONDS(object o)
+    fn i32 PyDateTime_DELTA_GET_DAYS(object o)
+    fn i32 PyDateTime_DELTA_GET_SECONDS(object o)
+    fn i32 PyDateTime_DELTA_GET_MICROSECONDS(object o)
 
     # Constructors
-    object PyTimeZone_FromOffset(object offset)
-    object PyTimeZone_FromOffsetAndName(object offset, object name)
+    fn object PyTimeZone_FromOffset(object offset)
+    fn object PyTimeZone_FromOffsetAndName(object offset, object name)
 
     # The above macros is Python 3.7+ so we use these instead
-    object __Pyx_TimeZone_FromOffsetAndName(object offset, PyObject* name)
+    fn object __Pyx_TimeZone_FromOffsetAndName(object offset, PyObject* name)
 
     # Constructors for the DB API
     datetime PyDateTime_FromTimeStamp(object args)
@@ -275,7 +275,7 @@ extern from "datetime.h":
     # PyDateTime_TimeZone_UTC is Python 3.7+ so instead we use the following macro
     PyObject* __Pyx_TimeZone_UTC
 
-    void PyDateTime_IMPORT()
+    fn void PyDateTime_IMPORT()
 
 # Datetime C API initialization function.
 # You have to call it before any usage of DateTime CAPI functions.

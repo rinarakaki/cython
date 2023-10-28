@@ -20,27 +20,27 @@ extern from "Python.h":
     # point type. This is the same object as float and
     # types.FloatType.
 
-    bint PyFloat_Check(object p)
+    fn bint PyFloat_Check(object p)
     # Return true if its argument is a PyFloatObject or a subtype of
     # PyFloatObject.
 
-    bint PyFloat_CheckExact(object p)
+    fn bint PyFloat_CheckExact(object p)
     # Return true if its argument is a PyFloatObject, but not a
     # subtype of PyFloatObject.
 
-    object PyFloat_FromString "__Pyx_PyFloat_FromString" (object str)
+    fn object PyFloat_FromString "__Pyx_PyFloat_FromString" (object str)
     # Return value: New reference.
     # Create a PyFloatObject object based on the string value in str,
     # or NULL on failure. The pend argument is ignored. It remains
     # only for backward compatibility.
 
-    object PyFloat_FromDouble(f64 v)
+    fn object PyFloat_FromDouble(f64 v)
     # Return value: New reference.
     # Create a PyFloatObject object from v, or NULL on failure.
 
-    f64 PyFloat_AsDouble(object pyfloat) except? -1
+    fn f64 PyFloat_AsDouble(object pyfloat) except? -1
     # Return a C double representation of the contents of pyfloat.
 
-    f64 PyFloat_AS_DOUBLE(object pyfloat)
+    fn f64 PyFloat_AS_DOUBLE(object pyfloat)
     # Return a C double representation of the contents of pyfloat, but
     # without error checking.

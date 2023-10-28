@@ -13,10 +13,10 @@ extern from "Python.h":
     #    buffer. Using this enables the caller to avoid querying the base
     #    object for its length.
 
-    bint PyBuffer_Check(object p)
+    fn bint PyBuffer_Check(object p)
     #    Return true if the argument has type PyBuffer_Type.
 
-    object PyBuffer_FromObject(object base, isize offset, isize size)
+    fn object PyBuffer_FromObject(object base, isize offset, isize size)
     #    Return value: New reference.
     #
     #    Return a new read-only buffer object. This raises TypeError if
@@ -29,7 +29,7 @@ extern from "Python.h":
     #    new buffer's contents extend to the length of the base object's
     #    exported buffer data.
 
-    object PyBuffer_FromReadWriteObject(object base, isize offset, isize size)
+    fn object PyBuffer_FromReadWriteObject(object base, isize offset, isize size)
     #    Return value: New reference.
     #
     #    Return a new writable buffer object. Parameters and exceptions
@@ -37,7 +37,7 @@ extern from "Python.h":
     #    object does not export the writeable buffer protocol, then
     #    TypeError is raised.
 
-    object PyBuffer_FromMemory(void *ptr, isize size)
+    fn object PyBuffer_FromMemory(void *ptr, isize size)
     #    Return value: New reference.
     #
     #    Return a new read-only buffer object that reads from a specified
@@ -48,13 +48,13 @@ extern from "Python.h":
     #    Py_END_OF_BUFFER may not be passed for the size parameter;
     #    ValueError will be raised in that case.
 
-    object PyBuffer_FromReadWriteMemory(void *ptr, isize size)
+    fn object PyBuffer_FromReadWriteMemory(void *ptr, isize size)
     #    Return value: New reference.
     #
     #    Similar to PyBuffer_FromMemory(), but the returned buffer is
     #    writable.
 
-    object PyBuffer_New(isize size)
+    fn object PyBuffer_New(isize size)
     #    Return value: New reference.
     #
     #    Return a new writable buffer object that maintains its own memory
