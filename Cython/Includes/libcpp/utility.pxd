@@ -2,17 +2,17 @@ extern from "<utility>" namespace "std" nogil:
     cdef cppclass pair[T, U]:
         ctypedef T first_type
         ctypedef U second_type
-        T first
+        fn T first
         U second
         pair() except +
         pair(pair&) except +
         pair(T&, U&) except +
-        bint operator==(pair&, pair&)
-        bint operator!=(pair&, pair&)
-        bint operator<(pair&, pair&)
-        bint operator>(pair&, pair&)
-        bint operator<=(pair&, pair&)
-        bint operator>=(pair&, pair&)
+        fn bint operator==(pair&, pair&)
+        fn bint operator!=(pair&, pair&)
+        fn bint operator<(pair&, pair&)
+        fn bint operator>(pair&, pair&)
+        fn bint operator<=(pair&, pair&)
+        fn bint operator>=(pair&, pair&)
 
 extern from * namespace "cython_std" nogil:
     """

@@ -3,12 +3,12 @@
 from libc.stddef cimport wchar_t
 
 extern from "<time.h>" nogil:
-    ctypedef long clock_t
-    ctypedef long time_t
+    ctypedef i64 clock_t
+    ctypedef i64 time_t
 
     enum: CLOCKS_PER_SEC
-    clock_t clock()             # CPU time
-    time_t  time(time_t *)      # wall clock time since Unix epoch
+    fn clock_t clock()             # CPU time
+    fn time_t  time(time_t *)      # wall clock time since Unix epoch
 
     struct tm:
         int  tm_sec
