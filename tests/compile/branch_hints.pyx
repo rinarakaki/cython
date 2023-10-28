@@ -3,62 +3,62 @@
 
 use cython
 
-@cython.test_assert_path_exists(
+#[cython.test_assert_path_exists(
     "//IfClauseNode",
     "//IfClauseNode[not(@branch_hint)]",
-)
-def if_simple(x):
+)]
+fn if_simple(x):
     if x:
         x = 2
 
-@cython.test_assert_path_exists(
+#[cython.test_assert_path_exists(
     "//IfClauseNode",
     "//IfClauseNode[not(@branch_hint)]",
-)
-def if_return(x):
+)]
+fn if_return(x):
     if x:
         return 1
     raise TypeError()
 
-@cython.test_assert_path_exists(
+#[cython.test_assert_path_exists(
     "//IfClauseNode",
     "//IfClauseNode[@branch_hint = 'unlikely']",
-)
-def if_raise_else(x):
+)]
+fn if_raise_else(x):
     if x:
         raise TypeError()
     else:
         return 1
 
-@cython.test_assert_path_exists(
+#[cython.test_assert_path_exists(
     "//IfClauseNode",
     "//IfClauseNode[@branch_hint = 'likely']",
-)
-def if_else_raise(x):
+)]
+fn if_else_raise(x):
     if x:
         return 1
     else:
         raise TypeError()
 
-@cython.test_assert_path_exists(
+#[cython.test_assert_path_exists(
     "//IfClauseNode",
     "//IfClauseNode[@branch_hint = 'unlikely']",
-)
-def if_raise_else_raise(x):
+)]
+fn if_raise_else_raise(x):
     if x:
         raise ValueError()
     else:
         raise TypeError()
 
-@cython.test_assert_path_exists(
+#[cython.test_assert_path_exists(
     "//IfClauseNode",
     "//IfClauseNode[@branch_hint = 'unlikely']",
-)
-@cython.test_fail_if_path_exists(
+)]
+#[cython.test_fail_if_path_exists(
     "//IfClauseNode[@branch_hint = 'likely']",
     "//IfClauseNode[not(@branch_hint)]",
-)
-def if_elif_raise_else_raise(x):
+)]
+fn if_elif_raise_else_raise(x):
     if x:
         raise ValueError()
     elif not x:
