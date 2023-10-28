@@ -1244,8 +1244,8 @@ def complex_struct_inplace(object[LongComplex] buf):
 #
 # Nogil
 #
-@testcase
 #[cython.boundscheck(false)]
+@testcase
 def buffer_nogil():
     """
     >>> buffer_nogil()

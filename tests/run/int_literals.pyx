@@ -27,10 +27,10 @@ def valid_underscore_literals():
     assert typeof(1_0ULL) == "unsigned long long"
 
 
-@cython.test_assert_path_exists(
+#[cython.test_assert_path_exists(
     '//IntNode[@longness = "LL"]',
     '//IntNode[@longness = "L"]',
-    )
+)]
 #[cython.test_fail_if_path_exists('//IntNode[@longness = ""]')]
 def c_longs():
     """
