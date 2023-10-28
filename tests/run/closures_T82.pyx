@@ -189,12 +189,12 @@ def more_inner_funcs(x):
         return f(a_f), g(b_g), h(b_h)
     return resolve
 
-#[cython.test_assert_path_exists(
+@cython.test_assert_path_exists(
     "//DefNode//DefNode//DefNode//DefNode",
     "//DefNode[@needs_outer_scope = false]",  # deep_inner()
     "//DefNode//DefNode//DefNode//DefNode[@needs_closure = false]",  # h()
-)]
-#[cython.test_fail_if_path_exists("//DefNode//DefNode[@needs_outer_scope = false]")]
+)
+@cython.test_fail_if_path_exists("//DefNode//DefNode[@needs_outer_scope = false]")
 def deep_inner():
     """
     >>> deep_inner()()
@@ -209,12 +209,12 @@ def deep_inner():
         return g()
     return f()
 
-#[cython.test_assert_path_exists(
+@cython.test_assert_path_exists(
     "//DefNode//DefNode//DefNode",
     "//DefNode//DefNode//DefNode[@needs_outer_scope = false]",  # a()
     "//DefNode//DefNode//DefNode[@needs_closure = false]",  # a(), g(), h()
-)]
-#[cython.test_fail_if_path_exists("//DefNode//DefNode//DefNode[@needs_closure = true]")]  # a(), g(), h()
+)
+@cython.test_fail_if_path_exists("//DefNode//DefNode//DefNode[@needs_closure = true]")  # a(), g(), h()
 def deep_inner_sibling():
     """
     >>> deep_inner_sibling()()
