@@ -7,28 +7,28 @@ from libc.string cimport const_char, const_void
 extern from "<stdlib.h>" nogil:
 
     # 7.20.1 Numeric conversion functions
-    fn i32 atoi (const char *string)
-    fn i64 atol (const char *string)
-    fn i64 long atoll (const char *string)
-    fn f64 atof (const char *string)
-    fn i64 strtol (const char *string, char **tailptr, i32 base)
-    fn u64 strtoul (const char *string, char **tailptr, i32 base)
-    fn i128 strtoll (const char *string, char **tailptr, i32 base)
-    fn u128 strtoull (const char *string, char **tailptr, i32 base)
-    fn f32 strtof (const char *string, char **tailptr)
-    fn f64 strtod (const char *string, char **tailptr)
-    fn i64 double strtold (const char *string, char **tailptr)
+    fn i32 atoi(const char *string)
+    fn i64 atol(const char *string)
+    fn i128 atoll(const char *string)
+    fn f64 atof(const char *string)
+    fn i64 strtol(const char *string, char **tailptr, i32 base)
+    fn u64 strtoul(const char *string, char **tailptr, i32 base)
+    fn i128 strtoll(const char *string, char **tailptr, i32 base)
+    fn u128 strtoull(const char *string, char **tailptr, i32 base)
+    fn f32 strtof(const char *string, char **tailptr)
+    fn f64 strtod(const char *string, char **tailptr)
+    fn long double strtold(const char *string, char **tailptr)
 
     # 7.20.2 Pseudo-random sequence generation functions
     enum: RAND_MAX
-    fn i32 rand ()
-    fn void srand (u32 seed)
+    fn i32 rand()
+    fn void srand(u32 seed)
 
     # 7.20.3 Memory management functions
-    fn void *calloc (usize count, usize eltsize)
-    fn void free (void *ptr)
-    fn void *malloc (usize size)
-    fn void *realloc (void *ptr, usize newsize)
+    fn void *calloc(usize count, usize eltsize)
+    fn void free(void *ptr)
+    fn void *malloc(usize size)
+    fn void *realloc(void *ptr, usize newsize)
 
     # 7.20.4 Communication with the environment
     enum: EXIT_FAILURE
