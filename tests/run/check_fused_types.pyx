@@ -11,8 +11,8 @@ base_t = cython.fused_type(i16, i32)
 
 # complex_t = cython.fused_type(cython.floatcomplex, cython.doublecomplex)
 cdef fused complex_t:
-    f32 complex
-    f64 complex
+    float complex
+    double complex
 
 ctypedef base_t **base_t_p_p
 
