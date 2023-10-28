@@ -78,9 +78,9 @@ extern from "<fcntl.h>" nogil:
         off_t l_len
         pid_t l_pid
 
-    int creat(const char *, mode_t)
-    int fcntl(i32, int, ...)
-    int open(const char *, int, ...)
-    int openat(i32, const char *, int, ...)
-    int posix_fadvise(i32, off_t, off_t, i32)
-    int posix_fallocate(i32, off_t, off_t)
+    fn int creat(const char *, mode_t)
+    fn int fcntl(i32, int, ...)
+    fn int open(const char *, int, ...)
+    fn int openat(i32, const char *, int, ...)
+    fn int posix_fadvise(i32, off_t, off_t, i32)
+    fn int posix_fallocate(i32, off_t, off_t)
