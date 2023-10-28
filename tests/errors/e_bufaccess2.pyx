@@ -1,6 +1,6 @@
 # mode: error
 
-cimport e_bufaccess_pxd # was needed to provoke a bug involving ErrorType
+use e_bufaccess_pxd # was needed to provoke a bug involving ErrorType
 import cython
 
 def f():
@@ -11,13 +11,13 @@ def withnogil_access_fail():
     with nogil:
         buf[2] = 2
 
-@cython.boundscheck(false)
+#[cython.boundscheck(false)]
 def withnogil_access_ok():
     let object[i32] buf = None
     with nogil:
         buf[2] = 2 # No error should be triggered here
 
-@cython.boundscheck(false)
+#[cython.boundscheck(false)]
 def withnogil_access_fail_2():
     let object[object] buf = None
     with nogil:

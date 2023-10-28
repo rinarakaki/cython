@@ -1,8 +1,8 @@
 # mode: run
 
-cimport cython
+use cython
 
-@cython.final
+#[cython.final]
 cdef class TypedContextManager(object):
     fn f64 __enter__(self):  # not callable from Python !
         return 2.0

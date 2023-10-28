@@ -1,7 +1,7 @@
 # mode: run
 # tag: typeinference
 
-cimport cython
+use cython
 
 
 def test_outer_inner_double():

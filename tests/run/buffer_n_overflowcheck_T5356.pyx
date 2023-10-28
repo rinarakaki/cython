@@ -1,10 +1,10 @@
 # mode: run
 # ticket: t5356
 
-cimport cython
+use cython
 
 
-@cython.overflowcheck(true)
+#[cython.overflowcheck(true)]
 fn usize _mul_checked(usize a, usize b) except? -1:
     return a * b
 

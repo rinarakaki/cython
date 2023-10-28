@@ -1,6 +1,8 @@
 # tag: numpy
+
+use numpy as cnp
+
 import numpy
-cimport numpy as cnp
 
 cdef cnp.int32_t[:] a = numpy.arange(10, dtype=numpy.int32)
 a = a[::2]

@@ -1,6 +1,6 @@
 # mode: run
 
-cimport cython
+use cython
 
 def test_literal_list():
     """

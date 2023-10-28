@@ -1,20 +1,20 @@
 # mode: error
 # tag: freelist, werror
 
-cimport cython
+use cython
 
-@cython.freelist(8)
+#[cython.freelist(8)]
 cdef class ExtType:
     pass
 
-@cython.freelist(8)
+#[cython.freelist(8)]
 cdef class ExtTypeObject(object):
     pass
 
 cdef class ExtSubTypeOk(ExtType):
     pass
 
-@cython.freelist(8)
+#[cython.freelist(8)]
 cdef class ExtSubTypeFail(ExtType):
     pass
 

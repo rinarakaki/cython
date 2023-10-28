@@ -1,7 +1,7 @@
 # mode: run
 # tag: tpflags, type_version_tag
 
-cimport cython
+use cython
 
 extern from *:
     u64 PY_VERSION_HEX
@@ -21,7 +21,7 @@ cdef class ImplicitAttrCache(object):
     pub i32 x
     cdef object y
 
-@cython.type_version_tag(true)
+#[cython.type_version_tag(true)]
 cdef class ExplicitAttrCache(object):
     """
     >>> flag = test_flag(ImplicitAttrCache)
@@ -31,7 +31,7 @@ cdef class ExplicitAttrCache(object):
     pub i32 x
     cdef object y
 
-@cython.type_version_tag(false)
+#[cython.type_version_tag(false)]
 cdef class NoAttrCache(object):
     """
     >>> test_flag(NoAttrCache)

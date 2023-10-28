@@ -46,7 +46,7 @@ cdef class AssignmentList:
 cdef class AssignmentCollector(TreeVisitor):
     cdef list assignments
 
-@cython.final
+#[cython.final]
 cdef class ControlFlow:
     pub set blocks
     pub set entries
@@ -71,16 +71,16 @@ cdef class ControlFlow:
     cpdef mark_deletion(self, node, entry)
     cpdef mark_reference(self, node, entry)
 
-    @cython.locals(block=ControlBlock, parent=ControlBlock, unreachable=set)
+    #[cython.locals(block=ControlBlock, parent=ControlBlock, unreachable=set)]
     cpdef normalize(self)
 
-    @cython.locals(bit=object, assmts=AssignmentList, block=ControlBlock)
+    #[cython.locals(bit=object, assmts=AssignmentList, block=ControlBlock)]
     cpdef initialize(self)
 
-    @cython.locals(assmts=AssignmentList, assmt=NameAssignment)
+    #[cython.locals(assmts=AssignmentList, assmt=NameAssignment)]
     cpdef set map_one(self, istate, entry)
 
-    @cython.locals(block=ControlBlock, parent=ControlBlock)
+    #[cython.locals(block=ControlBlock, parent=ControlBlock)]
     fn reaching_definitions(self)
 
 cdef class Uninitialized:
@@ -92,11 +92,11 @@ cdef class Unknown:
 cdef class MessageCollection:
     cdef set messages
 
-@cython.locals(dirty=bint, block=ControlBlock, parent=ControlBlock,
-               assmt=NameAssignment)
+#[cython.locals(dirty=bint, block=ControlBlock, parent=ControlBlock,
+                assmt=NameAssignment)]
 fn check_definitions(ControlFlow flow, dict compiler_directives)
 
-@cython.final
+#[cython.final]
 cdef class ControlFlowAnalysis(CythonTransform):
     cdef object gv_ctx
     cdef object constant_folder

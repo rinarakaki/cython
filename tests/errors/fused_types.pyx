@@ -1,7 +1,7 @@
 # mode: error
 # ticket: 1772
 
-cimport cython
+use cython
 from cython import fused_type
 
 # This is all invalid

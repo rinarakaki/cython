@@ -3,7 +3,7 @@
 # cython: np_pythran=true
 
 import numpy as np
-cimport numpy as np
+use numpy as np
 
 def trigo(np.ndarray[double, ndim=1] angles):
 

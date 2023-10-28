@@ -1,7 +1,7 @@
 # tag: numpy
 
-cimport numpy as np
-cimport cython
+use numpy as np
+use cython
 
 import numpy as py_numpy
 

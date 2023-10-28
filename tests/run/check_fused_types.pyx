@@ -1,5 +1,5 @@
-cimport cython
-cimport check_fused_types_pxd
+use cython
+use check_fused_types_pxd
 
 import math
 

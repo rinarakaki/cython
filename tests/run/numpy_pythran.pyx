@@ -3,7 +3,7 @@
 # cython: np_pythran=true
 
 import numpy as np
-cimport numpy as cnp
+use numpy as cnp
 
 def diffuse():
     """

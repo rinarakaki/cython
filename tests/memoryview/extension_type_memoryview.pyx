@@ -1,7 +1,7 @@
 # mode: run
 # tag: numpy
 
-cimport numpy as np
+use numpy as np
 import numpy as np
 
 cdef class ExtensionType(object):

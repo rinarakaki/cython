@@ -1,6 +1,6 @@
 # mode: error
 
-cimport cython
+use cython
 
 def closure(cython.integral i):
     def inner(cython.floating f):

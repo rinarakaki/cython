@@ -1,4 +1,4 @@
-cimport cython
+use cython
 
 def f(obj2, obj3):
     """
@@ -51,7 +51,7 @@ def small_int_pow(i64 s):
     """
     return s**0, s**1, s**2, s**3, s**4
 
-@cython.cpow(true)
+#[cython.cpow(true)]
 def int_pow_cpow(i16 a, i16 b):
     """
     >>> int_pow_cpow(7, 2)
@@ -63,7 +63,7 @@ def int_pow_cpow(i16 a, i16 b):
     """
     return a**b
 
-@cython.cpow(false)
+#[cython.cpow(false)]
 def int_pow(i16 a, i16 b):
     """
     >>> int_pow(7, 2)

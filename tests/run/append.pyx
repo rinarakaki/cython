@@ -1,4 +1,4 @@
-cimport cython
+use cython
 
 class A:
     def append(self, x):

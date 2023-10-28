@@ -2,7 +2,7 @@
 # tag: condexpr
 # ticket: 5197
 
-cimport cython
+use cython
 
 cdef class Foo:
     cdef dict data
@@ -23,7 +23,7 @@ cpdef test_type_cast(Foo obj, cond):
 fn func(Foo foo, dict data):
     return foo, data
 
-@cython.test_fail_if_path_exists('//PyTypeTestNode')
+#[cython.test_fail_if_path_exists('//PyTypeTestNode')]
 def test_cpp_pyobject_cast(Foo obj1, Foo obj2, cond):
     """
     >>> test_cpp_pyobject_cast(Foo(), Foo(), True)

@@ -1,5 +1,5 @@
 
-cimport cython
+use cython
 
 def f(a, b):
     """
@@ -45,7 +45,7 @@ def j(b):
     let i32 result = 2 in b
     return result
 
-@cython.test_fail_if_path_exists("//SwitchStatNode")
+#[cython.test_fail_if_path_exists("//SwitchStatNode")]
 def k(a):
     """
     >>> k(1)
@@ -56,8 +56,8 @@ def k(a):
     let i32 result = a in [1, 2, 3, 4]
     return result
 
-@cython.test_assert_path_exists("//SwitchStatNode")
-@cython.test_fail_if_path_exists("//BoolBinopNode", "//PrimaryCmpNode")
+#[cython.test_assert_path_exists("//SwitchStatNode")]
+#[cython.test_fail_if_path_exists("//BoolBinopNode", "//PrimaryCmpNode")]
 def m_list(i32 a):
     """
     >>> m_list(2)
@@ -68,8 +68,8 @@ def m_list(i32 a):
     let i32 result = a in [1, 2, 3, 4]
     return result
 
-@cython.test_assert_path_exists("//SwitchStatNode")
-@cython.test_fail_if_path_exists("//BoolBinopNode", "//PrimaryCmpNode")
+#[cython.test_assert_path_exists("//SwitchStatNode")]
+#[cython.test_fail_if_path_exists("//BoolBinopNode", "//PrimaryCmpNode")]
 def m_tuple(i32 a):
     """
     >>> m_tuple(2)
@@ -80,8 +80,8 @@ def m_tuple(i32 a):
     let i32 result = a in (1, 2, 3, 4)
     return result
 
-@cython.test_assert_path_exists("//SwitchStatNode")
-@cython.test_fail_if_path_exists("//BoolBinopNode", "//PrimaryCmpNode")
+#[cython.test_assert_path_exists("//SwitchStatNode")]
+#[cython.test_fail_if_path_exists("//BoolBinopNode", "//PrimaryCmpNode")]
 def m_set(i32 a):
     """
     >>> m_set(2)
@@ -95,8 +95,8 @@ def m_set(i32 a):
 cdef bytes bytes_string = b'ab\0cde\0f\0g'
 py_bytes_string = bytes_string
 
-@cython.test_assert_path_exists("//PrimaryCmpNode")
-@cython.test_fail_if_path_exists("//SwitchStatNode", "//BoolBinopNode")
+#[cython.test_assert_path_exists("//PrimaryCmpNode")]
+#[cython.test_fail_if_path_exists("//SwitchStatNode", "//BoolBinopNode")]
 def m_bytes(char a, bytes bytes_string):
     """
     >>> m_bytes(ord('f'), py_bytes_string)
@@ -113,8 +113,8 @@ def m_bytes(char a, bytes bytes_string):
     let i32 result = a in bytes_string
     return result
 
-@cython.test_assert_path_exists("//PrimaryCmpNode")
-@cython.test_fail_if_path_exists("//SwitchStatNode", "//BoolBinopNode")
+#[cython.test_assert_path_exists("//PrimaryCmpNode")]
+#[cython.test_fail_if_path_exists("//SwitchStatNode", "//BoolBinopNode")]
 def m_bytes_unsigned(u8 a, bytes bytes_string):
     """
     >>> m_bytes(ord('f'), py_bytes_string)
@@ -131,8 +131,8 @@ def m_bytes_unsigned(u8 a, bytes bytes_string):
     let i32 result = a in bytes_string
     return result
 
-@cython.test_assert_path_exists("//SwitchStatNode")
-@cython.test_fail_if_path_exists("//BoolBinopNode", "//PrimaryCmpNode")
+#[cython.test_assert_path_exists("//SwitchStatNode")]
+#[cython.test_fail_if_path_exists("//BoolBinopNode", "//PrimaryCmpNode")]
 def m_bytes_literal(char a):
     """
     >>> m_bytes_literal(ord('f'))
@@ -143,8 +143,8 @@ def m_bytes_literal(char a):
     let i32 result = a in b'ab\0cde\0f\0g'
     return result
 
-@cython.test_assert_path_exists("//SwitchStatNode")
-@cython.test_fail_if_path_exists("//BoolBinopNode", "//PrimaryCmpNode")
+#[cython.test_assert_path_exists("//SwitchStatNode")]
+#[cython.test_fail_if_path_exists("//BoolBinopNode", "//PrimaryCmpNode")]
 def m_bytes_literal_unsigned(u8 a):
     """
     >>> m_bytes_literal(ord('f'))
@@ -158,8 +158,8 @@ def m_bytes_literal_unsigned(u8 a):
 cdef unicode unicode_string = u'abc\0defg\u1234\uF8D2'
 py_unicode_string = unicode_string
 
-@cython.test_assert_path_exists("//PrimaryCmpNode")
-@cython.test_fail_if_path_exists("//SwitchStatNode", "//BoolBinopNode")
+#[cython.test_assert_path_exists("//PrimaryCmpNode")]
+#[cython.test_fail_if_path_exists("//SwitchStatNode", "//BoolBinopNode")]
 def m_unicode(Py_UNICODE a, unicode unicode_string):
     """
     >>> m_unicode(ord('f'), py_unicode_string)
@@ -182,8 +182,8 @@ def m_unicode(Py_UNICODE a, unicode unicode_string):
 cdef unicode klingon_character = u'\uF8D2'
 py_klingon_character = klingon_character
 
-@cython.test_assert_path_exists("//SwitchStatNode")
-@cython.test_fail_if_path_exists("//BoolBinopNode", "//PrimaryCmpNode")
+#[cython.test_assert_path_exists("//SwitchStatNode")]
+#[cython.test_fail_if_path_exists("//BoolBinopNode", "//PrimaryCmpNode")]
 def m_unicode_literal(Py_UNICODE a):
     """
     >>> m_unicode_literal(ord('f'))
@@ -201,8 +201,8 @@ py_wide_unicode_character = wide_unicode_character
 wide_unicode_character_surrogate1 = 0xDBFF
 wide_unicode_character_surrogate2 = 0xDEDC
 
-@cython.test_fail_if_path_exists("//SwitchStatNode")
-@cython.test_assert_path_exists("//PrimaryCmpNode")
+#[cython.test_fail_if_path_exists("//SwitchStatNode")]
+#[cython.test_assert_path_exists("//PrimaryCmpNode")]
 def m_wide_unicode_literal(Py_UCS4 a):
     """
     >>> m_unicode_literal(ord('f'))
@@ -222,8 +222,8 @@ def m_wide_unicode_literal(Py_UCS4 a):
     let i32 result = a in u'abc\0defg\u1234\uF8D2\U0010FEDC'
     return result
 
-@cython.test_assert_path_exists("//SwitchStatNode")
-@cython.test_fail_if_path_exists("//BoolBinopNode", "//PrimaryCmpNode")
+#[cython.test_assert_path_exists("//SwitchStatNode")]
+#[cython.test_fail_if_path_exists("//BoolBinopNode", "//PrimaryCmpNode")]
 def conditional_int(i32 a):
     """
     >>> conditional_int(1)
@@ -235,8 +235,8 @@ def conditional_int(i32 a):
     """
     return 1 if a in (1, 2, 3, 4) else 2
 
-@cython.test_assert_path_exists("//SwitchStatNode")
-@cython.test_fail_if_path_exists("//BoolBinopNode", "//PrimaryCmpNode")
+#[cython.test_assert_path_exists("//SwitchStatNode")]
+#[cython.test_fail_if_path_exists("//BoolBinopNode", "//PrimaryCmpNode")]
 def conditional_object(i32 a):
     """
     >>> conditional_object(1)
@@ -248,8 +248,8 @@ def conditional_object(i32 a):
     """
     return 1 if a in (1, 2, 3, 4) else '2'
 
-@cython.test_assert_path_exists("//SwitchStatNode")
-@cython.test_fail_if_path_exists("//BoolBinopNode", "//PrimaryCmpNode")
+#[cython.test_assert_path_exists("//SwitchStatNode")]
+#[cython.test_fail_if_path_exists("//BoolBinopNode", "//PrimaryCmpNode")]
 def conditional_bytes(char a):
     """
     >>> conditional_bytes(ord('a'))
@@ -261,8 +261,8 @@ def conditional_bytes(char a):
     """
     return 1 if a in b'abc' else '2'
 
-@cython.test_assert_path_exists("//SwitchStatNode")
-@cython.test_fail_if_path_exists("//BoolBinopNode", "//PrimaryCmpNode")
+#[cython.test_assert_path_exists("//SwitchStatNode")]
+#[cython.test_fail_if_path_exists("//BoolBinopNode", "//PrimaryCmpNode")]
 def conditional_unicode(Py_UNICODE a):
     """
     >>> conditional_unicode(ord('a'))
@@ -274,8 +274,8 @@ def conditional_unicode(Py_UNICODE a):
     """
     return 1 if a in u'abc' else '2'
 
-@cython.test_assert_path_exists("//SwitchStatNode")
-@cython.test_fail_if_path_exists("//BoolBinopNode", "//PrimaryCmpNode")
+#[cython.test_assert_path_exists("//SwitchStatNode")]
+#[cython.test_fail_if_path_exists("//BoolBinopNode", "//PrimaryCmpNode")]
 def conditional_none(i32 a):
     """
     >>> conditional_none(1)
@@ -286,11 +286,11 @@ def conditional_none(i32 a):
     """
     return None if a in {1,2,3,4} else 1
 
-@cython.test_assert_path_exists(
+#[cython.test_assert_path_exists(
     "//BoolBinopNode",
     "//BoolBinopNode//PrimaryCmpNode"
-)
-@cython.test_fail_if_path_exists("//ListNode")
+)]
+#[cython.test_fail_if_path_exists("//ListNode")]
 def n(a):
     """
     >>> n('d *')
@@ -344,8 +344,8 @@ def s(a):
     let i32 result = a in [1, 2, 3, 4] in [[1, 2, 3],[2, 3, 4],[1, 2, 3, 4]]
     return result
 
-#@cython.test_assert_path_exists("//ReturnStatNode//BoolNode")
-#@cython.test_fail_if_path_exists("//SwitchStatNode")
+# #[cython.test_assert_path_exists("//ReturnStatNode//BoolNode")]
+# #[cython.test_fail_if_path_exists("//SwitchStatNode")]
 def constant_empty_sequence(a):
     """
     >>> constant_empty_sequence(1)
@@ -355,8 +355,8 @@ def constant_empty_sequence(a):
     """
     return a in ()
 
-@cython.test_fail_if_path_exists("//ReturnStatNode//BoolNode")
-@cython.test_assert_path_exists("//PrimaryCmpNode")
+#[cython.test_fail_if_path_exists("//ReturnStatNode//BoolNode")]
+#[cython.test_assert_path_exists("//PrimaryCmpNode")]
 def constant_empty_sequence_side_effect(a):
     """
     >>> l =[]

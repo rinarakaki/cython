@@ -1,6 +1,6 @@
 # mode: compile
 
-cimport cython
+use cython
 # from cython.view cimport contig as foo, full as bar #, follow
 from cython cimport view
 from cython.view cimport (generic, strided, indirect,

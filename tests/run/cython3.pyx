@@ -4,7 +4,7 @@
 
 print(end='')  # test that language_level 3 applies immediately at the module start, for the first token.
 
-cimport cython
+use cython
 
 __doc__ = """
 >>> items = sorted(locals_function(1).items())
@@ -66,7 +66,7 @@ def truediv_int(i32 x):
     return x / 2
 
 
-@cython.cdivision(true)
+#[cython.cdivision(true)]
 def cdiv_int(i32 x):
     """
     >>> cdiv_int(4)
@@ -633,7 +633,7 @@ def annotation_syntax(a: "test new test", b : "other" = 2, *args: "ARGS", **kwar
     return result
 
 
-@cython.annotation_typing(false)
+#[cython.annotation_typing(false)]
 def builtin_as_ignored_annotation(text: str):
     # Used to crash the compiler when annotation typing is disabled.
     # See https://github.com/cython/cython/issues/2811
@@ -647,7 +647,7 @@ def builtin_as_ignored_annotation(text: str):
         print(c)
 
 
-@cython.annotation_typing(true)
+#[cython.annotation_typing(true)]
 def int_annotation(x: int) -> int:
     """
     >>> print(int_annotation(1))
@@ -664,7 +664,7 @@ def int_annotation(x: int) -> int:
     return 2 ** x
 
 
-@cython.annotation_typing(true)
+#[cython.annotation_typing(true)]
 async def async_def_annotations(x: 'int') -> 'float':
     """
     >>> ret, arg = sorted(async_def_annotations.__annotations__.items())

@@ -57,52 +57,52 @@ except NameError:
     all = _all
 
 
-cimport cython
+use cython
 
-@cython.cdivision(false)
+#[cython.cdivision(false)]
 def mod_int_py(i32 a, i32 b):
     return a % b
 
-@cython.cdivision(false)
+#[cython.cdivision(false)]
 def mod_short_py(i16 a, i16 b):
     return a % b
 
-@cython.cdivision(false)
+#[cython.cdivision(false)]
 def mod_double_py(f64 a, f64 b):
     return a % b
 
-@cython.cdivision(false)
+#[cython.cdivision(false)]
 def mod_float_py(f32 a, f32 b):
     return a % b
 
-@cython.cdivision(true)
+#[cython.cdivision(true)]
 def mod_int_c(i32 a, i32 b):
     return a % b
 
-@cython.cdivision(true)
+#[cython.cdivision(true)]
 def mod_float_c(f32 a, f32 b):
     return a % b
 
-@cython.cdivision(true)
+#[cython.cdivision(true)]
 def mod_double_c(f64 a, f64 b):
     return a % b
 
-@cython.cdivision(false)
+#[cython.cdivision(false)]
 def div_int_py(i32 a, i32 b):
     return a // b
 
-@cython.cdivision(true)
+#[cython.cdivision(true)]
 def div_int_c(i32 a, i32 b):
     return a // b
 
-@cython.cdivision(false)
+#[cython.cdivision(false)]
 def test_cdiv_cmod(i16 a, i16 b):
     let i16 q = cython.cdiv(a, b)
     let i16 r = cython.cmod(a, b)
     return q, r
 
-@cython.cdivision(true)
-@cython.cdivision_warnings(true)
+#[cython.cdivision(true)]
+#[cython.cdivision_warnings(true)]
 def mod_int_c_warn(i32 a, i32 b):
     """
     >>> warnings.showwarning = simple_warn
@@ -113,8 +113,8 @@ def mod_int_c_warn(i32 a, i32 b):
     """
     return a % b
 
-@cython.cdivision(true)
-@cython.cdivision_warnings(true)
+#[cython.cdivision(true)]
+#[cython.cdivision_warnings(true)]
 def div_int_c_warn(i32 a, i32 b):
     """
     >>> warnings.showwarning = simple_warn
@@ -125,8 +125,8 @@ def div_int_c_warn(i32 a, i32 b):
     """
     return a // b
 
-@cython.cdivision(false)
-@cython.cdivision_warnings(true)
+#[cython.cdivision(false)]
+#[cython.cdivision_warnings(true)]
 def complex_expression(i32 a, i32 b, i32 c, i32 d):
     """
     >>> warnings.showwarning = simple_warn
@@ -146,7 +146,7 @@ fn i32 verbose_call(i32 x):
 
 # These may segfault with cdivision
 
-@cython.cdivision(false)
+#[cython.cdivision(false)]
 def mod_div_zero_int(i32 a, i32 b, i32 c):
     """
     >>> mod_div_zero_int(25, 10, 2)
@@ -163,7 +163,7 @@ def mod_div_zero_int(i32 a, i32 b, i32 c):
     except ZeroDivisionError, ex:
         return unicode(ex)
 
-@cython.cdivision(false)
+#[cython.cdivision(false)]
 def mod_div_zero_float(f32 a, f32 b, f32 c):
     """
     >>> mod_div_zero_float(25, 10, 2)
@@ -178,7 +178,7 @@ def mod_div_zero_float(f32 a, f32 b, f32 c):
     except ZeroDivisionError, ex:
         return unicode(ex)
 
-@cython.cdivision(false)
+#[cython.cdivision(false)]
 def py_div_long(i64 a, i64 b):
     """
     >>> py_div_long(-5, -1)

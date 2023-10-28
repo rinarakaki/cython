@@ -12,7 +12,7 @@
 # This is controlled by putting the Python3 only tests in the module __doc__ attribute
 # Most of the individual function and class docstrings are only present as a compile test
 
-cimport cython
+use cython
 
 import sys
 
@@ -184,11 +184,11 @@ cdef class Derived(Γναμε2):
 cdef Γναμε2 global_ναμε3 = Γναμε2()
 
 
-@cython.always_allow_keywords(false)  # METH_O signature
+#[cython.always_allow_keywords(false)]  # METH_O signature
 def metho_function_taking_fancy_argument(Γναμε2 αrγ):
     return αrγ
 
-@cython.always_allow_keywords(true)
+#[cython.always_allow_keywords(true)]
 def function_taking_fancy_argument(Γναμε2 αrγ):
     return αrγ
 

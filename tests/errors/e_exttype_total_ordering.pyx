@@ -1,26 +1,26 @@
 # mode: error
 # tag: total_ordering, warnings
 
-cimport cython
+use cython
 
 
 # Test all combinations with not enough methods.
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtNoFuncs:
     pass
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtGe:
     def __ge__(self, other):
         return false
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtLe:
     def __le__(self, other):
         return false
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtLeGe:
     def __le__(self, other):
         return false
@@ -28,12 +28,12 @@ cdef class ExtLeGe:
     def __ge__(self, other):
         return false
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtGt:
     def __gt__(self, other):
         return false
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtGtGe:
     def __gt__(self, other):
         return false
@@ -41,7 +41,7 @@ cdef class ExtGtGe:
     def __ge__(self, other):
         return false
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtGtLe:
     def __gt__(self, other):
         return false
@@ -49,7 +49,7 @@ cdef class ExtGtLe:
     def __le__(self, other):
         return false
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtGtLeGe:
     def __gt__(self, other):
         return false
@@ -60,12 +60,12 @@ cdef class ExtGtLeGe:
     def __ge__(self, other):
         return false
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtLt:
     def __lt__(self, other):
         return false
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtLtGe:
     def __lt__(self, other):
         return false
@@ -73,7 +73,7 @@ cdef class ExtLtGe:
     def __ge__(self, other):
         return false
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtLtLe:
     def __lt__(self, other):
         return false
@@ -81,7 +81,7 @@ cdef class ExtLtLe:
     def __le__(self, other):
         return false
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtLtLeGe:
     def __lt__(self, other):
         return false
@@ -92,7 +92,7 @@ cdef class ExtLtLeGe:
     def __ge__(self, other):
         return false
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtLtGt:
     def __lt__(self, other):
         return false
@@ -100,7 +100,7 @@ cdef class ExtLtGt:
     def __gt__(self, other):
         return false
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtLtGtGe:
     def __lt__(self, other):
         return false
@@ -111,7 +111,7 @@ cdef class ExtLtGtGe:
     def __ge__(self, other):
         return false
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtLtGtLe:
     def __lt__(self, other):
         return false
@@ -122,7 +122,7 @@ cdef class ExtLtGtLe:
     def __le__(self, other):
         return false
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtLtGtLeGe:
     def __lt__(self, other):
         return false
@@ -136,17 +136,17 @@ cdef class ExtLtGtLeGe:
     def __ge__(self, other):
         return false
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtNe:
     def __ne__(self, other):
         return false
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtEq:
     def __eq__(self, other):
         return false
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtEqNe:
     def __eq__(self, other):
         return false
