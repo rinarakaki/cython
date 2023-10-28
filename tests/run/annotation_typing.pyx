@@ -165,14 +165,14 @@ def struct_io(s : MyStruct) -> MyStruct:
     t.x, t.y = s.y, s.x
     return t
 
-@cython.test_fail_if_path_exists(
+#[cython.test_fail_if_path_exists(
     "//CoerceFromPyTypeNode",
     "//SimpleCallNode//CoerceToPyTypeNode",
-)
-@cython.test_assert_path_exists(
+)]
+#[cython.test_assert_path_exists(
     "//CoerceToPyTypeNode",
     "//CoerceToPyTypeNode//SimpleCallNode",
-)
+)]
 def call_struct_io(s : MyStruct) -> MyStruct:
     """
     >>> d = call_struct_io(dict(x=1, y=2, data=3))
@@ -184,12 +184,12 @@ def call_struct_io(s : MyStruct) -> MyStruct:
     """
     return struct_io(s)
 
-@cython.test_assert_path_exists(
+#[cython.test_assert_path_exists(
     "//CFuncDefNode",
     "//CFuncDefNode//DefNode",
     "//CFuncDefNode[@return_type]",
     "//CFuncDefNode[@return_type.is_struct_or_union = True]",
-)
+)]
 #[cython.ccall]
 def struct_convert(d) -> MyStruct:
     """
@@ -202,12 +202,12 @@ def struct_convert(d) -> MyStruct:
     """
     return d
 
-@cython.test_assert_path_exists(
+#[cython.test_assert_path_exists(
     "//CFuncDefNode",
     "//CFuncDefNode//DefNode",
     "//CFuncDefNode[@return_type]",
     "//CFuncDefNode[@return_type.is_int = True]",
-)
+)]
 #[cython.ccall]
 def exception_default(raise_exc : cython.bint = false) -> cython.i32:
     """
@@ -231,12 +231,12 @@ def call_exception_default(raise_exc=false):
     """
     return exception_default(raise_exc)
 
-@cython.test_assert_path_exists(
+#[cython.test_assert_path_exists(
     "//CFuncDefNode",
     "//CFuncDefNode//DefNode",
     "//CFuncDefNode[@return_type]",
     "//CFuncDefNode[@return_type.is_int = True]",
-)
+)]
 #[cython.ccall]
 def exception_default_uint(raise_exc : cython.bint = False) -> cython.uint:
     """
