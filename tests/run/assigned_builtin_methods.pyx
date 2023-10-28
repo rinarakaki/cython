@@ -1,7 +1,7 @@
 # mode: run
 # tag: builtins
 
-cimport cython
+use cython
 
 @cython.test_assert_path_exists(
     '//ReturnStatNode//PythonCapiCallNode')

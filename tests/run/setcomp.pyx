@@ -1,5 +1,5 @@
 
-cimport cython
+use cython
 
 # Py2.3 doesn't have the set type, but Cython does :)
 _set = set

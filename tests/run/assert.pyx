@@ -1,6 +1,6 @@
 # mode: run
 
-cimport cython
+use cython
 
 @cython.test_assert_path_exists(
     '//AssertStatNode',

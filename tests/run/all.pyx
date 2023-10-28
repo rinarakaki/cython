@@ -10,10 +10,10 @@ cdef class VerboseGetItem(object):
         return self.sequence[i] # may raise IndexError
 
 
-cimport cython
+use cython
 
-@cython.test_assert_path_exists("//SimpleCallNode")
-@cython.test_fail_if_path_exists("//ForInStatNode")
+#[cython.test_assert_path_exists("//SimpleCallNode")]
+#[cython.test_fail_if_path_exists("//ForInStatNode")]
 def all_item(x):
     """
     >>> all_item([1, 1, 1, 1, 1])

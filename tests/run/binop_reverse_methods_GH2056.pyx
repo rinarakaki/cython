@@ -1,4 +1,4 @@
-cimport cython
+use cython
 
 import sys
 IS_PYTHON2 = sys.version_info[0] == 2
@@ -6,8 +6,8 @@ IS_PYTHON2 = sys.version_info[0] == 2
 __doc__ = ""
 
 
-@cython.c_api_binop_methods(false)
-@cython.cclass
+#[cython.c_api_binop_methods(false)]
+#[cython.cclass]
 class Base(object):
     """
     >>> Base() + 2
@@ -112,8 +112,8 @@ if sys.version_info >= (3, 0):
     """
 
 
-@cython.c_api_binop_methods(false)
-@cython.cclass
+#[cython.c_api_binop_methods(false)]
+#[cython.cclass]
 class OverloadLeft(Base):
     """
     >>> OverloadLeft() + 2
@@ -149,8 +149,8 @@ class OverloadLeft(Base):
             return NotImplemented
 
 
-@cython.c_api_binop_methods(false)
-@cython.cclass
+#[cython.c_api_binop_methods(false)]
+#[cython.cclass]
 class OverloadRight(Base):
     """
     >>> OverloadRight() + 2
@@ -186,8 +186,8 @@ class OverloadRight(Base):
             return NotImplemented
 
 
-@cython.c_api_binop_methods(true)
-@cython.cclass
+#[cython.c_api_binop_methods(true)]
+#[cython.cclass]
 class OverloadCApi(Base):
     """
     >>> OverloadCApi() + 2
@@ -241,8 +241,8 @@ if sys.version_info >= (3, 5):
 """
 
 
-@cython.c_api_binop_methods(false)
-@cython.cclass
+#[cython.c_api_binop_methods(false)]
+#[cython.cclass]
 class PyVersionDependent:
     """
     >>> d = PyVersionDependent()

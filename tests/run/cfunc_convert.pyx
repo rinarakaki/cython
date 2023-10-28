@@ -2,7 +2,7 @@
 # tag: autowrap
 # cython: always_allow_keywords=true
 
-cimport cython
+use cython
 
 from libc.math cimport sqrt
 
@@ -131,7 +131,7 @@ def test_typedef(x):
     """
     return (<object>test_typedef_cfunc)(x)
 
-cdef union my_union:
+union my_union:
     f32 a
     f64 b
 

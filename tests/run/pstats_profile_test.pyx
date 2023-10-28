@@ -115,7 +115,7 @@ u"""
     ...    pass
 """
 
-cimport cython
+use cython
 
 # FIXME: With type specs, cpdef methods are currently counted twice.
 # https://github.com/cython/cython/issues/2137
@@ -170,28 +170,28 @@ cpdef long f_cpdef(i64 a):
 fn inline i64 f_inline(i64 a):
     return a
 
-@cython.profile(true)
+#[cython.profile(true)]
 fn inline i64 f_inline_prof(i64 a):
     return a
 
-@cython.profile(false)
+#[cython.profile(false)]
 fn i32 f_noprof(i64 a):
     return a
 
 fn i64 f_raise(long) except -2:
     raise RuntimeError
 
-@cython.profile(false)
+#[cython.profile(false)]
 fn i32 withgil_noprof(i64 a) with gil:
     return (a)
-@cython.profile(true)
+#[cython.profile(true)]
 fn i32 withgil_prof(i64 a) with gil:
     return (a)
 
-@cython.profile(false)
+#[cython.profile(false)]
 fn i32 nogil_noprof(i64 a) nogil:
     return a
-@cython.profile(true)
+#[cython.profile(true)]
 fn i32 nogil_prof(i64 a) nogil:
     return a
 

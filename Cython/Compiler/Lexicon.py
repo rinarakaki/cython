@@ -75,7 +75,7 @@ def make_lexicon():
     bra = Any("([{")
     ket = Any(")]}")
     ellipsis = Str("...")
-    punct = Any(":,;+-*/|&<>=.%`~^?!@")
+    punct = Any(":,;+-*/|&<>=.%`~^?!@#")
     diphthong = Str("==", "<>", "!=", "<=", ">=", "<<", ">>", "**", "//",
                     "+=", "-=", "*=", "/=", "%=", "|=", "^=", "&=",
                     "<<=", ">>=", "**=", "//=", "->", "@=", "&&", "||", ':=')
@@ -83,7 +83,7 @@ def make_lexicon():
     escaped_newline = Str("\\\n")
     lineterm = Eol + Opt(Str("\n"))
 
-    comment = Str("#") + Rep(AnyBut("\n"))
+    comment = Str("#") + Opt(AnyBut("[\n") + Rep(AnyBut("\n")))
 
     return Lexicon([
         (name, Method('normalize_ident')),

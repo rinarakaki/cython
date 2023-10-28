@@ -1,6 +1,6 @@
 # mode: compile
 
-cimport cython
+use cython
 
 @cython.test_assert_path_exists(
     "//SingleAssignmentNode",

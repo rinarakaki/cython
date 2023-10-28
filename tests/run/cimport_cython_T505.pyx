@@ -1,6 +1,6 @@
 # ticket: t505
 
-cimport cython
+use cython
 
 extern from "Python.h":
     cdef cython.unicode PyUnicode_DecodeUTF8(char* s, isize size, char* errors)

@@ -1,6 +1,6 @@
 # mode: run
 # ticket: t474
-cimport cython
+use cython
 
 
 cdef class TestInlineMethod(object):

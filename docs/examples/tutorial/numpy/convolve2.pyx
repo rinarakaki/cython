@@ -10,7 +10,7 @@ import numpy as np
 # Here we've used the name "cnp" to make it easier to understand what
 # comes from the cimported module and what comes from the imported module,
 # however you can use the same name for both if you wish.
-cimport numpy as cnp
+use numpy as cnp
 
 # It's necessary to call "import_array" if you use any part of the
 # numpy PyArray_* API. From Cython 3, accessing attributes like

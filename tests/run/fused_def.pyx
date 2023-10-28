@@ -5,7 +5,7 @@ Test Python def functions without extern types
 """
 
 cy = __import__("cython")
-cimport cython
+use cython
 
 extern from *:
     i32 __Pyx_CyFunction_Check(object)
@@ -424,7 +424,7 @@ def test_decorators(cython.floating arg):
     [3, 2, 1]
     """
 
-@cython.binding(true)
+#[cython.binding(true)]
 def bind_me(self, cython.floating a=1.):
     return a
 

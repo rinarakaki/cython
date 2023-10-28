@@ -2,7 +2,7 @@
 # mode: run
 # tag: cyfunction, closures
 
-cimport cython
+use cython
 import sys
 
 def get_defaults(func):

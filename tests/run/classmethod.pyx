@@ -34,7 +34,7 @@ class4
 class5
 """
 
-cimport cython
+use cython
 
 def f_plus(cls, a):
     return cls.a + a
@@ -53,8 +53,8 @@ class class1:
         print cls.__name__
     view = classmethod(view)
 
+    #[cython.binding(true)]
     @classmethod
-    @cython.binding(true)
     def bview(cls):
         print cls.__name__
 
@@ -79,8 +79,8 @@ cdef class class3:
         print cls.__name__
     view = classmethod(view)
 
+    #[cython.binding(true)]
     @classmethod
-    @cython.binding(true)
     def bview(cls):
         print cls.__name__
 

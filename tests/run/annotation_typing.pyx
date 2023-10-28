@@ -1,7 +1,7 @@
 # mode: run
 # tag: pep484, warnings
 
-cimport cython
+use cython
 from cython cimport typeof
 from cpython.ref cimport PyObject
 
@@ -151,7 +151,7 @@ def invalid_ctuple_syntax(a: (cython.i32, cython.i32), b: (i32, i32)):
 
 MyStruct = cython.r#struct(x=cython.i32, y=cython.i32, data=cython.f64)
 
-@cython.ccall
+#[cython.ccall]
 def struct_io(s : MyStruct) -> MyStruct:
     """
     >>> d = struct_io(dict(x=1, y=2, data=3))
@@ -165,14 +165,14 @@ def struct_io(s : MyStruct) -> MyStruct:
     t.x, t.y = s.y, s.x
     return t
 
-@cython.test_fail_if_path_exists(
+#[cython.test_fail_if_path_exists(
     "//CoerceFromPyTypeNode",
     "//SimpleCallNode//CoerceToPyTypeNode",
-)
-@cython.test_assert_path_exists(
+)]
+#[cython.test_assert_path_exists(
     "//CoerceToPyTypeNode",
     "//CoerceToPyTypeNode//SimpleCallNode",
-)
+)]
 def call_struct_io(s : MyStruct) -> MyStruct:
     """
     >>> d = call_struct_io(dict(x=1, y=2, data=3))
@@ -184,13 +184,13 @@ def call_struct_io(s : MyStruct) -> MyStruct:
     """
     return struct_io(s)
 
-@cython.test_assert_path_exists(
+#[cython.test_assert_path_exists(
     "//CFuncDefNode",
     "//CFuncDefNode//DefNode",
     "//CFuncDefNode[@return_type]",
     "//CFuncDefNode[@return_type.is_struct_or_union = True]",
-)
-@cython.ccall
+)]
+#[cython.ccall]
 def struct_convert(d) -> MyStruct:
     """
     >>> d = struct_convert(dict(x=1, y=2, data=3))
@@ -202,13 +202,13 @@ def struct_convert(d) -> MyStruct:
     """
     return d
 
-@cython.test_assert_path_exists(
+#[cython.test_assert_path_exists(
     "//CFuncDefNode",
     "//CFuncDefNode//DefNode",
     "//CFuncDefNode[@return_type]",
     "//CFuncDefNode[@return_type.is_int = True]",
-)
-@cython.ccall
+)]
+#[cython.ccall]
 def exception_default(raise_exc : cython.bint = false) -> cython.i32:
     """
     >>> exception_default(raise_exc=false)
@@ -231,13 +231,13 @@ def call_exception_default(raise_exc=false):
     """
     return exception_default(raise_exc)
 
-@cython.test_assert_path_exists(
+#[cython.test_assert_path_exists(
     "//CFuncDefNode",
     "//CFuncDefNode//DefNode",
     "//CFuncDefNode[@return_type]",
     "//CFuncDefNode[@return_type.is_int = True]",
-)
-@cython.ccall
+)]
+#[cython.ccall]
 def exception_default_uint(raise_exc : cython.bint = False) -> cython.uint:
     """
     >>> print(exception_default_uint(raise_exc=false))
@@ -300,7 +300,7 @@ def py_float_default(price : Optional[float]=None, ndigits=4):
 cdef class ClassAttribute:
     cls_attr : cython.float = 1.
 
-@cython.cfunc
+#[cython.cfunc]
 def take_ptr(obj: cython.pointer(PyObject)):
     pass
 
@@ -311,7 +311,7 @@ def call_take_ptr():
     python_dict = {"abc": 123}
     take_ptr(cython.cast(cython.pointer(PyObject), python_dict))
 
-@cython.cclass
+#[cython.cclass]
 class HasPtr:
     """
     >>> HasPtr()
@@ -326,7 +326,7 @@ class HasPtr:
     def __repr__(self):
         return f"HasPtr({self.a[0]}, {self.b})"
 
-@cython.annotation_typing(false)
+#[cython.annotation_typing(false)]
 def turn_off_typing(x: float, d: dict):
     """
     >>> turn_off_typing('not a float', [])  # ignore the typing
@@ -334,7 +334,7 @@ def turn_off_typing(x: float, d: dict):
     """
     return typeof(x), typeof(d), x, d
 
-@cython.annotation_typing(false)
+#[cython.annotation_typing(false)]
 cdef class ClassTurnOffTyping:
     x: float
     d: dict
@@ -346,7 +346,7 @@ cdef class ClassTurnOffTyping:
         """
         return typeof(self.x), typeof(self.d), typeof(arg)
 
-    @cython.annotation_typing(true)
+    #[cython.annotation_typing(true)]
     def and_turn_it_back_on_again(self, arg: float):
         """
         >>> ClassTurnOffTyping().and_turn_it_back_on_again(1.0)

@@ -1,8 +1,8 @@
 # mode: error
 
-cimport cython
+use cython
 
-@cython.autotestdict(false)
+#[cython.autotestdict(false)]
 def foo():
     pass
 

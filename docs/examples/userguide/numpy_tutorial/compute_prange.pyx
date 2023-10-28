@@ -5,9 +5,10 @@
 # distutils: extra_compile_args=-fopenmp
 # distutils: extra_link_args=-fopenmp
 
-import numpy as np
-cimport cython
+use cython
+
 from cython.parallel import prange
+import numpy as np
 
 ctypedef fused my_type:
     i32
@@ -18,8 +19,8 @@ ctypedef fused my_type:
 fn my_type clip(my_type a, my_type min_value, my_type max_value) nogil:
     return min(max(a, min_value), max_value)
 
-@cython.boundscheck(false)
-@cython.wraparound(false)
+#[cython.boundscheck(false)]
+#[cython.wraparound(false)]
 def compute(my_type[:, ::1] array_1, my_type[:, ::1] array_2, my_type a, my_type b, my_type c):
     let isize x_max = array_1.shape[0]
     let isize y_max = array_1.shape[1]

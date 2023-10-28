@@ -3004,6 +3004,13 @@ class PyArgDeclNode(Node):
         self.entry.generate_function_definitions(env, code)
 
 
+class AttributeNode(Node):
+    # An attribute
+    #
+    # attribute    ExprNode
+    child_attrs = ['attribute']
+
+
 class DecoratorNode(Node):
     # A decorator
     #

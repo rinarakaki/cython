@@ -9,7 +9,7 @@
 
 print 3
 
-cimport cython as cy
+use cython as cy
 
 def e(object[i32, ndim=2] buf):
     print buf[3, 2] # no bc

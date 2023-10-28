@@ -1,5 +1,5 @@
 
-cimport cython
+use cython
 
 dict_size = 4
 d = dict(zip(range(10,dict_size+10), range(dict_size)))

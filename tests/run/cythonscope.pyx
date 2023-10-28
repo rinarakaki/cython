@@ -1,4 +1,4 @@
-cimport cython
+use cython
 
 from cython cimport _testscope as tester
 from cython cimport TestClass, _testclass_new as TestClass_New

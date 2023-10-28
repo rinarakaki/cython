@@ -3,7 +3,7 @@
 
 from __future__ import print_function
 
-cimport cython
+use cython
 import sys
 
 if sys.version_info[0] > 2:
@@ -26,7 +26,7 @@ def pow_double_double(f64 a, f64 b, delta):
     object_c = (<object>a)**(<object>b)
     assert abs((c/object_c) - 1) < delta
 
-@cython.cpow(true)
+#[cython.cpow(true)]
 def pow_double_double_cpow(f64 a, f64 b, delta=None):
     """
     >>> pow_double_double_cpow(2, 2, 1e-15)
@@ -154,7 +154,7 @@ def pow_int_int(i32 a, i32 b):
     c = a**b
     print(cython.typeof(c), c)
 
-@cython.cpow(true)
+#[cython.cpow(true)]
 def pow_int_int_cpow(i32 a, i32 b):
     """
     >>> pow_int_int_cpow(2, 2)
@@ -206,7 +206,7 @@ def pythagoras_with_typedef(f64 a, f64 b):
     result = 1.0 / result ** 0.5
     return result
 
-@cython.cpow(false)
+#[cython.cpow(false)]
 def power_coercion_in_nogil_1(f64 a, f64 b):
     """
     >>> power_coercion_in_nogil_1(2., 2.)

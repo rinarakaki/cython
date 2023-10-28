@@ -1,4 +1,4 @@
-cimport dishes
+use dishes
 from dishes cimport SpamDish
 
 fn void prepare(SpamDish *d):

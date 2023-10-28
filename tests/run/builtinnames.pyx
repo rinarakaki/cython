@@ -1,4 +1,4 @@
-cimport cython
+use cython
 
 def test_file_py(file):
     assert isinstance(file, (str, unicode)), \

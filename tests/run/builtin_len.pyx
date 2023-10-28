@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-cimport cython
+use cython
 
 unicode_str = u'ab jd  üöä ôñ ÄÖ'
 bytes_str   = b'ab jd  sdflk as sa  sadas asdas fsdf '

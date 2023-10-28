@@ -1,4 +1,4 @@
-cimport cython.operator
+use cython.operator
 from cython.operator cimport dereference
 from cython.operator cimport dereference as deref
 

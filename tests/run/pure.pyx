@@ -43,7 +43,7 @@ def test_declare(n):
     ptr = cython.declare(cython.p_int, cython.address(y))
     return y, ptr[0]
 
-@cython.locals(x=cython.double, n=cython.int)
+#[cython.locals(x=cython.double, n=cython.int)]
 def test_cast(x):
     """
     >>> test_cast(1.5)
@@ -54,7 +54,7 @@ def test_cast(x):
     n = cython.cast(cython.int, x)
     return n
 
-@cython.locals(as_list=list)
+#[cython.locals(as_list=list)]
 def test_cast_object(x, typecheck):
     """
     >>> test_cast_object([1, 2, 3], True)
@@ -74,7 +74,7 @@ def test_cast_object(x, typecheck):
         as_list = cython.cast(list, x, typecheck=False)
     return as_list
 
-@cython.locals(x=cython.int, y=cython.p_int)
+#[cython.locals(x=cython.int, y=cython.p_int)]
 def test_address(x):
     """
     >>> test_address(39)
@@ -83,8 +83,8 @@ def test_address(x):
     y = cython.address(x)
     return y[0]
 
-@cython.locals(x=cython.int)
-@cython.locals(y=cython.bint)
+#[cython.locals(x=cython.int)]
+#[cython.locals(y=cython.bint)]
 def test_locals(x):
     """
     >>> test_locals(5)
@@ -173,7 +173,7 @@ cdef class ExtType:
     >>> x.forward_ref(x)
     'ExtType'
     """
-    @cython.locals(x="ExtType")
+    #[cython.locals(x="ExtType")]
     def forward_ref(self, x):
         return cython.typeof(x)
 
@@ -189,8 +189,8 @@ def ext_type_string_ref(x: "ExtType"):
 
 with cython.cdivision(true):
 
-    @cython.cdivision(false)
-    @cython.cdivision(true)
+    #[cython.cdivision(false)]
+    #[cython.cdivision(true)]
     def test_override_reset(x: cython.int):
         """
         >>> test_override_reset(-3)  # @cdivision(false)
@@ -198,8 +198,8 @@ with cython.cdivision(true):
         """
         return x / 2
 
-    @cython.cdivision(true)
-    @cython.cdivision(false)
+    #[cython.cdivision(true)]
+    #[cython.cdivision(false)]
     def test_override_set(x: cython.int):
         """
         >>> test_override_set(-5)  # @cdivision(true)
@@ -207,18 +207,18 @@ with cython.cdivision(true):
         """
         return x / 3
 
-    @cython.cdivision(true)
-    @cython.cdivision(false)
-    @cython.cdivision(true)
-    @cython.cdivision(false)
-    @cython.cdivision(false)
-    @cython.cdivision(false)
-    @cython.cdivision(true)
-    @cython.cdivision(false)
-    @cython.cdivision(true)
-    @cython.cdivision(true)
-    @cython.cdivision(true)
-    @cython.cdivision(false)
+    #[cython.cdivision(true)]
+    #[cython.cdivision(false)]
+    #[cython.cdivision(true)]
+    #[cython.cdivision(false)]
+    #[cython.cdivision(false)]
+    #[cython.cdivision(false)]
+    #[cython.cdivision(true)]
+    #[cython.cdivision(false)]
+    #[cython.cdivision(true)]
+    #[cython.cdivision(true)]
+    #[cython.cdivision(true)]
+    #[cython.cdivision(false)]
     def test_override_set_repeated(x: cython.int):
         """
         >>> test_override_set_repeated(-5)  # @cdivision(true)

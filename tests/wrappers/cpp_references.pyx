@@ -1,6 +1,6 @@
 # tag: cpp
 
-cimport cython
+use cython
 
 extern from "cpp_references_helper.h":
     fn i32& ref_func(i32&)
@@ -58,7 +58,7 @@ def test_ref_assign(i32 x):
     let f64 d = ref_func(x)
     return d
 
-@cython.infer_types(true)
+#[cython.infer_types(true)]
 def test_ref_inference(i32 x):
     """
     >>> test_ref_inference(23)

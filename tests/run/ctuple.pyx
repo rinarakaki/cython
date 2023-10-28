@@ -125,7 +125,7 @@ def c_types(i32 a, f64 b):
     a_ptr, b_ptr = ab
     return a_ptr[0], b_ptr[0]
 
-cdef union Union:
+union Union:
     i32 x
     f64 y
 
@@ -179,7 +179,7 @@ def cast_to_ctuple(*o):
     x, y = <(i32, f64)>o
     return x, y
 
-@cython.infer_types(true)
+#[cython.infer_types(true)]
 def test_type_inference():
     """
     >>> test_type_inference()
@@ -192,7 +192,7 @@ def test_type_inference():
     xo = (x, o)
     assert cython.typeof(xo) == "tuple object", cython.typeof(xo)
 
-@cython.locals(a=(i32, i32), b=(cython.i64, cython.f64))
+#[cython.locals(a=(i32, i32), b=(cython.i64, cython.f64))]
 def test_pure_python_declaration(x, y):
     """
     >>> test_pure_python_declaration(1, 2)

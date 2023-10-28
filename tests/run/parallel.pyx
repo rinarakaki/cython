@@ -1,9 +1,9 @@
 # tag: run
 # tag: openmp
 
-cimport cython.parallel
+use cython.parallel
 from cython.parallel import prange, threadid
-cimport openmp
+use openmp
 from libc.stdlib cimport malloc, free
 
 openmp.omp_set_nested(1)

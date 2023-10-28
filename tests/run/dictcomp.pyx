@@ -1,5 +1,5 @@
 
-cimport cython
+use cython
 
 def dictcomp():
     """

@@ -1,8 +1,8 @@
 # mode: error
 
-cimport cython
+use cython
 
-@cython.dataclasses.dataclass
+#[cython.dataclasses.dataclass]
 cdef class C:
     a: i32 = cython.dataclasses.field(unexpected=true)
 
