@@ -3,7 +3,7 @@
 struct Spam:
     pass
 
-ctypedef union eggs:
+union Eggs:
     pass
 
 enum Ham:
@@ -12,7 +12,7 @@ enum Ham:
 
 struct FlatSpam: pass
 
-ctypedef union flat_eggs: pass
+union FlatEggs: pass
 
 enum FlatHam: pass
 
