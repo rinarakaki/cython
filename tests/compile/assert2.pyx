@@ -1,4 +1,4 @@
 # mode: compile
 
-def f(a, b):
-    assert a, a+b
+fn f(a, b):
+    assert a, a + b
