@@ -100,7 +100,7 @@ cdef class ExtTypeNoTotalOrdering:
 
 # Every combination of methods which is valid.
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingNeGe:
     """
     >>> test_all_comp(ExtTypeTotalOrderingNeGe)
@@ -151,7 +151,7 @@ cdef class ExtTypeTotalOrderingNeLeGe:
     def __ge__(self, other):
         return self.value >= other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingNeGt:
     """
     >>> test_all_comp(ExtTypeTotalOrderingNeGt)
@@ -167,7 +167,7 @@ cdef class ExtTypeTotalOrderingNeGt:
     def __gt__(self, other):
         return self.value > other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingNeGtGe:
     """
     >>> test_all_comp(ExtTypeTotalOrderingNeGtGe)
@@ -186,7 +186,7 @@ cdef class ExtTypeTotalOrderingNeGtGe:
     def __ge__(self, other):
         return self.value >= other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingNeGtLe:
     """
     >>> test_all_comp(ExtTypeTotalOrderingNeGtLe)
@@ -205,7 +205,7 @@ cdef class ExtTypeTotalOrderingNeGtLe:
     def __le__(self, other):
         return self.value <= other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingNeGtLeGe:
     """
     >>> test_all_comp(ExtTypeTotalOrderingNeGtLeGe)
@@ -227,7 +227,7 @@ cdef class ExtTypeTotalOrderingNeGtLeGe:
     def __ge__(self, other):
         return self.value >= other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingNeLt:
     """
     >>> test_all_comp(ExtTypeTotalOrderingNeLt)
@@ -243,7 +243,7 @@ cdef class ExtTypeTotalOrderingNeLt:
     def __lt__(self, other):
         return self.value < other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingNeLtGe:
     """
     >>> test_all_comp(ExtTypeTotalOrderingNeLtGe)
@@ -262,7 +262,7 @@ cdef class ExtTypeTotalOrderingNeLtGe:
     def __ge__(self, other):
         return self.value >= other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingNeLtLe:
     """
     >>> test_all_comp(ExtTypeTotalOrderingNeLtLe)
@@ -281,7 +281,7 @@ cdef class ExtTypeTotalOrderingNeLtLe:
     def __le__(self, other):
         return self.value <= other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingNeLtLeGe:
     """
     >>> test_all_comp(ExtTypeTotalOrderingNeLtLeGe)
@@ -303,7 +303,7 @@ cdef class ExtTypeTotalOrderingNeLtLeGe:
     def __ge__(self, other):
         return self.value >= other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingNeLtGt:
     """
     >>> test_all_comp(ExtTypeTotalOrderingNeLtGt)
@@ -322,7 +322,7 @@ cdef class ExtTypeTotalOrderingNeLtGt:
     def __gt__(self, other):
         return self.value > other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingNeLtGtGe:
     """
     >>> test_all_comp(ExtTypeTotalOrderingNeLtGtGe)
@@ -344,7 +344,7 @@ cdef class ExtTypeTotalOrderingNeLtGtGe:
     def __ge__(self, other):
         return self.value >= other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingNeLtGtLe:
     """
     >>> test_all_comp(ExtTypeTotalOrderingNeLtGtLe)
@@ -366,7 +366,7 @@ cdef class ExtTypeTotalOrderingNeLtGtLe:
     def __le__(self, other):
         return self.value <= other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingNeLtGtLeGe:
     """
     >>> test_all_comp(ExtTypeTotalOrderingNeLtGtLeGe)
@@ -407,7 +407,7 @@ cdef class ExtTypeTotalOrderingEqGe:
     def __ge__(self, other):
         return self.value >= other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingEqLe:
     """
     >>> test_all_comp(ExtTypeTotalOrderingEqLe)
@@ -423,7 +423,7 @@ cdef class ExtTypeTotalOrderingEqLe:
     def __le__(self, other):
         return self.value <= other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingEqLeGe:
     """
     >>> test_all_comp(ExtTypeTotalOrderingEqLeGe)
@@ -458,7 +458,7 @@ cdef class ExtTypeTotalOrderingEqGt:
     def __gt__(self, other):
         return self.value > other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingEqGtGe:
     """
     >>> test_all_comp(ExtTypeTotalOrderingEqGtGe)
@@ -477,7 +477,7 @@ cdef class ExtTypeTotalOrderingEqGtGe:
     def __ge__(self, other):
         return self.value >= other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingEqGtLe:
     """
     >>> test_all_comp(ExtTypeTotalOrderingEqGtLe)
@@ -496,7 +496,7 @@ cdef class ExtTypeTotalOrderingEqGtLe:
     def __le__(self, other):
         return self.value <= other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingEqGtLeGe:
     """
     >>> test_all_comp(ExtTypeTotalOrderingEqGtLeGe)
@@ -519,7 +519,7 @@ cdef class ExtTypeTotalOrderingEqGtLeGe:
         return self.value >= other.value
 
 # cython.total_ordering implicitly means cclass too
-@cython.total_ordering
+#[cython.total_ordering]
 class ExtTypeTotalOrderingEqLt:
     """
     >>> test_all_comp(ExtTypeTotalOrderingEqLt)
@@ -540,7 +540,7 @@ class ExtTypeTotalOrderingEqLt:
     def __lt__(self, other):
         return self._value < other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingEqLtGe:
     """
     >>> test_all_comp(ExtTypeTotalOrderingEqLtGe)
@@ -559,7 +559,7 @@ cdef class ExtTypeTotalOrderingEqLtGe:
     def __ge__(self, other):
         return self.value >= other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingEqLtLe:
     """
     >>> test_all_comp(ExtTypeTotalOrderingEqLtLe)
@@ -578,7 +578,7 @@ cdef class ExtTypeTotalOrderingEqLtLe:
     def __le__(self, other):
         return self.value <= other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingEqLtLeGe:
     """
     >>> test_all_comp(ExtTypeTotalOrderingEqLtLeGe)
@@ -600,7 +600,7 @@ cdef class ExtTypeTotalOrderingEqLtLeGe:
     def __ge__(self, other):
         return self.value >= other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingEqLtGt:
     """
     >>> test_all_comp(ExtTypeTotalOrderingEqLtGt)
@@ -619,7 +619,7 @@ cdef class ExtTypeTotalOrderingEqLtGt:
     def __gt__(self, other):
         return self.value > other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingEqLtGtGe:
     """
     >>> test_all_comp(ExtTypeTotalOrderingEqLtGtGe)
@@ -641,7 +641,7 @@ cdef class ExtTypeTotalOrderingEqLtGtGe:
     def __ge__(self, other):
         return self.value >= other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingEqLtGtLe:
     """
     >>> test_all_comp(ExtTypeTotalOrderingEqLtGtLe)
@@ -663,7 +663,7 @@ cdef class ExtTypeTotalOrderingEqLtGtLe:
     def __le__(self, other):
         return self.value <= other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingEqLtGtLeGe:
     """
     >>> test_all_comp(ExtTypeTotalOrderingEqLtGtLeGe)
@@ -688,7 +688,7 @@ cdef class ExtTypeTotalOrderingEqLtGtLeGe:
     def __ge__(self, other):
         return self.value >= other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingEqNeGe:
     """
     >>> test_all_comp(ExtTypeTotalOrderingEqNeGe)
@@ -707,7 +707,7 @@ cdef class ExtTypeTotalOrderingEqNeGe:
     def __ge__(self, other):
         return self.value >= other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingEqNeLe:
     """
     >>> test_all_comp(ExtTypeTotalOrderingEqNeLe)
@@ -726,7 +726,7 @@ cdef class ExtTypeTotalOrderingEqNeLe:
     def __le__(self, other):
         return self.value <= other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingEqNeLeGe:
     """
     >>> test_all_comp(ExtTypeTotalOrderingEqNeLeGe)
@@ -748,7 +748,7 @@ cdef class ExtTypeTotalOrderingEqNeLeGe:
     def __ge__(self, other):
         return self.value >= other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingEqNeGt:
     """
     >>> test_all_comp(ExtTypeTotalOrderingEqNeGt)
@@ -767,7 +767,7 @@ cdef class ExtTypeTotalOrderingEqNeGt:
     def __gt__(self, other):
         return self.value > other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingEqNeGtGe:
     """
     >>> test_all_comp(ExtTypeTotalOrderingEqNeGtGe)
@@ -789,7 +789,7 @@ cdef class ExtTypeTotalOrderingEqNeGtGe:
     def __ge__(self, other):
         return self.value >= other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingEqNeGtLe:
     """
     >>> test_all_comp(ExtTypeTotalOrderingEqNeGtLe)
@@ -811,7 +811,7 @@ cdef class ExtTypeTotalOrderingEqNeGtLe:
     def __le__(self, other):
         return self.value <= other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingEqNeGtLeGe:
     """
     >>> test_all_comp(ExtTypeTotalOrderingEqNeGtLeGe)
@@ -836,7 +836,7 @@ cdef class ExtTypeTotalOrderingEqNeGtLeGe:
     def __ge__(self, other):
         return self.value >= other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingEqNeLt:
     """
     >>> test_all_comp(ExtTypeTotalOrderingEqNeLt)
@@ -855,7 +855,7 @@ cdef class ExtTypeTotalOrderingEqNeLt:
     def __lt__(self, other):
         return self.value < other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingEqNeLtGe:
     """
     >>> test_all_comp(ExtTypeTotalOrderingEqNeLtGe)
@@ -877,7 +877,7 @@ cdef class ExtTypeTotalOrderingEqNeLtGe:
     def __ge__(self, other):
         return self.value >= other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingEqNeLtLe:
     """
     >>> test_all_comp(ExtTypeTotalOrderingEqNeLtLe)
@@ -899,7 +899,7 @@ cdef class ExtTypeTotalOrderingEqNeLtLe:
     def __le__(self, other):
         return self.value <= other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingEqNeLtLeGe:
     """
     >>> test_all_comp(ExtTypeTotalOrderingEqNeLtLeGe)
@@ -924,7 +924,7 @@ cdef class ExtTypeTotalOrderingEqNeLtLeGe:
     def __ge__(self, other):
         return self.value >= other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingEqNeLtGt:
     """
     >>> test_all_comp(ExtTypeTotalOrderingEqNeLtGt)
@@ -946,7 +946,7 @@ cdef class ExtTypeTotalOrderingEqNeLtGt:
     def __gt__(self, other):
         return self.value > other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingEqNeLtGtGe:
     """
     >>> test_all_comp(ExtTypeTotalOrderingEqNeLtGtGe)
@@ -971,7 +971,7 @@ cdef class ExtTypeTotalOrderingEqNeLtGtGe:
     def __ge__(self, other):
         return self.value >= other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingEqNeLtGtLe:
     """
     >>> test_all_comp(ExtTypeTotalOrderingEqNeLtGtLe)
@@ -996,7 +996,7 @@ cdef class ExtTypeTotalOrderingEqNeLtGtLe:
     def __le__(self, other):
         return self.value <= other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingEqNeLtGtLeGe:
     """
     >>> test_all_comp(ExtTypeTotalOrderingEqNeLtGtLeGe)

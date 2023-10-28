@@ -2,8 +2,8 @@
 
 use cython
 
-@cython.test_assert_path_exists("//SingleAssignmentNode/TypecastNode")
-@cython.test_fail_if_path_exists("//SimpleCallNode")
+#[cython.test_assert_path_exists("//SingleAssignmentNode/TypecastNode")]
+#[cython.test_fail_if_path_exists("//SimpleCallNode")]
 def double_to_short_int(f64 x):
     """
     >>> double_to_short_int(4.1)
@@ -17,8 +17,8 @@ def double_to_short_int(f64 x):
     let i16 r = int(x)
     return r
 
-@cython.test_assert_path_exists("//SingleAssignmentNode/TypecastNode")
-@cython.test_fail_if_path_exists("//SimpleCallNode")
+#[cython.test_assert_path_exists("//SingleAssignmentNode/TypecastNode")]
+#[cython.test_fail_if_path_exists("//SimpleCallNode")]
 def double_to_pyssizet_int(f64 x):
     """
     >>> double_to_pyssizet_int(4.1)
@@ -32,8 +32,8 @@ def double_to_pyssizet_int(f64 x):
     let isize r = int(x)
     return r
 
-@cython.test_assert_path_exists("//SingleAssignmentNode/TypecastNode")
-@cython.test_fail_if_path_exists("//SimpleCallNode")
+#[cython.test_assert_path_exists("//SingleAssignmentNode/TypecastNode")]
+#[cython.test_fail_if_path_exists("//SimpleCallNode")]
 def int_to_pyssizet_int(i32 x):
     """
     >>> int_to_pyssizet_int(4.1)
@@ -47,8 +47,8 @@ def int_to_pyssizet_int(i32 x):
     let isize r = int(x)
     return r
 
-## @cython.test_assert_path_exists("//SingleAssignmentNode/TypecastNode")
-## @cython.test_fail_if_path_exists("//SimpleCallNode")
+## #[cython.test_assert_path_exists("//SingleAssignmentNode/TypecastNode")]
+## #[cython.test_fail_if_path_exists("//SimpleCallNode")]
 ## def double_to_pyssizet_float(f64 x):
 ##     """
 ##     >>> double_to_pyssizet_float(4.1)
@@ -59,8 +59,8 @@ def int_to_pyssizet_int(i32 x):
 ##     cdef isize r = float(x)
 ##     return r
 
-@cython.test_assert_path_exists("//SingleAssignmentNode/TypecastNode")
-@cython.test_fail_if_path_exists("//SimpleCallNode")
+#[cython.test_assert_path_exists("//SingleAssignmentNode/TypecastNode")]
+#[cython.test_fail_if_path_exists("//SimpleCallNode")]
 def int_to_short_int(i32 x):
     """
     >>> int_to_short_int(4)
@@ -72,8 +72,8 @@ def int_to_short_int(i32 x):
     let i16 r = int(x)
     return r
 
-@cython.test_assert_path_exists("//SingleAssignmentNode/TypecastNode")
-@cython.test_fail_if_path_exists("//SimpleCallNode")
+#[cython.test_assert_path_exists("//SingleAssignmentNode/TypecastNode")]
+#[cython.test_fail_if_path_exists("//SimpleCallNode")]
 def short_to_float_float(i16 x):
     """
     >>> short_to_float_float(4)
@@ -85,8 +85,8 @@ def short_to_float_float(i16 x):
     let f32 r = float(x)
     return r
 
-@cython.test_assert_path_exists("//SingleAssignmentNode/TypecastNode")
-@cython.test_fail_if_path_exists("//SimpleCallNode")
+#[cython.test_assert_path_exists("//SingleAssignmentNode/TypecastNode")]
+#[cython.test_fail_if_path_exists("//SimpleCallNode")]
 def short_to_double_float(i16 x):
     """
     >>> short_to_double_float(4)
@@ -98,8 +98,8 @@ def short_to_double_float(i16 x):
     let f64 r = float(x)
     return r
 
-@cython.test_assert_path_exists("//SingleAssignmentNode/TypecastNode")
-@cython.test_fail_if_path_exists("//SimpleCallNode")
+#[cython.test_assert_path_exists("//SingleAssignmentNode/TypecastNode")]
+#[cython.test_fail_if_path_exists("//SimpleCallNode")]
 def short_to_double_int(i16 x):
     """
     >>> short_to_double_int(4)
@@ -111,7 +111,7 @@ def short_to_double_int(i16 x):
     let f64 r = int(x)
     return r
 
-@cython.test_fail_if_path_exists("//SimpleCallNode")
+#[cython.test_fail_if_path_exists("//SimpleCallNode")]
 def float_to_float_float(f32 x):
     """
     >>> 4.05 < float_to_float_float(4.1) < 4.15
@@ -142,8 +142,8 @@ def double_to_double_float(f64 x):
 
 # tests that cannot be optimised
 
-@cython.test_fail_if_path_exists("//TypecastNode")
-@cython.test_assert_path_exists("//PythonCapiCallNode")
+#[cython.test_fail_if_path_exists("//TypecastNode")]
+#[cython.test_assert_path_exists("//PythonCapiCallNode")]
 def double_to_py_int(f64 x):
     """
     >>> double_to_py_int(4.1)
@@ -156,8 +156,8 @@ def double_to_py_int(f64 x):
     """
     return int(x)
 
-@cython.test_fail_if_path_exists("//SingleAssignmentNode//TypecastNode")
-@cython.test_assert_path_exists("//PythonCapiCallNode")
+#[cython.test_fail_if_path_exists("//SingleAssignmentNode//TypecastNode")]
+#[cython.test_assert_path_exists("//PythonCapiCallNode")]
 def double_to_double_int(f64 x):
     """
     >>> double_to_double_int(4.1)
@@ -171,7 +171,7 @@ def double_to_double_int(f64 x):
     let f64 r = int(x)
     return r
 
-@cython.test_fail_if_path_exists("//SingleAssignmentNode//TypecastNode")
+#[cython.test_fail_if_path_exists("//SingleAssignmentNode//TypecastNode")]
 @cython.test_assert_path_exists(
     "//PythonCapiCallNode",
     "//PythonCapiCallNode/PythonCapiFunctionNode/@cname = 'truncf'",
@@ -189,7 +189,7 @@ def float_to_float_int(f32 x):
     let f32 r = int(x)
     return r
 
-@cython.test_fail_if_path_exists("//SingleAssignmentNode//TypecastNode")
+#[cython.test_fail_if_path_exists("//SingleAssignmentNode//TypecastNode")]
 @cython.test_assert_path_exists(
     "//PythonCapiCallNode",
     "//PythonCapiCallNode/PythonCapiFunctionNode/@cname = 'truncf'",
@@ -207,7 +207,7 @@ def float_to_double_int(f32 x):
     let f64 r = int(x)
     return r
 
-@cython.test_fail_if_path_exists("//SingleAssignmentNode//TypecastNode")
+#[cython.test_fail_if_path_exists("//SingleAssignmentNode//TypecastNode")]
 @cython.test_assert_path_exists(
     "//PythonCapiCallNode",
     "//PythonCapiCallNode/PythonCapiFunctionNode/@cname = 'trunc'",
@@ -225,8 +225,8 @@ def double_to_float_int(f64 x):
     let f32 r = int(x)
     return r
 
-@cython.test_fail_if_path_exists("//SimpleCallNode")
-@cython.test_assert_path_exists("//PythonCapiCallNode")
+#[cython.test_fail_if_path_exists("//SimpleCallNode")]
+#[cython.test_assert_path_exists("//PythonCapiCallNode")]
 def object_float(x):
     """
     >>> 4.05 < object_float(4.1) < 4.15
@@ -248,8 +248,8 @@ def object_float(x):
     """
     return float(x)
 
-@cython.test_fail_if_path_exists("//SimpleCallNode")
-@cython.test_assert_path_exists("//PythonCapiCallNode")
+#[cython.test_fail_if_path_exists("//SimpleCallNode")]
+#[cython.test_assert_path_exists("//PythonCapiCallNode")]
 def object_int(x):
     """
     >>> object_int(4)

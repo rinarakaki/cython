@@ -30,7 +30,7 @@ def del_item(L, o):
     return L
 
 
-@cython.test_assert_path_exists('//DelStatNode//IndexNode//NoneCheckNode')
+#[cython.test_assert_path_exists('//DelStatNode//IndexNode//NoneCheckNode')]
 def del_dict(dict D, o):
     """
     >>> del_dict({1: 'a', 2: 'b'}, 1)
@@ -43,7 +43,7 @@ def del_dict(dict D, o):
     return D
 
 
-@cython.test_fail_if_path_exists('//DelStatNode//IndexNode//NoneCheckNode')
+#[cython.test_fail_if_path_exists('//DelStatNode//IndexNode//NoneCheckNode')]
 def del_dict_ann(D: dict, o):
     """
     >>> del_dict_ann({1: 'a', 2: 'b'}, 1)
@@ -56,7 +56,7 @@ def del_dict_ann(D: dict, o):
     return D
 
 
-@cython.test_fail_if_path_exists('//NoneCheckNode')
+#[cython.test_fail_if_path_exists('//NoneCheckNode')]
 def del_dict_from_literal(o):
     """
     >>> del_dict_from_literal(1)

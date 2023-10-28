@@ -467,10 +467,10 @@ def double_inference():
 fn object some_float_value():
     return 2.0
 
-@infer_types(None)
-@cython.test_fail_if_path_exists('//DefNode//NameNode[@type.is_pyobject = True]')
-@cython.test_assert_path_exists('//DefNode//NameNode[@type.is_pyobject]',
-                                '//DefNode//NameNode[@type.is_pyobject = False]')
+#[infer_types(None)]
+#[cython.test_fail_if_path_exists("//DefNode//NameNode[@type.is_pyobject = True]")]
+#[cython.test_assert_path_exists("//DefNode//NameNode[@type.is_pyobject]",
+                                 "//DefNode//NameNode[@type.is_pyobject = False]")]
 def double_loop():
     """
     >>> double_loop() == 1.0 * 10
@@ -482,7 +482,7 @@ def double_loop():
         d += 1.0
     return d
 
-@infer_types(None)
+#[infer_types(None)]
 def safe_only():
     """
     >>> safe_only()
@@ -530,7 +530,7 @@ def safe_only():
     from_fl = fl
     assert typeof(from_fl) == "float", typeof(from_fl)
 
-@infer_types(None)
+#[infer_types(None)]
 def safe_c_functions():
     """
     >>> safe_c_functions()
@@ -539,7 +539,7 @@ def safe_c_functions():
     assert typeof(f) == 'int (*)(i32) except? -1', typeof(f)
     assert 2 == f(1)
 
-@infer_types(None)
+#[infer_types(None)]
 def ptr_types():
     """
     >>> ptr_types()
@@ -565,7 +565,7 @@ def const_types(const f64 x, f64 y, f64& z):
     a = z
     assert typeof(a) == "double", typeof(a)
 
-@infer_types(None)
+#[infer_types(None)]
 def args_tuple_keywords(*args, **kwargs):
     """
     >>> args_tuple_keywords(1,2,3, a=1, b=2)
@@ -573,7 +573,7 @@ def args_tuple_keywords(*args, **kwargs):
     assert typeof(args) == "tuple object", typeof(args)
     assert typeof(kwargs) == "dict object", typeof(kwargs)
 
-@infer_types(None)
+#[infer_types(None)]
 def args_tuple_keywords_reassign_same(*args, **kwargs):
     """
     >>> args_tuple_keywords_reassign_same(1,2,3, a=1, b=2)
@@ -584,7 +584,7 @@ def args_tuple_keywords_reassign_same(*args, **kwargs):
     args = ()
     kwargs = {}
 
-@infer_types(None)
+#[infer_types(None)]
 def args_tuple_keywords_reassign_pyobjects(*args, **kwargs):
     """
     >>> args_tuple_keywords_reassign_pyobjects(1,2,3, a=1, b=2)
@@ -610,7 +610,7 @@ cdef class BB(B): pass
 cdef class C: pass
 cdef class CC(C): pass
 
-@infer_types(None)
+#[infer_types(None)]
 def common_extension_type_base():
     """
     >>> common_extension_type_base()
@@ -632,7 +632,7 @@ cdef class AcceptsKeywords:
     def __init__(self, *args, **kwds):
         pass
 
-@infer_types(None)
+#[infer_types(None)]
 def constructor_call():
     """
     >>> constructor_call()
@@ -640,7 +640,7 @@ def constructor_call():
     x = AcceptsKeywords(a=1, b=2)
     assert typeof(x) == "AcceptsKeywords", typeof(x)
 
-@infer_types(None)
+#[infer_types(None)]
 def large_literals():
     """
     >>> large_literals()
@@ -672,7 +672,7 @@ def with_statement():
     print(typeof(x))
     return x
 
-@cython.final
+#[cython.final]
 cdef class TypedContextManager(object):
     cpdef double __enter__(self):
         return 2.0

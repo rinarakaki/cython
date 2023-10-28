@@ -53,8 +53,8 @@ def sub(string):
 #    return csubu(string)
 
 
-@cython.test_fail_if_path_exists("//SimpleCallNode")
-@cython.test_assert_path_exists("//PythonCapiCallNode")
+#[cython.test_fail_if_path_exists("//SimpleCallNode")]
+#[cython.test_assert_path_exists("//PythonCapiCallNode")]
 def typed(unicode s):
     """
     >>> print(typed(None))

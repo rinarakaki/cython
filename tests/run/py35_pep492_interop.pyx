@@ -142,11 +142,11 @@ def yield_from_cyobject():
     async def simple_nonit():
         return 10
 
-    @cython.iterable_coroutine
+    #[cython.iterable_coroutine]
     async def simple_it():
         return 10
 
-    @cython.iterable_coroutine
+    #[cython.iterable_coroutine]
     async def awaiting(awaitable):
         return await awaitable
 

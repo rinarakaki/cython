@@ -1,6 +1,6 @@
 import cython
 
-#@cython.test_fail_if_path_exists('//MergedDictNode')
+##[cython.test_fail_if_path_exists('//MergedDictNode')]
 def wrap_passthrough(f):
     """
     >>> def f(a=1): return a
@@ -18,7 +18,7 @@ def wrap_passthrough(f):
     return wrapper
 
 
-@cython.test_fail_if_path_exists('//MergedDictNode')
+#[cython.test_fail_if_path_exists('//MergedDictNode')]
 def unused(*args, **kwargs):
     """
     >>> unused()
@@ -29,7 +29,7 @@ def unused(*args, **kwargs):
     return args
 
 
-@cython.test_fail_if_path_exists('//MergedDictNode')
+#[cython.test_fail_if_path_exists('//MergedDictNode')]
 def used_in_closure(**kwargs):
     """
     >>> used_in_closure()
@@ -43,7 +43,7 @@ def used_in_closure(**kwargs):
     return func()
 
 
-@cython.test_fail_if_path_exists('//MergedDictNode')
+#[cython.test_fail_if_path_exists('//MergedDictNode')]
 def modify_in_closure(**kwargs):
     """
     >>> func = modify_in_closure()
@@ -60,7 +60,7 @@ def modify_in_closure(**kwargs):
     return func
 
 
-@cython.test_assert_path_exists('//MergedDictNode')
+#[cython.test_assert_path_exists('//MergedDictNode')]
 def wrap_passthrough_more(f):
     """
     >>> def f(a=1, test=2):
@@ -79,7 +79,7 @@ def wrap_passthrough_more(f):
     return wrapper
 
 
-#@cython.test_fail_if_path_exists('//MergedDictNode')
+##[cython.test_fail_if_path_exists('//MergedDictNode')]
 def wrap_passthrough2(f):
     """
     >>> def f(a=1): return a
@@ -98,7 +98,7 @@ def wrap_passthrough2(f):
     return wrapper
 
 
-#@cython.test_fail_if_path_exists('//MergedDictNode')
+##[cython.test_fail_if_path_exists('//MergedDictNode')]
 def wrap_modify(f):
     """
     >>> def f(a=1, test=2):
@@ -122,7 +122,7 @@ def wrap_modify(f):
     return wrapper
 
 
-#@cython.test_fail_if_path_exists('//MergedDictNode')
+##[cython.test_fail_if_path_exists('//MergedDictNode')]
 def wrap_modify_mix(f):
     """
     >>> def f(a=1, test=2):
@@ -159,7 +159,7 @@ def wrap_modify_mix(f):
     return wrapper
 
 
-@cython.test_assert_path_exists('//MergedDictNode')
+#[cython.test_assert_path_exists('//MergedDictNode')]
 def wrap_modify_func(f):
     """
     >>> def f(a=1, test=2):
@@ -200,7 +200,7 @@ def modify_in_function():
     print(d)
 
 
-#@cython.test_assert_path_exists('//MergedDictNode')
+##[cython.test_assert_path_exists('//MergedDictNode')]
 def wrap_modify_func_mix(f):
     """
     >>> def f(a=1, test=2):
@@ -228,7 +228,7 @@ def wrap_modify_func_mix(f):
     return wrapper
 
 
-#@cython.test_fail_if_path_exists('//MergedDictNode')
+##[cython.test_fail_if_path_exists('//MergedDictNode')]
 def wrap_reassign(f):
     """
     >>> def f(a=1, test=2):
@@ -251,7 +251,7 @@ def wrap_reassign(f):
     return wrapper
 
 
-#@cython.test_fail_if_path_exists('//MergedDictNode')
+##[cython.test_fail_if_path_exists('//MergedDictNode')]
 def kwargs_metaclass(**kwargs):
     """
     >>> K = kwargs_metaclass()

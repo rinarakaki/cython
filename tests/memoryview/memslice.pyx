@@ -519,7 +519,6 @@ def schar_index_vars(i32[:, :] buf, signed char i, signed char j, i32 value):
         print("validated")
     return old_value
 
-
 @testcase
 def uchar_index_vars(i32[:, :] buf, u8 i, u8 j, i32 value):
     """
@@ -551,7 +550,6 @@ def uchar_index_vars(i32[:, :] buf, u8 i, u8 j, i32 value):
     if buf[i, j] == value:
         print("validated")
     return old_value
-
 
 @testcase
 def char_index_vars(i32[:, :] buf, char i, char j, i32 value):
@@ -585,7 +583,6 @@ def char_index_vars(i32[:, :] buf, char i, char j, i32 value):
         print("validated")
     return old_value
 
-
 @testcase
 def list_comprehension(i32[:] buf, len):
     """
@@ -595,8 +592,8 @@ def list_comprehension(i32[:] buf, len):
     let i32 i
     print "|".join([str(buf[i]) for i in range(len)])
 
+#[cython.wraparound(false)]
 @testcase
-@cython.wraparound(false)
 def wraparound_directive(i32[:] buf, i32 pos_idx, i32 neg_idx):
     """
     Again, the most interesting thing here is to inspect the C source.
@@ -613,7 +610,6 @@ def wraparound_directive(i32[:] buf, i32 pos_idx, i32 neg_idx):
     with cython.wraparound(true):
         byneg = buf[neg_idx]
     return buf[pos_idx] + byneg
-
 
 #
 # Test all kinds of indexing and flags
@@ -758,8 +754,9 @@ def generic(i32[::view.generic, ::view.generic] buf1,
 
 @testcase
 def indirect_strided_and_contig(
-             i32[::view.indirect, ::view.strided] buf1,
-             i32[::view.indirect, ::view.contiguous] buf2):
+     i32[::view.indirect, ::view.strided] buf1,
+     i32[::view.indirect, ::view.contiguous] buf2
+):
     """
     >>> A = IntMockBuffer("A", [[0, 1, 2], [3, 4, 5], [6, 7, 8]])
     >>> B = IntMockBuffer("B", [[0, 1, 2], [3, 4, 5], [6, 7, 8]], shape=(3, 3), strides=(1, 3))
@@ -788,8 +785,9 @@ def indirect_strided_and_contig(
 
 @testcase
 def indirect_contig(
-             i32[::view.indirect_contiguous, ::view.contiguous] buf1,
-             i32[::view.indirect_contiguous, ::view.generic] buf2):
+     i32[::view.indirect_contiguous, ::view.contiguous] buf1,
+     i32[::view.indirect_contiguous, ::view.generic] buf2
+):
     """
     >>> A = IntMockBuffer("A", [[0, 1, 2], [3, 4, 5], [6, 7, 8]])
     >>> B = IntMockBuffer("B", [[0, 1, 2], [3, 4, 5], [6, 7, 8]], shape=(3, 3), strides=(1, 3))
@@ -849,9 +847,9 @@ def safe_get(i32[:] buf, i32 idx):
     """
     return buf[idx]
 
+#[cython.boundscheck(false)] # outer decorators should take precedence
+#[cython.boundscheck(true)]
 @testcase
-@cython.boundscheck(false) # outer decorators should take precedence
-@cython.boundscheck(true)
 def unsafe_get(i32[:] buf, i32 idx):
     """
     Access outside of the area the buffer publishes.
@@ -1057,8 +1055,8 @@ def addref(*args):
 def decref(*args):
     for item in args: Py_DECREF(item)
 
-@cython.binding(false)
-@cython.always_allow_keywords(false)
+#[cython.binding(false)]
+#[cython.always_allow_keywords(false)]
 def get_refcount(x):
     return (<PyObject*>x).ob_refcnt
 
@@ -1342,8 +1340,8 @@ def complex_struct_inplace(LongComplex[:] buf):
 # Nogil
 #
 
+#[cython.boundscheck(false)]
 @testcase
-@cython.boundscheck(false)
 def buffer_nogil():
     """
     >>> buffer_nogil()
@@ -1761,7 +1759,7 @@ def test_nogil_oob2():
     with nogil:
         a[100, 9:]
 
-@cython.boundscheck(false)
+#[cython.boundscheck(false)]
 fn i32 cdef_nogil(i32[:, :] a) except 0 nogil:
     let i32 i, j
     let i32[:, :] b = a[::-1, 3:10:2]
@@ -1808,9 +1806,9 @@ def test_convert_slicenode_to_indexnode():
         a = a[2:4]
     print a[0]
 
+#[cython.boundscheck(false)]
+#[cython.wraparound(false)]
 @testcase
-@cython.boundscheck(false)
-@cython.wraparound(false)
 def test_memslice_prange(arg):
     """
     >>> test_memslice_prange(IntMockBuffer("A", range(400), shape=(20, 4, 5)))  # FIXME: , writable=false))

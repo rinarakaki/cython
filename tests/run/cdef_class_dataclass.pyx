@@ -90,7 +90,7 @@ cdef class InheritsFromDataclass(BasicDataclass):
     def __post_init__(self):
         print "In __post_init__"
 
-@cython.dataclasses.dataclass
+#[cython.dataclasses.dataclass]
 cdef class InheritsFromNotADataclass(NotADataclass):
     """
     >>> sorted(list(InheritsFromNotADataclass.__dataclass_fields__.keys()))

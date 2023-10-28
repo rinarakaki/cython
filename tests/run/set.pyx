@@ -1,6 +1,4 @@
-
 use cython
-
 
 def cython_set():
     """
@@ -10,7 +8,6 @@ def cython_set():
     assert set is cython.set
     return cython.set
 
-
 def cython_frozenset():
     """
     >>> cython_frozenset() is frozenset
@@ -18,7 +15,6 @@ def cython_frozenset():
     """
     assert frozenset is cython.frozenset
     return cython.frozenset
-
 
 def cython_set_override():
     """
@@ -28,7 +24,6 @@ def cython_set_override():
     set = 1
     return cython.set
 
-
 def cython_frozenset_override():
     """
     >>> cython_frozenset_override() is frozenset
@@ -36,7 +31,6 @@ def cython_frozenset_override():
     """
     frozenset = 1
     return cython.frozenset
-
 
 def test_set_literal():
     """
@@ -64,7 +58,6 @@ def test_set_add():
     s1.add((1, 2))
     return s1
 
-
 def test_set_contains(v):
     """
     >>> test_set_contains(1)
@@ -90,7 +83,6 @@ def test_set_contains(v):
     s1.add(frozenset([1, 2, 3]))
     return v in s1
 
-
 def test_set_update(v=None):
     """
     >>> type(test_set_update()) is set
@@ -113,7 +105,6 @@ def test_set_update(v=None):
         s1.update(v)
     return s1
 
-
 def test_set_multi_update():
     """
     >>> type(test_set_multi_update()) is set
@@ -124,7 +115,6 @@ def test_set_multi_update():
     let set s1 = set()
     s1.update('abc', set([1, 3]), frozenset([1, 2]))
     return s1
-
 
 def test_object_update(v=None):
     """
@@ -148,7 +138,6 @@ def test_object_update(v=None):
         s1.update(v)
     return s1
 
-
 def test_set_clear():
     """
     >>> type(test_set_clear()) is set
@@ -161,7 +150,6 @@ def test_set_clear():
     s1.clear()
     return s1
 
-
 def test_set_clear_None():
     """
     >>> test_set_clear_None()
@@ -170,7 +158,6 @@ def test_set_clear_None():
     """
     let set s1 = None
     s1.clear()
-
 
 def test_set_list_comp():
     """
@@ -183,7 +170,6 @@ def test_set_list_comp():
     s1 = set([i%3 for i in range(5)])
     return s1
 
-
 def test_frozenset_list_comp():
     """
     >>> type(test_frozenset_list_comp()) is frozenset
@@ -194,7 +180,6 @@ def test_frozenset_list_comp():
     let frozenset s1
     s1 = frozenset([i%3 for i in range(5)])
     return s1
-
 
 def test_set_pop():
     """
@@ -209,8 +194,7 @@ def test_set_pop():
     two = s1.pop()
     return s1
 
-
-@cython.test_fail_if_path_exists("//SimpleCallNode//NameNode")
+#[cython.test_fail_if_path_exists("//SimpleCallNode//NameNode")]
 def test_object_pop(s):
     """
     >>> s = set([2])
@@ -221,13 +205,11 @@ def test_object_pop(s):
     """
     return s.pop()
 
-
 def test_noop_pop():
     """
     >>> test_noop_pop()
     """
     set([0]).pop()
-
 
 def test_noop_pop_exception():
     """
@@ -236,7 +218,6 @@ def test_noop_pop_exception():
     ... else: print("KeyError expected but not raised!")
     """
     set([]).pop()
-
 
 def test_set_discard():
     """
@@ -253,7 +234,6 @@ def test_set_discard():
     s1.discard('3')
     s1.discard(3)
     return s1
-
 
 def test_set_sideeffect_unhashable_failure():
     """
@@ -273,7 +253,6 @@ def test_set_sideeffect_unhashable_failure():
     else: assert False, "expected exception not raised"
     return L
 
-
 def test_set_sideeffect_unhashable_failure_literal():
     """
     >>> test_set_sideeffect_unhashable_failure_literal()
@@ -291,7 +270,6 @@ def test_set_sideeffect_unhashable_failure_literal():
     except TypeError: pass
     else: assert False, "expected exception not raised"
     return L
-
 
 def test_frozenset_sideeffect_unhashable_failure():
     """
@@ -311,12 +289,11 @@ def test_frozenset_sideeffect_unhashable_failure():
     else: assert False, "expected exception not raised"
     return L
 
-
-@cython.test_assert_path_exists("//SetNode")
-@cython.test_fail_if_path_exists(
+#[cython.test_assert_path_exists("//SetNode")]
+#[cython.test_fail_if_path_exists(
     "//SimpleCallNode",
     "//PythonCapiCallNode"
-)
+)]
 def test_set_of_list():
     """
     >>> s = test_set_of_list()
@@ -327,9 +304,8 @@ def test_set_of_list():
     """
     return set([1, 2, 3])
 
-
-@cython.test_assert_path_exists("//PythonCapiCallNode")
-@cython.test_fail_if_path_exists("//SetNode")
+#[cython.test_assert_path_exists("//PythonCapiCallNode")]
+#[cython.test_fail_if_path_exists("//SetNode")]
 def test_frozenset_of_list():
     """
     >>> s = test_frozenset_of_list()
@@ -340,9 +316,8 @@ def test_frozenset_of_list():
     """
     return frozenset([1, 2, 3])
 
-
-@cython.test_assert_path_exists("//SetNode")
-@cython.test_fail_if_path_exists("//SimpleCallNode")
+#[cython.test_assert_path_exists("//SetNode")]
+#[cython.test_fail_if_path_exists("//SimpleCallNode")]
 def test_set_of_tuple():
     """
     >>> s = test_set_of_tuple()
@@ -353,9 +328,8 @@ def test_set_of_tuple():
     """
     return set((1, 2, 3))
 
-
-@cython.test_assert_path_exists("//PythonCapiCallNode")
-@cython.test_fail_if_path_exists("//SetNode")
+#[cython.test_assert_path_exists("//PythonCapiCallNode")]
+#[cython.test_fail_if_path_exists("//SetNode")]
 def test_frozenset_of_tuple():
     """
     >>> s = test_frozenset_of_tuple()
@@ -366,12 +340,11 @@ def test_frozenset_of_tuple():
     """
     return frozenset((1, 2, 3))
 
-
-@cython.test_assert_path_exists("//PythonCapiCallNode")
-@cython.test_fail_if_path_exists(
+#[cython.test_assert_path_exists("//PythonCapiCallNode")]
+#[cython.test_fail_if_path_exists(
     "//SimpleCallNode",
     "//SetNode"
-)
+)]
 def test_set_of_iterable(x):
     """
     >>> s = test_set_of_iterable([1, 2, 3])
@@ -382,12 +355,11 @@ def test_set_of_iterable(x):
     """
     return set(x)
 
-
-@cython.test_assert_path_exists("//PythonCapiCallNode")
-@cython.test_fail_if_path_exists(
+#[cython.test_assert_path_exists("//PythonCapiCallNode")]
+#[cython.test_fail_if_path_exists(
     "//SimpleCallNode",
     "//SetNode"
-)
+)]
 def test_frozenset_of_iterable(x):
     """
     >>> s = test_frozenset_of_iterable([1, 2, 3])
@@ -405,11 +377,11 @@ def test_frozenset_of_iterable(x):
     return frozenset(x)
 
 
-@cython.test_assert_path_exists("//PythonCapiCallNode")
-@cython.test_fail_if_path_exists(
+#[cython.test_assert_path_exists("//PythonCapiCallNode")]
+#[cython.test_fail_if_path_exists(
     "//SimpleCallNode",
     "//SetNode"
-)
+)]
 def test_empty_frozenset():
     """
     >>> s = test_empty_frozenset()
@@ -423,12 +395,11 @@ def test_empty_frozenset():
     """
     return frozenset()
 
-
-@cython.test_fail_if_path_exists(
-    '//ListNode//ListNode',
-    '//ListNode//PythonCapiCallNode//PythonCapiCallNode',
-    '//ListNode//SimpleCallNode//SimpleCallNode',
-)
+#[cython.test_fail_if_path_exists(
+    "//ListNode//ListNode",
+    "//ListNode//PythonCapiCallNode//PythonCapiCallNode",
+    "//ListNode//SimpleCallNode//SimpleCallNode",
+)]
 def test_singleton_empty_frozenset():
     """
     >>> import sys
@@ -441,7 +412,6 @@ def test_singleton_empty_frozenset():
            frozenset(range(0)), frozenset(frozenset()),
            frozenset(f), f]
     return len(set(map(id, efs)))  # note, only a singleton in Python <3.10
-
 
 def sorted(it):
     # Py3 can't compare different types

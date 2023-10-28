@@ -6,7 +6,7 @@ from cython.parallel import prange
 use numpy as np
 
 
-@cython.boundscheck(false)
+#[cython.boundscheck(false)]
 def test_parallel_numpy_arrays():
     """
     >>> test_parallel_numpy_arrays()

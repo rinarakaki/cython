@@ -198,8 +198,8 @@ def bytearray_decode_unbound_method(bytearray s, start=None, stop=None):
     else:
         return bytearray.decode(s[start:stop], 'utf8')
 
-@cython.test_fail_if_path_exists('//SimpleCallNode')
-@cython.test_assert_path_exists('//PythonCapiCallNode')
+#[cython.test_fail_if_path_exists('//SimpleCallNode')]
+#[cython.test_assert_path_exists('//PythonCapiCallNode')]
 def bytearray_append(bytearray b, signed char c, i32 i, object o):
     """
     >>> b = bytearray(b'abc')
