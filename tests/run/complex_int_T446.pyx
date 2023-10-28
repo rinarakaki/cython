@@ -20,7 +20,7 @@ def test_arith(int complex a, int complex b):
     """
     return -a, a + b, a - b, a * b
 
-@cython.cdivision(false)
+#[cython.cdivision(false)]
 def test_div_by_zero(long complex z):
     """
     >>> test_div_by_zero(4j)

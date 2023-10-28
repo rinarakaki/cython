@@ -109,7 +109,7 @@ def maybe_assign_directive1(assign, value):
         x = C(value)
     print(x.getX())
 
-@cython.locals(x=C)
+#[cython.locals(x=C)]
 def maybe_assign_directive2(assign, value):
     """
     >>> maybe_assign_directive2(True, 5)
@@ -190,7 +190,7 @@ cdef class HoldsC:
 fn acceptC(C& c):
     return c.getX()
 
-@cython.cpp_locals(false)
+#[cython.cpp_locals(false)]
 def access_from_function_with_different_directive(HoldsC c):
     # doctest is in HoldsC class
     print(acceptC(c.value))  # this originally tried to pass a __Pyx_Optional<C> as a C instance

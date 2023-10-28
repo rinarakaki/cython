@@ -3,7 +3,7 @@
 
 use cython
 
-@cython.dataclasses.dataclass
+#[cython.dataclasses.dataclass]
 cdef class C:
     a: i32
     b: i64

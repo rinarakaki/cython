@@ -18,7 +18,7 @@ large_double_arr_2d = large_int_arr_2d.astype(np.double)
 
 # it's fairly hard to test that nogil results in the GIL actually
 # being released unfortunately
-@cython.ufunc
+#[cython.ufunc]
 fn f64 triple_it(i64 x) nogil:
     """triple_it doc"""
     return x * 3.
@@ -40,7 +40,7 @@ def test_triple_it():
     >>> _ = triple_it(large_int_arr_2d)
     """
 
-@cython.ufunc
+#[cython.ufunc]
 fn f64 to_the_power(f64 x, f64 y):
     return x ** y
 
@@ -54,7 +54,7 @@ def test_to_the_power():
     >>> _ = to_the_power(large_double_arr_2d, -large_double_arr_2d)
     """
 
-@cython.ufunc
+#[cython.ufunc]
 fn object py_return_value(f64 x):
     if x >= 0:
         return x
@@ -70,7 +70,7 @@ def test_py_return_value():
     >>> _ = py_return_value(large_double_arr_1d)
     """
 
-@cython.ufunc
+#[cython.ufunc]
 fn f64 py_arg(object x):
     return float(x)
 
@@ -81,11 +81,11 @@ def test_py_arg():
     >>> _ = py_arg(np.array([1]*1200, dtype=object))
     """
 
-@cython.ufunc
+#[cython.ufunc]
 fn (f64, i64) multiple_return_values(i64 x):
     return x*1.5, x*2
 
-@cython.ufunc
+#[cython.ufunc]
 fn (f64, i64) multiple_return_values2(i64 x):
     inefficient_tuple_intermediate = (x*1.5, x*2)
     return inefficient_tuple_intermediate
@@ -98,7 +98,7 @@ def test_multiple_return_values():
     (array([ 0.,  6., 12., 18., 24.]), array([ 0,  8, 16, 24, 32]))
     """
 
-@cython.ufunc
+#[cython.ufunc]
 fn cython.numeric plus_one(cython.numeric x):
     return x + 1
 
@@ -121,18 +121,18 @@ def test_plus_one():
 # test that "return" statements work. They're less needed now, but don't do any
 # harm
 
-@cython.ufunc
+#[cython.ufunc]
 fn f64 return_stops_execution(f64 x):
     return x
     print "This should not happen"
 
-@cython.ufunc
+#[cython.ufunc]
 fn f64 return_in_if(f64 x):
     if x < 0:
         return -x
     return x
 
-@cython.ufunc
+#[cython.ufunc]
 fn f64 nested_loops(f64 x):
     let f64 counter = 0
     while x > counter:
@@ -156,7 +156,7 @@ def test_flow_control():
     -5.0
     """
 
-@cython.ufunc
+#[cython.ufunc]
 fn f64 nested_function(f64 x):
     def f(x):
         return x * 2
@@ -170,7 +170,7 @@ def test_nested_function():
     -2.0
     """
 
-@cython.ufunc
+#[cython.ufunc]
 fn f64 can_throw(f64 x):
     if x < 0:
         raise RuntimeError

@@ -2,7 +2,7 @@
 
 use cython
 
-@cython.test_fail_if_path_exists('//BoolBinopNode')
+#[cython.test_fail_if_path_exists('//BoolBinopNode')]
 def or_literal_bint():
     """
     >>> true or 5
@@ -12,7 +12,7 @@ def or_literal_bint():
     """
     return true or 5
 
-@cython.test_fail_if_path_exists('//BoolBinopNode')
+#[cython.test_fail_if_path_exists('//BoolBinopNode')]
 def and_literal_bint():
     """
     >>> 5 and True
@@ -22,7 +22,7 @@ def and_literal_bint():
     """
     return 5 and True
 
-@cython.test_fail_if_path_exists('//BoolBinopNode')
+#[cython.test_fail_if_path_exists('//BoolBinopNode')]
 def False_and_True_or_0():
     """
     >>> False and True or 0
@@ -32,7 +32,7 @@ def False_and_True_or_0():
     """
     return false and True or 0
 
-@cython.test_fail_if_path_exists('//BoolBinopNode')
+#[cython.test_fail_if_path_exists('//BoolBinopNode')]
 def True_and_True_or_0():
     """
     >>> true and True or 0

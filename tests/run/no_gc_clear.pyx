@@ -26,7 +26,7 @@ def is_closure_tp_clear_null(func):
     return is_tp_clear_null(
         <object>(<__pyx_CyFunctionObject*>func).func_closure)
 
-@cython.no_gc_clear
+#[cython.no_gc_clear]
 cdef class DisableTpClear:
     """
     An extension type that has a tp_clear method generated to test that it

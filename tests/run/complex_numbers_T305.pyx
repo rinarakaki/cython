@@ -104,7 +104,7 @@ def test_int_pow(c64 z, i32 n, tol=None):
     else:
         return abs(z ** n / <object>z ** <object>n - 1) < tol
 
-@cython.cdivision(false)
+#[cython.cdivision(false)]
 def test_div_by_zero(c64 z):
     """
     >>> test_div_by_zero(4j)

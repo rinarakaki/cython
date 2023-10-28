@@ -84,7 +84,6 @@ def unicode_ordinal(Py_UNICODE i):
     """
     return i
 
-
 def ord_pyunicode(Py_UNICODE x):
     """
     >>> ord_pyunicode(u0)
@@ -96,9 +95,8 @@ def ord_pyunicode(Py_UNICODE x):
     """
     return ord(x)
 
-
-@cython.test_assert_path_exists('//PythonCapiCallNode')
-@cython.test_fail_if_path_exists('//SimpleCallNode')
+#[cython.test_assert_path_exists("//PythonCapiCallNode")]
+#[cython.test_fail_if_path_exists("//SimpleCallNode")]
 def unicode_type_methods(Py_UNICODE uchar):
     """
     >>> unicode_type_methods(ord('A'))
@@ -123,8 +121,8 @@ def unicode_type_methods(Py_UNICODE uchar):
         uchar.isupper(),
         ]
 
-#@cython.test_assert_path_exists('//PythonCapiCallNode')
-#@cython.test_fail_if_path_exists('//SimpleCallNode')
+# #[cython.test_assert_path_exists('//PythonCapiCallNode')]
+# #[cython.test_fail_if_path_exists('//SimpleCallNode')]
 def unicode_methods(Py_UNICODE uchar):
     """
     >>> unicode_methods(ord('A')) == ['a', 'A', 'A']
@@ -139,9 +137,9 @@ def unicode_methods(Py_UNICODE uchar):
         uchar.title(),
         ]
 
-@cython.test_assert_path_exists('//IntNode')
-@cython.test_fail_if_path_exists('//SimpleCallNode',
-                                 '//PythonCapiCallNode')
+#[cython.test_assert_path_exists("//IntNode")]
+#[cython.test_fail_if_path_exists("//SimpleCallNode",
+                                  "//PythonCapiCallNode")]
 def len_uchar(Py_UNICODE uchar):
     """
     >>> len_uchar(ord('A'))
@@ -166,10 +164,10 @@ mixed_ustring = u'AbcDefGhIjKlmnoP'
 lower_ustring = mixed_ustring.lower()
 upper_ustring = mixed_ustring.lower()
 
-@cython.test_assert_path_exists('//PythonCapiCallNode',
-                                '//ForFromStatNode')
-@cython.test_fail_if_path_exists('//SimpleCallNode',
-                                 '//ForInStatNode')
+#[cython.test_assert_path_exists("//PythonCapiCallNode",
+                                 "//ForFromStatNode")]
+#[cython.test_fail_if_path_exists("//SimpleCallNode",
+                                  "//ForInStatNode")]
 def count_lower_case_characters(unicode ustring):
     """
     >>> count_lower_case_characters(mixed_ustring)
@@ -183,10 +181,10 @@ def count_lower_case_characters(unicode ustring):
              count += 1
     return count
 
-@cython.test_assert_path_exists('//PythonCapiCallNode',
-                                '//ForFromStatNode')
-@cython.test_fail_if_path_exists('//SimpleCallNode',
-                                 '//ForInStatNode')
+#[cython.test_assert_path_exists('//PythonCapiCallNode',
+                                 '//ForFromStatNode')]
+#[cython.test_fail_if_path_exists('//SimpleCallNode',
+                                  '//ForInStatNode')]
 def count_lower_case_characters_slice(unicode ustring):
     """
     >>> count_lower_case_characters_slice(mixed_ustring)
@@ -200,9 +198,9 @@ def count_lower_case_characters_slice(unicode ustring):
              count += 1
     return count
 
-@cython.test_assert_path_exists('//SwitchStatNode',
-                                '//ForFromStatNode')
-@cython.test_fail_if_path_exists('//ForInStatNode')
+#[cython.test_assert_path_exists('//SwitchStatNode',
+                                 '//ForFromStatNode')]
+#[cython.test_fail_if_path_exists('//ForInStatNode')]
 def iter_and_in():
     """
     >>> iter_and_in()
@@ -216,8 +214,8 @@ def iter_and_in():
         if c in u'abCDefGh':
             print c
 
-@cython.test_assert_path_exists('//SwitchStatNode')
-@cython.test_fail_if_path_exists('//ForInStatNode')
+#[cython.test_assert_path_exists('//SwitchStatNode')]
+#[cython.test_fail_if_path_exists('//ForInStatNode')]
 def index_and_in():
     """
     >>> index_and_in()
@@ -252,5 +250,5 @@ def uchar_lookup_in_dict(obj, Py_UNICODE uchar):
 
 
 _WARNINGS = """
-250:16: Item lookup of unicode character codes now always converts to a Unicode string. Use an explicit C integer cast to get back the previous integer lookup behaviour.
+248:16: Item lookup of unicode character codes now always converts to a Unicode string. Use an explicit C integer cast to get back the previous integer lookup behaviour.
 """

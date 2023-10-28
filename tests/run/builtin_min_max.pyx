@@ -12,8 +12,8 @@ class loud_list(list):
 
 # min()
 
-@cython.test_assert_path_exists("//CondExprNode")
-@cython.test_fail_if_path_exists("//SimpleCallNode")
+#[cython.test_assert_path_exists("//CondExprNode")]
+#[cython.test_fail_if_path_exists("//SimpleCallNode")]
 def min3(a, b, c):
     """
     >>> min3(1, 2, 3)
@@ -30,8 +30,8 @@ def min3(a, b, c):
     return min(a, b, c)
 
 
-@cython.test_assert_path_exists("//CondExprNode")
-@cython.test_fail_if_path_exists("//SimpleCallNode")
+#[cython.test_assert_path_exists("//CondExprNode")]
+#[cython.test_fail_if_path_exists("//SimpleCallNode")]
 def min3_list(a, b, c):
     """
     >>> min3_list(1, 2, 3)
@@ -48,8 +48,8 @@ def min3_list(a, b, c):
     return min([a, b, c])
 
 
-@cython.test_assert_path_exists("//CondExprNode")
-@cython.test_fail_if_path_exists("//SimpleCallNode")
+#[cython.test_assert_path_exists("//CondExprNode")]
+#[cython.test_fail_if_path_exists("//SimpleCallNode")]
 def min3_tuple(a, b, c):
     """
     >>> min3_tuple(1, 2, 3)
@@ -65,8 +65,8 @@ def min3_tuple(a, b, c):
     """
     return min((a, b, c))
 
-@cython.test_assert_path_exists("//CondExprNode")
-@cython.test_fail_if_path_exists("//SimpleCallNode")
+#[cython.test_assert_path_exists("//CondExprNode")]
+#[cython.test_fail_if_path_exists("//SimpleCallNode")]
 def min3_typed(i32 a, i32 b, i32 c):
     """
     >>> min3_typed(1, 2, 3)
@@ -82,8 +82,8 @@ def min3_typed(i32 a, i32 b, i32 c):
     """
     return min(a, b, c)
 
-@cython.test_assert_path_exists("//CondExprNode")
-@cython.test_fail_if_path_exists("//SimpleCallNode")
+#[cython.test_assert_path_exists("//CondExprNode")]
+#[cython.test_fail_if_path_exists("//SimpleCallNode")]
 def literal_min3():
     """
     >>> literal_min3()
@@ -171,8 +171,8 @@ def test_minN():
 
 # max()
 
-@cython.test_assert_path_exists("//CondExprNode")
-@cython.test_fail_if_path_exists("//SimpleCallNode")
+#[cython.test_assert_path_exists("//CondExprNode")]
+#[cython.test_fail_if_path_exists("//SimpleCallNode")]
 def max3(a, b, c):
     """
     >>> max3(1, 2, 3)
@@ -189,8 +189,8 @@ def max3(a, b, c):
     return max(a, b, c)
 
 
-@cython.test_assert_path_exists("//CondExprNode")
-@cython.test_fail_if_path_exists("//SimpleCallNode")
+#[cython.test_assert_path_exists("//CondExprNode")]
+#[cython.test_fail_if_path_exists("//SimpleCallNode")]
 def max3_typed(i32 a, i32 b, i32 c):
     """
     >>> max3_typed(1, 2, 3)
@@ -207,8 +207,8 @@ def max3_typed(i32 a, i32 b, i32 c):
     return max(a, b, c)
 
 
-@cython.test_assert_path_exists("//CondExprNode")
-@cython.test_fail_if_path_exists("//SimpleCallNode")
+#[cython.test_assert_path_exists("//CondExprNode")]
+#[cython.test_fail_if_path_exists("//SimpleCallNode")]
 def literal_max3():
     """
     >>> literal_max3()
@@ -310,8 +310,8 @@ def test_maxN():
 # ticket 772
 # FIXME: signed vs. unsigned fails to safely handle intermediate results
 
-@cython.test_assert_path_exists("//CondExprNode")
-@cython.test_fail_if_path_exists("//SimpleCallNode")
+#[cython.test_assert_path_exists("//CondExprNode")]
+#[cython.test_fail_if_path_exists("//SimpleCallNode")]
 def max3_typed_signed_unsigned(i32 a, u32 b, i32 c):
     """
     >>> max3_typed_signed_unsigned(1,2,-3)

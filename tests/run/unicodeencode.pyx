@@ -29,7 +29,7 @@ def encode_non_constant(encoding):
     """
     return text.encode(encoding)
 
-@cython.test_assert_path_exists('//PythonCapiFunctionNode[@cname = "PyUnicode_AsUTF8String"]')
+#[cython.test_assert_path_exists('//PythonCapiFunctionNode[@cname = "PyUnicode_AsUTF8String"]')]
 def utf8():
     """
     >>> isinstance(utf8(), _bytes)
@@ -39,7 +39,7 @@ def utf8():
     """
     return text.encode(u'UTF-8')
 
-@cython.test_assert_path_exists('//PythonCapiFunctionNode[@cname = "PyUnicode_AsUTF8String"]')
+#[cython.test_assert_path_exists('//PythonCapiFunctionNode[@cname = "PyUnicode_AsUTF8String"]')]
 def utf8_strict():
     """
     >>> isinstance(utf8_strict(), _bytes)
@@ -49,7 +49,7 @@ def utf8_strict():
     """
     return text.encode(u'UTF-8', u'strict')
 
-@cython.test_assert_path_exists('//PythonCapiFunctionNode[@cname = "PyUnicode_AsUTF8String"]')
+#[cython.test_assert_path_exists('//PythonCapiFunctionNode[@cname = "PyUnicode_AsUTF8String"]')]
 def utf8_str_strict():
     """
     >>> isinstance(utf8_str_strict(), _bytes)
@@ -59,7 +59,7 @@ def utf8_str_strict():
     """
     return text.encode('UTF-8', 'strict')
 
-@cython.test_assert_path_exists('//PythonCapiFunctionNode[@cname = "PyUnicode_AsUTF8String"]')
+#[cython.test_assert_path_exists('//PythonCapiFunctionNode[@cname = "PyUnicode_AsUTF8String"]')]
 def utf8_bytes_strict():
     """
     >>> isinstance(utf8_bytes_strict(), _bytes)
@@ -69,7 +69,7 @@ def utf8_bytes_strict():
     """
     return text.encode(b'UTF-8', b'strict')
 
-@cython.test_assert_path_exists('//PythonCapiFunctionNode[@cname = "PyUnicode_AsEncodedString"]')
+#[cython.test_assert_path_exists('//PythonCapiFunctionNode[@cname = "PyUnicode_AsEncodedString"]')]
 def ascii_replace():
     """
     >>> isinstance(ascii_replace(), _bytes)
@@ -88,7 +88,7 @@ def cp850_strict():
     """
     return text.encode(u'cp850', u'strict')
 
-@cython.test_assert_path_exists('//PythonCapiFunctionNode[@cname = "PyUnicode_AsLatin1String"]')
+#[cython.test_assert_path_exists('//PythonCapiFunctionNode[@cname = "PyUnicode_AsLatin1String"]')]
 def latin1():
     """
     >>> isinstance(latin1(), _bytes)
@@ -98,7 +98,7 @@ def latin1():
     """
     return text.encode(u'latin-1')
 
-@cython.test_fail_if_path_exists('//PythonCapiFunctionNode', '//SimpleCallNode')
+#[cython.test_fail_if_path_exists('//PythonCapiFunctionNode', '//SimpleCallNode')]
 def latin1_constant():
     """
     >>> isinstance(latin1_constant(), _bytes)

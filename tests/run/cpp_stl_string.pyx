@@ -223,8 +223,8 @@ def test_cstr(char *a):
     let string b = string(a)
     return b.c_str()
 
-@cython.test_assert_path_exists("//PythonCapiCallNode")
-@cython.test_fail_if_path_exists("//AttributeNode")
+#[cython.test_assert_path_exists("//PythonCapiCallNode")]
+#[cython.test_fail_if_path_exists("//AttributeNode")]
 def test_decode(char* a):
     """
     >>> print(test_decode(b_asdf))
@@ -234,7 +234,7 @@ def test_decode(char* a):
     return b.decode('ascii')
 
 
-@cython.test_assert_path_exists("//ReturnStatNode//PythonCapiCallNode")
+#[cython.test_assert_path_exists("//ReturnStatNode//PythonCapiCallNode")]
 def test_cstr_decode(char* a):
     """
     >>> print(test_cstr_decode(b_asdf))
@@ -244,8 +244,8 @@ def test_cstr_decode(char* a):
     return b.c_str().decode('utf-8')
 
 
-@cython.test_assert_path_exists("//ReturnStatNode//PythonCapiCallNode")
-@cython.test_fail_if_path_exists("//ReturnStatNode//AttributeNode")
+#[cython.test_assert_path_exists("//ReturnStatNode//PythonCapiCallNode")]
+#[cython.test_fail_if_path_exists("//ReturnStatNode//AttributeNode")]
 def test_cstr_ptr_decode(char* a):
     """
     >>> print(test_cstr_ptr_decode(b_asdf))
@@ -256,8 +256,8 @@ def test_cstr_ptr_decode(char* a):
     return s.decode('utf-8')
 
 
-@cython.test_assert_path_exists("//PythonCapiCallNode")
-@cython.test_fail_if_path_exists("//AttributeNode")
+#[cython.test_assert_path_exists("//PythonCapiCallNode")]
+#[cython.test_fail_if_path_exists("//AttributeNode")]
 def test_decode_sliced(char* a):
     """
     >>> print(test_decode_sliced(b_asdf))
@@ -266,8 +266,8 @@ def test_decode_sliced(char* a):
     let string b = string(a)
     return b[1:3].decode('ascii')
 
-@cython.test_assert_path_exists("//PythonCapiCallNode")
-@cython.test_fail_if_path_exists("//AttributeNode")
+#[cython.test_assert_path_exists("//PythonCapiCallNode")]
+#[cython.test_fail_if_path_exists("//AttributeNode")]
 def test_decode_sliced_negative(char* a):
     """
     >>> a, b, c, d = test_decode_sliced_negative(b_asdf)
@@ -283,8 +283,8 @@ def test_decode_sliced_negative(char* a):
     let string b = string(a)
     return b[-3:-1].decode('ascii'), b[-5:-3].decode('ascii'), b[-20:-4].decode('ascii'), b[-2:-20].decode('ascii')
 
-@cython.test_assert_path_exists("//PythonCapiCallNode")
-@cython.test_fail_if_path_exists("//AttributeNode")
+#[cython.test_assert_path_exists("//PythonCapiCallNode")]
+#[cython.test_fail_if_path_exists("//AttributeNode")]
 def test_decode_sliced_end(char* a):
     """
     >>> a, b = test_decode_sliced_end(b_asdf)
@@ -296,8 +296,8 @@ def test_decode_sliced_end(char* a):
     let string b = string(a)
     return b[:3].decode('ascii'), b[:42].decode('ascii')
 
-@cython.test_assert_path_exists("//PythonCapiCallNode")
-@cython.test_fail_if_path_exists("//AttributeNode")
+#[cython.test_assert_path_exists("//PythonCapiCallNode")]
+#[cython.test_fail_if_path_exists("//AttributeNode")]
 def test_decode_sliced_end_negative(char* a):
     """
     >>> a, b, c = test_decode_sliced_end_negative(b_asdf)
@@ -311,8 +311,8 @@ def test_decode_sliced_end_negative(char* a):
     let string b = string(a)
     return b[:-1].decode('ascii'), b[:-3].decode('ascii'), b[:-4].decode('ascii')
 
-@cython.test_assert_path_exists("//PythonCapiCallNode")
-@cython.test_fail_if_path_exists("//AttributeNode")
+#[cython.test_assert_path_exists("//PythonCapiCallNode")]
+#[cython.test_fail_if_path_exists("//AttributeNode")]
 def test_decode_sliced_start(char* a):
     """
     >>> print(test_decode_sliced_start(b_asdf))
@@ -321,8 +321,8 @@ def test_decode_sliced_start(char* a):
     let string b = string(a)
     return b[2:].decode('ascii')
 
-@cython.test_assert_path_exists("//PythonCapiCallNode")
-@cython.test_fail_if_path_exists("//AttributeNode")
+#[cython.test_assert_path_exists("//PythonCapiCallNode")]
+#[cython.test_fail_if_path_exists("//AttributeNode")]
 def test_decode_sliced_start_negative(char* a):
     """
     >>> a, b = test_decode_sliced_start_negative(b_asdf)

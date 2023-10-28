@@ -5,8 +5,8 @@
 
 use cython
 
-#@cython.test_assert_path_exists('//ComprehensionNode')
-#@cython.test_fail_if_path_exists('//SimpleCallNode')
+##[cython.test_assert_path_exists('//ComprehensionNode')]
+##[cython.test_fail_if_path_exists('//SimpleCallNode')]
 def list_genexpr_iterable_lookup():
     """
     >>> x = (0,1,2,3,4,5)
@@ -22,8 +22,8 @@ def list_genexpr_iterable_lookup():
     return result
 
 
-#@cython.test_assert_path_exists('//ComprehensionNode')
-#@cython.test_fail_if_path_exists('//SingleAssignmentNode//SimpleCallNode')
+##[cython.test_assert_path_exists('//ComprehensionNode')]
+##[cython.test_fail_if_path_exists('//SingleAssignmentNode//SimpleCallNode')]
 def genexpr_iterable_in_closure():
     """
     >>> genexpr_iterable_in_closure()
@@ -72,7 +72,7 @@ def genexpr_in_listcomp(L):
     return list(d for d in [list(d for d in d) for d in L])
 
 
-@cython.test_assert_path_exists('//ForFromStatNode')
+#[cython.test_assert_path_exists('//ForFromStatNode')]
 def genexpr_range_in_listcomp(L):
     """
     >>> genexpr_range_in_listcomp( [1, 2, 3] )
@@ -82,7 +82,7 @@ def genexpr_range_in_listcomp(L):
     return [list(d for d in range(z)) for z in L]
 
 
-@cython.test_fail_if_path_exists('//ForInStatNode')
+#[cython.test_fail_if_path_exists('//ForInStatNode')]
 def genexpr_in_dictcomp_dictiter():
     """
     >>> sorted(genexpr_in_dictcomp_dictiter())
