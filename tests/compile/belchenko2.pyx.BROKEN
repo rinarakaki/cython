@@ -1,11 +1,11 @@
 cdef extern from "belchenko2.h":
     void c_func(u8 pixel)
 
-def f(u8 pixel):
+fn f(u8 pixel):
     c_func(pixel)
 
-def g(signed char pixel):
+fn g(signed char pixel):
     c_func(pixel)
 
-def h(i8 pixel):
+fn h(i8 pixel):
     c_func(pixel)
