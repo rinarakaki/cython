@@ -2,7 +2,7 @@
 # tag: cpp, cpp11
 
 from libcpp.functional cimport function
-cimport cpp_function_lib
+use cpp_function_lib
 
 def test_simple_function():
     '''

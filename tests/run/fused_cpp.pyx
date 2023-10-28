@@ -1,6 +1,6 @@
 # tag: cpp
 
-cimport cython
+use cython
 from libcpp.vector cimport vector
 from libcpp.map cimport map
 from libcpp.typeinfo cimport type_info
@@ -32,7 +32,7 @@ def typeid_call(C x):
     let const type_info* a = &typeid(C)
     return a[0] == tidint[0]
 
-cimport cython
+use cython
 
 def typeid_call2(cython.integral x):
     """

@@ -10,7 +10,7 @@ max_int = INT_MAX
 max_long = LONG_MAX
 max_long_long = (<object>2) ** (sizeof(i128) * 8 - 1) - 1
 
-cimport cython
+use cython
 
 def abs_as_name():
     """
@@ -41,7 +41,7 @@ def sub_abs(i32 a):
     """
     return -abs(a), 100 - abs(a)
 
-@cython.overflowcheck(true)
+#[cython.overflowcheck(true)]
 @cython.test_assert_path_exists("//ReturnStatNode//NameNode[@entry.name = 'abs']",
                                 "//ReturnStatNode//NameNode[@entry.cname = 'abs']")
 def int_abs(i32 a):
@@ -59,9 +59,9 @@ def int_abs(i32 a):
     """
     return abs(a)
 
-@cython.overflowcheck(true)
-@cython.test_assert_path_exists("//ReturnStatNode//NameNode[@entry.name = 'abs']",
-                                "//ReturnStatNode//NameNode[@entry.cname = 'abs']")
+#[cython.overflowcheck(true)]
+#[cython.test_assert_path_exists("//ReturnStatNode//NameNode[@entry.name = 'abs']",
+                                 "//ReturnStatNode//NameNode[@entry.cname = 'abs']")]
 fn i32 c_int_abs(i32 a) except * nogil:
     return abs(a)
 
@@ -80,9 +80,9 @@ def test_c_int_abs(i32 a):
     """
     return c_int_abs(a)
 
-@cython.test_assert_path_exists("//ReturnStatNode//NameNode[@entry.name = 'abs']")
-@cython.test_fail_if_path_exists("//ReturnStatNode//NameNode[@entry.cname = 'abs']",
-                                 "//ReturnStatNode//NameNode[@entry.cname = 'labs']")
+#[cython.test_assert_path_exists("//ReturnStatNode//NameNode[@entry.name = 'abs']")]
+#[cython.test_fail_if_path_exists("//ReturnStatNode//NameNode[@entry.cname = 'abs']",
+                                  "//ReturnStatNode//NameNode[@entry.cname = 'labs']")]
 def uint_abs(u32 a):
     """
     >>> uint_abs(max_int) == abs(max_int)         or (max_int, uint_abs(max_int), abs(max_int))
@@ -90,9 +90,9 @@ def uint_abs(u32 a):
     """
     return abs(a)
 
-@cython.test_assert_path_exists("//ReturnStatNode//NameNode[@entry.name = 'abs']")
-@cython.test_fail_if_path_exists("//ReturnStatNode//NameNode[@entry.cname = 'abs']",
-                                 "//ReturnStatNode//NameNode[@entry.cname = 'labs']")
+#[cython.test_assert_path_exists("//ReturnStatNode//NameNode[@entry.name = 'abs']")]
+#[cython.test_fail_if_path_exists("//ReturnStatNode//NameNode[@entry.cname = 'abs']",
+                                  "//ReturnStatNode//NameNode[@entry.cname = 'labs']")]
 fn u32 c_uint_abs(u32 a) nogil:
     return abs(a)
 
@@ -103,9 +103,9 @@ def test_c_uint_abs(u32 a):
     """
     return c_uint_abs(a)
 
-@cython.overflowcheck(true)
-@cython.test_assert_path_exists("//ReturnStatNode//NameNode[@entry.name = 'abs']",
-                                "//ReturnStatNode//NameNode[@entry.cname = 'labs']")
+#[cython.overflowcheck(true)]
+#[cython.test_assert_path_exists("//ReturnStatNode//NameNode[@entry.name = 'abs']",
+                                 "//ReturnStatNode//NameNode[@entry.cname = 'labs']")]
 def long_abs(i64 a):
     """
     >>> long_abs(-5) == 5
@@ -121,9 +121,9 @@ def long_abs(i64 a):
     """
     return abs(a)
 
-@cython.overflowcheck(true)
-@cython.test_assert_path_exists("//ReturnStatNode//NameNode[@entry.name = 'abs']",
-                                "//ReturnStatNode//NameNode[@entry.cname = 'labs']")
+#[cython.overflowcheck(true)]
+#[cython.test_assert_path_exists("//ReturnStatNode//NameNode[@entry.name = 'abs']",
+                                 "//ReturnStatNode//NameNode[@entry.cname = 'labs']")]
 fn i64 c_long_abs(i64 a) except * nogil:
     return abs(a)
 
@@ -142,9 +142,9 @@ def test_c_long_abs(i64 a):
     """
     return c_long_abs(a)
 
-@cython.test_assert_path_exists("//ReturnStatNode//NameNode[@entry.name = 'abs']")
-@cython.test_fail_if_path_exists("//ReturnStatNode//NameNode[@entry.cname = 'abs']",
-                                 "//ReturnStatNode//NameNode[@entry.cname = 'labs']")
+#[cython.test_assert_path_exists("//ReturnStatNode//NameNode[@entry.name = 'abs']")]
+#[cython.test_fail_if_path_exists("//ReturnStatNode//NameNode[@entry.cname = 'abs']",
+                                  "//ReturnStatNode//NameNode[@entry.cname = 'labs']")]
 def ulong_abs(u64 a):
     """
     >>> ulong_abs(max_long) == abs(max_long)         or (max_int, ulong_abs(max_long), abs(max_long))
@@ -154,9 +154,9 @@ def ulong_abs(u64 a):
     """
     return abs(a)
 
-@cython.test_assert_path_exists("//ReturnStatNode//NameNode[@entry.name = 'abs']")
-@cython.test_fail_if_path_exists("//ReturnStatNode//NameNode[@entry.cname = 'abs']",
-                                 "//ReturnStatNode//NameNode[@entry.cname = 'labs']")
+#[cython.test_assert_path_exists("//ReturnStatNode//NameNode[@entry.name = 'abs']")]
+#[cython.test_fail_if_path_exists("//ReturnStatNode//NameNode[@entry.cname = 'abs']",
+                                  "//ReturnStatNode//NameNode[@entry.cname = 'labs']")]
 fn u64 c_ulong_abs(u64 a) nogil:
     return abs(a)
 
@@ -169,9 +169,9 @@ def test_c_ulong_abs(u64 a):
     """
     return c_ulong_abs(a)
 
-@cython.overflowcheck(true)
-@cython.test_assert_path_exists("//ReturnStatNode//NameNode[@entry.name = 'abs']",
-                                "//ReturnStatNode//NameNode[@entry.cname = '__Pyx_abs_longlong']")
+#[cython.overflowcheck(true)]
+#[cython.test_assert_path_exists("//ReturnStatNode//NameNode[@entry.name = 'abs']",
+                                 "//ReturnStatNode//NameNode[@entry.cname = '__Pyx_abs_longlong']")]
 def long_long_abs(i128 a):
     """
     >>> long_long_abs(-(2**33)) == 2**33
@@ -185,9 +185,9 @@ def long_long_abs(i128 a):
     """
     return abs(a)
 
-@cython.overflowcheck(true)
-@cython.test_assert_path_exists("//ReturnStatNode//NameNode[@entry.name = 'abs']",
-                                "//ReturnStatNode//NameNode[@entry.cname = '__Pyx_abs_longlong']")
+#[cython.overflowcheck(true)]
+#[cython.test_assert_path_exists("//ReturnStatNode//NameNode[@entry.name = 'abs']",
+                                 "//ReturnStatNode//NameNode[@entry.cname = '__Pyx_abs_longlong']")]
 fn i128 c_long_long_abs(i128 a) except * nogil:
     return abs(a)
 
@@ -204,8 +204,8 @@ def test_c_long_long_abs(i128 a):
     """
     return c_long_long_abs(a)
 
-@cython.test_assert_path_exists("//ReturnStatNode//NameNode[@entry.name = 'abs']",
-                                "//ReturnStatNode//NameNode[@entry.cname = 'fabs']")
+#[cython.test_assert_path_exists("//ReturnStatNode//NameNode[@entry.name = 'abs']",
+                                 "//ReturnStatNode//NameNode[@entry.cname = 'fabs']")]
 def double_abs(f64 a):
     """
     >>> double_abs(-5)
@@ -215,8 +215,8 @@ def double_abs(f64 a):
     """
     return abs(a)
 
-@cython.test_assert_path_exists("//ReturnStatNode//NameNode[@entry.name = 'abs']",
-                                "//ReturnStatNode//NameNode[@entry.cname = 'fabs']")
+#[cython.test_assert_path_exists("//ReturnStatNode//NameNode[@entry.name = 'abs']",
+                                 "//ReturnStatNode//NameNode[@entry.cname = 'fabs']")]
 fn f64 c_double_abs(f64 a) nogil:
     return abs(a)
 
@@ -229,8 +229,8 @@ def test_c_double_abs(f64 a):
     """
     return c_double_abs(a)
 
-@cython.test_assert_path_exists("//ReturnStatNode//NameNode[@entry.name = 'abs']",
-                                "//ReturnStatNode//NameNode[@entry.cname = 'fabsf']")
+#[cython.test_assert_path_exists("//ReturnStatNode//NameNode[@entry.name = 'abs']",
+                                 "//ReturnStatNode//NameNode[@entry.cname = 'fabsf']")]
 def float_abs(f32 a):
     """
     >>> float_abs(-5)
@@ -240,8 +240,8 @@ def float_abs(f32 a):
     """
     return abs(a)
 
-@cython.test_assert_path_exists("//ReturnStatNode//NameNode[@entry.name = 'abs']",
-                                "//ReturnStatNode//NameNode[@entry.cname = 'fabsf']")
+#[cython.test_assert_path_exists("//ReturnStatNode//NameNode[@entry.name = 'abs']",
+                                 "//ReturnStatNode//NameNode[@entry.cname = 'fabsf']")]
 fn f32 c_float_abs(f32 a) nogil:
     return abs(a)
 
@@ -254,8 +254,8 @@ def test_c_float_abs(f32 a):
     """
     return c_float_abs(a)
 
-@cython.test_assert_path_exists("//ReturnStatNode//NameNode[@entry.name = 'abs']",
-                                "//ReturnStatNode//NameNode[@entry.cname = '__Pyx_c_abs_double']")
+#[cython.test_assert_path_exists("//ReturnStatNode//NameNode[@entry.name = 'abs']",
+                                 "//ReturnStatNode//NameNode[@entry.cname = '__Pyx_c_abs_double']")]
 def complex_abs(complex a):
     """
     >>> complex_abs(-5j)
@@ -265,8 +265,8 @@ def complex_abs(complex a):
     """
     return abs(a)
 
-@cython.test_assert_path_exists("//ReturnStatNode//NameNode[@entry.name = 'abs']",
-                                "//ReturnStatNode//NameNode[@entry.cname = '__Pyx_c_abs_double']")
+#[cython.test_assert_path_exists("//ReturnStatNode//NameNode[@entry.name = 'abs']",
+                                 "//ReturnStatNode//NameNode[@entry.cname = '__Pyx_c_abs_double']")]
 fn f64 c_complex_abs(complex a) nogil:
     return abs(a)
 

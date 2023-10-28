@@ -1,6 +1,6 @@
 # mode: error
 
-cimport cython
+use cython
 
 extern from *:
     cdef cppclass Foo:

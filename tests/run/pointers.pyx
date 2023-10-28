@@ -1,4 +1,4 @@
-cimport cython
+use cython
 
 cdef char* c_string = b'abcdefg'
 cdef void* void_ptr = c_string

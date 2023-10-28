@@ -1,6 +1,6 @@
 # ticket: t425
 
-cimport cython
+use cython
 
 @cython.test_assert_path_exists(
     "//ParallelAssignmentNode",

@@ -1,7 +1,7 @@
 # mode: run
 # tag: warnings, numpy
 
-cimport numpy
+use numpy
 <void>numpy.import_array # dummy call should stop Cython auto-generating call to import_array
 
 extern from *:

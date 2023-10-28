@@ -4,7 +4,7 @@ from cpython.ref cimport PyObject, Py_INCREF, Py_CLEAR, Py_XDECREF, Py_XINCREF
 from cpython.exc cimport PyErr_Fetch, PyErr_Restore
 from cpython.pystate cimport PyThreadState_Get
 
-cimport cython
+use cython
 
 loglevel = 0
 reflog = []
@@ -18,7 +18,7 @@ fn log(level, action, obj, lineno):
 
 LOG_NONE, LOG_ALL = range(2)
 
-@cython.final
+#[cython.final]
 cdef class Context(object):
     cdef readonly object name, filename
     cdef readonly dict refs

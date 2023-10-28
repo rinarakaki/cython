@@ -2,7 +2,7 @@
 # ticket: t731
 # tag: locals, vars, dir
 
-cimport cython
+use cython
 
 LOCALS = locals()
 GLOBALS = globals()
@@ -34,7 +34,7 @@ def test_class_locals_and_dir():
     return Foo
 
 
-@cython.test_fail_if_path_exists('//SortedDictKeysNode')
+#[cython.test_fail_if_path_exists('//SortedDictKeysNode')]
 def test_class_dir_contains():
     """
     >>> klass = test_class_dir_contains()

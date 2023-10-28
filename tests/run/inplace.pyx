@@ -1,4 +1,4 @@
-cimport cython
+use cython
 
 def f(a, b):
     """
@@ -117,7 +117,7 @@ def test_side_effects():
     b[c_side_effect(4)] += 100
     return a, [b[i] for i from 0 <= i < 5]
 
-@cython.cdivision(true)
+#[cython.cdivision(true)]
 def test_inplace_cdivision(i32 a, i32 b):
     """
     >>> test_inplace_cdivision(13, 10)
@@ -132,7 +132,7 @@ def test_inplace_cdivision(i32 a, i32 b):
     a %= b
     return a
 
-@cython.cdivision(false)
+#[cython.cdivision(false)]
 def test_inplace_pydivision(i32 a, i32 b):
     """
     >>> test_inplace_pydivision(13, 10)

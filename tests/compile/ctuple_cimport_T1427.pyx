@@ -1,7 +1,7 @@
 # ticket: 1427
 # mode: compile
 
-cimport ctuple_cimport
+use ctuple_cimport
 
 # Verify same tuple defined in multiple pxd not redeclared
 ctypedef (i32, f64) int_double

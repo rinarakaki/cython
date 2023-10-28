@@ -3,13 +3,13 @@
 from cython.parallel cimport parallel, prange
 from libcpp.vector cimport vector
 from libcpp.algorithm cimport nth_element
-cimport cython
+use cython
 from cython.operator cimport dereference
 
 import numpy as np
 
-@cython.boundscheck(false)
-@cython.wraparound(false)
+#[cython.boundscheck(false)]
+#[cython.wraparound(false)]
 def median_along_axis0(const f64[:, :] x):
     let f64[::1] out = np.empty(x.shape[1])
     let isize i, j

@@ -1,4 +1,4 @@
-cimport cython
+use cython
 
 @cython.test_assert_path_exists(
     '//PythonCapiCallNode/PythonCapiFunctionNode[@cname="Py_TYPE"]')
@@ -31,7 +31,7 @@ def test_type(a, t):
     """
     return type(a) and type(a) is t and type(a) == t
 
-@cython.test_assert_path_exists('//NameNode[@name="type"]')
+#[cython.test_assert_path_exists('//NameNode[@name="type"]')]
 def type_type():
     """
     >>> type_type()(object()) is object

@@ -2,7 +2,7 @@
 import cython
 
 class Pyclass(object):
-    @cython.cfunc
+    #[cython.cfunc]
     def bad(self):
         pass
 

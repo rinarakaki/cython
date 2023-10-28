@@ -5,7 +5,7 @@ __doc__ = u"""
    'test'
 """
 
-cimport cython
+use cython
 
 s = str
 z = str('test')
@@ -43,8 +43,8 @@ def sub(string):
 #    return csubs(string)
 
 
-@cython.test_fail_if_path_exists("//SimpleCallNode")
-@cython.test_assert_path_exists("//PythonCapiCallNode")
+#[cython.test_fail_if_path_exists("//SimpleCallNode")]
+#[cython.test_assert_path_exists("//PythonCapiCallNode")]
 def typed(str s):
     """
     >>> print(typed(None))

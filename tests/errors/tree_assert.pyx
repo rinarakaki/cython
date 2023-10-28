@@ -1,6 +1,6 @@
 # mode: error
 
-cimport cython
+use cython
 
 @cython.test_fail_if_path_exists("//SimpleCallNode",
                                  "//NameNode")

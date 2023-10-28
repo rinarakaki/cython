@@ -1,6 +1,6 @@
 # mode: error
 
-cimport cython.parallel.parallel as p
+use cython.parallel.parallel as p
 from cython.parallel cimport something
 
 import cython.parallel.parallel as p
@@ -151,7 +151,7 @@ with nogil, cython.parallel.parallel():
 
 
 _ERRORS = u"""
-3:8: cython.parallel.parallel is not a module
+3:4: cython.parallel.parallel is not a module
 4:0: No such directive: cython.parallel.something
 6:7: cython.parallel.parallel is not a module
 7:0: No such directive: cython.parallel.something

@@ -1,6 +1,6 @@
 from __future__ import division
 
-cimport cython
+use cython
 
 
 def bigints(values):

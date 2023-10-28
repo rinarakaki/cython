@@ -1,8 +1,8 @@
 # ticket: t183
 
-cimport cython
+use cython
 
-@cython.cdivision(true)
+#[cython.cdivision(true)]
 cpdef cdiv_decorator(i32 a, i32 b):
     """
     >>> cdiv_decorator(-12, 5)
@@ -10,7 +10,7 @@ cpdef cdiv_decorator(i32 a, i32 b):
     """
     return a / b
 
-@cython.cdivision(false)
+#[cython.cdivision(false)]
 cpdef pydiv_decorator(i32 a, i32 b):
     """
     >>> pydiv_decorator(-12, 5)

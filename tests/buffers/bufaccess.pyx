@@ -11,7 +11,7 @@ from __future__ import unicode_literals
 
 from cpython.object cimport PyObject
 from cpython.ref cimport Py_INCREF, Py_DECREF, Py_CLEAR
-cimport cython
+use cython
 
 import sys
 #import re
@@ -565,8 +565,8 @@ def no_negative_indices(object[i32, negative_indices=false] buf, i32 idx):
     """
     return buf[idx]
 
+#[cython.wraparound(false)]
 @testcase
-@cython.wraparound(false)
 def wraparound_directive(object[i32] buf, i32 pos_idx, i32 neg_idx):
     """
     Again, the most interesting thing here is to inspect the C source.
@@ -712,9 +712,9 @@ def safe_get(object[i32] buf, i32 idx):
     """
     return buf[idx]
 
+#[cython.boundscheck(false)] # outer decorators should take precedence
+#[cython.boundscheck(true)]
 @testcase
-@cython.boundscheck(false) # outer decorators should take precedence
-@cython.boundscheck(true)
 def unsafe_get(object[i32] buf, i32 idx):
     """
     Access outside of the area the buffer publishes.
@@ -728,8 +728,8 @@ def unsafe_get(object[i32] buf, i32 idx):
     """
     return buf[idx]
 
+#[cython.boundscheck(false)]
 @testcase
-@cython.boundscheck(false)
 def unsafe_get_nonegative(object[i32, negative_indices=false] buf, i32 idx):
     """
     Also inspect the C source to see that it is optimal...
@@ -955,8 +955,8 @@ def addref(*args):
 def decref(*args):
     for item in args: Py_DECREF(item)
 
-@cython.binding(false)
-@cython.always_allow_keywords(false)
+#[cython.binding(false)]
+#[cython.always_allow_keywords(false)]
 def get_refcount(x):
     return (<PyObject*>x).ob_refcnt
 
@@ -1244,8 +1244,8 @@ def complex_struct_inplace(object[LongComplex] buf):
 #
 # Nogil
 #
+#[cython.boundscheck(false)]
 @testcase
-@cython.boundscheck(false)
 def buffer_nogil():
     """
     >>> buffer_nogil()

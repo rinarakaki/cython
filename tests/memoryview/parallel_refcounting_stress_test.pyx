@@ -2,7 +2,7 @@
 # tag: openmp
 
 from cython.parallel cimport prange
-cimport cython
+use cython
 from random import randint, random
 
 include "../buffers/mockbuffers.pxi"
@@ -12,8 +12,8 @@ include "../buffers/mockbuffers.pxi"
 # parallel that we should see errors if it isn't thread-safe.
 # It has been verified to crash if the atomic reference counting is replaced with non-atomic counting.
 
-@cython.boundscheck(false)
-@cython.wraparound(false)
+#[cython.boundscheck(false)]
+#[cython.wraparound(false)]
 def refcounting_stress_test(i32 N):
     """
     >>> _ = refcounting_stress_test(5000)
@@ -48,8 +48,8 @@ def refcounting_stress_test(i32 N):
 
     return total
 
-@cython.boundscheck(false)
-@cython.wraparound(false)
+#[cython.boundscheck(false)]
+#[cython.wraparound(false)]
 fn f64 loopbody(f64[:, :] a, f64[:, :] b, f64[:, :] c, i32 selector) nogil:
     let f64[:, :] selected
     let f64[:] subslice

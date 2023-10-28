@@ -13,7 +13,7 @@ from b cimport b
 extern from "c.h":
     cdef int c
 
-cimport indirect_d
+use indirect_d
 
 extern from "e.h":
     cdef int e

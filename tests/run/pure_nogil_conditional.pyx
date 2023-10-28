@@ -21,8 +21,8 @@ def test(x: cython.int):
     return x
 
 
-@cython.nogil
-@cython.cfunc
+#[cython.nogil]
+#[cython.cfunc]
 def f_nogil(x: cython.int) -> cython.int:
     y: cython.int
     y = x + 10
@@ -35,8 +35,8 @@ def f_gil(x):
     return y
 
 
-@cython.with_gil
-@cython.cfunc
+#[cython.with_gil]
+#[cython.cfunc]
 def f_with_gil(x: cython.int) -> cython.int:
     return x + len([1, 2] * x)
 
@@ -51,9 +51,9 @@ def test_with_gil(x: cython.int):
     return result
 
 
-@cython.nogil
-@cython.exceptval(check=false)
-@cython.cfunc
+#[cython.nogil]
+#[cython.exceptval(check=false)]
+#[cython.cfunc]
 def write_unraisable() -> cython.int:
     with cython.gil:
         raise ValueError()

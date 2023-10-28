@@ -1,7 +1,7 @@
 # mode: run
 # tag: exttype, final
 
-cimport cython
+use cython
 
 
 cdef class BaseClass:
@@ -17,7 +17,7 @@ cdef class BaseClass:
         return self.method()
 
 
-@cython.final
+#[cython.final]
 cdef class Child(BaseClass):
     """
     >>> obj = Child()

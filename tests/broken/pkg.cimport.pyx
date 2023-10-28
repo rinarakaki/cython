@@ -1,4 +1,4 @@
-cimport spam, eggs
+use spam, eggs
 
 cdef extern spam.Spam yummy
 cdef eggs.Eggs fried

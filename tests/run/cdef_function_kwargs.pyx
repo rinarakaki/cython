@@ -1,4 +1,4 @@
-cimport cython
+use cython
 
 from libc.string cimport strstr
 
@@ -24,8 +24,8 @@ fn side_effect(x):
     sideeffect.append(x)
     return x
 
-@cython.test_fail_if_path_exists('//GeneralCallNode')
-@cython.test_assert_path_exists('//SimpleCallNode')
+#[cython.test_fail_if_path_exists('//GeneralCallNode')]
+#[cython.test_assert_path_exists('//SimpleCallNode')]
 def cfunc_all_keywords():
     """
     >>> cfunc_all_keywords()
@@ -33,8 +33,8 @@ def cfunc_all_keywords():
     """
     return cfunc(a=1, b=2, c=3, d=4)
 
-@cython.test_fail_if_path_exists('//GeneralCallNode')
-@cython.test_assert_path_exists('//SimpleCallNode')
+#[cython.test_fail_if_path_exists('//GeneralCallNode')]
+#[cython.test_assert_path_exists('//SimpleCallNode')]
 def cfunc_some_keywords():
     """
     >>> cfunc_some_keywords()
@@ -42,8 +42,8 @@ def cfunc_some_keywords():
     """
     return cfunc(1, 2, c=3, d=4)
 
-@cython.test_fail_if_path_exists('//GeneralCallNode')
-@cython.test_assert_path_exists('//SimpleCallNode')
+#[cython.test_fail_if_path_exists('//GeneralCallNode')]
+#[cython.test_assert_path_exists('//SimpleCallNode')]
 def cfunc_some_keywords_unordered():
     """
     >>> cfunc_some_keywords_unordered()
@@ -51,8 +51,8 @@ def cfunc_some_keywords_unordered():
     """
     return cfunc(1, 2, d=4, c=3)
 
-@cython.test_fail_if_path_exists('//GeneralCallNode')
-@cython.test_assert_path_exists('//SimpleCallNode')
+#[cython.test_fail_if_path_exists('//GeneralCallNode')]
+#[cython.test_assert_path_exists('//SimpleCallNode')]
 def cfunc_some_keywords_unordered_sideeffect():
     """
     >>> del sideeffect[:]
@@ -63,8 +63,8 @@ def cfunc_some_keywords_unordered_sideeffect():
     """
     return cfunc(1, 2, d=side_effect(4), c=side_effect(3))
 
-@cython.test_fail_if_path_exists('//GeneralCallNode')
-@cython.test_assert_path_exists('//SimpleCallNode')
+#[cython.test_fail_if_path_exists('//GeneralCallNode')]
+#[cython.test_assert_path_exists('//SimpleCallNode')]
 def cpfunc_all_keywords():
     """
     >>> cpfunc_all_keywords()
@@ -72,8 +72,8 @@ def cpfunc_all_keywords():
     """
     return cpfunc(a=1, b=2, c=3, d=4)
 
-@cython.test_fail_if_path_exists('//GeneralCallNode')
-@cython.test_assert_path_exists('//SimpleCallNode')
+#[cython.test_fail_if_path_exists('//GeneralCallNode')]
+#[cython.test_assert_path_exists('//SimpleCallNode')]
 def cpfunc_some_keywords():
     """
     >>> cpfunc_some_keywords()
@@ -81,8 +81,8 @@ def cpfunc_some_keywords():
     """
     return cpfunc(1, 2, c=3, d=4)
 
-@cython.test_fail_if_path_exists('//GeneralCallNode')
-@cython.test_assert_path_exists('//SimpleCallNode')
+#[cython.test_fail_if_path_exists('//GeneralCallNode')]
+#[cython.test_assert_path_exists('//SimpleCallNode')]
 def cpfunc_some_keywords_unordered():
     """
     >>> cpfunc_some_keywords_unordered()
@@ -90,8 +90,8 @@ def cpfunc_some_keywords_unordered():
     """
     return cpfunc(1, 2, d=4, c=3)
 
-@cython.test_fail_if_path_exists('//GeneralCallNode')
-@cython.test_assert_path_exists('//SimpleCallNode')
+#[cython.test_fail_if_path_exists('//GeneralCallNode')]
+#[cython.test_assert_path_exists('//SimpleCallNode')]
 def cpfunc_some_keywords_unordered_sideeffect():
     """
     >>> del sideeffect[:]
@@ -102,8 +102,8 @@ def cpfunc_some_keywords_unordered_sideeffect():
     """
     return cpfunc(1, 2, d=side_effect(4), c=side_effect(3))
 
-@cython.test_fail_if_path_exists('//GeneralCallNode')
-@cython.test_assert_path_exists('//SimpleCallNode')
+#[cython.test_fail_if_path_exists('//GeneralCallNode')]
+#[cython.test_assert_path_exists('//SimpleCallNode')]
 def libc_strstr():
     """
     >>> libc_strstr()
@@ -117,8 +117,8 @@ def libc_strstr():
         strstr(haystack="abc", needle="xabcz") is NULL,
         )
 
-@cython.test_fail_if_path_exists('//GeneralCallNode')
-@cython.test_assert_path_exists('//SimpleCallNode')
+#[cython.test_fail_if_path_exists('//GeneralCallNode')]
+#[cython.test_assert_path_exists('//SimpleCallNode')]
 def cdef_optargs():
     """
     >>> cdef_optargs()
@@ -154,8 +154,8 @@ def cdef_optargs():
     print(optargs(b=12, c=13, a=11))
     print(optargs(c=13, a=11, b=12))
 
-@cython.test_fail_if_path_exists('//GeneralCallNode')
-@cython.test_assert_path_exists('//SimpleCallNode')
+#[cython.test_fail_if_path_exists('//GeneralCallNode')]
+#[cython.test_assert_path_exists('//SimpleCallNode')]
 def cdef_funcptr():
     """
     >>> cdef_funcptr()
@@ -176,8 +176,8 @@ def cdef_funcptr():
 
 from libc.stdio cimport snprintf
 
-@cython.test_fail_if_path_exists('//GeneralCallNode')
-@cython.test_assert_path_exists('//SimpleCallNode')
+#[cython.test_fail_if_path_exists('//GeneralCallNode')]
+#[cython.test_assert_path_exists('//SimpleCallNode')]
 def varargs():
     """
     >>> print(varargs())
@@ -194,8 +194,8 @@ cdef class ExtType:
     fn cmeth(self, a, b, c, d):
         return (a, b, c, d)
 
-    @cython.test_fail_if_path_exists('//GeneralCallNode')
-    @cython.test_assert_path_exists('//SimpleCallNode')
+    #[cython.test_fail_if_path_exists('//GeneralCallNode')]
+    #[cython.test_assert_path_exists('//SimpleCallNode')]
     def call_cmeth(self, ExtType ext):
         """
         >>> x = ExtType()
@@ -219,8 +219,8 @@ cdef class ExtType:
     cpdef cpmeth(self, a, b, c, d):
         return (a, b, c, d)
 
-    @cython.test_fail_if_path_exists('//GeneralCallNode')
-    @cython.test_assert_path_exists('//SimpleCallNode')
+    #[cython.test_fail_if_path_exists('//GeneralCallNode')]
+    #[cython.test_assert_path_exists('//SimpleCallNode')]
     def call_cpmeth(self, ExtType ext):
         """
         >>> x = ExtType()
@@ -244,8 +244,8 @@ cdef class ExtType:
     fn optargs(self, a=1, b=2):
         return (a, b)
 
-    @cython.test_fail_if_path_exists('//GeneralCallNode')
-    @cython.test_assert_path_exists('//SimpleCallNode')
+    #[cython.test_fail_if_path_exists('//GeneralCallNode')]
+    #[cython.test_assert_path_exists('//SimpleCallNode')]
     def call_optargs(self, ExtType ext):
         """
         >>> x = ExtType()
@@ -283,8 +283,8 @@ cdef class ExtType:
     cpdef cpmeth_optargs(self, a=1, b=2):
         return (a, b)
 
-    @cython.test_fail_if_path_exists('//GeneralCallNode')
-    @cython.test_assert_path_exists('//SimpleCallNode')
+    #[cython.test_fail_if_path_exists('//GeneralCallNode')]
+    #[cython.test_assert_path_exists('//SimpleCallNode')]
     def call_cpmeth_optargs(self, ExtType ext):
         """
         >>> x = ExtType()
@@ -322,8 +322,8 @@ cdef class ExtType:
     cpdef cpmeth_optargs1(self, a=1):
         return a
 
-    @cython.test_fail_if_path_exists('//GeneralCallNode')
-    @cython.test_assert_path_exists('//SimpleCallNode')
+    #[cython.test_fail_if_path_exists('//GeneralCallNode')]
+    #[cython.test_assert_path_exists('//SimpleCallNode')]
     def call_cpmeth_optargs1(self, ExtType ext):
         """
         >>> x = ExtType()

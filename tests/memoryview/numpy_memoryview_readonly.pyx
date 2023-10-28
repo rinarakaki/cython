@@ -3,7 +3,7 @@
 # ticket: 1772
 
 import numpy as np
-cimport cython
+use cython
 
 def new_array(dtype='float', writeable=true):
     array = np.arange(10, dtype=dtype)

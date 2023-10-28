@@ -1,6 +1,6 @@
 # ticket: t494
 
-cimport cython
+use cython
 
 class SomeNumber(object):
 
@@ -10,7 +10,7 @@ class SomeNumber(object):
     def __repr__(self):
         return "SomeNumber(%s)" % self._n
 
-@cython.binding(true)
+#[cython.binding(true)]
 def add_to_func(self, x):
     """
     >>> add_to_func(SomeNumber(2), 5)
@@ -22,7 +22,7 @@ def add_to_func(self, x):
     """
     return self._n + x
 
-@cython.binding(false)
+#[cython.binding(false)]
 def new_num(n):
     """
     >>> new_num(11)
