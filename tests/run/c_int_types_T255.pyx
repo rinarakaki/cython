@@ -782,31 +782,31 @@ def test_anonymous_enum():
 # -------------------------------------------------------------------
 
 __doc__ = u"".join([
-      f.__doc__ for f in (
-         #
-         test_char,  test_add_char,
-         test_schar, test_add_schar,
-         test_uchar, test_add_uchar,
-         #
-         test_short,  test_add_short,
-         test_sshort, test_add_sshort,
-         test_ushort, test_add_ushort,
-         #
-         test_int,  test_add_int,
-         test_sint, test_add_sint,
-         test_uint, test_add_uint,
-         #
-         test_long,  test_add_long,
-         test_slong, test_add_slong,
-         test_ulong, test_add_ulong,
-         #
-         test_longlong,  test_add_longlong,
-         test_slonglong, test_add_slonglong,
-         test_ulonglong, test_add_ulonglong,
-         #
-         test_convert_pyint,
-         test_convert_pylong,
-         )
-    ])
+    f.__doc__ for f in (
+        #
+        test_char,  test_add_char,
+        test_schar, test_add_schar,
+        test_uchar, test_add_uchar,
+        #
+        test_short,  test_add_short,
+        test_sshort, test_add_sshort,
+        test_ushort, test_add_ushort,
+        #
+        test_int,  test_add_int,
+        test_sint, test_add_sint,
+        test_uint, test_add_uint,
+        #
+        test_long,  test_add_long,
+        test_slong, test_add_slong,
+        test_ulong, test_add_ulong,
+        #
+        test_longlong,  test_add_longlong,
+        test_slonglong, test_add_slonglong,
+        test_ulonglong, test_add_ulonglong,
+        #
+        test_convert_pyint,
+        test_convert_pylong,
+    )
+])
 
 # -------------------------------------------------------------------
