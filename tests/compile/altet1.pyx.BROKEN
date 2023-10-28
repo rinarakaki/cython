@@ -5,8 +5,8 @@ __doc__ = """
     0
 """
 
-cdef extern from "altet1.h":
-    ctypedef int blarg
+extern from "altet1.h":
+    ctypedef i32 blarg
 
 cdef blarg globvar
 
