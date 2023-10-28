@@ -33,7 +33,7 @@ def for_from():
     """
     i = -1
     for L in [[], range(5), range(10)]:
-        for i from 0 <= i < len(L):
+        for i in 0..len(L):
             if i > 5:
                 break
         else:

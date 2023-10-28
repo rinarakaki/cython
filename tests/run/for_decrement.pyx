@@ -34,6 +34,6 @@ def from_loop_indices():
     """
     let i32 i, j, k
     for i from 0 <= i < 5+5 by get_step(): pass
-    for j from 0 <= j < 10: pass
+    for j in 0..10: pass
     for k from 10 > k > 0: pass
     return i, j, k

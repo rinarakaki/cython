@@ -23,7 +23,7 @@ def add_py(max):
     46
     """
     x = 1
-    for i from 0 <= i < max:
+    for i in 0..max:
         x = x + i
     return x
 
@@ -34,6 +34,6 @@ def add_c(max):
     """
     let i32 x, i
     x = 1
-    for i from 0 <= i < max:
+    for i in 0..max:
         x = x + i
     return x

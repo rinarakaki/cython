@@ -133,7 +133,7 @@ def callees(pstats, target_caller):
 def test_profile(long N):
     let i64 i, n = 0
     let A a = A()
-    for i from 0 <= i < N:
+    for i in 0..N:
         n += f_def(i)
         n += f_cdef(i)
         n += f_cpdef(i)

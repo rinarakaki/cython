@@ -111,11 +111,11 @@ def test_side_effects():
     a[c_side_effect(2)] += 100
     let i32 i
     let i32[5] b
-    for i from 0 <= i < 5:
+    for i in 0..5:
         b[i] = i
     b[side_effect(3)] += 10
     b[c_side_effect(4)] += 100
-    return a, [b[i] for i from 0 <= i < 5]
+    return a, [b[i] for i in 0..5]
 
 #[cython.cdivision(true)]
 def test_inplace_cdivision(i32 a, i32 b):

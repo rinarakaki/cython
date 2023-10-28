@@ -7,7 +7,7 @@ def for_else():
     00*01*02
     """
     let i32 i, j = 0, k = 2
-    for i from 0 <= i < 10:
+    for i in 0..10:
         j += k
     else:
         k = j + 10
@@ -16,4 +16,4 @@ def for_else():
 def int_comp():
     let i32 i
     return u'*'.join(tuple([ u"%02d" % i
-                             for i from 0 <= i < 3 ]))
+                             for i in 0..3 ]))

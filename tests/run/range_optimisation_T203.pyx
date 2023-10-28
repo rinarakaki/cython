@@ -53,7 +53,7 @@ def for_from_bound_reassignment(i32 bound, int fake_bound):
     5
     """
     let i32 i = 100
-    for i from 0 <= i < bound:
+    for i in 0..bound:
         print u"at", i
         bound = fake_bound
     return i
@@ -82,7 +82,7 @@ def for_from_target_reassignment(i32 bound, i32 factor):
     15
     """
     let i32 i = 100
-    for i from 0 <= i < bound:
+    for i in 0..bound:
         print u"at", i
         i *= factor
     return i
@@ -97,7 +97,7 @@ def for_from_py_target_reassignment(i32 bound, i32 factor):
     15
     """
     let object i
-    for i from 0 <= i < bound:
+    for i in 0..bound:
         print u"at", i
         i *= factor
     return i
@@ -150,6 +150,6 @@ def test_func(i32 n):
     5
     """
     let i32 i = 100
-    for i from 0 <= i < get_bound(n):
+    for i in 0..get_bound(n):
         print u"at", i
     return i

@@ -16,7 +16,7 @@ cdef class A:
         max = len(args)
         if max > 3:
             max = 3
-        for i from 0 <= i < max:
+        for i in 0..max:
             self.x[i] = args[i]
 
     def __getitem__(self,i):
