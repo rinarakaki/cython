@@ -45,7 +45,7 @@ def for_in_break(LL, p=bool):
     for L in LL:
         for x in L:
             if not p(x):
-                result = False
+                result = false
                 break
         else:
             continue

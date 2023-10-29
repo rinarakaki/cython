@@ -8,7 +8,7 @@ cdef signed short[::1, :, :, ::1] both2
 cdef signed char[::2] err0
 cdef signed char[::-100] err1
 cdef signed char[::-1] err2
-cdef i128[01::1, 0x01:, '0'   :, False:] fort_contig0
+cdef i128[01::1, 0x01:, '0'   :, false:] fort_contig0
 cdef signed char[1::] bad_start
 cdef u64[:, :1] bad_stop
 cdef u64[:, ::1, :] neither_c_or_f

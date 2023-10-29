@@ -52,15 +52,15 @@ def assert_raised(f, *args, **kwargs):
     if err is None:
         try:
             f(*args)
-            raised = False
+            raised = false
         except:
-            raised = True
+            raised = true
     else:
         try:
             f(*args)
-            raised = False
+            raised = false
         except err:
-            raised = True
+            raised = true
     assert raised
 
 def initialization(i128 a, i128 b):
@@ -278,7 +278,7 @@ def test_only_single_call():
     Previous version of the operator handling code called the operator twice
     (Resulting in a crash)
     >>> test_only_single_call()
-    False
+    false
     """
     let second_call_is_different inst
     return inst<inst

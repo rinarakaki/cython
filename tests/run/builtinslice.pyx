@@ -6,7 +6,7 @@ def unbound_method_lookup():
     """
     ignore = slice.indices
 
-#[cython.test_assert_path_exists('//SingleAssignmentNode//AttributeNode[@is_py_attr = False]')]
+#[cython.test_assert_path_exists('//SingleAssignmentNode//AttributeNode[@is_py_attr = false]')]
 #[cython.test_fail_if_path_exists('//SingleAssignmentNode//AttributeNode[@is_py_attr = True]')]
 def typed_slice():
     """
@@ -27,7 +27,7 @@ def typed_slice():
 
     return (a, b, c)
 
-#[cython.test_fail_if_path_exists('//SingleAssignmentNode//AttributeNode[@is_py_attr = False]')]
+#[cython.test_fail_if_path_exists('//SingleAssignmentNode//AttributeNode[@is_py_attr = false]')]
 def plain_object_slice():
     """
     >>> plain_object_slice()

@@ -55,8 +55,8 @@ def g1864():
     >>> g1864()
     True
     """
-    t_1342 = True
-    f_1341 = False
+    t_1342 = true
+    f_1341 = false
     def g1863():
       return [t_1342,f_1341]
     bools_1345 = g1863()
@@ -472,7 +472,7 @@ def g1983():
     True
     """
     t_1421 = True
-    f_1420 = False
+    f_1420 = false
     def g1982():
       return [t_1421,f_1420]
     bools_1424 = g1982()
@@ -542,7 +542,7 @@ def g1997():
     """
     def g1996():
       def g1991(x_1440, y_1439, z_1438):
-        f_1444 = False
+        f_1444 = false
         def g1995():
           def g1994(r_1442, s_1441):
             y_1439 = (z_1438)+(s_1441)

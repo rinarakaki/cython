@@ -9,7 +9,7 @@ extern from "cpp_templates_helper.h":
 
 def test_compound_bool_return(bool x, bool y):
     """
-    >>> test_compound_bool_return(True, False)
+    >>> test_compound_bool_return(True, false)
     False
     """
     return BinaryAnd[bool, bool].call(x, y)
