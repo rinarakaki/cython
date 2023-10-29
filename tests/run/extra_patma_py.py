@@ -10,7 +10,7 @@ __doc__ = ""
 
 def test_type_inference(x):
     """
-    The type should not be infered to be anything specific
+    The type should not be inferred to be anything specific
     >>> test_type_inference(1)
     one 1
     >>> test_type_inference([])
