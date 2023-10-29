@@ -10,7 +10,7 @@ import sys
 __doc__ = ""
 
 
-fn bint is_null(int* x):
+fn bint is_null(i32* x):
     return False # disabled - currently just a parser test
     match x:
         case NULL:
@@ -45,7 +45,7 @@ if sys.version_info[0] > 2:
 @cython.test_fail_if_path_exists("//CallNode//NameNode[@name = 'len']")
 # No need for "is Sequence check"
 @cython.test_fail_if_path_exists("//PythonCapiCallNode//PythonCapiFunctionNode[@cname = '__Pyx_MatchCase_IsSequence']")
-def test_memoryview(int[:] x):
+def test_memoryview(i32[:] x):
     """
     >>> print(test_memoryview(None))
     no!
@@ -90,7 +90,7 @@ def test_list_not_None_to_sequence(list x not None):
 
 @cython.test_fail_if_path_exists("//PythonCapiCallNode//PythonCapiFunctionNode[@cname = '__Pyx_MatchCase_IsSequence']")
 @cython.test_fail_if_path_exists("//CmpNode")  # There's nothing to compare - it always succeeds!
-def test_ctuple_to_sequence((int, int) x):
+def test_ctuple_to_sequence((i32, i32) x):
     """
     >>> test_ctuple_to_sequence((1, 2))
     (1, 2)
