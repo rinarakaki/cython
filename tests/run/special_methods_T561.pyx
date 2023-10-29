@@ -101,7 +101,7 @@ if sys.version_info >= (2, 5):
 
 extern from *:
     # type specs require a bug fix in Py3.8+ for some of these tests.
-    const i32 CYTHON_USE_TYPE_SPECS
+    static const i32 CYTHON_USE_TYPE_SPECS
 
 if not CYTHON_USE_TYPE_SPECS or sys.version_info >= (3, 8):
     __doc__ += u"""

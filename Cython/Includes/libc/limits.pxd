@@ -1,28 +1,28 @@
 # 5.2.4.2.1 Sizes of integer types <limits.h>
 
 extern from "<limits.h>":
-    const i32 CHAR_BIT
-    const i32 MB_LEN_MAX
+    static const i32 CHAR_BIT
+    static const i32 MB_LEN_MAX
 
-    const char CHAR_MIN
-    const char CHAR_MAX
+    static const char CHAR_MIN
+    static const char CHAR_MAX
 
-    const signed char SCHAR_MIN
-    const signed char SCHAR_MAX
-    const unsigned char UCHAR_MAX
+    static const signed char SCHAR_MIN
+    static const signed char SCHAR_MAX
+    static const unsigned char UCHAR_MAX
 
-    const i16 SHRT_MIN
-    const i16 SHRT_MAX
-    const u16 USHRT_MAX
+    static const i16 SHRT_MIN
+    static const i16 SHRT_MAX
+    static const u16 USHRT_MAX
 
-    const i32 INT_MIN
-    const i32 INT_MAX
-    const u32 UINT_MAX
+    static const i32 INT_MIN
+    static const i32 INT_MAX
+    static const u32 UINT_MAX
 
-    const i64 LONG_MIN
-    const i64 LONG_MAX
-    const u64 ULONG_MAX
+    static const i64 LONG_MIN
+    static const i64 LONG_MAX
+    static const u64 ULONG_MAX
 
-    const i128 LLONG_MIN
-    const i128 LLONG_MAX
-    const u128 ULLONG_MAX
+    static const i128 LLONG_MIN
+    static const i128 LLONG_MAX
+    static const u128 ULLONG_MAX

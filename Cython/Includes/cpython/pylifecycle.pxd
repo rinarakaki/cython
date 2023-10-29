@@ -49,13 +49,13 @@ extern from "Python.h":
     i32 _Py_CheckPython3()
 
     # In their own files
-    const char *Py_GetVersion()
-    const char *Py_GetPlatform()
-    const char *Py_GetCopyright()
-    const char *Py_GetCompiler()
-    const char *Py_GetBuildInfo()
-    const char *_Py_gitidentifier()
-    const char *_Py_gitversion()
+    static const char *Py_GetVersion()
+    static const char *Py_GetPlatform()
+    static const char *Py_GetCopyright()
+    static const char *Py_GetCompiler()
+    static const char *Py_GetBuildInfo()
+    static const char *_Py_gitidentifier()
+    static const char *_Py_gitversion()
 
     ctypedef void (*PyOS_sighandler_t)(i32)
     PyOS_sighandler_t PyOS_getsig(i32)

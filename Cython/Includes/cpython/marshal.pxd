@@ -5,7 +5,7 @@ extern from "Python.h":
     # Data marshalling support
     ###########################################################################
 
-    const i32 Py_MARSHAL_VERSION
+    static const i32 Py_MARSHAL_VERSION
 
     void PyMarshal_WriteLongToFile(i64 value, FILE *file, i32 version)
     # Marshal a long integer, value, to file. This will only write the

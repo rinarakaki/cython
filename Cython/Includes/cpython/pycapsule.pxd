@@ -57,7 +57,7 @@ extern from "Python.h":
     # a NULL return code somewhat ambiguous; use PyCapsule_IsValid()
     # or PyErr_Occurred() to disambiguate.
 
-    const char* PyCapsule_GetName(object capsule) except? NULL
+    static const char* PyCapsule_GetName(object capsule) except? NULL
     # Return the current name stored in the capsule. On failure, set
     # an exception and return NULL.
     #

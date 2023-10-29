@@ -293,8 +293,8 @@ extern from "<algorithm>" namespace "std" nogil:
     pair[Iter, Iter] minmax_element[Iter](Iter first, Iter last) except +
     pair[Iter, Iter] minmax_element[Iter, Compare](Iter first, Iter last, Compare comp) except +
     pair[Iter, Iter] minmax_element[ExecutionPolicy, Iter](ExecutionPolicy&& policy, Iter first, Iter last) except +
-    const T& clamp[T](const T& v, const T& lo, const T& hi) except +
-    const T& clamp[T, Compare](const T& v, const T& lo, const T& hi, Compare comp) except +
+    fn const T& clamp[T](const T& v, const T& lo, const T& hi) except +
+    fn const T& clamp[T, Compare](const T& v, const T& lo, const T& hi, Compare comp) except +
 
     # Comparison operations
     bool equal[InputIt1, InputIt2](InputIt1 first1, InputIt1 last1, InputIt2 first2) except +

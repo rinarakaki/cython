@@ -51,7 +51,7 @@ def outer(cython.floating f):
 # Mixing const and non-const type makes fused type ambiguous
 cdef fused mix_const_t:
     i32
-    const i32
+    static const i32
 
 fn cdef_func_with_mix_const_type(mix_const_t val):
     print(val)

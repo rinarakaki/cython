@@ -370,7 +370,7 @@ extern from *:
     # This caches the UTF-8 representation of the string in the Unicode
     # object, and subsequent calls will return a pointer to the same buffer.
     # The caller is not responsible for deallocating the buffer
-    const char* PyUnicode_AsUTF8AndSize(object unicode, isize *size)
+    static const char* PyUnicode_AsUTF8AndSize(object unicode, isize *size)
 
 # These are the UTF-16 codec APIs:
 

@@ -56,7 +56,7 @@ extern from "Python.h":
     void Py_INCREF(object)
     list PyList_New(isize size)
     void PyList_SET_ITEM(object list, isize i, object o)
-    const isize PY_SSIZE_T_MAX
+    static const isize PY_SSIZE_T_MAX
 
 @cname("{{cname}}")
 fn object {{cname}}(const vector[X]& v):

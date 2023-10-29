@@ -3,7 +3,7 @@
 from libc.string cimport const_char
 
 extern from "<string>" namespace "std::string" nogil:
-    const usize npos
+    static const usize npos
 
 extern from "<string>" namespace "std" nogil:
     cdef cppclass string:
