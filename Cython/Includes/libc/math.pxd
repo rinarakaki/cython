@@ -1,27 +1,27 @@
 extern from "<math.h>" nogil:
-    const f64 M_E
-    const f64 e "M_E"  # as in Python's math module
-    const f64 M_LOG2E
-    const f64 M_LOG10E
-    const f64 M_LN2
-    const f64 M_LN10
-    const f64 M_PI
-    const f64 pi "M_PI"  # as in Python's math module
-    const f64 M_PI_2
-    const f64 M_PI_4
-    const f64 M_1_PI
-    const f64 M_2_PI
-    const f64 M_2_SQRTPI
-    const f64 M_SQRT2
-    const f64 M_SQRT1_2
+    static const f64 M_E
+    static const f64 e "M_E"  # as in Python's math module
+    static const f64 M_LOG2E
+    static const f64 M_LOG10E
+    static const f64 M_LN2
+    static const f64 M_LN10
+    static const f64 M_PI
+    static const f64 pi "M_PI"  # as in Python's math module
+    static const f64 M_PI_2
+    static const f64 M_PI_4
+    static const f64 M_1_PI
+    static const f64 M_2_PI
+    static const f64 M_2_SQRTPI
+    static const f64 M_SQRT2
+    static const f64 M_SQRT1_2
 
     # C99 constants
-    const f32 INFINITY
-    const f32 NAN
+    static const f32 INFINITY
+    static const f32 NAN
     # note: not providing "nan" and "inf" aliases here as nan() is a function in C
-    const f64 HUGE_VAL
-    const f32 HUGE_VALF
-    const long double HUGE_VALL
+    static const f64 HUGE_VAL
+    static const f32 HUGE_VALF
+    static const long double HUGE_VALL
 
     # All C99 functions in alphabetical order
     fn f64 acos(f64 x)
@@ -202,8 +202,8 @@ extern from "<math.h>" nogil:
     fn bint isnormal(long double)
     fn bint signbit(long double)
     fn i32 fpclassify(long double)
-    const i32 FP_NAN
-    const i32 FP_INFINITE
-    const i32 FP_ZERO
-    const i32 FP_SUBNORMAL
-    const i32 FP_NORMAL
+    static const i32 FP_NAN
+    static const i32 FP_INFINITE
+    static const i32 FP_ZERO
+    static const i32 FP_SUBNORMAL
+    static const i32 FP_NORMAL
