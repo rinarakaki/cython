@@ -12,9 +12,9 @@ extern from "<stdio.h>" nogil:
 
     enum: FOPEN_MAX
     enum: FILENAME_MAX
-    fn FILE *fopen   (const char *filename, const char  *opentype)
-    fn FILE *freopen (const char *filename, const char *opentype, FILE *stream)
-    fn FILE *fdopen  (i32 fdescriptor, const char *opentype)
+    fn FILE *fopen(const char *filename, const char  *opentype)
+    fn FILE *freopen(const char *filename, const char *opentype, FILE *stream)
+    fn FILE *fdopen(i32 fdescriptor, const char *opentype)
     fn i32  fclose(FILE *stream)
     fn i32  remove(const char *filename)
     fn i32  rename(const char *oldname, const char *newname)

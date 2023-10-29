@@ -26,19 +26,19 @@ extern from *:
     # New in version 3.3.
     fn isize PyUnicode_GET_LENGTH(object o)
 
-    Py_UCS1 *PyUnicode_1BYTE_DATA(object o)
-    Py_UCS2 *PyUnicode_2BYTE_DATA(object o)
-    Py_UCS4 *PyUnicode_4BYTE_DATA(object o)
+    fn Py_UCS1 *PyUnicode_1BYTE_DATA(object o)
+    fn Py_UCS2 *PyUnicode_2BYTE_DATA(object o)
+    fn Py_UCS4 *PyUnicode_4BYTE_DATA(object o)
 
     int PyUnicode_WCHAR_KIND  # Deprecated since Python 3.10, removed in 3.12.
     int PyUnicode_1BYTE_KIND
     int PyUnicode_2BYTE_KIND
     int PyUnicode_4BYTE_KIND
     fn void PyUnicode_WRITE(i32 kind, void *data, isize index, Py_UCS4 value)
-    Py_UCS4 PyUnicode_READ(i32 kind, void *data, isize index)
-    Py_UCS4 PyUnicode_READ_CHAR(object o, isize index)
+    fn Py_UCS4 PyUnicode_READ(i32 kind, void *data, isize index)
+    fn Py_UCS4 PyUnicode_READ_CHAR(object o, isize index)
 
-    u32 PyUnicode_KIND(object o)
+    fn u32 PyUnicode_KIND(object o)
     fn void *PyUnicode_DATA(object o)
 
     # Return the size of the object's internal buffer in bytes. o has
@@ -47,7 +47,7 @@ extern from *:
 
     # Return a pointer to the internal Py_UNICODE buffer of the
     # object. o has to be a PyUnicodeObject (not checked).
-    Py_UNICODE* PyUnicode_AS_UNICODE(object o)
+    fn Py_UNICODE* PyUnicode_AS_UNICODE(object o)
 
     # Return a pointer to the internal buffer of the object. o has to
     # be a PyUnicodeObject (not checked).
@@ -89,29 +89,29 @@ extern from *:
 
     # Return the character ch converted to lower case.
     # Used to return a Py_UNICODE value before Py3.3.
-    Py_UCS4 Py_UNICODE_TOLOWER(Py_UCS4 ch)
+    fn Py_UCS4 Py_UNICODE_TOLOWER(Py_UCS4 ch)
 
     # Return the character ch converted to upper case.
     # Used to return a Py_UNICODE value before Py3.3.
-    Py_UCS4 Py_UNICODE_TOUPPER(Py_UCS4 ch)
+    fn Py_UCS4 Py_UNICODE_TOUPPER(Py_UCS4 ch)
 
     # Return the character ch converted to title case.
     # Used to return a Py_UNICODE value before Py3.3.
-    Py_UCS4 Py_UNICODE_TOTITLE(Py_UCS4 ch)
+    fn Py_UCS4 Py_UNICODE_TOTITLE(Py_UCS4 ch)
 
     # Return the character ch converted to a decimal positive
     # integer. Return -1 if this is not possible. This macro does not
     # raise exceptions.
-    int Py_UNICODE_TODECIMAL(Py_UCS4 ch)
+    fn i32 Py_UNICODE_TODECIMAL(Py_UCS4 ch)
 
     # Return the character ch converted to a single digit
     # integer. Return -1 if this is not possible. This macro does not
     # raise exceptions.
-    int Py_UNICODE_TODIGIT(Py_UCS4 ch)
+    fn i32 Py_UNICODE_TODIGIT(Py_UCS4 ch)
 
     # Return the character ch converted to a double. Return -1.0 if
     # this is not possible. This macro does not raise exceptions.
-    double Py_UNICODE_TONUMERIC(Py_UCS4 ch)
+    fn f64 Py_UNICODE_TONUMERIC(Py_UCS4 ch)
 
     # To create Unicode objects and access their basic sequence
     # properties, use these APIs:
@@ -139,11 +139,11 @@ extern from *:
     fn isize PyUnicode_GetLength(object unicode) except -1
     fn isize PyUnicode_CopyCharacters(object to, isize to_start, object from_, isize from_start, isize how_many) except -1
     fn isize PyUnicode_Fill(object unicode, isize start, isize length, Py_UCS4 fill_char) except -1
-    int PyUnicode_WriteChar(object unicode, isize index, Py_UCS4 character) except -1
-    Py_UCS4 PyUnicode_ReadChar(object unicode, isize index) except -1
+    fn i32 PyUnicode_WriteChar(object unicode, isize index, Py_UCS4 character) except -1
+    fn Py_UCS4 PyUnicode_ReadChar(object unicode, isize index) except -1
     fn unicode PyUnicode_Substring(object str, isize start, isize end)
-    Py_UCS4 *PyUnicode_AsUCS4(object u, Py_UCS4 *buffer, isize buflen, int copy_null) except NULL
-    Py_UCS4 *PyUnicode_AsUCS4Copy(object u) except NULL
+    fn Py_UCS4 *PyUnicode_AsUCS4(object u, Py_UCS4 *buffer, isize buflen, int copy_null) except NULL
+    fn Py_UCS4 *PyUnicode_AsUCS4Copy(object u) except NULL
 
     # Create a Unicode Object from the given Unicode code point ordinal.
     #
@@ -154,7 +154,7 @@ extern from *:
 
     # Return a read-only pointer to the Unicode object's internal
     # Py_UNICODE buffer, NULL if unicode is not a Unicode object.
-    Py_UNICODE* PyUnicode_AsUnicode(object o) except NULL
+    fn Py_UNICODE* PyUnicode_AsUnicode(object o) except NULL
 
     # Return the length of the Unicode object.
     fn isize PyUnicode_GetSize(object o) except -1
@@ -179,13 +179,13 @@ extern from *:
     # following functions. Support is optimized if Python's own
     # Py_UNICODE type is identical to the system's wchar_t.
 
-    #ctypedef i32 wchar_t
+    # ctypedef i32 wchar_t
 
     # Create a Unicode object from the wchar_t buffer w of the given
     # size. Return NULL on failure.
-    #PyObject* PyUnicode_FromWideChar(wchar_t *w, isize size)
+    # fn PyObject* PyUnicode_FromWideChar(wchar_t *w, isize size)
 
-    #isize PyUnicode_AsWideChar(object o, wchar_t *w, isize size)
+    # fn isize PyUnicode_AsWideChar(object o, wchar_t *w, isize size)
 
 # Unicode Methods
 
@@ -261,13 +261,13 @@ extern from *:
 
     # Compare two strings and return -1, 0, 1 for less than,
     # equal, and greater than, respectively.
-    int PyUnicode_Compare(object left, object right) except? -1
+    fn i32 PyUnicode_Compare(object left, object right) except? -1
 
     # Compare a unicode object, uni, with string and return -1, 0, 1 for less than,
     # equal, and greater than, respectively. It is best to pass only ASCII-encoded
     # strings, but the function interprets the input string as ISO-8859-1 if it
     # contains non-ASCII characters.
-    int PyUnicode_CompareWithASCIIString(object uni, const char *string)
+    fn i32 PyUnicode_CompareWithASCIIString(object uni, const char *string)
 
     # Rich compare two unicode strings and return one of the following:
     #
@@ -291,7 +291,7 @@ extern from *:
     #
     # element has to coerce to a one element Unicode string. -1 is returned
     # if there was an error.
-    int PyUnicode_Contains(object container, object element) except -1
+    fn i32 PyUnicode_Contains(object container, object element) except -1
 
     # Intern the argument *string in place. The argument must be the address
     # of a pointer variable pointing to a Python unicode string object. If
@@ -302,7 +302,7 @@ extern from *:
     # count). (Clarification: even though there is a lot of talk about reference
     # counts, think of this function as reference-count-neutral; you own the object
     # after the call if and only if you owned it before the call.)
-    #void PyUnicode_InternInPlace(PyObject **string)
+    # fn void PyUnicode_InternInPlace(PyObject **string)
 
     # A combination of PyUnicode_FromString() and PyUnicode_InternInPlace(),
     # returning either a new unicode string object that has been interned, or
@@ -326,7 +326,7 @@ extern from *:
     # method. The codec to be used is looked up using the Python codec
     # registry. Return NULL if an exception was raised by the codec.
     fn object PyUnicode_Encode(Py_UNICODE *s, isize size,
-                            char *encoding, char *errors)
+                               char *encoding, char *errors)
 
     # Encode a Unicode object and return the result as Python string
     # object. encoding and errors have the same meaning as the
@@ -370,7 +370,7 @@ extern from *:
     # This caches the UTF-8 representation of the string in the Unicode
     # object, and subsequent calls will return a pointer to the same buffer.
     # The caller is not responsible for deallocating the buffer
-    const char* PyUnicode_AsUTF8AndSize(object unicode, isize *size)
+    fn const char* PyUnicode_AsUTF8AndSize(object unicode, isize *size)
 
 # These are the UTF-16 codec APIs:
 
@@ -601,10 +601,10 @@ extern from *:
     # otherwise behave like the C standard library functions with the same name.
 
     fn usize Py_UCS4_strlen(const Py_UCS4 *u)
-    Py_UCS4* Py_UCS4_strcpy(Py_UCS4 *s1, const Py_UCS4 *s2)
-    Py_UCS4* Py_UCS4_strncpy(Py_UCS4 *s1, const Py_UCS4 *s2, usize n)
-    Py_UCS4* Py_UCS4_strcat(Py_UCS4 *s1, const Py_UCS4 *s2)
+    fn Py_UCS4* Py_UCS4_strcpy(Py_UCS4 *s1, const Py_UCS4 *s2)
+    fn Py_UCS4* Py_UCS4_strncpy(Py_UCS4 *s1, const Py_UCS4 *s2, usize n)
+    fn Py_UCS4* Py_UCS4_strcat(Py_UCS4 *s1, const Py_UCS4 *s2)
     fn i32 Py_UCS4_strcmp(const Py_UCS4 *s1, const Py_UCS4 *s2)
     fn i32 Py_UCS4_strncmp(const Py_UCS4 *s1, const Py_UCS4 *s2, usize n)
-    Py_UCS4* Py_UCS4_strchr(const Py_UCS4 *s, Py_UCS4 c)
-    Py_UCS4* Py_UCS4_strrchr(const Py_UCS4 *s, Py_UCS4 c)
+    fn Py_UCS4* Py_UCS4_strchr(const Py_UCS4 *s, Py_UCS4 c)
+    fn Py_UCS4* Py_UCS4_strrchr(const Py_UCS4 *s, Py_UCS4 c)
