@@ -30,7 +30,7 @@ complex = py_complex
 floatcomplex = py_complex
 doublecomplex = py_complex
 longdoublecomplex = py_complex
-bint = py_bool
+u2 = bint = py_bool
 void = Union[None]
 basestring = py_str
 unicode = py_str
