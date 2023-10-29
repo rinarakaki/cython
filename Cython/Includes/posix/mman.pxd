@@ -86,7 +86,7 @@ extern from "<sys/mman.h>" nogil:
     # These two are Linux specific but sometimes very efficient
     fn void *mremap(void *old_addr, usize old_len, usize new_len, i32 flags, ...)
     fn i32 remap_file_pages(void *addr, usize Len, i32 prot,
-                              usize pgoff, i32 flags)
+                            usize pgoff, i32 flags)
 
     # The rare but standardized typed memory option
     enum: POSIX_TYPED_MEM_ALLOCATE
