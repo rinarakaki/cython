@@ -389,18 +389,18 @@ extern from "numpy/arrayobject.h":
     fn void* PyArray_DATA(ndarray) nogil
     fn char* PyArray_BYTES(ndarray) nogil
 
-    npy_intp* PyArray_DIMS(ndarray) nogil
-    npy_intp* PyArray_STRIDES(ndarray) nogil
-    npy_intp PyArray_DIM(ndarray, usize) nogil
-    npy_intp PyArray_STRIDE(ndarray, usize) nogil
+    fn npy_intp* PyArray_DIMS(ndarray) nogil
+    fn npy_intp* PyArray_STRIDES(ndarray) nogil
+    fn npy_intp PyArray_DIM(ndarray, usize) nogil
+    fn npy_intp PyArray_STRIDE(ndarray, usize) nogil
 
     fn PyObject *PyArray_BASE(ndarray) nogil  # returns borrowed reference!
-    PyArray_Descr *PyArray_DESCR(ndarray) nogil  # returns borrowed reference to dtype!
-    PyArray_Descr *PyArray_DTYPE(ndarray) nogil  # returns borrowed reference to dtype! NP 1.7+ alias for descr.
+    fn PyArray_Descr *PyArray_DESCR(ndarray) nogil  # returns borrowed reference to dtype!
+    fn PyArray_Descr *PyArray_DTYPE(ndarray) nogil  # returns borrowed reference to dtype! NP 1.7+ alias for descr.
     fn i32 PyArray_FLAGS(ndarray) nogil
     fn void PyArray_CLEARFLAGS(ndarray, i32 flags) nogil  # Added in NumPy 1.7
     fn void PyArray_ENABLEFLAGS(ndarray, i32 flags) nogil  # Added in NumPy 1.7
-    npy_intp PyArray_ITEMSIZE(ndarray) nogil
+    fn npy_intp PyArray_ITEMSIZE(ndarray) nogil
     fn i32 PyArray_TYPE(ndarray arr) nogil
 
     fn object PyArray_GETITEM(ndarray arr, void *itemptr)
@@ -491,10 +491,10 @@ extern from "numpy/arrayobject.h":
     fn bint PyArray_IsAnyScalar(object)
     fn bint PyArray_CheckAnyScalar(object)
 
-    ndarray PyArray_GETCONTIGUOUS(ndarray)
+    fn ndarray PyArray_GETCONTIGUOUS(ndarray)
     fn bint PyArray_SAMESHAPE(ndarray, ndarray) nogil
-    npy_intp PyArray_SIZE(ndarray) nogil
-    npy_intp PyArray_NBYTES(ndarray) nogil
+    fn npy_intp PyArray_SIZE(ndarray) nogil
+    fn npy_intp PyArray_NBYTES(ndarray) nogil
 
     fn object PyArray_FROM_O(object)
     fn object PyArray_FROM_OF(object m, i32 flags)
@@ -504,10 +504,10 @@ extern from "numpy/arrayobject.h":
     fn object PyArray_ZEROS(i32 nd, npy_intp* dims, i32 nd, i32 nd)
     fn object PyArray_EMPTY(i32 nd, npy_intp* dims, i32 nd, i32 nd)
     fn void PyArray_FILLWBYTE(object, i32 val)
-    npy_intp PyArray_REFCOUNT(object)
-    fn object PyArray_ContiguousFromAny(op, int, int min_depth, int max_depth)
-    u8 PyArray_EquivArrTypes(ndarray a1, ndarray a2)
-    fn bint PyArray_EquivByteorders(i32 b1, int b2) nogil
+    fn npy_intp PyArray_REFCOUNT(object)
+    fn object PyArray_ContiguousFromAny(op, i32, i32 min_depth, i32 max_depth)
+    fn u8 PyArray_EquivArrTypes(ndarray a1, ndarray a2)
+    fn bint PyArray_EquivByteorders(i32 b1, i32 b2) nogil
     fn object PyArray_SimpleNew(i32 nd, npy_intp* dims, i32 nd)
     fn object PyArray_SimpleNewFromData(i32 nd, npy_intp* dims, i32 nd, void* data)
     # fn object PyArray_SimpleNewFromDescr(i32 nd, npy_intp* dims, dtype descr)
@@ -524,11 +524,11 @@ extern from "numpy/arrayobject.h":
 
 
     fn object PyArray_Copy(ndarray)
-    fn object PyArray_FromObject(object op, i32 type, int min_depth, int max_depth)
-    fn object PyArray_ContiguousFromObject(object op, i32 type, int min_depth, int max_depth)
-    fn object PyArray_CopyFromObject(object op, i32 type, int min_depth, int max_depth)
+    fn object PyArray_FromObject(object op, i32 type, i32 min_depth, i32 max_depth)
+    fn object PyArray_ContiguousFromObject(object op, i32 type, i32 min_depth, i32 max_depth)
+    fn object PyArray_CopyFromObject(object op, i32 type, i32 min_depth, i32 max_depth)
 
-    fn object PyArray_Cast(ndarray mp, int type_num)
+    fn object PyArray_Cast(ndarray mp, i32 type_num)
     fn object PyArray_Take(ndarray ap, object items, i32 axis)
     fn object PyArray_Put(ndarray ap, object items, object values)
 
@@ -557,7 +557,7 @@ extern from "numpy/arrayobject.h":
     fn i32 PyArray_INCREF (ndarray)
     fn i32 PyArray_XDECREF (ndarray)
     fn void PyArray_SetStringFunction (object, i32)
-    dtype PyArray_DescrFromType (i32)
+    fn dtype PyArray_DescrFromType (i32)
     fn object PyArray_TypeObjectFromType (i32)
     fn char * PyArray_Zero (ndarray)
     fn char * PyArray_One (ndarray)
@@ -565,23 +565,23 @@ extern from "numpy/arrayobject.h":
     fn i32 PyArray_CastTo (ndarray, ndarray)
     fn i32 PyArray_CastAnyTo (ndarray, ndarray)
     fn i32 PyArray_CanCastSafely (i32, i32)
-    npy_bool PyArray_CanCastTo (dtype, dtype)
+    fn npy_bool PyArray_CanCastTo (dtype, dtype)
     fn i32 PyArray_ObjectType (object, i32)
-    dtype PyArray_DescrFromObject (object, dtype)
-    #ndarray* PyArray_ConvertToCommonType (object, i32 *)
-    dtype PyArray_DescrFromScalar (object)
-    dtype PyArray_DescrFromTypeObject (object)
-    npy_intp PyArray_Size (object)
+    fn dtype PyArray_DescrFromObject (object, dtype)
+    # fn ndarray* PyArray_ConvertToCommonType (object, i32 *)
+    fn dtype PyArray_DescrFromScalar (object)
+    fn dtype PyArray_DescrFromTypeObject (object)
+    fn npy_intp PyArray_Size (object)
     # fn object PyArray_Scalar (void *, dtype, object)
     # fn object PyArray_FromScalar (object, dtype)
     fn void PyArray_ScalarAsCtype (object, void *)
     # fn i32 PyArray_CastScalarToCtype (object, void *, dtype)
     # fn i32 PyArray_CastScalarDirect (object, dtype, void *, i32)
     fn object PyArray_ScalarFromObject (object)
-    #PyArray_VectorUnaryFunc * PyArray_GetCastFunc (dtype, i32)
+    # fn PyArray_VectorUnaryFunc * PyArray_GetCastFunc (dtype, i32)
     fn object PyArray_FromDims (i32, i32 *, i32)
     # fn object PyArray_FromDimsAndDataAndDescr (i32, i32 *, dtype, char *)
-    # fn object PyArray_FromAny (object, dtype, int, int, int, object)
+    # fn object PyArray_FromAny (object, dtype, i32, i32, i32, object)
     fn object PyArray_EnsureArray (object)
     fn object PyArray_EnsureAnyArray (object)
     # fn object PyArray_FromFile (stdio.FILE *, dtype, npy_intp, char *)
@@ -590,9 +590,9 @@ extern from "numpy/arrayobject.h":
     # fn object PyArray_FromIter (object, dtype, npy_intp)
     fn object PyArray_Return (ndarray)
     # fn object PyArray_GetField (ndarray, dtype, i32)
-    # fn i32 PyArray_SetField (ndarray, dtype, int, object)
+    # fn i32 PyArray_SetField (ndarray, dtype, i32, object)
     fn object PyArray_Byteswap (ndarray, npy_bool)
-    fn object PyArray_Resize (ndarray, PyArray_Dims *, int, NPY_ORDER)
+    fn object PyArray_Resize (ndarray, PyArray_Dims *, i32, NPY_ORDER)
     fn i32 PyArray_MoveInto (ndarray, ndarray)
     fn i32 PyArray_CopyInto (ndarray, ndarray)
     fn i32 PyArray_CopyAnyInto (ndarray, ndarray)
@@ -605,31 +605,31 @@ extern from "numpy/arrayobject.h":
     fn object PyArray_Dumps (object, i32)
     fn i32 PyArray_ValidType (i32)
     fn void PyArray_UpdateFlags (ndarray, i32)
-    fn object PyArray_New (type, int, npy_intp *, int, npy_intp *, void *, int, int, object)
-    # fn object PyArray_NewFromDescr (type, dtype, int, npy_intp *, npy_intp *, void *, int, object)
-    #dtype PyArray_DescrNew (dtype)
-    dtype PyArray_DescrNewFromType (i32)
+    fn object PyArray_New (type, i32, npy_intp *, i32, npy_intp *, void *, i32, i32, object)
+    # fn object PyArray_NewFromDescr (type, dtype, i32, npy_intp *, npy_intp *, void *, i32, object)
+    # fn dtype PyArray_DescrNew (dtype)
+    fn dtype PyArray_DescrNewFromType (i32)
     fn double PyArray_GetPriority (object, double)
     fn object PyArray_IterNew (object)
     fn object PyArray_MultiIterNew (i32, ...)
 
     fn i32 PyArray_PyIntAsInt (object)
-    npy_intp PyArray_PyIntAsIntp (object)
+    fn npy_intp PyArray_PyIntAsIntp (object)
     fn i32 PyArray_Broadcast (broadcast)
     fn void PyArray_FillObjectArray (ndarray, object)
     fn i32 PyArray_FillWithScalar (ndarray, object)
-    npy_bool PyArray_CheckStrides (i32, int, npy_intp, npy_intp, npy_intp *, npy_intp *)
-    dtype PyArray_DescrNewByteorder (dtype, char)
+    fn npy_bool PyArray_CheckStrides (i32, i32, npy_intp, npy_intp, npy_intp *, npy_intp *)
+    fn dtype PyArray_DescrNewByteorder (dtype, char)
     fn object PyArray_IterAllButAxis (object, i32 *)
-    # fn object PyArray_CheckFromAny (object, dtype, int, int, int, object)
+    # fn object PyArray_CheckFromAny (object, dtype, i32, i32, i32, object)
     # fn object PyArray_FromArray (ndarray, dtype, i32)
     fn object PyArray_FromInterface (object)
     fn object PyArray_FromStructInterface (object)
     # fn object PyArray_FromArrayAttr (object, dtype, object)
-    #NPY_SCALARKIND PyArray_ScalarKind (i32, ndarray*)
-    fn i32 PyArray_CanCoerceScalar (i32, int, NPY_SCALARKIND)
+    # fn NPY_SCALARKIND PyArray_ScalarKind (i32, ndarray*)
+    fn i32 PyArray_CanCoerceScalar (i32, i32, NPY_SCALARKIND)
     fn object PyArray_NewFlagsObject (object)
-    npy_bool PyArray_CanCastScalar (type, type)
+    fn npy_bool PyArray_CanCastScalar (type, type)
     # fn i32 PyArray_CompareUCS4 (npy_ucs4 *, npy_ucs4 *, register usize)
     fn i32 PyArray_RemoveSmallest (broadcast)
     fn i32 PyArray_ElementStrides (object)
@@ -637,45 +637,45 @@ extern from "numpy/arrayobject.h":
     fn void PyArray_Item_XDECREF (char *, dtype)
     fn object PyArray_FieldNames (object)
     fn object PyArray_Transpose (ndarray, PyArray_Dims *)
-    fn object PyArray_TakeFrom (ndarray, object, int, ndarray, NPY_CLIPMODE)
+    fn object PyArray_TakeFrom (ndarray, object, i32, ndarray, NPY_CLIPMODE)
     fn object PyArray_PutTo (ndarray, object, object, NPY_CLIPMODE)
     fn object PyArray_PutMask (ndarray, object, object)
     fn object PyArray_Repeat (ndarray, object, i32)
     fn object PyArray_Choose (ndarray, object, ndarray, NPY_CLIPMODE)
-    fn i32 PyArray_Sort (ndarray, int, NPY_SORTKIND)
-    fn object PyArray_ArgSort (ndarray, int, NPY_SORTKIND)
+    fn i32 PyArray_Sort (ndarray, i32, NPY_SORTKIND)
+    fn object PyArray_ArgSort (ndarray, i32, NPY_SORTKIND)
     fn object PyArray_SearchSorted (ndarray, object, NPY_SEARCHSIDE, PyObject *)
-    fn object PyArray_ArgMax (ndarray, int, ndarray)
-    fn object PyArray_ArgMin (ndarray, int, ndarray)
+    fn object PyArray_ArgMax (ndarray, i32, ndarray)
+    fn object PyArray_ArgMin (ndarray, i32, ndarray)
     fn object PyArray_Reshape (ndarray, object)
     fn object PyArray_Newshape (ndarray, PyArray_Dims *, NPY_ORDER)
     fn object PyArray_Squeeze (ndarray)
     # fn object PyArray_View (ndarray, dtype, type)
-    fn object PyArray_SwapAxes (ndarray, int, i32)
-    fn object PyArray_Max (ndarray, int, ndarray)
-    fn object PyArray_Min (ndarray, int, ndarray)
-    fn object PyArray_Ptp (ndarray, int, ndarray)
-    fn object PyArray_Mean (ndarray, int, int, ndarray)
-    fn object PyArray_Trace (ndarray, int, int, int, int, ndarray)
-    fn object PyArray_Diagonal (ndarray, int, int, i32)
+    fn object PyArray_SwapAxes (ndarray, i32, i32)
+    fn object PyArray_Max (ndarray, i32, ndarray)
+    fn object PyArray_Min (ndarray, i32, ndarray)
+    fn object PyArray_Ptp (ndarray, i32, ndarray)
+    fn object PyArray_Mean (ndarray, i32, i32, ndarray)
+    fn object PyArray_Trace (ndarray, i32, i32, i32, i32, ndarray)
+    fn object PyArray_Diagonal (ndarray, i32, i32, i32)
     fn object PyArray_Clip (ndarray, object, object, ndarray)
     fn object PyArray_Conjugate (ndarray, ndarray)
     fn object PyArray_Nonzero (ndarray)
-    fn object PyArray_Std (ndarray, int, int, ndarray, i32)
-    fn object PyArray_Sum (ndarray, int, int, ndarray)
-    fn object PyArray_CumSum (ndarray, int, int, ndarray)
-    fn object PyArray_Prod (ndarray, int, int, ndarray)
-    fn object PyArray_CumProd (ndarray, int, int, ndarray)
-    fn object PyArray_All (ndarray, int, ndarray)
-    fn object PyArray_Any (ndarray, int, ndarray)
-    fn object PyArray_Compress (ndarray, object, int, ndarray)
+    fn object PyArray_Std (ndarray, i32, i32, ndarray, i32)
+    fn object PyArray_Sum (ndarray, i32, i32, ndarray)
+    fn object PyArray_CumSum (ndarray, i32, i32, ndarray)
+    fn object PyArray_Prod (ndarray, i32, i32, ndarray)
+    fn object PyArray_CumProd (ndarray, i32, i32, ndarray)
+    fn object PyArray_All (ndarray, i32, ndarray)
+    fn object PyArray_Any (ndarray, i32, ndarray)
+    fn object PyArray_Compress (ndarray, object, i32, ndarray)
     fn object PyArray_Flatten (ndarray, NPY_ORDER)
     fn object PyArray_Ravel (ndarray, NPY_ORDER)
-    npy_intp PyArray_MultiplyList (npy_intp *, i32)
+    fn npy_intp PyArray_MultiplyList (npy_intp *, i32)
     fn i32 PyArray_MultiplyIntList (i32 *, i32)
     fn void * PyArray_GetPtr (ndarray, npy_intp*)
     fn i32 PyArray_CompareLists (npy_intp *, npy_intp *, i32)
-    # fn i32 PyArray_AsCArray (object*, void *, npy_intp *, int, dtype)
+    # fn i32 PyArray_AsCArray (object*, void *, npy_intp *, i32, dtype)
     # fn i32 PyArray_As1D (object*, char **, i32 *, i32)
     # fn i32 PyArray_As2D (object*, char ***, i32 *, i32 *, i32)
     fn i32 PyArray_Free (object, void *)
@@ -695,7 +695,7 @@ extern from "numpy/arrayobject.h":
     fn i32 PyArray_BoolConverter (object, npy_bool *)
     fn i32 PyArray_ByteorderConverter (object, char *)
     fn i32 PyArray_OrderConverter (object, NPY_ORDER *)
-    u8 PyArray_EquivTypes (dtype, dtype)
+    fn u8 PyArray_EquivTypes (dtype, dtype)
     # fn object PyArray_Zeros (i32, npy_intp *, dtype, i32)
     # fn object PyArray_Empty (i32, npy_intp *, dtype, i32)
     fn object PyArray_Where (object, object, object)
@@ -703,12 +703,12 @@ extern from "numpy/arrayobject.h":
     # fn object PyArray_ArangeObj (object, object, object, dtype)
     fn i32 PyArray_SortkindConverter (object, NPY_SORTKIND *)
     fn object PyArray_LexSort (object, i32)
-    fn object PyArray_Round (ndarray, int, ndarray)
-    u8 PyArray_EquivTypenums (i32, i32)
+    fn object PyArray_Round (ndarray, i32, ndarray)
+    fn u8 PyArray_EquivTypenums (i32, i32)
     fn i32 PyArray_RegisterDataType (dtype)
-    fn i32 PyArray_RegisterCastFunc (dtype, int, PyArray_VectorUnaryFunc *)
-    fn i32 PyArray_RegisterCanCast (dtype, int, NPY_SCALARKIND)
-    #void PyArray_InitArrFuncs (PyArray_ArrFuncs *)
+    fn i32 PyArray_RegisterCastFunc (dtype, i32, PyArray_VectorUnaryFunc *)
+    fn i32 PyArray_RegisterCanCast (dtype, i32, NPY_SCALARKIND)
+    # fn void PyArray_InitArrFuncs (PyArray_ArrFuncs *)
     fn object PyArray_IntTupleFromIntp (i32, npy_intp *)
     fn i32 PyArray_TypeNumFromName (char *)
     fn i32 PyArray_ClipmodeConverter (object, NPY_CLIPMODE *)
@@ -720,7 +720,7 @@ extern from "numpy/arrayobject.h":
     # fn i32 PyArray_DescrAlignConverter2 (object, dtype*)
     fn i32 PyArray_SearchsideConverter (object, void *)
     fn object PyArray_CheckAxis (ndarray, i32 *, i32)
-    npy_intp PyArray_OverflowMultiplyList (npy_intp *, i32)
+    fn npy_intp PyArray_OverflowMultiplyList (npy_intp *, i32)
     fn i32 PyArray_CompareString (char *, char *, usize)
     fn i32 PyArray_SetBaseObject(ndarray, base)  # NOTE: steals a reference to base! Use "set_array_base()" instead.
 
@@ -735,26 +735,26 @@ ctypedef npy_int8       int8_t
 ctypedef npy_int16      int16_t
 ctypedef npy_int32      int32_t
 ctypedef npy_int64      int64_t
-#ctypedef npy_int96      int96_t
-#ctypedef npy_int128     int128_t
+# ctypedef npy_int96      int96_t
+# ctypedef npy_int128     int128_t
 
 ctypedef npy_uint8      uint8_t
 ctypedef npy_uint16     uint16_t
 ctypedef npy_uint32     uint32_t
 ctypedef npy_uint64     uint64_t
-#ctypedef npy_uint96     uint96_t
-#ctypedef npy_uint128    uint128_t
+# ctypedef npy_uint96     uint96_t
+# ctypedef npy_uint128    uint128_t
 
 ctypedef npy_float32    float32_t
 ctypedef npy_float64    float64_t
-#ctypedef npy_float80    float80_t
-#ctypedef npy_float128   float128_t
+# ctypedef npy_float80    float80_t
+# ctypedef npy_float128   float128_t
 
 ctypedef float complex  complex64_t
 ctypedef double complex complex128_t
 
-# The int types are mapped a bit surprising --
-# numpy.int corresponds to 'l' and numpy.long to 'q'
+# The i32 types are mapped a bit surprising --
+# numpy.i32 corresponds to 'l' and numpy.long to 'q'
 ctypedef npy_long       int_t
 ctypedef npy_longlong   longlong_t
 
@@ -906,8 +906,8 @@ extern from "numpy/ufuncobject.h":
         UFUNC_ERR_DEFAULT2
 
     fn object PyUFunc_FromFuncAndData(PyUFuncGenericFunction *,
-          void **, char *, int, int, int, int, char *, char *, i32)
-    fn i32 PyUFunc_RegisterLoopForType(ufunc, int,
+          void **, char *, i32, i32, i32, i32, char *, char *, i32)
+    fn i32 PyUFunc_RegisterLoopForType(ufunc, i32,
                                     PyUFuncGenericFunction, i32 *, void *)
     fn i32 PyUFunc_GenericFunction \
         (ufunc, PyObject *, PyObject *, PyArrayObject **)
@@ -960,12 +960,12 @@ extern from "numpy/ufuncobject.h":
     fn void PyUFunc_clearfperr()
     fn i32 PyUFunc_getfperr()
     fn i32 PyUFunc_handlefperr \
-        (i32, PyObject *, int, i32 *)
+        (i32, PyObject *, i32, i32 *)
     fn i32 PyUFunc_ReplaceLoopBySignature \
         (ufunc, PyUFuncGenericFunction, i32 *, PyUFuncGenericFunction *)
     fn object PyUFunc_FromFuncAndDataAndSignature \
-             (PyUFuncGenericFunction *, void **, char *, int, int, int,
-              i32, char *, char *, int, char *)
+             (PyUFuncGenericFunction *, void **, char *, i32, i32, i32,
+              i32, char *, char *, i32, char *)
 
     fn i32 _import_umath() except -1
 
