@@ -79,7 +79,7 @@ def test_list_to_sequence(list x):
 @cython.test_fail_if_path_exists("//CmpNode")  # There's nothing to compare - it always succeeds!
 def test_list_not_None_to_sequence(list x not None):
     """
-    >>> test_list_not_None_to_sequence([1,2,3])
+    >>> test_list_not_None_to_sequence([1, 2, 3])
     True
     """
     match x:
