@@ -4,5 +4,5 @@ extern from "Python.h":
     ctypedef u32 uint32_t
     ctypedef u32 uint64_t
 
-    const isize PY_SSIZE_T_MIN
-    const isize PY_SSIZE_T_MAX
+    static const isize PY_SSIZE_T_MIN
+    static const isize PY_SSIZE_T_MAX
