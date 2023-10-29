@@ -16,8 +16,9 @@ cdef class NormalizeTree(CythonTransform):
 
 cdef class PostParse(ScopeTrackingTransform):
     cdef dict specialattribute_handlers
-    cdef usize lambda_counter
-    cdef usize genexpr_counter
+    cdef size_t lambda_counter
+    cdef size_t genexpr_counter
+    cdef bint in_pattern_node
     fn _visit_assignment_node(self, node, list expr_list)
 
 # def eliminate_rhs_duplicates(list expr_list_list, list ref_node_sequence)
