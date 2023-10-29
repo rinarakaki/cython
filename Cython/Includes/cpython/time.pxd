@@ -17,8 +17,7 @@ from libc.time cimport (
 )
 
 fn inline f64 time() nogil:
-    cdef:
-        _PyTime_t tic
+    let _PyTime_t tic
 
     tic = _PyTime_GetSystemClock()
     return _PyTime_AsSecondsDouble(tic)
@@ -32,9 +31,8 @@ fn inline tm localtime() except * nogil:
     Analogue to the stdlib time.localtime.  The returned struct
     has some entries that the stdlib version does not: tm_gmtoff, tm_zone
     """
-    cdef:
-        time_t tic = <time_t>time()
-        tm* result
+    let time_t tic = <time_t>time()
+    let tm* result
 
     result = libc_localtime(&tic)
     if result is NULL:
