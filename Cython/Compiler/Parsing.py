@@ -2388,7 +2388,7 @@ def p_statement(s, ctx, first_statement = 0):
         cdef_flag = 1
         overridable = 1
         s.next()
-    elif s.sy in ("pub", "fn", "let", "enum", "struct", "union", "extern"):
+    elif s.sy in ("pub", "fn", "let", "enum", "struct", "union", "extern", "static"):
         cdef_flag = 1
     if cdef_flag:
         if ctx.level not in ('module', 'module_pxd', 'function', 'c_class', 'c_class_pxd'):
@@ -3277,6 +3277,9 @@ def p_cdef_statement(s, ctx):
         s.next()
         return p_c_func_or_var_declaration(s, pos, ctx)
     elif s.sy == "let":
+        s.next()
+        return p_c_func_or_var_declaration(s, pos, ctx)
+    elif s.sy == "static":
         s.next()
         return p_c_func_or_var_declaration(s, pos, ctx)
     else:
