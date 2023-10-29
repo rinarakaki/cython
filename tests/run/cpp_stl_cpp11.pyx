@@ -31,10 +31,9 @@ def test_vector_functionality():
     >>> test_vector_functionality()
     'pass'
     """
-    cdef:
-        vector[i32] int_vector = vector[i32]()
-        int* data
-        const i32* const_data
+    let vector[i32] int_vector = vector[i32]()
+    let i32* data
+    let const i32* const_data
     int_vector.push_back(77)
     data = int_vector.data()
     const_data = int_vector.const_data()
