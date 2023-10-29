@@ -50,8 +50,8 @@ extern from "<sys/resource.h>" nogil:
         long    ru_nvcsw
         long    ru_nivcsw
 
-    int  getpriority(i32, id_t)
-    int  getrlimit(i32, rlimit *)
-    int  getrusage(i32, rusage *)
-    int  setpriority(i32, id_t, i32)
-    int  setrlimit(i32, const rlimit *)
+    fn i32 getpriority(i32, id_t)
+    fn i32 getrlimit(i32, rlimit *)
+    fn i32 getrusage(i32, rusage *)
+    fn i32 setpriority(i32, id_t, i32)
+    fn i32 setrlimit(i32, const rlimit *)

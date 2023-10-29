@@ -81,7 +81,7 @@ extern from "<sys/mman.h>" nogil:
     fn i32 madvise(void *addr, usize Len, i32 advice)
 
     # sometimes available
-    fn i32 mincore(void *addr, usize Len, unsigned char *vec)
+    fn i32 mincore(void *addr, usize Len, u8 *vec)
 
     # These two are Linux specific but sometimes very efficient
     fn void *mremap(void *old_addr, usize old_len, usize new_len, i32 flags, ...)

@@ -72,15 +72,15 @@ extern from "<fcntl.h>" nogil:
     enum: POSIX_FADV_WILLNEED
 
     struct flock:
-        short l_type
-        short l_whence
+        i16 l_type
+        i16 l_whence
         off_t l_start
         off_t l_len
         pid_t l_pid
 
-    fn int creat(const char *, mode_t)
-    fn int fcntl(i32, int, ...)
-    fn int open(const char *, int, ...)
-    fn int openat(i32, const char *, int, ...)
-    fn int posix_fadvise(i32, off_t, off_t, i32)
-    fn int posix_fallocate(i32, off_t, off_t)
+    fn i32 creat(const char *, mode_t)
+    fn i32 fcntl(i32, int, ...)
+    fn i32 open(const char *, int, ...)
+    fn i32 openat(i32, const char *, int, ...)
+    fn i32 posix_fadvise(i32, off_t, off_t, i32)
+    fn i32 posix_fallocate(i32, off_t, off_t)

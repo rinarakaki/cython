@@ -166,12 +166,12 @@ extern from "<string>" namespace "std" nogil:
         fn char& operator[](usize pos)
         fn char& front()
         fn char& back()
-        fn int compare(const string& s)
-        fn int compare(usize pos, usize len, const string& s) except +
-        fn int compare(usize pos, usize len, const string& s, usize subpos, usize sublen) except +
-        fn int compare(const char* s) except +
-        fn int compare(usize pos, usize len, const char* s) except +
-        fn int compare(usize pos, usize len, const char* s , usize n) except +
+        fn i32 compare(const string& s)
+        fn i32 compare(usize pos, usize len, const string& s) except +
+        fn i32 compare(usize pos, usize len, const string& s, usize subpos, usize sublen) except +
+        fn i32 compare(const char* s) except +
+        fn i32 compare(usize pos, usize len, const char* s) except +
+        fn i32 compare(usize pos, usize len, const char* s , usize n) except +
 
         fn string& append(const string& s) except +
         fn string& append(const string& s, usize subpos, usize sublen) except +

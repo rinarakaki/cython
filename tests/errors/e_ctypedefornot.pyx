@@ -2,10 +2,10 @@
 
 struct Foo
 
-ctypedef struct Foo:
+struct Foo:
     i32 i
 
-ctypedef struct Blarg:
+struct Blarg:
     char c
 
 struct Blarg

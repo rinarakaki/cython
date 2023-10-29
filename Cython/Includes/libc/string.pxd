@@ -4,7 +4,7 @@ extern from *:
     # deprecated backwards compatibility declarations
     ctypedef const char const_char "const char"
     ctypedef const signed char const_schar "const signed char"
-    ctypedef const unsigned char const_uchar "const unsigned char"
+    ctypedef const u8 const_uchar "const unsigned char"
     ctypedef const void const_void "const void"
 
 extern from "<string.h>" nogil:
