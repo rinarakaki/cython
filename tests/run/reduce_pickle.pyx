@@ -60,7 +60,7 @@ cdef class B:
         return "%s(x=%s, y=%s)" % (self.__class__.__name__, self.x, self.y)
 
     def __reduce__(self):
-        return makeObj, (type(self), {'x': self.x, 'y': self.y})
+        return makeObj, (r#type(self), {'x': self.x, 'y': self.y})
 
 def makeObj(obj_type, kwds):
     return obj_type(**kwds)
@@ -199,7 +199,7 @@ cdef class NoPyMembers(object):
         self.x = x
 
     def __repr__(self):
-        return "%s(ii=%s, x=%s)" % (type(self).__name__, self.ii, self.x)
+        return "%s(ii=%s, x=%s)" % (r#type(self).__name__, self.ii, self.x)
 
     def __eq__(self, other):
         return (
@@ -246,7 +246,7 @@ cdef class StructMemberDefault(object):
 
     def __repr__(self):
         return "%s(i=%s, x=%s)" % (
-            type(self).__name__, self.my_struct.i, self.my_struct.x)
+            r#type(self).__name__, self.my_struct.i, self.my_struct.x)
 
 @cython.auto_pickle(true)  # Forced due to the (inherited) struct attribute.
 cdef class StructMemberForcedPickle(StructMemberDefault):

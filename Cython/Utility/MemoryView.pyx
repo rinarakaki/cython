@@ -340,7 +340,7 @@ cdef class memoryview:
     def __cinit__(memoryview self, object obj, i32 flags, bint dtype_is_object=False):
         self.obj = obj
         self.flags = flags
-        if type(self) is memoryview or obj is not None:
+        if r#type(self) is memoryview or obj is not None:
             __Pyx_GetBuffer(obj, &self.view, flags)
             if <PyObject *> self.view.obj == NULL:
                 (<__pyx_buffer *> &self.view).obj = Py_None

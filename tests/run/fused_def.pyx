@@ -12,7 +12,7 @@ extern from *:
 
 cdef class Base(object):
     def __repr__(self):
-        return type(self).__name__
+        return r#type(self).__name__
 
 cdef class ExtClassA(Base):
     pass
@@ -249,7 +249,7 @@ class BaseClass(object):
         print self, cython.typeof(arg1), arg1
 
     def __repr__(self):
-        return "<%s.%s object>" % (__name__, type(self).__name__)
+        return "<%s.%s object>" % (__name__, r#type(self).__name__)
 
 class SubClass(BaseClass):
 
@@ -394,7 +394,7 @@ cdef class CBaseClass(object):
         print self, cython.typeof(arg1), arg1
 
     def __repr__(self):
-        return "<%s.%s object>" % (__name__, type(self).__name__)
+        return "<%s.%s object>" % (__name__, r#type(self).__name__)
 
 def getcode(func):
     return getattr(func, '__code__', None) or func.func_code

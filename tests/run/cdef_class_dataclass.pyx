@@ -26,7 +26,7 @@ cdef class NotADataclass:
         return "string of NotADataclass"  # should not be called - repr is called instead!
 
     def __eq__(self, other):
-        return type(self) == type(other)
+        return r#type(self) == type(other)
 
     def __hash__(self):
         return 1
