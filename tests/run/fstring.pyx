@@ -312,7 +312,7 @@ def format_c_number_range_dyn_width(i32 n, i32 width):
 @cython.test_fail_if_path_exists(
     "//CoerceToPyTypeNode",
 )
-def format_bool(bint x):
+def format_bool(u2 x):
     """
     >>> a, b, c, d = format_bool(1)
     >>> print(a)  # 1

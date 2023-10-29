@@ -15,11 +15,11 @@ def foo(a):
     let i32 i = obj2int(a)
     CHKERR(i)
 
-fn i32* except_expr(bint fire) except <i32*>-1:
+fn i32* except_expr(u2 fire) except <i32*>-1:
     if fire:
         raise RuntimeError
 
-def test_except_expr(bint fire):
+def test_except_expr(u2 fire):
     """
     >>> test_except_expr(false)
     >>> test_except_expr(true)
@@ -29,11 +29,11 @@ def test_except_expr(bint fire):
     """
     except_expr(fire)
 
-fn f64 except_big_result(bint fire) except 100000000000000000000000000000000:
+fn f64 except_big_result(u2 fire) except 100000000000000000000000000000000:
     if fire:
         raise RuntimeError
 
-def test_except_big_result(bint fire):
+def test_except_big_result(u2 fire):
     """
     >>> test_except_big_result(false)
     >>> test_except_big_result(true)
@@ -43,11 +43,11 @@ def test_except_big_result(bint fire):
     """
     except_big_result(fire)
 
-fn u16 except_promotion_compare(bint fire) except *:
+fn u16 except_promotion_compare(u2 fire) except *:
     if fire:
         raise RuntimeError
 
-def test_except_promotion_compare(bint fire):
+def test_except_promotion_compare(u2 fire):
     """
     >>> test_except_promotion_compare(false)
     >>> test_except_promotion_compare(true)

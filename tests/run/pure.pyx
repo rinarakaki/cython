@@ -12,8 +12,8 @@ def test_sizeof():
     True
     True
     """
-    x = cython.declare(cython.bint)
-    print sizeof(x) == sizeof(cython.bint)
+    x = cython.declare(cython.u2)
+    print sizeof(x) == sizeof(cython.u2)
     print sizeof(cython.char) <= sizeof(cython.short) <= sizeof(cython.int) <= sizeof(cython.long) <= sizeof(cython.longlong)
     print sizeof(cython.uint) == sizeof(cython.int)
     print sizeof(cython.p_int) == sizeof(cython.p_double)
@@ -84,7 +84,7 @@ def test_address(x):
     return y[0]
 
 #[cython.locals(x=cython.int)]
-#[cython.locals(y=cython.bint)]
+#[cython.locals(y=cython.u2)]
 def test_locals(x):
     """
     >>> test_locals(5)
@@ -94,7 +94,7 @@ def test_locals(x):
     return y
 
 MyUnion = cython.r#union(n=cython.int, x=cython.double)
-MyStruct = cython.r#struct(is_integral=cython.bint, data=MyUnion)
+MyStruct = cython.r#struct(is_integral=cython.u2, data=MyUnion)
 MyStruct2 = cython.typedef(MyStruct[2])
 
 def test_struct(n, x):
@@ -134,9 +134,9 @@ def test_declare_c_types(n):
     >>> test_declare_c_types(2)
     """
     #
-    b00 = cython.declare(cython.bint, 0)
-    b01 = cython.declare(cython.bint, 1)
-    b02 = cython.declare(cython.bint, 2)
+    b00 = cython.declare(cython.u2, 0)
+    b01 = cython.declare(cython.u2, 1)
+    b02 = cython.declare(cython.u2, 2)
     #
     i00 = cython.declare(cython.uchar, n)
     i01 = cython.declare(cython.char, n)
