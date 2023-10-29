@@ -2,7 +2,7 @@
 
 set -x
 
-GCC_VERSION=${GCC_VERSION:=11}
+LLVM_VERSION=${LLVM_VERSION:=11}
 
 # Set up compilers
 if [[ $TEST_CODE_STYLE == "1" ]]; then
@@ -12,20 +12,20 @@ elif [[ $OSTYPE == "linux-gnu"* ]]; then
   echo "Installing requirements [apt]"
   sudo apt-add-repository -y "ppa:ubuntu-toolchain-r/test"
   sudo apt update -y -q
-  sudo apt install -y -q gdb python3-dbg gcc-$GCC_VERSION || exit 1
+  sudo apt install -y -q python3-dbg clang-LLVM_VERSION lldb || exit 1
 
   ALTERNATIVE_ARGS=""
   if [[ $BACKEND == *"cpp"* ]]; then
-    sudo apt install -y -q g++-$GCC_VERSION || exit 1
-    ALTERNATIVE_ARGS="--slave /usr/bin/g++ g++ /usr/bin/g++-$GCC_VERSION"
+    sudo apt install -y -q clang++-$LLVM_VERSION || exit 1
+    ALTERNATIVE_ARGS="--slave /usr/bin/clang++ clang++ /usr/bin/clang++-$LLVM_VERSION"
   fi
 
-  sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-$GCC_VERSION 60 $ALTERNATIVE_ARGS
+  sudo update-alternatives --install /usr/bin/clang clang /usr/bin/clang-$LLVM_VERSION 60 $ALTERNATIVE_ARGS
 
-  export CC="gcc"
+  export CC="clang"
   if [[ $BACKEND == *"cpp"* ]]; then
-    sudo update-alternatives --set g++ /usr/bin/g++-$GCC_VERSION
-    export CXX="g++"
+    sudo update-alternatives --set clang++ /usr/bin/clang++-$LLVM_VERSION
+    export CXX="clang++"
   fi
 elif [[ $OSTYPE == "darwin"* ]]; then
   echo "Setting up macos compiler"
@@ -47,8 +47,8 @@ else
 
   echo "Set up symlinks to ccache"
   cp ccache /usr/local/bin/
-  ln -s ccache /usr/local/bin/gcc
-  ln -s ccache /usr/local/bin/g++
+  ln -s ccache /usr/local/bin/clang
+  ln -s ccache /usr/local/bin/clang++
   ln -s ccache /usr/local/bin/cc
   ln -s ccache /usr/local/bin/c++
   ln -s ccache /usr/local/bin/clang
