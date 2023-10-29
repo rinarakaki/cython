@@ -118,14 +118,14 @@ extern from "<string>" namespace "std" nogil:
             bint operator>=(reverse_iterator)
             bint operator>=(const_reverse_iterator)
 
-        fn string() except +
-        fn string(const string& s) except +
-        fn string(const string& s, usize pos) except +
-        fn string(const string& s, usize pos, usize len) except +
-        fn string(const char* s) except +
-        fn string(const char* s, usizen) except +
-        fn string(usize n, char c) except +
-        fn string(iterator first, iterator last) except +
+        string() except +
+        string(const string& s) except +
+        string(const string& s, usize pos) except +
+        string(const string& s, usize pos, usize len) except +
+        string(const char* s) except +
+        string(const char* s, usizen) except +
+        string(usize n, char c) except +
+        string(iterator first, iterator last) except +
 
         iterator begin()
         const_iterator const_begin "begin"()
@@ -142,148 +142,148 @@ extern from "<string>" namespace "std" nogil:
 
         const char* c_str()
         const char* data()
-        fn usize size()
-        fn usize max_size()
-        fn usize length()
-        fn void resize(usize) except +
-        fn void resize(usize, char) except +
-        fn void shrink_to_fit() except +
-        fn void swap(string& other)
-        fn usize capacity()
-        fn void reserve(usize) except +
-        fn void clear()
-        fn bint empty()
+        usize size()
+        usize max_size()
+        usize length()
+        void resize(usize) except +
+        void resize(usize, char) except +
+        void shrink_to_fit() except +
+        void swap(string& other)
+        usize capacity()
+        void reserve(usize) except +
+        void clear()
+        bint empty()
 
         iterator erase(iterator first, iterator last)
         iterator erase(iterator p)
         iterator erase(const_iterator first, const_iterator last)
         iterator erase(const_iterator p)
-        fn string& erase(usize pos, usize len) except +
-        fn string& erase(usize) except +
-        fn string& erase() except +
+        string& erase(usize pos, usize len) except +
+        string& erase(usize) except +
+        string& erase() except +
 
-        fn char& at(usize pos) except +
-        fn char& operator[](usize pos)
-        fn char& front()
-        fn char& back()
-        fn int compare(const string& s)
-        fn int compare(usize pos, usize len, const string& s) except +
-        fn int compare(usize pos, usize len, const string& s, usize subpos, usize sublen) except +
-        fn int compare(const char* s) except +
-        fn int compare(usize pos, usize len, const char* s) except +
-        fn int compare(usize pos, usize len, const char* s , usize n) except +
+        char& at(usize pos) except +
+        char& operator[](usize pos)
+        char& front()
+        char& back()
+        int compare(const string& s)
+        int compare(usize pos, usize len, const string& s) except +
+        int compare(usize pos, usize len, const string& s, usize subpos, usize sublen) except +
+        int compare(const char* s) except +
+        int compare(usize pos, usize len, const char* s) except +
+        int compare(usize pos, usize len, const char* s , usize n) except +
 
-        fn string& append(const string& s) except +
-        fn string& append(const string& s, usize subpos, usize sublen) except +
-        fn string& append(const char* s) except +
-        fn string& append(const char* s, usize n) except +
-        fn string& append(usize n, char c) except +
+        string& append(const string& s) except +
+        string& append(const string& s, usize subpos, usize sublen) except +
+        string& append(const char* s) except +
+        string& append(const char* s, usize n) except +
+        string& append(usize n, char c) except +
 
-        fn void push_back(char c) except +
-        fn void pop_back()
+        void push_back(char c) except +
+        void pop_back()
 
-        fn string& assign(const string& s) except +
-        fn string& assign(const string& s, usize subpos, usize sublen) except +
-        fn string& assign(const char* s, usize n) except +
-        fn string& assign(const char* s) except +
-        fn string& assign(usize n, char c) except +
+        string& assign(const string& s) except +
+        string& assign(const string& s, usize subpos, usize sublen) except +
+        string& assign(const char* s, usize n) except +
+        string& assign(const char* s) except +
+        string& assign(usize n, char c) except +
 
-        fn string& insert(usize pos, const string& s, usize subpos, usize sublen) except +
-        fn string& insert(usize pos, const string& s) except +
-        fn string& insert(usize pos, const char* s, usize n) except +
-        fn string& insert(usize pos, const char* s) except +
-        fn string& insert(usize pos, usize n, char c) except +
-        fn void insert(iterator p, usize n, char c) except +
+        string& insert(usize pos, const string& s, usize subpos, usize sublen) except +
+        string& insert(usize pos, const string& s) except +
+        string& insert(usize pos, const char* s, usize n) except +
+        string& insert(usize pos, const char* s) except +
+        string& insert(usize pos, usize n, char c) except +
+        void insert(iterator p, usize n, char c) except +
         iterator insert(iterator p, char c) except +
 
-        fn usize copy(char* s, usize len, usize pos) except +
-        fn usize copy(char* s, usize len) except +
+        usize copy(char* s, usize len, usize pos) except +
+        usize copy(char* s, usize len) except +
 
-        fn usize find(const string& s, usize pos)
-        fn usize find(const string& s)
-        fn usize find(const char* s, usize pos, usize n)
-        fn usize find(const char* s, usize pos)
-        fn usize find(const char* s)
-        fn usize find(char c, usize pos)
-        fn usize find(char c)
+        usize find(const string& s, usize pos)
+        usize find(const string& s)
+        usize find(const char* s, usize pos, usize n)
+        usize find(const char* s, usize pos)
+        usize find(const char* s)
+        usize find(char c, usize pos)
+        usize find(char c)
 
-        fn usize rfind(const string&, usize pos)
-        fn usize rfind(const string&)
-        fn usize rfind(const char* s, usize pos, usize n)
-        fn usize rfind(const char* s, usize pos)
-        fn usize rfind(const char* s)
-        fn usize rfind(char c, usize pos)
-        fn usize rfind(char c)
+        usize rfind(const string&, usize pos)
+        usize rfind(const string&)
+        usize rfind(const char* s, usize pos, usize n)
+        usize rfind(const char* s, usize pos)
+        usize rfind(const char* s)
+        usize rfind(char c, usize pos)
+        usize rfind(char c)
 
-        fn usize find_first_of(const string&, usize pos)
-        fn usize find_first_of(const string&)
-        fn usize find_first_of(const char* s, usize pos, usize n)
-        fn usize find_first_of(const char* s, usize pos)
-        fn usize find_first_of(const char* s)
-        fn usize find_first_of(char c, usize pos)
-        fn usize find_first_of(char c)
+        usize find_first_of(const string&, usize pos)
+        usize find_first_of(const string&)
+        usize find_first_of(const char* s, usize pos, usize n)
+        usize find_first_of(const char* s, usize pos)
+        usize find_first_of(const char* s)
+        usize find_first_of(char c, usize pos)
+        usize find_first_of(char c)
 
-        fn usize find_first_not_of(const string& s, usize pos)
-        fn usize find_first_not_of(const string& s)
-        fn usize find_first_not_of(const char* s, usize pos, usize n)
-        fn usize find_first_not_of(const char* s, usize pos)
-        fn usize find_first_not_of(const char*)
-        fn usize find_first_not_of(char c, usize pos)
-        fn usize find_first_not_of(char c)
+        usize find_first_not_of(const string& s, usize pos)
+        usize find_first_not_of(const string& s)
+        usize find_first_not_of(const char* s, usize pos, usize n)
+        usize find_first_not_of(const char* s, usize pos)
+        usize find_first_not_of(const char*)
+        usize find_first_not_of(char c, usize pos)
+        usize find_first_not_of(char c)
 
-        fn usize find_last_of(const string& s, usize pos)
-        fn usize find_last_of(const string& s)
-        fn usize find_last_of(const char* s, usize pos, usize n)
-        fn usize find_last_of(const char* s, usize pos)
-        fn usize find_last_of(const char* s)
-        fn usize find_last_of(char c, usize pos)
-        fn usize find_last_of(char c)
+        usize find_last_of(const string& s, usize pos)
+        usize find_last_of(const string& s)
+        usize find_last_of(const char* s, usize pos, usize n)
+        usize find_last_of(const char* s, usize pos)
+        usize find_last_of(const char* s)
+        usize find_last_of(char c, usize pos)
+        usize find_last_of(char c)
 
-        fn usize find_last_not_of(const string& s, usize pos)
-        fn usize find_last_not_of(const string& s)
-        fn usize find_last_not_of(const char* s, usize pos, usize n)
-        fn usize find_last_not_of(const char* s, usize pos)
-        fn usize find_last_not_of(const char* s)
-        fn usize find_last_not_of(char c, usize pos)
-        fn usize find_last_not_of(char c)
+        usize find_last_not_of(const string& s, usize pos)
+        usize find_last_not_of(const string& s)
+        usize find_last_not_of(const char* s, usize pos, usize n)
+        usize find_last_not_of(const char* s, usize pos)
+        usize find_last_not_of(const char* s)
+        usize find_last_not_of(char c, usize pos)
+        usize find_last_not_of(char c)
 
-        fn string substr(usize pos, usize len) except +
-        fn string substr(usize pos) except +
-        fn string substr()
+        string substr(usize pos, usize len) except +
+        string substr(usize pos) except +
+        string substr()
 
         # C++20
-        fn bint starts_with(char c) except +
-        fn bint starts_with(const char* s)
-        fn bint ends_with(char c) except +
-        fn bint ends_with(const char* s)
+        bint starts_with(char c) except +
+        bint starts_with(const char* s)
+        bint ends_with(char c) except +
+        bint ends_with(const char* s)
         # C++23
-        fn bint contains(char c) except +
-        fn bint contains(const char* s)
+        bint contains(char c) except +
+        bint contains(const char* s)
 
         # string& operator= (const string&)
         # string& operator= (const char*)
         # string& operator= (char)
 
-        fn string operator+ (const string&) except +
-        fn string operator+ (const char*) except +
+        string operator+ (const string&) except +
+        string operator+ (const char*) except +
 
-        fn bint operator==(const string&)
-        fn bint operator==(const char*)
+        bint operator==(const string&)
+        bint operator==(const char*)
 
-        fn bint operator!= (const string&)
-        fn bint operator!= (const char*)
+        bint operator!= (const string&)
+        bint operator!= (const char*)
 
-        fn bint operator< (const string&)
-        fn bint operator< (const char*)
+        bint operator< (const string&)
+        bint operator< (const char*)
 
-        fn bint operator> (const string&)
-        fn bint operator> (const char*)
+        bint operator> (const string&)
+        bint operator> (const char*)
 
-        fn bint operator<= (const string&)
-        fn bint operator<= (const char*)
+        bint operator<= (const string&)
+        bint operator<= (const char*)
 
-        fn bint operator>= (const string&)
-        fn bint operator>= (const char*)
+        bint operator>= (const string&)
+        bint operator>= (const char*)
 
 
     fn string to_string(i32 val) except +
