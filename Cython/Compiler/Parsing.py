@@ -2352,7 +2352,7 @@ def p_statement(s, ctx, first_statement = 0):
         #if ctx.api:
         #    error(s.position(), "'api' not allowed with 'ctypedef'")
         return p_ctypedef_statement(s, ctx)
-    elif s.sy in ("const", "DEF"):
+    elif s.sy in ("const", "DEF") and ctx.visibility != "extern":
         # We used to dep-warn about this but removed the warning again since
         # we don't have a good answer yet for all use cases.
         # warning(s.position(),
