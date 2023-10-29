@@ -169,8 +169,8 @@ __doc__ = u"""
 """
 
 extern from *:
-    const isize PY_SSIZE_T_MIN
-    const isize PY_SSIZE_T_MAX
+    static const isize PY_SSIZE_T_MIN
+    static const isize PY_SSIZE_T_MAX
 
 SSIZE_T_MAX = PY_SSIZE_T_MAX
 SSIZE_T_MIN = PY_SSIZE_T_MIN
