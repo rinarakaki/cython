@@ -16,7 +16,6 @@ elif [[ $OSTYPE == "linux-gnu"* ]]; then
 
   ALTERNATIVE_ARGS=""
   if [[ $BACKEND == *"cpp"* ]]; then
-    sudo apt install -y -q clang++-$LLVM_VERSION || exit 1
     ALTERNATIVE_ARGS="--slave /usr/bin/clang++ clang++ /usr/bin/clang++-$LLVM_VERSION"
   fi
 
