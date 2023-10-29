@@ -2,7 +2,7 @@
 
 set -x
 
-LLVM_VERSION=${LLVM_VERSION:=11}
+LLVM_VERSION=${LLVM_VERSION:=14}
 
 # Set up compilers
 if [[ $TEST_CODE_STYLE == "1" ]]; then
