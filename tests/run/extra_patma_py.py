@@ -82,9 +82,9 @@ def test_duplicate_keys(key1, key2):
 
     match {"a": 1, "b": 2}:
         case {Keys.KEY_1: _, Keys.KEY_2: _}:
-            return true
+            return True
         case _:
-            return false
+            return False
 
 
 class PyClass(object):
