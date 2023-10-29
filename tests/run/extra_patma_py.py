@@ -36,7 +36,7 @@ def test_assignment_and_guards(x):
     ('second', -1)
     """
     match x:
-        case [a] if a>0:
+        case [a] if a > 0:
             return "first", a
         case [a, *_]:
             return "second", a
@@ -82,9 +82,9 @@ def test_duplicate_keys(key1, key2):
 
     match {"a": 1, "b": 2}:
         case {Keys.KEY_1: _, Keys.KEY_2: _}:
-            return True
+            return true
         case _:
-            return False
+            return false
 
 
 class PyClass(object):
@@ -116,7 +116,7 @@ if sys.version_info[0] < 3:
     def test_oldstyle_class_failure(x):
         match x:
             case OldStyleClass():
-                return True
+                return true
 
     __doc__ += """
     >>> test_oldstyle_class_failure(1)
