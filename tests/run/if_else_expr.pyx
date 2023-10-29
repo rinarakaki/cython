@@ -54,7 +54,7 @@ def test_syntax():
 
 from libc cimport math
 
-def test_cfunc_ptrs(f64 x, bint round_down):
+def test_cfunc_ptrs(f64 x, u2 round_down):
     """
     >>> test_cfunc_ptrs(2.5, round_down=true)
     2.0

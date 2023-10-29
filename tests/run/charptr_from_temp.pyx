@@ -2,7 +2,7 @@
 
 from cpython.version cimport PY_MAJOR_VERSION
 
-cdef bint IS_PY2 = PY_MAJOR_VERSION == 2
+cdef u2 IS_PY2 = PY_MAJOR_VERSION == 2
 
 fn cfunc1(char* s):
     if IS_PY2:

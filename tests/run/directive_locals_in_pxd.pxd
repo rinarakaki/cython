@@ -6,5 +6,5 @@ fn foo(egg)
 #[cython.locals(egg=cython.double)]
 fn foo_defval(egg=*)
 
-#[cython.locals(egg=cython.bint, v=cython.int)]
+#[cython.locals(egg=cython.u2, v=cython.int)]
 cpdef cpfoo(egg=*)

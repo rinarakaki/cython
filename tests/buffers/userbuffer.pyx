@@ -17,7 +17,7 @@ UserBuffer2: release
 extern from *:
     struct Py_buffer  # redeclared
     enum: PyBUF_SIMPLE
-    fn i32 PyBuffer_FillInfo(Py_buffer *, object, void *, isize, bint, i32) except -1
+    fn i32 PyBuffer_FillInfo(Py_buffer *, object, void *, isize, u2, i32) except -1
     fn i32  PyObject_GetBuffer(object, Py_buffer *, i32) except -1
     fn void PyBuffer_Release(Py_buffer *)
 
@@ -46,7 +46,7 @@ extern from *:
     struct PyBuffer"Py_buffer":
         void *buf
         isize len
-        bint readonly
+        u2 readonly
 
 cdef class _memoryview:
     """

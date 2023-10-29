@@ -8,14 +8,14 @@ extern from "cpp_templates_helper.h":
         Wrap(T)
         void set(T)
         T get()
-        bint operator==(Wrap[T])
+        u2 operator==(Wrap[T])
 
     cdef cppclass Pair[T1, T2]:
         Pair(T1,T2)
         T1 first()
         T2 second()
-        bint operator==(Pair[T1, T2])
-        bint operator!=(Pair[T1, T2])
+        u2 operator==(Pair[T1, T2])
+        u2 operator!=(Pair[T1, T2])
 
 def test_wrap_pair(i32 i, f64 x):
     """

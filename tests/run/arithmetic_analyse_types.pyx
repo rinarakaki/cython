@@ -53,7 +53,7 @@ def longlong_unnop(i128 val):
     let longlong_return x = f(~val)
     return x.msg.decode('ASCII')
 
-def test_bint(bint a):
+def test_bint(u2 a):
     """
     >>> test_bint(true)
     """

@@ -191,7 +191,7 @@ def true():
     >>> true()
     True
     """
-    let bint true = TRUE
+    let u2 true = TRUE
     return true
 
 #[cython.test_assert_path_exists('//BoolNode')]
@@ -200,7 +200,7 @@ def false():
     >>> false()
     False
     """
-    let bint false = FALSE
+    let u2 false = FALSE
     return false
 
 def ellipsis():

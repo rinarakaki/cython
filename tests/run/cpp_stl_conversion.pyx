@@ -97,7 +97,7 @@ def test_bint_vector(o):
     [False, True]
     """
 
-    let vector[bint] v = o
+    let vector[u2] v = o
     return v
 
 def test_int_vector(o):

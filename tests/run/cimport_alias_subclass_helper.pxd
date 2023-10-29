@@ -1,2 +1,2 @@
 cdef class Base:
-    fn bint foo(self)
+    fn u2 foo(self)

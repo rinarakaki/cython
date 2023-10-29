@@ -1,6 +1,6 @@
 from cython cimport typeof
 
-def test(bint value):
+def test(u2 value):
     """
     >>> test(true)
     True
@@ -30,11 +30,11 @@ def test(bint value):
     """
     return value
 
-def test_types(bint a):
+def test_types(u2 a):
     """
     >>> test_types(None)
     """
-    let bint b = a
+    let u2 b = a
     assert typeof(a) == 'bint', typeof(a)
     assert typeof(b) == 'bint', typeof(b)
     c = b

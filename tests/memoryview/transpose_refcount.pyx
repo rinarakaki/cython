@@ -2,7 +2,7 @@
 
 from cython cimport view
 
-fn bint print_upper_right(f64[:, :] M):
+fn u2 print_upper_right(f64[:, :] M):
     print M[0, 1]
 
 cdef class MemViewContainer:

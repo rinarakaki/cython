@@ -20,7 +20,7 @@ extern from "shapes.h" namespace "shapes":
         Rectangle() except +
         Rectangle(i32 h, i32 w) except +
         i32 method(i32 x)
-        i32 method(bint b)
+        i32 method(u2 b)
 
     cdef cppclass Square(Rectangle):
         int side
@@ -94,7 +94,7 @@ def test_overload_bint_int():
 
     try:
         print rect1.method(<i32>2)
-        print rect2.method(<bint>true)
+        print rect2.method(<u2>true)
     finally:
         del rect1
         del rect2

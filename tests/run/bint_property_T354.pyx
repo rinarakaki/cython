@@ -8,9 +8,9 @@ cdef class Test:
     >>> t.some_public_bool
     True
     """
-    pub bint some_public_bool
-    cdef readonly bint some_ro_bool
+    pub u2 some_public_bool
+    cdef readonly u2 some_ro_bool
 
-    def __init__(self, bint boolval):
+    def __init__(self, u2 boolval):
         self.some_ro_bool = boolval
         self.some_public_bool = boolval

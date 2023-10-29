@@ -76,7 +76,7 @@ cdef class FunctionKeeper:
         return self.function_keeper.call_function(a, b)
 
     def __bool__(self):
-        return <bint> self.function_keeper.get_function()
+        return <u2>self.function_keeper.get_function()
 
     def set_function(self, function_name):
         cdef function[f64(f64, i32) noexcept] *f = self._get_function_ptr_from_name(function_name)
