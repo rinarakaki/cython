@@ -2,7 +2,7 @@
 
 set -x
 
-LLVM_VERSION=${LLVM_VERSION:=14}
+LLVM_VERSION=${LLVM_VERSION:=15}
 
 # Set up compilers
 if [[ $TEST_CODE_STYLE == "1" ]]; then
@@ -50,8 +50,6 @@ else
   ln -s ccache /usr/local/bin/clang++
   ln -s ccache /usr/local/bin/cc
   ln -s ccache /usr/local/bin/c++
-  ln -s ccache /usr/local/bin/clang
-  ln -s ccache /usr/local/bin/clang++
 fi
 
 # Set up miniconda
