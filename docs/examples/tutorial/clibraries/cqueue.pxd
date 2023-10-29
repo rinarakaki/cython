@@ -14,4 +14,4 @@ extern from "c-algorithms/src/queue.h":
     fn QueueValue queue_pop_tail(Queue* queue)
     fn QueueValue queue_peek_tail(Queue* queue)
 
-    fn bint queue_is_empty(Queue* queue)
+    fn u2 queue_is_empty(Queue* queue)

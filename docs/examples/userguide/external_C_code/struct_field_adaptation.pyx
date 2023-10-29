@@ -19,7 +19,7 @@ extern from "struct_field_adaptation.h":
     fn StructType *get_struct_ptr()
 
     # Special declarations conditionally provided above:
-    fn bint HAS_NEWLY_ADDED_FIELD
+    fn u2 HAS_NEWLY_ADDED_FIELD
     fn i32 get_newly_added_field "_mylib_get_newly_added_field" (StructType *struct_ptr)
     fn void set_newly_added_field "_mylib_set_newly_added_field" (StructType *struct_ptr, i32 value)
 

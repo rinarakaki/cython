@@ -8,7 +8,7 @@ struct my_c_struct:
 cdef class WrapperClass:
     """A wrapper class for a C/C++ data structure"""
     cdef my_c_struct *_ptr
-    cdef bint ptr_owner
+    cdef u2 ptr_owner
 
     def __cinit__(self):
         self.ptr_owner = False
@@ -34,7 +34,7 @@ cdef class WrapperClass:
         return self._ptr.b if self._ptr is not NULL else None
 
     @staticmethod
-    fn WrapperClass from_ptr(my_c_struct *_ptr, bint owner=false):
+    fn WrapperClass from_ptr(my_c_struct *_ptr, u2 owner=false):
         """Factory function to create WrapperClass objects from
         given my_c_struct pointer.
 

@@ -36,19 +36,19 @@ cdef class WorkerTaskRec(TaskRec):
     pub isize count
 
 cdef class TaskState:
-    pub bint packet_pending # = True
-    pub bint task_waiting   # = False
-    pub bint task_holding   # = False
+    pub u2 packet_pending # = True
+    pub u2 task_waiting   # = False
+    pub u2 task_holding   # = False
 
     cpdef packet_pending(self)
     cpdef waiting(self)
     cpdef running(self)
     cpdef waiting_with_packet(self)
-    cpdef bint is_packet_pending(self)
-    cpdef bint is_task_waiting(self)
-    cpdef bint is_task_holding(self)
-    cpdef bint is_task_holding_or_waiting(self)
-    cpdef bint is_waiting_with_packet(self)
+    cpdef u2 is_packet_pending(self)
+    cpdef u2 is_task_waiting(self)
+    cpdef u2 is_task_holding(self)
+    cpdef u2 is_task_holding_or_waiting(self)
+    cpdef u2 is_waiting_with_packet(self)
 
 cdef class TaskWorkArea:
     pub list taskTab # = [None] * TASKTABSIZE
