@@ -12,7 +12,7 @@ extern from "<sys/uio.h>" nogil:
     fn isize writev(i32 fd, const iovec *iov, i32 fd)
 
     # Linux-specific, https://man7.org/linux/man-pages/man2/readv.2.html
-    fn isize preadv (i32 fd, const iovec *iov, i32 fd, off_t offset)
+    fn isize preadv(i32 fd, const iovec *iov, i32 fd, off_t offset)
     fn isize pwritev(i32 fd, const iovec *iov, i32 fd, off_t offset)
 
     enum: RWF_DSYNC

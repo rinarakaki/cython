@@ -35,20 +35,20 @@ extern from "<sys/resource.h>" nogil:
         timeval ru_utime
         timeval ru_stime
         # Linux-specific
-        long    ru_maxrss
-        long    ru_ixrss
-        long    ru_idrss
-        long    ru_isrss
-        long    ru_minflt
-        long    ru_majflt
-        long    ru_nswap
-        long    ru_inblock
-        long    ru_oublock
-        long    ru_msgsnd
-        long    ru_msgrcv
-        long    ru_nsignals
-        long    ru_nvcsw
-        long    ru_nivcsw
+        i64    ru_maxrss
+        i64    ru_ixrss
+        i64    ru_idrss
+        i64    ru_isrss
+        i64    ru_minflt
+        i64    ru_majflt
+        i64    ru_nswap
+        i64    ru_inblock
+        i64    ru_oublock
+        i64    ru_msgsnd
+        i64    ru_msgrcv
+        i64    ru_nsignals
+        i64    ru_nvcsw
+        i64    ru_nivcsw
 
     fn i32 getpriority(i32, id_t)
     fn i32 getrlimit(i32, rlimit *)
