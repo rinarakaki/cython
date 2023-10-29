@@ -3509,7 +3509,7 @@ def p_c_func_or_var_declaration(s, pos, ctx):
     declarator = p_c_declarator(s, ctx(modifiers=modifiers), cmethod_flag = cmethod_flag,
                                 assignable = 1, nonempty = 1)
     declarator.overridable = ctx.overridable
-    if if s.sy == "const" and ctx.level == 'cpp_class':
+    if s.sy == "const" and ctx.level == 'cpp_class':
         s.next()
         is_const_method = 1
     else:
