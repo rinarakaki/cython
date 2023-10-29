@@ -2,7 +2,7 @@ from libc.stdio cimport FILE
 cimport cpython.type
 
 extern from "Python.h":
-    ctypedef struct PyObject  # forward declaration
+    struct PyObject  # forward declaration
 
     ctypedef object (*newfunc)(cpython.type.type, PyObject*, PyObject*)  # (type, args|NULL, kwargs|NULL)
 
@@ -36,13 +36,13 @@ extern from "Python.h":
 
     ctypedef object (*PyCFunction)(object, object)
 
-    ctypedef struct PyMethodDef:
+    struct PyMethodDef:
         const char* ml_name
         PyCFunction ml_meth
         i32 ml_flags
         const char* ml_doc
 
-    ctypedef struct PyTypeObject:
+    struct PyTypeObject:
         const char* tp_name
         const char* tp_doc
         isize tp_basicsize
@@ -76,85 +76,85 @@ extern from "Python.h":
 
         u32 tp_version_tag
 
-    ctypedef struct PyObject:
+    struct PyObject:
         isize ob_refcnt
         PyTypeObject *ob_type
 
     cdef PyTypeObject *Py_TYPE(object)
 
-    void* PyObject_Malloc(usize)
-    void* PyObject_Realloc(void *, usize)
-    void PyObject_Free(void *)
+    fn void* PyObject_Malloc(usize)
+    fn void* PyObject_Realloc(void *, usize)
+    fn void PyObject_Free(void *)
 
     #####################################################################
     # 6.1 Object Protocol
     #####################################################################
-    i32 PyObject_Print(object o, FILE *fp, i32 flags) except -1
+    fn i32 PyObject_Print(object o, FILE *fp, i32 flags) except -1
     # Print an object o, on file fp. Returns -1 on error. The flags
     # argument is used to enable certain printing options. The only
     # option currently supported is Py_PRINT_RAW; if given, the str()
     # of the object is written instead of the repr().
 
-    bint PyObject_HasAttrString(object o, const char *attr_name)
+    fn bint PyObject_HasAttrString(object o, const char *attr_name)
     # Returns 1 if o has the attribute attr_name, and 0
     # otherwise. This is equivalent to the Python expression
     # "hasattr(o, attr_name)". This function always succeeds.
 
-    object PyObject_GetAttrString(object o, const char *attr_name)
+    fn object PyObject_GetAttrString(object o, const char *attr_name)
     # Return value: New reference.  Retrieve an attribute named
     # attr_name from object o. Returns the attribute value on success,
     # or NULL on failure. This is the equivalent of the Python
     # expression "o.attr_name".
 
-    bint PyObject_HasAttr(object o, object attr_name)
+    fn bint PyObject_HasAttr(object o, object attr_name)
     # Returns 1 if o has the attribute attr_name, and 0
     # otherwise. This is equivalent to the Python expression
     # "hasattr(o, attr_name)". This function always succeeds.
 
-    object PyObject_GetAttr(object o, object attr_name)
+    fn object PyObject_GetAttr(object o, object attr_name)
     # Return value: New reference.  Retrieve an attribute named
     # attr_name from object o. Returns the attribute value on success,
     # or NULL on failure. This is the equivalent of the Python
     # expression "o.attr_name".
 
-    object PyObject_GenericGetAttr(object o, object attr_name)
+    fn object PyObject_GenericGetAttr(object o, object attr_name)
 
-    i32 PyObject_SetAttrString(object o, const char *attr_name, object v) except -1
+    fn i32 PyObject_SetAttrString(object o, const char *attr_name, object v) except -1
     # Set the value of the attribute named attr_name, for object o, to
     # the value v. Returns -1 on failure. This is the equivalent of
     # the Python statement "o.attr_name = v".
 
-    i32 PyObject_SetAttr(object o, object attr_name, object v) except -1
+    fn i32 PyObject_SetAttr(object o, object attr_name, object v) except -1
     # Set the value of the attribute named attr_name, for object o, to
     # the value v. Returns -1 on failure. This is the equivalent of
     # the Python statement "o.attr_name = v".
 
-    i32 PyObject_GenericSetAttr(object o, object attr_name, object v) except -1
+    fn i32 PyObject_GenericSetAttr(object o, object attr_name, object v) except -1
 
-    i32 PyObject_DelAttrString(object o, const char *attr_name) except -1
+    fn i32 PyObject_DelAttrString(object o, const char *attr_name) except -1
     # Delete attribute named attr_name, for object o. Returns -1 on
     # failure. This is the equivalent of the Python statement: "del
     # o.attr_name".
 
-    i32 PyObject_DelAttr(object o, object attr_name) except -1
+    fn i32 PyObject_DelAttr(object o, object attr_name) except -1
     # Delete attribute named attr_name, for object o. Returns -1 on
     # failure. This is the equivalent of the Python statement "del
     # o.attr_name".
 
-    object PyObject_GenericGetDict(object o, void *context)
+    fn object PyObject_GenericGetDict(object o, void *context)
     # Return value: New reference.
     # A generic implementation for the getter of a __dict__ descriptor. It
     # creates the dictionary if necessary.
     # New in version 3.3.
 
-    i32 PyObject_GenericSetDict(object o, object value, void *context) except -1
+    fn i32 PyObject_GenericSetDict(object o, object value, void *context) except -1
     # A generic implementation for the setter of a __dict__ descriptor. This
     # implementation does not allow the dictionary to be deleted.
     # New in version 3.3.
 
-    i32 Py_LT, Py_LE, Py_EQ, Py_NE, Py_GT, Py_GE
+    fn i32 Py_LT, Py_LE, Py_EQ, Py_NE, Py_GT, Py_GE
 
-    object PyObject_RichCompare(object o1, object o2, i32 opid)
+    fn object PyObject_RichCompare(object o1, object o2, i32 opid)
     # Return value: New reference.
     # Compare the values of o1 and o2 using the operation specified by
     # opid, which must be one of Py_LT, Py_LE, Py_EQ, Py_NE, Py_GT, or
@@ -164,7 +164,7 @@ extern from "Python.h":
     # opid. Returns the value of the comparison on success, or NULL on
     # failure.
 
-    bint PyObject_RichCompareBool(object o1, object o2, i32 opid) except -1
+    fn bint PyObject_RichCompareBool(object o1, object o2, i32 opid) except -1
     # Compare the values of o1 and o2 using the operation specified by
     # opid, which must be one of Py_LT, Py_LE, Py_EQ, Py_NE, Py_GT, or
     # Py_GE, corresponding to <, <=, ==, !=, >, or >=
@@ -172,14 +172,14 @@ extern from "Python.h":
     # otherwise. This is the equivalent of the Python expression "o1
     # op o2", where op is the operator corresponding to opid.
 
-    i32 PyObject_Cmp(object o1, object o2, i32 *result) except -1
+    fn i32 PyObject_Cmp(object o1, object o2, i32 *result) except -1
     # Compare the values of o1 and o2 using a routine provided by o1,
     # if one exists, otherwise with a routine provided by o2. The
     # result of the comparison is returned in result. Returns -1 on
     # failure. This is the equivalent of the Python statement "result
     # = cmp(o1, o2)".
 
-    i32 PyObject_Compare(object o1, object o2) except *
+    fn i32 PyObject_Compare(object o1, object o2) except *
     # Compare the values of o1 and o2 using a routine provided by o1,
     # if one exists, otherwise with a routine provided by o2. Returns
     # the result of the comparison on success. On error, the value
@@ -187,21 +187,21 @@ extern from "Python.h":
     # error. This is equivalent to the Python expression "cmp(o1,
     # o2)".
 
-    object PyObject_Repr(object o)
+    fn object PyObject_Repr(object o)
     # Return value: New reference.
     # Compute a string representation of object o. Returns the string
     # representation on success, NULL on failure. This is the
     # equivalent of the Python expression "repr(o)". Called by the
     # repr() built-in function and by reverse quotes.
 
-    object PyObject_Str(object o)
+    fn object PyObject_Str(object o)
     # Return value: New reference.
     # Compute a string representation of object o. Returns the string
     # representation on success, NULL on failure. This is the
     # equivalent of the Python expression "str(o)". Called by the
     # str() built-in function and by the print statement.
 
-    object PyObject_Bytes(object o)
+    fn object PyObject_Bytes(object o)
     # Return value: New reference.
     # Compute a bytes representation of object o. Return NULL on
     # failure and a bytes object on success. This is equivalent to
@@ -209,14 +209,14 @@ extern from "Python.h":
     # Unlike bytes(o), a TypeError is raised when o is an integer
     # instead of a zero-initialized bytes object.
 
-    object PyObject_Unicode(object o)
+    fn object PyObject_Unicode(object o)
     # Return value: New reference.
     # Compute a Unicode string representation of object o. Returns the
     # Unicode string representation on success, NULL on failure. This
     # is the equivalent of the Python expression "unicode(o)". Called
     # by the unicode() built-in function.
 
-    bint PyObject_IsInstance(object inst, object cls) except -1
+    fn bint PyObject_IsInstance(object inst, object cls) except -1
     # Returns 1 if inst is an instance of the class cls or a subclass
     # of cls, or 0 if not. On error, returns -1 and sets an
     # exception. If cls is a type object rather than a class object,
@@ -241,7 +241,7 @@ extern from "Python.h":
     # fashion for A -- the presence of the __bases__ attribute is
     # considered sufficient for this determination.
 
-    bint PyObject_IsSubclass(object derived, object cls) except -1
+    fn bint PyObject_IsSubclass(object derived, object cls) except -1
     # Returns 1 if the class derived is identical to or derived from
     # the class cls, otherwise returns 0. In case of an error, returns
     # -1. If cls is a tuple, the check will be done against every
@@ -252,11 +252,11 @@ extern from "Python.h":
     # 2.1. Changed in version 2.3: Older versions of Python did not
     # support a tuple as the second argument.
 
-    bint PyCallable_Check(object o)
+    fn bint PyCallable_Check(object o)
     # Determine if the object o is callable. Return 1 if the object is
     # callable and 0 otherwise. This function always succeeds.
 
-    object PyObject_Call(object callable_object, object args, object kw)
+    fn object PyObject_Call(object callable_object, object args, object kw)
     # Return value: New reference.
     # Call a callable Python object callable_object, with arguments
     # given by the tuple args, and named arguments given by the
@@ -267,7 +267,7 @@ extern from "Python.h":
     # "apply(callable_object, args, kw)" or "callable_object(*args,
     # **kw)".
 
-    object PyObject_CallObject(object callable_object, object args)
+    fn object PyObject_CallObject(object callable_object, object args)
     # Return value: New reference.
     # Call a callable Python object callable_object, with arguments
     # given by the tuple args. If no arguments are needed, then args
@@ -275,7 +275,7 @@ extern from "Python.h":
     # on failure. This is the equivalent of the Python expression
     # "apply(callable_object, args)" or "callable_object(*args)".
 
-    object PyObject_CallFunction(object callable, char *format, ...)
+    fn object PyObject_CallFunction(object callable, char *format, ...)
     # Return value: New reference.
     # Call a callable Python object callable, with a variable number
     # of C arguments. The C arguments are described using a
@@ -286,7 +286,7 @@ extern from "Python.h":
     # "callable(*args)". Note that if you only pass object  args,
     # PyObject_CallFunctionObjArgs is a faster alternative.
 
-    object PyObject_CallMethod(object o, char *method, char *format, ...)
+    fn object PyObject_CallMethod(object o, char *method, char *format, ...)
     # Return value: New reference.
     # Call the method named method of object o with a variable number
     # of C arguments. The C arguments are described by a
@@ -298,7 +298,7 @@ extern from "Python.h":
     # PyObject_CallMethodObjArgs is a faster alternative.
 
     #object PyObject_CallFunctionObjArgs(object callable, ..., NULL)
-    object PyObject_CallFunctionObjArgs(object callable, ...)
+    fn object PyObject_CallFunctionObjArgs(object callable, ...)
     # Return value: New reference.
     # Call a callable Python object callable, with a variable number
     # of PyObject* arguments. The arguments are provided as a variable
@@ -306,7 +306,7 @@ extern from "Python.h":
     # call on success, or NULL on failure.
 
     #PyObject* PyObject_CallMethodObjArgs(object o, object name, ..., NULL)
-    object PyObject_CallMethodObjArgs(object o, object name, ...)
+    fn object PyObject_CallMethodObjArgs(object o, object name, ...)
     # Return value: New reference.
     # Calls a method of the object o, where the name of the method is
     # given as a Python string object in name. It is called with a
@@ -320,17 +320,17 @@ extern from "Python.h":
     # return -1. This is the equivalent of the Python expression
     # "hash(o)".
 
-    bint PyObject_IsTrue(object o) except -1
+    fn bint PyObject_IsTrue(object o) except -1
     # Returns 1 if the object o is considered to be true, and 0
     # otherwise. This is equivalent to the Python expression "not not
     # o". On failure, return -1.
 
-    bint PyObject_Not(object o) except -1
+    fn bint PyObject_Not(object o) except -1
     # Returns 0 if the object o is considered to be true, and 1
     # otherwise. This is equivalent to the Python expression "not
     # o". On failure, return -1.
 
-    object PyObject_Type(object o)
+    fn object PyObject_Type(object o)
     # Return value: New reference.
     # When o is non-NULL, returns a type object corresponding to the
     # object type of object o. On failure, raises SystemError and
@@ -341,46 +341,46 @@ extern from "Python.h":
     # pointer of type PyTypeObject*, except when the incremented
     # reference count is needed.
 
-    bint PyObject_TypeCheck(object o, PyTypeObject *type)
+    fn bint PyObject_TypeCheck(object o, PyTypeObject *type)
     # Return true if the object o is of type type or a subtype of
     # type. Both parameters must be non-NULL.
 
-    isize PyObject_Length(object o) except -1
-    isize PyObject_Size(object o) except -1
+    fn isize PyObject_Length(object o) except -1
+    fn isize PyObject_Size(object o) except -1
     # Return the length of object o. If the object o provides either
     # the sequence and mapping protocols, the sequence length is
     # returned. On error, -1 is returned. This is the equivalent to
     # the Python expression "len(o)".
 
-    isize PyObject_LengthHint(object o, isize default) except -1
+    fn isize PyObject_LengthHint(object o, isize default) except -1
     # Return an estimated length for the object o. First try to return its
     # actual length, then an estimate using __length_hint__(), and finally
     # return the default value. On error, return -1. This is the equivalent to
     # the Python expression "operator.length_hint(o, default)".
     # New in version 3.4.
 
-    object PyObject_GetItem(object o, object key)
+    fn object PyObject_GetItem(object o, object key)
     # Return value: New reference.
     # Return element of o corresponding to the object key or NULL on
     # failure. This is the equivalent of the Python expression
     # "o[key]".
 
-    i32 PyObject_SetItem(object o, object key, object v) except -1
+    fn i32 PyObject_SetItem(object o, object key, object v) except -1
     # Map the object key to the value v. Returns -1 on failure. This
     # is the equivalent of the Python statement "o[key] = v".
 
-    i32 PyObject_DelItem(object o, object key) except -1
+    fn i32 PyObject_DelItem(object o, object key) except -1
     # Delete the mapping for key from o. Returns -1 on failure. This
     # is the equivalent of the Python statement "del o[key]".
 
-    i32 PyObject_AsFileDescriptor(object o) except -1
+    fn i32 PyObject_AsFileDescriptor(object o) except -1
     # Derives a file-descriptor from a Python object. If the object is
     # an integer or long integer, its value is returned. If not, the
     # object's fileno() method is called if it exists; the method must
     # return an integer or long integer, which is returned as the file
     # descriptor value. Returns -1 on failure.
 
-    object PyObject_Dir(object o)
+    fn object PyObject_Dir(object o)
     # Return value: New reference.
     # This is equivalent to the Python expression "dir(o)", returning
     # a (possibly empty) list of strings appropriate for the object
@@ -390,16 +390,16 @@ extern from "Python.h":
     # active then NULL is returned but PyErr_Occurred() will return
     # false.
 
-    object PyObject_GetIter(object o)
+    fn object PyObject_GetIter(object o)
     # Return value: New reference.
     # This is equivalent to the Python expression "iter(o)". It
     # returns a new iterator for the object argument, or the object
     # itself if the object is already an iterator. Raises TypeError
     # and returns NULL if the object cannot be iterated.
 
-    isize Py_SIZE(object o)
+    fn isize Py_SIZE(object o)
 
-    object PyObject_Format(object obj, object format_spec)
+    fn object PyObject_Format(object obj, object format_spec)
     # Takes an arbitrary object and returns the result of calling
     # obj.__format__(format_spec).
     # Added in Py2.6

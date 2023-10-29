@@ -13,10 +13,10 @@ from cpython.ref cimport PyObject, Py_TYPE
 # from Cython code.
 
 extern from *:
-    ctypedef struct PyTypeObject:
+    struct PyTypeObject:
         void (*tp_clear)(object)
 
-    ctypedef struct __pyx_CyFunctionObject:
+    struct __pyx_CyFunctionObject:
         PyObject* func_closure
 
 def is_tp_clear_null(obj):
@@ -48,7 +48,7 @@ cdef class DisableTpClear:
                 "Some object that needs cleaning in __dealloc__"]
 
     def call_tp_clear(self):
-        cdef PyTypeObject *pto = Py_TYPE(self)
+        let PyTypeObject *pto = Py_TYPE(self)
         if pto.tp_clear != NULL:
             pto.tp_clear(self)
 

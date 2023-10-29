@@ -1,10 +1,10 @@
 # mode: compile
 
-ctypedef enum foo:
+enum Foo:
     FOO
 
 fn void func():
-    let foo x
+    let Foo x
     map = [FOO]
     x = map[0]
 

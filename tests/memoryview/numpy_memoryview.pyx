@@ -552,7 +552,7 @@ def test_string_invalid_dims():
     ValueError: Expected 2 dimensions, got 1
     """
 
-ctypedef struct AttributesStruct:
+struct AttributesStruct:
     i32 attrib1
     f32 attrib2
     StringStruct attrib3
@@ -699,7 +699,7 @@ def test_boundscheck_and_wraparound(f64[:, :] x):
         x[i, :]
 
 
-ctypedef struct SameTypeAfterArraysStructSimple:
+struct SameTypeAfterArraysStructSimple:
     f64 a[16]
     f64 b[16]
     f64 c
@@ -714,7 +714,7 @@ def same_type_after_arrays_simple():
     let SameTypeAfterArraysStructSimple[:] memview = arr
 
 
-ctypedef struct SameTypeAfterArraysStructComposite:
+struct SameTypeAfterArraysStructComposite:
     i32 a
     f32 b[8]
     f32 c
