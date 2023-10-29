@@ -2298,7 +2298,7 @@ def p_compile_time_expr(s):
     s.compile_time_expr = old
     return expr
 
-def p_DEF_statement(s):
+def p_const_statement(s):
     pos = s.position()
     denv = s.compile_time_env
     s.next()  # 'DEF'
@@ -2307,7 +2307,7 @@ def p_DEF_statement(s):
     expr = p_compile_time_expr(s)
     if s.compile_time_eval:
         value = expr.compile_time_value(denv)
-        #print "p_DEF_statement: %s = %r" % (name, value) ###
+        # print "p_const_statement: %s = %r" % (name, value) ###
         denv.declare(name, value)
     s.expect_newline("Expected a newline", ignore_semicolon=True)
     return Nodes.PassStatNode(pos)
@@ -2352,14 +2352,14 @@ def p_statement(s, ctx, first_statement = 0):
         #if ctx.api:
         #    error(s.position(), "'api' not allowed with 'ctypedef'")
         return p_ctypedef_statement(s, ctx)
-    elif s.sy == 'DEF':
+    elif s.sy in ("const", "DEF"):
         # We used to dep-warn about this but removed the warning again since
         # we don't have a good answer yet for all use cases.
         # warning(s.position(),
         #         "The 'DEF' statement is deprecated and will be removed in a future Cython version. "
         #         "Consider using global variables, constants, and in-place literals instead. "
         #         "See https://github.com/cython/cython/issues/4310", level=1)
-        return p_DEF_statement(s)
+        return p_const_statement(s)
     elif s.sy == 'IF':
         warning(s.position(),
                 "The 'IF' statement is deprecated and will be removed in a future Cython version. "
