@@ -1,7 +1,7 @@
 # available since Python 2.7!
 
 extern from "Python.h":
-    ctypedef struct PyCapsule_Type
+    struct PyCapsule_Type
     # This subtype of PyObject represents an opaque value, useful for
     # C extension modules who need to pass an opaque value (as a void*
     # pointer) through Python code to other C code. It is often used

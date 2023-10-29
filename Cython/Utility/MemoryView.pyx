@@ -11,7 +11,7 @@ use cython
 
 # from cpython cimport ...
 extern from "Python.h":
-    ctypedef struct PyObject
+    struct PyObject
     fn i32 PyIndex_Check(object)
     PyObject *PyExc_IndexError
     PyObject *PyExc_ValueError
@@ -30,7 +30,7 @@ extern from *:
     fn i32 __Pyx_GetBuffer(object, Py_buffer *, i32) except -1
     fn void __Pyx_ReleaseBuffer(Py_buffer *)
 
-    ctypedef struct PyObject
+    struct PyObject
     ctypedef isize Py_intptr_t
     fn void Py_INCREF(PyObject *)
     fn void Py_DECREF(PyObject *)
@@ -45,7 +45,7 @@ extern from *:
         PyObject *obj
         __Pyx_TypeInfo *typeinfo
 
-    ctypedef struct {{memviewslice_name}}:
+    struct {{memviewslice_name}}:
         __pyx_memoryview *memview
         char *data
         isize shape[{{max_dims}}]
@@ -55,7 +55,7 @@ extern from *:
     fn void __PYX_INC_MEMVIEW({{memviewslice_name}} *memslice, i32 have_gil)
     fn void __PYX_XCLEAR_MEMVIEW({{memviewslice_name}} *memslice, i32 have_gil)
 
-    ctypedef struct __pyx_buffer "Py_buffer":
+    struct __pyx_buffer "Py_buffer":
         PyObject *obj
 
     PyObject *Py_None
@@ -72,7 +72,7 @@ extern from *:
         PyBUF_RECORDS
         PyBUF_RECORDS_RO
 
-    ctypedef struct __Pyx_TypeInfo:
+    struct __Pyx_TypeInfo:
         pass
 
 extern from *:
@@ -1406,13 +1406,13 @@ fn void _slice_assign_scalar(char *data, isize *shape,
 
 ############### BufferFormatFromTypeInfo ###############
 extern from *:
-    ctypedef struct __Pyx_StructField
+    struct __Pyx_StructField
 
     cdef enum:
         __PYX_BUF_FLAGS_PACKED_STRUCT
         __PYX_BUF_FLAGS_INTEGER_COMPLEX
 
-    ctypedef struct __Pyx_TypeInfo:
+    struct __Pyx_TypeInfo:
         char* name
         __Pyx_StructField* fields
         usize size
@@ -1422,16 +1422,16 @@ extern from *:
         char is_unsigned
         i32 flags
 
-    ctypedef struct __Pyx_StructField:
+    struct __Pyx_StructField:
         __Pyx_TypeInfo* type
         char* name
         usize offset
 
-    ctypedef struct __Pyx_BufFmt_StackElem:
+    struct __Pyx_BufFmt_StackElem:
         __Pyx_StructField* field
         usize parent_offset
 
-    #ctypedef struct __Pyx_BufFmt_Context:
+    #struct __Pyx_BufFmt_Context:
     #  __Pyx_StructField root
         __Pyx_BufFmt_StackElem* head
 

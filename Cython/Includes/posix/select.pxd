@@ -4,7 +4,7 @@ from .types cimport sigset_t
 from .time cimport timeval, timespec
 
 extern from "<sys/select.h>" nogil:
-    ctypedef struct fd_set:
+    struct fd_set:
         pass
 
     fn i32 FD_SETSIZE

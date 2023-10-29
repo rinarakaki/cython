@@ -22,7 +22,7 @@ extern from "<sys/types.h>":
     ctypedef i64 nlink_t
     ctypedef i64 off_t
     ctypedef i64 pid_t
-    ctypedef struct sigset_t:
+    struct sigset_t:
         pass
     ctypedef i64 suseconds_t
     ctypedef i64 time_t

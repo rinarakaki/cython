@@ -19,7 +19,7 @@ extern from "pythread.h":
         WAIT_LOCK    #   1
         NOWAIT_LOCK  #   0
 
-    ctypedef enum PyLockStatus:
+    enum PyLockStatus:
         # return values of PyThread_acquire_lock() in CPython 3.2+
         PY_LOCK_FAILURE = 0
         PY_LOCK_ACQUIRED = 1
@@ -39,7 +39,7 @@ extern from "pythread.h":
     fn void PyThread_ReInitTLS()
 
     # Thread Specific Storage (TSS) API in CPython 3.7+ (also backported)
-    #ctypedef struct Py_tss_t: pass   # Cython built-in type
+    #struct Py_tss_t: pass   # Cython built-in type
     Py_tss_t Py_tss_NEEDS_INIT        # Not normally useful: Cython auto-initialises declared "Py_tss_t" variables.
     Py_tss_t * PyThread_tss_alloc()
     fn void PyThread_tss_free(Py_tss_t *key)

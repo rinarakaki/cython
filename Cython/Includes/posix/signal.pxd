@@ -13,13 +13,13 @@ extern from "<signal.h>" nogil:
         sigval sigev_value
         void   sigev_notify_function(sigval)
 
-    ctypedef struct siginfo_t:
+    struct siginfo_t:
         i32    si_signo
         i32    si_code
         i32    si_errno
         pid_t  si_pid
         uid_t  si_uid
-        void   *si_addr
+        void  *si_addr
         i32    si_status
         i64    si_band
         sigval si_value
@@ -30,7 +30,7 @@ extern from "<signal.h>" nogil:
         sigset_t sa_mask
         i32      sa_flags
 
-    ctypedef struct stack_t:
+    struct stack_t:
         void  *ss_sp
         i32 ss_flags
         usize ss_size

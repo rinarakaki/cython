@@ -51,15 +51,15 @@ extern from "<stdlib.h>" nogil:
     fn i32 abs(i32 number)
     fn i64 labs(i64 number)
     fn i128 llabs(i128 number)
-    ctypedef struct div_t:
+    struct div_t:
         i32 quot
         i32 rem
     fn div_t div(i32 numerator, i32 denominator)
-    ctypedef struct ldiv_t:
+    struct ldiv_t:
         i64 quot
         i64 rem
     fn ldiv_t ldiv(i64rator, i64 denominator)
-    ctypedef struct lldiv_t:
+    struct lldiv_t:
         i128 quot
         i128 rem
     fn lldiv_t lldiv(i128 numerator, i128 denominator)
