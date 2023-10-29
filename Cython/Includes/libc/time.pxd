@@ -3,29 +3,29 @@
 from libc.stddef cimport wchar_t
 
 extern from "<time.h>" nogil:
-    ctypedef long clock_t
-    ctypedef long time_t
+    ctypedef i64 clock_t
+    ctypedef i64 time_t
 
     enum: CLOCKS_PER_SEC
-    clock_t clock()             # CPU time
-    time_t  time(time_t *)      # wall clock time since Unix epoch
+    fn clock_t clock()             # CPU time
+    fn time_t  time(time_t *)      # wall clock time since Unix epoch
 
     struct tm:
-        int  tm_sec
-        int  tm_min
-        int  tm_hour
-        int  tm_mday
-        int  tm_mon
-        int  tm_year
-        int  tm_wday
-        int  tm_yday
-        int  tm_isdst
+        i32  tm_sec
+        i32  tm_min
+        i32  tm_hour
+        i32  tm_mday
+        i32  tm_mon
+        i32  tm_year
+        i32  tm_wday
+        i32  tm_yday
+        i32  tm_isdst
         # GNU specific extensions
         # char *tm_zone
         # long tm_gmtoff
 
-    int     daylight            # global state
-    long    timezone
+    i32     daylight            # global state
+    i64    timezone
     char    *tzname[2]
     void    tzset()
 
@@ -33,7 +33,7 @@ extern from "<time.h>" nogil:
     char    *asctime_r(const tm *, char *)
     char    *ctime(const time_t *)
     char    *ctime_r(const time_t *, char *)
-    double  difftime(time_t, time_t)
+    f64  difftime(time_t, time_t)
     tm      *getdate(const char *)
     tm      *gmtime(const time_t *)
     tm      *gmtime_r(const time_t *, tm *)
