@@ -19,10 +19,10 @@
 
 extern from "numpy/npy_math.h" nogil:
     # Floating-point classification
-    long double NAN "NPY_NAN"
-    long double INFINITY "NPY_INFINITY"
-    long double PZERO "NPY_PZERO"        # positive zero
-    long double NZERO "NPY_NZERO"        # negative zero
+    static long double NAN "NPY_NAN"
+    static long double INFINITY "NPY_INFINITY"
+    static long double PZERO "NPY_PZERO"        # positive zero
+    static long double NZERO "NPY_NZERO"        # negative zero
 
     # These four are actually macros and work on any floating-point type.
     fn i32 isinf "npy_isinf"(long double)  # -1 / 0 / 1
@@ -31,17 +31,17 @@ extern from "numpy/npy_math.h" nogil:
     fn bint signbit "npy_signbit"(long double)
 
     # Math constants
-    long double E "NPY_E"
-    long double LOG2E "NPY_LOG2E"       # ln(e) / ln(2)
-    long double LOG10E "NPY_LOG10E"     # ln(e) / ln(10)
-    long double LOGE2 "NPY_LOGE2"       # ln(2)
-    long double LOGE10 "NPY_LOGE10"     # ln(10)
-    long double PI "NPY_PI"
-    long double PI_2 "NPY_PI_2"         # pi / 2
-    long double PI_4 "NPY_PI_4"         # pi / 4
-    long double NPY_1_PI                # 1 / pi; NPY_ because of ident syntax
-    long double NPY_2_PI                # 2 / pi
-    long double EULER "NPY_EULER"       # Euler constant (gamma, 0.57721)
+    static long double E "NPY_E"
+    static long double LOG2E "NPY_LOG2E"       # ln(e) / ln(2)
+    static long double LOG10E "NPY_LOG10E"     # ln(e) / ln(10)
+    static long double LOGE2 "NPY_LOGE2"       # ln(2)
+    static long double LOGE10 "NPY_LOGE10"     # ln(10)
+    static long double PI "NPY_PI"
+    static long double PI_2 "NPY_PI_2"         # pi / 2
+    static long double PI_4 "NPY_PI_4"         # pi / 4
+    static long double NPY_1_PI                # 1 / pi; NPY_ because of ident syntax
+    static long double NPY_2_PI                # 2 / pi
+    static long double EULER "NPY_EULER"       # Euler constant (gamma, 0.57721)
 
     # Low-level floating point manipulation (NumPy >=1.4)
     fn f32 copysignf "npy_copysignf"(f32, f32)
