@@ -95,7 +95,7 @@ extern from "Python.h":
     # option currently supported is Py_PRINT_RAW; if given, the str()
     # of the object is written instead of the repr().
 
-    fn bint PyObject_HasAttrString(object o, const char *attr_name)
+    fn u2 PyObject_HasAttrString(object o, const char *attr_name)
     # Returns 1 if o has the attribute attr_name, and 0
     # otherwise. This is equivalent to the Python expression
     # "hasattr(o, attr_name)". This function always succeeds.
@@ -106,7 +106,7 @@ extern from "Python.h":
     # or NULL on failure. This is the equivalent of the Python
     # expression "o.attr_name".
 
-    fn bint PyObject_HasAttr(object o, object attr_name)
+    fn u2 PyObject_HasAttr(object o, object attr_name)
     # Returns 1 if o has the attribute attr_name, and 0
     # otherwise. This is equivalent to the Python expression
     # "hasattr(o, attr_name)". This function always succeeds.
@@ -164,7 +164,7 @@ extern from "Python.h":
     # opid. Returns the value of the comparison on success, or NULL on
     # failure.
 
-    fn bint PyObject_RichCompareBool(object o1, object o2, i32 opid) except -1
+    fn u2 PyObject_RichCompareBool(object o1, object o2, i32 opid) except -1
     # Compare the values of o1 and o2 using the operation specified by
     # opid, which must be one of Py_LT, Py_LE, Py_EQ, Py_NE, Py_GT, or
     # Py_GE, corresponding to <, <=, ==, !=, >, or >=
@@ -216,7 +216,7 @@ extern from "Python.h":
     # is the equivalent of the Python expression "unicode(o)". Called
     # by the unicode() built-in function.
 
-    fn bint PyObject_IsInstance(object inst, object cls) except -1
+    fn u2 PyObject_IsInstance(object inst, object cls) except -1
     # Returns 1 if inst is an instance of the class cls or a subclass
     # of cls, or 0 if not. On error, returns -1 and sets an
     # exception. If cls is a type object rather than a class object,
@@ -241,7 +241,7 @@ extern from "Python.h":
     # fashion for A -- the presence of the __bases__ attribute is
     # considered sufficient for this determination.
 
-    fn bint PyObject_IsSubclass(object derived, object cls) except -1
+    fn u2 PyObject_IsSubclass(object derived, object cls) except -1
     # Returns 1 if the class derived is identical to or derived from
     # the class cls, otherwise returns 0. In case of an error, returns
     # -1. If cls is a tuple, the check will be done against every
@@ -252,7 +252,7 @@ extern from "Python.h":
     # 2.1. Changed in version 2.3: Older versions of Python did not
     # support a tuple as the second argument.
 
-    fn bint PyCallable_Check(object o)
+    fn u2 PyCallable_Check(object o)
     # Determine if the object o is callable. Return 1 if the object is
     # callable and 0 otherwise. This function always succeeds.
 
@@ -320,12 +320,12 @@ extern from "Python.h":
     # return -1. This is the equivalent of the Python expression
     # "hash(o)".
 
-    fn bint PyObject_IsTrue(object o) except -1
+    fn u2 PyObject_IsTrue(object o) except -1
     # Returns 1 if the object o is considered to be true, and 0
     # otherwise. This is equivalent to the Python expression "not not
     # o". On failure, return -1.
 
-    fn bint PyObject_Not(object o) except -1
+    fn u2 PyObject_Not(object o) except -1
     # Returns 0 if the object o is considered to be true, and 1
     # otherwise. This is equivalent to the Python expression "not
     # o". On failure, return -1.
@@ -341,7 +341,7 @@ extern from "Python.h":
     # pointer of type PyTypeObject*, except when the incremented
     # reference count is needed.
 
-    fn bint PyObject_TypeCheck(object o, PyTypeObject *type)
+    fn u2 PyObject_TypeCheck(object o, PyTypeObject *type)
     # Return true if the object o is of type type or a subtype of
     # type. Both parameters must be non-NULL.
 

@@ -9,7 +9,7 @@ cdef class StringIOTree:
     pub object write
     pub list markers
 
-    cpdef bint empty(self)
+    cpdef u2 empty(self)
 
     #[cython.locals(x=StringIOTree)]
     cpdef getvalue(self)

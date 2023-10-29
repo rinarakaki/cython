@@ -19,10 +19,10 @@ extern from "<unordered_set>" namespace "std" nogil:
             iterator operator--()
             iterator operator++(i32)
             iterator operator--(i32)
-            fn bint operator==(iterator)
-            fn bint operator==(const_iterator)
-            fn bint operator!=(iterator)
-            fn bint operator!=(const_iterator)
+            fn u2 operator==(iterator)
+            fn u2 operator==(const_iterator)
+            fn u2 operator!=(iterator)
+            fn u2 operator!=(const_iterator)
         cppclass const_iterator:
             fn const_iterator() except +
             fn const_iterator(iterator&) except +
@@ -32,22 +32,22 @@ extern from "<unordered_set>" namespace "std" nogil:
             fn const_iterator operator--()
             fn const_iterator operator++(i32)
             fn const_iterator operator--(i32)
-            fn bint operator==(iterator)
-            fn bint operator==(const_iterator)
-            fn bint operator!=(iterator)
-            fn bint operator!=(const_iterator)
+            fn u2 operator==(iterator)
+            fn u2 operator==(const_iterator)
+            fn u2 operator!=(iterator)
+            fn u2 operator!=(const_iterator)
 
         unordered_set() except +
         unordered_set(unordered_set&) except +
         #unordered_set& operator=(unordered_set&)
-        fn bint operator==(unordered_set&, unordered_set&)
-        fn bint operator!=(unordered_set&, unordered_set&)
+        fn u2 operator==(unordered_set&, unordered_set&)
+        fn u2 operator!=(unordered_set&, unordered_set&)
         iterator begin()
         fn const_iterator const_begin "begin"()
         fn const_iterator cbegin()
         fn void clear()
         fn usize count(const T&)
-        fn bint empty()
+        fn u2 empty()
         iterator end()
         fn const_iterator const_end "end"()
         fn const_iterator cend()
@@ -59,7 +59,7 @@ extern from "<unordered_set>" namespace "std" nogil:
         fn usize erase(const T&)
         iterator find(const T&)
         fn const_iterator const_find "find"(const T&)
-        pair[iterator, bint] insert(const T&) except +
+        pair[iterator, u2] insert(const T&) except +
         iterator insert(const_iterator, const T&) except +
         fn void insert[InputIt](InputIt, InputIt) except +
         fn usize max_size()
@@ -76,7 +76,7 @@ extern from "<unordered_set>" namespace "std" nogil:
         fn usize bucket_size(usize)
         fn usize bucket(const T&)
         # C++20
-        fn bint contains(const T&)
+        fn u2 contains(const T&)
 
     cdef cppclass unordered_multiset[T,HASH=*,PRED=*,ALLOCATOR=*]:
         ctypedef T value_type
@@ -94,10 +94,10 @@ extern from "<unordered_set>" namespace "std" nogil:
             value_type& operator*()
             iterator operator++()
             iterator operator++(i32)
-            fn bint operator==(iterator)
-            fn bint operator==(const_iterator)
-            fn bint operator!=(iterator)
-            fn bint operator!=(const_iterator)
+            fn u2 operator==(iterator)
+            fn u2 operator==(const_iterator)
+            fn u2 operator!=(iterator)
+            fn u2 operator!=(const_iterator)
         cppclass const_iterator:
             fn const_iterator() except +
             fn const_iterator(iterator&) except +
@@ -105,22 +105,22 @@ extern from "<unordered_set>" namespace "std" nogil:
             fn const value_type& operator*()
             fn const_iterator operator++()
             fn const_iterator operator++(i32)
-            fn bint operator==(iterator)
-            fn bint operator==(const_iterator)
-            fn bint operator!=(iterator)
-            fn bint operator!=(const_iterator)
+            fn u2 operator==(iterator)
+            fn u2 operator==(const_iterator)
+            fn u2 operator!=(iterator)
+            fn u2 operator!=(const_iterator)
 
         unordered_multiset() except +
         unordered_multiset(unordered_multiset&) except +
         # unordered_multiset& operator=(unordered_multiset&)
-        fn bint operator==(unordered_multiset&, unordered_multiset&)
-        fn bint operator!=(unordered_multiset&, unordered_multiset&)
+        fn u2 operator==(unordered_multiset&, unordered_multiset&)
+        fn u2 operator!=(unordered_multiset&, unordered_multiset&)
         iterator begin()
         fn const_iterator const_begin "begin"()
         fn const_iterator cbegin()
         fn void clear()
         fn usize count(const T&)
-        fn bint empty()
+        fn u2 empty()
         iterator end()
         fn const_iterator const_end "end"()
         fn const_iterator cend()
@@ -149,4 +149,4 @@ extern from "<unordered_set>" namespace "std" nogil:
         fn usize bucket_size(usize)
         fn usize bucket(const T&)
         # C++20
-        fn bint contains(const T&)
+        fn u2 contains(const T&)

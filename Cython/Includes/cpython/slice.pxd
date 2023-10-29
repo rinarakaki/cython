@@ -3,7 +3,7 @@ extern from "Python.h":
     #
     # The type object for slice objects. This is the same as slice and types.SliceType
 
-    fn bint PySlice_Check(object ob)
+    fn u2 PySlice_Check(object ob)
     #
     # Return true if ob is a slice object; ob must not be NULL.
 

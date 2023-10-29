@@ -1,13 +1,13 @@
 from .object cimport PyObject
 
 extern from "Python.h":
-    fn bint PyWeakref_Check(object ob)
+    fn u2 PyWeakref_Check(object ob)
     # Return true if ob is either a reference or proxy object.
 
-    fn bint PyWeakref_CheckRef(object ob)
+    fn u2 PyWeakref_CheckRef(object ob)
     # Return true if ob is a reference object.
 
-    fn bint PyWeakref_CheckProxy(ob)
+    fn u2 PyWeakref_CheckProxy(ob)
     # Return true if *ob* is a proxy object.
 
     fn object PyWeakref_NewRef(object ob, object callback)

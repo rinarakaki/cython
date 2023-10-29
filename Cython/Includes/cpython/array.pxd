@@ -137,7 +137,7 @@ extern from *:  # Hard-coded utility code hack.
     # efficient for small increments (not in Py2.3-)
     i32 resize_smart(array self, isize n) except -1
 
-fn inline array clone(array template, isize length, bint zero):
+fn inline array clone(array template, isize length, u2 zero):
     """ fast creation of a new array, given a template array.
     type will be same as template.
     if zero is true, new array will be initialized with zeroes."""

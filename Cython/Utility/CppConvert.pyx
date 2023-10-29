@@ -98,7 +98,7 @@ extern from *:
         cppclass const_iterator:
             T& operator*()
             const_iterator operator++()
-            bint operator!=(const_iterator)
+            u2 operator!=(const_iterator)
         const_iterator begin()
         const_iterator end()
         usize size()
@@ -151,7 +151,7 @@ extern from *:
         cppclass const_iterator:
             T& operator*()
             const_iterator operator++()
-            bint operator!=(const_iterator)
+            u2 operator!=(const_iterator)
         const_iterator begin()
         const_iterator end()
 
@@ -218,7 +218,7 @@ extern from *:
         cppclass const_iterator:
             value_type& operator*()
             const_iterator operator++()
-            bint operator!=(const_iterator)
+            u2 operator!=(const_iterator)
         const_iterator begin()
         const_iterator end()
 

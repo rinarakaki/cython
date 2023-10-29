@@ -5,7 +5,7 @@ extern from "Python.h":
     # 6.3 Sequence Protocol
     ############################################################################
 
-    fn bint PySequence_Check(object o)
+    fn u2 PySequence_Check(object o)
     # Return 1 if the object provides sequence protocol, and 0
     # otherwise. This function always succeeds.
 

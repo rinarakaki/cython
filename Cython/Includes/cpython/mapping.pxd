@@ -3,7 +3,7 @@ extern from "Python.h":
     # 6.4 Mapping Protocol
     ############################################################################
 
-    fn bint PyMapping_Check(object o)
+    fn u2 PyMapping_Check(object o)
     # Return 1 if the object provides mapping protocol, and 0
     # otherwise. This function always succeeds.
 
@@ -22,12 +22,12 @@ extern from "Python.h":
     # on failure. This is equivalent to the Python statement "del
     # o[key]".
 
-    fn bint PyMapping_HasKeyString(object o, char *key)
+    fn u2 PyMapping_HasKeyString(object o, char *key)
     # On success, return 1 if the mapping object has the key key and 0
     # otherwise. This is equivalent to the Python expression
     # "o.has_key(key)". This function always succeeds.
 
-    fn bint PyMapping_HasKey(object o, object key)
+    fn u2 PyMapping_HasKey(object o, object key)
     # Return 1 if the mapping object has the key key and 0
     # otherwise. This is equivalent to the Python expression
     # "o.has_key(key)". This function always succeeds.

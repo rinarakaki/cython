@@ -374,16 +374,16 @@ extern from "numpy/arrayobject.h":
     #
     # Macros from ndarrayobject.h
     #
-    fn bint PyArray_CHKFLAGS(ndarray m, i32 flags) nogil
-    fn bint PyArray_IS_C_CONTIGUOUS(ndarray arr) nogil
-    fn bint PyArray_IS_F_CONTIGUOUS(ndarray arr) nogil
-    fn bint PyArray_ISCONTIGUOUS(ndarray m) nogil
-    fn bint PyArray_ISWRITEABLE(ndarray m) nogil
-    fn bint PyArray_ISALIGNED(ndarray m) nogil
+    fn u2 PyArray_CHKFLAGS(ndarray m, i32 flags) nogil
+    fn u2 PyArray_IS_C_CONTIGUOUS(ndarray arr) nogil
+    fn u2 PyArray_IS_F_CONTIGUOUS(ndarray arr) nogil
+    fn u2 PyArray_ISCONTIGUOUS(ndarray m) nogil
+    fn u2 PyArray_ISWRITEABLE(ndarray m) nogil
+    fn u2 PyArray_ISALIGNED(ndarray m) nogil
 
     fn i32 PyArray_NDIM(ndarray) nogil
-    fn bint PyArray_ISONESEGMENT(ndarray) nogil
-    fn bint PyArray_ISFORTRAN(ndarray) nogil
+    fn u2 PyArray_ISONESEGMENT(ndarray) nogil
+    fn u2 PyArray_ISFORTRAN(ndarray) nogil
     fn i32 PyArray_FORTRANIF(ndarray) nogil
 
     fn void* PyArray_DATA(ndarray) nogil
@@ -406,93 +406,93 @@ extern from "numpy/arrayobject.h":
     fn object PyArray_GETITEM(ndarray arr, void *itemptr)
     fn i32 PyArray_SETITEM(ndarray arr, void *itemptr, object obj)
 
-    fn bint PyTypeNum_ISBOOL(i32) nogil
-    fn bint PyTypeNum_ISUNSIGNED(i32) nogil
-    fn bint PyTypeNum_ISSIGNED(i32) nogil
-    fn bint PyTypeNum_ISINTEGER(i32) nogil
-    fn bint PyTypeNum_ISFLOAT(i32) nogil
-    fn bint PyTypeNum_ISNUMBER(i32) nogil
-    fn bint PyTypeNum_ISSTRING(i32) nogil
-    fn bint PyTypeNum_ISCOMPLEX(i32) nogil
-    fn bint PyTypeNum_ISPYTHON(i32) nogil
-    fn bint PyTypeNum_ISFLEXIBLE(i32) nogil
-    fn bint PyTypeNum_ISUSERDEF(i32) nogil
-    fn bint PyTypeNum_ISEXTENDED(i32) nogil
-    fn bint PyTypeNum_ISOBJECT(i32) nogil
+    fn u2 PyTypeNum_ISBOOL(i32) nogil
+    fn u2 PyTypeNum_ISUNSIGNED(i32) nogil
+    fn u2 PyTypeNum_ISSIGNED(i32) nogil
+    fn u2 PyTypeNum_ISINTEGER(i32) nogil
+    fn u2 PyTypeNum_ISFLOAT(i32) nogil
+    fn u2 PyTypeNum_ISNUMBER(i32) nogil
+    fn u2 PyTypeNum_ISSTRING(i32) nogil
+    fn u2 PyTypeNum_ISCOMPLEX(i32) nogil
+    fn u2 PyTypeNum_ISPYTHON(i32) nogil
+    fn u2 PyTypeNum_ISFLEXIBLE(i32) nogil
+    fn u2 PyTypeNum_ISUSERDEF(i32) nogil
+    fn u2 PyTypeNum_ISEXTENDED(i32) nogil
+    fn u2 PyTypeNum_ISOBJECT(i32) nogil
 
-    fn bint PyDataType_ISBOOL(dtype) nogil
-    fn bint PyDataType_ISUNSIGNED(dtype) nogil
-    fn bint PyDataType_ISSIGNED(dtype) nogil
-    fn bint PyDataType_ISINTEGER(dtype) nogil
-    fn bint PyDataType_ISFLOAT(dtype) nogil
-    fn bint PyDataType_ISNUMBER(dtype) nogil
-    fn bint PyDataType_ISSTRING(dtype) nogil
-    fn bint PyDataType_ISCOMPLEX(dtype) nogil
-    fn bint PyDataType_ISPYTHON(dtype) nogil
-    fn bint PyDataType_ISFLEXIBLE(dtype) nogil
-    fn bint PyDataType_ISUSERDEF(dtype) nogil
-    fn bint PyDataType_ISEXTENDED(dtype) nogil
-    fn bint PyDataType_ISOBJECT(dtype) nogil
-    fn bint PyDataType_HASFIELDS(dtype) nogil
-    fn bint PyDataType_HASSUBARRAY(dtype) nogil
+    fn u2 PyDataType_ISBOOL(dtype) nogil
+    fn u2 PyDataType_ISUNSIGNED(dtype) nogil
+    fn u2 PyDataType_ISSIGNED(dtype) nogil
+    fn u2 PyDataType_ISINTEGER(dtype) nogil
+    fn u2 PyDataType_ISFLOAT(dtype) nogil
+    fn u2 PyDataType_ISNUMBER(dtype) nogil
+    fn u2 PyDataType_ISSTRING(dtype) nogil
+    fn u2 PyDataType_ISCOMPLEX(dtype) nogil
+    fn u2 PyDataType_ISPYTHON(dtype) nogil
+    fn u2 PyDataType_ISFLEXIBLE(dtype) nogil
+    fn u2 PyDataType_ISUSERDEF(dtype) nogil
+    fn u2 PyDataType_ISEXTENDED(dtype) nogil
+    fn u2 PyDataType_ISOBJECT(dtype) nogil
+    fn u2 PyDataType_HASFIELDS(dtype) nogil
+    fn u2 PyDataType_HASSUBARRAY(dtype) nogil
 
-    fn bint PyArray_ISBOOL(ndarray) nogil
-    fn bint PyArray_ISUNSIGNED(ndarray) nogil
-    fn bint PyArray_ISSIGNED(ndarray) nogil
-    fn bint PyArray_ISINTEGER(ndarray) nogil
-    fn bint PyArray_ISFLOAT(ndarray) nogil
-    fn bint PyArray_ISNUMBER(ndarray) nogil
-    fn bint PyArray_ISSTRING(ndarray) nogil
-    fn bint PyArray_ISCOMPLEX(ndarray) nogil
-    fn bint PyArray_ISPYTHON(ndarray) nogil
-    fn bint PyArray_ISFLEXIBLE(ndarray) nogil
-    fn bint PyArray_ISUSERDEF(ndarray) nogil
-    fn bint PyArray_ISEXTENDED(ndarray) nogil
-    fn bint PyArray_ISOBJECT(ndarray) nogil
-    fn bint PyArray_HASFIELDS(ndarray) nogil
+    fn u2 PyArray_ISBOOL(ndarray) nogil
+    fn u2 PyArray_ISUNSIGNED(ndarray) nogil
+    fn u2 PyArray_ISSIGNED(ndarray) nogil
+    fn u2 PyArray_ISINTEGER(ndarray) nogil
+    fn u2 PyArray_ISFLOAT(ndarray) nogil
+    fn u2 PyArray_ISNUMBER(ndarray) nogil
+    fn u2 PyArray_ISSTRING(ndarray) nogil
+    fn u2 PyArray_ISCOMPLEX(ndarray) nogil
+    fn u2 PyArray_ISPYTHON(ndarray) nogil
+    fn u2 PyArray_ISFLEXIBLE(ndarray) nogil
+    fn u2 PyArray_ISUSERDEF(ndarray) nogil
+    fn u2 PyArray_ISEXTENDED(ndarray) nogil
+    fn u2 PyArray_ISOBJECT(ndarray) nogil
+    fn u2 PyArray_HASFIELDS(ndarray) nogil
 
-    fn bint PyArray_ISVARIABLE(ndarray) nogil
+    fn u2 PyArray_ISVARIABLE(ndarray) nogil
 
-    fn bint PyArray_SAFEALIGNEDCOPY(ndarray) nogil
-    fn bint PyArray_ISNBO(char) nogil              # works on ndarray.byteorder
-    fn bint PyArray_IsNativeByteOrder(char) nogil  # works on ndarray.byteorder
-    fn bint PyArray_ISNOTSWAPPED(ndarray) nogil
-    fn bint PyArray_ISBYTESWAPPED(ndarray) nogil
+    fn u2 PyArray_SAFEALIGNEDCOPY(ndarray) nogil
+    fn u2 PyArray_ISNBO(char) nogil              # works on ndarray.byteorder
+    fn u2 PyArray_IsNativeByteOrder(char) nogil  # works on ndarray.byteorder
+    fn u2 PyArray_ISNOTSWAPPED(ndarray) nogil
+    fn u2 PyArray_ISBYTESWAPPED(ndarray) nogil
 
-    fn bint PyArray_FLAGSWAP(ndarray, i32) nogil
+    fn u2 PyArray_FLAGSWAP(ndarray, i32) nogil
 
-    fn bint PyArray_ISCARRAY(ndarray) nogil
-    fn bint PyArray_ISCARRAY_RO(ndarray) nogil
-    fn bint PyArray_ISFARRAY(ndarray) nogil
-    fn bint PyArray_ISFARRAY_RO(ndarray) nogil
-    fn bint PyArray_ISBEHAVED(ndarray) nogil
-    fn bint PyArray_ISBEHAVED_RO(ndarray) nogil
+    fn u2 PyArray_ISCARRAY(ndarray) nogil
+    fn u2 PyArray_ISCARRAY_RO(ndarray) nogil
+    fn u2 PyArray_ISFARRAY(ndarray) nogil
+    fn u2 PyArray_ISFARRAY_RO(ndarray) nogil
+    fn u2 PyArray_ISBEHAVED(ndarray) nogil
+    fn u2 PyArray_ISBEHAVED_RO(ndarray) nogil
 
 
-    fn bint PyDataType_ISNOTSWAPPED(dtype) nogil
-    fn bint PyDataType_ISBYTESWAPPED(dtype) nogil
+    fn u2 PyDataType_ISNOTSWAPPED(dtype) nogil
+    fn u2 PyDataType_ISBYTESWAPPED(dtype) nogil
 
-    fn bint PyArray_DescrCheck(object)
+    fn u2 PyArray_DescrCheck(object)
 
-    fn bint PyArray_Check(object)
-    fn bint PyArray_CheckExact(object)
+    fn u2 PyArray_Check(object)
+    fn u2 PyArray_CheckExact(object)
 
     # Cannot be supported due to out arg:
-    # bint PyArray_HasArrayInterfaceType(object, dtype, object, object&)
-    # bint PyArray_HasArrayInterface(op, out)
+    # u2 PyArray_HasArrayInterfaceType(object, dtype, object, object&)
+    # u2 PyArray_HasArrayInterface(op, out)
 
 
-    fn bint PyArray_IsZeroDim(object)
+    fn u2 PyArray_IsZeroDim(object)
     # Cannot be supported due to ## ## in macro:
-    # bint PyArray_IsScalar(object, verbatim work)
-    fn bint PyArray_CheckScalar(object)
-    fn bint PyArray_IsPythonNumber(object)
-    fn bint PyArray_IsPythonScalar(object)
-    fn bint PyArray_IsAnyScalar(object)
-    fn bint PyArray_CheckAnyScalar(object)
+    # u2 PyArray_IsScalar(object, verbatim work)
+    fn u2 PyArray_CheckScalar(object)
+    fn u2 PyArray_IsPythonNumber(object)
+    fn u2 PyArray_IsPythonScalar(object)
+    fn u2 PyArray_IsAnyScalar(object)
+    fn u2 PyArray_CheckAnyScalar(object)
 
     fn ndarray PyArray_GETCONTIGUOUS(ndarray)
-    fn bint PyArray_SAMESHAPE(ndarray, ndarray) nogil
+    fn u2 PyArray_SAMESHAPE(ndarray, ndarray) nogil
     fn npy_intp PyArray_SIZE(ndarray) nogil
     fn npy_intp PyArray_NBYTES(ndarray) nogil
 
@@ -507,7 +507,7 @@ extern from "numpy/arrayobject.h":
     fn npy_intp PyArray_REFCOUNT(object)
     fn object PyArray_ContiguousFromAny(op, i32, i32 min_depth, i32 max_depth)
     fn u8 PyArray_EquivArrTypes(ndarray a1, ndarray a2)
-    fn bint PyArray_EquivByteorders(i32 b1, i32 b2) nogil
+    fn u2 PyArray_EquivByteorders(i32 b1, i32 b2) nogil
     fn object PyArray_SimpleNew(i32 nd, npy_intp* dims, i32 nd)
     fn object PyArray_SimpleNewFromData(i32 nd, npy_intp* dims, i32 nd, void* data)
     # fn object PyArray_SimpleNewFromDescr(i32 nd, npy_intp* dims, dtype descr)
@@ -537,7 +537,7 @@ extern from "numpy/arrayobject.h":
     fn void PyArray_ITER_GOTO(flatiter it, npy_intp* destination) nogil
     fn void PyArray_ITER_GOTO1D(flatiter it, npy_intp ind) nogil
     fn void* PyArray_ITER_DATA(flatiter it) nogil
-    fn bint PyArray_ITER_NOTDONE(flatiter it) nogil
+    fn u2 PyArray_ITER_NOTDONE(flatiter it) nogil
 
     fn void PyArray_MultiIter_RESET(broadcast multi) nogil
     fn void PyArray_MultiIter_NEXT(broadcast multi) nogil
@@ -545,7 +545,7 @@ extern from "numpy/arrayobject.h":
     fn void PyArray_MultiIter_GOTO1D(broadcast multi, npy_intp ind) nogil
     fn void* PyArray_MultiIter_DATA(broadcast multi, npy_intp i) nogil
     fn void PyArray_MultiIter_NEXTi(broadcast multi, npy_intp i) nogil
-    fn bint PyArray_MultiIter_NOTDONE(broadcast multi) nogil
+    fn u2 PyArray_MultiIter_NOTDONE(broadcast multi) nogil
 
     # Functions from __multiarray_api.h
 
@@ -1000,7 +1000,7 @@ fn inline i32 import_ufunc() except -1:
         raise ImportError("numpy.core.umath failed to import")
 
 
-fn inline bint is_timedelta64_object(object obj):
+fn inline u2 is_timedelta64_object(object obj):
     """
     Cython equivalent of `isinstance(obj, np.timedelta64)`
 
@@ -1014,7 +1014,7 @@ fn inline bint is_timedelta64_object(object obj):
     """
     return PyObject_TypeCheck(obj, &PyTimedeltaArrType_Type)
 
-fn inline bint is_datetime64_object(object obj):
+fn inline u2 is_datetime64_object(object obj):
     """
     Cython equivalent of `isinstance(obj, np.datetime64)`
 

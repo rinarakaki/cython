@@ -5,11 +5,11 @@ extern from "Python.h":
     # Tuples
     ############################################################################
 
-    fn bint PyTuple_Check(object p)
+    fn u2 PyTuple_Check(object p)
     # Return true if p is a tuple object or an instance of a subtype
     # of the tuple type.
 
-    fn bint PyTuple_CheckExact(object p)
+    fn u2 PyTuple_CheckExact(object p)
     # Return true if p is a tuple object, but not an instance of a subtype of the tuple type.
 
     fn tuple PyTuple_New(isize len)

@@ -7,12 +7,12 @@ extern from "<utility>" namespace "std" nogil:
         fn pair() except +
         fn pair(pair&) except +
         fn pair(T&, U&) except +
-        fn bint operator==(pair&, pair&)
-        fn bint operator!=(pair&, pair&)
-        fn bint operator<(pair&, pair&)
-        fn bint operator>(pair&, pair&)
-        fn bint operator<=(pair&, pair&)
-        fn bint operator>=(pair&, pair&)
+        fn u2 operator==(pair&, pair&)
+        fn u2 operator!=(pair&, pair&)
+        fn u2 operator<(pair&, pair&)
+        fn u2 operator>(pair&, pair&)
+        fn u2 operator<=(pair&, pair&)
+        fn u2 operator>=(pair&, pair&)
 
 extern from * namespace "cython_std" nogil:
     """

@@ -35,21 +35,21 @@ extern from "Python.h":
     # object. Likewise, the constructor functions work with any
     # iterable Python object.
 
-    fn bint PyAnySet_Check(object p)
+    fn u2 PyAnySet_Check(object p)
     # Return true if p is a set object, a frozenset object, or an
     # instance of a subtype.
 
-    fn bint PyAnySet_CheckExact(object p)
+    fn u2 PyAnySet_CheckExact(object p)
     # Return true if p is a set object or a frozenset object but not
     # an instance of a subtype.
 
-    fn bint PyFrozenSet_Check(object p)
+    fn u2 PyFrozenSet_Check(object p)
     # Return true if p is a frozenset object or an instance of a subtype.
 
-    fn bint PyFrozenSet_CheckExact(object p)
+    fn u2 PyFrozenSet_CheckExact(object p)
     # Return true if p is a frozenset object but not an instance of a subtype.
 
-    fn bint PySet_Check(object p)
+    fn u2 PySet_Check(object p)
     # Return true if p is a set object or an instance of a subtype.
 
     fn object PySet_New(object iterable)
@@ -79,7 +79,7 @@ extern from "Python.h":
     fn isize PySet_GET_SIZE(object anyset)
     # Macro form of PySet_Size() without error checking.
 
-    fn bint PySet_Contains(object anyset, object key) except -1
+    fn u2 PySet_Contains(object anyset, object key) except -1
     # Return 1 if found, 0 if not found, and -1 if an error is
     # encountered. Unlike the Python __contains__() method, this
     # function does not automatically convert unhashable sets into
@@ -97,7 +97,7 @@ extern from "Python.h":
     # is no room to grow. Raise a SystemError if set is an not an
     # instance of set or its subtype.
 
-    fn bint PySet_Discard(object set, object key) except -1
+    fn u2 PySet_Discard(object set, object key) except -1
     # Return 1 if found and removed, 0 if not found (no action taken),
     # and -1 if an error is encountered. Does not raise KeyError for
     # missing keys. Raise a TypeError if the key is unhashable. Unlike

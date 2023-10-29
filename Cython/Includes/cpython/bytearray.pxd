@@ -1,10 +1,10 @@
 from .object cimport PyObject
 
 extern from "Python.h":
-    fn bint PyByteArray_Check(object o)
+    fn u2 PyByteArray_Check(object o)
     # Return true if the object o is a bytearray object or an instance of a subtype of the bytearray type.
 
-    fn bint PyByteArray_CheckExact(object o)
+    fn u2 PyByteArray_CheckExact(object o)
     # Return true if the object o is a bytearray object, but not an instance of a subtype of the bytearray type.
 
     fn bytearray PyByteArray_FromObject(object o)

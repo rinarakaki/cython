@@ -13,7 +13,7 @@ extern from "Python.h":
     #    buffer. Using this enables the caller to avoid querying the base
     #    object for its length.
 
-    fn bint PyBuffer_Check(object p)
+    fn u2 PyBuffer_Check(object p)
     #    Return true if the argument has type PyBuffer_Type.
 
     fn object PyBuffer_FromObject(object base, isize offset, isize size)

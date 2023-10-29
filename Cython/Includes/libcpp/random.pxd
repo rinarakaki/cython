@@ -45,7 +45,7 @@ extern from "<random>" namespace "std" nogil:
         result_type max() except +
 
     cdef cppclass bernoulli_distribution:
-        ctypedef bint result_type
+        ctypedef u2 result_type
         bernoulli_distribution() except +
         bernoulli_distribution(double) except +
         result_type operator()[Generator](Generator&) except +

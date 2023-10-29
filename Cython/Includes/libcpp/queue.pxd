@@ -4,7 +4,7 @@ extern from "<queue>" namespace "std" nogil:
         queue(queue&) except +
         #queue(Container&)
         T& back()
-        bint empty()
+        u2 empty()
         T& front()
         void pop()
         void push(T&)
@@ -16,7 +16,7 @@ extern from "<queue>" namespace "std" nogil:
         priority_queue() except +
         priority_queue(priority_queue&) except +
         #priority_queue(Container&)
-        bint empty()
+        u2 empty()
         void pop()
         void push(T&)
         usize size()

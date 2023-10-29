@@ -24,16 +24,16 @@ cdef class PyrexScanner(Scanner):
     pub context
     pub list included_files
     pub CompileTimeScope compile_time_env
-    pub bint compile_time_eval
-    pub bint compile_time_expr
-    pub bint parse_comments
-    pub bint in_python_file
+    pub u2 compile_time_eval
+    pub u2 compile_time_expr
+    pub u2 parse_comments
+    pub u2 in_python_file
     pub source_encoding
     cdef dict keywords
     pub list indentation_stack
     pub indentation_char
     pub int bracket_nesting_level
-    cdef readonly bint async_enabled
+    cdef readonly u2 async_enabled
     pub unicode sy
     pub systring  # EncodedString
     pub list put_back_on_failure
@@ -54,12 +54,12 @@ cdef class PyrexScanner(Scanner):
     ##cdef next(self)
     ##cdef peek(self)
     #cpdef put_back(self, sy, systring)
-    ##cdef bint expect(self, what, message = *) except -2
+    ##cdef u2 expect(self, what, message = *) except -2
     ##cdef expect_keyword(self, what, message = *)
     ##cdef expected(self, what, message = *)
     ##cdef expect_indent(self)
     ##cdef expect_dedent(self)
-    ##cdef expect_newline(self, message=*, bint ignore_semicolon=*)
+    ##cdef expect_newline(self, message=*, u2 ignore_semicolon=*)
     ##cdef int enter_async(self) except -1
     ##cdef int exit_async(self) except -1
     fn void error_at_scanpos(self, str message) except *

@@ -36,15 +36,15 @@ extern from "Python.h":
     # PyTypeObject PyContextToken_Type
     # Type object representing the `contextvars.Token` type.
 
-    fn bint PyContext_CheckExact(object obj)
+    fn u2 PyContext_CheckExact(object obj)
     # Return `true` if `obj` is of type `PyContext_Type`.
     # `obj` must not be NULL. This function always succeeds.
 
-    fn bint PyContextVar_CheckExact(object obj)
+    fn u2 PyContextVar_CheckExact(object obj)
     # Return `true` if `obj` is of type `PyContextVar_Type`.
     # `obj` must not be NULL. This function always succeeds.
 
-    fn bint PyContextToken_CheckExact(object obj)
+    fn u2 PyContextToken_CheckExact(object obj)
     # Return `true` if `obj` is of type `PyContextToken_Type`.
     # `obj` must not be NULL. This function always succeeds.
 

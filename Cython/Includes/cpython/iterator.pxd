@@ -2,7 +2,7 @@ extern from "Python.h":
     ############################################################################
     # 6.5 Iterator Protocol
     ############################################################################
-    fn bint PyIter_Check(object o)
+    fn u2 PyIter_Check(object o)
     # Return true if the object o supports the iterator protocol.
 
     fn object PyIter_Next(object o)

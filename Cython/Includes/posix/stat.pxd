@@ -92,7 +92,7 @@ extern from "<unistd.h>" nogil:
     mode_t S_IXOTH
 
     # test file types
-    fn bint S_TYPEISMQ(struct_stat *buf)
-    fn bint S_TYPEISSEM(struct_stat *buf)
-    fn bint S_TYPEISSHM(struct_stat *buf)
-    fn bint S_TYPEISTMO(struct_stat *buf)
+    fn u2 S_TYPEISMQ(struct_stat *buf)
+    fn u2 S_TYPEISSEM(struct_stat *buf)
+    fn u2 S_TYPEISSHM(struct_stat *buf)
+    fn u2 S_TYPEISTMO(struct_stat *buf)

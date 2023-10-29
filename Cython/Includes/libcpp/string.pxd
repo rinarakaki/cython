@@ -28,18 +28,18 @@ extern from "<string>" namespace "std" nogil:
             iterator operator-(size_type)
             difference_type operator-(iterator)
             difference_type operator-(const_iterator)
-            bint operator==(iterator)
-            bint operator==(const_iterator)
-            bint operator!=(iterator)
-            bint operator!=(const_iterator)
-            bint operator<(iterator)
-            bint operator<(const_iterator)
-            bint operator>(iterator)
-            bint operator>(const_iterator)
-            bint operator<=(iterator)
-            bint operator<=(const_iterator)
-            bint operator>=(iterator)
-            bint operator>=(const_iterator)
+            u2 operator==(iterator)
+            u2 operator==(const_iterator)
+            u2 operator!=(iterator)
+            u2 operator!=(const_iterator)
+            u2 operator<(iterator)
+            u2 operator<(const_iterator)
+            u2 operator>(iterator)
+            u2 operator>(const_iterator)
+            u2 operator<=(iterator)
+            u2 operator<=(const_iterator)
+            u2 operator>=(iterator)
+            u2 operator>=(const_iterator)
         cppclass const_iterator:
             const_iterator() except +
             const_iterator(iterator&) except +
@@ -54,18 +54,18 @@ extern from "<string>" namespace "std" nogil:
             const_iterator operator-(size_type)
             difference_type operator-(iterator)
             difference_type operator-(const_iterator)
-            bint operator==(iterator)
-            bint operator==(const_iterator)
-            bint operator!=(iterator)
-            bint operator!=(const_iterator)
-            bint operator<(iterator)
-            bint operator<(const_iterator)
-            bint operator>(iterator)
-            bint operator>(const_iterator)
-            bint operator<=(iterator)
-            bint operator<=(const_iterator)
-            bint operator>=(iterator)
-            bint operator>=(const_iterator)
+            u2 operator==(iterator)
+            u2 operator==(const_iterator)
+            u2 operator!=(iterator)
+            u2 operator!=(const_iterator)
+            u2 operator<(iterator)
+            u2 operator<(const_iterator)
+            u2 operator>(iterator)
+            u2 operator>(const_iterator)
+            u2 operator<=(iterator)
+            u2 operator<=(const_iterator)
+            u2 operator>=(iterator)
+            u2 operator>=(const_iterator)
 
         cppclass const_reverse_iterator
         cppclass reverse_iterator:
@@ -80,18 +80,18 @@ extern from "<string>" namespace "std" nogil:
             reverse_iterator operator-(size_type)
             difference_type operator-(iterator)
             difference_type operator-(const_iterator)
-            bint operator==(reverse_iterator)
-            bint operator==(const_reverse_iterator)
-            bint operator!=(reverse_iterator)
-            bint operator!=(const_reverse_iterator)
-            bint operator<(reverse_iterator)
-            bint operator<(const_reverse_iterator)
-            bint operator>(reverse_iterator)
-            bint operator>(const_reverse_iterator)
-            bint operator<=(reverse_iterator)
-            bint operator<=(const_reverse_iterator)
-            bint operator>=(reverse_iterator)
-            bint operator>=(const_reverse_iterator)
+            u2 operator==(reverse_iterator)
+            u2 operator==(const_reverse_iterator)
+            u2 operator!=(reverse_iterator)
+            u2 operator!=(const_reverse_iterator)
+            u2 operator<(reverse_iterator)
+            u2 operator<(const_reverse_iterator)
+            u2 operator>(reverse_iterator)
+            u2 operator>(const_reverse_iterator)
+            u2 operator<=(reverse_iterator)
+            u2 operator<=(const_reverse_iterator)
+            u2 operator>=(reverse_iterator)
+            u2 operator>=(const_reverse_iterator)
         cppclass const_reverse_iterator:
             const_reverse_iterator() except +
             const_reverse_iterator(reverse_iterator&) except +
@@ -105,18 +105,18 @@ extern from "<string>" namespace "std" nogil:
             const_reverse_iterator operator-(size_type)
             difference_type operator-(iterator)
             difference_type operator-(const_iterator)
-            bint operator==(reverse_iterator)
-            bint operator==(const_reverse_iterator)
-            bint operator!=(reverse_iterator)
-            bint operator!=(const_reverse_iterator)
-            bint operator<(reverse_iterator)
-            bint operator<(const_reverse_iterator)
-            bint operator>(reverse_iterator)
-            bint operator>(const_reverse_iterator)
-            bint operator<=(reverse_iterator)
-            bint operator<=(const_reverse_iterator)
-            bint operator>=(reverse_iterator)
-            bint operator>=(const_reverse_iterator)
+            u2 operator==(reverse_iterator)
+            u2 operator==(const_reverse_iterator)
+            u2 operator!=(reverse_iterator)
+            u2 operator!=(const_reverse_iterator)
+            u2 operator<(reverse_iterator)
+            u2 operator<(const_reverse_iterator)
+            u2 operator>(reverse_iterator)
+            u2 operator>(const_reverse_iterator)
+            u2 operator<=(reverse_iterator)
+            u2 operator<=(const_reverse_iterator)
+            u2 operator>=(reverse_iterator)
+            u2 operator>=(const_reverse_iterator)
 
         fn string() except +
         fn string(const string& s) except +
@@ -152,7 +152,7 @@ extern from "<string>" namespace "std" nogil:
         fn usize capacity()
         fn void reserve(usize) except +
         fn void clear()
-        fn bint empty()
+        fn u2 empty()
 
         iterator erase(iterator first, iterator last)
         iterator erase(iterator p)
@@ -252,13 +252,13 @@ extern from "<string>" namespace "std" nogil:
         fn string substr()
 
         # C++20
-        fn bint starts_with(char c) except +
-        fn bint starts_with(const char* s)
-        fn bint ends_with(char c) except +
-        fn bint ends_with(const char* s)
+        fn u2 starts_with(char c) except +
+        fn u2 starts_with(const char* s)
+        fn u2 ends_with(char c) except +
+        fn u2 ends_with(const char* s)
         # C++23
-        fn bint contains(char c) except +
-        fn bint contains(const char* s)
+        fn u2 contains(char c) except +
+        fn u2 contains(const char* s)
 
         # string& operator= (const string&)
         # string& operator= (const char*)
@@ -267,23 +267,23 @@ extern from "<string>" namespace "std" nogil:
         fn string operator+ (const string&) except +
         fn string operator+ (const char*) except +
 
-        fn bint operator==(const string&)
-        fn bint operator==(const char*)
+        fn u2 operator==(const string&)
+        fn u2 operator==(const char*)
 
-        fn bint operator!= (const string&)
-        fn bint operator!= (const char*)
+        fn u2 operator!= (const string&)
+        fn u2 operator!= (const char*)
 
-        fn bint operator< (const string&)
-        fn bint operator< (const char*)
+        fn u2 operator< (const string&)
+        fn u2 operator< (const char*)
 
-        fn bint operator> (const string&)
-        fn bint operator> (const char*)
+        fn u2 operator> (const string&)
+        fn u2 operator> (const char*)
 
-        fn bint operator<= (const string&)
-        fn bint operator<= (const char*)
+        fn u2 operator<= (const string&)
+        fn u2 operator<= (const char*)
 
-        fn bint operator>= (const string&)
-        fn bint operator>= (const char*)
+        fn u2 operator>= (const string&)
+        fn u2 operator>= (const char*)
 
 
     fn string to_string(i32 val) except +

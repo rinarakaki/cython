@@ -12,12 +12,12 @@ extern from "Python.h":
     # This is the type object for type objects; it is the same object
     # as type and types.TypeType in the Python layer.
 
-    fn bint PyType_Check(object o)
+    fn u2 PyType_Check(object o)
     # Return true if the object o is a type object, including
     # instances of types derived from the standard type object. Return
     # false in all other cases.
 
-    fn bint PyType_CheckExact(object o)
+    fn u2 PyType_CheckExact(object o)
     # Return true if the object o is a type object, but not a subtype
     # of the standard type object. Return false in all other
     # cases.
@@ -27,15 +27,15 @@ extern from "Python.h":
     # subtypes. This function must be called after any manual modification
     # of the attributes or base classes of the type.
 
-    fn bint PyType_HasFeature(object o, i32 feature)
+    fn u2 PyType_HasFeature(object o, i32 feature)
     # Return true if the type object o sets the feature feature. Type
     # features are denoted by single bit flags.
 
-    fn bint PyType_IS_GC(object o)
+    fn u2 PyType_IS_GC(object o)
     # Return true if the type object includes support for the cycle
     # detector; this tests the type flag Py_TPFLAGS_HAVE_GC.
 
-    fn bint PyType_IsSubtype(type a, type b)
+    fn u2 PyType_IsSubtype(type a, type b)
     # Return true if a is a subtype of b.
 
     fn object PyType_GenericAlloc(object type, isize nitems)
@@ -44,7 +44,7 @@ extern from "Python.h":
     fn object PyType_GenericNew(type type, object args, object kwds)
     # Return value: New reference.
 
-    fn bint PyType_Ready(type type) except -1
+    fn u2 PyType_Ready(type type) except -1
     # Finalize a type object. This should be called on all type
     # objects to finish their initialization. This function is
     # responsible for adding inherited slots from a type's base

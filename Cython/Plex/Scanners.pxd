@@ -21,7 +21,7 @@ cdef class Scanner:
     pub initial_state # int?
     pub state_name
     pub list queue
-    pub bint trace
+    pub u2 trace
     pub cur_char
     pub i64 input_state
 
@@ -45,7 +45,7 @@ cdef class Scanner:
     #[cython.locals(cur_pos=isize, cur_line=isize, cur_line_start=isize,
                     input_state=i64, next_pos=isize, state=dict,
                     buf_start_pos=isize, buf_len=isize, buf_index=isize,
-                    trace=bint, discard=isize, data=unicode, buffer=unicode)]
+                    trace=u2, discard=isize, data=unicode, buffer=unicode)]
     fn run_machine_inlined(self)
 
     fn inline begin(self, state)

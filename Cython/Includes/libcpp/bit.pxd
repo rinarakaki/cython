@@ -6,7 +6,7 @@ extern from "<bit>" namespace "std" nogil:
     # cdef T byteswap[T](T)
 
     # integral powers of 2 (gcc >= 10.0, clang >= 12.0)
-    fn bint has_single_bit[T](T)
+    fn u2 has_single_bit[T](T)
     fn T bit_ceil[T](T)
     fn T bit_floor[T](T)
     fn i32 bit_width[T](T)

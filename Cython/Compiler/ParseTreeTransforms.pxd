@@ -10,8 +10,8 @@ from .Visitor cimport (
 #cdef class SkipDeclarations:
 
 cdef class NormalizeTree(CythonTransform):
-    cdef bint is_in_statlist
-    cdef bint is_in_expr
+    cdef u2 is_in_statlist
+    cdef u2 is_in_expr
     cpdef visit_StatNode(self, node, is_listcontainer=*)
 
 cdef class PostParse(ScopeTrackingTransform):
@@ -50,18 +50,18 @@ cdef class YieldNodeCollector(TreeVisitor):
     pub list returns
     pub list finallys
     pub list excepts
-    pub bint has_return_value
-    pub bint has_yield
-    pub bint has_await
+    pub u2 has_return_value
+    pub u2 has_yield
+    pub u2 has_await
 
 #[cython.final]
 cdef class MarkClosureVisitor(CythonTransform):
-    cdef bint needs_closure
+    cdef u2 needs_closure
 
 #[cython.final]
 cdef class CreateClosureClasses(CythonTransform):
     cdef list path
-    cdef bint in_lambda
+    cdef u2 in_lambda
     cdef module_scope
     cdef generator_class
 
@@ -69,13 +69,13 @@ cdef class CreateClosureClasses(CythonTransform):
     fn find_entries_used_in_closures(self, node)
 
 #cdef class InjectGilHandling(VisitorTransform, SkipDeclarations):
-#    cdef bint nogil
+#    cdef u2 nogil
 
 cdef class GilCheck(VisitorTransform):
     cdef list env_stack
-    cdef bint nogil
-    cdef bint nogil_declarator_only
-    cdef bint current_gilstat_node_knows_gil_state
+    cdef u2 nogil
+    cdef u2 nogil_declarator_only
+    cdef u2 current_gilstat_node_knows_gil_state
 
 cdef class TransformBuiltinMethods(EnvTransform):
     fn visit_cython_attribute(self, node)

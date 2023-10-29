@@ -18,10 +18,10 @@ extern from "<list>" namespace "std" nogil:
             iterator operator--()
             iterator operator++(i32)
             iterator operator--(i32)
-            bint operator==(iterator)
-            bint operator==(const_iterator)
-            bint operator!=(iterator)
-            bint operator!=(const_iterator)
+            u2 operator==(iterator)
+            u2 operator==(const_iterator)
+            u2 operator!=(iterator)
+            u2 operator!=(const_iterator)
         cppclass const_iterator:
             const_iterator() except +
             const_iterator(iterator&) except +
@@ -32,10 +32,10 @@ extern from "<list>" namespace "std" nogil:
             const_iterator operator--()
             const_iterator operator++(i32)
             const_iterator operator--(i32)
-            bint operator==(iterator)
-            bint operator==(const_iterator)
-            bint operator!=(iterator)
-            bint operator!=(const_iterator)
+            u2 operator==(iterator)
+            u2 operator==(const_iterator)
+            u2 operator!=(iterator)
+            u2 operator!=(const_iterator)
 
         cppclass const_reverse_iterator
         cppclass reverse_iterator:
@@ -46,10 +46,10 @@ extern from "<list>" namespace "std" nogil:
             reverse_iterator operator--()
             reverse_iterator operator++(i32)
             reverse_iterator operator--(i32)
-            bint operator==(reverse_iterator)
-            bint operator==(const_reverse_iterator)
-            bint operator!=(reverse_iterator)
-            bint operator!=(const_reverse_iterator)
+            u2 operator==(reverse_iterator)
+            u2 operator==(const_reverse_iterator)
+            u2 operator!=(reverse_iterator)
+            u2 operator!=(const_reverse_iterator)
         cppclass const_reverse_iterator:
             const_reverse_iterator() except +
             const_reverse_iterator(reverse_iterator&) except +
@@ -59,28 +59,28 @@ extern from "<list>" namespace "std" nogil:
             const_reverse_iterator operator--()
             const_reverse_iterator operator++(i32)
             const_reverse_iterator operator--(i32)
-            bint operator==(reverse_iterator)
-            bint operator==(const_reverse_iterator)
-            bint operator!=(reverse_iterator)
-            bint operator!=(const_reverse_iterator)
+            u2 operator==(reverse_iterator)
+            u2 operator==(const_reverse_iterator)
+            u2 operator!=(reverse_iterator)
+            u2 operator!=(const_reverse_iterator)
 
         list() except +
         list(list&) except +
         list(usize, T&) except +
         #list operator=(list&)
-        bint operator==(list&, list&)
-        bint operator!=(list&, list&)
-        bint operator<(list&, list&)
-        bint operator>(list&, list&)
-        bint operator<=(list&, list&)
-        bint operator>=(list&, list&)
+        u2 operator==(list&, list&)
+        u2 operator!=(list&, list&)
+        u2 operator<(list&, list&)
+        u2 operator>(list&, list&)
+        u2 operator<=(list&, list&)
+        u2 operator>=(list&, list&)
         void assign(usize, T&) except +
         T& back()
         iterator begin()
         const_iterator const_begin "begin"()
         const_iterator cbegin()
         void clear()
-        bint empty()
+        u2 empty()
         iterator end()
         const_iterator const_end "end"()
         const_iterator cend()

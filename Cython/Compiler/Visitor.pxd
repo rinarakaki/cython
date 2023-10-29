@@ -47,7 +47,7 @@ cdef class MethodDispatcherTransform(EnvTransform):
     fn _visit_binop_node(self, node)
 
     #[cython.final]
-    fn _find_handler(self, match_name, bint has_kwargs)
+    fn _find_handler(self, match_name, u2 has_kwargs)
 
     #[cython.final]
     fn _delegate_to_assigned_value(self, node, function, arg_list, kwargs)
@@ -66,4 +66,4 @@ cdef class RecursiveNodeReplacer(VisitorTransform):
 
 cdef class NodeFinder(TreeVisitor):
     cdef node
-    pub bint found
+    pub u2 found
