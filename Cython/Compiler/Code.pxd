@@ -73,7 +73,7 @@ cdef class IntConst:
 
 cdef class PyObjectConst:
     pub object cname
-    pub object type
+    pub object r#type
 
 cdef class StringConst:
     pub object cname
