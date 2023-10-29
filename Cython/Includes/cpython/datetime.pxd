@@ -2,7 +2,7 @@ from cpython.object cimport PyObject
 from cpython.version cimport PY_VERSION_HEX
 
 extern from "Python.h":
-    ctypedef struct PyTypeObject:
+    struct PyTypeObject:
         pass
 
 extern from "datetime.h":
@@ -160,26 +160,26 @@ extern from "datetime.h":
     ctypedef extern class datetime.tzinfo[object PyDateTime_TZInfo]:
         pass
 
-    ctypedef struct PyDateTime_Date:
+    struct PyDateTime_Date:
         pass
 
-    ctypedef struct PyDateTime_Time:
+    struct PyDateTime_Time:
         u8 fold
         char hastzinfo
         PyObject *tzinfo
 
-    ctypedef struct PyDateTime_DateTime:
+    struct PyDateTime_DateTime:
         u8 fold
         char hastzinfo
         PyObject *tzinfo
 
-    ctypedef struct PyDateTime_Delta:
+    struct PyDateTime_Delta:
         i32 days
         i32 seconds
         i32 microseconds
 
     # Define structure for C API.
-    ctypedef struct PyDateTime_CAPI:
+    struct PyDateTime_CAPI:
         # type objects
         PyTypeObject *DateType
         PyTypeObject *DateTimeType

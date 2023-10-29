@@ -8,31 +8,31 @@ extern from "<signal.h>" nogil:
         void *sival_ptr
 
     struct sigevent:
-        int    sigev_notify
-        int    sigev_signo
+        i32    sigev_notify
+        i32    sigev_signo
         sigval sigev_value
         void   sigev_notify_function(sigval)
 
-    ctypedef struct siginfo_t:
-        int    si_signo
-        int    si_code
-        int    si_errno
+    struct siginfo_t:
+        i32    si_signo
+        i32    si_code
+        i32    si_errno
         pid_t  si_pid
         uid_t  si_uid
         void   *si_addr
-        int    si_status
-        long   si_band
+        i32    si_status
+        i64   si_band
         sigval si_value
 
     struct sigaction_t "sigaction":
         void     sa_handler(i32)
         void     sa_sigaction(i32, siginfo_t *, void *)
         sigset_t sa_mask
-        int      sa_flags
+        i32      sa_flags
 
-    ctypedef struct stack_t:
+    struct stack_t:
         void  *ss_sp
-        int ss_flags
+        i32 ss_flags
         usize ss_size
 
     enum: SA_NOCLDSTOP
