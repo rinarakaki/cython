@@ -8,18 +8,18 @@ extern from "Python.h":
 
     ctypedef i64 PY_INT64_T  # FIXME: Py2.7+, not defined here but used here
 
-    ctypedef struct PyInterpreterState:
+    struct PyInterpreterState:
         pass
 
-    ctypedef struct PyThreadState:
+    struct PyThreadState:
         pass
 
-    ctypedef struct PyFrameObject:
+    struct PyFrameObject:
         pass
 
     # This is not actually a struct, but make sure it can never be coerced to
     # an int or used in arithmetic expressions
-    ctypedef struct PyGILState_STATE:
+    struct PyGILState_STATE:
         pass
 
     # The type of the trace function registered using PyEval_SetProfile() and

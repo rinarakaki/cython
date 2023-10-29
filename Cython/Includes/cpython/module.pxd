@@ -1,7 +1,7 @@
 from .object cimport PyObject
 
 extern from "Python.h":
-    ctypedef struct _inittab
+    struct _inittab
 
     #####################################################################
     # 5.3 Importing Modules
