@@ -10,23 +10,23 @@ import sys
 __doc__ = ""
 
 
-cdef bint is_null(int* x):
+fn bint is_null(int* x):
     return False # disabled - currently just a parser test
     match x:
         case NULL:
-            return True
+            return true
         case _:
-            return False
+            return false
 
 
 def test_is_null():
     """
     >>> test_is_null()
     """
-    cdef int some_int = 1
+    let i32 some_int = 1
     return  # disabled - currently just a parser test
-    assert is_null(&some_int) == False
-    assert is_null(NULL) == True
+    assert is_null(&some_int) == false
+    assert is_null(NULL) == true
 
 
 if sys.version_info[0] > 2:
@@ -63,16 +63,16 @@ def test_memoryview(int[:] x):
 @cython.test_fail_if_path_exists("//PythonCapiCallNode//PythonCapiFunctionNode[@cname = '__Pyx_MatchCase_IsSequence']")
 def test_list_to_sequence(list x):
     """
-    >>> test_list_to_sequence([1,2,3])
+    >>> test_list_to_sequence([1, 2, 3])
     True
     >>> test_list_to_sequence(None)
     False
     """
     match x:
         case [*_]:
-            return True
+            return true
         case _:
-            return False
+            return false
 
 
 @cython.test_fail_if_path_exists("//PythonCapiCallNode//PythonCapiFunctionNode[@cname = '__Pyx_MatchCase_IsSequence']")
@@ -84,9 +84,9 @@ def test_list_not_None_to_sequence(list x not None):
     """
     match x:
         case [*_]:
-            return True
+            return true
         case _:
-            return False
+            return false
 
 @cython.test_fail_if_path_exists("//PythonCapiCallNode//PythonCapiFunctionNode[@cname = '__Pyx_MatchCase_IsSequence']")
 @cython.test_fail_if_path_exists("//CmpNode")  # There's nothing to compare - it always succeeds!
@@ -103,7 +103,7 @@ def test_ctuple_to_sequence((int, int) x):
             return a, b
 
 cdef class C:
-    cdef double x
+    cdef f64 x
     def __init__(self, x):
         self.x = x
 
@@ -136,9 +136,9 @@ def class_typecheck_exists(x):
     """
     match x:
         case PyClass():
-            return True
+            return true
         case _:
-            return False
+            return false
 
 
 @cython.test_fail_if_path_exists("//NameNode[@name='isinstance']")
@@ -152,9 +152,9 @@ def class_typecheck_doesnt_exist(C x):
     """
     match x:
         case C():
-            return True
+            return true
         case _:
-            return False
+            return false
 
 def simple_or_with_targets(x):
     """
