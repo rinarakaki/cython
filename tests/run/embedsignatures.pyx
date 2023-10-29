@@ -343,7 +343,7 @@ cpdef i32 f_i(i32 i):
 cpdef u32 f_ui(u32 i):
     return i
 
-cpdef u2 f_bint(bint i):
+cpdef u2 f_bint(u2 i):
     return i
 
 cpdef i64 f_l(i64 l):
