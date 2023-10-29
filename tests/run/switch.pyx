@@ -299,7 +299,7 @@ def switch_pass(i32 x):
         pass
     return x
 
-DEF t = (1, 2, 3, 4, 5, 6)
+const t = (1, 2, 3, 4, 5, 6)
 
 #[cython.test_assert_path_exists('//SwitchStatNode')]
 #[cython.test_fail_if_path_exists('//IfStatNode')]

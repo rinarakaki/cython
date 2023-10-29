@@ -3,7 +3,7 @@ IS_PY3 = sys.version_info[0] >= 3
 
 use cython
 
-DEF INT_VAL = 1
+const INT_VAL = 1
 
 def _func(a, b, c):
     return a+b+c

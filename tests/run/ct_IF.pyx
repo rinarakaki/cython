@@ -1,8 +1,8 @@
 # mode: run
 # tag: warnings
 
-DEF NO = 0
-DEF YES = 1
+const NO = 0
+const YES = 1
 
 def f():
     """

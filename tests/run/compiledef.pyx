@@ -11,12 +11,12 @@ __doc__ = u"""
     10
 """
 
-DEF c_t = True
-DEF c_f = False
-DEF c_boolexpr = c_t and True and not (c_f or False)
+const c_t = True
+const c_f = False
+const c_boolexpr = c_t and True and not (c_f or False)
 
-DEF c_num6 = 2*3
-DEF c_intexpr = c_num6 + 4
+const c_num6 = 2*3
+const c_intexpr = c_num6 + 4
 
 t = c_t
 f = c_f

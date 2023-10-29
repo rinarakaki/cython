@@ -1,7 +1,7 @@
 # mode: error
 
 import os
-DEF ospath = os.path
+const ospath = os.path
 
 _ERRORS = u"""
 4:13: Compile-time name 'os' not defined

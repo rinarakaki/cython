@@ -4,7 +4,7 @@ from cpython.object cimport Py_EQ, Py_NE
 
 use cython
 
-DEF C21 = 2-1j
+const C21 = 2-1j
 
 cdef class Complex3j:
     """

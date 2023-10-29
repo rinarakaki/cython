@@ -21,32 +21,32 @@ def print_large_number(n):
     print(str(n).rstrip('L'))
 
 
-DEF TUPLE = (1, 2, u"buckle my shoe")
-DEF TRUE_FALSE = (True, False)
-DEF NONE = None
+const TUPLE = (1, 2, u"buckle my shoe")
+const TRUE_FALSE = (True, False)
+const NONE = None
 
-DEF CHAR = c'x'
-DEF INT0 = -1
-DEF INT1 = 42
-DEF INT2 = 0x42
-DEF INT3 = -0x42
-DEF LONG = 666L
-DEF LARGE_NUM32 = (1 << 32) - 1
-DEF LARGE_NUM64 = (1 << 64) - 1
-DEF FLOAT = 12.5
-DEF EXACT_FLOAT = 0.577215664901532860606512090082402431
-DEF E_FLOAT = 0.5772156E4  # Cannot currently warn about this since we can't safely compare the string repr.
-DEF BYTES = b"spam"
-DEF UNICODE = u"spam-u"
-DEF TWO = TUPLE[1]
-DEF FIVE = TWO + 3
-DEF TRUE  = TRUE_FALSE[0]
-DEF FALSE = TRUE_FALSE[1]
-DEF INT_TUPLE1 = TUPLE[:2]
-DEF INT_TUPLE2 = TUPLE[1:4:2]
-DEF ELLIPSIS = ...
-DEF EXPRESSION = int(float(2*2)) + int(str(2)) + int(max(1, 2, 3)) + sum([TWO, FIVE])
-DEF UNICODE_EXPRESSION = unicode(BYTES.decode('utf8')).encode('ascii').decode('latin1')
+const CHAR = c'x'
+const INT0 = -1
+const INT1 = 42
+const INT2 = 0x42
+const INT3 = -0x42
+const LONG = 666L
+const LARGE_NUM32 = (1 << 32) - 1
+const LARGE_NUM64 = (1 << 64) - 1
+const FLOAT = 12.5
+const EXACT_FLOAT = 0.577215664901532860606512090082402431
+const E_FLOAT = 0.5772156E4  # Cannot currently warn about this since we can't safely compare the string repr.
+const BYTES = b"spam"
+const UNICODE = u"spam-u"
+const TWO = TUPLE[1]
+const FIVE = TWO + 3
+const TRUE  = TRUE_FALSE[0]
+const FALSE = TRUE_FALSE[1]
+const INT_TUPLE1 = TUPLE[:2]
+const INT_TUPLE2 = TUPLE[1:4:2]
+const ELLIPSIS = ...
+const EXPRESSION = int(float(2*2)) + int(str(2)) + int(max(1, 2, 3)) + sum([TWO, FIVE])
+const UNICODE_EXPRESSION = unicode(BYTES.decode('utf8')).encode('ascii').decode('latin1')
 
 def c():
     """

@@ -1,8 +1,8 @@
 # mode: error
 
-DEF t = (1 ,2 ,3)
-DEF t_const = (1, t, 2)
-DEF t_non_const = (1, [1, 2, 3], 3, t[4])
+const t = (1 ,2 ,3)
+const t_const = (1, t, 2)
+const t_non_const = (1, [1, 2, 3], 3, t[4])
 
 x = t_non_const
 
