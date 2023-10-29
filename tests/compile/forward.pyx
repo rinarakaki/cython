@@ -1,13 +1,13 @@
 # mode: compile
 
-ctypedef enum MyEnum:
+enum MyEnum:
     Value1
     Value2
     Value3 = 100
 
 cdef MyEnum my_enum = Value3
 
-ctypedef struct StructA:
+struct StructA:
     StructA *a
     StructB *b
 
