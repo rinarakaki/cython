@@ -602,26 +602,26 @@ def reversed_unicode_slice(unicode u):
 #[cython.test_assert_path_exists('//ForFromStatNode')]
 def reversed_unicode_slice_neg_step(unicode u):
     """
-    >>> print(''.join(_reversed(unicode_string[-2:1:-1])))
+    >>> print(''.join(_reversed(unicode_string[-2:1;-1])))
     cDE
     >>> print(''.join(reversed_unicode_slice_neg_step(unicode_string)))
     cDE
     """
     result = []
-    for c in reversed(u[-2:1:-1]):
+    for c in reversed(u[-2:1;-1]):
         result.append(c)
     return result
 
 #[cython.test_assert_path_exists('//ForFromStatNode')]
 def reversed_unicode_slice_pos_step(unicode u):
     """
-    >>> print(''.join(_reversed(unicode_string[1:-2:1])))
+    >>> print(''.join(_reversed(unicode_string[1:-2;1])))
     Dcb
     >>> print(''.join(reversed_unicode_slice_pos_step(unicode_string)))
     Dcb
     """
     result = []
-    for c in reversed(u[1:-2:1]):
+    for c in reversed(u[1:-2;1]):
         result.append(c)
     return result
 
@@ -740,14 +740,14 @@ def reversed_bytes_slice(bytes s):
 def reversed_bytes_slice_step(bytes s):
     """
     >>> b = IS_PY3 and bytes_string or map(ord, bytes_string)
-    >>> list(_reversed(b[-2:1:-1]))
+    >>> list(_reversed(b[-2:1;-1]))
     [99, 68, 69]
     >>> reversed_bytes_slice_step(bytes_string)
     [99, 68, 69]
     """
     let char c
     result = []
-    for c in reversed(s[-2:1:-1]):
+    for c in reversed(s[-2:1;-1]):
         result.append(c)
     return result
 

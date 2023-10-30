@@ -109,10 +109,10 @@ def print_long_2d(np.ndarray[i64, ndim=2] arr):
     0 2 4
     >>> print_long_2d(a[:;4, :])
     0 1 2 3 4
-    >>> print_long_2d(a[:, 1:5:2])
+    >>> print_long_2d(a[:, 1:5;2])
     1 3
     6 8
-    >>> print_long_2d(a[:, 5:1:-2])
+    >>> print_long_2d(a[:, 5:1;-2])
     4 2
     9 7
     >>> print_long_2d(a[:, [3, 1]])

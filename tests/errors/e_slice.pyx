@@ -2,9 +2,9 @@
 
 def f(obj2):
     let i32 *ptr1
-    obj1 = obj2[ptr1:;] # error
-    obj1 = obj2[:ptr1:] # error
-    obj1 = obj2[:;ptr1] # error
+    obj1 = obj2[ptr1:;]  # error
+    obj1 = obj2[:ptr1;]  # error
+    obj1 = obj2[:;ptr1]  # error
 
 cdef i32 a
 cdef i32* int_ptr
@@ -13,7 +13,7 @@ for a in int_ptr:
     pass
 for a in int_ptr[2:]:
     pass
-for a in int_ptr[2:2:a]:
+for a in int_ptr[2:2;a]:
     pass
 
 _ERRORS = u"""

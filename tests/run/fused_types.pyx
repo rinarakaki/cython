@@ -336,7 +336,7 @@ def test_fused_memslice_dtype(cython.floating[:] array):
     if array is None:
         print(cython.typeof(array))
         return
-    let cython.floating[:] otherarray = array[0:100:1]
+    let cython.floating[:] otherarray = array[0:100;1]
     print(cython.typeof(array), cython.typeof(otherarray),
           array[5], otherarray[6])
     let cython.floating value;

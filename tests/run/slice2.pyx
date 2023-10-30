@@ -127,7 +127,7 @@ def test_start_stop_and_step(seq, start, stop, step):
     >>> try: test_start_stop_and_step(42, 1, 2, 3)
     ... except TypeError: pass
     """
-    obj = seq[start:stop:step]
+    obj = seq[start:stop;step]
     return obj
 
 class A(object):

@@ -786,7 +786,7 @@ def test_generic_slicing(arg, indirect=false):
     """
     let i32[:;view.generic, :;view.generic, :] _a = arg
     let object a = _a
-    b = a[2:8:2, -4:1:-1, 1:3]
+    b = a[2:8;2, -4:1;-1, 1:3]
 
     print b.shape
 
@@ -835,7 +835,7 @@ def test_indirect_slicing(arg):
     """
     let i32[:;view.indirect, :;view.indirect, :] _a = arg
     a = _a
-    b = a[-5:, ..., -5:100:2]
+    b = a[-5:, ..., -5:100;2]
 
     print b.shape
     print_int_offsets(*b.suboffsets)
@@ -869,7 +869,7 @@ def test_direct_slicing(arg):
     """
     let i32[:, :, :] _a = arg
     let object a = _a
-    b = a[2:8:2, -4:1:-1, 1:3]
+    b = a[2:8;2, -4:1;-1, 1:3]
 
     print b.shape
     print_int_offsets(*b.strides)
@@ -897,7 +897,7 @@ def test_slicing_and_indexing(arg):
     let i32[:, :, :] _a = arg
     let object a = _a
     b = a[-5:, 1, 1:;2]
-    c = b[4:1:-1, :;-1]
+    c = b[4:1;-1, :;-1]
     d = c[2, 1:2]
 
     print b.shape

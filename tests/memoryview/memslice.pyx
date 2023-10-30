@@ -2160,8 +2160,8 @@ def test_slice_assignment_broadcast_strides():
 fn _test_slice_assignment_broadcast_strides(slice_1d src, slice_2d dst, slice_2d dst_f):
     let i32 i, j
 
-    dst[1:] = src[-1:-6:-1]
-    dst_f[1:] = src[-1:-6:-1]
+    dst[1:] = src[-1:-6;-1]
+    dst_f[1:] = src[-1:-6;-1]
 
     for i in range(1, 10):
         for j in range(1, 5):
@@ -2307,7 +2307,7 @@ fn _test_scalar_slice_assignment(slice_1d m, slice_2d m2):
     for i in range(10):
         m[i] = i
 
-    m[-2:0:-2] = 6
+    m[-2:0;-2] = 6
     for i in range(10):
         print m[i]
 

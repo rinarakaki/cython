@@ -52,10 +52,10 @@ def test_one_sized(array):
 
 def test_zero_sized(array):
     """
-    >>> contig = np.ascontiguousarray(np.arange(10, dtype=np.double)[100:200:10])
+    >>> contig = np.ascontiguousarray(np.arange(10, dtype=np.double)[100:200;10])
     >>> _ = test_zero_sized(contig)
 
-    >>> a = np.arange(10, dtype=np.double)[100:200:10]
+    >>> a = np.arange(10, dtype=np.double)[100:200;10]
     >>> if NUMPY_HAS_RELAXED_STRIDES: _ = test_zero_sized(a)
     """
     let f64[:;1] a = array

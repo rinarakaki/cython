@@ -563,47 +563,47 @@ def slice_fused_type_all(sliceable seq, start, stop, step):
     ...                  (1, 3, 2), (len(l), 1, -3), (len(l), 0, 1)):
     ...         print(r(i, *args))
     ... 
-    list[0:5:1] -> [1, 2, 3, 4, 5]
-    list[5:0:-1] -> [5, 4, 3, 2]
-    list[None:5:1] -> [1, 2, 3, 4, 5]
-    list[5:None:-1] -> [5, 4, 3, 2, 1]
-    list[-5:5:None] -> [1, 2, 3, 4, 5]
-    list[None:None:None] -> [1, 2, 3, 4, 5]
-    list[1:3:2] -> [2]
-    list[5:1:-3] -> [5]
-    list[5:0:1] -> []
-    tuple[0:5:1] -> (1, 2, 3, 4, 5)
-    tuple[5:0:-1] -> (5, 4, 3, 2)
-    tuple[None:5:1] -> (1, 2, 3, 4, 5)
-    tuple[5:None:-1] -> (5, 4, 3, 2, 1)
-    tuple[-5:5:None] -> (1, 2, 3, 4, 5)
-    tuple[None:None:None] -> (1, 2, 3, 4, 5)
-    tuple[1:3:2] -> (2,)
-    tuple[5:1:-3] -> (5,)
-    tuple[5:0:1] -> ()
-    bytes[0:5:1] -> 12345
-    bytes[5:0:-1] -> 5432
-    bytes[None:5:1] -> 12345
-    bytes[5:None:-1] -> 54321
-    bytes[-5:5:None] -> 12345
-    bytes[None:None:None] -> 12345
-    bytes[1:3:2] -> 2
-    bytes[5:1:-3] -> 5
-    bytes[5:0:1] -> 
-    unicode[0:5:1] -> 12345
-    unicode[5:0:-1] -> 5432
-    unicode[None:5:1] -> 12345
-    unicode[5:None:-1] -> 54321
-    unicode[-5:5:None] -> 12345
-    unicode[None:None:None] -> 12345
-    unicode[1:3:2] -> 2
-    unicode[5:1:-3] -> 5
-    unicode[5:0:1] -> 
+    list[0:5;1] -> [1, 2, 3, 4, 5]
+    list[5:0;-1] -> [5, 4, 3, 2]
+    list[None:5;1] -> [1, 2, 3, 4, 5]
+    list[5:None;-1] -> [5, 4, 3, 2, 1]
+    list[-5:5;None] -> [1, 2, 3, 4, 5]
+    list[None:None;None] -> [1, 2, 3, 4, 5]
+    list[1:3;2] -> [2]
+    list[5:1;-3] -> [5]
+    list[5:0;1] -> []
+    tuple[0:5;1] -> (1, 2, 3, 4, 5)
+    tuple[5:0;-1] -> (5, 4, 3, 2)
+    tuple[None:5;1] -> (1, 2, 3, 4, 5)
+    tuple[5:None;-1] -> (5, 4, 3, 2, 1)
+    tuple[-5:5;None] -> (1, 2, 3, 4, 5)
+    tuple[None:None;None] -> (1, 2, 3, 4, 5)
+    tuple[1:3;2] -> (2,)
+    tuple[5:1;-3] -> (5,)
+    tuple[5:0;1] -> ()
+    bytes[0:5;1] -> 12345
+    bytes[5:0;-1] -> 5432
+    bytes[None:5;1] -> 12345
+    bytes[5:None;-1] -> 54321
+    bytes[-5:5;None] -> 12345
+    bytes[None:None;None] -> 12345
+    bytes[1:3;2] -> 2
+    bytes[5:1;-3] -> 5
+    bytes[5:0;1] -> 
+    unicode[0:5;1] -> 12345
+    unicode[5:0;-1] -> 5432
+    unicode[None:5;1] -> 12345
+    unicode[5:None;-1] -> 54321
+    unicode[-5:5;None] -> 12345
+    unicode[None:None;None] -> 12345
+    unicode[1:3;2] -> 2
+    unicode[5:1;-3] -> 5
+    unicode[5:0;1] -> 
     >>> for v in o:
     ...     try: slice_fused_type_stop_and_step(v, len(l), 0)
     ...     except ValueError: pass
     ...     try: slice_fused_type_stop_and_step(v, len(l), v)
     ...     except TypeError: pass
     """
-    obj = seq[start:stop:step]
+    obj = seq[start:stop;step]
     return obj
