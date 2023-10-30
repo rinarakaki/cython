@@ -340,7 +340,7 @@ def test_fused_memslice_dtype(cython.floating[:] array):
     print(cython.typeof(array), cython.typeof(otherarray),
           array[5], otherarray[6])
     let cython.floating value;
-    let cython.floating[:] test_cast = <cython.floating[:1:1]>&value
+    let cython.floating[:] test_cast = <cython.floating[:1;1]>&value
 
 def test_fused_memslice_dtype_repeated(cython.floating[:] array1, cython.floating[:] array2):
     """

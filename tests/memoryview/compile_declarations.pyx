@@ -63,9 +63,9 @@ my_c_contig = a33[0, ...]
 
 # Test casting to cython.view.array
 cdef f64[:, :] m1 = <f64[:10, :10]> NULL
-cdef f64[:, :] m2 = <f64[:10, :10:1]> NULL
-cdef f64[:, :] m3 = <f64[:10:1, :10]> NULL
+cdef f64[:, :] m2 = <f64[:10, :10;1]> NULL
+cdef f64[:, :] m3 = <f64[:10;1, :10]> NULL
 
 cdef f64[:, :, :] m4 = <f64[:10, :10, :10]> NULL
-cdef f64[:, :, :] m5 = <f64[:10, :10, :10:1]> NULL
-cdef f64[:, :, :] m6 = <f64[:10:1, :10, :10]> NULL
+cdef f64[:, :, :] m5 = <f64[:10, :10, :10;1]> NULL
+cdef f64[:, :, :] m6 = <f64[:10;1, :10, :10]> NULL

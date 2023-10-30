@@ -509,41 +509,41 @@ def slice_fused_type_stop_and_step(sliceable seq, stop, step):
     ...                        (len(l), len(l))):
     ...         print(r(i, stop, step))
     ... 
-    list[:5:1] -> [1, 2, 3, 4, 5]
-    list[:5:None] -> [1, 2, 3, 4, 5]
-    list[:None:1] -> [1, 2, 3, 4, 5]
-    list[:5:-1] -> []
-    list[:4:2] -> [1, 3]
-    list[:5:-2] -> []
-    list[:5:5] -> [1]
-    tuple[:5:1] -> (1, 2, 3, 4, 5)
-    tuple[:5:None] -> (1, 2, 3, 4, 5)
-    tuple[:None:1] -> (1, 2, 3, 4, 5)
-    tuple[:5:-1] -> ()
-    tuple[:4:2] -> (1, 3)
-    tuple[:5:-2] -> ()
-    tuple[:5:5] -> (1,)
-    bytes[:5:1] -> 12345
-    bytes[:5:None] -> 12345
-    bytes[:None:1] -> 12345
-    bytes[:5:-1] -> 
-    bytes[:4:2] -> 13
-    bytes[:5:-2] -> 
-    bytes[:5:5] -> 1
-    unicode[:5:1] -> 12345
-    unicode[:5:None] -> 12345
-    unicode[:None:1] -> 12345
-    unicode[:5:-1] -> 
-    unicode[:4:2] -> 13
-    unicode[:5:-2] -> 
-    unicode[:5:5] -> 1
+    list[:5;1] -> [1, 2, 3, 4, 5]
+    list[:5;None] -> [1, 2, 3, 4, 5]
+    list[:None;1] -> [1, 2, 3, 4, 5]
+    list[:5;-1] -> []
+    list[:4;2] -> [1, 3]
+    list[:5;-2] -> []
+    list[:5;5] -> [1]
+    tuple[:5;1] -> (1, 2, 3, 4, 5)
+    tuple[:5;None] -> (1, 2, 3, 4, 5)
+    tuple[:None;1] -> (1, 2, 3, 4, 5)
+    tuple[:5;-1] -> ()
+    tuple[:4;2] -> (1, 3)
+    tuple[:5;-2] -> ()
+    tuple[:5;5] -> (1,)
+    bytes[:5;1] -> 12345
+    bytes[:5;None] -> 12345
+    bytes[:None;1] -> 12345
+    bytes[:5;-1] -> 
+    bytes[:4;2] -> 13
+    bytes[:5;-2] -> 
+    bytes[:5;5] -> 1
+    unicode[:5;1] -> 12345
+    unicode[:5;None] -> 12345
+    unicode[:None;1] -> 12345
+    unicode[:5;-1] -> 
+    unicode[:4;2] -> 13
+    unicode[:5;-2] -> 
+    unicode[:5;5] -> 1
     >>> for v in o:
     ...     try: slice_fused_type_stop_and_step(v, len(l), 0)
     ...     except ValueError: pass
     ...     try: slice_fused_type_stop_and_step(v, len(l), v)
     ...     except TypeError: pass
     """
-    obj = seq[:stop:step]
+    obj = seq[:stop;step]
     return obj
 
 

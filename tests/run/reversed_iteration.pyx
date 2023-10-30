@@ -654,26 +654,26 @@ def reversed_unicode_slice_start_neg_step(unicode u):
 #[cython.test_assert_path_exists('//ForFromStatNode')]
 def reversed_unicode_slice_end_pos_step(unicode u):
     """
-    >>> print(''.join(_reversed(unicode_string[:-2:1])))
+    >>> print(''.join(_reversed(unicode_string[:-2;1])))
     Dcba
     >>> print(''.join(reversed_unicode_slice_end_pos_step(unicode_string)))
     Dcba
     """
     result = []
-    for c in reversed(u[:-2:1]):
+    for c in reversed(u[:-2;1]):
         result.append(c)
     return result
 
 #[cython.test_assert_path_exists('//ForFromStatNode')]
 def reversed_unicode_slice_end_neg_step(unicode u):
     """
-    >>> print(''.join(_reversed(unicode_string[:-3:-1])))
+    >>> print(''.join(_reversed(unicode_string[:-3;-1])))
     EF
     >>> print(''.join(reversed_unicode_slice_end_neg_step(unicode_string)))
     EF
     """
     result = []
-    for c in reversed(u[:-3:-1]):
+    for c in reversed(u[:-3;-1]):
         result.append(c)
     return result
 

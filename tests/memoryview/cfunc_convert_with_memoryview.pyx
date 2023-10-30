@@ -40,11 +40,11 @@ def test_memview_wrapping():
 
     a(<f64[:1]> double_arr)
     print(double_arr[0])
-    b(<f64[:1:1]> double_arr)
+    b(<f64[:1;1]> double_arr)
     print(double_arr[0])
     c(<i32[:1]> int_arr)
     print(int_arr[0])
-    d(<i32[:1:1]> int_arr)
+    d(<i32[:1;1]> int_arr)
     print(int_arr[0])
     # don't call e and f because it's harder without needing extra dependencies
     # it's mostly a compile test for them

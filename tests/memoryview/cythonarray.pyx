@@ -155,7 +155,7 @@ def test_array_from_pointer():
     print c_arr[6, 9]
     print c_arr.mode
 
-    c_arr = (<i32[:10:1, :10]> getp())
+    c_arr = (<i32[:10;1, :10]> getp())
     print c_arr.mode
     c_arr.callback_free_data = free
 
