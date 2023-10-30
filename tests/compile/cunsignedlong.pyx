@@ -1,8 +1,8 @@
 # mode: compile
 
-cdef void f():
-    cdef unsigned long x
-    cdef object y=0
+fn void f():
+    let u64 x
+    let object y=0
     x = y
     y = x
 

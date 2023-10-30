@@ -90,7 +90,7 @@ __doc__ = u"""
     >>> Li()
     Long __long__
 """
-if sys.version_info >= (2,5):
+if sys.version_info >= (2, 5):
     __doc__ += u"""\
     >>> vs0 = VerySpecial(0)
     VS __init__ 0
@@ -99,11 +99,11 @@ if sys.version_info >= (2,5):
     VS __index__ 0
 """
 
-cdef extern from *:
+extern from *:
     # type specs require a bug fix in Py3.8+ for some of these tests.
-    const int CYTHON_USE_TYPE_SPECS
+    const i32 CYTHON_USE_TYPE_SPECS
 
-if not CYTHON_USE_TYPE_SPECS or sys.version_info >= (3,8):
+if not CYTHON_USE_TYPE_SPECS or sys.version_info >= (3, 8):
     __doc__ += u"""
     >>> # If you define either setattr or delattr, you get wrapper objects
     >>> # for both methods.  (This behavior is unchanged by #561.)
@@ -361,8 +361,8 @@ cdef class VerySpecial:
     def __divmod__(self, other):
         print "VS __divmod__ %d %d" % (self.value, other.value)
 
-    def __pow__(self, other, mod):
-        print "VS __pow__ pow(%d, %d, %r)" % (self.value, other.value, mod)
+    def __pow__(self, other, r#mod):
+        print "VS __pow__ pow(%d, %d, %r)" % (self.value, other.value, r#mod)
 
     def __lshift__(self, other):
         print "VS __lshift__ %d << %d" % (self.value, other.value)
@@ -804,8 +804,8 @@ cdef class VerySpecialSubType(VerySpecial):
     def __divmod__(self, other):
         return VerySpecial.__divmod__(self, other)
 
-    def __pow__(self, other, mod):
-        return VerySpecial.__pow__(self, other, mod)
+    def __pow__(self, other, r#mod):
+        return VerySpecial.__pow__(self, other, r#mod)
 
     def __lshift__(self, other):
         return VerySpecial.__lshift__(self, other)
@@ -990,7 +990,7 @@ cdef class ArgumentTypeConversions:
     RuntimeError: From __getbuffer__ with flags ....0
     """
     # force conversion of object to int
-    def __getitem__(self, int x):
+    def __getitem__(self, i32 x):
         return x
 
     # force conversion of comparison (int) to object

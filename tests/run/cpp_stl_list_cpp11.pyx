@@ -8,7 +8,7 @@ from libcpp.list cimport list as cpp_list
 
 def const_iteration_test(L):
     """
-    >>> const_iteration_test([1,2,4,8])
+    >>> const_iteration_test([1, 2, 4, 8])
     1
     2
     4
@@ -26,20 +26,20 @@ def const_iteration_test(L):
     finally:
         del l
 
-cdef list const_to_pylist(cpp_list[int]& l):
-    cdef list L = []
+fn list const_to_pylist(cpp_list[int]& l):
+    let list L = []
     it = l.cbegin()
     while it != l.cend():
         L.append(deref(it))
         incr(it)
     return L
 
-def const_item_ptr_test(L, int x):
+def const_item_ptr_test(L, i32 x):
     """
     >>> const_item_ptr_test(range(10), 100)
     [100, 1, 2, 3, 4, 5, 6, 7, 8, 9]
     """
-    cdef cpp_list[int] l = L
-    cdef int* li_ptr = &l.front()
+    let cpp_list[int] l = L
+    let i32* li_ptr = &l.front()
     li_ptr[0] = x
     return const_to_pylist(l)

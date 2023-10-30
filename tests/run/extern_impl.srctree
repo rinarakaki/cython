@@ -13,11 +13,11 @@ setup(
 
 ######## foo.pxd ########
 
-cdef void bar() except *
+fn void bar() except *
 
 ######## foo.pyx ########
 
-cdef extern from "bar_impl.c":
+extern from "bar_impl.c":
     void bar() except *
 
 ######## bar_impl.c ########

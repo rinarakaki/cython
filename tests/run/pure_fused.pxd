@@ -1,9 +1,9 @@
 cimport cython
 
 ctypedef fused NotInPy:
-    int
-    float
+    i32
+    f32
 
 cdef class TestCls:
-    @cython.locals(loc = NotInPy)
+    #[cython.locals(loc = NotInPy)]
     cpdef cpfunc(self, NotInPy arg)

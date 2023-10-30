@@ -1,27 +1,27 @@
 # mode: compile
 
-cdef extern from "Python.h":
-    ctypedef struct PyTypeObject:
+extern from "Python.h":
+    struct PyTypeObject:
         pass
 
-    ctypedef struct PyObject:
-        Py_ssize_t ob_refcnt
+    struct PyObject:
+        isize ob_refcnt
         PyTypeObject *ob_type
 
-cdef extern from "Python.h":
+extern from "Python.h":
     """
     #if PY_MAJOR_VERSION < 3
      #include "longintrepr.h"
     #endif
     """
-    cdef struct _longobject:
-        int ob_refcnt
+    struct _longobject:
+        i32 ob_refcnt
         PyTypeObject *ob_type
-#        int ob_size            # not in Py3k
-        unsigned int *ob_digit
+#        i32 ob_size            # not in Py3k
+        u32 *ob_digit
 
 def test(temp = long(0)):
-    cdef _longobject *l
-    l = <_longobject *> temp
-    #print sizeof(l.ob_size)    # not in Py3k
+    let _longobject *l
+    l = <_longobject *>temp
+    # print sizeof(l.ob_size)    # not in Py3k
     print sizeof(l.ob_digit[0])

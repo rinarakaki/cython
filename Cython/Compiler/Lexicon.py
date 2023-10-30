@@ -45,8 +45,8 @@ def make_lexicon():
     exponent = Any("Ee") + Opt(Any("+-")) + decimal
     decimal_fract = (decimal + dot + Opt(decimal)) | (dot + decimal)
 
-    #name = letter + Rep(letter | digit)
-    name = unicode_start_character + Rep(unicode_continuation_character)
+    # name = letter + Rep(letter | digit)
+    name = Opt(Str("r#")) + unicode_start_character + Rep(unicode_continuation_character)
     intconst = (prefixed_digits(nonzero_digit, digit) |  # decimal literals with underscores must not start with '0'
                 (Str("0") + (prefixed_digits(Any("Xx"), hexdigit) |
                              prefixed_digits(Any("Oo"), octdigit) |
@@ -75,7 +75,7 @@ def make_lexicon():
     bra = Any("([{")
     ket = Any(")]}")
     ellipsis = Str("...")
-    punct = Any(":,;+-*/|&<>=.%`~^?!@")
+    punct = Any(":,;+-*/|&<>=.%`~^?!@#")
     diphthong = Str("==", "<>", "!=", "<=", ">=", "<<", ">>", "**", "//",
                     "+=", "-=", "*=", "/=", "%=", "|=", "^=", "&=",
                     "<<=", ">>=", "**=", "//=", "->", "@=", "&&", "||", ':=')
@@ -83,7 +83,7 @@ def make_lexicon():
     escaped_newline = Str("\\\n")
     lineterm = Eol + Opt(Str("\n"))
 
-    comment = Str("#") + Rep(AnyBut("\n"))
+    comment = Str("#") + Opt(AnyBut("[\n") + Rep(AnyBut("\n")))
 
     return Lexicon([
         (name, Method('normalize_ident')),

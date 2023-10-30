@@ -1,6 +1,6 @@
 # tag: cpp
 
-cdef extern cppclass Foo:
+extern cppclass Foo:
     int _foo
-    void set_foo(int foo) nogil
+    void set_foo(i32 foo) nogil
     int get_foo() nogil

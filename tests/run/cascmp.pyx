@@ -6,9 +6,9 @@ def ints_and_objects():
     >>> ints_and_objects()
     (0, 1, 0, 1, 1, 0)
     """
-    cdef int int1=0, int2=0, int3=0, int4=0
-    cdef int r1, r2, r3, r4, r5, r6
-    cdef object obj1, obj2, obj3, obj4
+    let i32 int1 = 0, int2 = 0, int3 = 0, int4 = 0
+    let i32 r1, r2, r3, r4, r5, r6
+    let object obj1, obj2, obj3, obj4
     obj1 = 1
     obj2 = 2
     obj3 = 3
@@ -20,7 +20,6 @@ def ints_and_objects():
     r5 = obj1 < 2 < 3 < 4
     r6 = int1 < (int2 == int3) < int4
     return r1, r2, r3, r4, r5, r6
-
 
 def const_cascade(x):
     """
@@ -53,11 +52,11 @@ def eq_if_statement(a, b, c):
     True
     """
     if 1 == a == b == c:
-        return True
+        return true
     else:
-        return False
+        return false
 
-def eq_if_statement_semi_optimized(a, int b, int c):
+def eq_if_statement_semi_optimized(a, i32 b, i32 c):
     """
     Some but not all of the cascade ends up optimized
     (probably not as much as should be). The test is mostly
@@ -77,9 +76,9 @@ def eq_if_statement_semi_optimized(a, int b, int c):
     True
     """
     if 1 == a == b == c == 1:
-        return True
+        return true
     else:
-        return False
+        return false
 
 def eq_if_statement_semi_optimized2(a, b, c):
     """
@@ -99,6 +98,6 @@ def eq_if_statement_semi_optimized2(a, b, c):
     True
     """
     if 1 == a == 1 == b == c:
-        return True
+        return true
     else:
-        return False
+        return false

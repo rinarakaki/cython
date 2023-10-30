@@ -1,5 +1,4 @@
-
-cdef extern from "Python.h":
+extern from "Python.h":
     # The C structure of the objects used to describe built-in types.
 
     ############################################################################
@@ -13,39 +12,39 @@ cdef extern from "Python.h":
     # This is the type object for type objects; it is the same object
     # as type and types.TypeType in the Python layer.
 
-    bint PyType_Check(object o)
+    fn bint PyType_Check(object o)
     # Return true if the object o is a type object, including
     # instances of types derived from the standard type object. Return
     # false in all other cases.
 
-    bint PyType_CheckExact(object o)
+    fn bint PyType_CheckExact(object o)
     # Return true if the object o is a type object, but not a subtype
     # of the standard type object. Return false in all other
     # cases.
 
-    void PyType_Modified(type type)
+    fn void PyType_Modified(type type)
     # Invalidate the internal lookup cache for the type and all of its
     # subtypes. This function must be called after any manual modification
     # of the attributes or base classes of the type.
 
-    bint PyType_HasFeature(object o, int feature)
+    fn bint PyType_HasFeature(object o, i32 feature)
     # Return true if the type object o sets the feature feature. Type
     # features are denoted by single bit flags.
 
-    bint PyType_IS_GC(object o)
+    fn bint PyType_IS_GC(object o)
     # Return true if the type object includes support for the cycle
     # detector; this tests the type flag Py_TPFLAGS_HAVE_GC.
 
-    bint PyType_IsSubtype(type a, type b)
+    fn bint PyType_IsSubtype(type a, type b)
     # Return true if a is a subtype of b.
 
-    object PyType_GenericAlloc(object type, Py_ssize_t nitems)
+    fn object PyType_GenericAlloc(object type, isize nitems)
     # Return value: New reference.
 
-    object PyType_GenericNew(type type, object args, object kwds)
+    fn object PyType_GenericNew(type type, object args, object kwds)
     # Return value: New reference.
 
-    bint PyType_Ready(type type) except -1
+    fn bint PyType_Ready(type type) except -1
     # Finalize a type object. This should be called on all type
     # objects to finish their initialization. This function is
     # responsible for adding inherited slots from a type's base

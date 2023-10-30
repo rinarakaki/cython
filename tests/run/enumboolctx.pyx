@@ -1,6 +1,6 @@
-cdef public enum Truth:
-   FALSE=0
-   TRUE=1
+pub enum Truth:
+   FALSE = 0
+   TRUE = 1
 
 def enum_boolctx(Truth arg):
     """
@@ -10,11 +10,11 @@ def enum_boolctx(Truth arg):
     True
     """
     if arg:
-        return True
+        return true
     else:
-        return False
+        return false
 
-cdef extern from *:
+extern from *:
     enum: FALSE_VALUE "(0)"
     enum: TRUE_VALUE "(1)"
 

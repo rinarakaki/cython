@@ -1,8 +1,8 @@
 # mode: compile
 from libc.stdlib cimport malloc, free
 
-cdef void f():
-    cdef const int **allocated = <const int **>malloc(sizeof(int *))
+fn void f():
+    cdef const i32 **allocated = <const i32 **>malloc(sizeof(i32 *))
     free(allocated)
 
 f()

@@ -1,4 +1,4 @@
-# cython: autotestdict=True
+# cython: autotestdict=true
 # Directive defaults to True, but not when testing in Py3.4
 """
 Tests autotestdict compiler directive.
@@ -20,9 +20,9 @@ myfunc (line 40) ; >>> add_log("def")
 import sys
 log = []
 
-cdef cdeffunc():
+fn cdeffunc():
     """
-    >>> True
+    >>> true
     False
     """
 cdeffunc() # make sure it's being used
@@ -56,7 +56,7 @@ class MyClass:
     Needs no hack
 
     >>> add_log("class")
-    >>> True
+    >>> true
     True
     """
 
@@ -68,7 +68,7 @@ cdef class MyCdefClass:
     Needs no hack
 
     >>> add_log("cdef class")
-    >>> True
+    >>> true
     True
     """
     def method(self):
@@ -77,14 +77,14 @@ cdef class MyCdefClass:
     cpdef cpdef_method(self):
         """>>> add_log("cpdef class method")"""
 
-    cdef cdef_method(self):
+    fn cdef_method(self):
         """>>> add_log("cdef class cmethod")"""
 
     def __cinit__(self):
         """
         Should not be included, as it can't be looked up with getattr
 
-        >>> True
+        >>> true
         False
         """
 
@@ -92,15 +92,15 @@ cdef class MyCdefClass:
         """
         Should not be included, as it can't be looked up with getattr
 
-        >>> True
+        >>> true
         False
         """
 
-    def __richcmp__(self, other, int op):
+    def __richcmp__(self, other, i32 op):
         """
         Should not be included, as it can't be looked up with getattr in Py 2
 
-        >>> True
+        >>> true
         False
         """
 
@@ -108,7 +108,7 @@ cdef class MyCdefClass:
         """
         Should not be included, as it can't be looked up with getattr in Py 3.1
 
-        >>> True
+        >>> true
         False
         """
 
@@ -132,7 +132,7 @@ cdef class MyOtherCdefClass:
     """
     Needs no hack
 
-    >>> True
+    >>> true
     True
     """
 
@@ -140,6 +140,6 @@ cdef class MyOtherCdefClass:
         """
         Should not be included, as it can't be looked up with getattr in Py 2
 
-        >>> True
+        >>> true
         False
         """

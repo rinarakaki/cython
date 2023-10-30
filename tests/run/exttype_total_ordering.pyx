@@ -15,7 +15,7 @@ from __future__ import print_function
     True
 """
 
-cimport cython
+use cython
 import functools
 from functools import total_ordering as total_ordering_by_another_name
 import operator
@@ -60,8 +60,6 @@ class ValueHolder:
     def __init__(self, value):
         self.value = value
 
-
-
 cdef class ExtTypeNoTotalOrdering:
     """
     >>> a = ExtTypeNoTotalOrdering(5)
@@ -90,7 +88,7 @@ cdef class ExtTypeNoTotalOrdering:
     ... else:
     ...     assert sys.version_info[0] < 3
     """
-    cdef public int value
+    pub i32 value
     def __init__(self, val):
         self.value = val
 
@@ -102,13 +100,13 @@ cdef class ExtTypeNoTotalOrdering:
 
 # Every combination of methods which is valid.
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingNeGe:
     """
     >>> test_all_comp(ExtTypeTotalOrderingNeGe)
     True
     """
-    cdef public int value
+    pub i32 value
     def __init__(self, val):
         self.value = val
 
@@ -124,7 +122,7 @@ cdef class ExtTypeTotalOrderingNeLe:
     >>> test_all_comp(ExtTypeTotalOrderingNeLe)
     True
     """
-    cdef public int value
+    pub i32 value
     def __init__(self, val):
         self.value = val
 
@@ -140,7 +138,7 @@ cdef class ExtTypeTotalOrderingNeLeGe:
     >>> test_all_comp(ExtTypeTotalOrderingNeLeGe)
     True
     """
-    cdef public int value
+    pub i32 value
     def __init__(self, val):
         self.value = val
 
@@ -153,13 +151,13 @@ cdef class ExtTypeTotalOrderingNeLeGe:
     def __ge__(self, other):
         return self.value >= other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingNeGt:
     """
     >>> test_all_comp(ExtTypeTotalOrderingNeGt)
     True
     """
-    cdef public int value
+    pub i32 value
     def __init__(self, val):
         self.value = val
 
@@ -169,13 +167,13 @@ cdef class ExtTypeTotalOrderingNeGt:
     def __gt__(self, other):
         return self.value > other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingNeGtGe:
     """
     >>> test_all_comp(ExtTypeTotalOrderingNeGtGe)
     True
     """
-    cdef public int value
+    pub i32 value
     def __init__(self, val):
         self.value = val
 
@@ -188,13 +186,13 @@ cdef class ExtTypeTotalOrderingNeGtGe:
     def __ge__(self, other):
         return self.value >= other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingNeGtLe:
     """
     >>> test_all_comp(ExtTypeTotalOrderingNeGtLe)
     True
     """
-    cdef public int value
+    pub i32 value
     def __init__(self, val):
         self.value = val
 
@@ -207,13 +205,13 @@ cdef class ExtTypeTotalOrderingNeGtLe:
     def __le__(self, other):
         return self.value <= other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingNeGtLeGe:
     """
     >>> test_all_comp(ExtTypeTotalOrderingNeGtLeGe)
     True
     """
-    cdef public int value
+    pub i32 value
     def __init__(self, val):
         self.value = val
 
@@ -229,13 +227,13 @@ cdef class ExtTypeTotalOrderingNeGtLeGe:
     def __ge__(self, other):
         return self.value >= other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingNeLt:
     """
     >>> test_all_comp(ExtTypeTotalOrderingNeLt)
     True
     """
-    cdef public int value
+    pub i32 value
     def __init__(self, val):
         self.value = val
 
@@ -245,13 +243,13 @@ cdef class ExtTypeTotalOrderingNeLt:
     def __lt__(self, other):
         return self.value < other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingNeLtGe:
     """
     >>> test_all_comp(ExtTypeTotalOrderingNeLtGe)
     True
     """
-    cdef public int value
+    pub i32 value
     def __init__(self, val):
         self.value = val
 
@@ -264,13 +262,13 @@ cdef class ExtTypeTotalOrderingNeLtGe:
     def __ge__(self, other):
         return self.value >= other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingNeLtLe:
     """
     >>> test_all_comp(ExtTypeTotalOrderingNeLtLe)
     True
     """
-    cdef public int value
+    pub i32 value
     def __init__(self, val):
         self.value = val
 
@@ -283,13 +281,13 @@ cdef class ExtTypeTotalOrderingNeLtLe:
     def __le__(self, other):
         return self.value <= other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingNeLtLeGe:
     """
     >>> test_all_comp(ExtTypeTotalOrderingNeLtLeGe)
     True
     """
-    cdef public int value
+    pub i32 value
     def __init__(self, val):
         self.value = val
 
@@ -305,13 +303,13 @@ cdef class ExtTypeTotalOrderingNeLtLeGe:
     def __ge__(self, other):
         return self.value >= other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingNeLtGt:
     """
     >>> test_all_comp(ExtTypeTotalOrderingNeLtGt)
     True
     """
-    cdef public int value
+    pub i32 value
     def __init__(self, val):
         self.value = val
 
@@ -324,13 +322,13 @@ cdef class ExtTypeTotalOrderingNeLtGt:
     def __gt__(self, other):
         return self.value > other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingNeLtGtGe:
     """
     >>> test_all_comp(ExtTypeTotalOrderingNeLtGtGe)
     True
     """
-    cdef public int value
+    pub i32 value
     def __init__(self, val):
         self.value = val
 
@@ -346,13 +344,13 @@ cdef class ExtTypeTotalOrderingNeLtGtGe:
     def __ge__(self, other):
         return self.value >= other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingNeLtGtLe:
     """
     >>> test_all_comp(ExtTypeTotalOrderingNeLtGtLe)
     True
     """
-    cdef public int value
+    pub i32 value
     def __init__(self, val):
         self.value = val
 
@@ -368,13 +366,13 @@ cdef class ExtTypeTotalOrderingNeLtGtLe:
     def __le__(self, other):
         return self.value <= other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingNeLtGtLeGe:
     """
     >>> test_all_comp(ExtTypeTotalOrderingNeLtGtLeGe)
     True
     """
-    cdef public int value
+    pub i32 value
     def __init__(self, val):
         self.value = val
 
@@ -399,7 +397,7 @@ cdef class ExtTypeTotalOrderingEqGe:
     >>> test_all_comp(ExtTypeTotalOrderingEqGe)
     True
     """
-    cdef public int value
+    pub i32 value
     def __init__(self, val):
         self.value = val
 
@@ -409,13 +407,13 @@ cdef class ExtTypeTotalOrderingEqGe:
     def __ge__(self, other):
         return self.value >= other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingEqLe:
     """
     >>> test_all_comp(ExtTypeTotalOrderingEqLe)
     True
     """
-    cdef public int value
+    pub i32 value
     def __init__(self, val):
         self.value = val
 
@@ -425,13 +423,13 @@ cdef class ExtTypeTotalOrderingEqLe:
     def __le__(self, other):
         return self.value <= other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingEqLeGe:
     """
     >>> test_all_comp(ExtTypeTotalOrderingEqLeGe)
     True
     """
-    cdef public int value
+    pub i32 value
     def __init__(self, val):
         self.value = val
 
@@ -450,7 +448,7 @@ cdef class ExtTypeTotalOrderingEqGt:
     >>> test_all_comp(ExtTypeTotalOrderingEqGt)
     True
     """
-    cdef public int value
+    pub i32 value
     def __init__(self, val):
         self.value = val
 
@@ -460,13 +458,13 @@ cdef class ExtTypeTotalOrderingEqGt:
     def __gt__(self, other):
         return self.value > other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingEqGtGe:
     """
     >>> test_all_comp(ExtTypeTotalOrderingEqGtGe)
     True
     """
-    cdef public int value
+    pub i32 value
     def __init__(self, val):
         self.value = val
 
@@ -479,13 +477,13 @@ cdef class ExtTypeTotalOrderingEqGtGe:
     def __ge__(self, other):
         return self.value >= other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingEqGtLe:
     """
     >>> test_all_comp(ExtTypeTotalOrderingEqGtLe)
     True
     """
-    cdef public int value
+    pub i32 value
     def __init__(self, val):
         self.value = val
 
@@ -498,13 +496,13 @@ cdef class ExtTypeTotalOrderingEqGtLe:
     def __le__(self, other):
         return self.value <= other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingEqGtLeGe:
     """
     >>> test_all_comp(ExtTypeTotalOrderingEqGtLeGe)
     True
     """
-    cdef public int value
+    pub i32 value
     def __init__(self, val):
         self.value = val
 
@@ -521,7 +519,7 @@ cdef class ExtTypeTotalOrderingEqGtLeGe:
         return self.value >= other.value
 
 # cython.total_ordering implicitly means cclass too
-@cython.total_ordering
+#[cython.total_ordering]
 class ExtTypeTotalOrderingEqLt:
     """
     >>> test_all_comp(ExtTypeTotalOrderingEqLt)
@@ -542,13 +540,13 @@ class ExtTypeTotalOrderingEqLt:
     def __lt__(self, other):
         return self._value < other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingEqLtGe:
     """
     >>> test_all_comp(ExtTypeTotalOrderingEqLtGe)
     True
     """
-    cdef public int value
+    pub i32 value
     def __init__(self, val):
         self.value = val
 
@@ -561,13 +559,13 @@ cdef class ExtTypeTotalOrderingEqLtGe:
     def __ge__(self, other):
         return self.value >= other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingEqLtLe:
     """
     >>> test_all_comp(ExtTypeTotalOrderingEqLtLe)
     True
     """
-    cdef public int value
+    pub i32 value
     def __init__(self, val):
         self.value = val
 
@@ -580,13 +578,13 @@ cdef class ExtTypeTotalOrderingEqLtLe:
     def __le__(self, other):
         return self.value <= other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingEqLtLeGe:
     """
     >>> test_all_comp(ExtTypeTotalOrderingEqLtLeGe)
     True
     """
-    cdef public int value
+    pub i32 value
     def __init__(self, val):
         self.value = val
 
@@ -602,13 +600,13 @@ cdef class ExtTypeTotalOrderingEqLtLeGe:
     def __ge__(self, other):
         return self.value >= other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingEqLtGt:
     """
     >>> test_all_comp(ExtTypeTotalOrderingEqLtGt)
     True
     """
-    cdef public int value
+    pub i32 value
     def __init__(self, val):
         self.value = val
 
@@ -621,13 +619,13 @@ cdef class ExtTypeTotalOrderingEqLtGt:
     def __gt__(self, other):
         return self.value > other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingEqLtGtGe:
     """
     >>> test_all_comp(ExtTypeTotalOrderingEqLtGtGe)
     True
     """
-    cdef public int value
+    pub i32 value
     def __init__(self, val):
         self.value = val
 
@@ -643,13 +641,13 @@ cdef class ExtTypeTotalOrderingEqLtGtGe:
     def __ge__(self, other):
         return self.value >= other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingEqLtGtLe:
     """
     >>> test_all_comp(ExtTypeTotalOrderingEqLtGtLe)
     True
     """
-    cdef public int value
+    pub i32 value
     def __init__(self, val):
         self.value = val
 
@@ -665,13 +663,13 @@ cdef class ExtTypeTotalOrderingEqLtGtLe:
     def __le__(self, other):
         return self.value <= other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingEqLtGtLeGe:
     """
     >>> test_all_comp(ExtTypeTotalOrderingEqLtGtLeGe)
     True
     """
-    cdef public int value
+    pub i32 value
     def __init__(self, val):
         self.value = val
 
@@ -690,13 +688,13 @@ cdef class ExtTypeTotalOrderingEqLtGtLeGe:
     def __ge__(self, other):
         return self.value >= other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingEqNeGe:
     """
     >>> test_all_comp(ExtTypeTotalOrderingEqNeGe)
     True
     """
-    cdef public int value
+    pub i32 value
     def __init__(self, val):
         self.value = val
 
@@ -709,13 +707,13 @@ cdef class ExtTypeTotalOrderingEqNeGe:
     def __ge__(self, other):
         return self.value >= other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingEqNeLe:
     """
     >>> test_all_comp(ExtTypeTotalOrderingEqNeLe)
     True
     """
-    cdef public int value
+    pub i32 value
     def __init__(self, val):
         self.value = val
 
@@ -728,13 +726,13 @@ cdef class ExtTypeTotalOrderingEqNeLe:
     def __le__(self, other):
         return self.value <= other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingEqNeLeGe:
     """
     >>> test_all_comp(ExtTypeTotalOrderingEqNeLeGe)
     True
     """
-    cdef public int value
+    pub i32 value
     def __init__(self, val):
         self.value = val
 
@@ -750,13 +748,13 @@ cdef class ExtTypeTotalOrderingEqNeLeGe:
     def __ge__(self, other):
         return self.value >= other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingEqNeGt:
     """
     >>> test_all_comp(ExtTypeTotalOrderingEqNeGt)
     True
     """
-    cdef public int value
+    pub i32 value
     def __init__(self, val):
         self.value = val
 
@@ -769,13 +767,13 @@ cdef class ExtTypeTotalOrderingEqNeGt:
     def __gt__(self, other):
         return self.value > other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingEqNeGtGe:
     """
     >>> test_all_comp(ExtTypeTotalOrderingEqNeGtGe)
     True
     """
-    cdef public int value
+    pub i32 value
     def __init__(self, val):
         self.value = val
 
@@ -791,13 +789,13 @@ cdef class ExtTypeTotalOrderingEqNeGtGe:
     def __ge__(self, other):
         return self.value >= other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingEqNeGtLe:
     """
     >>> test_all_comp(ExtTypeTotalOrderingEqNeGtLe)
     True
     """
-    cdef public int value
+    pub i32 value
     def __init__(self, val):
         self.value = val
 
@@ -813,13 +811,13 @@ cdef class ExtTypeTotalOrderingEqNeGtLe:
     def __le__(self, other):
         return self.value <= other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingEqNeGtLeGe:
     """
     >>> test_all_comp(ExtTypeTotalOrderingEqNeGtLeGe)
     True
     """
-    cdef public int value
+    pub i32 value
     def __init__(self, val):
         self.value = val
 
@@ -838,13 +836,13 @@ cdef class ExtTypeTotalOrderingEqNeGtLeGe:
     def __ge__(self, other):
         return self.value >= other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingEqNeLt:
     """
     >>> test_all_comp(ExtTypeTotalOrderingEqNeLt)
     True
     """
-    cdef public int value
+    pub i32 value
     def __init__(self, val):
         self.value = val
 
@@ -857,13 +855,13 @@ cdef class ExtTypeTotalOrderingEqNeLt:
     def __lt__(self, other):
         return self.value < other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingEqNeLtGe:
     """
     >>> test_all_comp(ExtTypeTotalOrderingEqNeLtGe)
     True
     """
-    cdef public int value
+    pub i32 value
     def __init__(self, val):
         self.value = val
 
@@ -879,13 +877,13 @@ cdef class ExtTypeTotalOrderingEqNeLtGe:
     def __ge__(self, other):
         return self.value >= other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingEqNeLtLe:
     """
     >>> test_all_comp(ExtTypeTotalOrderingEqNeLtLe)
     True
     """
-    cdef public int value
+    pub i32 value
     def __init__(self, val):
         self.value = val
 
@@ -901,13 +899,13 @@ cdef class ExtTypeTotalOrderingEqNeLtLe:
     def __le__(self, other):
         return self.value <= other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingEqNeLtLeGe:
     """
     >>> test_all_comp(ExtTypeTotalOrderingEqNeLtLeGe)
     True
     """
-    cdef public int value
+    pub i32 value
     def __init__(self, val):
         self.value = val
 
@@ -926,13 +924,13 @@ cdef class ExtTypeTotalOrderingEqNeLtLeGe:
     def __ge__(self, other):
         return self.value >= other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingEqNeLtGt:
     """
     >>> test_all_comp(ExtTypeTotalOrderingEqNeLtGt)
     True
     """
-    cdef public int value
+    pub i32 value
     def __init__(self, val):
         self.value = val
 
@@ -948,13 +946,13 @@ cdef class ExtTypeTotalOrderingEqNeLtGt:
     def __gt__(self, other):
         return self.value > other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingEqNeLtGtGe:
     """
     >>> test_all_comp(ExtTypeTotalOrderingEqNeLtGtGe)
     True
     """
-    cdef public int value
+    pub i32 value
     def __init__(self, val):
         self.value = val
 
@@ -973,13 +971,13 @@ cdef class ExtTypeTotalOrderingEqNeLtGtGe:
     def __ge__(self, other):
         return self.value >= other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingEqNeLtGtLe:
     """
     >>> test_all_comp(ExtTypeTotalOrderingEqNeLtGtLe)
     True
     """
-    cdef public int value
+    pub i32 value
     def __init__(self, val):
         self.value = val
 
@@ -998,13 +996,13 @@ cdef class ExtTypeTotalOrderingEqNeLtGtLe:
     def __le__(self, other):
         return self.value <= other.value
 
-@cython.total_ordering
+#[cython.total_ordering]
 cdef class ExtTypeTotalOrderingEqNeLtGtLeGe:
     """
     >>> test_all_comp(ExtTypeTotalOrderingEqNeLtGtLeGe)
     True
     """
-    cdef public int value
+    pub i32 value
     def __init__(self, val):
         self.value = val
 

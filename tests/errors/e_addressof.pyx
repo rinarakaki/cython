@@ -1,14 +1,14 @@
 # mode: error
 
 cdef class Ext:
-    cdef int a
+    cdef i32 a
     cdef object o
 
-def f(int a):
-    cdef Ext e = Ext()
+def f(i32 a):
+    let Ext e = Ext()
     x = &a  # ok
 
-    cdef object o = &a  # pointer != object
+    let object o = &a  # pointer != object
 
     po1 = &o        # pointer to Python variable
     po2 = &o.xyz    # pointer to Python expression
@@ -20,7 +20,7 @@ def f(int a):
 
 
 _ERRORS="""
-11:20: Cannot convert 'int *' to Python object
+11:19: Cannot convert 'int *' to Python object
 13:10: Cannot take address of Python variable 'o'
 14:10: Cannot take address of Python object attribute 'xyz'
 15:10: Cannot take address of Python object attribute 'o'

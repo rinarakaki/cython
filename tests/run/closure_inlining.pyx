@@ -1,9 +1,9 @@
-# cython: optimize.inline_defnode_calls=True
+# cython: optimize.inline_defnode_calls=true
 # mode: run
-cimport cython
+use cython
 
-@cython.test_fail_if_path_exists('//SimpleCallNode')
-@cython.test_assert_path_exists('//InlinedDefNodeCallNode')
+#[cython.test_fail_if_path_exists('//SimpleCallNode')]
+#[cython.test_assert_path_exists('//InlinedDefNodeCallNode')]
 def simple_noargs():
     """
     >>> simple_noargs()
@@ -13,26 +13,23 @@ def simple_noargs():
         return 123
     return inner()
 
-
-@cython.test_fail_if_path_exists('//SimpleCallNode')
-@cython.test_assert_path_exists('//InlinedDefNodeCallNode')
-def test_coerce(a, int b):
+#[cython.test_fail_if_path_exists('//SimpleCallNode')]
+#[cython.test_assert_path_exists('//InlinedDefNodeCallNode')]
+def test_coerce(a, i32 b):
     """
     >>> test_coerce(2, 2)
     4
     """
-    def inner(int a, b):
+    def inner(i32 a, b):
         return a * b
     return inner(a, b)
-
 
 cdef class Foo(object):
     def __repr__(self):
         return '<Foo>'
 
-
-@cython.test_fail_if_path_exists('//SimpleCallNode')
-@cython.test_assert_path_exists('//InlinedDefNodeCallNode')
+#[cython.test_fail_if_path_exists('//SimpleCallNode')]
+#[cython.test_assert_path_exists('//InlinedDefNodeCallNode')]
 def test_func_signature(a):
     """
     >>> test_func_signature(Foo())
@@ -46,8 +43,8 @@ def test_func_signature(a):
         return a
     return inner(a)
 
-@cython.test_fail_if_path_exists('//SimpleCallNode')
-@cython.test_assert_path_exists('//InlinedDefNodeCallNode')
+#[cython.test_fail_if_path_exists('//SimpleCallNode')]
+#[cython.test_assert_path_exists('//InlinedDefNodeCallNode')]
 def test_func_signature2(a, b):
     """
     >>> test_func_signature2(Foo(), 123)
@@ -62,7 +59,7 @@ def test_func_signature2(a, b):
     return inner(a, b)
 
 # Starred args and default values are not yet supported for inlining
-@cython.test_assert_path_exists('//SimpleCallNode')
+#[cython.test_assert_path_exists('//SimpleCallNode')]
 def test_defaults(a, b):
     """
     >>> test_defaults(1, 2)
@@ -72,7 +69,7 @@ def test_defaults(a, b):
         return a, b, c
     return inner(a)
 
-@cython.test_assert_path_exists('//SimpleCallNode')
+#[cython.test_assert_path_exists('//SimpleCallNode')]
 def test_kwonly_args(a, b):
     """
     >>> test_kwonly_args(1, 2)
@@ -82,7 +79,7 @@ def test_kwonly_args(a, b):
         return a, b, c
     return inner(a)
 
-@cython.test_assert_path_exists('//SimpleCallNode')
+#[cython.test_assert_path_exists('//SimpleCallNode')]
 def test_kwonly_args_missing(a, b):
     """
     >>> test_kwonly_args_missing(1, 2)
@@ -93,7 +90,7 @@ def test_kwonly_args_missing(a, b):
         return a, b, c
     return inner(a)
 
-@cython.test_assert_path_exists('//SimpleCallNode')
+#[cython.test_assert_path_exists('//SimpleCallNode')]
 def test_starred(a):
     """
     >>> test_starred(123)
@@ -112,7 +109,6 @@ def test_global_calls_still_work():
     return 123
 
 global_call_result = test_global_calls_still_work()
-
 
 @cython.test_fail_if_path_exists(
     '//InlinedDefNodeCallNode//SimpleCallNode')
@@ -134,12 +130,11 @@ def test_sideeffect_call_order():
     call(1, sideeffect(2), 3, sideeffect(4), sideeffect(5))
     return L
 
-
 def test_redef(redefine):
     """
-    >>> test_redef(False)
+    >>> test_redef(false)
     1
-    >>> test_redef(True)
+    >>> test_redef(true)
     2
     """
     def inner():
@@ -155,7 +150,6 @@ def test_redef(redefine):
     else:
         assert inner != inner2
     return inner()
-
 
 def test_with_statement():
     """

@@ -1,12 +1,12 @@
 # mode: compile
 
-cdef int f() except -1:
-    cdef object x, y = 0, z = 0, w = 0
-    cdef str sstring
-    cdef basestring sustring
-    cdef int i
-    cdef long lng
-    cdef Py_ssize_t s
+fn i32 f() except -1:
+    let object x, y = 0, z = 0, w = 0
+    let str sstring
+    let basestring sustring
+    let i32 i
+    let i64 lng
+    let isize s
     x = abs(y)
     delattr(x, 'spam')
     x = dir(y)

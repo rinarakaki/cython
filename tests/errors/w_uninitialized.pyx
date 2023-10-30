@@ -1,4 +1,4 @@
-# cython: warn.maybe_uninitialized=True
+# cython: warn.maybe_uninitialized=true
 # mode: error
 # tag: werror
 
@@ -113,7 +113,7 @@ def class_py3k_args():
     kwargs = {}
 
 def uninitialized_in_sizeof():
-    cdef int i
+    let i32 i
     print sizeof(i)
 
 _ERRORS = """

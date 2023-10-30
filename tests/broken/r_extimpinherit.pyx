@@ -1,18 +1,15 @@
 from b_extimpinherit cimport Parrot
 
-
 cdef class Norwegian(Parrot):
-
-    cdef action(self):
+    fn action(self):
         print "This parrot is resting."
 
-    cdef plumage(self):
+    fn plumage(self):
         print "Lovely plumage!"
 
-
 def main():
-    cdef Parrot p
-    cdef Norwegian n
+    let Parrot p
+    let Norwegian n
     p = Parrot()
     n = Norwegian()
     print "Parrot:"

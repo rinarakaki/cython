@@ -1,12 +1,12 @@
 from cython.parallel cimport prange
-cimport cython
+use cython
 from libc.math cimport sqrt
 
-@cython.boundscheck(False)
-@cython.wraparound(False)
-def l2norm(double[:] x):
-    cdef double total = 0
-    cdef Py_ssize_t i
-    for i in prange(x.shape[0], nogil=True):
-        total += x[i]*x[i]
+#[cython.boundscheck(false)]
+#[cython.wraparound(false)]
+def l2norm(f64[:] x):
+    let f64 total = 0
+    let usize i
+    for i in prange(x.shape[0], nogil=true):
+        total += x[i] * x[i]
     return sqrt(total)

@@ -1,5 +1,5 @@
 # ticket: t417
-#cython: autotestdict=True
+#cython: autotestdict=true
 
 cdef class Foo:
     cdef int i
@@ -20,7 +20,7 @@ def foo1(arg):
     >>> foo1(123)
     >>> foo1(Bar())
     """
-    cdef Foo val = <Foo>arg
+    let Foo val = <Foo>arg
 
 def foo2(arg):
     """
@@ -36,7 +36,7 @@ def foo2(arg):
        ...
     TypeError: Cannot convert typetest_T417.Bar to typetest_T417.Foo
     """
-    cdef Foo val = arg
+    let Foo val = arg
 
 def foo3(arg):
     """
@@ -55,7 +55,7 @@ def foo3(arg):
        ...
     TypeError: Cannot convert typetest_T417.Bar to typetest_T417.Foo
     """
-    cdef val = <Foo?>arg
+    let val = <Foo?>arg
 
 def attribute_access(arg):
     """
@@ -74,12 +74,12 @@ def attribute_access(arg):
        ...
     TypeError: Cannot convert typetest_T417.Bar to typetest_T417.Foo
     """
-    cdef val = (<Foo?>arg).i
+    let val = (<Foo?>arg).i
 
 
 cdef int count = 0
 
-cdef object getFoo():
+fn object getFoo():
      global count
      count += 1
      return Foo()
@@ -89,8 +89,8 @@ def test_getFoo():
     >>> test_getFoo()
     1
     """
-    cdef int old_count = count
-    cdef Foo x = getFoo()
+    let i32 old_count = count
+    let Foo x = getFoo()
     return count - old_count
 
 def test_getFooCast():
@@ -98,8 +98,8 @@ def test_getFooCast():
     >>> test_getFooCast()
     1
     """
-    cdef int old_count = count
-    cdef Foo x = <Foo?>getFoo()
+    let i32 old_count = count
+    let Foo x = <Foo?>getFoo()
     return count - old_count
 
 def test_builtin_typecheck_cast(maybe_list):

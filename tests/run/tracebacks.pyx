@@ -3,17 +3,17 @@
 def foo1():
   foo2()
 
-cdef foo2():
+fn foo2():
   foo3()
 
-cdef int foo3() except -1:
+fn i32 foo3() except -1:
   raise RuntimeError('my_message')
 
 def test_traceback(cline_in_traceback=None):
   """
   >>> test_traceback()
-  >>> test_traceback(True)
-  >>> test_traceback(False)
+  >>> test_traceback(true)
+  >>> test_traceback(false)
   """
   if cline_in_traceback is not None:
     import cython_runtime

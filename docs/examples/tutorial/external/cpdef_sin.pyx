@@ -3,5 +3,5 @@
 0.0
 """
 
-cdef extern from "math.h":
-    cpdef double sin(double x)
+extern from "math.h":
+    cpdef f64 sin(f64 x)

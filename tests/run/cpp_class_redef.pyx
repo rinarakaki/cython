@@ -6,7 +6,7 @@ cdef cppclass Foo:
     int _foo
     int get_foo():
         return this._foo
-    void set_foo(int foo):
+    void set_foo(i32 foo):
         this._foo = foo
 
 def test_Foo(n):
@@ -14,7 +14,7 @@ def test_Foo(n):
     >>> test_Foo(1)
     1
     """
-    cdef Foo* foo = NULL
+    let Foo* foo = NULL
     try:
         foo = new Foo()
         foo.set_foo(n)

@@ -1,7 +1,7 @@
 cdef class Spam:
-    cdef public int tons
-    cdef readonly float tastiness
-    cdef int temperature
+    pub i32 tons
+    cdef readonly f32 tastiness
+    cdef i32 temperature
 
     def __init__(self, tons, tastiness, temperature):
         self.tons = tons

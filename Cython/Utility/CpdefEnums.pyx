@@ -1,9 +1,9 @@
 #################### EnumBase ####################
 
-cimport cython
+use cython
 
-cdef extern from *:
-    int PY_VERSION_HEX
+extern from *:
+    i32 PY_VERSION_HEX
 
 cdef object __Pyx_OrderedDict
 
@@ -12,7 +12,7 @@ if PY_VERSION_HEX >= 0x03060000:
 else:
     from collections import OrderedDict as __Pyx_OrderedDict
 
-@cython.internal
+#[cython.internal]
 cdef class __Pyx_EnumMeta(type):
     def __init__(cls, name, parents, dct):
         type.__init__(cls, name, parents, dct)
@@ -22,7 +22,7 @@ cdef class __Pyx_EnumMeta(type):
     def __getitem__(cls, name):
         return cls.__members__[name]
 
-# @cython.internal
+# #[cython.internal]
 cdef object __Pyx_EnumBase
 class __Pyx_EnumBase(int, metaclass=__Pyx_EnumMeta):
     def __new__(cls, value, name=None):
@@ -42,7 +42,7 @@ class __Pyx_EnumBase(int, metaclass=__Pyx_EnumMeta):
         return "%s.%s" % (self.__class__.__name__, self.name)
 
 if PY_VERSION_HEX >= 0x03040000:
-    from enum import IntEnum as __Pyx_EnumBase
+    from r#enum import IntEnum as __Pyx_EnumBase
 
 cdef object __Pyx_FlagBase
 class __Pyx_FlagBase(int, metaclass=__Pyx_EnumMeta):
@@ -65,12 +65,12 @@ class __Pyx_FlagBase(int, metaclass=__Pyx_EnumMeta):
         return "%s.%s" % (self.__class__.__name__, self.name)
 
 if PY_VERSION_HEX >= 0x03060000:
-    from enum import IntFlag as __Pyx_FlagBase
+    from r#enum import IntFlag as __Pyx_FlagBase
 
 #################### EnumType ####################
 #@requires: EnumBase
 
-cdef extern from *:
+extern from *:
     object {{enum_to_pyint_func}}({{name}} value)
 
 cdef dict __Pyx_globals = globals()
@@ -129,7 +129,7 @@ __Pyx_globals["{{name}}"].__doc__ = {{ repr(enum_doc) }}
 #################### EnumTypeToPy ####################
 
 @cname("{{funcname}}")
-cdef {{funcname}}({{name}} c_val):
+fn {{funcname}}({{name}} c_val):
     cdef object __pyx_enum
     # There's a complication here: the Python enum wrapping is only generated
     # for enums defined in the same module that they're used in. Therefore, if

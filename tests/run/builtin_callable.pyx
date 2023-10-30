@@ -1,9 +1,9 @@
 # mode: run
 # tag: builtin, callable
 
-cimport cython
+use cython
 
-@cython.test_assert_path_exists("//SimpleCallNode[@type.is_pyobject = False]")
+#[cython.test_assert_path_exists("//SimpleCallNode[@type.is_pyobject = False]")]
 def test_callable(x):
     """
     >>> test_callable(None)
@@ -17,7 +17,7 @@ def test_callable(x):
     >>> test_callable(C())
     False
 
-    >>> test_callable(int)
+    >>> test_callable(i32)
     True
     >>> test_callable(test_callable)
     True

@@ -1,6 +1,6 @@
 from libcpp cimport bool, nullptr_t, nullptr
 
-cdef extern from "<memory>" namespace "std" nogil:
+extern from "<memory>" namespace "std" nogil:
     cdef cppclass default_delete[T]:
         default_delete()
 
@@ -10,9 +10,9 @@ cdef extern from "<memory>" namespace "std" nogil:
         #allocator(const allocator[U] &) #unique_ptr unit tests fail w/this
         T * address(T &)
         const T * address(const T &) const
-        T * allocate( size_t n ) # Not to standard.  should be a second default argument
-        void deallocate(T * , size_t)
-        size_t max_size() const
+        T * allocate( usize n ) # Not to standard.  should be a second default argument
+        void deallocate(T * , usize)
+        usize max_size() const
         void construct( T *, const T &) #C++98.  The C++11 version is variadic AND perfect-forwarding
         void destroy(T *) #C++98
         void destroy[U](U *) #unique_ptr unit tests fail w/this
@@ -109,7 +109,7 @@ cdef extern from "<memory>" namespace "std" nogil:
     unique_ptr[T] make_unique[T](...) except +
 
     # No checking on the compatibility of T and U.
-    cdef shared_ptr[T] static_pointer_cast[T, U](const shared_ptr[U]&)
-    cdef shared_ptr[T] dynamic_pointer_cast[T, U](const shared_ptr[U]&)
-    cdef shared_ptr[T] const_pointer_cast[T, U](const shared_ptr[U]&)
-    cdef shared_ptr[T] reinterpret_pointer_cast[T, U](const shared_ptr[U]&)
+    fn shared_ptr[T] static_pointer_cast[T, U](const shared_ptr[U]&)
+    fn shared_ptr[T] dynamic_pointer_cast[T, U](const shared_ptr[U]&)
+    fn shared_ptr[T] const_pointer_cast[T, U](const shared_ptr[U]&)
+    fn shared_ptr[T] reinterpret_pointer_cast[T, U](const shared_ptr[U]&)

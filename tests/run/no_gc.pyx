@@ -3,16 +3,15 @@ Check that the @cython.no_gc decorator disables generation of the
 tp_clear and tp_traverse slots, that is, disables cycle collection.
 """
 
-cimport cython
+use cython
 from cpython.ref cimport PyObject, Py_TYPE
 
 # Force non-gc'd PyTypeObject when safety is guaranteed by user but not provable
 
-cdef extern from *:
-    ctypedef struct PyTypeObject:
+extern from *:
+    struct PyTypeObject:
         void (*tp_clear)(object)
         void (*tp_traverse)(object)
-
 
 def is_tp_clear_null(obj):
     return (<PyTypeObject*>Py_TYPE(obj)).tp_clear is NULL
@@ -20,8 +19,7 @@ def is_tp_clear_null(obj):
 def is_tp_traverse_null(obj):
     return (<PyTypeObject*>Py_TYPE(obj)).tp_traverse is NULL
 
-
-@cython.no_gc
+#[cython.no_gc]
 cdef class DisableGC:
     """
     An extension type that has tp_clear and tp_traverse methods generated 
@@ -34,7 +32,7 @@ cdef class DisableGC:
     True
     """
 
-    cdef public object requires_cleanup
+    pub object requires_cleanup
 
     def __cinit__(self):
         self.requires_cleanup = (

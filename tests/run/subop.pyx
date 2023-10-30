@@ -1,4 +1,4 @@
-cimport cython
+use cython
 
 
 def bigint(x):
@@ -10,7 +10,7 @@ def mixed_test():
     >>> mixed_test()
     (-1, -1)
     """
-    cdef int int1, int2, int3
+    let i32 int1, int2, int3
     obj1 = 1
     obj2 = 2
     obj3 = 3
@@ -27,8 +27,8 @@ def pointer_test():
     >>> pointer_test()
     0
     """
-    cdef int int1, int2, int3
-    cdef char *ptr1, *ptr2, *ptr3
+    let i32 int1, int2, int3
+    let char *ptr1, *ptr2, *ptr3
     int2 = 2
     int3 = 3
     ptr2 = "test"
@@ -39,7 +39,7 @@ def pointer_test():
     return int1
 
 
-@cython.test_fail_if_path_exists('//SubNode')
+#[cython.test_fail_if_path_exists('//SubNode')]
 def sub_x_1(x):
     """
     >>> sub_x_1(0)
@@ -62,7 +62,7 @@ def sub_x_1(x):
     return x - 1
 
 
-@cython.test_fail_if_path_exists('//SubNode')
+#[cython.test_fail_if_path_exists('//SubNode')]
 def sub_x_1f(x):
     """
     >>> sub_x_1f(0)
@@ -87,7 +87,7 @@ def sub_x_1f(x):
     return x - 1.0
 
 
-@cython.test_fail_if_path_exists('//SubNode')
+#[cython.test_fail_if_path_exists('//SubNode')]
 def sub_x_large(x):
     """
     >>> sub_x_large(0)
@@ -116,7 +116,7 @@ def sub_x_large(x):
     return x - 2**30
 
 
-@cython.test_fail_if_path_exists('//SubNode')
+#[cython.test_fail_if_path_exists('//SubNode')]
 def sub_1_x(x):
     """
     >>> sub_1_x(0)
@@ -139,7 +139,7 @@ def sub_1_x(x):
     return 1 - x
 
 
-@cython.test_fail_if_path_exists('//SubNode')
+#[cython.test_fail_if_path_exists('//SubNode')]
 def sub_1f_x(x):
     """
     >>> sub_1f_x(0)
@@ -164,7 +164,7 @@ def sub_1f_x(x):
     return 1.0 - x
 
 
-@cython.test_fail_if_path_exists('//SubNode')
+#[cython.test_fail_if_path_exists('//SubNode')]
 def sub_large_x(x):
     """
     >>> sub_large_x(0)

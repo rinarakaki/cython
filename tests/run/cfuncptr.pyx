@@ -1,27 +1,24 @@
 # mode: run
 
 
-cdef int grail():
-    cdef int (*spam)()
+fn i32 grail():
+    let i32 (*spam)()
     spam = &grail
     spam = grail
     assert spam is grail
     assert spam == grail
     assert spam == &grail
 
+ctypedef i32 funcptr_t()
 
-ctypedef int funcptr_t()
-
-cdef funcptr_t* get_grail():
+fn funcptr_t* get_grail():
     return &grail
-
 
 def test_assignments():
     """
     >>> test_assignments()
     """
     grail()
-
 
 def test_return_value():
     """
@@ -31,16 +28,15 @@ def test_return_value():
     g = get_grail()
     return g == &grail
 
-
 def call_cfuncptr():
     """
     >>> call_cfuncptr()
     """
-    cdef int (*spam)()
+    let i32 (*spam)()
     spam = grail
     spam()
 
-cdef int exceptminus2(int bad) except -2:
+fn i32 exceptminus2(i32 bad) except -2:
     if bad:
         raise RuntimeError
     else:
@@ -48,31 +44,31 @@ cdef int exceptminus2(int bad) except -2:
 
 def call_exceptminus2_through_exceptstar_pointer(bad):
     """
-    >>> call_exceptminus2_through_exceptstar_pointer(True)
+    >>> call_exceptminus2_through_exceptstar_pointer(true)
     Traceback (most recent call last):
     ...
     RuntimeError
-    >>> call_exceptminus2_through_exceptstar_pointer(False)
+    >>> call_exceptminus2_through_exceptstar_pointer(false)
     0
     """
-    cdef int (*fptr)(int) except *  # GH4770 - should not be treated as except? -1
+    let i32 (*fptr)(i32) except *  # GH4770 - should not be treated as except? -1
     fptr = exceptminus2
     return fptr(bad)
 
 def call_exceptminus2_through_exceptmaybeminus2_pointer(bad):
     """
-    >>> call_exceptminus2_through_exceptmaybeminus2_pointer(True)
+    >>> call_exceptminus2_through_exceptmaybeminus2_pointer(true)
     Traceback (most recent call last):
     ...
     RuntimeError
-    >>> call_exceptminus2_through_exceptmaybeminus2_pointer(False)
+    >>> call_exceptminus2_through_exceptmaybeminus2_pointer(false)
     0
     """
-    cdef int (*fptr)(int) except ?-2  # exceptions should be compatible
+    let i32 (*fptr)(i32) except ?-2  # exceptions should be compatible
     fptr = exceptminus2
     return fptr(bad)
 
-cdef int noexcept_func():  # noexcept
+fn i32 noexcept_func():  # noexcept
     return 0
 
 def call_noexcept_func_except_star():
@@ -80,7 +76,7 @@ def call_noexcept_func_except_star():
     >>> call_noexcept_func_except_star()
     0
     """
-    cdef int (*fptr)() except *
+    let i32 (*fptr)() except *
     fptr = noexcept_func  # exception specifications are compatible
     return fptr()
 
@@ -89,6 +85,6 @@ def call_noexcept_func_except_check():
     >>> call_noexcept_func_except_check()
     0
     """
-    cdef int (*fptr)() except ?-1
+    let i32 (*fptr)() except ?-1
     fptr = noexcept_func  # exception specifications are compatible
     return fptr()

@@ -1,12 +1,13 @@
 # mode: error
 # tag: cpp
 
-cdef extern from *:
-    cdef int decl_invalid() except +nogil
+extern from *:
+    fn i32 decl_invalid() except +nogil
 
-    cdef int decl2_ok() except + nogil  # comment following
-    cdef int decl_ok() except + nogil
+    fn i32 decl2_ok() except + nogil  # comment following
+
+    fn i32 decl_ok() except + nogil
 
 _ERRORS = """
-5:36: 'except +nogil' defines an exception handling function. Use 'except + nogil' for the 'nogil' modifier.
+5:34: 'except +nogil' defines an exception handling function. Use 'except + nogil' for the 'nogil' modifier.
 """

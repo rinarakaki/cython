@@ -1,17 +1,17 @@
 # mode: compile
 
-ctypedef enum MyEnum:
+enum MyEnum:
     Value1
     Value2
     Value3 = 100
 
 cdef MyEnum my_enum = Value3
 
-ctypedef struct StructA:
+struct StructA:
     StructA *a
     StructB *b
 
-cdef struct StructB:
+struct StructB:
     StructA *a
     StructB *b
 
@@ -19,10 +19,9 @@ cdef class ClassA:
     cdef ClassA a
     cdef ClassB b
 
-ctypedef public class ClassB [ object ClassB, type TypeB ]:
+ctypedef pub class ClassB [ object ClassB, type TypeB ]:
     cdef ClassA a
     cdef ClassB b
-
 
 cdef StructA struct_a
 cdef StructB struct_b

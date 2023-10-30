@@ -1,95 +1,95 @@
 cimport cython
 
-@cython.final
+#[cython.final]
 cdef class Packet:
-    cdef public object link
-    cdef public object ident
-    cdef public object kind
-    cdef public Py_ssize_t datum
-    cdef public list data
+    pub object link
+    pub object ident
+    pub object kind
+    pub isize datum
+    pub list data
 
-    cpdef append_to(self,lst)
+    cpdef append_to(self, lst)
 
 cdef class TaskRec:
     pass
 
-@cython.final
+#[cython.final]
 cdef class DeviceTaskRec(TaskRec):
-    cdef public object pending
+    pub object pending
 
-@cython.final
+#[cython.final]
 cdef class IdleTaskRec(TaskRec):
-    cdef public long control
-    cdef public Py_ssize_t count
+    pub i64 control
+    pub isize count
 
-@cython.final
+#[cython.final]
 cdef class HandlerTaskRec(TaskRec):
-    cdef public object work_in   # = None
-    cdef public object device_in # = None
+    pub object work_in   # = None
+    pub object device_in # = None
 
-    cpdef workInAdd(self, Packet p)
-    cpdef deviceInAdd(self, Packet p)
+    cpdef work_in_add(self, Packet p)
+    cpdef device_in_add(self, Packet p)
 
-@cython.final
+#[cython.final]
 cdef class WorkerTaskRec(TaskRec):
-    cdef public object destination # = I_HANDLERA
-    cdef public Py_ssize_t count
+    pub object destination # = I_HANDLERA
+    pub isize count
 
 cdef class TaskState:
-    cdef public bint packet_pending # = True
-    cdef public bint task_waiting   # = False
-    cdef public bint task_holding   # = False
+    pub bint packet_pending # = True
+    pub bint task_waiting   # = False
+    pub bint task_holding   # = False
 
-    cpdef packetPending(self)
+    cpdef packet_pending(self)
     cpdef waiting(self)
     cpdef running(self)
-    cpdef waitingWithPacket(self)
-    cpdef bint isPacketPending(self)
-    cpdef bint isTaskWaiting(self)
-    cpdef bint isTaskHolding(self)
-    cpdef bint isTaskHoldingOrWaiting(self)
-    cpdef bint isWaitingWithPacket(self)
+    cpdef waiting_with_packet(self)
+    cpdef bint is_packet_pending(self)
+    cpdef bint is_task_waiting(self)
+    cpdef bint is_task_holding(self)
+    cpdef bint is_task_holding_or_waiting(self)
+    cpdef bint is_waiting_with_packet(self)
 
 cdef class TaskWorkArea:
-    cdef public list taskTab # = [None] * TASKTABSIZE
+    pub list taskTab # = [None] * TASKTABSIZE
 
-    cdef public object taskList # = None
+    pub object taskList # = None
 
-    cdef public Py_ssize_t holdCount # = 0
-    cdef public Py_ssize_t qpktCount # = 0
+    pub isize hold_count # = 0
+    pub isize qpkt_count # = 0
 
 cdef class Task(TaskState):
-    cdef public Task link # = taskWorkArea.taskList
-    cdef public object ident # = i
-    cdef public object priority # = p
-    cdef public object input # = w
-    cdef public object handle # = r
+    pub Task link # = taskWorkArea.taskList
+    pub object ident # = i
+    pub object priority # = p
+    pub object input # = w
+    pub object handle # = r
 
-    cpdef addPacket(self,Packet p,Task old)
-    cpdef runTask(self)
-    cpdef waitTask(self)
+    cpdef add_packet(self, Packet p, Task old)
+    cpdef run_task(self)
+    cpdef wait_task(self)
     cpdef hold(self)
-    cpdef release(self,i)
-    cpdef qpkt(self,Packet pkt)
-    cpdef findtcb(self,id)
+    cpdef release(self, i)
+    cpdef qpkt(self, Packet pkt)
+    cpdef findtcb(self, id)
 
 cdef class DeviceTask(Task):
-    @cython.locals(d=DeviceTaskRec)
-    cpdef fn(self,Packet pkt,DeviceTaskRec r)
+    #[cython.locals(d=DeviceTaskRec)]
+    cpdef r#fn(self, Packet pkt, DeviceTaskRec r)
 
 cdef class HandlerTask(Task):
-    @cython.locals(h=HandlerTaskRec)
-    cpdef fn(self,Packet pkt,HandlerTaskRec r)
+    #[cython.locals(h=HandlerTaskRec)]
+    cpdef r#fn(self, Packet pkt, HandlerTaskRec r)
 
 cdef class IdleTask(Task):
-    @cython.locals(i=IdleTaskRec)
-    cpdef fn(self,Packet pkt,IdleTaskRec r)
+    #[cython.locals(i=IdleTaskRec)]
+    cpdef r#fn(self, Packet pkt, IdleTaskRec r)
 
 cdef class WorkTask(Task):
-    @cython.locals(w=WorkerTaskRec)
-    cpdef fn(self,Packet pkt,WorkerTaskRec r)
+    #[cython.locals(w=WorkerTaskRec)]
+    cpdef r#fn(self, Packet pkt, WorkerTaskRec r)
 
-@cython.locals(t=Task)
+#[cython.locals(t=Task)]
 cpdef schedule()
 
 cdef class Richards:

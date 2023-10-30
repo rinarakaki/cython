@@ -1,9 +1,7 @@
-
-cdef extern from "Python.h":
-
-    ctypedef struct Py_complex:
-        double imag
-        double real
+extern from "Python.h":
+    struct Py_complex:
+        f64 imag
+        f64 real
 
     ############################################################################
     # 7.2.5.2 Complex Numbers as Python Objects
@@ -16,11 +14,11 @@ cdef extern from "Python.h":
         cdef Py_complex cval
 
         @property
-        cdef inline double real(self):
+        fn inline f64 real(self):
             return self.cval.real
 
         @property
-        cdef inline double imag(self):
+        fn inline f64 imag(self):
             return self.cval.imag
 
     # PyTypeObject PyComplex_Type
@@ -28,28 +26,28 @@ cdef extern from "Python.h":
     # number type. It is the same object as complex and
     # types.ComplexType.
 
-    bint PyComplex_Check(object p)
+    fn bint PyComplex_Check(object p)
     # Return true if its argument is a PyComplexObject or a subtype of
     # PyComplexObject.
 
-    bint PyComplex_CheckExact(object p)
+    fn bint PyComplex_CheckExact(object p)
     # Return true if its argument is a PyComplexObject, but not a subtype of PyComplexObject.
 
-    object PyComplex_FromCComplex(Py_complex v)
+    fn object PyComplex_FromCComplex(Py_complex v)
     # Return value: New reference.
     # Create a new Python complex number object from a C Py_complex value.
 
-    object PyComplex_FromDoubles(double real, double imag)
+    fn object PyComplex_FromDoubles(f64 real, f64 imag)
     # Return value: New reference.
     # Return a new PyComplexObject object from real and imag.
 
-    double PyComplex_RealAsDouble(object op) except? -1
-    # Return the real part of op as a C double.
+    fn f64 PyComplex_RealAsDouble(object op) except? -1
+    # Return the real part of op as a C f64.
 
-    double PyComplex_ImagAsDouble(object op) except? -1
+    fn f64 PyComplex_ImagAsDouble(object op) except? -1
     # Return the imaginary part of op as a C double.
 
-    Py_complex PyComplex_AsCComplex(object op)
+    fn Py_complex PyComplex_AsCComplex(object op)
     # Return the Py_complex value of the complex number op.
     #
     # Returns (-1+0i) in case of an error

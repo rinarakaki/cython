@@ -1,19 +1,19 @@
 # mode: error
 
-cimport cython
+use cython
 
-cdef extern from *:
+extern from *:
     cdef cppclass Foo:
         Foo operator++()
         Foo operator--()
 
     cdef cppclass Bar:
-        Bar operator++(int)
-        Bar operator--(int)
+        Bar operator++(i32)
+        Bar operator--(i32)
 
-cdef void foo():
-    cdef Foo f
-    cdef Bar b
+fn void foo():
+    let Foo f
+    let Bar b
     cython.operator.postincrement(f)
     cython.operator.postincrement(b)
     cython.operator.postdecrement(f)

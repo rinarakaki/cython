@@ -2,7 +2,7 @@
 import sys
 IS_PY3 = sys.version_info[0] >= 3
 
-cimport cython
+use cython
 
 b_a = bytearray(b'a')
 b_b = bytearray(b'b')
@@ -198,9 +198,9 @@ def bytearray_decode_unbound_method(bytearray s, start=None, stop=None):
     else:
         return bytearray.decode(s[start:stop], 'utf8')
 
-@cython.test_fail_if_path_exists('//SimpleCallNode')
-@cython.test_assert_path_exists('//PythonCapiCallNode')
-def bytearray_append(bytearray b, signed char c, int i, object o):
+#[cython.test_fail_if_path_exists('//SimpleCallNode')]
+#[cython.test_assert_path_exists('//PythonCapiCallNode')]
+def bytearray_append(bytearray b, signed char c, i32 i, object o):
     """
     >>> b = bytearray(b'abc')
     >>> b = bytearray_append(b, ord('x'), ord('y'), ord('z'))

@@ -3,29 +3,28 @@
 
 from libcpp.vector cimport vector
 
-cdef extern from "shapes.h" namespace "shapes":
-
+extern from "shapes.h" namespace "shapes":
     cdef cppclass Shape:
         float area()
 
     cdef cppclass Ellipse(Shape):
-        Ellipse(int a, int b) except + nogil
+        Ellipse(i32 a, i32 b) except + nogil
 
     cdef cppclass Circle(Ellipse):
         int radius
-        Circle(int r) except +
+        Circle(i32 r) except +
 
     cdef cppclass Rectangle(Shape):
         int width
         int height
         Rectangle() except +
-        Rectangle(int h, int w) except +
-        int method(int x)
-        int method(bint b)
+        Rectangle(i32 h, i32 w) except +
+        i32 method(i32 x)
+        i32 method(bint b)
 
     cdef cppclass Square(Rectangle):
         int side
-        Square(int s) except +
+        Square(i32 s) except +
 
     cdef cppclass Empty(Shape):
         pass
@@ -35,9 +34,7 @@ cdef extern from "shapes.h" namespace "shapes":
         This is a docstring !
         """
 
-
     int constructor_count, destructor_count
-
 
 def test_new_del():
     """
@@ -46,12 +43,11 @@ def test_new_del():
     2 2
     """
     c,d = constructor_count, destructor_count
-    cdef Rectangle *rect = new Rectangle(10, 20)
-    cdef Circle *circ = new Circle(15)
+    let Rectangle *rect = new Rectangle(10, 20)
+    let Circle *circ = new Circle(15)
     print constructor_count-c, destructor_count-d
     del rect, circ
     print constructor_count-c, destructor_count-d
-
 
 def test_default_constructor():
     """
@@ -63,7 +59,6 @@ def test_default_constructor():
         return shape.area()
     finally:
         del shape
-
 
 def test_constructor_nogil():
     """
@@ -77,18 +72,16 @@ def test_constructor_nogil():
     finally:
         del shape
 
-
 def test_rect_area(w, h):
     """
     >>> test_rect_area(3, 4)
     12.0
     """
-    cdef Rectangle *rect = new Rectangle(w, h)
+    let Rectangle *rect = new Rectangle(w, h)
     try:
         return rect.area()
     finally:
         del rect
-
 
 def test_overload_bint_int():
     """
@@ -96,64 +89,60 @@ def test_overload_bint_int():
     202
     201
     """
-    cdef Rectangle *rect1 = new Rectangle(10, 20)
-    cdef Rectangle *rect2 = new Rectangle(10, 20)
+    let Rectangle *rect1 = new Rectangle(10, 20)
+    let Rectangle *rect2 = new Rectangle(10, 20)
 
     try:
-        print rect1.method(<int> 2)
-        print rect2.method(<bint> True)
+        print rect1.method(<i32>2)
+        print rect2.method(<bint>true)
     finally:
         del rect1
         del rect2
-
 
 def test_square_area(w):
     """
     >>> test_square_area(15)
     (225.0, 225.0)
     """
-    cdef Square *sqr = new Square(w)
-    cdef Rectangle *rect = sqr
+    let Square *sqr = new Square(w)
+    let Rectangle *rect = sqr
     try:
         return rect.area(), sqr.area()
     finally:
         del sqr
 
-
-cdef double get_area(Rectangle s):
+fn f64 get_area(Rectangle s):
     return s.area()
 
-def test_value_call(int w):
+def test_value_call(i32 w):
     """
     >>> test_value_call(5)
     (25.0, 25.0)
     """
-    cdef Square *sqr = new Square(w)
-    cdef Rectangle *rect = sqr
+    let Square *sqr = new Square(w)
+    let Rectangle *rect = sqr
     try:
         return get_area(sqr[0]), get_area(rect[0])
     finally:
         del sqr
 
-
-cdef struct StructWithEmpty:
+struct StructWithEmpty:
     Empty empty
-
 
 def get_destructor_count():
     return destructor_count
 
-def test_stack_allocation(int w, int h):
+def test_stack_allocation(i32 w, i32 h):
     """
     >>> d = test_stack_allocation(10, 12)
     125
     >>> get_destructor_count() - d
     1
     """
-    cdef Rectangle rect
+    let Rectangle rect
     rect.width = w
     rect.height = h
-    print rect.method(<int>5)
+    print rect.method(<i32>5)
     return destructor_count
 
 def test_stack_allocation_in_struct():
@@ -162,18 +151,18 @@ def test_stack_allocation_in_struct():
     >>> get_destructor_count() - d
     1
     """
-    cdef StructWithEmpty swe
+    let StructWithEmpty swe
     sizeof(swe.empty) # use it for something
     return destructor_count
 
 cdef class EmptyHolder:
-    cdef Empty empty
+    let Empty empty
 
 cdef class AnotherEmptyHolder(EmptyHolder):
-    cdef Empty another_empty
+    let Empty another_empty
 
 cdef class EmptyViaStructHolder:
-    cdef StructWithEmpty swe
+    let StructWithEmpty swe
 
 def test_class_member():
     """
@@ -190,7 +179,6 @@ def test_class_member():
     del e1, e2
     assert destructor_count - start_destructor_count == 2, \
            destructor_count - start_destructor_count
-
 
 def test_derived_class_member():
     """
@@ -219,14 +207,14 @@ def test_class_in_struct_member():
            destructor_count - start_destructor_count
 
 cdef class TemplateClassMember:
-    cdef vector[int] x
-    cdef vector[vector[Empty]] vec
+    let vector[i32] x
+    let vector[vector[Empty]] vec
 
 def test_template_class_member():
     """
     >>> test_template_class_member()
     """
-    cdef vector[Empty] inner
+    let vector[Empty] inner
     inner.push_back(Empty())
     inner.push_back(Empty())
     o = TemplateClassMember()
@@ -237,32 +225,29 @@ def test_template_class_member():
     assert destructor_count - start_destructor_count == 2, \
            destructor_count - start_destructor_count
 
-
-ctypedef vector[int]* vector_int_ptr
-cdef vector[vector_int_ptr] create_to_delete() except *:
-    cdef vector[vector_int_ptr] v
-    v.push_back(new vector[int]())
+ctypedef vector[i32]* vector_int_ptr
+fn vector[vector_int_ptr] create_to_delete() except *:
+    let vector[vector_int_ptr] v
+    v.push_back(new vector[i32]())
     return v
-cdef int f(int x):
+fn i32 f(i32 x):
     return x
-
 
 def test_nested_del():
     """
     >>> test_nested_del()
     """
-    cdef vector[vector_int_ptr] v
-    v.push_back(new vector[int]())
+    let vector[vector_int_ptr] v
+    v.push_back(new vector[i32]())
     del v[0]
     del create_to_delete()[f(f(0))]
-
 
 def test_nested_del_repeat():
     """
     >>> test_nested_del_repeat()
     """
-    cdef vector[vector_int_ptr] v
-    v.push_back(new vector[int]())
+    let vector[vector_int_ptr] v
+    v.push_back(new vector[i32]())
     del v[0]
     del create_to_delete()[f(f(0))]
     del create_to_delete()[f(f(0))]

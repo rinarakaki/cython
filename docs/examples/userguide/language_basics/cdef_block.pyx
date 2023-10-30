@@ -2,11 +2,11 @@ from __future__ import print_function
 
 cdef:
     struct Spam:
-        int tons
+        i32 tons
 
-    int i
-    float a
+    i32 i
+    f32 a
     Spam *p
 
-    void f(Spam *s) except *:
+    fn void f(Spam *s) except *:
         print(s.tons, "Tons of spam")

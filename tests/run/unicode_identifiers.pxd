@@ -3,8 +3,8 @@
 
 cdef Fα1()
 cdef class Γναμε2:
-    cdef public int α
-    cdef boring_cdef(self)
-    cdef εxciting_cdef(self)
+    pub i32 α
+    fn boring_cdef(self)
+    fn εxciting_cdef(self)
     cpdef boring_cpdef(self)
     cpdef εxciting_cpdef(self)

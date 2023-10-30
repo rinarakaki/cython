@@ -1,7 +1,7 @@
 # mode: run
 # ticket: t693
 
-cdef double complex func(double complex x):                                                  
+fn double complex func(double complex x):                                                  
     print "hello"
     return x
 
@@ -14,5 +14,5 @@ def test_coercion():
     >>> c.imag == 1.5
     True
     """
-    cdef object x = func(0.5 + 1.5j)
+    let object x = func(0.5 + 1.5j)
     return x

@@ -3,12 +3,11 @@
 
 from cython.view import array
 
-cdef extern from "point.h" namespace "geometry":
-
-    cdef struct Point:
-        double x
-        double y
-        int color
+extern from "point.h" namespace "geometry":
+    struct Point:
+        f64 x
+        f64 y
+        i32 colour
 
 cdef Point p = Point(0.0, 0.0, 0)
 the_point = p

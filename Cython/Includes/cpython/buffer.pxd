@@ -1,7 +1,6 @@
 # Please see the Python header files (object.h/abstract.h) for docs
 
-cdef extern from "Python.h":
-
+extern from "Python.h":
     cdef enum:
         PyBUF_MAX_NDIM
 
@@ -28,10 +27,10 @@ cdef extern from "Python.h":
         PyBUF_WRITE,
         PyBUF_SHADOW
 
-    bint PyObject_CheckBuffer(object obj)
+    fn bint PyObject_CheckBuffer(object obj)
     # Return 1 if obj supports the buffer interface otherwise 0.
 
-    int PyObject_GetBuffer(object obj, Py_buffer *view, int flags) except -1
+    fn i32 PyObject_GetBuffer(object obj, Py_buffer *view, i32 flags) except -1
     # Export obj into a Py_buffer, view. These arguments must never be
     # NULL. The flags argument is a bit field indicating what kind of
     # buffer the caller is prepared to deal with and therefore what
@@ -52,24 +51,24 @@ cdef extern from "Python.h":
 
     # 0 is returned on success and -1 on error.
 
-    void PyBuffer_Release(Py_buffer *view)
+    fn void PyBuffer_Release(Py_buffer *view)
     # Release the buffer view. This should be called when the buffer
     # is no longer being used as it may free memory from it.
 
-    void* PyBuffer_GetPointer(Py_buffer *view, Py_ssize_t *indices)
+    fn void* PyBuffer_GetPointer(Py_buffer *view, isize *indices)
     # ??
 
-    Py_ssize_t PyBuffer_SizeFromFormat(char *) # actually const char
+    fn isize PyBuffer_SizeFromFormat(char *) # actually const char
     # Return the implied ~Py_buffer.itemsize from the struct-stype
     # ~Py_buffer.format
 
-    int PyBuffer_ToContiguous(void *buf, Py_buffer *view, Py_ssize_t len, char fort)
+    fn i32 PyBuffer_ToContiguous(void *buf, Py_buffer *view, isize len, char fort)
     # ??
 
-    int PyBuffer_FromContiguous(Py_buffer *view, void *buf, Py_ssize_t len, char fort)
+    fn i32 PyBuffer_FromContiguous(Py_buffer *view, void *buf, isize len, char fort)
     # ??
 
-    int PyObject_CopyToObject(object obj, void *buf, Py_ssize_t len, char fortran) except -1
+    fn i32 PyObject_CopyToObject(object obj, void *buf, isize len, char fortran) except -1
     # Copy len bytes of data pointed to by the contiguous chunk of
     # memory pointed to by buf into the buffer exported by obj. The
     # buffer must of course be writable. Return 0 on success and
@@ -82,31 +81,31 @@ cdef extern from "Python.h":
     # fastest). If fortran is 'A', then it does not matter and the
     # copy will be made in whatever way is more efficient.
 
-    int PyObject_CopyData(object dest, object src) except -1
+    fn i32 PyObject_CopyData(object dest, object src) except -1
     # Copy the data from the src buffer to the buffer of destination
 
-    bint PyBuffer_IsContiguous(Py_buffer *view, char fort)
+    fn bint PyBuffer_IsContiguous(Py_buffer *view, char fort)
     # Return 1 if the memory defined by the view is C-style (fortran
     # is 'C') or Fortran-style (fortran is 'F') contiguous or either
     # one (fortran is 'A'). Return 0 otherwise.
 
-    void PyBuffer_FillContiguousStrides(int ndims,
-                                        Py_ssize_t *shape,
-                                        Py_ssize_t *strides,
-                                        Py_ssize_t itemsize,
-                                        char fort)
+    fn void PyBuffer_FillContiguousStrides(i32 ndims,
+                                           isize *shape,
+                                           isize *strides,
+                                           isize itemsize,
+                                           char fort)
     # Fill the strides array with byte-strides of a contiguous
     # (Fortran-style if fort is 'F' or C-style otherwise) array of the
     # given shape with the given number of bytes per element.
 
-    int PyBuffer_FillInfo(Py_buffer *view, object exporter, void *buf,
-                          Py_ssize_t len, int readonly, int flags) except -1
+    fn i32 PyBuffer_FillInfo(Py_buffer *view, object exporter, void *buf,
+                            isize len, i32 readonly, i32 flags) except -1
     # Fill in a buffer-info structure, view, correctly for an exporter
     # that can only share a contiguous chunk of memory of “unsigned
     # bytes” of the given length. Return 0 on success and -1 (with
     # raising an error) on error.
 
     # DEPRECATED HERE: do not cimport from here, cimport from cpython.object instead
-    object PyObject_Format(object obj, object format_spec)
+    fn object PyObject_Format(object obj, object format_spec)
     # Takes an arbitrary object and returns the result of calling
     # obj.__format__(format_spec).

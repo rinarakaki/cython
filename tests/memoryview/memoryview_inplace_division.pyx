@@ -1,10 +1,10 @@
 # mode: run
 # tag: memoryview, cdivision, array
 
-cimport cython
+use cython
 from cpython.array cimport array  # make Cython aware of the array type
 
-def div_memoryview(int[:] A):
+def div_memoryview(i32[:] A):
     """
     >>> from array import array
     >>> x = array('i', [6])
@@ -12,10 +12,10 @@ def div_memoryview(int[:] A):
     >>> x[0]
     3
     """
-    with cython.cdivision(True):
+    with cython.cdivision(true):
         A[0] /= 2
 
-def div_buffer(object[int, ndim=1] A):
+def div_buffer(object[i32, ndim=1] A):
     """
     >>> from array import array
     >>> x = array('i', [6])
@@ -23,6 +23,5 @@ def div_buffer(object[int, ndim=1] A):
     >>> x[0]
     3
     """
-    with cython.cdivision(True):
+    with cython.cdivision(true):
         A[0] /= 2
-

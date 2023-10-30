@@ -1,4 +1,4 @@
-cimport cython
+use cython
 
 
 def bigint(x):
@@ -10,8 +10,8 @@ def mixed_test():
     >>> mixed_test()
     (30, 22)
     """
-    cdef int int1, int2, int3
-    cdef char *ptr1, *ptr2 = "test", *ptr3 = "toast"
+    let i32 int1, int2, int3
+    let char *ptr1, *ptr2 = "test", *ptr3 = "toast"
     int2 = 10
     int3 = 20
     obj1 = 1
@@ -24,7 +24,7 @@ def mixed_test():
     return int1, obj1
 
 
-@cython.test_fail_if_path_exists('//AddNode')
+#[cython.test_fail_if_path_exists('//AddNode')]
 def add_x_1(x):
     """
     >>> add_x_1(0)
@@ -47,7 +47,7 @@ def add_x_1(x):
     return x + 1
 
 
-@cython.test_fail_if_path_exists('//AddNode')
+#[cython.test_fail_if_path_exists('//AddNode')]
 def add_x_1f(x):
     """
     >>> add_x_1f(0)
@@ -66,7 +66,7 @@ def add_x_1f(x):
     return x + 1.0
 
 
-@cython.test_fail_if_path_exists('//AddNode')
+#[cython.test_fail_if_path_exists('//AddNode')]
 def add_x_large(x):
     """
     >>> add_x_large(0)
@@ -99,7 +99,7 @@ def add_x_large(x):
     return x + 2**30
 
 
-@cython.test_fail_if_path_exists('//AddNode')
+#[cython.test_fail_if_path_exists('//AddNode')]
 def add_1_x(x):
     """
     >>> add_1_x(0)
@@ -122,7 +122,7 @@ def add_1_x(x):
     return 1 + x
 
 
-@cython.test_fail_if_path_exists('//AddNode')
+#[cython.test_fail_if_path_exists('//AddNode')]
 def add_1f_x(x):
     """
     >>> add_1f_x(0)
@@ -147,7 +147,7 @@ def add_1f_x(x):
     return 1.0 + x
 
 
-@cython.test_fail_if_path_exists('//AddNode')
+#[cython.test_fail_if_path_exists('//AddNode')]
 def add_large_x(x):
     """
     >>> add_large_x(0)

@@ -5,19 +5,19 @@ cimport cython
 from .Visitor cimport CythonTransform, TreeVisitor
 
 cdef class ControlBlock:
-    cdef public set children
-    cdef public set parents
-    cdef public set positions
-    cdef public list stats
-    cdef public dict gen
-    cdef public set bounded
+    pub set children
+    pub set parents
+    pub set positions
+    pub list stats
+    pub dict gen
+    pub set bounded
 
     # Big integer bitsets
-    cdef public object i_input
-    cdef public object i_output
-    cdef public object i_gen
-    cdef public object i_kill
-    cdef public object i_state
+    pub object i_input
+    pub object i_output
+    pub object i_gen
+    pub object i_kill
+    pub object i_state
 
     cpdef bint empty(self)
     cpdef detach(self)
@@ -27,39 +27,39 @@ cdef class ExitBlock(ControlBlock):
     cpdef bint empty(self)
 
 cdef class NameAssignment:
-    cdef public bint is_arg
-    cdef public bint is_deletion
-    cdef public object lhs
-    cdef public object rhs
-    cdef public object entry
-    cdef public object pos
-    cdef public set refs
-    cdef public object bit
-    cdef public object inferred_type
-    cdef public object rhs_scope
+    pub bint is_arg
+    pub bint is_deletion
+    pub object lhs
+    pub object rhs
+    pub object entry
+    pub object pos
+    pub set refs
+    pub object bit
+    pub object inferred_type
+    pub object rhs_scope
 
 cdef class AssignmentList:
-    cdef public object bit
-    cdef public object mask
-    cdef public list stats
+    pub object bit
+    pub object mask
+    pub list stats
 
 cdef class AssignmentCollector(TreeVisitor):
     cdef list assignments
 
-@cython.final
+#[cython.final]
 cdef class ControlFlow:
-    cdef public set blocks
-    cdef public set entries
-    cdef public list loops
-    cdef public list exceptions
+    pub set blocks
+    pub set entries
+    pub list loops
+    pub list exceptions
 
-    cdef public ControlBlock entry_point
-    cdef public ExitBlock exit_point
-    cdef public ControlBlock block
+    pub ControlBlock entry_point
+    pub ExitBlock exit_point
+    pub ControlBlock block
 
-    cdef public dict assmts
+    pub dict assmts
 
-    cdef public Py_ssize_t in_try_block
+    pub isize in_try_block
 
     cpdef newblock(self, ControlBlock parent=*)
     cpdef nextblock(self, ControlBlock parent=*)
@@ -71,17 +71,17 @@ cdef class ControlFlow:
     cpdef mark_deletion(self, node, entry)
     cpdef mark_reference(self, node, entry)
 
-    @cython.locals(block=ControlBlock, parent=ControlBlock, unreachable=set)
+    #[cython.locals(block=ControlBlock, parent=ControlBlock, unreachable=set)]
     cpdef normalize(self)
 
-    @cython.locals(bit=object, assmts=AssignmentList, block=ControlBlock)
+    #[cython.locals(bit=object, assmts=AssignmentList, block=ControlBlock)]
     cpdef initialize(self)
 
-    @cython.locals(assmts=AssignmentList, assmt=NameAssignment)
+    #[cython.locals(assmts=AssignmentList, assmt=NameAssignment)]
     cpdef set map_one(self, istate, entry)
 
-    @cython.locals(block=ControlBlock, parent=ControlBlock)
-    cdef reaching_definitions(self)
+    #[cython.locals(block=ControlBlock, parent=ControlBlock)]
+    fn reaching_definitions(self)
 
 cdef class Uninitialized:
     pass
@@ -92,11 +92,11 @@ cdef class Unknown:
 cdef class MessageCollection:
     cdef set messages
 
-@cython.locals(dirty=bint, block=ControlBlock, parent=ControlBlock,
-               assmt=NameAssignment)
-cdef check_definitions(ControlFlow flow, dict compiler_directives)
+#[cython.locals(dirty=bint, block=ControlBlock, parent=ControlBlock,
+                assmt=NameAssignment)]
+fn check_definitions(ControlFlow flow, dict compiler_directives)
 
-@cython.final
+#[cython.final]
 cdef class ControlFlowAnalysis(CythonTransform):
     cdef object gv_ctx
     cdef object constant_folder

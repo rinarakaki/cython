@@ -4,7 +4,7 @@ import sys
 
 def typename(t):
     name = type(t).__name__
-    if sys.version_info < (2,5):
+    if sys.version_info < (2, 5):
         if name == 'classobj' and issubclass(t, MyException):
             name = 'type'
         elif name == 'instance' and isinstance(t, MyException):
@@ -63,7 +63,7 @@ def with_exception(exit_ret):
     value
     exit <type 'type'> <type 'MyException'> <type 'traceback'>
     outer except
-    >>> with_exception(True)
+    >>> with_exception(true)
     enter
     value
     exit <type 'type'> <type 'MyException'> <type 'traceback'>
@@ -102,7 +102,7 @@ def typed():
     10
     exit <type 'NoneType'> <type 'NoneType'> <type 'NoneType'>
     """
-    cdef unsigned char i
+    let u8 i
     c = ContextManager(255)
     with c as i:
         i += 11
@@ -141,7 +141,7 @@ def multimanager():
 import unittest
 
 class Dummy(object):
-    def __init__(self, value=None, gobble=False):
+    def __init__(self, value=None, gobble=false):
         if value is None:
             value = self
         self.value = value
@@ -157,7 +157,7 @@ class Dummy(object):
         self.exit_called = True
         self.exc_info = exc_info
         if self.gobble:
-            return True
+            return true
 
 class InitRaises(object):
     def __init__(self): raise RuntimeError()
@@ -211,7 +211,7 @@ class NestedWith(unittest.TestCase):
 
     def testExceptionInExit(self):
         body_executed = False
-        with Dummy(gobble=True) as a, ExitRaises():
+        with Dummy(gobble=true) as a, ExitRaises():
             body_executed = True
         self.assertTrue(a.enter_called)
         self.assertTrue(a.exit_called)
@@ -219,7 +219,7 @@ class NestedWith(unittest.TestCase):
         self.assertNotEqual(a.exc_info[0], None)
 
     def testEnterReturnsTuple(self):
-        with Dummy(value=(1,2)) as (a1, a2), \
+        with Dummy(value=(1, 2)) as (a1, a2), \
              Dummy(value=(10, 20)) as (b1, b2):
             self.assertEqual(1, a1)
             self.assertEqual(2, a2)

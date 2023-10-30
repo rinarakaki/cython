@@ -1,9 +1,9 @@
 # mode: run
 # tag: freelist, cyclicgc
 
-cimport cython
+use cython
 
-@cython.freelist(4)
+#[cython.freelist(4)]
 cdef class ExtTypeNoGC:
     """
     >>> obj = ExtTypeNoGC()
@@ -55,7 +55,7 @@ cdef class ExtSubTypeNoGC(ExtTypeNoGC):
     cdef bytes x
 
 
-@cython.freelist(4)
+#[cython.freelist(4)]
 cdef class ExtTypeWithGC:
     """
     >>> obj = ExtTypeWithGC()
@@ -151,7 +151,7 @@ cdef class LargerExtSubType(ExtSubType):
         self.attribute2 = object()
 
 
-@cython.freelist(4)
+#[cython.freelist(4)]
 cdef class ExtTypeWithCAttr:
     """
     >>> obj = ExtTypeWithCAttr()
@@ -237,7 +237,7 @@ cdef class ExtTypeWithCAttrNoFreelist:
         self.cattr = 1
 
 
-@cython.freelist(4)
+#[cython.freelist(4)]
 cdef class ExtTypeWithCMethods:
     """
     >>> obj = ExtTypeWithCMethods()
@@ -287,10 +287,10 @@ cdef class ExtTypeWithCMethods:
         assert self.cattr == 0
         self.cattr = 1
 
-    cdef int get_cattr(self):
+    fn i32 get_cattr(self):
         return self.cattr
 
-    cdef set_cattr(self, int value):
+    fn set_cattr(self, i32 value):
         self.cattr = value
 
 
@@ -397,10 +397,10 @@ cdef class ExtSubTypeWithMoreCMethods(ExtSubTypeWithCMethods):
         assert self.cattr == 1
         self.cattr = 2
 
-    cdef int get_cattr2(self):
+    fn i32 get_cattr2(self):
         return self.cattr
 
-    cdef set_cattr2(self, int value):
+    fn set_cattr2(self, i32 value):
         self.cattr = value
 
 
@@ -413,7 +413,7 @@ def test_more_cmethods(ExtSubTypeWithMoreCMethods obj not None):
     return x, obj.get_cattr(), obj.get_cattr2()
 
 
-@cython.freelist(4)
+#[cython.freelist(4)]
 cdef class ExtTypeWithRefCycle:
     """
     >>> obj = first = ExtTypeWithRefCycle()
@@ -447,14 +447,14 @@ cdef class ExtTypeWithRefCycle:
     >>> obj = PyClass()
     >>> del PyClass, obj
     """
-    cdef public attribute
+    pub attribute
 
     def __init__(self, obj=None):
         self.attribute = obj
 
 
-@cython.freelist(3)
-@cython.cclass
+#[cython.freelist(3)]
+#[cython.cclass]
 class DecoratedPyClass(object):
     """
     >>> obj1 = DecoratedPyClass()

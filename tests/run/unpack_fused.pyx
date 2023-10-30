@@ -1,4 +1,3 @@
-
 ctypedef fused sequence:
     list
     tuple
@@ -21,7 +20,7 @@ def unpack_one(sequence it):
 
 def unpack_two(sequence it):
     """
-    >>> items = [1,2]
+    >>> items = [1, 2]
     >>> unpack_two(items)
     (1, 2)
     >>> unpack_two(iter(items))
@@ -31,12 +30,12 @@ def unpack_two(sequence it):
     >>> unpack_two(tuple(items))
     (1, 2)
     """
-    a,b = it
-    return a,b
+    a, b = it
+    return a, b
 
 def unpack_two_int(sequence it):
     """
-    >>> items = [1,2]
+    >>> items = [1, 2]
     >>> unpack_two_int(items)
     (1, 2)
     >>> unpack_two_int(iter(items))
@@ -60,9 +59,9 @@ def unpack_two_int(sequence it):
     Traceback (most recent call last):
     TypeError: ...int...
     """
-    cdef int b
-    a,b = it
-    return a,b
+    let i32 b
+    a, b = it
+    return a, b
 
 def unpack_many(sequence it):
     """
@@ -76,8 +75,8 @@ def unpack_many(sequence it):
     >>> unpack_many(tuple(items))
     (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)
     """
-    a,b,c,d,e,f,g,h,i,j,k,l = it
-    return a,b,c,d,e,f,g,h,i,j,k,l
+    a, b, c, d, e, f, g, h, i, j,k,l = it
+    return a, b, c, d, e, f, g, h, i, j,k,l
 
 def unpack_many_int(sequence it):
     """
@@ -105,8 +104,8 @@ def unpack_many_int(sequence it):
     Traceback (most recent call last):
     ValueError: need more than 9 values to unpack
     """
-    cdef int b
-    cdef long f
-    cdef Py_ssize_t h
-    a,b,c,d,e,f,g,h,i,j,k,l = it
-    return a,b,c,d,e,f,g,h,i,j,k,l
+    let i32 b
+    let i64 f
+    let isize h
+    a, b, c, d, e, f, g, h, i, j,k,l = it
+    return a, b, c, d, e, f, g, h, i, j,k,l

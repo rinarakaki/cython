@@ -6,8 +6,8 @@ from posix.types cimport (blkcnt_t, blksize_t, dev_t, gid_t, ino_t, mode_t,
 from posix.time cimport timespec
 
 
-cdef extern from "<sys/stat.h>" nogil:
-    cdef struct struct_stat "stat":
+extern from "<sys/stat.h>" nogil:
+    struct struct_stat "stat":
         dev_t   st_dev
         ino_t   st_ino
         mode_t  st_mode
@@ -33,25 +33,25 @@ cdef extern from "<sys/stat.h>" nogil:
         time_t  st_birthtime
 
 # POSIX prescribes including both <sys/stat.h> and <unistd.h> for these
-cdef extern from "<unistd.h>" nogil:
-    int chmod(const char *, mode_t)
-    int fchmod(int, mode_t)
-    int fchmodat(int, const char *, mode_t, int flags)
+extern from "<unistd.h>" nogil:
+    fn i32 chmod(const char *, mode_t)
+    fn i32 fchmod(i32, mode_t)
+    fn i32 fchmodat(i32, const char *, mode_t, i32 flags)
 
-    int stat(const char *, struct_stat *)
-    int lstat(const char *, struct_stat *)
-    int fstat(int, struct_stat *)
-    int fstatat(int, const char *, struct_stat *, int flags)
+    fn i32 stat(const char *, struct_stat *)
+    fn i32 lstat(const char *, struct_stat *)
+    fn i32 fstat(i32, struct_stat *)
+    fn i32 fstatat(i32, const char *, struct_stat *, i32 flags)
 
-    int mkdir(const char *, mode_t)
-    int mkdirat(int, const char *, mode_t)
-    int mkfifo(const char *, mode_t)
-    int mkfifoat(int, const char *, mode_t)
-    int mknod(const char *, mode_t, dev_t)
-    int mknodat(int, const char *, mode_t, dev_t)
+    fn i32 mkdir(const char *, mode_t)
+    fn i32 mkdirat(i32, const char *, mode_t)
+    fn i32 mkfifo(const char *, mode_t)
+    fn i32 mkfifoat(i32, const char *, mode_t)
+    fn i32 mknod(const char *, mode_t, dev_t)
+    fn i32 mknodat(i32, const char *, mode_t, dev_t)
 
-    int futimens(int, const timespec *)
-    int utimensat(int, const char *, const timespec *, int flags)
+    fn i32 futimens(i32, const timespec *)
+    fn i32 utimensat(i32, const char *, const timespec *, i32 flags)
 
     # Macros for st_mode
     mode_t S_ISREG(mode_t)
@@ -92,7 +92,7 @@ cdef extern from "<unistd.h>" nogil:
     mode_t S_IXOTH
 
     # test file types
-    bint S_TYPEISMQ(struct_stat *buf)
-    bint S_TYPEISSEM(struct_stat *buf)
-    bint S_TYPEISSHM(struct_stat *buf)
-    bint S_TYPEISTMO(struct_stat *buf)
+    fn bint S_TYPEISMQ(struct_stat *buf)
+    fn bint S_TYPEISSEM(struct_stat *buf)
+    fn bint S_TYPEISSHM(struct_stat *buf)
+    fn bint S_TYPEISTMO(struct_stat *buf)

@@ -1,11 +1,11 @@
 # mode: compile
 
-ctypedef struct Foo:
-    int blarg
+struct Foo:
+    i32 blarg
 
-cdef Foo f():
+fn Foo f():
     blarg = 1 + 2
-    cdef Foo foo
+    let Foo foo
     foo.blarg = blarg
     return foo
 

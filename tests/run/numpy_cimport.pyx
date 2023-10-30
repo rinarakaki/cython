@@ -5,4 +5,4 @@
 >>> 'numpy' in sys.modules
 True
 """
-cimport numpy as np
+use numpy as np

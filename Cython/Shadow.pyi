@@ -3,27 +3,28 @@ from builtins import (int as py_int, float as py_float,
 from typing import (Union, Dict, Any, Sequence, Optional,
                     List, TypeVar, Type, Generic)
 
-int = py_int
-long = py_int
-longlong = py_int
-short = py_int
-char = py_int
+
+i32 = int = py_int
+i64 = long = py_int
+i128 = longlong = py_int
+i16 = short = py_int
+i8 = char = py_int
 sint = py_int
 slong = py_int
 slonglong = py_int
 sshort = py_int
 schar = py_int
-uint = py_int
-ulong = py_int
-ulonglong = py_int
-ushort = py_int
-uchar = py_int
-size_t = py_int
-Py_ssize_t = py_int
+u32 = uint = py_int
+u64 = ulong = py_int
+u128 = ulonglong = py_int
+u16 = ushort = py_int
+u8 = uchar = py_int
+usize = size_t = py_int
+isize = Py_ssize_t = py_int
 Py_UCS4 = Union[py_int, str]
 Py_UNICODE = Union[py_int, str]
-float = py_float
-double = py_float
+f32 = float = py_float
+f64 = double = py_float
 longdouble = py_float
 complex = py_complex
 floatcomplex = py_complex
@@ -42,14 +43,14 @@ class _ArrayType(object, Generic[_T]):
     is_array: bool
     subtypes: Sequence[str]
     dtype: _T
-    ndim: int
+    ndim: i32
     is_c_contig: bool
     is_f_contig: bool
     inner_contig: bool
     broadcasting: Any
 
     # broadcasting is not used, so it's not clear about its type
-    def __init__(self, dtype: _T, ndim: int, is_c_contig: bool = ...,
+    def __init__(self, dtype: _T, ndim: i32, is_c_contig: bool = ...,
                  is_f_contig: bool = ..., inner_contig: bool = ...,
                  broadcasting: Any = ...) -> None: ...
     def __repr__(self) -> str: ...
@@ -63,10 +64,10 @@ class CythonType(CythonTypeObject):
 class PointerType(CythonType, Generic[_T]):
     def __init__(
         self,
-        value: Optional[Union[ArrayType[_T], PointerType[_T], List[_T], int]] = ...
+        value: Optional[Union[ArrayType[_T], PointerType[_T], List[_T], i32]] = ...
     ) -> None: ...
-    def __getitem__(self, ix: int) -> _T: ...
-    def __setitem__(self, ix: int, value: _T) -> None: ...
+    def __getitem__(self, ix: i32) -> _T: ...
+    def __setitem__(self, ix: i32, value: _T) -> None: ...
     def __eq__(self, value: object) -> bool: ...
     def __repr__(self) -> str: ...
 
@@ -80,13 +81,13 @@ class ArrayType(PointerType[_T]):
 #    ) -> None: ...
 
 def index_type(
-    base_type: _T, item: Union[tuple, slice, int]) -> _ArrayType[_T]: ...
+    base_type: _T, item: Union[tuple, slice, i32]) -> _ArrayType[_T]: ...
 
 def pointer(basetype: _T) -> Type[PointerType[_T]]: ...
 
-def array(basetype: _T, n: int) -> Type[ArrayType[_T]]: ...
+def array(basetype: _T, n: i32) -> Type[ArrayType[_T]]: ...
 
-#def struct(basetype: _T) -> Type[StructType[_T]]: ...
+# def r#struct(basetype: _T) -> Type[StructType[_T]]: ...
 
 class typedef(CythonType, Generic[_T]):
     name: str

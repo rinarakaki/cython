@@ -2,42 +2,42 @@
 # Actual compile time size used for conversions.
 
 # 7.18 Integer types <stdint.h>
-cdef extern from "<stdint.h>" nogil:
+extern from "<stdint.h>" nogil:
 
     # 7.18.1 Integer types
     # 7.18.1.1 Exact-width integer types
-    ctypedef   signed char  int8_t
-    ctypedef   signed short int16_t
-    ctypedef   signed int   int32_t
-    ctypedef   signed long  int64_t
-    ctypedef unsigned char  uint8_t
-    ctypedef unsigned short uint16_t
-    ctypedef unsigned int   uint32_t
-    ctypedef unsigned long long uint64_t
+    ctypedef i8   int8_t
+    ctypedef i16  int16_t
+    ctypedef i32  int32_t
+    ctypedef i64  int64_t
+    ctypedef u8   uint8_t
+    ctypedef u16  uint16_t
+    ctypedef u32  uint32_t
+    ctypedef u128 uint64_t
     # 7.18.1.2 Minimum-width integer types
-    ctypedef   signed char  int_least8_t
-    ctypedef   signed short int_least16_t
-    ctypedef   signed int   int_least32_t
-    ctypedef   signed long  int_least64_t
-    ctypedef unsigned char  uint_least8_t
-    ctypedef unsigned short uint_least16_t
-    ctypedef unsigned int   uint_least32_t
-    ctypedef unsigned long long uint_least64_t
+    ctypedef i8   int_least8_t
+    ctypedef i16  int_least16_t
+    ctypedef i32  int_least32_t
+    ctypedef i64  int_least64_t
+    ctypedef u8   uint_least8_t
+    ctypedef u16  uint_least16_t
+    ctypedef u32  uint_least32_t
+    ctypedef u128 uint_least64_t
     # 7.18.1.3 Fastest minimum-width integer types
-    ctypedef   signed char  int_fast8_t
-    ctypedef   signed short int_fast16_t
-    ctypedef   signed int   int_fast32_t
-    ctypedef   signed long  int_fast64_t
-    ctypedef unsigned char  uint_fast8_t
-    ctypedef unsigned short uint_fast16_t
-    ctypedef unsigned int   uint_fast32_t
-    ctypedef unsigned long long uint_fast64_t
+    ctypedef i8   int_fast8_t
+    ctypedef i16  int_fast16_t
+    ctypedef i32  int_fast32_t
+    ctypedef i64  int_fast64_t
+    ctypedef u8   uint_fast8_t
+    ctypedef u16  uint_fast16_t
+    ctypedef u32  uint_fast32_t
+    ctypedef u128 uint_fast64_t
     # 7.18.1.4 Integer types capable of holding object pointers
-    ctypedef ssize_t intptr_t
-    ctypedef  size_t uintptr_t
+    ctypedef isize intptr_t
+    ctypedef usize uintptr_t
     # 7.18.1.5 Greatest-width integer types
-    ctypedef signed   long long intmax_t
-    ctypedef unsigned long long uintmax_t
+    ctypedef i128 intmax_t
+    ctypedef u128 uintmax_t
 
     # 7.18.2 Limits of specified-width integer types
     # 7.18.2.1 Limits of exact-width integer types
@@ -96,7 +96,7 @@ cdef extern from "<stdint.h>" nogil:
     enum: SIG_ATOMIC_MIN
     enum: SIG_ATOMIC_MAX
     # size_t
-    size_t SIZE_MAX
+    usize SIZE_MAX
     # wchar_t
     enum: WCHAR_MIN
     enum: WCHAR_MAX

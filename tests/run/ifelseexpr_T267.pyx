@@ -2,7 +2,7 @@
 # tag: condexpr
 # ticket: t267
 
-cimport cython
+use cython
 
 def ident(x): return x
 
@@ -39,18 +39,18 @@ def nested(x):
     return a
 
 
-@cython.test_fail_if_path_exists('//CondExprNode')
-def const_true(a,b):
+#[cython.test_fail_if_path_exists('//CondExprNode')]
+def const_true(a, b):
     """
-    >>> const_true(1,2)
+    >>> const_true(1, 2)
     1
     """
     return a if 1 == 1 else b
 
-@cython.test_fail_if_path_exists('//CondExprNode')
-def const_false(a,b):
+#[cython.test_fail_if_path_exists('//CondExprNode')]
+def const_false(a, b):
     """
-    >>> const_false(1,2)
+    >>> const_false(1, 2)
     2
     """
     return a if 1 != 1 else b

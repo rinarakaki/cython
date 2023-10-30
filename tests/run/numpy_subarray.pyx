@@ -1,7 +1,7 @@
 # tag: numpy
 
-cimport numpy as np
-cimport cython
+use numpy as np
+use cython
 
 import numpy as py_numpy
 
@@ -12,12 +12,12 @@ __doc__ = u"""
 """
 
 def test_record_subarray():
-    cdef np.ndarray x = py_numpy.zeros((2,2),
+    let np.ndarray x = py_numpy.zeros((2, 2),
                                        dtype=[('a', py_numpy.int32),
                                               ('b', py_numpy.float64, (3, 3))])
-    cdef np.dtype descr   = x.dtype
-    cdef np.dtype a_descr = descr.fields['a'][0]
-    cdef np.dtype b_descr = descr.fields['b'][0]
+    let np.dtype descr   = x.dtype
+    let np.dtype a_descr = descr.fields['a'][0]
+    let np.dtype b_descr = descr.fields['b'][0]
 
     # Make sure the dtype looks like we expect
     assert descr.fields == {'a': (py_numpy.dtype('int32'), 0),

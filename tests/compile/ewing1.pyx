@@ -1,12 +1,12 @@
 # mode: compile
 
-cdef int blarg(int i):
+fn i32 blarg(i32 i):
     pass
 
-cdef void foo():
-    cdef float f=0
-    cdef int i
-    if blarg(<int> f):
+fn void foo():
+    let f32 f=0
+    let i32 i
+    if blarg(<i32> f):
         pass
 
 foo()

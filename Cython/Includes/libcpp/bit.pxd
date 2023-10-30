@@ -1,29 +1,29 @@
-cdef extern from "<bit>" namespace "std" nogil:
+extern from "<bit>" namespace "std" nogil:
     # bit_cast (gcc >= 11.0, clang >= 14.0)
-    cdef To bit_cast[To, From](From&)
+    fn To bit_cast[To, From](From&)
 
     # byteswap (C++23)
-    #cdef T byteswap[T](T)
+    # cdef T byteswap[T](T)
 
     # integral powers of 2 (gcc >= 10.0, clang >= 12.0)
-    cdef bint has_single_bit[T](T)
-    cdef T bit_ceil[T](T)
-    cdef T bit_floor[T](T)
-    cdef int bit_width[T](T)
+    fn bint has_single_bit[T](T)
+    fn T bit_ceil[T](T)
+    fn T bit_floor[T](T)
+    fn i32 bit_width[T](T)
 
     # rotating (gcc >= 9.0, clang >= 9.0)
-    cdef T rotl[T](T, int shift)
-    cdef T rotr[T](T, int shift)
+    fn T rotl[T](T, i32 shift)
+    fn T rotr[T](T, i32 shift)
 
     # counting (gcc >= 9.0, clang >= 9.0)
-    cdef int countl_zero[T](T)
-    cdef int countl_one[T](T)
-    cdef int countr_zero[T](T)
-    cdef int countr_one[T](T)
-    cdef int popcount[T](T)
+    fn i32 countl_zero[T](T)
+    fn i32 countl_one[T](T)
+    fn i32 countr_zero[T](T)
+    fn i32 countr_one[T](T)
+    fn i32 popcount[T](T)
 
     # endian
-    cpdef enum class endian(int):
+    cpdef enum class endian(i32):
         little,
         big,
         native

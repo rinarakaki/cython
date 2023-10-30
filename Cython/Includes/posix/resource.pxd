@@ -4,7 +4,7 @@
 from posix.time  cimport timeval
 from posix.types cimport id_t
 
-cdef extern from "<sys/resource.h>" nogil:
+extern from "<sys/resource.h>" nogil:
 
     enum: PRIO_PROCESS
     enum: PRIO_PGRP
@@ -25,33 +25,33 @@ cdef extern from "<sys/resource.h>" nogil:
     enum: RLIMIT_STACK
     enum: RLIMIT_AS
 
-    ctypedef unsigned long rlim_t
+    ctypedef u64 rlim_t
 
-    cdef struct rlimit:
+    struct rlimit:
         rlim_t rlim_cur
         rlim_t rlim_max
 
-    cdef struct rusage:
+    struct rusage:
         timeval ru_utime
         timeval ru_stime
         # Linux-specific
-        long    ru_maxrss
-        long    ru_ixrss
-        long    ru_idrss
-        long    ru_isrss
-        long    ru_minflt
-        long    ru_majflt
-        long    ru_nswap
-        long    ru_inblock
-        long    ru_oublock
-        long    ru_msgsnd
-        long    ru_msgrcv
-        long    ru_nsignals
-        long    ru_nvcsw
-        long    ru_nivcsw
+        i64    ru_maxrss
+        i64    ru_ixrss
+        i64    ru_idrss
+        i64    ru_isrss
+        i64    ru_minflt
+        i64    ru_majflt
+        i64    ru_nswap
+        i64    ru_inblock
+        i64    ru_oublock
+        i64    ru_msgsnd
+        i64    ru_msgrcv
+        i64    ru_nsignals
+        i64    ru_nvcsw
+        i64    ru_nivcsw
 
-    int  getpriority(int, id_t)
-    int  getrlimit(int, rlimit *)
-    int  getrusage(int, rusage *)
-    int  setpriority(int, id_t, int)
-    int  setrlimit(int, const rlimit *)
+    fn i32 getpriority(i32, id_t)
+    fn i32 getrlimit(i32, rlimit *)
+    fn i32 getrusage(i32, rusage *)
+    fn i32 setpriority(i32, id_t, i32)
+    fn i32 setrlimit(i32, const rlimit *)

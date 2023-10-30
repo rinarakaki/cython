@@ -1,4 +1,4 @@
-# cython: language_level=3str, binding=True
+# cython: language_level=3str, binding=true
 # mode: run
 # tag: python3, str_is_str
 
@@ -36,7 +36,7 @@ def truediv(x):
     return x / 2
 
 
-def truediv_int(int x):
+def truediv_int(i32 x):
     """
     >>> truediv_int(4)
     2.0
@@ -50,7 +50,7 @@ def truediv_int(int x):
 
 def print_function(*args):
     """
-    >>> print_function(1,2,3)
+    >>> print_function(1, 2, 3)
     1 2 3
     """
     print(*args) # this isn't valid Py2 syntax
@@ -139,7 +139,7 @@ def str_type_is_str():
     >>> isinstance(str_string, str_type) or str_type
     True
     """
-    cdef str s = 'abc'
+    let str s = 'abc'
     return str, s
 
 def strip_wrapped_string(s):
@@ -150,12 +150,12 @@ def strip_wrapped_string(s):
     return s[1:-1] # strip them
 
 
-@cython.annotation_typing(False)
+#[cython.annotation_typing(false)]
 def annotation_syntax(a: "test new test", b : "other" = 2, *args: "ARGS", **kwargs: "KWARGS") -> "ret":
     """
     >>> annotation_syntax(1)
     3
-    >>> annotation_syntax(1,3)
+    >>> annotation_syntax(1, 3)
     4
 
     >>> len(annotation_syntax.__annotations__)
@@ -176,7 +176,7 @@ def annotation_syntax(a: "test new test", b : "other" = 2, *args: "ARGS", **kwar
     return result
 
 
-@cython.annotation_typing(True)
+#[cython.annotation_typing(true)]
 def repr_returns_str(x) -> str:
     """
     >>> repr_returns_str(123)

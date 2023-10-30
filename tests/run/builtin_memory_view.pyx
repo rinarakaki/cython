@@ -6,10 +6,10 @@ from __future__ import print_function
 
 import sys
 
-cimport cython
+use cython
 #from cpython.memoryview cimport PyMemoryView_GET_BUFFER
 
-@cython.test_fail_if_path_exists("//SimpleCallNode")
+#[cython.test_fail_if_path_exists("//SimpleCallNode")]
 def test_convert_from_obj(o):
     """
     >>> abc = b'abc'
@@ -29,11 +29,11 @@ def test_create_from_buffer():
     True
     """
     other_view = memoryview(b'argh!')
-    cdef Py_buffer *buf = PyMemoryView_GET_BUFFER(other_view)
+    let Py_buffer *buf = PyMemoryView_GET_BUFFER(other_view)
     return memoryview(buf)
 '''
 
-@cython.test_fail_if_path_exists("//AttributeNode")
+#[cython.test_fail_if_path_exists("//AttributeNode")]
 def test_optimized_attributes(memoryview view):
     """
     >>> test_optimized_attributes(memoryview(b'zzzzz'))

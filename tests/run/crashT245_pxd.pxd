@@ -1,4 +1,4 @@
-cdef extern from "crashT245.h":
-    ctypedef struct MyStruct:
-        int x
+extern from "crashT245.h":
+    struct MyStruct:
+        i32 x
 

@@ -1,10 +1,10 @@
-# cython: language_level=3, binding=True, annotation_typing=False
+# cython: language_level=3, binding=true, annotation_typing=false
 # mode: run
 # tag: generators, python3, exceptions, gh2230, gh2811
 
 print(end='')  # test that language_level 3 applies immediately at the module start, for the first token.
 
-cimport cython
+use cython
 
 __doc__ = """
 >>> items = sorted(locals_function(1).items())
@@ -56,7 +56,7 @@ def truediv(x):
     return x / 2
 
 
-def truediv_int(int x):
+def truediv_int(i32 x):
     """
     >>> truediv_int(4)
     2.0
@@ -66,8 +66,8 @@ def truediv_int(int x):
     return x / 2
 
 
-@cython.cdivision(True)
-def cdiv_int(int x):
+#[cython.cdivision(true)]
+def cdiv_int(i32 x):
     """
     >>> cdiv_int(4)
     2
@@ -272,13 +272,13 @@ def except_as_deletes_target_in_gen(x, a):
         yield 6
 
 
-def nested_except_gh3666(a=False, b=False):
+def nested_except_gh3666(a=false, b=false):
     """
     >>> print(nested_except_gh3666())
     A
-    >>> print(nested_except_gh3666(a=True))
+    >>> print(nested_except_gh3666(a=true))
     B-V
-    >>> print(nested_except_gh3666(a=True, b=True))
+    >>> print(nested_except_gh3666(a=true, b=true))
     B-V-T
     """
     try:
@@ -302,7 +302,7 @@ def nested_except_gh3666(a=False, b=False):
 
 def print_function(*args):
     """
-    >>> print_function(1,2,3)
+    >>> print_function(1, 2, 3)
     1 2 3
     """
     print(*args) # this isn't valid Py2 syntax
@@ -402,7 +402,7 @@ def str_type_is_unicode():
     >>> isinstance(ustring, str_type) or str_type
     True
     """
-    cdef str s = 'abc'
+    let str s = 'abc'
     return str, s
 
 
@@ -518,8 +518,8 @@ def listcomp_as_condition(sequence):
     False
     """
     if [1 for c in sequence if c in '+-*/<=>!%&|([^~,']:
-        return True
-    return False
+        return true
+    return false
 
 
 def set_comp():
@@ -612,7 +612,7 @@ def annotation_syntax(a: "test new test", b : "other" = 2, *args: "ARGS", **kwar
     """
     >>> annotation_syntax(1)
     3
-    >>> annotation_syntax(1,3)
+    >>> annotation_syntax(1, 3)
     4
 
     >>> len(annotation_syntax.__annotations__)
@@ -633,7 +633,7 @@ def annotation_syntax(a: "test new test", b : "other" = 2, *args: "ARGS", **kwar
     return result
 
 
-@cython.annotation_typing(False)
+#[cython.annotation_typing(false)]
 def builtin_as_ignored_annotation(text: str):
     # Used to crash the compiler when annotation typing is disabled.
     # See https://github.com/cython/cython/issues/2811
@@ -647,7 +647,7 @@ def builtin_as_ignored_annotation(text: str):
         print(c)
 
 
-@cython.annotation_typing(True)
+#[cython.annotation_typing(true)]
 def int_annotation(x: int) -> int:
     """
     >>> print(int_annotation(1))
@@ -664,7 +664,7 @@ def int_annotation(x: int) -> int:
     return 2 ** x
 
 
-@cython.annotation_typing(True)
+#[cython.annotation_typing(true)]
 async def async_def_annotations(x: 'int') -> 'float':
     """
     >>> ret, arg = sorted(async_def_annotations.__annotations__.items())

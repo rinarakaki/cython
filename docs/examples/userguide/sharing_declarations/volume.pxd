@@ -1,1 +1,1 @@
-cdef float cube(float x)
+fn f32 cube(f32 x)

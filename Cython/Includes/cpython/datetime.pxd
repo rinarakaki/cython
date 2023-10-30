@@ -1,11 +1,11 @@
 from cpython.object cimport PyObject
 from cpython.version cimport PY_VERSION_HEX
 
-cdef extern from "Python.h":
-    ctypedef struct PyTypeObject:
+extern from "Python.h":
+    struct PyTypeObject:
         pass
 
-cdef extern from "datetime.h":
+extern from "datetime.h":
     """
     /* Backport for Python 2.x */
     #if PY_MAJOR_VERSION < 3
@@ -69,117 +69,117 @@ cdef extern from "datetime.h":
 
     ctypedef extern class datetime.date[object PyDateTime_Date]:
         @property
-        cdef inline int year(self):
+        fn inline i32 year(self):
             return PyDateTime_GET_YEAR(self)
 
         @property
-        cdef inline int month(self):
+        fn inline i32 month(self):
             return PyDateTime_GET_MONTH(self)
 
         @property
-        cdef inline int day(self):
+        fn inline i32 day(self):
             return PyDateTime_GET_DAY(self)
 
     ctypedef extern class datetime.time[object PyDateTime_Time]:
         @property
-        cdef inline int hour(self):
+        fn inline i32 hour(self):
             return PyDateTime_TIME_GET_HOUR(self)
 
         @property
-        cdef inline int minute(self):
+        fn inline i32 minute(self):
             return PyDateTime_TIME_GET_MINUTE(self)
 
         @property
-        cdef inline int second(self):
+        fn inline i32 second(self):
             return PyDateTime_TIME_GET_SECOND(self)
 
         @property
-        cdef inline int microsecond(self):
+        fn inline i32 microsecond(self):
             return PyDateTime_TIME_GET_MICROSECOND(self)
 
         @property
-        cdef inline object tzinfo(self):
+        fn inline object tzinfo(self):
             return <object>PyDateTime_TIME_GET_TZINFO(self)
 
         @property
-        cdef inline int fold(self):
+        fn inline i32 fold(self):
             # For Python < 3.6 this returns 0 no matter what
             return PyDateTime_TIME_GET_FOLD(self)
 
     ctypedef extern class datetime.datetime[object PyDateTime_DateTime]:
         @property
-        cdef inline int year(self):
+        fn inline i32 year(self):
             return PyDateTime_GET_YEAR(self)
 
         @property
-        cdef inline int month(self):
+        fn inline i32 month(self):
             return PyDateTime_GET_MONTH(self)
 
         @property
-        cdef inline int day(self):
+        fn inline i32 day(self):
             return PyDateTime_GET_DAY(self)
 
         @property
-        cdef inline int hour(self):
+        fn inline i32 hour(self):
             return PyDateTime_DATE_GET_HOUR(self)
 
         @property
-        cdef inline int minute(self):
+        fn inline i32 minute(self):
             return PyDateTime_DATE_GET_MINUTE(self)
 
         @property
-        cdef inline int second(self):
+        fn inline i32 second(self):
             return PyDateTime_DATE_GET_SECOND(self)
 
         @property
-        cdef inline int microsecond(self):
+        fn inline i32 microsecond(self):
             return PyDateTime_DATE_GET_MICROSECOND(self)
 
         @property
-        cdef inline object tzinfo(self):
+        fn inline object tzinfo(self):
             return <object>PyDateTime_DATE_GET_TZINFO(self)
 
         @property
-        cdef inline int fold(self):
+        fn inline i32 fold(self):
             # For Python < 3.6 this returns 0 no matter what
             return PyDateTime_DATE_GET_FOLD(self)
 
     ctypedef extern class datetime.timedelta[object PyDateTime_Delta]:
         @property
-        cdef inline int day(self):
+        fn inline i32 day(self):
             return PyDateTime_DELTA_GET_DAYS(self)
 
         @property
-        cdef inline int second(self):
+        fn inline i32 second(self):
             return PyDateTime_DELTA_GET_SECONDS(self)
 
         @property
-        cdef inline int microsecond(self):
+        fn inline i32 microsecond(self):
             return PyDateTime_DELTA_GET_MICROSECONDS(self)
 
     ctypedef extern class datetime.tzinfo[object PyDateTime_TZInfo]:
         pass
 
-    ctypedef struct PyDateTime_Date:
+    struct PyDateTime_Date:
         pass
 
-    ctypedef struct PyDateTime_Time:
-        unsigned char fold
+    struct PyDateTime_Time:
+        u8 fold
         char hastzinfo
         PyObject *tzinfo
 
-    ctypedef struct PyDateTime_DateTime:
-        unsigned char fold
+    struct PyDateTime_DateTime:
+        u8 fold
         char hastzinfo
         PyObject *tzinfo
 
-    ctypedef struct PyDateTime_Delta:
-        int days
-        int seconds
-        int microseconds
+    struct PyDateTime_Delta:
+        i32 days
+        i32 seconds
+        i32 microseconds
 
     # Define structure for C API.
-    ctypedef struct PyDateTime_CAPI:
+    struct PyDateTime_CAPI:
         # type objects
         PyTypeObject *DateType
         PyTypeObject *DateTimeType
@@ -188,10 +188,10 @@ cdef extern from "datetime.h":
         PyTypeObject *TZInfoType
 
         # constructors
-        date (*Date_FromDate)(int, int, int, PyTypeObject*)
-        datetime (*DateTime_FromDateAndTime)(int, int, int, int, int, int, int, object, PyTypeObject*)
-        time (*Time_FromTime)(int, int, int, int, object, PyTypeObject*)
-        timedelta (*Delta_FromDelta)(int, int, int, int, PyTypeObject*)
+        date (*Date_FromDate)(i32, i32, i32, PyTypeObject*)
+        datetime (*DateTime_FromDateAndTime)(i32, i32, i32, i32, i32, i32, i32, object, PyTypeObject*)
+        time (*Time_FromTime)(i32, i32, i32, i32, object, PyTypeObject*)
+        timedelta (*Delta_FromDelta)(i32, i32, i32, i32, PyTypeObject*)
 
         # constructors for the DB API
         datetime (*DateTime_FromTimestamp)(PyObject*, object, PyObject*)
@@ -207,65 +207,65 @@ cdef extern from "datetime.h":
         PyObject *TimeZone_UTC
 
         # Python 3.6+ PEP 495 constructors
-        datetime (*DateTime_FromDateAndTimeAndFold)(int, int, int, int, int, int, int, object, int, PyTypeObject*)
-        time (*Time_FromTimeAndFold)(int, int, int ,int, object, int, PyTypeObject*)
+        datetime (*DateTime_FromDateAndTimeAndFold)(i32, i32, i32, i32, i32, i32, i32, object, i32, PyTypeObject*)
+        time (*Time_FromTimeAndFold)(i32, i32, i32 ,i32, object, i32, PyTypeObject*)
 
     # Check type of the object.
-    bint PyDate_Check(object op)
-    bint PyDate_CheckExact(object op)
+    fn bint PyDate_Check(object op)
+    fn bint PyDate_CheckExact(object op)
 
-    bint PyDateTime_Check(object op)
-    bint PyDateTime_CheckExact(object op)
+    fn bint PyDateTime_Check(object op)
+    fn bint PyDateTime_CheckExact(object op)
 
-    bint PyTime_Check(object op)
-    bint PyTime_CheckExact(object op)
+    fn bint PyTime_Check(object op)
+    fn bint PyTime_CheckExact(object op)
 
-    bint PyDelta_Check(object op)
-    bint PyDelta_CheckExact(object op)
+    fn bint PyDelta_Check(object op)
+    fn bint PyDelta_CheckExact(object op)
 
-    bint PyTZInfo_Check(object op)
-    bint PyTZInfo_CheckExact(object op)
+    fn bint PyTZInfo_Check(object op)
+    fn bint PyTZInfo_CheckExact(object op)
 
     # Getters for date and datetime (C macros).
-    int PyDateTime_GET_YEAR(object o)
-    int PyDateTime_GET_MONTH(object o)
-    int PyDateTime_GET_DAY(object o)
+    fn i32 PyDateTime_GET_YEAR(object o)
+    fn i32 PyDateTime_GET_MONTH(object o)
+    fn i32 PyDateTime_GET_DAY(object o)
 
     # Getters for datetime (C macros).
-    int PyDateTime_DATE_GET_HOUR(object o)
-    int PyDateTime_DATE_GET_MINUTE(object o)
-    int PyDateTime_DATE_GET_SECOND(object o)
-    int PyDateTime_DATE_GET_MICROSECOND(object o)
-    int PyDateTime_DATE_GET_FOLD(object o)
+    fn i32 PyDateTime_DATE_GET_HOUR(object o)
+    fn i32 PyDateTime_DATE_GET_MINUTE(object o)
+    fn i32 PyDateTime_DATE_GET_SECOND(object o)
+    fn i32 PyDateTime_DATE_GET_MICROSECOND(object o)
+    fn i32 PyDateTime_DATE_GET_FOLD(object o)
     PyObject* PyDateTime_DATE_GET_TZINFO(object o)  # returns a borrowed reference
 
     # Getters for time (C macros).
-    int PyDateTime_TIME_GET_HOUR(object o)
-    int PyDateTime_TIME_GET_MINUTE(object o)
-    int PyDateTime_TIME_GET_SECOND(object o)
-    int PyDateTime_TIME_GET_MICROSECOND(object o)
-    int PyDateTime_TIME_GET_FOLD(object o)
+    fn i32 PyDateTime_TIME_GET_HOUR(object o)
+    fn i32 PyDateTime_TIME_GET_MINUTE(object o)
+    fn i32 PyDateTime_TIME_GET_SECOND(object o)
+    fn i32 PyDateTime_TIME_GET_MICROSECOND(object o)
+    fn i32 PyDateTime_TIME_GET_FOLD(object o)
     PyObject* PyDateTime_TIME_GET_TZINFO(object o)  # returns a borrowed reference
 
     # Getters for timedelta (C macros).
-    int PyDateTime_DELTA_GET_DAYS(object o)
-    int PyDateTime_DELTA_GET_SECONDS(object o)
-    int PyDateTime_DELTA_GET_MICROSECONDS(object o)
+    fn i32 PyDateTime_DELTA_GET_DAYS(object o)
+    fn i32 PyDateTime_DELTA_GET_SECONDS(object o)
+    fn i32 PyDateTime_DELTA_GET_MICROSECONDS(object o)
 
     # Constructors
-    object PyTimeZone_FromOffset(object offset)
-    object PyTimeZone_FromOffsetAndName(object offset, object name)
+    fn object PyTimeZone_FromOffset(object offset)
+    fn object PyTimeZone_FromOffsetAndName(object offset, object name)
 
     # The above macros is Python 3.7+ so we use these instead
-    object __Pyx_TimeZone_FromOffsetAndName(object offset, PyObject* name)
+    fn object __Pyx_TimeZone_FromOffsetAndName(object offset, PyObject* name)
 
     # Constructors for the DB API
     datetime PyDateTime_FromTimeStamp(object args)
     date PyDate_FromTimeStamp(object args)
 
     # PEP 495 constructors but patched above to allow passing tz
-    datetime __Pyx_DateTime_DateTimeWithFold(int, int, int, int, int, int, int, object, int)
-    datetime __Pyx_DateTime_TimeWithFold(int, int, int ,int, object, int)
+    datetime __Pyx_DateTime_DateTimeWithFold(i32, i32, i32, i32, i32, i32, i32, object, i32)
+    datetime __Pyx_DateTime_TimeWithFold(i32, i32, i32 ,i32, object, i32)
 
     # PyDateTime CAPI object.
     PyDateTime_CAPI *PyDateTimeAPI
@@ -275,46 +275,46 @@ cdef extern from "datetime.h":
     # PyDateTime_TimeZone_UTC is Python 3.7+ so instead we use the following macro
     PyObject* __Pyx_TimeZone_UTC
 
-    void PyDateTime_IMPORT()
+    fn void PyDateTime_IMPORT()
 
 # Datetime C API initialization function.
 # You have to call it before any usage of DateTime CAPI functions.
-cdef inline void import_datetime():
+fn inline void import_datetime():
     PyDateTime_IMPORT
 
 # Create date object using DateTime CAPI factory function.
 # Note, there are no range checks for any of the arguments.
-cdef inline date date_new(int year, int month, int day):
+fn inline date date_new(i32 year, i32 month, i32 day):
     return PyDateTimeAPI.Date_FromDate(year, month, day, PyDateTimeAPI.DateType)
 
 # Create time object using DateTime CAPI factory function
 # Note, there are no range checks for any of the arguments.
-cdef inline time time_new(int hour, int minute, int second, int microsecond, object tz, int fold=0):
+fn inline time time_new(i32 hour, i32 minute, i32 second, i32 microsecond, object tz, i32 fold=0):
     return __Pyx_DateTime_TimeWithFold(hour, minute, second, microsecond, tz, fold)
 
 # Create datetime object using DateTime CAPI factory function.
 # Note, there are no range checks for any of the arguments.
-cdef inline datetime datetime_new(int year, int month, int day, int hour, int minute, int second, int microsecond, object tz, int fold=0):
+fn inline datetime datetime_new(i32 year, i32 month, i32 day, i32 hour, i32 minute, i32 second, i32 microsecond, object tz, i32 fold=0):
     return __Pyx_DateTime_DateTimeWithFold(year, month, day, hour, minute, second, microsecond, tz, fold)
 
 # Create timedelta object using DateTime CAPI factory function.
 # Note, there are no range checks for any of the arguments.
-cdef inline timedelta timedelta_new(int days, int seconds, int useconds):
+fn inline timedelta timedelta_new(i32 days, i32 seconds, i32 useconds):
     return PyDateTimeAPI.Delta_FromDelta(days, seconds, useconds, 1, PyDateTimeAPI.DeltaType)
 
 # Create timedelta object using DateTime CAPI factory function.
-cdef inline object timezone_new(object offset, object name=None):
+fn inline object timezone_new(object offset, object name=None):
     if PY_VERSION_HEX < 0x030700b1:
         raise RuntimeError('Time zones are not available from the C-API.')
     return __Pyx_TimeZone_FromOffsetAndName(offset, <PyObject*>name if name is not None else NULL)
 
 # Create datetime object using DB API constructor.
-cdef inline datetime datetime_from_timestamp(timestamp, tz=None):
+fn inline datetime datetime_from_timestamp(timestamp, tz=None):
     return PyDateTimeAPI.DateTime_FromTimestamp(
         <PyObject*>PyDateTimeAPI.DateTimeType, (timestamp, tz) if tz is not None else (timestamp,), NULL)
 
 # Create date object using DB API constructor.
-cdef inline date date_from_timestamp(timestamp):
+fn inline date date_from_timestamp(timestamp):
     return PyDateTimeAPI.Date_FromTimestamp(<PyObject*>PyDateTimeAPI.DateType, (timestamp,))
 
 # More recognizable getters for date/time/datetime/timedelta.
@@ -323,104 +323,104 @@ cdef inline date date_from_timestamp(timestamp):
 # If you would change time/date/datetime/timedelta object you need to recreate.
 
 # Get UTC singleton
-cdef inline object get_utc():
+fn inline object get_utc():
     if PY_VERSION_HEX < 0x030700b1:
         raise RuntimeError('Time zones are not available from the C-API.')
     return <object>__Pyx_TimeZone_UTC
 
 # Get tzinfo of time
-cdef inline object time_tzinfo(object o):
+fn inline object time_tzinfo(object o):
     return <object>PyDateTime_TIME_GET_TZINFO(o)
 
 # Get tzinfo of datetime
-cdef inline object datetime_tzinfo(object o):
+fn inline object datetime_tzinfo(object o):
     return <object>PyDateTime_DATE_GET_TZINFO(o)
 
 # Get year of date
-cdef inline int date_year(object o):
+fn inline i32 date_year(object o):
     return PyDateTime_GET_YEAR(o)
 
 # Get month of date
-cdef inline int date_month(object o):
+fn inline i32 date_month(object o):
     return PyDateTime_GET_MONTH(o)
 
 # Get day of date
-cdef inline int date_day(object o):
+fn inline i32 date_day(object o):
     return PyDateTime_GET_DAY(o)
 
 # Get year of datetime
-cdef inline int datetime_year(object o):
+fn inline i32 datetime_year(object o):
     return PyDateTime_GET_YEAR(o)
 
 # Get month of datetime
-cdef inline int datetime_month(object o):
+fn inline i32 datetime_month(object o):
     return PyDateTime_GET_MONTH(o)
 
 # Get day of datetime
-cdef inline int datetime_day(object o):
+fn inline i32 datetime_day(object o):
     return PyDateTime_GET_DAY(o)
 
 # Get hour of time
-cdef inline int time_hour(object o):
+fn inline i32 time_hour(object o):
     return PyDateTime_TIME_GET_HOUR(o)
 
 # Get minute of time
-cdef inline int time_minute(object o):
+fn inline i32 time_minute(object o):
     return PyDateTime_TIME_GET_MINUTE(o)
 
 # Get second of time
-cdef inline int time_second(object o):
+fn inline i32 time_second(object o):
     return PyDateTime_TIME_GET_SECOND(o)
 
 # Get microsecond of time
-cdef inline int time_microsecond(object o):
+fn inline i32 time_microsecond(object o):
     return PyDateTime_TIME_GET_MICROSECOND(o)
 
 # Get fold of time
-cdef inline int time_fold(object o):
+fn inline i32 time_fold(object o):
     # For Python < 3.6 this returns 0 no matter what
     return PyDateTime_TIME_GET_FOLD(o)
 
 # Get hour of datetime
-cdef inline int datetime_hour(object o):
+fn inline i32 datetime_hour(object o):
     return PyDateTime_DATE_GET_HOUR(o)
 
 # Get minute of datetime
-cdef inline int datetime_minute(object o):
+fn inline i32 datetime_minute(object o):
     return PyDateTime_DATE_GET_MINUTE(o)
 
 # Get second of datetime
-cdef inline int datetime_second(object o):
+fn inline i32 datetime_second(object o):
     return PyDateTime_DATE_GET_SECOND(o)
 
 # Get microsecond of datetime
-cdef inline int datetime_microsecond(object o):
+fn inline i32 datetime_microsecond(object o):
     return PyDateTime_DATE_GET_MICROSECOND(o)
 
 # Get fold of datetime
-cdef inline int datetime_fold(object o):
+fn inline i32 datetime_fold(object o):
     # For Python < 3.6 this returns 0 no matter what
     return PyDateTime_DATE_GET_FOLD(o)
 
 # Get days of timedelta
-cdef inline int timedelta_days(object o):
+fn inline i32 timedelta_days(object o):
     return (<PyDateTime_Delta*>o).days
 
 # Get seconds of timedelta
-cdef inline int timedelta_seconds(object o):
+fn inline i32 timedelta_seconds(object o):
     return (<PyDateTime_Delta*>o).seconds
 
 # Get microseconds of timedelta
-cdef inline int timedelta_microseconds(object o):
+fn inline i32 timedelta_microseconds(object o):
     return (<PyDateTime_Delta*>o).microseconds
 
-cdef inline double total_seconds(timedelta obj):
+fn inline f64 total_seconds(timedelta obj):
     # Mirrors the "timedelta.total_seconds()" method.
     # Note that this implementation is not guaranteed to give *exactly* the same
     # result as the original method, due to potential differences in floating point rounding.
     cdef:
-        double days, seconds, micros
-    days = <double>PyDateTime_DELTA_GET_DAYS(obj)
-    seconds = <double>PyDateTime_DELTA_GET_SECONDS(obj)
-    micros = <double>PyDateTime_DELTA_GET_MICROSECONDS(obj)
+        f64 days, seconds, micros
+    days = <f64>PyDateTime_DELTA_GET_DAYS(obj)
+    seconds = <f64>PyDateTime_DELTA_GET_SECONDS(obj)
+    micros = <f64>PyDateTime_DELTA_GET_MICROSECONDS(obj)
     return days * 24 * 3600 + seconds + micros / 1_000_000

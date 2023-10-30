@@ -1,8 +1,8 @@
 # mode: run
 # tag: cyfunction
-# cython: binding=True
+# cython: binding=true
 
-cimport cython
+use cython
 
 
 class PyClass(object):
@@ -76,7 +76,7 @@ cpdef func(x, y=1, z=PyClass):
     return x, y, z.a
 
 
-@cython.ccall
+#[cython.ccall]
 def pyfunc(x, y=1, z=PyClass):
     """
     >>> pyfunc(0)

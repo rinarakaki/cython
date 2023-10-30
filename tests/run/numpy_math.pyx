@@ -2,7 +2,7 @@
 # tag: no-cpp
 # Numpy <= 1.7.1 doesn't have a C++ guard in the header file.
 
-cimport numpy.math as npmath
+use numpy.math as npmath
 
 
 def test_fp_classif():
@@ -10,8 +10,8 @@ def test_fp_classif():
     >>> test_fp_classif()
     """
 
-    cdef double d_zero
-    cdef float f_zero
+    let f64 d_zero
+    let f32 f_zero
 
     d_zero = -1 * 0.
     f_zero = -1 * 0.

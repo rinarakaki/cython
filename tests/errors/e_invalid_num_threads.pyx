@@ -2,7 +2,7 @@
 
 from cython.parallel cimport parallel, prange
 
-cdef int i
+cdef i32 i
 
 # valid
 with nogil, parallel(num_threads=None):
@@ -30,7 +30,7 @@ with nogil, parallel():
         pass
 
 # this one is valid
-for i in prange(10, nogil=True, num_threads=2):
+for i in prange(10, nogil=true, num_threads=2):
     pass
 
 _ERRORS = u"""

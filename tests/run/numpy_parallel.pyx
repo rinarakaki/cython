@@ -1,12 +1,12 @@
 # tag: numpy
 # tag: openmp
 
-cimport cython
+use cython
 from cython.parallel import prange
-cimport numpy as np
+use numpy as np
 
 
-@cython.boundscheck(False)
+#[cython.boundscheck(false)]
 def test_parallel_numpy_arrays():
     """
     >>> test_parallel_numpy_arrays()
@@ -21,8 +21,8 @@ def test_parallel_numpy_arrays():
     3
     4
     """
-    cdef Py_ssize_t i, length
-    cdef np.ndarray[np.int_t] x
+    let isize i, length
+    let np.ndarray[np.int_t] x
 
     try:
         import numpy
@@ -34,7 +34,7 @@ def test_parallel_numpy_arrays():
     x = numpy.zeros(10, dtype=numpy.int_)
     length = x.shape[0]
 
-    for i in prange(length, nogil=True):
+    for i in prange(length, nogil=true):
         x[i] = i - 5
 
     for i in x:

@@ -1,7 +1,7 @@
 # mode: compile
 
 def f(a, b, c):
-    cdef int i
+    let i32 i
     for a in b:
         i = 1
         continue
@@ -18,10 +18,10 @@ def f(a, b, c):
     for a[b] in c:
         i = 1
 
-    for a,b in c:
+    for a, b in c:
         i = 1
 
-    for a in b,c:
+    for a in b, c:
         i = 1
 
 

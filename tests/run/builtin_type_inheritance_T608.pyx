@@ -26,18 +26,18 @@ cdef class MyUnicode(unicode):
 
 cdef class MyList(list):
     """
-    >>> MyList([1,2,3]) == [1,2,3]
+    >>> MyList([1, 2, 3]) == [1, 2, 3]
     True
-    >>> MyList([1,2,3]).attr is None
+    >>> MyList([1, 2, 3]).attr is None
     True
     """
     cdef readonly object attr
 
 cdef class MyListOverride(list):
     """
-    >>> MyListOverride([1,2,3]) == [1,2,3]
+    >>> MyListOverride([1, 2, 3]) == [1, 2, 3]
     True
-    >>> l = MyListOverride([1,2,3])
+    >>> l = MyListOverride([1, 2, 3])
     >>> l.reverse()
     >>> l
     [1, 2, 3, 5]
@@ -47,7 +47,7 @@ cdef class MyListOverride(list):
     """
     # not doctested:
     """
-    >>> l = MyListOverride([1,2,3])
+    >>> l = MyListOverride([1, 2, 3])
     >>> l.append(8)
     >>> l
     [1, 2, 3, 0, 8]
@@ -110,5 +110,5 @@ def test_exception_type_cast(Exception maybe_exn):
     ...
     TypeError: Argument 'maybe_exn' has incorrect type (expected ...Exception, got int)
     """
-    cdef object o = maybe_exn
-    cdef Exception e = o
+    let object o = maybe_exn
+    let Exception e = o

@@ -1,7 +1,5 @@
-
-cdef extern from "<atomic>" namespace "std" nogil:
-
-    cdef enum memory_order:
+extern from "<atomic>" namespace "std" nogil:
+    enum memory_order:
         memory_order_relaxed
         memory_order_consume
         memory_order_acquire
@@ -40,9 +38,9 @@ cdef extern from "<atomic>" namespace "std" nogil:
         T fetch_xor(T)
 
         T operator++()
-        T operator++(int)
+        T operator++(i32)
         T operator--()
-        T operator--(int)
+        T operator--(i32)
 
         # modify-in-place operators not yet supported by Cython:
         # T operator+=(T)

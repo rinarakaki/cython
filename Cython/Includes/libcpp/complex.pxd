@@ -1,6 +1,6 @@
 # Note: add integer versions of the functions?
 
-cdef extern from "<complex>" namespace "std" nogil:
+extern from "<complex>" namespace "std" nogil:
     cdef cppclass complex[T]:
         complex() except +
         complex(T, T) except +
@@ -41,25 +41,25 @@ cdef extern from "<complex>" namespace "std" nogil:
     # Return real part
     T real[T](complex[T]&)
     long double real(long double)
-    double real(double)
-    float real(float)
+    fn f64 real(double)
+    fn f32 real(float)
 
     # Return imaginary part
     T imag[T](complex[T]&)
     long double imag(long double)
-    double imag(double)
-    float imag(float)
+    fn f64 imag(double)
+    fn f32 imag(float)
 
     T abs[T](complex[T]&)
     T arg[T](complex[T]&)
     long double arg(long double)
-    double arg(double)
-    float arg(float)
+    fn f64 arg(double)
+    fn f32 arg(float)
 
     T norm[T](complex[T])
     long double norm(long double)
-    double norm(double)
-    float norm(float)
+    fn f64 norm(double)
+    fn f32 norm(float)
 
     complex[T] conj[T](complex[T]&)
     complex[long double] conj(long double)

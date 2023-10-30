@@ -5,22 +5,22 @@
 
 ### low level tests
 
-cimport cython
+use cython
 
-cdef extern from *:
+extern from *:
     # evil hack to access the internal utility function
-    ctypedef struct PyCodeObject
-    ctypedef struct __Pyx_CodeObjectCacheEntry:
-        int code_line
+    struct PyCodeObject
+    struct __Pyx_CodeObjectCacheEntry:
+        i32 code_line
         PyCodeObject* code_object
-    int __pyx_bisect_code_objects(__Pyx_CodeObjectCacheEntry* entries, int count, int code_line)
+    int __pyx_bisect_code_objects(__Pyx_CodeObjectCacheEntry* entries, i32 count, int code_line)
 
 def test_lowlevel_bisect2(*indices):
     """
     >>> test_lowlevel_bisect2(1, 2, 3, 4, 5, 6)
     [0, 0, 1, 1, 2, 2]
     """
-    cdef __Pyx_CodeObjectCacheEntry* cache = [
+    let __Pyx_CodeObjectCacheEntry* cache = [
         __Pyx_CodeObjectCacheEntry(2, NULL),
         __Pyx_CodeObjectCacheEntry(4, NULL),
         ]
@@ -32,7 +32,7 @@ def test_lowlevel_bisect5(*indices):
     >>> test_lowlevel_bisect5(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11)
     [0, 1, 2, 2, 2, 3, 3, 3, 4, 5, 5]
     """
-    cdef __Pyx_CodeObjectCacheEntry* cache = [
+    let __Pyx_CodeObjectCacheEntry* cache = [
         __Pyx_CodeObjectCacheEntry(1, NULL),
         __Pyx_CodeObjectCacheEntry(2, NULL),
         __Pyx_CodeObjectCacheEntry(5, NULL),
@@ -47,7 +47,7 @@ def test_lowlevel_bisect6(*indices):
     >>> test_lowlevel_bisect6(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13)
     [0, 0, 1, 2, 2, 2, 3, 3, 4, 5, 5, 5, 6]
     """
-    cdef __Pyx_CodeObjectCacheEntry* cache = [
+    let __Pyx_CodeObjectCacheEntry* cache = [
         __Pyx_CodeObjectCacheEntry(2, NULL),
         __Pyx_CodeObjectCacheEntry(3, NULL),
         __Pyx_CodeObjectCacheEntry(6, NULL),

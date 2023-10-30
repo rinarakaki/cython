@@ -1,9 +1,9 @@
-cdef extern from "<strings.h>" nogil:
-    int    bcmp(const void *, const void *, size_t)
-    void   bcopy(const void *, void *, size_t)
-    void   bzero(void *, size_t)
-    int    ffs(int)
-    char   *index(const char *, int)
-    char   *rindex(const char *, int)
-    int    strcasecmp(const char *, const char *)
-    int    strncasecmp(const char *, const char *, size_t)
+extern from "<strings.h>" nogil:
+    fn i32   bcmp(const void *, const void *, usize)
+    fn void  bcopy(const void *, void *, usize)
+    fn void  bzero(void *, usize)
+    fn i32   ffs(i32)
+    fn char *index(const char *, i32)
+    fn char *rindex(const char *, i32)
+    fn i32   strcasecmp(const char *, const char *)
+    fn i32   strncasecmp(const char *, const char *, usize)

@@ -1,9 +1,9 @@
 __doc__ = u"""
-    >>> l1 = Sub1([1,2,3])
+    >>> l1 = Sub1([1, 2, 3])
     >>> len(l1)
     3
 
-    >>> l2 = Sub2([1,2,3])
+    >>> l2 = Sub2([1, 2, 3])
     >>> len(l2)
     3
 
@@ -21,7 +21,7 @@ __doc__ = u"""
     True
 """
 
-cdef extern from *:
+extern from *:
     ctypedef class __builtin__.list [ object PyListObject ]:
         pass
 

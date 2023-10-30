@@ -1,7 +1,7 @@
 
-cimport cython
+use cython
 
-@cython.test_fail_if_path_exists('//NoneCheckNode')
+#[cython.test_fail_if_path_exists('//NoneCheckNode')]
 def none_checks(a):
     """
     >>> none_checks(1)
@@ -12,11 +12,11 @@ def none_checks(a):
     c = None
     d = {11:22}
     if a is c:
-        return True
+        return true
     else:
         return d.get(11)
 
-@cython.test_assert_path_exists('//NoneCheckNode')
+#[cython.test_assert_path_exists('//NoneCheckNode')]
 def dict_arg(dict a):
     """
     >>> dict_arg({})
@@ -25,7 +25,7 @@ def dict_arg(dict a):
     """
     return a.get(1)
 
-@cython.test_fail_if_path_exists('//NoneCheckNode')
+#[cython.test_fail_if_path_exists('//NoneCheckNode')]
 def dict_arg_not_none(dict a not None):
     """
     >>> dict_arg_not_none({})
@@ -34,7 +34,7 @@ def dict_arg_not_none(dict a not None):
     """
     return a.get(1)
 
-@cython.test_assert_path_exists('//NoneCheckNode')
+#[cython.test_assert_path_exists('//NoneCheckNode')]
 def reassignment(dict d):
     """
     >>> reassignment({})
@@ -47,12 +47,12 @@ def reassignment(dict d):
     b = d.get(1)
     return a, b
 
-@cython.test_fail_if_path_exists('//NoneCheckNode')
+#[cython.test_fail_if_path_exists('//NoneCheckNode')]
 def conditional(a):
     """
-    >>> conditional(True)
+    >>> conditional(true)
     2
-    >>> conditional(False)
+    >>> conditional(false)
     3
     """
     if a:
@@ -61,7 +61,7 @@ def conditional(a):
         d = {1:3}
     return d.get(1)
 
-@cython.test_assert_path_exists('//NoneCheckNode')
+#[cython.test_assert_path_exists('//NoneCheckNode')]
 def conditional_arg(a, dict d):
     """
     >>> conditional_arg(True,  {1:2})
@@ -72,7 +72,7 @@ def conditional_arg(a, dict d):
         d = {}
     return d.get(1)
 
-@cython.test_fail_if_path_exists('//NoneCheckNode')
+#[cython.test_fail_if_path_exists('//NoneCheckNode')]
 def conditional_not_none(a, dict d not None):
     """
     >>> conditional_not_none(True,  {1:2})
@@ -83,38 +83,38 @@ def conditional_not_none(a, dict d not None):
         d = {}
     return d.get(1)
 
-@cython.test_fail_if_path_exists('//NoneCheckNode')
-def self_dependency(int x):
+#[cython.test_fail_if_path_exists('//NoneCheckNode')]
+def self_dependency(i32 x):
     """
     >>> self_dependency(1)
     (1, 2)
     >>> self_dependency(2)
     (None, None)
     """
-    cdef dict a, b
+    let dict a, b
     a = {1:2}
     b = {2:1}
     for i in range(x):
-        a,b = b,a
+        a, b = b, a
     return a.get(2), b.get(1)
 
-@cython.test_assert_path_exists('//NoneCheckNode')
-def self_dependency_none(int x):
+#[cython.test_assert_path_exists('//NoneCheckNode')]
+def self_dependency_none(i32 x):
     """
-    >>> self_dependency_none(False)
+    >>> self_dependency_none(false)
     1
-    >>> self_dependency_none(True)
+    >>> self_dependency_none(true)
     Traceback (most recent call last):
     AttributeError: 'NoneType' object has no attribute 'get'
     """
-    cdef dict a, b
+    let dict a, b
     a = None
     b = {2:1}
     if x:
-        a,b = b,a
+        a, b = b, a
     return b.get(2)
 
-@cython.test_fail_if_path_exists('//NoneCheckNode')
+#[cython.test_fail_if_path_exists('//NoneCheckNode')]
 def in_place_op():
     vals = [0]
     vals += [1]

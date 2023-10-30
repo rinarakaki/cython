@@ -11,7 +11,7 @@ from libcpp.vector cimport vector
 from spam import *
 
 # Use the imports (details don't matter).
-cdef extern from *:
+extern from *:
     """
     #include <vector>
     std::vector<int> get_vector()
@@ -19,6 +19,6 @@ cdef extern from *:
       return std::vector<int>(17);
     }
     """
-    vector[int] get_vector()
+    vector[i32] get_vector()
 
 my_vector = get_vector()

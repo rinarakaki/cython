@@ -1,14 +1,14 @@
-cdef void ftang():
-    cdef int x
+fn void ftang():
+    let i32 x
     x = 0
 
-cdef int foo(int i, char c):
-    cdef float f, g
+fn i32 foo(i32 i, char c):
+    let f32 f, g
     f = 0
     g = 0
 
-cdef spam(int i, obj, object object):
-    cdef char c
+fn spam(i32 i, obj, object object):
+    let char c
     c = 0
 
 def test():

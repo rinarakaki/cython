@@ -1,5 +1,5 @@
 
-cimport cython
+use cython
 
 def coerce_char_default(char c):
     """
@@ -11,7 +11,7 @@ def coerce_char_default(char c):
     return c
 
 
-def coerce_uchar_default(unsigned char c):
+def coerce_uchar_default(u8 c):
     """
     Default char -> int coercion
 
@@ -21,8 +21,8 @@ def coerce_uchar_default(unsigned char c):
     return c
 
 
-@cython.test_assert_path_exists("//CoerceIntToBytesNode")
-@cython.test_fail_if_path_exists("//CoerceToPyTypeNode")
+#[cython.test_assert_path_exists("//CoerceIntToBytesNode")]
+#[cython.test_fail_if_path_exists("//CoerceToPyTypeNode")]
 def coerce_char_bytes_cast(char c):
     """
     Explicit char -> bytes coercion
@@ -33,9 +33,9 @@ def coerce_char_bytes_cast(char c):
     return <bytes>c
 
 
-@cython.test_assert_path_exists("//CoerceIntToBytesNode")
-@cython.test_fail_if_path_exists("//CoerceToPyTypeNode")
-def coerce_uchar_bytes_cast(unsigned char c):
+#[cython.test_assert_path_exists("//CoerceIntToBytesNode")]
+#[cython.test_fail_if_path_exists("//CoerceToPyTypeNode")]
+def coerce_uchar_bytes_cast(u8 c):
     """
     Explicit uchar -> bytes coercion
 
@@ -48,9 +48,9 @@ def coerce_uchar_bytes_cast(unsigned char c):
     return <bytes>c
 
 
-@cython.test_assert_path_exists("//CoerceIntToBytesNode")
-@cython.test_fail_if_path_exists("//CoerceToPyTypeNode")
-def coerce_int_bytes_cast(int c):
+#[cython.test_assert_path_exists("//CoerceIntToBytesNode")]
+#[cython.test_fail_if_path_exists("//CoerceToPyTypeNode")]
+def coerce_int_bytes_cast(i32 c):
     """
     Explicit int -> bytes coercion
 
@@ -66,9 +66,9 @@ def coerce_int_bytes_cast(int c):
     return <bytes>c
 
 
-@cython.test_assert_path_exists("//CoerceIntToBytesNode")
-@cython.test_fail_if_path_exists("//CoerceToPyTypeNode")
-def coerce_uint_bytes_cast(unsigned int c):
+#[cython.test_assert_path_exists("//CoerceIntToBytesNode")]
+#[cython.test_fail_if_path_exists("//CoerceToPyTypeNode")]
+def coerce_uint_bytes_cast(u32 c):
     """
     Explicit uint -> bytes coercion
 
@@ -85,8 +85,8 @@ def coerce_uint_bytes_cast(unsigned int c):
     return <bytes>c
 
 
-@cython.test_assert_path_exists("//CoerceIntToBytesNode")
-@cython.test_fail_if_path_exists("//CoerceToPyTypeNode")
+#[cython.test_assert_path_exists("//CoerceIntToBytesNode")]
+#[cython.test_fail_if_path_exists("//CoerceToPyTypeNode")]
 def coerce_char_bytes_assign(char c):
     """
     Implicit char -> bytes coercion in assignments
@@ -94,13 +94,13 @@ def coerce_char_bytes_assign(char c):
     >>> coerce_char_bytes_assign(ord('A')) == 'A'.encode('ASCII')
     True
     """
-    cdef bytes s = c
+    let bytes s = c
     return s
 
 
-@cython.test_assert_path_exists("//CoerceIntToBytesNode")
-@cython.test_fail_if_path_exists("//CoerceToPyTypeNode")
-def coerce_uchar_bytes_assign(unsigned char c):
+#[cython.test_assert_path_exists("//CoerceIntToBytesNode")]
+#[cython.test_fail_if_path_exists("//CoerceToPyTypeNode")]
+def coerce_uchar_bytes_assign(u8 c):
     """
     Implicit uchar -> bytes coercion in assignments
 
@@ -110,13 +110,13 @@ def coerce_uchar_bytes_assign(unsigned char c):
     >>> b == '\\xff' or b == '\\xff'.encode('ISO-8859-1') # Py2 or Py3
     True
     """
-    cdef bytes s = c
+    let bytes s = c
     return s
 
 
-@cython.test_assert_path_exists("//CoerceIntToBytesNode")
-@cython.test_fail_if_path_exists("//CoerceToPyTypeNode")
-def coerce_int_bytes_assign(int c):
+#[cython.test_assert_path_exists("//CoerceIntToBytesNode")]
+#[cython.test_fail_if_path_exists("//CoerceToPyTypeNode")]
+def coerce_int_bytes_assign(i32 c):
     """
     Implicit int -> bytes coercion in assignments
 
@@ -130,13 +130,13 @@ def coerce_int_bytes_assign(int c):
     Traceback (most recent call last):
     OverflowError: value too large to pack into a byte
     """
-    cdef bytes s = c
+    let bytes s = c
     return s
 
 
-@cython.test_assert_path_exists("//CoerceIntToBytesNode")
-@cython.test_fail_if_path_exists("//CoerceToPyTypeNode")
-def coerce_uint_bytes_assign(unsigned int c):
+#[cython.test_assert_path_exists("//CoerceIntToBytesNode")]
+#[cython.test_fail_if_path_exists("//CoerceToPyTypeNode")]
+def coerce_uint_bytes_assign(u32 c):
     """
     Implicit uint -> bytes coercion in assignments
 
@@ -150,7 +150,7 @@ def coerce_uint_bytes_assign(unsigned int c):
     Traceback (most recent call last):
     OverflowError: value too large to pack into a byte
     """
-    cdef bytes s = c
+    let bytes s = c
     return s
 
 
@@ -159,8 +159,8 @@ def inplace_ops_use_arithmetic():
     >>> print(inplace_ops_use_arithmetic().decode('ascii'))
     bc
     """
-    cdef char* s = 'abc'
-    cdef object x = 1
+    let char* s = 'abc'
+    let object x = 1
     s += 1
     s += 2*x
     s -= 1
@@ -168,7 +168,7 @@ def inplace_ops_use_arithmetic():
     return s
 
 
-@cython.test_fail_if_path_exists('//CoerceFromPyTypeNode')
+#[cython.test_fail_if_path_exists('//CoerceFromPyTypeNode')]
 def indexing_to_char(bytes s):
     """
     >>> ord('b')
@@ -176,5 +176,5 @@ def indexing_to_char(bytes s):
     >>> indexing_to_char('abc'.encode('ascii'))
     98
     """
-    cdef unsigned char c = s[1]
+    let u8 c = s[1]
     return c

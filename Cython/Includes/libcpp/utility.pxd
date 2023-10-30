@@ -1,20 +1,20 @@
-cdef extern from "<utility>" namespace "std" nogil:
+extern from "<utility>" namespace "std" nogil:
     cdef cppclass pair[T, U]:
         ctypedef T first_type
         ctypedef U second_type
         T first
         U second
-        pair() except +
-        pair(pair&) except +
-        pair(T&, U&) except +
-        bint operator==(pair&, pair&)
-        bint operator!=(pair&, pair&)
-        bint operator<(pair&, pair&)
-        bint operator>(pair&, pair&)
-        bint operator<=(pair&, pair&)
-        bint operator>=(pair&, pair&)
+        fn pair() except +
+        fn pair(pair&) except +
+        fn pair(T&, U&) except +
+        fn bint operator==(pair&, pair&)
+        fn bint operator!=(pair&, pair&)
+        fn bint operator<(pair&, pair&)
+        fn bint operator>(pair&, pair&)
+        fn bint operator<=(pair&, pair&)
+        fn bint operator>=(pair&, pair&)
 
-cdef extern from * namespace "cython_std" nogil:
+extern from * namespace "cython_std" nogil:
     """
     #if __cplusplus >= 201103L || (defined(_MSC_VER) && _MSC_VER >= 1600)
     // move should be defined for these versions of MSVC, but __cplusplus isn't set usefully
@@ -27,4 +27,4 @@ cdef extern from * namespace "cython_std" nogil:
 
     #endif
     """
-    cdef T move[T](T)
+    fn T move[T](T)

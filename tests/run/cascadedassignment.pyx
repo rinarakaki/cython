@@ -1,10 +1,10 @@
 import cython
 
-@cython.test_fail_if_path_exists(
-    '//CascadedAssignmentNode//CoerceFromPyTypeNode',
-    '//CascadedAssignmentNode//CoerceToPyTypeNode',
-)
-@cython.test_assert_path_exists('//CascadedAssignmentNode')
+#[cython.test_fail_if_path_exists(
+    "//CascadedAssignmentNode//CoerceFromPyTypeNode",
+    "//CascadedAssignmentNode//CoerceToPyTypeNode",
+)]
+#[cython.test_assert_path_exists("//CascadedAssignmentNode")]
 def test_cascaded_assignment_simple():
     """
     >>> test_cascaded_assignment_simple()
@@ -13,20 +13,20 @@ def test_cascaded_assignment_simple():
     a = b = c = 5
     return a
 
-@cython.test_fail_if_path_exists(
-    '//CascadedAssignmentNode//CoerceFromPyTypeNode',
-    '//CascadedAssignmentNode//CoerceToPyTypeNode',
-)
-@cython.test_assert_path_exists('//CascadedAssignmentNode')
+#[cython.test_fail_if_path_exists(
+    "//CascadedAssignmentNode//CoerceFromPyTypeNode",
+    "//CascadedAssignmentNode//CoerceToPyTypeNode",
+)]
+#[cython.test_assert_path_exists("//CascadedAssignmentNode")]
 def test_cascaded_assignment_typed():
     """
     >>> test_cascaded_assignment_typed()
     int Python object double
     (5, 5, 5.0)
     """
-    cdef int a
-    cdef object b
-    cdef double c
+    let i32 a
+    let object b
+    let f64 c
 
     a = b = c = 5
 
@@ -56,7 +56,6 @@ def test_cascaded_assignment_evaluate_expr():
     """
     a = b = c = float(expr())
     return a, b, c
-
 
 def test_overwrite():
     """

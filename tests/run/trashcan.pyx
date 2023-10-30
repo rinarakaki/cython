@@ -1,6 +1,6 @@
 # mode: run
 
-cimport cython
+use cython
 
 
 # Count number of times an object was deallocated twice. This should remain 0.
@@ -19,18 +19,18 @@ def assert_no_double_deallocations():
 # See also https://github.com/python/cpython/pull/11841
 def recursion_test(f, int n=2**20):
     x = None
-    cdef int i
+    let i32 i
     for i in range(n):
         x = f(x)
 
 
-@cython.trashcan(True)
+#[cython.trashcan(true)]
 cdef class Recurse:
     """
     >>> recursion_test(Recurse)
     >>> assert_no_double_deallocations()
     """
-    cdef public attr
+    pub attr
     cdef int deallocated
 
     def __cinit__(self, x):
@@ -57,15 +57,15 @@ cdef class RecurseSub(Recurse):
         self.subdeallocated = 1
 
 
-@cython.freelist(4)
-@cython.trashcan(True)
+#[cython.freelist(4)]
+#[cython.trashcan(true)]
 cdef class RecurseFreelist:
     """
     >>> recursion_test(RecurseFreelist)
     >>> recursion_test(RecurseFreelist, 1000)
     >>> assert_no_double_deallocations()
     """
-    cdef public attr
+    pub attr
     cdef int deallocated
 
     def __cinit__(self, x):
@@ -116,7 +116,7 @@ cdef class Sub1(Base):
     >>> recursion_test(Sub1, 100)
     >>> assert_no_trashcan_used()
     """
-    cdef public attr
+    pub attr
 
     def __cinit__(self, x):
         self.attr = x
@@ -126,19 +126,19 @@ cdef class Sub1(Base):
         trashcan_used += base_deallocated
 
 
-@cython.trashcan(True)
+#[cython.trashcan(true)]
 cdef class Middle(Base):
-    cdef public foo
+    pub foo
 
 
 # Trashcan disabled explicitly
-@cython.trashcan(False)
+#[cython.trashcan(false)]
 cdef class Sub2(Middle):
     """
     >>> recursion_test(Sub2, 1000)
     >>> assert_no_trashcan_used()
     """
-    cdef public attr
+    pub attr
 
     def __cinit__(self, x):
         self.attr = x

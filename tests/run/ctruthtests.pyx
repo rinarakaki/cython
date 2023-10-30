@@ -3,19 +3,19 @@ def test_ptr():
     >>> test_ptr()
     False
     """
-    cdef void* p = NULL
+    let void* p = NULL
     if p:
-        return True
+        return true
     else:
-        return False
+        return false
 
 def test_ptr2():
     """
     >>> test_ptr2()
     2
     """
-    cdef char* p1 = NULL
-    cdef char* p2 = NULL
+    let char* p1 = NULL
+    let char* p2 = NULL
     p1 += 1
 
     if p1 and p2:
@@ -25,7 +25,7 @@ def test_ptr2():
     else:
         return 3
 
-def test_int(int i):
+def test_int(i32 i):
     """
     >>> test_int(0)
     False
@@ -33,11 +33,11 @@ def test_int(int i):
     True
     """
     if i:
-        return True
+        return true
     else:
-        return False
+        return false
 
-def test_short(short i):
+def test_short(i16 i):
     """
     >>> test_short(0)
     False
@@ -45,11 +45,11 @@ def test_short(short i):
     True
     """
     if i:
-        return True
+        return true
     else:
-        return False
+        return false
 
-def test_Py_ssize_t(Py_ssize_t i):
+def test_Py_ssize_t(isize i):
     """
     >>> test_Py_ssize_t(0)
     False
@@ -57,12 +57,12 @@ def test_Py_ssize_t(Py_ssize_t i):
     True
     """
     if i:
-        return True
+        return true
     else:
-        return False
+        return false
 
 cdef class TestExtInt:
-    cdef int i
+    let i32 i
     def __init__(self, i): self.i = i
 
 def test_attr_int(TestExtInt e):
@@ -73,17 +73,17 @@ def test_attr_int(TestExtInt e):
     True
     """
     if e.i:
-        return True
+        return true
     else:
-        return False
+        return false
 
-ctypedef union _aux:
-    size_t i
+union _aux:
+    usize i
     void *p
 
 cdef class TestExtPtr:
-    cdef void* p
-    def __init__(self, int i):
+    let void* p
+    def __init__(self, i32 i):
         cdef _aux aux
         aux.i = i
         self.p = aux.p
@@ -96,6 +96,6 @@ def test_attr_ptr(TestExtPtr e):
     True
     """
     if e.p:
-        return True
+        return true
     else:
-        return False
+        return false

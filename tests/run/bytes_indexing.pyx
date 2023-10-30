@@ -1,9 +1,8 @@
-
-cimport cython
+use cython
 
 cdef bytes b12345 = b'12345'
 
-def index_literal(int i):
+def index_literal(i32 i):
     """
     Python 3 returns integer values on indexing, Py2 returns byte
     string literals...
@@ -19,11 +18,10 @@ def index_literal(int i):
     """
     return b"12345"[i]
 
-
-@cython.test_assert_path_exists("//PythonCapiCallNode")
-@cython.test_fail_if_path_exists("//IndexNode",
-                                 "//CoerceFromPyTypeNode")
-def index_literal_char_cast(int i):
+#[cython.test_assert_path_exists("//PythonCapiCallNode")]
+#[cython.test_fail_if_path_exists("//IndexNode",
+                                  "//CoerceFromPyTypeNode")]
+def index_literal_char_cast(i32 i):
     """
     >>> index_literal_char_cast(0) == ord('1')
     True
@@ -39,11 +37,10 @@ def index_literal_char_cast(int i):
     """
     return <char>(b"12345"[i])
 
-
-@cython.test_assert_path_exists("//PythonCapiCallNode")
-@cython.test_fail_if_path_exists("//IndexNode",
-                                 "//CoerceFromPyTypeNode")
-def index_nonliteral_char_cast(int i):
+#[cython.test_assert_path_exists("//PythonCapiCallNode")]
+#[cython.test_fail_if_path_exists("//IndexNode",
+                                  "//CoerceFromPyTypeNode")]
+def index_nonliteral_char_cast(i32 i):
     """
     >>> index_nonliteral_char_cast(0) == ord('1')
     True
@@ -59,11 +56,10 @@ def index_nonliteral_char_cast(int i):
     """
     return <char>(b12345[i])
 
-
-@cython.test_assert_path_exists("//PythonCapiCallNode")
-@cython.test_fail_if_path_exists("//IndexNode",
-                                 "//CoerceFromPyTypeNode")
-def index_literal_uchar_cast(int i):
+#[cython.test_assert_path_exists("//PythonCapiCallNode")]
+#[cython.test_fail_if_path_exists("//IndexNode",
+                                  "//CoerceFromPyTypeNode")]
+def index_literal_uchar_cast(i32 i):
     """
     >>> index_literal_uchar_cast(0) == ord('1')
     True
@@ -77,13 +73,12 @@ def index_literal_uchar_cast(int i):
     Traceback (most recent call last):
     IndexError: string index out of range
     """
-    return <unsigned char>(b"12345"[i])
+    return <u8>(b"12345"[i])
 
-
-@cython.test_assert_path_exists("//PythonCapiCallNode")
-@cython.test_fail_if_path_exists("//IndexNode",
-                                 "//CoerceFromPyTypeNode")
-def index_nonliteral_uchar_cast(int i):
+#[cython.test_assert_path_exists("//PythonCapiCallNode")]
+#[cython.test_fail_if_path_exists("//IndexNode",
+                                  "//CoerceFromPyTypeNode")]
+def index_nonliteral_uchar_cast(i32 i):
     """
     >>> index_nonliteral_uchar_cast(0) == ord('1')
     True
@@ -97,13 +92,12 @@ def index_nonliteral_uchar_cast(int i):
     Traceback (most recent call last):
     IndexError: string index out of range
     """
-    return <unsigned char>(b12345[i])
+    return <u8>(b12345[i])
 
-
-@cython.test_assert_path_exists("//PythonCapiCallNode")
-@cython.test_fail_if_path_exists("//IndexNode",
-                                 "//CoerceFromPyTypeNode")
-def index_literal_char_coerce(int i):
+#[cython.test_assert_path_exists("//PythonCapiCallNode")]
+#[cython.test_fail_if_path_exists("//IndexNode",
+                                  "//CoerceFromPyTypeNode")]
+def index_literal_char_coerce(i32 i):
     """
     >>> index_literal_char_coerce(0) == ord('1')
     True
@@ -117,14 +111,13 @@ def index_literal_char_coerce(int i):
     Traceback (most recent call last):
     IndexError: string index out of range
     """
-    cdef char result = b"12345"[i]
+    let char result = b"12345"[i]
     return result
 
-
-@cython.test_assert_path_exists("//PythonCapiCallNode")
-@cython.test_fail_if_path_exists("//IndexNode",
-                                 "//CoerceFromPyTypeNode")
-def index_nonliteral_char_coerce(int i):
+#[cython.test_assert_path_exists("//PythonCapiCallNode")]
+#[cython.test_fail_if_path_exists("//IndexNode",
+                                  "//CoerceFromPyTypeNode")]
+def index_nonliteral_char_coerce(i32 i):
     """
     >>> index_nonliteral_char_coerce(0) == ord('1')
     True
@@ -138,15 +131,14 @@ def index_nonliteral_char_coerce(int i):
     Traceback (most recent call last):
     IndexError: string index out of range
     """
-    cdef char result = b12345[i]
+    let char result = b12345[i]
     return result
 
-
-@cython.test_assert_path_exists("//PythonCapiCallNode")
-@cython.test_fail_if_path_exists("//IndexNode",
-                                 "//CoerceFromPyTypeNode")
-@cython.boundscheck(False)
-def index_literal_char_coerce_no_check(int i):
+#[cython.test_assert_path_exists("//PythonCapiCallNode")]
+#[cython.test_fail_if_path_exists("//IndexNode",
+                                  "//CoerceFromPyTypeNode")]
+#[cython.boundscheck(false)]
+def index_literal_char_coerce_no_check(i32 i):
     """
     >>> index_literal_char_coerce_no_check(0) == ord('1')
     True
@@ -157,15 +149,14 @@ def index_literal_char_coerce_no_check(int i):
     >>> index_literal_char_coerce_no_check(4) == ord('5')
     True
     """
-    cdef char result = b"12345"[i]
+    let char result = b"12345"[i]
     return result
 
-
-@cython.test_assert_path_exists("//PythonCapiCallNode")
-@cython.test_fail_if_path_exists("//IndexNode",
-                                 "//CoerceFromPyTypeNode")
-@cython.boundscheck(False)
-def index_nonliteral_char_coerce_no_check(int i):
+#[cython.test_assert_path_exists("//PythonCapiCallNode")]
+#[cython.test_fail_if_path_exists("//IndexNode",
+                                  "//CoerceFromPyTypeNode")]
+#[cython.boundscheck(false)]
+def index_nonliteral_char_coerce_no_check(i32 i):
     """
     >>> index_nonliteral_char_coerce_no_check(0) == ord('1')
     True
@@ -176,5 +167,5 @@ def index_nonliteral_char_coerce_no_check(int i):
     >>> index_nonliteral_char_coerce_no_check(4) == ord('5')
     True
     """
-    cdef char result = b12345[i]
+    let char result = b12345[i]
     return result

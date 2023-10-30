@@ -1,27 +1,26 @@
-cdef union Spam:
-    int i
+union Spam:
+    i32 i
     char c
-    float *p[42]
+    f32 *p[42]
 
 cdef Spam spam, ham
 
-cdef void eggs_i(Spam s):
-    cdef int j
+fn void eggs_i(Spam s):
+    let i32 j
     j = s.i
     s.i = j
 
-cdef void eggs_c(Spam s):
-    cdef char c
+fn void eggs_c(Spam s):
+    let char c
     c = s.c
     s.c = c
 
-cdef void eggs_p(Spam s):
-    cdef float *p
+fn void eggs_p(Spam s):
+    let f32 *p
     p = s.p[0]
     s.p[0] = p
 
 spam = ham
-
 
 def test_i():
     """
@@ -30,7 +29,6 @@ def test_i():
     spam.i = 1
     eggs_i(spam)
 
-
 def test_c():
     """
     >>> test_c()
@@ -38,21 +36,18 @@ def test_c():
     spam.c = c'a'
     eggs_c(spam)
 
-
 def test_p():
     """
     >>> test_p()
     """
-    cdef float f
+    let f32 f
     spam.p[0] = &f
     eggs_p(spam)
 
-
-cdef union AllCharptr:
+union AllCharptr:
     char* s1
     char* s2
     char* s3
-
 
 def test_charptr_to_py():
     """
@@ -66,22 +61,20 @@ def test_charptr_to_py():
     >>> result['s3'] == b'abc'
     True
     """
-    cdef AllCharptr u
+    let AllCharptr u
     u.s1 = b"abc"
     return u
 
-
-cdef union SafeMix:
-    char c
-    unsigned char uc
+union SafeMix:
+    i8 c
+    u8 uc
     signed char sc
-    short w
-    int i
-    long l
-    size_t z
-    float f
-    double d
-
+    i16 w
+    i32 i
+    i64 l
+    usize z
+    f32 f
+    f64 d
 
 def test_safe_type_mix_from_to_py(v):
     """
@@ -121,5 +114,5 @@ def test_safe_type_mix_from_to_py(v):
     >>> result['z'] != 0
     True
     """
-    cdef SafeMix u = v
+    let SafeMix u = v
     return u

@@ -3,8 +3,8 @@
 
 from libcpp.string cimport string
 
-cdef foo():
-    cdef string field
+fn foo():
+    let string field
     if field:  # field cannot be coerced to bool
         pass
 

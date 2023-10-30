@@ -8,13 +8,12 @@ cdef mybool mybul = True
 cdef bint bul = True
 cdef int num = 42
 
-
 def CondExprNode_to_obj(test):
     """
-    >>> CondExprNode_to_obj(True)
+    >>> CondExprNode_to_obj(true)
     Python object | Python object
     2
-    >>> CondExprNode_to_obj(False)
+    >>> CondExprNode_to_obj(false)
     Python object | Python object
     84
     """
@@ -22,7 +21,6 @@ def CondExprNode_to_obj(test):
     print(typeof(mybul if test else num), "|", typeof(bul if test else num))
 
     return (mybul if test else num) + (bul if test else num)
-
 
 def BoolBinopNode_to_obj():
     """
@@ -35,17 +33,15 @@ def BoolBinopNode_to_obj():
 
     return (mybul or num) + (bul or num)
 
-
-cdef int test_bool(mybool arg):
-    return <int>arg
-
+fn i32 test_bool(mybool arg):
+    return <i32>arg
 
 def CondExprNode_to_bool(test):
     """
-    >>> CondExprNode_to_bool(True)
+    >>> CondExprNode_to_bool(true)
     bint | bint
     0
-    >>> CondExprNode_to_bool(False)
+    >>> CondExprNode_to_bool(false)
     bint | bint
     2
     """
@@ -57,7 +53,6 @@ def CondExprNode_to_bool(test):
     # It happens when a type is wrongly inferred as Python object
     # instead of bint or mybool.
     return test_bool(not mybul if test else mybul) + test_bool(not bul if test else bul)
-
 
 def BoolBinopNode_to_bool():
     """

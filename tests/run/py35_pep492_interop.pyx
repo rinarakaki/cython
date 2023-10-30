@@ -1,9 +1,9 @@
-# cython: language_level=3, binding=True
+# cython: language_level=3, binding=true
 # mode: run
 # tag: pep492, asyncfor, await
 
 
-def run_async(coro, ignore_type=False):
+def run_async(coro, ignore_type=false):
     if not ignore_type:
         #assert coro.__class__ is types.GeneratorType
         assert coro.__class__.__name__ in ('coroutine', 'GeneratorWrapper'), coro.__class__.__name__
@@ -90,7 +90,7 @@ def await_cyobject():
     return simple, awaiting
 
 
-cimport cython
+use cython
 
 def yield_from_cyobject():
     """
@@ -111,21 +111,21 @@ def yield_from_cyobject():
     >>> buffer, result = run_async(run_await(awaiting(simple_it())))
     >>> result
     10
-    >>> buffer, result = run_async(awaiting(run_await(simple_it())), ignore_type=True)
+    >>> buffer, result = run_async(awaiting(run_await(simple_it())), ignore_type=true)
     >>> result
     10
     >>> buffer, result = run_async(run_await(py_simple_nonit()))
     >>> result
     10
 
-    >>> buffer, result = run_async(run_yield_from(awaiting(run_await(simple_it()))), ignore_type=True)
+    >>> buffer, result = run_async(run_yield_from(awaiting(run_await(simple_it()))), ignore_type=true)
     >>> result
     10
 
-    >>> buffer, result = run_async(run_yield_from(simple_it()), ignore_type=True)
+    >>> buffer, result = run_async(run_yield_from(simple_it()), ignore_type=true)
     >>> result
     10
-    >>> buffer, result = run_async(yield_from(simple_it()), ignore_type=True)
+    >>> buffer, result = run_async(yield_from(simple_it()), ignore_type=true)
     >>> result
     10
 
@@ -142,11 +142,11 @@ def yield_from_cyobject():
     async def simple_nonit():
         return 10
 
-    @cython.iterable_coroutine
+    #[cython.iterable_coroutine]
     async def simple_it():
         return 10
 
-    @cython.iterable_coroutine
+    #[cython.iterable_coroutine]
     async def awaiting(awaitable):
         return await awaitable
 

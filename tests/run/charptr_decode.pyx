@@ -1,18 +1,16 @@
+use cython
 
-cimport cython
-
-cdef extern from *:
-    const Py_ssize_t PY_SSIZE_T_MIN
-    const Py_ssize_t PY_SSIZE_T_MAX
-
+extern from *:
+    const isize PY_SSIZE_T_MIN
+    const isize PY_SSIZE_T_MAX
 
 ############################################################
 # tests for char* slicing
 
 cdef const char* cstring = "abcABCqtp"
 
-@cython.test_assert_path_exists("//PythonCapiCallNode")
-@cython.test_fail_if_path_exists("//AttributeNode")
+#[cython.test_assert_path_exists("//PythonCapiCallNode")]
+#[cython.test_fail_if_path_exists("//AttributeNode")]
 def slice_charptr_decode():
     """
     >>> print(str(slice_charptr_decode()).replace("u'", "'"))
@@ -22,35 +20,35 @@ def slice_charptr_decode():
             cstring[:3].decode('UTF-8'),
             cstring[:9].decode('UTF-8'))
 
-@cython.test_assert_path_exists("//PythonCapiCallNode")
-@cython.test_fail_if_path_exists("//AttributeNode")
+#[cython.test_assert_path_exists("//PythonCapiCallNode")]
+#[cython.test_fail_if_path_exists("//AttributeNode")]
 def slice_charptr_decode_platform_encoding():
     """
     >>> print(str(slice_charptr_decode()).replace("u'", "'"))
     ('a', 'abc', 'abcABCqtp')
     """
-    cdef bytes s = u'abcABCqtp'.encode()
-    cdef char* cstr = s
+    let bytes s = u'abcABCqtp'.encode()
+    let char* cstr = s
     return (cstr[:1].decode(),
             cstr[:3].decode(),
             cstr[:9].decode())
 
-@cython.test_assert_path_exists("//PythonCapiCallNode")
-@cython.test_fail_if_path_exists("//AttributeNode")
+#[cython.test_assert_path_exists("//PythonCapiCallNode")]
+#[cython.test_fail_if_path_exists("//AttributeNode")]
 def slice_charptr_decode_unknown_encoding():
     """
     >>> print(str(slice_charptr_decode_unknown_encoding()).replace("u'", "'"))
     ('abcABCqtp', 'abcABCqtp', 'abc', 'abcABCqt')
     """
-    cdef const char* enc = 'UTF-8'
-    cdef const char* error_handling = 'strict'
+    let const char* enc = 'UTF-8'
+    let const char* error_handling = 'strict'
     return (cstring.decode(enc),
             cstring.decode(enc, error_handling),
             cstring[:3].decode(enc),
             cstring[:8].decode(enc, error_handling))
 
-@cython.test_assert_path_exists("//PythonCapiCallNode")
-@cython.test_fail_if_path_exists("//AttributeNode")
+#[cython.test_assert_path_exists("//PythonCapiCallNode")]
+#[cython.test_fail_if_path_exists("//AttributeNode")]
 def slice_charptr_decode_slice2():
     """
     >>> print(str(slice_charptr_decode_slice2()).replace("u'", "'"))
@@ -60,8 +58,8 @@ def slice_charptr_decode_slice2():
             cstring[1:3].decode('UTF-8'),
             cstring[7:9].decode('UTF-8'))
 
-@cython.test_assert_path_exists("//PythonCapiCallNode")
-@cython.test_fail_if_path_exists("//AttributeNode")
+#[cython.test_assert_path_exists("//PythonCapiCallNode")]
+#[cython.test_fail_if_path_exists("//AttributeNode")]
 def slice_charptr_decode_strlen():
     """
     >>> print(str(slice_charptr_decode_strlen()).replace("u'", "'"))
@@ -74,8 +72,8 @@ def slice_charptr_decode_strlen():
             cstring[:-5].decode('UTF-8'),
             cstring[:-9].decode('UTF-8'))
 
-@cython.test_assert_path_exists("//PythonCapiCallNode")
-@cython.test_fail_if_path_exists("//AttributeNode")
+#[cython.test_assert_path_exists("//PythonCapiCallNode")]
+#[cython.test_fail_if_path_exists("//AttributeNode")]
 def slice_charptr_decode_unbound():
     """
     >>> print(str(slice_charptr_decode_unbound()).replace("u'", "'"))
@@ -85,8 +83,8 @@ def slice_charptr_decode_unbound():
             bytes.decode(cstring[:3], 'UTF-8', 'replace'),
             bytes.decode(cstring[:9], 'UTF-8'))
 
-@cython.test_assert_path_exists("//PythonCapiCallNode")
-@cython.test_fail_if_path_exists("//AttributeNode")
+#[cython.test_assert_path_exists("//PythonCapiCallNode")]
+#[cython.test_fail_if_path_exists("//AttributeNode")]
 def slice_charptr_decode_errormode():
     """
     >>> print(str(slice_charptr_decode_errormode()).replace("u'", "'"))
@@ -96,8 +94,8 @@ def slice_charptr_decode_errormode():
             cstring[:3].decode('UTF-8', 'replace'),
             cstring[:9].decode('UTF-8', 'unicode_escape'))
 
-@cython.test_assert_path_exists("//PythonCapiCallNode")
-@cython.test_fail_if_path_exists("//AttributeNode")
+#[cython.test_assert_path_exists("//PythonCapiCallNode")]
+#[cython.test_fail_if_path_exists("//AttributeNode")]
 def slice_charptr_dynamic_bounds():
     """
     >>> print(str(slice_charptr_dynamic_bounds()).replace("u'", "'"))
@@ -108,8 +106,8 @@ def slice_charptr_dynamic_bounds():
             cstring[return1():return5()].decode('UTF-8'),
             cstring[return4():return9()].decode('UTF-8'))
 
-@cython.test_assert_path_exists("//PythonCapiCallNode")
-@cython.test_fail_if_path_exists("//AttributeNode")
+#[cython.test_assert_path_exists("//PythonCapiCallNode")]
+#[cython.test_fail_if_path_exists("//AttributeNode")]
 def slice_charptr_dynamic_bounds_non_name():
     """
     >>> print(str(slice_charptr_dynamic_bounds_non_name()).replace("u'", "'"))
@@ -123,8 +121,8 @@ def slice_charptr_dynamic_bounds_non_name():
             (cstring+1)[:].decode('UTF-8'),
             (cstring+1)[return1():return5()].decode('UTF-8'))
 
-@cython.test_assert_path_exists("//PythonCapiCallNode")
-@cython.test_fail_if_path_exists("//AttributeNode")
+#[cython.test_assert_path_exists("//PythonCapiCallNode")]
+#[cython.test_fail_if_path_exists("//AttributeNode")]
 def slice_charptr_decode_large_bounds():
     """
     >>> print(str(slice_charptr_decode_large_bounds()).replace("u'", "'"))
@@ -135,9 +133,8 @@ def slice_charptr_decode_large_bounds():
             cstring[PY_SSIZE_T_MIN:PY_SSIZE_T_MIN].decode('UTF-8'),
             cstring[PY_SSIZE_T_MAX:PY_SSIZE_T_MAX].decode('UTF-8'))
 
-
-cdef return1(): return 1
-cdef return3(): return 3
-cdef return4(): return 4
-cdef return5(): return 5
-cdef return9(): return 9
+fn return1(): return 1
+fn return3(): return 3
+fn return4(): return 4
+fn return5(): return 5
+fn return9(): return 9

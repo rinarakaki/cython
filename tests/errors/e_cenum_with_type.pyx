@@ -1,8 +1,8 @@
 # mode: error
 
-cdef enum Spam(int):
-    a, b
+enum Spam(i32):
+    A, B
 
 _ERRORS = u"""
-3:14: Expected ':', found '('
+3:9: Expected ':', found '('
 """

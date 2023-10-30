@@ -18,13 +18,13 @@ True
 
 import gc
 
-cdef Py_ssize_t new_unreachable = 0
+cdef isize new_unreachable = 0
 
 def get_new_unreachable():
     return new_unreachable
 
 cdef int counter = 0
-cdef int next_counter():
+fn i32 next_counter():
     global counter
     counter += 1
     return counter

@@ -1,7 +1,7 @@
 # tag: numpy
-cimport cython
 
+use cython
 
-@cython.ufunc
-cdef (int, int) add_one_add_two(int x):
-    return x+1, x+2
+#[cython.ufunc]
+fn (i32, i32) add_one_add_two(i32 x):
+    return x + 1, x + 2

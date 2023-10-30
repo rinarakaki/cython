@@ -1,7 +1,7 @@
 # mode: run
 # tag: exttype, final
 
-cimport cython
+use cython
 
 
 cdef class BaseClass:
@@ -10,14 +10,14 @@ cdef class BaseClass:
     >>> obj.call_base()
     True
     """
-    cdef method(self):
-        return True
+    fn method(self):
+        return true
 
     def call_base(self):
         return self.method()
 
 
-@cython.final
+#[cython.final]
 cdef class Child(BaseClass):
     """
     >>> obj = Child()
@@ -26,8 +26,8 @@ cdef class Child(BaseClass):
     >>> obj.call_child()
     True
     """
-    cdef method(self):
-        return True
+    fn method(self):
+        return true
 
     def call_child(self):
         # original bug: this requires a proper cast for self

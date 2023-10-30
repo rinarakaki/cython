@@ -5,33 +5,33 @@ from libc.stdio cimport FILE
 from libc.stddef cimport wchar_t
 from posix.types cimport off_t
 
-cdef extern from "<stdio.h>" nogil:
+extern from "<stdio.h>" nogil:
     # File descriptors
-    FILE *fdopen(int, const char *)
-    int fileno(FILE *)
+    fn FILE *fdopen(i32, const char *)
+    fn i32 fileno(FILE *)
 
     # Pipes
-    FILE *popen(const char *, const char *)
-    int pclose(FILE *)
+    fn FILE *popen(const char *, const char *)
+    fn i32 pclose(FILE *)
 
     # Memory streams (POSIX.2008)
-    FILE *fmemopen(void *, size_t, const char *)
-    FILE *open_memstream(char **, size_t *)
-    FILE *open_wmemstream(wchar_t **, size_t *)
+    fn FILE *fmemopen(void *, usize, const char *)
+    fn FILE *open_memstream(char **, usize *)
+    fn FILE *open_wmemstream(wchar_t **, usize *)
 
     # Seek and tell with off_t
-    int fseeko(FILE *, off_t, int)
-    off_t ftello(FILE *)
+    fn i32 fseeko(FILE *, off_t, i32)
+    fn off_t ftello(FILE *)
 
     # Locking (for multithreading)
-    void flockfile(FILE *)
-    int ftrylockfile(FILE *)
-    void funlockfile(FILE *)
-    int getc_unlocked(FILE *)
-    int getchar_unlocked()
-    int putc_unlocked(int, FILE *)
-    int putchar_unlocked(int)
+    fn void flockfile(FILE *)
+    fn i32 ftrylockfile(FILE *)
+    fn void funlockfile(FILE *)
+    fn i32 getc_unlocked(FILE *)
+    fn i32 getchar_unlocked()
+    fn i32 putc_unlocked(i32, FILE *)
+    fn i32 putchar_unlocked(i32)
 
     # Reading lines and records (POSIX.2008)
-    ssize_t getline(char **, size_t *, FILE *)
-    ssize_t getdelim(char **, size_t *, int, FILE *)
+    fn isize getline(char **, usize *, FILE *)
+    fn isize getdelim(char **, usize *, i32, FILE *)

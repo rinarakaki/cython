@@ -2,13 +2,13 @@
 
 cdef class Test:
     """
-    >>> t = Test(True)
+    >>> t = Test(true)
     >>> t.some_ro_bool
     True
     >>> t.some_public_bool
     True
     """
-    cdef public bint some_public_bool
+    pub bint some_public_bool
     cdef readonly bint some_ro_bool
 
     def __init__(self, bint boolval):

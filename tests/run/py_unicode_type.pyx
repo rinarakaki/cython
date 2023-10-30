@@ -2,7 +2,7 @@
 # mode: run
 # tag: warnings
 
-cimport cython
+use cython
 
 cdef Py_UNICODE char_ASCII = u'A'
 cdef Py_UNICODE char_KLINGON = u'\uF8D2'
@@ -84,7 +84,6 @@ def unicode_ordinal(Py_UNICODE i):
     """
     return i
 
-
 def ord_pyunicode(Py_UNICODE x):
     """
     >>> ord_pyunicode(u0)
@@ -96,9 +95,8 @@ def ord_pyunicode(Py_UNICODE x):
     """
     return ord(x)
 
-
-@cython.test_assert_path_exists('//PythonCapiCallNode')
-@cython.test_fail_if_path_exists('//SimpleCallNode')
+#[cython.test_assert_path_exists("//PythonCapiCallNode")]
+#[cython.test_fail_if_path_exists("//SimpleCallNode")]
 def unicode_type_methods(Py_UNICODE uchar):
     """
     >>> unicode_type_methods(ord('A'))
@@ -123,8 +121,8 @@ def unicode_type_methods(Py_UNICODE uchar):
         uchar.isupper(),
         ]
 
-#@cython.test_assert_path_exists('//PythonCapiCallNode')
-#@cython.test_fail_if_path_exists('//SimpleCallNode')
+# #[cython.test_assert_path_exists('//PythonCapiCallNode')]
+# #[cython.test_fail_if_path_exists('//SimpleCallNode')]
 def unicode_methods(Py_UNICODE uchar):
     """
     >>> unicode_methods(ord('A')) == ['a', 'A', 'A']
@@ -139,9 +137,9 @@ def unicode_methods(Py_UNICODE uchar):
         uchar.title(),
         ]
 
-@cython.test_assert_path_exists('//IntNode')
-@cython.test_fail_if_path_exists('//SimpleCallNode',
-                                 '//PythonCapiCallNode')
+#[cython.test_assert_path_exists("//IntNode")]
+#[cython.test_fail_if_path_exists("//SimpleCallNode",
+                                  "//PythonCapiCallNode")]
 def len_uchar(Py_UNICODE uchar):
     """
     >>> len_uchar(ord('A'))
@@ -150,7 +148,7 @@ def len_uchar(Py_UNICODE uchar):
     assert uchar  # just to avoid C compiler unused arg warning
     return len(uchar)
 
-def index_uchar(Py_UNICODE uchar, Py_ssize_t i):
+def index_uchar(Py_UNICODE uchar, isize i):
     """
     >>> index_uchar(ord('A'), 0) == ('A', 'A', 'A')
     True
@@ -166,10 +164,10 @@ mixed_ustring = u'AbcDefGhIjKlmnoP'
 lower_ustring = mixed_ustring.lower()
 upper_ustring = mixed_ustring.lower()
 
-@cython.test_assert_path_exists('//PythonCapiCallNode',
-                                '//ForFromStatNode')
-@cython.test_fail_if_path_exists('//SimpleCallNode',
-                                 '//ForInStatNode')
+#[cython.test_assert_path_exists("//PythonCapiCallNode",
+                                 "//ForFromStatNode")]
+#[cython.test_fail_if_path_exists("//SimpleCallNode",
+                                  "//ForInStatNode")]
 def count_lower_case_characters(unicode ustring):
     """
     >>> count_lower_case_characters(mixed_ustring)
@@ -177,16 +175,16 @@ def count_lower_case_characters(unicode ustring):
     >>> count_lower_case_characters(lower_ustring)
     16
     """
-    cdef Py_ssize_t count = 0
+    let isize count = 0
     for uchar in ustring:
          if uchar.islower():
              count += 1
     return count
 
-@cython.test_assert_path_exists('//PythonCapiCallNode',
-                                '//ForFromStatNode')
-@cython.test_fail_if_path_exists('//SimpleCallNode',
-                                 '//ForInStatNode')
+#[cython.test_assert_path_exists('//PythonCapiCallNode',
+                                 '//ForFromStatNode')]
+#[cython.test_fail_if_path_exists('//SimpleCallNode',
+                                  '//ForInStatNode')]
 def count_lower_case_characters_slice(unicode ustring):
     """
     >>> count_lower_case_characters_slice(mixed_ustring)
@@ -194,15 +192,15 @@ def count_lower_case_characters_slice(unicode ustring):
     >>> count_lower_case_characters_slice(lower_ustring)
     14
     """
-    cdef Py_ssize_t count = 0
+    let isize count = 0
     for uchar in ustring[1:-1]:
          if uchar.islower():
              count += 1
     return count
 
-@cython.test_assert_path_exists('//SwitchStatNode',
-                                '//ForFromStatNode')
-@cython.test_fail_if_path_exists('//ForInStatNode')
+#[cython.test_assert_path_exists('//SwitchStatNode',
+                                 '//ForFromStatNode')]
+#[cython.test_fail_if_path_exists('//ForInStatNode')]
 def iter_and_in():
     """
     >>> iter_and_in()
@@ -216,8 +214,8 @@ def iter_and_in():
         if c in u'abCDefGh':
             print c
 
-@cython.test_assert_path_exists('//SwitchStatNode')
-@cython.test_fail_if_path_exists('//ForInStatNode')
+#[cython.test_assert_path_exists('//SwitchStatNode')]
+#[cython.test_fail_if_path_exists('//ForInStatNode')]
 def index_and_in():
     """
     >>> index_and_in()
@@ -227,8 +225,8 @@ def index_and_in():
     7
     8
     """
-    cdef int i
-    for i in range(1,9):
+    let i32 i
+    for i in range(1, 9):
         if u'abcdefgh'[-i] in u'abCDefGh':
             print i
 
@@ -245,12 +243,12 @@ def uchar_lookup_in_dict(obj, Py_UNICODE uchar):
     >>> uchar_lookup_in_dict(d, u1)
     (1, 1)
     """
-    cdef dict d = obj
+    let dict d = obj
     dval = d[uchar]
     objval = obj[uchar]
     return dval, objval
 
 
 _WARNINGS = """
-250:16: Item lookup of unicode character codes now always converts to a Unicode string. Use an explicit C integer cast to get back the previous integer lookup behaviour.
+248:16: Item lookup of unicode character codes now always converts to a Unicode string. Use an explicit C integer cast to get back the previous integer lookup behaviour.
 """

@@ -2,13 +2,13 @@
 # tag: cpp, cpp17, no-cpp-locals
 # no-cpp-locals because the test is already run with it explicitly set
 
-# cython: cpp_locals=True
+# cython: cpp_locals=true
 
-cimport cython
+use cython
 
 from libcpp cimport bool as cppbool
 
-cdef extern from *:
+extern from *:
     r"""
     static void print_C_destructor();
 
@@ -39,13 +39,13 @@ cdef extern from *:
     }
     """
     cdef cppclass C:
-        C(int)
-        C(int, cppbool)
+        C(i32)
+        C(i32, cppbool)
         int getX() const
-    C make_C(int) except +  # needs a temp to receive
+    C make_C(i32) except +  # needs a temp to receive
 
 # this function just makes sure the output from the destructor can be captured by doctest
-cdef void print_C_destructor "print_C_destructor" () with gil:
+fn void print_C_destructor "print_C_destructor" () with gil:
     print("~C()")
 
 def maybe_assign_infer(assign, value, do_print):
@@ -74,7 +74,7 @@ def maybe_assign_cdef(assign, value):
         ...
     UnboundLocalError: local variable 'x' referenced before assignment
     """
-    cdef C x
+    let C x
     if assign:
         x = C(value)
     print(x.getX())
@@ -109,7 +109,7 @@ def maybe_assign_directive1(assign, value):
         x = C(value)
     print(x.getX())
 
-@cython.locals(x=C)
+#[cython.locals(x=C)]
 def maybe_assign_directive2(assign, value):
     """
     >>> maybe_assign_directive2(True, 5)
@@ -134,7 +134,7 @@ def maybe_assign_nocheck(assign, value):
     """
     if assign:
         x = C(value)
-    with cython.initializedcheck(False):
+    with cython.initializedcheck(false):
         print(x.getX())
 
 def uses_temp(value):
@@ -149,7 +149,7 @@ def uses_temp(value):
     print(x.getX())
 
 # c should not be optional - it isn't easy to check this, but we can at least check it compiles
-cdef void has_argument(C c):
+fn void has_argument(C c):
     print(c.getX())
 
 def call_has_argument():
@@ -179,7 +179,7 @@ cdef class HoldsC:
         ...
     AttributeError: C++ attribute 'value' is not initialized
     """
-    cdef C value
+    let C value
     def __cinit__(self, initialize, print_destructor):
         if initialize:
             self.value = C(10, print_destructor)
@@ -187,10 +187,10 @@ cdef class HoldsC:
     def getCX(self):
         return self.value.getX()
 
-cdef acceptC(C& c):
+fn acceptC(C& c):
     return c.getX()
 
-@cython.cpp_locals(False)
+#[cython.cpp_locals(false)]
 def access_from_function_with_different_directive(HoldsC c):
     # doctest is in HoldsC class
     print(acceptC(c.value))  # this originally tried to pass a __Pyx_Optional<C> as a C instance
@@ -205,9 +205,9 @@ def dont_test_on_pypy(f):
 @dont_test_on_pypy  # non-deterministic destruction
 def testHoldsCDestruction(initialize):
     """
-    >>> testHoldsCDestruction(True)
+    >>> testHoldsCDestruction(true)
     ~C()
-    >>> testHoldsCDestruction(False)  # no destructor
+    >>> testHoldsCDestruction(false)  # no destructor
     """
     x = HoldsC(initialize, True)
     del x

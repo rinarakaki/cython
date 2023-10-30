@@ -3,10 +3,10 @@
 # Test longintrepr declarations by implementing a simple function
 
 from cpython.longintrepr cimport *
-cimport cython
+use cython
 
-@cython.cdivision(True)
-def lshift(long a, unsigned long n):
+#[cython.cdivision(true)]
+def lshift(i64 a, u64 n):
     """
     Return a * 2^n as Python long.
 
@@ -29,16 +29,16 @@ def lshift(long a, unsigned long n):
     """
     if not a:
         return _PyLong_New(0)
-    cdef unsigned long apos = a if a > 0 else -a
-    if (apos >> 1) >= <unsigned long>PyLong_BASE:
+    let u64 apos = a if a > 0 else -a
+    if (apos >> 1) >= <u64>PyLong_BASE:
         raise OverflowError
 
-    cdef unsigned long index = n // PyLong_SHIFT
-    cdef unsigned long shift = n % PyLong_SHIFT
+    let u64 index = n // PyLong_SHIFT
+    let u64 shift = n % PyLong_SHIFT
 
-    cdef digit d = apos
-    cdef digit low = (d << shift) & PyLong_MASK
-    cdef digit high = (d >> (PyLong_SHIFT - shift))
+    let digit d = apos
+    let digit low = (d << shift) & PyLong_MASK
+    let digit high = (d >> (PyLong_SHIFT - shift))
 
     if high == 0:
         ret = _PyLong_New(index + 1)

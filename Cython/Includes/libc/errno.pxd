@@ -1,6 +1,6 @@
 # 7.5 Errors <errno.h>
 
-cdef extern from "<errno.h>" nogil:
+extern from "<errno.h>" nogil:
     enum:
         EPERM
         ENOENT
@@ -124,4 +124,4 @@ cdef extern from "<errno.h>" nogil:
         EREMOTEIO
         EDQUOT
 
-    int errno
+    i32 errno

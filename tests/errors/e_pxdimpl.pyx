@@ -1,6 +1,6 @@
 # mode: error
 
-cimport e_pxdimpl_imported
+use e_pxdimpl_imported
 
 _ERRORS = u"""
  6:4: function definition in pxd file must be declared 'cdef inline'

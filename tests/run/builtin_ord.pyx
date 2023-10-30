@@ -1,5 +1,5 @@
 
-cimport cython
+use cython
 
 import sys
 
@@ -18,13 +18,13 @@ def ord_Py_UNICODE(unicode s):
     >>> ord_Py_UNICODE(uspace)
     32
     """
-    cdef Py_UNICODE u
+    let Py_UNICODE u
     u = s[0]
     return ord(u)
 
 
-@cython.test_assert_path_exists('//TupleNode//IntNode')
-@cython.test_fail_if_path_exists('//SimpleCallNode')
+#[cython.test_assert_path_exists('//TupleNode//IntNode')]
+#[cython.test_fail_if_path_exists('//SimpleCallNode')]
 def ord_const():
     """
     >>> ord(b' ')
@@ -37,8 +37,8 @@ def ord_const():
     return ord(u' '), ord(b' '), ord(' '), ord('\xff'), ord(b'\xff'), ord(u'\u1234'), ord('\0')
 
 
-@cython.test_assert_path_exists('//PrimaryCmpNode//IntNode')
-#@cython.test_fail_if_path_exists('//SimpleCallNode')
+#[cython.test_assert_path_exists('//PrimaryCmpNode//IntNode')]
+##[cython.test_fail_if_path_exists('//SimpleCallNode')]
 def unicode_for_loop_ord(unicode s):
     """
     >>> unicode_for_loop_ord(ustring_with_a)
@@ -48,8 +48,8 @@ def unicode_for_loop_ord(unicode s):
     """
     for c in s:
         if ord(c) == ord(u'a'):
-            return True
-    return False
+            return true
+    return false
 
 
 def compare_to_char(s):
@@ -63,7 +63,7 @@ def compare_to_char(s):
     >>> compare_to_char('x')
     True
     """
-    cdef char c = b'x'
+    let char c = b'x'
     return ord(s) == c
 
 

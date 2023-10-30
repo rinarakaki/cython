@@ -17,7 +17,7 @@ def test_dict_scope1():
     >>> test_dict_scope1()
     2
     """
-    cdef dict d = {}
+    let dict d = {}
     exec u"b=1+1" in d
     return d[u'b']
 
@@ -73,7 +73,7 @@ def test_dict_scope_tuple2():
     >>> test_dict_scope_tuple2()
     2
     """
-    cdef dict d = {}
+    let dict d = {}
     exec(u"b=1+1", d)   # Py3 compatibility syntax
     return d[u'b']
 
@@ -88,7 +88,7 @@ def test_dict_scope_tuple3(d1, d2):
 
 def test_def(d, varref):
     """
-    >>> d = dict(seq = [1,2,3,4])
+    >>> d = dict(seq = [1, 2, 3, 4])
     >>> add_iter = test_def(d, 'seq')
     >>> list(add_iter())
     [2, 3, 4, 5]

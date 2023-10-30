@@ -7,12 +7,12 @@ from cython.operator cimport preincrement as incr
 from libcpp.vector cimport vector
 from libcpp cimport bool as cbool
 
-def simple_test(double x):
+def simple_test(f64 x):
     """
     >>> simple_test(55)
     3
     """
-    v = new vector[double]()
+    v = new vector[f64]()
     try:
         v.push_back(1.0)
         v.push_back(x)
@@ -24,14 +24,14 @@ def simple_test(double x):
 
 def list_test(L):
     """
-    >>> list_test([1,2,4,8])
+    >>> list_test([1, 2, 4, 8])
     (4, 4)
     >>> list_test([])
     (0, 0)
     >>> list_test([-1] * 1000)
     (1000, 1000)
     """
-    v = new vector[int]()
+    v = new vector[i32]()
     try:
         for a in L:
             v.push_back(a)
@@ -41,12 +41,12 @@ def list_test(L):
 
 def index_test(L):
     """
-    >>> index_test([1,2,4,8])
+    >>> index_test([1, 2, 4, 8])
     (1.0, 8.0)
     >>> index_test([1.25])
     (1.25, 1.25)
     """
-    v = new vector[double]()
+    v = new vector[f64]()
     try:
         for a in L:
             v.push_back(a)
@@ -57,12 +57,12 @@ def index_test(L):
 
 def index_set_test(L):
     """
-    >>> index_set_test([1,2,4,8])
+    >>> index_set_test([1, 2, 4, 8])
     (-1.0, -8.0)
     >>> index_set_test([1.25])
     (-1.25, -1.25)
     """
-    v = new vector[double]()
+    v = new vector[f64]()
     try:
         for a in L:
             v.push_back(a)
@@ -74,13 +74,13 @@ def index_set_test(L):
 
 def iteration_test(L):
     """
-    >>> iteration_test([1,2,4,8])
+    >>> iteration_test([1, 2, 4, 8])
     1
     2
     4
     8
     """
-    v = new vector[int]()
+    v = new vector[i32]()
     try:
         for a in L:
             v.push_back(a)
@@ -94,13 +94,13 @@ def iteration_test(L):
 
 def reverse_iteration_test(L):
     """
-    >>> reverse_iteration_test([1,2,4,8])
+    >>> reverse_iteration_test([1, 2, 4, 8])
     8
     4
     2
     1
     """
-    v = new vector[int]()
+    v = new vector[i32]()
     try:
         for a in L:
             v.push_back(a)
@@ -114,12 +114,12 @@ def reverse_iteration_test(L):
 
 def nogil_test(L):
     """
-    >>> nogil_test([1,2,3])
+    >>> nogil_test([1, 2, 3])
     3
     """
-    cdef int a
+    let i32 a
     with nogil:
-        v = new vector[int]()
+        v = new vector[i32]()
     try:
         for a in L:
             with nogil:
@@ -128,13 +128,13 @@ def nogil_test(L):
     finally:
         del v
 
-def item_ptr_test(L, int i, int x):
+def item_ptr_test(L, i32 i, i32 x):
     """
     >>> item_ptr_test(range(10), 7, 100)
     [0, 1, 2, 3, 4, 5, 6, 100, 8, 9]
     """
-    cdef vector[int] v = L
-    cdef int* vi_ptr = &v[i]
+    let vector[i32] v = L
+    let i32* vi_ptr = &v[i]
     vi_ptr[0] = x
     return v
 
@@ -145,7 +145,7 @@ def test_value_type(x):
     >>> test_value_type(2.5)
     2.5
     """
-    cdef vector[double].value_type val = x
+    let vector[f64].value_type val = x
     return val
 
 def test_value_type_complex(x):
@@ -153,7 +153,7 @@ def test_value_type_complex(x):
     >>> test_value_type_complex(2)
     (2+0j)
     """
-    cdef vector[double complex].value_type val = x
+    let vector[double complex].value_type val = x
     return val
 
 def test_bool_vector_convert(o):
@@ -161,14 +161,14 @@ def test_bool_vector_convert(o):
     >>> test_bool_vector_convert([True, False, None, 3])
     [True, False, False, True]
     """
-    cdef vector[cbool] v = o
+    let vector[cbool] v = o
     return v
 
 def test_bool_vector_get_set():
     """
     >>> test_bool_vector_get_set()
     """
-    cdef vector[cbool] v = range(5)
+    let vector[cbool] v = range(5)
     # Test access.
     assert not v[0], v
     assert v[1], v
@@ -179,31 +179,30 @@ def test_bool_vector_get_set():
     assert <object>v == [True, False, True, True, True]
 
 ctypedef vector[cbool] vector_bool
-ctypedef vector[int] vector_int
+ctypedef vector[i32] vector_int
 
 def test_typedef_vector(L):
     """
     >>> test_typedef_vector([0, 1, True])
     ([0, 1, 1, 0, 1, 1], 0, [False, True, True, False, True, True], False)
     """
-    cdef vector_int vi = L
-    cdef vector_int vi2 = vi
+    let vector_int vi = L
+    let vector_int vi2 = vi
     vi.insert(vi.begin(), vi2.begin(), vi2.end())
 
-    cdef vector_bool vb = L
-    cdef vector_bool vb2 = vb
+    let vector_bool vb = L
+    let vector_bool vb2 = vb
     vb.insert(vb.begin(), vb2.begin(), vb2.end())
 
     return vi, vi.at(0), vb, vb.at(0)
-
 
 def test_insert():
     """
     >>> test_insert()
     """
-    cdef vector[int] v
-    cdef vector[int].size_type count = 5
-    cdef int value = 0
+    let vector[i32] v
+    let vector[i32].size_type count = 5
+    let i32 value = 0
 
     v.insert(v.end(), count, value)
 
@@ -211,10 +210,9 @@ def test_insert():
     for element in v:
         assert element == value, '%s != %s' % (element, count)
 
-
 #  Tests GitHub issue #1788.
 cdef cppclass MyVector[T](vector):
     pass
 
-cdef cppclass Ints(MyVector[int]):
+cdef cppclass Ints(MyVector[i32]):
     pass

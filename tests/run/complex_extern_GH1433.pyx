@@ -1,6 +1,6 @@
 # tag: numpy
 
-cimport numpy as np
+use numpy as np
 
 def divide(np.float64_t x, np.complex128_t y):
     """

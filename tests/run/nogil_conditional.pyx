@@ -5,38 +5,32 @@ try:
 except ImportError:
     from io import StringIO
 
-
-def test(int x):
+def test(i32 x):
     """
     >>> test(0)
     110
     """
-    with nogil(True):
+    with nogil(true):
         x = f_nogil(x)
-        with gil(True):
+        with gil(true):
             x = f_gil(x)
     return x
 
-
-cdef int f_nogil(int x) nogil:
-    cdef int y
+fn i32 f_nogil(i32 x) nogil:
+    let i32 y
     y = x + 10
     return y
-
 
 def f_gil(x):
     y = 0
     y = x + 100
     return y
 
-
-cdef int with_gil_func() except? -1 with gil:
+fn i32 with_gil_func() except? -1 with gil:
     raise Exception("error!")
 
-
-cdef int nogil_func() except? -1 nogil:
+fn i32 nogil_func() except? -1 nogil:
     with_gil_func()
-
 
 def test_nogil_exception_propagation():
     """
@@ -47,14 +41,12 @@ def test_nogil_exception_propagation():
     """
     with nogil:
         with gil:
-            with nogil(True):
+            with nogil(true):
                 nogil_func()
 
-
-cdef int write_unraisable() noexcept nogil:
+fn i32 write_unraisable() noexcept nogil:
     with gil:
         raise ValueError()
-
 
 def test_unraisable():
     """
@@ -71,15 +63,14 @@ def test_unraisable():
         sys.stderr = old_stderr
     return stderr.getvalue().strip()
 
-
 def test_nested():
     """
     >>> test_nested()
     240
     """
-    cdef int res = 0
+    let i32 res = 0
 
-    with nogil(True):
+    with nogil(true):
         res = f_nogil(res)
         with gil(1 < 2):
             res = f_gil(res)
@@ -88,33 +79,31 @@ def test_nested():
 
         with gil:
             res = f_gil(res)
-            with nogil(True):
+            with nogil(true):
                 res = f_nogil(res)
             with nogil:
                 res = f_nogil(res)
 
     return res
 
-
-DEF FREE_GIL = True
-DEF FREE_GIL_FALSE = False
-
+DEF FREE_GIL = true
+DEF FREE_GIL_FALSE = false
 
 def test_nested_condition_false():
     """
     >>> test_nested_condition_false()
     220
     """
-    cdef int res = 0
+    let i32 res = 0
 
     with gil(FREE_GIL_FALSE):
         res = f_gil(res)
-        with nogil(False):
+        with nogil(false):
             res = f_gil(res)
 
         with nogil(FREE_GIL):
             res = f_nogil(res)
-            with gil(False):
+            with gil(false):
                 res = f_nogil(res)
 
     return res
@@ -124,10 +113,10 @@ def test_try_finally():
     >>> test_try_finally()
     113
     """
-    cdef int res = 0
+    let i32 res = 0
 
     try:
-        with nogil(True):
+        with nogil(true):
             try:
                 res = f_nogil(res)
                 with gil(1 < 2):
@@ -142,12 +131,10 @@ def test_try_finally():
 
     return res
 
-
 ctypedef fused number_or_object:
-    int
-    float
+    i32
+    f32
     object
-
 
 def test_fused(number_or_object x) -> number_or_object:
     """
@@ -160,18 +147,16 @@ def test_fused(number_or_object x) -> number_or_object:
     >>> test_fused[object](1.0)
     2.0
     """
-    cdef number_or_object res = x
+    let number_or_object res = x
 
     with nogil(number_or_object is not object):
         res = res + 1
 
     return res
 
-
 ctypedef fused int_or_object:
-    int
+    i32
     object
-
 
 def test_fused_object(int_or_object x):
     """
@@ -180,10 +165,10 @@ def test_fused_object(int_or_object x):
     >>> test_fused_object[int](1000)
     1000
     """
-    cdef int res = 0
+    let i32 res = 0
 
     if int_or_object is object:
-        with nogil(False):
+        with nogil(false):
             res += len(x)
 
         try:
@@ -193,12 +178,12 @@ def test_fused_object(int_or_object x):
                         res = f_gil(res)
                     with gil:
                         res = f_gil(res)
-                    with gil(False):
+                    with gil(false):
                         res = f_nogil(res)
 
                     with gil(int_or_object is not object):
                         res = f_nogil(res)
-                    with nogil(False):
+                    with nogil(false):
                         res = f_nogil(res)
 
                     res = f_nogil(res)
@@ -221,7 +206,6 @@ def test_fused_object(int_or_object x):
 
     return res
 
-
 def test_fused_int(int_or_object x):
     """
     >>> test_fused_int[object]("spam")
@@ -229,43 +213,43 @@ def test_fused_int(int_or_object x):
     >>> test_fused_int[int](1000)
     1452
     """
-    cdef int res = 0
+    let i32 res = 0
 
-    if int_or_object is int:
+    if int_or_object is i32:
         res += x
 
         try:
-            with nogil(int_or_object is int):
+            with nogil(int_or_object is i32):
                 try:
-                    with gil(int_or_object is int):
+                    with gil(int_or_object is i32):
                         res = f_gil(res)
                     with gil:
                         res = f_gil(res)
-                    with gil(False):
+                    with gil(false):
                         res = f_nogil(res)
 
-                    with gil(int_or_object is not int):
+                    with gil(int_or_object is not i32):
                         res = f_nogil(res)
-                    with nogil(False):
+                    with nogil(false):
                         res = f_nogil(res)
 
                     res = f_nogil(res)
                 finally:
                     res = res + 1
 
-            with nogil(int_or_object is not int):
+            with nogil(int_or_object is not i32):
                 res = f_gil(res)
 
-            with gil(int_or_object is not int):
+            with gil(int_or_object is not i32):
                 res = f_gil(res)
 
-                with nogil(int_or_object is int):
+                with nogil(int_or_object is i32):
                     res = f_nogil(res)
 
         finally:
             res += 1
     else:
-        with nogil(False):
+        with nogil(false):
             res = len(x)
 
     return res

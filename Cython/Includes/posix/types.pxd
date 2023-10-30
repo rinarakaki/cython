@@ -10,21 +10,21 @@
 # the POSIX standard doesn't even specify that time_t must be an integral
 # type).
 
-cdef extern from "<sys/types.h>":
-    ctypedef long blkcnt_t
-    ctypedef long blksize_t
-    ctypedef long clockid_t
-    ctypedef long dev_t
-    ctypedef long gid_t
-    ctypedef long id_t
-    ctypedef unsigned long ino_t
-    ctypedef long mode_t
-    ctypedef long nlink_t
-    ctypedef long off_t
-    ctypedef long pid_t
-    ctypedef struct sigset_t:
+extern from "<sys/types.h>":
+    ctypedef i64 blkcnt_t
+    ctypedef i64 blksize_t
+    ctypedef i64 clockid_t
+    ctypedef i64 dev_t
+    ctypedef i64 gid_t
+    ctypedef i64 id_t
+    ctypedef u64 ino_t
+    ctypedef i64 mode_t
+    ctypedef i64 nlink_t
+    ctypedef i64 off_t
+    ctypedef i64 pid_t
+    struct sigset_t:
         pass
-    ctypedef long suseconds_t
-    ctypedef long time_t
-    ctypedef long timer_t
-    ctypedef long uid_t
+    ctypedef i64 suseconds_t
+    ctypedef i64 time_t
+    ctypedef i64 timer_t
+    ctypedef i64 uid_t

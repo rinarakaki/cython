@@ -1,8 +1,8 @@
 # mode: run
 # tag: cpp, werror, cpp11, no-cpp-locals
-# cython: experimental_cpp_class_def=True
+# cython: experimental_cpp_class_def=true
 
-cdef double pi
+cdef f64 pi
 from math import pi
 from libc.math cimport sin, cos
 from libcpp cimport bool
@@ -11,18 +11,18 @@ from libcpp.vector cimport vector
 from cython.operator cimport dereference as deref
 import cython
 
-cdef extern from "shapes.h" namespace "shapes":
+extern from "shapes.h" namespace "shapes":
     cdef cppclass Shape:
         float area() const
 
 cdef cppclass RegularPolygon(Shape):
-    float radius # major
-    int n
-    __init__(int n, float radius):
+    f32 radius # major
+    i32 n
+    __init__(i32 n, float radius):
         this.n = n
         this.radius = radius
     float area() noexcept const:
-        cdef double theta = pi / this.n
+        cdef f64 theta = pi / this.n
         return this.radius * this.radius * sin(theta) * cos(theta) * this.n
     void do_with() except *:
         # only a compile test - the file doesn't actually have to exist
@@ -30,7 +30,7 @@ cdef cppclass RegularPolygon(Shape):
         with open("does not matter") as f:
             return
 
-def test_Poly(int n, float radius=1):
+def test_Poly(i32 n, float radius=1):
     """
     >>> test_Poly(4)
     2.0
@@ -43,7 +43,7 @@ def test_Poly(int n, float radius=1):
     >>> test_Poly(1000)      #doctest: +ELLIPSIS
     3.14157...
     """
-    cdef RegularPolygon* poly
+    let RegularPolygon* poly
     try:
         poly = new RegularPolygon(n, radius)
         poly.n = n
@@ -70,12 +70,12 @@ cdef cppclass SubClass(BaseClass):
 
 def test_BaseMethods(x):
     """
-    >>> test_BaseMethods(True)
+    >>> test_BaseMethods(true)
     0
-    >>> test_BaseMethods(False)
+    >>> test_BaseMethods(false)
     1
     """
-    cdef SubClass* subClass
+    let SubClass* subClass
     try:
         subClass = new SubClass(x)
         return subClass.method()
@@ -84,7 +84,7 @@ def test_BaseMethods(x):
 
 cdef cppclass WithStatic:
     @staticmethod
-    double square(double x):
+    f64 square(f64 x):
         return x * x
 
 def test_Static(x):
@@ -95,7 +95,6 @@ def test_Static(x):
     0.25
     """
     return WithStatic.square(x)
-
 
 cdef cppclass InitDealloc:
     __init__():
@@ -119,11 +118,10 @@ def test_init_dealloc():
     end
     """
     print "start"
-    cdef InitDealloc *ptr = new InitDealloc()
+    let InitDealloc *ptr = new InitDealloc()
     print "live"
     del ptr
     print "end"
-
 
 cdef cppclass WithTemplate[T]:
     T value
@@ -140,10 +138,10 @@ def test_templates(long value):
     >>> test_templates(10)
     >>> test_templates(-2)
     """
-    cdef WithTemplate[long] *base = new WithTemplate[long]()
+    let WithTemplate[long] *base = new WithTemplate[long]()
     del base
 
-    cdef ResolveTemplate *resolved = new ResolveTemplate()
+    let ResolveTemplate *resolved = new ResolveTemplate()
     resolved.set_value(value)
     assert resolved.value == resolved.get_value() == value, resolved.value
 
@@ -163,7 +161,7 @@ def test_default_init_no_gil():
 
 
 cdef class NoisyAlloc(object):
-    cdef public name
+    pub name
     def __init__(self, name):
         print "NoisyAlloc.__init__", name
         self.name = name
@@ -217,7 +215,7 @@ def test_CppClassWithObjectMemberCopyAssign(name):
     Nothing alive.
     """
     x = new CppClassWithObjectMember(name)
-    cdef vector[CppClassWithObjectMember] v
+    let vector[CppClassWithObjectMember] v
     # Invokes copy constructor.
     v.push_back(deref(x))
     del x
@@ -230,9 +228,8 @@ def test_CppClassWithObjectMemberCopyAssign(name):
     v.clear()
     print "Nothing alive."
 
-
 # Github issue #1886.
-cdef public cppclass PublicCppClassWithObjectMember:
+pub cppclass PublicCppClassWithObjectMember:
   object o
 
 def test_PublicCppClassWithObjectMember():
@@ -242,18 +239,17 @@ def test_PublicCppClassWithObjectMember():
   cdef PublicCppClassWithObjectMember c
   assert c.o is None
 
-
 cdef cppclass UncopyableConstructorArgument:
-    unique_ptr[vector[int]] member
-    __init__(unique_ptr[vector[int]] arg):
+    unique_ptr[vector[i32]] member
+    __init__(unique_ptr[vector[i32]] arg):
         this.member.reset(arg.release())
 
 def test_uncopyable_constructor_argument():
     """
     >>> test_uncopyable_constructor_argument()
     """
-    cdef UncopyableConstructorArgument *c = new UncopyableConstructorArgument(
-        unique_ptr[vector[int]](new vector[int]()))
+    let UncopyableConstructorArgument *c = new UncopyableConstructorArgument(
+        unique_ptr[vector[i32]](new vector[i32]()))
     del c
 
 cdef cppclass CppClassWithDocstring:
@@ -266,6 +262,6 @@ def test_CppClassWithDocstring():
     >>> test_CppClassWithDocstring()
     OK
     """
-    cdef CppClassWithDocstring *c = new CppClassWithDocstring()
+    let CppClassWithDocstring *c = new CppClassWithDocstring()
     del c
     print "OK"

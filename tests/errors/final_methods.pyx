@@ -1,22 +1,22 @@
 # mode: error
 
-cimport cython
+use cython
 
 cdef class BaseClass:
-    @cython.final
-    cdef cdef_method(self):
+    #[cython.final]
+    fn cdef_method(self):
         pass
 
-    @cython.final
+    #[cython.final]
     cpdef cpdef_method(self):
         pass
 
 
 cdef class SubType(BaseClass):
-    cdef cdef_method(self):
+    fn cdef_method(self):
         pass
 
 _ERRORS = """
 11:10: Only final types can have final Python (def/cpdef) methods
-16:9: Overriding final methods is not allowed
+16:4: Overriding final methods is not allowed
 """

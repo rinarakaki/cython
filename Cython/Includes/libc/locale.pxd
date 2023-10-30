@@ -3,9 +3,7 @@
 # deprecated cimport for backwards compatibility:
 from libc.string cimport const_char
 
-
-cdef extern from "<locale.h>" nogil:
-
+extern from "<locale.h>" nogil:
     struct lconv:
         char *decimal_point
         char *thousands_sep
@@ -40,7 +38,7 @@ cdef extern from "<locale.h>" nogil:
     enum: LC_TIME
 
     # 7.11.1 Locale control
-    char *setlocale (int category, const char *locale)
+    fn char *setlocale (i32 category, const char *locale)
 
     # 7.11.2 Numeric formatting convention inquiry
-    lconv *localeconv ()
+    fn lconv *localeconv ()

@@ -1,26 +1,24 @@
 # mode: compile
 
-cdef extern from *:
+extern from *:
+    fn void foo(i32[])
 
-    cdef void foo(int[])
-
-    ctypedef int MyInt
-    cdef void foo(MyInt[])
+    ctypedef i32 MyInt
+    fn void foo(MyInt[])
 
     struct MyStruct:
         pass
-    cdef void bar(MyStruct[])
+    fn void bar(MyStruct[])
 
     ctypedef MyStruct* MyStructP
-    cdef void baz(MyStructP[])
+    fn void baz(MyStructP[])
 
-cdef struct OtherStruct:
-    int a
+struct OtherStruct:
+    i32 a
 
-a = sizeof(int[23][34])
+a = sizeof(i32[23][34])
 b = sizeof(OtherStruct[43])
 
 DEF COUNT = 4
-c = sizeof(int[COUNT])
+c = sizeof(i32[COUNT])
 d = sizeof(OtherStruct[COUNT])
-

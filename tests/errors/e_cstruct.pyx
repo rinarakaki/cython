@@ -1,26 +1,26 @@
 # mode: error
 
-cdef struct Spam:
-    int i
+struct Spam:
+    i32 i
     char c
-    float[42] *p
+    f32[42] *p
     obj             # error - py object
 
-#cdef struct Spam: # error - redefined (not an error in Cython, should it be?)
-#    int j
+# struct Spam: # error - redefined (not an error in Cython, should it be?)
+#     i32 j
 
-cdef struct Grail
+struct Grail
 
-cdef void eggs(Spam s):
-    cdef int j
-    cdef Grail *gp
-    j = s.k # error - undef attribute
-    j = s.p # type error
-    s.p = j # type error
-    j = j.i # no error - coercion to Python object
-    j.i = j # no error - coercion to Python object
-    j = gp.x # error - incomplete type
-    gp.x = j # error - incomplete type
+fn void eggs(Spam s):
+    let i32 j
+    let Grail *gp
+    j = s.k  # error - undef attribute
+    j = s.p  # type error
+    s.p = j  # type error
+    j = j.i  # no error - coercion to Python object
+    j.i = j  # no error - coercion to Python object
+    j = gp.x  # error - incomplete type
+    gp.x = j  # error - incomplete type
 
 
 _ERRORS = u"""

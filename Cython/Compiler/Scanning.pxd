@@ -6,39 +6,39 @@ from ..Plex.Scanners cimport Scanner
 
 cdef unicode any_string_prefix, IDENT
 
-cdef get_lexicon()
-cdef initial_compile_time_env()
+fn get_lexicon()
+fn initial_compile_time_env()
 
 ## methods commented with '##' out are used by Parsing.py when compiled.
 
-@cython.final
+#[cython.final]
 cdef class CompileTimeScope:
-    cdef public dict entries
-    cdef public CompileTimeScope outer
+    pub dict entries
+    pub CompileTimeScope outer
     ##cdef declare(self, name, value)
     ##cdef lookup_here(self, name)
     ##cpdef lookup(self, name)
 
-@cython.final
+#[cython.final]
 cdef class PyrexScanner(Scanner):
-    cdef public context
-    cdef public list included_files
-    cdef public CompileTimeScope compile_time_env
-    cdef public bint compile_time_eval
-    cdef public bint compile_time_expr
-    cdef public bint parse_comments
-    cdef public bint in_python_file
-    cdef public source_encoding
+    pub context
+    pub list included_files
+    pub CompileTimeScope compile_time_env
+    pub bint compile_time_eval
+    pub bint compile_time_expr
+    pub bint parse_comments
+    pub bint in_python_file
+    pub source_encoding
     cdef dict keywords
-    cdef public list indentation_stack
-    cdef public indentation_char
-    cdef public int bracket_nesting_level
+    pub list indentation_stack
+    pub indentation_char
+    pub int bracket_nesting_level
     cdef readonly bint async_enabled
-    cdef public unicode sy
-    cdef public systring  # EncodedString
-    cdef public list put_back_on_failure
+    pub unicode sy
+    pub systring  # EncodedString
+    pub list put_back_on_failure
 
-    cdef Py_ssize_t current_level(self)
+    fn isize current_level(self)
     #cpdef commentline(self, text)
     #cpdef open_bracket_action(self, text)
     #cpdef close_bracket_action(self, text)
@@ -46,8 +46,10 @@ cdef class PyrexScanner(Scanner):
     #cpdef begin_string_action(self, text)
     #cpdef end_string_action(self, text)
     #cpdef unclosed_string_action(self, text)
-    @cython.locals(current_level=Py_ssize_t, new_level=Py_ssize_t)
+
+    #[cython.locals(current_level=isize, new_level=isize)]
     cpdef indentation_action(self, text)
+
     #cpdef eof_action(self, text)
     ##cdef next(self)
     ##cdef peek(self)
@@ -60,4 +62,4 @@ cdef class PyrexScanner(Scanner):
     ##cdef expect_newline(self, message=*, bint ignore_semicolon=*)
     ##cdef int enter_async(self) except -1
     ##cdef int exit_async(self) except -1
-    cdef void error_at_scanpos(self, str message) except *
+    fn void error_at_scanpos(self, str message) except *

@@ -1,7 +1,7 @@
 # mode: run
 # tag: dict, getitem
 
-cimport cython
+use cython
 
 def test(dict d, index):
     """
@@ -13,7 +13,7 @@ def test(dict d, index):
     Traceback (most recent call last):
     KeyError: 2
 
-    >>> test(d, (1,2))
+    >>> test(d, (1, 2))
     Traceback (most recent call last):
     KeyError: (1, 2)
 
@@ -21,7 +21,7 @@ def test(dict d, index):
     >>> try: d[(1,)]
     ... except KeyError:
     ...     args = sys.exc_info()[1].args
-    ...     if sys.version_info >= (2,5): print(args)
+    ...     if sys.version_info >= (2, 5): print(args)
     ...     else: print((args,))   # fake it for older CPython versions
     ((1,),)
 
@@ -29,7 +29,7 @@ def test(dict d, index):
     >>> try: test(d, (1,))
     ... except KeyError:
     ...     args = sys.exc_info()[1].args
-    ...     if sys.version_info >= (2,5): print(args)
+    ...     if sys.version_info >= (2, 5): print(args)
     ...     else: print((args,))   # fake it for older CPython versions
     ((1,),)
 
@@ -130,7 +130,7 @@ def getitem_in_condition(dict d, key, expected_result):
     return d[key] is expected_result or d[key] == expected_result
 
 
-@cython.test_fail_if_path_exists('//NoneCheckNode')
+#[cython.test_fail_if_path_exists('//NoneCheckNode')]
 def getitem_not_none(dict d not None, key):
     """
     >>> d = { 1: 10 }
@@ -141,14 +141,14 @@ def getitem_not_none(dict d not None, key):
     Traceback (most recent call last):
     KeyError: 2
 
-    >>> test(d, (1,2))
+    >>> test(d, (1, 2))
     Traceback (most recent call last):
     KeyError: (1, 2)
     """
     return d[key]
 
 
-def getitem_int_key(d, int key):
+def getitem_int_key(d, i32 key):
     """
     >>> d = {-1: 10}
     >>> getitem_int_key(d, -1)  # dict

@@ -1,9 +1,9 @@
 # tag: openmp
 
 from cython.parallel cimport parallel
-cimport openmp
+use openmp
 
-cdef int num_threads
+fn i32 num_threads
 
 openmp.omp_set_dynamic(1)
 with nogil, parallel():

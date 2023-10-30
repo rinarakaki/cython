@@ -1,10 +1,10 @@
 # mode: compile
 
-cdef extern from *:
+extern from *:
     cdef packed struct MyStruct:
         char a
 
-cdef public packed struct PublicStruct:
-    int a
-    unsigned char b
-    int c
+pub packed struct PublicStruct:
+    i32 a
+    u8 b
+    i32 c

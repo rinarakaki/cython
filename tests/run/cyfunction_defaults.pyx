@@ -1,8 +1,8 @@
-# cython: binding=True
+# cython: binding=true
 # mode: run
 # tag: cyfunction, closures
 
-cimport cython
+use cython
 import sys
 
 def get_defaults(func):
@@ -15,7 +15,7 @@ def test_defaults_none():
     >>> get_defaults(test_defaults_none)
     """
 
-def test_defaults_literal(a=1, b=(1,2,3)):
+def test_defaults_literal(a=1, b=(1, 2, 3)):
     """
     >>> get_defaults(test_defaults_literal) is get_defaults(test_defaults_literal)
     True
@@ -56,7 +56,7 @@ def test_defaults_nonliteral():
     """
     ret = []
     for i in {}, []:
-        def foo(a, b=0, c=i, d=(1,2,3)):
+        def foo(a, b=0, c=i, d=(1, 2, 3)):
             return c, d
         ret.append(foo)
     return ret
@@ -86,9 +86,9 @@ def test_defaults_nonliteral_func_call(f):
         return a
     return func
 
-def assign_defaults_and_check_warnings(func, value=None, delete=False):
+def assign_defaults_and_check_warnings(func, value=None, delete=false):
     import warnings
-    with warnings.catch_warnings(record=True) as w:
+    with warnings.catch_warnings(record=true) as w:
         warnings.simplefilter("always")
         if delete:
             del func.__defaults__
@@ -106,7 +106,7 @@ def test_assign_defaults():
     >>> assign_defaults_and_check_warnings(f, value=())
     >>> f.__defaults__
     ()
-    >>> assign_defaults_and_check_warnings(f, delete=True)
+    >>> assign_defaults_and_check_warnings(f, delete=true)
     >>> f.__defaults__
     >>> f.__defaults__ = "Not a tuple"
     Traceback (most recent call last):
@@ -116,13 +116,12 @@ def test_assign_defaults():
         return a, b
     return func
 
-
 def cy_kwonly_default_args(a, x=1, *, b=2):
     l = m = 1
 
 def assign_kwdefaults_and_check_warnings(func, value):
     import warnings
-    with warnings.catch_warnings(record=True) as w:
+    with warnings.catch_warnings(record=true) as w:
         warnings.simplefilter("always")
         func.__kwdefaults__ = value
         assert len(w) == 1, len(w)
@@ -162,7 +161,6 @@ def test_kwdefaults(value):
     def kwonly_default_args(a, x=1, *, b=value):
         return a, x, b
     return kwonly_default_args
-
 
 _counter2 = 1.0
 def counter2():
@@ -209,8 +207,7 @@ def test_dynamic_defaults_fused():
     for i, f in enumerate(funcs):
         print "i", i, "func result", f(1.0), "defaults", get_defaults(f)
 
-
-def test_memoryview_none(const unsigned char[:] b=None):
+def test_memoryview_none(const u8[:] b=None):
     """
     >>> test_memoryview_none()
     >>> test_memoryview_none(None)
@@ -221,8 +218,7 @@ def test_memoryview_none(const unsigned char[:] b=None):
         return None
     return b[0]
 
-
-def test_memoryview_bytes(const unsigned char[:] b=b'xyz'):
+def test_memoryview_bytes(const u8[:] b=b'xyz'):
     """
     >>> test_memoryview_bytes()
     120
@@ -233,7 +229,6 @@ def test_memoryview_bytes(const unsigned char[:] b=b'xyz'):
     if b is None:
         return None
     return b[0]
-
 
 @cython.test_fail_if_path_exists(
     '//NameNode[@entry.in_closure = True]',
@@ -254,7 +249,6 @@ def test_func_default_inlined():
         return arg
     return func
 
-
 @cython.test_fail_if_path_exists(
     '//NameNode[@entry.in_closure = True]',
     '//NameNode[@entry.from_closure = True]')
@@ -270,11 +264,10 @@ def test_func_default_scope():
     2
     """
     i = -1
-    def func(arg=[ i for i in range(4) ]):
+    def func(arg=[i for i in range(4)]):
         return arg
     print i  # list comps leak in Py2 mode => i == 3
     return func
-
 
 def test_func_default_scope_local():
     """
@@ -302,17 +295,16 @@ cdef class C:
         pass
     cpdef f5(self, a, str s = "123"):
         pass
-    cpdef f6(self, a, int s = 4):
+    cpdef f6(self, a, i32 s = 4):
         pass
     cpdef f7(self, a, dict s = {'a':22}):
         pass
     cpdef f8(self, a, list s = [15]):
         pass
-    cpdef f9(self, a, int[:] s = None):
+    cpdef f9(self, a, i32[:] s = None):
         pass
-    def f10(self, a, /, b=1, *, int[:] c=None):
+    def f10(self, a, /, b=1, *, i32[:] c=None):
         pass
-
 
 def check_defaults_on_methods_for_introspection():
     """

@@ -1,7 +1,7 @@
-cdef struct Bar:
-    int sum(int a, int b)
+struct Bar:
+    i32 sum(i32 a, i32 b)
 
-cdef int add(int a, int b):
+fn i32 add(i32 a, i32 b):
     return a + b
 
 cdef Bar bar = Bar(add)

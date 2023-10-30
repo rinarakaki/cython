@@ -5,15 +5,14 @@ Test Python def functions without extern types
 """
 
 cy = __import__("cython")
-cimport cython
+use cython
 
-cdef extern from *:
-    int __Pyx_CyFunction_Check(object)
+extern from *:
+    i32 __Pyx_CyFunction_Check(object)
 
 cdef class Base(object):
     def __repr__(self):
         return type(self).__name__
-
 
 cdef class ExtClassA(Base):
     pass
@@ -21,38 +20,34 @@ cdef class ExtClassA(Base):
 cdef class ExtClassB(Base):
     pass
 
-cdef enum MyEnum:
-    entry0
-    entry1
-    entry2
-    entry3
-    entry4
+enum MyEnum:
+    Entry0
+    Entry1
+    Entry2
+    Entry3
+    Entry4
 
 ctypedef fused fused_t:
     str
-    int
-    long
+    i32
+    i64
     complex
     ExtClassA
     ExtClassB
     MyEnum
 
-
 ctypedef ExtClassA xxxlast
 ctypedef ExtClassB aaafirst
-
 
 ctypedef fused fused_with_object:
     aaafirst
     object
     xxxlast
-    int
-    long
-
+    i32
+    i64
 
 f = 5.6
 i = 9
-
 
 def opt_func(fused_t obj, cython.floating myf = 1.2, cython.integral myi = 7,
              another_opt = 2, yet_another_opt=3):
@@ -71,16 +66,16 @@ def opt_func(fused_t obj, cython.floating myf = 1.2, cython.integral myi = 7,
     >>> opt_func("spam", myf=f, myi=i)
     str object double long
     spam 5.60 9 5.60 9
-    >>> opt_func[str, float, int]("spam", f, i)
+    >>> opt_func[str, f32, i32]("spam", f, i)
     str object float int
     spam 5.60 9 5.60 9
-    >>> opt_func[str, cy.double, cy.long]("spam", f, i)
+    >>> opt_func[str, cy.f64, cy.i64]("spam", f, i)
     str object double long
     spam 5.60 9 5.60 9
-    >>> opt_func[str, cy.double, cy.long]("spam", f, myi=i)
+    >>> opt_func[str, cy.f64, cy.i64]("spam", f, myi=i)
     str object double long
     spam 5.60 9 5.60 9
-    >>> opt_func[str, float, cy.int]("spam", f, i)
+    >>> opt_func[str, f32, cy.i32]("spam", f, i)
     str object float int
     spam 5.60 9 5.60 9
 
@@ -88,34 +83,34 @@ def opt_func(fused_t obj, cython.floating myf = 1.2, cython.integral myi = 7,
     >>> opt_func(ExtClassA(), f, i)
     ExtClassA double long
     ExtClassA 5.60 9 5.60 9
-    >>> opt_func[ExtClassA, float, int](ExtClassA(), f, i)
+    >>> opt_func[ExtClassA, f32, i32](ExtClassA(), f, i)
     ExtClassA float int
     ExtClassA 5.60 9 5.60 9
-    >>> opt_func[ExtClassA, cy.double, cy.long](ExtClassA(), f, i)
+    >>> opt_func[ExtClassA, cy.f64, cy.i64](ExtClassA(), f, i)
     ExtClassA double long
     ExtClassA 5.60 9 5.60 9
 
     >>> opt_func(ExtClassB(), f, i)
     ExtClassB double long
     ExtClassB 5.60 9 5.60 9
-    >>> opt_func[ExtClassB, cy.double, cy.long](ExtClassB(), f, i)
+    >>> opt_func[ExtClassB, cy.f64, cy.i64](ExtClassB(), f, i)
     ExtClassB double long
     ExtClassB 5.60 9 5.60 9
 
     >>> opt_func(10, f)
     long double long
     10 5.60 7 5.60 9
-    >>> opt_func[int, float, int](10, f)
+    >>> opt_func[i32, f32, i32](10, f)
     int float int
     10 5.60 7 5.60 9
 
     >>> opt_func(10 + 2j, myf = 2.6)
     double complex double long
     (10+2j) 2.60 7 5.60 9
-    >>> opt_func[cy.py_complex, float, int](10 + 2j, myf = 2.6)
+    >>> opt_func[cy.py_complex, f32, i32](10 + 2j, myf = 2.6)
     double complex float int
     (10+2j) 2.60 7 5.60 9
-    >>> opt_func[cy.doublecomplex, cy.float, cy.int](10 + 2j, myf = 2.6)
+    >>> opt_func[cy.doublecomplex, cy.f32, cy.i32](10 + 2j, myf = 2.6)
     double complex float int
     (10+2j) 2.60 7 5.60 9
 
@@ -128,7 +123,7 @@ def opt_func(fused_t obj, cython.floating myf = 1.2, cython.integral myi = 7,
     >>> opt_func("abc", f, i, 5, 5, 5)  # doctest: +ELLIPSIS
     Traceback (most recent call last):
     TypeError: ...at most 5...
-    >>> opt_func[ExtClassA, cy.float, cy.long](object(), f)
+    >>> opt_func[ExtClassA, cy.f32, cy.i64](object(), f)
     Traceback (most recent call last):
     TypeError: Argument 'obj' has incorrect type (expected fused_def.ExtClassA, got object)
     """
@@ -163,8 +158,7 @@ def test_opt_func():
     str object double long
     ham 5.60 4 5.60 9
     """
-    opt_func("ham", f, entry4)
-
+    opt_func("ham", f, Entry4)
 
 def test_opt_func_introspection():
     """
@@ -174,19 +168,18 @@ def test_opt_func_introspection():
     >>> opt_func.__annotations__
     {}
 
-    >>> opt_func[str, float, int].__defaults__
+    >>> opt_func[str, f32, i32].__defaults__
     (1.2, 7, 2, 3)
-    >>> opt_func[str, float, int].__kwdefaults__
-    >>> opt_func[str, float, int].__annotations__
+    >>> opt_func[str, f32, i32].__kwdefaults__
+    >>> opt_func[str, f32, i32].__annotations__
     {}
 
-    >>> opt_func[str, cy.double, cy.long].__defaults__
+    >>> opt_func[str, cy.f64, cy.i64].__defaults__
     (1.2, 7, 2, 3)
-    >>> opt_func[str, cy.double, cy.long].__kwdefaults__
-    >>> opt_func[str, cy.double, cy.long].__annotations__
+    >>> opt_func[str, cy.f64, cy.i64].__kwdefaults__
+    >>> opt_func[str, cy.f64, cy.i64].__annotations__
     {}
     """
-
 
 def func_with_object(fused_with_object obj, cython.integral myi = 7):
     """
@@ -221,8 +214,6 @@ def func_with_object(fused_with_object obj, cython.integral myi = 7):
     print cython.typeof(obj), cython.typeof(myi)
     print obj, myi
 
-
-
 def args_kwargs(fused_t obj, cython.floating myf = 1.2, *args, **kwargs):
     """
     >>> args_kwargs("foo")
@@ -240,7 +231,6 @@ def args_kwargs(fused_t obj, cython.floating myf = 1.2, *args, **kwargs):
     """
     print cython.typeof(obj), cython.typeof(myf)
     print obj, "%.2f" % myf, "%.2f" % f, args, kwargs
-
 
 class BaseClass(object):
     """
@@ -434,7 +424,7 @@ def test_decorators(cython.floating arg):
     [3, 2, 1]
     """
 
-@cython.binding(True)
+#[cython.binding(true)]
 def bind_me(self, cython.floating a=1.):
     return a
 

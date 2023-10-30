@@ -3,7 +3,7 @@ def f(x):
     >>> f(1)
     (1, 17)
     """
-    cdef int y
+    let i32 y
     z = 42
     with nogil:
         y = 17
@@ -19,5 +19,5 @@ def g():
         h()
     return 1
 
-cdef int h() except -1 nogil:
+fn i32 h() except -1 nogil:
     pass

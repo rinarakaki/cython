@@ -1,7 +1,7 @@
 # mode: run
 # tag: warnings
 
-cimport cython
+use cython
 
 __doc__ = u"""
     >>> s()
@@ -45,16 +45,15 @@ DEF FALSE = TRUE_FALSE[1]
 DEF INT_TUPLE1 = TUPLE[:2]
 DEF INT_TUPLE2 = TUPLE[1:4:2]
 DEF ELLIPSIS = ...
-DEF EXPRESSION = int(float(2*2)) + int(str(2)) + int(max(1,2,3)) + sum([TWO, FIVE])
+DEF EXPRESSION = int(float(2*2)) + int(str(2)) + int(max(1, 2, 3)) + sum([TWO, FIVE])
 DEF UNICODE_EXPRESSION = unicode(BYTES.decode('utf8')).encode('ascii').decode('latin1')
-
 
 def c():
     """
     >>> c()
     120
     """
-    cdef char c = CHAR
+    let char c = CHAR
     return c
 
 def i0():
@@ -62,7 +61,7 @@ def i0():
     >>> i0() == -1
     True
     """
-    cdef int i = INT0
+    let i32 i = INT0
     return i
 
 def i1():
@@ -70,7 +69,7 @@ def i1():
     >>> i1() == 42
     True
     """
-    cdef int i = INT1
+    let i32 i = INT1
     return i
 
 def i2():
@@ -78,7 +77,7 @@ def i2():
     >>> i2() == 0x42
     True
     """
-    cdef int i = INT2
+    let i32 i = INT2
     return i
 
 def i3():
@@ -86,7 +85,7 @@ def i3():
     >>> i3() == -0x42
     True
     """
-    cdef int i = INT3
+    let i32 i = INT3
     return i
 
 def l():
@@ -94,7 +93,7 @@ def l():
     >>> l()
     666
     """
-    cdef long l = LONG
+    let i64 l = LONG
     return l
 
 def large_nums():
@@ -109,10 +108,10 @@ def large_nums():
     >>> print_large_number(n64)
     -4294967295
     """
-    cdef unsigned long ul32 = LARGE_NUM32
-    cdef unsigned long long ul64 = LARGE_NUM64
-    cdef long long l64 = LARGE_NUM32
-    cdef long long n64 = -LARGE_NUM32
+    let u64 ul32 = LARGE_NUM32
+    let u128 ul64 = LARGE_NUM64
+    let i128 l64 = LARGE_NUM32
+    let i128 n64 = -LARGE_NUM32
     return ul32, ul64, l64, n64
 
 def f():
@@ -120,14 +119,14 @@ def f():
     >>> f()
     12.5
     """
-    cdef float f = FLOAT
+    let f32 f = FLOAT
     return f
 
 def s():
     """
     see module docstring above
     """
-    cdef char* s = BYTES
+    let char* s = BYTES
     return s
 
 def type_of_bytes():
@@ -150,7 +149,7 @@ def type_of_unicode():
     s = UNICODE
     return t, s
 
-@cython.test_assert_path_exists('//TupleNode')
+#[cython.test_assert_path_exists('//TupleNode')]
 def constant_tuple():
     """
     >>> constant_tuple()[:-1]
@@ -158,16 +157,16 @@ def constant_tuple():
     >>> print(constant_tuple()[-1])
     buckle my shoe
     """
-    cdef object t = TUPLE
+    let object t = TUPLE
     return t
 
-@cython.test_assert_path_exists('//IntNode')
+#[cython.test_assert_path_exists('//IntNode')]
 def tuple_indexing():
     """
     >>> tuple_indexing()
     2
     """
-    cdef int two = INT_TUPLE1[-1]
+    let i32 two = INT_TUPLE1[-1]
     return two
 
 def two():
@@ -175,7 +174,7 @@ def two():
     >>> two()
     2
     """
-    cdef int two = TWO
+    let i32 two = TWO
     return two
 
 def five():
@@ -183,25 +182,25 @@ def five():
     >>> five()
     5
     """
-    cdef int five = FIVE
+    let i32 five = FIVE
     return five
 
-@cython.test_assert_path_exists('//BoolNode')
+#[cython.test_assert_path_exists('//BoolNode')]
 def true():
     """
     >>> true()
     True
     """
-    cdef bint true = TRUE
+    let bint true = TRUE
     return true
 
-@cython.test_assert_path_exists('//BoolNode')
+#[cython.test_assert_path_exists('//BoolNode')]
 def false():
     """
     >>> false()
     False
     """
-    cdef bint false = FALSE
+    let bint false = FALSE
     return false
 
 def ellipsis():
@@ -211,16 +210,15 @@ def ellipsis():
     """
     return ELLIPSIS
 
-@cython.test_assert_path_exists('//IntNode')
-@cython.test_fail_if_path_exists('//AddNode')
+#[cython.test_assert_path_exists('//IntNode')]
+#[cython.test_fail_if_path_exists('//AddNode')]
 def expression():
     """
     >>> expression()
     16
     """
-    cdef int i = EXPRESSION
+    let i32 i = EXPRESSION
     return i
-
 
 def unicode_expression():
     """
@@ -229,7 +227,6 @@ def unicode_expression():
     """
     s = UNICODE_EXPRESSION
     return s
-
 
 def none():
     """

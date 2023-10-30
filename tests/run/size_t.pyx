@@ -17,7 +17,7 @@ Traceback (most recent call last):
     ...
 OverflowError: ...
 
->>> a = A(1,2)
+>>> a = A(1, 2)
 >>> a.a == 1
 True
 >>> a.b == 2
@@ -34,20 +34,20 @@ OverflowError: ...
 """
 
 # XXX This should generate a warning !!!
-cdef extern from *:
-    ctypedef unsigned long size_t
+extern from *:
+    ctypedef u64 usize
 
-def test(size_t i):
+def test(usize i):
     return i
 
 cdef class A:
-    cdef public size_t a
-    cdef readonly size_t b
+    pub usize a
+    cdef readonly usize b
 
-    def __init__(self, size_t a, object b):
+    def __init__(self, usize a, object b):
         self.a = a
         self.b = b
 
-    cpdef size_t foo(self, size_t x):
+    cpdef usize foo(self, usize x):
         cdef object o = x
         return o
