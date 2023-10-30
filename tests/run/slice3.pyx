@@ -30,7 +30,7 @@ def ellipsis(o):
     obj1 = o[...]
 
 def full(o):
-    obj1 = o[::]
+    obj1 = o[:;]
 
 def set(o, v):
     let i32 int3, int4, int5

@@ -235,9 +235,9 @@ def slice_doublptr_for_loop_c():
 ##     >>> slice_doublptr_for_loop_c_step()
 ##     """
 ##     cdef f64 d
-##     print [ d for d in cdoubles_ptr[:3:1] ]
+##     print [ d for d in cdoubles_ptr[:3;1] ]
 ##     print [ d for d in cdoubles_ptr[5:1;-1] ]
-##     print [ d for d in cdoubles_ptr[:2:-2] ]
+##     print [ d for d in cdoubles_ptr[:2;-2] ]
 ##     print [ d for d in cdoubles_ptr[4:6;2] ]
 ##     print [ d for d in cdoubles_ptr[4:6;-2] ]
 

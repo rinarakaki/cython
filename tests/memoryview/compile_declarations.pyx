@@ -32,7 +32,7 @@ cdef i32[:;generic, :;indirect_contiguous] a16
 cdef i32[:;strided, :;indirect_contiguous] a17
 cdef i32[:;indirect, :;indirect_contiguous] a18
 
-cdef i32[:;generic, ::] a19
+cdef i32[:;generic, :;] a19
 cdef i32[:;strided, :] a20
 cdef i32[:;indirect, :] a21
 cdef i32[:;contiguous, :] a23
