@@ -159,7 +159,7 @@ def test_fused_pointer_except_null(value):
 
 include "../testsupport/cythonarrayutil.pxi"
 
-cpdef cython.integral test_fused_memoryviews(cython.integral[:, ::1] a):
+cpdef cython.integral test_fused_memoryviews(cython.integral[:, :;1] a):
     """
     >>> import cython
     >>> a = create_array((3, 5), mode="c")
@@ -168,8 +168,8 @@ cpdef cython.integral test_fused_memoryviews(cython.integral[:, ::1] a):
     """
     return a[1, 2]
 
-ctypedef i32[:, ::1] memview_int
-ctypedef long[:, ::1] memview_long
+ctypedef i32[:, :;1] memview_int
+ctypedef long[:, :;1] memview_long
 memview_t = cython.fused_type(memview_int, memview_long)
 
 def test_fused_memoryview_def(memview_t a):

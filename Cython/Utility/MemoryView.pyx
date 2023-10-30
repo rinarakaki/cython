@@ -285,11 +285,11 @@ fn array array_cwrapper(tuple shape, isize itemsize, char *format, char *c_mode,
 #     from the start, or from the dimension following the last indirect dimension
 #
 #   e.g.
-#           i32[::indirect_contiguous, ::contiguous, :]
+#           i32[:;indirect_contiguous, :;contiguous, :]
 #
 #   is valid (list of pointers to 2d fortran-contiguous array), but
 #
-#           i32[::generic_contiguous, ::contiguous, :]
+#           i32[:;generic_contiguous, :;contiguous, :]
 #
 #   would mean you'd have assert dimension 0 to be indirect (and pointer contiguous) at runtime.
 #   So it doesn't bring any performance benefit, and it's only confusing.

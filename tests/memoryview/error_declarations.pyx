@@ -3,37 +3,37 @@
 use cython
 from cython cimport view
 
-cdef signed short[::1, ::1] both
-cdef signed short[::1, :, :, ::1] both2
-cdef signed char[::2] err0
-cdef signed char[::-100] err1
-cdef signed char[::-1] err2
-cdef i128[01::1, 0x01:, '0'   :, False:] fort_contig0
-cdef signed char[1::] bad_start
+cdef signed short[:;1, :;1] both
+cdef signed short[:;1, :, :, :;1] both2
+cdef signed char[:;2] err0
+cdef signed char[:;-100] err1
+cdef signed char[:;-1] err2
+cdef i128[01:;1, 0x01:, '0'   :, False:] fort_contig0
+cdef signed char[1:;] bad_start
 cdef u64[:, :1] bad_stop
-cdef u64[:, ::1, :] neither_c_or_f
-cdef signed char[::1-1+1] expr_spec
-cdef signed char[::blargh] bad_name
-cdef f64[::alist[0]['view'].full] expr_attribute
+cdef u64[:, :;1, :] neither_c_or_f
+cdef signed char[:;1-1+1] expr_spec
+cdef signed char[:;blargh] bad_name
+cdef f64[:;alist[0]['view'].full] expr_attribute
 
-cdef object[::1, :] unconformable1 = object()
-cdef object[:, ::1] unconformable2 = unconformable1
+cdef object[:;1, :] unconformable1 = object()
+cdef object[:, :;1] unconformable2 = unconformable1
 
-cdef i32[::1, :] dtype_unconformable = object()
+cdef i32[:;1, :] dtype_unconformable = object()
 unconformable1 = dtype_unconformable
 
 # These are INVALID
-cdef i32[::view.contiguous, ::1] a1
-#cdef i32[::view.generic_contiguous, ::1] a2
+cdef i32[:;view.contiguous, :;1] a1
+#cdef i32[:;view.generic_contiguous, :;1] a2
 
-#cdef i32[::view.contiguous, ::view.generic_contiguous] a3
-#cdef i32[::view.generic_contiguous, ::view.generic_contiguous] a4
+#cdef i32[:;view.contiguous, :;view.generic_contiguous] a3
+#cdef i32[:;view.generic_contiguous, :;view.generic_contiguous] a4
 
-cdef i32[::view.contiguous, ::view.contiguous] a5
-cdef i32[:, ::view.contiguous, ::view.indirect_contiguous] a6
+cdef i32[:;view.contiguous, :;view.contiguous] a5
+cdef i32[:, :;view.contiguous, :;view.indirect_contiguous] a6
 
-#cdef i32[::view.generic_contiguous, ::view.contiguous] a7
-#cdef i32[::view.contiguous, ::view.generic_contiguous] a8
+#cdef i32[:;view.generic_contiguous, :;view.contiguous] a7
+#cdef i32[:;view.contiguous, :;view.generic_contiguous] a8
 
 ctypedef i32 *intp
 cdef intp[:, :] myarray
@@ -59,7 +59,7 @@ cdef f64[:] m
 print <i64> &m
 
 # These are VALID
-cdef i32[::view.indirect_contiguous, ::view.contiguous] a9
+cdef i32[:;view.indirect_contiguous, :;view.contiguous] a9
 four_D[None, None, None]
 
 _ERRORS = u'''

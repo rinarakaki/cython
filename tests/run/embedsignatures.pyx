@@ -431,10 +431,10 @@ cdef class Foo:
     def m25(self, a: list(range(3))[:]): pass
     def m26(self, a: list(range(3))[1:]): pass
     def m27(self, a: list(range(3))[:1]): pass
-    def m28(self, a: list(range(3))[::1]): pass
+    def m28(self, a: list(range(3))[:;1]): pass
     def m29(self, a: list(range(3))[0:1:1]): pass
     def m30(self, a: list(range(3))[7, 3:2:1, ...]): pass
-    def m31(self, f64[::1] a): pass
+    def m31(self, f64[:;1] a): pass
     def m32(self, a: tuple[()]) -> tuple[tuple[()]]: pass
 
 __doc__ += ur"""

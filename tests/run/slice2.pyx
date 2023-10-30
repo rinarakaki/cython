@@ -88,7 +88,7 @@ def test_step(seq, step):
     ... except TypeError: pass
     ...
     """
-    obj = seq[::step]
+    obj = seq[:;step]
     return obj
 
 def test_start_and_stop(seq, start, stop):

@@ -5,7 +5,7 @@
 fn void memoryview_func_a(f64[:] x):
     x[0] = 1
 
-fn void memoryview_func_b(f64[::1] x):
+fn void memoryview_func_b(f64[:;1] x):
     x[0] = 2
 
 fn void memoryview_func_c(i32[:] x):
@@ -14,10 +14,10 @@ fn void memoryview_func_c(i32[:] x):
 fn void memoryview_func_d(i32[:] x):
     x[0] = 2
 
-fn void memoryview_func_e(i32[:, ::1] x):
+fn void memoryview_func_e(i32[:, :;1] x):
     x[0, 0] = 4
 
-fn void memoryview_func_f(i32[::1, :] x):
+fn void memoryview_func_f(i32[:;1, :] x):
     x[0, 0] = 4
 
 def test_memview_wrapping():

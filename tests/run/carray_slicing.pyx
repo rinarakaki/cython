@@ -81,7 +81,7 @@ def slice_charptr_for_loop_c_step():
     """
     let object ustring = cstring.decode('ASCII')
     let char c
-    print ustring[3::-1],     [ chr(c) for c in cstring[3::-1] ]
+    print ustring[3:;-1],     [ chr(c) for c in cstring[3:;-1] ]
     print ustring[3:None:-1], [ chr(c) for c in cstring[3:None:-1] ]
     print ustring[1:5:2],     [ chr(c) for c in cstring[1:5:2] ]
     print ustring[:5:2],      [ chr(c) for c in cstring[:5:2] ]
