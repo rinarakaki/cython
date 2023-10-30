@@ -30,23 +30,23 @@ def ellipsis(o):
     obj1 = o[...]
 
 def full(o):
-    obj1 = o[::]
+    obj1 = o[:;]
 
 def set(o, v):
     let i32 int3, int4, int5
     int3, int4, int5 = 1,2,3
-    o[int3:int4:int5] = v
+    o[int3:int4;int5] = v
 
 def select(obj1, obj2, obj3, obj4, obj5):
     let i32 int3, int4, int5
     int3, int4, int5 = 1,2,3
 
-    obj1 = obj2[obj3::]
-    obj1 = obj2[:obj4:]
-    obj1 = obj2[::obj5]
-    obj1 = obj2[obj3:obj4:]
-    obj1 = obj2[obj3::obj5]
-    obj1 = obj2[:obj4:obj5]
-    obj1 = obj2[obj3:obj4:obj5]
-    obj1 = obj2[int3:int4:int5]
+    obj1 = obj2[obj3:;]
+    obj1 = obj2[:obj4;]
+    obj1 = obj2[:;obj5]
+    obj1 = obj2[obj3:obj4;]
+    obj1 = obj2[obj3:;obj5]
+    obj1 = obj2[:obj4;obj5]
+    obj1 = obj2[obj3:obj4;obj5]
+    obj1 = obj2[int3:int4;int5]
 
