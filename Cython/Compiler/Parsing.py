@@ -1865,7 +1865,7 @@ def p_dotted_name(s, as_allowed):
     target_name = p_ident(s)
     as_name = None
     names = [target_name]
-    while s.sy == '.':
+    while s.sy in ("::", "."):
         s.next()
         names.append(p_ident(s))
     if as_allowed:
