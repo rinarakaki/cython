@@ -3,10 +3,10 @@
 
 
 use libcpp
-print libcpp.no_such_attribute
+print libcpp::no_such_attribute
 
-use libcpp.map
-print libcpp.map.no_such_attribute
+use libcpp::map
+print libcpp::map::no_such_attribute
 
 from libcpp cimport vector
 print vector.no_such_attribute

@@ -1,6 +1,6 @@
 # tag: run
 
-use cython.parallel
+use cython::parallel
 from cython.parallel import prange, threadid
 from cython.view cimport array
 from libc.stdlib cimport malloc, calloc, free, abort

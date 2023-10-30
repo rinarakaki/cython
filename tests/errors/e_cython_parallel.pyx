@@ -1,7 +1,7 @@
 # mode: error
 
-use cython.parallel.parallel as p
-from cython.parallel cimport something
+use cython::parallel::parallel as p
+from cython::parallel cimport something
 
 import cython.parallel.parallel as p
 from cython.parallel import something

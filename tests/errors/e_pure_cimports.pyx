@@ -7,9 +7,9 @@ import cython.cimports
 import cython.cimports.libc
 import cython.cimports as cim
 
-use cython.cimports
-use cython.cimports.libc
-use cython.cimports as cim
+use cython::cimports
+use cython::cimports::libc
+use cython::cimports as cim
 import cython.cimports.libc as cython
 
 
