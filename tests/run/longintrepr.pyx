@@ -2,7 +2,7 @@
 
 # Test longintrepr declarations by implementing a simple function
 
-from cpython.longintrepr cimport *
+use cpython::longintrepr::*
 use cython
 
 #[cython.cdivision(true)]

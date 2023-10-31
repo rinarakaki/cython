@@ -1,13 +1,13 @@
 # mode: compile
 
-use libc.stdio
-from libc cimport stdio
+cimport libc.stdio
+use libc::stdio
 from libc.stdio cimport printf, puts, fputs, putchar, fputc, putc, stdout
 
 
 with nogil:
     libc.stdio.printf("hello %s\n", b"world")
-    stdio.printf("hello %s\n", b"world")
+    stdio::printf("hello %s\n", b"world")
     printf("hello %s\n", b"world")
     printf("printf_output %d %d\n", 1, 2)
     puts("puts_output")

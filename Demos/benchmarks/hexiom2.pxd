@@ -1,4 +1,4 @@
-cimport cython
+use cython
 
 cdef object EMPTY
 cdef i32 IMPOSSIBLE, SOLVED, OPEN

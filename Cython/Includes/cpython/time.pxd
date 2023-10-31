@@ -2,8 +2,8 @@
 Cython implementation of (parts of) the standard library time module.
 """
 
-from libc.stdint cimport int64_t
-from cpython.exc cimport PyErr_SetFromErrno
+use libc::stdint::int64_t
+use cpython::exc::PyErr_SetFromErrno
 
 extern from "Python.h":
     ctypedef int64_t _PyTime_t

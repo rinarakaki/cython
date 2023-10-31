@@ -44,7 +44,7 @@ def single_uchar_compare():
     assert u'\u0101' > u'\u0100'
 
 
-from cpython.unicode cimport PyUnicode_FromOrdinal
+use cpython::unicode::PyUnicode_FromOrdinal
 import sys
 
 u0 = u'\x00'

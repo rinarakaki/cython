@@ -1,7 +1,7 @@
 # mode: run
 # tag: cpp, cpp11
 
-from libcpp.functional cimport function
+use libcpp::functional::function
 use cpp_function_lib
 
 def test_simple_function():

@@ -1,6 +1,6 @@
 # to_unicode.pyx
 
-from cpython.version cimport PY_MAJOR_VERSION
+use cpython::version::PY_MAJOR_VERSION
 
 fn unicode _text(s):
     if type(s) is unicode:

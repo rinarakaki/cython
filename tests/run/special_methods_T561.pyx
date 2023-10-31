@@ -23,7 +23,7 @@
 
 import sys
 
-from cpython.number cimport PyNumber_InPlacePower
+use cpython::number::PyNumber_InPlacePower
 
 __doc__ = u"""
     >>> # If you define either setitem or delitem, you get wrapper objects
