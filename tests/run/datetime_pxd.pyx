@@ -14,7 +14,7 @@ use cpython::datetime::(datetime, total_seconds)
 use cpython::datetime::(date_from_timestamp, get_utc, datetime_from_timestamp)
 
 # These were added in Python 2.7.5, make sure that their backport works.
-from cpython.datetime cimport (
+use cpython::datetime::(
     timedelta as timedelta_ext_type,
     PyDateTime_DELTA_GET_DAYS,
     PyDateTime_DELTA_GET_SECONDS,
