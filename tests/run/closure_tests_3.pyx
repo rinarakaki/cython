@@ -165,8 +165,8 @@ def g1688():
     >>> g1688()
     True
     """
-    t_1236 = True
-    f_1235 = False
+    t_1236 = true
+    f_1235 = false
     def g1687():
       def g1685(x_1240):
         def g1686():

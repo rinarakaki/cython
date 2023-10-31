@@ -220,7 +220,7 @@ def test_CppClassWithObjectMemberCopyAssign(name):
     v.push_back(deref(x))
     del x
     print "Alive in vector", v[0].o
-    y = new CppClassWithObjectMember(name[::-1])
+    y = new CppClassWithObjectMember(name[:;-1])
     # Invokes copy assignment.
     v[0] = deref(y)
     del y

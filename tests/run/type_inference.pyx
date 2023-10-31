@@ -1,4 +1,4 @@
-# cython: infer_types = True
+# cython: infer_types = true
 
 use cython
 from cython cimport typeof, infer_types
@@ -61,31 +61,31 @@ def slicing():
     assert typeof(b) == "bytes object", typeof(b)
     b1 = b[1:2]
     assert typeof(b1) == "bytes object", typeof(b1)
-    b2 = b[1:2:2]
+    b2 = b[1:2;2]
     assert typeof(b2) == "bytes object", typeof(b2)
     u = u"xyz"
     assert typeof(u) == "unicode object", typeof(u)
     u1 = u[1:2]
     assert typeof(u1) == "unicode object", typeof(u1)
-    u2 = u[1:2:2]
+    u2 = u[1:2;2]
     assert typeof(u2) == "unicode object", typeof(u2)
     s = "xyz"
     assert typeof(s) == "str object", typeof(s)
     s1 = s[1:2]
     assert typeof(s1) == "str object", typeof(s1)
-    s2 = s[1:2:2]
+    s2 = s[1:2;2]
     assert typeof(s2) == "str object", typeof(s2)
     L = [1, 2, 3]
     assert typeof(L) == "list object", typeof(L)
     L1 = L[1:2]
     assert typeof(L1) == "list object", typeof(L1)
-    L2 = L[1:2:2]
+    L2 = L[1:2;2]
     assert typeof(L2) == "list object", typeof(L2)
-    t = (4,5,6,())
+    t = (4, 5, 6, ())
     assert typeof(t) == "tuple object", typeof(t)
     t1 = t[1:2]
     assert typeof(t1) == "tuple object", typeof(t1)
-    t2 = t[1:2:2]
+    t2 = t[1:2;2]
     assert typeof(t2) == "tuple object", typeof(t2)
 
 def indexing():
@@ -468,9 +468,9 @@ fn object some_float_value():
     return 2.0
 
 #[infer_types(None)]
-#[cython.test_fail_if_path_exists("//DefNode//NameNode[@type.is_pyobject = True]")]
+#[cython.test_fail_if_path_exists("//DefNode//NameNode[@type.is_pyobject = true]")]
 #[cython.test_assert_path_exists("//DefNode//NameNode[@type.is_pyobject]",
-                                 "//DefNode//NameNode[@type.is_pyobject = False]")]
+                                 "//DefNode//NameNode[@type.is_pyobject = false]")]
 def double_loop():
     """
     >>> double_loop() == 1.0 * 10
