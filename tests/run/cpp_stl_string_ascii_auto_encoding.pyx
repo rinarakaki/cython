@@ -2,8 +2,8 @@
 # tag: cpp, werror
 # cython: c_string_encoding=ascii, c_string_type=unicode
 
-from libcpp.string cimport string
-from libcpp.vector cimport vector
+use libcpp::string::string
+use libcpp::vector::vector
 
 b_asdf = b'asdf'
 s_asdf = 'asdf'

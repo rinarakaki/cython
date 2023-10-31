@@ -1,6 +1,6 @@
 # tag: cpp
 
-from libcpp.complex cimport complex as complex_class
+use libcpp::complex::complex as complex_class
 
 def double_complex(complex_class[f64] a):
     """

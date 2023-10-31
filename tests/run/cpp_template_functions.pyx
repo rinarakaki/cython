@@ -2,8 +2,8 @@
 # tag: cpp, warnings, no-cpp-locals
 
 use cython
-from libcpp.pair cimport pair
-from libcpp.vector cimport vector
+use libcpp::pair::pair
+use libcpp::vector::vector
 
 extern from "cpp_template_functions_helper.h":
     let T no_arg[T]()

@@ -1,14 +1,14 @@
 # mode: run
 # tag: cpp, werror, cpp17, cppexecpolicies
 
-from cython.operator cimport dereference as deref
+use cython::operator::dereference as deref
 
-from libcpp cimport bool
+use libcpp::bool
 from libcpp.algorithm cimport (min_element, max_element, minmax, minmax_element, 
                                clamp)
-from libcpp.vector cimport vector
-from libcpp.pair cimport pair
-from libcpp.execution cimport seq
+use libcpp::vector::vector
+use libcpp::pair::pair
+use libcpp::execution::seq
 
 fn bool less(i32 a, i32 b):
     return a < b

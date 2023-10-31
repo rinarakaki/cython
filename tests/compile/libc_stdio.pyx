@@ -1,7 +1,7 @@
 # mode: compile
 
 use libc::stdio
-from libc cimport stdio
+use libc::stdio
 from libc::stdio cimport printf, puts, fputs, putchar, fputc, putc, stdout
 
 

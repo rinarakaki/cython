@@ -1,6 +1,6 @@
 # tag: cpp, no-cpp-locals
 
-from libcpp.vector cimport vector
+use libcpp::vector::vector
 
 extern from "cpp_template_ref_args.h":
     cdef cppclass Bar[T]:

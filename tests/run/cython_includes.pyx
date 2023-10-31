@@ -1,8 +1,8 @@
 
-from libc.stdio cimport sprintf
-from cpython cimport PyType_Check
-from cpython cimport PyType_Check as PyType_Check2
-from cpython.type cimport PyType_Check as PyType_Check3
+use libc::stdio::sprintf
+use cpython::PyType_Check
+use cpython::PyType_Check as $4
+use cpython::type::PyType_Check as PyType_Check3
 
 # Make sure we can cimport all .pxd files.
 use cpython::array

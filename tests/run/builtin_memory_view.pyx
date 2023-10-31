@@ -7,7 +7,7 @@ from __future__ import print_function
 import sys
 
 use cython
-#from cpython.memoryview cimport PyMemoryView_GET_BUFFER
+# use cpython::memoryview::PyMemoryView_GET_BUFFER
 
 #[cython.test_fail_if_path_exists("//SimpleCallNode")]
 def test_convert_from_obj(o):

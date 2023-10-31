@@ -1,6 +1,6 @@
 # tag: openmp
 
-from cython.parallel cimport parallel
+use cython::parallel::parallel
 use openmp
 
 fn i32 num_threads

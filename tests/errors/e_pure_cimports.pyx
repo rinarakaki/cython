@@ -16,7 +16,7 @@ import cython.cimports.libc as cython
 # ok
 import cython.cimports.libc as libc
 from cython.cimports import libc
-from cython.cimports cimport libc
+use cython::cimports::libc
 
 
 _ERRORS = """

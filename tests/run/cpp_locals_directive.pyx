@@ -6,7 +6,7 @@
 
 use cython
 
-from libcpp cimport bool as cppbool
+use libcpp::bool as cbool
 
 extern from *:
     r"""

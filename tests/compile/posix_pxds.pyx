@@ -6,65 +6,65 @@
 use posix
 
 use posix::dlfcn
-from posix cimport dlfcn
+use posix::dlfcn
 use posix::dlfcn::*
 
 use posix::fcntl
-from posix cimport fcntl
+use posix::fcntl
 use posix::fcntl::*
 
 use posix::ioctl
-from posix cimport ioctl
+use posix::ioctl
 use posix::ioctl::*
 
 use posix::mman
-from posix cimport mman
+use posix::mman
 use posix::mman::*
 
 use posix::resource
-from posix cimport resource
+use posix::resource
 use posix::resource::*
 
 use posix::select
-from posix cimport select
+use posix::select
 use posix::select::*
 
 use posix::signal
-from posix cimport signal
+use posix::signal
 use posix::signal::*
 
 use posix::stat
-from posix cimport stat
+use posix::stat
 use posix::stat::*
 
 use posix::stdio
-from posix cimport stdio
+use posix::stdio
 use posix::stdio::*
 
 use posix::stdlib
-from posix cimport stdlib
+use posix::stdlib
 use posix::stdlib::*
 
 use posix::strings
-from posix cimport strings
+use posix::strings
 use posix::strings::*
 
 use posix::time
-from posix cimport time
+use posix::time
 use posix::time::*
 
 use posix::types
-from posix cimport types
+use posix::types
 use posix::types::*
 
 use posix::uio
-from posix cimport uio
+use posix::uio
 use posix::uio::*
 
 use posix::unistd
-from posix cimport unistd
+use posix::unistd
 use posix::unistd::*
 
 use posix::wait
-from posix cimport wait
+use posix::wait
 use posix::wait::*

@@ -30,13 +30,13 @@ def h(object[i32, ndim=2] buf):
     with cy.boundscheck(true):
         print buf[3, 2] # bc
 
-from cython cimport boundscheck as bc
+use cython::boundscheck as $4
 
 def i(object[i32] buf):
     with bc(true):
         print buf[3] # bs
 
-from cython cimport warn as my_warn
+use cython::warn as $4
 
 @my_warn(undeclared=true)
 def j():

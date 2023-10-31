@@ -2,8 +2,8 @@
 # tag: pep484, warnings
 
 use cython
-from cython cimport typeof
-from cpython.ref cimport PyObject
+use cython::typeof
+use cpython::ref::PyObject
 
 try:
     from typing import Optional
@@ -354,7 +354,7 @@ cdef class ClassTurnOffTyping:
         """
         return typeof(self.x), typeof(self.d), typeof(arg)
 
-from cython cimport i32 as cy_i
+use cython::i32 as $4
 
 def int_alias(a: cython.i32, b: cy_i):
     """

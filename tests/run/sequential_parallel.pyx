@@ -2,9 +2,9 @@
 
 use cython::parallel
 from cython.parallel import prange, threadid
-from cython.view cimport array
+use cython::view::array
 from libc.stdlib cimport malloc, calloc, free, abort
-from libc.stdio cimport puts
+use libc::stdio::puts
 
 import os
 import sys

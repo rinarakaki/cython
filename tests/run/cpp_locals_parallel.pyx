@@ -4,7 +4,7 @@
 
 # cython: cpp_locals=true
 
-from cython.parallel cimport prange
+use cython::parallel::prange
 
 extern from *:
     """

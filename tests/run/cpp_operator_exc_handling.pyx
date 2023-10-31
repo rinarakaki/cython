@@ -3,7 +3,7 @@
 
 from cython.operator import (preincrement, predecrement,
                              postincrement, postdecrement)
-from libcpp cimport bool
+use libcpp::bool
 
 extern from "cpp_operator_exc_handling_helper.hpp" nogil:
     cppclass wrapped_int:

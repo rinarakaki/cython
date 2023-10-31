@@ -23,7 +23,7 @@ def nonzero(i32 x):
     else:
         return false
 
-from libc.string cimport strcpy
+use libc::string::strcpy
 cdef char[256] error_msg
 cdef jmp_buf error_ctx
 fn void error(char msg[]) nogil:

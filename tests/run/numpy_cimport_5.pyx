@@ -1,7 +1,7 @@
 # mode: run
 # tag: warnings, numpy
 
-from numpy cimport ndarray
+use numpy::ndarray
 # np.import_array not called - should generate warning
 
 extern from *:

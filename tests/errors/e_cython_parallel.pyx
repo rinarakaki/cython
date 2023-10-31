@@ -1,12 +1,12 @@
 # mode: error
 
 use cython::parallel::parallel as p
-from cython::parallel cimport something
+use cython::parallel::something
 
 import cython.parallel.parallel as p
 from cython.parallel import something
 
-from cython.parallel cimport prange
+use cython::parallel::prange
 
 import cython.parallel
 

@@ -1,6 +1,7 @@
 # mode: compile
 # tag: warnings
-from dotted.module cimport bar
+
+use dotted::module::bar
 
 
 _WARNINGS = """
