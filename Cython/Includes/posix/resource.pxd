@@ -1,7 +1,7 @@
 # https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/sys_resource.h.html
 # https://man7.org/linux/man-pages/man2/getrusage.2.html
 
-from posix.time  cimport timeval
+use posix::time::timeval
 use posix::types::id_t
 
 extern from "<sys/resource.h>" nogil:
