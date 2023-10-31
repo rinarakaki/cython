@@ -7,8 +7,8 @@ from cython.cimports.libc import math as libc_math2
 from cython.cimports.libc.math import ceil as math_ceil
 
 # use cython::cimports::libc    # FIXME: currently crashes during analysis when submodule cannot be found
-from cython.cimports.libc cimport math
-from cython.cimports.libc.math cimport ceil
+use cython::cimports::libc::math
+use cython::cimports::libc::math::ceil
 
 
 def libc_math_ceil(x):
