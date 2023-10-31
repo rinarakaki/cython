@@ -65,15 +65,15 @@ four_D[None, None, None]
 _ERRORS = u'''
 6:16: Cannot specify an array that is both C and Fortran contiguous.
 7:22: Cannot specify an array that is both C and Fortran contiguous.
-8:19: Step must be omitted, 1, or a valid specifier.
-9:20: Step must be omitted, 1, or a valid specifier.
-10:20: Step must be omitted, 1, or a valid specifier.
+8:10: Step must be omitted, 1, or a valid specifier.
+9:11: Step must be omitted, 1, or a valid specifier.
+10:11: Step must be omitted, 1, or a valid specifier.
 11:10: Start must not be given.
-12:17: Start must not be given.
+12:8: Start must not be given.
 13:13: Axis specification only allowed in the 'step' slot.
 14:8: Fortran contiguous specifier must follow an indirect dimension
-15:22: Invalid axis specification.
-16:19: Invalid axis specification.
+15:13: Invalid axis specification.
+16:10: Invalid axis specification.
 17:19: no expressions allowed in axis spec, only names and literals.
 20:37: Memoryview 'object[::1, :]' not conformable to memoryview 'object[:, ::1]'.
 23:17: Different base types for memoryviews (int, Python object)
