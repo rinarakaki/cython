@@ -446,8 +446,12 @@ def p_power(s):
         await_pos = s.position()
         s.next()
     n1 = p_atom(s)
-    while s.sy in ("(", "[", ".", "::"):
-        n1 = p_trailer(s, n1)
+    if s.in_python_file:
+        while s.sy in ("(", "[", "."):
+            n1 = p_trailer(s, n1)
+    else:
+        while s.sy in ("(", "[", ".", "::"):
+            n1 = p_trailer(s, n1)
     if await_pos:
         n1 = ExprNodes.AwaitExprNode(await_pos, arg=n1)
     if s.sy == '**':
@@ -642,14 +646,14 @@ def p_subscript(s):
         return [start]
     elif s.sy == ":":
         s.next()
-        stop = p_slice_element(s, (':', ';', ',', ']'))
-        if s.sy not in (':', ';'):
+        stop = p_slice_element(s, (":", ";", ",", "]"))
+        if s.sy not in (":", ";"):
             return [start, stop]
-    else:
+    else:  # s.sy == "::"
         s.next()
         stop = None
     s.next()
-    step = p_slice_element(s, (':', ';', ',', ']'))
+    step = p_slice_element(s, (",", "]"))
     return [start, stop, step]
 
 def p_slice_element(s, follow_set):

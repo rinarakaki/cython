@@ -151,26 +151,27 @@ with nogil, cython.parallel.parallel():
 
 
 _ERRORS = u"""
-4:4: cython.parallel.parallel is not a module
-5:0: No such directive: cython.parallel.something
-7:7: cython.parallel.parallel is not a module
-8:0: No such directive: cython.parallel.something
-14:6: prange() can only be used as part of a for loop
-14:6: prange() can only be used without the GIL
-19:19: Invalid schedule argument to prange: invalid_schedule
-22:29: The parallel section may only be used without the GIL
-28:8: target may not be a Python object as we don't have the GIL
-31:9: Can only iterate over an iteration variable
-34:8: Must be of numeric type, not int *
-37:33: Nested parallel with blocks are disallowed
-40:12: The parallel directive must be called
-46:8: local variable 'y' referenced before assignment
-56:8: local variable 'y' referenced before assignment
-61:4: Reduction operator '*' is inconsistent with previous reduction operator '+'
-63:36: cython.parallel.parallel() does not take positional arguments
-66:36: Invalid keyword argument: invalid
-74:12: 'yield' not allowed in parallel sections
-78:16: 'yield' not allowed in parallel sections
+3:8: cython.parallel.parallel is not a module
+4:4: No such directive: cython.parallel.something
+6:7: cython.parallel.parallel is not a module
+7:0: No such directive: cython.parallel.something
+13:6: prange() can only be used as part of a for loop
+13:6: prange() can only be used without the GIL
+18:19: Invalid schedule argument to prange: invalid_schedule
+21:29: The parallel section may only be used without the GIL
+27:8: target may not be a Python object as we don't have the GIL
+30:9: Can only iterate over an iteration variable
+33:8: Must be of numeric type, not int *
+36:33: Nested parallel with blocks are disallowed
+39:12: The parallel directive must be called
+45:8: local variable 'y' referenced before assignment
+55:8: local variable 'y' referenced before assignment
+60:4: Reduction operator '*' is inconsistent with previous reduction operator '+'
+62:36: cython.parallel.parallel() does not take positional arguments
+65:36: Invalid keyword argument: invalid
+73:12: 'yield' not allowed in parallel sections
+77:16: 'yield' not allowed in parallel sections
+97:8: Cannot assign to private of outer parallel block
 98:8: Cannot assign to private of outer parallel block
 99:8: Cannot assign to private of outer parallel block
 105:4: Reductions not allowed for parallel blocks
