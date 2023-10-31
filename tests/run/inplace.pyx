@@ -30,7 +30,7 @@ def h(f64 a, f64 b):
     a *= b
     return a
 
-from libc cimport stdlib
+use libc::stdlib
 
 def arrays():
     """

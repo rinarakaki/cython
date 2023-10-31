@@ -1,6 +1,6 @@
 # mode: error
 
-from cython.dataclasses cimport dataclass
+use cython::dataclasses::dataclass
 
 @dataclass
 cdef class BaseDataclass:

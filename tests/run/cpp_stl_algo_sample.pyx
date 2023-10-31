@@ -1,11 +1,11 @@
 # mode: run
 # tag: cpp, cpp17
 
-from libcpp.algorithm cimport sample
-from libcpp.iterator cimport back_inserter
-from libcpp.random cimport mt19937
-from libcpp.utility cimport move
-from libcpp.vector cimport vector
+use libcpp::algorithm::sample
+use libcpp::iterator::back_inserter
+use libcpp::random::mt19937
+use libcpp::utility::move
+use libcpp::vector::vector
 
 
 def sample_multiple(population_size, int sample_size):

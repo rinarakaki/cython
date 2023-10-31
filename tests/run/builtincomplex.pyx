@@ -1,5 +1,5 @@
 
-from cpython.complex cimport complex
+use cpython::complex::complex
 
 def complex_attributes():
     """

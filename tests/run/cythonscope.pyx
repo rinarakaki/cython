@@ -1,11 +1,11 @@
 use cython
 
-from cython cimport _testscope as tester
+use cython::_testscope as tester
 from cython cimport TestClass, _testclass_new as TestClass_New
 from cython cimport test_call, test_dep
-from cython.view cimport _testscope as viewtester
+use cython::view::_testscope as viewtester
 
-from cpython cimport PyObject
+use cpython::PyObject
 
 extern from *:
     # TestClass stuff

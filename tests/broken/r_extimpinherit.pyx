@@ -1,4 +1,4 @@
-from b_extimpinherit cimport Parrot
+use b_extimpinherit::Parrot
 
 cdef class Norwegian(Parrot):
     fn action(self):

@@ -1,6 +1,6 @@
 use cython
 
-from libc.stdint cimport uint64_t
+use libc::stdint::uint64_t
 
 class A:
     def pop(self, *args):

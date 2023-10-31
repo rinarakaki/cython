@@ -8,7 +8,7 @@ cdef class A:
     fn some_method(self, x, y=1):
         pass
 
-from libc.string cimport strcmp
+use libc::string::strcmp
 
 extern from "string.h":
     char *strstr(char*, char*)

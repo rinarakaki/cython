@@ -1,7 +1,7 @@
 # mode: run
 # tag: cpp, cpp11, no-cpp-locals
 
-from libcpp.utility cimport move
+use libcpp::utility::move
 
 extern from *:
     """
