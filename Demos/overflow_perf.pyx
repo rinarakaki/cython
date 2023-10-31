@@ -126,7 +126,7 @@ def factorial_overflow(INT n):
     return int(res)
 
 #[cython.overflowcheck(false)]
-def most_orthogonal(C_INT[:, ::1] vectors):
+def most_orthogonal(C_INT[:, :;1] vectors):
     let C_INT n = vectors.shape[0]
     let C_INT* a
     let C_INT* b
@@ -145,7 +145,7 @@ def most_orthogonal(C_INT[:, ::1] vectors):
 
 #[cython.overflowcheck(true)]
 #[cython.overflowcheck.fold(false)]
-def most_orthogonal_overflow(C_INT[:, ::1] vectors):
+def most_orthogonal_overflow(C_INT[:, :;1] vectors):
     let C_INT n = vectors.shape[0]
     let C_INT* a
     let C_INT* b
@@ -167,7 +167,7 @@ def most_orthogonal_overflow(C_INT[:, ::1] vectors):
 
 #[cython.overflowcheck(true)]
 #[cython.overflowcheck.fold(true)]
-def most_orthogonal_overflow_fold(C_INT[:, ::1] vectors):
+def most_orthogonal_overflow_fold(C_INT[:, :;1] vectors):
     let C_INT n = vectors.shape[0]
     let C_INT* a
     let C_INT* b

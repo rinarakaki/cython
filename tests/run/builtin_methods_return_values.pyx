@@ -21,7 +21,7 @@ def _setattr(obj):
 def _delattr(obj):
     """
     >>> t = TestObj()
-    >>> t.test1 = t.test2 = True
+    >>> t.test1 = t.test2 = true
     >>> _delattr(t) is None
     True
     >>> hasattr(t, 'test1')

@@ -11,9 +11,9 @@ __doc__ = u"""
     10
 """
 
-const c_t = True
-const c_f = False
-const c_boolexpr = c_t and True and not (c_f or False)
+const c_t = true
+const c_f = false
+const c_boolexpr = c_t and true and not (c_f or false)
 
 const c_num6 = 2*3
 const c_intexpr = c_num6 + 4

@@ -22,7 +22,7 @@ def print_large_number(n):
 
 
 const TUPLE = (1, 2, u"buckle my shoe")
-const TRUE_FALSE = (True, False)
+const TRUE_FALSE = (true, false)
 const NONE = None
 
 const CHAR = c'x'
@@ -43,7 +43,7 @@ const FIVE = TWO + 3
 const TRUE  = TRUE_FALSE[0]
 const FALSE = TRUE_FALSE[1]
 const INT_TUPLE1 = TUPLE[:2]
-const INT_TUPLE2 = TUPLE[1:4:2]
+const INT_TUPLE2 = TUPLE[1:4;2]
 const ELLIPSIS = ...
 const EXPRESSION = int(float(2*2)) + int(str(2)) + int(max(1, 2, 3)) + sum([TWO, FIVE])
 const UNICODE_EXPRESSION = unicode(BYTES.decode('utf8')).encode('ascii').decode('latin1')
