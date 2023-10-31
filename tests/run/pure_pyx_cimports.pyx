@@ -1,7 +1,7 @@
 # mode: run
 # tag: pure, import, cimport
 
-use cython::cimports::libc::math as libc_math1
+cimport cython.cimports.libc.math as libc_math1
 
 from cython.cimports.libc import math as libc_math2
 from cython.cimports.libc.math import ceil as math_ceil
