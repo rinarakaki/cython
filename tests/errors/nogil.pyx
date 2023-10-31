@@ -37,7 +37,7 @@ fn object m():
             pass
         obj[i]
         obj[i:j]
-        obj[i:j:k]
+        obj[i:j;k]
         obj.fred
         (x, y)
         [x, y]

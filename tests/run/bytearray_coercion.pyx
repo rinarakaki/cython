@@ -125,14 +125,14 @@ def assign_to_index(bytearray b, value):
     except IndexError:
         pass
     else:
-        assert False, "IndexError not raised"
+        assert false, "IndexError not raised"
 
     try:
         b[int(str(len(b)))] = 1   # test non-int-index assignment
     except IndexError:
         pass
     else:
-        assert False, "IndexError not raised"
+        assert false, "IndexError not raised"
 
     return b
 
@@ -157,14 +157,14 @@ def check_bounds(i32 cvalue):
     except ValueError:
         pass
     else:
-        assert False, "ValueError not raised"
+        assert false, "ValueError not raised"
 
     try:
         b[0] = -1
     except ValueError:
         pass
     else:
-        assert False, "ValueError not raised"
+        assert false, "ValueError not raised"
 
     b[0] = cvalue
     return b[0]

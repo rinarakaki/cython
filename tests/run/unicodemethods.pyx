@@ -781,7 +781,7 @@ def replace_maxcount(unicode s, substring, repl, maxcount):
     "//CoerceToPyTypeNode",
 )
 @cython.test_assert_path_exists(
-    "//MulNode[@is_sequence_mul = True]",
+    "//MulNode[@is_sequence_mul = true]",
 )
 def multiply(unicode ustring, i32 mul):
     """
@@ -857,7 +857,7 @@ def multiply_inplace(unicode ustring, i32 mul):
     "//CoerceToPyTypeNode",
 )
 @cython.test_assert_path_exists(
-    "//MulNode[@is_sequence_mul = True]",
+    "//MulNode[@is_sequence_mul = true]",
 )
 def multiply_reversed(unicode ustring, i32 mul):
     """

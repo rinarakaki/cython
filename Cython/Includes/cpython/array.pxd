@@ -69,13 +69,13 @@ extern from *:  # Hard-coded utility code hack.
     ctypedef class array.array [object arrayobject]
     ctypedef object GETF(array a, isize ix)
     ctypedef object SETF(array a, isize ix, object o)
-    ctypedef struct arraydescr:  # [object arraydescr]:
+    struct arraydescr:  # [object arraydescr]:
         char typecode
         i32 itemsize
         GETF getitem    # PyObject * (*getitem)(struct arrayobject *, isize);
         SETF setitem    # i32 (*setitem)(struct arrayobject *, isize, PyObject *);
 
-    ctypedef union __data_union:
+    union __data_union:
         # views of ob_item:
         f32* as_floats       # direct float pointer access to buffer
         f64* as_doubles      # double ...

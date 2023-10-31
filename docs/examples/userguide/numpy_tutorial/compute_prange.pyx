@@ -21,7 +21,7 @@ fn my_type clip(my_type a, my_type min_value, my_type max_value) nogil:
 
 #[cython.boundscheck(false)]
 #[cython.wraparound(false)]
-def compute(my_type[:, ::1] array_1, my_type[:, ::1] array_2, my_type a, my_type b, my_type c):
+def compute(my_type[:, :;1] array_1, my_type[:, :;1] array_2, my_type a, my_type b, my_type c):
     let isize x_max = array_1.shape[0]
     let isize y_max = array_1.shape[1]
 
@@ -35,7 +35,7 @@ def compute(my_type[:, ::1] array_1, my_type[:, ::1] array_2, my_type a, my_type
         dtype = np.longlong
 
     result = np.zeros((x_max, y_max), dtype=dtype)
-    let my_type[:, ::1] result_view = result
+    let my_type[:, :;1] result_view = result
 
     let my_type tmp
     let isize x, y

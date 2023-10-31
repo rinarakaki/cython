@@ -101,13 +101,13 @@ struct ComplexFloat:
     f32 real
     f32 imag
 
-ctypedef struct Char3Int:
+struct Char3Int:
     char a
     i32 b
     i32 c
     i32 d
 
-ctypedef struct LongString:
+struct LongString:
     char[90198] c
 
 struct CharIntCFloat:
@@ -123,11 +123,11 @@ struct UnpackedStruct1:
     f32 c2
     Char3Int d
 
-ctypedef struct UnpackedStruct2:
+struct UnpackedStruct2:
     CharIntCFloat a
     Char3Int b
 
-ctypedef struct UnpackedStruct3:
+struct UnpackedStruct3:
     CharIntCFloat a
     char b
     i32 c, d, e
@@ -376,12 +376,12 @@ def packed_struct_with_strings(fmt):
     let object[PackedStructWithCharArrays] buf = MockBuffer(
         fmt, sizeof(PackedStructWithCharArrays))
 
-ctypedef struct PackedStructWithArrays:
+struct PackedStructWithArrays:
     f64 a[16]
     f64 b[16]
     f64 c
 
-ctypedef struct UnpackedStructWithArrays:
+struct UnpackedStructWithArrays:
     i32 a
     f32 b[8]
     f32 c
@@ -392,7 +392,7 @@ ctypedef struct UnpackedStructWithArrays:
     f64 h[4]
     i32 i
 
-ctypedef struct PackedStructWithNDArrays:
+struct PackedStructWithNDArrays:
     f64 a
     f64 b[2][2]
     f32 c
