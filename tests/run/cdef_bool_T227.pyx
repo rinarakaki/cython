@@ -12,7 +12,7 @@ def foo(bool a):
     Traceback (most recent call last):
     TypeError: ...
     """
-    return a == True
+    return a == true
 
 def call_cfoo(a):
     """
@@ -27,4 +27,4 @@ def call_cfoo(a):
     return cfoo(a)
 
 fn cfoo(bool a):
-    return a == True
+    return a == true

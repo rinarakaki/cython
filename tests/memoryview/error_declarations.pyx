@@ -3,37 +3,37 @@
 use cython
 from cython cimport view
 
-cdef signed short[::1, ::1] both
-cdef signed short[::1, :, :, ::1] both2
-cdef signed char[::2] err0
-cdef signed char[::-100] err1
-cdef signed char[::-1] err2
-cdef i128[01::1, 0x01:, '0'   :, False:] fort_contig0
-cdef signed char[1::] bad_start
+cdef i16[:;1, :;1] both
+cdef i16[:;1, :, :, :;1] both2
+cdef i8[:;2] err0
+cdef i8[:;-100] err1
+cdef i8[:;-1] err2
+cdef i128[01:;1, 0x01:, '0'   :, false:] fort_contig0
+cdef i8[1:;] bad_start
 cdef u64[:, :1] bad_stop
-cdef u64[:, ::1, :] neither_c_or_f
-cdef signed char[::1-1+1] expr_spec
-cdef signed char[::blargh] bad_name
-cdef f64[::alist[0]['view'].full] expr_attribute
+cdef u64[:, :;1, :] neither_c_or_f
+cdef i8[:;1-1+1] expr_spec
+cdef i8[:;blargh] bad_name
+cdef f64[:;alist[0]['view'].full] expr_attribute
 
-cdef object[::1, :] unconformable1 = object()
-cdef object[:, ::1] unconformable2 = unconformable1
+cdef object[:;1, :] unconformable1 = object()
+cdef object[:, :;1] unconformable2 = unconformable1
 
-cdef i32[::1, :] dtype_unconformable = object()
+cdef i32[:;1, :] dtype_unconformable = object()
 unconformable1 = dtype_unconformable
 
 # These are INVALID
-cdef i32[::view.contiguous, ::1] a1
-#cdef i32[::view.generic_contiguous, ::1] a2
+cdef i32[:;view.contiguous, :;1] a1
+# cdef i32[:;view.generic_contiguous, :;1] a2
 
-#cdef i32[::view.contiguous, ::view.generic_contiguous] a3
-#cdef i32[::view.generic_contiguous, ::view.generic_contiguous] a4
+# cdef i32[:;view.contiguous, :;view.generic_contiguous] a3
+# cdef i32[:;view.generic_contiguous, :;view.generic_contiguous] a4
 
-cdef i32[::view.contiguous, ::view.contiguous] a5
-cdef i32[:, ::view.contiguous, ::view.indirect_contiguous] a6
+cdef i32[:;view.contiguous, :;view.contiguous] a5
+cdef i32[:, :;view.contiguous, :;view.indirect_contiguous] a6
 
-#cdef i32[::view.generic_contiguous, ::view.contiguous] a7
-#cdef i32[::view.contiguous, ::view.generic_contiguous] a8
+# cdef i32[:;view.generic_contiguous, :;view.contiguous] a7
+# cdef i32[:;view.contiguous, :;view.generic_contiguous] a8
 
 ctypedef i32 *intp
 cdef intp[:, :] myarray
@@ -59,21 +59,21 @@ cdef f64[:] m
 print <i64> &m
 
 # These are VALID
-cdef i32[::view.indirect_contiguous, ::view.contiguous] a9
+cdef i32[:;view.indirect_contiguous, :;view.contiguous] a9
 four_D[None, None, None]
 
 _ERRORS = u'''
-6:25: Cannot specify an array that is both C and Fortran contiguous.
-7:31: Cannot specify an array that is both C and Fortran contiguous.
-8:19: Step must be omitted, 1, or a valid specifier.
-9:20: Step must be omitted, 1, or a valid specifier.
-10:20: Step must be omitted, 1, or a valid specifier.
+6:16: Cannot specify an array that is both C and Fortran contiguous.
+7:22: Cannot specify an array that is both C and Fortran contiguous.
+8:10: Step must be omitted, 1, or a valid specifier.
+9:11: Step must be omitted, 1, or a valid specifier.
+10:11: Step must be omitted, 1, or a valid specifier.
 11:10: Start must not be given.
-12:17: Start must not be given.
+12:8: Start must not be given.
 13:13: Axis specification only allowed in the 'step' slot.
 14:8: Fortran contiguous specifier must follow an indirect dimension
-15:22: Invalid axis specification.
-16:19: Invalid axis specification.
+15:13: Invalid axis specification.
+16:10: Invalid axis specification.
 17:19: no expressions allowed in axis spec, only names and literals.
 20:37: Memoryview 'object[::1, :]' not conformable to memoryview 'object[:, ::1]'.
 23:17: Different base types for memoryviews (int, Python object)

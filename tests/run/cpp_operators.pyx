@@ -321,23 +321,23 @@ def test_bool_op():
     if yes:
         pass
     else:
-        assert False
+        assert false
     if no:
-        assert False
+        assert false
 
 def test_bool_cond():
     """
     >>> test_bool_cond()
     """
-    assert (TruthClass(false) or TruthClass(false)).value == False
-    assert (TruthClass(false) or TruthClass(true)).value == True
-    assert (TruthClass(true) or TruthClass(false)).value == True
-    assert (TruthClass(true) or TruthClass(true)).value == True
+    assert (TruthClass(false) or TruthClass(false)).value == false
+    assert (TruthClass(false) or TruthClass(true)).value == true
+    assert (TruthClass(true) or TruthClass(false)).value == true
+    assert (TruthClass(true) or TruthClass(true)).value == true
 
-    assert (TruthClass(false) and TruthClass(false)).value == False
-    assert (TruthClass(false) and TruthClass(true)).value == False
-    assert (TruthClass(true) and TruthClass(false)).value == False
-    assert (TruthClass(true) and TruthClass(true)).value == True
+    assert (TruthClass(false) and TruthClass(false)).value == false
+    assert (TruthClass(false) and TruthClass(true)).value == false
+    assert (TruthClass(true) and TruthClass(false)).value == false
+    assert (TruthClass(true) and TruthClass(true)).value == true
 
 ctypedef i32* int_ptr
 
@@ -368,8 +368,8 @@ def test_typeid_op():
 
     try:
         typeid(deref(test_4))
-        assert False
+        assert false
     except TypeError:
-        assert True
+        assert true
 
     del test_1, test_2
