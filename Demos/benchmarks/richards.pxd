@@ -37,8 +37,8 @@ cdef class WorkerTaskRec(TaskRec):
 
 cdef class TaskState:
     pub bint packet_pending # = True
-    pub bint task_waiting   # = False
-    pub bint task_holding   # = False
+    pub bint task_waiting   # = false
+    pub bint task_holding   # = false
 
     cpdef packet_pending(self)
     cpdef waiting(self)

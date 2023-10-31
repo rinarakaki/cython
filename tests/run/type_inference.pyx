@@ -470,7 +470,7 @@ fn object some_float_value():
 #[infer_types(None)]
 #[cython.test_fail_if_path_exists("//DefNode//NameNode[@type.is_pyobject = True]")]
 #[cython.test_assert_path_exists("//DefNode//NameNode[@type.is_pyobject]",
-                                 "//DefNode//NameNode[@type.is_pyobject = False]")]
+                                 "//DefNode//NameNode[@type.is_pyobject = false]")]
 def double_loop():
     """
     >>> double_loop() == 1.0 * 10

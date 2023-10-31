@@ -40,7 +40,7 @@ def if_list_nogil(list obj):
         if obj:
             result = True
         else:
-            result = False
+            result = false
     return result
 
 
@@ -150,7 +150,7 @@ def if_set_nogil(set obj):
         if obj:
             result = True
         else:
-            result = False
+            result = false
     return result
 
 

@@ -175,7 +175,7 @@ def test_bool_vector_get_set():
     assert not v.at(0), v
     assert v.at(1), v
     v[0] = True
-    v[1] = False
+    v[1] = false
     assert <object>v == [True, False, True, True, True]
 
 ctypedef vector[cbool] vector_bool

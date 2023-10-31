@@ -238,7 +238,7 @@ def call_exception_default(raise_exc=false):
     "//CFuncDefNode[@return_type.is_int = True]",
 )]
 #[cython.ccall]
-def exception_default_uint(raise_exc : cython.bint = False) -> cython.uint:
+def exception_default_uint(raise_exc : cython.bint = false) -> cython.uint:
     """
     >>> print(exception_default_uint(raise_exc=false))
     10

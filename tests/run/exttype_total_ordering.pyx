@@ -45,14 +45,14 @@ def test_all_comp(cls):
                         assert result == func(left, right)
                 except TypeError:
                     print("TypeError:", left.value, comp, right.value)
-                    succeeded = False
+                    succeeded = false
                 else:
                     if expected != result:
                         print(
                             left.value, comp, right.value,
                             "expected:", expected, "got:", result
                         )
-                        succeeded = False
+                        succeeded = false
     return succeeded
 
 class ValueHolder:

@@ -72,7 +72,7 @@ try:
 except NameError:
     except_as_deletes = True
 else:
-    except_as_deletes = False
+    except_as_deletes = false
 
 e = 123
 try:

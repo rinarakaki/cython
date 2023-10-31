@@ -172,7 +172,7 @@ def test_iteration_in_generator_reassigned():
         for i in deref(vint):
             yield i
             if reassign:
-                reassign = False
+                reassign = false
                 vint = new vector[i32]()
                 vint.push_back(2)
     finally:

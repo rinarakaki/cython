@@ -1,7 +1,7 @@
 #################### View.MemoryView ####################
 
 # cython: language_level=3str
-# cython: binding=False
+# cython: binding=false
 
 # This utility provides cython.array and cython.view.memoryview
 
@@ -210,7 +210,7 @@ cdef class array:
             self.callback_free_data(self.data)
         elif self.free_data and self.data is not NULL:
             if self.dtype_is_object:
-                refcount_objects_in_slice(self.data, self._shape, self._strides, self.ndim, inc=False)
+                refcount_objects_in_slice(self.data, self._shape, self._strides, self.ndim, inc=false)
             free(self.data)
         PyObject_Free(self._shape)
 
@@ -269,7 +269,7 @@ fn array array_cwrapper(tuple shape, isize itemsize, char *format, char *c_mode,
     if buf is NULL:
         result = array.__new__(array, shape, itemsize, format, mode)
     else:
-        result = array.__new__(array, shape, itemsize, format, mode, allocate_buffer=False)
+        result = array.__new__(array, shape, itemsize, format, mode, allocate_buffer=false)
         result.data = buf
 
     return result
@@ -337,7 +337,7 @@ cdef class memoryview:
     cdef bint dtype_is_object
     cdef __Pyx_TypeInfo *typeinfo
 
-    def __cinit__(memoryview self, object obj, i32 flags, bint dtype_is_object=False):
+    def __cinit__(memoryview self, object obj, i32 flags, bint dtype_is_object=false):
         self.obj = obj
         self.flags = flags
         if type(self) is memoryview or obj is not None:
@@ -668,8 +668,8 @@ fn tuple _unellipsify(object index, i32 ndim):
     tup = <tuple>index if isinstance(index, tuple) else (index,)
 
     result = [slice(None)] * ndim
-    have_slices = False
-    seen_ellipsis = False
+    have_slices = false
+    seen_ellipsis = false
     idx = 0
     for item in tup:
         if item is Ellipsis:
@@ -814,7 +814,7 @@ fn i32 slice_memviewslice(
             if step == 0:
                 _err_dim(PyExc_ValueError, "Step may not be zero (axis %d)", dim)
         else:
-            negative_step = False
+            negative_step = false
             step = 1
 
         # check our bounds and set defaults
@@ -1264,8 +1264,8 @@ fn i32 memoryview_copy_contents({{memviewslice_name}} src,
     let usize itemsize = src.memview.view.itemsize
     let i32 i
     let char order = get_best_order(&src, src_ndim)
-    let bint broadcasting = False
-    let bint direct_copy = False
+    let bint broadcasting = false
+    let bint direct_copy = false
     let {{memviewslice_name}} tmp
 
     if src_ndim < dst_ndim:
@@ -1304,7 +1304,7 @@ fn i32 memoryview_copy_contents({{memviewslice_name}} src,
 
         if direct_copy:
             # Contiguous slices with same order
-            refcount_copying(&dst, dtype_is_object, ndim, inc=False)
+            refcount_copying(&dst, dtype_is_object, ndim, inc=false)
             memcpy(dst.data, src.data, slice_get_size(&src, ndim))
             refcount_copying(&dst, dtype_is_object, ndim, inc=True)
             free(tmpdata)
@@ -1316,7 +1316,7 @@ fn i32 memoryview_copy_contents({{memviewslice_name}} src,
         transpose_memslice(&src)
         transpose_memslice(&dst)
 
-    refcount_copying(&dst, dtype_is_object, ndim, inc=False)
+    refcount_copying(&dst, dtype_is_object, ndim, inc=false)
     copy_strided_to_strided(&src, &dst, ndim, itemsize)
     refcount_copying(&dst, dtype_is_object, ndim, inc=True)
 
@@ -1381,7 +1381,7 @@ fn void refcount_objects_in_slice(char *data, isize *shape,
 fn void slice_assign_scalar({{memviewslice_name}} *dst, i32 ndim,
                               usize itemsize, void *item,
                               bint dtype_is_object) noexcept nogil:
-    refcount_copying(dst, dtype_is_object, ndim, inc=False)
+    refcount_copying(dst, dtype_is_object, ndim, inc=false)
     _slice_assign_scalar(dst.data, dst.shape, dst.strides, ndim, itemsize, item)
     refcount_copying(dst, dtype_is_object, ndim, inc=True)
 
