@@ -5,7 +5,7 @@ from __future__ import division
 
 use cython::typeof
 
-use cython::operator
+cimport cython.operator
 from cython.operator cimport typeid, dereference as deref
 
 use libc::string::const_char
