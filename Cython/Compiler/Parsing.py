@@ -753,8 +753,6 @@ def p_atom(s):
         s.next()
         return result
     else:
-        print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-        print(s)
         s.error("Expected an identifier or literal, found '%s'" % s.sy)
 
 def p_int_literal(s):
