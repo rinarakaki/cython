@@ -13,11 +13,11 @@ fn void {{func_cname}}(char **args, const npy_intp *dimensions, const npy_intp* 
     cdef npy_intp n = dimensions[0]
     {{for idx, tp in enumerate(in_types)}}
     cdef char* in_{{idx}} = args[{{idx}}]
-    cdef {{tp.empty_declaration_code(pyrex=true)}} cast_in_{{idx}}
+    cdef {{tp.empty_declaration_code(pyrex=True)}} cast_in_{{idx}}
     {{endfor}}
     {{for idx, tp in enumerate(out_types)}}
     cdef char* out_{{idx}} = args[{{idx+len(in_types)}}]
-    cdef {{tp.empty_declaration_code(pyrex=true)}} cast_out_{{idx}}
+    cdef {{tp.empty_declaration_code(pyrex=True)}} cast_out_{{idx}}
     {{endfor}}
     {{for idx in range(len(out_types)+len(in_types))}}
     cdef npy_intp step_{{idx}} = steps[{{idx}}]
@@ -27,9 +27,9 @@ fn void {{func_cname}}(char **args, const npy_intp *dimensions, const npy_intp* 
         for i in range(n):
             {{for idx, tp in enumerate(in_types)}}
             {{if tp.is_pyobject}}
-            cast_in_{{idx}} = (<{{tp.empty_declaration_code(pyrex=true)}}>(<void**>in_{{idx}})[0])
+            cast_in_{{idx}} = (<{{tp.empty_declaration_code(pyrex=True)}}>(<void**>in_{{idx}})[0])
             {{else}}
-            cast_in_{{idx}} = (<{{tp.empty_declaration_code(pyrex=true)}}*>in_{{idx}})[0]
+            cast_in_{{idx}} = (<{{tp.empty_declaration_code(pyrex=True)}}*>in_{{idx}})[0]
             {{endif}}
             {{endfor}}
 
@@ -40,7 +40,7 @@ fn void {{func_cname}}(char **args, const npy_intp *dimensions, const npy_intp* 
             {{if tp.is_pyobject}}
             (<void**>out_{{idx}})[0] = <void*>__Pyx_NewRef(cast_out_{{idx}})
             {{else}}
-            (<{{tp.empty_declaration_code(pyrex=true)}}*>out_{{idx}})[0] = cast_out_{{idx}}
+            (<{{tp.empty_declaration_code(pyrex=True)}}*>out_{{idx}})[0] = cast_out_{{idx}}
             {{endif}}
             {{endfor}}
             {{for idx in range(len(in_types))}}
