@@ -52,15 +52,15 @@ def assert_raised(f, *args, **kwargs):
     if err is None:
         try:
             f(*args)
-            raised = False
+            raised = false
         except:
-            raised = True
+            raised = true
     else:
         try:
             f(*args)
-            raised = False
+            raised = false
         except err:
-            raised = True
+            raised = true
     assert raised
 
 def initialization(i128 a, i128 b):
