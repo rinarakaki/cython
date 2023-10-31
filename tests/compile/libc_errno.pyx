@@ -1,6 +1,6 @@
 # mode: compile
 
-from libc.errno  cimport *
+use libc::errno::*
 
 if errno == EDOM   : pass
 if errno == EILSEQ : pass

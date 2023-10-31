@@ -1,7 +1,7 @@
 # mode: error
 # tag: cpp
 
-from libcpp.vector cimport vector
+use libcpp::vector::vector
 
 cdef class A:
     pass

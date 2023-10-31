@@ -1,6 +1,6 @@
 # cython: auto_pickle=false
 
-cimport cython
+use cython
 
 from . cimport Machines
 from .Transitions cimport TransitionMap

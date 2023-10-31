@@ -1,7 +1,7 @@
 # mode: run
 # tag: cpp, werror, cpp11
 
-from libcpp.string cimport string
+use libcpp::string::string
 
 b_asdf = b'asdf'
 

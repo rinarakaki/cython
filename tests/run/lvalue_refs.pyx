@@ -1,6 +1,6 @@
 # tag: cpp, no-cpp-locals
 
-from libcpp.vector cimport vector
+use libcpp::vector::vector
 
 __doc__ = u"""
    >>> test_lvalue_ref_assignment()

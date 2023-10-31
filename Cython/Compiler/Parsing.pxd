@@ -4,7 +4,7 @@
 
 from __future__ import absolute_import
 
-cimport cython
+use cython
 from .Scanning cimport PyrexScanner
 
 ctypedef object (*p_sub_expr_func)(PyrexScanner obj)

@@ -1,7 +1,7 @@
 # mode: run
 # tag: c-api
 
-from cpython cimport mem
+use cpython::mem
 from cpython.pystate cimport PyGILState_Ensure, PyGILState_Release, PyGILState_STATE
 
 

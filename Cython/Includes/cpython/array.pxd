@@ -9,7 +9,7 @@
 
   Usage:
 
-  >>> cimport array
+  >>> use array
 
   Usage through Cython buffer interface (Py2.3+):
 
@@ -60,9 +60,9 @@ extern from *:
 
 from libc.string cimport memset, memcpy
 
-from cpython.object cimport Py_SIZE
+use cpython::object::Py_SIZE
 from cpython.ref cimport PyTypeObject, Py_TYPE
-from cpython.exc cimport PyErr_BadArgument
+use cpython::exc::PyErr_BadArgument
 from cpython.mem cimport PyObject_Malloc, PyObject_Free
 
 extern from *:  # Hard-coded utility code hack.

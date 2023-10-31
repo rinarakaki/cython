@@ -1,6 +1,6 @@
 # mode: compile
 
-from libc.signal cimport *
+use libc::signal::*
 
 fn void sighdl(i32 signum) noexcept nogil:
     pass

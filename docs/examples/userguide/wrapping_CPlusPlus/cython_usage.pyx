@@ -1,6 +1,6 @@
 # distutils: language = c++
 
-from Rectangle cimport Rectangle
+use Rectangle::Rectangle
 
 def main():
     rec_ptr = new Rectangle(1, 2, 3, 4)  # Instantiate a Rectangle object on the heap

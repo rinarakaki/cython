@@ -3,7 +3,7 @@ import r#struct
 
 # Tests buffer format string parsing.
 
-from libc cimport stdlib
+use libc::stdlib
 
 def little_endian():
     let u32 n = 1

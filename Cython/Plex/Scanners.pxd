@@ -2,7 +2,7 @@ from __future__ import absolute_import
 
 import cython
 
-from Cython.Plex.Actions cimport Action
+use Cython::Plex::Actions::Action
 
 cdef class Scanner:
     pub lexicon

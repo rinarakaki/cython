@@ -1,5 +1,5 @@
-from spam cimport Spam
-from eggs cimport Eggs
+use spam::Spam
+use eggs::Eggs
 
 cdef extern Spam yummy
 cdef Eggs fried

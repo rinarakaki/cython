@@ -2,7 +2,7 @@
 # tag: cpp, werror, no-cpp-locals
 # cython: experimental_cpp_class_def=true
 
-from libcpp.vector cimport vector
+use libcpp::vector::vector
 
 cdef cppclass Wrapper[T]:
     T value
