@@ -648,6 +648,7 @@ def p_subscript(s):
     else:
         s.next()
         stop = None
+    s.next()
     step = p_slice_element(s, (':', ';', ',', ']'))
     return [start, stop, step]
 
