@@ -11,9 +11,9 @@ __doc__ = u"""
     10
 """
 
-DEF c_t = True
-DEF c_f = False
-DEF c_boolexpr = c_t and True and not (c_f or False)
+DEF c_t = true
+DEF c_f = false
+DEF c_boolexpr = c_t and true and not (c_f or false)
 
 DEF c_num6 = 2*3
 DEF c_intexpr = c_num6 + 4

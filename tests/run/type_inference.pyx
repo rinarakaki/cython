@@ -1,4 +1,4 @@
-# cython: infer_types = True
+# cython: infer_types = true
 
 use cython
 from cython cimport typeof, infer_types
@@ -468,9 +468,9 @@ fn object some_float_value():
     return 2.0
 
 #[infer_types(None)]
-#[cython.test_fail_if_path_exists("//DefNode//NameNode[@type.is_pyobject = True]")]
+#[cython.test_fail_if_path_exists("//DefNode//NameNode[@type.is_pyobject = true]")]
 #[cython.test_assert_path_exists("//DefNode//NameNode[@type.is_pyobject]",
-                                 "//DefNode//NameNode[@type.is_pyobject = False]")]
+                                 "//DefNode//NameNode[@type.is_pyobject = false]")]
 def double_loop():
     """
     >>> double_loop() == 1.0 * 10

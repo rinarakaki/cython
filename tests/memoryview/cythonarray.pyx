@@ -311,9 +311,9 @@ def test_is_Sequence():
         exec("""
 match arr:
     case [*_]:
-        res = True
+        res = true
     case _:
-        res = False
+        res = false
 """, globs)
         assert globs['res']
 

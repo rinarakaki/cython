@@ -1237,7 +1237,7 @@ def test_conversion_failures():
                 assert get_refcount(imb) == imb_before, "before %s after %s" % (imb_before, get_refcount(imb))
                 assert get_refcount(dmb) == dmb_before, "before %s after %s" % (dmb_before, get_refcount(dmb))
             else:
-                assert False, "Conversion should fail!"
+                assert false, "Conversion should fail!"
 
 def test_is_Sequence(f64[:] a):
     """
@@ -1264,9 +1264,9 @@ def test_is_Sequence(f64[:] a):
         exec("""
 match arr:
     case [*_]:
-        res = True
+        res = true
     case _:
-        res = False
+        res = false
 """, globs)
         assert globs['res']
 
