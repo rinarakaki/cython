@@ -63,8 +63,8 @@ cdef i32[:;view.indirect_contiguous, :;view.contiguous] a9
 four_D[None, None, None]
 
 _ERRORS = u'''
-6:25: Cannot specify an array that is both C and Fortran contiguous.
-7:31: Cannot specify an array that is both C and Fortran contiguous.
+6:16: Cannot specify an array that is both C and Fortran contiguous.
+7:22: Cannot specify an array that is both C and Fortran contiguous.
 8:19: Step must be omitted, 1, or a valid specifier.
 9:20: Step must be omitted, 1, or a valid specifier.
 10:20: Step must be omitted, 1, or a valid specifier.
