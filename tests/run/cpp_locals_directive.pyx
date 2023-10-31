@@ -6,7 +6,7 @@
 
 use cython
 
-use libcpp::bool as cbool
+use libcpp::bool as cppbool
 
 extern from *:
     r"""
