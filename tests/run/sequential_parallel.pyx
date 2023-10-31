@@ -810,8 +810,8 @@ def test_inner_private():
     inner_are_the_same = inner_vals[0] == inner_vals[1]
     outer_are_the_same = outer_vals[0] == outer_vals[1]
 
-    assert outer_are_the_same == False, "Temporary variables in outer loop should be private"
-    assert inner_are_the_same == False,  "Temporary variables in inner loop should be private"
+    assert outer_are_the_same == false, "Temporary variables in outer loop should be private"
+    assert inner_are_the_same == false,  "Temporary variables in inner loop should be private"
 
     print('ok')
 

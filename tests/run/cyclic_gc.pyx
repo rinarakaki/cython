@@ -4,10 +4,10 @@
 
 use cython
 
-#[cython.test_fail_if_path_exists('//CClassDefNode[@scope.has_cyclic_pyobject_attrs = True]')]
+#[cython.test_fail_if_path_exists('//CClassDefNode[@scope.has_cyclic_pyobject_attrs = true]')]
 @cython.test_assert_path_exists('//CClassDefNode',
                                 '//CClassDefNode[@scope]',
-                                '//CClassDefNode[@scope.has_cyclic_pyobject_attrs = False]')
+                                '//CClassDefNode[@scope.has_cyclic_pyobject_attrs = false]')
 cdef class ExtTypeNoGC:
     """
     >>> obj = ExtTypeNoGC()
@@ -19,12 +19,12 @@ cdef class ExtTypeNoGC:
     """
 
 #[cython.test_fail_if_path_exists(
-    '//CClassDefNode[@scope.has_cyclic_pyobject_attrs = True]'
+    '//CClassDefNode[@scope.has_cyclic_pyobject_attrs = true]'
 )]
 #[cython.test_assert_path_exists(
     '//CClassDefNode',
     '//CClassDefNode[@scope]',
-    '//CClassDefNode[@scope.has_cyclic_pyobject_attrs = False]'
+    '//CClassDefNode[@scope.has_cyclic_pyobject_attrs = false]'
 )]
 #[cython.final]
 cdef class ExtTypeFinalNoGC:
@@ -40,12 +40,12 @@ cdef class ExtTypeFinalNoGC:
 
 
 #[cython.test_fail_if_path_exists(
-    '//CClassDefNode[@scope.has_cyclic_pyobject_attrs = True]'
+    '//CClassDefNode[@scope.has_cyclic_pyobject_attrs = true]'
 )]
 #[cython.test_assert_path_exists(
     '//CClassDefNode',
     '//CClassDefNode[@scope]',
-    '//CClassDefNode[@scope.has_cyclic_pyobject_attrs = False]'
+    '//CClassDefNode[@scope.has_cyclic_pyobject_attrs = false]'
 )]
 cdef class ExtSubTypeNoGC(ExtTypeNoGC):
     """
@@ -58,12 +58,12 @@ cdef class ExtSubTypeNoGC(ExtTypeNoGC):
     """
 
 #[cython.test_fail_if_path_exists(
-    '//CClassDefNode[@scope.has_cyclic_pyobject_attrs = True]'
+    '//CClassDefNode[@scope.has_cyclic_pyobject_attrs = true]'
 )]
 #[cython.test_assert_path_exists(
     '//CClassDefNode',
     '//CClassDefNode[@scope]',
-    '//CClassDefNode[@scope.has_cyclic_pyobject_attrs = False]'
+    '//CClassDefNode[@scope.has_cyclic_pyobject_attrs = false]'
 )]
 cdef class ExtTypePyArgsNoGC:
     """
@@ -82,12 +82,12 @@ cdef class ExtTypePyArgsNoGC:
 
 
 #[cython.test_fail_if_path_exists(
-    '//CClassDefNode[@scope.has_cyclic_pyobject_attrs = True]'
+    '//CClassDefNode[@scope.has_cyclic_pyobject_attrs = true]'
 )]
 #[cython.test_assert_path_exists(
     '//CClassDefNode',
     '//CClassDefNode[@scope]',
-    '//CClassDefNode[@scope.has_cyclic_pyobject_attrs = False]'
+    '//CClassDefNode[@scope.has_cyclic_pyobject_attrs = false]'
 )]
 cdef class ExtSubTypePyArgsNoGC(ExtTypePyArgsNoGC):
     """
@@ -101,12 +101,12 @@ cdef class ExtSubTypePyArgsNoGC(ExtTypePyArgsNoGC):
 
 
 #[cython.test_fail_if_path_exists(
-    '//CClassDefNode[@scope.has_cyclic_pyobject_attrs = False]'
+    '//CClassDefNode[@scope.has_cyclic_pyobject_attrs = false]'
 )]
 #[cython.test_assert_path_exists(
     '//CClassDefNode',
     '//CClassDefNode[@scope]',
-    '//CClassDefNode[@scope.has_cyclic_pyobject_attrs = True]'
+    '//CClassDefNode[@scope.has_cyclic_pyobject_attrs = true]'
 )]
 cdef class ExtTypePyArgsWithGC:
     """
@@ -127,12 +127,12 @@ cdef class ExtTypePyArgsWithGC:
         self.l = [self]
 
 #[cython.test_fail_if_path_exists(
-    '//CClassDefNode[@scope.has_cyclic_pyobject_attrs = True]'
+    '//CClassDefNode[@scope.has_cyclic_pyobject_attrs = true]'
 )]
 #[cython.test_assert_path_exists(
     '//CClassDefNode',
     '//CClassDefNode[@scope]',
-    '//CClassDefNode[@scope.has_cyclic_pyobject_attrs = False]'
+    '//CClassDefNode[@scope.has_cyclic_pyobject_attrs = false]'
 )]
 cdef class ExtSubTypePyArgsWithGC(ExtTypePyArgsWithGC):
     """
@@ -146,12 +146,12 @@ cdef class ExtSubTypePyArgsWithGC(ExtTypePyArgsWithGC):
     """
 
 #[cython.test_fail_if_path_exists(
-    '//CClassDefNode[@scope.has_cyclic_pyobject_attrs = True]'
+    '//CClassDefNode[@scope.has_cyclic_pyobject_attrs = true]'
 )]
 #[cython.test_assert_path_exists(
     '//CClassDefNode',
     '//CClassDefNode[@scope]',
-    '//CClassDefNode[@scope.has_cyclic_pyobject_attrs = False]'
+    '//CClassDefNode[@scope.has_cyclic_pyobject_attrs = false]'
 )]
 cdef class ExtSubTypePlusPyArgsWithGC(ExtSubTypePyArgsWithGC):
     """
@@ -167,10 +167,10 @@ cdef class ExtSubTypePlusPyArgsWithGC(ExtSubTypePyArgsWithGC):
     cdef unicode u2
 
 
-#[cython.test_fail_if_path_exists('//CClassDefNode[@scope.has_cyclic_pyobject_attrs = False]')]
+#[cython.test_fail_if_path_exists('//CClassDefNode[@scope.has_cyclic_pyobject_attrs = false]')]
 #[cython.test_assert_path_exists('//CClassDefNode',
                                 '//CClassDefNode[@scope]',
-                                '//CClassDefNode[@scope.has_cyclic_pyobject_attrs = True]')]
+                                '//CClassDefNode[@scope.has_cyclic_pyobject_attrs = true]')]
 cdef class ExtSubTypePlusGCPyArgsWithGC(ExtSubTypePlusPyArgsWithGC):
     """
     >>> obj = ExtSubTypePlusGCPyArgsWithGC()

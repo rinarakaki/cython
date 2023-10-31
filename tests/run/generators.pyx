@@ -321,7 +321,7 @@ def test_return(a):
     True
     """
     yield 1
-    a['i_was_here'] = True
+    a['i_was_here'] = true
     return
 
 
@@ -363,7 +363,7 @@ def test_return_in_finally(a):
     """
     yield 1
     try:
-        a['i_was_here'] = True
+        a['i_was_here'] = true
     finally:
         return
 
@@ -389,7 +389,7 @@ def test_return_none_in_finally(a):
     """
     yield 1
     try:
-        a['i_was_here'] = True
+        a['i_was_here'] = true
     finally:
         return None
 

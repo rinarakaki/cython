@@ -11,7 +11,7 @@ import numpy as np
 #[cython.boundscheck(false)]
 #[cython.wraparound(false)]
 def median_along_axis0(const f64[:, :] x):
-    let f64[::1] out = np.empty(x.shape[1])
+    let f64[:;1] out = np.empty(x.shape[1])
     let isize i, j
 
     let vector[f64] *scratch

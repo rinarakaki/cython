@@ -1,6 +1,6 @@
 # mode: error
 
-ctypedef struct struct_type_not_boolean:
+struct struct_type_not_boolean:
     i32 i
     f32 f
 
@@ -14,7 +14,7 @@ struct struct_not_boolean:
 if struct_not_boolean:
     print("INVALID CODE")
 
-ctypedef union union_type_not_boolean:
+union union_type_not_boolean:
     i32 i
     f32 f
 

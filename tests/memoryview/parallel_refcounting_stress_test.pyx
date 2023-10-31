@@ -25,7 +25,7 @@ def refcounting_stress_test(i32 N):
     released c
     """
     selectors = [randint(0, 3) for _ in range(N)]
-    let i32[::1] selectorsview = IntMockBuffer(None, selectors, (N,))
+    let i32[:;1] selectorsview = IntMockBuffer(None, selectors, (N,))
     shape = (10, 3)
     size = shape[0]*shape[1]
     a = [random() for _ in range(size)]

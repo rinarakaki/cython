@@ -57,11 +57,11 @@ def test_cast(x):
 #[cython.locals(as_list=list)]
 def test_cast_object(x, typecheck):
     """
-    >>> test_cast_object([1, 2, 3], True)
+    >>> test_cast_object([1, 2, 3], true)
     [1, 2, 3]
     >>> test_cast_object([1, 2, 3], False)
     [1, 2, 3]
-    >>> test_cast_object((1, 2, 3), True)
+    >>> test_cast_object((1, 2, 3), true)
     Traceback (most recent call last):
     ...
     TypeError: Expected list, got tuple
@@ -71,7 +71,7 @@ def test_cast_object(x, typecheck):
     if typecheck:
         as_list = cython.cast(list, x, typecheck=true)
     else:
-        as_list = cython.cast(list, x, typecheck=False)
+        as_list = cython.cast(list, x, typecheck=false)
     return as_list
 
 #[cython.locals(x=cython.int, y=cython.p_int)]
@@ -103,8 +103,8 @@ def test_struct(n, x):
     (389, 1.64493)
     """
     a = cython.declare(MyStruct2)
-    a[0] = MyStruct(True, data=MyUnion(n=n))
-    a[1] = MyStruct(is_integral=False, data={'x': x})
+    a[0] = MyStruct(true, data=MyUnion(n=n))
+    a[1] = MyStruct(is_integral=false, data={'x': x})
     return a[0].data.n, a[1].data.x
 
 import cython as cy
