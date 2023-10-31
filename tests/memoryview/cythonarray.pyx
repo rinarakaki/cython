@@ -89,8 +89,8 @@ def test_cython_array_getbuffer():
     98
     61
     """
-    let i32[:, ::1] cslice = create_array((14, 10), 'c')
-    let i32[::1, :] fslice = create_array((14, 10), 'fortran')
+    let i32[:, :;1] cslice = create_array((14, 10), 'c')
+    let i32[:;1, :] fslice = create_array((14, 10), 'fortran')
 
     print cslice[9, 8]
     print cslice[6, 1]
@@ -155,13 +155,13 @@ def test_array_from_pointer():
     print c_arr[6, 9]
     print c_arr.mode
 
-    c_arr = (<i32[:10:1, :10]> getp())
+    c_arr = (<i32[:10;1, :10]> getp())
     print c_arr.mode
     c_arr.callback_free_data = free
 
-    c_arr =  <i32[:10, :10]> getp()
+    c_arr = <i32[:10, :10]> getp()
     c_arr.callback_free_data = free
-    let i32[:, ::1] mslice = c_arr
+    let i32[:, :;1] mslice = c_arr
     print mslice[5, 6]
 
     c_arr = <i32[:12, :10]> getp(12, 10)
@@ -182,11 +182,11 @@ def test_array_from_pointer_3d():
     True True
     """
     let i32 *p = getp(2, 2, 2)
-    let array c_arr = <i32[:2, :2, :2:1]> p
-    let array f_arr = <i32[:2:1, :2, :2]> p
+    let array c_arr = <i32[:2, :2, :2;1]> p
+    let array f_arr = <i32[:2;1, :2, :2]> p
 
-    let i32[:, :, ::1] m1 = c_arr
-    let i32[::1, :, :] m2 = f_arr
+    let i32[:, :, :;1] m1 = c_arr
+    let i32[:;1, :, :] m2 = f_arr
 
     print m1[0, 1, 1], m2[1, 1, 0]
     print m1.is_c_contig(), m2.is_f_contig()

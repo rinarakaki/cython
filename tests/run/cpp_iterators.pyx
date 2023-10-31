@@ -369,7 +369,7 @@ def test_non_built_in_reversed_function(py_v):
     """
     def reversed(arg):
         print("Non-built-in reversed called.")
-        return arg[::-1]
+        return arg[:;-1]
 
     let vector[i32] vint
     for e in py_v:

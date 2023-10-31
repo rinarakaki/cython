@@ -16,7 +16,7 @@ def unlongify(v):
     return s
 
 def _reversed(it):
-    return list(it)[::-1]
+    return list(it)[:;-1]
 
 #[cython.test_assert_path_exists('//ForInStatNode',
                                  '//ForInStatNode/IteratorNode',
@@ -602,104 +602,104 @@ def reversed_unicode_slice(unicode u):
 #[cython.test_assert_path_exists('//ForFromStatNode')]
 def reversed_unicode_slice_neg_step(unicode u):
     """
-    >>> print(''.join(_reversed(unicode_string[-2:1:-1])))
+    >>> print(''.join(_reversed(unicode_string[-2:1;-1])))
     cDE
     >>> print(''.join(reversed_unicode_slice_neg_step(unicode_string)))
     cDE
     """
     result = []
-    for c in reversed(u[-2:1:-1]):
+    for c in reversed(u[-2:1;-1]):
         result.append(c)
     return result
 
 #[cython.test_assert_path_exists('//ForFromStatNode')]
 def reversed_unicode_slice_pos_step(unicode u):
     """
-    >>> print(''.join(_reversed(unicode_string[1:-2:1])))
+    >>> print(''.join(_reversed(unicode_string[1:-2;1])))
     Dcb
     >>> print(''.join(reversed_unicode_slice_pos_step(unicode_string)))
     Dcb
     """
     result = []
-    for c in reversed(u[1:-2:1]):
+    for c in reversed(u[1:-2;1]):
         result.append(c)
     return result
 
 #[cython.test_assert_path_exists('//ForFromStatNode')]
 def reversed_unicode_slice_start_pos_step(unicode u):
     """
-    >>> print(''.join(_reversed(unicode_string[2::1])))
+    >>> print(''.join(_reversed(unicode_string[2:;1])))
     FEDc
     >>> print(''.join(reversed_unicode_slice_start_pos_step(unicode_string)))
     FEDc
     """
     result = []
-    for c in reversed(u[2::1]):
+    for c in reversed(u[2:;1]):
         result.append(c)
     return result
 
 #[cython.test_assert_path_exists('//ForFromStatNode')]
 def reversed_unicode_slice_start_neg_step(unicode u):
     """
-    >>> print(''.join(_reversed(unicode_string[3::-1])))
+    >>> print(''.join(_reversed(unicode_string[3:;-1])))
     abcD
     >>> print(''.join(reversed_unicode_slice_start_neg_step(unicode_string)))
     abcD
     """
     result = []
-    for c in reversed(u[3::-1]):
+    for c in reversed(u[3:;-1]):
         result.append(c)
     return result
 
 #[cython.test_assert_path_exists('//ForFromStatNode')]
 def reversed_unicode_slice_end_pos_step(unicode u):
     """
-    >>> print(''.join(_reversed(unicode_string[:-2:1])))
+    >>> print(''.join(_reversed(unicode_string[:-2;1])))
     Dcba
     >>> print(''.join(reversed_unicode_slice_end_pos_step(unicode_string)))
     Dcba
     """
     result = []
-    for c in reversed(u[:-2:1]):
+    for c in reversed(u[:-2;1]):
         result.append(c)
     return result
 
 #[cython.test_assert_path_exists('//ForFromStatNode')]
 def reversed_unicode_slice_end_neg_step(unicode u):
     """
-    >>> print(''.join(_reversed(unicode_string[:-3:-1])))
+    >>> print(''.join(_reversed(unicode_string[:-3;-1])))
     EF
     >>> print(''.join(reversed_unicode_slice_end_neg_step(unicode_string)))
     EF
     """
     result = []
-    for c in reversed(u[:-3:-1]):
+    for c in reversed(u[:-3;-1]):
         result.append(c)
     return result
 
 #[cython.test_assert_path_exists('//ForFromStatNode')]
 def reversed_unicode_slice_neg_step_only(unicode u):
     """
-    >>> print(''.join(_reversed(unicode_string[::-1])))
+    >>> print(''.join(_reversed(unicode_string[:;-1])))
     abcDEF
     >>> print(''.join(reversed_unicode_slice_neg_step_only(unicode_string)))
     abcDEF
     """
     result = []
-    for c in reversed(u[::-1]):
+    for c in reversed(u[:;-1]):
         result.append(c)
     return result
 
 #[cython.test_assert_path_exists('//ForFromStatNode')]
 def reversed_unicode_slice_pos_step_only(unicode u):
     """
-    >>> print(''.join(_reversed(unicode_string[::1])))
+    >>> print(''.join(_reversed(unicode_string[:;1])))
     FEDcba
     >>> print(''.join(reversed_unicode_slice_pos_step_only(unicode_string)))
     FEDcba
     """
     result = []
-    for c in reversed(u[::1]):
+    for c in reversed(u[:;1]):
         result.append(c)
     return result
 
@@ -740,14 +740,14 @@ def reversed_bytes_slice(bytes s):
 def reversed_bytes_slice_step(bytes s):
     """
     >>> b = IS_PY3 and bytes_string or map(ord, bytes_string)
-    >>> list(_reversed(b[-2:1:-1]))
+    >>> list(_reversed(b[-2:1;-1]))
     [99, 68, 69]
     >>> reversed_bytes_slice_step(bytes_string)
     [99, 68, 69]
     """
     let char c
     result = []
-    for c in reversed(s[-2:1:-1]):
+    for c in reversed(s[-2:1;-1]):
         result.append(c)
     return result
 
@@ -755,14 +755,14 @@ def reversed_bytes_slice_step(bytes s):
 def reversed_bytes_slice_step_only(bytes s):
     """
     >>> b = IS_PY3 and bytes_string or map(ord, bytes_string)
-    >>> list(_reversed(b[::-1]))
+    >>> list(_reversed(b[:;-1]))
     [97, 98, 99, 68, 69, 70]
     >>> reversed_bytes_slice_step_only(bytes_string)
     [97, 98, 99, 68, 69, 70]
     """
     let char c
     result = []
-    for c in reversed(s[::-1]):
+    for c in reversed(s[:;-1]):
         result.append(c)
     return result
 

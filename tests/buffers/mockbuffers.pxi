@@ -42,7 +42,7 @@ cdef class MockBuffer:
         if strides is None:
             strides = []
             cumprod = 1
-            for s in shape[::-1]:
+            for s in shape[:;-1]:
                 strides.append(cumprod)
                 cumprod *= s
             strides.reverse()

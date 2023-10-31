@@ -31,7 +31,7 @@ include "../buffers/mockbuffers.pxi"
 def init_obj():
     return 3
 
-fn passmvs(f32[:, ::1] mvs, object foo):
+fn passmvs(f32[:, :;1] mvs, object foo):
     mvs = array((10,10), itemsize=sizeof(f32), format='f')
     foo = init_obj()
 
@@ -39,11 +39,11 @@ fn object returnobj():
     let obj = object()
     return obj
 
-fn float[::1] returnmvs_inner():
+fn float[:;1] returnmvs_inner():
     return array((10,), itemsize=sizeof(f32), format='f')
 
-fn f32[::1] returnmvs():
-    let f32[::1] mvs = returnmvs_inner()
+fn f32[:;1] returnmvs():
+    let f32[:;1] mvs = returnmvs_inner()
     return mvs
 
 def f():
@@ -52,12 +52,12 @@ def f():
 
 def g():
     let object obj = init_obj()
-    let i32[::1] mview = array((10,), itemsize=sizeof(i32), format='i')
+    let i32[:;1] mview = array((10,), itemsize=sizeof(i32), format='i')
     obj = init_obj()
     mview = array((10,), itemsize=sizeof(i32), format='i')
 
 cdef class ExtClass(object):
-    let i32[::1] mview
+    let i32[:;1] mview
 
     def __init__(self):
         self.mview = array((10,), itemsize=sizeof(i32), format='i')
@@ -68,7 +68,7 @@ class PyClass(object):
         self.mview = array((10,), itemsize=sizeof(i64), format='l')
 
 fn cdg():
-    let f64[::1] dmv = array((10,), itemsize=sizeof(f64), format='d')
+    let f64[:;1] dmv = array((10,), itemsize=sizeof(f64), format='d')
     dmv = array((10,), itemsize=sizeof(f64), format='d')
 
 cdef class TestExcClassExternalDtype(object):
@@ -147,12 +147,12 @@ def test_extclass_attribute_dealloc():
     let ExtClassMockedAttr obj = ExtClassMockedAttr()
     print obj.arr[4, 4]
 
-cdef f32[:, ::1] global_mv = array((10,10), itemsize=sizeof(f32), format='f')
+cdef f32[:, :;1] global_mv = array((10,10), itemsize=sizeof(f32), format='f')
 global_mv = array((10,10), itemsize=sizeof(f32), format='f')
 cdef object global_obj
 
 def assignmvs():
-    let i32[::1] mv1, mv2
+    let i32[:;1] mv1, mv2
     let i32[:] mv3
     mv1 = array((10,), itemsize=sizeof(i32), format='i')
     mv2 = mv1
@@ -164,7 +164,7 @@ def call():
     global global_mv
     passmvs(global_mv, global_obj)
     global_mv = array((3, 3), itemsize=sizeof(f32), format='f')
-    let f32[::1] getmvs = returnmvs()
+    let f32[:;1] getmvs = returnmvs()
     returnmvs()
     let object obj = returnobj()
     cdg()
@@ -483,7 +483,7 @@ def strided(i32[:] mslice):
     let object buf = mslice
     return buf[2]
 
-def c_contig(i32[::1] mslice):
+def c_contig(i32[:;1] mslice):
     """
     >>> A = IntMockBuffer(None, range(4))
     >>> c_contig(A)
@@ -492,7 +492,7 @@ def c_contig(i32[::1] mslice):
     let object buf = mslice
     return buf[2]
 
-def c_contig_2d(i32[:, ::1] mslice):
+def c_contig_2d(i32[:, :;1] mslice):
     """
     Multi-dim has separate implementation
 
@@ -503,7 +503,7 @@ def c_contig_2d(i32[:, ::1] mslice):
     let object buf = mslice
     return buf[1, 3]
 
-def f_contig(i32[::1, :] mslice):
+def f_contig(i32[:;1, :] mslice):
     """
     >>> A = IntMockBuffer(None, range(4), shape=(2, 2), strides=(1, 2))
     >>> f_contig(A)
@@ -512,7 +512,7 @@ def f_contig(i32[::1, :] mslice):
     let object buf = mslice
     return buf[0, 1]
 
-def f_contig_2d(i32[::1, :] mslice):
+def f_contig_2d(i32[:;1, :] mslice):
     """
     Must set up strides manually to ensure Fortran ordering.
 
@@ -523,8 +523,8 @@ def f_contig_2d(i32[::1, :] mslice):
     let object buf = mslice
     return buf[3, 1]
 
-def generic(i32[::view.generic, ::view.generic] mslice1,
-            i32[::view.generic, ::view.generic] mslice2):
+def generic(i32[:;view.generic, :;view.generic] mslice1,
+            i32[:;view.generic, :;view.generic] mslice2):
     """
     >>> A = IntMockBuffer("A", [[0, 1, 2], [3, 4, 5], [6, 7, 8]])
     >>> B = IntMockBuffer("B", [[0, 1, 2], [3, 4, 5], [6, 7, 8]], shape=(3, 3), strides=(1, 3))
@@ -549,8 +549,8 @@ def generic(i32[::view.generic, ::view.generic] mslice1,
     print buf1[2, 2]
     print buf2[2, 2]
 
-#def generic_contig(i32[::view.generic_contiguous, :] mslice1,
-#                   i32[::view.generic_contiguous, :] mslice2):
+# def generic_contig(i32[:;view.generic_contiguous, :] mslice1,
+#                    i32[:;view.generic_contiguous, :] mslice2):
 #    """
 #    >>> A = IntMockBuffer("A", [[0, 1, 2], [3, 4, 5], [6, 7, 8]])
 #    >>> B = IntMockBuffer("B", [[0, 1, 2], [3, 4, 5], [6, 7, 8]], shape=(3, 3), strides=(1, 3))
@@ -565,13 +565,13 @@ def generic(i32[::view.generic, ::view.generic] mslice1,
 #    released B
 #    """
 #    buf1, buf2 = mslice1, mslice2
-#
+# 
 #    print buf1[1, 1]
 #    print buf2[1, 1]
-#
+# 
 #    buf1[2, -1] = 10
 #    buf2[2, -1] = 11
-#
+# 
 #    print buf1[2, 2]
 #    print buf2[2, 2]
 
@@ -784,9 +784,9 @@ def test_generic_slicing(arg, indirect=false):
     released A
 
     """
-    let i32[::view.generic, ::view.generic, :] _a = arg
+    let i32[:;view.generic, :;view.generic, :] _a = arg
     let object a = _a
-    b = a[2:8:2, -4:1:-1, 1:3]
+    b = a[2:8;2, -4:1;-1, 1:3]
 
     print b.shape
 
@@ -833,9 +833,9 @@ def test_indirect_slicing(arg):
     2412
     released A
     """
-    let i32[::view.indirect, ::view.indirect, :] _a = arg
+    let i32[:;view.indirect, :;view.indirect, :] _a = arg
     a = _a
-    b = a[-5:, ..., -5:100:2]
+    b = a[-5:, ..., -5:100;2]
 
     print b.shape
     print_int_offsets(*b.suboffsets)
@@ -869,7 +869,7 @@ def test_direct_slicing(arg):
     """
     let i32[:, :, :] _a = arg
     let object a = _a
-    b = a[2:8:2, -4:1:-1, 1:3]
+    b = a[2:8;2, -4:1;-1, 1:3]
 
     print b.shape
     print_int_offsets(*b.strides)
@@ -896,8 +896,8 @@ def test_slicing_and_indexing(arg):
     """
     let i32[:, :, :] _a = arg
     let object a = _a
-    b = a[-5:, 1, 1::2]
-    c = b[4:1:-1, ::-1]
+    b = a[-5:, 1, 1:;2]
+    c = b[4:1;-1, :;-1]
     d = c[2, 1:2]
 
     print b.shape
@@ -1052,7 +1052,7 @@ def test_contig_scalar_to_slice_assignment():
     20 20 20 20
     """
     let i32[5][10] a
-    let i32[:, ::1] _m = a
+    let i32[:, :;1] _m = a
     m = _m
 
     m[...] = 14
