@@ -1837,7 +1837,6 @@ def p_from_import_statement(s, first_statement = 0):
         s.next()
     else:
         if s.sy == '(':
-            is_parenthesized = True
             s.next()
         imported_names = [p_imported_name(s)]
     while s.sy == ',':
@@ -1895,14 +1894,22 @@ def p_imported_name(s):
 
 
 def p_path(s, as_allowed):
-    pos = s.position()
     as_name = None
-    names = [p_ident(s)]
+    names = [(s.position(), p_ident(s), as_name)]
     while s.sy == "::":
         s.next()
         if s.sy == "*":
             names.append(s.context.intern_ustring("*"))
             s.next()
+        elif s.sy == "(":
+            s.next()
+            names.append(p_imported_name(s))
+            while s.sy == ',':
+                s.next()
+                if s.sy == ')':
+                    break
+                names.append(p_imported_name(s))
+            s.expect(")")
         else:
             names.append(p_ident(s))
     if as_allowed:
