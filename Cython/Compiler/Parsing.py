@@ -646,14 +646,14 @@ def p_subscript(s):
         return [start]
     elif s.sy == ":":
         s.next()
-        stop = p_slice_element(s, (":", "::", ";", ",", "]"))
-        if s.sy not in (":", "::", ";"):
+        stop = p_slice_element(s, (":", ";", ",", "]"))
+        if s.sy not in (":", ";"):
             return [start, stop]
     else:  # s.sy == "::"
         s.next()
         stop = None
     s.next()
-    step = p_slice_element(s, (":", "::", ";", ",", "]"))
+    step = p_slice_element(s, (",", "]"))
     return [start, stop, step]
 
 def p_slice_element(s, follow_set):
