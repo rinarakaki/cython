@@ -649,7 +649,7 @@ def p_subscript(s):
         stop = p_slice_element(s, (":", "::", ";", ",", "]"))
         if s.sy not in (":", "::", ";"):
             return [start, stop]
-    else:
+    else:  # s.sy == "::"
         s.next()
         stop = None
     s.next()
