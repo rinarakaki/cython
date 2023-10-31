@@ -60,10 +60,10 @@ extern from *:
 
 use libc::string::(memset, memcpy)
 
-use cpython::object::Py_SIZE
-use cpython::ref::(PyTypeObject, Py_TYPE)
 use cpython::exc::PyErr_BadArgument
 use cpython::mem::(PyObject_Malloc, PyObject_Free)
+use cpython::object::Py_SIZE
+use cpython::ref::(PyTypeObject, Py_TYPE)
 
 extern from *:  # Hard-coded utility code hack.
     ctypedef class array.array [object arrayobject]
