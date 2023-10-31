@@ -2,8 +2,8 @@
 # tag: cpp, werror, cpp11
 
 from libcpp.numeric cimport inner_product, iota, accumulate, adjacent_difference, partial_sum
-from libcpp.vector cimport vector
-from libcpp cimport bool
+use libcpp::vector::vector
+use libcpp::bool
 
 # Subtracts two integers.
 fn i32 subtract_integers(i32 lhs, i32 rhs):

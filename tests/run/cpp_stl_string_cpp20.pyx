@@ -1,8 +1,8 @@
 # mode: run
 # tag: cpp, werror, cpp20
 
-from libcpp cimport bool
-from libcpp.string cimport string
+use libcpp::bool
+use libcpp::string::string
 
 b_A = b'A'
 b_F = b'F'

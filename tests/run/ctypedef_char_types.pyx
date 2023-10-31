@@ -1,6 +1,6 @@
 
 use cython
-from cython cimport typeof
+use cython::typeof
 
 from libc.string cimport const_char, const_uchar
 

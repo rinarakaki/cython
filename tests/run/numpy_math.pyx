@@ -2,7 +2,7 @@
 # tag: no-cpp
 # Numpy <= 1.7.1 doesn't have a C++ guard in the header file.
 
-use numpy.math as npmath
+use numpy::math as npmath
 
 
 def test_fp_classif():

@@ -1,4 +1,4 @@
-from libc.stdlib cimport free
+use libc::stdlib::free
 
 fn unicode tounicode(char* s):
     return s.decode('UTF-8', 'strict')

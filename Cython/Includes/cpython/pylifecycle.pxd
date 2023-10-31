@@ -1,6 +1,6 @@
 # Interfaces to configure, query, create & destroy the Python runtime
 
-from libc.stdio cimport FILE
+use libc::stdio::FILE
 from .pystate cimport PyThreadState
 
 extern from "Python.h":

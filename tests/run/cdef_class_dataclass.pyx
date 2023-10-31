@@ -1,7 +1,7 @@
 # mode: run
 # tag: dataclass
 
-from cython cimport dataclasses
+use cython::dataclasses
 from cython.dataclasses cimport dataclass, field
 try:
     import typing

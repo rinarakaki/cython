@@ -6,12 +6,12 @@
 
 from __future__ import unicode_literals
 
-from cpython.object cimport PyObject
+use cpython::object::PyObject
 from cpython.ref cimport Py_INCREF, Py_DECREF, Py_CLEAR
 
 use cython
-from cython cimport view
-from cython.view cimport array
+use cython::view
+use cython::view::array
 from cython.parallel cimport prange, parallel
 
 from functools import wraps

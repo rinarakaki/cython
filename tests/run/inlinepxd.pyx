@@ -17,7 +17,7 @@ __doc__ = u"""
 """
 
 use inlinepxd_support
-from inlinepxd_support cimport my_add as my_add3
+use inlinepxd_support::my_add as my_add3
 
 def f():
     return my_add(1, 2)

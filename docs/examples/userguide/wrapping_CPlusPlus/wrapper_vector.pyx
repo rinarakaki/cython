@@ -1,6 +1,6 @@
 # distutils: language = c++
 
-from libcpp.vector cimport vector
+use libcpp::vector::vector
 
 cdef class VectorStack:
     cdef vector[i32] v

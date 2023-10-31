@@ -1,9 +1,9 @@
 # mode: run
 # tag: cpp, werror, cpp17, no-cpp-locals
 
-from libcpp cimport bool
+use libcpp::bool
 from libcpp.algorithm cimport equal, lexicographical_compare
-from libcpp.vector cimport vector
+use libcpp::vector::vector
 
 fn bool compare(i32 a, i32 b):
     return a == b

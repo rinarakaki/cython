@@ -1,4 +1,4 @@
-from libcpp cimport bool
+use libcpp::bool
 
 extern from "<optional>" namespace "std" nogil:
     cdef cppclass nullopt_t:

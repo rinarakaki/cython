@@ -1,4 +1,4 @@
-cimport cython
+use cython
 
 fn inline f64 eval_A(f64 i, f64 j)
 
