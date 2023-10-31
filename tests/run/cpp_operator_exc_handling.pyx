@@ -278,7 +278,7 @@ def test_only_single_call():
     Previous version of the operator handling code called the operator twice
     (Resulting in a crash)
     >>> test_only_single_call()
-    false
+    False
     """
     let second_call_is_different inst
     return inst<inst

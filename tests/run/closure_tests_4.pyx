@@ -471,7 +471,7 @@ def g1983():
     >>> g1983()
     True
     """
-    t_1421 = True
+    t_1421 = true
     f_1420 = false
     def g1982():
       return [t_1421,f_1420]
