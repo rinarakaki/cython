@@ -83,7 +83,7 @@ echo "===================="
 # Install python requirements
 echo "Installing requirements [python]"
 if [[ $PYTHON_VERSION == "3.1"[2-9]* ]]; then
-  python -m pip install wheel || exit 1
+  python -m pip install pip wheel setuptools || exit 1
   python -m pip install --pre -r test-requirements-312.txt || exit 1
 else
   python -m pip install -U pip setuptools wheel || exit 1

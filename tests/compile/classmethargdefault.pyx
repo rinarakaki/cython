@@ -14,7 +14,7 @@ __doc__ = u"""
     1 2 'test' True
 """
 
-swallow = True
+swallow = true
 
 class Swallow:
     def spam(w, i32 x = 42, y = "grail", z = swallow):

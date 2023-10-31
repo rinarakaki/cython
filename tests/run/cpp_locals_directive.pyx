@@ -50,14 +50,14 @@ fn void print_C_destructor "print_C_destructor" () with gil:
 
 def maybe_assign_infer(assign, value, do_print):
     """
-    >>> maybe_assign_infer(True, 5, True)
+    >>> maybe_assign_infer(true, 5, true)
     5
     ~C()
-    >>> maybe_assign_infer(False, 0, True)
+    >>> maybe_assign_infer(false, 0, true)
     Traceback (most recent call last):
         ...
     UnboundLocalError: local variable 'x' referenced before assignment
-    >>> maybe_assign_infer(False, 0, False)  # no destructor call here
+    >>> maybe_assign_infer(false, 0, false)  # no destructor call here
     """
     if assign:
         x = C(value)
@@ -66,10 +66,10 @@ def maybe_assign_infer(assign, value, do_print):
 
 def maybe_assign_cdef(assign, value):
     """
-    >>> maybe_assign_cdef(True, 5)
+    >>> maybe_assign_cdef(true, 5)
     5
     ~C()
-    >>> maybe_assign_cdef(False, 0)
+    >>> maybe_assign_cdef(false, 0)
     Traceback (most recent call last):
         ...
     UnboundLocalError: local variable 'x' referenced before assignment
@@ -81,10 +81,10 @@ def maybe_assign_cdef(assign, value):
 
 def maybe_assign_annotation(assign, value):
     """
-    >>> maybe_assign_annotation(True, 5)
+    >>> maybe_assign_annotation(true, 5)
     5
     ~C()
-    >>> maybe_assign_annotation(False, 0)
+    >>> maybe_assign_annotation(false, 0)
     Traceback (most recent call last):
         ...
     UnboundLocalError: local variable 'x' referenced before assignment
@@ -96,10 +96,10 @@ def maybe_assign_annotation(assign, value):
 
 def maybe_assign_directive1(assign, value):
     """
-    >>> maybe_assign_directive1(True, 5)
+    >>> maybe_assign_directive1(true, 5)
     5
     ~C()
-    >>> maybe_assign_directive1(False, 0)
+    >>> maybe_assign_directive1(false, 0)
     Traceback (most recent call last):
         ...
     UnboundLocalError: local variable 'x' referenced before assignment
@@ -112,10 +112,10 @@ def maybe_assign_directive1(assign, value):
 #[cython.locals(x=C)]
 def maybe_assign_directive2(assign, value):
     """
-    >>> maybe_assign_directive2(True, 5)
+    >>> maybe_assign_directive2(true, 5)
     5
     ~C()
-    >>> maybe_assign_directive2(False, 0)
+    >>> maybe_assign_directive2(false, 0)
     Traceback (most recent call last):
         ...
     UnboundLocalError: local variable 'x' referenced before assignment
@@ -126,7 +126,7 @@ def maybe_assign_directive2(assign, value):
 
 def maybe_assign_nocheck(assign, value):
     """
-    >>> maybe_assign_nocheck(True, 5)
+    >>> maybe_assign_nocheck(true, 5)
     5
     ~C()
 
@@ -157,11 +157,11 @@ def call_has_argument():
     >>> call_has_argument()
     50
     """
-    has_argument(C(50, False))
+    has_argument(C(50, false))
 
 cdef class HoldsC:
     """
-    >>> inst = HoldsC(True, False)
+    >>> inst = HoldsC(true, false)
     >>> inst.getCX()
     10
     >>> access_from_function_with_different_directive(inst)
@@ -169,7 +169,7 @@ cdef class HoldsC:
     10
     >>> inst.getCX()  # it was changed in access_from_function_with_different_directive
     20
-    >>> inst = HoldsC(False, False)
+    >>> inst = HoldsC(false, false)
     >>> inst.getCX()
     Traceback (most recent call last):
         ...
@@ -195,7 +195,7 @@ def access_from_function_with_different_directive(HoldsC c):
     # doctest is in HoldsC class
     print(acceptC(c.value))  # this originally tried to pass a __Pyx_Optional<C> as a C instance
     print(c.value.getX())
-    c.value = C(20, False) # make sure that we can change it too
+    c.value = C(20, false) # make sure that we can change it too
 
 def dont_test_on_pypy(f):
     import sys
@@ -209,14 +209,14 @@ def testHoldsCDestruction(initialize):
     ~C()
     >>> testHoldsCDestruction(false)  # no destructor
     """
-    x = HoldsC(initialize, True)
+    x = HoldsC(initialize, true)
     del x
 
 cdef C global_var
 
 def initialize_global_var():
     global global_var
-    global_var = C(-1, False)
+    global_var = C(-1, false)
 
 def read_global_var():
     """

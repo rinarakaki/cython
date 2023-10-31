@@ -37,7 +37,7 @@ class TestMemviewParsing(CythonTest):
         self.parse(u"cdef foo(int[:,:] x): pass")
 
     def test_general_slice(self):
-        self.parse(u'cdef float[::ptr, ::direct & contig, 0::full & strided] x')
+        self.parse(u'cdef float[:;ptr, :;direct & contig, 0:;full & strided] x')
 
     def test_non_slice_memview(self):
         self.not_parseable(u"An axis specification in memoryview declaration does not have a ':'.",

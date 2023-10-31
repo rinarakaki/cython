@@ -11,7 +11,7 @@ cdef class WrapperClass:
     cdef bint ptr_owner
 
     def __cinit__(self):
-        self.ptr_owner = False
+        self.ptr_owner = false
 
     def __dealloc__(self):
         # De-allocate if not null and flag is set

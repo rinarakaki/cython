@@ -1,4 +1,4 @@
-# cython: profile=True
+# cython: profile=true
 
 def recip_square(i32 i):
     return 1. / i ** 2
