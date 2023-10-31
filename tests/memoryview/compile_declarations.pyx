@@ -2,7 +2,7 @@
 
 use cython
 # from cython.view cimport contig as foo, full as bar #, follow
-from cython cimport view
+use cython::view
 from cython.view cimport (generic, strided, indirect,
                           contiguous, indirect_contiguous)
 

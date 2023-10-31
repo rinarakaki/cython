@@ -4,14 +4,14 @@
 import sys
 from collections import defaultdict
 
-from libcpp.map cimport map
-from libcpp.unordered_map cimport unordered_map
-from libcpp.set cimport set as cpp_set
-from libcpp.unordered_set cimport unordered_set
-from libcpp.string cimport string
-from libcpp.pair cimport pair
-from libcpp.vector cimport vector
-from libcpp.list cimport list as cpp_list
+use libcpp::map::map
+use libcpp::unordered_map::unordered_map
+use libcpp::set::set as cpp_set
+use libcpp::unordered_set::unordered_set
+use libcpp::string::string
+use libcpp::pair::pair
+use libcpp::vector::vector
+use libcpp::list::list as cpp_list
 
 py_set = set
 py_xrange = xrange

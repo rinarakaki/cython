@@ -3,7 +3,7 @@
 
 from posix.types cimport (blkcnt_t, blksize_t, dev_t, gid_t, ino_t, mode_t,
                           nlink_t, off_t, time_t, uid_t)
-from posix.time cimport timespec
+use posix::time::timespec
 
 
 extern from "<sys/stat.h>" nogil:

@@ -1,7 +1,7 @@
 # mode: run
 # tag: cpp
 
-from libcpp.vector cimport vector
+use libcpp::vector::vector
 
 def stack_vector_in_generator(vector[i32] vint):
     """

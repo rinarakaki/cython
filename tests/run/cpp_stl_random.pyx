@@ -7,7 +7,7 @@ from libcpp.random cimport mt19937, mt19937_64, random_device, uniform_int_distr
     exponential_distribution, gamma_distribution, weibull_distribution, \
     extreme_value_distribution, normal_distribution, lognormal_distribution, \
     chi_squared_distribution, cauchy_distribution, fisher_f_distribution, student_t_distribution
-from libc.float cimport DBL_MAX as DBL_MAX_
+use libc::float::DBL_MAX as DBL_MAX_
 
 DBL_MAX = DBL_MAX_
 

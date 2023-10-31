@@ -3,13 +3,13 @@
 
 from __future__ import division
 
-from cython cimport typeof
+use cython::typeof
 
-use cython.operator
+cimport cython.operator
 from cython.operator cimport typeid, dereference as deref
 
-from libc.string cimport const_char
-from libcpp cimport bool
+use libc::string::const_char
+use libcpp::bool
 
 fn out(s, result_type=None):
     print '%s [%s]' % (s.decode('ascii'), result_type)

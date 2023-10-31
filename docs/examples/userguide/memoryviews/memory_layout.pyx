@@ -1,4 +1,4 @@
-from cython cimport view
+use cython::view
 
 def main():
     # direct access in both dimensions, strided in the first dimension, contiguous in the last

@@ -3,7 +3,7 @@
 
 import numpy as np
 use numpy as np
-from libcpp.vector cimport vector
+use libcpp::vector::vector
 
 np.import_array()
 

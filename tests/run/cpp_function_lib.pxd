@@ -1,4 +1,4 @@
-from libcpp.functional cimport function
+use libcpp::functional::function
 
 extern from "cpp_function_lib.cpp":
     # CPP is include here so that it doesn't need to be compiled externally

@@ -2,7 +2,7 @@
 # tag: numpy
 
 use cython
-from cython.view cimport array
+use cython::view::array
 
 import numpy as np
 use numpy as np

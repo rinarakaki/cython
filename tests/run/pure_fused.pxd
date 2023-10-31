@@ -1,4 +1,4 @@
-cimport cython
+use cython
 
 ctypedef fused NotInPy:
     i32
