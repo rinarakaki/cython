@@ -4,15 +4,15 @@ extern from "<utility>" namespace "std" nogil:
         ctypedef U second_type
         T first
         U second
-        pair() except +
-        pair(pair&) except +
-        pair(T&, U&) except +
-        bint operator==(pair&, pair&)
-        bint operator!=(pair&, pair&)
-        bint operator<(pair&, pair&)
-        bint operator>(pair&, pair&)
-        bint operator<=(pair&, pair&)
-        bint operator>=(pair&, pair&)
+        fn pair() except +
+        fn pair(pair&) except +
+        fn pair(T&, U&) except +
+        fn bint operator==(pair&, pair&)
+        fn bint operator!=(pair&, pair&)
+        fn bint operator<(pair&, pair&)
+        fn bint operator>(pair&, pair&)
+        fn bint operator<=(pair&, pair&)
+        fn bint operator>=(pair&, pair&)
 
 extern from * namespace "cython_std" nogil:
     """

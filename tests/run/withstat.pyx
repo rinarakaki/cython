@@ -146,15 +146,15 @@ class Dummy(object):
             value = self
         self.value = value
         self.gobble = gobble
-        self.enter_called = False
-        self.exit_called = False
+        self.enter_called = false
+        self.exit_called = false
 
     def __enter__(self):
-        self.enter_called = True
+        self.enter_called = true
         return self.value
 
     def __exit__(self, *exc_info):
-        self.exit_called = True
+        self.exit_called = true
         self.exc_info = exc_info
         if self.gobble:
             return true
@@ -210,9 +210,9 @@ class NestedWith(unittest.TestCase):
         self.assertTrue(a.exit_called)
 
     def testExceptionInExit(self):
-        body_executed = False
+        body_executed = false
         with Dummy(gobble=true) as a, ExitRaises():
-            body_executed = True
+            body_executed = true
         self.assertTrue(a.enter_called)
         self.assertTrue(a.exit_called)
         self.assertTrue(body_executed)

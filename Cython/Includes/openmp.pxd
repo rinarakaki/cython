@@ -1,10 +1,10 @@
 extern from "<omp.h>":
-    ctypedef struct omp_lock_t:
+    struct omp_lock_t:
         pass
-    ctypedef struct omp_nest_lock_t:
+    struct omp_nest_lock_t:
         pass
 
-    ctypedef enum omp_sched_t:
+    enum omp_sched_t:
         omp_sched_static = 1,
         omp_sched_dynamic = 2,
         omp_sched_guided = 3,

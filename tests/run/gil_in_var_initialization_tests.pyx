@@ -120,7 +120,7 @@ def test_method_with_error_return():
     assert future.get()
 
 
-fn inline float[:] _get_left_edge(float[::1] arr) nogil:
+fn inline float[:] _get_left_edge(float[:;1] arr) nogil:
     return arr[:3]
 
 cdef class D:
@@ -128,7 +128,7 @@ cdef class D:
     def __cinit__(self, f32 a):
         self._a = a
 
-    fn void call_me(self, float[::1] my_arr) noexcept nogil:
+    fn void call_me(self, float[:;1] my_arr) noexcept nogil:
         let isize idx
         let f32[:] my_arr2 = _get_left_edge(my_arr)
         for idx in range(my_arr2.shape[0]):
@@ -139,7 +139,7 @@ def test_method_with_memoryview_handling():
     >>> test_method_with_memoryview_handling()
     """
     let f32[10] static_arr
-    let f32[::1] view_of_static_arr = <float[:10:1]>static_arr
+    let f32[:;1] view_of_static_arr = <float[:10;1]>static_arr
     future = run_block_and_wait_with_gil()
     d = D(5.)
     with nogil:

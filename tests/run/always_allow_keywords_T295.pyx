@@ -16,7 +16,7 @@ def assert_typeerror_no_keywords(func, *args, **kwds):
     except TypeError as e:
         assert e.args[0].endswith(" takes no keyword arguments"), e.args[0]
     else:
-        assert False, "call did not raise TypeError"
+        assert false, "call did not raise TypeError"
 
 
 def func0():
@@ -85,7 +85,7 @@ cdef class A:
     >>> if not IS_PY2: PyA.meth0(self=PyA())
     >>> try: PyA().meth0(self=PyA())
     ... except TypeError as exc: assert 'multiple' in str(exc), "Unexpected message: %s" % exc
-    ... else: assert False, "No TypeError when passing 'self' argument twice"
+    ... else: assert false, "No TypeError when passing 'self' argument twice"
 
     >>> PyA().meth1(1)
     >>> PyA.meth1(PyA(), 1)
@@ -100,7 +100,7 @@ cdef class A:
         >>> A().meth0_nokw(**{})
         >>> try: pass  #A.meth0_nokw(self=A())
         ... except TypeError as exc: assert 'needs an argument' in str(exc), "Unexpected message: %s" % exc
-        ... else: pass  #assert False, "No TypeError for missing 'self' positional argument"
+        ... else: pass  #assert false, "No TypeError for missing 'self' positional argument"
         """
 
     #[cython.always_allow_keywords(true)]
@@ -112,7 +112,7 @@ cdef class A:
         >>> #A.meth0_kw(self=A())
         >>> try: pass  #A().meth0_kw(self=A())
         ... except TypeError as exc: assert 'multiple' in str(exc), "Unexpected message: %s" % exc
-        ... else: pass  #assert False, "No TypeError when passing 'self' argument twice"
+        ... else: pass  #assert false, "No TypeError when passing 'self' argument twice"
         """
 
     #[cython.always_allow_keywords(true)]
@@ -134,7 +134,7 @@ cdef class A:
         >>> assert_typeerror_no_keywords(A.meth1_nokw, A(), arg=None)
         >>> try: pass  # A.meth1_nokw(self=A(), arg=None)
         ... except TypeError as exc: assert 'needs an argument' in str(exc), "Unexpected message: %s" % exc
-        ... else: pass  # assert False, "No TypeError for missing 'self' positional argument"
+        ... else: pass  # assert false, "No TypeError for missing 'self' positional argument"
         """
 
     #[cython.always_allow_keywords(false)]
@@ -172,7 +172,7 @@ class B(object):
         >>> if not IS_PY2: B.meth0_kw(self=B())
         >>> try: B().meth0_kw(self=B())
         ... except TypeError as exc: assert 'multiple' in str(exc), "Unexpected message: %s" % exc
-        ... else: assert False, "No TypeError when passing 'self' argument twice"
+        ... else: assert false, "No TypeError when passing 'self' argument twice"
         """
 
     #[cython.always_allow_keywords(true)]

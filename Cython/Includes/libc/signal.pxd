@@ -3,15 +3,14 @@
 ctypedef void (*sighandler_t)(i32 SIGNUM) noexcept nogil
 
 extern from "<signal.h>" nogil:
-
     ctypedef i32 sig_atomic_t
 
     sighandler_t SIG_DFL
     sighandler_t SIG_IGN
     sighandler_t SIG_ERR
 
-    sighandler_t signal        (i32 signum, sighandler_t action)
-    int          raise_"raise" (i32 signum)
+    fn sighandler_t signal         (i32 signum, sighandler_t action)
+    fn i32          raise_ "raise" (i32 signum)
 
     # Signals
     enum:

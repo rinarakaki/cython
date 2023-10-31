@@ -1,7 +1,7 @@
 #################### FromPyStructUtility ####################
 
 extern from *:
-    ctypedef struct PyTypeObject:
+    struct PyTypeObject:
         char* tp_name
     PyTypeObject *Py_TYPE(obj)
     bint PyMapping_Check(obj)
@@ -27,7 +27,7 @@ fn {{struct_type}} {{funcname}}(obj) except *:
 #################### FromPyUnionUtility ####################
 
 extern from *:
-    ctypedef struct PyTypeObject:
+    struct PyTypeObject:
         char* tp_name
     PyTypeObject *Py_TYPE(obj)
     bint PyMapping_Check(obj)
@@ -36,8 +36,8 @@ extern from *:
 
 @cname("{{funcname}}")
 fn {{struct_type}} {{funcname}}(obj) except *:
-    cdef {{struct_type}} result
-    cdef isize length
+    let {{struct_type}} result
+    let isize length
     if not PyMapping_Check(obj):
         __Pyx_RaiseUnexpectedTypeError(b"a mapping", obj)
 
@@ -77,7 +77,7 @@ extern from *:
 
 @cname("{{cname}}")
 fn i32 {{cname}}(object o, {{base_type}} *v, isize length) except -1:
-    cdef isize i = length
+    let isize i = length
     try:
         i = len(o)
     except (TypeError, OverflowError):
@@ -111,8 +111,8 @@ extern from *:
 
 @cname("{{cname}}")
 fn inline list {{cname}}({{base_type}} *v, isize length):
-    cdef usize i
-    cdef object value
+    let usize i
+    let object value
     l = PyList_New(length)
     for i in range(<usize>length):
         value = v[i]
@@ -122,8 +122,8 @@ fn inline list {{cname}}({{base_type}} *v, isize length):
 
 @cname("{{to_tuple_cname}}")
 fn inline tuple {{to_tuple_cname}}({{base_type}} *v, isize length):
-    cdef usize i
-    cdef object value
+    let usize i
+    let object value
     t = PyTuple_New(length)
     for i in range(<usize>length):
         value = v[i]

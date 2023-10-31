@@ -1,7 +1,7 @@
 
 def simple_values(obj1, obj2, obj3, obj4):
     """
-    >>> simple_values(True, False, 23, 'test')
+    >>> simple_values(true, false, 23, 'test')
     (0.0, 1.0, False, False)
     """
     let i32 bool1, bool2

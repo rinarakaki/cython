@@ -133,7 +133,7 @@ def format2(ab, cd):
     assert isinstance(c, unicode) or (IS_PYPY and isinstance(c, str)), type(c)
     return a, b, c
 
-ctypedef enum TestValues:
+enum TestValues:
     enum_ABC = 1
     enum_XYZ = 2
 

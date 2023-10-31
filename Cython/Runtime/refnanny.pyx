@@ -168,7 +168,7 @@ fn void FinishContext(PyObject** ctx):
         PyErr_Restore(type, value, tb)
         return  # swallow any exceptions
 
-ctypedef struct RefNannyAPIStruct:
+struct RefNannyAPIStruct:
     void (*INCREF)(PyObject*, PyObject*, isize)
     void (*DECREF)(PyObject*, PyObject*, isize)
     void (*GOTREF)(PyObject*, PyObject*, isize)

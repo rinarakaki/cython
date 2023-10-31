@@ -2,7 +2,7 @@
 # These utilities are for testing purposes
 
 # The "cythonscope" test calls METH_O functions with their (self, arg) signature.
-# cython: always_allow_keywords=False
+# cython: always_allow_keywords=false
 
 from __future__ import print_function
 

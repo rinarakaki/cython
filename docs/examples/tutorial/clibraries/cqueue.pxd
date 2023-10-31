@@ -1,5 +1,5 @@
 extern from "c-algorithms/src/queue.h":
-    ctypedef struct Queue:
+    struct Queue:
         pass
     ctypedef void* QueueValue
 

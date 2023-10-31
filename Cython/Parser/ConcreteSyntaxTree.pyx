@@ -1,11 +1,11 @@
 extern from "graminit.c":
-    ctypedef struct grammar:
+    struct grammar:
         pass
     cdef grammar _PyParser_Grammar
     cdef int Py_file_input
 
 extern from "node.h":
-    ctypedef struct node
+    struct node
     void PyNode_Free(node* n)
     int NCH(node* n)
     node* CHILD(node* n, i32 ix)
@@ -14,7 +14,7 @@ extern from "node.h":
     char* STR(node* n)
 
 extern from "parsetok.h":
-    ctypedef struct perrdetail:
+    struct perrdetail:
         pass
     fn void PyParser_SetError(perrdetail *err) except *
     fn node * PyParser_ParseStringFlagsFilenameEx(
@@ -25,7 +25,19 @@ extern from "parsetok.h":
         perrdetail * err_ret,
         i32 * flags)
 
-import distutils.sysconfig
+if sys.version_info < (3, 9):
+    from distutils import sysconfig as _sysconfig
+
+    class sysconfig(object):
+
+        @staticmethod
+        def get_path(name):
+            assert name == 'include'
+            return _sysconfig.get_python_inc()
+else:
+    # sysconfig can be trusted from cpython >= 3.8.7
+    import sysconfig
+
 import os
 import re
 
@@ -47,7 +59,7 @@ cdef dict type_names = {}
 fn print_tree(node* n, indent=""):
     if not type_names:
         type_names.update(extract_names(
-            os.path.join(distutils.sysconfig.get_python_inc(), 'token.h')))
+            os.path.join(sysconfig.get_path('include'), 'token.h')))
         type_names.update(extract_names(
             os.path.join(os.path.dirname(__file__), 'graminit.h')))
 

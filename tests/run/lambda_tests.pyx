@@ -354,7 +354,7 @@ def g46():
       def g44():
         def g42(a_113):
           def g43():
-            (a_113)+(200 if True else None)
+            (a_113)+(200 if true else None)
             return 1500
           return g43
         return g42
@@ -489,8 +489,8 @@ def g67():
     >>> g67()
     True
     """
-    t_153 = True
-    f_152 = False
+    t_153 = true
+    f_152 = false
     bools_156 = [t_153,f_152]
     id_155 = (lambda x_154: (f_152) if ((not x_154)) else (t_153))
     even_158 = (lambda x_160: ((bools_156[0])) if (id_155(x_160 == 0)) else (odd_157((x_160)-(1))))

@@ -118,9 +118,9 @@ def soft_complex_coerced_to_complex(f64 a, f64 b):
 
 def soft_complex_type_inference_1(f64 a, f64 b, pick):
     """
-    >>> soft_complex_type_inference_1(2, 1, False)
+    >>> soft_complex_type_inference_1(2, 1, false)
     soft double complex 2.0
-    >>> soft_complex_type_inference_1(2, 3, True)
+    >>> soft_complex_type_inference_1(2, 3, true)
     soft double complex 4.0
     """
     # double and soft complex should infer to soft-complex

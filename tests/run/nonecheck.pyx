@@ -189,4 +189,4 @@ def test_memslice_slice_assign2(f64[:] buf):
     Traceback (most recent call last):
     TypeError: Cannot slice None memoryview slice
     """
-    buf[:] = buf[::-1]
+    buf[:] = buf[:;-1]

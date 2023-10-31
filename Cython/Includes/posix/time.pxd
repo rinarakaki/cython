@@ -33,8 +33,8 @@ extern from "<sys/time.h>" nogil:
     enum: ITIMER_PROF
 
     struct timezone:
-        int tz_minuteswest
-        int dsttime
+        i32 tz_minuteswest
+        i32 dsttime
 
     struct timeval:
         time_t      tv_sec
@@ -42,7 +42,7 @@ extern from "<sys/time.h>" nogil:
 
     struct timespec:
         time_t tv_sec
-        long   tv_nsec
+        i64   tv_nsec
 
     struct itimerval:
         timeval it_interval
@@ -52,20 +52,20 @@ extern from "<sys/time.h>" nogil:
         timespec it_interval
         timespec it_value
 
-    int nanosleep(const timespec *, timespec *)
+    fn i32 nanosleep(const timespec *, timespec *)
 
-    int getitimer(i32, itimerval *)
-    int gettimeofday(timeval *tp, timezone *tzp)
-    int setitimer(i32, const itimerval *, itimerval *)
+    fn i32 getitimer(i32, itimerval *)
+    fn i32 gettimeofday(timeval *tp, timezone *tzp)
+    fn i32 setitimer(i32, const itimerval *, itimerval *)
 
-    int clock_getcpuclockid(pid_t, clockid_t *)
-    int clock_getres(clockid_t, timespec *)
-    int clock_gettime(clockid_t, timespec *)
-    int clock_nanosleep(clockid_t, int, const timespec *, timespec *)
-    int clock_settime(clockid_t, const timespec *)
+    fn i32 clock_getcpuclockid(pid_t, clockid_t *)
+    fn i32 clock_getres(clockid_t, timespec *)
+    fn i32 clock_gettime(clockid_t, timespec *)
+    fn i32 clock_nanosleep(clockid_t, int, const timespec *, timespec *)
+    fn i32 clock_settime(clockid_t, const timespec *)
 
-    int timer_create(clockid_t, sigevent *, timer_t *)
-    int timer_delete(timer_t)
-    int timer_gettime(timer_t, itimerspec *)
-    int timer_getoverrun(timer_t)
-    int timer_settime(timer_t, int, const itimerspec *, itimerspec *)
+    fn i32 timer_create(clockid_t, sigevent *, timer_t *)
+    fn i32 timer_delete(timer_t)
+    fn i32 timer_gettime(timer_t, itimerspec *)
+    fn i32 timer_getoverrun(timer_t)
+    fn i32 timer_settime(timer_t, int, const itimerspec *, itimerspec *)

@@ -12,8 +12,8 @@ fn i32 f() except -1:
     t = str
     t = tuple
     t = xrange
-    x = True
-    x = False
+    x = true
+    x = false
     x = Ellipsis
     x = Exception
     x = StopIteration

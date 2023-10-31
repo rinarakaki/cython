@@ -3,7 +3,7 @@
 pub struct Foo:
     i32 a, b
 
-ctypedef struct Blarg:
+struct Blarg:
     i32 c, d
 
 ctypedef pub Foo Zax

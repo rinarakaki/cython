@@ -133,5 +133,5 @@ def test_parallel_call_exception_checked_function():
         free(buf)
 
 
-OPENMP_PARALLEL = True
+OPENMP_PARALLEL = true
 include "sequential_parallel.pyx"

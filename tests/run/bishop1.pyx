@@ -1,9 +1,9 @@
 __doc__ = u"""
     >>> m = fmatrix()
-    >>> m[1] = True
+    >>> m[1] = true
     >>> m.getfoo()
     1
-    >>> m[0] = True
+    >>> m[0] = true
     >>> m.getfoo()
     0
 """
