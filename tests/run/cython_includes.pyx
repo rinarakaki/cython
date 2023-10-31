@@ -1,7 +1,7 @@
 
 use libc::stdio::sprintf
 use cpython::PyType_Check
-use cpython::PyType_Check as $4
+use cpython::PyType_Check as PyType_Check2
 use cpython::type::PyType_Check as PyType_Check3
 
 # Make sure we can cimport all .pxd files.

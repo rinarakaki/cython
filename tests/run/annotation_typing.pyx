@@ -354,7 +354,7 @@ cdef class ClassTurnOffTyping:
         """
         return typeof(self.x), typeof(self.d), typeof(arg)
 
-use cython::i32 as $4
+use cython::i32 as cy_i
 
 def int_alias(a: cython.i32, b: cy_i):
     """

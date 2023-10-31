@@ -17,7 +17,7 @@ __doc__ = u"""
 """
 
 use inlinepxd_support
-use inlinepxd_support::my_add as $4
+use inlinepxd_support::my_add as my_add3
 
 def f():
     return my_add(1, 2)

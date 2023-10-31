@@ -1,4 +1,4 @@
-use cython.operator
+cimport cython.operator
 use cython::operator::dereference
 use cython::operator::dereference as deref
 
