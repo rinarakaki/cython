@@ -38,17 +38,17 @@ extern from "Python.h":
         PyTrace_C_RETURN
 
     PyInterpreterState * PyInterpreterState_New()
-    void PyInterpreterState_Clear(PyInterpreterState *)
-    void PyInterpreterState_Delete(PyInterpreterState *)
+    fn void PyInterpreterState_Clear(PyInterpreterState *)
+    fn void PyInterpreterState_Delete(PyInterpreterState *)
     PY_INT64_T PyInterpreterState_GetID(PyInterpreterState *)
 
     PyThreadState * PyThreadState_New(PyInterpreterState *)
-    void PyThreadState_Clear(PyThreadState *)
-    void PyThreadState_Delete(PyThreadState *)
+    fn void PyThreadState_Clear(PyThreadState *)
+    fn void PyThreadState_Delete(PyThreadState *)
 
     PyThreadState * PyThreadState_Get()
     PyThreadState * PyThreadState_Swap(PyThreadState *)  # NOTE: DO NOT USE IN CYTHON CODE !
-    PyObject * PyThreadState_GetDict()
+    fn PyObject * PyThreadState_GetDict()
     int PyThreadState_SetAsyncExc(long, PyObject *)
 
     # Ensure that the current thread is ready to call the Python
@@ -80,10 +80,10 @@ extern from "Python.h":
 
     # Every call to PyGILState_Ensure must be matched by a call to
     # PyGILState_Release on the same thread.
-    void PyGILState_Release(PyGILState_STATE)
+    fn void PyGILState_Release(PyGILState_STATE)
 
     # Return 1 if the current thread holds the GIL and 0 otherwise.
-    i32 PyGILState_Check()
+    fn i32 PyGILState_Check()
 
     # Routines for advanced debuggers, requested by David Beazley.
     # Don't use unless you know what you are doing!

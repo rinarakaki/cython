@@ -81,14 +81,14 @@ def slice_charptr_for_loop_c_step():
     """
     let object ustring = cstring.decode('ASCII')
     let char c
-    print ustring[3::-1],     [ chr(c) for c in cstring[3::-1] ]
-    print ustring[3:None:-1], [ chr(c) for c in cstring[3:None:-1] ]
-    print ustring[1:5:2],     [ chr(c) for c in cstring[1:5:2] ]
-    print ustring[:5:2],      [ chr(c) for c in cstring[:5:2] ]
-    print ustring[None:5:2],  [ chr(c) for c in cstring[None:5:2] ]
-    print ustring[4:9:-1],    [ chr(c) for c in cstring[4:9:-1] ]
-    print ustring[8:4:-1],    [ chr(c) for c in cstring[8:4:-1] ]
-    print ustring[8:4:-2],    [ chr(c) for c in cstring[8:4:-2] ]
+    print ustring[3:;-1],     [ chr(c) for c in cstring[3:;-1] ]
+    print ustring[3:None;-1], [ chr(c) for c in cstring[3:None;-1] ]
+    print ustring[1:5;2],     [ chr(c) for c in cstring[1:5;2] ]
+    print ustring[:5;2],      [ chr(c) for c in cstring[:5;2] ]
+    print ustring[None:5;2],  [ chr(c) for c in cstring[None:5;2] ]
+    print ustring[4:9;-1],    [ chr(c) for c in cstring[4:9;-1] ]
+    print ustring[8:4;-1],    [ chr(c) for c in cstring[8:4;-1] ]
+    print ustring[8:4;-2],    [ chr(c) for c in cstring[8:4;-2] ]
 
 #[cython.test_assert_path_exists("//ForFromStatNode",
                                  "//ForFromStatNode//IndexNode")]
@@ -235,11 +235,11 @@ def slice_doublptr_for_loop_c():
 ##     >>> slice_doublptr_for_loop_c_step()
 ##     """
 ##     cdef f64 d
-##     print [ d for d in cdoubles_ptr[:3:1] ]
-##     print [ d for d in cdoubles_ptr[5:1:-1] ]
-##     print [ d for d in cdoubles_ptr[:2:-2] ]
-##     print [ d for d in cdoubles_ptr[4:6:2] ]
-##     print [ d for d in cdoubles_ptr[4:6:-2] ]
+##     print [ d for d in cdoubles_ptr[:3;1] ]
+##     print [ d for d in cdoubles_ptr[5:1;-1] ]
+##     print [ d for d in cdoubles_ptr[:2;-2] ]
+##     print [ d for d in cdoubles_ptr[4:6;2] ]
+##     print [ d for d in cdoubles_ptr[4:6;-2] ]
 
 #[cython.test_assert_path_exists("//ForFromStatNode",
                                  "//ForFromStatNode//IndexNode")]

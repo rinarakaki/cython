@@ -25,11 +25,11 @@ extern from "<complex.h>" nogil:
     double complex csqrt(double complex z)
 
     # Absolute value, conjugates, and projection.
-    double cabs(double complex z)
-    double carg(double complex z)
+    fn f64 cabs(double complex z)
+    fn f64 carg(double complex z)
     double complex conj(double complex z)
     double complex cproj(double complex z)
 
     # Decomposing complex values.
-    double cimag(double complex z)
-    double creal(double complex z)
+    fn f64 cimag(double complex z)
+    fn f64 creal(double complex z)

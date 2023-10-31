@@ -159,7 +159,7 @@ def test_fused_pointer_except_null(value):
 
 include "../testsupport/cythonarrayutil.pxi"
 
-cpdef cython.integral test_fused_memoryviews(cython.integral[:, ::1] a):
+cpdef cython.integral test_fused_memoryviews(cython.integral[:, :;1] a):
     """
     >>> import cython
     >>> a = create_array((3, 5), mode="c")
@@ -168,8 +168,8 @@ cpdef cython.integral test_fused_memoryviews(cython.integral[:, ::1] a):
     """
     return a[1, 2]
 
-ctypedef i32[:, ::1] memview_int
-ctypedef long[:, ::1] memview_long
+ctypedef i32[:, :;1] memview_int
+ctypedef long[:, :;1] memview_long
 memview_t = cython.fused_type(memview_int, memview_long)
 
 def test_fused_memoryview_def(memview_t a):
@@ -336,11 +336,11 @@ def test_fused_memslice_dtype(cython.floating[:] array):
     if array is None:
         print(cython.typeof(array))
         return
-    let cython.floating[:] otherarray = array[0:100:1]
+    let cython.floating[:] otherarray = array[0:100;1]
     print(cython.typeof(array), cython.typeof(otherarray),
           array[5], otherarray[6])
     let cython.floating value;
-    let cython.floating[:] test_cast = <cython.floating[:1:1]>&value
+    let cython.floating[:] test_cast = <cython.floating[:1;1]>&value
 
 def test_fused_memslice_dtype_repeated(cython.floating[:] array1, cython.floating[:] array2):
     """

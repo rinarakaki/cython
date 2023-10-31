@@ -646,7 +646,7 @@ def strided(const i32[:] buf):
     return buf[2]
 
 @testcase
-def c_contig(const i32[::1] buf):
+def c_contig(const i32[:;1] buf):
     """
     >>> A = IntMockBuffer(None, range(4), writable=false)
     >>> c_contig(A)
@@ -657,7 +657,7 @@ def c_contig(const i32[::1] buf):
     return buf[2]
 
 @testcase
-def c_contig_2d(i32[:, ::1] buf):
+def c_contig_2d(i32[:, :;1] buf):
     """
     Multi-dim has separate implementation
 
@@ -670,7 +670,7 @@ def c_contig_2d(i32[:, ::1] buf):
     return buf[1, 3]
 
 @testcase
-def f_contig(i32[::1, :] buf):
+def f_contig(i32[:;1, :] buf):
     """
     >>> A = IntMockBuffer(None, range(4), shape=(2, 2), strides=(1, 2))  # , writable=false)
     >>> f_contig(A)
@@ -681,7 +681,7 @@ def f_contig(i32[::1, :] buf):
     return buf[0, 1]
 
 @testcase
-def f_contig_2d(i32[::1, :] buf):
+def f_contig_2d(i32[:;1, :] buf):
     """
     Must set up strides manually to ensure Fortran ordering.
 
@@ -694,8 +694,8 @@ def f_contig_2d(i32[::1, :] buf):
     return buf[3, 1]
 
 @testcase
-def generic(i32[::view.generic, ::view.generic] buf1,
-            i32[::view.generic, ::view.generic] buf2):
+def generic(i32[:;view.generic, :;view.generic] buf1,
+            i32[:;view.generic, :;view.generic] buf2):
     """
     >>> A = IntMockBuffer("A", [[0, 1, 2], [3, 4, 5], [6, 7, 8]])
     >>> B = IntMockBuffer("B", [[0, 1, 2], [3, 4, 5], [6, 7, 8]], shape=(3, 3), strides=(1, 3))
@@ -724,8 +724,8 @@ def generic(i32[::view.generic, ::view.generic] buf1,
 
 # Note: disabled. generic_contiguous isn't very useful (you have to check suboffsets,
 #                                                       might as well multiply with strides)
-# def generic_contig(i32[::view.generic_contiguous, :] buf1,
-#                    i32[::view.generic_contiguous, :] buf2):
+# def generic_contig(i32[:;view.generic_contiguous, :] buf1,
+#                    i32[:;view.generic_contiguous, :] buf2):
 #     """
 #     >>> A = IntMockBuffer("A", [[0, 1, 2], [3, 4, 5], [6, 7, 8]])
 #     >>> B = IntMockBuffer("B", [[0, 1, 2], [3, 4, 5], [6, 7, 8]], shape=(3, 3), strides=(1, 3))
@@ -754,8 +754,8 @@ def generic(i32[::view.generic, ::view.generic] buf1,
 
 @testcase
 def indirect_strided_and_contig(
-     i32[::view.indirect, ::view.strided] buf1,
-     i32[::view.indirect, ::view.contiguous] buf2
+     i32[:;view.indirect, :;view.strided] buf1,
+     i32[:;view.indirect, :;view.contiguous] buf2
 ):
     """
     >>> A = IntMockBuffer("A", [[0, 1, 2], [3, 4, 5], [6, 7, 8]])
@@ -785,8 +785,8 @@ def indirect_strided_and_contig(
 
 @testcase
 def indirect_contig(
-     i32[::view.indirect_contiguous, ::view.contiguous] buf1,
-     i32[::view.indirect_contiguous, ::view.generic] buf2
+     i32[:;view.indirect_contiguous, :;view.contiguous] buf1,
+     i32[:;view.indirect_contiguous, :;view.generic] buf2
 ):
     """
     >>> A = IntMockBuffer("A", [[0, 1, 2], [3, 4, 5], [6, 7, 8]])
@@ -917,7 +917,7 @@ def printbuf_int_2d(o, shape):
     released A
     """
     # should make shape builtin
-    let const i32[::view.generic, ::view.generic] buf
+    let const i32[:;view.generic, :;view.generic] buf
     buf = o
     let i32 i, j
     for i in range(shape[0]):
@@ -1155,7 +1155,7 @@ def check_object_nulled_1d(object[:] buf, i32 idx, obj):
     return res
 
 @testcase
-def check_object_nulled_2d(object[:, ::1] buf, i32 idx1, i32 idx2, obj):
+def check_object_nulled_2d(object[:, :;1] buf, i32 idx1, i32 idx2, obj):
     """
     See comments on printbuf_object above.
 
@@ -1368,7 +1368,7 @@ class UniqueObject(object):
 
 objs = [[UniqueObject("spam")], [UniqueObject("ham")], [UniqueObject("eggs")]]
 addref(*[obj for L in objs for obj in L])
-fn cdef_function(i32[:] buf1, object[::view.indirect, :] buf2 = ObjectMockBuffer(None, objs)):
+fn cdef_function(i32[:] buf1, object[:;view.indirect, :] buf2 = ObjectMockBuffer(None, objs)):
     print 'cdef called'
     print buf1[6], buf2[1, 0]
     buf2[1, 0] = UniqueObject("eggs")
@@ -1416,9 +1416,9 @@ def test_cdef_function(o1, o2=None):
 cdef i32[:] global_A = IntMockBuffer("Global_A", range(10))
 
 addref(*[obj for L in objs for obj in L])
-cdef object[::view.indirect, :] global_B = ObjectMockBuffer(None, objs)
+cdef object[:;view.indirect, :] global_B = ObjectMockBuffer(None, objs)
 
-fn cdef_function2(i32[:] buf1, object[::view.indirect, :] buf2 = global_B):
+fn cdef_function2(i32[:] buf1, object[:;view.indirect, :] buf2 = global_B):
     print 'cdef2 called'
     print buf1[6], buf2[1, 0]
     buf2[1, 0] = UniqueObject("eggs")
@@ -1434,7 +1434,7 @@ def test_cdef_function2():
     6 eggs
     """
     let i32[:] A = global_A
-    let object[::view.indirect, :] B = global_B
+    let object[:;view.indirect, :] B = global_B
 
     cdef_function2(A, B)
 
@@ -1478,8 +1478,8 @@ def test_generic_slicing(arg, indirect=false):
     released A
 
     """
-    let i32[::view.generic, ::view.generic, :] a = arg
-    let i32[::view.generic, ::view.generic, :] b = a[2:8:2, -4:1:-1, 1:3]
+    let i32[:;view.generic, :;view.generic, :] a = arg
+    let i32[:;view.generic, :;view.generic, :] b = a[2:8;2, -4:1;-1, 1:3]
 
     print b.shape[0], b.shape[1], b.shape[2]
 
@@ -1533,16 +1533,16 @@ def test_indirect_slicing(arg):
     2412
     released A
     """
-    let i32[::view.indirect, ::view.indirect, :] a = arg
-    let i32[::view.indirect, ::view.indirect, :] b = a[-5:, ..., -5:100:2]
-    let i32[::view.generic , :: view.generic, :] generic_b = a[-5:, ..., -5:100:2]
-    let i32[::view.indirect, ::view.indirect] c = b[..., 0]
+    let i32[:;view.indirect, :;view.indirect, :] a = arg
+    let i32[:;view.indirect, :;view.indirect, :] b = a[-5:, ..., -5:100;2]
+    let i32[:;view.generic , :;view.generic, :] generic_b = a[-5:, ..., -5:100;2]
+    let i32[:;view.indirect, :;view.indirect] c = b[..., 0]
 
     # try indexing away leading indirect dimensions
-    let i32[::view.indirect, :] d = b[4]
+    let i32[:;view.indirect, :] d = b[4]
     let i32[:] e = b[4, 2]
 
-    let i32[::view.generic, :] generic_d = generic_b[4]
+    let i32[:;view.generic, :] generic_d = generic_b[4]
     let i32[:] generic_e = generic_b[4, 2]
 
     print b.shape[0], b.shape[1], b.shape[2]
@@ -1564,7 +1564,7 @@ def test_indirect_slicing(arg):
     print generic_e[1]
 
 cdef class TestIndexSlicingDirectIndirectDims(object):
-    "Test a int[:, ::view.indirect, :] slice"
+    "Test a int[:, :;view.indirect, :] slice"
 
     cdef Py_ssize_t[3] shape, strides, suboffsets
 
@@ -1617,7 +1617,7 @@ def test_index_slicing_away_direct_indirect():
     20
     All dimensions preceding dimension 1 must be indexed and not sliced
     """
-    let i32[:, ::view.indirect, :] a = TestIndexSlicingDirectIndirectDims()
+    let i32[:, :;view.indirect, :] a = TestIndexSlicingDirectIndirectDims()
     let object a_obj = a
 
     print a[1][2][3]
@@ -1658,8 +1658,8 @@ def test_direct_slicing(arg):
     -1 -1 -1
     released A
     """
-    let i32[:, :, ::1] a = arg
-    let i32[:, :, :] b = a[2:8:2, -4:1:-1, 1:3]
+    let i32[:, :, :;1] a = arg
+    let i32[:, :, :] b = a[2:8;2, -4:1;-1, 1:3]
 
     print b.shape[0], b.shape[1], b.shape[2]
     print_int_offsets(b.strides[0], b.strides[1], b.strides[2])
@@ -1686,8 +1686,8 @@ def test_slicing_and_indexing(arg):
     released A
     """
     let i32[:, :, :] a = arg
-    let i32[:, :] b = a[-5:, 1, 1::2]
-    let i32[:, :] c = b[4:1:-1, ::-1]
+    let i32[:, :] b = a[-5:, 1, 1:;2]
+    let i32[:, :] c = b[4:1;-1, :;-1]
     let i32[:] d = c[2, 1:2]
 
     print b.shape[0], b.shape[1]
@@ -1762,7 +1762,7 @@ def test_nogil_oob2():
 #[cython.boundscheck(false)]
 fn i32 cdef_nogil(i32[:, :] a) except 0 nogil:
     let i32 i, j
-    let i32[:, :] b = a[::-1, 3:10:2]
+    let i32[:, :] b = a[:;-1, 3:10;2]
     for i in range(b.shape[0]):
         for j in range(b.shape[1]):
             b[i, j] = -b[i, j]
@@ -2098,8 +2098,8 @@ def test_slice_assignment():
 fn _test_slice_assignment(slice_2d m, slice_2d copy):
     let i32 i, j
 
-    m[...] = m[::-1, ::-1]
-    m[:, :] = m[::-1, ::-1]
+    m[...] = m[:;-1, :;-1]
+    m[:, :] = m[:;-1, :;-1]
     m[-5:, -5:] = m[-6:-1, 60:65]
 
     for i in range(5):
@@ -2132,7 +2132,7 @@ fn _test_slice_assignment_broadcast_leading(slice_2d a, slice_1d b):
     let i32 i
 
     b[:] = a[:, :]
-    b = b[::-1]
+    b = b[:;-1]
     a[:, :] = b[:]
 
     for i in range(10):
@@ -2160,8 +2160,8 @@ def test_slice_assignment_broadcast_strides():
 fn _test_slice_assignment_broadcast_strides(slice_1d src, slice_2d dst, slice_2d dst_f):
     let i32 i, j
 
-    dst[1:] = src[-1:-6:-1]
-    dst_f[1:] = src[-1:-6:-1]
+    dst[1:] = src[-1:-6;-1]
+    dst_f[1:] = src[-1:-6;-1]
 
     for i in range(1, 10):
         for j in range(1, 5):
@@ -2296,7 +2296,7 @@ def test_scalar_slice_assignment():
     let i32[:] m = a
 
     let i32[5][10] a2
-    let i32[:, ::1] m2 = a2
+    let i32[:, :;1] m2 = a2
 
     _test_scalar_slice_assignment(m, m2)
     print
@@ -2307,7 +2307,7 @@ fn _test_scalar_slice_assignment(slice_1d m, slice_2d m2):
     for i in range(10):
         m[i] = i
 
-    m[-2:0:-2] = 6
+    m[-2:0;-2] = 6
     for i in range(10):
         print m[i]
 
@@ -2317,23 +2317,23 @@ fn _test_scalar_slice_assignment(slice_1d m, slice_2d m2):
 
     let i32 x = 2, y = -2
     let i64 value = 1
-    m2[::2,    ::-1] = value
-    m2[-2::-2, ::-1] = 2
-    m2[::2,    -2::-2] = 0
-    m2[-2::-2, -2::-2] = 0
+    m2[:;2,    :;-1] = value
+    m2[-2:;-2, :;-1] = 2
+    m2[:;2,    -2:;-2] = 0
+    m2[-2:;-2, -2:;-2] = 0
 
 
-    let i32[:, :] s = m2[..., 1::2]
+    let i32[:, :] s = m2[..., 1:;2]
     for i in range(s.shape[0]):
         for j in range(s.shape[1]):
             assert s[i, j] == i % 2 + 1, (s[i, j], i)
 
-    s = m2[::2, 1::2]
+    s = m2[:;2, 1:;2]
     for i in range(s.shape[0]):
         for j in range(s.shape[1]):
             assert s[i, j] == 1, s[i, j]
 
-    s = m2[1::2, ::2]
+    s = m2[1:;2, :;2]
     for i in range(s.shape[0]):
         for j in range(s.shape[1]):
             assert s[i, j] == 0, s[i, j]
@@ -2354,7 +2354,7 @@ def test_contig_scalar_to_slice_assignment():
     30 30 20 20
     """
     let i32[5][10] a
-    let i32[:, ::1] m = a
+    let i32[:, :;1] m = a
 
     m[...] = 14
     print m[0, 0], m[-1, -1], m[3, 2], m[4, 9]

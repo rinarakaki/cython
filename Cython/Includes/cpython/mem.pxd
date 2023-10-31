@@ -26,16 +26,16 @@ extern from "Python.h":
     # available for allocating and releasing memory from the Python
     # heap:
 
-    void* PyMem_RawMalloc(usize n) nogil
-    void* PyMem_Malloc(usize n)
+    fn void* PyMem_RawMalloc(usize n) nogil
+    fn void* PyMem_Malloc(usize n)
     # Allocates n bytes and returns a pointer of type void* to the
     # allocated memory, or NULL if the request fails. Requesting zero
     # bytes returns a distinct non-NULL pointer if possible, as if
     # PyMem_Malloc(1) had been called instead. The memory will not
     # have been initialized in any way.
 
-    void* PyMem_RawCalloc(usize nelem, usize elsize) nogil
-    void* PyMem_Calloc(usize nelem, usize elsize)
+    fn void* PyMem_RawCalloc(usize nelem, usize elsize) nogil
+    fn void* PyMem_Calloc(usize nelem, usize elsize)
     # Allocates nelem elements each whose size in bytes is elsize and
     # returns a pointer of type void* to the allocated memory, or NULL if
     # the request fails. The memory is initialized to zeros. Requesting
@@ -43,8 +43,8 @@ extern from "Python.h":
     # non-NULL pointer if possible, as if PyMem_Calloc(1, 1) had been
     # called instead.
 
-    void* PyMem_RawRealloc(void *p, usize n) nogil
-    void* PyMem_Realloc(void *p, usize n)
+    fn void* PyMem_RawRealloc(void *p, usize n) nogil
+    fn void* PyMem_Realloc(void *p, usize n)
     # Resizes the memory block pointed to by p to n bytes. The
     # contents will be unchanged to the minimum of the old and the new
     # sizes. If p is NULL, the call is equivalent to PyMem_Malloc(n);
@@ -53,8 +53,8 @@ extern from "Python.h":
     # NULL, it must have been returned by a previous call to
     # PyMem_Malloc(), PyMem_Realloc(), or PyMem_Calloc().
 
-    void PyMem_RawFree(void *p) nogil
-    void PyMem_Free(void *p)
+    fn void PyMem_RawFree(void *p) nogil
+    fn void PyMem_Free(void *p)
     # Frees the memory block pointed to by p, which must have been
     # returned by a previous call to PyMem_Malloc(), PyMem_Realloc(), or
     # PyMem_Calloc(). Otherwise, or if PyMem_Free(p) has been called
@@ -73,7 +73,7 @@ extern from "Python.h":
     # Same as PyMem_Realloc(), but the memory block is resized to (n *
     # sizeof(TYPE)) bytes. Returns a pointer cast to TYPE*.
 
-    void PyMem_Del(void *p)
+    fn void PyMem_Del(void *p)
     # Same as PyMem_Free().
 
     # In addition, the following macro sets are provided for calling
@@ -112,7 +112,7 @@ extern from "Python.h":
     # the object gets initialized via PyObject_{Init, InitVar} after obtaining
     # the raw memory.
 
-    void* PyObject_Malloc(usize size)
-    void* PyObject_Calloc(usize nelem, usize elsize)
-    void* PyObject_Realloc(void *ptr, usize new_size)
-    void PyObject_Free(void *ptr)
+    fn void* PyObject_Malloc(usize size)
+    fn void* PyObject_Calloc(usize nelem, usize elsize)
+    fn void* PyObject_Realloc(void *ptr, usize new_size)
+    fn void PyObject_Free(void *ptr)

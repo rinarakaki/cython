@@ -1,7 +1,7 @@
 # mode: run
 # tag: inline, pxd
 
-# cython: wraparound = False
+# cython: wraparound = false
 
 __doc__ = u"""
 >>> f()

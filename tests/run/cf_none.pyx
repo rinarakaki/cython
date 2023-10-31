@@ -64,8 +64,8 @@ def conditional(a):
 #[cython.test_assert_path_exists('//NoneCheckNode')]
 def conditional_arg(a, dict d):
     """
-    >>> conditional_arg(True,  {1:2})
-    >>> conditional_arg(False, {1:2})
+    >>> conditional_arg(true,  {1:2})
+    >>> conditional_arg(false, {1:2})
     2
     """
     if a:
@@ -75,8 +75,8 @@ def conditional_arg(a, dict d):
 #[cython.test_fail_if_path_exists('//NoneCheckNode')]
 def conditional_not_none(a, dict d not None):
     """
-    >>> conditional_not_none(True,  {1:2})
-    >>> conditional_not_none(False, {1:2})
+    >>> conditional_not_none(true,  {1:2})
+    >>> conditional_not_none(false, {1:2})
     2
     """
     if a:

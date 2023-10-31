@@ -19,9 +19,9 @@ extern from "<signal.h>" nogil:
         i32    si_errno
         pid_t  si_pid
         uid_t  si_uid
-        void   *si_addr
+        void  *si_addr
         i32    si_status
-        i64   si_band
+        i64    si_band
         sigval si_value
 
     struct sigaction_t "sigaction":
@@ -56,17 +56,17 @@ extern from "<signal.h>" nogil:
     enum: SIGEV_THREAD_ID
 
 
-    int          kill          (pid_t, i32)
-    int          killpg        (pid_t, i32)
-    int          sigaction     (i32, const sigaction_t *, sigaction_t *)
-    int          sigpending    (sigset_t *)
-    int          sigprocmask   (i32, const sigset_t *, sigset_t *)
-    int          sigsuspend    (const sigset_t *)
+    fn i32 kill(pid_t, i32)
+    fn i32 killpg(pid_t, i32)
+    fn i32 sigaction(i32, const sigaction_t *, sigaction_t *)
+    fn i32 sigpending(sigset_t *)
+    fn i32 sigprocmask(i32, const sigset_t *, sigset_t *)
+    fn i32 sigsuspend(const sigset_t *)
 
-    int          sigaddset     (sigset_t *, i32)
-    int          sigdelset     (sigset_t *, i32)
-    int          sigemptyset   (sigset_t *)
-    int          sigfillset    (sigset_t *)
-    int          sigismember   (const sigset_t *, i32)
+    fn i32 sigaddset(sigset_t *, i32)
+    fn i32 sigdelset(sigset_t *, i32)
+    fn i32 sigemptyset(sigset_t *)
+    fn i32 sigfillset(sigset_t *)
+    fn i32 sigismember(const sigset_t *, i32)
 
-    int sigaltstack(const stack_t *, stack_t *)
+    fn i32 sigaltstack(const stack_t *, stack_t *)

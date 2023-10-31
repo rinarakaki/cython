@@ -4,12 +4,12 @@ import gc
 from cpython cimport pycapsule
 
 cdef int value = 5
-cdef bint destructed = False
+cdef bint destructed = false
 
 fn void destructor(object obj) noexcept:
     # PyPy's GC does not guarantee immediate execution.
     global destructed
-    destructed = True
+    destructed = true
 
 
 def was_destructed():

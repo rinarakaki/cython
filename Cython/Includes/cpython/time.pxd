@@ -8,7 +8,7 @@ from cpython.exc cimport PyErr_SetFromErrno
 extern from "Python.h":
     ctypedef int64_t _PyTime_t
     _PyTime_t _PyTime_GetSystemClock() nogil
-    f64 _PyTime_AsSecondsDouble(_PyTime_t t) nogil
+    fn f64 _PyTime_AsSecondsDouble(_PyTime_t t) nogil
 
 from libc.time cimport (
     tm,
@@ -17,24 +17,22 @@ from libc.time cimport (
 )
 
 fn inline f64 time() nogil:
-    cdef:
-        _PyTime_t tic
+    let _PyTime_t tic
 
     tic = _PyTime_GetSystemClock()
     return _PyTime_AsSecondsDouble(tic)
 
-fn inline int _raise_from_errno() except -1 with gil:
+fn inline i32 _raise_from_errno() except -1 with gil:
     PyErr_SetFromErrno(RuntimeError)
-    return <i32> -1  # Let the C compiler know that this function always raises.
+    return <i32>-1  # Let the C compiler know that this function always raises.
 
 fn inline tm localtime() except * nogil:
     """
     Analogue to the stdlib time.localtime.  The returned struct
     has some entries that the stdlib version does not: tm_gmtoff, tm_zone
     """
-    cdef:
-        time_t tic = <time_t>time()
-        tm* result
+    let time_t tic = <time_t>time()
+    let tm* result
 
     result = libc_localtime(&tic)
     if result is NULL:

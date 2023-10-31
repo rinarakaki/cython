@@ -7,15 +7,15 @@ extern from "<sys/select.h>" nogil:
     struct fd_set:
         pass
 
-    int FD_SETSIZE
-    void FD_SET(i32, fd_set*)
-    void FD_CLR(i32, fd_set*)
-    bint FD_ISSET(i32, fd_set*)
-    void FD_ZERO(fd_set*)
+    fn i32 FD_SETSIZE
+    fn void FD_SET(i32, fd_set*)
+    fn void FD_CLR(i32, fd_set*)
+    fn bint FD_ISSET(i32, fd_set*)
+    fn void FD_ZERO(fd_set*)
 
-    int select(i32 nfds, fd_set *readfds, fd_set *writefds,
+    fn i32 select(i32 nfds, fd_set *readfds, fd_set *writefds,
         fd_set *exceptfds, timeval *timeout)
 
-    int pselect(i32 nfds, fd_set *readfds, fd_set *writefds,
+    fn i32 pselect(i32 nfds, fd_set *readfds, fd_set *writefds,
         fd_set *exceptfds, const timespec *timeout,
         const sigset_t *sigmask)

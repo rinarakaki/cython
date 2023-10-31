@@ -247,11 +247,11 @@ def count_lower_case_characters_slice_reversed(unicode ustring):
     10
     >>> count_lower_case_characters_slice_reversed(lower_ustring)
     14
-    >>> sum([ 1 for uchar in lower_ustring[-2:0:-1] if uchar.islower() ])
+    >>> sum([ 1 for uchar in lower_ustring[-2:0;-1] if uchar.islower() ])
     14
     """
     let isize count = 0
-    for uchar in ustring[-2:0:-1]:
+    for uchar in ustring[-2:0;-1]:
          if uchar.islower():
              count += 1
     return count

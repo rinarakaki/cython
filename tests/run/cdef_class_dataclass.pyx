@@ -127,7 +127,7 @@ cdef class ContainsNonPyFields:
     """
     mystruct: S = cython.dataclasses.field(compare=false)
     mystruct_ptr: S_ptr = field(init=false, repr=false, default_factory=malloc_a_struct)
-    memview: cython.i32[:, ::1] = field(default=create_array((3, 1), "c"),  # mutable so not great but OK for a test
+    memview: cython.i32[:, :;1] = field(default=create_array((3, 1), "c"),  # mutable so not great but OK for a test
                                         compare=false)
 
     def __dealloc__(self):

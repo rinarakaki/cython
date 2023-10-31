@@ -69,7 +69,7 @@ def test_overlapping_copy():
         array[i] = i
 
     let i32[:] slice = array
-    slice[...] = slice[::-1]
+    slice[...] = slice[:;-1]
 
     for i in range(10):
         assert slice[i] == 10 - 1 - i
@@ -81,8 +81,8 @@ def test_copy_return_type():
     60.0
     """
     let f64[:, :, :] a = np.arange(5 * 5 * 5, dtype=np.float64).reshape(5, 5, 5)
-    let f64[:, ::1] c_contig = a[..., 0].copy()
-    let f64[::1, :] f_contig = a[..., 0].copy_fortran()
+    let f64[:, :;1] c_contig = a[..., 0].copy()
+    let f64[:;1, :] f_contig = a[..., 0].copy_fortran()
 
     print(c_contig[2, 2])
     print(f_contig[2, 2])
@@ -164,8 +164,8 @@ def test_copy_mismatch():
        ...
     ValueError: got differing extents in dimension 0 (got 2 and 3)
     '''
-    let i32[:, :, ::1] mv1  = array((2, 2, 3), sizeof(i32), 'i')
-    let i32[:, :, ::1] mv2  = array((3, 2, 3), sizeof(i32), 'i')
+    let i32[:, :, :;1] mv1  = array((2, 2, 3), sizeof(i32), 'i')
+    let i32[:, :, :;1] mv2  = array((3, 2, 3), sizeof(i32), 'i')
 
     mv1[...] = mv2
 
@@ -179,7 +179,7 @@ def test_is_contiguous():
     one sized strided contig True True
     strided False
     """
-    let i32[::1, :, :] fort_contig = array((1, 1, 1), sizeof(i32), 'i', mode='fortran')
+    let i32[:;1, :, :] fort_contig = array((1, 1, 1), sizeof(i32), 'i', mode='fortran')
     let i32[:, :, :] strided = fort_contig
 
     print 'one sized is_c/f_contig', fort_contig.is_c_contig(), fort_contig.is_f_contig()
@@ -194,7 +194,7 @@ def test_is_contiguous():
 
     print 'one sized strided contig', strided.is_c_contig(), strided.is_f_contig()
 
-    print 'strided', strided[::2].is_c_contig()
+    print 'strided', strided[:;2].is_c_contig()
 
 def call():
     u'''
@@ -205,7 +205,7 @@ def call():
     3000
     1 1 1000
     '''
-    let i32[::1] mv1, mv2, mv3
+    let i32[:;1] mv1, mv2, mv3
     let array arr = array((3,), sizeof(i32), 'i')
     mv1 = arr
     let i32 *data
@@ -245,7 +245,7 @@ def two_dee():
     1 2 3 -4
     1 2 3 -4
     '''
-    let i64[:, ::1] mv1, mv2, mv3
+    let i64[:, :;1] mv1, mv2, mv3
     let array arr = array((2, 2), sizeof(i64), 'l')
 
     assert len(arr) == 2
@@ -293,8 +293,8 @@ def fort_two_dee():
     1 2 3 -4
     '''
     let array arr = array((2, 2), sizeof(i64), 'l', mode='fortran')
-    let i64[::1, :] mv1, mv2, mv4
-    let i64[:, ::1] mv3
+    let i64[:;1, :] mv1, mv2, mv4
+    let i64[:, :;1] mv3
 
     let i64 *arr_data
     arr_data = <i64*>arr.data
