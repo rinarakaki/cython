@@ -1888,9 +1888,8 @@ def p_imported_name(s):
 
 def p_path(s, as_allowed):
     pos = s.position()
-    target_name = p_ident(s)
     as_name = None
-    names = [target_name]
+    names = [p_ident(s)]
     while s.sy == "::":
         s.next()
         if s.sy == "*":
@@ -1900,7 +1899,7 @@ def p_path(s, as_allowed):
             names.append(p_ident(s))
     if as_allowed:
         as_name = p_as_name(s)
-    return (pos, target_name, s.context.intern_ustring(u'.'.join(names)), as_name)
+    return (pos, names[:-1], names[-1], as_name)
 
 
 def p_dotted_name(s, as_allowed):
