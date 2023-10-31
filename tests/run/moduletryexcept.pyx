@@ -70,7 +70,7 @@ except:
 try:
     e
 except NameError:
-    except_as_deletes = True
+    except_as_deletes = true
 else:
     except_as_deletes = false
 

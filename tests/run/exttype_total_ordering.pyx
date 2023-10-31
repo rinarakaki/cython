@@ -33,7 +33,7 @@ COMPARISONS = [
 def test_all_comp(cls):
     """Check every combination of comparison operators."""
     a, b, c = 10, 15, 20
-    succeeded = True
+    succeeded = true
     for comp, func in COMPARISONS:
         for left in [cls(a), cls(b), cls(c)]:
             for right in [ValueHolder(a), ValueHolder(b), ValueHolder(c)]:

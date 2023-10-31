@@ -51,5 +51,5 @@ def for_in_break(LL, p=bool):
             continue
         break
     else:
-        result = True
+        result = true
     return result

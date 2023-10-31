@@ -249,7 +249,7 @@ fn i32 _allocate_buffer(array self) except -1:
     let isize i
     let PyObject **p
 
-    self.free_data = True
+    self.free_data = true
     self.data = <char *>malloc(self.len)
     if not self.data:
         raise MemoryError, "unable to allocate array data."
@@ -675,11 +675,11 @@ fn tuple _unellipsify(object index, i32 ndim):
         if item is Ellipsis:
             if not seen_ellipsis:
                 idx += ndim - len(tup)
-                seen_ellipsis = True
-            have_slices = True
+                seen_ellipsis = true
+            have_slices = true
         else:
             if isinstance(item, slice):
-                have_slices = True
+                have_slices = true
             elif not PyIndex_Check(item):
                 raise TypeError, f"Cannot index with type '{type(item)}'"
             result[idx] = item
@@ -1278,7 +1278,7 @@ fn i32 memoryview_copy_contents({{memviewslice_name}} src,
     for i in range(ndim):
         if src.shape[i] != dst.shape[i]:
             if src.shape[i] == 1:
-                broadcasting = True
+                broadcasting = true
                 src.strides[i] = 0
             else:
                 _err_extents(i, dst.shape[i], src.shape[i])
@@ -1306,7 +1306,7 @@ fn i32 memoryview_copy_contents({{memviewslice_name}} src,
             # Contiguous slices with same order
             refcount_copying(&dst, dtype_is_object, ndim, inc=false)
             memcpy(dst.data, src.data, slice_get_size(&src, ndim))
-            refcount_copying(&dst, dtype_is_object, ndim, inc=True)
+            refcount_copying(&dst, dtype_is_object, ndim, inc=true)
             free(tmpdata)
             return 0
 
@@ -1318,7 +1318,7 @@ fn i32 memoryview_copy_contents({{memviewslice_name}} src,
 
     refcount_copying(&dst, dtype_is_object, ndim, inc=false)
     copy_strided_to_strided(&src, &dst, ndim, itemsize)
-    refcount_copying(&dst, dtype_is_object, ndim, inc=True)
+    refcount_copying(&dst, dtype_is_object, ndim, inc=true)
 
     free(tmpdata)
     return 0
@@ -1383,7 +1383,7 @@ fn void slice_assign_scalar({{memviewslice_name}} *dst, i32 ndim,
                               bint dtype_is_object) noexcept nogil:
     refcount_copying(dst, dtype_is_object, ndim, inc=false)
     _slice_assign_scalar(dst.data, dst.shape, dst.strides, ndim, itemsize, item)
-    refcount_copying(dst, dtype_is_object, ndim, inc=True)
+    refcount_copying(dst, dtype_is_object, ndim, inc=true)
 
 
 @cname('__pyx_memoryview__slice_assign_scalar')

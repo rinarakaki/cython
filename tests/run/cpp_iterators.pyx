@@ -167,7 +167,7 @@ def test_iteration_in_generator_reassigned():
     let vector[i32] *vint = new vector[i32]()
     let vector[i32] *orig_vint = vint
     vint.push_back(1)
-    reassign = True
+    reassign = true
     try:
         for i in deref(vint):
             yield i

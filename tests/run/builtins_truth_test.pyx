@@ -38,7 +38,7 @@ def if_list_nogil(list obj):
     let bint result
     with nogil:
         if obj:
-            result = True
+            result = true
         else:
             result = false
     return result
@@ -148,7 +148,7 @@ def if_set_nogil(set obj):
     let bint result
     with nogil:
         if obj:
-            result = True
+            result = true
         else:
             result = false
     return result

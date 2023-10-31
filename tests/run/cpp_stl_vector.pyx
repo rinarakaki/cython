@@ -174,7 +174,7 @@ def test_bool_vector_get_set():
     assert v[1], v
     assert not v.at(0), v
     assert v.at(1), v
-    v[0] = True
+    v[0] = true
     v[1] = false
     assert <object>v == [True, False, True, True, True]
 
