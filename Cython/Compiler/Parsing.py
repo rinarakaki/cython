@@ -1743,7 +1743,6 @@ def p_raise_statement(s):
 def p_use_statement(s):
     # s.sy == "use"
     pos = s.position()
-    kind = s.sy
     s.next()
     items = [p_path(s, as_allowed=1)]
     while s.sy == ',':
@@ -2267,7 +2266,7 @@ def p_with_template(s):
         error(pos, "Syntax error in template function declaration")
 
 def p_simple_statement(s, first_statement = 0):
-    #print "p_simple_statement:", s.sy, s.systring ###
+    # print "p_simple_statement:", s.sy, s.systring ###
     if s.sy == 'global':
         node = p_global_statement(s)
     elif s.sy == 'nonlocal':
@@ -2286,7 +2285,9 @@ def p_simple_statement(s, first_statement = 0):
         node = p_return_statement(s)
     elif s.sy == 'raise':
         node = p_raise_statement(s)
-    elif s.sy in ("import", "use", "cimport"):
+    elif s.sy == "use":
+        node = p_use_statement(s)
+    elif s.sy in ("import", "cimport"):
         node = p_import_statement(s)
     elif s.sy == 'from':
         node = p_from_import_statement(s, first_statement = first_statement)
