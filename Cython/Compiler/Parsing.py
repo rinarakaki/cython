@@ -446,8 +446,12 @@ def p_power(s):
         await_pos = s.position()
         s.next()
     n1 = p_atom(s)
-    while s.sy in ("(", "[", ".", "::"):
-        n1 = p_trailer(s, n1)
+    if s.in_python_file:
+        while s.sy in ("(", "[", "."):
+            n1 = p_trailer(s, n1)
+    else:
+        while s.sy in ("(", "[", ".", "::"):
+            n1 = p_trailer(s, n1)
     if await_pos:
         n1 = ExprNodes.AwaitExprNode(await_pos, arg=n1)
     if s.sy == '**':
