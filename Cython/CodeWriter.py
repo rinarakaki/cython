@@ -661,7 +661,7 @@ class ExpressionWriter(TreeVisitor):
         if node.stop:
             self.visit(node.stop)
         if node.slice:
-            self.put(u";")
+            self.put(u":")
             self.visit(node.slice)
         self.put(u"]")
 
@@ -672,7 +672,7 @@ class ExpressionWriter(TreeVisitor):
         if not node.stop.is_none:
             self.visit(node.stop)
         if not node.step.is_none:
-            self.put(u";")
+            self.put(u":")
             self.visit(node.step)
 
     def visit_CondExprNode(self, node):
