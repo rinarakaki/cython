@@ -1,7 +1,7 @@
 # mode: run
 # tag: perf_hints
 
-from nogil_other cimport voidexceptnogil_in_other_pxd
+use nogil_other::voidexceptnogil_in_other_pxd
 
 try:
     from StringIO import StringIO

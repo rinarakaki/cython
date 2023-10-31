@@ -16,8 +16,8 @@ fn string {{cname}}(object o) except *:
 
 #################### string.to_py ####################
 
-#cimport cython
-#from libcpp.string cimport string
+# use cython
+# use libcpp::string::string
 extern from *:
     cdef cppclass string "{{type}}":
         char* data()

@@ -1,6 +1,6 @@
 # ticket: t4
 # mode: compile
 
-from a cimport b
+use a::b
 
 cdef i32 **t = b.foo(NULL)

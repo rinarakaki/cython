@@ -3,10 +3,10 @@
 # cython: language_level=3str
 
 use cython
-from cython.view cimport array
+use cython::view::array
 
-from cython cimport integral
-from cpython cimport Py_INCREF
+use cython::integral
+use cpython::Py_INCREF
 
 from Cython import Shadow as pure_cython
 ctypedef char * string_t

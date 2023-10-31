@@ -2,10 +2,10 @@
 # mode: run
 # tag: cpp, cpp17, werror
 
-from cython.operator cimport dereference as deref
+use cython::operator::dereference as deref
 from libcpp.optional cimport optional, nullopt, make_optional
-from libcpp.string cimport string
-from libcpp.pair cimport pair
+use libcpp::string::string
+use libcpp::pair::pair
 
 def simple_test():
     """

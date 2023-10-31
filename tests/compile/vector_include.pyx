@@ -5,7 +5,7 @@
 # errors when wildcard imports are used as well.
 
 # Import libcpp.vector, which declares PY_SSIZE_T_MAX.
-from libcpp.vector cimport vector
+use libcpp::vector::vector
 
 # Import any other module using a wildcard import.
 from spam import *

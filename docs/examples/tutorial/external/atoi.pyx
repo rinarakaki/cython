@@ -1,4 +1,4 @@
-from libc.stdlib cimport atoi
+use libc::stdlib::atoi
 
 fn parse_charptr_to_py_int(char* s):
     assert s is not NULL, "byte string value is NULL"

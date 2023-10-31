@@ -5,66 +5,66 @@
 
 use posix
 
-use posix.dlfcn
-from posix cimport dlfcn
-from posix.dlfcn cimport *
+cimport posix.dlfcn
+use posix::dlfcn
+use posix::dlfcn::*
 
-use posix.fcntl
-from posix cimport fcntl
-from posix.fcntl cimport *
+cimport posix.fcntl
+use posix::fcntl
+use posix::fcntl::*
 
-use posix.ioctl
-from posix cimport ioctl
-from posix.ioctl cimport *
+cimport posix.ioctl
+use posix::ioctl
+use posix::ioctl::*
 
-use posix.mman
-from posix cimport mman
-from posix.mman cimport *
+cimport posix.mman
+use posix::mman
+use posix::mman::*
 
-use posix.resource
-from posix cimport resource
-from posix.resource cimport *
+cimport posix.resource
+use posix::resource
+use posix::resource::*
 
-use posix.select
-from posix cimport select
-from posix.select cimport *
+cimport posix.select
+use posix::select
+use posix::select::*
 
-use posix.signal
-from posix cimport signal
-from posix.signal cimport *
+cimport posix.signal
+use posix::signal
+use posix::signal::*
 
-use posix.stat
-from posix cimport stat
-from posix.stat cimport *
+cimport posix.stat
+use posix::stat
+use posix::stat::*
 
-use posix.stdio
-from posix cimport stdio
-from posix.stdio cimport *
+cimport posix.stdio
+use posix::stdio
+use posix::stdio::*
 
-use posix.stdlib
-from posix cimport stdlib
-from posix.stdlib cimport *
+cimport posix.stdlib
+use posix::stdlib
+use posix::stdlib::*
 
-use posix.strings
-from posix cimport strings
-from posix.strings cimport *
+cimport posix.strings
+use posix::strings
+use posix::strings::*
 
-use posix.time
-from posix cimport time
-from posix.time cimport *
+cimport posix.time
+use posix::time
+use posix::time::*
 
-use posix.types
-from posix cimport types
-from posix.types cimport *
+cimport posix.types
+use posix::types
+use posix::types::*
 
-use posix.uio
-from posix cimport uio
-from posix.uio cimport *
+cimport posix.uio
+use posix::uio
+use posix::uio::*
 
-use posix.unistd
-from posix cimport unistd
-from posix.unistd cimport *
+cimport posix.unistd
+use posix::unistd
+use posix::unistd::*
 
-use posix.wait
-from posix cimport wait
-from posix.wait cimport *
+cimport posix.wait
+use posix::wait
+use posix::wait::*

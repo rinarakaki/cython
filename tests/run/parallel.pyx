@@ -1,7 +1,7 @@
 # tag: run
 # tag: openmp
 
-use cython.parallel
+cimport cython.parallel
 from cython.parallel import prange, threadid
 use openmp
 from libc.stdlib cimport malloc, free

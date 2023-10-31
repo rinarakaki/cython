@@ -1,7 +1,7 @@
 # mode: run
 # tag: cpp, werror, no-cpp-locals
 
-from libcpp cimport bool
+use libcpp::bool
 
 def test_bool(bool a):
     """

@@ -1,6 +1,6 @@
 # distutils: language = c++
 
-from libcpp.string cimport string
+use libcpp::string::string
 
 def get_ustrings():
     let string s = string(b'abcdefg')

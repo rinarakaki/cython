@@ -1,6 +1,6 @@
 # mode: compile
 
-from crunchytype cimport Crunchy
+use crunchytype::Crunchy
 
 cdef class Sub2(Crunchy):
     cdef char character

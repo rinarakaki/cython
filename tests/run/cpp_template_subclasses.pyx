@@ -2,8 +2,8 @@
 # tag: cpp, werror, no-cpp-locals
 
 from cython.operator import dereference as deref
-from libcpp.pair cimport pair
-from libcpp.vector cimport vector
+use libcpp::pair::pair
+use libcpp::vector::vector
 
 extern from "cpp_template_subclasses_helper.h":
     cdef cppclass Base:

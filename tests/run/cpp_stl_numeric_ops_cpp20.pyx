@@ -1,7 +1,7 @@
 # mode: run
 # tag: cpp, werror, cpp20
 
-from libcpp.numeric cimport midpoint
+use libcpp::numeric::midpoint
 
 def test_midpoint_integer(i32 a, i32 b):
     """

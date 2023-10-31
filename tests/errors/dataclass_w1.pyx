@@ -1,8 +1,8 @@
 # mode: compile
 # tag: warnings
 
-from dataclass_w1_othermod cimport SomeBase
-from cython.dataclasses cimport dataclass
+use dataclass_w1_othermod::SomeBase
+use cython::dataclasses::dataclass
 
 @dataclass
 cdef class DC(SomeBase):

@@ -6,7 +6,7 @@ Test the 'with gil:' statement.
 """
 
 use cython
-from cpython.ref cimport PyObject
+use cpython::ref::PyObject
 
 import sys
 

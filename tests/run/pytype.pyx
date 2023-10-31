@@ -1,4 +1,4 @@
-from cpython.type cimport PyType_IsSubtype
+use cpython::type::PyType_IsSubtype
 
 class mylist(list): pass
 

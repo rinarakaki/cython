@@ -1,7 +1,7 @@
 # mode: run
 # tag: cpp, werror, cpp20
 
-from libcpp.cmath cimport lerp
+use libcpp::cmath::lerp
 
 def test_lerp(f64 a, f64 b, f64 t):
     """ Test C++20 std::lerp function

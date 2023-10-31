@@ -2,9 +2,9 @@
 # tag: cpp, cpp11, werror, no-cpp-locals
 
 from cython.operator cimport preincrement as incr, dereference as deref
-from libc.stdint cimport *
+use libc::stdint::*
 
-from libcpp.atomic cimport atomic
+use libcpp::atomic::atomic
 
 def int_test(i32 x):
     """

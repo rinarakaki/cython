@@ -1,4 +1,4 @@
-from libcpp cimport bool
+use libcpp::bool
 from .typeinfo cimport type_info
 
 # This class is C++11-only
