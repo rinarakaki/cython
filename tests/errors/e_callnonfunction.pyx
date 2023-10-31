@@ -6,7 +6,7 @@ i()
 cdef f32 f
 f()
 
-ctypedef struct s:    # FIXME: this might be worth an error ...
+struct s:    # FIXME: this might be worth an error ...
     i32 x
 s()
 

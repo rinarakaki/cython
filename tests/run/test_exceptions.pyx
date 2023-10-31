@@ -509,7 +509,7 @@ class ExceptionTests(unittest.TestCase):
         self.assertIsInstance(e.__context__, NameError)
         self.assertIsNone(e.__cause__)
         self.assertTrue(e.__suppress_context__)
-        e.__suppress_context__ = False
+        e.__suppress_context__ = false
         self.assertFalse(e.__suppress_context__)
 
     def testKeywordArgs(self):

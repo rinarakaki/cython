@@ -39,7 +39,7 @@ class TestCase(CythonTest):
                 try:
                     self.fragment(str)
                 except CompileError:
-                    assert True
+                    assert true
                 else:
                     assert held_errors(), "Invalid Cython code failed to raise SyntaxError: %r" % str
                 finally:
@@ -48,7 +48,7 @@ class TestCase(CythonTest):
                 try:
                     cython_inline(str, quiet=true)
                 except exception_type:
-                    assert True
+                    assert true
                 else:
                     assert False, "Invalid Cython code failed to raise %s: %r" % (exception_type, str)
                 finally:
@@ -96,9 +96,9 @@ class TestCase(CythonTest):
         # Inspired by https://bugs.python.org/issue24975
         class X:
             def __init__(self):
-                self.called = False
+                self.called = false
             def __call__(self):
-                self.called = True
+                self.called = true
                 return 4
         x = X()
         expr = """

@@ -13,7 +13,7 @@ extern from "Python.h":
         i32 flags
         PyObject* name_strobj
 
-    int PyWrapperFlag_KEYWORDS
+    i32 PyWrapperFlag_KEYWORDS
 
     ctypedef class __builtin__.wrapper_descriptor [object PyWrapperDescrObject]:
         cdef type d_type
@@ -21,6 +21,6 @@ extern from "Python.h":
         cdef wrapperbase* d_base
         cdef void* d_wrapped
 
-    object PyDescr_NewWrapper(PyTypeObject* cls, wrapperbase* wrapper, void* wrapped)
+    fn object PyDescr_NewWrapper(PyTypeObject* cls, wrapperbase* wrapper, void* wrapped)
 
-    int PyDescr_IsData(descr)
+    fn i32 PyDescr_IsData(descr)

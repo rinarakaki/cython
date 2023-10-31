@@ -5,10 +5,10 @@ from cython cimport typeof
 from libc.string cimport const_char, const_uchar
 
 @cython.test_assert_path_exists(
-    "//NameNode[@name = 'st' and @type.is_string = True]",
-    "//NameNode[@name = 'ust' and @type.is_string = True]",
-    "//NameNode[@name = 'my_st' and @type.is_string = True]",
-    "//NameNode[@name = 'my_ust' and @type.is_string = True]",
+    "//NameNode[@name = 'st' and @type.is_string = true]",
+    "//NameNode[@name = 'ust' and @type.is_string = true]",
+    "//NameNode[@name = 'my_st' and @type.is_string = true]",
+    "//NameNode[@name = 'my_ust' and @type.is_string = true]",
     )
 def const_charptrs():
     """

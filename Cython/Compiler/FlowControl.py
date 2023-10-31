@@ -1277,7 +1277,7 @@ class ControlFlowAnalysis(CythonTransform):
         self.mark_position(node)
         self.visitchildren(node)
 
-        outer_exception_handlers = iter(self.flow.exceptions[::-1])
+        outer_exception_handlers = iter(reversed(self.flow.exceptions))
         for handler in outer_exception_handlers:
             if handler.finally_enter:
                 self.flow.block.add_child(handler.finally_enter)
@@ -1302,7 +1302,7 @@ class ControlFlowAnalysis(CythonTransform):
             return node
         loop = self.flow.loops[-1]
         self.mark_position(node)
-        for exception in loop.exceptions[::-1]:
+        for exception in reversed(loop.exceptions):
             if exception.finally_enter:
                 self.flow.block.add_child(exception.finally_enter)
                 if exception.finally_exit:
@@ -1319,7 +1319,7 @@ class ControlFlowAnalysis(CythonTransform):
             return node
         loop = self.flow.loops[-1]
         self.mark_position(node)
-        for exception in loop.exceptions[::-1]:
+        for exception in reversed(loop.exceptions):
             if exception.finally_enter:
                 self.flow.block.add_child(exception.finally_enter)
                 if exception.finally_exit:

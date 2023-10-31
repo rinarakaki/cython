@@ -5,20 +5,20 @@
 from libc.string cimport const_char, const_void
 
 extern from "<stdio.h>" nogil:
-    ctypedef struct FILE
+    struct FILE
     cdef FILE *stdin
     cdef FILE *stdout
     cdef FILE *stderr
 
     enum: FOPEN_MAX
     enum: FILENAME_MAX
-    FILE *fopen   (const char *filename, const char  *opentype)
-    FILE *freopen (const char *filename, const char *opentype, FILE *stream)
-    FILE *fdopen  (i32 fdescriptor, const char *opentype)
+    fn FILE *fopen(const char *filename, const char  *opentype)
+    fn FILE *freopen(const char *filename, const char *opentype, FILE *stream)
+    fn FILE *fdopen(i32 fdescriptor, const char *opentype)
     fn i32  fclose(FILE *stream)
     fn i32  remove(const char *filename)
     fn i32  rename(const char *oldname, const char *newname)
-    FILE *tmpfile ()
+    fn FILE *tmpfile ()
 
     fn i32 remove(const char *pathname)
     fn i32 rename(const char *oldpath, const char *newpath)
@@ -44,9 +44,9 @@ extern from "<stdio.h>" nogil:
     enum: SEEK_END
     fn i32  fseek(FILE *stream, i64 offset, i32 whence)
     fn void rewind(FILE *stream)
-    i64 ftell(FILE *stream)
+    fn i64 ftell(FILE *stream)
 
-    ctypedef struct fpos_t
+    struct fpos_t
     ctypedef const fpos_t const_fpos_t "const fpos_t"
     fn i32 fgetpos(FILE *stream, fpos_t *position)
     fn i32 fsetpos(FILE *stream, const fpos_t *position)

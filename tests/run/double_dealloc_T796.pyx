@@ -50,7 +50,7 @@ cdef class SimpleGarbage:
         print self, "__dealloc__"
         if self.deallocated:
             print "Double dealloc!"
-        self.deallocated = True
+        self.deallocated = true
         gc.collect()
     def __str__(self):
         return "SimpleGarbage(%s)" % self.index

@@ -4,7 +4,7 @@ try:
     import platform
     IS_PYPY = platform.python_implementation() == 'PyPy'
 except (ImportError, AttributeError):
-    IS_PYPY = False
+    IS_PYPY = false
 
 ustring_a = u'a'
 ustring_ascii = u'abc'

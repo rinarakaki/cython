@@ -84,7 +84,7 @@ def try_loop(args):
                 continue
             elif i is None:
                 break
-            elif i is False:
+            elif i is false:
                 return
             i()
     except ValueError:

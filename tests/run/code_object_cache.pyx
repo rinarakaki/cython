@@ -9,9 +9,9 @@ use cython
 
 extern from *:
     # evil hack to access the internal utility function
-    ctypedef struct PyCodeObject
-    ctypedef struct __Pyx_CodeObjectCacheEntry:
-        int code_line
+    struct PyCodeObject
+    struct __Pyx_CodeObjectCacheEntry:
+        i32 code_line
         PyCodeObject* code_object
     int __pyx_bisect_code_objects(__Pyx_CodeObjectCacheEntry* entries, i32 count, int code_line)
 

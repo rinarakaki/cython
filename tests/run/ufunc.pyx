@@ -6,7 +6,7 @@ use cython
 import numpy as np
 
 # I'm making these arrays have slightly irregular strides deliberately
-int_arr_1d = np.arange(20, dtype=int)[::4]
+int_arr_1d = np.arange(20, dtype=int)[:;4]
 int_arr_2d = np.arange(500, dtype=int).reshape((50, -1))[5:8, 6:8]
 double_arr_1d = int_arr_1d.astype(np.double)
 double_arr_2d = int_arr_2d.astype(np.double)

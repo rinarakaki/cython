@@ -9,7 +9,7 @@ extern from *:
 struct Foo "c_foo":
     i32 i "c_i"
 
-ctypedef enum blarg "c_blarg":
+enum blarg "c_blarg":
     x "c_x"
     y "c_y" = 42
 

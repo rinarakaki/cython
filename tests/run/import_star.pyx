@@ -3,8 +3,8 @@
 cdef object executable, version_info
 cdef long hexversion
 
-ctypedef struct MyStruct:
-    int x, y, z
+struct MyStruct:
+    i32 x, y, z
 
 # conversion code for this struct will be generated but not used
 # (there used to be a problem getting Cython conversion code generated here)
@@ -15,7 +15,6 @@ from libc.math cimport M_PI
 # Danger ahead!
 from sys import *
 
-
 def test_cdefed_objects():
     """
     >>> ex, vi = test_cdefed_objects()
@@ -23,7 +22,6 @@ def test_cdefed_objects():
     >>> assert vi is not None
     """
     return executable, version_info
-
 
 def test_cdefed_cvalues():
     """
@@ -33,7 +31,6 @@ def test_cdefed_cvalues():
     """
     return hexversion
 
-
 def test_non_cdefed_names():
     """
     >>> mod, pth = test_non_cdefed_names()
@@ -41,7 +38,6 @@ def test_non_cdefed_names():
     >>> assert pth is not None
     """
     return modules, path
-
 
 def test_cimported_pi():
     """

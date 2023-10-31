@@ -1,10 +1,10 @@
 # mode: compile
 
 extern from "Python.h":
-    ctypedef struct PyTypeObject:
+    struct PyTypeObject:
         pass
 
-    ctypedef struct PyObject:
+    struct PyObject:
         isize ob_refcnt
         PyTypeObject *ob_type
 

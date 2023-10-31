@@ -200,8 +200,8 @@ def test_transpose_type(a):
     >>> test_transpose_type(a)
     9.0
     """
-    let f64[:, ::1] m = a
-    let f64[::1, :] m_transpose = a.T
+    let f64[:, :;1] m = a
+    let f64[:;1, :] m_transpose = a.T
     print m_transpose[6, 4]
 
 
@@ -406,7 +406,7 @@ def test_memslice_getbuffer():
     callback called
     """
     let i32[:, :] array = create_array((4, 5), mode="c", use_callback=true)
-    print(np.asarray(array)[::2, ::2])
+    print(np.asarray(array)[:;2, :;2])
 
 cdef class DeallocateMe(object):
     def __dealloc__(self):
@@ -552,7 +552,7 @@ def test_string_invalid_dims():
     ValueError: Expected 2 dimensions, got 1
     """
 
-ctypedef struct AttributesStruct:
+struct AttributesStruct:
     i32 attrib1
     f32 attrib2
     StringStruct attrib3
@@ -617,8 +617,8 @@ def test_null_strides(Buffer buffer_obj):
     >>> test_null_strides(Buffer())
     """
     let f32[:, :] m1 = buffer_obj
-    let f32[:, ::1] m2 = buffer_obj
-    let f32[:, ::view.contiguous] m3 = buffer_obj
+    let f32[:, :;1] m2 = buffer_obj
+    let f32[:, :;view.contiguous] m3 = buffer_obj
 
     assert (<object> m1).strides == buffer_obj.strides
     assert (<object> m2).strides == buffer_obj.strides, ((<object> m2).strides, buffer_obj.strides)
@@ -644,13 +644,13 @@ def test_null_strides_error(buffer_obj):
     ValueError: Buffer exposes suboffsets but no strides
     """
     # valid
-    let f32[::view.generic, ::view.generic] full_buf = buffer_obj
+    let f32[:;view.generic, :;view.generic] full_buf = buffer_obj
 
     # invalid
-    let f32[:, ::view.indirect] indirect_buf1
-    let f32[::view.indirect, :] indirect_buf2
-    let f32[::1, :] fortran_buf1
-    let f32[::view.contiguous, :] fortran_buf2
+    let f32[:, :;view.indirect] indirect_buf1
+    let f32[:;view.indirect, :] indirect_buf2
+    let f32[:;1, :] fortran_buf1
+    let f32[:;view.contiguous, :] fortran_buf2
 
     try:
         indirect_buf1 = buffer_obj
@@ -699,7 +699,7 @@ def test_boundscheck_and_wraparound(f64[:, :] x):
         x[i, :]
 
 
-ctypedef struct SameTypeAfterArraysStructSimple:
+struct SameTypeAfterArraysStructSimple:
     f64 a[16]
     f64 b[16]
     f64 c
@@ -714,7 +714,7 @@ def same_type_after_arrays_simple():
     let SameTypeAfterArraysStructSimple[:] memview = arr
 
 
-ctypedef struct SameTypeAfterArraysStructComposite:
+struct SameTypeAfterArraysStructComposite:
     i32 a
     f32 b[8]
     f32 c

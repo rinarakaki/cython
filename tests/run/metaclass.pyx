@@ -3,7 +3,7 @@ use cython
 
 class Base(type):
     def __new__(cls, name, bases, attrs):
-        attrs['metaclass_was_here'] = True
+        attrs['metaclass_was_here'] = true
         return type.__new__(cls, name, bases, attrs)
 
 #[cython.test_assert_path_exists("//PyClassMetaclassNode", "//Py3ClassNode")]
@@ -50,7 +50,7 @@ class Py3MetaclassPlusAttr(type):
         assert isinstance(attrs, ODict), str(type(attrs))
         for key, value in kwargs.items():
             attrs[key] = value
-        attrs['metaclass_was_here'] = True
+        attrs['metaclass_was_here'] = true
         return type.__new__(cls, name, bases, attrs)
 
     def __init__(self, cls, attrs, obj, **kwargs):

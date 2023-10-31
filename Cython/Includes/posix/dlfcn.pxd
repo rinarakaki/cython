@@ -2,10 +2,10 @@
 # https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/dlfcn.h.html
 
 extern from "<dlfcn.h>" nogil:
-    void *dlopen(const char *, i32)
-    char *dlerror()
-    void *dlsym(void *, const char *)
-    int dlclose(void *)
+    fn void *dlopen(const char *, i32)
+    fn char *dlerror()
+    fn void *dlsym(void *, const char *)
+    fn i32 dlclose(void *)
 
     enum:
         RTLD_LAZY

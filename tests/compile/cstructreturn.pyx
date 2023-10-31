@@ -1,7 +1,7 @@
 # mode: compile
 
-ctypedef struct Foo:
-    int blarg
+struct Foo:
+    i32 blarg
 
 fn Foo f():
     blarg = 1 + 2

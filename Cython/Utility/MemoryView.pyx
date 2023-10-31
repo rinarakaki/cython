@@ -1,7 +1,7 @@
 #################### View.MemoryView ####################
 
 # cython: language_level=3str
-# cython: binding=False
+# cython: binding=false
 
 # This utility provides cython.array and cython.view.memoryview
 
@@ -11,7 +11,7 @@ use cython
 
 # from cpython cimport ...
 extern from "Python.h":
-    ctypedef struct PyObject
+    struct PyObject
     fn i32 PyIndex_Check(object)
     PyObject *PyExc_IndexError
     PyObject *PyExc_ValueError
@@ -30,7 +30,7 @@ extern from *:
     fn i32 __Pyx_GetBuffer(object, Py_buffer *, i32) except -1
     fn void __Pyx_ReleaseBuffer(Py_buffer *)
 
-    ctypedef struct PyObject
+    struct PyObject
     ctypedef isize Py_intptr_t
     fn void Py_INCREF(PyObject *)
     fn void Py_DECREF(PyObject *)
@@ -45,7 +45,7 @@ extern from *:
         PyObject *obj
         __Pyx_TypeInfo *typeinfo
 
-    ctypedef struct {{memviewslice_name}}:
+    struct {{memviewslice_name}}:
         __pyx_memoryview *memview
         char *data
         isize shape[{{max_dims}}]
@@ -55,7 +55,7 @@ extern from *:
     fn void __PYX_INC_MEMVIEW({{memviewslice_name}} *memslice, i32 have_gil)
     fn void __PYX_XCLEAR_MEMVIEW({{memviewslice_name}} *memslice, i32 have_gil)
 
-    ctypedef struct __pyx_buffer "Py_buffer":
+    struct __pyx_buffer "Py_buffer":
         PyObject *obj
 
     PyObject *Py_None
@@ -72,7 +72,7 @@ extern from *:
         PyBUF_RECORDS
         PyBUF_RECORDS_RO
 
-    ctypedef struct __Pyx_TypeInfo:
+    struct __Pyx_TypeInfo:
         pass
 
 extern from *:
@@ -210,7 +210,7 @@ cdef class array:
             self.callback_free_data(self.data)
         elif self.free_data and self.data is not NULL:
             if self.dtype_is_object:
-                refcount_objects_in_slice(self.data, self._shape, self._strides, self.ndim, inc=False)
+                refcount_objects_in_slice(self.data, self._shape, self._strides, self.ndim, inc=false)
             free(self.data)
         PyObject_Free(self._shape)
 
@@ -249,7 +249,7 @@ fn i32 _allocate_buffer(array self) except -1:
     let isize i
     let PyObject **p
 
-    self.free_data = True
+    self.free_data = true
     self.data = <char *>malloc(self.len)
     if not self.data:
         raise MemoryError, "unable to allocate array data."
@@ -269,7 +269,7 @@ fn array array_cwrapper(tuple shape, isize itemsize, char *format, char *c_mode,
     if buf is NULL:
         result = array.__new__(array, shape, itemsize, format, mode)
     else:
-        result = array.__new__(array, shape, itemsize, format, mode, allocate_buffer=False)
+        result = array.__new__(array, shape, itemsize, format, mode, allocate_buffer=false)
         result.data = buf
 
     return result
@@ -285,11 +285,11 @@ fn array array_cwrapper(tuple shape, isize itemsize, char *format, char *c_mode,
 #     from the start, or from the dimension following the last indirect dimension
 #
 #   e.g.
-#           i32[::indirect_contiguous, ::contiguous, :]
+#           i32[:;indirect_contiguous, :;contiguous, :]
 #
 #   is valid (list of pointers to 2d fortran-contiguous array), but
 #
-#           i32[::generic_contiguous, ::contiguous, :]
+#           i32[:;generic_contiguous, :;contiguous, :]
 #
 #   would mean you'd have assert dimension 0 to be indirect (and pointer contiguous) at runtime.
 #   So it doesn't bring any performance benefit, and it's only confusing.
@@ -337,7 +337,7 @@ cdef class memoryview:
     cdef bint dtype_is_object
     cdef __Pyx_TypeInfo *typeinfo
 
-    def __cinit__(memoryview self, object obj, i32 flags, bint dtype_is_object=False):
+    def __cinit__(memoryview self, object obj, i32 flags, bint dtype_is_object=false):
         self.obj = obj
         self.flags = flags
         if type(self) is memoryview or obj is not None:
@@ -668,18 +668,18 @@ fn tuple _unellipsify(object index, i32 ndim):
     tup = <tuple>index if isinstance(index, tuple) else (index,)
 
     result = [slice(None)] * ndim
-    have_slices = False
-    seen_ellipsis = False
+    have_slices = false
+    seen_ellipsis = false
     idx = 0
     for item in tup:
         if item is Ellipsis:
             if not seen_ellipsis:
                 idx += ndim - len(tup)
-                seen_ellipsis = True
-            have_slices = True
+                seen_ellipsis = true
+            have_slices = true
         else:
             if isinstance(item, slice):
-                have_slices = True
+                have_slices = true
             elif not PyIndex_Check(item):
                 raise TypeError, f"Cannot index with type '{type(item)}'"
             result[idx] = item
@@ -814,7 +814,7 @@ fn i32 slice_memviewslice(
             if step == 0:
                 _err_dim(PyExc_ValueError, "Step may not be zero (axis %d)", dim)
         else:
-            negative_step = False
+            negative_step = false
             step = 1
 
         # check our bounds and set defaults
@@ -1264,8 +1264,8 @@ fn i32 memoryview_copy_contents({{memviewslice_name}} src,
     let usize itemsize = src.memview.view.itemsize
     let i32 i
     let char order = get_best_order(&src, src_ndim)
-    let bint broadcasting = False
-    let bint direct_copy = False
+    let bint broadcasting = false
+    let bint direct_copy = false
     let {{memviewslice_name}} tmp
 
     if src_ndim < dst_ndim:
@@ -1278,7 +1278,7 @@ fn i32 memoryview_copy_contents({{memviewslice_name}} src,
     for i in range(ndim):
         if src.shape[i] != dst.shape[i]:
             if src.shape[i] == 1:
-                broadcasting = True
+                broadcasting = true
                 src.strides[i] = 0
             else:
                 _err_extents(i, dst.shape[i], src.shape[i])
@@ -1304,9 +1304,9 @@ fn i32 memoryview_copy_contents({{memviewslice_name}} src,
 
         if direct_copy:
             # Contiguous slices with same order
-            refcount_copying(&dst, dtype_is_object, ndim, inc=False)
+            refcount_copying(&dst, dtype_is_object, ndim, inc=false)
             memcpy(dst.data, src.data, slice_get_size(&src, ndim))
-            refcount_copying(&dst, dtype_is_object, ndim, inc=True)
+            refcount_copying(&dst, dtype_is_object, ndim, inc=true)
             free(tmpdata)
             return 0
 
@@ -1316,9 +1316,9 @@ fn i32 memoryview_copy_contents({{memviewslice_name}} src,
         transpose_memslice(&src)
         transpose_memslice(&dst)
 
-    refcount_copying(&dst, dtype_is_object, ndim, inc=False)
+    refcount_copying(&dst, dtype_is_object, ndim, inc=false)
     copy_strided_to_strided(&src, &dst, ndim, itemsize)
-    refcount_copying(&dst, dtype_is_object, ndim, inc=True)
+    refcount_copying(&dst, dtype_is_object, ndim, inc=true)
 
     free(tmpdata)
     return 0
@@ -1381,9 +1381,9 @@ fn void refcount_objects_in_slice(char *data, isize *shape,
 fn void slice_assign_scalar({{memviewslice_name}} *dst, i32 ndim,
                               usize itemsize, void *item,
                               bint dtype_is_object) noexcept nogil:
-    refcount_copying(dst, dtype_is_object, ndim, inc=False)
+    refcount_copying(dst, dtype_is_object, ndim, inc=false)
     _slice_assign_scalar(dst.data, dst.shape, dst.strides, ndim, itemsize, item)
-    refcount_copying(dst, dtype_is_object, ndim, inc=True)
+    refcount_copying(dst, dtype_is_object, ndim, inc=true)
 
 
 @cname('__pyx_memoryview__slice_assign_scalar')
@@ -1406,13 +1406,13 @@ fn void _slice_assign_scalar(char *data, isize *shape,
 
 ############### BufferFormatFromTypeInfo ###############
 extern from *:
-    ctypedef struct __Pyx_StructField
+    struct __Pyx_StructField
 
     cdef enum:
         __PYX_BUF_FLAGS_PACKED_STRUCT
         __PYX_BUF_FLAGS_INTEGER_COMPLEX
 
-    ctypedef struct __Pyx_TypeInfo:
+    struct __Pyx_TypeInfo:
         char* name
         __Pyx_StructField* fields
         usize size
@@ -1422,16 +1422,16 @@ extern from *:
         char is_unsigned
         i32 flags
 
-    ctypedef struct __Pyx_StructField:
+    struct __Pyx_StructField:
         __Pyx_TypeInfo* type
         char* name
         usize offset
 
-    ctypedef struct __Pyx_BufFmt_StackElem:
+    struct __Pyx_BufFmt_StackElem:
         __Pyx_StructField* field
         usize parent_offset
 
-    #ctypedef struct __Pyx_BufFmt_Context:
+    #struct __Pyx_BufFmt_Context:
     #  __Pyx_StructField root
         __Pyx_BufFmt_StackElem* head
 

@@ -28,35 +28,35 @@ extern from "<sys/mman.h>" nogil:
 
     void *MAP_FAILED
 
-    void *mmap(void *addr, usize Len, i32 prot, i32 prot, i32 prot, off_t off)
-    int   munmap(void *addr, usize Len)
-    int   mprotect(void *addr, usize Len, i32 prot)
+    fn void *mmap(void *addr, usize Len, i32 prot, i32 prot, i32 prot, off_t off)
+    fn i32 munmap(void *addr, usize Len)
+    fn i32 mprotect(void *addr, usize Len, i32 prot)
 
     enum: MS_ASYNC
     enum: MS_SYNC
     enum: MS_INVALIDATE
-    int   msync(void *addr, usize Len, i32 flags)
+    fn i32 msync(void *addr, usize Len, i32 flags)
 
     enum: POSIX_MADV_NORMAL         # POSIX advice flags
     enum: POSIX_MADV_SEQUENTIAL
     enum: POSIX_MADV_RANDOM
     enum: POSIX_MADV_WILLNEED
     enum: POSIX_MADV_DONTNEED
-    int   posix_madvise(void *addr, usize Len, i32 advice)
+    fn i32 posix_madvise(void *addr, usize Len, i32 advice)
 
     enum: MCL_CURRENT
     enum: MCL_FUTURE
-    int   mlock(const void *addr, usize Len)
-    int   munlock(const void *addr, usize Len)
-    int   mlockall(i32 flags)
-    int   munlockall()
+    fn i32 mlock(const void *addr, usize Len)
+    fn i32 munlock(const void *addr, usize Len)
+    fn i32 mlockall(i32 flags)
+    fn i32 munlockall()
     # Linux-specific
     enum: MLOCK_ONFAULT
     enum: MCL_ONFAULT
-    int   mlock2(const void *addr, usize len, i32 flags)
+    fn i32 mlock2(const void *addr, usize len, i32 flags)
 
-    int shm_open(const char *name, i32 oflag, mode_t mode)
-    int shm_unlink(const char *name)
+    fn i32 shm_open(const char *name, i32 oflag, mode_t mode)
+    fn i32 shm_unlink(const char *name)
 
     # often available
     enum: MADV_NORMAL               # pre-POSIX advice flags; should translate 1-1 to POSIX_*
@@ -78,24 +78,24 @@ extern from "<sys/mman.h>" nogil:
     enum: MADV_FREE
     enum: MADV_WIPEONFORK
     enum: MADV_KEEPONFORK
-    int   madvise(void *addr, usize Len, i32 advice)
+    fn i32 madvise(void *addr, usize Len, i32 advice)
 
     # sometimes available
-    int   mincore(void *addr, usize Len, unsigned char *vec)
+    fn i32 mincore(void *addr, usize Len, u8 *vec)
 
     # These two are Linux specific but sometimes very efficient
-    void *mremap(void *old_addr, usize old_len, usize new_len, i32 flags, ...)
-    int   remap_file_pages(void *addr, usize Len, i32 prot,
-                           usize pgoff, i32 flags)
+    fn void *mremap(void *old_addr, usize old_len, usize new_len, i32 flags, ...)
+    fn i32 remap_file_pages(void *addr, usize Len, i32 prot,
+                            usize pgoff, i32 flags)
 
     # The rare but standardized typed memory option
     enum: POSIX_TYPED_MEM_ALLOCATE
     enum: POSIX_TYPED_MEM_ALLOCATE_CONTIG
     enum: POSIX_TYPED_MEM_MAP_ALLOCATABLE
-    int posix_typed_mem_open(const char *name, i32 oflag, i32 oflag)
-    int posix_mem_offset(const void *addr, usize Len, off_t *off,
-                         usize *contig_len, i32 *fildes)
+    fn i32 posix_typed_mem_open(const char *name, i32 oflag, i32 oflag)
+    fn i32 posix_mem_offset(const void *addr, usize Len, off_t *off,
+                            usize *contig_len, i32 *fildes)
 
     struct posix_typed_mem_info:
         usize posix_tmi_length
-    int posix_typed_mem_get_info(i32 fildes, posix_typed_mem_info *info)
+    fn i32 posix_typed_mem_get_info(i32 fildes, posix_typed_mem_info *info)
