@@ -11,7 +11,7 @@ if sys.version_info[0] >= 3:
 extern from "string.h":
     void memcpy(char *d, char *s, i32 n)
 
-from cpython cimport PyUnicode_DecodeUTF8
+use cpython::PyUnicode_DecodeUTF8
 
 def spam():
     let char[12] buf

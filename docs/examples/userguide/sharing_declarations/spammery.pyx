@@ -1,4 +1,4 @@
-from volume cimport cube
+use volume::cube
 
 def menu(description, size):
     print(description, ":", cube(size),

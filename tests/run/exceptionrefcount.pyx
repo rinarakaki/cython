@@ -30,7 +30,7 @@
 """
 
 use cython
-from cpython.ref cimport PyObject
+use cpython::ref::PyObject
 
 #[cython.binding(false)]
 #[cython.always_allow_keywords(false)]

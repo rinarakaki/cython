@@ -1,7 +1,8 @@
 # mode: run
 # tag: cpp
 # ticket: t768
-from cython cimport typeof
+
+use cython::typeof
 
 extern from "shapes.h" namespace "shapes":
     cdef cppclass Shape:

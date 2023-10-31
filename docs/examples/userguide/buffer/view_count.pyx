@@ -1,7 +1,7 @@
 # distutils: language = c++
 
-from cpython cimport Py_buffer
-from libcpp.vector cimport vector
+use cpython::Py_buffer
+use libcpp::vector::vector
 
 cdef class Matrix:
     cdef i32 view_count

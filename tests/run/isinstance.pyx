@@ -1,6 +1,6 @@
 
 use cython
-from cpython.bool cimport bool
+use cpython::bool::bool
 
 cdef class A:
     pass

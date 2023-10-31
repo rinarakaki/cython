@@ -1,4 +1,4 @@
-from cython cimport typeof
+use cython::typeof
 
 cdef class A:
     pass

@@ -1,4 +1,5 @@
-from cython.view cimport array as cvarray
+use cython::view::array as cvarray
+
 import numpy as np
 
 # Memoryview on a NumPy array

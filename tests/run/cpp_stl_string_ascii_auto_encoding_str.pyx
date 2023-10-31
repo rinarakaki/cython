@@ -4,7 +4,7 @@
 
 use cython
 
-from libcpp.string cimport string
+use libcpp::string::string
 
 b_asdf = b'asdf'
 u_asdf = u'asdf'

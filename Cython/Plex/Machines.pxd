@@ -1,4 +1,4 @@
-cimport cython
+use cython
 
 from .Actions cimport Action
 from .Transitions cimport TransitionMap

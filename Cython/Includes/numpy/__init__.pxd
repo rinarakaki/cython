@@ -11,7 +11,7 @@
 # Author: Dag Sverre Seljebotn
 #
 
-from cpython.ref cimport Py_INCREF
+use cpython::ref::Py_INCREF
 from cpython.object cimport PyObject, PyTypeObject, PyObject_TypeCheck
 cimport libc.stdio as stdio
 

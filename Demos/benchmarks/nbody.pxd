@@ -1,4 +1,4 @@
-cimport cython
+use cython
 
 #[cython.locals(x=isize)]
 fn combinations(list l)

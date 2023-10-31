@@ -1,7 +1,7 @@
 # mode: run
 # tag: openmp
 
-from cython.parallel cimport prange
+use cython::parallel::prange
 use cython
 from random import randint, random
 

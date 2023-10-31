@@ -1,4 +1,4 @@
-from libc.stdlib cimport malloc
+use libc::stdlib::malloc
 from libc.string cimport strcpy, strlen
 
 cdef char* hello_world = 'hello world'

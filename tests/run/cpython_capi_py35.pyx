@@ -5,7 +5,7 @@
 # (some of these would work of Python 3.4, but it's easier to disable
 # them in one place)
 
-from cpython cimport mem
+use cpython::mem
 
 fn short _assert_calloc(short* s, i32 n) except -1 with gil:
     """Assert array ``s`` of length ``n`` is zero and return 3."""

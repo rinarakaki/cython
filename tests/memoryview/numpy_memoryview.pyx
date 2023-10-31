@@ -10,7 +10,7 @@ import sys
 use numpy as np
 import numpy as np
 use cython
-from cython cimport view
+use cython::view
 
 include "../testsupport/cythonarrayutil.pxi"
 include "../buffers/mockbuffers.pxi"

@@ -1,6 +1,6 @@
-from cython.parallel cimport prange
+use cython::parallel::prange
 use cython
-from libc.math cimport sin
+use libc::math::sin
 
 import numpy as np
 

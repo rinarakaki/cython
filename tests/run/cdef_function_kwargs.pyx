@@ -1,6 +1,6 @@
 use cython
 
-from libc.string cimport strstr
+use libc::string::strstr
 
 fn cfunc(a, b, c, d):
     return (a, b, c, d)
@@ -174,7 +174,7 @@ def cdef_funcptr():
 # This works but currently brings up C compiler warnings
 # because the format string is not a literal C string.
 
-from libc.stdio cimport snprintf
+use libc::stdio::snprintf
 
 #[cython.test_fail_if_path_exists('//GeneralCallNode')]
 #[cython.test_assert_path_exists('//SimpleCallNode')]
