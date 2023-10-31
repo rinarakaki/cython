@@ -1,5 +1,5 @@
 from libcpp cimport bool
-from libcpp.typeinfo cimport type_info
+use libcpp::typeinfo::type_info
 
 extern from "<any>" namespace "std" nogil:
     cdef cppclass any:

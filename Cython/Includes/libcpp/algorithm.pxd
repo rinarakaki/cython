@@ -1,5 +1,5 @@
 from libcpp cimport bool
-from libcpp.utility cimport pair
+use libcpp::utility::pair
 from libc.stddef import ptrdiff_t
 
 

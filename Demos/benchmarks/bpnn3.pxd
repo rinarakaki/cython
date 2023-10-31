@@ -1,4 +1,4 @@
-cimport cython
+use cython
 
 fn f64 rand(f64 a, f64 b, random=*)
 

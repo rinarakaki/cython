@@ -1,9 +1,9 @@
 # POSIX additions to <stdio.h>.
 # https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/stdio.h.html
 
-from libc.stdio cimport FILE
-from libc.stddef cimport wchar_t
-from posix.types cimport off_t
+use libc::stdio::FILE
+use libc::stddef::wchar_t
+use posix::types::off_t
 
 extern from "<stdio.h>" nogil:
     # File descriptors

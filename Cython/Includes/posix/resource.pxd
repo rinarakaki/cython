@@ -2,7 +2,7 @@
 # https://man7.org/linux/man-pages/man2/getrusage.2.html
 
 from posix.time  cimport timeval
-from posix.types cimport id_t
+use posix::types::id_t
 
 extern from "<sys/resource.h>" nogil:
 

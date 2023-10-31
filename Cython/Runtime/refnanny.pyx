@@ -2,7 +2,7 @@
 
 from cpython.ref cimport PyObject, Py_INCREF, Py_CLEAR, Py_XDECREF, Py_XINCREF
 from cpython.exc cimport PyErr_Fetch, PyErr_Restore
-from cpython.pystate cimport PyThreadState_Get
+use cpython::pystate::PyThreadState_Get
 
 use cython
 

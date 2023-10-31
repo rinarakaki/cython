@@ -1,4 +1,4 @@
-from libc.stdlib cimport free
+use libc::stdlib::free
 from c_func cimport get_a_c_string
 
 def main():
