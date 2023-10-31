@@ -102,11 +102,11 @@ extern from "<cmath>" namespace "std" nogil:
     fn f32 frexpf(f32 value, i32* exp) except +
     fn long double frexpl(long double value, i32* exp) except +
 
-    fn int ilogb(f32 x) except +
-    fn int ilogb(f64 x) except +
-    fn int ilogb(long double x) except +
-    fn int ilogbf(f32 x) except +
-    fn int ilogbl(long double x) except +
+    fn i32 ilogb(f32 x) except +
+    fn i32 ilogb(f64 x) except +
+    fn i32 ilogb(long double x) except +
+    fn i32 ilogbf(f32 x) except +
+    fn i32 ilogbl(long double x) except +
 
     fn f32 ldexp(f32 x, i32 exp) except +
     fn f64 ldexp(f64 x, i32 exp) except +

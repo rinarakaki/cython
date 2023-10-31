@@ -1,7 +1,7 @@
 from .object cimport PyObject
 
 extern from "Python.h":
-    ctypedef struct va_list
+    struct va_list
 
     ############################################################################
     # 7.3.1 String Objects
@@ -16,26 +16,26 @@ extern from "Python.h":
     # it is the same object as bytes and types.BytesType in the Python
     # layer.
 
-    bint PyBytes_Check(object o)
+    fn bint PyBytes_Check(object o)
     # Return true if the object o is a string object or an instance of
     # a subtype of the string type.
 
-    bint PyBytes_CheckExact(object o)
+    fn bint PyBytes_CheckExact(object o)
     # Return true if the object o is a string object, but not an instance of a subtype of the string type.
 
-    bytes PyBytes_FromString(char *v)
+    fn bytes PyBytes_FromString(char *v)
     # Return value: New reference.
     # Return a new string object with the value v on success, and NULL
     # on failure. The parameter v must not be NULL; it will not be
     # checked.
 
-    bytes PyBytes_FromStringAndSize(char *v, isize len)
+    fn bytes PyBytes_FromStringAndSize(char *v, isize len)
     # Return value: New reference.
     # Return a new string object with the value v and length len on
     # success, and NULL on failure. If v is NULL, the contents of the
     # string are uninitialized.
 
-    bytes PyBytes_FromFormat(char *format, ...)
+    fn bytes PyBytes_FromFormat(char *format, ...)
     # Return value: New reference.
     # Take a C printf()-style format string and a variable number of
     # arguments, calculate the size of the resulting Python string and
@@ -64,21 +64,21 @@ extern from "Python.h":
     # format string to be copied as-is to the result string, and any
     # extra arguments discarded.
 
-    bytes PyBytes_FromFormatV(char *format, va_list vargs)
+    fn bytes PyBytes_FromFormatV(char *format, va_list vargs)
     # Return value: New reference.
     # Identical to PyBytes_FromFormat() except that it takes exactly two arguments.
 
-    bytes PyBytes_FromObject(object o)
+    fn bytes PyBytes_FromObject(object o)
     # Return value: New reference.
     # Return the bytes representation of object o that implements the buffer protocol.
 
-    isize PyBytes_Size(object string) except -1
+    fn isize PyBytes_Size(object string) except -1
     # Return the length of the string in string object string.
 
-    isize PyBytes_GET_SIZE(object string)
+    fn isize PyBytes_GET_SIZE(object string)
     # Macro form of PyBytes_Size() but without error checking.
 
-    char* PyBytes_AsString(object string) except NULL
+    fn char* PyBytes_AsString(object string) except NULL
     # Return a NUL-terminated representation of the contents of
     # string. The pointer refers to the internal buffer of string, not
     # a copy. The data must not be modified in any way, unless the
@@ -88,12 +88,12 @@ extern from "Python.h":
     # and operates on that. If string is not a string object at all,
     # PyBytes_AsString() returns NULL and raises TypeError.
 
-    char* PyBytes_AS_STRING(object string)
+    fn char* PyBytes_AS_STRING(object string)
     # Macro form of PyBytes_AsString() but without error
     # checking. Only string objects are supported; no Unicode objects
     # should be passed.
 
-    i32 PyBytes_AsStringAndSize(object obj, char **buffer, isize *length) except -1
+    fn i32 PyBytes_AsStringAndSize(object obj, char **buffer, isize *length) except -1
     # Return a NULL-terminated representation of the contents of the
     # object obj through the output variables buffer and length.
     #
@@ -111,7 +111,7 @@ extern from "Python.h":
     # and operates on that. If string is not a string object at all,
     # PyBytes_AsStringAndSize() returns -1 and raises TypeError.
 
-    void PyBytes_Concat(PyObject **string, object newpart)
+    fn void PyBytes_Concat(PyObject **string, object newpart)
     # Create a new string object in *string containing the contents of
     # newpart appended to string; the caller will own the new
     # reference. The reference to the old value of string will be
@@ -119,12 +119,12 @@ extern from "Python.h":
     # to string will still be discarded and the value of *string will
     # be set to NULL; the appropriate exception will be set.
 
-    void PyBytes_ConcatAndDel(PyObject **string, object newpart)
+    fn void PyBytes_ConcatAndDel(PyObject **string, object newpart)
     # Create a new string object in *string containing the contents of
     # newpart appended to string. This version decrements the
     # reference count of newpart.
 
-    i32 _PyBytes_Resize(PyObject **string, isize newsize) except -1
+    fn i32 _PyBytes_Resize(PyObject **string, isize newsize) except -1
     # A way to resize a string object even though it is
     # ``immutable''. Only use this to build up a brand new string
     # object; don't use this if the string may already be known in
@@ -138,12 +138,12 @@ extern from "Python.h":
     # *string is set to NULL, a memory exception is set, and -1 is
     # returned.
 
-    bytes PyBytes_Format(object format, object args)
+    fn bytes PyBytes_Format(object format, object args)
     # Return value: New reference.  Return a new string object from
     # format and args. Analogous to format % args. The args argument
     # must be a tuple.
 
-    void PyBytes_InternInPlace(PyObject **string)
+    fn void PyBytes_InternInPlace(PyObject **string)
     # Intern the argument *string in place. The argument must be the
     # address of a pointer variable pointing to a Python string
     # object. If there is an existing interned string that is the same
@@ -156,14 +156,14 @@ extern from "Python.h":
     # reference-count-neutral; you own the object after the call if
     # and only if you owned it before the call.)
 
-    bytes PyBytes_InternFromString(char *v)
+    fn bytes PyBytes_InternFromString(char *v)
     # Return value: New reference.
     # A combination of PyBytes_FromString() and
     # PyBytes_InternInPlace(), returning either a new string object
     # that has been interned, or a new (``owned'') reference to an
     # earlier interned string object with the same value.
 
-    object PyBytes_Decode(char *s, isize size, char *encoding, char *errors)
+    fn object PyBytes_Decode(char *s, isize size, char *encoding, char *errors)
     #  Return value: New reference.
     # Create an object by decoding size bytes of the encoded buffer s
     # using the codec registered for encoding. encoding and errors
@@ -172,7 +172,7 @@ extern from "Python.h":
     # using the Python codec registry. Return NULL if an exception was
     # raised by the codec.
 
-    object PyBytes_AsDecodedObject(object str, char *encoding, char *errors)
+    fn object PyBytes_AsDecodedObject(object str, char *encoding, char *errors)
     # Return value: New reference.
     # Decode a string object by passing it to the codec registered for
     # encoding and return the result as Python object. encoding and
@@ -181,7 +181,7 @@ extern from "Python.h":
     # using the Python codec registry. Return NULL if an exception was
     # raised by the codec.
 
-    object PyBytes_Encode(char *s, isize size, char *encoding, char *errors)
+    fn object PyBytes_Encode(char *s, isize size, char *encoding, char *errors)
     # Return value: New reference.
     # Encode the char buffer of the given size by passing it to the
     # codec registered for encoding and return a Python
@@ -190,7 +190,7 @@ extern from "Python.h":
     # codec to be used is looked up using the Python codec
     # registry. Return NULL if an exception was raised by the codec.
 
-    object PyBytes_AsEncodedObject(object str, char *encoding, char *errors)
+    fn object PyBytes_AsEncodedObject(object str, char *encoding, char *errors)
     # Return value: New reference.
     # Encode a string object using the codec registered for encoding
     # and return the result as Python object. encoding and errors have

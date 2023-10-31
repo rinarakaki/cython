@@ -11,27 +11,21 @@ from __future__ import print_function
 
 import cython
 
-@cython.cfunc
-@cython.returns(cython.int)
-def zero():
+fn i32 zero():
     print("In zero")
     return 0
 
-@cython.cfunc
-@cython.returns(cython.int)
-def five():
+fn i32 five():
     print("In five")
     return 5
 
-@cython.cfunc
-@cython.returns(cython.int)
-def one():
+fn i32 one():
     print("In one")
     return 1
 
 # FIXME - I don't think this is easy to enforce unfortunately, but it is slightly wrong
-#@cython.test_assert_path_exists("//ForFromStatNode")
-#def genexp_range_argument_order():
+# @cython.test_assert_path_exists("//ForFromStatNode")
+# def genexp_range_argument_order():
 #    """
 #    >>> list(genexp_range_argument_order())
 #    In zero
@@ -39,12 +33,12 @@ def one():
 #    [0, 1, 2, 3, 4]
 #    """
 #    return (a for a in range(zero(), five()))
-#
-#@cython.test_assert_path_exists("//ForFromStatNode")
-#@cython.test_assert_path_exists(
+
+# @cython.test_assert_path_exists("//ForFromStatNode")
+# @cython.test_assert_path_exists(
 #    "//InlinedGeneratorExpressionNode",
 #    "//ComprehensionAppendNode")
-#def list_range_argument_order():
+# def list_range_argument_order():
 #    """
 #    >>> list_range_argument_order()
 #    In zero
@@ -113,7 +107,7 @@ def genexp_index_order():
     [0, 5, 1]
     """
     obj = NoisyAttributeLookup()
-    ret = (a for a in obj.indexer[zero():five():one()])
+    ret = (a for a in obj.indexer[zero():five();one()])
     print("Made generator expression")
     return ret
 
@@ -129,7 +123,7 @@ def list_index_order():
     [0, 5, 1]
     """
     obj = NoisyAttributeLookup()
-    return list(a for a in obj.indexer[zero():five():one()])
+    return list(a for a in obj.indexer[zero():five();one()])
 
 
 def genexpr_fcall_order():
@@ -165,6 +159,7 @@ def list_fcall_order():
 def call1():
     print("In call1")
     return ["a"]
+
 def call2():
     print("In call2")
     return ["b"]

@@ -9,7 +9,7 @@ extern from "<limits.h>":
 
     const signed char SCHAR_MIN
     const signed char SCHAR_MAX
-    const unsigned char UCHAR_MAX
+    const u8 UCHAR_MAX
 
     const i16 SHRT_MIN
     const i16 SHRT_MAX

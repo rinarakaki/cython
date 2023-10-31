@@ -1,7 +1,7 @@
 from libc.stdlib cimport malloc, free
 
 # Example C struct
-ctypedef struct my_c_struct:
+struct my_c_struct:
     i32 a
     i32 b
 
@@ -11,7 +11,7 @@ cdef class WrapperClass:
     cdef bint ptr_owner
 
     def __cinit__(self):
-        self.ptr_owner = False
+        self.ptr_owner = false
 
     def __dealloc__(self):
         # De-allocate if not null and flag is set

@@ -145,7 +145,7 @@ def build_from_tuple_of_arrays():
     let i32[2][3] v = (x, y)
     return v
 
-ctypedef struct MyStructType:
+struct MyStructType:
     i32 x
     f64 y
 

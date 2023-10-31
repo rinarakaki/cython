@@ -18,7 +18,7 @@ cdef class ExtensionType:
 # from Cython code.
 
 extern from "Python.h":
-    ctypedef struct PyTypeObject:
+    struct PyTypeObject:
         void (*tp_clear)(object)
 
 cdef class TpClearFixture:

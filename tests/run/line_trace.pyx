@@ -8,7 +8,7 @@ import sys
 from cpython.ref cimport PyObject, Py_INCREF, Py_XDECREF
 
 extern from "frameobject.h":
-    ctypedef struct PyFrameObject:
+    struct PyFrameObject:
         PyObject *f_trace
 
 from cpython.pystate cimport (

@@ -641,11 +641,11 @@ def p_subscript(s):
     if s.sy != ':':
         return [start]
     s.next()
-    stop = p_slice_element(s, (':', ',', ']'))
-    if s.sy != ':':
+    stop = p_slice_element(s, (':', ';', ',', ']'))
+    if s.sy not in (':', ';'):
         return [start, stop]
     s.next()
-    step = p_slice_element(s, (':', ',', ']'))
+    step = p_slice_element(s, (':', ';', ',', ']'))
     return [start, stop, step]
 
 def p_slice_element(s, follow_set):
@@ -2770,7 +2770,7 @@ def is_memoryviewslice_access(s):
         if s.sy == ':':
             retval = True
 
-    for sv in saved[::-1]:
+    for sv in reversed(saved):
         s.put_back(*sv)
 
     return retval
@@ -4059,6 +4059,17 @@ def p_cpp_class_attribute(s, ctx):
             return p_cpp_class_definition(s, s.position(), ctx)
         else:
             return p_struct_enum(s, s.position(), ctx)
+    elif s.sy == "fn":
+        s.next()
+        node = p_c_func_or_var_declaration(s, s.position(), ctx)
+        if decorators is not None:
+            tup = Nodes.CFuncDefNode, Nodes.CVarDefNode, Nodes.CClassDefNode
+            if ctx.allow_struct_enum_decorator:
+                tup += Nodes.CStructOrUnionDefNode, Nodes.CEnumDefNode
+            if not isinstance(node, tup):
+                s.error("Decorators can only be followed by functions or classes")
+            node.decorators = decorators
+        return node
     else:
         node = p_c_func_or_var_declaration(s, s.position(), ctx)
         if decorators is not None:
