@@ -1,4 +1,4 @@
-from libc.setjmp cimport *
+use libc::setjmp::*
 
 fn void check_nonzero(jmp_buf ctx, i32 x) nogil:
     if x == 0:

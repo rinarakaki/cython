@@ -1,6 +1,6 @@
 # tag: posix
 
-from posix.time cimport *
+use posix::time::*
 
 def test_itimer(sec, usec):
     """
