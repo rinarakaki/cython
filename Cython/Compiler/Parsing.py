@@ -1740,6 +1740,33 @@ def p_raise_statement(s):
         return Nodes.ReraiseStatNode(pos)
 
 
+def p_use_statement(s):
+    # s.sy == "use"
+    pos = s.position()
+    kind = s.sy
+    s.next()
+    items = [p_path(s, as_allowed=1)]
+    while s.sy == ',':
+        s.next()
+        items.append(p_path(s, as_allowed=1))
+    stats = []
+    is_absolute = Future.absolute_import in s.context.future_directives
+    for pos, path, ident, as_name in items:
+        if path:
+            stat = Nodes.FromCImportStatNode(
+                pos, module_name=path,
+                relative_level=0,
+                imported_names=[(pos, ident, as_name)])
+        else:
+            stat = Nodes.CImportStatNode(
+                pos,
+                module_name=ident,
+                as_name=as_name,
+                is_absolute=is_absolute)
+        stats.append(stat)
+    return Nodes.StatListNode(pos, stats=stats)
+
+
 def p_import_statement(s):
     # s.sy in ("import", "use", "cimport")
     pos = s.position()
@@ -1860,12 +1887,29 @@ def p_imported_name(s):
     return (pos, name, as_name)
 
 
+def p_path(s, as_allowed):
+    pos = s.position()
+    target_name = p_ident(s)
+    as_name = None
+    names = [target_name]
+    while s.sy == "::":
+        s.next()
+        if s.sy == "*" and s.peek()[0] != "::":
+            names.append(s.context.intern_ustring("*"))
+            s.next()
+        else:
+            names.append(p_ident(s))
+    if as_allowed:
+        as_name = p_as_name(s)
+    return (pos, target_name, s.context.intern_ustring(u'.'.join(names)), as_name)
+
+
 def p_dotted_name(s, as_allowed):
     pos = s.position()
     target_name = p_ident(s)
     as_name = None
     names = [target_name]
-    while s.sy in ("::", "."):
+    while s.sy == ".":
         s.next()
         names.append(p_ident(s))
     if as_allowed:
