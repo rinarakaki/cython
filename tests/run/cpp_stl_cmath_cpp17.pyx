@@ -1,7 +1,7 @@
 # mode: run
 # tag: cpp, werror, cpp17
 
-from libcpp.cmath cimport beta, legendre, hypot
+use libcpp::cmath::(beta, legendre, hypot)
 
 def test_beta(f64 x, f64 y):
     """

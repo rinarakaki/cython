@@ -2,16 +2,16 @@
 
 use cython
 
-from cpython.datetime cimport import_datetime, timedelta
-from cpython.datetime cimport time_new, date_new, datetime_new, timedelta_new
-from cpython.datetime cimport time_tzinfo, datetime_tzinfo
-from cpython.datetime cimport time_hour, time_minute, time_second, time_microsecond
-from cpython.datetime cimport date_day, date_month, date_year
-from cpython.datetime cimport datetime_day, datetime_month, datetime_year
-from cpython.datetime cimport datetime_hour, datetime_minute, datetime_second, \
-                              datetime_microsecond
-from cpython.datetime cimport datetime, total_seconds
-from cpython.datetime cimport date_from_timestamp, get_utc, datetime_from_timestamp
+use cpython::datetime::(import_datetime, timedelta)
+use cpython::datetime::(time_new, date_new, datetime_new, timedelta_new)
+use cpython::datetime::(time_tzinfo, datetime_tzinfo)
+use cpython::datetime::(time_hour, time_minute, time_second, time_microsecond)
+use cpython::datetime::(date_day, date_month, date_year)
+use cpython::datetime::(datetime_day, datetime_month, datetime_year)
+use cpython::datetime::(datetime_hour, datetime_minute, datetime_second,
+                        datetime_microsecond)
+use cpython::datetime::(datetime, total_seconds)
+use cpython::datetime::(date_from_timestamp, get_utc, datetime_from_timestamp)
 
 # These were added in Python 2.7.5, make sure that their backport works.
 from cpython.datetime cimport (

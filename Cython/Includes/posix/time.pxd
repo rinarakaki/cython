@@ -1,6 +1,6 @@
 # https://pubs.opengroup.org/onlinepubs/009695399/basedefs/sys/time.h.html
 
-from posix.types cimport suseconds_t, time_t, clockid_t, timer_t
+use posix::types::(suseconds_t, time_t, clockid_t, timer_t)
 use posix::signal::sigevent
 
 extern from "<sys/time.h>" nogil:

@@ -1,12 +1,12 @@
 # mode: run
 # tag: cpp, werror, cpp17, cppexecpolicies, no-cpp-locals
 
-from libcpp.algorithm cimport is_sorted, sort, stable_sort, nth_element, all_of, count, copy
+use libcpp::algorithm::(is_sorted, sort, stable_sort, nth_element, all_of, count, copy)
+use libcpp::bool
 use libcpp::execution::seq
-use libcpp::vector::vector
 use libcpp::functional::greater
 use libcpp::iterator::back_inserter
-use libcpp::bool
+use libcpp::vector::vector
 
 
 def is_sorted_ints(vector[i32] values):

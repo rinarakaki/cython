@@ -58,12 +58,12 @@ extern from *:
     #endif
     """
 
-from libc.string cimport memset, memcpy
+use libc::string::(memset, memcpy)
 
 use cpython::object::Py_SIZE
-from cpython.ref cimport PyTypeObject, Py_TYPE
+use cpython::ref::(PyTypeObject, Py_TYPE)
 use cpython::exc::PyErr_BadArgument
-from cpython.mem cimport PyObject_Malloc, PyObject_Free
+use cpython::mem::(PyObject_Malloc, PyObject_Free)
 
 extern from *:  # Hard-coded utility code hack.
     ctypedef class array.array [object arrayobject]
