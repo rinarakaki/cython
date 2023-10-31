@@ -14,7 +14,7 @@ if True:
         True
         """
 
-if False:
+if false:
     class NotDefined(object):
         """
         >>> NotDefined() # fails when defined

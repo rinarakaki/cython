@@ -100,19 +100,19 @@ def print_long_2d(np.ndarray[i64, ndim=2] arr):
     >>> print_long_2d(a)
     0 1 2 3 4
     5 6 7 8 9
-    >>> print_long_2d(a[::-1, ::-1])
+    >>> print_long_2d(a[:;-1, :;-1])
     9 8 7 6 5
     4 3 2 1 0
     >>> print_long_2d(a[1:2, 1:3])
     6 7
-    >>> print_long_2d(a[::2, ::2])
+    >>> print_long_2d(a[:;2, :;2])
     0 2 4
-    >>> print_long_2d(a[::4, :])
+    >>> print_long_2d(a[:;4, :])
     0 1 2 3 4
-    >>> print_long_2d(a[:, 1:5:2])
+    >>> print_long_2d(a[:, 1:5;2])
     1 3
     6 8
-    >>> print_long_2d(a[:, 5:1:-2])
+    >>> print_long_2d(a[:, 5:1;-2])
     4 2
     9 7
     >>> print_long_2d(a[:, [3, 1]])
@@ -137,12 +137,12 @@ def put_range_long_1d(np.ndarray[i64] arr):
     >>> print (b)
     [[0 1 2 0 4]
      [5 6 7 1 9]]
-    >>> put_range_long_1d(b[::-1, 3])
+    >>> put_range_long_1d(b[:;-1, 3])
     >>> print (b)
     [[0 1 2 1 4]
      [5 6 7 0 9]]
     >>> a = np.zeros(9, dtype='l')
-    >>> put_range_long_1d(a[1::3])
+    >>> put_range_long_1d(a[1:;3])
     >>> print (a)
     [0 0 0 0 1 0 0 2 0]
 
@@ -173,7 +173,7 @@ def test_c_contig(np.ndarray[i32, ndim=2, mode='c'] arr):
     Traceback (most recent call last):
        ...
     ValueError: ndarray is not C...contiguous
-    >>> test_c_contig(c_arr[::2, ::2]) #doctest: +ELLIPSIS
+    >>> test_c_contig(c_arr[:;2, :;2]) #doctest: +ELLIPSIS
     Traceback (most recent call last):
        ...
     ValueError: ndarray is not C...contiguous
@@ -559,7 +559,7 @@ def test_fused_external(np.ndarray[fused_external, ndim=1] a):
 
 cdef fused fused_buffers:
     np.ndarray[np.int32_t, ndim=1]
-    np.int64_t[::1]
+    np.int64_t[:;1]
 
 @testcase
 def test_fused_buffers(fused_buffers arg):

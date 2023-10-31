@@ -48,7 +48,7 @@ def test_optimised():
     assert isinstance(type('a',(),{}), type)
     assert isinstance(new_type, type)
 
-    let object boolval = True
+    let object boolval = true
     assert isinstance(boolval, bool)
     assert isinstance(True, bool)
 

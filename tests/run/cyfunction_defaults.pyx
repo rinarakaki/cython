@@ -231,8 +231,8 @@ def test_memoryview_bytes(const u8[:] b=b'xyz'):
     return b[0]
 
 @cython.test_fail_if_path_exists(
-    '//NameNode[@entry.in_closure = True]',
-    '//NameNode[@entry.from_closure = True]')
+    '//NameNode[@entry.in_closure = true]',
+    '//NameNode[@entry.from_closure = true]')
 def test_func_default_inlined():
     """
     Make sure we don't accidentally generate a closure.
@@ -250,8 +250,8 @@ def test_func_default_inlined():
     return func
 
 @cython.test_fail_if_path_exists(
-    '//NameNode[@entry.in_closure = True]',
-    '//NameNode[@entry.from_closure = True]')
+    '//NameNode[@entry.in_closure = true]',
+    '//NameNode[@entry.from_closure = true]')
 def test_func_default_scope():
     """
     Test that the default value expression is evaluated in the outer scope.

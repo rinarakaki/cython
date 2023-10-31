@@ -1,6 +1,6 @@
 # tag: pstats
-# cython: profile = True
-# cython: binding = False
+# cython: profile = true
+# cython: binding = false
 
 __doc__ = u"""
     >>> import os, tempfile, cProfile as profile, pstats

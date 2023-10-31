@@ -20,8 +20,8 @@ fn type(arg):
     return u'type' + arg
 
 @cython.test_fail_if_path_exists(
-    '//PyMethodCallNode/NameNode[@name="type" and @entry.is_cfunction=False]',
-    '//SimpleCallNode/NameNode[@name="type" and @entry.is_cfunction=False]',
+    '//PyMethodCallNode/NameNode[@name="type" and @entry.is_cfunction=false]',
+    '//SimpleCallNode/NameNode[@name="type" and @entry.is_cfunction=false]',
     '//SimpleCallNode/NameNode[@name="len" and @entry.is_cfunction=true]',
     )
 @cython.test_assert_path_exists(
