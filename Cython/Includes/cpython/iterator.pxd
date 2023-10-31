@@ -2,10 +2,10 @@ extern from "Python.h":
     ############################################################################
     # 6.5 Iterator Protocol
     ############################################################################
-    bint PyIter_Check(object o)
+    fn bint PyIter_Check(object o)
     # Return true if the object o supports the iterator protocol.
 
-    object PyIter_Next(object o)
+    fn object PyIter_Next(object o)
     # Return value: New reference.
     # Return the next value from the iteration o. If the object is an
     # iterator, this retrieves the next value from the iteration, and

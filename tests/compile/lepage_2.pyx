@@ -1,4 +1,4 @@
 # mode: compile
 
-ctypedef struct BB:
+struct BB:
     void (*f) (void* state)

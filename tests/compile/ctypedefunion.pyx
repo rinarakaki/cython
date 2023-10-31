@@ -1,10 +1,10 @@
 # mode: compile
 
-ctypedef union pet:
+union Pet:
     i32 cat
     f32 dog
 
-cdef pet sam
+cdef Pet sam
 
 sam.cat = 1
 sam.dog = 2.7

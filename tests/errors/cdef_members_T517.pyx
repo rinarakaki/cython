@@ -8,7 +8,7 @@ cdef class Spam:
     cdef readonly VoidP vp2
     pub           VoidP vp1
 
-ctypedef struct Foo:
+struct Foo:
     i32 i
 
 cdef class Bar:

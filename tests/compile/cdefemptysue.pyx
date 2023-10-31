@@ -19,12 +19,12 @@ extern from *:
 
     struct FlatSpam: pass
 
-    ctypedef struct flat_spam_type: pass
+    struct FlatSpamType: pass
 
-    ctypedef union eggs:
+    union Eggs:
         pass
 
-    ctypedef union flat_eggs: pass
+    union FlatEggs: pass
 
     enum Ham:
         pass
@@ -33,10 +33,10 @@ extern from *:
 
 cdef extern Spam s
 cdef extern FlatSpam fs
-cdef extern flat_spam_type fst
+cdef extern FlatSpamType fst
 
-cdef extern eggs e
-cdef extern flat_eggs fe
+cdef extern Eggs e
+cdef extern FlatEggs fe
 
 cdef extern Ham h
 cdef extern FlatHam fh

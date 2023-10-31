@@ -1,5 +1,5 @@
 # tag: pstats
-# cython: profile = True
+# cython: profile = true
 
 u"""
     >>> import os, tempfile, cProfile as profile, pstats

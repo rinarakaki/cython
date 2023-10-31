@@ -1,5 +1,5 @@
 extern from "Python.h":
-    ctypedef struct Py_complex:
+    struct Py_complex:
         f64 imag
         f64 real
 
@@ -26,28 +26,28 @@ extern from "Python.h":
     # number type. It is the same object as complex and
     # types.ComplexType.
 
-    bint PyComplex_Check(object p)
+    fn bint PyComplex_Check(object p)
     # Return true if its argument is a PyComplexObject or a subtype of
     # PyComplexObject.
 
-    bint PyComplex_CheckExact(object p)
+    fn bint PyComplex_CheckExact(object p)
     # Return true if its argument is a PyComplexObject, but not a subtype of PyComplexObject.
 
-    object PyComplex_FromCComplex(Py_complex v)
+    fn object PyComplex_FromCComplex(Py_complex v)
     # Return value: New reference.
     # Create a new Python complex number object from a C Py_complex value.
 
-    object PyComplex_FromDoubles(f64 real, f64 imag)
+    fn object PyComplex_FromDoubles(f64 real, f64 imag)
     # Return value: New reference.
     # Return a new PyComplexObject object from real and imag.
 
-    f64 PyComplex_RealAsDouble(object op) except? -1
+    fn f64 PyComplex_RealAsDouble(object op) except? -1
     # Return the real part of op as a C f64.
 
-    f64 PyComplex_ImagAsDouble(object op) except? -1
+    fn f64 PyComplex_ImagAsDouble(object op) except? -1
     # Return the imaginary part of op as a C double.
 
-    Py_complex PyComplex_AsCComplex(object op)
+    fn Py_complex PyComplex_AsCComplex(object op)
     # Return the Py_complex value of the complex number op.
     #
     # Returns (-1+0i) in case of an error

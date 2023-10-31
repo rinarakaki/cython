@@ -11,7 +11,7 @@ ctypedef isize index_t
 
 ctypedef double complex mycomplex
 
-ctypedef struct MyStruct:
+struct MyStruct:
     mycomplex a, b
 
 #[cython.cdivision(false)]
