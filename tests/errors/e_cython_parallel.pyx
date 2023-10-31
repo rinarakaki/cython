@@ -1,6 +1,6 @@
 # mode: error
 
-use cython::parallel::parallel as p
+cimport cython.parallel.parallel as p
 use cython::parallel::something
 
 import cython.parallel.parallel as p
