@@ -1753,7 +1753,7 @@ def p_use_statement(s):
     for pos, path, ident, as_name in items:
         if path:
             stat = Nodes.FromCImportStatNode(
-                pos, module_name=path,
+                pos, module_name=".".join(path),
                 relative_level=0,
                 imported_names=[(pos, ident, as_name)])
         else:
