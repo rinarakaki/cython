@@ -3,8 +3,8 @@
 use cython
 use cython::operator::dereference
 use cython::parallel::(parallel, prange)
-use libcpp::vector::vector
 use libcpp::algorithm::nth_element
+use libcpp::vector::vector
 
 import numpy as np
 
