@@ -637,14 +637,17 @@ def p_subscript(s):
     # 1, 2 or 3 ExprNodes, depending on how
     # many slice elements were encountered.
     pos = s.position()
-    start = p_slice_element(s, (':',))
-    if s.sy != ':':
+    start = p_slice_element(s, (":", "::"))
+    if s.sy not in (":", "::"):
         return [start]
-    s.next()
-    stop = p_slice_element(s, (':', ';', ',', ']'))
-    if s.sy not in (':', ';'):
-        return [start, stop]
-    s.next()
+    elif s.sy == ":":
+        s.next()
+        stop = p_slice_element(s, (':', ';', ',', ']'))
+        if s.sy not in (':', ';'):
+            return [start, stop]
+    else:
+        s.next()
+        stop = None
     step = p_slice_element(s, (':', ';', ',', ']'))
     return [start, stop, step]
 
