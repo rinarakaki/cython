@@ -1893,7 +1893,7 @@ def p_path(s, as_allowed):
     names = [target_name]
     while s.sy == "::":
         s.next()
-        if s.sy == "*" and s.peek()[0] != "::":
+        if s.sy == "*":
             names.append(s.context.intern_ustring("*"))
             s.next()
         else:
