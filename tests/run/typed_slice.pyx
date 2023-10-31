@@ -386,7 +386,7 @@ def slice_fused_type_step(sliceable seq, step):
     >>> o = (l, t, b, u)
     >>> n = ('list', 'tuple', 'bytes', 'unicode')
     >>> p = lambda o: o.decode() if isinstance(o, type(b)) else str(o)
-    >>> r = lambda i, s: '%s[::%r] -> %s' % (n[i], s, p(slice_fused_type_step(o[i], s)))
+    >>> r = lambda i, s: '%s[:;%r] -> %s' % (n[i], s, p(slice_fused_type_step(o[i], s)))
     >>> for i in range(len(o)):
     ...     for s in (1, -1, 2, -3, 5, -5, None):
     ...         print(r(i, s))
@@ -438,7 +438,7 @@ def slice_fused_type_start_and_step(sliceable seq, start, step):
     >>> o = (l, t, b, u)
     >>> n = ('list', 'tuple', 'bytes', 'unicode')
     >>> p = lambda o: o.decode() if isinstance(o, type(b)) else str(o)
-    >>> r = lambda i, s, t: '%s[%r::%r] -> %s' % (n[i], s, t, p(slice_fused_type_start_and_step(o[i], s, t)))
+    >>> r = lambda i, s, t: '%s[%r:;%r] -> %s' % (n[i], s, t, p(slice_fused_type_start_and_step(o[i], s, t)))
     >>> for i in range(len(o)):
     ...     for start, step in ((0, 1), (0, -1), (1, 1), (1, -1),
     ...                         (None, 1), (None, -1), (None, None),
@@ -502,7 +502,7 @@ def slice_fused_type_stop_and_step(sliceable seq, stop, step):
     >>> o = (l, t, b, u)
     >>> n = ('list', 'tuple', 'bytes', 'unicode')
     >>> p = lambda o: o.decode() if isinstance(o, type(b)) else str(o)
-    >>> r = lambda i, s, t: '%s[:%r:%r] -> %s' % (n[i], s, t, p(slice_fused_type_stop_and_step(o[i], s, t)))
+    >>> r = lambda i, s, t: '%s[:%r;%r] -> %s' % (n[i], s, t, p(slice_fused_type_stop_and_step(o[i], s, t)))
     >>> for i in range(len(o)):
     ...     for stop, step in ((len(l), 1), (len(l), None), (None, 1),
     ...                        (len(l), -1), (len(l) - 1, 2), (len(l), -2),
@@ -556,7 +556,7 @@ def slice_fused_type_all(sliceable seq, start, stop, step):
     >>> o = (l, t, b, u)
     >>> n = ('list', 'tuple', 'bytes', 'unicode')
     >>> p = lambda o: o.decode() if isinstance(o, type(b)) else str(o)
-    >>> r = lambda i, s, t, e: '%s[%r:%r:%r] -> %s' % (n[i], s, t, e, p(slice_fused_type_all(o[i], s, t, e)))
+    >>> r = lambda i, s, t, e: '%s[%r:%r;%r] -> %s' % (n[i], s, t, e, p(slice_fused_type_all(o[i], s, t, e)))
     >>> for i in range(len(o)):
     ...     for args in ((0, len(l), 1), (len(l), 0, -1), (None, len(l), 1),
     ...                  (len(l), None, -1), (-len(l), len(l), None), (None, None, None),
