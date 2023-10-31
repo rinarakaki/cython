@@ -188,7 +188,7 @@ def call_struct_io(s : MyStruct) -> MyStruct:
     "//CFuncDefNode",
     "//CFuncDefNode//DefNode",
     "//CFuncDefNode[@return_type]",
-    "//CFuncDefNode[@return_type.is_struct_or_union = True]",
+    "//CFuncDefNode[@return_type.is_struct_or_union = true]",
 )]
 #[cython.ccall]
 def struct_convert(d) -> MyStruct:
@@ -206,7 +206,7 @@ def struct_convert(d) -> MyStruct:
     "//CFuncDefNode",
     "//CFuncDefNode//DefNode",
     "//CFuncDefNode[@return_type]",
-    "//CFuncDefNode[@return_type.is_int = True]",
+    "//CFuncDefNode[@return_type.is_int = true]",
 )]
 #[cython.ccall]
 def exception_default(raise_exc : cython.u2 = false) -> cython.i32:
@@ -235,10 +235,10 @@ def call_exception_default(raise_exc=false):
     "//CFuncDefNode",
     "//CFuncDefNode//DefNode",
     "//CFuncDefNode[@return_type]",
-    "//CFuncDefNode[@return_type.is_int = True]",
+    "//CFuncDefNode[@return_type.is_int = true]",
 )]
 #[cython.ccall]
-def exception_default_uint(raise_exc : cython.u2 = false) -> cython.uint:
+def exception_default_uint(raise_exc : cython.u2 = false) -> cython.u32:
     """
     >>> print(exception_default_uint(raise_exc=false))
     10

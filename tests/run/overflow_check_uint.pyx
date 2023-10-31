@@ -1,4 +1,4 @@
-# cython: overflowcheck.fold = False
+# cython: overflowcheck.fold = false
 
 ctypedef u32 INT
 

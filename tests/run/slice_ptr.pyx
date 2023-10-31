@@ -23,8 +23,8 @@ def double_ptr_slice(x, L, i32 a, i32 b):
         assert (x not in L_c[:b]) == (x not in L[:b])
         assert (x in L_c[a:b]) == (x in L[a:b])
         assert (x not in L_c[a:b]) == (x not in L[a:b])
-        assert (x in L_c[a:b:2]) == (x in L[a:b:2])
-        assert (x not in L_c[a:b:2]) == (x not in L[a:b:2])
+        assert (x in L_c[a:b;2]) == (x in L[a:b;2])
+        assert (x not in L_c[a:b;2]) == (x not in L[a:b;2])
     finally:
         free(L_c)
 
@@ -49,8 +49,8 @@ def void_ptr_slice(py_x, L, i32 a, i32 b):
         assert (x not in L_c[:b]) == (py_x not in L[:b])
         assert (x in L_c[a:b]) == (py_x in L[a:b])
         assert (x not in L_c[a:b]) == (py_x not in L[a:b])
-        assert (x in L_c[a:b:2]) == (py_x in L[a:b:2])
-        assert (x not in L_c[a:b:2]) == (py_x not in L[a:b:2])
+        assert (x in L_c[a:b;2]) == (py_x in L[a:b;2])
+        assert (x not in L_c[a:b;2]) == (py_x not in L[a:b;2])
     finally:
         free(L_c)
 

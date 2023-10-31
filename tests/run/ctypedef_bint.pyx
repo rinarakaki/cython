@@ -4,8 +4,8 @@ from cython cimport typeof
 
 ctypedef u2 mybool
 
-cdef mybool mybul = True
-cdef u2 bul = True
+cdef mybool mybul = true
+cdef u2 bul = true
 cdef int num = 42
 
 def CondExprNode_to_obj(test):

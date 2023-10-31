@@ -36,9 +36,9 @@ cdef class WorkerTaskRec(TaskRec):
     pub isize count
 
 cdef class TaskState:
-    pub u2 packet_pending # = True
-    pub u2 task_waiting   # = False
-    pub u2 task_holding   # = False
+    pub u2 packet_pending # = true
+    pub u2 task_waiting   # = false
+    pub u2 task_holding   # = false
 
     cpdef packet_pending(self)
     cpdef waiting(self)

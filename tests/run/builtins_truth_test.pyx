@@ -38,9 +38,9 @@ def if_list_nogil(list obj):
     let u2 result
     with nogil:
         if obj:
-            result = True
+            result = true
         else:
-            result = False
+            result = false
     return result
 
 
@@ -148,9 +148,9 @@ def if_set_nogil(set obj):
     let u2 result
     with nogil:
         if obj:
-            result = True
+            result = true
         else:
-            result = False
+            result = false
     return result
 
 
