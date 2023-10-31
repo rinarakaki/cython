@@ -1,6 +1,6 @@
 # https://en.wikipedia.org/wiki/C_date_and_time_functions
 
-from libc.stddef cimport wchar_t
+use libc::stddef::wchar_t
 
 extern from "<time.h>" nogil:
     ctypedef i64 clock_t

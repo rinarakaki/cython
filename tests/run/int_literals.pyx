@@ -4,7 +4,7 @@
 from __future__ import absolute_import
 
 use cython
-from cython cimport typeof
+use cython::typeof
 
 import sys
 

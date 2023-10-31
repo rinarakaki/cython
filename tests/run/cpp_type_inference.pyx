@@ -17,11 +17,11 @@ extern from "shapes.h" namespace "shapes":
 
     let Empty make_Empty "shapes::Empty"()
 
-from cython cimport typeof
+use cython::typeof
 
-from cython.operator cimport dereference as d
-from cython.operator cimport preincrement as incr
-from libcpp.vector cimport vector
+use cython::operator::dereference as d
+use cython::operator::preincrement as incr
+use libcpp::vector::vector
 
 def test_reversed_vector_iteration(L):
     """

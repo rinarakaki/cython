@@ -1,10 +1,10 @@
 # mode: run
 # tag: cpp, werror, no-cpp-locals, cpp11
 
-from cython.operator cimport dereference as d
-from cython.operator cimport preincrement as incr
+use cython::operator::dereference as d
+use cython::operator::preincrement as incr
 
-from libcpp.vector cimport vector
+use libcpp::vector::vector
 
 def const_iteration_test(L):
     """

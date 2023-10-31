@@ -1,11 +1,11 @@
 # mode: run
 # tag: cpp, werror, no-cpp-locals
 
-from cython.operator cimport dereference as d
-from cython.operator cimport preincrement as incr
+use cython::operator::dereference as d
+use cython::operator::preincrement as incr
 
-from libcpp.vector cimport vector
-from libcpp cimport bool as cbool
+use libcpp::vector::vector
+use libcpp::bool as cbool
 
 def simple_test(f64 x):
     """

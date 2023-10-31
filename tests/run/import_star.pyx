@@ -10,7 +10,7 @@ struct MyStruct:
 # (there used to be a problem getting Cython conversion code generated here)
 cdef MyStruct _no_such_name_ = MyStruct(1, 2, 3)
 
-from libc.math cimport M_PI
+use libc::math::M_PI
 
 # Danger ahead!
 from sys import *

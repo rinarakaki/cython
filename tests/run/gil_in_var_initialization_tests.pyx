@@ -13,7 +13,7 @@
 # The second ones are disabled because they are tripped up by the annotated HTML output, where
 # the code is jumbled up so they get caught by some GIL use in some unrelated error handling.
 
-from libcpp cimport bool
+use libcpp::bool
 
 # What we're testing in this file is that certain bits of code don't acquire the GIL
 # at any point during the function.

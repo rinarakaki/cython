@@ -1,6 +1,6 @@
 # distutils: language = c++
 
-from libcpp.vector cimport vector
+use libcpp::vector::vector
 
 cdef vector[i32] vect
 cdef i32 i, x

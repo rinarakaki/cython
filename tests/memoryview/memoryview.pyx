@@ -11,9 +11,9 @@ u'''
 '''
 
 from cython.view cimport memoryview, array
-from cython cimport view
+use cython::view
 
-from cpython.object cimport PyObject
+use cpython::object::PyObject
 from cpython.ref cimport Py_INCREF, Py_DECREF
 use cython
 

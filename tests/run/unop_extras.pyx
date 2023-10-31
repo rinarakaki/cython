@@ -1,6 +1,6 @@
-use cython.operator
-from cython.operator cimport dereference
-from cython.operator cimport dereference as deref
+cimport cython.operator
+use cython::operator::dereference
+use cython::operator::dereference as deref
 
 def test_deref(i32 x):
     """

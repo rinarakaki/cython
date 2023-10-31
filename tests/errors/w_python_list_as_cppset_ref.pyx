@@ -1,7 +1,7 @@
 # mode: error
 # tag: cpp, werror
 
-from libcpp.set cimport set
+use libcpp::set::set
 
 extern from *:
     fn void cpp_function_set1(set[i32] arg)

@@ -1,4 +1,4 @@
-from c_func cimport get_a_c_string
+use c_func::get_a_c_string
 
 cdef char* c_string = NULL
 cdef isize length = 0

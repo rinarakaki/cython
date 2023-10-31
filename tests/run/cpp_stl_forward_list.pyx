@@ -1,11 +1,11 @@
 # mode: run
 # tag: cpp, werror, cpp11, no-cpp-locals
 
-from cython.operator cimport dereference as deref
-from cython.operator cimport preincrement as incr
+use cython::operator::dereference as deref
+use cython::operator::preincrement as incr
 
-from libcpp.forward_list cimport forward_list
-from libcpp cimport bool as cbool
+use libcpp::forward_list::forward_list
+use libcpp::bool as cbool
 
 def simple_iteration_test(L):
     """

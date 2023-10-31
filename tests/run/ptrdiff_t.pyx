@@ -1,4 +1,4 @@
-from cython cimport typeof
+use cython::typeof
 
 def test(ptrdiff_t i):
     """

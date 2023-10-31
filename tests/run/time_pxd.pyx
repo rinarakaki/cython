@@ -3,7 +3,7 @@
 
 import time
 
-from cpython cimport time as ctime
+use cpython::time as ctime
 
 
 def test_time():

@@ -1,3 +1,3 @@
-from package.inpackage cimport Spam
+use package::inpackage::Spam
 
 cdef Spam s2

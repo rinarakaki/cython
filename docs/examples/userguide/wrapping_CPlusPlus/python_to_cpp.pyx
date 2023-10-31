@@ -1,7 +1,7 @@
 # distutils: language = c++
 
-from libcpp.string cimport string
-from libcpp.vector cimport vector
+use libcpp::string::string
+use libcpp::vector::vector
 
 py_bytes_object = b'The knights who say ni'
 py_unicode_object = u'Those who hear them seldom live to tell the tale.'

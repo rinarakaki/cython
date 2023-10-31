@@ -3,7 +3,7 @@
 use cython
 from cython cimport typeof, infer_types
 
-from cpython cimport bool
+use cpython::bool
 
 ##################################################
 # type inference tests in 'full' mode
