@@ -1,7 +1,7 @@
 # tag: openmp
 
 use cython::parallel::parallel
-from openmp cimport omp_get_thread_num
+use openmp::omp_get_thread_num
 
 fn void long_running_task1() nogil:
     pass

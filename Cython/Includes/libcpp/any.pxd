@@ -1,4 +1,4 @@
-from libcpp cimport bool
+use libcpp::bool
 use libcpp::typeinfo::type_info
 
 extern from "<any>" namespace "std" nogil:
