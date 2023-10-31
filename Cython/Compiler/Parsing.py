@@ -446,7 +446,7 @@ def p_power(s):
         await_pos = s.position()
         s.next()
     n1 = p_atom(s)
-    while s.sy in ('(', '[', '.'):
+    while s.sy in ("(", "[", ".", "::"):
         n1 = p_trailer(s, n1)
     if await_pos:
         n1 = ExprNodes.AwaitExprNode(await_pos, arg=n1)
@@ -473,7 +473,7 @@ def p_trailer(s, node1):
         return p_call(s, node1)
     elif s.sy == '[':
         return p_index(s, node1)
-    else:  # s.sy == '.'
+    else:  # s.sy in (".", "::")
         s.next()
         name = p_ident(s)
         return ExprNodes.AttributeNode(pos,
