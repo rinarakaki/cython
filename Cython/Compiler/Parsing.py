@@ -1758,8 +1758,8 @@ def p_use_statement(s):
         items.append(p_path(s, as_allowed=1))
     stats = []
     is_absolute = Future.absolute_import in s.context.future_directives
-    for pos, path, idents, as_name in items:
-        if idents:
+    for pos, path, idents in items:
+        if path:
             stat = Nodes.FromCImportStatNode(
                 pos,
                 module_name=s.context.intern_ustring(".".join(path)),
@@ -1769,8 +1769,8 @@ def p_use_statement(s):
         else:
             stat = Nodes.CImportStatNode(
                 pos,
-                module_name=s.context.intern_ustring(path[0]),
-                as_name=as_name,
+                module_name=s.context.intern_ustring(idents[0][1]),
+                as_name=idents[0][2],
                 is_absolute=is_absolute,
             )
         stats.append(stat)
@@ -1898,7 +1898,6 @@ def p_imported_name(s):
 
 def p_path(s, as_allowed):
     pos = s.position()
-    as_name = None
     path = [p_ident(s)]
     idents = []
     while s.sy == "::":
@@ -1918,9 +1917,9 @@ def p_path(s, as_allowed):
             as_allowed = False
         else:
             path.append(p_ident(s))
-    if as_allowed:
-        as_name = p_as_name(s)
-    return (pos, path, idents, as_name)
+    if len(idents) == 0:
+        path, idents = path[:-1], [(s.position(), path[-1], p_as_name(s))]
+    return (pos, path, idents)
 
 
 def p_dotted_name(s, as_allowed):
