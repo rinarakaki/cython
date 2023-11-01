@@ -1,8 +1,8 @@
 # mode: run
 # tag: dataclass
 
-from cython cimport dataclasses
-from cython.dataclasses cimport dataclass, field
+use cython::dataclasses
+use cython::dataclasses::(dataclass, field)
 try:
     import typing
     from typing import ClassVar
@@ -11,7 +11,7 @@ try:
 except ImportError:
     pass
 import cython
-from libc.stdlib cimport malloc, free
+use libc::stdlib::(malloc, free)
 
 include "../testsupport/cythonarrayutil.pxi"
 

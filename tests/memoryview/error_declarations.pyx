@@ -1,7 +1,7 @@
 # mode: error
 
 use cython
-from cython cimport view
+use cython::view
 
 cdef i16[:;1, :;1] both
 cdef i16[:;1, :, :, :;1] both2

@@ -1,6 +1,6 @@
 # https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/sys_uio.h.html
 
-from posix.types cimport off_t
+use posix::types::off_t
 
 
 extern from "<sys/uio.h>" nogil:

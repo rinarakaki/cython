@@ -1,7 +1,7 @@
 # tag: posix
-from libc.stdio   cimport *
-from posix.unistd cimport *
-from posix.fcntl  cimport *
+use libc::stdio::*
+use posix::unistd::*
+use posix::fcntl::*
 
 
 fn i32 noisy_function() except -1:

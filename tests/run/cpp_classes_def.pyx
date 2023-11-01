@@ -4,11 +4,11 @@
 
 cdef f64 pi
 from math import pi
-from libc.math cimport sin, cos
-from libcpp cimport bool
-from libcpp.memory cimport unique_ptr
-from libcpp.vector cimport vector
-from cython.operator cimport dereference as deref
+use libc::math::(sin, cos)
+use libcpp::bool
+use libcpp::memory::unique_ptr
+use libcpp::vector::vector
+use cython::operator::dereference as deref
 import cython
 
 extern from "shapes.h" namespace "shapes":

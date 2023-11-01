@@ -1,6 +1,6 @@
 # ticket: t227
 
-from cpython.bool cimport bool
+use cpython::bool::bool
 
 def foo(bool a):
     """

@@ -1,4 +1,4 @@
-from libc.stdio cimport FILE
+use libc::stdio::FILE
 cimport cpython.type
 
 extern from "Python.h":

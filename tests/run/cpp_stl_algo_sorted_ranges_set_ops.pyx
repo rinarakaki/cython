@@ -1,10 +1,10 @@
 # mode: run
 # tag: cpp, werror, cpp11
 
-from libcpp cimport bool
+use libcpp::bool
 from libcpp.algorithm cimport (includes, set_difference, set_intersection, 
                                set_symmetric_difference, set_union)
-from libcpp.vector cimport vector
+use libcpp::vector::vector
 
 
 fn bool less(i32 a, i32 b):

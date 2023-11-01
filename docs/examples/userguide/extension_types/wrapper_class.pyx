@@ -1,4 +1,4 @@
-from libc.stdlib cimport malloc, free
+use libc::stdlib::(malloc, free)
 
 # Example C struct
 struct my_c_struct:

@@ -1,4 +1,4 @@
-from libc.setjmp cimport *
+use libc::setjmp::*
 
 fn void check_nonzero(jmp_buf ctx, i32 x) nogil:
     if x == 0:
@@ -23,7 +23,7 @@ def nonzero(i32 x):
     else:
         return false
 
-from libc.string cimport strcpy
+use libc::string::strcpy
 cdef char[256] error_msg
 cdef jmp_buf error_ctx
 fn void error(char msg[]) nogil:

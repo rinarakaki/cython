@@ -1,5 +1,5 @@
 import random
-from libc.stdlib cimport malloc, free
+use libc::stdlib::(malloc, free)
 
 def random_noise(i32 number=1):
     let i32 i
