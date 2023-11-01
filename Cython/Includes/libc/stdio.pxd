@@ -2,7 +2,7 @@
 
 
 # deprecated cimports for backwards compatibility:
-from libc.string cimport const_char, const_void
+use libc::string::(const_char, const_void)
 
 extern from "<stdio.h>" nogil:
     struct FILE

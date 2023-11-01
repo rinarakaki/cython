@@ -3,7 +3,7 @@
 
 use cython
 
-from libcpp.string cimport string, npos, to_string, stoi, stof
+use libcpp::string::(string, npos, to_string, stoi, stof)
 
 b_asdf = b'asdf'
 b_asdg = b'asdg'

@@ -1,10 +1,10 @@
 # mode: run
 # tag: cpp, werror, cpp11, no-cpp-locals
 
-use libcpp::nullptr
-from libcpp.memory cimport shared_ptr, make_shared
-use libcpp::utility::move
 use cython::operator::dereference
+use libcpp::memory::(shared_ptr, make_shared)
+use libcpp::nullptr
+use libcpp::utility::move
 
 extern from *:
     """
