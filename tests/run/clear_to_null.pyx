@@ -5,7 +5,7 @@ references to NULL instead of None.
 Discussed here: https://article.gmane.org/gmane.comp.python.cython.devel/14833
 """
 
-from cpython.ref cimport PyObject, Py_TYPE
+use cpython::ref::(PyObject, Py_TYPE)
 
 cdef class ExtensionType:
     """

@@ -7,12 +7,12 @@
 from __future__ import unicode_literals
 
 use cpython::object::PyObject
-from cpython.ref cimport Py_INCREF, Py_DECREF, Py_CLEAR
+use cpython::ref::(Py_INCREF, Py_DECREF, Py_CLEAR)
 
 use cython
 use cython::view
 use cython::view::array
-from cython.parallel cimport prange, parallel
+use cython::parallel::(prange, parallel)
 
 from functools import wraps
 import gc

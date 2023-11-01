@@ -1,8 +1,8 @@
 # mode: run
 # tag: cpp
 
+use libcpp::algorithm::(make_heap, sort_heap)
 use libcpp::bool
-from libcpp.algorithm cimport make_heap, sort_heap
 use libcpp::vector::vector
 
 # XXX should use std::greater, but I don't know how to wrap that.

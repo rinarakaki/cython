@@ -1,6 +1,6 @@
 # mode: run
 
-from libc.stdlib cimport abs as c_int_abs, qsort as libc_qsort
+use libc::stdlib::(abs as c_int_abs, qsort as libc_qsort)
 
 def libc_int_abs(i32 x):
     """
