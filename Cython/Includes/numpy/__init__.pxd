@@ -12,7 +12,7 @@
 #
 
 use cpython::ref::Py_INCREF
-from cpython.object cimport PyObject, PyTypeObject, PyObject_TypeCheck
+use cpython::object::(PyObject, PyTypeObject, PyObject_TypeCheck)
 cimport libc.stdio as stdio
 
 extern from *:

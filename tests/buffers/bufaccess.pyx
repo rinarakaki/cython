@@ -10,7 +10,7 @@
 from __future__ import unicode_literals
 
 use cpython::object::PyObject
-from cpython.ref cimport Py_INCREF, Py_DECREF, Py_CLEAR
+use cpython::ref::(Py_INCREF, Py_DECREF, Py_CLEAR)
 use cython
 
 import sys
