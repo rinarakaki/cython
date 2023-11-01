@@ -1759,16 +1759,17 @@ def p_use_statement(s):
     stats = []
     is_absolute = Future.absolute_import in s.context.future_directives
     for pos, path, idents, as_name in items:
-        if path:
+        if idents:
             stat = Nodes.FromCImportStatNode(
-                pos, module_name=s.context.intern_ustring(".".join([fragment[1] for fragment in path])),
+                pos,
+                module_name=s.context.intern_ustring(".".join(segment[1] for segment in path)),
                 relative_level=0,
                 imported_names=idents,
             )
         else:
             stat = Nodes.CImportStatNode(
                 pos,
-                module_name=idents[0][1],
+                module_name=s.context.intern_ustring(path[0][1]),
                 as_name=as_name,
                 is_absolute=is_absolute,
             )
@@ -1898,12 +1899,12 @@ def p_imported_name(s):
 def p_path(s, as_allowed):
     pos = s.position()
     as_name = None
-    path = [p_imported_name(s)]
+    path = [p_ident(s)]
     idents = []
     while s.sy == "::":
         s.next()
         if s.sy == "*":
-            path.append((s.position(), s.context.intern_ustring("*"), None))
+            path.append(s.context.intern_ustring("*"))
             s.next()
         elif s.sy == "(":
             s.next()
@@ -1914,12 +1915,11 @@ def p_path(s, as_allowed):
                     break
                 idents.append(p_imported_name(s))
             s.expect(")")
+            as_allowed = False
         else:
-            path.append(p_imported_name(s))
+            path.append(p_ident(s))
     if as_allowed:
         as_name = p_as_name(s)
-    if len(idents) == 0:
-        path, idents = path[:-1], path[-1]
     return (pos, path, idents, as_name)
 
 
