@@ -48,7 +48,7 @@ setup(
 
 ######## py_pkg/py_a.pyx ########
 
-from .py_sub cimport py_c
+use super::py_sub::py_c
 
 def test():
     cdef py_c.py_b.py_b_int b = 1
@@ -66,7 +66,7 @@ ctypedef i32 py_b_int
 
 ######## py_pkg/py_sub/py_c.pxd ########
 
-from .. cimport py_b
+use super::super::py_b
 use super::py_d
 
 ctypedef i32 py_c_int
@@ -81,14 +81,14 @@ ctypedef i32 py_d_int
 
 ######## pkg/a.pyx ########
 
-from .sub.reimport cimport myint
-from .sub cimport c
+use super::sub::reimport::myint
+use super::sub::c
 
 cdef myint i = 5
 assert i == 5
 assert c.sum_func(1, 2) == 3
 
-from .sub cimport myint as pkg_myint
+use super::sub::myint as pkg_myint
 
 cdef pkg_myint pi = 7
 assert pi == 7
@@ -99,18 +99,16 @@ cdef class test_pxd:
 def test():
     return (i, pi)
 
-
 ######## pkg/a.pxd ########
 
 cdef class test_pxd:
     pub i32 x
     pub i32 y
 
-
 ######## pkg/b.pyx ########
 
 use super::a
-from .a cimport test_pxd
+use super::a::test_pxd
 
 assert a.test_pxd is test_pxd
 
@@ -120,14 +118,13 @@ def test():
     obj.y = 2
     return (obj.x, obj.y)
 
-
 ######## pkg/b_py2.pyx ########
 
 # cython: language_level=2
 
 use super::a
-from .a cimport test_pxd
-cimport a as implicitly_relative_a  # <-- Py2 "feature"
+use super::a::test_pxd
+use a as implicitly_relative_a  # <-- Py2 "feature"
 
 assert a.test_pxd is test_pxd
 assert implicitly_relative_a.test_pxd is test_pxd
@@ -138,10 +135,9 @@ def test():
     obj.y = 2
     return (obj.x, obj.y)
 
-
 ######## pkg/sub/c.pyx ########
 
-from ..a cimport test_pxd
+use super::super::a::test_pxd
 
 def test():
     cdef test_pxd obj = test_pxd()
@@ -167,13 +163,11 @@ def test():
 
 ctypedef i32 myint
 
-
 ######## pkg/sub/reimport.pxd ########
 
-from .tdef cimport myint
-
+use super::tdef::myint
 
 ######## pkg/sub/__init__.pxd ########
 
-from .tdef cimport myint
+use super::tdef::myint
 use super::c

@@ -2,14 +2,16 @@ PYTHON setup.py build_ext --inplace
 PYTHON test.py
 
 ######## setup.py ########
+
 from Cython.Build import cythonize
 from distutils.core import setup
 
 setup(
-  ext_modules = cythonize("*.pyx"),
+    ext_modules = cythonize("*.pyx"),
 )
 
 ######## test.py ########
+
 from base import A, B
 from derived import C
 
@@ -26,6 +28,7 @@ assert C().foo2() == 'B.foo'
 assert C().bar() == 'C.bar'
 
 ######## base.pxd ########
+
 cdef class A(object):
     fn foo(self)
 
@@ -33,6 +36,7 @@ cdef class B(A):
     cpdef foo(self)
 
 ######## base.pyx ########
+
 cdef class A(object):
     fn foo(self):
         return "A.foo"
@@ -48,7 +52,8 @@ cdef class B(A):
         return self.foo()
 
 ######## derived.pyx ########
-from base cimport B
+
+use base::B
 
 cdef class C(B):
     cpdef bar(self):

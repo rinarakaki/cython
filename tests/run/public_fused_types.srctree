@@ -3,7 +3,6 @@ PYTHON -c "import b"
 
 ######## setup.py ########
 
-
 from Cython.Build import cythonize
 from distutils.core import setup
 
@@ -13,7 +12,7 @@ setup(
 
 ######## a.pxd ########
 
-cimport cython
+use cython
 
 extern from "header.h":
     ctypedef i32 extern_int
@@ -68,7 +67,7 @@ typedef long extern_long;
 
 ######## a.pyx ########
 
-cimport cython
+use cython
 
 cdef struct_t add_simple(struct_t obj, simple_t simple):
      obj.a = <i32> (obj.a + simple)
@@ -109,9 +108,9 @@ cpdef public_cpdef(cython.integral x, cython.floating y, object_t z):
 
 ######## b.pyx ########
 
-cimport cython
-cimport a as a_cmod
-from a cimport *
+use cython
+use a as a_cmod
+use a::*
 
 cdef mystruct_t mystruct
 cdef myunion_t myunion
