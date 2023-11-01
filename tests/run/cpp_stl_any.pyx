@@ -2,10 +2,10 @@
 # mode: run
 # tag: cpp, cpp17, werror
 
-from libcpp cimport bool
-from libcpp.any cimport any, any_cast
-from libcpp.pair cimport pair
-from cython.operator cimport typeid
+use libcpp::bool
+use libcpp::any::(any, any_cast)
+use libcpp::pair::pair
+use cython::operator::typeid
 
 def simple_test():
     """

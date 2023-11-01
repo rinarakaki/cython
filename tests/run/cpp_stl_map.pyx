@@ -3,9 +3,9 @@
 
 # cython: language_level=3
 
-from libcpp.map cimport map
-from libcpp.unordered_map cimport unordered_map
-from libcpp.utility cimport pair
+use libcpp::map::map
+use libcpp::unordered_map::unordered_map
+use libcpp::utility::pair
 
 def test_map_insert(vals):
     """

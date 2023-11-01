@@ -1,10 +1,10 @@
 # distutils: language = c++
 
-from cython.parallel cimport parallel, prange
-from libcpp.vector cimport vector
-from libcpp.algorithm cimport nth_element
 use cython
-from cython.operator cimport dereference
+use cython::operator::dereference
+use cython::parallel::(parallel, prange)
+use libcpp::algorithm::nth_element
+use libcpp::vector::vector
 
 import numpy as np
 

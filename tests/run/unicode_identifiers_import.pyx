@@ -9,7 +9,7 @@
 # this test looks at [c]importing unicode stuff
 from unicode_identifiers cimport Fα1, Γναμε2
 use unicode_identifiers
-from unicode_identifiers cimport Γναμε2 as Γναμε3
+use unicode_identifiers::Γναμε2 as Γναμε3
 
 from unicode_identifiers import NormalClassΓΓ
 from unicode_identifiers import NormalClassΓΓ as NörmalCläss

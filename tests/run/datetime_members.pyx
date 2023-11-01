@@ -3,16 +3,16 @@
 
 import sys
 
-from cpython.datetime cimport import_datetime
-from cpython.datetime cimport time_new, date_new, datetime_new, timedelta_new
-from cpython.datetime cimport datetime, time
-from cpython.datetime cimport time_tzinfo, datetime_tzinfo
-from cpython.datetime cimport time_hour, time_minute, time_second, time_microsecond, time_tzinfo, time_fold
-from cpython.datetime cimport date_day, date_month, date_year
-from cpython.datetime cimport datetime_day, datetime_month, datetime_year
-from cpython.datetime cimport datetime_hour, datetime_minute, datetime_second, \
-                              datetime_microsecond, datetime_tzinfo, datetime_fold
-from cpython.datetime cimport timedelta_days, timedelta_seconds, timedelta_microseconds
+use cpython::datetime::import_datetime
+use cpython::datetime::(time_new, date_new, datetime_new, timedelta_new)
+use cpython::datetime::(datetime, time)
+use cpython::datetime::(time_tzinfo, datetime_tzinfo)
+use cpython::datetime::(time_hour, time_minute, time_second, time_microsecond, time_tzinfo, time_fold)
+use cpython::datetime::(date_day, date_month, date_year)
+use cpython::datetime::(datetime_day, datetime_month, datetime_year)
+use cpython::datetime::(datetime_hour, datetime_minute, datetime_second,
+                        datetime_microsecond, datetime_tzinfo, datetime_fold)
+use cpython::datetime::(timedelta_days, timedelta_seconds, timedelta_microseconds)
 
 import_datetime()
 

@@ -1,6 +1,7 @@
 # mode: run
 # ticket: t768
-from cython cimport typeof
+
+use cython::typeof
 
 def type_inference_del_int():
     """

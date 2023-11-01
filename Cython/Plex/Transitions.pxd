@@ -1,4 +1,4 @@
-cimport cython
+use cython
 
 cdef i64 maxint
 

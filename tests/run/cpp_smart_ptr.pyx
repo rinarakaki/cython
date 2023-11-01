@@ -1,8 +1,8 @@
 # mode: run
 # tag: cpp, werror, cpp14, no-cpp-locals
 
-from libcpp.memory cimport unique_ptr, shared_ptr, default_delete, dynamic_pointer_cast, make_unique
-from libcpp cimport nullptr
+use libcpp::memory::(unique_ptr, shared_ptr, default_delete, dynamic_pointer_cast, make_unique)
+use libcpp::nullptr
 
 extern from "cpp_smart_ptr_helper.h":
     cdef cppclass CountAllocDealloc:

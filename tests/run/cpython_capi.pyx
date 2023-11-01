@@ -1,8 +1,8 @@
 # mode: run
 # tag: c-api
 
-from cpython cimport mem
-from cpython.pystate cimport PyGILState_Ensure, PyGILState_Release, PyGILState_STATE
+use cpython::mem
+use cpython::pystate::(PyGILState_Ensure, PyGILState_Release, PyGILState_STATE)
 
 
 def test_pymalloc():

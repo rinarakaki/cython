@@ -1,6 +1,6 @@
 # mode: run
 
-from cpython.number cimport PyNumber_InPlacePower
+use cpython::number::PyNumber_InPlacePower
 
 def ipow(a, b, c):
     # As far as DW can tell, calling through this C API call is the

@@ -3,17 +3,17 @@
 
 from __future__ import print_function
 
-from cython.operator cimport dereference as deref
-from cython.operator cimport preincrement, postincrement
-from libcpp cimport bool
-from libcpp.algorithm cimport copy, copy_if, copy_n, copy_backward, move, move_backward, fill, fill_n, transform
-from libcpp.algorithm cimport generate, generate_n, remove, remove_if, remove_copy, remove_copy_if, replace, replace_if
-from libcpp.algorithm cimport replace_copy, replace_copy_if, swap, swap_ranges, iter_swap, reverse, reverse_copy
-from libcpp.algorithm cimport rotate, rotate_copy, unique, unique_copy
-from libcpp.algorithm cimport sort, upper_bound, min_element, max_element
-from libcpp.iterator cimport back_inserter
-from libcpp.string cimport string
-from libcpp.vector cimport vector
+use cython::operator::dereference as deref
+use cython::operator::(preincrement, postincrement)
+use libcpp::bool
+use libcpp::algorithm::(copy, copy_if, copy_n, copy_backward, move, move_backward, fill, fill_n, transform)
+use libcpp::algorithm::(generate, generate_n, remove, remove_if, remove_copy, remove_copy_if, replace, replace_if)
+use libcpp::algorithm::(replace_copy, replace_copy_if, swap, swap_ranges, iter_swap, reverse, reverse_copy)
+use libcpp::algorithm::(rotate, rotate_copy, unique, unique_copy)
+use libcpp::algorithm::(sort, upper_bound, min_element, max_element)
+use libcpp::iterator::back_inserter
+use libcpp::string::string
+use libcpp::vector::vector
 
 def copy_int(vector[i32] values):
     """

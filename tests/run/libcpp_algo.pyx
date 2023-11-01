@@ -1,9 +1,9 @@
 # mode: run
 # tag: cpp
 
-from libcpp cimport bool
-from libcpp.algorithm cimport make_heap, sort_heap
-from libcpp.vector cimport vector
+use libcpp::algorithm::(make_heap, sort_heap)
+use libcpp::bool
+use libcpp::vector::vector
 
 # XXX should use std::greater, but I don't know how to wrap that.
 fn inline bool greater(const i32 &x, const i32 &y):

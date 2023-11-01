@@ -1,4 +1,4 @@
-from cpython.mem cimport PyMem_Malloc, PyMem_Realloc, PyMem_Free
+use cpython::mem::(PyMem_Malloc, PyMem_Realloc, PyMem_Free)
 
 cdef class SomeMemory:
     cdef f64* data

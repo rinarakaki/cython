@@ -1,6 +1,6 @@
 # distutils: language = c++
 
-from libcpp.vector cimport vector
+use libcpp::vector::vector
 
 def main():
     let vector[i32] v = [4, 6, 5, 10, 3]

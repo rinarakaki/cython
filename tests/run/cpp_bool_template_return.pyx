@@ -1,6 +1,6 @@
 # tag: cpp
 
-from libcpp cimport bool
+use libcpp::bool
 
 extern from "cpp_templates_helper.h":
     cdef cppclass BinaryAnd[T1, T2]:

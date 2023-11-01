@@ -1,7 +1,7 @@
 # tag: cpp
 # mode: error
 
-from libcpp.string cimport string
+use libcpp::string::string
 
 fn foo():
     let string field

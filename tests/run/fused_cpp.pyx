@@ -1,10 +1,10 @@
 # tag: cpp
 
 use cython
-from libcpp.vector cimport vector
-from libcpp.map cimport map
-from libcpp.typeinfo cimport type_info
-from cython.operator cimport typeid
+use libcpp::vector::vector
+use libcpp::map::map
+use libcpp::typeinfo::type_info
+use cython::operator::typeid
 
 def test_cpp_specialization(cython.floating element):
     """

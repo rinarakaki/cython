@@ -1,6 +1,6 @@
 # mode: run
 
-from cpython.version cimport PY_MAJOR_VERSION
+use cpython::version::PY_MAJOR_VERSION
 
 cdef bint IS_PY2 = PY_MAJOR_VERSION == 2
 
