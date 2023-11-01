@@ -732,7 +732,7 @@ def test_int_typedef_inference():
     assert typeof(x + y) == typeof(y + x) == 'my_long', typeof(x + y)
     assert typeof(y + z) == typeof(z + y) == 'long long', typeof(y + z)
 
-from libc.stdint cimport int32_t, int64_t
+use libc::stdint::(int32_t, int64_t)
 def int64_long_sum():
     let i64 x = 1
     let int32_t x32 = 2

@@ -4,7 +4,7 @@
 
 cdef f64 pi
 from math import pi
-from libc.math cimport sin, cos
+use libc::math::(sin, cos)
 use libcpp::bool
 use libcpp::memory::unique_ptr
 use libcpp::vector::vector
