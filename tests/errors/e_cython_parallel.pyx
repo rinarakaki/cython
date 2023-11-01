@@ -171,7 +171,6 @@ _ERRORS = u"""
 65:36: Invalid keyword argument: invalid
 73:12: 'yield' not allowed in parallel sections
 77:16: 'yield' not allowed in parallel sections
-97:8: Cannot assign to private of outer parallel block
 98:8: Cannot assign to private of outer parallel block
 99:8: Cannot assign to private of outer parallel block
 105:4: Reductions not allowed for parallel blocks
