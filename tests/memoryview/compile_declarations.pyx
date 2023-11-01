@@ -1,10 +1,10 @@
 # mode: compile
 
 use cython
-# from cython.view cimport contig as foo, full as bar #, follow
+# use cython::view::(contig as foo, full as bar)  #, follow
 use cython::view
-from cython.view cimport (generic, strided, indirect,
-                          contiguous, indirect_contiguous)
+use cython::view::(generic, strided, indirect,
+                   contiguous, indirect_contiguous)
 
 cdef char[:] one_dim
 cdef char[:, :, :] three_dim

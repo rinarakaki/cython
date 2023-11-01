@@ -1,14 +1,14 @@
 # mode: run
 # tag: cpp, werror, no-cpp-locals
 
+use cython::operator::dereference as deref
 use libcpp::deque::deque
 use libcpp::list::list as stdlist
 use libcpp::map::map as stdmap
 use libcpp::set::set as stdset
 use libcpp::string::string
 use libcpp::vector::vector
-from libcpp.memory cimport shared_ptr, make_shared
-use cython::operator::dereference as deref
+use libcpp::memory::(shared_ptr, make_shared)
 
 extern from "cpp_iterators_simple.h":
     cdef cppclass DoublePointerIter:

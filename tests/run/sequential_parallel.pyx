@@ -3,7 +3,7 @@
 cimport cython.parallel
 from cython.parallel import prange, threadid
 use cython::view::array
-from libc.stdlib cimport malloc, calloc, free, abort
+use libc::stdlib::(malloc, calloc, free, abort)
 use libc::stdio::puts
 
 import os

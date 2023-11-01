@@ -1,5 +1,5 @@
-from libc.stdio cimport FILE, fopen
-from libc.stdlib cimport malloc, free
+use libc::stdio::(FILE, fopen)
+use libc::stdlib::(malloc, free)
 use cpython::exc::PyErr_SetFromErrnoWithFilenameObject
 
 def open_file():

@@ -1,4 +1,4 @@
-from libc.stdint cimport uint_fast32_t, uint_fast64_t
+use libc::stdint::(uint_fast32_t, uint_fast64_t)
 
 
 extern from "<random>" namespace "std" nogil:

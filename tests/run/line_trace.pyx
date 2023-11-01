@@ -5,7 +5,7 @@
 
 import sys
 
-from cpython.ref cimport PyObject, Py_INCREF, Py_XDECREF
+use cpython::ref::(PyObject, Py_INCREF, Py_XDECREF)
 
 extern from "frameobject.h":
     struct PyFrameObject:

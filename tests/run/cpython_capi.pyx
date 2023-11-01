@@ -2,7 +2,7 @@
 # tag: c-api
 
 use cpython::mem
-from cpython.pystate cimport PyGILState_Ensure, PyGILState_Release, PyGILState_STATE
+use cpython::pystate::(PyGILState_Ensure, PyGILState_Release, PyGILState_STATE)
 
 
 def test_pymalloc():
