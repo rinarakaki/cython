@@ -5,7 +5,7 @@ static CYTHON_INLINE int __Pyx_MatchCase_IsExactSequence(PyObject *o) {
     // is one of the small list of builtin types known to be a sequence
     if (PyList_CheckExact(o) || PyTuple_CheckExact(o) ||
             PyType_CheckExact(o, PyRange_Type) || PyType_CheckExact(o, PyMemoryView_Type)) {
-        // Use exact type match for these checks. I in the event of inheritence we need to make sure
+        // Use exact type match for these checks. I in the event of inheritance we need to make sure
         // that it isn't a mapping too
         return 1;
     }
