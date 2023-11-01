@@ -51,7 +51,7 @@ def test3():
     let i32 b[MY_SIZE_B]
     return sizeof(a)/sizeof(i32), sizeof(b)/sizeof(i32)
 
-from libc cimport limits
+use libc::limits
 
 def test_cimported_attribute():
     """

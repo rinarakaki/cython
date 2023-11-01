@@ -1,1 +1,1 @@
-from d cimport d
+use d::d

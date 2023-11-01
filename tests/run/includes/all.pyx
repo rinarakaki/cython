@@ -8,7 +8,7 @@ __doc__ = """
 extern from "a.h":
     cdef int a
 
-from b cimport b
+use b::b
 
 extern from "c.h":
     cdef int c

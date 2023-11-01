@@ -4,8 +4,8 @@
 from libcpp.numeric cimport (reduce, transform_reduce, inclusive_scan, 
                              exclusive_scan, transform_inclusive_scan, 
                              transform_exclusive_scan, gcd, lcm)
-from libcpp.execution cimport seq
-from libcpp.vector cimport vector
+use libcpp::execution::seq
+use libcpp::vector::vector
 
 # Subtracts two integers.
 fn i32 subtract_integers(i32 lhs, i32 rhs):

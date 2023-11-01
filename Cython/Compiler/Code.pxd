@@ -1,6 +1,6 @@
 # cython: language_level=3
 
-cimport cython
+use cython
 from ..StringIOTree cimport StringIOTree
 
 cdef class UtilityCodeBase(object):

@@ -17,7 +17,7 @@ half = half_
 
 
 import operator
-from libc.math cimport sqrt
+use libc::math::sqrt
 
 cpdef check(func, op, a, b):
     cdef INT res = 0, op_res = 0

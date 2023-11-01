@@ -1,6 +1,6 @@
 from __future__ import print_function
 
-from cpython.ref cimport PyObject
+use cpython::ref::PyObject
 
 import sys
 

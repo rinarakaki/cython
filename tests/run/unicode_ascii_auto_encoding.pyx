@@ -3,7 +3,7 @@
 
 auto_string_type = unicode
 
-from libc.string cimport strcmp
+use libc::string::strcmp
 
 
 def _as_string(x):

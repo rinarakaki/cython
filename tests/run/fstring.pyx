@@ -10,7 +10,7 @@ use cython
 import sys
 IS_PYPY = hasattr(sys, 'pypy_version_info')
 
-from libc.limits cimport INT_MAX, LONG_MAX, LONG_MIN
+use libc::limits::(INT_MAX, LONG_MAX, LONG_MIN)
 
 max_int = INT_MAX
 max_long = LONG_MAX

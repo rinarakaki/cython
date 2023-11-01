@@ -1,8 +1,8 @@
 
 use cython
-from cython cimport typeof
+use cython::typeof
 
-from libc.string cimport const_char, const_uchar
+use libc::string::(const_char, const_uchar)
 
 @cython.test_assert_path_exists(
     "//NameNode[@name = 'st' and @type.is_string = true]",

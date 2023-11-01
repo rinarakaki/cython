@@ -1,6 +1,6 @@
 # mode: error
 
-from cython.parallel cimport parallel, prange
+use cython::parallel::(parallel, prange)
 
 cdef i32 i
 

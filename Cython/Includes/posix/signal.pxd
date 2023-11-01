@@ -1,6 +1,6 @@
 # 7.14 Signal handling <signal.h>
 
-from posix.types cimport pid_t, sigset_t, uid_t
+use posix::types::(pid_t, sigset_t, uid_t)
 
 extern from "<signal.h>" nogil:
     union sigval:

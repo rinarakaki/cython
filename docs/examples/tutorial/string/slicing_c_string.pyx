@@ -1,5 +1,5 @@
-from libc.stdlib cimport free
-from c_func cimport get_a_c_string
+use libc::stdlib::free
+use c_func::get_a_c_string
 
 def main():
     let char* c_string = NULL

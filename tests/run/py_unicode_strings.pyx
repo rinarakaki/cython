@@ -3,7 +3,7 @@
 
 import sys
 
-from libc.string cimport memcpy
+use libc::string::memcpy
 
 fn assert_Py_UNICODE_equal(const Py_UNICODE* u1, const Py_UNICODE* u2):
     let usize i = 0

@@ -9,7 +9,7 @@
 
   Usage:
 
-  >>> cimport array
+  >>> use array
 
   Usage through Cython buffer interface (Py2.3+):
 
@@ -58,12 +58,12 @@ extern from *:
     #endif
     """
 
-from libc.string cimport memset, memcpy
+use libc::string::(memset, memcpy)
 
-from cpython.object cimport Py_SIZE
-from cpython.ref cimport PyTypeObject, Py_TYPE
-from cpython.exc cimport PyErr_BadArgument
-from cpython.mem cimport PyObject_Malloc, PyObject_Free
+use cpython::exc::PyErr_BadArgument
+use cpython::mem::(PyObject_Malloc, PyObject_Free)
+use cpython::object::Py_SIZE
+use cpython::ref::(PyTypeObject, Py_TYPE)
 
 extern from *:  # Hard-coded utility code hack.
     ctypedef class array.array [object arrayobject]

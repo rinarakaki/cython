@@ -35,7 +35,7 @@ def compare_klingon():
     print(char_KLINGON == u'B')
 
 
-from cpython.unicode cimport PyUnicode_FromOrdinal
+use cpython::unicode::PyUnicode_FromOrdinal
 import sys
 
 u0 = u'\x00'

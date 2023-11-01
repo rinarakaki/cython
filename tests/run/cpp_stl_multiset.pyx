@@ -3,8 +3,8 @@
 
 # cython: language_level=3
 
-from libcpp.set cimport multiset
-from libcpp.unordered_set cimport unordered_multiset
+use libcpp::set::multiset
+use libcpp::unordered_set::unordered_multiset
 
 def test_multiset_insert(vals):
     """

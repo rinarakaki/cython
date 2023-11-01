@@ -1,4 +1,4 @@
-from libcpp cimport bool
+use libcpp::bool
 
 extern from "<functional>" namespace "std" nogil:
     cdef cppclass function[T]:

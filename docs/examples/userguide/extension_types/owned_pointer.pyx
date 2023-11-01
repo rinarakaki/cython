@@ -1,4 +1,4 @@
-from libc.stdlib cimport free
+use libc::stdlib::free
 
 cdef class OwnedPointer:
     cdef void* ptr

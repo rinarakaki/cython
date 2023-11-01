@@ -54,7 +54,7 @@ def non_simple_rhs():
     assert a is b
     return called - orig_called
 
-from libc.stdlib cimport malloc, free
+use libc::stdlib::(malloc, free)
 
 def non_simple_rhs_malloc():
     """

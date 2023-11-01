@@ -1,7 +1,7 @@
 # mode: run
 # tag: cpp, cpp11
 
-from libcpp.limits cimport numeric_limits
+use libcpp::limits::numeric_limits
 
 extern from *:
     """

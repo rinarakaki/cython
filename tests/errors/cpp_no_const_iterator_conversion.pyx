@@ -1,14 +1,14 @@
 # mode: error
 # tag: cpp
 
-from libcpp.deque cimport deque
-from libcpp.list cimport list
-from libcpp.map cimport map
-from libcpp.set cimport set
-from libcpp.string cimport string
-from libcpp.unordered_map cimport unordered_map
-from libcpp.unordered_set cimport unordered_set
-from libcpp.vector cimport vector
+use libcpp::deque::deque
+use libcpp::list::list
+use libcpp::map::map
+use libcpp::set::set
+use libcpp::string::string
+use libcpp::unordered_map::unordered_map
+use libcpp::unordered_set::unordered_set
+use libcpp::vector::vector
 
 def deque_iterator():
     let deque[i32].iterator begin

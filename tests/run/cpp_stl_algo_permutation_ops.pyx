@@ -2,10 +2,10 @@
 # tag: cpp, werror, cpp17, no-cpp-locals, c_string_type=str
 # cython: c_string_encoding=ascii, c_string_type=str
 
-from libcpp cimport bool
-from libcpp.algorithm cimport is_permutation, next_permutation, prev_permutation
-from libcpp.vector cimport vector
-from libcpp.string cimport string
+use libcpp::algorithm::(is_permutation, next_permutation, prev_permutation)
+use libcpp::bool
+use libcpp::string::string
+use libcpp::vector::vector
 
 fn bool compare(i32 a, i32 b):
     return a == b

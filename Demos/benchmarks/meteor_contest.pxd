@@ -1,4 +1,4 @@
-cimport cython
+use cython
 
 fn list rotate(list ido, dict rd=*)
 
