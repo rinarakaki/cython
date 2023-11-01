@@ -120,9 +120,9 @@ def test_return():
     return "FAILED!"
 
 enum RangeEnum:
-    EnumValue1
-    EnumValue2
-    EnumValue3
+    Var1
+    Var2
+    Var3
 
 #[cython.test_assert_path_exists("//ForFromStatNode")]
 #[cython.test_fail_if_path_exists("//ForInStatNode")]
@@ -132,7 +132,7 @@ def test_enum_range():
     >>> test_enum_range()
     'RangeEnum'
     """
-    let RangeEnum n = EnumValue3
+    let RangeEnum n = RangeEnum::Var3
     for i in range(n):
         assert 0 <= <i32>i < <i32>n
         assert cython.typeof(i) == "RangeEnum", cython.typeof(i)

@@ -1,11 +1,11 @@
 # mode: error
 # tag: cpp
 
-cdef enum class Spam:
-    a
+enum class Spam:
+    A
 
-cdef enum class Spam:
-    b
+enum class Spam:
+    B
 
 _ERRORS="""
 7:5: 'Spam' redeclared

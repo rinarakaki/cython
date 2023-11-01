@@ -129,7 +129,7 @@ def test_as_variable_from_cython():
 fn i32 verify_pure_c() nogil:
     let i32 x = TWO
     let i32 y = PyxEnum.THREE
-    let i32 z = SecretPyxEnum.SEVEN
+    let i32 z = SecretPyxEnum::SEVEN
     return x + y + z
 
 # Use it to suppress warning.

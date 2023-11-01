@@ -39,17 +39,17 @@ def test2():
     return sizeof(a1) - sizeof(a2)
 
 cdef enum:
-    MY_SIZE_A = 2
-    MY_SIZE_B = 3
+    MySizeA = 2
+    MySizeB = 3
 
 def test3():
     """
     >>> test3()
     (2, 3)
     """
-    let i32 a[MY_SIZE_A]
-    let i32 b[MY_SIZE_B]
-    return sizeof(a)/sizeof(i32), sizeof(b)/sizeof(i32)
+    let i32 a[MySizeA]
+    let i32 b[MySizeB]
+    return sizeof(a) / sizeof(i32), sizeof(b) / sizeof(i32)
 
 use libc::limits
 
@@ -58,5 +58,5 @@ def test_cimported_attribute():
     >>> test_cimported_attribute()
     True
     """
-    let char a[limits.CHAR_MAX]
+    let char a[limits::CHAR_MAX]
     return sizeof(a) >= 127
