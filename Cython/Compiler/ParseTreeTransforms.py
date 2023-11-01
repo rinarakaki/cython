@@ -193,6 +193,7 @@ class PostParse(ScopeTrackingTransform):
         self.specialattribute_handlers = {
             '__cythonbufferdefaults__' : self.handle_bufferdefaults
         }
+        self.in_pattern_node = False
 
     def visit_LambdaNode(self, node):
         # unpack a lambda expression into the corresponding DefNode
@@ -382,6 +383,32 @@ class PostParse(ScopeTrackingTransform):
                 wrap_tuple_value=True,
             )
             node.value = None
+        self.visitchildren(node)
+        return node
+
+    def visit_ErrorNode(self, node):
+        error(node.pos, node.what)
+        return None
+
+    def visit_MatchCaseNode(self, node):
+        node.validate_targets()
+        self.visitchildren(node)
+        return node
+
+    def visit_MatchNode(self, node):
+        node.validate_irrefutable()
+        self.visitchildren(node)
+        return node
+
+    def visit_PatternNode(self, node):
+        in_pattern_node, self.in_pattern_node = self.in_pattern_node, True
+        self.visitchildren(node)
+        self.in_pattern_node = in_pattern_node
+        return node
+
+    def visit_JoinedStrNode(self, node):
+        if self.in_pattern_node:
+            error(node.pos, "f-strings are not accepted for pattern matching")
         self.visitchildren(node)
         return node
 
@@ -927,6 +954,9 @@ class InterpretCompilerDirectives(CythonTransform):
         self.visitchildren(node)
         self.directives = old_directives
         return node
+
+    def visit_CompilerDirectivesExprNode(self, node):
+        return self.visit_CompilerDirectivesNode(node)
 
     # The following four functions track imports and cimports that
     # begin with "cython"
@@ -1576,6 +1606,9 @@ class ParallelRangeTransform(CythonTransform, SkipDeclarations):
 
 
 class WithTransform(VisitorTransform, SkipDeclarations):
+    # also includes some transforms for MatchCase
+    # (because this is a convenient time to do them, before constant folding and
+    # branch elimination)
     def visit_WithStatNode(self, node):
         self.visitchildren(node, 'body')
         pos = node.pos
@@ -1636,6 +1669,11 @@ class WithTransform(VisitorTransform, SkipDeclarations):
                     await_expr=ExprNodes.AwaitExprNode(pos, arg=None) if is_async else None)),
             handle_error_case=False,
         )
+        return node
+
+    def visit_MatchNode(self, node):
+        node.refactor_cases()
+        self.visitchildren(node)
         return node
 
     def visit_ExprNode(self, node):
@@ -2018,6 +2056,9 @@ class ForwardDeclareTypes(CythonTransform):
         self.visitchildren(node)
         env.directives = old
         return node
+
+    def visit_CompilerDirectivesExprNode(self, node):
+        return self.visit_CompilerDirectivesNode(node)
 
     def visit_ModuleNode(self, node):
         self.module_scope = node.scope
@@ -2942,6 +2983,9 @@ class AdjustDefByDirectives(CythonTransform, SkipDeclarations):
         self.visitchildren(node)
         self.directives = old_directives
         return node
+
+    def visit_CompilerDirectivesExprNode(self, node):
+        return self.visit_CompilerDirectivesNode(node)
 
     def visit_DefNode(self, node):
         modifiers = []
