@@ -171,17 +171,17 @@ _ERRORS = u"""
 65:36: Invalid keyword argument: invalid
 73:12: 'yield' not allowed in parallel sections
 77:16: 'yield' not allowed in parallel sections
+97:8: Cannot assign to private of outer parallel block
 98:8: Cannot assign to private of outer parallel block
-99:8: Cannot assign to private of outer parallel block
-105:4: Reductions not allowed for parallel blocks
-111:6: local variable 'i' referenced before assignment
-120:14: Cannot read reduction variable in loop body
-122:19: prange() can only be used without the GIL
-122:20: stop argument must be numeric
-132:4: Memoryview slices can only be shared in parallel sections
-134:42: Must provide schedule with chunksize
-137:62: Chunksize must not be negative
-140:62: Chunksize not valid for the schedule runtime
-146:70: Calling gil-requiring function not allowed without gil
-150:33: Nested parallel with blocks are disallowed
+104:4: Reductions not allowed for parallel blocks
+110:6: local variable 'i' referenced before assignment
+119:14: Cannot read reduction variable in loop body
+121:19: prange() can only be used without the GIL
+121:20: stop argument must be numeric
+131:4: Memoryview slices can only be shared in parallel sections
+133:42: Must provide schedule with chunksize
+136:62: Chunksize must not be negative
+139:62: Chunksize not valid for the schedule runtime
+145:70: Calling gil-requiring function not allowed without gil
+149:33: Nested parallel with blocks are disallowed
 """
