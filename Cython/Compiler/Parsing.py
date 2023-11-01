@@ -1902,6 +1902,7 @@ def p_path(s, as_allowed):
     level = 0
     while s.sy == "IDENT" and s.systring == "super":
         level += 1
+        s.next()
         s.expect("::")
     path = [p_ident(s)]
     idents = []
