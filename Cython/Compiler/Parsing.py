@@ -1763,13 +1763,15 @@ def p_use_statement(s):
             stat = Nodes.FromCImportStatNode(
                 pos, module_name=s.context.intern_ustring(".".join(path)),
                 relative_level=0,
-                imported_names=idents
+                imported_names=idents,
+            )
         else:
             stat = Nodes.CImportStatNode(
                 pos,
                 module_name=idents,
                 as_name=as_name,
-                is_absolute=is_absolute)
+                is_absolute=is_absolute,
+            )
         stats.append(stat)
     return Nodes.StatListNode(pos, stats=stats)
 
