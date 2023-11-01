@@ -1761,14 +1761,14 @@ def p_use_statement(s):
     for pos, path, idents, as_name in items:
         if path:
             stat = Nodes.FromCImportStatNode(
-                pos, module_name=s.context.intern_ustring(".".join(path)),
+                pos, module_name=s.context.intern_ustring(".".join([fragment[1] for fragment in path])),
                 relative_level=0,
                 imported_names=idents,
             )
         else:
             stat = Nodes.CImportStatNode(
                 pos,
-                module_name=idents,
+                module_name=idents[0][1],
                 as_name=as_name,
                 is_absolute=is_absolute,
             )
@@ -1898,12 +1898,12 @@ def p_imported_name(s):
 def p_path(s, as_allowed):
     pos = s.position()
     as_name = None
-    path = [p_ident(s)]
+    path = [p_imported_name(s)]
     idents = []
     while s.sy == "::":
         s.next()
         if s.sy == "*":
-            path.append(s.context.intern_ustring("*"))
+            path.append((s.position(), s.context.intern_ustring("*"), None))
             s.next()
         elif s.sy == "(":
             s.next()
@@ -1915,7 +1915,7 @@ def p_path(s, as_allowed):
                 idents.append(p_imported_name(s))
             s.expect(")")
         else:
-            path.append(p_ident(s))
+            path.append(p_imported_name(s))
     if as_allowed:
         as_name = p_as_name(s)
     if len(idents) == 0:
