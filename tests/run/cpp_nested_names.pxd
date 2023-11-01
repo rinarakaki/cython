@@ -1,6 +1,6 @@
 # cython: language_level=3
 
-from libcpp.string cimport string
+use libcpp::string::string
 
 extern from "cpp_nested_names_helper.h":
     cdef cppclass Outer:

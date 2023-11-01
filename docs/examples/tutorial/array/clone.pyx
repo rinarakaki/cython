@@ -1,4 +1,5 @@
-from cpython cimport array
+use cpython::array
+
 import array
 
 cdef array.array int_array_template = array.array('i', [])

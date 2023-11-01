@@ -13,7 +13,7 @@ True
 """
 
 use cython
-from cpython.ref cimport PyObject
+use cpython::ref::PyObject
 
 #[cython.always_allow_keywords(false)]
 def get_refcount(obj):

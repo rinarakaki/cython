@@ -1,5 +1,5 @@
-from libc.stdlib cimport malloc
-from libc.string cimport strcpy, strlen
+use libc::stdlib::malloc
+use libc::string::(strcpy, strlen)
 
 cdef char* hello_world = 'hello world'
 cdef usize n = strlen(hello_world)

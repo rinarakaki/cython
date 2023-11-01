@@ -62,7 +62,7 @@ except ImportError:
 try:
     from sys import getrefcount
 except ImportError:
-    from cpython.ref cimport PyObject
+    use cpython::ref::PyObject
     def getrefcount(obj):
         gc.collect()
         # PyPy needs to execute a bytecode to run the finalizers

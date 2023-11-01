@@ -39,7 +39,7 @@ def set(o, v):
 
 def select(obj1, obj2, obj3, obj4, obj5):
     let i32 int3, int4, int5
-    int3, int4, int5 = 1,2,3
+    int3, int4, int5 = 1, 2, 3
 
     obj1 = obj2[obj3:;]
     obj1 = obj2[:obj4;]

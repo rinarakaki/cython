@@ -4,7 +4,7 @@ tp_clear and tp_traverse slots, that is, disables cycle collection.
 """
 
 use cython
-from cpython.ref cimport PyObject, Py_TYPE
+use cpython::ref::(PyObject, Py_TYPE)
 
 # Force non-gc'd PyTypeObject when safety is guaranteed by user but not provable
 

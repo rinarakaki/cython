@@ -3,7 +3,7 @@
 
 from __future__ import print_function
 
-from cpython.object cimport PyTypeObject
+use cpython::object::PyTypeObject
 
 fn gobble(a, b):
     print(a, b)

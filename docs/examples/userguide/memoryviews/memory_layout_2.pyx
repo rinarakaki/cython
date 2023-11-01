@@ -1,6 +1,6 @@
 # mode: error
 
-from cython cimport view
+use cython::view
 
 def main():
     # VALID

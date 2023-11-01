@@ -1,7 +1,8 @@
 # tag: posix
-from libc.stdlib  cimport getenv
-from posix.stdlib cimport setenv, unsetenv
-from libc.time    cimport *
+
+use libc::stdlib::getenv
+use libc::time::*
+use posix::stdlib::(setenv, unsetenv)
 
 
 def test_time():

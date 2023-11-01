@@ -2,7 +2,7 @@
 # mode: run
 # tag: cyfunction, cpp
 
-from libcpp.vector cimport vector
+use libcpp::vector::vector
 
 cdef class A:
     def f1(self, a, b=1, vector[f64] c = vector[f64]()):

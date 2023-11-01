@@ -1,7 +1,7 @@
 # tag: cpp
 # mode: compile
 
-from libcpp.vector cimport vector
+use libcpp::vector::vector
 
 extern from *:
     cdef cppclass Foo[T]:

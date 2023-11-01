@@ -1,5 +1,5 @@
-from spam cimport Spam
-from pkg.eggs cimport Eggs as ova
+use spam::Spam
+use pkg::eggs::Eggs as ova
 
 cdef extern Spam yummy
 cdef ova fried

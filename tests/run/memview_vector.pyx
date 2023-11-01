@@ -1,7 +1,7 @@
 # mode: run
 # tag: cpp
 
-from libcpp.vector cimport vector
+use libcpp::vector::vector
 
 def memview_test(L, i32 i, i32 x):
     """

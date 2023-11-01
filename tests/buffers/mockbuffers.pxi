@@ -1,4 +1,4 @@
-from libc cimport stdlib
+use libc::stdlib
 cimport cpython.buffer
 
 import sys

@@ -1,6 +1,6 @@
 # distutils: language=c++
 
-from libcpp.vector cimport vector
+use libcpp::vector::vector
 
 def primes(u32 nb_primes):
     let i32 n, i
