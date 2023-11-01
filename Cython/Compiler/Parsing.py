@@ -1896,26 +1896,29 @@ def p_imported_name(s):
 def p_path(s, as_allowed):
     pos = s.position()
     as_name = None
-    names = [(pos, p_ident(s), as_name)]
+    path = [p_ident(s)]
+    idents = []
     while s.sy == "::":
         s.next()
         if s.sy == "*":
-            names.append(s.context.intern_ustring("*"))
+            path.append(s.context.intern_ustring("*"))
             s.next()
         elif s.sy == "(":
             s.next()
-            names.append(p_imported_name(s))
+            idents.append(p_imported_name(s))
             while s.sy == ',':
                 s.next()
                 if s.sy == ')':
                     break
-                names.append(p_imported_name(s))
+                idents.append(p_imported_name(s))
             s.expect(")")
         else:
-            names.append(p_ident(s))
+            path.append(p_ident(s))
     if as_allowed:
         as_name = p_as_name(s)
-    return (pos, names[:-1], names[-1], as_name)
+    if len(idents) == 0:
+        path, idents = [], path[0]
+    return (pos, path, idents, as_name)
 
 
 def p_dotted_name(s, as_allowed):
