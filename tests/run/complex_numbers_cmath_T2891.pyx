@@ -3,7 +3,7 @@
 
 extern from "complex_numbers_c99_T398.h": pass
 
-from libc.complex cimport cimag, creal, cabs, carg
+use libc::complex::(cimag, creal, cabs, carg)
 
 def test_decomposing(double complex z):
     """
