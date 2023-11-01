@@ -1758,16 +1758,16 @@ def p_use_statement(s):
         items.append(p_path(s, as_allowed=1))
     stats = []
     is_absolute = Future.absolute_import in s.context.future_directives
-    for pos, path, ident, as_name in items:
+    for pos, path, idents, as_name in items:
         if path:
             stat = Nodes.FromCImportStatNode(
-                pos, module_name=".".join(path),
+                pos, module_name=s.context.intern_ustring(".".join(path)),
                 relative_level=0,
-                imported_names=[(pos, ident, as_name)])
+                imported_names=idents
         else:
             stat = Nodes.CImportStatNode(
                 pos,
-                module_name=ident,
+                module_name=idents,
                 as_name=as_name,
                 is_absolute=is_absolute)
         stats.append(stat)
@@ -1917,7 +1917,7 @@ def p_path(s, as_allowed):
     if as_allowed:
         as_name = p_as_name(s)
     if len(idents) == 0:
-        path, idents = [], path[0]
+        path, idents = path[:-1], path[-1]
     return (pos, path, idents, as_name)
 
 
