@@ -1896,7 +1896,7 @@ def p_imported_name(s):
 def p_path(s, as_allowed):
     pos = s.position()
     as_name = None
-    names = [pos, p_ident(s), as_name)]
+    names = [(pos, p_ident(s), as_name)]
     while s.sy == "::":
         s.next()
         if s.sy == "*":
