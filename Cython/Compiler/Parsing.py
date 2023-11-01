@@ -1759,7 +1759,7 @@ def p_use_statement(s):
     stats = []
     is_absolute = Future.absolute_import in s.context.future_directives
     for pos, path, idents, level in items:
-        if path:
+        if len(path) > 0 or level > 0:
             stat = Nodes.FromCImportStatNode(
                 pos,
                 module_name=s.context.intern_ustring(".".join(path)),
