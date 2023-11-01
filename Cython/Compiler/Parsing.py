@@ -1782,18 +1782,21 @@ def p_use_statement(s):
         items.append(p_path(s, as_allowed=1))
     stats = []
     is_absolute = Future.absolute_import in s.context.future_directives
-    for pos, path, ident, as_name in items:
+    for pos, path, idents in items:
         if path:
             stat = Nodes.FromCImportStatNode(
-                pos, module_name=".".join(path),
+                pos,
+                module_name=s.context.intern_ustring(".".join(path)),
                 relative_level=0,
-                imported_names=[(pos, ident, as_name)])
+                imported_names=idents,
+            )
         else:
             stat = Nodes.CImportStatNode(
                 pos,
-                module_name=ident,
-                as_name=as_name,
-                is_absolute=is_absolute)
+                module_name=s.context.intern_ustring(idents[0][1]),
+                as_name=idents[0][2],
+                is_absolute=is_absolute,
+            )
         stats.append(stat)
     return Nodes.StatListNode(pos, stats=stats)
 
@@ -1920,18 +1923,28 @@ def p_imported_name(s):
 
 def p_path(s, as_allowed):
     pos = s.position()
-    as_name = None
-    names = [p_ident(s)]
+    path = [p_ident(s)]
+    idents = []
     while s.sy == "::":
         s.next()
         if s.sy == "*":
-            names.append(s.context.intern_ustring("*"))
+            path.append(s.context.intern_ustring("*"))
             s.next()
+        elif s.sy == "(":
+            s.next()
+            idents.append(p_imported_name(s))
+            while s.sy == ',':
+                s.next()
+                if s.sy == ')':
+                    break
+                idents.append(p_imported_name(s))
+            s.expect(")")
+            as_allowed = False
         else:
-            names.append(p_ident(s))
-    if as_allowed:
-        as_name = p_as_name(s)
-    return (pos, names[:-1], names[-1], as_name)
+            path.append(p_ident(s))
+    if len(idents) == 0:
+        path, idents = path[:-1], [(s.position(), path[-1], p_as_name(s))]
+    return (pos, path, idents)
 
 
 def p_dotted_name(s, as_allowed):

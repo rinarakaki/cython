@@ -3,10 +3,10 @@
 
 # cython: language_level=3
 
-from libcpp.map cimport map, multimap
-from libcpp.set cimport set, multiset
-from libcpp.unordered_map cimport unordered_map, unordered_multimap
-from libcpp.unordered_set cimport unordered_set, unordered_multiset
+use libcpp::map::(map, multimap)
+use libcpp::set::(set, multiset)
+use libcpp::unordered_map::(unordered_map, unordered_multimap)
+use libcpp::unordered_set::(unordered_set, unordered_multiset)
 
 def test_map_contains(vals, int key_to_find):
     """

@@ -1,1 +1,1 @@
-from libc.math cimport sin, cos, sqrt, tan, log
+use libc::math::(sin, cos, sqrt, tan, log)

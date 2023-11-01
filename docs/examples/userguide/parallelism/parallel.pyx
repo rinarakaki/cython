@@ -1,5 +1,5 @@
 from cython.parallel import parallel, prange
-from libc.stdlib cimport abort, malloc, free
+use libc::stdlib::(abort, malloc, free)
 
 fn void func(i32 *buf) nogil:
     pass

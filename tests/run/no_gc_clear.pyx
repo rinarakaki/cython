@@ -7,7 +7,7 @@ Discussed here: https://article.gmane.org/gmane.comp.python.cython.devel/14986
 """
 
 use cython
-from cpython.ref cimport PyObject, Py_TYPE
+use cpython::ref::(PyObject, Py_TYPE)
 
 # Pull tp_clear for PyTypeObject as I did not find another way to access it
 # from Cython code.

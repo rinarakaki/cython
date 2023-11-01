@@ -1,6 +1,6 @@
 # http://www.opengroup.org/onlinepubs/009695399/basedefs/unistd.h.html
 
-from posix.types cimport gid_t, pid_t, off_t, uid_t
+use posix::types::(gid_t, pid_t, off_t, uid_t)
 
 extern from "<unistd.h>" nogil:
 
