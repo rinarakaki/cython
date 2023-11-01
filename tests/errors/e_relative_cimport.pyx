@@ -3,7 +3,7 @@
 
 use super::super::relative_cimport::some_name
 use super::e_relative_cimport::some_name
-use super::super::declare
+use super::super::cython::declare
 use super::e_relative_cimport
 
 
