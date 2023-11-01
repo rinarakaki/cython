@@ -1,6 +1,6 @@
 from __future__ import print_function
 
-from cython cimport typeof
+use cython::typeof
 
 ctypedef u2 mybool
 

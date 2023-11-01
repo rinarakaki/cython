@@ -1,5 +1,5 @@
-from cpython.object cimport PyObject
-from cpython.version cimport PY_VERSION_HEX
+use cpython::object::PyObject
+use cpython::version::PY_VERSION_HEX
 
 extern from "Python.h":
     struct PyTypeObject:

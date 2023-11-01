@@ -2,7 +2,7 @@
 # mode: compile
 
 # Views define unused ctuples, including (long,)
-from cython cimport view
+use cython::view
 
 # Implicitly generate a ctuple (long,)
 obj = None

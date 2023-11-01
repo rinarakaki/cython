@@ -3,9 +3,9 @@
 
 # cython: language_level=3
 
-from libcpp.set cimport set
-from libcpp.unordered_set cimport unordered_set
-from libcpp.utility cimport pair
+use libcpp::set::set
+use libcpp::unordered_set::unordered_set
+use libcpp::utility::pair
 
 def test_set_insert(vals):
     """

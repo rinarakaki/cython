@@ -1,7 +1,7 @@
 # ticket: t676
 # tag: cpp
 
-from cython cimport typeof
+use cython::typeof
 
 extern from "arithmetic_analyse_types_helper.h":
     struct short_return:

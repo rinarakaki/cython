@@ -1,4 +1,4 @@
-cimport cython
+use cython
 
 cdef object StringIO
 
@@ -22,8 +22,8 @@ cdef class StringIOTree:
 
     cpdef commit(self)
     
-    #def insert(self, iotree)
-    #def insertion_point(self)
+    # def insert(self, iotree)
+    # def insertion_point(self)
 
     #[cython.locals(c=StringIOTree)]
     cpdef allmarkers(self)

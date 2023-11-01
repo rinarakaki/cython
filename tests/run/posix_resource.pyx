@@ -1,7 +1,7 @@
 # tag: posix
 
-from posix.unistd cimport *
-from posix.resource cimport *
+use posix::unistd::*
+use posix::resource::*
 
 
 def test_getpriority():

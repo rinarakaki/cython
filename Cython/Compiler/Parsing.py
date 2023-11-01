@@ -446,8 +446,12 @@ def p_power(s):
         await_pos = s.position()
         s.next()
     n1 = p_atom(s)
-    while s.sy in ('(', '[', '.'):
-        n1 = p_trailer(s, n1)
+    if s.in_python_file:
+        while s.sy in ("(", "[", "."):
+            n1 = p_trailer(s, n1)
+    else:
+        while s.sy in ("(", "[", ".", "::"):
+            n1 = p_trailer(s, n1)
     if await_pos:
         n1 = ExprNodes.AwaitExprNode(await_pos, arg=n1)
     if s.sy == '**':
@@ -473,7 +477,7 @@ def p_trailer(s, node1):
         return p_call(s, node1)
     elif s.sy == '[':
         return p_index(s, node1)
-    else:  # s.sy == '.'
+    else:  # s.sy in (".", "::")
         s.next()
         name = p_ident(s)
         return ExprNodes.AttributeNode(pos,
@@ -637,15 +641,19 @@ def p_subscript(s):
     # 1, 2 or 3 ExprNodes, depending on how
     # many slice elements were encountered.
     pos = s.position()
-    start = p_slice_element(s, (':',))
-    if s.sy != ':':
+    start = p_slice_element(s, (":", "::"))
+    if s.sy not in (":", "::"):
         return [start]
+    elif s.sy == ":":
+        s.next()
+        stop = p_slice_element(s, (":", ";", ",", "]"))
+        if s.sy not in (":", ";"):
+            return [start, stop]
+    else:  # s.sy == "::"
+        s.next()
+        stop = None
     s.next()
-    stop = p_slice_element(s, (':', ';', ',', ']'))
-    if s.sy not in (':', ';'):
-        return [start, stop]
-    s.next()
-    step = p_slice_element(s, (':', ';', ',', ']'))
+    step = p_slice_element(s, (",", "]"))
     return [start, stop, step]
 
 def p_slice_element(s, follow_set):
@@ -1740,6 +1748,35 @@ def p_raise_statement(s):
         return Nodes.ReraiseStatNode(pos)
 
 
+def p_use_statement(s):
+    # s.sy == "use"
+    pos = s.position()
+    s.next()
+    items = [p_path(s, as_allowed=1)]
+    while s.sy == ',':
+        s.next()
+        items.append(p_path(s, as_allowed=1))
+    stats = []
+    is_absolute = Future.absolute_import in s.context.future_directives
+    for pos, path, idents in items:
+        if path:
+            stat = Nodes.FromCImportStatNode(
+                pos,
+                module_name=s.context.intern_ustring(".".join(path)),
+                relative_level=0,
+                imported_names=idents,
+            )
+        else:
+            stat = Nodes.CImportStatNode(
+                pos,
+                module_name=s.context.intern_ustring(idents[0][1]),
+                as_name=idents[0][2],
+                is_absolute=is_absolute,
+            )
+        stats.append(stat)
+    return Nodes.StatListNode(pos, stats=stats)
+
+
 def p_import_statement(s):
     # s.sy in ("import", "use", "cimport")
     pos = s.position()
@@ -1860,12 +1897,38 @@ def p_imported_name(s):
     return (pos, name, as_name)
 
 
+def p_path(s, as_allowed):
+    pos = s.position()
+    path = [p_ident(s)]
+    idents = []
+    while s.sy == "::":
+        s.next()
+        if s.sy == "*":
+            path.append(s.context.intern_ustring("*"))
+            s.next()
+        elif s.sy == "(":
+            s.next()
+            idents.append(p_imported_name(s))
+            while s.sy == ',':
+                s.next()
+                if s.sy == ')':
+                    break
+                idents.append(p_imported_name(s))
+            s.expect(")")
+            as_allowed = False
+        else:
+            path.append(p_ident(s))
+    if len(idents) == 0:
+        path, idents = path[:-1], [(s.position(), path[-1], p_as_name(s))]
+    return (pos, path, idents)
+
+
 def p_dotted_name(s, as_allowed):
     pos = s.position()
     target_name = p_ident(s)
     as_name = None
     names = [target_name]
-    while s.sy == '.':
+    while s.sy == ".":
         s.next()
         names.append(p_ident(s))
     if as_allowed:
@@ -2223,7 +2286,7 @@ def p_with_template(s):
         error(pos, "Syntax error in template function declaration")
 
 def p_simple_statement(s, first_statement = 0):
-    #print "p_simple_statement:", s.sy, s.systring ###
+    # print "p_simple_statement:", s.sy, s.systring ###
     if s.sy == 'global':
         node = p_global_statement(s)
     elif s.sy == 'nonlocal':
@@ -2242,7 +2305,9 @@ def p_simple_statement(s, first_statement = 0):
         node = p_return_statement(s)
     elif s.sy == 'raise':
         node = p_raise_statement(s)
-    elif s.sy in ("import", "use", "cimport"):
+    elif s.sy == "use":
+        node = p_use_statement(s)
+    elif s.sy in ("import", "cimport"):
         node = p_import_statement(s)
     elif s.sy == 'from':
         node = p_from_import_statement(s, first_statement = first_statement)

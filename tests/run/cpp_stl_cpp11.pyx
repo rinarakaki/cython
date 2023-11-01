@@ -2,17 +2,17 @@
 # tag: cpp, werror, cpp11, no-cpp-locals
 
 import sys
-from libcpp.unordered_map cimport unordered_map
-from libcpp.unordered_set cimport unordered_set
-from libcpp.vector cimport vector
-from libcpp.queue cimport queue
-from libcpp.queue cimport priority_queue
-from libcpp.vector cimport vector
-from libcpp.pair cimport pair
-from libcpp.map cimport map
-from libcpp.set cimport set
-from libcpp.deque cimport deque
-from libcpp.functional cimport reference_wrapper
+use libcpp::unordered_map::unordered_map
+use libcpp::unordered_set::unordered_set
+use libcpp::vector::vector
+use libcpp::queue::queue
+use libcpp::queue::priority_queue
+use libcpp::vector::vector
+use libcpp::pair::pair
+use libcpp::map::map
+use libcpp::set::set
+use libcpp::deque::deque
+use libcpp::functional::reference_wrapper
 
 def test_reference_wrapper():
     """

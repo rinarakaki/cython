@@ -136,51 +136,51 @@
 # START OF DEPRECATED SECTION
 #################################################################
 
-from cpython.version cimport *
-from cpython.ref cimport *
-from cpython.exc cimport *
-from cpython.module cimport *
-from cpython.mem cimport *
-from cpython.tuple cimport *
-from cpython.list cimport *
-from cpython.object cimport *
-from cpython.sequence cimport *
-from cpython.mapping cimport *
-from cpython.iterator cimport *
-from cpython.type cimport *
-from cpython.number cimport *
-from cpython.int cimport *
-from cpython.bool cimport *
-from cpython.long cimport *
-from cpython.float cimport *
-from cpython.complex cimport *
-from cpython.string cimport *
-from cpython.unicode cimport *
-from cpython.dict cimport *
-from cpython.instance cimport *
-from cpython.function cimport *
-from cpython.method cimport *
-from cpython.weakref cimport *
-from cpython.getargs cimport *
-from cpython.pythread cimport *
-from cpython.pystate cimport *
+use cpython::version::*
+use cpython::ref::*
+use cpython::exc::*
+use cpython::module::*
+use cpython::mem::*
+use cpython::tuple::*
+use cpython::list::*
+use cpython::object::*
+use cpython::sequence::*
+use cpython::mapping::*
+use cpython::iterator::*
+use cpython::type::*
+use cpython::number::*
+use cpython::int::*
+use cpython::bool::*
+use cpython::long::*
+use cpython::float::*
+use cpython::complex::*
+use cpython::string::*
+use cpython::unicode::*
+use cpython::dict::*
+use cpython::instance::*
+use cpython::function::*
+use cpython::method::*
+use cpython::weakref::*
+use cpython::getargs::*
+use cpython::pythread::*
+use cpython::pystate::*
 
 # Python <= 2.x
-from cpython.cobject cimport *
-from cpython.oldbuffer cimport *
+use cpython::cobject::*
+use cpython::oldbuffer::*
 
 # Python >= 2.4
-from cpython.set cimport *
+use cpython::set::*
 
 # Python >= 2.6
-from cpython.buffer cimport *
-from cpython.bytes cimport *
+use cpython::buffer::*
+use cpython::bytes::*
 
 # Python >= 3.0
-from cpython.pycapsule cimport *
+use cpython::pycapsule::*
 
 # Python >= 3.7
-from cpython.contextvars cimport *
+use cpython::contextvars::*
 
 #################################################################
 # END OF DEPRECATED SECTION

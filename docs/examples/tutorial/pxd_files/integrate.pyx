@@ -1,1 +1,1 @@
-from cmath cimport sin
+use cmath::sin

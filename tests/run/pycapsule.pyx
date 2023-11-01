@@ -1,7 +1,7 @@
 # mode: run
 
 import gc
-from cpython cimport pycapsule
+use cpython::pycapsule
 
 cdef int value = 5
 cdef u2 destructed = false

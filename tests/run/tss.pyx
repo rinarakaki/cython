@@ -1,6 +1,6 @@
 # mode: run
 
-from cpython.pythread cimport *
+use cpython::pythread::*
 
 fn Py_tss_t *pass_py_tss_t_ptr(Py_tss_t *value):
     return value

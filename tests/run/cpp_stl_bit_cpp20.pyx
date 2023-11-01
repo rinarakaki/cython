@@ -1,11 +1,11 @@
 # mode: run
 # tag: cpp, werror, cpp20
 
-from libcpp cimport bool
-from libc.stdint cimport uint8_t, int8_t
-from libcpp.bit cimport (bit_cast, has_single_bit, bit_ceil, bit_floor, 
-                        bit_width, rotr, rotl, countl_zero, countl_one, countr_zero, 
-                        countr_one, popcount)
+use libc::stdint::(uint8_t, int8_t)
+use libcpp::bit::(bit_cast, has_single_bit, bit_ceil, bit_floor, 
+                  bit_width, rotr, rotl, countl_zero, countl_one, countr_zero, 
+                  countr_one, popcount)
+use libcpp::bool
 
 def test_bit_cast():
     """

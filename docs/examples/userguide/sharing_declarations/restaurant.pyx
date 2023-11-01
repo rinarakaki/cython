@@ -1,5 +1,5 @@
 use dishes
-from dishes cimport SpamDish
+use dishes::SpamDish
 
 fn void prepare(SpamDish *d):
     d.oz_of_spam = 42

@@ -1,5 +1,5 @@
-from cpython.object cimport PyObject
-from cpython.ref cimport Py_XDECREF
+use cpython::object::PyObject
+use cpython::ref::Py_XDECREF
 
 extern from "Python.h":
     # Defining PyContextVar_Get() below to always return the default value for Py<3.7 and PyPy<7.3.6

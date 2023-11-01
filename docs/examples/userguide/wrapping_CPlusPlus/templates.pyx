@@ -1,7 +1,7 @@
 # distutils: language = c++
 
 # import dereference and increment operators
-from cython.operator cimport dereference as deref, preincrement as inc
+use cython::operator::(dereference as deref, preincrement as inc)
 
 extern from "<vector>" namespace "std":
     cdef cppclass vector[T]:

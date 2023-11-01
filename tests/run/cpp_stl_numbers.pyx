@@ -1,7 +1,7 @@
 # mode: run
 # tag: cpp20, cpp
 
-from libcpp.numbers cimport pi, e
+use libcpp::numbers::(pi, e)
 
 
 def test_pi():

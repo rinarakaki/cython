@@ -4,7 +4,7 @@
 
 use cython
 
-from libc.math cimport sqrt
+use libc::math::sqrt
 
 fn void empty_cfunc():
     print "here"

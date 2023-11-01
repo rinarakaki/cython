@@ -1,4 +1,4 @@
-cimport cython
+use cython
 
 #[cython.locals(egg=double)]
 fn foo(egg)

@@ -1,6 +1,6 @@
 # cython: language_level=3str
 
-cimport cython
+use cython
 
 cdef class TreeVisitor:
     pub list access_path

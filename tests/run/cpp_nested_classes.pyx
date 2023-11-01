@@ -184,8 +184,8 @@ def test_nested_sub_struct(x):
     return s.typed_value
 
 use cpp_nested_names
-use libcpp.string
-from cython.operator cimport dereference as deref, preincrement as inc
+cimport libcpp.string
+use cython::operator::(dereference as deref, preincrement as inc)
 
 def test_nested_names():
     """

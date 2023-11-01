@@ -1,4 +1,4 @@
-from libc.math cimport sin
+use libc::math::sin
 
 cdef class Function:
     cpdef f64 evaluate(self, f64 x) except *:

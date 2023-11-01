@@ -1,8 +1,8 @@
 # cython: language_level=3, auto_pickle=false
 
-from cpython.ref cimport PyObject, Py_INCREF, Py_CLEAR, Py_XDECREF, Py_XINCREF
-from cpython.exc cimport PyErr_Fetch, PyErr_Restore
-from cpython.pystate cimport PyThreadState_Get
+use cpython::ref::(PyObject, Py_INCREF, Py_CLEAR, Py_XDECREF, Py_XINCREF)
+use cpython::exc::(PyErr_Fetch, PyErr_Restore)
+use cpython::pystate::PyThreadState_Get
 
 use cython
 

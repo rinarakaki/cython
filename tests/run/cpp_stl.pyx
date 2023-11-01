@@ -18,7 +18,7 @@ extern from "vector" namespace "std":
         iterator end()
         iterator begin()
 
-from cython.operator cimport dereference as deref, preincrement as inc
+use cython::operator::(dereference as deref, preincrement as inc)
 
 def test_vector(L):
     """

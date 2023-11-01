@@ -3,13 +3,13 @@
 
 from __future__ import print_function
 
-from libcpp cimport bool
-from libcpp.algorithm cimport is_sorted, is_sorted_until, sort, partial_sort, partial_sort_copy, stable_sort
-from libcpp.algorithm cimport nth_element
-from libcpp.functional cimport greater
-from libcpp.iterator cimport distance
-from libcpp.string cimport string
-from libcpp.vector cimport vector
+use libcpp::bool
+use libcpp::algorithm::(is_sorted, is_sorted_until, sort, partial_sort, partial_sort_copy, stable_sort)
+use libcpp::algorithm::nth_element
+use libcpp::functional::greater
+use libcpp::iterator::distance
+use libcpp::string::string
+use libcpp::vector::vector
 
 def is_sorted_ints(vector[i32] values):
     """

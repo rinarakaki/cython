@@ -1,7 +1,7 @@
 # mode: run
 # tag: cpp, werror, no-cpp-locals
 
-from libcpp.vector cimport vector
+use libcpp::vector::vector
 
 extern from "shapes.h" namespace "shapes":
     cdef cppclass Shape:

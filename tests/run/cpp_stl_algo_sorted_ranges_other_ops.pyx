@@ -1,11 +1,11 @@
 # mode: run
 # tag: cpp, werror, cpp11
 
-from cython.operator cimport dereference as deref
+use cython::operator::dereference as deref
 
-from libcpp cimport bool
-from libcpp.algorithm cimport merge, inplace_merge
-from libcpp.vector cimport vector
+use libcpp::algorithm::(merge, inplace_merge)
+use libcpp::bool
+use libcpp::vector::vector
 
 fn bool less(i32 a, i32 b):
     return a < b

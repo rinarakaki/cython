@@ -1,7 +1,7 @@
 # coding: utf-8
 
-from cpython.datetime cimport import_datetime
-from cpython.datetime cimport date, time, datetime, timedelta, timezone_new, PyDateTime_IMPORT
+use cpython::datetime::import_datetime
+use cpython::datetime::(date, time, datetime, timedelta, timezone_new, PyDateTime_IMPORT)
 
 import sys
 

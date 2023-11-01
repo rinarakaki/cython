@@ -1,6 +1,6 @@
 # mode: run
 
-from cython cimport view
+use cython::view
 
 fn u2 print_upper_right(f64[:, :] M):
     print M[0, 1]

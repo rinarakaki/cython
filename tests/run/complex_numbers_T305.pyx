@@ -1,6 +1,6 @@
 # ticket: t305
 
-from cpython.object cimport Py_EQ, Py_NE
+use cpython::object::(Py_EQ, Py_NE)
 
 use cython
 

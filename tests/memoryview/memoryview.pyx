@@ -10,15 +10,15 @@ u'''
 >>> assignmvs()
 '''
 
-from cython.view cimport memoryview, array
-from cython cimport view
+use cython::view
+use cython::view::(memoryview, array)
 
-from cpython.object cimport PyObject
-from cpython.ref cimport Py_INCREF, Py_DECREF
+use cpython::object::PyObject
+use cpython::ref::(Py_INCREF, Py_DECREF)
 use cython
 
 import array as pyarray
-from libc.stdlib cimport malloc, free
+use libc::stdlib::(malloc, free)
 
 extern from "Python.h":
     cdef i32 PyBUF_C_CONTIGUOUS

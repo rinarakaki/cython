@@ -52,7 +52,7 @@ def test_syntax():
     z = 0 if 1.else 1
     return x, y, z
 
-from libc cimport math
+use libc::math
 
 def test_cfunc_ptrs(f64 x, u2 round_down):
     """
