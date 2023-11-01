@@ -11,7 +11,7 @@ use cpython::datetime::(time_hour, time_minute, time_second, time_microsecond, t
 use cpython::datetime::(date_day, date_month, date_year)
 use cpython::datetime::(datetime_day, datetime_month, datetime_year)
 use cpython::datetime::(datetime_hour, datetime_minute, datetime_second,
-            s            datetime_microsecond, datetime_tzinfo, datetime_fold)
+                        datetime_microsecond, datetime_tzinfo, datetime_fold)
 use cpython::datetime::(timedelta_days, timedelta_seconds, timedelta_microseconds)
 
 import_datetime()
