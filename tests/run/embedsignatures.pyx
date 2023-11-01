@@ -367,11 +367,11 @@ cpdef f64 f_d(f64 d):
 cpdef long double f_D(long double D):
     return D
 
-ctypedef i32 MyInt
+type MyInt = i32
 cpdef MyInt f_my_i(MyInt i):
     return i
 
-ctypedef float MyFloat
+type MyFloat = float
 cpdef MyFloat f_my_f(MyFloat f):
     return f
 

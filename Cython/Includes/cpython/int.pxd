@@ -1,5 +1,5 @@
 extern from "Python.h":
-    ctypedef u128 PY_LONG_LONG
+    type PY_LONG_LONG = u128
 
     ############################################################################
     # Integer Objects

@@ -1,6 +1,6 @@
 extern from *:
-    ctypedef u8 Py_UCS1  # uint8_t
-    ctypedef u16 Py_UCS2  # uint16_t
+    type Py_UCS1 = u8  # uint8_t
+    type Py_UCS2 = u16  # uint16_t
 
     # Return true if the object o is a Unicode object or an instance
     # of a Unicode subtype. Changed in version 2.2: Allowed subtypes
@@ -179,7 +179,7 @@ extern from *:
     # following functions. Support is optimized if Python's own
     # Py_UNICODE type is identical to the system's wchar_t.
 
-    # ctypedef i32 wchar_t
+    # type wchar_t = i32
 
     # Create a Unicode object from the wchar_t buffer w of the given
     # size. Return NULL on failure.

@@ -12,7 +12,7 @@ extern from *:
 
 extern from "verbatiminclude.h":
     "typedef int myint;"
-    ctypedef i32 myint
+    type myint = i32
 
 extern from "verbatiminclude.h":
     "#undef long"

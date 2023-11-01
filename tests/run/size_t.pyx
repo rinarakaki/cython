@@ -35,7 +35,7 @@ OverflowError: ...
 
 # XXX This should generate a warning !!!
 extern from *:
-    ctypedef u64 usize
+    type usize = u64
 
 def test(usize i):
     return i

@@ -6,7 +6,7 @@ use libc::stdint::int64_t
 use cpython::exc::PyErr_SetFromErrno
 
 extern from "Python.h":
-    ctypedef int64_t _PyTime_t
+    type _PyTime_t = int64_t
     _PyTime_t _PyTime_GetSystemClock() nogil
     fn f64 _PyTime_AsSecondsDouble(_PyTime_t t) nogil
 

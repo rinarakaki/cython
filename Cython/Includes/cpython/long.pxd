@@ -1,5 +1,5 @@
 extern from "Python.h":
-    ctypedef i128 PY_LONG_LONG
+    type PY_LONG_LONG = i128
     ctypedef u128 uPY_LONG_LONG "unsigned PY_LONG_LONG"
 
     ############################################################################

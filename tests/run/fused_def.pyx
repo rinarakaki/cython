@@ -36,8 +36,8 @@ ctypedef fused fused_t:
     ExtClassB
     MyEnum
 
-ctypedef ExtClassA xxxlast
-ctypedef ExtClassB aaafirst
+type xxxlast = ExtClassA
+type aaafirst = ExtClassB
 
 ctypedef fused fused_with_object:
     aaafirst

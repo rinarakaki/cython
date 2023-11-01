@@ -4,16 +4,16 @@
 # -------------------------------------------------------------------
 
 extern from "ctypedef_int_types_chdr_T333.h":
-     ctypedef i32 SChar     ## "signed char"
-     ctypedef i32 UChar     ## "unsigned char"
-     ctypedef i32 SShort    ## "signed short"
-     ctypedef i32 UShort    ## "unsigned short"
-     ctypedef i32 SInt      ## "signed int"
-     ctypedef i32 UInt      ## "unsigned int"
-     ctypedef i32 SLong     ## "signed long"
-     ctypedef i32 ULong     ## "unsigned long"
-     ctypedef i32 SLongLong ## "signed PY_LONG_LONG"
-     ctypedef i32 ULongLong ## "unsigned PY_LONG_LONG"
+     type SChar = i32  ## "signed char"
+     type UChar = i32  ## "unsigned char"
+     type SShort = i32  ## "signed short"
+     type UShort = i32  ## "unsigned short"
+     type SInt = i32  ## "signed int"
+     type UInt = i32  ## "unsigned int"
+     type SLong = i32  ## "signed long"
+     type ULong = i32  ## "unsigned long"
+     type SLongLong = i32  ## "signed PY_LONG_LONG"
+     type ULongLong = i32  ## "unsigned PY_LONG_LONG"
 
 # -------------------------------------------------------------------
 
