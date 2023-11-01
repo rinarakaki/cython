@@ -2416,7 +2416,11 @@ def p_statement(s, ctx, first_statement = 0):
         s.level = ctx.level
         decorators = p_attributes(s)
 
-    if s.sy == 'ctypedef':
+    if s.sy == "type":
+        if ctx.level not in ("module", "module_pxd"):
+            s.error("type statement not allowed here")
+        return p_type_statement(s, ctx)
+    elif s.sy == 'ctypedef':
         if ctx.level not in ('module', 'module_pxd'):
             s.error("ctypedef statement not allowed here")
         #if ctx.api:
@@ -3635,6 +3639,24 @@ def p_c_func_or_var_declaration(s, pos, ctx):
             modifiers = modifiers,
             overridable = ctx.overridable)
     return result
+
+def p_type_statement(s, ctx):
+    # s.sy == "type"
+    pos = s.position()
+    s.next()
+    visibility = p_visibility(s, ctx.visibility)
+    ctx = ctx(typedef_flag=1, visibility=visibility)
+    declarator = p_c_declarator(s, ctx, is_type=1, nonempty=1)
+    s.expect("=")
+    base_type = p_c_base_type(s, nonempty=1)
+    s.expect_newline("Syntax error in type statement", ignore_semicolon=True)
+    return Nodes.CTypeDefNode(
+        pos,
+        base_type=base_type,
+        declarator=declarator,
+        visibility=visibility,
+        in_pxd=ctx.level == "module_pxd"
+    )
 
 def p_ctypedef_statement(s, ctx):
     # s.sy == 'ctypedef'
