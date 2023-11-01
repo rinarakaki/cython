@@ -67,7 +67,7 @@ ctypedef i32 py_b_int
 ######## py_pkg/py_sub/py_c.pxd ########
 
 from .. cimport py_b
-from . cimport py_d
+use super::py_d
 
 ctypedef i32 py_c_int
 
@@ -109,7 +109,7 @@ cdef class test_pxd:
 
 ######## pkg/b.pyx ########
 
-from . cimport a
+use super::a
 from .a cimport test_pxd
 
 assert a.test_pxd is test_pxd
@@ -125,7 +125,7 @@ def test():
 
 # cython: language_level=2
 
-from . cimport a
+use super::a
 from .a cimport test_pxd
 cimport a as implicitly_relative_a  # <-- Py2 "feature"
 
@@ -158,7 +158,7 @@ fn i32 sum_func(i32 n, i32 m)
 
 ######## pkg/sub/d.pyx ########
 
-from . cimport c
+use super::c
 
 def test():
     return c.sum_func(1, 2)
@@ -176,4 +176,4 @@ from .tdef cimport myint
 ######## pkg/sub/__init__.pxd ########
 
 from .tdef cimport myint
-from . cimport c
+use super::c

@@ -1,10 +1,10 @@
 # mode: error
 # tag: cimport
 
-from ..relative_cimport cimport some_name
-from .e_relative_cimport cimport some_name
-from ..cython cimport declare
-from . cimport e_relative_cimport
+use super::super::relative_cimport::some_name
+use super::e_relative_cimport::some_name
+use super::super::declare
+use super::e_relative_cimport
 
 
 _ERRORS="""

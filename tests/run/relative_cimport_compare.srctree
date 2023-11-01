@@ -98,7 +98,7 @@ from cypkg.sub.a cimport a_type
 from cypkg.sub.sub2 cimport b
 from cypkg.sub.sub2.b cimport b_type
 
-from . cimport sub
+use super::sub
 from .sub cimport a
 from .sub.a cimport a_type
 from .sub.sub2 cimport b
@@ -117,7 +117,7 @@ from cypkg.sub.a cimport a_type
 from cypkg.sub.sub2 cimport b
 from cypkg.sub.sub2.b cimport b_type
 
-from . cimport sub
+use super::sub
 from .sub cimport a
 from .sub.a cimport a_type
 from .sub.sub2 cimport b
@@ -132,7 +132,7 @@ from cypkg.sub.a cimport a_type
 from cypkg.sub.sub2 cimport b
 from cypkg.sub.sub2.b cimport b_type
 
-from . cimport a
+use super::a
 from .a cimport a_type
 
 from .. cimport sub
@@ -156,7 +156,7 @@ from cypkg.sub.a cimport a_type
 from cypkg.sub.sub2 cimport b
 from cypkg.sub.sub2.b cimport b_type
 
-from . cimport a
+use super::a
 from .a cimport a_type
 
 from .. cimport sub

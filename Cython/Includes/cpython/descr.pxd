@@ -1,4 +1,4 @@
-from .object cimport PyObject, PyTypeObject
+use super::object::PyObject, PyTypeObject
 
 extern from "Python.h":
     ctypedef object (*wrapperfunc)(self, args, void* wrapped)

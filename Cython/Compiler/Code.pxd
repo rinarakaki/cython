@@ -1,7 +1,7 @@
 # cython: language_level=3
 
 use cython
-from ..StringIOTree cimport StringIOTree
+use super::super:::StringIOTree::StringIOTree
 
 cdef class UtilityCodeBase(object):
     cpdef format_code(self, code_string, replace_empty_lines=*)

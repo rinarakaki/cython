@@ -1,4 +1,4 @@
-from .object cimport PyObject, PyTypeObject, Py_TYPE  # legacy imports for re-export
+use super::object::PyObject, PyTypeObject, Py_TYPE  # legacy imports for re-export
 
 extern from "Python.h":
     #####################################################################
