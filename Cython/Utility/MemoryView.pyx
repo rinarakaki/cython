@@ -1450,7 +1450,7 @@ fn bytes format_from_typeinfo(__Pyx_TypeInfo *type):
 
     if type.typegroup == 'S':
         assert type.fields != NULL
-        assert type.fields.type != NULL
+        assert type.fields.r#type != NULL
 
         if type.flags & __PYX_BUF_FLAGS_PACKED_STRUCT:
             alignment = b'^'
@@ -1460,8 +1460,8 @@ fn bytes format_from_typeinfo(__Pyx_TypeInfo *type):
         parts = [b"T{"]
         field = type.fields
 
-        while field.type:
-            part = format_from_typeinfo(field.type)
+        while field.r#type:
+            part = format_from_typeinfo(field.r#type)
             parts.append(part + b':' + field.name + b':')
             field += 1
 

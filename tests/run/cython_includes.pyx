@@ -51,7 +51,7 @@ cimport cpython.set
 cimport cpython.slice
 cimport cpython.string
 cimport cpython.tuple
-cimport cpython.type
+cimport cpython.r#type
 cimport cpython.unicode
 cimport cpython.version
 cimport cpython.weakref
