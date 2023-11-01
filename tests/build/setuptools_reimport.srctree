@@ -3,16 +3,13 @@
 
 PYTHON setup.py
 
-
 ######## module.pyx ########
 
-cimport cython
-
+use cython
 
 ######## import_cython.py ########
 
 import Cython.Compiler.Main
-
 
 ######## setup.py ########
 

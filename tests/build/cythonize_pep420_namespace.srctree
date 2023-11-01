@@ -8,11 +8,11 @@ from Cython.Build.Dependencies import cythonize
 from distutils.core import setup, Extension
 
 setup(
-  ext_modules=cythonize([
-    Extension("nsp.m1.a", ["nsp/m1/a.pyx"]),
-    Extension("nsp.m2.b", ["nsp/m2/b.pyx"]),
-    Extension("nsp.m3.c.d", ["nsp/m3/c/d.pyx"]),
-  ]),
+    ext_modules=cythonize([
+        Extension("nsp.m1.a", ["nsp/m1/a.pyx"]),
+        Extension("nsp.m2.b", ["nsp/m2/b.pyx"]),
+        Extension("nsp.m3.c.d", ["nsp/m3/c/d.pyx"]),
+    ]),
 )
 
 ######## nsp/m1/__init__.py ########
@@ -31,8 +31,8 @@ cdef class A:
 
 ######## nsp/m2/b.pyx ########
 
-from nsp.m1.a cimport A
-from nsp.m3.c.d cimport D
+use nsp::m1::a::A
+use nsp::m3::c::d::D
 
 cdef class B(A):
     pass
@@ -42,12 +42,12 @@ cdef class B(A):
 ######## nsp/m3/c/d.pyx ########
 
 cdef class D:
-  pass
+    pass
 
 ######## nsp/m3/c/d.pxd ########
 
 cdef class D:
-  pass
+    pass
 
 ######## runner.py ########
 

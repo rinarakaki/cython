@@ -1,10 +1,10 @@
 # mode: run
 # tag: cpp, werror, cpp17, cppexecpolicies
 
-from libcpp.numeric cimport (reduce, transform_reduce, inclusive_scan, 
-                             exclusive_scan, transform_inclusive_scan, 
-                             transform_exclusive_scan, gcd, lcm)
 use libcpp::execution::seq
+use libcpp::numeric::(reduce, transform_reduce, inclusive_scan, 
+                      exclusive_scan, transform_inclusive_scan, 
+                      transform_exclusive_scan, gcd, lcm)
 use libcpp::vector::vector
 
 # Subtracts two integers.

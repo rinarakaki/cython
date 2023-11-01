@@ -5,7 +5,6 @@ PYTHON -c "import a"
 
 ######## setup.py ########
 
-
 # TODO: Better interface...
 from Cython.Build.Dependencies import cythonize
 
@@ -36,6 +35,6 @@ namespace A {
 
 ######## a.pyx ########
 
-from my_lib cimport x
+use my_lib::x
 
 print(x)
