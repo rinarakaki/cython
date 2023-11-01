@@ -1840,6 +1840,7 @@ def p_from_import_statement(s, first_statement = 0):
         s.next()
     else:
         if s.sy == '(':
+            is_parenthesized = True
             s.next()
         imported_names = [p_imported_name(s)]
     while s.sy == ',':
