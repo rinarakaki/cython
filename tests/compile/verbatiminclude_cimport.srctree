@@ -11,16 +11,16 @@ setup(
 
 ######## test.pyx ########
 
-from moda cimport DEFINE_A
-from modb cimport DEFINE_B
+use moda::DEFINE_A
+use modb::DEFINE_B
 
 ######## moda.pxd ########
 
-from verbatim cimport DEFINE_ONCE as DEFINE_A
+use verbatim::DEFINE_ONCE as DEFINE_A
 
 ######## modb.pxd ########
 
-from verbatim cimport DEFINE_ONCE as DEFINE_B
+use verbatim::DEFINE_ONCE as DEFINE_B
 
 ######## verbatim.pxd ########
 

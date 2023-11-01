@@ -11,10 +11,11 @@ extern from "frameobject.h":
     struct PyFrameObject:
         PyObject *f_trace
 
-from cpython.pystate cimport (
+use cpython::pystate::(
     Py_tracefunc,
     PyTrace_CALL, PyTrace_EXCEPTION, PyTrace_LINE, PyTrace_RETURN,
-    PyTrace_C_CALL, PyTrace_C_EXCEPTION, PyTrace_C_RETURN)
+    PyTrace_C_CALL, PyTrace_C_EXCEPTION, PyTrace_C_RETURN
+)
 
 extern from *:
     fn void PyEval_SetProfile(Py_tracefunc cfunc, PyObject *obj)

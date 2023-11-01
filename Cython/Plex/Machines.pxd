@@ -1,7 +1,7 @@
 use cython
 
-from .Actions cimport Action
-from .Transitions cimport TransitionMap
+use super::Actions::Action
+use super::Transitions::TransitionMap
 
 cdef i32 maxint
 
