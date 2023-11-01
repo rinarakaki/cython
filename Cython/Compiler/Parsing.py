@@ -1762,14 +1762,14 @@ def p_use_statement(s):
         if idents:
             stat = Nodes.FromCImportStatNode(
                 pos,
-                module_name=s.context.intern_ustring(".".join(segment[1] for segment in path)),
+                module_name=s.context.intern_ustring(".".join(path)),
                 relative_level=0,
                 imported_names=idents,
             )
         else:
             stat = Nodes.CImportStatNode(
                 pos,
-                module_name=s.context.intern_ustring(path[0][1]),
+                module_name=s.context.intern_ustring(path[0]),
                 as_name=as_name,
                 is_absolute=is_absolute,
             )
