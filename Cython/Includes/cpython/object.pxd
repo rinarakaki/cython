@@ -341,7 +341,7 @@ extern from "Python.h":
     # pointer of type PyTypeObject*, except when the incremented
     # reference count is needed.
 
-    fn bint PyObject_TypeCheck(object o, PyTypeObject *type)
+    fn bint PyObject_TypeCheck(object o, PyTypeObject *r#type)
     # Return true if the object o is of type type or a subtype of
     # type. Both parameters must be non-NULL.
 
