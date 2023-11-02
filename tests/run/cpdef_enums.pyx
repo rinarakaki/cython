@@ -7,17 +7,17 @@
 Traceback (most recent call last):
 NameError: ...name 'THOUSAND' is not defined
 
->>> TWO == 2 or TWO
+>>> Two == 2 or Two
 True
->>> THREE == 3 or THREE
+>>> Three == 3 or Three
 True
->>> FIVE == 5 or FIVE
+>>> Five == 5 or Five
 True
->>> ELEVEN == 11 or ELEVEN
+>>> Eleven == 11 or Eleven
 True
->>> SEVEN           # doctest: +ELLIPSIS
+>>> Seven           # doctest: +ELLIPSIS
 Traceback (most recent call last):
-NameError: ...name 'SEVEN' is not defined
+NameError: ...name 'Seven' is not defined
 
 >>> FOUR == 4 or FOUR
 True
@@ -27,29 +27,29 @@ True
 Traceback (most recent call last):
 NameError: ...name 'SIXTEEN' is not defined
 
->>> RANK_0 == 11 or RANK_0
+>>> PxdEnum::Rank0 == 11 or PxdEnum::Rank0
 True
->>> RANK_1 == 37 or RANK_1
+>>> PxdEnum::Rank1 == 37 or PxdEnum::Rank1
 True
->>> RANK_2 == 389 or RANK_2
+>>> PxdEnum::Rank2 == 389 or PxdEnum::Rank2
 True
->>> RANK_6 == 159 or RANK_6
+>>> CpdefPxdDocEnum::Rank6 == 159 or CpdefPxdDocEnum::Rank6
 True
->>> RANK_7 == 889 or RANK_7
+>>> CpdefPxdDocLineEnum::Rank7 == 889 or CpdefPxdDocLineEnum::Rank7
 True
->>> RANK_3         # doctest: +ELLIPSIS
+>>> Rank3         # doctest: +ELLIPSIS
 Traceback (most recent call last):
-NameError: ...name 'RANK_3' is not defined
+NameError: ...name 'Rank3' is not defined
 
->>> set(PyxEnum) == {TWO, THREE, FIVE}
+>>> set(PyxEnum) == {Two, Three, Five}
 True
->>> str(PyxEnum.TWO).split(".")[-1]  if sys.version_info < (3,11) else  "TWO" # Py3.10/11 changed the output here
-'TWO'
->>> str(PyxEnum.TWO)  if sys.version_info >= (3,11) else  "2" # Py3.10/11 changed the output here
+>>> str(PyxEnum::Two).split(".")[-1]  if sys.version_info < (3,11) else  "Two" # Py3.10/11 changed the output here
+'Two'
+>>> str(PyxEnum::Two)  if sys.version_info >= (3, 11) else  "2" # Py3.10/11 changed the output here
 '2'
->>> PyxEnum.TWO + PyxEnum.THREE == PyxEnum.FIVE
+>>> PyxEnum::Two + PyxEnum::Three == PyxEnum::Five
 True
->>> PyxEnum(2) is PyxEnum["TWO"] is PyxEnum.TWO
+>>> PyxEnum(2) is PyxEnum["Two"] is PyxEnum::Two
 True
 
 # not leaking into module namespace
@@ -59,30 +59,30 @@ NameError: ...name 'IntEnum' is not defined
 """
 
 extern from *:
-    cpdef enum: # ExternPyx
+    cpdef enum:  # ExternPyx
         ONE "1"
         TEN "10"
         HUNDRED "100"
 
-    cdef enum: # ExternSecretPyx
+    cdef enum:  # ExternSecretPyx
         THOUSAND "1000"
 
 cpdef enum PyxEnum:
-    TWO = 2
-    THREE = 3
-    FIVE = 5
+    Two = 2
+    Three = 3
+    Five = 5
 
 cpdef enum cpdefPyxDocEnum:
     """Home is where...
     """
-    ELEVEN = 11
+    Eleven = 11
 
-cpdef enum cpdefPyxDocLineEnum:
+cpdef enum CpdefPyxDocLineEnum:
     """Home is where..."""
-    FOURTEEN = 14
+    Fourteen = 14
 
 enum SecretPyxEnum:
-    SEVEN = 7
+    Seven = 7
 
 enum cdefPyxDocEnum:
     """the heart is.
@@ -123,13 +123,13 @@ def test_as_variable_from_cython():
     """
     >>> test_as_variable_from_cython()
     """
-    assert list(PyxEnum) == [TWO, THREE, FIVE], list(PyxEnum)
-    assert list(PxdEnum) == [RANK_0, RANK_1, RANK_2], list(PxdEnum)
+    assert list(PyxEnum) == [Two, Three, Five], list(PyxEnum)
+    assert list(PxdEnum) == [RANK_0, ::Rank1, ::Rank2], list(PxdEnum)
 
 fn i32 verify_pure_c() nogil:
-    let i32 x = TWO
-    let i32 y = PyxEnum.THREE
-    let i32 z = SecretPyxEnum::SEVEN
+    let i32 x = Two
+    let i32 y = PyxEnum.Three
+    let i32 z = SecretPyxEnum::Seven
     return x + y + z
 
 # Use it to suppress warning.
@@ -140,8 +140,8 @@ def verify_resolution_GH1533():
     >>> verify_resolution_GH1533()
     3
     """
-    THREE = 100
-    return int(PyxEnum.THREE)
+    Three = 100
+    return int(PyxEnum.Three)
 
 
 def check_docs():
@@ -164,12 +164,12 @@ def check_docs():
 
 def to_from_py_conversion(PxdEnum val):
     """
-    >>> to_from_py_conversion(RANK_1) is PxdEnum.RANK_1
+    >>> to_from_py_conversion(::Rank1) is PxdEnum.::Rank1
     True
 
     C enums are commonly enough used as flags that it seems reasonable
     to allow it in Cython
-    >>> to_from_py_conversion(RANK_1 | RANK_2) == (RANK_1 | RANK_2)
+    >>> to_from_py_conversion(::Rank1 | ::Rank2) == (::Rank1 | ::Rank2)
     True
     """
     return val
@@ -224,22 +224,22 @@ def test_pickle():
     >>> if sys.version_info < (3, 6) or sys.version_info[:3] == (3,11,4):
     ...     loads = dumps = lambda x: x
 
-    >>> loads(dumps(PyxEnum.TWO)) == PyxEnum.TWO
+    >>> loads(dumps(PyxEnum.Two)) == PyxEnum.Two
     True
-    >>> loads(dumps(PxdEnum.RANK_2)) == PxdEnum.RANK_2
+    >>> loads(dumps(PxdEnum.::Rank2)) == PxdEnum.::Rank2
     True
     """
     pass
 
-def test_as_default_value(PxdEnum val=PxdEnum.RANK_1):
+def test_as_default_value(PxdEnum val=PxdEnum.::Rank1):
     """
     In order to work, this requires the utility code to be evaluated
     before the function definition
     >>> test_as_default_value()
     True
-    >>> test_as_default_value(PxdEnum.RANK_2)
+    >>> test_as_default_value(PxdEnum.::Rank2)
     False
-    >>> test_as_default_value.__defaults__[0] == PxdEnum.RANK_1
+    >>> test_as_default_value.__defaults__[0] == PxdEnum.::Rank1
     True
     """
-    return val == PxdEnum.RANK_1
+    return val == PxdEnum.::Rank1
