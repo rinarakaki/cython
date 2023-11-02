@@ -9,5 +9,5 @@ enum class Spam:
 
 _ERRORS="""
 7:5: 'Spam' redeclared
-4:5: Previous declaration is here
+4:0: Previous declaration is here
 """
