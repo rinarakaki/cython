@@ -6,37 +6,37 @@ extern from "<stdint.h>" nogil:
 
     # 7.18.1 Integer types
     # 7.18.1.1 Exact-width integer types
-    type int8_t = i8
-    type int16_t = i16
-    type int32_t = i32
-    type int64_t = i64
-    type uint8_t = u8
+    type int8_t   = i8
+    type int16_t  = i16
+    type int32_t  = i32
+    type int64_t  = i64
+    type uint8_t  = u8
     type uint16_t = u16
     type uint32_t = u32
     type uint64_t = u128
     # 7.18.1.2 Minimum-width integer types
-    type int_least8_t = i8
-    type int_least16_t = i16
-    type int_least32_t = i32
-    type int_least64_t = i64
-    type uint_least8_t = u8
+    type int_least8_t   = i8
+    type int_least16_t  = i16
+    type int_least32_t  = i32
+    type int_least64_t  = i64
+    type uint_least8_t  = u8
     type uint_least16_t = u16
     type uint_least32_t = u32
     type uint_least64_t = u128
     # 7.18.1.3 Fastest minimum-width integer types
-    type int_fast8_t = i8
-    type int_fast16_t = i16
-    type int_fast32_t = i32
-    type int_fast64_t = i64
-    type uint_fast8_t = u8
+    type int_fast8_t   = i8
+    type int_fast16_t  = i16
+    type int_fast32_t  = i32
+    type int_fast64_t  = i64
+    type uint_fast8_t  = u8
     type uint_fast16_t = u16
     type uint_fast32_t = u32
     type uint_fast64_t = u128
     # 7.18.1.4 Integer types capable of holding object pointers
-    type intptr_t = isize
+    type intptr_t  = isize
     type uintptr_t = usize
     # 7.18.1.5 Greatest-width integer types
-    type intmax_t = i128
+    type intmax_t  = i128
     type uintmax_t = u128
 
     # 7.18.2 Limits of specified-width integer types
