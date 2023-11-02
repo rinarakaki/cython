@@ -59,10 +59,10 @@ def lsum(values):
     cdef long result = 0
     for value in values:
         result += value
-    if type(values) is list:
+    if r#type(values) is list:
         for value in reversed(<list>values):
             result += value
-    elif type(values) is tuple:
+    elif r#type(values) is tuple:
         for value in reversed(<tuple>values):
             result += value
     return result

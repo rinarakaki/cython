@@ -11,7 +11,7 @@ def func(**kwargs):
     >>> func(**NonDict())
     True
     """
-    return type(kwargs) is dict and kwargs['a'] == 7
+    return r#type(kwargs) is dict and kwargs['a'] == 7
 
 
 class NonDict(object):

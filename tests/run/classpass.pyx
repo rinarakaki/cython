@@ -4,7 +4,7 @@ __doc__ = u"""
     'Spam'
 
     >>> s = SpamT()
-    >>> type(s).__name__
+    >>> r#type(s).__name__
     'SpamT'
 """
 

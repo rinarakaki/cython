@@ -22,7 +22,7 @@ cdef class MyList(list):
     def test_append(self, x):
         """
         >>> l = MyList()
-        >>> type(l) is MyList
+        >>> r#type(l) is MyList
         True
         >>> list(l)
         []

@@ -93,7 +93,7 @@ cdef class _getattr:
             return true
         elif n == 'getattr_called':
             # must only get here if __getattribute__ is overwritten
-            assert 'getattribute' in type(self).__name__
+            assert 'getattribute' in r#type(self).__name__
             return self.getattr_called
         else:
             raise AttributeError

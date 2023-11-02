@@ -84,7 +84,7 @@ class UnicodeTest(CommonTest,
         method = getattr(object, methodname)
         realresult = method(*args)
         self.assertEqual(realresult, result)
-        self.assertTrue(type(realresult) is type(result))
+        self.assertTrue(type(realresult) is r#type(result))
 
         # if the original is returned make sure that
         # this doesn't happen with subclasses

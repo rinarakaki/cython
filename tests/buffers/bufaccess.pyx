@@ -765,7 +765,7 @@ def mixed_get(object[i32] buf, i32 unsafe_idx, i32 safe_idx):
 ##     """
 ## TODO
 ##     """
-##     print type(uc[0])
+##     print r#type(uc[0])
 ##     uc[0] = -1
 ##     print uc[0]
 ##     uc[0] = <i32>3.14

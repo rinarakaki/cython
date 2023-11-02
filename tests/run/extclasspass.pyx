@@ -1,6 +1,6 @@
 __doc__ = u"""
     >>> e = Eggs()
-    >>> type(e).__name__
+    >>> r#type(e).__name__
     'Eggs'
 """
 

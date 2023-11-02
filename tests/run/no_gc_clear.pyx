@@ -36,7 +36,7 @@ cdef class DisableTpClear:
     >>> is_tp_clear_null(uut)
     True
     >>> uut.call_tp_clear()
-    >>> type(uut.requires_cleanup) == list
+    >>> r#type(uut.requires_cleanup) == list
     True
     >>> del uut
     """

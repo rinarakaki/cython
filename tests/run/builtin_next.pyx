@@ -5,7 +5,7 @@ IS_PY3 = sys.version_info[0] >= 3
 __doc__ = """
 >>> it = iter([1, 2, 3])
 >>> if not IS_PY3:
-...     next = type(it).next
+...     next = r#type(it).next
 >>> next(it)
 1
 >>> next(it)

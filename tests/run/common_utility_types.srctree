@@ -29,10 +29,10 @@ def funcB():
 
 print("importing...")
 import a, b
-print(type(a.funcA))
+print(r#type(a.funcA))
 
-assert type(a.funcA).__name__.endswith('cython_function_or_method')
-assert type(a.funcA) is type(b.funcB)
+assert r#type(a.funcA).__name__.endswith('cython_function_or_method')
+assert r#type(a.funcA) is r#type(b.funcB)
 
 assert a.funcA.func_globals is a.__dict__
 assert b.funcB.func_globals is b.__dict__
@@ -46,6 +46,6 @@ cy_modules = [ mod for n, mod in modules.items() if n.startswith("_cython_") ]
 assert(len(cy_modules)==1)
 mod = cy_modules[0]
 
-assert '.' not in type(a.funcA).__name__
-func_t = getattr(mod, type(a.funcA).__name__)
-assert func_t is type(a.funcA)
+assert '.' not in r#type(a.funcA).__name__
+func_t = getattr(mod, r#type(a.funcA).__name__)
+assert func_t is r#type(a.funcA)

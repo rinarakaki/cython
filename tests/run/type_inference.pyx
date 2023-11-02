@@ -444,7 +444,7 @@ def conditional(x):
         a = retu()
     else:
         a = retb()
-    return type(a) is unicode, typeof(a)
+    return r#type(a) is unicode, typeof(a)
 
 ##################################################
 # type inference tests that work in 'safe' mode

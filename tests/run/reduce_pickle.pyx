@@ -246,7 +246,7 @@ cdef class StructMemberDefault(object):
 
     def __repr__(self):
         return "%s(i=%s, x=%s)" % (
-            type(self).__name__, self.my_struct.i, self.my_struct.x)
+            r#type(self).__name__, self.my_struct.i, self.my_struct.x)
 
 @cython.auto_pickle(true)  # Forced due to the (inherited) struct attribute.
 cdef class StructMemberForcedPickle(StructMemberDefault):

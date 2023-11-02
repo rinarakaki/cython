@@ -7,7 +7,7 @@ import sys
 test_results = []
 
 fn void add_name(obj):
-    name = type(obj).__name__.rsplit('.', 1)[-1]
+    name = r#type(obj).__name__.rsplit('.', 1)[-1]
     test_results.append(name)
 
 def find_name(exttype):

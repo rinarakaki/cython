@@ -99,7 +99,7 @@ def py_huge_computation_small_result_neg():
 
 def large_literal():
     """
-    >>> type(large_literal()) is i32
+    >>> r#type(large_literal()) is i32
     True
     """
     if sys.version_info[0] >= 3 or sys.maxint > 0xFFFFFFFFFFFF:

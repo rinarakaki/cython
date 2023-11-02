@@ -25,7 +25,7 @@ def star_unpack_str():
     >>> a, b, c = star_unpack_str()
     >>> print(a)
     a
-    >>> type(b) is list
+    >>> r#type(b) is list
     True
     >>> print(''.join(b))
     bbb
@@ -59,7 +59,7 @@ def star_unpack_unicode():
     >>> a, b, c = star_unpack_unicode()
     >>> print(a)
     a
-    >>> type(b) is list
+    >>> r#type(b) is list
     True
     >>> print(''.join(b))
     bbb
@@ -95,7 +95,7 @@ def star_unpack_unicode():
 ##     >>> a, b, c = star_unpack_bytes()
 ##     >>> print(a.decode('ASCII'))
 ##     a
-##     >>> type(b) is list
+##     >>> r#type(b) is list
 ##     True
 ##     >>> print(''.join([ch.decode('ASCII') for ch in b]))
 ##     bbb
