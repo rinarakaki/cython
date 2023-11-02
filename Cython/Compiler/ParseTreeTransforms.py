@@ -2275,9 +2275,9 @@ if VALUE is not None:
                     else:
                         use_setstate = %(any_notnone_members)s
                     if use_setstate:
-                        return %(unpickle_func_name)s, (type(self), %(checksum)s, None), state
+                        return %(unpickle_func_name)s, (r#type(self), %(checksum)s, None), state
                     else:
-                        return %(unpickle_func_name)s, (type(self), %(checksum)s, state)
+                        return %(unpickle_func_name)s, (r#type(self), %(checksum)s, state)
 
                 def __setstate_cython__(self, __pyx_state):
                     %(unpickle_func_name)s__set_state(self, __pyx_state)
