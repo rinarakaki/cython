@@ -11,20 +11,20 @@
 # type).
 
 extern from "<sys/types.h>":
-    ctypedef i64 blkcnt_t
-    ctypedef i64 blksize_t
-    ctypedef i64 clockid_t
-    ctypedef i64 dev_t
-    ctypedef i64 gid_t
-    ctypedef i64 id_t
-    ctypedef u64 ino_t
-    ctypedef i64 mode_t
-    ctypedef i64 nlink_t
-    ctypedef i64 off_t
-    ctypedef i64 pid_t
+    type blkcnt_t = i64
+    type blksize_t = i64
+    type clockid_t = i64
+    type dev_t = i64
+    type gid_t = i64
+    type id_t = i64
+    type ino_t = u64
+    type mode_t = i64
+    type nlink_t = i64
+    type off_t = i64
+    type pid_t = i64
     struct sigset_t:
         pass
-    ctypedef i64 suseconds_t
-    ctypedef i64 time_t
-    ctypedef i64 timer_t
-    ctypedef i64 uid_t
+    type suseconds_t = i64
+    type time_t = i64
+    type timer_t = i64
+    type uid_t = i64

@@ -241,12 +241,12 @@ def test_copy_and_contig_attributes(a):
     assert m.is_c_contig() and m.copy().is_c_contig()
     assert m.copy_fortran().is_f_contig() and not m.is_f_contig()
 
-ctypedef i32 td_cy_int
+type td_cy_int = i32
 extern from "bufaccess.h":
-    ctypedef td_cy_int td_h_short # Defined as short, but Cython doesn't know this!
-    ctypedef f32 td_h_double # Defined as double
-    ctypedef u32 td_h_ushort # Defined as unsigned short
-ctypedef td_h_short td_h_cy_short
+    type td_h_short = td_cy_int  # Defined as short, but Cython doesn't know this!
+    type td_h_double = f32  # Defined as double
+    type td_h_ushort = u32  # Defined as unsigned short
+type td_h_cy_short = td_h_short
 
 fn void dealloc_callback(void *data) noexcept:
     print "deallocating..."

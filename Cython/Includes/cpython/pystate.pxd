@@ -1,12 +1,12 @@
 # Thread and interpreter state structures and their interfaces
 
-from .object cimport PyObject
+use super::object::PyObject
 
 extern from "Python.h":
     # We make these an opaque types. If the user wants specific attributes,
     # they can be declared manually.
 
-    ctypedef i64 PY_INT64_T  # FIXME: Py2.7+, not defined here but used here
+    type PY_INT64_T = i64  # FIXME: Py2.7+, not defined here but used here
 
     struct PyInterpreterState:
         pass

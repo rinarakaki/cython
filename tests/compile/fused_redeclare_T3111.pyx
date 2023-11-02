@@ -2,8 +2,8 @@
 # mode: compile
 # tag: warnings
 
-ctypedef u8 npy_uint8
-ctypedef u16 npy_uint16
+type npy_uint8 = u8
+type npy_uint16 = u16
 
 
 ctypedef fused dtype_t:

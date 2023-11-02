@@ -62,7 +62,7 @@ Invalid future syntax right here!
 
 ######## pkg/m2/b.pyx ########
 
-from pkg.m1.a cimport A
+use pkg::m1::a::A
 
 cdef class B(A):
     pass

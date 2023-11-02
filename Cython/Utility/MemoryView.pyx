@@ -31,7 +31,7 @@ extern from *:
     fn void __Pyx_ReleaseBuffer(Py_buffer *)
 
     struct PyObject
-    ctypedef isize Py_intptr_t
+    type Py_intptr_t = isize
     fn void Py_INCREF(PyObject *)
     fn void Py_DECREF(PyObject *)
 
@@ -76,7 +76,7 @@ extern from *:
         pass
 
 extern from *:
-    ctypedef i32 __pyx_atomic_int_type
+    type __pyx_atomic_int_type = i32
     {{memviewslice_name}} slice_copy_contig "__pyx_memoryview_copy_new_contig"(
                                  __Pyx_memviewslice *from_mvs,
                                  char *mode, i32 ndim,
@@ -1450,7 +1450,7 @@ fn bytes format_from_typeinfo(__Pyx_TypeInfo *type):
 
     if type.typegroup == 'S':
         assert type.fields != NULL
-        assert type.fields.type != NULL
+        assert type.fields.r#type != NULL
 
         if type.flags & __PYX_BUF_FLAGS_PACKED_STRUCT:
             alignment = b'^'
@@ -1460,8 +1460,8 @@ fn bytes format_from_typeinfo(__Pyx_TypeInfo *type):
         parts = [b"T{"]
         field = type.fields
 
-        while field.type:
-            part = format_from_typeinfo(field.type)
+        while field.r#type:
+            part = format_from_typeinfo(field.r#type)
             parts.append(part + b':' + field.name + b':')
             field += 1
 

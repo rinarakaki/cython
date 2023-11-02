@@ -5,7 +5,7 @@ extern from "Python.h":
     # 7.1.1 Type Objects
     ############################################################################
 
-    ctypedef class __builtin__.type [object PyTypeObject]:
+    ctypedef class __builtin__.r#type [object PyTypeObject]:
         pass
 
     # PyObject* PyType_Type

@@ -2,7 +2,7 @@
 
 use cython
 
-from .Visitor cimport CythonTransform, TreeVisitor
+use super::Visitor::(CythonTransform, TreeVisitor)
 
 cdef class ControlBlock:
     pub set children

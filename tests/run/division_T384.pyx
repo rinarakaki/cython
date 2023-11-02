@@ -7,7 +7,7 @@
 
 use cython
 
-ctypedef isize index_t
+type index_t = isize
 
 ctypedef double complex mycomplex
 

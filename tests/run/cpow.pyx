@@ -192,7 +192,7 @@ def pow_int_int_non_negative(i32 a, u32 b):
     print(cython.typeof(c1))
     print(cython.typeof(c2))
 
-ctypedef double f64
+type f64 = double
 
 def pythagoras_with_typedef(f64 a, f64 b):
     # see https://github.com/cython/cython/issues/5203

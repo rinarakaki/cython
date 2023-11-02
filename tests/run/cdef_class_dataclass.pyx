@@ -40,13 +40,13 @@ cdef class BasicDataclass:
     # Check the field type attribute - this is currently a string since
     # it's taken from the annotation, but if we drop PEP563 in future
     # then it may change
-    >>> BasicDataclass.__dataclass_fields__["a"].type
+    >>> BasicDataclass.__dataclass_fields__["a"].r#type
     'float'
-    >>> BasicDataclass.__dataclass_fields__["b"].type
+    >>> BasicDataclass.__dataclass_fields__["b"].r#type
     'NotADataclass'
-    >>> BasicDataclass.__dataclass_fields__["c"].type
+    >>> BasicDataclass.__dataclass_fields__["c"].r#type
     'object'
-    >>> BasicDataclass.__dataclass_fields__["d"].type
+    >>> BasicDataclass.__dataclass_fields__["d"].r#type
     'list'
 
     >>> inst1 = BasicDataclass() # doctest: +ELLIPSIS
@@ -193,13 +193,13 @@ cdef class TestVisibility:
     True
     >>> "c" in TestVisibility.__dataclass_fields__
     True
-    >>> TestVisibility.__dataclass_fields__["c"].type
+    >>> TestVisibility.__dataclass_fields__["c"].r#type
     'double'
     >>> hasattr(inst, "c")
     True
     >>> "d" in TestVisibility.__dataclass_fields__
     True
-    >>> TestVisibility.__dataclass_fields__["d"].type
+    >>> TestVisibility.__dataclass_fields__["d"].r#type
     'object'
     >>> hasattr(inst, "d")
     True

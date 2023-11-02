@@ -39,7 +39,7 @@ cpdef tuple tuple_from_int_array():
     return v
 
 extern from "stdint.h":
-    ctypedef u64 uint32_t
+    type uint32_t = u64
 
 def from_typedef_int_array():
     """

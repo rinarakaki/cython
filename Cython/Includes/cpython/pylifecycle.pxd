@@ -1,10 +1,10 @@
 # Interfaces to configure, query, create & destroy the Python runtime
 
 use libc::stdio::FILE
-from .pystate cimport PyThreadState
+use super::pystate::PyThreadState
 
 extern from "Python.h":
-    ctypedef i32 wchar_t
+    type wchar_t = i32
 
     fn void Py_SetProgramName(wchar_t *)
     wchar_t *Py_GetProgramName()

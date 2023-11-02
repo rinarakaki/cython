@@ -1758,12 +1758,12 @@ def p_use_statement(s):
         items.append(p_path(s, as_allowed=1))
     stats = []
     is_absolute = Future.absolute_import in s.context.future_directives
-    for pos, path, idents in items:
-        if path:
+    for pos, path, idents, level in items:
+        if len(path) > 0 or level > 0:
             stat = Nodes.FromCImportStatNode(
                 pos,
                 module_name=s.context.intern_ustring(".".join(path)),
-                relative_level=0,
+                relative_level=level,
                 imported_names=idents,
             )
         else:
@@ -1899,6 +1899,11 @@ def p_imported_name(s):
 
 def p_path(s, as_allowed):
     pos = s.position()
+    level = 0
+    while s.sy == "IDENT" and s.systring == "super":
+        level += 1
+        s.next()
+        s.expect("::")
     path = [p_ident(s)]
     idents = []
     while s.sy == "::":
@@ -1920,7 +1925,7 @@ def p_path(s, as_allowed):
             path.append(p_ident(s))
     if len(idents) == 0:
         path, idents = path[:-1], [(s.position(), path[-1], p_as_name(s))]
-    return (pos, path, idents)
+    return (pos, path, idents, level)
 
 
 def p_dotted_name(s, as_allowed):
@@ -2411,7 +2416,11 @@ def p_statement(s, ctx, first_statement = 0):
         s.level = ctx.level
         decorators = p_attributes(s)
 
-    if s.sy == 'ctypedef':
+    if s.sy == "type":
+        if ctx.level not in ("module", "module_pxd"):
+            s.error("type statement not allowed here")
+        return p_type_statement(s, ctx)
+    elif s.sy == 'ctypedef':
         if ctx.level not in ('module', 'module_pxd'):
             s.error("ctypedef statement not allowed here")
         #if ctx.api:
@@ -3630,6 +3639,24 @@ def p_c_func_or_var_declaration(s, pos, ctx):
             modifiers = modifiers,
             overridable = ctx.overridable)
     return result
+
+def p_type_statement(s, ctx):
+    # s.sy == "type"
+    pos = s.position()
+    s.next()
+    visibility = p_visibility(s, ctx.visibility)
+    ctx = ctx(typedef_flag=1, visibility=visibility)
+    declarator = p_c_declarator(s, ctx, is_type=1, nonempty=1)
+    s.expect("=")
+    base_type = p_c_base_type(s, nonempty=1)
+    s.expect_newline("Syntax error in type statement", ignore_semicolon=True)
+    return Nodes.CTypeDefNode(
+        pos,
+        base_type=base_type,
+        declarator=declarator,
+        visibility=visibility,
+        in_pxd=ctx.level == "module_pxd"
+    )
 
 def p_ctypedef_statement(s, ctx):
     # s.sy == 'ctypedef'

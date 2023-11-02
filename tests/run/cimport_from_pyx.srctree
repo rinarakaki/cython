@@ -15,8 +15,8 @@ setup(
 
 ######## a.pyx ########
 
-from b cimport (Bclass, Bfunc, Bstruct, Benum, Benum_value, Btypedef, Py_EQ, Py_NE,
-                DecoratedClass, cfuncOutside)
+use b::(Bclass, Bfunc, Bstruct, Benum, Benum_value, Btypedef, Py_EQ, Py_NE,
+        DecoratedClass, cfuncOutside)
 cdef Bclass b = Bclass(5)
 assert Bfunc(&b.value) == b.value
 assert b.anotherValue == 6, b.anotherValue
@@ -31,15 +31,15 @@ assert dc.cpdefInClass() == 1.0
 
 assert cfuncOutside().value == 2
 
-# from c cimport ClassC
+# use c::ClassC
 # cdef ClassC c = ClassC()
 # print c.value
 
 ######## b.pyx ########
 
-from cpython.object cimport Py_EQ, Py_NE
+use cpython::object::(Py_EQ, Py_NE)
 
-cimport cython
+use cython
 
 enum Benum:
     Benum_value

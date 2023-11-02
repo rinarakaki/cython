@@ -1,7 +1,7 @@
 # mode: compile
 # --
 
-ctypedef     i32 Int0
+type Int0 = i32
 ctypedef api i32 Int1
 
 ctypedef     enum EnumA0: EA0

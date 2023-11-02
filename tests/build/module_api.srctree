@@ -15,7 +15,7 @@ for e in exts:
         e.sources.append("a.c")
 
 setup(
-  ext_modules = exts,
+    ext_modules = exts,
 )
 
 ######## a.pxd ########
@@ -37,13 +37,13 @@ cdef class A0:
 ctypedef api class A1 [
      type A1_Type, 
      object A1Object
-     ]:
+]:
      pass
 
 ctypedef pub api class A2 [
      type A2_Type, 
      object A2Object
-     ]:
+]:
      pass
 
 cdef A0 a0
@@ -77,7 +77,7 @@ pub api A2 a2 = A2()
 
 ######## b.pyx ########
 
-from a cimport *
+use a::*
 
 int0 = int1 = int2 = 7
 flt0 = flt1 = flt2 = 7

@@ -1,4 +1,4 @@
-from .object cimport PyObject
+use super::object::PyObject
 
 extern from "Python.h":
     struct _inittab

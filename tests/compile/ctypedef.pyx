@@ -1,6 +1,6 @@
 # mode: compile
 
 ctypedef i32 *IntPtr
-ctypedef u64 ULong
+type ULong = u64
 cdef extern IntPtr spam
 cdef extern ULong grail

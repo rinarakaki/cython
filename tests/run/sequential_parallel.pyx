@@ -231,10 +231,10 @@ def test_pure_mode():
         print pure_parallel.threadid()
 
 extern from "types.h":
-    ctypedef i16 actually_long_t
-    ctypedef i64 actually_short_t
+    type actually_long_t = i16
+    type actually_short_t = i64
 
-ctypedef i32 myint_t
+type myint_t = i32
 
 def test_nan_init():
     """

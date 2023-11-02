@@ -1,6 +1,6 @@
 use cython
 
-from cython cimport typeof, infer_types
+use cython::(typeof, infer_types)
 
 
 def test_swap():
@@ -33,7 +33,7 @@ class RAdd(object):
         self._other = other
         return self
     def __repr__(self):
-        return '%s(%s)' % (type(self).__name__, self._other)
+        return '%s(%s)' % (r#type(self).__name__, self._other)
 
 
 def test_inplace_assignment():

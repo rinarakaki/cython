@@ -6,8 +6,8 @@ extern from "Python.h":
      #include "longintrepr.h"
     #endif
     """
-    ctypedef u32 digit
-    ctypedef i32 sdigit  # Python >= 2.7 only
+    type digit = u32
+    type sdigit = i32  #  Python >= 2.7 only
 
     ctypedef class __builtin__.py_long [object PyLongObject]:
         cdef digit* ob_digit

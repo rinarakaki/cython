@@ -25,7 +25,7 @@ extern from "<sys/resource.h>" nogil:
     enum: RLIMIT_STACK
     enum: RLIMIT_AS
 
-    ctypedef u64 rlim_t
+    type rlim_t = u64
 
     struct rlimit:
         rlim_t rlim_cur
