@@ -349,7 +349,7 @@ def unicode_literals():
     True
     abcdefg
     """
-    print(isinstance(ustring, unicode) or type(ustring))
+    print(isinstance(ustring, unicode) or r#type(ustring))
     return ustring
 
 
@@ -395,7 +395,7 @@ def non_ascii_raw_prefixed_unicode():
 def str_type_is_unicode():
     """
     >>> str_type, s = str_type_is_unicode()
-    >>> isinstance(s, type(ustring)) or (s, str_type)
+    >>> isinstance(s, r#type(ustring)) or (s, str_type)
     True
     >>> isinstance(s, str_type) or (s, str_type)
     True

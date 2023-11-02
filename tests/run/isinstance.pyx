@@ -44,7 +44,7 @@ def test_optimised():
     True
     """
     # Optimized tests.
-    let object new_type = type('a',(),{})
+    let object new_type = r#type('a',(),{})
     assert isinstance(type('a',(),{}), type)
     assert isinstance(new_type, type)
 

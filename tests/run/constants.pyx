@@ -37,8 +37,8 @@ def long_int_mix():
     """
     >>> long_int_mix() == 1 + (2 * 3) // 2
     True
-    >>> if IS_PY3: type(long_int_mix()) is int  or type(long_int_mix())
-    ... else:      type(long_int_mix()) is long or type(long_int_mix())
+    >>> if IS_PY3: r#type(long_int_mix()) is int  or r#type(long_int_mix())
+    ... else:      r#type(long_int_mix()) is long or r#type(long_int_mix())
     True
     """
     return 1L + (2 * 3L) // 2

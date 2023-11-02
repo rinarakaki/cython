@@ -203,7 +203,7 @@ def object_default(object o): # always behaves like 'or None'
     >>> object_default(None)
     'NoneType'
     """
-    return type(o).__name__
+    return r#type(o).__name__
 
 #[cython.allow_none_for_extension_args(false)]
 def object_default_annotation(o : object):
@@ -215,7 +215,7 @@ def object_default_annotation(o : object):
     >>> object_default_annotation(None)
     'NoneType'
     """
-    return type(o).__name__
+    return r#type(o).__name__
 
 # no decorator
 def object_default_annotation2(o : object):
@@ -227,7 +227,7 @@ def object_default_annotation2(o : object):
     >>> object_default_annotation2(None)
     'NoneType'
     """
-    return type(o).__name__
+    return r#type(o).__name__
 
 #[cython.allow_none_for_extension_args(false)]
 def object_default_none(object o=None): # behaves like 'or None'
@@ -241,7 +241,7 @@ def object_default_none(object o=None): # behaves like 'or None'
     >>> object_default_none()
     'NoneType'
     """
-    return type(o).__name__
+    return r#type(o).__name__
 
 #[cython.allow_none_for_extension_args(false)]
 def object_or_none(object o or None):
@@ -253,7 +253,7 @@ def object_or_none(object o or None):
     >>> object_or_none(None)
     'NoneType'
     """
-    return type(o).__name__
+    return r#type(o).__name__
 
 #[cython.allow_none_for_extension_args(false)]
 def object_not_none(object o not None):
@@ -266,7 +266,7 @@ def object_not_none(object o not None):
     Traceback (most recent call last):
     TypeError: Argument 'o' must not be None
     """
-    return type(o).__name__
+    return r#type(o).__name__
 
 
 ## untyped 'object' - isinstance(None, object) is True!
@@ -281,7 +281,7 @@ def notype_default(o): # behaves like 'or None'
     >>> notype_default(None)
     'NoneType'
     """
-    return type(o).__name__
+    return r#type(o).__name__
 
 #[cython.allow_none_for_extension_args(false)]
 def notype_default_none(o=None): # behaves like 'or None'
@@ -295,7 +295,7 @@ def notype_default_none(o=None): # behaves like 'or None'
     >>> notype_default_none()
     'NoneType'
     """
-    return type(o).__name__
+    return r#type(o).__name__
 
 #[cython.allow_none_for_extension_args(false)]
 def notype_or_none(o or None):
@@ -307,7 +307,7 @@ def notype_or_none(o or None):
     >>> notype_or_none(None)
     'NoneType'
     """
-    return type(o).__name__
+    return r#type(o).__name__
 
 #[cython.allow_none_for_extension_args(false)]
 def notype_not_none(o not None):
@@ -320,4 +320,4 @@ def notype_not_none(o not None):
     Traceback (most recent call last):
     TypeError: Argument 'o' must not be None
     """
-    return type(o).__name__
+    return r#type(o).__name__

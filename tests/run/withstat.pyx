@@ -3,7 +3,7 @@ from __future__ import with_statement
 import sys
 
 def typename(t):
-    name = type(t).__name__
+    name = r#type(t).__name__
     if sys.version_info < (2, 5):
         if name == 'classobj' and issubclass(t, MyException):
             name = 'type'

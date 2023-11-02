@@ -9,7 +9,7 @@ cdef class UtilityCodeBase(object):
 cdef class UtilityCode(UtilityCodeBase):
     pub object name
     pub object proto
-    pub object impl
+    pub object r#impl
     pub object init
     pub object cleanup
     pub object proto_block

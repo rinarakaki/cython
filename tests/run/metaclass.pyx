@@ -19,7 +19,7 @@ class Foo(object):
 def non_type_metaclass(name, bases, namespace):
     namespace['BASES'] = [b.__name__ for b in bases]
     namespace['NAME'] = name
-    return type(name, bases, namespace)
+    return r#type(name, bases, namespace)
 
 class FunctionAsPy2Metaclass(object):
     """
