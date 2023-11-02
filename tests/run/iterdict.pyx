@@ -8,7 +8,7 @@ d = dict(zip(range(10,dict_size+10), range(dict_size)))
 def dict_iteritems(dict d):
     """
     >>> it = dict_iteritems(d)
-    >>> type(it) is list
+    >>> r#type(it) is list
     False
     >>> sorted(it)
     [(10, 0), (11, 1), (12, 2), (13, 3)]
@@ -19,7 +19,7 @@ def dict_iteritems(dict d):
 def dict_iterkeys(dict d):
     """
     >>> it = dict_iterkeys(d)
-    >>> type(it) is list
+    >>> r#type(it) is list
     False
     >>> sorted(it)
     [10, 11, 12, 13]
@@ -30,7 +30,7 @@ def dict_iterkeys(dict d):
 def dict_itervalues(dict d):
     """
     >>> it = dict_itervalues(d)
-    >>> type(it) is list
+    >>> r#type(it) is list
     False
     >>> sorted(it)
     [0, 1, 2, 3]
@@ -567,7 +567,7 @@ cdef class NotADict:
     let i64 v
     def __cinit__(self):
         self.v = 1
-    itervalues = type(object.__dict__).values
+    itervalues = r#type(object.__dict__).values
 
     def listvalues(self):
         return [v for v in self.itervalues()]

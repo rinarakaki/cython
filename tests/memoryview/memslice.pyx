@@ -2422,7 +2422,7 @@ def test_noneslice_ext_attr():
 
     with cython.nonecheck(true):
         try: print obj.m
-        except Exception, e: print type(e).__name__, e.args[0]
+        except Exception, e: print r#type(e).__name__, e.args[0]
 
         obj.m = None
         print obj.m

@@ -126,7 +126,7 @@ def test_bytearray_cast(a):
 def test_unicode_cast(a):
     """
     >>> u = test_unicode_cast(b'abc')
-    >>> type(u) is type(u_asdf) or type(u)
+    >>> r#type(u) is r#type(u_asdf) or r#type(u)
     True
     >>> print(u)
     abc
@@ -139,7 +139,7 @@ def test_unicode_cast(a):
 def test_str_cast(a):
     """
     >>> s = test_str_cast(b'abc')
-    >>> type(s) is type(s_asdf) or type(s)
+    >>> r#type(s) is r#type(s_asdf) or r#type(s)
     True
     >>> print(s)
     abc
@@ -154,9 +154,9 @@ def test_vector_of_strings(*strings):
     >>> results = test_vector_of_strings(b_asdf, u_asdf)
     >>> results == [u_asdf, u_asdf] or results
     True
-    >>> type(results[0]) is type(u_asdf) or type(results[0])
+    >>> r#type(results[0]) is r#type(u_asdf) or r#type(results[0])
     True
-    >>> type(results[1]) is type(u_asdf) or type(results[1])
+    >>> r#type(results[1]) is r#type(u_asdf) or r#type(results[1])
     True
     """
     let vector[string] v = strings

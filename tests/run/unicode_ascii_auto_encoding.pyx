@@ -16,7 +16,7 @@ def _as_string(x):
 def as_objects(char* ascii_data):
     """
     >>> x = as_objects('abc')
-    >>> isinstance(x, auto_string_type) or type(x)
+    >>> isinstance(x, auto_string_type) or r#type(x)
     True
     >>> _as_string(x) == 'abc' or repr(x)
     True
@@ -41,7 +41,7 @@ def from_object():
 def slice_as_objects(char* ascii_data, i32 start, i32 end):
     """
     >>> x = slice_as_objects('grok', 1, 3)
-    >>> isinstance(x, auto_string_type) or type(x)
+    >>> isinstance(x, auto_string_type) or r#type(x)
     True
     >>> _as_string(x) == 'ro' or repr(x)
     True

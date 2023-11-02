@@ -8,7 +8,7 @@ use cython::view::array
 
 def count_memoryviews():
     gc.collect()
-    return sum([1 if 'memoryview' in str(type(o)) else 0
+    return sum([1 if 'memoryview' in str(r#type(o)) else 0
                 for o in gc.get_objects()])
 
 def run_test(cls, num_iters):

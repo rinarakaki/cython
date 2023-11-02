@@ -22,7 +22,7 @@ extern from "Python.h":
     # of the standard type object. Return false in all other
     # cases.
 
-    fn void PyType_Modified(type type)
+    fn void PyType_Modified(r#type r#type)
     # Invalidate the internal lookup cache for the type and all of its
     # subtypes. This function must be called after any manual modification
     # of the attributes or base classes of the type.
@@ -35,16 +35,16 @@ extern from "Python.h":
     # Return true if the type object includes support for the cycle
     # detector; this tests the type flag Py_TPFLAGS_HAVE_GC.
 
-    fn bint PyType_IsSubtype(type a, type b)
+    fn bint PyType_IsSubtype(r#type a, r#type b)
     # Return true if a is a subtype of b.
 
-    fn object PyType_GenericAlloc(object type, isize nitems)
+    fn object PyType_GenericAlloc(object r#type, isize nitems)
     # Return value: New reference.
 
-    fn object PyType_GenericNew(type type, object args, object kwds)
+    fn object PyType_GenericNew(r#type r#type, object args, object kwds)
     # Return value: New reference.
 
-    fn bint PyType_Ready(type type) except -1
+    fn bint PyType_Ready(r#type r#type) except -1
     # Finalize a type object. This should be called on all type
     # objects to finish their initialization. This function is
     # responsible for adding inherited slots from a type's base

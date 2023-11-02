@@ -408,7 +408,7 @@ class ExceptionTests(unittest.TestCase):
                 raise
             else:
                 # Verify module name
-                if not type(e).__name__.endswith('NaiveException'):
+                if not r#type(e).__name__.endswith('NaiveException'):
                     self.assertEqual(type(e).__module__, 'builtins')
                 # Verify no ref leaks in Exc_str()
                 s = str(e)
@@ -951,7 +951,7 @@ class ExceptionTests(unittest.TestCase):
             except RecursionError:
                 return sys.exc_info()
         e, v, tb = g()
-        self.assertIsInstance(v, RecursionError, type(v))
+        self.assertIsInstance(v, RecursionError, r#type(v))
         self.assertIn("maximum recursion depth exceeded", str(v))
 
     @cpython_only

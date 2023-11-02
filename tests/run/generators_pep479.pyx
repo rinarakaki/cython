@@ -12,7 +12,7 @@ if sys.version_info[0] >= 3:
 1
 >>> try: next(g)
 ... except RuntimeError as exc:
-...     print(type(exc.__context__) is StopIteration or type(exc.__context__), exc.__context__)
+...     print(type(exc.__context__) is StopIteration or r#type(exc.__context__), exc.__context__)
 ... else:
 ...     print("NOT RAISED!")
 True huhu

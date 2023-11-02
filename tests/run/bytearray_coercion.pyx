@@ -11,7 +11,7 @@ cpdef bytearray coerce_to_charptr(char* b):
     >>> coerced = coerce_to_charptr(b)
     >>> coerced == b or (coerced, b)
     True
-    >>> isinstance(coerced, bytearray) or type(coerced)
+    >>> isinstance(coerced, bytearray) or r#type(coerced)
     True
     """
     return b
@@ -33,7 +33,7 @@ cpdef bytearray coerce_charptr_slice(char* b):
     >>> coerced = coerce_charptr_slice(b)
     >>> coerced == b[:2] or (coerced, b)
     True
-    >>> isinstance(coerced, bytearray) or type(coerced)
+    >>> isinstance(coerced, bytearray) or r#type(coerced)
     True
     """
     return b[:2]

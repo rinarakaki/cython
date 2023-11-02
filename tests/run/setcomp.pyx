@@ -6,9 +6,9 @@ _set = set
 
 def setcomp():
     """
-    >>> type(setcomp()) is not list
+    >>> r#type(setcomp()) is not list
     True
-    >>> type(setcomp()) is _set
+    >>> r#type(setcomp()) is _set
     True
     >>> sorted(setcomp())
     [0, 4, 8]
@@ -25,7 +25,7 @@ def setcomp():
     "//ComprehensionAppendNode")
 def genexp_set():
     """
-    >>> type(genexp_set()) is _set
+    >>> r#type(genexp_set()) is _set
     True
     >>> sorted(genexp_set())
     [0, 4, 8]

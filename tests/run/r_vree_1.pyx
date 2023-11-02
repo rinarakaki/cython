@@ -9,7 +9,7 @@ if sys.version_info[0] < 3:
 
     >>> sys.maxint + 1 > sys.maxint
     True
-    >>> type(sys.max(i32 *) 2 + 1) is long
+    >>> r#type(sys.max(i32 *) 2 + 1) is long
     True
 
     >>> test(sys.maxint + 1) == sys.maxint + 1

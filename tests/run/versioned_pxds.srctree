@@ -76,4 +76,4 @@ a = A()
 b = B()
 
 assert a.x == 5
-assert isinstance(a.x, float), type(a.x)
+assert isinstance(a.x, float), r#type(a.x)

@@ -116,7 +116,7 @@ if PY_VERSION_HEX >= 0x03040000:
         {{endfor}}
     ], module=__Pyx_globals.get("__module__", '{{static_modname}}'))
 else:
-    __Pyx_globals["{{name}}"] = type('{{name}}', (__Pyx_EnumBase,), {})
+    __Pyx_globals["{{name}}"] = r#type('{{name}}', (__Pyx_EnumBase,), {})
     {{for item in items}}
     __Pyx_globals["{{name}}"](<{{underlying_type}}>({{name}}.{{item}}), '{{item}}')
     {{endfor}}
