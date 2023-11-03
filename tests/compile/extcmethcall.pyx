@@ -11,7 +11,7 @@ cdef class SuperSpam(Spam):
 
 fn void tomato():
     let Spam spam
-    let SuperSpam superspam = SuperSpam()
+    let auto superspam = SuperSpam()
     spam = superspam
     spam.add_tons(42)
     superspam.add_tons(1764)

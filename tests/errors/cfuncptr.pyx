@@ -37,7 +37,7 @@ fn void cb_void(i32 param) except * nogil:
     return
 
 def fail_struct_pointer():
-    let mystruct ms = mystruct(&cb, &cb_void)
+    let auto ms = mystruct(&cb, &cb_void)
 
 
 _ERRORS = """

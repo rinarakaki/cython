@@ -10,7 +10,7 @@ cdef class Swallow:
 
 def f(Grail g):
     let i32 i = 0
-    let Swallow s = Swallow()
+    let auto s = Swallow()
     let object x = Grail()
     g = x
     x = g

@@ -5,7 +5,7 @@ cdef class Ext:
     cdef object o
 
 def f(i32 a):
-    let Ext e = Ext()
+    let auto e = Ext()
     x = &a  # ok
 
     let object o = &a  # pointer != object

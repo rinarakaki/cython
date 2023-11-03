@@ -90,7 +90,7 @@ def test_external_dtype():
     2.0
     2.0
     """
-    let TestExcClassExternalDtype obj = TestExcClassExternalDtype()
+    let auto obj = TestExcClassExternalDtype()
     print obj.arr_float[4, 4]
     print obj.arr_double[4, 4]
 
@@ -103,7 +103,7 @@ cdef class ExtClassMockedAttr(object):
         self.arr[4, 4] = 2
 
 fn i32[:, :] _coerce_to_temp():
-    let ExtClassMockedAttr obj = ExtClassMockedAttr()
+    let auto obj = ExtClassMockedAttr()
     return obj.arr
 
 def test_coerce_to_temp():
@@ -144,7 +144,7 @@ def test_extclass_attribute_dealloc():
     2
     released self.arr
     """
-    let ExtClassMockedAttr obj = ExtClassMockedAttr()
+    let auto obj = ExtClassMockedAttr()
     print obj.arr[4, 4]
 
 cdef f32[:, :;1] global_mv = array((10,10), itemsize=sizeof(f32), format='f')

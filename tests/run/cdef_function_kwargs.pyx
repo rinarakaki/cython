@@ -18,7 +18,6 @@ fn i32 cfuncptr(i32 a, i32 b):
 fn cfuncptr_type get_cfuncptr():
     return cfuncptr
 
-
 sideeffect = []
 fn side_effect(x):
     sideeffect.append(x)
@@ -164,7 +163,7 @@ def cdef_funcptr():
     1 2
     1 2
     """
-    let cfuncptr_type cfunc_ptr = get_cfuncptr()
+    let auto cfunc_ptr = get_cfuncptr()
     cfunc_ptr(1, 2)
     cfunc_ptr(1, b=2)
     cfunc_ptr(a=1, b=2)
