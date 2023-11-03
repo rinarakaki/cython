@@ -3032,8 +3032,6 @@ def p_c_func_declarator(s, pos, ctx, base, cmethod_flag):
     # Opening paren has already been skipped
     args = p_c_arg_list(s, ctx, cmethod_flag = cmethod_flag,
                         nonempty_declarators = 0)
-    print("!!!!!!!!!!!!!!!!!!!!!!! args [p_c_func_declarator] !!!!!!!!!!!!!!!!!!!!!!!")
-    print(args)
     ellipsis = p_optional_ellipsis(s)
     s.expect(')')
     nogil = p_nogil(s)
@@ -3267,6 +3265,10 @@ def p_c_arg_decl(s, ctx, in_pyfunc, cmethod_flag = 0, nonempty = 0,
             is_self_arg = cmethod_flag, templates = None)
     else:
         base_type = p_c_base_type(s, nonempty=nonempty)
+    if base_type.name == "type":
+        print("!!!!!!!!!!!!!!!!!!!!!!! [p_c_arg_decl] !!!!!!!!!!!!!!!!!!!!!!!")
+        print(base_type)
+        print(s.peek())
     declarator = p_c_declarator(s, ctx, nonempty = nonempty)
     if s.sy in ('not', 'or') and not s.in_python_file:
         kind = s.sy
