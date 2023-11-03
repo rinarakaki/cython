@@ -247,12 +247,13 @@ class Entry(object):
     pytyping_modifiers = None
     enum_int_value = None
 
-    def __init__(self, name, cname, type, pos = None, init = None):
+    def __init__(self, name, cname, type, pos = None, init = None, mutable = 0):
         self.name = name
         self.cname = cname
         self.type = type
         self.pos = pos
         self.init = init
+        self.mutable = mutable
         self.overloaded_alternatives = []
         self.cf_assignments = []
         self.cf_references = []
@@ -513,7 +514,7 @@ class Scope(object):
         yield
         self.in_c_type_context = old_c_type_context
 
-    def declare(self, name, cname, type, pos, visibility, shadow = 0, is_type = 0, create_wrapper = 0):
+    def declare(self, name, cname, type, pos, visibility, mutable = 0, shadow = 0, is_type = 0, create_wrapper = 0):
         # Create new entry, and add to dictionary if
         # name is not None. Reports a warning if already
         # declared.
@@ -552,7 +553,7 @@ class Scope(object):
             elif visibility != 'ignore':
                 error(pos, "'%s' redeclared " % name)
                 entries[name].already_declared_here()
-        entry = Entry(name, cname, type, pos = pos)
+        entry = Entry(name, cname, type, pos = pos, mutable = mutable)
         entry.in_cinclude = self.in_cinclude
         entry.create_wrapper = create_wrapper
         if name:
@@ -765,7 +766,7 @@ class Scope(object):
         return self.outer_scope.declare_tuple_type(pos, components)
 
     def declare_var(self, name, type, pos,
-                    cname=None, visibility='private',
+                    cname=None, visibility='private', mutable=False,
                     api=False, in_pxd=False, is_cdef=False, pytyping_modifiers=None):
         # Add an entry for a variable.
         if not cname:
@@ -773,7 +774,7 @@ class Scope(object):
                 cname = name
             else:
                 cname = self.mangle(Naming.var_prefix, name)
-        entry = self.declare(name, cname, type, pos, visibility)
+        entry = self.declare(name, cname, type, pos, visibility, mutable)
         entry.is_variable = 1
         if type.is_cpp_class and visibility != 'extern':
             if self.directives['cpp_locals']:
