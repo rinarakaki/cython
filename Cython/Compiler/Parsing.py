@@ -2979,9 +2979,9 @@ def p_opt_cname(s):
         cname = None
     return cname
 
-def p_c_declarator(s, ctx = Ctx(), empty = 0, is_type = 0, cmethod_flag = 0,
-                   assignable = 0, nonempty = 0,
-                   calling_convention_allowed = 0):
+def p_c_declarator(s, ctx = Ctx(), empty=False, is_type=False, cmethod_flag=False,
+                   assignable=False, mutable=False, nonempty=False,
+                   calling_convention_allowed=False):
     # If empty is true, the declarator must be empty. If nonempty is true,
     # the declarator must be nonempty. Otherwise we don't care.
     # If cmethod_flag is true, then if this declarator declares
@@ -3000,7 +3000,7 @@ def p_c_declarator(s, ctx = Ctx(), empty = 0, is_type = 0, cmethod_flag = 0,
             s.expect(')')
     else:
         result = p_c_simple_declarator(s, ctx, empty, is_type, cmethod_flag,
-                                       assignable, nonempty)
+                                       assignable, mutable, nonempty)
     if not calling_convention_allowed and result.calling_convention and s.sy != '(':
         error(s.position(), "%s on something that is not a function"
             % result.calling_convention)
@@ -3057,7 +3057,7 @@ supported_overloaded_operators = cython.declare(frozenset, frozenset((
 )))
 
 def p_c_simple_declarator(s, ctx, empty, is_type, cmethod_flag,
-                          assignable, nonempty):
+                          assignable, mutable, nonempty):
     pos = s.position()
     calling_convention = p_calling_convention(s)
     if s.sy in ('*', '**'):
@@ -3132,7 +3132,8 @@ def p_c_simple_declarator(s, ctx, empty, is_type, cmethod_flag,
                 name = name + ' ' + op
                 s.next()
         result = Nodes.CNameDeclaratorNode(pos,
-            name = name, cname = cname, default = rhs)
+            mutable=mutable, name=name, cname=cname, default=rhs,
+        )
     result.calling_convention = calling_convention
     return result
 
@@ -3582,9 +3583,9 @@ def p_c_func_or_var_declaration(s, pos, ctx):
     if "mut" in modifiers:
         mutable = True
         modifiers.remove("mut")
-    base_type = p_c_base_type(s, nonempty = 1, templates = ctx.templates)
-    declarator = p_c_declarator(s, ctx(modifiers=modifiers), cmethod_flag = cmethod_flag,
-                                assignable = 1, nonempty = 1)
+    base_type = p_c_base_type(s, nonempty=True, templates=ctx.templates)
+    declarator = p_c_declarator(s, ctx(modifiers=modifiers), cmethod_flag=cmethod_flag,
+                                assignable=True, mutable=mutable, nonempty=True)
     declarator.overridable = ctx.overridable
     if s.sy == 'IDENT' and s.systring == 'const' and ctx.level == 'cpp_class':
         s.next()
@@ -3624,7 +3625,7 @@ def p_c_func_or_var_declaration(s, pos, ctx):
             if s.sy == 'NEWLINE':
                 break
             declarator = p_c_declarator(s, ctx, cmethod_flag = cmethod_flag,
-                                        assignable = 1, nonempty = 1)
+                                        assignable=True, mutable=mutable, nonempty=True)
             declarators.append(declarator)
         doc_line = s.start_line + 1
         s.expect_newline("Syntax error in C variable declaration", ignore_semicolon=True)
@@ -3634,7 +3635,6 @@ def p_c_func_or_var_declaration(s, pos, ctx):
             doc = None
         result = Nodes.CVarDefNode(pos,
             visibility = ctx.visibility,
-            mutable = mutable,
             base_type = base_type,
             declarators = declarators,
             in_pxd = ctx.level in ('module_pxd', 'c_class_pxd'),
