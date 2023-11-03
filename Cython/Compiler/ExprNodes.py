@@ -2214,8 +2214,8 @@ class NameNode(AtomicExprNode):
             # In a dataclass, an assignment should not prevent a name from becoming an instance attribute.
             # Hence, "as_target = not is_dataclass".
             self.declare_from_annotation(env, as_target=not is_dataclass)
-        elif self.entry and not self.cf_is_null and not self.entry.mutable:
-            error(self.pos, "cannot assign to initialised immutable variable")
+        elif self.entry and self.entry.initialised and not self.entry.mutable:
+            error(self.pos, "Cannot assign to initialised immutable variable")
         elif (self.entry and self.entry.is_inherited and
                 self.annotation and env.is_c_dataclass_scope):
             error(self.pos, "Cannot redeclare inherited fields in Cython dataclasses")
@@ -2229,7 +2229,8 @@ class NameNode(AtomicExprNode):
             if is_assignment_expression:
                 self.entry = env.declare_assignment_expression_target(self.name, type, self.pos)
             else:
-                self.entry = env.declare_var(self.name, type, self.pos)
+                error(self.pos, "Undeclared variable")
+                # self.entry = env.declare_var(self.name, type, self.pos)
         if self.entry.is_declared_generic:
             self.result_ctype = py_object_type
         if self.entry.as_module:
