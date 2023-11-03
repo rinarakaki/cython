@@ -147,8 +147,8 @@ fn void DECREF(PyObject* ctx, PyObject* obj, isize lineno):
 fn void FinishContext(PyObject** ctx):
     if ctx == NULL or ctx[0] == NULL: return
     let (PyObject*) type = NULL, value = NULL, tb = NULL
-    let object errors = None
-    let Context context
+    let mut object errors = None
+    let mut Context context
     PyThreadState_Get()  # Check that we hold the GIL
     PyErr_Fetch(&type, &value, &tb)
     try:
