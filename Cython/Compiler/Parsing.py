@@ -2660,7 +2660,7 @@ def p_c_complex_base_type(s, templates = None):
 
 
 def p_c_simple_base_type(s, nonempty, templates=None):
-    is_basic = 0
+    is_basic = False
     signed = 1
     longness = 0
     complex = 0
@@ -2668,28 +2668,27 @@ def p_c_simple_base_type(s, nonempty, templates=None):
     pos = s.position()
 
     # Handle const/volatile
-    is_mut = is_const = is_volatile = 0
+    is_mut = is_const = is_volatile = False
     while s.sy in ("mut", "IDENT"):
         if s.sy == "mut":
             if is_mut: error(pos, "Duplicate 'mut'")
-            is_mut = 1
+            is_mut = True
         elif s.systring == 'const':
             if is_const: error(pos, "Duplicate 'const'")
             elif is_mut: error(pos, "Cannot be both 'mut' and 'const'")
-            is_const = 1
+            is_const = True
         elif s.systring == 'volatile':
             if is_volatile: error(pos, "Duplicate 'volatile'")
             elif is_mut: error(pos, "Cannot be both 'mut' and 'volatile'")
-            is_volatile = 1
+            is_volatile = True
         else:
             break
         s.next()
-
     if s.sy != 'IDENT':
         error(pos, "Expected an identifier, found '%s'" % s.sy)
     if looking_at_base_type(s):
         # print "p_c_simple_base_type: looking_at_base_type at", s.position()
-        is_basic = 1
+        is_basic = True
         if s.sy == 'IDENT' and s.systring in builtin_type_names:
             signed, longness = None, None
             name = s.systring
@@ -2754,7 +2753,7 @@ def p_c_simple_base_type(s, nonempty, templates=None):
         name = p_ident(s)
         type_node = Nodes.CNestedBaseTypeNode(pos, base_type = type_node, name = name)
 
-    if is_mut:
+    if is_mut or not is_basic:
         return type_node
     else:
         if not is_volatile:
