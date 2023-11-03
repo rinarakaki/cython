@@ -116,8 +116,8 @@ fn void GOTREF(PyObject* ctx, PyObject* p_obj, isize lineno):
 
 fn bint GIVEREF_and_report(PyObject* ctx, PyObject* p_obj, isize lineno):
     if ctx == NULL: return 1
-    cdef (PyObject*) type = NULL, value = NULL, tb = NULL
-    cdef bint decref_ok = false
+    let (PyObject*) type = NULL, value = NULL, tb = NULL
+    let mut bint decref_ok = false
     PyErr_Fetch(&type, &value, &tb)
     try:
         decref_ok = (<Context>ctx).delref(
