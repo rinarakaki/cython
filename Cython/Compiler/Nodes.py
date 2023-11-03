@@ -7547,6 +7547,12 @@ class _ForInStatNode(LoopNode, StatNode):
         if self.else_clause:
             self.else_clause.analyse_declarations(env)
         self._create_item_node()
+        self.create_local_scope(env)
+    
+    def create_local_scope(self, env):
+        lenv = LocalScope(name=self.entry.name,
+                          outer_scope=env, parent_scope=env)
+        self.local_scope = lenv
 
     def analyse_expressions(self, env):
         self.target = self.target.analyse_target_types(env)
