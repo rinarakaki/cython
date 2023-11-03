@@ -3032,6 +3032,8 @@ def p_c_func_declarator(s, pos, ctx, base, cmethod_flag):
     # Opening paren has already been skipped
     args = p_c_arg_list(s, ctx, cmethod_flag = cmethod_flag,
                         nonempty_declarators = 0)
+    print("!!!!!!!!!!!!!!!!!!!!!!! args [p_c_func_declarator] !!!!!!!!!!!!!!!!!!!!!!!")
+    print(args)
     ellipsis = p_optional_ellipsis(s)
     s.expect(')')
     nogil = p_nogil(s)
