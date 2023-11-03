@@ -5,8 +5,6 @@
 
 from __future__ import absolute_import
 
-from attr import mutable
-
 # This should be done automatically
 import cython
 cython.declare(Nodes=object, ExprNodes=object, EncodedString=object,
