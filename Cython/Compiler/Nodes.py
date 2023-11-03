@@ -1458,17 +1458,20 @@ class CVarDefNode(StatNode):
             for template_param in templates:
                 env.declare_type(template_param.name, template_param, self.pos)
 
-        base_type = self.base_type.analyse(env)
-
-        # Check for declaration modifiers, e.g. "typing.Optional[...]" or "dataclasses.InitVar[...]"
+        base_type = None
         modifiers = None
-        if self.base_type.is_templated_type_node:
-            modifiers = self.base_type.analyse_pytyping_modifiers(env)
+        
+        if self.base_type is not None:
+            base_type = self.base_type.analyse(env)
 
-        if base_type.is_fused and not self.in_pxd and (env.is_c_class_scope or
-                                                       env.is_module_scope):
-            error(self.pos, "Fused types not allowed here")
-            return error_type
+            # Check for declaration modifiers, e.g. "typing.Optional[...]" or "dataclasses.InitVar[...]"     
+            if self.base_type.is_templated_type_node:
+                modifiers = self.base_type.analyse_pytyping_modifiers(env)
+
+            if base_type.is_fused and not self.in_pxd and (env.is_c_class_scope or
+                                                           env.is_module_scope):
+                error(self.pos, "Fused types not allowed here")
+                return error_type
 
         self.entry = None
         visibility = self.visibility
