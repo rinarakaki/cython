@@ -3,9 +3,9 @@
 
 from __future__ import print_function
 
+use libcpp::algorithm::(is_partitioned, partition, partition_copy, stable_partition, partition_point)
+use libcpp::algorithm::(for_each, copy, reverse)
 use libcpp::bool
-from libcpp.algorithm cimport is_partitioned, partition, partition_copy, stable_partition, partition_point
-from libcpp.algorithm cimport for_each, copy, reverse
 use libcpp::iterator::back_inserter
 use libcpp::vector::vector
 

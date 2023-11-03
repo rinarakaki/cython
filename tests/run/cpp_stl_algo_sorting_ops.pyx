@@ -4,7 +4,7 @@
 from __future__ import print_function
 
 use libcpp::bool
-from libcpp.algorithm cimport is_sorted, is_sorted_until, sort, partial_sort, partial_sort_copy, stable_sort
+use libcpp::algorithm::(is_sorted, is_sorted_until, sort, partial_sort, partial_sort_copy, stable_sort)
 use libcpp::algorithm::nth_element
 use libcpp::functional::greater
 use libcpp::iterator::distance

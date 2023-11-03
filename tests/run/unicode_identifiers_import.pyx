@@ -7,8 +7,8 @@
 # it to import another test module at runtime
 
 # this test looks at [c]importing unicode stuff
-from unicode_identifiers cimport Fα1, Γναμε2
 use unicode_identifiers
+use unicode_identifiers::(Fα1, Γναμε2)
 use unicode_identifiers::Γναμε2 as Γναμε3
 
 from unicode_identifiers import NormalClassΓΓ

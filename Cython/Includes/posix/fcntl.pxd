@@ -1,6 +1,6 @@
 # https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/fcntl.h.html
 
-from posix.types cimport mode_t, off_t, pid_t
+use posix::types::(mode_t, off_t, pid_t)
 
 extern from "<fcntl.h>" nogil:
 

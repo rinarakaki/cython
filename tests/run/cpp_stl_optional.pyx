@@ -3,9 +3,9 @@
 # tag: cpp, cpp17, werror
 
 use cython::operator::dereference as deref
-from libcpp.optional cimport optional, nullopt, make_optional
-use libcpp::string::string
+use libcpp::optional::(optional, nullopt, make_optional)
 use libcpp::pair::pair
+use libcpp::string::string
 
 def simple_test():
     """

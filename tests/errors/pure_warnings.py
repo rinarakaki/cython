@@ -19,7 +19,7 @@ def main():
     foo9: mod.a.b
     foo10: func().b
     foo11: Bar[:, :, :]  # warning
-    foo12: cython.int[:, ::1]
+    foo12: cython.int[:, :;1]
     with cython.annotation_typing(False):
         foo8: Bar = 1
         foo9: stdint.bar = 5

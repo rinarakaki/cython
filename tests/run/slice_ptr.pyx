@@ -1,5 +1,5 @@
-from libc.stdlib cimport malloc, free
-from cpython.object cimport Py_EQ, Py_NE
+use libc::stdlib::(malloc, free)
+use cpython::object::(Py_EQ, Py_NE)
 
 def double_ptr_slice(x, L, i32 a, i32 b):
     """

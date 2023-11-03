@@ -4,7 +4,7 @@
 cimport cython.parallel
 from cython.parallel import prange, threadid
 use openmp
-from libc.stdlib cimport malloc, free
+use libc::stdlib::(malloc, free)
 
 openmp.omp_set_nested(1)
 

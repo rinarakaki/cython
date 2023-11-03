@@ -4,8 +4,8 @@
 use cython::operator::dereference as deref
 
 use libcpp::bool
-from libcpp.algorithm cimport all_of, any_of, none_of, for_each, count, count_if, mismatch, find, find_if, find_if_not
-from libcpp.algorithm cimport find_end, find_first_of, adjacent_find, search, search_n
+use libcpp::algorithm::(all_of, any_of, none_of, for_each, count, count_if, mismatch, find, find_if, find_if_not)
+use libcpp::algorithm::(find_end, find_first_of, adjacent_find, search, search_n)
 use libcpp::iterator::distance
 use libcpp::string::string
 use libcpp::vector::vector

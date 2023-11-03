@@ -2,7 +2,7 @@
 
 cimport libc.stdio
 use libc::stdio
-from libc.stdio cimport printf, puts, fputs, putchar, fputc, putc, stdout
+use libc::stdio::(printf, puts, fputs, putchar, fputc, putc, stdout)
 
 
 with nogil:

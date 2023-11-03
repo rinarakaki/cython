@@ -10,11 +10,11 @@ from distutils.core import setup
 
 setup(
     ext_modules = cythonize("a.py"),
-    )
+)
 
 ######## a.pxd ########
 
-cimport cython
+use cython
 
 cdef class ExtType:
     @cython.final
@@ -30,7 +30,6 @@ cdef class FinalExtSubType(ExtType):
 
 cdef class NonFinalSubType(ExtType):
     fn i32 func(self)
-
 
 ######## a.py ########
 
@@ -56,7 +55,6 @@ class NonFinalSubType(ExtType):
     @cython.final
     def func(self):
         return 4
-
 
 def test():
     assert ExtType().final_func() == 1

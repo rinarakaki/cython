@@ -8,7 +8,7 @@ from Cython.Build import cythonize
 from distutils.core import setup
 
 setup(
-  ext_modules = cythonize("*.pyx"),
+    ext_modules = cythonize("*.pyx"),
 )
 
 ######## other.pxd ########
@@ -41,13 +41,13 @@ ctypedef int my_int
 
 ######## a.pyx ########
 
-from other cimport (
+use other::(
     A,
     foo,
 )
 print(A, foo(10))
 
-cimport other
+use other
 
 fn call_fooptr(int (*fptr)(int)):
     return fptr(10)
@@ -58,7 +58,7 @@ def call_other_foo():
 
 print(other.A, other.foo(10), call_other_foo())
 
-from pkg cimport sub
+use pkg::sub
 cdef sub.my_int a = 100
 
-from pkg.subpkg cimport submod
+use pkg::subpkg::submod

@@ -1,6 +1,6 @@
 # https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/sys_wait.h.html
 
-from posix.types cimport pid_t, id_t
+use posix::types::(pid_t, id_t)
 use posix::signal::siginfo_t
 use posix::resource::rusage
 
