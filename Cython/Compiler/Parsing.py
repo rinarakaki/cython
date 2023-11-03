@@ -2671,7 +2671,7 @@ def p_c_simple_base_type(s, nonempty, templates=None):
     is_mut = is_const = is_volatile = 0
     while s.sy in ("mut", "IDENT"):
         if s.sy == "mut":
-            if is_const: error(pos, "Duplicate 'mut'")
+            if is_mut: error(pos, "Duplicate 'mut'")
             is_mut = 1
         elif s.systring == 'const':
             if is_const: error(pos, "Duplicate 'const'")
