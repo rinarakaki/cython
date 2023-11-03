@@ -2684,22 +2684,11 @@ def p_c_simple_base_type(s, nonempty, templates=None):
         else:
             break
         s.next()
-    if not is_mut:
-        is_const = 1
-    if is_const or is_volatile:
-        base_type = p_c_base_type(s, nonempty=nonempty, templates=templates)
-        if isinstance(base_type, Nodes.MemoryViewSliceTypeNode):
-            # reverse order to avoid having to write "(const int)[:]"
-            base_type.base_type_node = Nodes.CConstOrVolatileTypeNode(pos,
-                base_type=base_type.base_type_node, is_const=is_const, is_volatile=is_volatile)
-            return base_type
-        return Nodes.CConstOrVolatileTypeNode(pos,
-            base_type=base_type, is_const=is_const, is_volatile=is_volatile)
 
     if s.sy != 'IDENT':
         error(pos, "Expected an identifier, found '%s'" % s.sy)
     if looking_at_base_type(s):
-        #print "p_c_simple_base_type: looking_at_base_type at", s.position()
+        # print "p_c_simple_base_type: looking_at_base_type at", s.position()
         is_basic = 1
         if s.sy == 'IDENT' and s.systring in builtin_type_names:
             signed, longness = None, None
@@ -2720,7 +2709,7 @@ def p_c_simple_base_type(s, nonempty, templates=None):
             complex = 1
             s.next()
     elif looking_at_dotted_name(s):
-        #print "p_c_simple_base_type: looking_at_type_name at", s.position()
+        # print "p_c_simple_base_type: looking_at_type_name at", s.position()
         name = s.systring
         s.next()
         while s.sy == '.':
@@ -2765,7 +2754,18 @@ def p_c_simple_base_type(s, nonempty, templates=None):
         name = p_ident(s)
         type_node = Nodes.CNestedBaseTypeNode(pos, base_type = type_node, name = name)
 
-    return type_node
+    if is_mut:
+        return type_node
+    else:
+        if not is_volatile:
+            is_const = 1
+        if isinstance(type_node, Nodes.MemoryViewSliceTypeNode):
+            # reverse order to avoid having to write "(const int)[:]"
+            type_node.base_type_node = Nodes.CConstOrVolatileTypeNode(pos,
+                base_type=type_node.base_type_node, is_const=is_const, is_volatile=is_volatile)
+            return type_node
+        return Nodes.CConstOrVolatileTypeNode(pos,
+            base_type=type_node, is_const=is_const, is_volatile=is_volatile)
 
 def p_buffer_or_template(s, base_type_node, templates):
     # s.sy == '['
