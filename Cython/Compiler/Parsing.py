@@ -3086,6 +3086,7 @@ def p_c_simple_declarator(s, ctx, empty, is_type, cmethod_flag,
                               assignable=assignable, nonempty=nonempty)
         result = node_class(pos, base=base)
     else:
+        initialised = 0
         rhs = None
         if s.sy == 'IDENT':
             name = s.systring
@@ -3096,6 +3097,7 @@ def p_c_simple_declarator(s, ctx, empty, is_type, cmethod_flag,
             if name != 'operator' and s.sy == '=' and assignable:
                 s.next()
                 rhs = p_test(s)
+                initialised = 1
         else:
             if nonempty:
                 error(s.position(), "Empty declarator")
@@ -3132,7 +3134,7 @@ def p_c_simple_declarator(s, ctx, empty, is_type, cmethod_flag,
                 name = name + ' ' + op
                 s.next()
         result = Nodes.CNameDeclaratorNode(pos,
-            mutable=mutable, name=name, cname=cname, initialised=rhs is not None,
+            mutable=mutable, name=name, cname=cname, initialised=initialised,
             default=rhs,
         )
     result.calling_convention = calling_convention
@@ -3584,9 +3586,9 @@ def p_c_func_or_var_declaration(s, pos, ctx):
     if "mut" in modifiers:
         mutable = 1
         modifiers.remove("mut")
-    base_type = p_c_base_type(s, nonempty=1, templates=ctx.templates)
-    declarator = p_c_declarator(s, ctx(modifiers=modifiers), cmethod_flag=cmethod_flag,
-                                assignable=1, mutable=mutable, nonempty=1)
+    base_type = p_c_base_type(s, nonempty = 1, templates = ctx.templates)
+    declarator = p_c_declarator(s, ctx(modifiers=modifiers), cmethod_flag = cmethod_flag,
+                                assignable = 1, mutable = mutable, nonempty = 1)
     declarator.overridable = ctx.overridable
     if s.sy == 'IDENT' and s.systring == 'const' and ctx.level == 'cpp_class':
         s.next()
@@ -3626,7 +3628,7 @@ def p_c_func_or_var_declaration(s, pos, ctx):
             if s.sy == 'NEWLINE':
                 break
             declarator = p_c_declarator(s, ctx, cmethod_flag = cmethod_flag,
-                                        assignable=1, mutable=mutable, nonempty=1)
+                                        assignable = 1, mutable = mutable, nonempty = 1)
             declarators.append(declarator)
         doc_line = s.start_line + 1
         s.expect_newline("Syntax error in C variable declaration", ignore_semicolon=True)
