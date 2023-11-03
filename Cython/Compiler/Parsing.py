@@ -2753,7 +2753,7 @@ def p_c_simple_base_type(s, nonempty, templates=None):
         name = p_ident(s)
         type_node = Nodes.CNestedBaseTypeNode(pos, base_type = type_node, name = name)
 
-    if s.level in ("c_class", "c_class_pxd") or is_mut or not is_basic:
+    if s.in_python_file or s.level in ("c_class", "c_class_pxd") or is_mut or not is_basic:
         return type_node
     else:
         if not is_volatile:
