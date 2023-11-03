@@ -3580,13 +3580,13 @@ def p_c_modifiers(s):
 def p_c_func_or_var_declaration(s, pos, ctx):
     cmethod_flag = ctx.level in ('c_class', 'c_class_pxd')
     modifiers = p_c_modifiers(s)
-    mutable = False
+    mutable = 0
     if "mut" in modifiers:
-        mutable = True
+        mutable = 1
         modifiers.remove("mut")
-    base_type = p_c_base_type(s, nonempty=True, templates=ctx.templates)
+    base_type = p_c_base_type(s, nonempty=1, templates=ctx.templates)
     declarator = p_c_declarator(s, ctx(modifiers=modifiers), cmethod_flag=cmethod_flag,
-                                assignable=True, mutable=mutable, nonempty=True)
+                                assignable=1, mutable=mutable, nonempty=1)
     declarator.overridable = ctx.overridable
     if s.sy == 'IDENT' and s.systring == 'const' and ctx.level == 'cpp_class':
         s.next()
@@ -3626,7 +3626,7 @@ def p_c_func_or_var_declaration(s, pos, ctx):
             if s.sy == 'NEWLINE':
                 break
             declarator = p_c_declarator(s, ctx, cmethod_flag = cmethod_flag,
-                                        assignable=True, mutable=mutable, nonempty=True)
+                                        assignable=1, mutable=mutable, nonempty=1)
             declarators.append(declarator)
         doc_line = s.start_line + 1
         s.expect_newline("Syntax error in C variable declaration", ignore_semicolon=True)
