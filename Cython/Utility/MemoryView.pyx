@@ -1423,7 +1423,7 @@ extern from *:
         i32 flags
 
     struct __Pyx_StructField:
-        __Pyx_TypeInfo* type
+        __Pyx_TypeInfo* r#type
         char* name
         usize offset
 

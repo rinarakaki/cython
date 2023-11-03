@@ -92,7 +92,7 @@ extern from "Python.h":
     fn PyObject* PyErr_GetRaisedException()
     fn void PyErr_SetRaisedException(PyObject* exc)
 
-    fn void PyErr_Restore(PyObject* type, PyObject* value, PyObject* traceback)
+    fn void PyErr_Restore(PyObject* r#type, PyObject* value, PyObject* traceback)
     # Set the error indicator from the three objects. If the error
     # indicator is already set, it is cleared first. If the objects
     # are NULL, the error indicator is cleared. Do not pass a NULL
