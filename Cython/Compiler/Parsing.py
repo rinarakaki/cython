@@ -2090,9 +2090,19 @@ def p_target(s, terminator):
 def p_for_target(s):
     return p_target(s, 'in')
 
+def p_range_expression(s, start, stop, step=None):
+    pos = s.position()
+    function = p_name(s, "range")
+    positional_args = [start, stop, step]
+    return ExprNodes.GeneralCallNode(
+        pos, function=function, positional_args=positional_args)
 
 def p_for_iterator(s, allow_testlist=True, is_async=False):
     pos = s.position()
+    expr = p_or_test(s)
+    if s.sy == "..":
+        expr = p_or_test(s)
+        return ExprNodes.IteratorNode(pos, sequence=p_range_expression(s, start=expr, stop=expr))
     if allow_testlist:
         expr = p_testlist(s)
     else:
