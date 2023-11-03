@@ -182,7 +182,7 @@ class Node(object):
         self.__dict__.update(kw)
     
     def __repr__(self):
-        attrs = ", ".join(f"{name}={self.name}" for name in self.child_attrs if hasattr(self, name))
+        attrs = ", ".join(f"{attr}={getattr(self, attr)}" for attr in self.child_attrs if hasattr(self, attr))
         return "%s(%s)" % (self.__class__.__name__, attrs)
 
     gil_message = "Operation"
