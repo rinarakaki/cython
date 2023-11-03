@@ -3132,7 +3132,8 @@ def p_c_simple_declarator(s, ctx, empty, is_type, cmethod_flag,
                 name = name + ' ' + op
                 s.next()
         result = Nodes.CNameDeclaratorNode(pos,
-            mutable=mutable, name=name, cname=cname, default=rhs,
+            mutable=mutable, name=name, cname=cname, initialised=rhs is not None,
+            default=rhs,
         )
     result.calling_convention = calling_convention
     return result
