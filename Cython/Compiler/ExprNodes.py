@@ -2227,7 +2227,7 @@ class NameNode(AtomicExprNode):
             if is_assignment_expression:
                 self.entry = env.declare_assignment_expression_target(self.name, type, self.pos)
             # TODO https://github.com/rnarkk/cython/pull/39 https://github.com/rnarkk/cython/pull/42
-            elif not env.is_module_scope:
+            elif env.in_c_type_context and not env.is_module_scope:
                 error(self.pos, "Undeclared variable")
             else:
                 self.entry = env.declare_var(self.name, type, self.pos)
