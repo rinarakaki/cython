@@ -16,7 +16,7 @@ def test_parallel():
     >>> test_parallel()
     """
     let i32 maxthreads = openmp.omp_get_max_threads()
-    let i32 *buf = <i32 *> malloc(sizeof(i32) * maxthreads)
+    let auto buf = <i32 *> malloc(sizeof(i32) * maxthreads)
 
     if buf == NULL:
         raise MemoryError

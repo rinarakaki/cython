@@ -2418,7 +2418,7 @@ def test_noneslice_ext_attr():
     AttributeError Memoryview is not initialized
     None
     """
-    let NoneSliceAttr obj = NoneSliceAttr()
+    let auto obj = NoneSliceAttr()
 
     with cython.nonecheck(true):
         try: print obj.m

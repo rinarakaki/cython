@@ -40,7 +40,7 @@ def breakfast():
     """
     >>> breakfast()
     """
-    let Bacon myslices = Bacon()
+    let auto myslices = Bacon()
     myslices.is_a_vegetable = true
     assert myslices.is_a_vegetable, myslices.is_a_vegetable
     del myslices.is_a_vegetable

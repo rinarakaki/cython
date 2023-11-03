@@ -3,5 +3,5 @@ struct Grail:
     f32 volume
 
 def main():
-    let Grail grail = Grail(5, 3.0)
+    let auto grail = Grail(5, 3.0)
     print(grail.age, grail.volume)

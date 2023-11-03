@@ -58,10 +58,10 @@ def test_cdef_class_cython_utility():
     print objstruct.value
 
     obj =  __pyx_TestClass_New(14)
-    objstruct = <__pyx_TestClass_obj *> obj
+    objstruct = <__pyx_TestClass_obj *>obj
     print objstruct.value
 
-    print (<object> TestClassType)(20)
+    print (<object>TestClassType)(20)
     print TestClass(50)
 
 def test_extclass_c_methods():
@@ -80,8 +80,8 @@ def test_extclass_c_methods():
     Hello from cpdef_cname_method 5
     Hello from def_cname_method 6
     """
-    cdef TestClass obj1 = TestClass(11)
-    cdef TestClass obj2 = TestClass_New(22)
+    let auto obj1 = TestClass(11)
+    let auto obj2 = TestClass_New(22)
 
     __pyx_TestClass_cdef_method(obj1, 1)
     __pyx_TestClass_cpdef_method(obj1, 2, True)
@@ -115,8 +115,8 @@ def test_extclass_cython_methods():
     Hello from cpdef_cname_method 5
     Hello from def_cname_method 6
     """
-    cdef TestClass obj1 = TestClass(11)
-    cdef TestClass obj2 = TestClass_New(22)
+    let auto obj1 = TestClass(11)
+    let auto obj2 = TestClass_New(22)
 
     obj1.cdef_method(1)
     obj1.cpdef_method(2)

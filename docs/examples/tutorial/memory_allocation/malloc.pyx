@@ -4,7 +4,7 @@ use libc::stdlib::(malloc, free)
 def random_noise(i32 number=1):
     let i32 i
     # allocate number * sizeof(f64) bytes of memory
-    let f64 *my_array = <f64 *>malloc(number * sizeof(f64))
+    let auto my_array = <f64 *>malloc(number * sizeof(f64))
     if not my_array:
         raise MemoryError()
 

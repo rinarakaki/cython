@@ -10,7 +10,7 @@ def open_file():
     ...
 
 def allocating_memory(number=10):
-    let f64 *my_array = <f64 *>malloc(number * sizeof(f64))
+    let auto my_array = <f64 *>malloc(number * sizeof(f64))
     if not my_array:  # same as 'is NULL' above
         raise MemoryError()
     ...

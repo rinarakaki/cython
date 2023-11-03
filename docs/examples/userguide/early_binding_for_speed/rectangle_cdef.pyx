@@ -18,5 +18,5 @@ cdef class Rectangle:
         return self._area()
 
 def rect_area(x0, y0, x1, y1):
-    let Rectangle rect = Rectangle(x0, y0, x1, y1)
+    let auto rect = Rectangle(x0, y0, x1, y1)
     return rect._area()

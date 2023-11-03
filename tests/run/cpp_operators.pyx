@@ -316,8 +316,8 @@ def test_bool_op():
     """
     >>> test_bool_op()
     """
-    let TruthClass yes = TruthClass(true)
-    let TruthClass no = TruthClass(false)
+    let auto yes = TruthClass(true)
+    let auto no = TruthClass(false)
     if yes:
         pass
     else:

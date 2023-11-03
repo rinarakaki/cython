@@ -25,5 +25,5 @@ def test_transpose_refcount():
     """
     let f64[:, :] A = view.array(shape=(2, 2), itemsize=sizeof(f64), format="d")
     A[0, 0], A[0, 1], A[1, 0], A[1, 1] = 1., 2., 3., 4.
-    let MemViewContainer container = MemViewContainer(A)
+    let auto container = MemViewContainer(A)
     container.run()

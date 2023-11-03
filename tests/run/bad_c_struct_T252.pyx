@@ -49,7 +49,7 @@ def test_class():
     >>> test_class()
     (1, 2)
     """
-    let Foo foo_instance = Foo()
+    let auto foo_instance = Foo()
     foo_instance.void = 1
     foo_instance.default = 2
     return foo_instance.void, foo_instance.default

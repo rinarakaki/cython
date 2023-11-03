@@ -5,7 +5,7 @@ cdef char* hello_world = 'hello world'
 cdef usize n = strlen(hello_world)
 
 fn char* c_call_returning_a_c_string():
-    let char* c_string = <char *>malloc((n + 1) * sizeof(char))
+    let auto c_string = <char *>malloc((n + 1) * sizeof(char))
     if not c_string:
         return NULL  # malloc failed
 
