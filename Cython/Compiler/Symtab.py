@@ -1544,7 +1544,7 @@ class ModuleScope(Scope):
         return entry
 
     def declare_var(self, name, type, pos,
-                    cname=None, visibility='private',
+                    cname=None, visibility='private', mutable=False,
                     api=False, in_pxd=False, is_cdef=False, pytyping_modifiers=None):
         # Add an entry for a global variable. If it is a Python
         # object type, and not declared with cdef, it will live
@@ -1587,7 +1587,7 @@ class ModuleScope(Scope):
                 return entry
 
         entry = Scope.declare_var(self, name, type, pos,
-                                  cname=cname, visibility=visibility,
+                                  cname=cname, visibility=visibility, mutable=mutable,
                                   api=api, in_pxd=in_pxd, is_cdef=is_cdef, pytyping_modifiers=pytyping_modifiers)
         if is_cdef:
             entry.is_cglobal = 1
