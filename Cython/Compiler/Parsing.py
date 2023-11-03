@@ -2630,7 +2630,9 @@ def p_positional_and_keyword_args(s, end_sy_set, templates = None):
     return positional_args, keyword_args
 
 def p_c_base_type(s, nonempty=False, templates=None):
-    if s.sy == '(':
+    if s.sy == "auto":
+        return None
+    elif s.sy == '(':
         return p_c_complex_base_type(s, templates = templates)
     else:
         return p_c_simple_base_type(s, nonempty=nonempty, templates=templates)
@@ -2642,7 +2644,6 @@ def p_calling_convention(s):
         return result
     else:
         return ""
-
 
 calling_convention_words = cython.declare(frozenset, frozenset((
     "__stdcall", "__cdecl", "__fastcall")))
