@@ -2105,11 +2105,11 @@ def p_for_iterator(s, allow_testlist=True, is_async=False):
     return (ExprNodes.AsyncIteratorNode if is_async else ExprNodes.IteratorNode)(pos, sequence=expr)
 
 
-def p_try_statement(s):
+def p_try_statement(s, ctx):
     # s.sy == 'try'
     pos = s.position()
     s.next()
-    body = p_suite(s)
+    body = p_suite(s, ctx)
     except_clauses = []
     else_clause = None
     if s.sy in ('except', 'else'):
@@ -2117,7 +2117,7 @@ def p_try_statement(s):
             except_clauses.append(p_except_clause(s))
         if s.sy == 'else':
             s.next()
-            else_clause = p_suite(s)
+            else_clause = p_suite(s, ctx)
         body = Nodes.TryExceptStatNode(pos,
             body = body, except_clauses = except_clauses,
             else_clause = else_clause)
@@ -2126,7 +2126,7 @@ def p_try_statement(s):
         # try-except-finally is equivalent to nested try-except/try-finally
     if s.sy == 'finally':
         s.next()
-        finally_clause = p_suite(s)
+        finally_clause = p_suite(s, ctx)
         return Nodes.TryFinallyStatNode(pos,
             body = body, finally_clause = finally_clause)
     else:
@@ -2508,7 +2508,7 @@ def p_statement(s, ctx, first_statement = 0):
             elif s.sy == 'for':
                 return p_for_statement(s)
             elif s.sy == 'try':
-                return p_try_statement(s)
+                return p_try_statement(s, ctx)
             elif s.sy == 'with':
                 return p_with_statement(s)
             elif s.sy == 'async':
