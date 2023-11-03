@@ -1433,7 +1433,7 @@ class CVarDefNode(StatNode):
     #  decorators    [cython.locals(...)] or None
     #  directive_locals { string : NameNode } locals defined by cython.locals(...)
 
-    child_attrs = ["base_type", "mutable", "declarators"]
+    child_attrs = ["base_type", "declarators"]
 
     decorators = None
     directive_locals = None
