@@ -2979,9 +2979,9 @@ def p_opt_cname(s):
         cname = None
     return cname
 
-def p_c_declarator(s, ctx = Ctx(), empty=False, is_type=False, cmethod_flag=False,
-                   assignable=False, mutable=False, nonempty=False,
-                   calling_convention_allowed=False):
+def p_c_declarator(s, ctx = Ctx(), empty = 0, is_type = 0, cmethod_flag = 0,
+                   assignable = 0, mutable = 0, nonempty = 0,
+                   calling_convention_allowed = 0):
     # If empty is true, the declarator must be empty. If nonempty is true,
     # the declarator must be nonempty. Otherwise we don't care.
     # If cmethod_flag is true, then if this declarator declares
