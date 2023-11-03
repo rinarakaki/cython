@@ -86,7 +86,9 @@ class Entry(object):
     # type             PyrexType  Type of entity
     # doc              string     Doc string
     # annotation       ExprNode   PEP 484/526 annotation
+    # initialised      boolean
     # init             string     Initial value
+    # mutable          boolean
     # visibility       'private' or 'public' or 'extern'
     # is_builtin       boolean    Is an entry in the Python builtins dict
     # is_cglobal       boolean    Is a C global variable
@@ -171,7 +173,9 @@ class Entry(object):
 
     inline_func_in_pxd = False
     borrowed = 0
+    initialised = False
     init = ""
+    mutable = False
     annotation = None
     pep563_annotation = None
     visibility = 'private'
