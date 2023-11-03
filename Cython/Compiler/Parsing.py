@@ -3348,7 +3348,7 @@ def p_cdef_statement(s, ctx):
         return p_c_func_or_var_declaration(s, pos, ctx)
     elif s.sy == "let":
         s.next()
-        return p_c_func_or_var_declaration(s, pos, ctx)
+        return p_let_statement(s, pos, ctx)
     else:
         return p_c_func_or_var_declaration(s, pos, ctx)
 
@@ -3564,6 +3564,28 @@ def p_visibility(s, prev_visibility):
                 % (prev_visibility, visibility), fatal=False)
         s.next()
     return visibility
+
+def p_let_statement(s, pos, ctx):
+    mutable = 0
+    if s.sy == "mut":
+        mutable = 1
+        s.next()
+    base_type = p_c_base_type(s, templates = ctx.templates)
+    declarator = p_c_declarator(s, ctx, assignable = 1, nonempty = 1)
+    declarators = [declarator]
+    while s.sy == ',':
+        s.next()
+        if s.sy == 'NEWLINE':
+            break
+        declarator = p_c_declarator(s, ctx, assignable = 1, nonempty = 1)
+        declarators.append(declarator)
+    s.expect_newline("Syntax error in C variable declaration", ignore_semicolon=True)
+    return Nodes.CVarDefNode(pos,
+        visibility = ctx.visibility,
+        base_type = base_type,
+        declarators = declarators,
+        in_pxd = ctx.level in ('module_pxd', 'c_class_pxd'),
+    )
 
 def p_c_modifiers(s):
     if s.sy == 'IDENT' and s.systring in ('inline',):
