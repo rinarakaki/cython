@@ -1422,6 +1422,7 @@ class CVarDefNode(StatNode):
     #  C variable definition or forward/extern function declaration.
     #
     #  visibility    'private' or 'public' or 'extern'
+    #  mutable       boolean
     #  base_type     CBaseTypeNode
     #  declarators   [CDeclaratorNode]
     #  in_pxd        boolean
@@ -1432,7 +1433,7 @@ class CVarDefNode(StatNode):
     #  decorators    [cython.locals(...)] or None
     #  directive_locals { string : NameNode } locals defined by cython.locals(...)
 
-    child_attrs = ["base_type", "declarators"]
+    child_attrs = ["base_type", "mutable", "declarators"]
 
     decorators = None
     directive_locals = None
