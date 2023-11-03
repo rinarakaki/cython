@@ -2265,7 +2265,7 @@ class NameNode(AtomicExprNode):
                 entry = self.entry = entry.as_variable
                 self.type = entry.type
 
-        if self.type.is_const:
+        if not self.cf_is_null and self.type.is_const:
             error(self.pos, "Assignment to const '%s'" % self.name)
         if not self.is_lvalue():
             error(self.pos, "Assignment to non-lvalue '%s'" % self.name)
