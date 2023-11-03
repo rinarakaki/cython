@@ -3578,6 +3578,10 @@ def p_c_modifiers(s):
 def p_c_func_or_var_declaration(s, pos, ctx):
     cmethod_flag = ctx.level in ('c_class', 'c_class_pxd')
     modifiers = p_c_modifiers(s)
+    mutable = False
+    if "mut" in modifiers:
+        mutable = True
+        modifiers.remove("mut")
     base_type = p_c_base_type(s, nonempty = 1, templates = ctx.templates)
     declarator = p_c_declarator(s, ctx(modifiers=modifiers), cmethod_flag = cmethod_flag,
                                 assignable = 1, nonempty = 1)
@@ -3630,7 +3634,7 @@ def p_c_func_or_var_declaration(s, pos, ctx):
             doc = None
         result = Nodes.CVarDefNode(pos,
             visibility = ctx.visibility,
-            mutable = "mut" in modifiers,
+            mutable = mutable,
             base_type = base_type,
             declarators = declarators,
             in_pxd = ctx.level in ('module_pxd', 'c_class_pxd'),
