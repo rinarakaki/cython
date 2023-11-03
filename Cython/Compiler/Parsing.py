@@ -3906,7 +3906,7 @@ def p_c_class_options(s):
         if s.systring == 'object':
             s.next()
             objstruct_name = p_ident(s)
-        elif s.systring == 'type':
+        elif s.sy == "type":
             s.next()
             typeobj_name = p_ident(s)
         elif s.systring == 'check_size':
