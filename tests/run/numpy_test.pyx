@@ -820,7 +820,7 @@ def test_fused_memslice(memslice_fused a):
     >>> test_fused_memslice(np.arange(10, dtype=np.object_))
     object[:] object[:] 5 6
     """
-    let memslice_fused b = a
+    let auto b = a
     print cython.typeof(a), cython.typeof(b), a[5], b[6]
 
 @testcase
@@ -831,7 +831,7 @@ def test_dispatch_memoryview_object():
     """
     let i32[:] m = np.arange(10, dtype=np.dtype('i'))
     let i32[:] m2 = m
-    let i32[:] m3 = <object> m
+    let i32[:] m3 = <object>m
     test_fused_memslice(m3)
 
 cdef fused ndim_t:

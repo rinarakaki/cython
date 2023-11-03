@@ -10,7 +10,7 @@ def test_constructor(x, y, i32 colour):
     >>> try: test_constructor(1,None,255)
     ... except TypeError: pass
     """
-    let Point p = Point(x, y, colour)
+    let auto p = Point(x, y, colour)
     return p
 
 def return_constructor(x, y, i32 colour):
@@ -30,7 +30,7 @@ def test_constructor_kwds(x, y, colour):
     Traceback (most recent call last):
     TypeError:... int...
     """
-    let Point p = Point(x=x, y=y, colour=colour)
+    let auto p = Point(x=x, y=y, colour=colour)
     return p
 
 def return_constructor_kwds(f64 x, y, colour):
@@ -188,5 +188,5 @@ def test_array_field_init():
     >>> test_array_field_init()
     [1, 2, 3, 4]
     """
-    let ArrayFieldStruct s = ArrayFieldStruct([1, 2, 3, 4])
+    let auto s = ArrayFieldStruct([1, 2, 3, 4])
     print(s.arr);
