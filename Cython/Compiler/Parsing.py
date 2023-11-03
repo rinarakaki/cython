@@ -2631,6 +2631,7 @@ def p_positional_and_keyword_args(s, end_sy_set, templates = None):
 
 def p_c_base_type(s, nonempty=False, templates=None):
     if s.sy == "auto":
+        s.next()
         return None
     elif s.sy == '(':
         return p_c_complex_base_type(s, templates = templates)
