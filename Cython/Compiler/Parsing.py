@@ -2678,7 +2678,7 @@ def p_c_complex_base_type(s, templates = None):
 
 
 def p_c_simple_base_type(s, nonempty, templates=None):
-    is_basic = False
+    is_basic = 0
     signed = 1
     longness = 0
     complex = 0
@@ -2686,27 +2686,32 @@ def p_c_simple_base_type(s, nonempty, templates=None):
     pos = s.position()
 
     # Handle const/volatile
-    is_mut = is_const = is_volatile = False
-    while s.sy in ("mut", "IDENT"):
-        if s.sy == "mut":
-            if is_mut: error(pos, "Duplicate 'mut'")
-            is_mut = True
-        elif s.systring == 'const':
+    is_const = is_volatile = 0
+    while s.sy == 'IDENT':
+        if s.systring == 'const':
             if is_const: error(pos, "Duplicate 'const'")
-            elif is_mut: error(pos, "Cannot be both 'mut' and 'const'")
-            is_const = True
+            is_const = 1
         elif s.systring == 'volatile':
             if is_volatile: error(pos, "Duplicate 'volatile'")
-            elif is_mut: error(pos, "Cannot be both 'mut' and 'volatile'")
-            is_volatile = True
+            is_volatile = 1
         else:
             break
         s.next()
+    if is_const or is_volatile:
+        base_type = p_c_base_type(s, nonempty=nonempty, templates=templates)
+        if isinstance(base_type, Nodes.MemoryViewSliceTypeNode):
+            # reverse order to avoid having to write "(const int)[:]"
+            base_type.base_type_node = Nodes.CConstOrVolatileTypeNode(pos,
+                base_type=base_type.base_type_node, is_const=is_const, is_volatile=is_volatile)
+            return base_type
+        return Nodes.CConstOrVolatileTypeNode(pos,
+            base_type=base_type, is_const=is_const, is_volatile=is_volatile)
+
     if s.sy != 'IDENT':
         error(pos, "Expected an identifier, found '%s'" % s.sy)
     if looking_at_base_type(s):
-        # print "p_c_simple_base_type: looking_at_base_type at", s.position()
-        is_basic = True
+        #print "p_c_simple_base_type: looking_at_base_type at", s.position()
+        is_basic = 1
         if s.sy == 'IDENT' and s.systring in builtin_type_names:
             signed, longness = None, None
             name = s.systring
@@ -2726,7 +2731,7 @@ def p_c_simple_base_type(s, nonempty, templates=None):
             complex = 1
             s.next()
     elif looking_at_dotted_name(s):
-        # print "p_c_simple_base_type: looking_at_type_name at", s.position()
+        #print "p_c_simple_base_type: looking_at_type_name at", s.position()
         name = s.systring
         s.next()
         while s.sy == '.':
@@ -2771,18 +2776,7 @@ def p_c_simple_base_type(s, nonempty, templates=None):
         name = p_ident(s)
         type_node = Nodes.CNestedBaseTypeNode(pos, base_type = type_node, name = name)
 
-    if s.in_python_file or s.level in ("c_class", "c_class_pxd") or is_mut or not is_basic:
-        return type_node
-    else:
-        if not is_volatile:
-            is_const = 1
-        if isinstance(type_node, Nodes.MemoryViewSliceTypeNode):
-            # reverse order to avoid having to write "(const int)[:]"
-            type_node.base_type_node = Nodes.CConstOrVolatileTypeNode(pos,
-                base_type=type_node.base_type_node, is_const=is_const, is_volatile=is_volatile)
-            return type_node
-        return Nodes.CConstOrVolatileTypeNode(pos,
-            base_type=type_node, is_const=is_const, is_volatile=is_volatile)
+    return type_node
 
 def p_buffer_or_template(s, base_type_node, templates):
     # s.sy == '['
