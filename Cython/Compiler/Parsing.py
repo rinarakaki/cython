@@ -2003,12 +2003,12 @@ def p_while_statement(s):
         else_clause = else_clause)
 
 
-def p_for_statement(s, is_async=False):
+def p_for_statement(s, ctx, is_async=False):
     # s.sy == 'for'
     pos = s.position()
     s.next()
     kw = p_for_bounds(s, allow_testlist=True, is_async=is_async)
-    body = p_suite(s)
+    body = p_suite(s, ctx)
     else_clause = p_else_clause(s)
     kw.update(body=body, else_clause=else_clause, is_async=is_async)
     return Nodes.ForStatNode(pos, **kw)
@@ -2506,7 +2506,7 @@ def p_statement(s, ctx, first_statement = 0):
             elif s.sy == 'while':
                 return p_while_statement(s)
             elif s.sy == 'for':
-                return p_for_statement(s)
+                return p_for_statement(s, ctx)
             elif s.sy == 'try':
                 return p_try_statement(s, ctx)
             elif s.sy == 'with':
