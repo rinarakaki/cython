@@ -2684,7 +2684,7 @@ def p_c_simple_base_type(s, nonempty, templates=None):
         else:
             break
         s.next()
-    if not is_mut:
+    if not is_mut or is_volatile:
         if not is_volatile:
             is_const = 1
         base_type = p_c_base_type(s, nonempty=nonempty, templates=templates)
