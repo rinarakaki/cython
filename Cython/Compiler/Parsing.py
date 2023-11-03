@@ -5,6 +5,8 @@
 
 from __future__ import absolute_import
 
+from attr import mutable
+
 # This should be done automatically
 import cython
 cython.declare(Nodes=object, ExprNodes=object, EncodedString=object,
@@ -3566,7 +3568,10 @@ def p_visibility(s, prev_visibility):
     return visibility
 
 def p_c_modifiers(s):
-    if s.sy == 'IDENT' and s.systring in ('inline',):
+    if s.sy == "mut":
+        s.next()
+        return ["mut"] + p_c_modifiers(s)
+    elif s.sy == 'IDENT' and s.systring in ('inline',):
         modifier = s.systring
         s.next()
         return [modifier] + p_c_modifiers(s)
@@ -3627,6 +3632,7 @@ def p_c_func_or_var_declaration(s, pos, ctx):
             doc = None
         result = Nodes.CVarDefNode(pos,
             visibility = ctx.visibility,
+            mutable = "mut" in modifiers,
             base_type = base_type,
             declarators = declarators,
             in_pxd = ctx.level in ('module_pxd', 'c_class_pxd'),
