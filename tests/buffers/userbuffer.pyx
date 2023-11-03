@@ -68,5 +68,5 @@ cdef class _memoryview:
                           self.view.buf, self.view.len,
                           self.view.readonly, flags)
     def tolist(self):
-        let b = <i8 *>self.view.buf
+        let auto b = <i8 *>self.view.buf
         return [b[i] for i in range(self.view.len)]
