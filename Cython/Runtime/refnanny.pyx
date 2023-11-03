@@ -38,7 +38,7 @@ cdef class Context(object):
             self.errors.append(f"NULL argument on line {lineno}")
             return
         let id_ = id(obj)
-        let count, linenumbers = self.refs.get(id_, (0, []))
+        let (count, linenumbers) = self.refs.get(id_, (0, []))
         self.refs[id_] = (count + 1, linenumbers)
         linenumbers.append(lineno)
 
@@ -49,7 +49,7 @@ cdef class Context(object):
             self.errors.append(f"NULL argument on line {lineno}")
             return false
         let id_ = id(obj)
-        let count, linenumbers = self.refs.get(id_, (0, []))
+        let (count, linenumbers) = self.refs.get(id_, (0, []))
         if count == 0:
             self.errors.append(f"Too many decrefs on line {lineno}, reference acquired on lines {linenumbers!r}")
             return false
