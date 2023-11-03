@@ -1965,22 +1965,22 @@ def p_assert_statement(s):
 statement_terminators = cython.declare(frozenset, frozenset((
     ';', 'NEWLINE', 'EOF')))
 
-def p_if_statement(s):
+def p_if_statement(s, ctx):
     # s.sy == 'if'
     pos = s.position()
     s.next()
-    if_clauses = [p_if_clause(s)]
+    if_clauses = [p_if_clause(s, ctx)]
     while s.sy == 'elif':
         s.next()
-        if_clauses.append(p_if_clause(s))
+        if_clauses.append(p_if_clause(s, ctx))
     else_clause = p_else_clause(s)
     return Nodes.IfStatNode(pos,
         if_clauses = if_clauses, else_clause = else_clause)
 
-def p_if_clause(s):
+def p_if_clause(s, ctx):
     pos = s.position()
     test = p_namedexpr_test(s)
-    body = p_suite(s)
+    body = p_suite(s, ctx)
     return Nodes.IfClauseNode(pos,
         condition = test, body = body)
 
@@ -2502,7 +2502,7 @@ def p_statement(s, ctx, first_statement = 0):
                     return node
                 s.error("Executable statement not allowed here")
             if s.sy == 'if':
-                return p_if_statement(s)
+                return p_if_statement(s, ctx)
             elif s.sy == 'while':
                 return p_while_statement(s)
             elif s.sy == 'for':
