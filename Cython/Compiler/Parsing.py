@@ -2684,9 +2684,9 @@ def p_c_simple_base_type(s, nonempty, templates=None):
         else:
             break
         s.next()
-    if not is_mut or is_const or is_volatile:
-        if not is_volatile:
-            is_const = 1
+    if not is_mut:
+        is_const = 1
+    if is_const or is_volatile:
         base_type = p_c_base_type(s, nonempty=nonempty, templates=templates)
         if isinstance(base_type, Nodes.MemoryViewSliceTypeNode):
             # reverse order to avoid having to write "(const int)[:]"
