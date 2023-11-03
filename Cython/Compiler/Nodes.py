@@ -507,7 +507,7 @@ class CNameDeclaratorNode(CDeclaratorNode):
     #  initialised boolean
     #  default     ExprNode or None   the value assigned on declaration
 
-    child_attrs = ["mutable", "initialised", "default"]
+    child_attrs = ["default"]
 
     default = None
 
