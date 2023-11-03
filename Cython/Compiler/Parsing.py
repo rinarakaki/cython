@@ -2668,18 +2668,25 @@ def p_c_simple_base_type(s, nonempty, templates=None):
     pos = s.position()
 
     # Handle const/volatile
-    is_const = is_volatile = 0
-    while s.sy == 'IDENT':
-        if s.systring == 'const':
+    is_mut = is_const = is_volatile = 0
+    while s.sy in ("mut", "IDENT"):
+        if s.sy == "mut":
+            if is_const: error(pos, "Duplicate 'mut'")
+            is_mut = 1
+        elif s.systring == 'const':
             if is_const: error(pos, "Duplicate 'const'")
+            elif is_mut: error(pos, "Cannot be both 'mut' and 'const'")
             is_const = 1
         elif s.systring == 'volatile':
             if is_volatile: error(pos, "Duplicate 'volatile'")
+            elif is_mut: error(pos, "Cannot be both 'mut' and 'volatile'")
             is_volatile = 1
         else:
             break
         s.next()
-    if is_const or is_volatile:
+    if not is_mut:
+        if not is_volatile:
+            is_const = 1
         base_type = p_c_base_type(s, nonempty=nonempty, templates=templates)
         if isinstance(base_type, Nodes.MemoryViewSliceTypeNode):
             # reverse order to avoid having to write "(const int)[:]"
