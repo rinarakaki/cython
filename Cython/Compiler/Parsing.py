@@ -3086,7 +3086,6 @@ def p_c_simple_declarator(s, ctx, empty, is_type, cmethod_flag,
                               assignable=assignable, nonempty=nonempty)
         result = node_class(pos, base=base)
     else:
-        initialised = 0
         rhs = None
         if s.sy == 'IDENT':
             name = s.systring
@@ -3097,7 +3096,6 @@ def p_c_simple_declarator(s, ctx, empty, is_type, cmethod_flag,
             if name != 'operator' and s.sy == '=' and assignable:
                 s.next()
                 rhs = p_test(s)
-                initialised = 1
         else:
             if nonempty:
                 error(s.position(), "Empty declarator")
@@ -3134,8 +3132,7 @@ def p_c_simple_declarator(s, ctx, empty, is_type, cmethod_flag,
                 name = name + ' ' + op
                 s.next()
         result = Nodes.CNameDeclaratorNode(pos,
-            mutable=mutable, name=name, cname=cname, initialised=initialised,
-            default=rhs,
+            mutable=mutable, name=name, cname=cname, default=rhs,
         )
     result.calling_convention = calling_convention
     return result

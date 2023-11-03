@@ -504,7 +504,6 @@ class CNameDeclaratorNode(CDeclaratorNode):
     #  mutable     boolean
     #  name        string             The Cython name being declared
     #  cname       string or None     C name, if specified
-    #  initialised boolean
     #  default     ExprNode or None   the value assigned on declaration
 
     child_attrs = ["default"]
@@ -6153,9 +6152,8 @@ class SingleAssignmentNode(AssignmentNode):
                 self.lhs.analyse_assignment_expression_target_declaration(env)
             else:
                 self.lhs.analyse_target_declaration(env)
-                if self.lhs.initialised and not self.lhs.mutable:
+                if not self.lhs.cf_is_null:# and not self.lhs.mutable:
                     error(self.lhs.pos, "cannot assign to initialised immutable variable")
-                self.lhs.initialised = 1
                 # if an entry doesn't exist that just implies that lhs isn't made up purely
                 # of AttributeNodes and NameNodes - it isn't useful as a known path to
                 # a standard library module
