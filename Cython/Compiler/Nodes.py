@@ -180,6 +180,10 @@ class Node(object):
     def __init__(self, pos, **kw):
         self.pos = pos
         self.__dict__.update(kw)
+    
+    def __repr__(self):
+        attrs = ", ".join(f"{name}={self.name}" for name in self.child_attrs if hasattr(self, name))
+        return "%s(%s)" % (self.__class__.__name__, attrs)
 
     gil_message = "Operation"
 
