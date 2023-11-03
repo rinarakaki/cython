@@ -37,6 +37,7 @@ cdef class PyrexScanner(Scanner):
     pub unicode sy
     pub systring  # EncodedString
     pub list put_back_on_failure
+    pub level
 
     fn isize current_level(self)
     #cpdef commentline(self, text)
