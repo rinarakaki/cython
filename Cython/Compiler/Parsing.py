@@ -3635,6 +3635,7 @@ def p_c_func_or_var_declaration(s, pos, ctx):
             doc = None
         result = Nodes.CVarDefNode(pos,
             visibility = ctx.visibility,
+            mutable = mutable,
             base_type = base_type,
             declarators = declarators,
             in_pxd = ctx.level in ('module_pxd', 'c_class_pxd'),
