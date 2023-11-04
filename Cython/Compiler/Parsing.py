@@ -716,7 +716,7 @@ def p_atom(s):
         expect_ellipsis(s)
         return ExprNodes.EllipsisNode(pos)
     elif sy in ("DECIMAL", "."):
-        return p_numeric_literal(s)
+        return p_float_literal(s)
     elif sy == 'INT':
         return p_int_literal(s)
     elif sy == 'BEGIN_STRING':
@@ -778,7 +778,7 @@ def p_numeric_literal_suffix(s):
     else:
         return None
 
-def p_numeric_literal(s):
+def p_float_literal(s):
     # s.sy in ("DECIMAL", ".")
     pos = s.position()
     if s.sy == "DECIMAL":
@@ -788,14 +788,7 @@ def p_numeric_literal(s):
         value = s.sy
 
     if s.sy not in (".", "e", "E"):
-        if s.systring not in ("j", "J"):
-            return ExprNodes.IntNode(pos,
-                value = value,
-                suffix = p_numeric_literal_suffix(s),
-                is_c_literal = None,
-                unsigned = "",
-                longness = ""
-            )
+        
     elif s.sy == ".":
         value += "."
         s.next()
@@ -839,11 +832,16 @@ def p_int_literal(s):
         if is_c_literal:
             error(pos, "illegal integer literal syntax in Python source file")
         is_c_literal = False
-    return ExprNodes.IntNode(pos,
-                             is_c_literal = is_c_literal,
-                             value = value,
-                             unsigned = unsigned,
-                             longness = longness)
+    if s.systring not in ("j", "J"):
+        return ExprNodes.IntNode(pos,
+            value = value,
+            suffix = p_numeric_literal_suffix(s),
+            is_c_literal = is_c_literal,
+            unsigned = unsigned,
+            longness = longness)
+    else:
+        s.next()
+        return ExprNodes.ImagNode(pos, value = value)
 
 
 def p_name(s, name):
