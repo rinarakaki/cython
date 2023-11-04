@@ -2101,14 +2101,11 @@ def p_for_iterator(s, allow_testlist=True, is_async=False):
     pos = s.position()
     expr = p_or_test(s)
     if s.sy == "..":
-        expr = p_or_test(s)
-        return ExprNodes.IteratorNode(pos, sequence=p_range_expression(s, start=expr, stop=expr))
+        stop = p_or_test(s)
+        return ExprNodes.IteratorNode(pos, sequence=p_range_expression(s, start=expr, stop=stop))
     if allow_testlist:
-        expr = p_testlist(s)
-    else:
-        expr = p_or_test(s)
+        expr = [expr] + p_testlist(s)
     return (ExprNodes.AsyncIteratorNode if is_async else ExprNodes.IteratorNode)(pos, sequence=expr)
-
 
 def p_try_statement(s):
     # s.sy == 'try'
