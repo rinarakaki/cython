@@ -256,7 +256,7 @@ fn i32 _allocate_buffer(array self) except -1:
 
     if self.dtype_is_object:
         p = <PyObject **> self.data
-        for i in 0..(self.len // self.itemsize):
+        for i in range(self.len // self.itemsize):
             p[i] = Py_None
             Py_INCREF(Py_None)
     return 0
@@ -925,7 +925,7 @@ fn i32 transpose_memslice({{memviewslice_name}} *memslice) except -1 nogil:
 
     # reverse strides and shape
     let i32 i, j
-    for i in 0..(ndim // 2):
+    for i in range(ndim // 2):
         j = ndim - 1 - i
         strides[i], strides[j] = strides[j], strides[i]
         shape[i], shape[j] = shape[j], shape[i]
