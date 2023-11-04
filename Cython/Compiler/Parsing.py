@@ -2103,7 +2103,8 @@ def p_for_iterator(s, allow_testlist=True, is_async=False):
     if s.sy == "..":
         stop = p_or_test(s)
         return ExprNodes.IteratorNode(pos, sequence=p_range_expression(s, start=expr, stop=stop))
-    if allow_testlist:
+    if s.sy == "," and allow_testlist:
+        s.next()
         expr = [expr] + p_testlist(s)
     return (ExprNodes.AsyncIteratorNode if is_async else ExprNodes.IteratorNode)(pos, sequence=expr)
 
