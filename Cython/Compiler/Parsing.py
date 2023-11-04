@@ -331,12 +331,11 @@ def p_range_expr(s):
         print("!!!!!!! DEBUG2 !!!!!!!!")
         print(stop)
         print(s.sy)
-        function = ExprNodes.NameNode(pos, name="range")
-        positional_args = [start, stop]
         return ExprNodes.GeneralCallNode(
-            pos, function=function,
-            positional_args=positional_args,
-            keyword_args={},
+            pos,
+            function=ExprNodes.NameNode(pos, name="range"),
+            positional_args=[start, stop],
+            keyword_args=[],
         )
     else:
         return expr
