@@ -4,6 +4,7 @@
 #
 
 from __future__ import absolute_import
+from mimetypes import suffix_map
 
 # This should be done automatically
 import cython
@@ -749,6 +750,11 @@ def p_atom(s):
     else:
         s.error("Expected an identifier or literal, found '%s'" % s.sy)
 
+# exponent: ('e' | 'E') ['+'|'-'] decimal
+# decimal_fract: decimal '.' [decimal] | '.' decimal
+# fltconst: (decimal_fract [exponent]) | (decimal exponent)
+# imagconst: (intconst | fltconst) ['j'|'J']
+
 def p_exponent(s):
     if s.sy in ("e", "E"):
         value = s.sy
@@ -765,10 +771,12 @@ def p_exponent(s):
     else:
         return ""
 
-# exponent = ('e' | 'E') ['+' | '-'] decimal
-# decimal_fract = decimal '.' decimal? | '.' decimal
-# fltconst = (decimal_fract exponent?) | (decimal exponent)
-# imagconst = (intconst | fltconst) ['j' | 'J']
+def p_numeric_literal_suffix(s):
+    if s.sy == 'IDENT' and s.systring in builtin_type_names:
+        s.next()
+        return s.systring
+    else:
+        return None
 
 def p_numeric_literal(s):
     pos = s.position()
@@ -777,8 +785,9 @@ def p_numeric_literal(s):
     if s.sy not in (".", "e", "E"):
         if s.sy not in ("j", "J"):
             return ExprNodes.IntNode(pos,
-                is_c_literal = None,
                 value = value,
+                suffix = p_numeric_literal_suffix(s),
+                is_c_literal = None,
                 unsigned = "",
                 longness = ""
             )
@@ -790,11 +799,13 @@ def p_numeric_literal(s):
             s.next()
         value += p_exponent(s)
         if s.sy not in ("j", "J"):
-            return ExprNodes.FloatNode(pos, value = value)
+            return ExprNodes.FloatNode(pos, value = value,
+                                       suffix = p_numeric_literal_suffix(s))
     else:
         value += p_exponent(s)
         if s.sy not in ("j", "J"):
-            return ExprNodes.FloatNode(pos, value = value)
+            return ExprNodes.FloatNode(pos, value = value,
+                                       suffix = p_numeric_literal_suffix(s))
     s.next()
     return ExprNodes.ImagNode(pos, value = value)
         
