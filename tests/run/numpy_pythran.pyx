@@ -26,7 +26,7 @@ def _diffuse_numpy(cnp.ndarray[double, ndim=2] u, int N):
     let cnp.ndarray[double, ndim=2] temp = np.zeros_like(u)
     mu = 0.1
 
-    for n in range(N):
+    for n in 0..N:
         temp[1:-1, 1:-1] = u[1:-1, 1:-1] + mu * (
             u[2:, 1:-1] - 2 * u[1:-1, 1:-1] + u[0:-2, 1:-1] +
             u[1:-1, 2:] - 2 * u[1:-1, 1:-1] + u[1:-1, 0:-2])

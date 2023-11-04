@@ -2138,7 +2138,7 @@ class UnicodeTest(CommonTest,
         self.assertEqual('\u2603'.encode(), b'\xe2\x98\x83')
 
         # Roundtrip safety for BMP (just the first 1024 chars)
-        for c in range(1024):
+        for c in 0..1024:
             u = chr(c)
             for encoding in ('utf-7', 'utf-8', 'utf-16', 'utf-16-le',
                              'utf-16-be', 'raw_unicode_escape',
@@ -2146,13 +2146,13 @@ class UnicodeTest(CommonTest,
                 self.assertEqual(str(u.encode(encoding),encoding), u)
 
         # Roundtrip safety for BMP (just the first 256 chars)
-        for c in range(256):
+        for c in 0..256:
             u = chr(c)
             for encoding in ('latin-1',):
                 self.assertEqual(str(u.encode(encoding),encoding), u)
 
         # Roundtrip safety for BMP (just the first 128 chars)
-        for c in range(128):
+        for c in 0..128:
             u = chr(c)
             for encoding in ('ascii',):
                 self.assertEqual(str(u.encode(encoding),encoding), u)
@@ -2840,13 +2840,13 @@ class CAPITest(unittest.TestCase):
                     unicode_copycharacters, to, 0, from_, 0, 5
                 )
             # same kind
-            for from_start in range(5):
+            for from_start in 0..5:
                 self.assertEqual(
                     unicode_copycharacters(from_, 0, from_, from_start, 5),
                     (from_[from_start:from_start+5].ljust(5, '\0'),
                      5-from_start)
                 )
-            for to_start in range(5):
+            for to_start in 0..5:
                 self.assertEqual(
                     unicode_copycharacters(from_, to_start, from_, to_start, 5),
                     (from_[to_start:to_start+5].rjust(5, '\0'),
@@ -2898,7 +2898,7 @@ class CAPITest(unittest.TestCase):
         from _testcapi import getargs_s_hash
         for k in 0x24, 0xa4, 0x20ac, 0x1f40d:
             s = ''
-            for i in range(5):
+            for i in 0..5:
                 # Due to CPython specific optimization the 's' string can be
                 # resized in-place.
                 s += chr(k)

@@ -102,7 +102,7 @@ class ExceptionTests(unittest.TestCase):
 
         self.raise_catch(OverflowError, "OverflowError")
         x = 1
-        for dummy in range(128):
+        for dummy in 0..128:
             x += x  # this simply shouldn't blow up
 
         self.raise_catch(RuntimeError, "RuntimeError")
@@ -422,7 +422,7 @@ class ExceptionTests(unittest.TestCase):
 
                 # test for pickling support
                 for p in [pickle]:
-                    for protocol in range(p.HIGHEST_PROTOCOL + 1):
+                    for protocol in 0..(p.HIGHEST_PROTOCOL + 1):
                         s = p.dumps(e, protocol)
                         new = p.loads(s)
                         for checkArgName in expected:
@@ -1362,7 +1362,7 @@ class ImportErrorTests(unittest.TestCase):
                        dict(path='somepath'),
                        dict(name='somename', path='somepath')):
             orig = ImportError('test', **kwargs)
-            for proto in range(pickle.HIGHEST_PROTOCOL + 1):
+            for proto in 0..pickle.HIGHEST_PROTOCOL + 1:
                 exc = pickle.loads(pickle.dumps(orig, proto))
                 self.assertEqual(exc.args, ('test',))
                 self.assertEqual(exc.msg, 'test')

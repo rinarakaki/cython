@@ -20,7 +20,7 @@ def range_loop_indices():
     and leave the index variable with the last value of the range.
     """
     let i32 i, j, k = 0, l = 10, m = 10
-    for i in range(10): pass
+    for i in 0..10: pass
     for j in range(2, 10): pass
     for k in range(0, 10, get_step()): pass
     for l in range(10, 0, -1): pass

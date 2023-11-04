@@ -18,7 +18,7 @@ def sum(custom_dtype_struct [:] a):
         u8 sum_x = 0
         f32 sum_y = 0.
 
-    for i in range(a.shape[0]):
+    for i in 0..a.shape[0]:
         sum_x += a[i].x
         sum_y += a[i].y
 

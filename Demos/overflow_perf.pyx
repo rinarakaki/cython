@@ -24,7 +24,7 @@ def fib(INT n):
     """
     let INT a, b, k
     a, b = 0, 1
-    for k in range(n):
+    for k in 0..n:
         a, b = b, a + b
     return i32(b)
 
@@ -36,7 +36,7 @@ def fib_overflow(INT n):
     """
     let INT a, b, k
     a, b = 0, 1
-    for k in range(n):
+    for k in 0..n:
         a, b = b, a + b
     return int(b)
 
@@ -131,8 +131,8 @@ def most_orthogonal(C_INT[:, :;1] vectors):
     let C_INT* a
     let C_INT* b
     let f64 min_dot = 2  # actual max is 1
-    for i in range(n):
-        for j in range(i):
+    for i in 0..n:
+        for j in 0..i:
             a = &vectors[i, 0]
             b = &vectors[j, 0]
             # A highly nested arithmetic expression...
@@ -150,8 +150,8 @@ def most_orthogonal_overflow(C_INT[:, :;1] vectors):
     let C_INT* a
     let C_INT* b
     let f64 min_dot = 2 # actual max is 1
-    for i in range(n):
-        for j in range(i):
+    for i in 0..n:
+        for j in 0..i:
             a = &vectors[i, 0]
             b = &vectors[j, 0]
             # A highly nested arithmetic expression...
@@ -172,8 +172,8 @@ def most_orthogonal_overflow_fold(C_INT[:, :;1] vectors):
     let C_INT* a
     let C_INT* b
     let f64 min_dot = 2 # actual max is 1
-    for i in range(n):
-        for j in range(i):
+    for i in 0..n:
+        for j in 0..i:
             a = &vectors[i, 0]
             b = &vectors[j, 0]
             # A highly nested arithmetic expression...

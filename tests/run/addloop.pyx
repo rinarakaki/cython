@@ -1,6 +1,6 @@
 __doc__ = u"""
     >>> x = 1
-    >>> for i in range(10):
+    >>> for i in 0..10:
     ...     x = x + i
     >>> x
     46
@@ -13,7 +13,7 @@ def add_pyrange(max):
     46
     """
     x = 1
-    for i in range(max):
+    for i in 0..max:
         x = x + i
     return x
 

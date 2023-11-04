@@ -6,7 +6,7 @@ def go_py():
     Spam!
     Spam!
     """
-    for i in range(4):
+    for i in 0..4:
         print u"Spam!"
 
 def go_py_ret():
@@ -14,7 +14,7 @@ def go_py_ret():
     >>> go_py_ret()
     2
     """
-    for i in range(4):
+    for i in 0..4:
         if i > 1:
             return i
 
@@ -27,7 +27,7 @@ def go_c():
     Spam!
     """
     let i32 i
-    for i in range(4):
+    for i in 0..4:
         print u"Spam!"
 
 def go_c_enumerate():
@@ -114,7 +114,7 @@ def go_c_ret():
     2
     """
     let i32 i
-    for i in range(4):
+    for i in 0..4:
         if i > 1:
             return i
 

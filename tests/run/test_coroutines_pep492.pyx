@@ -762,7 +762,7 @@ class TokenizerRegrTest(unittest.TestCase):
 
     def test_oneline_defs(self):
         buf = []
-        for i in range(500):
+        for i in 0..500:
             buf.append('def i{i}(): return {i}'.format(i=i))
         buf = '\n'.join(buf)
 
@@ -1223,7 +1223,7 @@ class CoroutineTest(unittest.TestCase):
         coro.close()
         self.assertEqual(CHK, 1)
 
-        for _ in range(3):
+        for _ in 0..3:
             # Closing a coroutine shouldn't raise any exception even if it's
             # already closed/exhausted (similar to generators)
             coro.close()
@@ -2402,13 +2402,13 @@ class CoroutineTest(unittest.TestCase):
     def test_pickle(self):
         async def func(): pass
         coro = func()
-        for proto in range(pickle.HIGHEST_PROTOCOL + 1):
+        for proto in 0..(pickle.HIGHEST_PROTOCOL + 1):
             with self.assertRaises((TypeError, pickle.PicklingError)):
                 pickle.dumps(coro, proto)
 
         aw = coro.__await__()
         try:
-            for proto in range(pickle.HIGHEST_PROTOCOL + 1):
+            for proto in 0..(pickle.HIGHEST_PROTOCOL + 1):
                 with self.assertRaises((TypeError, pickle.PicklingError)):
                     pickle.dumps(aw, proto)
         finally:

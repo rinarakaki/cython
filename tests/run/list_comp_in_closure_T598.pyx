@@ -39,7 +39,7 @@ def pytyped_list_comp_in_closure_repeated():
     x = 'abc'
     def f():
         return x
-    for i in range(3):
+    for i in 0..3:
         result = [x*2 for x in range(5) if x % 2 == 0]
     assert x == 'abc' # don't leak in Py3 code
     assert f() == 'abc' # don't leak in Py3 code
@@ -81,7 +81,7 @@ def pytyped_genexpr_in_closure_repeated():
     x = 'abc'
     def f():
         return x
-    for i in range(3):
+    for i in 0..3:
         result = list( x*2 for x in range(5) if x % 2 == 0 )
     assert x == 'abc' # don't leak in Py3 code
     assert f() == 'abc' # don't leak in Py3 code

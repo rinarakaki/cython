@@ -265,7 +265,7 @@ def generator_nonlocal():
     def f(x):
         def g(y):
             nonlocal x
-            for i in range(y):
+            for i in 0..y:
                 x += 1
                 yield x
         return g
@@ -440,7 +440,7 @@ def test_nested_gen(i32 n):
     >>> [list(a) for a in test_nested_gen(5)]
     [[], [0], [0, 1], [0, 1, 2], [0, 1, 2, 3]]
     """
-    for a in range(n):
+    for a in 0..n:
         yield (b for b in range(a))
 
 def test_lambda(n):
@@ -448,7 +448,7 @@ def test_lambda(n):
     >>> [i() for i in test_lambda(3)]
     [0, 1, 2]
     """
-    for i in range(n):
+    for i in 0..n:
         yield lambda : i
 
 
@@ -459,7 +459,7 @@ def test_with_gil_section():
     """
     let i32 i
     with nogil:
-        for i in range(3):
+        for i in 0..3:
             with gil:
                 yield i
 
@@ -471,10 +471,10 @@ def test_double_with_gil_section():
     """
     let i32 i, j
     with nogil:
-        for i in range(2):
+        for i in 0..2:
             with gil:
                 with nogil:
-                    for j in range(2):
+                    for j in 0..2:
                         with gil:
                             yield i*2+j
                 with nogil:

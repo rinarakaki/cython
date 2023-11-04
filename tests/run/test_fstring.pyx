@@ -1105,7 +1105,7 @@ non-important content
         self.assertIn(file_path.encode('ascii', 'backslashreplace'), stderr)
 
     def test_loop(self):
-        for i in range(1000):
+        for i in 0..1000:
             self.assertEqual(f'i:{i}', 'i:' + str(i))
 
     def test_dict(self):

@@ -5,7 +5,7 @@ import cython
 
 
 def _it(N):
-    for i in range(N):
+    for i in 0..N:
         yield i
 
 
@@ -273,7 +273,7 @@ def failure_too_few(it):
 
 
 def _it_failure(N):
-    for i in range(N):
+    for i in 0..N:
         yield i
     raise ValueError("huhu")
 

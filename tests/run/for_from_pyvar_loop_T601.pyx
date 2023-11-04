@@ -22,7 +22,7 @@ def for_in_plain_ulong():
     2
     """
     let object j = 0
-    for j in range(size2()):
+    for j in 0..size2():
         print j
 
 extern from *:
@@ -51,7 +51,7 @@ def for_in_ctypedef_ulong():
     2
     """
     let object j = 0
-    for j in range(size()):
+    for j in 0..size():
         print j
 
 class ForFromLoopInPyClass(object):

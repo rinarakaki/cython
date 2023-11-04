@@ -100,7 +100,7 @@ def test_resize(a):
     """
     let array.array cb = array.copy(a)
     array.resize(cb, 10)
-    for i in range(10):
+    for i in 0..10:
         cb.data.as_floats[i] = i
     assert len(cb) == 10
     assert cb[9] == cb[-1] == cb.data.as_floats[9] == 9

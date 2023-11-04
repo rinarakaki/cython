@@ -66,7 +66,7 @@ def index_set_test(L):
     try:
         for a in L:
             v.push_back(a)
-        for i in range(v.size()):
+        for i in 0..v.size():
             d(v)[i] = -d(v)[i]
         return d(v)[0], d(v)[v.size()-1]
     finally:

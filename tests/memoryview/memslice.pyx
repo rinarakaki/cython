@@ -203,7 +203,7 @@ def as_argument(i32[:] bufarg, i32 n):
     released A
     """
     let i32 i
-    for i in range(n):
+    for i in 0..n:
         print bufarg[i],
     print 'END'
 
@@ -219,7 +219,7 @@ def as_argument_defval(i32[:] bufarg=IntMockBuffer('default', range(6)), i32 n=6
     released A
     """
     let i32 i
-    for i in range(n):
+    for i in 0..n:
         print bufarg[i],
     print 'END'
 
@@ -235,7 +235,7 @@ def cdef_assignment(obj, n):
     """
     let i32[:] buf = obj
     let i32 i
-    for i in range(n):
+    for i in 0..n:
         print buf[i],
     print 'END'
 
@@ -888,7 +888,7 @@ def mixed_get(i32[:] buf, i32 unsafe_idx, i32 safe_idx):
 def printbuf_int(i32[:] buf, shape):
     # Utility func
     let i32 i
-    for i in range(shape[0]):
+    for i in 0..shape[0]:
         print buf[i],
     print 'END'
 
@@ -920,8 +920,8 @@ def printbuf_int_2d(o, shape):
     let const i32[:;view.generic, :;view.generic] buf
     buf = o
     let i32 i, j
-    for i in range(shape[0]):
-        for j in range(shape[1]):
+    for i in 0..shape[0]:
+        for j in 0..shape[1]:
             print buf[i, j],
         print 'END'
 
@@ -938,7 +938,7 @@ def printbuf_float(o, shape):
     let const f32[:] buf
     buf = o
     let i32 i, j
-    for i in range(shape[0]):
+    for i in 0..shape[0]:
         print buf[i],
     print "END"
 
@@ -982,7 +982,7 @@ def printbuf_td_cy_int(td_cy_int[:] buf, shape):
     ValueError: Buffer dtype mismatch, expected 'td_cy_int' but got 'short'
     """
     let i32 i
-    for i in range(shape[0]):
+    for i in 0..shape[0]:
         print buf[i],
     print 'END'
 
@@ -997,7 +997,7 @@ def printbuf_td_h_short(td_h_short[:] buf, shape):
     ValueError: Buffer dtype mismatch, expected 'td_h_short' but got 'int'
     """
     let i32 i
-    for i in range(shape[0]):
+    for i in 0..shape[0]:
         print buf[i],
     print 'END'
 
@@ -1012,7 +1012,7 @@ def printbuf_td_h_cy_short(const td_h_cy_short[:] buf, shape):
     ValueError: Buffer dtype mismatch, expected 'const td_h_cy_short' but got 'int'
     """
     let i32 i
-    for i in range(shape[0]):
+    for i in 0..shape[0]:
         print buf[i],
     print 'END'
 
@@ -1027,7 +1027,7 @@ def printbuf_td_h_ushort(const td_h_ushort[:] buf, shape):
     ValueError: Buffer dtype mismatch, expected 'const td_h_ushort' but got 'short'
     """
     let i32 i
-    for i in range(shape[0]):
+    for i in 0..shape[0]:
         print buf[i],
     print 'END'
 
@@ -1042,7 +1042,7 @@ def printbuf_td_h_double(const td_h_double[:] buf, shape):
     ValueError: Buffer dtype mismatch, expected 'const td_h_double' but got 'float'
     """
     let i32 i
-    for i in range(shape[0]):
+    for i in 0..shape[0]:
         print buf[i],
     print 'END'
 
@@ -1083,7 +1083,7 @@ def printbuf_object(object[:] buf, shape):
     [34, 3] 2
     """
     let i32 i
-    for i in range(shape[0]):
+    for i in 0..shape[0]:
         print repr(buf[i]), (<PyObject*>buf[i]).ob_refcnt
 
 @testcase
@@ -1492,9 +1492,9 @@ def test_generic_slicing(arg, indirect=false):
         print_int_offsets(b.suboffsets[0], b.suboffsets[1], b.suboffsets[2])
 
     let i32 i, j, k
-    for i in range(b.shape[0]):
-        for j in range(b.shape[1]):
-            for k in range(b.shape[2]):
+    for i in 0..b.shape[0]:
+        for j in 0..b.shape[1]:
+            for k in 0..b.shape[2]:
                 itemA = a[2 + 2 * i, -4 - j, 1 + k]
                 itemB = b[i, j, k]
                 assert itemA == itemB, (i, j, k, itemA, itemB)
@@ -1577,7 +1577,7 @@ cdef class TestIndexSlicingDirectIndirectDims(object):
         self.c_array[3] = 20
         self.myarray[1][2] = self.c_array
 
-        for i in range(3):
+        for i in 0..3:
             self.shape[i] = 5
 
         self.strides[0] = sizeof(i32 *) * 5
@@ -1666,9 +1666,9 @@ def test_direct_slicing(arg):
     print_int_offsets(b.suboffsets[0], b.suboffsets[1], b.suboffsets[2])
 
     let i32 i, j, k
-    for i in range(b.shape[0]):
-        for j in range(b.shape[1]):
-            for k in range(b.shape[2]):
+    for i in 0..b.shape[0]:
+        for j in 0..b.shape[1]:
+            for k in 0..b.shape[2]:
                 itemA = a[2 + 2 * i, -4 - j, 1 + k]
                 itemB = b[i, j, k]
                 assert itemA == itemB, (i, j, k, itemA, itemB)
@@ -1694,8 +1694,8 @@ def test_slicing_and_indexing(arg):
     print_int_offsets(b.strides[0], b.strides[1])
 
     let i32 i, j
-    for i in range(b.shape[0]):
-        for j in range(b.shape[1]):
+    for i in 0..b.shape[0]:
+        for j in 0..b.shape[1]:
             itemA = a[-5 + i, 1, 1 + 2 * j]
             itemB = b[i, j]
             assert itemA == itemB, (i, j, itemA, itemB)
@@ -1763,8 +1763,8 @@ def test_nogil_oob2():
 fn i32 cdef_nogil(i32[:, :] a) except 0 nogil:
     let i32 i, j
     let i32[:, :] b = a[:;-1, 3:10;2]
-    for i in range(b.shape[0]):
-        for j in range(b.shape[1]):
+    for i in 0..b.shape[0]:
+        for j in 0..b.shape[1]:
             b[i, j] = -b[i, j]
 
     return len(a)
@@ -1827,13 +1827,13 @@ def test_memslice_prange(arg):
     let i32 i, j, k
 
     for i in prange(src.shape[0], nogil=true):
-        for j in range(src.shape[1]):
-            for k in range(src.shape[2]):
+        for j in 0..src.shape[1]:
+            for k in 0..src.shape[2]:
                 dst[i, j, k] = src[i, j, k]
 
-    for i in range(src.shape[0]):
-        for j in range(src.shape[1]):
-            for k in range(src.shape[2]):
+    for i in 0..src.shape[0]:
+        for j in 0..src.shape[1]:
+            for k in 0..src.shape[2]:
                 assert src[i, j, k] == dst[i, j, k], (src[i, j, k] == dst[i, j, k])
 
 @testcase
@@ -1910,10 +1910,10 @@ fn test_structs_with_arr(FusedStruct array[10]):
 
     myslice1 = <FusedStruct[:10]> array
 
-    for i in range(10):
-        for j in range(10):
+    for i in 0..10:
+        for j in 0..10:
             myslice1[i].ints[j] = i
-        for j in range(3):
+        for j in 0..3:
             myslice1[i].chars[j] = 97 + j
 
     if (2, 7) <= sys.version_info[:2] < (3, 3):
@@ -1922,16 +1922,16 @@ fn test_structs_with_arr(FusedStruct array[10]):
         assert size1 == size2, (size1, size2, builtins.memoryview(myslice1).format)
 
         myslice2 = builtins.memoryview(myslice1)
-        for i in range(10):
+        for i in 0..10:
             assert myslice2[i].ints[i] == myslice1[i].ints[i]
             assert myslice2[i].chars[i] == myslice1[i].chars[i]
 
     myslice3 = <object> myslice1
     myslice4 = myslice1
-    for i in range(10):
-        for j in range(10):
+    for i in 0..10:
+        for j in 0..10:
             assert myslice3[i].ints[j] == myslice4[i].ints[j] == myslice1[i].ints[j]
-        for j in range(3):
+        for j in 0..3:
             assert myslice3[i].chars[j] == myslice4[i].chars[j] == myslice1[i].chars[j]
 
     print myslice1[0].chars[:3].decode('ascii')
@@ -2045,10 +2045,10 @@ def test_object_indices():
     let i32[:] myslice = array
     let i32 j
 
-    for i in range(3):
+    for i in 0..3:
         myslice[i] = i
 
-    for j in range(3):
+    for j in 0..3:
         print myslice[j]
 
 cdef fused slice_1d:
@@ -2085,8 +2085,8 @@ def test_slice_assignment():
     let i32[10][100] carray
     let i32 i, j
 
-    for i in range(10):
-        for j in range(100):
+    for i in 0..10:
+        for j in 0..100:
             carray[i][j] = i * 100 + j
 
     let i32[:, :] m = carray
@@ -2102,8 +2102,8 @@ fn _test_slice_assignment(slice_2d m, slice_2d copy):
     m[:, :] = m[:;-1, :;-1]
     m[-5:, -5:] = m[-6:-1, 60:65]
 
-    for i in range(5):
-        for j in range(5):
+    for i in 0..5:
+        for j in 0..5:
             assert copy[i, j] == m[-5 + i, -5 + j], (copy[i, j], m[-5 + i, -5 + j])
 
 @testcase
@@ -2115,7 +2115,7 @@ def test_slice_assignment_broadcast_leading():
     let i32[10] array2
     let i32 i
 
-    for i in range(10):
+    for i in 0..10:
         array1[0][i] = i
 
     let i32[:, :] a = array1
@@ -2123,7 +2123,7 @@ def test_slice_assignment_broadcast_leading():
 
     _test_slice_assignment_broadcast_leading(a, b)
 
-    for i in range(10):
+    for i in 0..10:
         array1[0][i] = i
 
     _test_slice_assignment_broadcast_leading(<object> a, <object> b)
@@ -2135,7 +2135,7 @@ fn _test_slice_assignment_broadcast_leading(slice_2d a, slice_1d b):
     b = b[:;-1]
     a[:, :] = b[:]
 
-    for i in range(10):
+    for i in 0..10:
         assert a[0, i] == b[i] == 10 - 1 - i, (a[0, i], b[i], 10 - 1 - i)
 
 @testcase
@@ -2147,7 +2147,7 @@ def test_slice_assignment_broadcast_strides():
     let i32[10][5] dst_array
     let i32 i, j
 
-    for i in range(10):
+    for i in 0..10:
         src_array[i] = 10 - 1 - i
 
     let i32[:] src = src_array
@@ -2171,7 +2171,7 @@ fn _test_slice_assignment_broadcast_strides(slice_1d src, slice_2d dst, slice_2d
     dst[:, 1:4] = dst[1, :3]
     dst_f[:, 1:4] = dst[1, 1:4]
 
-    for i in range(10):
+    for i in 0..10:
         for j in range(1, 3):
             assert dst[i, j] == dst_f[i, j] == j - 1, (dst[i, j], dst_f[i, j], j - 1)
 
@@ -2247,13 +2247,13 @@ def test_object_dtype_copying():
     let object[:] m1 = _get_empty_object_slice()
     let object[:] m2 = _get_empty_object_slice()
 
-    for i in range(10):
+    for i in 0..10:
         m1[i] = SingleObject(i)
 
     m2[...] = m1
     del m1
 
-    for i in range(10):
+    for i in 0..10:
         print m2[i]
 
     obj = m2[5]
@@ -2304,15 +2304,15 @@ def test_scalar_slice_assignment():
 
 fn _test_scalar_slice_assignment(slice_1d m, slice_2d m2):
     let i32 i, j
-    for i in range(10):
+    for i in 0..10:
         m[i] = i
 
     m[-2:0;-2] = 6
-    for i in range(10):
+    for i in 0..10:
         print m[i]
 
-    for i in range(m2.shape[0]):
-        for j in range(m2.shape[1]):
+    for i in 0..m2.shape[0]:
+        for j in 0..m2.shape[1]:
             m2[i, j] = i * m2.shape[1] + j
 
     let i32 x = 2, y = -2
@@ -2324,24 +2324,24 @@ fn _test_scalar_slice_assignment(slice_1d m, slice_2d m2):
 
 
     let i32[:, :] s = m2[..., 1:;2]
-    for i in range(s.shape[0]):
-        for j in range(s.shape[1]):
+    for i in 0..s.shape[0]:
+        for j in 0..s.shape[1]:
             assert s[i, j] == i % 2 + 1, (s[i, j], i)
 
     s = m2[:;2, 1:;2]
-    for i in range(s.shape[0]):
-        for j in range(s.shape[1]):
+    for i in 0..s.shape[0]:
+        for j in 0..s.shape[1]:
             assert s[i, j] == 1, s[i, j]
 
     s = m2[1:;2, :;2]
-    for i in range(s.shape[0]):
-        for j in range(s.shape[1]):
+    for i in 0..s.shape[0]:
+        for j in 0..s.shape[1]:
             assert s[i, j] == 0, s[i, j]
 
 
     m2[...] = 3
-    for i in range(m2.shape[0]):
-        for j in range(m2.shape[1]):
+    for i in 0..m2.shape[0]:
+        for j in 0..m2.shape[1]:
             assert m2[i, j] == 3, s[i, j]
 
 @testcase

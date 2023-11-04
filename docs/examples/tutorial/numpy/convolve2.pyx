@@ -72,8 +72,8 @@ def naive_convolve(cnp.ndarray f, cnp.ndarray g):
     # datatype size, it will simply wrap around like in C, rather than raise
     # an error like in Python.
     let DTYPE_t value
-    for x in range(xmax):
-        for y in range(ymax):
+    for x in 0..xmax:
+        for y in 0..ymax:
             s_from = max(smid - x, -smid)
             s_to = min((xmax - x) - smid, smid + 1)
             t_from = max(tmid - y, -tmid)

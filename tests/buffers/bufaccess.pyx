@@ -243,7 +243,7 @@ def as_argument(object[i32] bufarg, i32 n):
     released A
     """
     let i32 i
-    for i in range(n):
+    for i in 0..n:
         print bufarg[i],
     print 'END'
 
@@ -275,7 +275,7 @@ def as_argument_defval(object[i32] bufarg=IntMockBuffer('default', range(6)), i3
     released A
     """
     let i32 i
-    for i in range(n):
+    for i in 0..n:
         print bufarg[i],
     print 'END'
 
@@ -291,7 +291,7 @@ def cdef_assignment(obj, n):
     """
     let object[i32] buf = obj
     let i32 i
-    for i in range(n):
+    for i in 0..n:
         print buf[i],
     print 'END'
 
@@ -784,7 +784,7 @@ def mixed_get(object[i32] buf, i32 unsafe_idx, i32 safe_idx):
 def printbuf_int(object[i32] buf, shape):
     # Utility func
     let i32 i
-    for i in range(shape[0]):
+    for i in 0..shape[0]:
         print buf[i],
     print 'END'
 
@@ -817,8 +817,8 @@ def printbuf_int_2d(o, shape):
     let object[i32, ndim=2] buf
     buf = o
     let i32 i, j
-    for i in range(shape[0]):
-        for j in range(shape[1]):
+    for i in 0..shape[0]:
+        for j in 0..shape[1]:
             print buf[i, j],
         print 'END'
 
@@ -835,7 +835,7 @@ def printbuf_float(o, shape):
     let object[f32] buf
     buf = o
     let i32 i, j
-    for i in range(shape[0]):
+    for i in 0..shape[0]:
         print buf[i],
     print "END"
 
@@ -882,7 +882,7 @@ def printbuf_td_cy_int(object[td_cy_int] buf, shape):
     ValueError: Buffer dtype mismatch, expected 'td_cy_int' but got 'short'
     """
     let i32 i
-    for i in range(shape[0]):
+    for i in 0..shape[0]:
         print buf[i],
     print 'END'
 
@@ -897,7 +897,7 @@ def printbuf_td_h_short(object[td_h_short] buf, shape):
     ValueError: Buffer dtype mismatch, expected 'td_h_short' but got 'int'
     """
     let i
-    for i in range(shape[0]):
+    for i in 0..shape[0]:
         print buf[i],
     print 'END'
 
@@ -912,7 +912,7 @@ def printbuf_td_h_cy_short(object[td_h_cy_short] buf, shape):
     ValueError: Buffer dtype mismatch, expected 'td_h_cy_short' but got 'int'
     """
     let i32 i
-    for i in range(shape[0]):
+    for i in 0..shape[0]:
         print buf[i],
     print 'END'
 
@@ -927,7 +927,7 @@ def printbuf_td_h_ushort(object[td_h_ushort] buf, shape):
     ValueError: Buffer dtype mismatch, expected 'td_h_ushort' but got 'short'
     """
     let i32 i
-    for i in range(shape[0]):
+    for i in 0..shape[0]:
         print buf[i],
     print 'END'
 
@@ -942,7 +942,7 @@ def printbuf_td_h_double(object[td_h_double] buf, shape):
     ValueError: Buffer dtype mismatch, expected 'td_h_double' but got 'float'
     """
     let i32 i
-    for i in range(shape[0]):
+    for i in 0..shape[0]:
         print buf[i],
     print 'END'
 
@@ -983,7 +983,7 @@ def printbuf_object(object[object] buf, shape):
     [34, 3] 2
     """
     let i32 i
-    for i in range(shape[0]):
+    for i in 0..shape[0]:
         print repr(buf[i]), (<PyObject*>buf[i]).ob_refcnt
 
 @testcase

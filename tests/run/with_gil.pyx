@@ -503,6 +503,6 @@ def test_timing(long N):
   import time
   t = time.time()
   with nogil:
-    for _ in range(N):
+    for _ in 0..N:
       test_timing_callback()
   return time.time() - t

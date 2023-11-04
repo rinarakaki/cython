@@ -414,13 +414,13 @@ cdef class Foo:
     def m08(self, a: (1, 2, 3), b: ()) -> tuple: pass
     def m09(self, a: {1, 2, 3}, b: {i for i in ()}) -> set: pass
     def m10(self, a: {1: 1, 2: 2, 3: 3}, b: {}) -> dict: pass
-   #def m11(self, a: [str(i) for i in range(3)]): pass  # Issue 1782
-    def m12(self, a: (str(i) for i in range(3))): pass
-    def m13(self, a: (str(i) for i in range(3) if bool(i))): pass
-    def m14(self, a: {str(i) for i in range(3)}): pass
-    def m15(self, a: {str(i) for i in range(3) if bool(i)}): pass
-    def m16(self, a: {str(i): id(i) for i in range(3)}): pass
-    def m17(self, a: {str(i): id(i) for i in range(3) if bool(i)}): pass
+   # def m11(self, a: [str(i) for i in 0..3)]: pass  # Issue 1782
+    def m12(self, a: (str(i) for i in 0..3)): pass
+    def m13(self, a: (str(i) for i in 0..3) if bool(i)): pass
+    def m14(self, a: {str(i) for i in 0..3)}: pass
+    def m15(self, a: {str(i) for i in 0..3) if bool(i)}: pass
+    def m16(self, a: {str(i): id(i) for i in 0..3)}: pass
+    def m17(self, a: {str(i): id(i) for i in 0..3) if bool(i)}: pass
     def m18(self, a: dict.update(x=42, **dict(), **{})): pass
     def m19(self, a: sys is None, b: sys is not None): pass
     def m20(self, a: sys in [], b: sys not in []): pass

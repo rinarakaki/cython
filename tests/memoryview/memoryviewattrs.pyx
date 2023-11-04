@@ -65,13 +65,13 @@ def test_overlapping_copy():
     >>> test_overlapping_copy()
     """
     let i32 i, array[10]
-    for i in range(10):
+    for i in 0..10:
         array[i] = i
 
     let i32[:] slice = array
     slice[...] = slice[:;-1]
 
-    for i in range(10):
+    for i in 0..10:
         assert slice[i] == 10 - 1 - i
 
 def test_copy_return_type():
@@ -92,14 +92,14 @@ def test_partly_overlapping():
     >>> test_partly_overlapping()
     """
     let i32 i, array[10]
-    for i in range(10):
+    for i in 0..10:
         array[i] = i
 
     let i32[:] slice = array
     let i32[:] slice2 = slice[:5]
     slice2[...] = slice[4:9]
 
-    for i in range(5):
+    for i in 0..5:
         assert slice2[i] == i + 4
 
 #[cython.nonecheck(true)]

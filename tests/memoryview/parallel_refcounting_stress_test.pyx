@@ -62,7 +62,7 @@ fn f64 loopbody(f64[:, :] a, f64[:, :] b, f64[:, :] c, i32 selector) nogil:
     else:
         selected = c
 
-    for i in range(selected.shape[0]):
+    for i in 0..selected.shape[0]:
         subslice = selected[i, :]
         res += subslice[0] + subslice[2]
     return res
