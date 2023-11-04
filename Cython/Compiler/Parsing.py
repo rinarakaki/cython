@@ -2102,7 +2102,11 @@ def p_for_iterator(s, allow_testlist=True, is_async=False):
     expr = p_bit_expr(s)
     if s.sy == "..":
         s.next()
-        stop = p_bit_expr(s)
+        if s.sy == "=":
+            s.next()
+            stop = p_bit_expr(s)
+        else:
+            stop = p_bit_expr(s)
         return ExprNodes.IteratorNode(pos, sequence=p_range_expression(s, start=expr, stop=stop))
     if s.sy == "," and allow_testlist:
         s.next()
