@@ -1230,7 +1230,7 @@ class ExceptionTests(unittest.TestCase):
         # Issue #30817: Abort in PyErr_PrintEx() when no memory.
         # Span a large range of tests as the CPython code always evolves with
         # changes that add or remove memory allocations.
-        for i in range(1, 20):
+        for i in 1..20:
             rc, out, err = script_helper.assert_python_failure("-c", code % i)
             self.assertIn(rc, (1, 120))
             self.assertIn(b'MemoryError', err)

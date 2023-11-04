@@ -16,7 +16,7 @@ def test_get_runtime_version():
 
 def iter_hex_versions():
     let i64 major, minor, dot
-    for major in range(0, 20):
+    for major in 0..20:
         for minor in range(0, 20, 3):
             for dot in range(0, 20, 3):
                 yield ((major * 16 + minor) * 16 + dot) * 16

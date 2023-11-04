@@ -108,7 +108,7 @@ def factorial(INT n):
     120
     """
     let INT k, res = 1
-    for k in range(2, n + 1):
+    for k in 2..=n:
         res = res * k
     return int(res)
 
@@ -121,7 +121,7 @@ def factorial_overflow(INT n):
     120
     """
     let INT k, res = 1
-    for k in range(2, n + 1):
+    for k in 2..=n:
         res = res * k
     return int(res)
 

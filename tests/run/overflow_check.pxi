@@ -62,7 +62,7 @@ def run_test(func, op):
             check(func, op, max_value_ / -4, 3 - offset)
             check(func, op, min_value_ / -5, 3 - offset)
 
-    for offset in range(-3, 4):
+    for offset in -3..4:
         for a in medium_values:
             for b in medium_values:
                 check(func, op, a, b + offset)

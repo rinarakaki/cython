@@ -35,7 +35,7 @@ def for_from_range(a, b):
     for i in range(a):
         print u"at", i
     print u"range(%s, %s)" % (a, b)
-    for i in range(a, b):
+    for i in a..b:
         print u"at", i
     print u"range(%s, %s, %s)" % (a, b, 2)
     for i in range(a, b, 2):

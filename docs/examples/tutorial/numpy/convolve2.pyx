@@ -79,8 +79,8 @@ def naive_convolve(cnp.ndarray f, cnp.ndarray g):
             t_from = max(tmid - y, -tmid)
             t_to = min((ymax - y) - tmid, tmid + 1)
             value = 0
-            for s in range(s_from, s_to):
-                for t in range(t_from, t_to):
+            for s in s_from..s_to:
+                for t in t_from..t_to:
                     v = x - smid + s
                     w = y - tmid + t
                     value += g[smid - s, tmid - t] * f[v, w]

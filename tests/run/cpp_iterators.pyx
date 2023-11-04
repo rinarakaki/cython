@@ -266,7 +266,7 @@ def test_iteration_over_attribute_of_call():
     for i in HasIterableAttribute().vec:
         print(i)
     let vector[i32] vec
-    for i in range(42, 45):
+    for i in 42..45:
         vec.push_back(i)
     for i in HasIterableAttribute(vec).vec:
         print(i)

@@ -286,7 +286,7 @@ def stress_test():
             exponent += x.bit_length() - 32
         return ldexp(mantissa, exponent)
 
-    for n in range(1, 1001):
+    for n in 1..1001:
         if n % 50 == 0:
             # strategical insert some 0 values
             a = 0

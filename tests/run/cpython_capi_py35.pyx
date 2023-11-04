@@ -12,7 +12,7 @@ fn short _assert_calloc(short* s, i32 n) except -1 with gil:
     assert not s[0] and not s[n - 1]
     s[0] += 1
     s[n - 1] += 3
-    for i in range(1, n - 1):
+    for i in 1..(n - 1):
         assert not s[i]
     return s[n - 1]
 

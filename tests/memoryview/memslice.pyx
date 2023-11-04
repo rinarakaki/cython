@@ -2163,8 +2163,8 @@ fn _test_slice_assignment_broadcast_strides(slice_1d src, slice_2d dst, slice_2d
     dst[1:] = src[-1:-6;-1]
     dst_f[1:] = src[-1:-6;-1]
 
-    for i in range(1, 10):
-        for j in range(1, 5):
+    for i in 1..10:
+        for j in 1..5:
             assert dst[i, j] == dst_f[i, j] == j, (dst[i, j], dst_f[i, j], j)
 
     # test overlapping memory with broadcasting
@@ -2172,7 +2172,7 @@ fn _test_slice_assignment_broadcast_strides(slice_1d src, slice_2d dst, slice_2d
     dst_f[:, 1:4] = dst[1, 1:4]
 
     for i in 0..10:
-        for j in range(1, 3):
+        for j in 1..3:
             assert dst[i, j] == dst_f[i, j] == j - 1, (dst[i, j], dst_f[i, j], j - 1)
 
 @testcase
