@@ -773,7 +773,31 @@ def p_exponent(s):
 def p_numeric_literal_suffix(s):
     if s.sy == 'IDENT' and s.systring in builtin_type_names:
         s.next()
-        return s.systring
+        return dict(suffix=s.systring)
+    elif s.sy == 'IDENT' and s.systring.upper() in ("L", "LL", "U", "UL", "ULL"):
+        value = s.systring.upper()
+        unsigned = ""
+        longness = ""
+        while value[-1] in ("L", "U"):
+            if value[-1] == "L":
+                longness += "L"
+            else:
+                unsigned += "U"
+            value = value[:-1]
+        # '3L' is ambiguous in Py2 but not in Py3.  '3U' and '3LL' are
+        # illegal in Py2 Python files.  All suffixes are illegal in Py3
+        # Python files.
+        is_c_literal = None
+        if unsigned:
+            is_c_literal = True
+        elif longness:
+            if longness == 'LL' or s.context.language_level >= 3:
+                is_c_literal = True
+        if s.in_python_file:
+            if is_c_literal:
+                error(s.position(), "illegal integer literal syntax in Python source file")
+            is_c_literal = False
+        dict(unsigned=unsigned, longness=longness, is_c_literal=is_c_literal, suffix=None)
     else:
         return None
 
@@ -793,21 +817,24 @@ def p_numeric_literal(s):
             s.next()
         value += p_exponent(s)
         if s.systring not in ("j", "J"):
-            return ExprNodes.FloatNode(pos, value = value,
-                                       suffix = p_numeric_literal_suffix(s))
+            return ExprNodes.FloatNode(
+                pos,
+                value = value,
+                suffix = p_numeric_literal_suffix(s).get("suffix")
+            )
     elif s.systring in ("e", "E"):
         value += p_exponent(s)
         if s.systring not in ("j", "J"):
-            return ExprNodes.FloatNode(pos, value = value,
-                                       suffix = p_numeric_literal_suffix(s))
+            return ExprNodes.FloatNode(
+                pos,
+                value = value,
+                suffix = p_numeric_literal_suffix(s).get("suffix")
+            )
     else:
         if s.systring not in ("j", "J"):
             return ExprNodes.IntNode(pos,
                 value = value,
-                suffix = p_numeric_literal_suffix(s),
-                is_c_literal = None,
-                unsigned = "",
-                longness = ""
+                **p_numeric_literal_suffix(s),
             )
     s.next()
     return ExprNodes.ImagNode(pos, value = value)
@@ -816,34 +843,11 @@ def p_int_literal(s):
     pos = s.position()
     value = s.systring
     s.next()
-    unsigned = ""
-    longness = ""
-    while value[-1] in u"UuLl":
-        if value[-1] in u"Ll":
-            longness += "L"
-        else:
-            unsigned += "U"
-        value = value[:-1]
-    # '3L' is ambiguous in Py2 but not in Py3.  '3U' and '3LL' are
-    # illegal in Py2 Python files.  All suffixes are illegal in Py3
-    # Python files.
-    is_c_literal = None
-    if unsigned:
-        is_c_literal = True
-    elif longness:
-        if longness == 'LL' or s.context.language_level >= 3:
-            is_c_literal = True
-    if s.in_python_file:
-        if is_c_literal:
-            error(pos, "illegal integer literal syntax in Python source file")
-        is_c_literal = False
     if s.systring not in ("j", "J"):
         return ExprNodes.IntNode(pos,
             value = value,
-            suffix = p_numeric_literal_suffix(s),
-            is_c_literal = is_c_literal,
-            unsigned = unsigned,
-            longness = longness)
+            **p_numeric_literal_suffix(s)
+        )
     else:
         s.next()
         return ExprNodes.ImagNode(pos, value = value)
