@@ -786,8 +786,9 @@ def p_numeric_literal(s):
         s.next()
     else:
         value = s.sy
+
     if s.sy not in (".", "e", "E"):
-        if s.sy not in ("j", "J"):
+        if s.systring not in ("j", "J"):
             return ExprNodes.IntNode(pos,
                 value = value,
                 suffix = p_numeric_literal_suffix(s),
@@ -802,12 +803,12 @@ def p_numeric_literal(s):
             value += s.systring
             s.next()
         value += p_exponent(s)
-        if s.sy not in ("j", "J"):
+        if s.systring not in ("j", "J"):
             return ExprNodes.FloatNode(pos, value = value,
                                        suffix = p_numeric_literal_suffix(s))
     else:
         value += p_exponent(s)
-        if s.sy not in ("j", "J"):
+        if s.systring not in ("j", "J"):
             return ExprNodes.FloatNode(pos, value = value,
                                        suffix = p_numeric_literal_suffix(s))
     s.next()
