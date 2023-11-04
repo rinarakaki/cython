@@ -776,6 +776,7 @@ def p_numeric_literal_suffix(s):
         return dict(unsigned="", longness="", is_c_literal=None, suffix=s.systring)
     elif s.systring.upper() in ("L", "LL", "U", "UL", "ULL"):
         value = s.systring.upper()
+        s.next()
         unsigned = ""
         longness = ""
         while len(value) > 0:
