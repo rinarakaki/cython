@@ -787,9 +787,7 @@ def p_float_literal(s):
     else:
         value = s.sy
 
-    if s.sy not in (".", "e", "E"):
-        
-    elif s.sy == ".":
+    if s.sy == ".":
         value += "."
         s.next()
         if s.sy == "DECIMAL":
