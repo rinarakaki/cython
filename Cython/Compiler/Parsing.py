@@ -755,7 +755,7 @@ def p_atom(s):
 # fltconst: (decimal_fract [exponent]) | (decimal exponent)
 # imagconst: (intconst | fltconst) ['j'|'J']
 
-def p_numeric_literal_exponent(s):
+def p_exponent(s):
     if s.sy in ("e", "E"):
         value = s.sy
         s.next()
