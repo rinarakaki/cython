@@ -227,7 +227,7 @@ def object_pop_large_int():
     {}
     """
     let object foo = {}
-    let uint64_t bar = 201213467776703617ULL
+    let uint64_t bar = 201213467776703617u128
 
     foo[bar] = None
     assert (<object>bar) in foo

@@ -5,7 +5,7 @@ def no_cdef():
     >>> no_cdef()
     """
     let object lst = list(range(11))
-    ob = 10L
+    ob = 10i64
     lst[ob] = -10
     let object dd = {}
     dd[ob] = -10
@@ -15,7 +15,7 @@ def with_cdef():
     >>> with_cdef()
     """
     let list lst = list(range(11))
-    ob = 10L
+    ob = 10i64
     lst[ob] = -10
     let dict dd = {}
     dd[ob] = -10
@@ -28,7 +28,7 @@ def with_external_list(list L):
     Traceback (most recent call last):
     TypeError: 'NoneType' object ...
     """
-    ob = 1L
+    ob = 1i64
     L[ob] = -10
     return L
 

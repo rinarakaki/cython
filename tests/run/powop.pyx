@@ -39,7 +39,7 @@ def constant_long():
     >>> constant_long() == 2 ** 36
     True
     """
-    result = (<object>2L) ** 36
+    result = (<object>2i64) ** 36
     return result
 
 def small_int_pow(i64 s):
