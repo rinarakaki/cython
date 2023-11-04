@@ -416,7 +416,7 @@ cdef class Foo:
     def m10(self, a: {1: 1, 2: 2, 3: 3}, b: {}) -> dict: pass
    # def m11(self, a: [str(i) for i in 0..3]): pass  # Issue 1782
     def m12(self, a: (str(i) for i in 0..3)): pass
-    def m13(self, a: (str(i) for i in 0..3) if bool(i)): pass
+    def m13(self, a: (str(i) for i in 0..3 if bool(i))): pass
     def m14(self, a: {str(i) for i in 0..3}): pass
     def m15(self, a: {str(i) for i in 0..3 if bool(i)}): pass
     def m16(self, a: {str(i): id(i) for i in 0..3}): pass
