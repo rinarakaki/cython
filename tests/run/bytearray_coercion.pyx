@@ -145,10 +145,10 @@ def check_bounds(i32 cvalue):
     255
     >>> check_bounds(256)
     Traceback (most recent call last):
-    ValueError: byte must be in 0..256
+    ValueError: byte must be in range(0, 256)
     >>> check_bounds(-1)
     Traceback (most recent call last):
-    ValueError: byte must be in 0..256
+    ValueError: byte must be in range(0, 256)
     """
     b = bytearray(b'x')
 
