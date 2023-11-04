@@ -2119,10 +2119,10 @@ def p_for_target(s):
 def p_for_iterator(s, allow_testlist=True, is_async=False):
     pos = s.position()
     if allow_testlist:
-            expr = p_testlist(s)
-        else:
-            expr = p_or_test(s)
-        return (ExprNodes.AsyncIteratorNode if is_async else ExprNodes.IteratorNode)(pos, sequence=expr)
+        expr = p_testlist(s)
+    else:
+        expr = p_or_test(s)
+    return (ExprNodes.AsyncIteratorNode if is_async else ExprNodes.IteratorNode)(pos, sequence=expr)
 
 
 def p_try_statement(s):
