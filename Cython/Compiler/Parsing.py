@@ -2101,6 +2101,7 @@ def p_for_iterator(s, allow_testlist=True, is_async=False):
     pos = s.position()
     expr = p_or_test(s)
     if s.sy == "..":
+        s.next()
         stop = p_or_test(s)
         return ExprNodes.IteratorNode(pos, sequence=p_range_expression(s, start=expr, stop=stop))
     if s.sy == "," and allow_testlist:
