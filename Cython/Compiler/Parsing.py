@@ -2114,7 +2114,7 @@ def p_for_iterator(s, allow_testlist=True, is_async=False):
                 stop = p_bit_expr(s)
             else:
                 stop = p_bit_expr(s)
-            return ExprNodes.IteratorNode(pos, sequence=p_range_expression(s, start=expr, stop=stop))
+        return ExprNodes.IteratorNode(pos, sequence=p_range_expression(s, start=expr, stop=stop))
 
 def p_try_statement(s):
     # s.sy == 'try'
