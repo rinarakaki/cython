@@ -63,7 +63,7 @@ fn make_slice_nodes(pos, subscripts)
 cpdef make_slice_node(pos, start, stop = *, step = *)
 fn p_atom(PyrexScanner s)
 
-fn p_numeric_literal_exponent(PyrexScanner s)
+fn p_exponent(PyrexScanner s)
 fn p_numeric_literal_suffix(s)
 fn p_numeric_literal(PyrexScanner s)
 #[cython.locals(value=unicode)]
