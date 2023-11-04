@@ -2099,10 +2099,10 @@ def p_range_expression(s, start, stop, step=None):
 
 def p_for_iterator(s, allow_testlist=True, is_async=False):
     pos = s.position()
-    expr = p_or_test(s)
+    expr = p_bit_expr(s)
     if s.sy == "..":
         s.next()
-        stop = p_or_test(s)
+        stop = p_bit_expr(s)
         return ExprNodes.IteratorNode(pos, sequence=p_range_expression(s, start=expr, stop=stop))
     if s.sy == "," and allow_testlist:
         s.next()

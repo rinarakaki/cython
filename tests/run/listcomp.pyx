@@ -9,7 +9,7 @@ def smoketest():
     [0, 4, 8]
     """
     x = 'abc'
-    result = [x*2 for x in 0..5 if x % 2 == 0]
+    result = [x * 2 for x in 0..5 if x % 2 == 0]
     assert x != 'abc'
     return result
 
@@ -19,7 +19,7 @@ def list_genexp():
     [0, 4, 8]
     """
     x = 'abc'
-    result = list(x*2 for x in 0..5 if x % 2 == 0)
+    result = list(x * 2 for x in 0..5 if x % 2 == 0)
     assert x == 'abc'
     return result
 
@@ -29,7 +29,7 @@ def int_runvar():
     [0, 4, 8]
     """
     let i32 x
-    print [x*2 for x in 0..5 if x % 2 == 0]
+    print [x * 2 for x in 0..5 if x % 2 == 0]
 
 cdef class A:
     def __repr__(self): return u"A"
@@ -66,10 +66,10 @@ def iterdict():
     l.sort()
     print l
 
-listcomp_result = [i*i for i in 0..5]
+listcomp_result = [i * i for i in 0..5]
 def global_listcomp():
     """
-    >>> [i*i for i in 0..5]
+    >>> [i * i for i in 0..5]
     [0, 1, 4, 9, 16]
     >>> listcomp_result
     [0, 1, 4, 9, 16]
@@ -81,7 +81,7 @@ class ListCompInClass(object):
     >>> x.listcomp
     [1, 2, 3]
     """
-    listcomp = [i+1 for i in 0..3]
+    listcomp = [i + 1 for i in 0..3]
 
 cdef class ListCompInCClass:
     """
@@ -89,7 +89,7 @@ cdef class ListCompInCClass:
     >>> x.listcomp
     [1, 2, 3]
     """
-    listcomp = [i+1 for i in 0..3]
+    listcomp = [i + 1 for i in 0..3]
 
 def nested_result():
     """
@@ -133,7 +133,7 @@ def listcomp_const_condition_false():
     >>> listcomp_const_condition_false()
     []
     """
-    return [x*2 for x in 0..3 if False]
+    return [x*2 for x in 0..3 if false]
 
 #[cython.test_fail_if_path_exists("//IfStatNode",
                                   "//ComprehensionAppendNode")]
@@ -143,7 +143,7 @@ def listcomp_const_condition_false_bool_test():
     >>> listcomp_const_condition_false_bool_test()
     True
     """
-    return not [l for l in [1] if False]
+    return not [l for l in [1] if false]
 
 #[cython.test_fail_if_path_exists("//IfStatNode",
                                   "//ComprehensionAppendNode")]
@@ -152,7 +152,7 @@ def listcomp_const_condition_false_assert():
     """
     >>> listcomp_const_condition_false_assert()
     """
-    assert not [l for l in [1] if False]
+    assert not [l for l in [1] if false]
 
 #[cython.test_fail_if_path_exists("//ComprehensionNode//IfStatNode",
                                   "//ComprehensionAppendNode")]
@@ -163,7 +163,7 @@ def listcomp_const_condition_false_if():
     >>> listcomp_const_condition_false_if()
     True
     """
-    if not [l for l in [1] if False]:
+    if not [l for l in [1] if false]:
         return true
     return false
 
@@ -178,7 +178,7 @@ def listcomp_const_condition_false_typed_error():
     TypeError: ...
     """
     let str l
-    if not [l for l in [1] if False]:
+    if not [l for l in [1] if false]:
         return true
     return false
 
@@ -190,4 +190,4 @@ def listcomp_const_condition_true():
     >>> listcomp_const_condition_true()
     [0, 2, 4]
     """
-    return [x*2 for x in 0..3 if True]
+    return [x * 2 for x in 0..3 if true]
