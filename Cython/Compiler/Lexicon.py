@@ -41,9 +41,8 @@ def make_lexicon():
         return prefix + Opt(Str("_")) + underscore_digits(digits)
 
     decimal = underscore_digits(digit)
-    dot = Str(".")
     exponent = Any("Ee") + Opt(Any("+-")) + decimal
-    decimal_fract = (decimal + dot + Opt(decimal)) | (dot + decimal)
+    decimal_fract = decimal + Str(".") + decimal
 
     # name = letter + Rep(letter | digit)
     name = Opt(Str("r#")) + unicode_start_character + Rep(unicode_continuation_character)
