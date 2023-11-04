@@ -778,7 +778,7 @@ def p_numeric_literal_suffix(s):
         value = s.systring.upper()
         unsigned = ""
         longness = ""
-        while value[-1] in ("L", "U"):
+        while len(value) > 0:
             if value[-1] == "L":
                 longness += "L"
             else:
