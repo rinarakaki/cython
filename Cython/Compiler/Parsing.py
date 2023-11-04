@@ -796,7 +796,6 @@ def p_numeric_literal(s):
                 longness = ""
             )
     elif s.sy == ".":
-        value += "."
         s.next()
         if s.sy == "DECIMAL":
             value += s.systring
