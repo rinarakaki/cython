@@ -786,16 +786,7 @@ def p_numeric_literal(s):
     else:  # s.sy == "."
         value = s.sy
 
-    if s.sy not in (".", "e", "E"):
-        if s.systring not in ("j", "J"):
-            return ExprNodes.IntNode(pos,
-                value = value,
-                suffix = p_numeric_literal_suffix(s),
-                is_c_literal = None,
-                unsigned = "",
-                longness = ""
-            )
-    elif s.sy == ".":
+    if s.sy == ".":
         s.next()
         if s.sy == "DECIMAL":
             value += s.systring
@@ -804,11 +795,20 @@ def p_numeric_literal(s):
         if s.systring not in ("j", "J"):
             return ExprNodes.FloatNode(pos, value = value,
                                        suffix = p_numeric_literal_suffix(s))
-    else:
+    elif s.systring in ("e", "E"):
         value += p_exponent(s)
         if s.systring not in ("j", "J"):
             return ExprNodes.FloatNode(pos, value = value,
                                        suffix = p_numeric_literal_suffix(s))
+    else:
+        if s.systring not in ("j", "J"):
+            return ExprNodes.IntNode(pos,
+                value = value,
+                suffix = p_numeric_literal_suffix(s),
+                is_c_literal = None,
+                unsigned = "",
+                longness = ""
+            )
     s.next()
     return ExprNodes.ImagNode(pos, value = value)
         
