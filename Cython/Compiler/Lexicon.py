@@ -44,12 +44,11 @@ def make_lexicon():
 
     # name = letter + Rep(letter | digit)
     name = Opt(Str("r#")) + unicode_start_character + Rep(unicode_continuation_character)
-    intconst = (prefixed_digits(nonzero_digit, digit) |  # decimal literals with underscores must not start with '0'
+    intconst = (
                 (Str("0") + (prefixed_digits(Any("Xx"), hexdigit) |
                              prefixed_digits(Any("Oo"), octdigit) |
                              prefixed_digits(Any("Bb"), bindigit) )) |
                 underscore_digits(Str('0'))  # 0_0_0_0... is allowed as a decimal literal
-                | Rep1(digit)  # FIXME: remove these Py2 style decimal/octal literals (PY_VERSION_HEX < 3)
                 )
     intsuffix = (Opt(Any("Uu")) + Opt(Any("Ll")) + Opt(Any("Ll"))) | (Opt(Any("Ll")) + Opt(Any("Ll")) + Opt(Any("Uu")))
     intliteral = intconst + intsuffix
