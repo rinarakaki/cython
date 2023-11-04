@@ -5,6 +5,7 @@
 #
 
 from __future__ import absolute_import, unicode_literals
+from re import M
 
 raw_prefixes = "rR"
 bytes_prefixes = "bB"
@@ -41,8 +42,6 @@ def make_lexicon():
         return prefix + Opt(Str("_")) + underscore_digits(digits)
 
     decimal = underscore_digits(digit)
-    exponent = Any("Ee") + Opt(Any("+-")) + decimal
-    decimal_fract = decimal + Str(".") + decimal
 
     # name = letter + Rep(letter | digit)
     name = Opt(Str("r#")) + unicode_start_character + Rep(unicode_continuation_character)
@@ -55,9 +54,7 @@ def make_lexicon():
                 )
     intsuffix = (Opt(Any("Uu")) + Opt(Any("Ll")) + Opt(Any("Ll"))) | (Opt(Any("Ll")) + Opt(Any("Ll")) + Opt(Any("Uu")))
     intliteral = intconst + intsuffix
-    fltconst = (decimal_fract + Opt(exponent)) | (decimal + exponent)
-    imagconst = (intconst | fltconst) + Any("jJ")
-
+    
     # invalid combinations of prefixes are caught in p_string_literal
     beginstring = Opt(Rep(Any(string_prefixes + raw_prefixes)) |
                       Any(char_prefixes)
@@ -86,9 +83,8 @@ def make_lexicon():
 
     return Lexicon([
         (name, Method('normalize_ident')),
+        (decimal, Method('strip_underscores', symbol="DECIMAL")),
         (intliteral, Method('strip_underscores', symbol='INT')),
-        (fltconst, Method('strip_underscores', symbol='FLOAT')),
-        (imagconst, Method('strip_underscores', symbol='IMAG')),
         (ellipsis | punct | diphthong, TEXT),
 
         (bra, Method('open_bracket_action')),

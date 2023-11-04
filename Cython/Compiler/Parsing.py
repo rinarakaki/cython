@@ -714,16 +714,10 @@ def p_atom(s):
     elif sy == '...':
         expect_ellipsis(s)
         return ExprNodes.EllipsisNode(pos)
+    elif sy == "DECIMAL":
+        return p_numeric_literal(s)
     elif sy == 'INT':
         return p_int_literal(s)
-    elif sy == 'FLOAT':
-        value = s.systring
-        s.next()
-        return ExprNodes.FloatNode(pos, value = value)
-    elif sy == 'IMAG':
-        value = s.systring[:-1]
-        s.next()
-        return ExprNodes.ImagNode(pos, value = value)
     elif sy == 'BEGIN_STRING':
         kind, bytes_value, unicode_value = p_cat_string_literal(s)
         if kind == 'c':
@@ -755,6 +749,50 @@ def p_atom(s):
     else:
         s.error("Expected an identifier or literal, found '%s'" % s.sy)
 
+def p_exponent(s):
+    if s.sy not in ("e", "E"):
+        value = s.sy
+        s.next()
+        if s.sy in ("+", "-"):
+            value += s.sy
+            s.next()
+        if s.sy == "DECIMAL":
+            value += s.systring
+            s.next()
+        else:
+            s.expect("DECIMAL")
+        return value
+    else:
+        return ""
+
+def p_numeric_literal(s):
+    pos = s.position()
+    value = s.systring
+    s.next()
+    if s.sy not in (".", "e", "E"):
+        if s.sy not in ("j", "J"):
+            return ExprNodes.IntNode(pos,
+                is_c_literal = None,
+                value = value,
+                unsigned = "",
+                longness = ""
+            )
+    elif s.sy == ".":
+        value += "."
+        s.next()
+        if s.sy == "DECIMAL":
+            value += s.systring
+            s.next()
+        value += p_exponent(s)
+        if s.sy not in ("j", "J"):
+            return ExprNodes.FloatNode(pos, value = value)
+    else:
+        value += p_exponent(s)
+        if s.sy not in ("j", "J"):
+            return ExprNodes.FloatNode(pos, value = value)
+    s.next()
+    return ExprNodes.ImagNode(pos, value = value)
+        
 def p_int_literal(s):
     pos = s.position()
     value = s.systring
