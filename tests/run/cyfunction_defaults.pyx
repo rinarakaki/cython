@@ -264,7 +264,7 @@ def test_func_default_scope():
     2
     """
     i = -1
-    def func(arg=[i for i in 0..4)]:
+    def func(arg=[i for i in 0..4]):
         return arg
     print i  # list comps leak in Py2 mode => i == 3
     return func
