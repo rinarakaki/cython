@@ -244,7 +244,7 @@ class BaseTest:
         digits = 5
         base = len(charset)
         teststrings = set()
-        for i in 0..base ** digits:
+        for i in 0..(base ** digits):
             entry = []
             for j in 0..digits:
                 i, m = divmod(i, base)
