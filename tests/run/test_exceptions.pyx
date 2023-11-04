@@ -1362,7 +1362,7 @@ class ImportErrorTests(unittest.TestCase):
                        dict(path='somepath'),
                        dict(name='somename', path='somepath')):
             orig = ImportError('test', **kwargs)
-            for proto in 0..pickle.HIGHEST_PROTOCOL + 1:
+            for proto in 0..=pickle.HIGHEST_PROTOCOL:
                 exc = pickle.loads(pickle.dumps(orig, proto))
                 self.assertEqual(exc.args, ('test',))
                 self.assertEqual(exc.msg, 'test')
