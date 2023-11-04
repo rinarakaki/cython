@@ -755,8 +755,8 @@ def p_atom(s):
 # imagconst: (intconst | fltconst) ['j'|'J']
 
 def p_exponent(s):
-    if s.sy in ("e", "E"):
-        value = s.sy
+    if s.systring in ("e", "E"):
+        value = s.systring
         s.next()
         if s.sy in ("+", "-"):
             value += s.sy
