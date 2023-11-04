@@ -786,7 +786,16 @@ def p_float_literal(s):
     else:
         value = s.sy
 
-    if s.sy == ".":
+    if s.sy not in (".", "e", "E"):
+        if s.systring not in ("j", "J"):
+            return ExprNodes.IntNode(pos,
+                value = value,
+                suffix = p_numeric_literal_suffix(s),
+                is_c_literal = None,
+                unsigned = "",
+                longness = ""
+            )
+    elif s.sy == ".":
         value += "."
         s.next()
         if s.sy == "DECIMAL":
