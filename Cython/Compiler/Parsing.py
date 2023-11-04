@@ -765,6 +765,11 @@ def p_exponent(s):
     else:
         return ""
 
+# exponent = ('e' | 'E') ['+' | '-'] decimal
+# decimal_fract = decimal '.' decimal? | '.' decimal
+# fltconst = (decimal_fract exponent?) | (decimal exponent)
+# imagconst = (intconst | fltconst) ['j' | 'J']
+
 def p_numeric_literal(s):
     pos = s.position()
     value = s.systring
