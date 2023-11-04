@@ -316,7 +316,7 @@ def p_term(s):
 def p_range_expr(s):
     pos = s.position()
     expr = p_factor(s)
-    if s.sy in ("..", "..="):
+    if not s.in_python_file and s.sy in ("..", "..="):
         start = expr
         print("!!!!!!! DEBUG1 !!!!!!!!")
         print(start)
