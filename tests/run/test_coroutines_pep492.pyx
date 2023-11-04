@@ -2402,13 +2402,13 @@ class CoroutineTest(unittest.TestCase):
     def test_pickle(self):
         async def func(): pass
         coro = func()
-        for proto in 0..(pickle.HIGHEST_PROTOCOL + 1):
+        for proto in 0..=pickle.HIGHEST_PROTOCOL:
             with self.assertRaises((TypeError, pickle.PicklingError)):
                 pickle.dumps(coro, proto)
 
         aw = coro.__await__()
         try:
-            for proto in 0..(pickle.HIGHEST_PROTOCOL + 1):
+            for proto in 0..=pickle.HIGHEST_PROTOCOL:
                 with self.assertRaises((TypeError, pickle.PicklingError)):
                     pickle.dumps(aw, proto)
         finally:

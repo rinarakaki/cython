@@ -422,7 +422,7 @@ class ExceptionTests(unittest.TestCase):
 
                 # test for pickling support
                 for p in [pickle]:
-                    for protocol in 0..(p.HIGHEST_PROTOCOL + 1):
+                    for protocol in 0..=p.HIGHEST_PROTOCOL:
                         s = p.dumps(e, protocol)
                         new = p.loads(s)
                         for checkArgName in expected:
