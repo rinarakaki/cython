@@ -43,8 +43,8 @@ def make_lexicon():
     decimal = underscore_digits(digit)
     dot = Str(".")
     exponent = Any("Ee") + Opt(Any("+-")) + decimal
-    # decimal_fract = (decimal + dot + Opt(decimal)) | (dot + decimal)
-    decimal_fract = decimal + Str(".") + decimal
+    decimal_fract = (decimal + dot + Opt(decimal)) | (dot + decimal)
+    # decimal_fract = decimal + Str(".") + decimal
 
     # name = letter + Rep(letter | digit)
     name = Opt(Str("r#")) + unicode_start_character + Rep(unicode_continuation_character)
@@ -89,10 +89,10 @@ def make_lexicon():
 
     return Lexicon([
         (name, Method('normalize_ident')),
+        (ellipsis | punct | diphthong, TEXT),
         (intliteral, Method('strip_underscores', symbol='INT')),
         (fltconst, Method('strip_underscores', symbol='FLOAT')),
         (imagconst, Method('strip_underscores', symbol='IMAG')),
-        (ellipsis | punct | diphthong, TEXT),
 
         (bra, Method('open_bracket_action')),
         (ket, Method('close_bracket_action')),
