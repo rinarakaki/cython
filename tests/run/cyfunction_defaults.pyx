@@ -55,7 +55,7 @@ def test_defaults_nonliteral():
     True
     """
     ret = []
-    for i in {}, []:
+    for i in ({}, []):
         def foo(a, b=0, c=i, d=(1, 2, 3)):
             return c, d
         ret.append(foo)
