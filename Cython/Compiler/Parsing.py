@@ -2099,19 +2099,22 @@ def p_range_expression(s, start, stop, step=None):
 
 def p_for_iterator(s, allow_testlist=True, is_async=False):
     pos = s.position()
-    expr = p_bit_expr(s)
-    if s.sy == "..":
-        s.next()
-        if s.sy == "=":
-            s.next()
-            stop = p_bit_expr(s)
+    if s.in_python_file:
+        if allow_testlist:
+            expr = p_testlist(s)
         else:
-            stop = p_bit_expr(s)
-        return ExprNodes.IteratorNode(pos, sequence=p_range_expression(s, start=expr, stop=stop))
-    if s.sy == "," and allow_testlist:
-        s.next()
-        expr = [expr] + p_testlist(s)
-    return (ExprNodes.AsyncIteratorNode if is_async else ExprNodes.IteratorNode)(pos, sequence=expr)
+            expr = p_or_test(s)
+        return (ExprNodes.AsyncIteratorNode if is_async else ExprNodes.IteratorNode)(pos, sequence=expr)
+    else:
+        expr = p_bit_expr(s)
+        if s.sy == "..":
+            s.next()
+            if s.sy == "=":
+                s.next()
+                stop = p_bit_expr(s)
+            else:
+                stop = p_bit_expr(s)
+            return ExprNodes.IteratorNode(pos, sequence=p_range_expression(s, start=expr, stop=stop))
 
 def p_try_statement(s):
     # s.sy == 'try'
