@@ -797,7 +797,7 @@ def p_numeric_literal_suffix(s):
             if is_c_literal:
                 error(s.position(), "illegal integer literal syntax in Python source file")
             is_c_literal = False
-        dict(unsigned=unsigned, longness=longness, is_c_literal=is_c_literal, suffix=None)
+        return dict(unsigned=unsigned, longness=longness, is_c_literal=is_c_literal, suffix=None)
     else:
         return dict(unsigned="", longness="", is_c_literal=None, suffix=None)
 
@@ -832,11 +832,9 @@ def p_numeric_literal(s):
             )
     else:
         if s.systring not in ("j", "J"):
-            suffix = p_numeric_literal_suffix(s)
             return ExprNodes.IntNode(pos,
                 value = value,
-                unsigned = suffix["unsigned"],
-                longness = suffix["longness"],
+                **p_numeric_literal_suffix(s),
             )
     s.next()
     return ExprNodes.ImagNode(pos, value = value)
