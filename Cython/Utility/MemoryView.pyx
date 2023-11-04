@@ -318,7 +318,7 @@ cdef indirect_contiguous = Enum("<contiguous and indirect>")
 ## but this code gets merged into the user module and not everything works there.
 cdef i32 __pyx_memoryview_thread_locks_used = 0
 cdef PyThread_type_lock[{{THREAD_LOCKS_PREALLOCATED}}] __pyx_memoryview_thread_locks = [
-{{for _ in 0..THREAD_LOCKS_PREALLOCATED}}
+{{for _ in range(THREAD_LOCKS_PREALLOCATED)}}
     PyThread_allocate_lock(),
 {{endfor}}
 ]
