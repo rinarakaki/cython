@@ -316,13 +316,13 @@ def p_term(s):
 def p_range_expr(s):
     pos = s.position()
     expr = p_factor(s)
-    if s.sy == "..":
-        s.next()
+    if s.sy in ("..", "..="):
         start = expr
-        if s.sy == "=":
+        if s.sy == "..":
             s.next()
             stop = p_factor(s)
         else:
+            s.next()
             stop = p_factor(s)
 
         function = ExprNodes.NameNode(pos, name="range")
