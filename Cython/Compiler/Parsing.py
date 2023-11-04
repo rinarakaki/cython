@@ -820,7 +820,7 @@ def p_numeric_literal(s):
             return ExprNodes.FloatNode(
                 pos,
                 value = value,
-                suffix = p_numeric_literal_suffix(s).get("suffix")
+                **p_numeric_literal_suffix(s),
             )
     elif s.systring in ("e", "E"):
         value += p_exponent(s)
@@ -828,7 +828,7 @@ def p_numeric_literal(s):
             return ExprNodes.FloatNode(
                 pos,
                 value = value,
-                suffix = p_numeric_literal_suffix(s).get("suffix")
+                **p_numeric_literal_suffix(s),
             )
     else:
         if s.systring not in ("j", "J"):
