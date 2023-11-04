@@ -773,7 +773,7 @@ def p_exponent(s):
 def p_numeric_literal_suffix(s):
     if s.sy == 'IDENT' and s.systring in builtin_type_names:
         s.next()
-        return dict(suffix=s.systring)
+        return dict(unsigned="", longness="", is_c_literal=None, suffix=s.systring)
     elif s.sy == 'IDENT' and s.systring.upper() in ("L", "LL", "U", "UL", "ULL"):
         value = s.systring.upper()
         unsigned = ""
