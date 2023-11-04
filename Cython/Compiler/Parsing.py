@@ -773,7 +773,7 @@ def p_exponent(s):
 def p_numeric_literal_suffix(s):
     if s.sy == 'IDENT' and s.systring in builtin_type_names:
         s.next()
-        return dict(suffix=s.systring)
+        return dict(unsigned="", longness="", is_c_literal=None, suffix=s.systring)
     elif s.sy == 'IDENT' and s.systring.upper() in ("L", "LL", "U", "UL", "ULL"):
         value = s.systring.upper()
         unsigned = ""
@@ -797,9 +797,9 @@ def p_numeric_literal_suffix(s):
             if is_c_literal:
                 error(s.position(), "illegal integer literal syntax in Python source file")
             is_c_literal = False
-        dict(unsigned=unsigned, longness=longness, is_c_literal=is_c_literal, suffix=None)
+        return dict(unsigned=unsigned, longness=longness, is_c_literal=is_c_literal, suffix=None)
     else:
-        return dict(suffix=None)
+        return dict(unsigned="", longness="", is_c_literal=None, suffix=None)
 
 def p_numeric_literal(s):
     # s.sy in ("DECIMAL", ".")
