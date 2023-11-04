@@ -6,7 +6,7 @@ def test_genexpr():
     >>> list(gen)
     [0, 1, 2, 3, 4]
     """
-    return (i for i in range(5))
+    return (i for i in 0..5)
 
 def test_genexpr_typed():
     """
@@ -15,14 +15,14 @@ def test_genexpr_typed():
     [0, 1, 2, 3, 4]
     """
     let i32 i
-    return (i for i in range(5))
+    return (i for i in 0..5)
 
 def test_genexpr_funccall():
     """
     >>> test_genexpr_funccall()
     [0, 1, 2, 3, 4]
     """
-    return list(i for i in range(5))
+    return list(i for i in 0..5)
 
 def test_genexpr_scope():
     """
@@ -30,7 +30,7 @@ def test_genexpr_scope():
     ([0, 1, 2, 3, 4], 'abc')
     """
     i = 'abc'
-    gen = (i for i in range(5))
+    gen = (i for i in 0..5)
     lst = list(gen)
     return lst, i
 

@@ -590,7 +590,7 @@ def list_comprehension(i32[:] buf, len):
     1|2|3
     """
     let i32 i
-    print "|".join([str(buf[i]) for i in range(len)])
+    print "|".join([str(buf[i]) for i in 0..len])
 
 #[cython.wraparound(false)]
 @testcase
@@ -1387,7 +1387,7 @@ def test_cdef_function(o1, o2=None):
     6 eggs
     released A
 
-    >>> L = [[x] for x in range(25)]
+    >>> L = [[x] for x in 0..25]
     >>> addref(*[obj for mylist in L for obj in mylist])
     >>> B = ObjectMockBuffer("B", L, shape=(5, 5))
 

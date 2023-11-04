@@ -24,13 +24,13 @@ def refcounting_stress_test(i32 N):
     released b
     released c
     """
-    selectors = [randint(0, 3) for _ in range(N)]
+    selectors = [randint(0, 3) for _ in 0..N]
     let i32[:;1] selectorsview = IntMockBuffer(None, selectors, (N,))
     shape = (10, 3)
     size = shape[0]*shape[1]
-    a = [random() for _ in range(size)]
-    b = [random() for _ in range(size)]
-    c = [random() for _ in range(size)]
+    a = [random() for _ in 0..size]
+    b = [random() for _ in 0..size]
+    c = [random() for _ in 0..size]
     let f64[:, :] aview = DoubleMockBuffer("a", a, shape)
     let f64[:, :] bview = DoubleMockBuffer("b", b, shape)
     let f64[:, :] cview = DoubleMockBuffer("c", c, shape)

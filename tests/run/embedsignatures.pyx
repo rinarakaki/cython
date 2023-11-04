@@ -476,25 +476,25 @@ Foo.m09(self, a: {1, 2, 3}, b: {i for i in ()}) -> set
 Foo.m10(self, a: {1: 1, 2: 2, 3: 3}, b: {}) -> dict
 
 # >>> print(Foo.m11.__doc__)
-# Foo.m11(self, a: [str(i) for i in range(3)])
+# Foo.m11(self, a: [str(i) for i in 0..3])
 
 >>> print(Foo.m12.__doc__)
-Foo.m12(self, a: (str(i) for i in range(3)))
+Foo.m12(self, a: (str(i) for i in 0..3))
 
 >>> print(Foo.m13.__doc__)
-Foo.m13(self, a: (str(i) for i in range(3) if bool(i)))
+Foo.m13(self, a: (str(i) for i in 0..3 if bool(i)))
 
 >>> print(Foo.m14.__doc__)
-Foo.m14(self, a: {str(i) for i in range(3)})
+Foo.m14(self, a: {str(i) for i in 0..3})
 
 >>> print(Foo.m15.__doc__)
-Foo.m15(self, a: {str(i) for i in range(3) if bool(i)})
+Foo.m15(self, a: {str(i) for i in 0..3 if bool(i)})
 
 >>> print(Foo.m16.__doc__)
-Foo.m16(self, a: {str(i): id(i) for i in range(3)})
+Foo.m16(self, a: {str(i): id(i) for i in 0..3})
 
 >>> print(Foo.m17.__doc__)
-Foo.m17(self, a: {str(i): id(i) for i in range(3) if bool(i)})
+Foo.m17(self, a: {str(i): id(i) for i in 0..3 if bool(i)})
 
 >>> print(Foo.m18.__doc__)
 Foo.m18(self, a: dict.update(x=42, **dict()))

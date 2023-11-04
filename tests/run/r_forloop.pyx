@@ -49,7 +49,7 @@ def go_c_int(i32 a, i32 b):
     Spam!
     """
     let i32 i
-    for i in range(a, b,2):
+    for i in range(a, b, 2):
         print u"Spam!"
 
 def go_c_all():
@@ -60,7 +60,7 @@ def go_c_all():
     Spam!
     """
     let i32 i
-    for i in range(8,2,-2):
+    for i in range(8, 2, -2):
         print u"Spam!"
 
 def go_c_all_exprs(x):
@@ -72,7 +72,7 @@ def go_c_all_exprs(x):
     Spam!
     """
     let i64 i
-    for i in range(4*x,2*x,-3):
+    for i in range(4 * x, 2 * x, -3):
         print u"Spam!"
 
 def go_c_const_exprs():
@@ -82,7 +82,7 @@ def go_c_const_exprs():
     Spam!
     """
     let i32 i
-    for i in range(4*2+1,2*2,-2-1):
+    for i in range(4 * 2 + 1, 2 * 2, -2 - 1):
         print u"Spam!"
 
 def f(x):
@@ -95,7 +95,7 @@ def go_c_calc(x):
     Spam!
     """
     let i64 i
-    for i in range(2*f(x),f(x), -2):
+    for i in range(2 * f(x), f(x), -2):
         print u"Spam!"
 
 def go_c_calc_ret(x):
@@ -104,7 +104,7 @@ def go_c_calc_ret(x):
     6
     """
     let i64 i
-    for i in range(2*f(x),f(x), -2):
+    for i in range(2 * f(x), f(x), -2):
         if i < 2*f(x):
             return i
 
@@ -189,7 +189,7 @@ def go_dict_ret():
 # test global scope also
 global_result = None
 cdef int i
-for i in range(4*2+1,2*2,-2-1):
+for i in range(4 * 2 + 1, 2 * 2, -2 - 1):
     if i < 7:
         global_result = i
         break

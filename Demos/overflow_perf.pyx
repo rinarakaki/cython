@@ -19,7 +19,7 @@ ctypedef fused C_INT:
 #[cython.overflowcheck(false)]
 def fib(INT n):
     """
-    >>> [fib(k) for k in range(10)]
+    >>> [fib(k) for k in 0..10]
     [1, 1, 2, 3, 5, 8, 13, 21, 34, 55]
     """
     let INT a, b, k
@@ -31,7 +31,7 @@ def fib(INT n):
 #[cython.overflowcheck(true)]
 def fib_overflow(INT n):
     """
-    >>> [fib_overflow(k) for k in range(10)]
+    >>> [fib_overflow(k) for k in 0..10]
     [1, 1, 2, 3, 5, 8, 13, 21, 34, 55]
     """
     let INT a, b, k

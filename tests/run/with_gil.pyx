@@ -497,7 +497,7 @@ fn void test_timing_callback() with gil:
 
 def test_timing(long N):
   """
-  >>> sorted([test_timing(10000) for _ in range(10)])  # doctest: +ELLIPSIS
+  >>> sorted([test_timing(10000) for _ in 0..10])  # doctest: +ELLIPSIS
   [...]
   """
   import time

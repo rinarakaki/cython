@@ -167,7 +167,7 @@ def test_set_list_comp():
     [0, 1, 2]
     """
     let set s1
-    s1 = set([i%3 for i in range(5)])
+    s1 = set([i%3 for i in 0..5])
     return s1
 
 def test_frozenset_list_comp():
@@ -178,7 +178,7 @@ def test_frozenset_list_comp():
     [0, 1, 2]
     """
     let frozenset s1
-    s1 = frozenset([i%3 for i in range(5)])
+    s1 = frozenset([i%3 for i in 0..5])
     return s1
 
 def test_set_pop():

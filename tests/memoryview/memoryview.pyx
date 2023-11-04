@@ -911,7 +911,7 @@ def test_slicing_and_indexing(arg):
             assert itemA == itemB, (i, j, itemA, itemB)
 
     print c[1, 1], c[2, 0]
-    print [d[i] for i in range(d.shape[0])]
+    print [d[i] for i in 0..d.shape[0]]
 
 def test_oob():
     """

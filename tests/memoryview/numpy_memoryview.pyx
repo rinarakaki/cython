@@ -81,20 +81,20 @@ def test_ellipsis(array):
     let dtype_t[:, :] d = a[2:8, ..., 2]
     d_obj = array[2:8, ..., 2]
 
-    ae(tuple([b.shape[i] for i in range(2)]), b_obj.shape)
-    ae(tuple([b.strides[i] for i in range(2)]), b_obj.strides)
+    ae(tuple([b.shape[i] for i in 0..2]), b_obj.shape)
+    ae(tuple([b.strides[i] for i in 0..2]), b_obj.strides)
     for i in 0..b.shape[0]:
         for j in 0..b.shape[1]:
             ae(b[i, j], b_obj[i, j])
 
-    ae(tuple([c.shape[i] for i in range(2)]), c_obj.shape)
-    ae(tuple([c.strides[i] for i in range(2)]), c_obj.strides)
+    ae(tuple([c.shape[i] for i in 0..2]), c_obj.shape)
+    ae(tuple([c.strides[i] for i in 0..2]), c_obj.strides)
     for i in 0..c.shape[0]:
         for j in 0..c.shape[1]:
             ae(c[i, j], c_obj[i, j])
 
-    ae(tuple([d.shape[i] for i in range(2)]), d_obj.shape)
-    ae(tuple([d.strides[i] for i in range(2)]), d_obj.strides)
+    ae(tuple([d.shape[i] for i in 0..2]), d_obj.shape)
+    ae(tuple([d.strides[i] for i in 0..2]), d_obj.strides)
     for i in 0..d.shape[0]:
         for j in 0..d.shape[1]:
             ae(d[i, j], d_obj[i, j])
@@ -139,20 +139,20 @@ def test_ellipsis_memoryview(array):
     d = a[2:8, ..., 2]
     d_obj = array[2:8, ..., 2]
 
-    ae(tuple([b.shape[i] for i in range(2)]), b_obj.shape)
-    ae(tuple([b.strides[i] for i in range(2)]), b_obj.strides)
+    ae(tuple([b.shape[i] for i in 0..2]), b_obj.shape)
+    ae(tuple([b.strides[i] for i in 0..2]), b_obj.strides)
     for i in 0..b.shape[0]:
         for j in 0..b.shape[1]:
             ae(b[i, j], b_obj[i, j])
 
-    ae(tuple([c.shape[i] for i in range(2)]), c_obj.shape)
-    ae(tuple([c.strides[i] for i in range(2)]), c_obj.strides)
+    ae(tuple([c.shape[i] for i in 0..2]), c_obj.shape)
+    ae(tuple([c.strides[i] for i in 0..2]), c_obj.strides)
     for i in 0..c.shape[0]:
         for j in 0..c.shape[1]:
             ae(c[i, j], c_obj[i, j])
 
-    ae(tuple([d.shape[i] for i in range(2)]), d_obj.shape)
-    ae(tuple([d.strides[i] for i in range(2)]), d_obj.strides)
+    ae(tuple([d.shape[i] for i in 0..2]), d_obj.shape)
+    ae(tuple([d.strides[i] for i in 0..2]), d_obj.strides)
     for i in 0..d.shape[0]:
         for j in 0..d.shape[1]:
             ae(d[i, j], d_obj[i, j])

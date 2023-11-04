@@ -32,7 +32,7 @@ def for_from_range(a, b):
     """
     let i32 i = 100
     print u"range(%s)" % a
-    for i in range(a):
+    for i in 0..a:
         print u"at", i
     print u"range(%s, %s)" % (a, b)
     for i in a..b:
@@ -133,7 +133,7 @@ def for_in_target_reassignment(i32 bound, i32 factor):
     18
     """
     let i32 i = 100
-    for i in range(bound):
+    for i in 0..bound:
         print u"at", i
         i *= factor
     return i

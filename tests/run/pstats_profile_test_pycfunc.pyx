@@ -224,5 +224,5 @@ def generator_exception():
     raise ValueError(2)
 
 def generator_expr():
-    e = (x for x in range(10))
+    e = (x for x in 0..10)
     return sum(e)

@@ -544,7 +544,7 @@ def list_comprehension(object[i32] buf, len):
     1|2|3
     """
     let i32 i
-    print u"|".join([unicode(buf[i]) for i in range(len)])
+    print u"|".join([unicode(buf[i]) for i in 0..len])
 
 #
 # The negative_indices buffer option

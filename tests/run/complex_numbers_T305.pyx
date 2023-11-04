@@ -94,7 +94,7 @@ def test_int_pow(double complex z, i32 n, tol=None):
     [True, True, True, True, True, True, True, True, True]
     >>> [test_int_pow(complex(0, 2), k, 1e-15) for k in range(-4, 5)]
     [True, True, True, True, True, True, True, True, True]
-    >>> [test_int_pow(complex(2, 0.5), k, 1e-14) for k in range(0, 10)]
+    >>> [test_int_pow(complex(2, 0.5), k, 1e-14) for k in 0..10]
     [True, True, True, True, True, True, True, True, True, True]
     >>> test_int_pow(-0.5, 5, tol=1e-15)
     True

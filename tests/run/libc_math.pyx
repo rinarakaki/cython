@@ -30,7 +30,7 @@ def test_sin(x):
     >>> test_sin(0)
     0.0
     >>> from math import sin
-    >>> [sin(k) == test_sin(k) for k in range(10)]
+    >>> [sin(k) == test_sin(k) for k in 0..10]
     [True, True, True, True, True, True, True, True, True, True]
     """
     return sin(x)

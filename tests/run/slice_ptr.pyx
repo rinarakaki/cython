@@ -61,7 +61,7 @@ cdef class EqualsEvens:
     True
     >>> e == 5
     False
-    >>> [e == k for k in range(4)]
+    >>> [e == k for k in 0..4]
     [True, False, True, False]
     """
     def __richcmp__(self, other, i32 op):

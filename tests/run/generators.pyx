@@ -441,7 +441,7 @@ def test_nested_gen(i32 n):
     [[], [0], [0, 1], [0, 1, 2], [0, 1, 2, 3]]
     """
     for a in 0..n:
-        yield (b for b in range(a))
+        yield (b for b in 0..a)
 
 def test_lambda(n):
     """

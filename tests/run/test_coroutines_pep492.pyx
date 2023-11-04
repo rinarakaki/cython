@@ -1836,8 +1836,8 @@ class CoroutineTest(unittest.TestCase):
         yielded, _ = run_async(test1())
         # Make sure that __aiter__ was called only once
         self.assertEqual(aiter_calls, 1)
-        self.assertEqual(yielded, [i * 100 for i in range(1, 11)])
-        self.assertEqual(buffer, [i*2 for i in range(1, 101)])
+        self.assertEqual(yielded, [i * 100 for i in 1..11])
+        self.assertEqual(buffer, [i*2 for i in 1..101])
 
 
         buffer = []
@@ -1856,7 +1856,7 @@ class CoroutineTest(unittest.TestCase):
         # Make sure that __aiter__ was called only once
         self.assertEqual(aiter_calls, 2)
         self.assertEqual(yielded, [100, 200])
-        self.assertEqual(buffer, [i for i in range(1, 21)] + ['end'])
+        self.assertEqual(buffer, [i for i in 1..21] + ['end'])
 
 
         buffer = []
@@ -1874,8 +1874,8 @@ class CoroutineTest(unittest.TestCase):
         yielded, _ = run_async(test3())
         # Make sure that __aiter__ was called only once
         self.assertEqual(aiter_calls, 3)
-        self.assertEqual(yielded, [i * 100 for i in range(1, 11)])
-        self.assertEqual(buffer, [i for i in range(1, 21)] +
+        self.assertEqual(yielded, [i * 100 for i in 1..11])
+        self.assertEqual(buffer, [i for i in 1..21] +
                                  ['what?', 'end'])
 
     def test_for_2(self):

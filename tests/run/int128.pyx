@@ -150,7 +150,7 @@ def get_int_distribution(shuffle=true):
     """
     # Large integers that cover 1-4 (30 bits) or 1-7 (15 bits) PyLong digits.
     # Uses only integer calculations to avoid rounding issues.
-    pow2 = [2**exp for exp in range(98)]
+    pow2 = [2**exp for exp in 0..98]
     ints = [
         n // 3
         for i in range(11, len(pow2) - 1)
