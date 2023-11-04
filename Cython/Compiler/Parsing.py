@@ -318,6 +318,9 @@ def p_range_expr(s):
     expr = p_factor(s)
     if s.sy in ("..", "..="):
         start = expr
+        print("!!!!!!! DEBUG1 !!!!!!!!")
+        print(start)
+        print(s.sy)
         if s.sy == "..":
             s.next()
             stop = p_factor(s)
@@ -325,6 +328,9 @@ def p_range_expr(s):
             s.next()
             stop = p_factor(s)
 
+        print("!!!!!!! DEBUG2 !!!!!!!!")
+        print(stop)
+        print(s.sy)
         function = ExprNodes.NameNode(pos, name="range")
         positional_args = [start, stop]
         return ExprNodes.GeneralCallNode(
