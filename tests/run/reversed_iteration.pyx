@@ -778,7 +778,7 @@ def reversed_unsigned(i32 a, i32 b):
     []
     """
     let u32 i
-    return [i for i in reversed(range(a, b))]
+    return [i for i in reversed(a..b)]
 
 #[cython.test_assert_path_exists('//ForFromStatNode')]
 def reversed_unsigned_by_3(i32 a, i32 b):

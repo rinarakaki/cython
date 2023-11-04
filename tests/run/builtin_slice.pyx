@@ -30,7 +30,7 @@ def slice1_const():
 
 def slice2(start, stop):
     """
-    >>> list(range(2, 8))
+    >>> list(2..8)
     [2, 3, 4, 5, 6, 7]
     >>> list(0..10)[slice2(2, 8)]
     [2, 3, 4, 5, 6, 7]

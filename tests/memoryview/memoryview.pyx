@@ -987,7 +987,7 @@ cdef class TestPassMemoryviewToSetter:
     acquired dmb
     In prop_with_reassignment setter
     released dmb
-    >>> dmb = DoubleMockBuffer("dmb", range(1, 3), shape=(2,))
+    >>> dmb = DoubleMockBuffer("dmb", 1..3, shape=(2,))
     >>> TestPassMemoryviewToSetter().prop_with_reassignment = dmb
     acquired dmb
     In prop_with_reassignment setter

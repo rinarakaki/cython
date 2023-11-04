@@ -325,7 +325,7 @@ def p_range_expr(s):
         else:
             stop = p_factor(s)
 
-        function = p_name(s, "range")
+        function = ExprNodes.NameNode(pos, name="range")
         positional_args = [start, stop]
         return ExprNodes.GeneralCallNode(
             pos, function=function, positional_args=positional_args
