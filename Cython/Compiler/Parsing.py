@@ -331,11 +331,12 @@ def p_range_expr(s):
         print("!!!!!!! DEBUG2 !!!!!!!!")
         print(stop)
         print(s.sy)
+        arg_tuple, keyword_dict = p_call_build_packed_args(pos, [start, stop], [])
         return ExprNodes.GeneralCallNode(
             pos,
             function=ExprNodes.NameNode(pos, name="range"),
-            positional_args=[start, stop],
-            keyword_args=[],
+            positional_args=arg_tuple,
+            keyword_args=keyword_dict,
         )
     else:
         return expr
