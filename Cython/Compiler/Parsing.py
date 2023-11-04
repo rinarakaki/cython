@@ -799,7 +799,7 @@ def p_numeric_literal_suffix(s):
             is_c_literal = False
         dict(unsigned=unsigned, longness=longness, is_c_literal=is_c_literal, suffix=None)
     else:
-        return None
+        return {}
 
 def p_numeric_literal(s):
     # s.sy in ("DECIMAL", ".")
