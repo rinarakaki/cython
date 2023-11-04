@@ -34,10 +34,10 @@ extern from "call.cpp" nogil:
         long long operator()(long long i)
         long long operator()(long long i, long long j)
 
-
 ######## call_stack_allocated.pyx ########
 
-from call cimport wint
+use call::wint
+
 def test():
     cdef wint a = wint(4)
     cdef long long b = 3

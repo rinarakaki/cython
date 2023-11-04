@@ -1,7 +1,7 @@
 # mode: run
 # tag: warnings, numpy
 
-from numpy cimport ndarray, import_array
+use numpy::(ndarray, import_array)
 import_array()
 # np.import_array is called - no warning necessary
 

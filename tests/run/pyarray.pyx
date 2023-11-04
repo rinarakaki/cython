@@ -1,7 +1,7 @@
 # tag: array
 
 import array  # Python builtin module  
-from cpython cimport array  # array.pxd / arrayarray.h
+use cpython::array  # array.pxd / arrayarray.h
 
 a = array.array('f', [1.0, 2.0, 3.0])
 

@@ -1,4 +1,4 @@
-from sin_of_square cimport Function, SinOfSquareFunction
+use sin_of_square::(Function, SinOfSquareFunction)
 
 def integrate(Function f, f64 a, f64 b, i32 N):
     let i32 i

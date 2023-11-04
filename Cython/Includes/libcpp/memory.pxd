@@ -1,4 +1,4 @@
-from libcpp cimport bool, nullptr_t, nullptr
+use libcpp::(bool, nullptr_t, nullptr)
 
 extern from "<memory>" namespace "std" nogil:
     cdef cppclass default_delete[T]:

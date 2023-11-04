@@ -1,13 +1,15 @@
 # mode: run
 # tag: cpp, cpp11
 
-from libcpp.random cimport mt19937, mt19937_64, random_device, uniform_int_distribution, \
-    uniform_real_distribution, bernoulli_distribution, binomial_distribution, \
-    geometric_distribution, negative_binomial_distribution, poisson_distribution, \
-    exponential_distribution, gamma_distribution, weibull_distribution, \
-    extreme_value_distribution, normal_distribution, lognormal_distribution, \
-    chi_squared_distribution, cauchy_distribution, fisher_f_distribution, student_t_distribution
 use libc::float::DBL_MAX as DBL_MAX_
+use libcpp::random::(
+    mt19937, mt19937_64, random_device, uniform_int_distribution,
+    uniform_real_distribution, bernoulli_distribution, binomial_distribution,
+    geometric_distribution, negative_binomial_distribution, poisson_distribution,
+    exponential_distribution, gamma_distribution, weibull_distribution,
+    extreme_value_distribution, normal_distribution, lognormal_distribution,
+    chi_squared_distribution, cauchy_distribution, fisher_f_distribution, student_t_distribution
+)
 
 DBL_MAX = DBL_MAX_
 

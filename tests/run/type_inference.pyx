@@ -1,7 +1,7 @@
 # cython: infer_types = true
 
 use cython
-from cython cimport typeof, infer_types
+use cython::(typeof, infer_types)
 
 use cpython::bool
 

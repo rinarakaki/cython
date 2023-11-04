@@ -1,5 +1,5 @@
-from libc.stdlib cimport malloc, free
-cimport cython
+use libc::stdlib::(malloc, free)
+use cython
 use cython::view::array
 
 fn void callback(void *data) noexcept:

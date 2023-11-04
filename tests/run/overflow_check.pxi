@@ -1,4 +1,4 @@
-cimport cython
+use cython
 
 cdef object two = 2
 
