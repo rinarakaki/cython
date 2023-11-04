@@ -2106,7 +2106,7 @@ def p_for_iterator(s, allow_testlist=True, is_async=False):
             expr = p_or_test(s)
         return (ExprNodes.AsyncIteratorNode if is_async else ExprNodes.IteratorNode)(pos, sequence=expr)
     else:
-        expr = p_bit_expr(s)
+        expr = p_or_test(s)
         if s.sy == "..":
             s.next()
             if s.sy == "=":
