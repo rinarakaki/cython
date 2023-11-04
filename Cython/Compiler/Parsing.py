@@ -318,9 +318,6 @@ def p_range_expr(s):
     expr = p_factor(s)
     if not s.in_python_file and s.sy in ("..", "..="):
         start = expr
-        print("!!!!!!! DEBUG1 !!!!!!!!")
-        print(start)
-        print(s.sy)
         if s.sy == "..":
             s.next()
             stop = p_factor(s)
@@ -328,9 +325,6 @@ def p_range_expr(s):
             s.next()
             stop = p_factor(s)
 
-        print("!!!!!!! DEBUG2 !!!!!!!!")
-        print(stop)
-        print(s.sy)
         arg_tuple, keyword_dict = p_call_build_packed_args(pos, [start, stop], [])
         return ExprNodes.GeneralCallNode(
             pos,
