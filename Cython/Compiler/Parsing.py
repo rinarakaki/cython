@@ -715,7 +715,7 @@ def p_atom(s):
         expect_ellipsis(s)
         return ExprNodes.EllipsisNode(pos)
     elif sy in ("DECIMAL", "."):
-        return p_float_literal(s)
+        return p_numeric_literal(s)
     elif sy == 'INT':
         return p_int_literal(s)
     elif sy == 'BEGIN_STRING':
@@ -777,7 +777,7 @@ def p_numeric_literal_suffix(s):
     else:
         return None
 
-def p_float_literal(s):
+def p_numeric_literal(s):
     # s.sy in ("DECIMAL", ".")
     pos = s.position()
     if s.sy == "DECIMAL":
