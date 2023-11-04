@@ -750,7 +750,7 @@ def p_atom(s):
         s.error("Expected an identifier or literal, found '%s'" % s.sy)
 
 def p_exponent(s):
-    if s.sy not in ("e", "E"):
+    if s.sy in ("e", "E"):
         value = s.sy
         s.next()
         if s.sy in ("+", "-"):
