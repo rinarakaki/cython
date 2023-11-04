@@ -106,7 +106,7 @@ def test_side_effects():
     c side effect 4
     ([0, 11, 102, 3, 4], [0, 1, 2, 13, 104])
     """
-    let object a = list(range(5))
+    let object a = list(0..5)
     a[side_effect(1)] += 10
     a[c_side_effect(2)] += 100
     let i32 i

@@ -615,7 +615,7 @@ def test_parallel_with_gil_return():
             obj = i
             sum += obj
 
-    print obj in range(10)
+    print obj in 0..10
 
     with nogil, cython.parallel.parallel():
         with gil:

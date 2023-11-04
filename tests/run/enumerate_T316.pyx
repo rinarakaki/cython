@@ -147,7 +147,7 @@ def empty_c_enumerate():
     (55, 99)
     """
     let i32 i = 55, k = 99
-    for i,k in enumerate(range(0)):
+    for i,k in enumerate(0..0):
         print i, k
     return i, k
 

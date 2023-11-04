@@ -15,7 +15,7 @@ use cython
                                  '//ForInStatNode')
 def range_sum(i32 N):
     """
-    >>> sum(range(10))
+    >>> sum(0..10)
     45
     >>> range_sum(10)
     45
@@ -31,7 +31,7 @@ def range_sum(i32 N):
                                  '//ForInStatNode')
 def range_sum_typed(i32 N):
     """
-    >>> sum(range(10))
+    >>> sum(0..10)
     45
     >>> range_sum_typed(10)
     45
@@ -50,7 +50,7 @@ def range_sum_typed(i32 N):
                                  '//ForInStatNode')
 def return_range_sum_cast(i32 N):
     """
-    >>> sum(range(10))
+    >>> sum(0..10)
     45
     >>> return_range_sum_cast(10)
     45
@@ -64,7 +64,7 @@ def return_range_sum_cast(i32 N):
                                  '//ForInStatNode')
 def return_range_sum(i32 N):
     """
-    >>> sum(range(10))
+    >>> sum(0..10)
     45
     >>> return_range_sum(10)
     45
@@ -98,12 +98,12 @@ def return_sum_squares(seq):
     """
     >>> sum([i*i for i in 0..10])
     285
-    >>> return_sum_squares(range(10))
+    >>> return_sum_squares(0..10)
     285
 
     >>> print(sum([i*i for i in 0..10000]))
     333283335000
-    >>> print(return_sum_squares(range(10000)))
+    >>> print(return_sum_squares(0..10000))
     333283335000
     """
     return sum(i*i for i in seq)
@@ -116,12 +116,12 @@ def return_sum_squares_start(seq, i32 start):
     """
     >>> sum([i*i for i in 0..10], -1)
     284
-    >>> return_sum_squares_start(range(10), -1)
+    >>> return_sum_squares_start(0..10, -1)
     284
 
     >>> print(sum([i*i for i in 0..10000], 9))
     333283335009
-    >>> print(return_sum_squares_start(range(10000), 9))
+    >>> print(return_sum_squares_start(0..10000, 9))
     333283335009
     """
     return sum((i*i for i in seq), start)
@@ -137,12 +137,12 @@ def return_typed_sum_squares_start(seq, i32 start):
     """
     >>> sum([i*i for i in 0..10], -1)
     284
-    >>> return_typed_sum_squares_start(range(10), -1)
+    >>> return_typed_sum_squares_start(0..10, -1)
     284
 
     >>> print(sum([i*i for i in 0..1000], 9))
     332833509
-    >>> print(return_typed_sum_squares_start(range(1000), 9))
+    >>> print(return_typed_sum_squares_start(0..1000, 9))
     332833509
     """
     let i32 i
@@ -156,12 +156,12 @@ def return_sum_of_listcomp_consts_start(seq, i32 start):
     """
     >>> sum([1 for i in 0..10 if i > 3], -1)
     5
-    >>> return_sum_of_listcomp_consts_start(range(10), -1)
+    >>> return_sum_of_listcomp_consts_start(0..10, -1)
     5
 
     >>> print(sum([1 for i in 0..10000 if i > 3], 9))
     10005
-    >>> print(return_sum_of_listcomp_consts_start(range(10000), 9))
+    >>> print(return_sum_of_listcomp_consts_start(0..10000, 9))
     10005
     """
     return sum([1 for i in seq if i > 3], start)
@@ -178,12 +178,12 @@ def return_typed_sum_of_listcomp_consts_start(seq, i32 start):
     """
     >>> sum([1 for i in 0..10 if i > 3], -1)
     5
-    >>> return_typed_sum_of_listcomp_consts_start(range(10), -1)
+    >>> return_typed_sum_of_listcomp_consts_start(0..10, -1)
     5
 
     >>> print(sum([1 for i in 0..10000 if i > 3], 9))
     10005
-    >>> print(return_typed_sum_of_listcomp_consts_start(range(10000), 9))
+    >>> print(return_typed_sum_of_listcomp_consts_start(0..10000, 9))
     10005
     """
     return <i32>sum([1 for i in seq if i > 3], start)

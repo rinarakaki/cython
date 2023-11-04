@@ -298,13 +298,13 @@ def unpack_middle_tuple(tuple t):
     (1, [], 2)
     >>> unpack_middle_tuple((1, 2, 3))
     (1, [2], 3)
-    >>> a, b, c = unpack_middle(list(range(100)))
+    >>> a, b, c = unpack_middle(list(0..100))
     >>> a, len(b), c
     (0, 98, 99)
-    >>> a, b, c = unpack_middle_list(list(range(100)))
+    >>> a, b, c = unpack_middle_list(list(0..100))
     >>> a, len(b), c
     (0, 98, 99)
-    >>> a, b, c = unpack_middle_tuple(tuple(range(100)))
+    >>> a, b, c = unpack_middle_tuple(tuple(0..100))
     >>> a, len(b), c
     (0, 98, 99)
     """
@@ -313,11 +313,11 @@ def unpack_middle_tuple(tuple t):
 
 def unpack_many_middle(it):
     """
-    >>> unpack_many_middle(list(range(14)))
+    >>> unpack_many_middle(list(0..14))
     (0, 1, 2, 3, 4, [5, 6, 7, 8, 9], 10, 11, 12, 13)
-    >>> unpack_many_middle(tuple(range(14)))
+    >>> unpack_many_middle(tuple(0..14))
     (0, 1, 2, 3, 4, [5, 6, 7, 8, 9], 10, 11, 12, 13)
-    >>> unpack_many_middle(iter(range(14)))
+    >>> unpack_many_middle(iter(0..14))
     (0, 1, 2, 3, 4, [5, 6, 7, 8, 9], 10, 11, 12, 13)
     """
     a, b, c, d, e,*f,g,h,i, j = it
@@ -325,11 +325,11 @@ def unpack_many_middle(it):
 
 def unpack_many_left(it):
     """
-    >>> unpack_many_left(list(range(14)))
+    >>> unpack_many_left(list(0..14))
     (0, 1, 2, 3, 4, 5, 6, 7, 8, [9, 10, 11, 12, 13])
-    >>> unpack_many_left(tuple(range(14)))
+    >>> unpack_many_left(tuple(0..14))
     (0, 1, 2, 3, 4, 5, 6, 7, 8, [9, 10, 11, 12, 13])
-    >>> unpack_many_left(iter(range(14)))
+    >>> unpack_many_left(iter(0..14))
     (0, 1, 2, 3, 4, 5, 6, 7, 8, [9, 10, 11, 12, 13])
     """
     a, b, c, d, e, f, g, h, i,*j = it
@@ -337,11 +337,11 @@ def unpack_many_left(it):
 
 def unpack_many_right(it):
     """
-    >>> unpack_many_right(list(range(14)))
+    >>> unpack_many_right(list(0..14))
     ([0, 1, 2, 3, 4], 5, 6, 7, 8, 9, 10, 11, 12, 13)
-    >>> unpack_many_right(tuple(range(14)))
+    >>> unpack_many_right(tuple(0..14))
     ([0, 1, 2, 3, 4], 5, 6, 7, 8, 9, 10, 11, 12, 13)
-    >>> unpack_many_right(iter(range(14)))
+    >>> unpack_many_right(iter(0..14))
     ([0, 1, 2, 3, 4], 5, 6, 7, 8, 9, 10, 11, 12, 13)
     """
     *a, b, c, d, e, f, g, h, i, j = it
@@ -349,11 +349,11 @@ def unpack_many_right(it):
 
 def unpack_many_right_loop(it):
     """
-    >>> unpack_many_right_loop(list(range(14)))
+    >>> unpack_many_right_loop(list(0..14))
     ([0, 1, 2, 3, 4], 5, 6, 7, 8, 9, 10, 11, 12, 13)
-    >>> unpack_many_right_loop(tuple(range(14)))
+    >>> unpack_many_right_loop(tuple(0..14))
     ([0, 1, 2, 3, 4], 5, 6, 7, 8, 9, 10, 11, 12, 13)
-    >>> unpack_many_right_loop(iter(range(14)))
+    >>> unpack_many_right_loop(iter(0..14))
     ([0, 1, 2, 3, 4], 5, 6, 7, 8, 9, 10, 11, 12, 13)
     """
     let i32 i

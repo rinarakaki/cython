@@ -440,7 +440,7 @@ def list_comp_iterable(it):
     [0]
     >>> list_comp_iterable([2])
     [4]
-    >>> list_comp_iterable(range(5))
+    >>> list_comp_iterable(0..5)
     [0, 4, 8]
     """
     x = 'abc'
@@ -502,7 +502,7 @@ def genexpr_module_level():
 
 def list_comp_unknown_type(l):
     """
-    >>> list_comp_unknown_type(range(5))
+    >>> list_comp_unknown_type(0..5)
     [0, 4, 8]
     """
     return [x*2 for x in l if x % 2 == 0]

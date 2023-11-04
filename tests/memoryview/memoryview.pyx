@@ -98,7 +98,7 @@ cdef class ExtClassMockedAttr(object):
     let i32[:, :] arr
 
     def __init__(self):
-        self.arr = IntMockBuffer("self.arr", range(100), (10, 8))
+        self.arr = IntMockBuffer("self.arr", 0..100, (10, 8))
         self.arr[:] = 0
         self.arr[4, 4] = 2
 
@@ -327,7 +327,7 @@ def complex_struct_dtype(LongComplex[:] mslice):
 #
 def get_int_2d(i32[:, :] mslice, i32 i, i32 j):
     """
-    >>> C = IntMockBuffer("C", range(6), (2, 3))
+    >>> C = IntMockBuffer("C", 0..6, (2, 3))
     >>> get_int_2d(C, 1, 1)
     acquired C
     released C
@@ -365,7 +365,7 @@ def set_int_2d(i32[:, :] mslice, i32 i, i32 j, i32 value):
     Uses get_int_2d to read back the value afterwards. For pure
     unit test, one should support reading in MockBuffer instead.
 
-    >>> C = IntMockBuffer("C", range(6), (2, 3))
+    >>> C = IntMockBuffer("C", 0..6, (2, 3))
     >>> set_int_2d(C, 1, 1, 10)
     acquired C
     released C
@@ -419,7 +419,7 @@ def set_int_2d(i32[:, :] mslice, i32 i, i32 j, i32 value):
 #
 def type_infer(f64[:, :] arg):
     """
-    >>> type_infer(DoubleMockBuffer(None, range(6), (2, 3)))
+    >>> type_infer(DoubleMockBuffer(None, 0..6, (2, 3)))
     double
     double[:]
     double[:]
@@ -440,7 +440,7 @@ def type_infer(f64[:, :] arg):
 #[cython.test_fail_if_path_exists("//CoerceToPyTypeNode")]
 def memview_iter(f64[:, :] arg):
     """
-    >>> memview_iter(DoubleMockBuffer("C", range(6), (2, 3)))
+    >>> memview_iter(DoubleMockBuffer("C", 0..6, (2, 3)))
     acquired C
     released C
     True
@@ -458,7 +458,7 @@ def memview_iter(f64[:, :] arg):
 
 def writable(u16[:, :, :] mslice):
     """
-    >>> R = UnsignedShortMockBuffer("R", range(27), shape=(3, 3, 3))
+    >>> R = UnsignedShortMockBuffer("R", 0..27, shape=(3, 3, 3))
     >>> writable(R)
     acquired R
     released R
@@ -470,7 +470,7 @@ def writable(u16[:, :, :] mslice):
 
 def strided(i32[:] mslice):
     """
-    >>> A = IntMockBuffer("A", range(4))
+    >>> A = IntMockBuffer("A", 0..4)
     >>> strided(A)
     acquired A
     released A
@@ -485,7 +485,7 @@ def strided(i32[:] mslice):
 
 def c_contig(i32[:;1] mslice):
     """
-    >>> A = IntMockBuffer(None, range(4))
+    >>> A = IntMockBuffer(None, 0..4)
     >>> c_contig(A)
     2
     """
@@ -496,7 +496,7 @@ def c_contig_2d(i32[:, :;1] mslice):
     """
     Multi-dim has separate implementation
 
-    >>> A = IntMockBuffer(None, range(12), shape=(3, 4))
+    >>> A = IntMockBuffer(None, 0..12, shape=(3, 4))
     >>> c_contig_2d(A)
     7
     """
@@ -505,7 +505,7 @@ def c_contig_2d(i32[:, :;1] mslice):
 
 def f_contig(i32[:;1, :] mslice):
     """
-    >>> A = IntMockBuffer(None, range(4), shape=(2, 2), strides=(1, 2))
+    >>> A = IntMockBuffer(None, 0..4, shape=(2, 2), strides=(1, 2))
     >>> f_contig(A)
     2
     """
@@ -516,7 +516,7 @@ def f_contig_2d(i32[:;1, :] mslice):
     """
     Must set up strides manually to ensure Fortran ordering.
 
-    >>> A = IntMockBuffer(None, range(12), shape=(4, 3), strides=(1, 4))
+    >>> A = IntMockBuffer(None, 0..12, shape=(4, 3), strides=(1, 4))
     >>> f_contig_2d(A)
     7
     """
@@ -584,9 +584,9 @@ ctypedef td_h_short td_h_cy_short
 
 def printbuf_td_cy_int(td_cy_int[:] mslice, shape):
     """
-    >>> printbuf_td_cy_int(IntMockBuffer(None, range(3)), (3,))
+    >>> printbuf_td_cy_int(IntMockBuffer(None, 0..3), (3,))
     0 1 2 END
-    >>> printbuf_td_cy_int(ShortMockBuffer(None, range(3)), (3,))
+    >>> printbuf_td_cy_int(ShortMockBuffer(None, 0..3), (3,))
     Traceback (most recent call last):
        ...
     ValueError: Buffer dtype mismatch, expected 'td_cy_int' but got 'short'
@@ -599,9 +599,9 @@ def printbuf_td_cy_int(td_cy_int[:] mslice, shape):
 
 def printbuf_td_h_short(td_h_short[:] mslice, shape):
     """
-    >>> printbuf_td_h_short(ShortMockBuffer(None, range(3)), (3,))
+    >>> printbuf_td_h_short(ShortMockBuffer(None, 0..3), (3,))
     0 1 2 END
-    >>> printbuf_td_h_short(IntMockBuffer(None, range(3)), (3,))
+    >>> printbuf_td_h_short(IntMockBuffer(None, 0..3), (3,))
     Traceback (most recent call last):
        ...
     ValueError: Buffer dtype mismatch, expected 'td_h_short' but got 'int'
@@ -614,9 +614,9 @@ def printbuf_td_h_short(td_h_short[:] mslice, shape):
 
 def printbuf_td_h_cy_short(td_h_cy_short[:] mslice, shape):
     """
-    >>> printbuf_td_h_cy_short(ShortMockBuffer(None, range(3)), (3,))
+    >>> printbuf_td_h_cy_short(ShortMockBuffer(None, 0..3), (3,))
     0 1 2 END
-    >>> printbuf_td_h_cy_short(IntMockBuffer(None, range(3)), (3,))
+    >>> printbuf_td_h_cy_short(IntMockBuffer(None, 0..3), (3,))
     Traceback (most recent call last):
        ...
     ValueError: Buffer dtype mismatch, expected 'td_h_cy_short' but got 'int'
@@ -629,9 +629,9 @@ def printbuf_td_h_cy_short(td_h_cy_short[:] mslice, shape):
 
 def printbuf_td_h_ushort(td_h_ushort[:] mslice, shape):
     """
-    >>> printbuf_td_h_ushort(UnsignedShortMockBuffer(None, range(3)), (3,))
+    >>> printbuf_td_h_ushort(UnsignedShortMockBuffer(None, 0..3), (3,))
     0 1 2 END
-    >>> printbuf_td_h_ushort(ShortMockBuffer(None, range(3)), (3,))
+    >>> printbuf_td_h_ushort(ShortMockBuffer(None, 0..3), (3,))
     Traceback (most recent call last):
        ...
     ValueError: Buffer dtype mismatch, expected 'td_h_ushort' but got 'short'
@@ -978,7 +978,7 @@ cdef class TestPassMemoryviewToSetter:
     argument needs conversion so it ends up passing through
     some slightly different reference counting code
 
-    >>> dmb = DoubleMockBuffer("dmb", range(2), shape=(2,))
+    >>> dmb = DoubleMockBuffer("dmb", 0..2, shape=(2,))
     >>> TestPassMemoryviewToSetter().prop = dmb
     acquired dmb
     In prop setter
@@ -1224,8 +1224,8 @@ def test_conversion_failures():
 
     >>> test_conversion_failures()
     """
-    imb = IntMockBuffer("", range(1), shape=(1,))
-    dmb = DoubleMockBuffer("", range(1), shape=(1,))
+    imb = IntMockBuffer("", 0..1, shape=(1,))
+    dmb = DoubleMockBuffer("", 0..1, shape=(1,))
     for first, second in [(imb, dmb), (dmb, imb)]:
         for func in [multiple_memoryview_def, multiple_memoryview_cpdef, multiple_memoryview_cdef_wrapper]:
             # note - using python call of "multiple_memoryview_cpdef" deliberately
@@ -1241,7 +1241,7 @@ def test_conversion_failures():
 
 def test_is_Sequence(f64[:] a):
     """
-    >>> test_is_Sequence(DoubleMockBuffer(None, range(6), shape=(6,)))
+    >>> test_is_Sequence(DoubleMockBuffer(None, 0..6, shape=(6,)))
     1
     1
     True

@@ -39,7 +39,7 @@ def go_c_enumerate():
     True
     """
     let i32 i,k
-    for i,k in enumerate(range(4)):
+    for i, k in enumerate(0..4):
         print i == k
 
 def go_c_int(i32 a, i32 b):
@@ -126,7 +126,7 @@ def go_list():
     Spam!
     Spam!
     """
-    let list l = list(range(4))
+    let list l = list(0..4)
     for i in l:
         print u"Spam!"
 
@@ -135,7 +135,7 @@ def go_list_ret():
     >>> go_list_ret()
     2
     """
-    let list l = list(range(4))
+    let list l = list(0..4)
     for i in l:
         if i > 1:
             return i
@@ -148,7 +148,7 @@ def go_tuple():
     Spam!
     Spam!
     """
-    let tuple t = tuple(range(4))
+    let tuple t = tuple(0..4)
     for i in t:
         print u"Spam!"
 
@@ -157,7 +157,7 @@ def go_tuple_ret():
     >>> go_tuple_ret()
     2
     """
-    let tuple t = tuple(range(4))
+    let tuple t = tuple(0..4)
     for i in t:
         if i > 1:
             return i
@@ -170,7 +170,7 @@ def go_dict():
     Spam!
     Spam!
     """
-    let dict d = dict(zip(range(4), range(4)))
+    let dict d = dict(zip(0..4, 0..4))
     for i in d:
         print u"Spam!"
 
@@ -181,7 +181,7 @@ def go_dict_ret():
     >>> global_result
     6
     """
-    let dict d = dict(zip(range(4), range(4)))
+    let dict d = dict(zip(0..4, 0..4))
     for i in d:
         if i > 1 and i < 3:
             return i

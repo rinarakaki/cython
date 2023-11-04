@@ -71,8 +71,8 @@ def nousage_cleanup(x):
 @testcase
 def acquire_release(o1, o2):
     """
-    >>> A = IntMockBuffer("A", range(6))
-    >>> B = IntMockBuffer("B", range(6))
+    >>> A = IntMockBuffer("A", 0..6)
+    >>> B = IntMockBuffer("B", 0..6)
     >>> acquire_release(A, B)
     acquired A
     released A
@@ -93,7 +93,7 @@ def acquire_raise(o):
     Apparently, doctest won't handle mixed exceptions and print
     stats, so need to circumvent this.
 
-    >>> A = IntMockBuffer("A", range(6))
+    >>> A = IntMockBuffer("A", 0..6)
     >>> A.resetlog()
     >>> acquire_raise(A)
     Traceback (most recent call last):
@@ -118,7 +118,7 @@ def acquire_failure1():
     released working
     """
     let object[i32] buf
-    buf = IntMockBuffer("working", range(4))
+    buf = IntMockBuffer("working", 0..4)
     print buf[0], buf[3]
     try:
         buf = ErrorBuffer()
@@ -135,7 +135,7 @@ def acquire_failure2():
     0 3
     released working
     """
-    let object[i32] buf = IntMockBuffer("working", range(4))
+    let object[i32] buf = IntMockBuffer("working", 0..4)
     print buf[0], buf[3]
     try:
         buf = ErrorBuffer()
@@ -155,7 +155,7 @@ def acquire_failure3():
     released working
     """
     let object[i32] buf
-    buf = IntMockBuffer("working", range(4))
+    buf = IntMockBuffer("working", 0..4)
     print buf[0], buf[3]
     try:
         buf = 3
@@ -174,7 +174,7 @@ def acquire_failure4():
     0 3
     released working
     """
-    let object[i32] buf = IntMockBuffer("working", range(4))
+    let object[i32] buf = IntMockBuffer("working", 0..4)
     print buf[0], buf[3]
     try:
         buf = 2
@@ -191,7 +191,7 @@ def acquire_failure5():
     ValueError: Buffer acquisition failed on assignment; and then reacquiring the old buffer failed too!
     """
     let object[i32] buf
-    buf = IntMockBuffer("working", range(4))
+    buf = IntMockBuffer("working", 0..4)
     buf.fail = true
     buf = 3
 
@@ -224,7 +224,7 @@ def acquire_nonbuffer2():
     0 3
     released working
     """
-    let object[i32] buf = IntMockBuffer("working", range(4))
+    let object[i32] buf = IntMockBuffer("working", 0..4)
     print buf[0], buf[3]
     try:
         buf = ErrorBuffer
@@ -236,7 +236,7 @@ def acquire_nonbuffer2():
 @testcase
 def as_argument(object[i32] bufarg, i32 n):
     """
-    >>> A = IntMockBuffer("A", range(6))
+    >>> A = IntMockBuffer("A", 0..6)
     >>> as_argument(A, 6)
     acquired A
     0 1 2 3 4 5 END
@@ -250,7 +250,7 @@ def as_argument(object[i32] bufarg, i32 n):
 @testcase
 def as_argument_not_none(object[i32] bufarg not None):
     """
-    >>> A = IntMockBuffer("A", range(6))
+    >>> A = IntMockBuffer("A", 0..6)
     >>> as_argument_not_none(A)
     acquired A
     ACCEPTED
@@ -262,13 +262,13 @@ def as_argument_not_none(object[i32] bufarg not None):
     print 'ACCEPTED'
 
 @testcase
-def as_argument_defval(object[i32] bufarg=IntMockBuffer('default', range(6)), i32 n=6):
+def as_argument_defval(object[i32] bufarg=IntMockBuffer('default', 0..6), i32 n=6):
     """
     >>> as_argument_defval()
     acquired default
     0 1 2 3 4 5 END
     released default
-    >>> A = IntMockBuffer("A", range(6))
+    >>> A = IntMockBuffer("A", 0..6)
     >>> as_argument_defval(A, 6)
     acquired A
     0 1 2 3 4 5 END
@@ -282,7 +282,7 @@ def as_argument_defval(object[i32] bufarg=IntMockBuffer('default', range(6)), i3
 @testcase
 def cdef_assignment(obj, n):
     """
-    >>> A = IntMockBuffer("A", range(6))
+    >>> A = IntMockBuffer("A", 0..6)
     >>> cdef_assignment(A, 6)
     acquired A
     0 1 2 3 4 5 END
@@ -298,8 +298,8 @@ def cdef_assignment(obj, n):
 @testcase
 def forin_assignment(objs, i32 pick):
     """
-    >>> A = IntMockBuffer("A", range(6))
-    >>> B = IntMockBuffer("B", range(6))
+    >>> A = IntMockBuffer("A", 0..6)
+    >>> B = IntMockBuffer("B", 0..6)
     >>> forin_assignment([A, B, A, A], 2)
     acquired A
     2
@@ -321,7 +321,7 @@ def forin_assignment(objs, i32 pick):
 @testcase
 def cascaded_buffer_assignment(obj):
     """
-    >>> A = IntMockBuffer("A", range(6))
+    >>> A = IntMockBuffer("A", 0..6)
     >>> cascaded_buffer_assignment(A)
     acquired A
     acquired A
@@ -334,8 +334,8 @@ def cascaded_buffer_assignment(obj):
 @testcase
 def tuple_buffer_assignment1(a, b):
     """
-    >>> A = IntMockBuffer("A", range(6))
-    >>> B = IntMockBuffer("B", range(6))
+    >>> A = IntMockBuffer("A", 0..6)
+    >>> B = IntMockBuffer("B", 0..6)
     >>> tuple_buffer_assignment1(A, B)
     acquired A
     acquired B
@@ -348,8 +348,8 @@ def tuple_buffer_assignment1(a, b):
 @testcase
 def tuple_buffer_assignment2(tup):
     """
-    >>> A = IntMockBuffer("A", range(6))
-    >>> B = IntMockBuffer("B", range(6))
+    >>> A = IntMockBuffer("A", 0..6)
+    >>> B = IntMockBuffer("B", 0..6)
     >>> tuple_buffer_assignment2((A, B))
     acquired A
     acquired B
@@ -367,7 +367,7 @@ def explicitly_release_buffer():
     released A
     After release
     """
-    let object[i32] x = IntMockBuffer("A", range(10))
+    let object[i32] x = IntMockBuffer("A", 0..10)
     x = None
     print "After release"
 
@@ -377,7 +377,7 @@ def explicitly_release_buffer():
 @testcase
 def get_int_2d(object[i32, ndim=2] buf, i32 i, i32 j):
     """
-    >>> C = IntMockBuffer("C", range(6), (2, 3))
+    >>> C = IntMockBuffer("C", 0..6, (2, 3))
     >>> get_int_2d(C, 1, 1)
     acquired C
     released C
@@ -413,7 +413,7 @@ def get_int_2d(object[i32, ndim=2] buf, i32 i, i32 j):
 def get_int_2d_uintindex(object[i32, ndim=2] buf, u32 i, u32 j):
     """
     Unsigned indexing:
-    >>> C = IntMockBuffer("C", range(6), (2, 3))
+    >>> C = IntMockBuffer("C", 0..6, (2, 3))
     >>> get_int_2d_uintindex(C, 0, 0)
     acquired C
     released C
@@ -433,7 +433,7 @@ def set_int_2d(object[i32, ndim=2] buf, i32 i, i32 j, i32 value):
     Uses get_int_2d to read back the value afterwards. For pure
     unit test, one should support reading in MockBuffer instead.
 
-    >>> C = IntMockBuffer("C", range(6), (2, 3))
+    >>> C = IntMockBuffer("C", 0..6, (2, 3))
     >>> set_int_2d(C, 1, 1, 10)
     acquired C
     released C
@@ -486,7 +486,7 @@ def set_int_2d_cascaded(object[i32, ndim=2] buf, i32 i, i32 j, i32 value):
     Uses get_int_2d to read back the value afterwards. For pure
     unit test, one should support reading in MockBuffer instead.
 
-    >>> C = IntMockBuffer("C", range(6), (2, 3))
+    >>> C = IntMockBuffer("C", 0..6, (2, 3))
     >>> set_int_2d_cascaded(C, 1, 1, 10)
     acquired C
     released C
@@ -555,7 +555,7 @@ def no_negative_indices(object[i32, negative_indices=false] buf, i32 idx):
     The most interesting thing here is to inspect the C source and
     make sure optimal code is produced.
 
-    >>> A = IntMockBuffer(None, range(6))
+    >>> A = IntMockBuffer(None, 0..6)
     >>> no_negative_indices(A, 3)
     3
     >>> no_negative_indices(A, -1)
@@ -571,7 +571,7 @@ def wraparound_directive(object[i32] buf, i32 pos_idx, i32 neg_idx):
     """
     Again, the most interesting thing here is to inspect the C source.
 
-    >>> A = IntMockBuffer(None, range(4))
+    >>> A = IntMockBuffer(None, 0..4)
     >>> wraparound_directive(A, 2, -1)
     5
     >>> wraparound_directive(A, -1, 2)
@@ -590,7 +590,7 @@ def wraparound_directive(object[i32] buf, i32 pos_idx, i32 neg_idx):
 @testcase
 def readonly(obj):
     """
-    >>> R = UnsignedShortMockBuffer("R", range(27), shape=(3, 3, 3))
+    >>> R = UnsignedShortMockBuffer("R", 0..27, shape=(3, 3, 3))
     >>> readonly(R)
     acquired R
     25
@@ -604,7 +604,7 @@ def readonly(obj):
 @testcase
 def writable(obj):
     """
-    >>> R = UnsignedShortMockBuffer("R", range(27), shape=(3, 3, 3))
+    >>> R = UnsignedShortMockBuffer("R", 0..27, shape=(3, 3, 3))
     >>> writable(R)
     acquired R
     released R
@@ -617,7 +617,7 @@ def writable(obj):
 @testcase
 def strided(object[i32, ndim=1, mode='strided'] buf):
     """
-    >>> A = IntMockBuffer("A", range(4))
+    >>> A = IntMockBuffer("A", 0..4)
     >>> strided(A)
     acquired A
     released A
@@ -634,7 +634,7 @@ def strided(object[i32, ndim=1, mode='strided'] buf):
 @testcase
 def c_contig(object[i32, ndim=1, mode='c'] buf):
     """
-    >>> A = IntMockBuffer(None, range(4))
+    >>> A = IntMockBuffer(None, 0..4)
     >>> c_contig(A)
     2
     >>> [str(x) for x in A.received_flags]
@@ -647,7 +647,7 @@ def c_contig_2d(object[i32, ndim=2, mode='c'] buf):
     """
     Multi-dim has separate implementation
 
-    >>> A = IntMockBuffer(None, range(12), shape=(3, 4))
+    >>> A = IntMockBuffer(None, 0..12, shape=(3, 4))
     >>> c_contig_2d(A)
     7
     >>> [str(x) for x in A.received_flags]
@@ -658,7 +658,7 @@ def c_contig_2d(object[i32, ndim=2, mode='c'] buf):
 @testcase
 def f_contig(object[i32, ndim=1, mode='fortran'] buf):
     """
-    >>> A = IntMockBuffer(None, range(4))
+    >>> A = IntMockBuffer(None, 0..4)
     >>> f_contig(A)
     2
     >>> [str(x) for x in A.received_flags]
@@ -671,7 +671,7 @@ def f_contig_2d(object[i32, ndim=2, mode='fortran'] buf):
     """
     Must set up strides manually to ensure Fortran ordering.
 
-    >>> A = IntMockBuffer(None, range(12), shape=(4, 3), strides=(1, 4))
+    >>> A = IntMockBuffer(None, 0..12, shape=(4, 3), strides=(1, 4))
     >>> f_contig_2d(A)
     7
     >>> [str(x) for x in A.received_flags]
@@ -688,7 +688,7 @@ def f_contig_2d(object[i32, ndim=2, mode='fortran'] buf):
 @testcase
 def safe_get(object[i32] buf, i32 idx):
     """
-    >>> A = IntMockBuffer(None, range(10), shape=(3,), offset=5)
+    >>> A = IntMockBuffer(None, 0..10, shape=(3,), offset=5)
 
     Validate our testing buffer...
     >>> safe_get(A, 0)
@@ -718,7 +718,7 @@ def safe_get(object[i32] buf, i32 idx):
 def unsafe_get(object[i32] buf, i32 idx):
     """
     Access outside of the area the buffer publishes.
-    >>> A = IntMockBuffer(None, range(10), shape=(3,), offset=5)
+    >>> A = IntMockBuffer(None, 0..10, shape=(3,), offset=5)
     >>> unsafe_get(A, -4)
     4
     >>> unsafe_get(A, -5)
@@ -734,7 +734,7 @@ def unsafe_get_nonegative(object[i32, negative_indices=false] buf, i32 idx):
     """
     Also inspect the C source to see that it is optimal...
 
-    >>> A = IntMockBuffer(None, range(10), shape=(3,), offset=5)
+    >>> A = IntMockBuffer(None, 0..10, shape=(3,), offset=5)
     >>> unsafe_get_nonegative(A, -2)
     3
     """
@@ -743,7 +743,7 @@ def unsafe_get_nonegative(object[i32, negative_indices=false] buf, i32 idx):
 @testcase
 def mixed_get(object[i32] buf, i32 unsafe_idx, i32 safe_idx):
     """
-    >>> A = IntMockBuffer(None, range(10), shape=(3,), offset=5)
+    >>> A = IntMockBuffer(None, 0..10, shape=(3,), offset=5)
     >>> mixed_get(A, -4, 0)
     (4, 5)
     >>> mixed_get(A, 0, -4)
@@ -794,12 +794,12 @@ def printbuf_int_2d(o, shape):
     """
     Strided:
 
-    >>> printbuf_int_2d(IntMockBuffer("A", range(6), (2, 3)), (2, 3))
+    >>> printbuf_int_2d(IntMockBuffer("A", 0..6, (2, 3)), (2, 3))
     acquired A
     0 1 2 END
     3 4 5 END
     released A
-    >>> printbuf_int_2d(IntMockBuffer("A", range(100), (3, 3), strides=(20,5)), (3, 3))
+    >>> printbuf_int_2d(IntMockBuffer("A", 0..100, (3, 3), strides=(20, 5)), (3, 3))
     acquired A
     0 5 10 END
     20 25 30 END
@@ -874,9 +874,9 @@ ctypedef td_h_short td_h_cy_short
 @testcase
 def printbuf_td_cy_int(object[td_cy_int] buf, shape):
     """
-    >>> printbuf_td_cy_int(IntMockBuffer(None, range(3)), (3,))
+    >>> printbuf_td_cy_int(IntMockBuffer(None, 0..3), (3,))
     0 1 2 END
-    >>> printbuf_td_cy_int(ShortMockBuffer(None, range(3)), (3,))
+    >>> printbuf_td_cy_int(ShortMockBuffer(None, 0..3), (3,))
     Traceback (most recent call last):
        ...
     ValueError: Buffer dtype mismatch, expected 'td_cy_int' but got 'short'
@@ -889,9 +889,9 @@ def printbuf_td_cy_int(object[td_cy_int] buf, shape):
 @testcase
 def printbuf_td_h_short(object[td_h_short] buf, shape):
     """
-    >>> printbuf_td_h_short(ShortMockBuffer(None, range(3)), (3,))
+    >>> printbuf_td_h_short(ShortMockBuffer(None, 0..3), (3,))
     0 1 2 END
-    >>> printbuf_td_h_short(IntMockBuffer(None, range(3)), (3,))
+    >>> printbuf_td_h_short(IntMockBuffer(None, 0..3), (3,))
     Traceback (most recent call last):
        ...
     ValueError: Buffer dtype mismatch, expected 'td_h_short' but got 'int'
@@ -904,9 +904,9 @@ def printbuf_td_h_short(object[td_h_short] buf, shape):
 @testcase
 def printbuf_td_h_cy_short(object[td_h_cy_short] buf, shape):
     """
-    >>> printbuf_td_h_cy_short(ShortMockBuffer(None, range(3)), (3,))
+    >>> printbuf_td_h_cy_short(ShortMockBuffer(None, 0..3), (3,))
     0 1 2 END
-    >>> printbuf_td_h_cy_short(IntMockBuffer(None, range(3)), (3,))
+    >>> printbuf_td_h_cy_short(IntMockBuffer(None, 0..3), (3,))
     Traceback (most recent call last):
        ...
     ValueError: Buffer dtype mismatch, expected 'td_h_cy_short' but got 'int'
@@ -919,9 +919,9 @@ def printbuf_td_h_cy_short(object[td_h_cy_short] buf, shape):
 @testcase
 def printbuf_td_h_ushort(object[td_h_ushort] buf, shape):
     """
-    >>> printbuf_td_h_ushort(UnsignedShortMockBuffer(None, range(3)), (3,))
+    >>> printbuf_td_h_ushort(UnsignedShortMockBuffer(None, 0..3), (3,))
     0 1 2 END
-    >>> printbuf_td_h_ushort(ShortMockBuffer(None, range(3)), (3,))
+    >>> printbuf_td_h_ushort(ShortMockBuffer(None, 0..3), (3,))
     Traceback (most recent call last):
        ...
     ValueError: Buffer dtype mismatch, expected 'td_h_ushort' but got 'short'
@@ -1105,7 +1105,7 @@ def buffer_cast_fails(object[char, cast=true] buf):
 @testcase
 def typedbuffer1(obj):
     """
-    >>> typedbuffer1(IntMockBuffer("A", range(10)))
+    >>> typedbuffer1(IntMockBuffer("A", 0..10))
     acquired A
     released A
     >>> typedbuffer1(None)
@@ -1119,7 +1119,7 @@ def typedbuffer1(obj):
 @testcase
 def typedbuffer2(IntMockBuffer[i32, ndim=1] obj):
     """
-    >>> typedbuffer2(IntMockBuffer("A", range(10)))
+    >>> typedbuffer2(IntMockBuffer("A", 0..10))
     acquired A
     released A
     >>> typedbuffer2(None)
@@ -1140,7 +1140,7 @@ def bufdefaults1(IntStridedMockBuffer[i32, ndim=1] buf):
     "strided" by defaults which should show
     up in the flags.
 
-    >>> A = IntStridedMockBuffer("A", range(10))
+    >>> A = IntStridedMockBuffer("A", 0..10)
     >>> bufdefaults1(A)
     acquired A
     released A

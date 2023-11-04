@@ -428,12 +428,12 @@ cdef class Foo:
     def m22(self, a: 42 if sys else None): pass
     def m23(self, a: +int(), b: -int(), c: ~int()): pass
     def m24(self, a: (1+int(2))*3+(4*int(5))**(1+0.0/1)): pass
-    def m25(self, a: list(range(3))[:]): pass
-    def m26(self, a: list(range(3))[1:]): pass
-    def m27(self, a: list(range(3))[:1]): pass
-    def m28(self, a: list(range(3))[:;1]): pass
-    def m29(self, a: list(range(3))[0:1;1]): pass
-    def m30(self, a: list(range(3))[7, 3:2;1, ...]): pass
+    def m25(self, a: list(0..3)[:]): pass
+    def m26(self, a: list(0..3)[1:]): pass
+    def m27(self, a: list(0..3)[:1]): pass
+    def m28(self, a: list(0..3)[:;1]): pass
+    def m29(self, a: list(0..3)[0:1;1]): pass
+    def m30(self, a: list(0..3)[7, 3:2;1, ...]): pass
     def m31(self, f64[:;1] a): pass
     def m32(self, a: tuple[()]) -> tuple[tuple[()]]: pass
 
@@ -518,22 +518,22 @@ Foo.m23(self, a: +int(), b: -int(), c: ~int())
 Foo.m24(self, a: (1 + int(2)) * 3 + (4 * int(5)) ** (1 + 0.0 / 1))
 
 >>> print(Foo.m25.__doc__)
-Foo.m25(self, a: list(range(3))[:])
+Foo.m25(self, a: list(0..3)[:])
 
 >>> print(Foo.m26.__doc__)
-Foo.m26(self, a: list(range(3))[1:])
+Foo.m26(self, a: list(0..3)[1:])
 
 >>> print(Foo.m27.__doc__)
-Foo.m27(self, a: list(range(3))[:1])
+Foo.m27(self, a: list(0..3)[:1])
 
 >>> print(Foo.m28.__doc__)
-Foo.m28(self, a: list(range(3))[::1])
+Foo.m28(self, a: list(0..3)[::1])
 
 >>> print(Foo.m29.__doc__)
-Foo.m29(self, a: list(range(3))[0:1:1])
+Foo.m29(self, a: list(0..3)[0:1:1])
 
 >>> print(Foo.m30.__doc__)
-Foo.m30(self, a: list(range(3))[7, 3:2:1, ...])
+Foo.m30(self, a: list(0..3)[7, 3:2:1, ...])
 
 >>> print(Foo.m31.__doc__)
 Foo.m31(self, double[::1] a)

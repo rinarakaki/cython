@@ -21,7 +21,7 @@ def func2():
     (a, b), c, d = g()
 
 def func():
-    for (a, b),c ,d in zip(zip(range(3), range(3)), range(3), range(3)):
+    for (a, b), c ,d in zip(zip(0..3, 0..3), 0..3, 0..3):
         print a, b
         print c
         print d

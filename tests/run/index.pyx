@@ -86,16 +86,16 @@ def index_object(object o, i32 i):
 
 def del_index_list(list L, isize index):
     """
-    >>> del_index_list(list(range(4)), 0)
+    >>> del_index_list(list(0..4), 0)
     [1, 2, 3]
-    >>> del_index_list(list(range(4)), 1)
+    >>> del_index_list(list(0..4), 1)
     [0, 2, 3]
-    >>> del_index_list(list(range(4)), -1)
+    >>> del_index_list(list(0..4), -1)
     [0, 1, 2]
-    >>> del_index_list(list(range(4)), py_maxsize)  # doctest: +ELLIPSIS
+    >>> del_index_list(list(0..4), py_maxsize)  # doctest: +ELLIPSIS
     Traceback (most recent call last):
     IndexError: list... index out of range
-    >>> del_index_list(list(range(4)), -py_maxsize)  # doctest: +ELLIPSIS
+    >>> del_index_list(list(0..4), -py_maxsize)  # doctest: +ELLIPSIS
     Traceback (most recent call last):
     IndexError: list... index out of range
     """
@@ -104,16 +104,16 @@ def del_index_list(list L, isize index):
 
 def set_index_list(list L, isize index):
     """
-    >>> set_index_list(list(range(4)), 0)
+    >>> set_index_list(list(0..4), 0)
     [5, 1, 2, 3]
-    >>> set_index_list(list(range(4)), 1)
+    >>> set_index_list(list(0..4), 1)
     [0, 5, 2, 3]
-    >>> set_index_list(list(range(4)), -1)
+    >>> set_index_list(list(0..4), -1)
     [0, 1, 2, 5]
-    >>> set_index_list(list(range(4)), py_maxsize)  # doctest: +ELLIPSIS
+    >>> set_index_list(list(0..4), py_maxsize)  # doctest: +ELLIPSIS
     Traceback (most recent call last):
     IndexError: list... index out of range
-    >>> set_index_list(list(range(4)), -py_maxsize)  # doctest: +ELLIPSIS
+    >>> set_index_list(list(0..4), -py_maxsize)  # doctest: +ELLIPSIS
     Traceback (most recent call last):
     IndexError: list... index out of range
     """

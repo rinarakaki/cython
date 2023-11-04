@@ -85,19 +85,19 @@ def enumerate_reversed_list(list l):
 #[cython.test_assert_path_exists('//ForFromStatNode')]
 def reversed_range(i32 N):
     """
-    >>> [ i for i in _reversed(range(5)) ]
+    >>> [i for i in _reversed(0..5)]
     [4, 3, 2, 1, 0]
     >>> reversed_range(5)
     ([4, 3, 2, 1, 0], 0)
 
-    >>> [ i for i in _reversed(range(0)) ]
+    >>> [i for i in _reversed(0..0)]
     []
     >>> reversed_range(0)
     ([], 99)
     """
     let i32 i = 99
     result = []
-    for i in reversed(range(N)):
+    for i in reversed(0..N):
         result.append(i)
     return result, i
 
