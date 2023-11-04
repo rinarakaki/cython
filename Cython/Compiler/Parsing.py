@@ -2090,7 +2090,7 @@ def p_target(s, terminator):
 def p_for_target(s):
     return p_target(s, 'in')
 
-def p_range_expression(s, start, stop, step=None):
+def p_range_expression(s, start, stop=None, step=None):
     pos = s.position()
     function = p_name(s, "range")
     positional_args = [start, stop, step]
@@ -2114,7 +2114,9 @@ def p_for_iterator(s, allow_testlist=True, is_async=False):
                 stop = p_bit_expr(s)
             else:
                 stop = p_bit_expr(s)
-        return ExprNodes.IteratorNode(pos, sequence=p_range_expression(s, start=expr, stop=stop))
+            return ExprNodes.IteratorNode(pos, sequence=p_range_expression(s, start=expr, stop=stop))
+        else:
+            return ExprNodes.IteratorNode(pos, sequence=expr)
 
 def p_try_statement(s):
     # s.sy == 'try'
