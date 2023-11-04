@@ -311,7 +311,27 @@ def p_arith_expr(s):
 #term: factor (('*'|'@'|'/'|'%'|'//') factor)*
 
 def p_term(s):
-    return p_binop_expr(s, ('*', '@', '/', '%', '//'), p_factor)
+    return p_binop_expr(s, ('*', '@', '/', '%', '//'), p_range_expr)
+
+def p_range_expr(s):
+    pos = s.position()
+    expr = p_factor(s)
+    if s.sy == "..":
+        s.next()
+        start = expr
+        if s.sy == "=":
+            s.next()
+            stop = p_factor(s)
+        else:
+            stop = p_factor(s)
+
+        function = p_name(s, "range")
+        positional_args = [start, stop]
+        return ExprNodes.GeneralCallNode(
+            pos, function=function, positional_args=positional_args
+        )
+    else:
+        return expr
 
 #factor: ('+'|'-'|'~'|'&'|typecast|sizeof) factor | power
 
@@ -2095,33 +2115,15 @@ def p_target(s, terminator):
 def p_for_target(s):
     return p_target(s, 'in')
 
-def p_range_expression(s, start, stop=None, step=None):
-    pos = s.position()
-    function = p_name(s, "range")
-    positional_args = [start, stop, step]
-    return ExprNodes.GeneralCallNode(
-        pos, function=function, positional_args=positional_args)
 
 def p_for_iterator(s, allow_testlist=True, is_async=False):
     pos = s.position()
-    if s.in_python_file:
-        if allow_testlist:
+    if allow_testlist:
             expr = p_testlist(s)
         else:
             expr = p_or_test(s)
         return (ExprNodes.AsyncIteratorNode if is_async else ExprNodes.IteratorNode)(pos, sequence=expr)
-    else:
-        expr = p_factor(s)
-        if s.sy == "..":
-            s.next()
-            if s.sy == "=":
-                s.next()
-                stop = p_factor(s)
-            else:
-                stop = p_factor(s)
-            return ExprNodes.IteratorNode(pos, sequence=p_range_expression(s, start=expr, stop=stop))
-        else:
-            return ExprNodes.IteratorNode(pos, sequence=expr)
+
 
 def p_try_statement(s):
     # s.sy == 'try'
