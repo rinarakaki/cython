@@ -799,7 +799,7 @@ def p_numeric_literal_suffix(s):
             is_c_literal = False
         dict(unsigned=unsigned, longness=longness, is_c_literal=is_c_literal, suffix=None)
     else:
-        return {}
+        return dict(suffix=None)
 
 def p_numeric_literal(s):
     # s.sy in ("DECIMAL", ".")
@@ -820,7 +820,7 @@ def p_numeric_literal(s):
             return ExprNodes.FloatNode(
                 pos,
                 value = value,
-                suffix = p_numeric_literal_suffix(s).get("suffix")
+                **p_numeric_literal_suffix(s),
             )
     elif s.systring in ("e", "E"):
         value += p_exponent(s)
@@ -828,7 +828,7 @@ def p_numeric_literal(s):
             return ExprNodes.FloatNode(
                 pos,
                 value = value,
-                suffix = p_numeric_literal_suffix(s).get("suffix")
+                **p_numeric_literal_suffix(s),
             )
     else:
         if s.systring not in ("j", "J"):
