@@ -797,7 +797,7 @@ def p_numeric_literal_suffix(s):
             if is_c_literal:
                 error(s.position(), "illegal integer literal syntax in Python source file")
         is_c_literal = False
-        dict(unsigned=unsigned, longness=longness, is_c_literal=is_c_literal)
+        dict(unsigned=unsigned, longness=longness, is_c_literal=is_c_literal, suffix=None)
     else:
         return None
 
@@ -817,18 +817,23 @@ def p_numeric_literal(s):
             s.next()
         value += p_exponent(s)
         if s.systring not in ("j", "J"):
-            return ExprNodes.FloatNode(pos, value = value,
-                                       suffix = p_numeric_literal_suffix(s).get("suffix"))
+            return ExprNodes.FloatNode(
+                pos,
+                value = value,
+                suffix = p_numeric_literal_suffix(s).get("suffix")
+            )
     elif s.systring in ("e", "E"):
         value += p_exponent(s)
         if s.systring not in ("j", "J"):
-            return ExprNodes.FloatNode(pos, value = value,
-                                       suffix = p_numeric_literal_suffix(s).get("suffix"))
+            return ExprNodes.FloatNode(
+                pos,
+                value = value,
+                suffix = p_numeric_literal_suffix(s).get("suffix")
+            )
     else:
         if s.systring not in ("j", "J"):
             return ExprNodes.IntNode(pos,
                 value = value,
-                suffix = None,
                 **p_numeric_literal_suffix(s),
             )
     s.next()
