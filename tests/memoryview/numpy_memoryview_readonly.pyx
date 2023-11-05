@@ -22,7 +22,7 @@ fn getmax(const f64[:] x):
 
 fn update_array(f64[:] x):
     """Modifying a ro memoryview should raise an error"""
-    x[0] = 23.
+    x[0] = 23.0
 
 fn getconst(const f64[:] x):
     """Should accept ro memoryviews"""

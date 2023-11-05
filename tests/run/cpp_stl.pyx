@@ -64,7 +64,7 @@ def test_vector_iterator(L):
 
 cdef class VectorWrapper:
     """
-    >>> VectorWrapper(1, .5, .25, .125)
+    >>> VectorWrapper(1, 0.5, 0.25, 0.125)
     [1.0, 0.5, 0.25, 0.125]
     """
     let vector[f64] vector

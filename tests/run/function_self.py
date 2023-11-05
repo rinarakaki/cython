@@ -21,7 +21,7 @@ def regular(x):
 @cython.locals(x=cython.floating)
 def fused(x):
     """
-    >>> nested = fused(10.)
+    >>> nested = fused(10.0)
     >>> hasattr(nested, "__self__")
     False
 
