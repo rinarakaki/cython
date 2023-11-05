@@ -32,7 +32,7 @@ fn h(object[i32, ndim=2] buf):
 
 use cython::boundscheck as bc
 
-def i(object[i32] buf):
+fn i(object[i32] buf):
     with bc(true):
         print buf[3] # bs
 
