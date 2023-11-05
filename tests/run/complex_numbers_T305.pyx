@@ -75,7 +75,7 @@ def test_pow(double complex z, double complex w, tol=None):
     True
     >>> test_pow(a, a, 1e-15)
     True
-    >>> test_pow(complex(0.5, -.25), complex(3, 4), 1e-15)
+    >>> test_pow(complex(0.5, -0.25), complex(3, 4), 1e-15)
     True
     >>> test_pow(-0.5, 1j, tol=1e-15)
     True
