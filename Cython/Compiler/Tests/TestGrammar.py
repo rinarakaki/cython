@@ -74,8 +74,8 @@ INVALID_UNDERSCORE_LITERALS = [
     '1_.4',
     '1_.4j',
     # Underscore right after a dot:
-    '1.0_4',
-    '1.0_4j',
+    '1._4',
+    '1._4j',
     '0._5',
     '0._5j',
     # Underscore right after a sign:
