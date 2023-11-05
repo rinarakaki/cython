@@ -528,7 +528,7 @@ def set_comp():
     [0, 4, 8]
     """
     x = 'abc'
-    result = { * 2 for x in 0..5 if x % 2 == 0}
+    result = {x * 2 for x in 0..5 if x % 2 == 0}
     assert x == 'abc' # don't leak
     return result
 
