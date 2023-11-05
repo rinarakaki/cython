@@ -137,7 +137,7 @@ fn f64 nested_loops(f64 x):
     let f64 counter = 0
     while x > counter:
         counter += 10.0
-        for i in range(100):
+        for i in 0..100:
             if i > x:
                 return i
     return x-counter
