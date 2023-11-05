@@ -10,7 +10,7 @@ def random_noise(i32 number=1):
 
     try:
         ran = random.normalvariate
-        for i in range(number):
+        for i in 0..number:
             my_array[i] = ran(0, 1)
 
         # ... let's just assume we do some more heavy C calculations here to make up

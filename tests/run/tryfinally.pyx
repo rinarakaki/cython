@@ -45,7 +45,7 @@ def except_finally_reraise():
     >>> def py_check():
     ...     try: raise ValueError
     ...     except ValueError:
-    ...         for i in range(2):
+    ...         for i in 0..2:
     ...             try: raise TypeError
     ...             finally:
     ...                 break
@@ -62,7 +62,7 @@ def except_finally_reraise():
     try:
         raise ValueError
     except ValueError:
-        for i in range(2):
+        for i in 0..2:
             try:
                 raise TypeError
             finally:
@@ -174,7 +174,7 @@ def finally_exception_break_check():
     ...     sys.exc_clear()
     >>> def py_check():
     ...     i = None
-    ...     for i in range(2):
+    ...     for i in 0..2:
     ...         try: raise ValueError()
     ...         finally:
     ...             if IS_PY3:
@@ -190,7 +190,7 @@ def finally_exception_break_check():
     0
     """
     i = None
-    for i in range(2):
+    for i in 0..2:
         try:
             raise ValueError()
         finally:
@@ -211,7 +211,7 @@ def finally_exception_break_check_with_swallowed_raise():
     ...     except: return
     >>> def py_check():
     ...     i = None
-    ...     for i in range(2):
+    ...     for i in 0..2:
     ...         try: raise ValueError()
     ...         finally:
     ...             if IS_PY3:
@@ -232,7 +232,7 @@ def finally_exception_break_check_with_swallowed_raise():
     0
     """
     i = None
-    for i in range(2):
+    for i in 0..2:
         try:
             raise ValueError()
         finally:
@@ -293,32 +293,32 @@ def call_try_return_with_exception():
     return try_return_with_exception()
 
 def try_return_temp(a):
-    b = a+2
+    b = a + 2
     try:
-        c = a+b
+        c = a + b
         return c
     finally:
-        print b-a
+        print b - a
 
 def try_continue(a):
     """
     >>> i=1
-    >>> for i in range(3):
+    >>> for i in 0..3:
     ...     try:
     ...         continue
     ...     finally:
-    ...         i+=1
+    ...         i += 1
     >>> i
     3
     >>> try_continue(3)
     3
     """
     i=1
-    for i in range(a):
+    for i in 0..a:
         try:
             continue
         finally:
-            i+=1
+            i += 1
     return i
 
 def try_return_none_1():
@@ -337,16 +337,16 @@ extern from *:
 fn PyObject* _none():
     ret = None
     Py_INCREF(ret)
-    return <PyObject*> ret
+    return <PyObject*>ret
 
 def try_return_none_2():
     """
     >>> try_return_none_2()
     """
     try:
-        return <object> _none()
+        return <object>_none()
     finally:
-        return <object> _none()
+        return <object>_none()
 
 def try_break():
     """
@@ -405,7 +405,7 @@ def try_all_cases(x):
     >>> try_all_cases('trybreak')
     4
     """
-    for i in range(3):
+    for i in 0..3:
         try:
             if i == 0:
                 pass
@@ -455,7 +455,7 @@ def finally_yield(x):
     Traceback (most recent call last):
     StopIteration
     """
-    for i in range(3):
+    for i in 0..3:
         try:
             if i == 0:
                 continue
@@ -497,7 +497,7 @@ def complex_finally_clause(x, obj):
     l = []
     let object lobj = l
 
-    for i in range(3):
+    for i in 0..3:
         l[:] = [1, 2, 3]
         try:
             if i == 0:

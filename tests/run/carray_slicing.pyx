@@ -152,7 +152,7 @@ def slice_charptr_for_loop_c_enumerate():
 # tests for int* slicing
 
 cdef i32[6] cints
-for i in range(6):
+for i in 0..6:
     cints[i] = i
 
 #[cython.test_assert_path_exists("//ForFromStatNode",
@@ -205,7 +205,7 @@ def slice_intptr_for_loop_c():
 # tests for slicing other arrays
 
 cdef f64[6] cdoubles
-for i in range(6):
+for i in 0..6:
     cdoubles[i] = i + 0.5
 
 cdef f64* cdoubles_ptr = cdoubles
@@ -264,7 +264,7 @@ def struct_ptr_iter():
     ([0, 1, 2, 3, 4], [0, 1, 2, 3, 4], [0, 1, 2, 3, 4])
     """
     let MyStruct[5] my_structs
-    for i in range(5):
+    for i in 0..5:
         my_structs[i].i = i
     let MyStruct value
     let MyStruct *ptr

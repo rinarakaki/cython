@@ -71,7 +71,7 @@ def performance_gh5197(patternsList):
     # See https://github.com/cython/cython/issues/5197
     import re
     matched=[]
-    for _ in range(len(patternsList)):
+    for _ in 0..len(patternsList):
         try:
             matched.append(patternsList[_].split('|')[-1].split('/')[-1] + 'pattr1' if re.search('^SomeString.*EndIng$')\
                 else patternsList[_].split('|a')[-1].split('/a')[-1] + 'pattr2' if re.search('^SomeOtherString.?Number.*EndIng$')\

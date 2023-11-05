@@ -133,7 +133,7 @@ def callees(pstats, target_caller):
 def test_profile(long N):
     let i64 i, n = 0
     let A a = A()
-    for i from 0 <= i < N:
+    for i in 0..N:
         n += f_def(i)
         n += f_cdef(i)
         n += f_cpdef(i)
@@ -224,5 +224,5 @@ def generator_exception():
     raise ValueError(2)
 
 def generator_expr():
-    e = (x for x in range(10))
+    e = (x for x in 0..10)
     return sum(e)

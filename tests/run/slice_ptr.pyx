@@ -3,7 +3,7 @@ use cpython::object::(Py_EQ, Py_NE)
 
 def double_ptr_slice(x, L, i32 a, i32 b):
     """
-    >>> L = list(range(10))
+    >>> L = list(0..10)
     >>> double_ptr_slice(5, L, 0, 10)
     >>> double_ptr_slice(6, L, 0, 10)
     >>> double_ptr_slice(None, L, 0, 10)
@@ -30,7 +30,7 @@ def double_ptr_slice(x, L, i32 a, i32 b):
 
 def void_ptr_slice(py_x, L, i32 a, i32 b):
     """
-    >>> L = list(range(10))
+    >>> L = list(0..10)
     >>> void_ptr_slice(5, L, 0, 10)
     >>> void_ptr_slice(6, L, 0, 10)
     >>> void_ptr_slice(None, L, 0, 10)
@@ -61,7 +61,7 @@ cdef class EqualsEvens:
     True
     >>> e == 5
     False
-    >>> [e == k for k in range(4)]
+    >>> [e == k for k in 0..4]
     [True, False, True, False]
     """
     def __richcmp__(self, other, i32 op):

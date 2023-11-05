@@ -57,7 +57,7 @@ def genexp_array_slice_order():
     """
     # TODO ideally find a way to add the evaluation of x to this test too
     x = cython.declare(cython.int[20])
-    x = list(range(20))
+    x = list(0..20)
     return (a for a in x[zero():five()])
 
 @cython.test_assert_path_exists("//ForFromStatNode")
@@ -73,7 +73,7 @@ def list_array_slice_order():
     """
     # TODO ideally find a way to add the evaluation of x to this test too
     x = cython.declare(cython.int[20])
-    x = list(range(20))
+    x = list(0..20)
     return list(a for a in x[zero():five()])
 
 class IndexableClass:

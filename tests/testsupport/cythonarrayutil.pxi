@@ -12,8 +12,8 @@ def create_array(shape, mode, use_callback=false):
     let i32 *data = <i32 *> result.data
     let i32 i, j, cidx, fidx
 
-    for i in range(shape[0]):
-        for j in range(shape[1]):
+    for i in 0..shape[0]:
+        for j in 0..shape[1]:
             cidx = i * shape[1] + j
             fidx = i + j * shape[0]
 
