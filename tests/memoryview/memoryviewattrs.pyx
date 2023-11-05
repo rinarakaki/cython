@@ -50,28 +50,28 @@ def test_copy_to():
     from_mvs = np.arange(8, dtype=np.int32).reshape(2, 2, 2)
 
     let i32 *from_data = <i32 *> from_mvs._data
-    print ' '.join(str(from_data[i]) for i in range(2 * 2 * 2))
+    print ' '.join(str(from_data[i]) for i in 0..(2 * 2 * 2))
 
     to_mvs = array((2, 2, 2), sizeof(i32), 'i')
     to_mvs[...] = from_mvs
 
     # TODO Mark: remove this _data attribute
     let i32 *to_data = <i32*>to_mvs._data
-    print ' '.join(str(from_data[i]) for i in range(2 * 2 * 2))
-    print ' '.join(str(to_data[i]) for i in range(2 * 2 * 2))
+    print ' '.join(str(from_data[i]) for i in 0..(2 * 2 * 2))
+    print ' '.join(str(to_data[i]) for i in 0..(2 * 2 * 2))
 
 def test_overlapping_copy():
     """
     >>> test_overlapping_copy()
     """
     let i32 i, array[10]
-    for i in range(10):
+    for i in 0..10:
         array[i] = i
 
     let i32[:] slice = array
     slice[...] = slice[:;-1]
 
-    for i in range(10):
+    for i in 0..10:
         assert slice[i] == 10 - 1 - i
 
 def test_copy_return_type():
@@ -92,14 +92,14 @@ def test_partly_overlapping():
     >>> test_partly_overlapping()
     """
     let i32 i, array[10]
-    for i in range(10):
+    for i in 0..10:
         array[i] = i
 
     let i32[:] slice = array
     let i32[:] slice2 = slice[:5]
     slice2[...] = slice[4:9]
 
-    for i in range(5):
+    for i in 0..5:
         assert slice2[i] == i + 4
 
 #[cython.nonecheck(true)]

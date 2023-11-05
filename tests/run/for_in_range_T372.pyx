@@ -17,7 +17,7 @@ def test_modify():
     (4, 0)
     """
     let i32 i, n = 5
-    for i in range(n):
+    for i in 0..n:
         print i
         n = 0
     print
@@ -73,7 +73,7 @@ def test_fix():
     4
     """
     let i32 i
-    for i in range(5):
+    for i in 0..5:
         print i
     print
     return i
@@ -90,7 +90,7 @@ def test_break():
     (2, 0)
     """
     let i32 i, n = 5
-    for i in range(n):
+    for i in 0..n:
         print i
         n = 0
         if i == 2:
@@ -111,7 +111,7 @@ def test_return():
     (2, 0)
     """
     let i32 i, n = 5
-    for i in range(n):
+    for i in 0..n:
         print i
         n = 0
         if i == 2:
@@ -133,7 +133,7 @@ def test_enum_range():
     'RangeEnum'
     """
     let RangeEnum n = RangeEnum::Var3
-    for i in range(n):
+    for i in 0..n:
         assert 0 <= <i32>i < <i32>n
         assert cython.typeof(i) == "RangeEnum", cython.typeof(i)
     return cython.typeof(i)
