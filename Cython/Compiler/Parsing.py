@@ -420,7 +420,7 @@ def p_yield_expression(s):
     pos = s.position()
     s.next()
     is_yield_from = False
-    if s.sy == 'from':
+    if s.sy == "from" or not s.in_python_file and s.systring == "from":
         is_yield_from = True
         s.next()
     if s.sy != ')' and s.sy not in statement_terminators:
@@ -1762,7 +1762,7 @@ def p_raise_statement(s):
             if s.sy == ',':
                 s.next()
                 exc_tb = p_test(s)
-        elif s.sy == 'from':
+        elif s.sy == "from" or not s.in_python_file and s.systring == "from":
             s.next()
             cause = p_test(s)
     if exc_type or exc_value or exc_tb:
@@ -2048,7 +2048,7 @@ def p_for_bounds(s, allow_testlist=True, is_async=False):
         iterator = p_for_iterator(s, allow_testlist, is_async=is_async)
         return dict(target=target, iterator=iterator)
     elif not s.in_python_file and not is_async:
-        if s.sy == 'from':
+        if s.systring == "from":
             s.next()
             bound1 = p_bit_expr(s)
         else:
@@ -2341,7 +2341,7 @@ def p_simple_statement(s, first_statement = 0):
         node = p_use_statement(s)
     elif s.sy in ("import", "cimport"):
         node = p_import_statement(s)
-    elif s.sy == 'from':
+    elif s.sy == "from" or not s.in_python_file and s.systring == "from":
         node = p_from_import_statement(s, first_statement = first_statement)
     elif s.sy == 'yield':
         node = p_yield_statement(s)
@@ -2765,7 +2765,7 @@ def p_c_simple_base_type(s, nonempty, templates=None):
         #print "p_c_simple_base_type: looking_at_type_name at", s.position()
         name = s.systring
         s.next()
-        while s.sy == '.':
+        while s.sy in (".", "::"):
             module_path.append(name)
             s.next()
             name = p_ident(s)
@@ -2945,7 +2945,7 @@ def looking_at_dotted_name(s):
         name = s.systring
         name_pos = s.position()
         s.next()
-        result = s.sy == '.'
+        result = s.sy in (".", "::")
         s.put_back(u'IDENT', name, name_pos)
         return result
     else:
@@ -3347,7 +3347,7 @@ def p_cdef_statement(s, ctx):
     if ctx.api:
         if ctx.visibility not in ("private", "pub", "public"):
             error(pos, "Cannot combine 'api' with '%s'" % ctx.visibility)
-    if (ctx.visibility == 'extern') and s.sy == 'from':
+    if ctx.visibility == "extern" and s.systring == "from":
         return p_cdef_extern_block(s, pos, ctx)
     elif s.sy == 'import':
         s.next()
@@ -3394,7 +3394,7 @@ def p_cdef_extern_block(s, pos, ctx):
     if ctx.overridable:
         error(pos, "cdef extern blocks cannot be declared cpdef")
     include_file = None
-    s.expect('from')
+    s.next()  # s.systring == "from"
     if s.sy == '*':
         s.next()
     else:

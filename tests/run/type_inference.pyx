@@ -718,8 +718,8 @@ def bar(foo):
     quux = foo[qux.baz]
 
 enum MyEnum:
-    enum_x = 1
-    enum_y = 2
+    X = 1
+    Y = 2
 
 type my_long = long
 def test_int_typedef_inference():
@@ -752,14 +752,14 @@ cdef class InferInProperties:
     """
     let MyEnum attr
     def __cinit__(self):
-        self.attr = enum_x
+        self.attr = MyEnum::X
 
     property x:
         def __get__(self):
             a = 1.0
             b = u'abc'
             c = self.attr
-            d = enum_y
+            d = MyEnum::Y
             c = d
             return typeof(a), typeof(b), typeof(c), typeof(d)
 

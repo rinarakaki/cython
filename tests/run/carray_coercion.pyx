@@ -223,8 +223,8 @@ def to_int_array_array(x):
 '''
 # FIXME: this isn't currently allowed
 cdef enum:
-    SIZE_A = 2
-    SIZE_B = 3
+    SizeA = 2
+    SizeB = 3
 
 def to_int_array_array_enumsize(x):
     """
@@ -239,7 +239,7 @@ def to_int_array_array_enumsize(x):
     Traceback (most recent call last):
     IndexError: too many values found during array assignment, expected 3
     """
-    let i32[SIZE_A][SIZE_B] v = x
+    let i32[SizeA][SizeB] v = x
     return v[0][0], v[0][1], v[0][2], v[1][0], v[1][1], v[1][2]
 '''
 
