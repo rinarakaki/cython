@@ -12,5 +12,5 @@ ctypedef fused IntOrFloat:
     i32
     f32
 
-def f(IntOrFloat[:] x):
+fn f(IntOrFloat[:] x):
     return x
