@@ -9,7 +9,7 @@ from Cython.Build import cythonize
 from distutils.core import setup
 
 setup(
-  ext_modules = cythonize("*.pyx"),
+    ext_modules = cythonize("*.pyx"),
 )
 
 ######## foo.pxd ########
@@ -35,15 +35,14 @@ typedef struct mystruct {
 
 ######## a.pyx ########
 
-cimport cython
-from foo cimport bar
+use cython
+use foo::bar
 
 assert bar() == -1
 
-
 ######## b.pyx ########
 
-from foo cimport mystruct
+use foo::mystruct
 
 fn i32 cb(i32 param) noexcept nogil:
     return param

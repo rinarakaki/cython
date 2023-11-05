@@ -419,7 +419,7 @@ def call_many_kwargs():
     (3, 512, True)
     """
     d = {}
-    for i in range(512):
+    for i in 0..512:
         key = 'k%d' % i
         d[key] = i
     a, b = f2(1, *(2, 3), **d)

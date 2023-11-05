@@ -1,6 +1,6 @@
 # From https://docs.python.org/3/c-api/conversion.html
 
-from .object cimport PyObject
+use super::object::PyObject
 
 extern from "Python.h":
     struct va_list

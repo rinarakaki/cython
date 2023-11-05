@@ -7,6 +7,6 @@ def integrate_f(f64 a, f64 b, i32 N):
     let i32 i
     s = 0.0
     dx = (b - a) / N
-    for i in range(N):
+    for i in 0..N:
         s += f(a + i * dx)
     return s * dx

@@ -311,7 +311,34 @@ def p_arith_expr(s):
 #term: factor (('*'|'@'|'/'|'%'|'//') factor)*
 
 def p_term(s):
-    return p_binop_expr(s, ('*', '@', '/', '%', '//'), p_factor)
+    return p_binop_expr(s, ('*', '@', '/', '%', '//'), p_range_expr)
+
+def p_range_expr(s):
+    pos = s.position()
+    expr = p_factor(s)
+    if not s.in_python_file and s.sy in ("..", "..="):
+        start = expr
+        if s.sy == "..":
+            s.next()
+            stop = p_factor(s)
+        else:  # s.sy == "..="
+            s.next()
+            pos = s.position()
+            one = ExprNodes.IntNode(pos,
+                 value = "1",
+                 is_c_literal = None,
+                 unsigned = "",
+                 longness = "",
+            )
+            stop = ExprNodes.binop_node(pos, "+", p_factor(s), one)
+
+        return ExprNodes.SimpleCallNode(
+            pos,
+            function=p_name(s, name="range"),
+            args=[start, stop],
+        )
+    else:
+        return expr
 
 #factor: ('+'|'-'|'~'|'&'|typecast|sizeof) factor | power
 
@@ -393,7 +420,7 @@ def p_yield_expression(s):
     pos = s.position()
     s.next()
     is_yield_from = False
-    if s.sy == 'from':
+    if s.sy == "from" or not s.in_python_file and s.systring == "from":
         is_yield_from = True
         s.next()
     if s.sy != ')' and s.sy not in statement_terminators:
@@ -1735,7 +1762,7 @@ def p_raise_statement(s):
             if s.sy == ',':
                 s.next()
                 exc_tb = p_test(s)
-        elif s.sy == 'from':
+        elif s.sy == "from" or not s.in_python_file and s.systring == "from":
             s.next()
             cause = p_test(s)
     if exc_type or exc_value or exc_tb:
@@ -1758,12 +1785,12 @@ def p_use_statement(s):
         items.append(p_path(s, as_allowed=1))
     stats = []
     is_absolute = Future.absolute_import in s.context.future_directives
-    for pos, path, idents in items:
-        if path:
+    for pos, path, idents, level in items:
+        if len(path) > 0 or level > 0:
             stat = Nodes.FromCImportStatNode(
                 pos,
                 module_name=s.context.intern_ustring(".".join(path)),
-                relative_level=0,
+                relative_level=level,
                 imported_names=idents,
             )
         else:
@@ -1813,10 +1840,10 @@ def p_from_import_statement(s, first_statement = 0):
     # s.sy == 'from'
     pos = s.position()
     s.next()
-    if s.sy in ('.', '...'):
+    if s.sy in (".", "..", "..."):
         # count relative import level
         level = 0
-        while s.sy in ('.', '...'):
+        while s.sy in (".", "..", "..."):
             level += len(s.sy)
             s.next()
     else:
@@ -1899,6 +1926,11 @@ def p_imported_name(s):
 
 def p_path(s, as_allowed):
     pos = s.position()
+    level = 0
+    while s.sy == "IDENT" and s.systring == "super":
+        level += 1
+        s.next()
+        s.expect("::")
     path = [p_ident(s)]
     idents = []
     while s.sy == "::":
@@ -1920,7 +1952,7 @@ def p_path(s, as_allowed):
             path.append(p_ident(s))
     if len(idents) == 0:
         path, idents = path[:-1], [(s.position(), path[-1], p_as_name(s))]
-    return (pos, path, idents)
+    return (pos, path, idents, level)
 
 
 def p_dotted_name(s, as_allowed):
@@ -2016,7 +2048,7 @@ def p_for_bounds(s, allow_testlist=True, is_async=False):
         iterator = p_for_iterator(s, allow_testlist, is_async=is_async)
         return dict(target=target, iterator=iterator)
     elif not s.in_python_file and not is_async:
-        if s.sy == 'from':
+        if s.systring == "from":
             s.next()
             bound1 = p_bit_expr(s)
         else:
@@ -2309,7 +2341,7 @@ def p_simple_statement(s, first_statement = 0):
         node = p_use_statement(s)
     elif s.sy in ("import", "cimport"):
         node = p_import_statement(s)
-    elif s.sy == 'from':
+    elif s.sy == "from" or not s.in_python_file and s.systring == "from":
         node = p_from_import_statement(s, first_statement = first_statement)
     elif s.sy == 'yield':
         node = p_yield_statement(s)
@@ -2729,7 +2761,7 @@ def p_c_simple_base_type(s, nonempty, templates=None):
         #print "p_c_simple_base_type: looking_at_type_name at", s.position()
         name = s.systring
         s.next()
-        while s.sy == '.':
+        while s.sy in (".", "::"):
             module_path.append(name)
             s.next()
             name = p_ident(s)
@@ -2909,7 +2941,7 @@ def looking_at_dotted_name(s):
         name = s.systring
         name_pos = s.position()
         s.next()
-        result = s.sy == '.'
+        result = s.sy in (".", "::")
         s.put_back(u'IDENT', name, name_pos)
         return result
     else:
@@ -3307,7 +3339,7 @@ def p_cdef_statement(s, ctx):
     if ctx.api:
         if ctx.visibility not in ("private", "pub", "public"):
             error(pos, "Cannot combine 'api' with '%s'" % ctx.visibility)
-    if (ctx.visibility == 'extern') and s.sy == 'from':
+    if ctx.visibility == "extern" and s.systring == "from":
         return p_cdef_extern_block(s, pos, ctx)
     elif s.sy == 'import':
         s.next()
@@ -3354,7 +3386,7 @@ def p_cdef_extern_block(s, pos, ctx):
     if ctx.overridable:
         error(pos, "cdef extern blocks cannot be declared cpdef")
     include_file = None
-    s.expect('from')
+    s.next()  # s.systring == "from"
     if s.sy == '*':
         s.next()
     else:

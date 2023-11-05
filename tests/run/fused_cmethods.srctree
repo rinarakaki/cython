@@ -67,7 +67,6 @@ def test_sub():
 test()
 test_sub()
 
-
 ######## setup.py ########
 
 from distutils.core import setup
@@ -81,11 +80,10 @@ called = []
 
 ######## pkg/user.pxd ########
 
-from .registers cimport Registers, SubRegisters
+use super::registers::(Registers, SubRegisters)
 
 cdef class UseRegisters:
     cdef Registers registers
-
 
 ######## pkg/user.pyx ########
 
@@ -126,10 +124,9 @@ cdef class UseRegisters:
         (<SubRegisters>self.registers).fusedSub(0, <unsigned int>0)
         called.append("After fusedSub")
 
-
 ######## pkg/registers.pxd ########
 
-from cython cimport integral
+use cython::integral
 
 cdef class Registers:
     cdef unsigned long long regs[1]
@@ -140,11 +137,9 @@ cdef class Registers:
     fn void nonFusedBottom(self, unsigned short regId, unsigned int value)
     fn void lastFusedImplFirst(self, integral reg0, unsigned int reg1)
 
-
 cdef class SubRegisters(Registers):
     fn void fusedSub(self, integral reg0, unsigned int reg1)
     fn void nonFusedSub(self, unsigned short regId, unsigned int value)
-
 
 ######## pkg/registers.pyx ########
 
@@ -174,7 +169,6 @@ cdef class Registers:
     fn void nonFusedBottom(self, unsigned short regId, unsigned int value):
         called.append("nonFusedBottom was called")
 
-
 cdef class SubRegisters(Registers):
     fn void fusedSub(self, integral reg0, unsigned int reg1):
         called.append("fusedSub was called")
@@ -182,16 +176,14 @@ cdef class SubRegisters(Registers):
     fn void nonFusedSub(self, unsigned short regId, unsigned int value):
         called.append("nonFusedSub was called")
 
-
 ######## pkg/sub.pxd ########
 
-from .registers cimport *
+use super::registers::*
 
 cdef class SubSubRegisters(SubRegisters):
     fn void fusedSubSubFirst(self, integral reg0, unsigned int reg1)
     fn void nonFusedSubSub(self, unsigned short regId, unsigned int value)
     fn void fusedSubSubLast(self, integral reg0, unsigned int reg1)
-
 
 ######## pkg/sub.pyx ########
 

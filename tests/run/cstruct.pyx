@@ -73,7 +73,7 @@ def assign_fields_in_loop():
     """
     let i32 i = 0
     let Ints s
-    for s.a, s.b in enumerate(range(3)):
+    for s.a, s.b in enumerate(0..3):
         assert s.a == s.b
         assert s.a == i
         i += 1

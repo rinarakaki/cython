@@ -47,20 +47,25 @@ with assert_stderr(pyx_file + ":1:0: '" + pxd_file + "' not found"):
 ######## pkg/__init__.py ########
 
 ######## pkg/aa.pyx ########
-from . cimport bb
+
+use super::bb
 
 ######## pkg/ab.pyx ########
-from .bb cimport ULong
+
+use super::bb::ULong
 
 ######## pkg/pkg2/__init__.py ########
 
 ######## pkg/pkg2/ac.pyx ########
-from .. cimport bb
+
+use super::super::bb
 
 ######## pkg/pkg2/ad.pyx ########
-from ..bb cimport ULong
+
+use super::super::bb::ULong
 
 ######## other/pkg/__init__.py ########
 
 ######## other/pkg/bb.pxd ########
+
 ctypedef unsigned long ULong

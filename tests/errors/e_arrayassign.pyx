@@ -22,9 +22,9 @@ z = x  # error
 x = z  # error
 
 cdef enum:
-    SIZE = 2
+    Size = 2
 
-ctypedef i32[SIZE] int_array_dyn
+ctypedef i32[Size] int_array_dyn
 
 cdef int_array_dyn d
 d = z  # not an error

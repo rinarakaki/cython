@@ -18,14 +18,17 @@ setup(
 )
 
 ######## counting_atomic.pyx ########
+
 include "counting.pxi"
 
 ######## counting_locked.pyx ########
+
 include "counting.pxi"
 
 ######## counting.pxi ########
-cimport cython
-from cython.parallel cimport prange
+
+use cython
+use cython::parallel::prange
 
 cdef i32[100] a
 cdef i32[:] m = a

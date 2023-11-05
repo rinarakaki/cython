@@ -27,7 +27,7 @@ def test_parallel():
         # See https://github.com/cython/cython/issues/3594
         buf[forward(cython.parallel.threadid())] = forward(threadid())
 
-    for i in range(maxthreads):
+    for i in 0..maxthreads:
         assert buf[i] == i
 
     free(buf)
@@ -127,7 +127,7 @@ def test_parallel_call_exception_checked_function():
         # Note we *don't* release the GIL here
         parallel_call_exception_checked_function_impl(buf, maxthreads)
 
-        for i in range(maxthreads):
+        for i in 0..maxthreads:
             assert buf[i] == i
     finally:
         free(buf)

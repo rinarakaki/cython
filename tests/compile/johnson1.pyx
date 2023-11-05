@@ -1,11 +1,11 @@
 # mode: compile
 
 enum Foo:
-    FOO
+    Var
 
 fn void func():
     let Foo x
-    map = [FOO]
+    map = [Foo::Var]
     x = map[0]
 
 func()

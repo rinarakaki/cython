@@ -147,7 +147,7 @@ extern from *:
 
     # Create a Unicode Object from the given Unicode code point ordinal.
     #
-    # The ordinal must be in range(0x10000) on narrow Python builds
+    # The ordinal must be in 0..0x10000 on narrow Python builds
     # (UCS2), and range(0x110000) on wide builds (UCS4). A ValueError
     # is raised in case it is not.
     fn unicode PyUnicode_FromOrdinal(i32 ordinal)
