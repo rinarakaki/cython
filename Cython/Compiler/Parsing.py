@@ -844,6 +844,8 @@ def p_int_literal(s):
     pos = s.position()
     value = s.systring
     s.next()
+    print("!!!!!!!!!! [p_int_literal] !!!!!!!!!!")
+    print(value)
     if s.systring not in ("j", "J"):
         return ExprNodes.IntNode(pos,
             value = value,
