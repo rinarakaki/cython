@@ -113,4 +113,4 @@ def func():
             __dict__,
             __dealloc__,
             __cinit__,
-        ][i] for i in range(20))
+        ][i] for i in 0..20)

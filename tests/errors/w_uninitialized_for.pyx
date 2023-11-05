@@ -31,7 +31,7 @@ def simple_target_f(n):
     return i
 
 def simple_for_from(n):
-    for i from 0 <= i <= n:
+    for i in 0..=n:
         x = i
     else:
         return x

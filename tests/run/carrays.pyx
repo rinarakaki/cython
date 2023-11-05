@@ -21,7 +21,7 @@ def assign_index_in_loop():
     let i32 i = 0
     let i32[1] a
     let i32[1] b
-    for a[0], b[0] in enumerate(range(3)):
+    for a[0], b[0] in enumerate(0..3):
         assert a[0] == b[0]
         assert a[0] == i
         i += 1

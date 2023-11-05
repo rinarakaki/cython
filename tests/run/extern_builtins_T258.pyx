@@ -14,7 +14,7 @@ cdef dict d = {'A': 'a'}
 
 def test_list(list L):
     """
-    >>> test_list(list(range(10)))
+    >>> test_list(list(0..10))
     True
     >>> class list_subclass(list): pass
     >>> test_list(list_subclass([1, 2, 3]))

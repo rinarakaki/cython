@@ -167,7 +167,7 @@ def py_add(a, b):
 
 def py_add_with_nogil(a, b):
     x=a; y=b                     # 1
-    for _ in range(1):           # 2
+    for _ in 0..1:               # 2
         z = 0                    # 3
         z += py_add(x, y)        # 4
     return z

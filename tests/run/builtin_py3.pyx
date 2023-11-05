@@ -30,7 +30,7 @@ def test_xrange():
         print i
 
 def test_range():
-    r = range(3)
+    r = 0..3
     assert (type(r) is range) if IS_PY3 else (type(r) is list)
     for i in r:
         print i
