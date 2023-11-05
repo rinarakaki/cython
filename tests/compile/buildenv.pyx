@@ -29,42 +29,42 @@ extern from *:
     #endif
     """
     # Python runtime
-    cdef long PY_VERSION_HEX
+    statuc i64 PY_VERSION_HEX
 
     # Cython config
-    cdef int CYTHON_COMPILING_IN_CPYTHON
-    cdef int CYTHON_COMPILING_IN_LIMITED_API
-    cdef int CYTHON_COMPILING_IN_PYPY
-    cdef int CYTHON_COMPILING_IN_GRAAL
-    cdef int CYTHON_COMPILING_IN_NOGIL
-    cdef int CYTHON_USE_PYLONG_INTERNALS
-    cdef int CYTHON_USE_PYLIST_INTERNALS
-    cdef int CYTHON_USE_UNICODE_INTERNALS
-    cdef int CYTHON_USE_UNICODE_WRITER
-    cdef int CYTHON_AVOID_BORROWED_REFS
-    cdef int CYTHON_ASSUME_SAFE_MACROS
-    cdef int CYTHON_USE_TYPE_SLOTS
-    cdef int CYTHON_UNPACK_METHODS
-    cdef int CYTHON_FAST_THREAD_STATE
-    cdef int CYTHON_FAST_PYCALL
-    cdef int CYTHON_PEP489_MULTI_PHASE_INIT
-    cdef int CYTHON_USE_TP_FINALIZE
+    statuc i32 CYTHON_COMPILING_IN_CPYTHON
+    statuc i32 CYTHON_COMPILING_IN_LIMITED_API
+    statuc i32 CYTHON_COMPILING_IN_PYPY
+    statuc i32 CYTHON_COMPILING_IN_GRAAL
+    statuc i32 CYTHON_COMPILING_IN_NOGIL
+    statuc i32 CYTHON_USE_PYLONG_INTERNALS
+    statuc i32 CYTHON_USE_PYLIST_INTERNALS
+    statuc i32 CYTHON_USE_UNICODE_INTERNALS
+    statuc i32 CYTHON_USE_UNICODE_WRITER
+    statuc i32 CYTHON_AVOID_BORROWED_REFS
+    statuc i32 CYTHON_ASSUME_SAFE_MACROS
+    statuc i32 CYTHON_USE_TYPE_SLOTS
+    statuc i32 CYTHON_UNPACK_METHODS
+    statuc i32 CYTHON_FAST_THREAD_STATE
+    statuc i32 CYTHON_FAST_PYCALL
+    statuc i32 CYTHON_PEP489_MULTI_PHASE_INIT
+    statuc i32 CYTHON_USE_TP_FINALIZE
 
     # C and platform specifics
-    cdef int SIZEOF_INT
-    cdef int SIZEOF_LONG
-    cdef int SIZEOF_SIZE_T
-    cdef int SIZEOF_LONG_LONG
-    cdef int SIZEOF_VOID_P
-    cdef int SIZEOF_OFF_T
-    cdef int SIZEOF_UINTPTR_T
+    statuc i32 SIZEOF_INT
+    statuc i32 SIZEOF_LONG
+    statuc i32 SIZEOF_SIZE_T
+    statuc i32 SIZEOF_LONG_LONG
+    statuc i32 SIZEOF_VOID_P
+    statuc i32 SIZEOF_OFF_T
+    statuc i32 SIZEOF_UINTPTR_T
 
     # PyLong internals
-    cdef long PyLong_BASE
-    cdef long PyLong_MASK
-    cdef int PyLong_SHIFT
-    cdef int digit
-    cdef int sdigit
+    statuc i64 PyLong_BASE
+    statuc i64 PyLong_MASK
+    statuc i32 PyLong_SHIFT
+    statuc i32 digit
+    statuc i32 sdigit
 
 def config_var(name, default=''):
     return sysconfig.get_config_var(name) or default
