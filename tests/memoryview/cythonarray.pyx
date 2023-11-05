@@ -118,12 +118,12 @@ def test_cython_array_index():
 fn i32 *getp(i32 dim1=10, i32 dim2=10, dim3=1) except NULL:
     print "getp()"
 
-    let i32 *p = <i32 *> malloc(dim1 * dim2 * dim3 * sizeof(i32))
+    let i32 *p = <i32 *>malloc(dim1 * dim2 * dim3 * sizeof(i32))
 
     if p == NULL:
         raise MemoryError
 
-    for i in range(dim1 * dim2 * dim3):
+    for i in 0..(dim1 * dim2 * dim3):
         p[i] = i
 
     return p
@@ -198,8 +198,8 @@ def test_cyarray_from_carray():
     0 8 21
     """
     let i32[7][8] a
-    for i in range(7):
-        for j in range(8):
+    for i in 0..7:
+        for j in 0..8:
             a[i][j] = i * 8 + j
 
     let i32[:, :] mslice = <i32[:, :]> a
@@ -298,7 +298,7 @@ def test_is_Sequence():
         from collections.abc import Sequence
 
     arr = array(shape=(5,), itemsize=sizeof(char), format='c', mode='c')
-    for i in range(arr.shape[0]):
+    for i in 0..arr.shape[0]:
         arr[i] = f'{i}'.encode('ascii')
     print(arr.count(b'1'))  # test for presence of added collection method
     print(arr.index(b'1'))  # test for presence of added collection method

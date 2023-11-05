@@ -5,6 +5,6 @@ def sum_array(i32[:] view):
     6
     """
     let i32 total = 0
-    for i in range(view.shape[0]):
+    for i in 0..view.shape[0]:
         total += view[i]
     return total

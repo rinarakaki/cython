@@ -371,7 +371,7 @@ def test_prange_continue():
     else:
         nogil_print('else clause executed')
 
-    for i in range(10):
+    for i in 0..10:
        print i, p[i]
 
     free(p)
@@ -615,7 +615,7 @@ def test_parallel_with_gil_return():
             obj = i
             sum += obj
 
-    print obj in range(10)
+    print obj in 0..10
 
     with nogil, cython.parallel.parallel():
         with gil:
@@ -797,7 +797,7 @@ def test_inner_private():
     let f64* outer_vals[2]
     let isize n, m
 
-    for n in range(2):
+    for n in 0..2:
         address_of_temp(not_parallel[n], get_value(), 0)
     assert not_parallel[0] == not_parallel[1], "Addresses should be the same since they come from the same temp"
 
@@ -843,7 +843,7 @@ def test_prange_call_exception_checked_function():
         # Don't release the GIL
         prange_call_exception_checked_function_impl(buf, N)
 
-        for i in range(N):
+        for i in 0..N:
             assert buf[i] == i
     finally:
         free(buf)

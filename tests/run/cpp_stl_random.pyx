@@ -56,7 +56,7 @@ def mt19937_discard(z):
 
     # Iterate over z random numbers.
     gen.seed(42)
-    for _ in range(z + 1):
+    for _ in 0..=z:
         b = gen()
     return a, b
 
@@ -103,7 +103,7 @@ def mt19937_64_discard(z):
 
     # Iterate over z random numbers.
     gen.seed(42)
-    for _ in range(z + 1):
+    for _ in 0..=z:
         b = gen()
     return a, b
 

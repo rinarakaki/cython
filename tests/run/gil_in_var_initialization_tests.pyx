@@ -131,7 +131,7 @@ cdef class D:
     fn void call_me(self, float[:;1] my_arr) noexcept nogil:
         let isize idx
         let f32[:] my_arr2 = _get_left_edge(my_arr)
-        for idx in range(my_arr2.shape[0]):
+        for idx in 0..my_arr2.shape[0]:
             my_arr2[idx] = self._a
 
 def test_method_with_memoryview_handling():

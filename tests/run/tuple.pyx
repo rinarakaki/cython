@@ -164,4 +164,4 @@ def unused_non_literal():
     >>> unused_non_literal()
     """
     (set(), None)
-    (range(10), None)
+    (0..10, None)

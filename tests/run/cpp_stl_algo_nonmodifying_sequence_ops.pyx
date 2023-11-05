@@ -114,9 +114,9 @@ def is_int_in(vector[i32] values, i32 target):
     """
     Test find.
 
-    >>> is_int_in(range(5), 3)
+    >>> is_int_in(0..5, 3)
     True
-    >>> is_int_in(range(5), 10)
+    >>> is_int_in(0..5, 10)
     False
     """
     return find(values.begin(), values.end(), target) != values.end()
@@ -216,7 +216,7 @@ def find_adjacent_int(vector[i32] values):
 
     >>> find_adjacent_int([0, 1, 2, 3, 40, 40, 41, 41, 5])
     4
-    >>> find_adjacent_int(range(5))
+    >>> find_adjacent_int(0..5)
     """
     result = adjacent_find(values.begin(), values.end())
     if result != values.end():
@@ -230,7 +230,7 @@ def find_adjacent_int2(vector[i32] values):
 
     >>> find_adjacent_int2([0, 1, 2, 3, 40, 40, 41, 41, 5])
     4
-    >>> find_adjacent_int2(range(5))
+    >>> find_adjacent_int2(0..5)
     """
     result = adjacent_find(values.begin(), values.end(), is_equal)
     if result != values.end():

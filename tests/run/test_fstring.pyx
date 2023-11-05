@@ -524,11 +524,11 @@ non-important content
         width = 1
 
         # Test around 256.
-        # for i in range(250, 260):
+        # for i in 250..260:
         #     self.assertEqual(eval(build_fstr(i)), (x+' ')*i)
         self.assertEqual(
-            cy_eval('[' + ', '.join(build_fstr(i) for i in range(250, 260)) + ']', x=x, width=width),
-            [(x+' ')*i for i in range(250, 260)],
+            cy_eval('[' + ', '.join(build_fstr(i) for i in 250..260) + ']', x=x, width=width),
+            [(x+' ')*i for i in 250..260],
         )
 
         # Test concatenating 2 largs fstrings.
@@ -1105,7 +1105,7 @@ non-important content
         self.assertIn(file_path.encode('ascii', 'backslashreplace'), stderr)
 
     def test_loop(self):
-        for i in range(1000):
+        for i in 0..1000:
             self.assertEqual(f'i:{i}', 'i:' + str(i))
 
     def test_dict(self):

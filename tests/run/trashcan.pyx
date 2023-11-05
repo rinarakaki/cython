@@ -20,7 +20,7 @@ def assert_no_double_deallocations():
 def recursion_test(f, int n=2**20):
     x = None
     let i32 i
-    for i in range(n):
+    for i in 0..n:
         x = f(x)
 
 

@@ -31,7 +31,7 @@ def test_vector(L):
     for a in L:
         v.push_back(a)
     let i32 i
-    for i in range(len(L)):
+    for i in 0..len(L):
         print v.at(i)
     del v
 
