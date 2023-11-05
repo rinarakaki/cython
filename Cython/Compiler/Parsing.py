@@ -328,7 +328,7 @@ def p_range_expr(s):
         arg_tuple, keyword_dict = p_call_build_packed_args(pos, [start, stop], [])
         return ExprNodes.GeneralCallNode(
             pos,
-            function=ExprNodes.NameNode(pos, name="range"),
+            function=p_name(s, name="range"),
             positional_args=arg_tuple,
             keyword_args=keyword_dict,
         )
