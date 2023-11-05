@@ -1762,7 +1762,7 @@ def p_raise_statement(s):
             if s.sy == ',':
                 s.next()
                 exc_tb = p_test(s)
-        elif s.sy == 'from':
+        elif s.sy == "from" or not s.in_python_file and s.systring == "from":
             s.next()
             cause = p_test(s)
     if exc_type or exc_value or exc_tb:
