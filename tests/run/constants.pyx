@@ -6,31 +6,31 @@ use cython
 const INT_VAL = 1
 
 def _func(a, b, c):
-    return a+b+c
+    return a + b + c
 
 #[cython.test_fail_if_path_exists("//AddNode")]
 def add():
     """
-    >>> add() == 1+2+3+4
+    >>> add() == 1 + 2 + 3 + 4
     True
     """
-    return 1+2+3+4
+    return 1 + 2 + 3 + 4
 
 # #[cython.test_fail_if_path_exists("//AddNode")]
 def add_var(a):
     """
-    >>> add_var(10) == 1+2+10+3+4
+    >>> add_var(10) == 1 + 2 + 10 + 3 + 4
     True
     """
-    return 1+2 +a+ 3+4
+    return 1 + 2 + a + 3 + 4
 
 #[cython.test_fail_if_path_exists("//AddNode", "//SubNode")]
 def neg():
     """
-    >>> neg() == -1 -2 - (-3+4)
+    >>> neg() == -1 -2 - (-3 + 4)
     True
     """
-    return -1 -2 - (-3+4)
+    return -1 -2 - (-3 + 4)
 
 #[cython.test_fail_if_path_exists("//AddNode", "//MulNode", "//DivNode")]
 def long_int_mix():
@@ -62,18 +62,18 @@ def int_cast():
 #[cython.test_fail_if_path_exists("//MulNode")]
 def mul():
     """
-    >>> mul() == 1*60*1000
+    >>> mul() == 1 * 60 * 1000
     True
     """
-    return 1*60*1000
+    return 1 * 60 * 1000
 
 #[cython.test_fail_if_path_exists("//AddNode", "//MulNode")]
 def arithm():
     """
-    >>> arithm() == 9*2+3*8//6-10
+    >>> arithm() == 9 * 2 + 3 * 8 // 6 - 10
     True
     """
-    return 9*2+3*8//6-10
+    return 9 * 2 + 3 * 8 // 6 - 10
 
 #[cython.test_fail_if_path_exists("//AddNode", "//MulNode")]
 def parameters():
