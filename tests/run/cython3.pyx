@@ -602,10 +602,10 @@ def int_literals():
     unsigned long
     unsigned long
     """
-    print(cython.typeof(1L))
-    print(cython.typeof(10000000000000L))
-    print(cython.typeof(1UL))
-    print(cython.typeof(10000000000000UL))
+    print(cython.typeof(1i64))
+    print(cython.typeof(10000000000000i64))
+    print(cython.typeof(1u64))
+    print(cython.typeof(10000000000000u64))
 
 
 def annotation_syntax(a: "test new test", b : "other" = 2, *args: "ARGS", **kwargs: "KWARGS") -> "ret":

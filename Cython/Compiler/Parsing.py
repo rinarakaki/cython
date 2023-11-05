@@ -833,9 +833,11 @@ def p_numeric_literal(s):
             )
     else:
         if s.systring not in ("j", "J"):
+            suffix = p_numeric_literal_suffix(s)
             return ExprNodes.IntNode(pos,
                 value = value,
-                **p_numeric_literal_suffix(s),
+                unsigned = suffix["unsigned"],
+                longness = suffix["longness"],
             )
     s.next()
     return ExprNodes.ImagNode(pos, value = value)
