@@ -46,9 +46,7 @@ common_reserved_words = [
     "in", "assert", "and", "or", "not", "is", "lambda",
     "yield", "with",
 ]
-py_reserved_words = common_reserved_words + [
-    "from"
-]
+py_reserved_words = common_reserved_words + ["from"]
 pyx_reserved_words = common_reserved_words + [
     "use", "pub", "extern", "fn", "let", "enum", "struct", "union",
     "include", "ctypedef", "cdef", "cpdef",
