@@ -12,6 +12,5 @@ cdef class SpamAndEggs(Spam):
         return 1
 
 def test():
-    cdef SpamAndEggs s
-    s = SpamAndEggs()
+    cdef auto s = SpamAndEggs()
     return s.cook()
