@@ -10,7 +10,7 @@ def double_target(a, b):
     4.0
     """
     let f64 x
-    for x in a..b:
+    for x from a <= x < b:
         print u"at", x
     return x
 
