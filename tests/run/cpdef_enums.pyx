@@ -124,7 +124,7 @@ def test_as_variable_from_cython():
     >>> test_as_variable_from_cython()
     """
     assert list(PyxEnum) == [Two, Three, Five], list(PyxEnum)
-    assert list(PxdEnum) == [RANK_0, ::Rank1, ::Rank2], list(PxdEnum)
+    assert list(PxdEnum) == [PxdEnum::Rank0, PxdEnum::Rank1, PxdEnum::Rank2], list(PxdEnum)
 
 fn i32 verify_pure_c() nogil:
     let i32 x = Two
