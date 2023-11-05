@@ -41,16 +41,26 @@ def make_lexicon():
         return prefix + Opt(Str("_")) + underscore_digits(digits)
 
     decimal = underscore_digits(digit)
+    dot = Str(".")
+    exponent = Any("Ee") + Opt(Any("+-")) + decimal
+    # Plex needs lookahead capability in order to re-open this float literal shorthand syntax: 0., .0 
+    # decimal_fract = (decimal + dot + Opt(decimal)) | (dot + decimal)
+    decimal_fract = decimal + dot + decimal
 
     # name = letter + Rep(letter | digit)
     name = Opt(Str("r#")) + unicode_start_character + Rep(unicode_continuation_character)
-    intconst = (
+    intconst = (prefixed_digits(nonzero_digit, digit) |  # decimal literals with underscores must not start with '0'
                 (Str("0") + (prefixed_digits(Any("Xx"), hexdigit) |
                              prefixed_digits(Any("Oo"), octdigit) |
                              prefixed_digits(Any("Bb"), bindigit) )) |
                 underscore_digits(Str('0'))  # 0_0_0_0... is allowed as a decimal literal
+                | Rep1(digit)  # FIXME: remove these Py2 style decimal/octal literals (PY_VERSION_HEX < 3)
                 )
-    
+    intsuffix = (Opt(Any("Uu")) + Opt(Any("Ll")) + Opt(Any("Ll"))) | (Opt(Any("Ll")) + Opt(Any("Ll")) + Opt(Any("Uu")))
+    intliteral = intconst + intsuffix
+    fltconst = (decimal_fract + Opt(exponent)) | (decimal + exponent)
+    imagconst = (intconst | fltconst) + Any("jJ")
+
     # invalid combinations of prefixes are caught in p_string_literal
     beginstring = Opt(Rep(Any(string_prefixes + raw_prefixes)) |
                       Any(char_prefixes)
@@ -70,7 +80,8 @@ def make_lexicon():
     punct = Any(":,;+-*/|&<>=.%`~^?!@#")
     diphthong = Str("==", "<>", "!=", "<=", ">=", "<<", ">>", "**", "//",
                     "+=", "-=", "*=", "/=", "%=", "|=", "^=", "&=",
-                    "<<=", ">>=", "**=", "//=", "->", "@=", "&&", "||", ":=", "::")
+                    "<<=", ">>=", "**=", "//=", "->", "@=", "&&", "||", ":=",
+                    "::", "..", "..=")
     spaces = Rep1(Any(" \t\f"))
     escaped_newline = Str("\\\n")
     lineterm = Eol + Opt(Str("\n"))
@@ -79,8 +90,9 @@ def make_lexicon():
 
     return Lexicon([
         (name, Method('normalize_ident')),
-        (decimal, Method('strip_underscores', symbol="DECIMAL")),
-        (intconst, Method('strip_underscores', symbol='INT')),
+        (intliteral, Method('strip_underscores', symbol='INT')),
+        (fltconst, Method('strip_underscores', symbol='FLOAT')),
+        (imagconst, Method('strip_underscores', symbol='IMAG')),
         (ellipsis | punct | diphthong, TEXT),
 
         (bra, Method('open_bracket_action')),
