@@ -7,8 +7,8 @@ ctypedef api i32 Int1
 ctypedef     enum EnumA0: EA0
 ctypedef api enum EnumA1: EA1
 
-cdef     enum EnumB0: EB0=0
-cdef api enum EnumB1: EB1=1
+enum          EnumB0: EB0 = 0
+cdef api enum EnumB1: EB1 = 1
 
 cdef Int0   i0  = 0
 cdef EnumA0 ea0 = EA0

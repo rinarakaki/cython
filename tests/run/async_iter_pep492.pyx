@@ -18,9 +18,9 @@ if sys.version_info >= (3, 5, 0, 'beta'):
 []
 
 >>> yielded, _ = run_async(testfunc(), check_type=false)
->>> yielded == [i * 100 for i in range(1, 11)] or yielded
+>>> yielded == [i * 100 for i in 1..11] or yielded
 True
->>> buffer == [i*2 for i in range(1, 101)] or buffer
+>>> buffer == [i*2 for i in 1..101] or buffer
 True
 """
 
@@ -101,9 +101,9 @@ def test_for_1():
     >>> buffer
     []
     >>> yielded, _ = run_async(testfunc())
-    >>> yielded == [i * 100 for i in range(1, 11)] or yielded
+    >>> yielded == [i * 100 for i in 1..11] or yielded
     True
-    >>> buffer == [i*2 for i in range(1, 101)] or buffer
+    >>> buffer == [i*2 for i in 1..101] or buffer
     True
     """
     buffer = []
@@ -121,7 +121,7 @@ def test_for_2():
     >>> yielded, _ = run_async(testfunc())
     >>> yielded == [100, 200] or yielded
     True
-    >>> buffer == [i for i in range(1, 21)] + ['end'] or buffer
+    >>> buffer == [i for i in 1..21] + ['end'] or buffer
     True
     """
     buffer = []
@@ -144,9 +144,9 @@ def test_for_3():
     >>> buffer
     []
     >>> yielded, _ = run_async(testfunc())
-    >>> yielded == [i * 100 for i in range(1, 11)] or yielded
+    >>> yielded == [i * 100 for i in 1..11] or yielded
     True
-    >>> buffer == [i for i in range(1, 21)] + ['what?', 'end'] or buffer
+    >>> buffer == [i for i in 1..21] + ['what?', 'end'] or buffer
     True
     """
     buffer = []

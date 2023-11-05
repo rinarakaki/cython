@@ -45,7 +45,7 @@ def copy_int(vector[i32] values):
     """
     Test copy.
 
-    >>> copy_int(range(5))
+    >>> copy_int(0..5)
     [0, 1, 2, 3, 4]
     """
     let vector[i32] out

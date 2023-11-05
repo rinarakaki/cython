@@ -63,7 +63,7 @@ def test_overwrite():
     {0: {1: {2: {}}}}
     """
     x = a = {}
-    for i in range(3):
+    for i in 0..3:
         a[i] = a = {}
     assert a == {}
     return x

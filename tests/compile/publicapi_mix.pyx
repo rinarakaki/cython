@@ -11,8 +11,8 @@ ctypedef pub     enum EnumA1: EA1
 ctypedef     api enum EnumA2: EA2
 ctypedef pub api enum EnumA3: EA3
 
-cdef     enum EnumB0: EB0=0
-pub      enum EnumB1: EB1=1
+enum          EnumB0: EB0 = 0
+pub enum      EnumB1: EB1=1
 cdef api enum EnumB2: EB2=2
 pub  api enum EnumB3: EB3=3
 

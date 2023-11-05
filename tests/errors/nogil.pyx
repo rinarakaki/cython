@@ -83,7 +83,7 @@ fn void t(C c) nogil:
 def ticket_338():
     let object obj
     with nogil:
-        for obj from 0 <= obj < 4:
+        for obj in 0..4:
             pass
 
 def bare_pyvar_name(object x):

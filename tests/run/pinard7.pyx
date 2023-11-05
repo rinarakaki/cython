@@ -16,7 +16,6 @@ cdef class Curseur:
         assert false, self.mode
 
 def build():
-    let Curseur c
-    c = Curseur()
-    c.mode = A
+    let Curseur c = Curseur()
+    c.mode = Mode::A
     return c

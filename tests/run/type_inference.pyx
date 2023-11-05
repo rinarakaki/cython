@@ -324,16 +324,16 @@ def loop():
     """
     >>> loop()
     """
-    for a in range(10):
+    for a in 0..10:
         pass
     assert typeof(a) == "long"
 
     b = 1.0
-    for b in range(5):
+    for b in 0..5:
         pass
     assert typeof(b) == "double"
 
-    for c from 0 <= c < 10 by .5:
+    for c from 0 <= c < 10 by 0.5:
         pass
     assert typeof(c) == "double"
 
@@ -478,7 +478,7 @@ def double_loop():
     """
     let i32 i
     d = 1.0
-    for i in range(9):
+    for i in 0..9:
         d += 1.0
     return d
 
@@ -493,7 +493,7 @@ def safe_only():
     assert typeof(b) == "long", typeof(b)
     c = MyType()
     assert typeof(c) == "MyType", typeof(c)
-    for i in range(10): pass
+    for i in 0..10: pass
     assert typeof(i) == "long", typeof(i)
     d = 1
     res = ~d
@@ -516,7 +516,7 @@ def safe_only():
     g = 1
     res = 10*(~g)
     assert typeof(g) == "Python object", typeof(g)
-    for j in range(10):
+    for j in 0..10:
         res = -j
     assert typeof(j) == "Python object", typeof(j)
     h = 1
@@ -718,8 +718,8 @@ def bar(foo):
     quux = foo[qux.baz]
 
 enum MyEnum:
-    enum_x = 1
-    enum_y = 2
+    X = 1
+    Y = 2
 
 ctypedef long my_long
 def test_int_typedef_inference():
@@ -752,14 +752,14 @@ cdef class InferInProperties:
     """
     let MyEnum attr
     def __cinit__(self):
-        self.attr = enum_x
+        self.attr = MyEnum::X
 
     property x:
         def __get__(self):
             a = 1.0
             b = u'abc'
             c = self.attr
-            d = enum_y
+            d = MyEnum::Y
             c = d
             return typeof(a), typeof(b), typeof(c), typeof(d)
 

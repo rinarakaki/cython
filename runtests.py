@@ -2644,7 +2644,7 @@ def time_stamper_thread(interval=10):
             for _ in interval:
                 if stop:
                     return
-                sleep(1./4)
+                sleep(1.0 / 4)
             write('\n#### %s\n' % now())
 
     thread = threading.Thread(target=time_stamper, name='time_stamper')

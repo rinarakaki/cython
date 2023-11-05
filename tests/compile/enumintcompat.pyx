@@ -7,8 +7,8 @@ enum G:
     B
 
 fn void f():
-    let E e = A
-    let G g = B
+    let E e = E::A
+    let G g = G::B
     let i32 i, j = 0
     let f32 f, h = 0
     i = j | e
@@ -25,7 +25,7 @@ fn void f():
     # f = j ** e  # Cython prohibits this
     i = e + g
     f = h
-    i = ~A
-    i = -A
+    i = ~E::A
+    i = -E::A
 
 f()
