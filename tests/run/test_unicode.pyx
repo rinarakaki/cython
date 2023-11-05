@@ -2166,15 +2166,15 @@ class UnicodeTest(CommonTest,
 
         # UTF-8 must be roundtrip safe for all code points
         # (except surrogates, which are forbidden).
-        u = ''.join(map(chr, list(range(0, 0xd800)) +
-                             list(range(0xe000, 0x110000))))
+        u = ''.join(map(chr, list(0..0xd800) +
+                             list(0xe000..0x110000)))
         for encoding in ('utf-8',):
             self.assertEqual(str(u.encode(encoding),encoding), u)
 
     @unittest.skipIf(sys.version_info < (3, 5), 'codecs test requires Py3.5+')
     def test_codecs_charmap(self):
         # 0-127
-        s = bytes(range(128))
+        s = bytes(0..128)
         for encoding in (
             'cp037', 'cp1026', 'cp273',
             'cp437', 'cp500', 'cp720', 'cp737', 'cp775', 'cp850',
@@ -2203,7 +2203,7 @@ class UnicodeTest(CommonTest,
             self.assertEqual(str(s, encoding).encode(encoding), s)
 
         # 128-255
-        s = bytes(range(128, 256))
+        s = bytes(128..256)
         for encoding in (
             'cp037', 'cp1026', 'cp273',
             'cp437', 'cp500', 'cp720', 'cp737', 'cp775', 'cp850',

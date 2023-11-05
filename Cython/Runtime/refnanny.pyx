@@ -16,7 +16,7 @@ fn log(level, action, obj, lineno):
     if loglevel >= level:
         reflog.append((lineno, action, id(obj)))
 
-LOG_NONE, LOG_ALL = range(2)
+LOG_NONE, LOG_ALL = 0..2
 
 #[cython.final]
 cdef class Context(object):

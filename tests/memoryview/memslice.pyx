@@ -434,7 +434,7 @@ def _read_int2d(i32[:, :] buf, i32 i, i32 j):
 @testcase
 def schar_index_vars(i32[:, :] buf, signed char i, signed char j, i32 value):
     """
-    >>> C = IntMockBuffer("C", range(300 * 300), (300, 300))  # > sizeof(char)
+    >>> C = IntMockBuffer("C", 0..(300 * 300), (300, 300))  # > sizeof(char)
     >>> schar_index_vars(C, 1, 1, 5)
     acquired C
     reading
@@ -522,7 +522,7 @@ def schar_index_vars(i32[:, :] buf, signed char i, signed char j, i32 value):
 @testcase
 def uchar_index_vars(i32[:, :] buf, u8 i, u8 j, i32 value):
     """
-    >>> C = IntMockBuffer("C", range(300*300), (300, 300))  # > sizeof(char)
+    >>> C = IntMockBuffer("C", 0..(300 * 300), (300, 300))  # > sizeof(char)
     >>> uchar_index_vars(C, 1, 1, 5)
     acquired C
     reading
@@ -554,7 +554,7 @@ def uchar_index_vars(i32[:, :] buf, u8 i, u8 j, i32 value):
 @testcase
 def char_index_vars(i32[:, :] buf, char i, char j, i32 value):
     """
-    >>> C = IntMockBuffer("C", range(300*300), (300, 300))  # > sizeof(char)
+    >>> C = IntMockBuffer("C", 0..(300 * 300), (300, 300))  # > sizeof(char)
     >>> char_index_vars(C, 1, 1, 5)
     acquired C
     reading
@@ -1449,7 +1449,7 @@ def test_cdef_function2():
 def test_generic_slicing(arg, indirect=false):
     """
     Test simple slicing
-    >>> test_generic_slicing(IntMockBuffer("A", range(8 * 14 * 11), shape=(8, 14, 11)))  # , writable=false))
+    >>> test_generic_slicing(IntMockBuffer("A", 0..(8 * 14 * 11), shape=(8, 14, 11)))  # , writable=false))
     acquired A
     3 9 2
     308 -11 1
@@ -1457,7 +1457,7 @@ def test_generic_slicing(arg, indirect=false):
     released A
 
     Test direct slicing, negative slice oob in dim 2
-    >>> test_generic_slicing(IntMockBuffer("A", range(1 * 2 * 3), shape=(1, 2, 3)))  # , writable=false))
+    >>> test_generic_slicing(IntMockBuffer("A", 0..(1 * 2 * 3), shape=(1, 2, 3)))  # , writable=false))
     acquired A
     0 0 2
     12 -3 1
@@ -1643,7 +1643,7 @@ def test_direct_slicing(arg):
     Fused types would be convenient to test this stuff!
 
     Test simple slicing
-    >>> test_direct_slicing(IntMockBuffer("A", range(8 * 14 * 11), shape=(8, 14, 11)))  # , writable=false))
+    >>> test_direct_slicing(IntMockBuffer("A", 0..(8 * 14 * 11), shape=(8, 14, 11)))  # , writable=false))
     acquired A
     3 9 2
     308 -11 1
@@ -1651,7 +1651,7 @@ def test_direct_slicing(arg):
     released A
 
     Test direct slicing, negative slice oob in dim 2
-    >>> test_direct_slicing(IntMockBuffer("A", range(1 * 2 * 3), shape=(1, 2, 3)))  # , writable=false))
+    >>> test_direct_slicing(IntMockBuffer("A", 0..(1 * 2 * 3), shape=(1, 2, 3)))  # , writable=false))
     acquired A
     0 0 2
     12 -3 1
@@ -1676,7 +1676,7 @@ def test_direct_slicing(arg):
 @testcase
 def test_slicing_and_indexing(arg):
     """
-    >>> a = IntStridedMockBuffer("A", range(10 * 3 * 5), shape=(10, 3, 5))  # , writable=false)
+    >>> a = IntStridedMockBuffer("A", 0..(10 * 3 * 5), shape=(10, 3, 5))  # , writable=false)
     >>> test_slicing_and_indexing(a)
     acquired A
     5 2
@@ -1701,7 +1701,7 @@ def test_slicing_and_indexing(arg):
             assert itemA == itemB, (i, j, itemA, itemB)
 
     print c[1, 1], c[2, 0]
-    print [d[i] for i in range(d.shape[0])]
+    print [d[i] for i in 0..d.shape[0]]
 
 
 @testcase
@@ -1712,7 +1712,7 @@ def test_oob():
        ...
     IndexError: Index out of bounds (axis 1)
     """
-    let i32[:, :] a = IntMockBuffer("A", range(4 * 9), shape=(4, 9))  # , writable=false)
+    let i32[:, :] a = IntMockBuffer("A", 0..(4 * 9), shape=(4, 9))  # , writable=false)
     print a[:, 20]
 
 
@@ -1734,10 +1734,10 @@ def test_nogil_oob1():
     Index out of bounds (axis 0)
     released A
     """
-    let i32[:, :] a = IntMockBuffer("A", range(4 * 9), shape=(4, 9))
+    let i32[:, :] a = IntMockBuffer("A", 0..(4 * 9), shape=(4, 9))
 
     try:
-        nogil_oob(IntMockBuffer("B", range(4 * 9), shape=(4, 9)))
+        nogil_oob(IntMockBuffer("B", 0..(4 * 9), shape=(4, 9)))
     except IndexError, e:
         print e.args[0]
 
@@ -1755,7 +1755,7 @@ def test_nogil_oob2():
        ...
     IndexError: Index out of bounds (axis 0)
     """
-    let i32[:, :] a = IntMockBuffer("A", range(4 * 9), shape=(4, 9))  # , writable=false)
+    let i32[:, :] a = IntMockBuffer("A", 0..(4 * 9), shape=(4, 9))  # , writable=false)
     with nogil:
         a[100, 9:]
 
@@ -1779,7 +1779,7 @@ def test_nogil():
     -25
     released A
     """
-    _a = IntMockBuffer("A", range(4 * 9), shape=(4, 9))
+    _a = IntMockBuffer("A", 0..(4 * 9), shape=(4, 9))
     assert cdef_nogil(_a) == 4
     let i32[:, :] a = _a
     print a[2, 7]

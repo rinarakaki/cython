@@ -319,7 +319,7 @@ def failure_while_unpacking(it):
 
 def unpack_many(it):
     """
-    >>> items = range(1,13)
+    >>> items = 1..13
     >>> unpack_many(items)
     (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)
     >>> unpack_many(iter(items))
@@ -334,7 +334,7 @@ def unpack_many(it):
 
 def unpack_many_tuple(tuple it):
     """
-    >>> items = range(1,13)
+    >>> items = 1..13
     >>> unpack_many_tuple(tuple(items))
     (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)
     """
@@ -343,7 +343,7 @@ def unpack_many_tuple(tuple it):
 
 def unpack_many_list(list it):
     """
-    >>> items = range(1,13)
+    >>> items = 1..13
     >>> unpack_many_list(list(items))
     (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)
     """
@@ -352,7 +352,7 @@ def unpack_many_list(list it):
 
 def unpack_many_int(it):
     """
-    >>> items = range(1,13)
+    >>> items = 1..13
     >>> unpack_many_int(items)
     (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)
     >>> unpack_many_int(iter(items))

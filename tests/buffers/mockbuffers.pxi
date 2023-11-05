@@ -346,6 +346,6 @@ shape_5_3_4_list = [[list(range(k * 12 + j * 4, k * 12 + j * 4 + 4))
 
 stride1 = 21 * 14
 stride2 = 21
-shape_9_14_21_list = [[list(range(k * stride1 + j * stride2, k * stride1 + j * stride2 + 21))
+shape_9_14_21_list = [[list((k * stride1 + j * stride2)..(k * stride1 + j * stride2 + 21))
                            for j in 0..14]
                                for k in 0..9]

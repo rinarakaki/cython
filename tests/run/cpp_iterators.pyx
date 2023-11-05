@@ -403,6 +403,6 @@ def test_iteration_from_const_member(i32 num):
     """
     num_holder = new ConstNumberHolder(num)
     try:
-        return (i for i in range(num_holder.num))
+        return (i for i in 0..num_holder.num)
     finally:
         del num_holder

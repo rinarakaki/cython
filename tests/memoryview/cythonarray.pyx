@@ -123,7 +123,7 @@ fn i32 *getp(i32 dim1=10, i32 dim2=10, dim3=1) except NULL:
     if p == NULL:
         raise MemoryError
 
-    for i in range(dim1 * dim2 * dim3):
+    for i in 0..(dim1 * dim2 * dim3):
         p[i] = i
 
     return p

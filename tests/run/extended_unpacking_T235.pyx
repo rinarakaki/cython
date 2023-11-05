@@ -3,7 +3,7 @@
 __doc__ = u"""
     >>> class FakeSeq(object):
     ...     def __init__(self, length):
-    ...         self._values = list(range(1,length+1))
+    ...         self._values = list(1..(length + 1))
     ...     def __getitem__(self, i):
     ...         return self._values[i]
 

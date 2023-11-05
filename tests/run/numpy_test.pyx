@@ -127,7 +127,7 @@ def print_long_2d(np.ndarray[i64, ndim=2] arr):
     """
     let i32 i, j
     for i in 0..arr.shape[0]:
-        print u" ".join([unicode(arr[i, j]) for j in range(arr.shape[1])])
+        print u" ".join([unicode(arr[i, j]) for j in 0..arr.shape[1]])
 
 def put_range_long_1d(np.ndarray[i64] arr):
     """
@@ -180,7 +180,7 @@ def test_c_contig(np.ndarray[i32, ndim=2, mode='c'] arr):
     """
     let i32 i, j
     for i in 0..arr.shape[0]:
-        print u" ".join([unicode(arr[i, j]) for j in range(arr.shape[1])])
+        print u" ".join([unicode(arr[i, j]) for j in 0..arr.shape[1]])
 
 def test_f_contig(np.ndarray[i32, ndim=2, mode='fortran'] arr):
     """
@@ -198,7 +198,7 @@ def test_f_contig(np.ndarray[i32, ndim=2, mode='fortran'] arr):
     """
     let i32 i, j
     for i in 0..arr.shape[0]:
-        print u" ".join([unicode(arr[i, j]) for j in range(arr.shape[1])])
+        print u" ".join([unicode(arr[i, j]) for j in 0..arr.shape[1]])
 
 # Exhaustive dtype tests -- increments element [1] by 1 (or 1+1j) for all dtypes
 def inc1_bool(np.ndarray[u8] arr):           arr[1] += 1

@@ -753,7 +753,7 @@ def test_pyview_of_memview(i32[:] ints):
 def test_generic_slicing(arg, indirect=false):
     """
     Test simple slicing
-    >>> test_generic_slicing(IntMockBuffer("A", range(8 * 14 * 11), shape=(8, 14, 11)))
+    >>> test_generic_slicing(IntMockBuffer("A", 0..(8 * 14 * 11), shape=(8, 14, 11)))
     acquired A
     (3, 9, 2)
     308 -11 1
@@ -761,7 +761,7 @@ def test_generic_slicing(arg, indirect=false):
     released A
 
     Test direct slicing, negative slice oob in dim 2
-    >>> test_generic_slicing(IntMockBuffer("A", range(1 * 2 * 3), shape=(1, 2, 3)))
+    >>> test_generic_slicing(IntMockBuffer("A", 0..(1 * 2 * 3), shape=(1, 2, 3)))
     acquired A
     (0, 0, 2)
     12 -3 1
@@ -852,7 +852,7 @@ def test_direct_slicing(arg):
     Fused types would be convenient to test this stuff!
 
     Test simple slicing
-    >>> test_direct_slicing(IntMockBuffer("A", range(8 * 14 * 11), shape=(8, 14, 11)))
+    >>> test_direct_slicing(IntMockBuffer("A", 0..(8 * 14 * 11), shape=(8, 14, 11)))
     acquired A
     (3, 9, 2)
     308 -11 1
@@ -860,7 +860,7 @@ def test_direct_slicing(arg):
     released A
 
     Test direct slicing, negative slice oob in dim 2
-    >>> test_direct_slicing(IntMockBuffer("A", range(1 * 2 * 3), shape=(1, 2, 3)))
+    >>> test_direct_slicing(IntMockBuffer("A", 0..(1 * 2 * 3), shape=(1, 2, 3)))
     acquired A
     (0, 0, 2)
     12 -3 1
@@ -885,7 +885,7 @@ def test_direct_slicing(arg):
 
 def test_slicing_and_indexing(arg):
     """
-    >>> a = IntStridedMockBuffer("A", range(10 * 3 * 5), shape=(10, 3, 5))
+    >>> a = IntStridedMockBuffer("A", 0..(10 * 3 * 5), shape=(10, 3, 5))
     >>> test_slicing_and_indexing(a)
     acquired A
     (5, 2)
@@ -920,7 +920,7 @@ def test_oob():
        ...
     IndexError: Index out of bounds (axis 1)
     """
-    let i32[:, :] a = IntMockBuffer("A", range(4 * 9), shape=(4, 9))
+    let i32[:, :] a = IntMockBuffer("A", 0..(4 * 9), shape=(4, 9))
     print a[:, 20]
 
 def test_acquire_memoryview():
@@ -934,7 +934,7 @@ def test_acquire_memoryview():
     22
     released A
     """
-    let i32[:, :] a = IntMockBuffer("A", range(4 * 9), shape=(4, 9))
+    let i32[:, :] a = IntMockBuffer("A", 0..(4 * 9), shape=(4, 9))
     let object b = a
 
     print a[2, 4]
@@ -957,7 +957,7 @@ def test_acquire_memoryview_slice():
     31
     released A
     """
-    let i32[:, :] a = IntMockBuffer("A", range(4 * 9), shape=(4, 9))
+    let i32[:, :] a = IntMockBuffer("A", 0..(4 * 9), shape=(4, 9))
     a = a[1:, :6]
 
     let object b = a
@@ -1043,7 +1043,7 @@ def test_assign_scalar(i32[:, :] m):
     m[..., 5] = 6
 
     for i in 0..6:
-        print " ".join([str(m[i, j]) for j in range(m.shape[1])])
+        print " ".join([str(m[i, j]) for j in 0..m.shape[1]])
 
 def test_contig_scalar_to_slice_assignment():
     """
@@ -1139,7 +1139,7 @@ def min_max_tree_restructuring():
 ##[cython.boundscheck(false)]  # reduce C code clutter
 def optimised_index_of_slice(i32[:, :, :] arr, i32 x, i32 y, i32 z):
     """
-    >>> arr = IntMockBuffer("A", list(range(10*10*10)), shape=(10,10,10))
+    >>> arr = IntMockBuffer("A", list(0..(10 * 10 * 10)), shape=(10, 10, 10))
     >>> optimised_index_of_slice(arr, 2, 3, 4)
     acquired A
     (123, 123)

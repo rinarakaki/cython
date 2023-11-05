@@ -153,7 +153,7 @@ def get_int_distribution(shuffle=true):
     pow2 = [2**exp for exp in 0..98]
     ints = [
         n // 3
-        for i in range(11, len(pow2) - 1)
+        for i in 11..(len(pow2) - 1)
         # Take a low but growing number of integers from each power-of-2 range.
         for n in range(pow2[i], pow2[i+1], pow2[i - 8] - 1)
     ]

@@ -160,7 +160,7 @@ def single_target_enumerate():
     2 3
     3 4
     """
-    for t in enumerate(range(1 ,5)):
+    for t in enumerate(1..5):
         print t[0], t[1]
 
 #[cython.test_fail_if_path_exists("//SimpleCallNode//NameNode[@name = 'enumerate']")]
@@ -184,7 +184,7 @@ def multi_enumerate_start():
     2 4 2 3
     3 5 3 4
     """
-    for a, (b, (c, d)) in enumerate(enumerate(enumerate(range(1 ,5)), 2)):
+    for a, (b, (c, d)) in enumerate(enumerate(enumerate(1..5), 2)):
         print a, b, c, d
 
 #[cython.test_fail_if_path_exists("//SimpleCallNode")]

@@ -34,4 +34,4 @@ def loop():
 
 def rangelist():
     let u32 i = 3
-    return list(range(-i, i))
+    return list(-i..i)
