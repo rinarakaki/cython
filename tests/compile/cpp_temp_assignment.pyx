@@ -52,19 +52,19 @@ extern from *:
 
     """
     cdef cppclass NoAssignIterator:
-        int operator*()
-        NoAssignIterator operator++()
-        int operator!=(NoAssignIterator)
+        fn i32 operator*()
+        fn Self operator++()
+        fn i32 operator!=(Self)
 
     cdef cppclass NoAssign:
-        void func()
-        NoAssignIterator begin()
-        NoAssignIterator end()
+        fn void func()
+        fn NoAssignIterator begin()
+        fn NoAssignIterator end()
 
     # might raise Python exception (thus needs a temp)
-    NoAssign get_NoAssign_Py() except *
+    fn NoAssign get_NoAssign_Py() except *
     # might raise C++ exception (thus needs a temp)
-    NoAssign get_NoAssign_Cpp() except +
+    fn NoAssign get_NoAssign_Cpp() except +
 
 fn internal_cpp_func(NoAssign arg):
     pass
