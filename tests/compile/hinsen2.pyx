@@ -1,6 +1,6 @@
 # mode: compile
 
 cdef class vector:
-    def __div__(vector self, f64 factor):
-        cdef object result = vector()
+    fn __div__(self, f64 factor):
+        let object result = vector()
         return result
