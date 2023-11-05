@@ -1,4 +1,4 @@
-# cython: infer_types=True, language_level=3, auto_pickle=False
+# cython: infer_types=true, language_level=3, auto_pickle=false
 #
 #   Cython Scanner
 #
