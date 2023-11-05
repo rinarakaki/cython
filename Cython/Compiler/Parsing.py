@@ -2341,7 +2341,7 @@ def p_simple_statement(s, first_statement = 0):
         node = p_use_statement(s)
     elif s.sy in ("import", "cimport"):
         node = p_import_statement(s)
-    elif s.sy == 'from':
+    elif s.sy == "from" or s.systring == "from":
         node = p_from_import_statement(s, first_statement = first_statement)
     elif s.sy == 'yield':
         node = p_yield_statement(s)
