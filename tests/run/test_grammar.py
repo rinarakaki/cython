@@ -127,8 +127,8 @@ VALID_UNDERSCORE_LITERALS = [
     '1_00_00.5e5',
     '1_00_00e5_1',
     '1e1_0',
-    '.1_4',
-    '.1_4e1',
+    '0.1_4',
+    '0.1_4e1',
     '0b_0',
     '0x_f',
     '0o_5',
@@ -172,8 +172,8 @@ INVALID_UNDERSCORE_LITERALS = [
     # Underscore right after a dot:
     '1._4',
     '1._4j',
-    '._5',
-    '._5j',
+    '0._5',
+    '0._5j',
     # Underscore right after a sign:
     '1.0e+_1',
     '1.0e+_1j',
