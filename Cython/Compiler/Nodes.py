@@ -1463,8 +1463,8 @@ class CVarDefNode(StatNode):
                 env.declare_type(template_param.name, template_param, self.pos)
 
 
-        # Check for declaration modifiers, e.g. "typing.Optional[...]" or "dataclasses.InitVar[...]"
         base_type = None
+        # Check for declaration modifiers, e.g. "typing.Optional[...]" or "dataclasses.InitVar[...]"
         modifiers = None
         if self.base_type is not None:
             base_type = self.base_type.analyse(env)
