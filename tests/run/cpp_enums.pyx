@@ -13,8 +13,8 @@ extern from *:
         Item1
         Item2
 
-a = Item1
-b = Item2
+a = Enum1::Item1
+b = Enum1::Item2
 
 cdef Enum1 x, y
 x = Item1
@@ -40,12 +40,12 @@ extern from * namespace "Namespace1":
         Item3
         Item4
 
-c = Item3
-d = Item4
+c = Enum2::Item3
+d = Enum2::Item4
 
 cdef Enum2 z, w
-z = Item3
-w = Item4
+z = Enum2::Item3
+w = Enum2::Item4
 
 def compare_namespace_enums():
     """
