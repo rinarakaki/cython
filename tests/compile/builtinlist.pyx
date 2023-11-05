@@ -14,5 +14,5 @@ fn i32 f() except -1:
     z = l.as_tuple()
     return z is not None
 
-def test():
+fn test():
     f()
