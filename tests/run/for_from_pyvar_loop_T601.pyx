@@ -11,7 +11,7 @@ def for_from_plain_ulong():
     2
     """
     let object j = 0
-    for j in 0..size2():
+    for j from 0 <= j < size2():
         print j
 
 def for_in_plain_ulong():
@@ -22,7 +22,7 @@ def for_in_plain_ulong():
     2
     """
     let object j = 0
-    for j in 0..size2():
+    for j in range(size2()):
         print j
 
 extern from *:
@@ -40,7 +40,7 @@ def for_from_ctypedef_ulong():
     2
     """
     let object j = 0
-    for j in 0..size():
+    for j from 0 <= j < size():
         print j
 
 def for_in_ctypedef_ulong():
@@ -64,11 +64,11 @@ class ForFromLoopInPyClass(object):
     >>> ForFromLoopInPyClass.m
     1
     """
-    for i in 0..1:
+    for i from 0 <= i < 1:
         pass
 
-    for k in 0..2:
+    for k from 0 <= k < 2:
         pass
 
-    for m in 0..3:
+    for m from 0 <= m < 3:
         pass
