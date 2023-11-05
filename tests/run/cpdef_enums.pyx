@@ -164,7 +164,7 @@ def check_docs():
 
 def to_from_py_conversion(PxdEnum val):
     """
-    >>> to_from_py_conversion(::Rank1) is PxdEnum.::Rank1
+    >>> to_from_py_conversion(::Rank1) is PxdEnum::Rank1
     True
 
     C enums are commonly enough used as flags that it seems reasonable
@@ -224,9 +224,9 @@ def test_pickle():
     >>> if sys.version_info < (3, 6) or sys.version_info[:3] == (3,11,4):
     ...     loads = dumps = lambda x: x
 
-    >>> loads(dumps(PyxEnum.Two)) == PyxEnum.Two
+    >>> loads(dumps(PyxEnum::Two)) == PyxEnum::Two
     True
-    >>> loads(dumps(PxdEnum.::Rank2)) == PxdEnum.::Rank2
+    >>> loads(dumps(PxdEnum::Rank2)) == PxdEnum::Rank2
     True
     """
     pass
@@ -237,9 +237,9 @@ def test_as_default_value(PxdEnum val=PxdEnum::Rank1):
     before the function definition
     >>> test_as_default_value()
     True
-    >>> test_as_default_value(PxdEnum.::Rank2)
+    >>> test_as_default_value(PxdEnum::Rank2)
     False
-    >>> test_as_default_value.__defaults__[0] == PxdEnum.::Rank1
+    >>> test_as_default_value.__defaults__[0] == PxdEnum::Rank1
     True
     """
-    return val == PxdEnum.::Rank1
+    return val == PxdEnum::Rank1
