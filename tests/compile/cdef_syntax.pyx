@@ -10,5 +10,5 @@ fn no_semi():
 fn with_semi():
     let i32 i;
 
-def use_cdef():
+fn use_cdef():
     &no_semi, &with_semi
