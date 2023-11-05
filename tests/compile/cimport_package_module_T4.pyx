@@ -3,4 +3,4 @@
 
 use a::b
 
-let i32 **t = b.foo(NULL)
+cdef i32 **t = b.foo(NULL)
