@@ -16,7 +16,7 @@ ctypedef fused fused_t:
     i64
     complex
 
-#[cython.wraparound(false)]
-#[cython.boundscheck(false)]
+#[cython::wraparound(false)]
+#[cython::boundscheck(false)]
 fn func(fused_t a, cython.floating b):
     return a, b
