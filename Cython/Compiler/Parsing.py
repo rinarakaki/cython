@@ -325,12 +325,10 @@ def p_range_expr(s):
             s.next()
             stop = p_factor(s)
 
-        arg_tuple, keyword_dict = p_call_build_packed_args(pos, [start, stop], [])
-        return ExprNodes.GeneralCallNode(
+        return ExprNodes.SimpleCallNode(
             pos,
             function=p_name(s, name="range"),
-            positional_args=arg_tuple,
-            keyword_args=keyword_dict,
+            args=[start, stop],
         )
     else:
         return expr
