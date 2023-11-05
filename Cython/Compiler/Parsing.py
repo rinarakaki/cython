@@ -2761,7 +2761,7 @@ def p_c_simple_base_type(s, nonempty, templates=None):
         #print "p_c_simple_base_type: looking_at_type_name at", s.position()
         name = s.systring
         s.next()
-        while s.sy == '.':
+        while s.sy in (".", "::"):
             module_path.append(name)
             s.next()
             name = p_ident(s)
