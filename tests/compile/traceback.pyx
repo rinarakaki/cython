@@ -1,11 +1,11 @@
 # mode: compile
 
-def spam():
+fn spam():
     raise Exception
 
 fn i32 grail() except -1:
     raise Exception
 
-def tomato():
+fn tomato():
     spam()
     grail()
