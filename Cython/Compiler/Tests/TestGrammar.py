@@ -28,17 +28,17 @@ VALID_UNDERSCORE_LITERALS = [
     '1_00_00j',
     '1_00_00e5_1',
     '1e1_0',
-    '.1_4',
-    '.1_4e1',
+    '0.1_4',
+    '0.1_4e1',
     '0b_0',
     '0x_f',
     '0o_5',
     '1_00_00j',
     '1_00_00.5j',
     '1_00_00e5_1j',
-    '.1_4j',
+    '0.1_4j',
     '(1_2.5+3_3j)',
-    '(.5_6j)',
+    '(0.5_6j)',
 ]
 
 # Copied from CPython's test_grammar.py
@@ -74,10 +74,10 @@ INVALID_UNDERSCORE_LITERALS = [
     '1_.4',
     '1_.4j',
     # Underscore right after a dot:
-    '1._4',
-    '1._4j',
-    '._5',
-    '._5j',
+    '1.0_4',
+    '1.0_4j',
+    '0._5',
+    '0._5j',
     # Underscore right after a sign:
     '1.0e+_1',
     '1.0e+_1j',

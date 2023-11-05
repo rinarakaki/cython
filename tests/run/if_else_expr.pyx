@@ -49,7 +49,7 @@ def test_syntax():
     # Py3 allows the 'else' keyword to directly follow a number
     x = 0 if 1else 1
     y = 0 if 1.0else 1
-    z = 0 if 1.else 1
+    z = 0 if 1.0else 1
     return x, y, z
 
 use libc::math

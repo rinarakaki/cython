@@ -16,7 +16,7 @@ def double_target(a, b):
 
 def double_step(a, b, dx):
     """
-    >>> double_step(0, 2, .5)
+    >>> double_step(0, 2, 0.5)
     at 0.0
     at 0.5
     at 1.0
@@ -30,7 +30,7 @@ def double_step(a, b, dx):
 
 def double_step_typed(a, b, f64 dx):
     """
-    >>> double_step_typed(0, 2, .5)
+    >>> double_step_typed(0, 2, 0.5)
     at 0.0
     at 0.5
     at 1.0
@@ -44,7 +44,7 @@ def double_step_typed(a, b, f64 dx):
 
 def double_step_py_target(a, b, f64 dx):
     """
-    >>> double_step_py_target(0, 2, .5)
+    >>> double_step_py_target(0, 2, 0.5)
     at 0.0
     at 0.5
     at 1.0

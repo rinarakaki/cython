@@ -176,7 +176,7 @@ def binomial_distribution_test(n, proba, sample=true):
 
 def geometric_distribution_test(proba, sample=true):
     """
-    >>> geometric_distribution_test(.4)
+    >>> geometric_distribution_test(0.4)
     >>> geometric_distribution_test(0.2, False)  # 2147483647 = 2 ** 32 - 1
     (0, 2147483647)
     """
@@ -185,7 +185,7 @@ def geometric_distribution_test(proba, sample=true):
 
 def negative_binomial_distribution_test(n, p, sample=true):
     """
-    >>> negative_binomial_distribution_test(5, .1)
+    >>> negative_binomial_distribution_test(5, 0.1)
     >>> negative_binomial_distribution_test(10, 0.2, False)  # 2147483647 = 2 ** 32 - 1
     (0, 2147483647)
     """

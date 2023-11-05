@@ -608,14 +608,14 @@ def test_null_default():
     2.0 1.0
     2.0
     """
-    let f64 xd = 2.
+    let f64 xd = 2.0
     let f64 xd_minus_1
     result = null_default(xd, &xd_minus_1)
     print(result, xd_minus_1)
     result = null_default(xd)
     print(result)
 
-    let f32 xf = 2.
+    let f32 xf = 2.0
     let f32 xf_minus_1
     result = null_default(xf, &xf_minus_1)
     print(result, xf_minus_1)
