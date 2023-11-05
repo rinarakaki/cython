@@ -16,7 +16,7 @@ extern from "math.h":
 cdef f64 pi
 pi = 3.14159265358979323846
 
-def main():
+fn main():
     #print n1
     print "%.18f" % M_PI
     print "%.18f" % (<f64> M_PI)
