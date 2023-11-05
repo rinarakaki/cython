@@ -1,8 +1,7 @@
 # mode: compile
 
 cdef class Tomato:
-
-    def eject(self):
+    fn eject(self):
         pass
 
 cdef extern Sandwich butty
