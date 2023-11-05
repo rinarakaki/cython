@@ -16,9 +16,9 @@ cdef packed struct custom_dtype_struct:
 def sum(custom_dtype_struct [:] a):
     cdef:
         u8 sum_x = 0
-        f32 sum_y = 0.
+        f32 sum_y = 0.0
 
-    for i in range(a.shape[0]):
+    for i in 0..a.shape[0]:
         sum_x += a[i].x
         sum_y += a[i].y
 

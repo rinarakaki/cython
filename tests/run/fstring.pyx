@@ -133,9 +133,9 @@ def format2(ab, cd):
     assert isinstance(c, unicode) or (IS_PYPY and isinstance(c, str)), type(c)
     return a, b, c
 
-enum TestValues:
-    enum_ABC = 1
-    enum_XYZ = 2
+enum TestEnum:
+    Abc = 1
+    Xyz = 2
 
 @cython.test_fail_if_path_exists(
     "//CoerceToPyTypeNode",
@@ -146,7 +146,7 @@ def format_c_enum():
     >>> s == '1-2' or s
     True
     """
-    return f"{enum_ABC}-{enum_XYZ}"
+    return f"{TestEnum::Abc}-{TestEnum::Xyz}"
 
 def format_c_numbers(signed char c, i16 s, i32 n, i64 l, f32 f, f64 d):
     """
@@ -248,7 +248,7 @@ def format_c_number_const():
 )
 def format_c_number_range(i32 n):
     """
-    >>> for i in range(-1000, 1001):
+    >>> for i in -1000..1001:
     ...     assert format_c_number_range(i) == str(i)
     """
     return f'{n}'
@@ -258,7 +258,7 @@ def format_c_number_range(i32 n):
 )
 def format_c_number_range_width(i32 n):
     """
-    >>> for i in range(-1000, 1001):
+    >>> for i in -1000..1001:
     ...     formatted = format_c_number_range_width(i)
     ...     expected = '{n:04d}'.format(n=i)
     ...     assert formatted == expected, "%r != %r" % (formatted, expected)
@@ -267,7 +267,7 @@ def format_c_number_range_width(i32 n):
 
 def format_c_number_range_width0(i32 n):
     """
-    >>> for i in range(-100, 101):
+    >>> for i in -100..101:
     ...     formatted = format_c_number_range_width0(i)
     ...     expected = '{n:00d}'.format(n=i)
     ...     assert formatted == expected, "%r != %r" % (formatted, expected)
@@ -279,7 +279,7 @@ def format_c_number_range_width0(i32 n):
 )
 def format_c_number_range_width1(i32 n):
     """
-    >>> for i in range(-100, 101):
+    >>> for i in -100..101:
     ...     formatted = format_c_number_range_width1(i)
     ...     expected = '{n:01d}'.format(n=i)
     ...     assert formatted == expected, "%r != %r" % (formatted, expected)
@@ -291,7 +291,7 @@ def format_c_number_range_width1(i32 n):
 )
 def format_c_number_range_width_m4(i32 n):
     """
-    >>> for i in range(-100, 101):
+    >>> for i in -100..101:
     ...     formatted = format_c_number_range_width_m4(i)
     ...     expected = '{n:-4d}'.format(n=i)
     ...     assert formatted == expected, "%r != %r" % (formatted, expected)
@@ -300,7 +300,7 @@ def format_c_number_range_width_m4(i32 n):
 
 def format_c_number_range_dyn_width(i32 n, i32 width):
     """
-    >>> for i in range(-1000, 1001):
+    >>> for i in -1000..1001:
     ...     assert format_c_number_range_dyn_width(i, 0) == str(i), format_c_number_range_dyn_width(i, 0)
     ...     assert format_c_number_range_dyn_width(i, 1) == '%01d' % i, format_c_number_range_dyn_width(i, 1)
     ...     assert format_c_number_range_dyn_width(i, 4) == '%04d' % i, format_c_number_range_dyn_width(i, 4)

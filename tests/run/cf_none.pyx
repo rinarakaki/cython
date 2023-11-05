@@ -94,7 +94,7 @@ def self_dependency(i32 x):
     let dict a, b
     a = {1:2}
     b = {2:1}
-    for i in range(x):
+    for i in 0..x:
         a, b = b, a
     return a.get(2), b.get(1)
 
