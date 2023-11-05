@@ -3386,7 +3386,7 @@ def p_cdef_extern_block(s, pos, ctx):
     if ctx.overridable:
         error(pos, "cdef extern blocks cannot be declared cpdef")
     include_file = None
-    s.expect('from')
+    s.next()  # s.systring == "from"
     if s.sy == '*':
         s.next()
     else:
