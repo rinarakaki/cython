@@ -136,7 +136,7 @@ fn f64 return_in_if(f64 x):
 fn f64 nested_loops(f64 x):
     let f64 counter = 0
     while x > counter:
-        counter += 10.
+        counter += 10.0
         for i in range(100):
             if i > x:
                 return i

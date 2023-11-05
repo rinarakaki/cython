@@ -141,7 +141,7 @@ def test_method_with_memoryview_handling():
     let f32[10] static_arr
     let f32[:;1] view_of_static_arr = <float[:10;1]>static_arr
     future = run_block_and_wait_with_gil()
-    d = D(5.)
+    d = D(5.0)
     with nogil:
         wait_for_waiting()  # make sure the C++ thread has started and is holding the GIL
         d.call_me(view_of_static_arr)

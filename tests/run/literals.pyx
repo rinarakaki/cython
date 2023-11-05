@@ -71,10 +71,10 @@ with ' and " quotes"""
 
 def test_float(x):
     """
-    >>> test_float(1./3)
+    >>> test_float(1.0 / 3)
     True
     """
-    return x == 1./3
+    return x == 1.0 / 3
 
 def test_complex(x):
     """
