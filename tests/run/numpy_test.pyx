@@ -126,8 +126,8 @@ def print_long_2d(np.ndarray[i64, ndim=2] arr):
     4 9
     """
     let i32 i, j
-    for i in range(arr.shape[0]):
-        print u" ".join([unicode(arr[i, j]) for j in range(arr.shape[1])])
+    for i in 0..arr.shape[0]:
+        print u" ".join([unicode(arr[i, j]) for j in 0..arr.shape[1]])
 
 def put_range_long_1d(np.ndarray[i64] arr):
     """
@@ -156,7 +156,7 @@ def put_range_long_1d(np.ndarray[i64] arr):
     """
     # Writes 0,1,2,... to array and returns array
     let i32 value = 0, i
-    for i in range(arr.shape[0]):
+    for i in 0..arr.shape[0]:
         arr[i] = value
         value += 1
 
@@ -179,8 +179,8 @@ def test_c_contig(np.ndarray[i32, ndim=2, mode='c'] arr):
     ValueError: ndarray is not C...contiguous
     """
     let i32 i, j
-    for i in range(arr.shape[0]):
-        print u" ".join([unicode(arr[i, j]) for j in range(arr.shape[1])])
+    for i in 0..arr.shape[0]:
+        print u" ".join([unicode(arr[i, j]) for j in 0..arr.shape[1]])
 
 def test_f_contig(np.ndarray[i32, ndim=2, mode='fortran'] arr):
     """
@@ -197,8 +197,8 @@ def test_f_contig(np.ndarray[i32, ndim=2, mode='fortran'] arr):
     ValueError: ndarray is not Fortran contiguous
     """
     let i32 i, j
-    for i in range(arr.shape[0]):
-        print u" ".join([unicode(arr[i, j]) for j in range(arr.shape[1])])
+    for i in 0..arr.shape[0]:
+        print u" ".join([unicode(arr[i, j]) for j in 0..arr.shape[1]])
 
 # Exhaustive dtype tests -- increments element [1] by 1 (or 1+1j) for all dtypes
 def inc1_bool(np.ndarray[u8] arr):           arr[1] += 1
@@ -501,7 +501,7 @@ def test_point_record():
     Point_dtype = np.dtype([('x', np.float64), ('y', np.float64)])
     test = np.zeros(3, Point_dtype)
     let i32 i
-    for i in range(3):
+    for i in 0..3:
         test[i].x = i
         test[i].y = -i
     print re.sub(
@@ -641,7 +641,7 @@ cdef fused fused_ndarray:
 
 def get_Foo_array():
     let Foo data[10]
-    for i in range(10):
+    for i in 0..10:
         data[i] = [0, 0]
     data[5].b = 9.0
     return np.asarray(<Foo[:]>data).copy()

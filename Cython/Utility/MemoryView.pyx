@@ -256,7 +256,7 @@ fn i32 _allocate_buffer(array self) except -1:
 
     if self.dtype_is_object:
         p = <PyObject **> self.data
-        for i in range(self.len // self.itemsize):
+        for i in 0..(self.len // self.itemsize):
             p[i] = Py_None
             Py_INCREF(Py_None)
     return 0
@@ -375,7 +375,7 @@ cdef class memoryview:
         let i32 i
         global __pyx_memoryview_thread_locks_used
         if self.lock != NULL:
-            for i in range(__pyx_memoryview_thread_locks_used):
+            for i in 0..__pyx_memoryview_thread_locks_used:
                 if __pyx_memoryview_thread_locks[i] is self.lock:
                     __pyx_memoryview_thread_locks_used -= 1
                     if i != __pyx_memoryview_thread_locks_used:
@@ -925,7 +925,7 @@ fn i32 transpose_memslice({{memviewslice_name}} *memslice) except -1 nogil:
 
     # reverse strides and shape
     let i32 i, j
-    for i in range(ndim // 2):
+    for i in 0..(ndim // 2):
         j = ndim - 1 - i
         strides[i], strides[j] = strides[j], strides[i]
         shape[i], shape[j] = shape[j], shape[i]
@@ -1062,7 +1062,7 @@ fn void slice_copy(memoryview memview, {{memviewslice_name}} *dst) noexcept:
     dst.memview = <__pyx_memoryview *> memview
     dst.data = <char *> memview.view.buf
 
-    for dim in range(memview.view.ndim):
+    for dim in 0..memview.view.ndim:
         dst.shape[dim] = shape[dim]
         dst.strides[dim] = strides[dim]
         dst.suboffsets[dim] = suboffsets[dim] if suboffsets else -1
@@ -1113,7 +1113,7 @@ fn char get_best_order({{memviewslice_name}} *mslice, i32 ndim) noexcept nogil:
             c_stride = mslice.strides[i]
             break
 
-    for i in range(ndim):
+    for i in 0..ndim:
         if mslice.shape[i] > 1:
             f_stride = mslice.strides[i]
             break
@@ -1141,12 +1141,12 @@ fn void _copy_strided_to_strided(char *src_data, isize *src_strides,
             <usize> src_stride == itemsize == <usize> dst_stride):
             memcpy(dst_data, src_data, itemsize * dst_extent)
         else:
-            for i in range(dst_extent):
+            for i in 0..dst_extent:
                 memcpy(dst_data, src_data, itemsize)
                 src_data += src_stride
                 dst_data += dst_stride
     else:
-        for i in range(dst_extent):
+        for i in 0..dst_extent:
             _copy_strided_to_strided(src_data, src_strides + 1,
                                      dst_data, dst_strides + 1,
                                      src_shape + 1, dst_shape + 1,
@@ -1181,7 +1181,7 @@ fn isize fill_contig_strides_array(
     let i32 idx
 
     if order == 'F':
-        for idx in range(ndim):
+        for idx in 0..ndim:
             strides[idx] = stride
             stride *= shape[idx]
     else:
@@ -1213,14 +1213,14 @@ fn void *copy_data_to_temp({{memviewslice_name}} *src,
     # tmpslice[0] = src
     tmpslice.data = <char *> result
     tmpslice.memview = src.memview
-    for i in range(ndim):
+    for i in 0..ndim:
         tmpslice.shape[i] = src.shape[i]
         tmpslice.suboffsets[i] = -1
 
     fill_contig_strides_array(&tmpslice.shape[0], &tmpslice.strides[0], itemsize, ndim, order)
 
     # We need to broadcast strides again
-    for i in range(ndim):
+    for i in 0..ndim:
         if tmpslice.shape[i] == 1:
             tmpslice.strides[i] = 0
 
@@ -1275,7 +1275,7 @@ fn i32 memoryview_copy_contents({{memviewslice_name}} src,
 
     let i32 ndim = max(src_ndim, dst_ndim)
 
-    for i in range(ndim):
+    for i in 0..ndim:
         if src.shape[i] != dst.shape[i]:
             if src.shape[i] == 1:
                 broadcasting = true
@@ -1335,7 +1335,7 @@ fn void broadcast_leading({{memviewslice_name}} *mslice,
         mslice.strides[i + offset] = mslice.strides[i]
         mslice.suboffsets[i + offset] = mslice.suboffsets[i]
 
-    for i in range(offset):
+    for i in 0..offset:
         mslice.shape[i] = 1
         mslice.strides[i] = mslice.strides[0]
         mslice.suboffsets[i] = -1
@@ -1363,7 +1363,7 @@ fn void refcount_objects_in_slice(char *data, isize *shape,
     let isize i
     let isize stride = strides[0]
 
-    for i in range(shape[0]):
+    for i in 0..shape[0]:
         if ndim == 1:
             if inc:
                 Py_INCREF((<PyObject **> data)[0])
@@ -1395,11 +1395,11 @@ fn void _slice_assign_scalar(char *data, isize *shape,
     let isize extent = shape[0]
 
     if ndim == 1:
-        for i in range(extent):
+        for i in 0..extent:
             memcpy(data, item, itemsize)
             data += stride
     else:
-        for i in range(extent):
+        for i in 0..extent:
             _slice_assign_scalar(data, shape + 1, strides + 1, ndim - 1, itemsize, item)
             data += stride
 
@@ -1470,7 +1470,7 @@ fn bytes format_from_typeinfo(__Pyx_TypeInfo *type):
         fmt = __Pyx_TypeInfoToFormat(type)
         result = fmt.string
         if type.arraysize[0]:
-            extents = [f"{type.arraysize[i]}" for i in range(type.ndim)]
+            extents = [f"{type.arraysize[i]}" for i in 0..type.ndim]
             result = f"({u','.join(extents)})".encode('ascii') + result
 
     return result

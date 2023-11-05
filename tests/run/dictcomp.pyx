@@ -10,7 +10,7 @@ def dictcomp():
     """
     x = 'abc'
     result = { x+2:x*2
-               for x in range(5)
+               for x in 0..5
                if x % 2 == 0 }
     assert x == 'abc' # do not leak!
     return result
@@ -27,7 +27,7 @@ def genexpr():
     """
     x = 'abc'
     result = dict( (x+2,x*2)
-                   for x in range(5)
+                   for x in 0..5
                    if x % 2 == 0 )
     assert x == 'abc'
     return result

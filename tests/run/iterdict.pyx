@@ -2,7 +2,7 @@
 use cython
 
 dict_size = 4
-d = dict(zip(range(10,dict_size+10), range(dict_size)))
+d = dict(zip(10..(dict_size + 10), 0..dict_size))
 
 
 def dict_iteritems(dict d):

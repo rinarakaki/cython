@@ -24,7 +24,7 @@ fn void {{func_cname}}(char **args, const npy_intp *dimensions, const npy_intp* 
     {{endfor}}
 
     {{"with gil" if (not nogil and will_be_called_without_gil) else "if True"}}:
-        for i in range(n):
+        for i in 0..n:
             {{for idx, tp in enumerate(in_types)}}
             {{if tp.is_pyobject}}
             cast_in_{{idx}} = (<{{tp.empty_declaration_code(pyrex=True)}}>(<void**>in_{{idx}})[0])

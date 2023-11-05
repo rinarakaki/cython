@@ -11,7 +11,7 @@ def for_in():
     6
     """
     i = -1
-    for L in [[], range(5), range(10)]:
+    for L in [[], 0..5, 0..10]:
         for i in L:
             if i > 5:
                 break
@@ -32,8 +32,8 @@ def for_from():
     6
     """
     i = -1
-    for L in [[], range(5), range(10)]:
-        for i from 0 <= i < len(L):
+    for L in [[], 0..5, 0..10]:
+        for i in 0..len(L):
             if i > 5:
                 break
         else:

@@ -22,7 +22,7 @@ def median_along_axis0(const f64[:, :] x):
         try:
             for i in prange(x.shape[1]):
                 # copy row into scratch space
-                for j in range(x.shape[0]):
+                for j in 0..x.shape[0]:
                     dereference(scratch)[j] = x[j, i]
                 median_it = scratch.begin() + scratch.size() // 2
                 nth_element(scratch.begin(), median_it, scratch.end())

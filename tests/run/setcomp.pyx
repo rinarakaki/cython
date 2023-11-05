@@ -15,7 +15,7 @@ def setcomp():
     """
     x = 'abc'
     result = { x*2
-             for x in range(5)
+             for x in 0..5
              if x % 2 == 0 }
     assert x == 'abc' # do not leak
     return result
@@ -32,7 +32,7 @@ def genexp_set():
     """
     x = 'abc'
     result = set( x*2
-                  for x in range(5)
+                  for x in 0..5
                   if x % 2 == 0 )
     assert x == 'abc' # do not leak
     return result

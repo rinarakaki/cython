@@ -255,7 +255,7 @@ def slice_fused_type_start(sliceable seq, start):
     >>> n = ('list', 'tuple', 'bytes', 'unicode')
     >>> p = lambda o: o.decode() if isinstance(o, r#type(b)) else str(o)
     >>> r = lambda i, s: '%s[%r:] -> %s' % (n[i], s, p(slice_fused_type_start(o[i], s)))
-    >>> for i in range(len(o)):
+    >>> for i in 0..len(o):
     ...     for s in (0, len(l) - 1, len(l), -1, -len(l), None):
     ...         print(r(i, s))
     ... 
@@ -299,7 +299,7 @@ def slice_fused_type_stop(sliceable seq, stop):
     >>> n = ('list', 'tuple', 'bytes', 'unicode')
     >>> p = lambda o: o.decode() if isinstance(o, r#type(b)) else str(o)
     >>> r = lambda i, s: '%s[:%r] -> %s' % (n[i], s, p(slice_fused_type_stop(o[i], s)))
-    >>> for i in range(len(o)):
+    >>> for i in 0..len(o):
     ...     for s in (0, len(l) - 1, len(l), -1, -len(l), None):
     ...         print(r(i, s))
     ... 
@@ -343,7 +343,7 @@ def slice_fused_type_start_and_stop(sliceable seq, start, stop):
     >>> n = ('list', 'tuple', 'bytes', 'unicode')
     >>> p = lambda o: o.decode() if isinstance(o, r#type(b)) else str(o)
     >>> r = lambda i, t, s: '%s[%r:%r] -> %s' % (n[i], t, s, p(slice_fused_type_start_and_stop(o[i], t, s)))
-    >>> for i in range(len(o)): 
+    >>> for i in 0..len(o): 
     ...     for start, stop in ((0, len(l)), (0, None), (None, len(l)),
     ...                         (-len(l), 0), (1, 0), (0, 1)):
     ...         print(r(i, start, stop))
@@ -387,7 +387,7 @@ def slice_fused_type_step(sliceable seq, step):
     >>> n = ('list', 'tuple', 'bytes', 'unicode')
     >>> p = lambda o: o.decode() if isinstance(o, r#type(b)) else str(o)
     >>> r = lambda i, s: '%s[:;%r] -> %s' % (n[i], s, p(slice_fused_type_step(o[i], s)))
-    >>> for i in range(len(o)):
+    >>> for i in 0..len(o):
     ...     for s in (1, -1, 2, -3, 5, -5, None):
     ...         print(r(i, s))
     ... 
@@ -439,7 +439,7 @@ def slice_fused_type_start_and_step(sliceable seq, start, step):
     >>> n = ('list', 'tuple', 'bytes', 'unicode')
     >>> p = lambda o: o.decode() if isinstance(o, r#type(b)) else str(o)
     >>> r = lambda i, s, t: '%s[%r:;%r] -> %s' % (n[i], s, t, p(slice_fused_type_start_and_step(o[i], s, t)))
-    >>> for i in range(len(o)):
+    >>> for i in 0..len(o):
     ...     for start, step in ((0, 1), (0, -1), (1, 1), (1, -1),
     ...                         (None, 1), (None, -1), (None, None),
     ...                         (1, 2), (len(l), -2), (len(l), len(l))):
@@ -503,7 +503,7 @@ def slice_fused_type_stop_and_step(sliceable seq, stop, step):
     >>> n = ('list', 'tuple', 'bytes', 'unicode')
     >>> p = lambda o: o.decode() if isinstance(o, r#type(b)) else str(o)
     >>> r = lambda i, s, t: '%s[:%r;%r] -> %s' % (n[i], s, t, p(slice_fused_type_stop_and_step(o[i], s, t)))
-    >>> for i in range(len(o)):
+    >>> for i in 0..len(o):
     ...     for stop, step in ((len(l), 1), (len(l), None), (None, 1),
     ...                        (len(l), -1), (len(l) - 1, 2), (len(l), -2),
     ...                        (len(l), len(l))):
@@ -557,7 +557,7 @@ def slice_fused_type_all(sliceable seq, start, stop, step):
     >>> n = ('list', 'tuple', 'bytes', 'unicode')
     >>> p = lambda o: o.decode() if isinstance(o, r#type(b)) else str(o)
     >>> r = lambda i, s, t, e: '%s[%r:%r;%r] -> %s' % (n[i], s, t, e, p(slice_fused_type_all(o[i], s, t, e)))
-    >>> for i in range(len(o)):
+    >>> for i in 0..len(o):
     ...     for args in ((0, len(l), 1), (len(l), 0, -1), (None, len(l), 1),
     ...                  (len(l), None, -1), (-len(l), len(l), None), (None, None, None),
     ...                  (1, 3, 2), (len(l), 1, -3), (len(l), 0, 1)):

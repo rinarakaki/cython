@@ -27,7 +27,7 @@ def test_parallel_numpy_arrays():
     try:
         import numpy
     except ImportError:
-        for i in range(-5, 5):
+        for i in -5..5:
             print i
         return
 

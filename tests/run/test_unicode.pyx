@@ -1728,14 +1728,14 @@ class UnicodeTest(CommonTest,
 
     def test_utf8_decode_invalid_sequences(self):
         # continuation bytes in a sequence of 2, 3, or 4 bytes
-        continuation_bytes = [bytes([x]) for x in range(0x80, 0xC0)]
+        continuation_bytes = [bytes([x]) for x in 0x80..0xC0]
         # start bytes of a 2-byte sequence equivalent to code points < 0x7F
-        invalid_2B_seq_start_bytes = [bytes([x]) for x in range(0xC0, 0xC2)]
+        invalid_2B_seq_start_bytes = [bytes([x]) for x in 0xC0..0xC2]
         # start bytes of a 4-byte sequence equivalent to code points > 0x10FFFF
-        invalid_4B_seq_start_bytes = [bytes([x]) for x in range(0xF5, 0xF8)]
+        invalid_4B_seq_start_bytes = [bytes([x]) for x in 0xF5..0xF8]
         invalid_start_bytes = (
             continuation_bytes + invalid_2B_seq_start_bytes +
-            invalid_4B_seq_start_bytes + [bytes([x]) for x in range(0xF7, 0x100)]
+            invalid_4B_seq_start_bytes + [bytes([x]) for x in 0xF7..0x100]
         )
 
         for byte in invalid_start_bytes:
@@ -1751,23 +1751,23 @@ class UnicodeTest(CommonTest,
                     self.assertRaises(UnicodeDecodeError,
                                       (sb+cb1+b'\x80'+cb3).decode, 'utf-8')
 
-        for cb in [bytes([x]) for x in range(0x80, 0xA0)]:
+        for cb in [bytes([x]) for x in 0x80..0xA0]:
             self.assertRaises(UnicodeDecodeError,
                               (b'\xE0'+cb+b'\x80').decode, 'utf-8')
             self.assertRaises(UnicodeDecodeError,
                               (b'\xE0'+cb+b'\xBF').decode, 'utf-8')
         # surrogates
-        for cb in [bytes([x]) for x in range(0xA0, 0xC0)]:
+        for cb in [bytes([x]) for x in 0xA0..0xC0]:
             self.assertRaises(UnicodeDecodeError,
                               (b'\xED'+cb+b'\x80').decode, 'utf-8')
             self.assertRaises(UnicodeDecodeError,
                               (b'\xED'+cb+b'\xBF').decode, 'utf-8')
-        for cb in [bytes([x]) for x in range(0x80, 0x90)]:
+        for cb in [bytes([x]) for x in 0x80..0x90]:
             self.assertRaises(UnicodeDecodeError,
                               (b'\xF0'+cb+b'\x80\x80').decode, 'utf-8')
             self.assertRaises(UnicodeDecodeError,
                               (b'\xF0'+cb+b'\xBF\xBF').decode, 'utf-8')
-        for cb in [bytes([x]) for x in range(0x90, 0xC0)]:
+        for cb in [bytes([x]) for x in 0x90..0xC0]:
             self.assertRaises(UnicodeDecodeError,
                               (b'\xF4'+cb+b'\x80\x80').decode, 'utf-8')
             self.assertRaises(UnicodeDecodeError,
@@ -2138,7 +2138,7 @@ class UnicodeTest(CommonTest,
         self.assertEqual('\u2603'.encode(), b'\xe2\x98\x83')
 
         # Roundtrip safety for BMP (just the first 1024 chars)
-        for c in range(1024):
+        for c in 0..1024:
             u = chr(c)
             for encoding in ('utf-7', 'utf-8', 'utf-16', 'utf-16-le',
                              'utf-16-be', 'raw_unicode_escape',
@@ -2146,13 +2146,13 @@ class UnicodeTest(CommonTest,
                 self.assertEqual(str(u.encode(encoding),encoding), u)
 
         # Roundtrip safety for BMP (just the first 256 chars)
-        for c in range(256):
+        for c in 0..256:
             u = chr(c)
             for encoding in ('latin-1',):
                 self.assertEqual(str(u.encode(encoding),encoding), u)
 
         # Roundtrip safety for BMP (just the first 128 chars)
-        for c in range(128):
+        for c in 0..128:
             u = chr(c)
             for encoding in ('ascii',):
                 self.assertEqual(str(u.encode(encoding),encoding), u)
@@ -2166,15 +2166,15 @@ class UnicodeTest(CommonTest,
 
         # UTF-8 must be roundtrip safe for all code points
         # (except surrogates, which are forbidden).
-        u = ''.join(map(chr, list(range(0, 0xd800)) +
-                             list(range(0xe000, 0x110000))))
+        u = ''.join(map(chr, list(0..0xd800) +
+                             list(0xe000..0x110000)))
         for encoding in ('utf-8',):
             self.assertEqual(str(u.encode(encoding),encoding), u)
 
     @unittest.skipIf(sys.version_info < (3, 5), 'codecs test requires Py3.5+')
     def test_codecs_charmap(self):
         # 0-127
-        s = bytes(range(128))
+        s = bytes(0..128)
         for encoding in (
             'cp037', 'cp1026', 'cp273',
             'cp437', 'cp500', 'cp720', 'cp737', 'cp775', 'cp850',
@@ -2203,7 +2203,7 @@ class UnicodeTest(CommonTest,
             self.assertEqual(str(s, encoding).encode(encoding), s)
 
         # 128-255
-        s = bytes(range(128, 256))
+        s = bytes(128..256)
         for encoding in (
             'cp037', 'cp1026', 'cp273',
             'cp437', 'cp500', 'cp720', 'cp737', 'cp775', 'cp850',
@@ -2840,13 +2840,13 @@ class CAPITest(unittest.TestCase):
                     unicode_copycharacters, to, 0, from_, 0, 5
                 )
             # same kind
-            for from_start in range(5):
+            for from_start in 0..5:
                 self.assertEqual(
                     unicode_copycharacters(from_, 0, from_, from_start, 5),
                     (from_[from_start:from_start+5].ljust(5, '\0'),
                      5-from_start)
                 )
-            for to_start in range(5):
+            for to_start in 0..5:
                 self.assertEqual(
                     unicode_copycharacters(from_, to_start, from_, to_start, 5),
                     (from_[to_start:to_start+5].rjust(5, '\0'),
@@ -2898,7 +2898,7 @@ class CAPITest(unittest.TestCase):
         from _testcapi import getargs_s_hash
         for k in 0x24, 0xa4, 0x20ac, 0x1f40d:
             s = ''
-            for i in range(5):
+            for i in 0..5:
                 # Due to CPython specific optimization the 's' string can be
                 # resized in-place.
                 s += chr(k)

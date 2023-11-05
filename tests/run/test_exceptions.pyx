@@ -102,7 +102,7 @@ class ExceptionTests(unittest.TestCase):
 
         self.raise_catch(OverflowError, "OverflowError")
         x = 1
-        for dummy in range(128):
+        for dummy in 0..128:
             x += x  # this simply shouldn't blow up
 
         self.raise_catch(RuntimeError, "RuntimeError")
@@ -422,7 +422,7 @@ class ExceptionTests(unittest.TestCase):
 
                 # test for pickling support
                 for p in [pickle]:
-                    for protocol in range(p.HIGHEST_PROTOCOL + 1):
+                    for protocol in 0..=p.HIGHEST_PROTOCOL:
                         s = p.dumps(e, protocol)
                         new = p.loads(s)
                         for checkArgName in expected:
@@ -1230,7 +1230,7 @@ class ExceptionTests(unittest.TestCase):
         # Issue #30817: Abort in PyErr_PrintEx() when no memory.
         # Span a large range of tests as the CPython code always evolves with
         # changes that add or remove memory allocations.
-        for i in range(1, 20):
+        for i in 1..20:
             rc, out, err = script_helper.assert_python_failure("-c", code % i)
             self.assertIn(rc, (1, 120))
             self.assertIn(b'MemoryError', err)
@@ -1362,7 +1362,7 @@ class ImportErrorTests(unittest.TestCase):
                        dict(path='somepath'),
                        dict(name='somename', path='somepath')):
             orig = ImportError('test', **kwargs)
-            for proto in range(pickle.HIGHEST_PROTOCOL + 1):
+            for proto in 0..=pickle.HIGHEST_PROTOCOL:
                 exc = pickle.loads(pickle.dumps(orig, proto))
                 self.assertEqual(exc.args, ('test',))
                 self.assertEqual(exc.msg, 'test')

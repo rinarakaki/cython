@@ -81,22 +81,22 @@ def test_ellipsis(array):
     let dtype_t[:, :] d = a[2:8, ..., 2]
     d_obj = array[2:8, ..., 2]
 
-    ae(tuple([b.shape[i] for i in range(2)]), b_obj.shape)
-    ae(tuple([b.strides[i] for i in range(2)]), b_obj.strides)
-    for i in range(b.shape[0]):
-        for j in range(b.shape[1]):
+    ae(tuple([b.shape[i] for i in 0..2]), b_obj.shape)
+    ae(tuple([b.strides[i] for i in 0..2]), b_obj.strides)
+    for i in 0..b.shape[0]:
+        for j in 0..b.shape[1]:
             ae(b[i, j], b_obj[i, j])
 
-    ae(tuple([c.shape[i] for i in range(2)]), c_obj.shape)
-    ae(tuple([c.strides[i] for i in range(2)]), c_obj.strides)
-    for i in range(c.shape[0]):
-        for j in range(c.shape[1]):
+    ae(tuple([c.shape[i] for i in 0..2]), c_obj.shape)
+    ae(tuple([c.strides[i] for i in 0..2]), c_obj.strides)
+    for i in 0..c.shape[0]:
+        for j in 0..c.shape[1]:
             ae(c[i, j], c_obj[i, j])
 
-    ae(tuple([d.shape[i] for i in range(2)]), d_obj.shape)
-    ae(tuple([d.strides[i] for i in range(2)]), d_obj.strides)
-    for i in range(d.shape[0]):
-        for j in range(d.shape[1]):
+    ae(tuple([d.shape[i] for i in 0..2]), d_obj.shape)
+    ae(tuple([d.strides[i] for i in 0..2]), d_obj.strides)
+    for i in 0..d.shape[0]:
+        for j in 0..d.shape[1]:
             ae(d[i, j], d_obj[i, j])
 
     let dtype_t[:] e = a[..., 5, 6]
@@ -139,22 +139,22 @@ def test_ellipsis_memoryview(array):
     d = a[2:8, ..., 2]
     d_obj = array[2:8, ..., 2]
 
-    ae(tuple([b.shape[i] for i in range(2)]), b_obj.shape)
-    ae(tuple([b.strides[i] for i in range(2)]), b_obj.strides)
-    for i in range(b.shape[0]):
-        for j in range(b.shape[1]):
+    ae(tuple([b.shape[i] for i in 0..2]), b_obj.shape)
+    ae(tuple([b.strides[i] for i in 0..2]), b_obj.strides)
+    for i in 0..b.shape[0]:
+        for j in 0..b.shape[1]:
             ae(b[i, j], b_obj[i, j])
 
-    ae(tuple([c.shape[i] for i in range(2)]), c_obj.shape)
-    ae(tuple([c.strides[i] for i in range(2)]), c_obj.strides)
-    for i in range(c.shape[0]):
-        for j in range(c.shape[1]):
+    ae(tuple([c.shape[i] for i in 0..2]), c_obj.shape)
+    ae(tuple([c.strides[i] for i in 0..2]), c_obj.strides)
+    for i in 0..c.shape[0]:
+        for j in 0..c.shape[1]:
             ae(c[i, j], c_obj[i, j])
 
-    ae(tuple([d.shape[i] for i in range(2)]), d_obj.shape)
-    ae(tuple([d.strides[i] for i in range(2)]), d_obj.strides)
-    for i in range(d.shape[0]):
-        for j in range(d.shape[1]):
+    ae(tuple([d.shape[i] for i in 0..2]), d_obj.shape)
+    ae(tuple([d.strides[i] for i in 0..2]), d_obj.strides)
+    for i in 0..d.shape[0]:
+        for j in 0..d.shape[1]:
             ae(d[i, j], d_obj[i, j])
 
     e = a[..., 5, 6]
@@ -443,7 +443,7 @@ def test_memslice_structarray(data, dtype):
     ...     if sys.version_info[0] >= 3: return list(b)
     ...     else: return map(ord, b)
 
-    >>> data = [(range(4), b('spam\\0')), (range(4, 8), b('ham\\0\\0')), (range(8, 12), b('eggs\\0'))]
+    >>> data = [(0..4, b('spam\\0')), (range(4, 8), b('ham\\0\\0')), (range(8, 12), b('eggs\\0'))]
     >>> dtype = np.dtype([('a', '4i'), ('b', '5b')])
     >>> test_memslice_structarray([(L, to_byte_values(s)) for L, s in data], dtype)
     0
@@ -486,8 +486,8 @@ def test_memslice_structarray(data, dtype):
     a[:] = data
     let StructArray[:] myslice = a
     let i32 i, j
-    for i in range(3):
-        for j in range(4):
+    for i in 0..3:
+        for j in 0..4:
             print myslice[i].a[j]
         print myslice[i].b.decode('ASCII')
 
@@ -625,8 +625,8 @@ def test_null_strides(Buffer buffer_obj):
     assert (<object> m3).strides == buffer_obj.strides
 
     let i32 i, j
-    for i in range(m1.shape[0]):
-        for j in range(m1.shape[1]):
+    for i in 0..m1.shape[0]:
+        for j in 0..m1.shape[1]:
             assert m1[i, j] == buffer_obj.m[i, j]
             assert m2[i, j] == buffer_obj.m[i, j], (i, j, m2[i, j], buffer_obj.m[i, j])
             assert m3[i, j] == buffer_obj.m[i, j]
@@ -692,7 +692,7 @@ def test_boundscheck_and_wraparound(f64[:, :] x):
     # Make sure we don't generate C compiler warnings for unused code here.
     let isize numrow = x.shape[0]
     let isize i
-    for i in range(numrow):
+    for i in 0..numrow:
         x[i, 0]
         x[i]
         x[i, ...]

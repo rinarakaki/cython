@@ -240,7 +240,7 @@ def index_concat_loop(unicode ustring):
     """
     let i32 i
     let unicode s = u''
-    for i in range(len(ustring)):
+    for i in 0..len(ustring):
         s += ustring[i]
     return s
 

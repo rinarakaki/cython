@@ -311,7 +311,34 @@ def p_arith_expr(s):
 #term: factor (('*'|'@'|'/'|'%'|'//') factor)*
 
 def p_term(s):
-    return p_binop_expr(s, ('*', '@', '/', '%', '//'), p_factor)
+    return p_binop_expr(s, ('*', '@', '/', '%', '//'), p_range_expr)
+
+def p_range_expr(s):
+    pos = s.position()
+    expr = p_factor(s)
+    if not s.in_python_file and s.sy in ("..", "..="):
+        start = expr
+        if s.sy == "..":
+            s.next()
+            stop = p_factor(s)
+        else:  # s.sy == "..="
+            s.next()
+            pos = s.position()
+            one = ExprNodes.IntNode(pos,
+                 value = "1",
+                 is_c_literal = None,
+                 unsigned = "",
+                 longness = "",
+            )
+            stop = ExprNodes.binop_node(pos, "+", p_factor(s), one)
+
+        return ExprNodes.SimpleCallNode(
+            pos,
+            function=p_name(s, name="range"),
+            args=[start, stop],
+        )
+    else:
+        return expr
 
 #factor: ('+'|'-'|'~'|'&'|typecast|sizeof) factor | power
 
@@ -1813,10 +1840,10 @@ def p_from_import_statement(s, first_statement = 0):
     # s.sy == 'from'
     pos = s.position()
     s.next()
-    if s.sy in ('.', '...'):
+    if s.sy in (".", "..", "..."):
         # count relative import level
         level = 0
-        while s.sy in ('.', '...'):
+        while s.sy in (".", "..", "..."):
             level += len(s.sy)
             s.next()
     else:

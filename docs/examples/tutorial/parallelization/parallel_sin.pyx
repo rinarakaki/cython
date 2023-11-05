@@ -11,6 +11,6 @@ def do_sine(f64[:, :] input):
     let isize i, j
 
     for i in prange(input.shape[0], nogil=true):
-        for j in range(input.shape[1]):
+        for j in 0..input.shape[1]:
             output[i, j] = sin(input[i, j])
     return np.asarray(output)

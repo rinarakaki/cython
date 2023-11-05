@@ -171,7 +171,7 @@ cpdef (i32, f64) cpdef_ctuple_return_type(i32 x, f64 y):
 
 def cast_to_ctuple(*o):
     """
-    >>> cast_to_ctuple(1, 2.)
+    >>> cast_to_ctuple(1, 2.0)
     (1, 2.0)
     """
     let i32 x
