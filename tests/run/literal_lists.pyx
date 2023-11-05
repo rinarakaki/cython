@@ -20,8 +20,8 @@ def repeated_literals():
     let i32* p1 = [4, 4]
     let i32* p2 = [5, 5]
 
-    print "p1: %s" % [p1[i] for i in range(2)]
-    print "p2: %s" % [p2[i] for i in range(2)]
+    print "p1: %s" % [p1[i] for i in 0..2]
+    print "p2: %s" % [p2[i] for i in 0..2]
 
 def test_ints(i32 x):
     """

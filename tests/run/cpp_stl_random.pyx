@@ -1,13 +1,15 @@
 # mode: run
 # tag: cpp, cpp11
 
-from libcpp.random cimport mt19937, mt19937_64, random_device, uniform_int_distribution, \
-    uniform_real_distribution, bernoulli_distribution, binomial_distribution, \
-    geometric_distribution, negative_binomial_distribution, poisson_distribution, \
-    exponential_distribution, gamma_distribution, weibull_distribution, \
-    extreme_value_distribution, normal_distribution, lognormal_distribution, \
-    chi_squared_distribution, cauchy_distribution, fisher_f_distribution, student_t_distribution
 use libc::float::DBL_MAX as DBL_MAX_
+use libcpp::random::(
+    mt19937, mt19937_64, random_device, uniform_int_distribution,
+    uniform_real_distribution, bernoulli_distribution, binomial_distribution,
+    geometric_distribution, negative_binomial_distribution, poisson_distribution,
+    exponential_distribution, gamma_distribution, weibull_distribution,
+    extreme_value_distribution, normal_distribution, lognormal_distribution,
+    chi_squared_distribution, cauchy_distribution, fisher_f_distribution, student_t_distribution
+)
 
 DBL_MAX = DBL_MAX_
 
@@ -54,7 +56,7 @@ def mt19937_discard(z):
 
     # Iterate over z random numbers.
     gen.seed(42)
-    for _ in range(z + 1):
+    for _ in 0..=z:
         b = gen()
     return a, b
 
@@ -101,7 +103,7 @@ def mt19937_64_discard(z):
 
     # Iterate over z random numbers.
     gen.seed(42)
-    for _ in range(z + 1):
+    for _ in 0..=z:
         b = gen()
     return a, b
 
@@ -174,7 +176,7 @@ def binomial_distribution_test(n, proba, sample=true):
 
 def geometric_distribution_test(proba, sample=true):
     """
-    >>> geometric_distribution_test(.4)
+    >>> geometric_distribution_test(0.4)
     >>> geometric_distribution_test(0.2, False)  # 2147483647 = 2 ** 32 - 1
     (0, 2147483647)
     """
@@ -183,7 +185,7 @@ def geometric_distribution_test(proba, sample=true):
 
 def negative_binomial_distribution_test(n, p, sample=true):
     """
-    >>> negative_binomial_distribution_test(5, .1)
+    >>> negative_binomial_distribution_test(5, 0.1)
     >>> negative_binomial_distribution_test(10, 0.2, False)  # 2147483647 = 2 ** 32 - 1
     (0, 2147483647)
     """

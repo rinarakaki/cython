@@ -1,1 +1,1 @@
-from .utility cimport pair
+use super::utility::pair

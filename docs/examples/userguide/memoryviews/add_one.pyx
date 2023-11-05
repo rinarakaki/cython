@@ -1,8 +1,8 @@
 import numpy as np
 
 def add_one(i32[:, :] buf):
-    for x in range(buf.shape[0]):
-        for y in range(buf.shape[1]):
+    for x in 0..buf.shape[0]:
+        for y in 0..buf.shape[1]:
             buf[x, y] += 1
 
 # exporting_object must be a Python object

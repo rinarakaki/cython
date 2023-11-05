@@ -423,7 +423,7 @@ def list_comp():
     [0, 4, 8]
     """
     x = 'abc'
-    result = [x*2 for x in range(5) if x % 2 == 0]
+    result = [x * 2 for x in 0..5 if x % 2 == 0]
     assert x == 'abc' # don't leak in Py3 code
     return result
 
@@ -440,7 +440,7 @@ def list_comp_iterable(it):
     [0]
     >>> list_comp_iterable([2])
     [4]
-    >>> list_comp_iterable(range(5))
+    >>> list_comp_iterable(0..5)
     [0, 4, 8]
     """
     x = 'abc'
@@ -455,7 +455,7 @@ def list_comp_with_lambda():
     [0, 4, 8]
     """
     x = 'abc'
-    result = [x*2 for x in range(5) if (lambda x:x % 2)(x) == 0]
+    result = [x * 2 for x in 0..5 if (lambda x:x % 2)(x) == 0]
     assert x == 'abc' # don't leak in Py3 code
     return result
 
@@ -466,7 +466,7 @@ class ListCompInClass(object):
     >>> x.listcomp
     [1, 2, 3]
     """
-    listcomp = [i+1 for i in range(3)]
+    listcomp = [i + 1 for i in 0..3]
 
 
 cdef class ListCompInCClass:
@@ -475,10 +475,10 @@ cdef class ListCompInCClass:
     >>> x.listcomp
     [1, 2, 3]
     """
-    listcomp = [i+1 for i in range(3)]
+    listcomp = [i+1 for i in 0..3]
 
 
-module_level_lc = [ module_level_loopvar*2 for module_level_loopvar in range(4) ]
+module_level_lc = [module_level_loopvar * 2 for module_level_loopvar in 0..4]
 def list_comp_module_level():
     """
     >>> module_level_lc
@@ -489,7 +489,7 @@ def list_comp_module_level():
     """
 
 
-module_level_list_genexp = list(module_level_genexp_loopvar*2 for module_level_genexp_loopvar in range(4))
+module_level_list_genexp = list(module_level_genexp_loopvar * 2 for module_level_genexp_loopvar in 0..4)
 def genexpr_module_level():
     """
     >>> module_level_list_genexp
@@ -502,7 +502,7 @@ def genexpr_module_level():
 
 def list_comp_unknown_type(l):
     """
-    >>> list_comp_unknown_type(range(5))
+    >>> list_comp_unknown_type(0..5)
     [0, 4, 8]
     """
     return [x*2 for x in l if x % 2 == 0]
@@ -528,7 +528,7 @@ def set_comp():
     [0, 4, 8]
     """
     x = 'abc'
-    result = {x*2 for x in range(5) if x % 2 == 0}
+    result = {x * 2 for x in 0..5 if x % 2 == 0}
     assert x == 'abc' # don't leak
     return result
 
@@ -539,7 +539,7 @@ def dict_comp():
     [(0, 0), (2, 4), (4, 8)]
     """
     x = 'abc'
-    result = {x:x*2 for x in range(5) if x % 2 == 0}
+    result = {x: x * 2 for x in 0..5 if x % 2 == 0}
     assert x == 'abc' # don't leak
     return result
 

@@ -11,7 +11,7 @@ from Cython.Build.Dependencies import cythonize
 from distutils.core import setup
 
 setup(
-  ext_modules=cythonize("*.pyx"),
+    ext_modules=cythonize("*.pyx"),
 )
 
 ######  dummy_module.py ###########
@@ -51,14 +51,14 @@ check_code(eval("lambda: None").__code__)
 
 ##### failed_inherit1.pyx #############
 
-from classes cimport tpl
+use classes::tpl
 
 cdef class SuperTuple(tpl):
     fn i32 a  # importing this gives an error message
 
 ##### failed_inherit2.pyx #############
 
-from classes cimport tpl
+use classes::tpl
 
 cdef class SuperTuple(tpl):
     # adding a method creates a vtab so should also fail
@@ -67,7 +67,7 @@ cdef class SuperTuple(tpl):
     
 ##### successful_inherit.pyx #########
 
-from classes cimport lst, tpl
+use classes::(lst, tpl)
 
 cdef class SuperList(lst):
     fn i32 a  # This works OK

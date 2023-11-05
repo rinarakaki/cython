@@ -1,5 +1,5 @@
 # mode: compile
-from publicapi_pxd_mix cimport *
+use publicapi_pxd_mix::*
 
 bar0()
 bar1()

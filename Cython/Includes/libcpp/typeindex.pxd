@@ -1,5 +1,5 @@
 use libcpp::bool
-from .typeinfo cimport type_info
+use super::typeinfo::type_info
 
 # This class is C++11-only
 extern from "<typeindex>" namespace "std" nogil:
