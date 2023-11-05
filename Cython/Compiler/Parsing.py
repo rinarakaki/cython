@@ -718,6 +718,14 @@ def p_atom(s):
         return p_numeric_literal(s)
     elif sy == 'INT':
         return p_int_literal(s)
+    elif sy == 'FLOAT':
+        value = s.systring
+        s.next()
+        return ExprNodes.FloatNode(pos, value = value)
+    elif sy == 'IMAG':
+        value = s.systring[:-1]
+        s.next()
+        return ExprNodes.ImagNode(pos, value = value)
     elif sy == 'BEGIN_STRING':
         kind, bytes_value, unicode_value = p_cat_string_literal(s)
         if kind == 'c':
