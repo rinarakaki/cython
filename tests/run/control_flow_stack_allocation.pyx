@@ -10,7 +10,7 @@ fn stack_alloc_test(i32[2] array_arg, S struct_arg):
     let i32[2] array_var
     let S struct_var, struct_var_by_value
 
-    for i in 0..2:
+    for i in range(2):
         array_var[i] = array_arg[i]
     struct_var.x, struct_var.y = struct_arg.x, struct_arg.y
     struct_var_by_value = struct_var
@@ -27,7 +27,7 @@ def test():
     """
     let i32[2] array_var
     let S struct_var
-    for i in 0..2:
+    for i in range(2):
         array_var[i] = i
     struct_var = [1, 2.0]
 
