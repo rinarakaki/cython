@@ -107,7 +107,7 @@ def report_energy(bodies=SYSTEM, pairs=PAIRS, e=0.0):
         dz = z1 - z2
         e -= (m1 * m2) / ((dx * dx + dy * dy + dz * dz) ** 0.5)
     for (r, [vx, vy, vz], m) in bodies:
-        e += m * (vx * vx + vy * vy + vz * vz) / 2.
+        e += m * (vx * vx + vy * vy + vz * vz) / 2.0
     return e
 
 

@@ -333,7 +333,7 @@ def loop():
         pass
     assert typeof(b) == "double"
 
-    for c from 0 <= c < 10 by .5:
+    for c from 0 <= c < 10 by 0.5:
         pass
     assert typeof(c) == "double"
 

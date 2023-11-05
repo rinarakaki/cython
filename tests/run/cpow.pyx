@@ -209,9 +209,9 @@ def pythagoras_with_typedef(f64 a, f64 b):
 #[cython.cpow(false)]
 def power_coercion_in_nogil_1(f64 a, f64 b):
     """
-    >>> power_coercion_in_nogil_1(2., 2.)
+    >>> power_coercion_in_nogil_1(2.0, 2.0)
     4.0
-    >>> power_coercion_in_nogil_1(-1., 0.5)
+    >>> power_coercion_in_nogil_1(-1.0, 0.5)
     Traceback (most recent call last):
     ...
     TypeError: Cannot convert 'complex' with non-zero imaginary component to 'double' (this most likely comes from the '**' operator; use 'cython.cpow(True)' to return 'nan' instead of a complex number).
@@ -226,9 +226,9 @@ fn f64 nogil_fun(f64 x) nogil:
 
 def power_coercion_in_nogil_2(f64 a, f64 b):
     """
-    >>> power_coercion_in_nogil_2(2., 2.)
+    >>> power_coercion_in_nogil_2(2.0, 2.0)
     4.0
-    >>> power_coercion_in_nogil_2(-1., 0.5)
+    >>> power_coercion_in_nogil_2(-1.0, 0.5)
     Traceback (most recent call last):
     ...
     TypeError: Cannot convert 'complex' with non-zero imaginary component to 'double' (this most likely comes from the '**' operator; use 'cython.cpow(True)' to return 'nan' instead of a complex number).
@@ -240,9 +240,9 @@ def power_coercion_in_nogil_2(f64 a, f64 b):
 
 def power_coercion_in_nogil_3(f64 a, f64 b, f64 c):
     """
-    >>> power_coercion_in_nogil_3(2., 2., 1.0)
+    >>> power_coercion_in_nogil_3(2.0, 2.0, 1.0)
     0.25
-    >>> power_coercion_in_nogil_3(-1., 0.5, 1.0)
+    >>> power_coercion_in_nogil_3(-1.0, 0.5, 1.0)
     Traceback (most recent call last):
     ...
     TypeError: Cannot convert 'complex' with non-zero imaginary component to 'f64' (this most likely comes from the '**' operator; use 'cython.cpow(True)' to return 'nan' instead of a complex number).

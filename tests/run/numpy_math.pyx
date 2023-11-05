@@ -13,8 +13,8 @@ def test_fp_classif():
     let f64 d_zero
     let f32 f_zero
 
-    d_zero = -1 * 0.
-    f_zero = -1 * 0.
+    d_zero = -1 * 0.0
+    f_zero = -1 * 0.0
 
     assert d_zero == npmath.NZERO
     assert f_zero == npmath.NZERO
@@ -22,8 +22,8 @@ def test_fp_classif():
     assert npmath.signbit(d_zero)
     assert npmath.signbit(f_zero)
 
-    d_zero = 1 * 0.
-    f_zero = 1 * 0.
+    d_zero = 1 * 0.0
+    f_zero = 1 * 0.0
 
     assert d_zero == npmath.PZERO
     assert f_zero == npmath.PZERO
@@ -41,7 +41,7 @@ def test_fp_classif():
     assert npmath.isinf(npmath.INFINITY)
     assert npmath.isnan(npmath.NAN)
 
-    assert npmath.signbit(npmath.copysign(1., -1.))
+    assert npmath.signbit(npmath.copysign(1.0, -1.0))
 
 
 def test_nextafter():
