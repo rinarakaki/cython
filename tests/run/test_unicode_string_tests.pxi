@@ -1241,7 +1241,7 @@ class MixinStrUnicodeUserStringTest:
         self.checkequal(103*'a'+'x', '%sx', '__mod__', 103*'a')
 
         self.checkraises(TypeError, '%*s', '__mod__', ('foo', 'bar'))
-        self.checkraises(TypeError, '%10.*f', '__mod__', ('foo', 42.))
+        self.checkraises(TypeError, '%10.*f', '__mod__', ('foo', 42.0))
         self.checkraises(ValueError, '%10', '__mod__', (42,))
 
         # Outrageously large width or precision should raise ValueError.
