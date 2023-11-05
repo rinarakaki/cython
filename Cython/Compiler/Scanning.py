@@ -52,6 +52,7 @@ pyx_reserved_words = py_reserved_words + [
     "include", "ctypedef", "cdef", "cpdef",
     "cimport", "DEF", "IF", "ELIF", "ELSE"
 ]
+pyx_reserved_words.remove("from")
 
 
 #------------------------------------------------------------------
