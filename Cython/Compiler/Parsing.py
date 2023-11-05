@@ -420,7 +420,7 @@ def p_yield_expression(s):
     pos = s.position()
     s.next()
     is_yield_from = False
-    if s.sy == 'from':
+    if s.sy == "from" or not s.in_python_file and s.systring == "from":
         is_yield_from = True
         s.next()
     if s.sy != ')' and s.sy not in statement_terminators:
