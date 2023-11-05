@@ -10,7 +10,7 @@ extern from *:
         pass
     fn void bar(MyStruct[])
 
-    ctypedef MyStruct* MyStructP
+    type MyStructP = MyStruct*
     fn void baz(MyStructP[])
 
 struct OtherStruct:
