@@ -427,7 +427,7 @@ def p_async_statement(s, ctx, decorators):
     elif decorators:
         s.error("Decorators can only be followed by functions or classes")
     elif s.sy == 'for':
-        return p_for_statement(s, is_async=True)
+        return p_for_statement(s, ctx, is_async=True)
     elif s.sy == 'with':
         s.next()
         return p_with_items(s, is_async=True)
