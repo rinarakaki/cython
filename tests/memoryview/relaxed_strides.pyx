@@ -47,7 +47,7 @@ def test_one_sized(array):
     1.0
     """
     let f64[:;1] a = array
-    a[0] += 1.
+    a[0] += 1.0
     return array
 
 def test_zero_sized(array):

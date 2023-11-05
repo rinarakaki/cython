@@ -84,7 +84,7 @@ assert_stats(profile, func.__name__)
 ######## collatz.pyx ###########
 # cython: linetrace=true
 
-cimport cython
+use cython
 
 @cython.binding(true)
 def collatz(n):

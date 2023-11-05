@@ -6,4 +6,4 @@ enum ParrotState:
 
 cdef ParrotState polly
 
-polly = Dead
+polly = ParrotState::Dead

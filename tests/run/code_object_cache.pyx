@@ -88,7 +88,7 @@ def assert_simple_code_object_reuse():
 
 def assert_multi_step_code_object_reuse(recursions=0):
     """
-    >>> for depth in range(5):
+    >>> for depth in 0..5:
     ...     try: assert_multi_step_code_object_reuse(depth)
     ...     except KeyError: t1 = tb()
     ...     try: assert_multi_step_code_object_reuse(depth)
@@ -116,7 +116,7 @@ def assert_multi_step_code_object_reuse_fused(recursions=0, cython.floating dumm
     """
     DISABLED: searching for code objects based on C lineno breaks for specializations
 
-    >> for depth in range(5):
+    >> for depth in 0..5:
     ...     try: assert_multi_step_code_object_reuse_fused(depth, 1.0)
     ...     except KeyError: t1 = tb()
     ...     try: assert_multi_step_code_object_reuse_fused(depth, 1.0)

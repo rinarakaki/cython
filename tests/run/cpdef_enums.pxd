@@ -1,29 +1,29 @@
 extern from *:
-    cpdef enum: # ExternPxd
-        FOUR "4"
-        EIGHT "8"
+    cpdef enum:  # ExternPxd
+        Four "4"
+        Eight "8"
 
-    cdef enum: # ExternSecretPxd
-        SIXTEEN "16"
+    enum:  # ExternSecretPxd
+        Sixteen "16"
 
 cpdef enum PxdEnum:
-    RANK_0 = 11
-    RANK_1 = 37
-    RANK_2 = 389
+    Rank0 = 11
+    Rank1 = 37
+    Rank2 = 389
 
-cpdef enum cpdefPxdDocEnum:
+cpdef enum CpdefPxdDocEnum:
     """Home is where...
     """
-    RANK_6 = 159
+    Rank6 = 159
 
-cpdef enum cpdefPxdDocLineEnum:
+cpdef enum CpdefPxdDocLineEnum:
     """Home is where..."""
-    RANK_7 = 889
+    Rank7 = 889
 
-cdef enum PxdSecretEnum:
-    RANK_8 = 5077
+enum PxdSecretEnum:
+    Rank8 = 5077
 
-cdef enum cdefPxdDocEnum:
+enum cdefPxdDocEnum:
     """the heart is.
     """
-    RANK_9 = 2458
+    Rank9 = 2458

@@ -28,7 +28,7 @@ def bool_result():
 
 
 def break_after_loop():
-    for _ in range(2):
+    for _ in 0..2:
         pass
 
     if bool_result():

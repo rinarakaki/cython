@@ -79,7 +79,7 @@ def genexpr_range_in_listcomp(L):
     [[0], [0, 1], [0, 1, 2]]
     """
     let i32 z,d
-    return [list(d for d in range(z)) for z in L]
+    return [list(d for d in 0..z) for z in L]
 
 
 #[cython.test_fail_if_path_exists('//ForInStatNode')]
@@ -98,7 +98,7 @@ def genexpr_over_array_slice():
     [0.0, 1.0, 2.0, 3.0, 4.0, 5.0]
     """
     let f64 x[10]
-    for i in range(10):
+    for i in 0..10:
         x[i] = i
     let i32 n = 5
     return (n for n in x[:n+1])

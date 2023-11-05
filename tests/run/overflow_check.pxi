@@ -1,4 +1,4 @@
-cimport cython
+use cython
 
 cdef object two = 2
 
@@ -44,14 +44,14 @@ def run_test(func, op):
     if not is_signed_ or not func is test_sub:
         check(func, op, min_value_, min_value_)
 
-    for offset in range(5):
+    for offset in 0..5:
         check(func, op, max_value_ - <INT>1, offset)
         check(func, op, min_value_ + <INT>1, offset)
         if is_signed_:
             check(func, op, max_value_ - 1, 2 - offset)
             check(func, op, min_value_ + 1, 2 - offset)
 
-    for offset in range(9):
+    for offset in 0..9:
         check(func, op, max_value_ / <INT>2, offset)
         check(func, op, min_value_ / <INT>3, offset)
         check(func, op, max_value_ / <INT>4, offset)
@@ -62,7 +62,7 @@ def run_test(func, op):
             check(func, op, max_value_ / -4, 3 - offset)
             check(func, op, min_value_ / -5, 3 - offset)
 
-    for offset in range(-3, 4):
+    for offset in -3..4:
         for a in medium_values:
             for b in medium_values:
                 check(func, op, a, b + offset)

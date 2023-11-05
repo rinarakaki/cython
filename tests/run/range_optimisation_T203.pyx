@@ -32,10 +32,10 @@ def for_from_range(a, b):
     """
     let i32 i = 100
     print u"range(%s)" % a
-    for i in range(a):
+    for i in 0..a:
         print u"at", i
     print u"range(%s, %s)" % (a, b)
-    for i in range(a, b):
+    for i in a..b:
         print u"at", i
     print u"range(%s, %s, %s)" % (a, b, 2)
     for i in range(a, b, 2):
@@ -53,7 +53,7 @@ def for_from_bound_reassignment(i32 bound, int fake_bound):
     5
     """
     let i32 i = 100
-    for i from 0 <= i < bound:
+    for i in 0..bound:
         print u"at", i
         bound = fake_bound
     return i
@@ -82,7 +82,7 @@ def for_from_target_reassignment(i32 bound, i32 factor):
     15
     """
     let i32 i = 100
-    for i from 0 <= i < bound:
+    for i in 0..bound:
         print u"at", i
         i *= factor
     return i
@@ -97,7 +97,7 @@ def for_from_py_target_reassignment(i32 bound, i32 factor):
     15
     """
     let object i
-    for i from 0 <= i < bound:
+    for i in 0..bound:
         print u"at", i
         i *= factor
     return i
@@ -112,7 +112,7 @@ def for_from_py_global_target_reassignment(i32 bound, i32 factor):
     15
     """
     global g_var
-    for g_var from 0 <= g_var < bound:
+    for g_var in 0..bound:
         print u"at", g_var
         g_var *= factor
     return g_var
@@ -133,7 +133,7 @@ def for_in_target_reassignment(i32 bound, i32 factor):
     18
     """
     let i32 i = 100
-    for i in range(bound):
+    for i in 0..bound:
         print u"at", i
         i *= factor
     return i
@@ -150,6 +150,6 @@ def test_func(i32 n):
     5
     """
     let i32 i = 100
-    for i from 0 <= i < get_bound(n):
+    for i in 0..get_bound(n):
         print u"at", i
     return i

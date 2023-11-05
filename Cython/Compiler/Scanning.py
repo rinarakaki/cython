@@ -39,15 +39,15 @@ def get_lexicon():
 
 #------------------------------------------------------------------
 
-py_reserved_words = [
+common_reserved_words = [
     "global", "nonlocal", "def", "class", "print", "del", "pass", "break",
     "continue", "return", "raise", "import", "exec", "try",
     "except", "finally", "while", "if", "elif", "else", "for",
     "in", "assert", "and", "or", "not", "is", "lambda",
-    "from", "yield", "with",
+    "yield", "with",
 ]
-
-pyx_reserved_words = py_reserved_words + [
+py_reserved_words = common_reserved_words + ["from"]
+pyx_reserved_words = common_reserved_words + [
     "use", "pub", "extern", "fn", "let", "enum", "struct", "union", "static",
     "include", "ctypedef", "cdef", "cpdef",
     "cimport", "DEF", "IF", "ELIF", "ELSE"

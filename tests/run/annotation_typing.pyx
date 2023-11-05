@@ -298,7 +298,7 @@ def py_float_default(price : Optional[float]=None, ndigits=4):
     return price, ndigits
 
 cdef class ClassAttribute:
-    cls_attr : cython.float = 1.
+    cls_attr : cython.float = 1.0
 
 #[cython.cfunc]
 def take_ptr(obj: cython.pointer(PyObject)):

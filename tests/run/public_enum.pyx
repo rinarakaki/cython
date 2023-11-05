@@ -1,21 +1,21 @@
 # mode: run
 
 """
->>> BAR == 3
+>>> Foo::Bar == 3
 True
->>> HONK == 3+2+1
+>>> Foo::Honk == 3 + 2 + 1
 True
->>> NONPUBLIC         # doctest: +ELLIPSIS
+>>> NonPublic         # doctest: +ELLIPSIS
 Traceback (most recent call last):
-NameError: ...name 'NONPUBLIC' is not defined
->>> NOWPUBLIC == 23 + 42
+NameError: ...name 'NonPublic' is not defined
+>>> Foo::NowPublic == 23 + 42
 True
 """
 
-enum SECRET:
-    NONPUBLIC = 23 + 42
+enum Secret:
+    NonPublic = 23 + 42
 
-pub enum FOO:
-    BAR = 3
-    HONK = 3+2+1
-    NOWPUBLIC = NONPUBLIC
+pub enum Foo:
+    Bar = 3
+    Honk = 3 + 2 + 1
+    NowPublic = NonPublic

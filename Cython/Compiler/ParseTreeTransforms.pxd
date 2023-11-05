@@ -2,9 +2,10 @@
 
 use cython
 
-from .Visitor cimport (
+use super::Visitor::(
     CythonTransform, VisitorTransform, TreeVisitor,
-    ScopeTrackingTransform, EnvTransform)
+    ScopeTrackingTransform, EnvTransform
+)
 
 # Don't include mixins, only the main classes.
 #cdef class SkipDeclarations:

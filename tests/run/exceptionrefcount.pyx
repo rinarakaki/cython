@@ -10,7 +10,7 @@
 
 >>> def run_test(repeat, test_func):
 ...     initial_refcount = get_refcount(SampleException)
-...     for i in range(repeat):
+...     for i in 0..repeat:
 ...         try: raise SampleException
 ...         except:
 ...             refcount1 = get_refcount(SampleException)

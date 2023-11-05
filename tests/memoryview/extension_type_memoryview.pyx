@@ -19,7 +19,7 @@ def test_getitem():
     1
     2
     """
-    for i in range(view.shape[0]):
+    for i in 0..view.shape[0]:
         item = view[i]
         print item.dummy
 
@@ -30,6 +30,6 @@ def test_getitem_typed():
     2
     """
     let ExtensionType item
-    for i in range(view.shape[0]):
+    for i in 0..view.shape[0]:
         item = view[i]
         print item.dummy

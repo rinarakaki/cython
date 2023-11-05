@@ -7,10 +7,8 @@ PYTHON check_np.py
 
 ######## dep_np.pyx ########
 
-cimport numpy as np
+use numpy as np
 np.import_array()
-
-
 
 ######## check_np.py ########
 

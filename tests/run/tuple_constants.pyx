@@ -183,18 +183,18 @@ def constant_types_comparing_equal():
     assert int_tuple is (0, 0)
     assert bool_tuple == int_tuple
     assert bool_tuple is not int_tuple
-    assert float_tuple is (0., 0.)
+    assert float_tuple is (0.0, 0.0)
     assert float_tuple == int_tuple
     assert float_tuple is not int_tuple
     assert int_bool is (0, false)
     assert int_bool == bool_tuple
     assert int_bool is not bool_tuple
     assert int_bool is not int_tuple
-    assert bool_float is (false, 0.)
+    assert bool_float is (false, 0.0)
     assert bool_float == bool_tuple
     assert bool_float is not bool_tuple
     assert bool_float is not float_tuple
-    assert int_float is (0, 0.)
+    assert int_float is (0, 0.0)
     assert int_float == int_tuple
     assert int_float is not int_tuple
     assert int_float is not float_tuple
