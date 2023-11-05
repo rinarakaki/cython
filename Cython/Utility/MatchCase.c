@@ -299,7 +299,7 @@ static PyObject *__Pyx_MatchCase_OtherSequenceSliceToList(PyObject *x, Py_ssize_
 
 // This is substantially based off ceval unpack_iterable.
 // It's also pretty similar to itertools.islice
-// Indices must be postive - there's no wraparound or boundschecking
+// Indices must be positive - there's no wraparound or boundschecking
 
 static PyObject *__Pyx_MatchCase_OtherSequenceSliceToList(PyObject *x, Py_ssize_t start, Py_ssize_t end) {
     int total = end-start;
