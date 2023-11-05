@@ -513,7 +513,11 @@ class CNameDeclaratorNode(CDeclaratorNode):
         return self.name
 
     def analyse(self, base_type, env, nonempty=0, visibility=None, in_pxd=False):
-        if base_type is not None and nonempty and self.name == '':
+        if base_type is None:
+            if self.default is None:
+                error(self.pos, "'auto' keyword cannot be used without an initialiser")
+            base_type = self.default.analyse_types(env)
+        if nonempty and self.name == '':
             # May have mistaken the name for the type.
             if base_type.is_ptr or base_type.is_array or base_type.is_buffer:
                 error(self.pos, "Missing argument name")
@@ -523,7 +527,7 @@ class CNameDeclaratorNode(CDeclaratorNode):
                 self.name = base_type.declaration_code("", for_display=1, pyrex=1)
                 base_type = py_object_type
 
-        if base_type is not None and base_type.is_fused and env.fused_to_specific:
+        if base_type.is_fused and env.fused_to_specific:
             try:
                 base_type = base_type.specialize(env.fused_to_specific)
             except CannotSpecialize:
