@@ -112,7 +112,7 @@ def for_from_py_global_target_reassignment(i32 bound, i32 factor):
     15
     """
     global g_var
-    for g_var from 0 <= g_var < bound:
+    for g_var in 0..bound:
         print u"at", g_var
         g_var *= factor
     return g_var

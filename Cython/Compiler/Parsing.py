@@ -321,7 +321,7 @@ def p_range_expr(s):
         if s.sy == "..":
             s.next()
             stop = p_factor(s)
-        else:  # s.sy == "..=":
+        else:  # s.sy == "..="
             s.next()
             pos = s.position()
             one = ExprNodes.IntNode(pos,
