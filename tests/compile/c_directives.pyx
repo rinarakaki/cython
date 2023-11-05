@@ -11,24 +11,24 @@ print 3
 
 use cython as cy
 
-def e(object[i32, ndim=2] buf):
+fn e(object[i32, ndim=2] buf):
     print buf[3, 2] # no bc
 
-@cy.boundscheck(false)
-def f(object[i32, ndim=2] buf):
+#[cy.boundscheck(false)]
+fn f(object[i32, ndim=2] buf):
     print buf[3, 2] # no bc
 
-@cy.boundscheck(true)
-def g(object[i32, ndim=2] buf):
+#[cy.boundscheck(true)]
+fn g(object[i32, ndim=2] buf):
     # The below line should have no meaning
 # cython: boundscheck = false
     # even if the above line doesn't follow indentation.
     print buf[3, 2] # bc
 
-def h(object[i32, ndim=2] buf):
-    print buf[3, 2] # no bc
+fn h(object[i32, ndim=2] buf):
+    print buf[3, 2]  # no bc
     with cy.boundscheck(true):
-        print buf[3, 2] # bc
+        print buf[3, 2]  # bc
 
 use cython::boundscheck as bc
 
