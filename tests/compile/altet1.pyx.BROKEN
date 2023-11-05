@@ -6,11 +6,11 @@ __doc__ = """
 """
 
 cdef extern from "altet1.h":
-    ctypedef int blarg
+    type blarg = i32
 
 cdef blarg globvar
 
-def flub(blarg bobble):
+fn flub(blarg bobble):
     print bobble
 
 globvar = 0
