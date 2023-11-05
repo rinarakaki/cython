@@ -231,7 +231,7 @@ def test_pickle():
     """
     pass
 
-def test_as_default_value(PxdEnum val=PxdEnum.::Rank1):
+def test_as_default_value(PxdEnum val=PxdEnum::Rank1):
     """
     In order to work, this requires the utility code to be evaluated
     before the function definition
