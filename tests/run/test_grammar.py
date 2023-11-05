@@ -170,10 +170,10 @@ INVALID_UNDERSCORE_LITERALS = [
     '1_.4',
     '1_.4j',
     # Underscore right after a dot:
-    '1._4',
-    '1._4j',
-    '0._5',
-    '0._5j',
+    # '1._4',  `_4` can be a method
+    # '1._4j',  `_4j` can be a method
+    '._5',
+    '._5j',
     # Underscore right after a sign:
     '1.0e+_1',
     '1.0e+_1j',
