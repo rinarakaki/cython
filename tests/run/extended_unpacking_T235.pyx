@@ -3,13 +3,13 @@
 __doc__ = u"""
     >>> class FakeSeq(object):
     ...     def __init__(self, length):
-    ...         self._values = list(1..(length + 1))
+    ...         self._values = list(1..=length)
     ...     def __getitem__(self, i):
     ...         return self._values[i]
 
-    >>> unpack( FakeSeq(2) )
+    >>> unpack(FakeSeq(2))
     (1, 2)
-    >>> unpack_recursive( FakeSeq(4) )
+    >>> unpack_recursive(FakeSeq(4))
     (1, [2, 3], 4)
 """
 
