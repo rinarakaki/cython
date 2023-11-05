@@ -43,7 +43,9 @@ def make_lexicon():
     decimal = underscore_digits(digit)
     dot = Str(".")
     exponent = Any("Ee") + Opt(Any("+-")) + decimal
-    decimal_fract = (decimal + dot + Opt(decimal)) | (dot + decimal)
+    # Plex needs lookahead capability in order to re-open this float syntax: 0., .0 
+    # decimal_fract = (decimal + dot + Opt(decimal)) | (dot + decimal)
+    decimal_fract = decimal + dot + decimal
 
     # name = letter + Rep(letter | digit)
     name = Opt(Str("r#")) + unicode_start_character + Rep(unicode_continuation_character)
