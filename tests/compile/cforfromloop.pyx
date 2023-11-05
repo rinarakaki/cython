@@ -3,29 +3,29 @@
 cdef i32 i, j, k
 cdef object a, b, x
 
-for i in 0..10:
+for i from 0 <= i < 10:
     pass
-for i in 1..=10:
+for i from 0 < i <= 10:
     pass
 for i from 10 >= i > 0:
     pass
 for i from 10 > i >= 0:
     pass
 
-for x in 0..=10:
+for x from 0 <= x <= 10:
     pass
 
-for i in a..=b:
+for i from a <= i <= b:
     pass
 
-for i in k..=j:
+for i from k <= i <= j:
     pass
 
-for i in (k * 42)..=(j / 18):
+for i from k * 42 <= i <= j / 18:
     pass
 
 while j:
-    for i in 0..=10:
+    for i from 0 <= i <= 10:
         continue
         break
     else:
