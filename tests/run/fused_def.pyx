@@ -425,7 +425,7 @@ def test_decorators(cython.floating arg):
     """
 
 #[cython.binding(true)]
-def bind_me(self, cython.floating a=1.):
+def bind_me(self, cython.floating a=1.0):
     return a
 
 cdef class HasBound:
@@ -439,7 +439,7 @@ cdef class HasBound:
     2.0
     >>> inst.func_fused()
     1.0
-    >>> inst.func_fused(2.)
+    >>> inst.func_fused(2.0)
     2.0
     >>> bind_me.__defaults__
     (1.0,)
