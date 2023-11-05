@@ -1462,20 +1462,17 @@ class CVarDefNode(StatNode):
             for template_param in templates:
                 env.declare_type(template_param.name, template_param, self.pos)
 
-        base_type = None
-        modifiers = None
+        base_type = self.base_type.analyse(env)
         
-        if self.base_type is not None:
-            base_type = self.base_type.analyse(env)
+        # Check for declaration modifiers, e.g. "typing.Optional[...]" or "dataclasses.InitVar[...]"
+        modifiers = None
+        if self.base_type.is_templated_type_node:
+            modifiers = self.base_type.analyse_pytyping_modifiers(env)
 
-            # Check for declaration modifiers, e.g. "typing.Optional[...]" or "dataclasses.InitVar[...]"     
-            if self.base_type.is_templated_type_node:
-                modifiers = self.base_type.analyse_pytyping_modifiers(env)
-
-            if base_type.is_fused and not self.in_pxd and (env.is_c_class_scope or
-                                                           env.is_module_scope):
-                error(self.pos, "Fused types not allowed here")
-                return error_type
+        if base_type.is_fused and not self.in_pxd and (env.is_c_class_scope or
+                                                        env.is_module_scope):
+            error(self.pos, "Fused types not allowed here")
+            return error_type
 
         self.entry = None
         visibility = self.visibility
@@ -1501,7 +1498,7 @@ class CVarDefNode(StatNode):
             else:
                 name_declarator, type = declarator.analyse(
                     base_type, env, visibility=visibility, in_pxd=self.in_pxd)
-            if type is not None and not type.is_complete():
+            if type.is_complete():
                 if not (self.visibility == 'extern' and type.is_array or type.is_memoryviewslice):
                     error(declarator.pos, "Variable type '%s' is incomplete" % type)
             if self.visibility == 'extern' and type.is_pyobject:
@@ -1511,11 +1508,11 @@ class CVarDefNode(StatNode):
             if name == '':
                 error(declarator.pos, "Missing name in declaration.")
                 return
-            if type is not None and type.is_reference and self.visibility != 'extern':
+            if type.is_reference and self.visibility != 'extern':
                 error(declarator.pos, "C++ references cannot be declared; use a pointer instead")
-            if type is not None and type.is_rvalue_reference and self.visibility != 'extern':
+            if type.is_rvalue_reference and self.visibility != 'extern':
                 error(declarator.pos, "C++ rvalue-references cannot be declared")
-            if type is not None and type.is_cfunction:
+            if type.is_cfunction:
                 if 'staticmethod' in env.directives:
                     type.is_static_method = True
                 self.entry = dest_scope.declare_cfunction(
