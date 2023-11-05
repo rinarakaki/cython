@@ -1,5 +1,5 @@
-from .object cimport PyObject
-from .pyport cimport uint64_t
+use super::object::PyObject
+use super::pyport::uint64_t
 
 extern from "Python.h":
     # On Python 2, PyDict_GetItemWithError is called _PyDict_GetItemWithError

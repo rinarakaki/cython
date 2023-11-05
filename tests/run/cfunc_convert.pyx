@@ -78,7 +78,7 @@ def test_global():
 
 fn i128 rad(i128 x):
     let i128 rad = 1
-    for p in range(2, <i128>sqrt(<f64>x) + 1):  # MSVC++ fails without the input cast
+    for p in 2..=<i128>sqrt(<f64>x):  # MSVC++ fails without the input cast
         if x % p == 0:
             rad *= p
             while x % p == 0:

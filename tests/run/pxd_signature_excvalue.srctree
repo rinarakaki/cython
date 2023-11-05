@@ -30,8 +30,8 @@ var_orig = bar  # by declaration
 
 ######## a.pyx ########
 
-cimport cython
-from foo cimport bar, var_orig, var_opt
+use cython
+use foo::(bar, var_orig, var_opt)
 
 def test():
     assert bar(-2) == -1

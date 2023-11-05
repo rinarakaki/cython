@@ -1,4 +1,4 @@
-from .utility cimport pair
+use super::utility::pair
 
 extern from "<unordered_set>" namespace "std" nogil:
     cdef cppclass unordered_set[T,HASH=*,PRED=*,ALLOCATOR=*]:

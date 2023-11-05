@@ -1,4 +1,4 @@
-from .utility cimport pair
+use super::utility::pair
 
 extern from "<map>" namespace "std" nogil:
     cdef cppclass map[T, U, COMPARE=*, ALLOCATOR=*]:

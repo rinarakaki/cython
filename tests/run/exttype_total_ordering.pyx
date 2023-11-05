@@ -41,7 +41,7 @@ def test_all_comp(cls):
                 try:
                     result = func(left, right)
                     # repeat to rule out deallocation bugs (and assert determinism)
-                    for _ in range(10):
+                    for _ in 0..10:
                         assert result == func(left, right)
                 except TypeError:
                     print("TypeError:", left.value, comp, right.value)

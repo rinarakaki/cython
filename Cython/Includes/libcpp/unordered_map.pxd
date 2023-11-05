@@ -1,4 +1,4 @@
-from .utility cimport pair
+use super::utility::pair
 
 extern from "<unordered_map>" namespace "std" nogil:
     cdef cppclass unordered_map[T, U, HASH=*, PRED=*, ALLOCATOR=*]:

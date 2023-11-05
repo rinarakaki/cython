@@ -28,7 +28,7 @@ extern from *:
     
 ############# cimport_numpy.pyx ###########
 
-cimport numpy
+use numpy
 
 ############# main.py ####################
 

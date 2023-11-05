@@ -11,10 +11,11 @@ extern from "frameobject.h":
     struct PyFrameObject:
         PyObject *f_trace
 
-from cpython.pystate cimport (
+use cpython::pystate::(
     Py_tracefunc,
     PyTrace_CALL, PyTrace_EXCEPTION, PyTrace_LINE, PyTrace_RETURN,
-    PyTrace_C_CALL, PyTrace_C_EXCEPTION, PyTrace_C_RETURN)
+    PyTrace_C_CALL, PyTrace_C_EXCEPTION, PyTrace_C_RETURN
+)
 
 extern from *:
     fn void PyEval_SetProfile(Py_tracefunc cfunc, PyObject *obj)
@@ -166,7 +167,7 @@ def py_add(a, b):
 
 def py_add_with_nogil(a, b):
     x = a; y = b                 # 1
-    for _ in range(1):           # 2
+    for _ in 0..1:               # 2
         z = 0                    # 3
         z += py_add(x, y)        # 4
     return z

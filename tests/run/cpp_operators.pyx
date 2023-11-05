@@ -254,19 +254,19 @@ def test_nonmember_binop():
     out(x, typeof(x))
 
     # now test float operators defined outside class
-    out(1. + t[0], typeof(1. + t[0]))
+    out(1.0 + t[0], typeof(1.0 + t[0]))
     # operator - deliberately omitted
-    out(1. * t[0], typeof(1. * t[0]))
-    out(1. / t[0], typeof(1. / t[0]))
-    out(1. % t[0], typeof(1. % t[0]))
-    out(1. & t[0], typeof(1. & t[0]))
-    out(1. | t[0], typeof(1. | t[0]))
-    out(1. ^ t[0], typeof(1. ^ t[0]))
-    out(1. << t[0], typeof(1. << t[0]))
-    out(1. >> t[0], typeof(1. >> t[0]))
+    out(1.0 * t[0], typeof(1.0 * t[0]))
+    out(1.0 / t[0], typeof(1.0 / t[0]))
+    out(1.0 % t[0], typeof(1.0 % t[0]))
+    out(1.0 & t[0], typeof(1.0 & t[0]))
+    out(1.0 | t[0], typeof(1.0 | t[0]))
+    out(1.0 ^ t[0], typeof(1.0 ^ t[0]))
+    out(1.0 << t[0], typeof(1.0 << t[0]))
+    out(1.0 >> t[0], typeof(1.0 >> t[0]))
 
     # for some reason we need a cdef here - not sure this is quite right
-    y = cython.operator.comma(1., t[0])
+    y = cython.operator.comma(1.0, t[0])
     out(y, typeof(y))
     del t
 

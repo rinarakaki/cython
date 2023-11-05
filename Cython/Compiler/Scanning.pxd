@@ -2,7 +2,7 @@
 
 import cython
 
-from ..Plex.Scanners cimport Scanner
+use super::super::Plex::Scanners::Scanner
 
 cdef unicode any_string_prefix, IDENT
 

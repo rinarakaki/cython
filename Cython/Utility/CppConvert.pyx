@@ -69,7 +69,7 @@ fn object {{cname}}(const vector[X]& v):
     cdef isize i
     cdef object item
 
-    for i in range(v_size_signed):
+    for i in 0..v_size_signed:
         item = v[i]
         Py_INCREF(item)
         PyList_SET_ITEM(o, i, item)

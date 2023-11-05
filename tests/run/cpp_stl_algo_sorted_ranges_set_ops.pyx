@@ -1,9 +1,9 @@
 # mode: run
 # tag: cpp, werror, cpp11
 
+use libcpp::algorithm::(includes, set_difference, set_intersection, 
+                        set_symmetric_difference, set_union)
 use libcpp::bool
-from libcpp.algorithm cimport (includes, set_difference, set_intersection, 
-                               set_symmetric_difference, set_union)
 use libcpp::vector::vector
 
 

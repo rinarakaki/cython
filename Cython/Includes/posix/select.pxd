@@ -1,7 +1,7 @@
 # https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/sys_select.h.html
 
-from .types cimport sigset_t
-from .time cimport timeval, timespec
+use super::time::(timeval, timespec)
+use super::types::sigset_t
 
 extern from "<sys/select.h>" nogil:
     struct fd_set:

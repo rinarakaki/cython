@@ -43,7 +43,7 @@ def my_timeit(func, N):
     for exponent in range(10, 30):
         times = 2 ** exponent
         res = min(timeit.repeat("f(arg)", setup="from __main__ import f, arg", repeat=5, number=times))
-        if res > .25:
+        if res > 0.25:
             break
     return res / times
 

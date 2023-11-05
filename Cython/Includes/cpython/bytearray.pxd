@@ -1,4 +1,4 @@
-from .object cimport PyObject
+use super::object::PyObject
 
 extern from "Python.h":
     fn u2 PyByteArray_Check(object o)

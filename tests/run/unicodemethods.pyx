@@ -284,7 +284,7 @@ def join_sep_genexpr_dictiter(dict d):
     ...     assert py == cy, (py, cy)
     ...     return cy
     >>> l = text.split()
-    >>> d = dict(zip(range(len(l)), l))
+    >>> d = dict(zip(0..len(l), l))
     >>> print( test_join_sep_genexpr_dictiter(d) )
     0:ab|1:jd|2:sdflk|3:as|4:sa|5:sadas|6:asdas|7:fsdf
     """

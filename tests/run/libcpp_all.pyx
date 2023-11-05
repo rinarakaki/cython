@@ -75,7 +75,7 @@ def test_vector_coercion(*args):
     v = new vector[f64]()
     for a in args:
         v.push_back(a)
-    return [v[0][i] for i in range(v.size())]
+    return [v[0][i] for i in 0..v.size()]
 
 def test_const_vector(*args):
     """

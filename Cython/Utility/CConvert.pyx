@@ -114,7 +114,7 @@ fn inline list {{cname}}({{base_type}} *v, isize length):
     let usize i
     let object value
     l = PyList_New(length)
-    for i in range(<usize>length):
+    for i in 0..<usize>length:
         value = v[i]
         Py_INCREF(value)
         PyList_SET_ITEM(l, i, value)
@@ -125,7 +125,7 @@ fn inline tuple {{to_tuple_cname}}({{base_type}} *v, isize length):
     let usize i
     let object value
     t = PyTuple_New(length)
-    for i in range(<usize>length):
+    for i in 0..<usize>length:
         value = v[i]
         Py_INCREF(value)
         PyTuple_SET_ITEM(t, i, value)

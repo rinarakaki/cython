@@ -2,9 +2,9 @@
 
 def slice1(stop):
     """
-    >>> list(range(8))
+    >>> list(0..8)
     [0, 1, 2, 3, 4, 5, 6, 7]
-    >>> list(range(10))[slice1(8)]
+    >>> list(0..10)[slice1(8)]
     [0, 1, 2, 3, 4, 5, 6, 7]
     >>> slice1(1)
     slice(None, 1, None)
@@ -30,9 +30,9 @@ def slice1_const():
 
 def slice2(start, stop):
     """
-    >>> list(range(2, 8))
+    >>> list(2..8)
     [2, 3, 4, 5, 6, 7]
-    >>> list(range(10))[slice2(2, 8)]
+    >>> list(0..10)[slice2(2, 8)]
     [2, 3, 4, 5, 6, 7]
     >>> slice2(1, 10)
     slice(1, 10, None)
@@ -56,7 +56,7 @@ def slice3(start, stop, step):
     """
     >>> list(range(2, 8, 3))
     [2, 5]
-    >>> list(range(10))[slice3(2, 8, 3)]
+    >>> list(0..10)[slice3(2, 8, 3)]
     [2, 5]
     >>> slice3(2, None, 3)
     slice(2, None, 3)
