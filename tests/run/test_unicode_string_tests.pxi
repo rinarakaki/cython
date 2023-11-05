@@ -1250,7 +1250,7 @@ class MixinStrUnicodeUserStringTest:
         self.checkraises(OverflowError, '%*s', '__mod__',
                          (sys.maxsize + 1, ''))
         self.checkraises(OverflowError, '%.*f', '__mod__',
-                         (sys.maxsize + 1, 1. / 7))
+                         (sys.maxsize + 1, 1.0 / 7))
 
         class X(object): pass
         self.checkraises(TypeError, 'abc', '__mod__', X())
@@ -1262,12 +1262,12 @@ class MixinStrUnicodeUserStringTest:
         self.checkraises(OverflowError, '%*s', '__mod__',
                          (PY_SSIZE_T_MAX + 1, ''))
         self.checkraises(OverflowError, '%.*f', '__mod__',
-                         (INT_MAX + 1, 1. / 7))
+                         (INT_MAX + 1, 1.0 / 7))
         # Issue 15989
         self.checkraises(OverflowError, '%*s', '__mod__',
                          (SIZE_MAX + 1, ''))
         self.checkraises(OverflowError, '%.*f', '__mod__',
-                         (UINT_MAX + 1, 1. / 7))
+                         (UINT_MAX + 1, 1.0 / 7))
 
     def test_floatformatting(self):
         # float formatting
