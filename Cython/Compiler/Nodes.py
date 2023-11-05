@@ -514,9 +514,10 @@ class CNameDeclaratorNode(CDeclaratorNode):
 
     def analyse(self, base_type, env, nonempty=0, visibility=None, in_pxd=False):
         if base_type is None:
-            if self.default is None:
+            if self.default is not None:
+                base_type = self.default.analyse_types(env)
+            else:
                 error(self.pos, "'auto' keyword cannot be used without an initialiser")
-            base_type = self.default.analyse_types(env)
         if nonempty and self.name == '':
             # May have mistaken the name for the type.
             if base_type.is_ptr or base_type.is_array or base_type.is_buffer:
