@@ -1463,7 +1463,7 @@ class CVarDefNode(StatNode):
                 env.declare_type(template_param.name, template_param, self.pos)
 
         base_type = self.base_type.analyse(env)
-        
+
         # Check for declaration modifiers, e.g. "typing.Optional[...]" or "dataclasses.InitVar[...]"
         modifiers = None
         if self.base_type.is_templated_type_node:
@@ -1498,7 +1498,7 @@ class CVarDefNode(StatNode):
             else:
                 name_declarator, type = declarator.analyse(
                     base_type, env, visibility=visibility, in_pxd=self.in_pxd)
-            if type.is_complete():
+            if not type.is_complete():
                 if not (self.visibility == 'extern' and type.is_array or type.is_memoryviewslice):
                     error(declarator.pos, "Variable type '%s' is incomplete" % type)
             if self.visibility == 'extern' and type.is_pyobject:
