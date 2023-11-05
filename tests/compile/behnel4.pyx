@@ -3,7 +3,7 @@
 enum E:
     Spam, Eggs
 
-fn E f() except Spam:
-    return Eggs
+fn E f() except E::Spam:
+    return E::Eggs
 
 f()

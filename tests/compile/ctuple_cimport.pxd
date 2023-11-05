@@ -5,7 +5,7 @@ fn (i32, i32) get_a_ctuple()
 ctypedef (i32, f64) int_double
 
 # Verify typedef defined
-cdef int_double tuple_global = (1, 2.)
+cdef int_double tuple_global = (1, 2.0)
 
 # Verify defined before opt args
 fn void test_opt_args((f64, i32) x=*)

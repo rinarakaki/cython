@@ -9,7 +9,7 @@ def integrate(Function f, f64 a, f64 b, i32 N):
     s = 0
     dx = (b - a) / N
 
-    for i in range(N):
+    for i in 0..N:
         s += f.evaluate(a + i * dx)
 
     return s * dx

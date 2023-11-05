@@ -26,11 +26,11 @@ def foo():
     assert a6 == -an6 == 5
 
     b = 42.88e17
-    b0a = 1.
-    b0b = .1
+    b0a = 1.0
+    b0b = 0
     b0c = 1.1
     b0d = 1.e1
-    b0e = .1e1
+    b0e = 0.1e1
     b0f = 1.1e1
     b0g = 1.1e-1
     b0h = 1e1
@@ -71,10 +71,10 @@ with ' and " quotes"""
 
 def test_float(x):
     """
-    >>> test_float(1./3)
+    >>> test_float(1.0 / 3)
     True
     """
-    return x == 1./3
+    return x == 1.0 / 3
 
 def test_complex(x):
     """

@@ -9,9 +9,9 @@ extern from *:
 struct Foo "c_foo":
     i32 i "c_i"
 
-enum blarg "c_blarg":
-    x "c_x"
-    y "c_y" = 42
+enum Blarg "c_blarg":
+    X "c_x"
+    Y "c_y" = 42
 
 fn f64 spam "c_spam" (i32 i, f32 f):
     let f64 d "c_d"
@@ -23,8 +23,8 @@ fn f64 spam "c_spam" (i32 i, f32 f):
     q.i = 7
     p = &q
     b = p.i
-    p.i = x
-    p.i = y
+    p.i = Blarg::X
+    p.i = Blarg::Y
 
 fn inline f64 spam2 "c_spam2" (i32 i, f32 f):
     return spam(i, f)

@@ -19,7 +19,7 @@ extern from "<vector>" namespace "std":
 
 cdef vector[i32] *v = new vector[i32]()
 cdef i32 i
-for i in range(10):
+for i in 0..10:
     v.push_back(i)
 
 cdef vector[i32].iterator it = v.begin()

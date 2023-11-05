@@ -91,7 +91,7 @@ def avoid_extra_coercion(x : cython.double):
     """
     The assignment expression and x are both coerced to PyObject - this should happen only once
     rather than to both separately
-    >>> avoid_extra_coercion(5.)
+    >>> avoid_extra_coercion(5.0)
     5.0
     """
     y : object = "I'm an object"

@@ -86,16 +86,16 @@ def index_object(object o, i32 i):
 
 def del_index_list(list L, isize index):
     """
-    >>> del_index_list(list(range(4)), 0)
+    >>> del_index_list(list(0..4), 0)
     [1, 2, 3]
-    >>> del_index_list(list(range(4)), 1)
+    >>> del_index_list(list(0..4), 1)
     [0, 2, 3]
-    >>> del_index_list(list(range(4)), -1)
+    >>> del_index_list(list(0..4), -1)
     [0, 1, 2]
-    >>> del_index_list(list(range(4)), py_maxsize)  # doctest: +ELLIPSIS
+    >>> del_index_list(list(0..4), py_maxsize)  # doctest: +ELLIPSIS
     Traceback (most recent call last):
     IndexError: list... index out of range
-    >>> del_index_list(list(range(4)), -py_maxsize)  # doctest: +ELLIPSIS
+    >>> del_index_list(list(0..4), -py_maxsize)  # doctest: +ELLIPSIS
     Traceback (most recent call last):
     IndexError: list... index out of range
     """
@@ -104,16 +104,16 @@ def del_index_list(list L, isize index):
 
 def set_index_list(list L, isize index):
     """
-    >>> set_index_list(list(range(4)), 0)
+    >>> set_index_list(list(0..4), 0)
     [5, 1, 2, 3]
-    >>> set_index_list(list(range(4)), 1)
+    >>> set_index_list(list(0..4), 1)
     [0, 5, 2, 3]
-    >>> set_index_list(list(range(4)), -1)
+    >>> set_index_list(list(0..4), -1)
     [0, 1, 2, 5]
-    >>> set_index_list(list(range(4)), py_maxsize)  # doctest: +ELLIPSIS
+    >>> set_index_list(list(0..4), py_maxsize)  # doctest: +ELLIPSIS
     Traceback (most recent call last):
     IndexError: list... index out of range
-    >>> set_index_list(list(range(4)), -py_maxsize)  # doctest: +ELLIPSIS
+    >>> set_index_list(list(0..4), -py_maxsize)  # doctest: +ELLIPSIS
     Traceback (most recent call last):
     IndexError: list... index out of range
     """
@@ -129,10 +129,10 @@ def test_unsigned_long():
     let i32 i
     let u64 ix
     let D = {}
-    for i from 0 <= i < <i32>sizeof(u64) * 8:
+    for i in 0..(<i32>sizeof(u64) * 8):
         ix = (1u64) << i
         D[ix] = true
-    for i from 0 <= i < <i32>sizeof(u64) * 8:
+    for i in 0..(<i32>sizeof(u64) * 8):
         ix = (1u64) << i
         assert D[ix] is true
         del D[ix]
@@ -145,10 +145,10 @@ def test_unsigned_short():
     let i32 i
     let u16 ix
     let D = {}
-    for i from 0 <= i < <i32>sizeof(u16) * 8:
+    for i in 0..(<i32>sizeof(u16) * 8):
         ix = (1u16) << i
         D[ix] = true
-    for i from 0 <= i < <i32>sizeof(u16) * 8:
+    for i in 0..(<i32>sizeof(u16) * 8):
         ix = (1u16) << i
         assert D[ix] is true
         del D[ix]
@@ -161,10 +161,10 @@ def test_long_long():
     let i32 i
     let i128 ix
     let D = {}
-    for i from 0 <= i < <i32>sizeof(i128) * 8:
+    for i in 0..(<i32>sizeof(i128) * 8):
         ix = (1i128) << i
         D[ix] = true
-    for i from 0 <= i < <i32>sizeof(i128) * 8:
+    for i in 0..(<i32>sizeof(i128) * 8):
         ix = (1i128) << i
         assert D[ix] is true
         del D[ix]
