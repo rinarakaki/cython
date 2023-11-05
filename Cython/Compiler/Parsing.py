@@ -3339,7 +3339,7 @@ def p_cdef_statement(s, ctx):
     if ctx.api:
         if ctx.visibility not in ("private", "pub", "public"):
             error(pos, "Cannot combine 'api' with '%s'" % ctx.visibility)
-    if (ctx.visibility == 'extern') and s.systring == "from":
+    if ctx.visibility == "extern" and s.systring == "from":
         return p_cdef_extern_block(s, pos, ctx)
     elif s.sy == 'import':
         s.next()
