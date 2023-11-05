@@ -513,12 +513,11 @@ class Scope(object):
         # Create new entry, and add to dictionary if
         # name is not None. Reports a warning if already
         # declared.
-        if type is not None:
-            if type.is_buffer and not isinstance(self, LocalScope):  # and not is_type:
-                error(pos, 'Buffer types only allowed as function local variables')
-            if not self.in_cinclude and cname and re.match("^_[_A-Z]+$", cname):
-                # See https://www.gnu.org/software/libc/manual/html_node/Reserved-Names.html#Reserved-Names
-                warning(pos, "'%s' is a reserved name in C." % cname, -1)
+        if type.is_buffer and not isinstance(self, LocalScope):  # and not is_type:
+            error(pos, 'Buffer types only allowed as function local variables')
+        if not self.in_cinclude and cname and re.match("^_[_A-Z]+$", cname):
+            # See https://www.gnu.org/software/libc/manual/html_node/Reserved-Names.html#Reserved-Names
+            warning(pos, "'%s' is a reserved name in C." % cname, -1)
 
         entries = self.entries
         if name and name in entries and not shadow and not self.is_builtin_scope:
@@ -526,7 +525,7 @@ class Scope(object):
 
             # Reject redeclared C++ functions only if they have the same type signature.
             cpp_override_allowed = False
-            if type is not None and type.is_cfunction and old_entry.type.is_cfunction and self.is_cpp():
+            if type.is_cfunction and old_entry.type.is_cfunction and self.is_cpp():
                 for alt_entry in old_entry.all_alternatives():
                     if type == alt_entry.type:
                         if name == '<init>' and not type.args:
@@ -561,7 +560,7 @@ class Scope(object):
             if not shadow:
                 entries[name] = entry
 
-        if type is not None and type.is_memoryviewslice:
+        if type.is_memoryviewslice:
             entry.init = type.default_value
 
         entry.scope = self
