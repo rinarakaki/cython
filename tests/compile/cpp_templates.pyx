@@ -35,7 +35,7 @@ f = e.getValue2()
 
 del b, e
 
-ctypedef TemplateTest1[i32] TemplateTest1_int
+type TemplateTest1_int = TemplateTest1[i32]
 cdef TemplateTest1_int aa
 
 # Verify that T767 is fixed.
