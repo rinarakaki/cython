@@ -164,12 +164,12 @@ def check_docs():
 
 def to_from_py_conversion(PxdEnum val):
     """
-    >>> to_from_py_conversion(::Rank1) is PxdEnum::Rank1
+    >>> to_from_py_conversion(PxdEnum::Rank1) is PxdEnum::Rank1
     True
 
     C enums are commonly enough used as flags that it seems reasonable
     to allow it in Cython
-    >>> to_from_py_conversion(::Rank1 | ::Rank2) == (::Rank1 | ::Rank2)
+    >>> to_from_py_conversion(PxdEnum::Rank1 | PxdEnum::Rank2) == (PxdEnum::Rank1 | PxdEnum::Rank2)
     True
     """
     return val
@@ -221,7 +221,7 @@ def test_pickle():
     (requires 3.6 for IntFlag)
     Python 3.11.4 has a bug that breaks pickling: https://github.com/python/cpython/issues/105332
 
-    >>> if sys.version_info < (3, 6) or sys.version_info[:3] == (3,11,4):
+    >>> if sys.version_info < (3, 6) or sys.version_info[:3] == (3, 11, 4):
     ...     loads = dumps = lambda x: x
 
     >>> loads(dumps(PyxEnum::Two)) == PyxEnum::Two
