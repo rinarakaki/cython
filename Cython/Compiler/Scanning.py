@@ -44,7 +44,7 @@ reserved_words = [
     "continue", "return", "raise", "import", "exec", "try",
     "except", "finally", "while", "if", "elif", "else", "for",
     "in", "assert", "and", "or", "not", "is", "lambda",
-    "from", "yield", "with",
+    "yield", "with",
 ]
 py_reserved_words = reserved_words + [
     "from"
