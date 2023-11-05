@@ -2048,7 +2048,7 @@ def p_for_bounds(s, allow_testlist=True, is_async=False):
         iterator = p_for_iterator(s, allow_testlist, is_async=is_async)
         return dict(target=target, iterator=iterator)
     elif not s.in_python_file and not is_async:
-        if s.sy == 'from':
+        if s.systring == "from":
             s.next()
             bound1 = p_bit_expr(s)
         else:
@@ -3339,7 +3339,7 @@ def p_cdef_statement(s, ctx):
     if ctx.api:
         if ctx.visibility not in ("private", "pub", "public"):
             error(pos, "Cannot combine 'api' with '%s'" % ctx.visibility)
-    if (ctx.visibility == 'extern') and s.sy == 'from':
+    if (ctx.visibility == 'extern') and s.systring == "from":
         return p_cdef_extern_block(s, pos, ctx)
     elif s.sy == 'import':
         s.next()
