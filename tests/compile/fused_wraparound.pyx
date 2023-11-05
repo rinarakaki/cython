@@ -18,5 +18,5 @@ ctypedef fused fused_t:
 
 #[cython.wraparound(false)]
 #[cython.boundscheck(false)]
-def func(fused_t a, cython.floating b):
+fn func(fused_t a, cython.floating b):
     return a, b
