@@ -69,18 +69,18 @@ extern from *:
 fn internal_cpp_func(NoAssign arg):
     pass
 
-def test_call_to_function():
+fn test_call_to_function():
     # will fail to compile if move constructors aren't used
     internal_cpp_func(get_NoAssign_Py())
     internal_cpp_func(get_NoAssign_Cpp())
 
-def test_assignment_to_name():
+fn test_assignment_to_name():
     # will fail if move constructors aren't used
     let NoAssign value
     value = get_NoAssign_Py()
     value = get_NoAssign_Cpp()
 
-def test_assignment_to_scope():
+fn test_assignment_to_scope():
     let NoAssign value
     value = get_NoAssign_Py()
     value = get_NoAssign_Cpp()
@@ -89,10 +89,10 @@ def test_assignment_to_scope():
 
 cdef class AssignToClassAttr:
     cdef NoAssign attr
-    def __init__(self):
+    fn __init__(self):
         self.attr = get_NoAssign_Py()
         self.attr = get_NoAssign_Cpp()
 
-def test_generator_cpp_iterator_as_temp():
+fn test_generator_cpp_iterator_as_temp():
     for i in get_NoAssign_Py():
         yield i
