@@ -7,7 +7,7 @@ cdef class Grail:
 cdef class Swallow:
     pass
 
-def f(Grail g):
+fn f(Grail g):
     let i32 i = 0
     let auto s = Swallow()
     let object x = Grail()
