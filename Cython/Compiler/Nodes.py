@@ -531,7 +531,7 @@ class CNameDeclaratorNode(CDeclaratorNode):
                 self.name = base_type.declaration_code("", for_display=1, pyrex=1)
                 base_type = py_object_type
 
-        if base_type.is_fused and env.fused_to_specific:
+        if base_type and base_type.is_fused and env.fused_to_specific:
             try:
                 base_type = base_type.specialize(env.fused_to_specific)
             except CannotSpecialize:
