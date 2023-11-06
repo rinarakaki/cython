@@ -1,14 +1,14 @@
 # mode: compile
 
-cdef extern object g(object x) nogil
-cdef extern void g2(object x) nogil
+extern fn object g(object x) nogil
+extern fn void g2(object x) nogil
 
 extern from "nogil.h":
     fn void e1() nogil
     fn i32 *e2() nogil
 
 fn void f(i32 x) nogil:
-    cdef i32 y
+    let i32 y
     y = 42
 
 fn void h(object x) nogil:

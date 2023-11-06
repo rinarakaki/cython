@@ -22,8 +22,8 @@ setup(
 
 ctypedef api f32 flt
 
-fn i32 int0
-fn f32 flt0
+cdef i32 int0
+cdef f32 flt0
 
 cdef api i32 int1
 cdef api f32 flt1
@@ -87,10 +87,10 @@ flt0 = flt1 = flt2 = 7
 # distutils: language = c++
 
 extern from "a_api.h":
-     i32 import_a() except -1
-     ctypedef f32 flt
-     i32 int1, int2, int3
-     flt flt1, flt2, flt3
+    fn i32 import_a() except -1
+    ctypedef f32 flt
+    i32 int1, int2, int3
+    flt flt1, flt2, flt3
 
 import_a()
 
@@ -132,7 +132,7 @@ extern from "a.h":
 extern from "inita.h":
      pass
 extern from "a.h":
-     void inita() except *
+     fn void inita() except *
      ctypedef f32 flt
      i32 int2, int4
      flt flt2, flt4

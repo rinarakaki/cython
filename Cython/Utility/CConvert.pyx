@@ -3,14 +3,14 @@
 extern from *:
     struct PyTypeObject:
         char* tp_name
-    PyTypeObject *Py_TYPE(obj)
-    u2 PyMapping_Check(obj)
-    object PyErr_Format(exc, const char *format, ...)
-    int __Pyx_RaiseUnexpectedTypeError(const char *expected, object obj) except 0
+    fn PyTypeObject *Py_TYPE(obj)
+    fn u2 PyMapping_Check(obj)
+    fn object PyErr_Format(exc, const char *format, ...)
+    fn i32 __Pyx_RaiseUnexpectedTypeError(const char *expected, object obj) except 0
 
 @cname("{{funcname}}")
 fn {{struct_type}} {{funcname}}(obj) except *:
-    cdef {{struct_type}} result
+    let {{struct_type}} result
     if not PyMapping_Check(obj):
         __Pyx_RaiseUnexpectedTypeError(b"a mapping", obj)
 
@@ -29,10 +29,10 @@ fn {{struct_type}} {{funcname}}(obj) except *:
 extern from *:
     struct PyTypeObject:
         char* tp_name
-    PyTypeObject *Py_TYPE(obj)
-    u2 PyMapping_Check(obj)
-    object PyErr_Format(exc, const char *format, ...)
-    int __Pyx_RaiseUnexpectedTypeError(const char *expected, object obj) except 0
+    fn PyTypeObject *Py_TYPE(obj)
+    fn u2 PyMapping_Check(obj)
+    fn object PyErr_Format(exc, const char *format, ...)
+    fn i32 __Pyx_RaiseUnexpectedTypeError(const char *expected, object obj) except 0
 
 @cname("{{funcname}}")
 fn {{struct_type}} {{funcname}}(obj) except *:
@@ -73,7 +73,7 @@ fn object {{cname}}({{return_type.ctype}} (*f)({{ ', '.join(arg.type_cname for a
 #################### carray.from_py ####################
 
 extern from *:
-    object PyErr_Format(exc, const char *format, ...)
+    fn object PyErr_Format(exc, const char *format, ...)
 
 @cname("{{cname}}")
 fn i32 {{cname}}(object o, {{base_type}} *v, isize length) except -1:
@@ -103,11 +103,11 @@ fn i32 {{cname}}(object o, {{base_type}} *v, isize length) except -1:
 #################### carray.to_py ####################
 
 extern from *:
-    void Py_INCREF(object o)
-    tuple PyTuple_New(isize size)
-    list PyList_New(isize size)
-    void PyTuple_SET_ITEM(object p, isize pos, object o)
-    void PyList_SET_ITEM(object p, isize pos, object o)
+    fn void Py_INCREF(object o)
+    fn tuple PyTuple_New(isize size)
+    fn list PyList_New(isize size)
+    fn void PyTuple_SET_ITEM(object p, isize pos, object o)
+    fn void PyList_SET_ITEM(object p, isize pos, object o)
 
 @cname("{{cname}}")
 fn inline list {{cname}}({{base_type}} *v, isize length):

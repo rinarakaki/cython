@@ -10,9 +10,9 @@ extern from "arithmetic_analyse_types_helper.h":
         char *msg
     struct longlong_return:
         char *msg
-    let short_return f(i16)
-    let int_return f(i32)
-    let longlong_return f(i128)
+    fn short_return f(i16)
+    fn int_return f(i32)
+    fn longlong_return f(i128)
 
 def short_binop(i16 val):
     """
