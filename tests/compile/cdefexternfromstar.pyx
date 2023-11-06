@@ -1,4 +1,4 @@
 # mode: compile
 
 extern from *:
-    statuc i32 spam
+    static i32 spam
