@@ -16,7 +16,7 @@ setup(
 
 ######## a.pxd ########
 
-pub i32 foo()
+pub fn i32 foo()
 
 extern from "b.h":
     cpdef i32 bar()
@@ -43,4 +43,3 @@ int bar();
 #include "a.h"
 
 int bar() { return foo(); }
-

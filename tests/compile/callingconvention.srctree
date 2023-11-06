@@ -20,15 +20,15 @@ setup(
 extern from "callingconvention.h":
     pass
 
-cdef extern int f1()
-cdef extern int __cdecl f2()
-cdef extern int __stdcall f3()
-cdef extern int __fastcall f4()
+extern fn i32 f1()
+extern fn i32 __cdecl f2()
+extern fn i32 __stdcall f3()
+extern fn i32 __fastcall f4()
 
-cdef extern int (*p1)()
-cdef extern int (__cdecl *p2)()
-cdef extern int (__stdcall *p3)()
-cdef extern int (__fastcall *p4)()
+cdef extern i32 (*p1)()
+cdef extern i32 (__cdecl *p2)()
+cdef extern i32 (__stdcall *p3)()
+cdef extern i32 (__fastcall *p4)()
 
 p1 = f1
 p2 = f2
@@ -45,9 +45,9 @@ p4 = f4
 ######## external_callingconvention.h ########
 
 #ifndef DL_IMPORT
-  #define DL_IMPORT(t) t
+    #define DL_IMPORT(t) t
 #elif defined(DLL_EXPORT)
-  #define DL_IMPORT(t) DL_EXPORT(t)
+    #define DL_IMPORT(t) DL_EXPORT(t)
 #endif
 
 #ifdef __cplusplus
@@ -69,20 +69,20 @@ extern DL_IMPORT(int) (__fastcall *p4)(void);
 #include <Python.h>
 
 #ifndef DL_EXPORT
-  #define DL_EXPORT(t) t
+    #define DL_EXPORT(t) t
 #endif
 
 
 #if !defined(WIN32) && !defined(MS_WINDOWS)
-  #ifndef __stdcall
-    #define __stdcall
-  #endif
-  #ifndef __cdecl
-    #define __cdecl
-  #endif
-  #ifndef __fastcall
-    #define __fastcall
-  #endif
+    #ifndef __stdcall
+        #define __stdcall
+    #endif
+    #ifndef __cdecl
+        #define __cdecl
+    #endif
+    #ifndef __fastcall
+        #define __fastcall
+    #endif
 #endif
 
 DL_EXPORT(int) f1(void) {return 0;}

@@ -9,7 +9,7 @@ extern from "cheese.h":
 
     char *swiss
 
-    void cheddar()
+    fn void cheddar()
 
     # FIXME: find a real declaration here.
     #class external.runny [object runny_obj]:

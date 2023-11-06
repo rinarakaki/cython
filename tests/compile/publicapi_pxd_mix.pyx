@@ -9,12 +9,12 @@ cdef class Bar2: pass
 cdef class Bar3: pass
 
 fn       void bar0(): pass
-pub      void bar1(): pass
+pub  fn  void bar1(): pass
 cdef api void bar2(): pass
 pub  api void bar3(): pass
 
 fn       void* spam0(object o) except NULL: return NULL
-pub      void* spam1(object o) except NULL: return NULL
+pub  fn  void* spam1(object o) except NULL: return NULL
 cdef api void* spam2(object o) except NULL nogil: return NULL
 pub  api void* spam3(object o) except NULL with gil: return NULL
 
