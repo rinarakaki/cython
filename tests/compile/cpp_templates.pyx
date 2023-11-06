@@ -4,13 +4,13 @@
 
 extern from "templates.h":
     cdef cppclass TemplateTest1[T]:
-        fn TemplateTest1()
+        TemplateTest1()
         T value
         i32 t
         fn T get_value()
 
     cdef cppclass TemplateTest2[T, U]:
-        fn TemplateTest2()
+        TemplateTest2()
         T value1
         U value2
         fn T get_value1()
