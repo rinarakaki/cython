@@ -1,7 +1,7 @@
 import random
 use libc::stdlib::(malloc, free)
 
-fn f64* random_noise(i32 number=1):
+fn list random_noise(i32 number=1):
     let i32 i
     # allocate number * sizeof(f64) bytes of memory
     let auto my_array = <f64 *>malloc(number * sizeof(f64))
