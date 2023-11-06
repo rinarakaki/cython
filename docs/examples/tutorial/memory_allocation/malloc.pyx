@@ -1,5 +1,6 @@
-import random
 use libc::stdlib::(malloc, free)
+
+import random
 
 fn list random_noise(i32 number=1):
     let i32 i
