@@ -43,7 +43,7 @@ cimport x
 include "y.pxi"
 
 # cdivision from setup.py
-def mod_int_c(i32 a, i32 b):
+fn mod_int_c(i32 a, i32 b):
     return a % b
 
 assert mod_int_c(-1, 10) < 0
