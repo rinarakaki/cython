@@ -2769,7 +2769,7 @@ def p_c_simple_base_type(s, nonempty, templates=None):
         name = s.systring
         name_pos = s.position()
         s.next()
-        if nonempty and s.sy != 'IDENT':
+        if nonempty and s.sy not in ("const", "IDENT"):
             # Make sure this is not a declaration of a variable or function.
             if s.sy == '(':
                 old_pos = s.position()
