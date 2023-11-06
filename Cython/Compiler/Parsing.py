@@ -3635,7 +3635,7 @@ def p_c_func_or_var_declaration(s, pos, ctx):
             is_const_method = is_const_method)
         if ctx.level in ("c_class", "c_class_pxd") and (len(declarator.args) == 0 or declarator.args[0].declarator.name != "self"):
             print("!!!!!!! DEBUG !!!!!!!")
-            print(declarator.args[0].declarator, declarator.args[0].declarator.base_type, declarator.args[0].declarator.name)
+            print(declarator.args[0], declarator.args[0].declarator, declarator.args[0].base_type, declarator.args[0].declarator.name)
             result.decorators = [Nodes.DecoratorNode(pos, decorator=ExprNodes.NameNode(pos, name="staticmethod"))]
     else:
         #if api:
