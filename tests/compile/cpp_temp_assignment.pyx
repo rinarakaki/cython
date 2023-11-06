@@ -89,7 +89,7 @@ fn test_assignment_to_scope():
 
 cdef class AssignToClassAttr:
     cdef NoAssign attr
-    fn __init__(self):
+    def __init__(self):
         self.attr = get_NoAssign_Py()
         self.attr = get_NoAssign_Cpp()
 

@@ -1,6 +1,6 @@
 # mode: compile
 
-fn f(x, y):
+def f(x, y):
     x = y
 
 fn z(a, b, c):
