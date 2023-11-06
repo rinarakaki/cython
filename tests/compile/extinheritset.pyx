@@ -4,7 +4,6 @@ cdef class Parrot:
     pass
 
 cdef class Norwegian(Parrot):
-
     def __setitem__(self, i, x):
         pass
 
