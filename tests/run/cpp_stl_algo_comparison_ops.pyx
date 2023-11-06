@@ -2,7 +2,7 @@
 # tag: cpp, werror, cpp17, no-cpp-locals
 
 use libcpp::bool
-from libcpp.algorithm cimport equal, lexicographical_compare
+use libcpp::algorithm::(equal, lexicographical_compare)
 use libcpp::vector::vector
 
 fn bool compare(i32 a, i32 b):

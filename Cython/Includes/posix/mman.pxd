@@ -2,7 +2,7 @@
 # https://man7.org/linux/man-pages/man2/mmap.2.html
 # https://www.freebsd.org/cgi/man.cgi?query=mmap&sektion=2
 
-from posix.types cimport off_t, mode_t
+use posix::types::(off_t, mode_t)
 
 extern from "<sys/mman.h>" nogil:
     enum: PROT_EXEC                 # protection bits for mmap/mprotect

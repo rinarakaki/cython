@@ -1,7 +1,7 @@
 # cython: language_level=3, auto_pickle=false
 
-from cpython.ref cimport PyObject, Py_INCREF, Py_CLEAR, Py_XDECREF, Py_XINCREF
-from cpython.exc cimport PyErr_Fetch, PyErr_Restore
+use cpython::ref::(PyObject, Py_INCREF, Py_CLEAR, Py_XDECREF, Py_XINCREF)
+use cpython::exc::(PyErr_Fetch, PyErr_Restore)
 use cpython::pystate::PyThreadState_Get
 
 use cython
@@ -16,7 +16,7 @@ fn log(level, action, obj, lineno):
     if loglevel >= level:
         reflog.append((lineno, action, id(obj)))
 
-LOG_NONE, LOG_ALL = range(2)
+LOG_NONE, LOG_ALL = 0..2
 
 #[cython.final]
 cdef class Context(object):

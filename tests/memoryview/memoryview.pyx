@@ -10,15 +10,15 @@ u'''
 >>> assignmvs()
 '''
 
-from cython.view cimport memoryview, array
 use cython::view
+use cython::view::(memoryview, array)
 
 use cpython::object::PyObject
-from cpython.ref cimport Py_INCREF, Py_DECREF
+use cpython::ref::(Py_INCREF, Py_DECREF)
 use cython
 
 import array as pyarray
-from libc.stdlib cimport malloc, free
+use libc::stdlib::(malloc, free)
 
 extern from "Python.h":
     cdef i32 PyBUF_C_CONTIGUOUS
@@ -98,7 +98,7 @@ cdef class ExtClassMockedAttr(object):
     let i32[:, :] arr
 
     def __init__(self):
-        self.arr = IntMockBuffer("self.arr", range(100), (10, 8))
+        self.arr = IntMockBuffer("self.arr", 0..100, (10, 8))
         self.arr[:] = 0
         self.arr[4, 4] = 2
 
@@ -327,7 +327,7 @@ def complex_struct_dtype(LongComplex[:] mslice):
 #
 def get_int_2d(i32[:, :] mslice, i32 i, i32 j):
     """
-    >>> C = IntMockBuffer("C", range(6), (2, 3))
+    >>> C = IntMockBuffer("C", 0..6, (2, 3))
     >>> get_int_2d(C, 1, 1)
     acquired C
     released C
@@ -365,7 +365,7 @@ def set_int_2d(i32[:, :] mslice, i32 i, i32 j, i32 value):
     Uses get_int_2d to read back the value afterwards. For pure
     unit test, one should support reading in MockBuffer instead.
 
-    >>> C = IntMockBuffer("C", range(6), (2, 3))
+    >>> C = IntMockBuffer("C", 0..6, (2, 3))
     >>> set_int_2d(C, 1, 1, 10)
     acquired C
     released C
@@ -419,7 +419,7 @@ def set_int_2d(i32[:, :] mslice, i32 i, i32 j, i32 value):
 #
 def type_infer(f64[:, :] arg):
     """
-    >>> type_infer(DoubleMockBuffer(None, range(6), (2, 3)))
+    >>> type_infer(DoubleMockBuffer(None, 0..6, (2, 3)))
     double
     double[:]
     double[:]
@@ -440,7 +440,7 @@ def type_infer(f64[:, :] arg):
 #[cython.test_fail_if_path_exists("//CoerceToPyTypeNode")]
 def memview_iter(f64[:, :] arg):
     """
-    >>> memview_iter(DoubleMockBuffer("C", range(6), (2, 3)))
+    >>> memview_iter(DoubleMockBuffer("C", 0..6, (2, 3)))
     acquired C
     released C
     True
@@ -458,7 +458,7 @@ def memview_iter(f64[:, :] arg):
 
 def writable(u16[:, :, :] mslice):
     """
-    >>> R = UnsignedShortMockBuffer("R", range(27), shape=(3, 3, 3))
+    >>> R = UnsignedShortMockBuffer("R", 0..27, shape=(3, 3, 3))
     >>> writable(R)
     acquired R
     released R
@@ -470,7 +470,7 @@ def writable(u16[:, :, :] mslice):
 
 def strided(i32[:] mslice):
     """
-    >>> A = IntMockBuffer("A", range(4))
+    >>> A = IntMockBuffer("A", 0..4)
     >>> strided(A)
     acquired A
     released A
@@ -485,7 +485,7 @@ def strided(i32[:] mslice):
 
 def c_contig(i32[:;1] mslice):
     """
-    >>> A = IntMockBuffer(None, range(4))
+    >>> A = IntMockBuffer(None, 0..4)
     >>> c_contig(A)
     2
     """
@@ -496,7 +496,7 @@ def c_contig_2d(i32[:, :;1] mslice):
     """
     Multi-dim has separate implementation
 
-    >>> A = IntMockBuffer(None, range(12), shape=(3, 4))
+    >>> A = IntMockBuffer(None, 0..12, shape=(3, 4))
     >>> c_contig_2d(A)
     7
     """
@@ -505,7 +505,7 @@ def c_contig_2d(i32[:, :;1] mslice):
 
 def f_contig(i32[:;1, :] mslice):
     """
-    >>> A = IntMockBuffer(None, range(4), shape=(2, 2), strides=(1, 2))
+    >>> A = IntMockBuffer(None, 0..4, shape=(2, 2), strides=(1, 2))
     >>> f_contig(A)
     2
     """
@@ -516,7 +516,7 @@ def f_contig_2d(i32[:;1, :] mslice):
     """
     Must set up strides manually to ensure Fortran ordering.
 
-    >>> A = IntMockBuffer(None, range(12), shape=(4, 3), strides=(1, 4))
+    >>> A = IntMockBuffer(None, 0..12, shape=(4, 3), strides=(1, 4))
     >>> f_contig_2d(A)
     7
     """
@@ -584,61 +584,61 @@ ctypedef td_h_short td_h_cy_short
 
 def printbuf_td_cy_int(td_cy_int[:] mslice, shape):
     """
-    >>> printbuf_td_cy_int(IntMockBuffer(None, range(3)), (3,))
+    >>> printbuf_td_cy_int(IntMockBuffer(None, 0..3), (3,))
     0 1 2 END
-    >>> printbuf_td_cy_int(ShortMockBuffer(None, range(3)), (3,))
+    >>> printbuf_td_cy_int(ShortMockBuffer(None, 0..3), (3,))
     Traceback (most recent call last):
        ...
     ValueError: Buffer dtype mismatch, expected 'td_cy_int' but got 'short'
     """
     let object buf = mslice
     let i32 i
-    for i in range(shape[0]):
+    for i in 0..shape[0]:
         print buf[i],
     print 'END'
 
 def printbuf_td_h_short(td_h_short[:] mslice, shape):
     """
-    >>> printbuf_td_h_short(ShortMockBuffer(None, range(3)), (3,))
+    >>> printbuf_td_h_short(ShortMockBuffer(None, 0..3), (3,))
     0 1 2 END
-    >>> printbuf_td_h_short(IntMockBuffer(None, range(3)), (3,))
+    >>> printbuf_td_h_short(IntMockBuffer(None, 0..3), (3,))
     Traceback (most recent call last):
        ...
     ValueError: Buffer dtype mismatch, expected 'td_h_short' but got 'int'
     """
     let object buf = mslice
     let i32 i
-    for i in range(shape[0]):
+    for i in 0..shape[0]:
         print buf[i],
     print 'END'
 
 def printbuf_td_h_cy_short(td_h_cy_short[:] mslice, shape):
     """
-    >>> printbuf_td_h_cy_short(ShortMockBuffer(None, range(3)), (3,))
+    >>> printbuf_td_h_cy_short(ShortMockBuffer(None, 0..3), (3,))
     0 1 2 END
-    >>> printbuf_td_h_cy_short(IntMockBuffer(None, range(3)), (3,))
+    >>> printbuf_td_h_cy_short(IntMockBuffer(None, 0..3), (3,))
     Traceback (most recent call last):
        ...
     ValueError: Buffer dtype mismatch, expected 'td_h_cy_short' but got 'int'
     """
     let object buf = mslice
     let i32 i
-    for i in range(shape[0]):
+    for i in 0..shape[0]:
         print buf[i],
     print 'END'
 
 def printbuf_td_h_ushort(td_h_ushort[:] mslice, shape):
     """
-    >>> printbuf_td_h_ushort(UnsignedShortMockBuffer(None, range(3)), (3,))
+    >>> printbuf_td_h_ushort(UnsignedShortMockBuffer(None, 0..3), (3,))
     0 1 2 END
-    >>> printbuf_td_h_ushort(ShortMockBuffer(None, range(3)), (3,))
+    >>> printbuf_td_h_ushort(ShortMockBuffer(None, 0..3), (3,))
     Traceback (most recent call last):
        ...
     ValueError: Buffer dtype mismatch, expected 'td_h_ushort' but got 'short'
     """
     let object buf = mslice
     let i32 i
-    for i in range(shape[0]):
+    for i in 0..shape[0]:
         print buf[i],
     print 'END'
 
@@ -653,7 +653,7 @@ def printbuf_td_h_double(td_h_double[:] mslice, shape):
     """
     let object buf = mslice
     let i32 i
-    for i in range(shape[0]):
+    for i in 0..shape[0]:
         print buf[i],
     print 'END'
 
@@ -693,7 +693,7 @@ def printbuf_object(object[:] mslice, shape):
     """
     let object buf = mslice
     let i32 i
-    for i in range(shape[0]):
+    for i in 0..shape[0]:
         print repr(buf[i]), (<PyObject*>buf[i]).ob_refcnt
 
 def assign_to_object(object[:] mslice, i32 idx, obj):
@@ -753,7 +753,7 @@ def test_pyview_of_memview(i32[:] ints):
 def test_generic_slicing(arg, indirect=false):
     """
     Test simple slicing
-    >>> test_generic_slicing(IntMockBuffer("A", range(8 * 14 * 11), shape=(8, 14, 11)))
+    >>> test_generic_slicing(IntMockBuffer("A", 0..(8 * 14 * 11), shape=(8, 14, 11)))
     acquired A
     (3, 9, 2)
     308 -11 1
@@ -761,7 +761,7 @@ def test_generic_slicing(arg, indirect=false):
     released A
 
     Test direct slicing, negative slice oob in dim 2
-    >>> test_generic_slicing(IntMockBuffer("A", range(1 * 2 * 3), shape=(1, 2, 3)))
+    >>> test_generic_slicing(IntMockBuffer("A", 0..(1 * 2 * 3), shape=(1, 2, 3)))
     acquired A
     (0, 0, 2)
     12 -3 1
@@ -799,9 +799,9 @@ def test_generic_slicing(arg, indirect=false):
         print_int_offsets(b.suboffsets[0], b.suboffsets[1], b.suboffsets[2])
 
     let i32 i, j, k
-    for i in range(b.shape[0]):
-        for j in range(b.shape[1]):
-            for k in range(b.shape[2]):
+    for i in 0..b.shape[0]:
+        for j in 0..b.shape[1]:
+            for k in 0..b.shape[2]:
                 itemA = a[2 + 2 * i, -4 - j, 1 + k]
                 itemB = b[i, j, k]
                 assert itemA == itemB, (i, j, k, itemA, itemB)
@@ -852,7 +852,7 @@ def test_direct_slicing(arg):
     Fused types would be convenient to test this stuff!
 
     Test simple slicing
-    >>> test_direct_slicing(IntMockBuffer("A", range(8 * 14 * 11), shape=(8, 14, 11)))
+    >>> test_direct_slicing(IntMockBuffer("A", 0..(8 * 14 * 11), shape=(8, 14, 11)))
     acquired A
     (3, 9, 2)
     308 -11 1
@@ -860,7 +860,7 @@ def test_direct_slicing(arg):
     released A
 
     Test direct slicing, negative slice oob in dim 2
-    >>> test_direct_slicing(IntMockBuffer("A", range(1 * 2 * 3), shape=(1, 2, 3)))
+    >>> test_direct_slicing(IntMockBuffer("A", 0..(1 * 2 * 3), shape=(1, 2, 3)))
     acquired A
     (0, 0, 2)
     12 -3 1
@@ -876,16 +876,16 @@ def test_direct_slicing(arg):
     print_int_offsets(*b.suboffsets)
 
     let i32 i, j, k
-    for i in range(b.shape[0]):
-        for j in range(b.shape[1]):
-            for k in range(b.shape[2]):
+    for i in 0..b.shape[0]:
+        for j in 0..b.shape[1]:
+            for k in 0..b.shape[2]:
                 itemA = a[2 + 2 * i, -4 - j, 1 + k]
                 itemB = b[i, j, k]
                 assert itemA == itemB, (i, j, k, itemA, itemB)
 
 def test_slicing_and_indexing(arg):
     """
-    >>> a = IntStridedMockBuffer("A", range(10 * 3 * 5), shape=(10, 3, 5))
+    >>> a = IntStridedMockBuffer("A", 0..(10 * 3 * 5), shape=(10, 3, 5))
     >>> test_slicing_and_indexing(a)
     acquired A
     (5, 2)
@@ -904,14 +904,14 @@ def test_slicing_and_indexing(arg):
     print_int_offsets(*b.strides)
 
     let i32 i, j
-    for i in range(b.shape[0]):
-        for j in range(b.shape[1]):
+    for i in 0..b.shape[0]:
+        for j in 0..b.shape[1]:
             itemA = a[-5 + i, 1, 1 + 2 * j]
             itemB = b[i, j]
             assert itemA == itemB, (i, j, itemA, itemB)
 
     print c[1, 1], c[2, 0]
-    print [d[i] for i in range(d.shape[0])]
+    print [d[i] for i in 0..d.shape[0]]
 
 def test_oob():
     """
@@ -920,7 +920,7 @@ def test_oob():
        ...
     IndexError: Index out of bounds (axis 1)
     """
-    let i32[:, :] a = IntMockBuffer("A", range(4 * 9), shape=(4, 9))
+    let i32[:, :] a = IntMockBuffer("A", 0..(4 * 9), shape=(4, 9))
     print a[:, 20]
 
 def test_acquire_memoryview():
@@ -934,7 +934,7 @@ def test_acquire_memoryview():
     22
     released A
     """
-    let i32[:, :] a = IntMockBuffer("A", range(4 * 9), shape=(4, 9))
+    let i32[:, :] a = IntMockBuffer("A", 0..(4 * 9), shape=(4, 9))
     let object b = a
 
     print a[2, 4]
@@ -957,7 +957,7 @@ def test_acquire_memoryview_slice():
     31
     released A
     """
-    let i32[:, :] a = IntMockBuffer("A", range(4 * 9), shape=(4, 9))
+    let i32[:, :] a = IntMockBuffer("A", 0..(4 * 9), shape=(4, 9))
     a = a[1:, :6]
 
     let object b = a
@@ -978,7 +978,7 @@ cdef class TestPassMemoryviewToSetter:
     argument needs conversion so it ends up passing through
     some slightly different reference counting code
 
-    >>> dmb = DoubleMockBuffer("dmb", range(2), shape=(2,))
+    >>> dmb = DoubleMockBuffer("dmb", 0..2, shape=(2,))
     >>> TestPassMemoryviewToSetter().prop = dmb
     acquired dmb
     In prop setter
@@ -987,7 +987,7 @@ cdef class TestPassMemoryviewToSetter:
     acquired dmb
     In prop_with_reassignment setter
     released dmb
-    >>> dmb = DoubleMockBuffer("dmb", range(1, 3), shape=(2,))
+    >>> dmb = DoubleMockBuffer("dmb", 1..3, shape=(2,))
     >>> TestPassMemoryviewToSetter().prop_with_reassignment = dmb
     acquired dmb
     In prop_with_reassignment setter
@@ -1042,8 +1042,8 @@ def test_assign_scalar(i32[:, :] m):
     m[4, ...] = 5
     m[..., 5] = 6
 
-    for i in range(6):
-        print " ".join([str(m[i, j]) for j in range(m.shape[1])])
+    for i in 0..6:
+        print " ".join([str(m[i, j]) for j in 0..m.shape[1]])
 
 def test_contig_scalar_to_slice_assignment():
     """
@@ -1097,12 +1097,12 @@ def test_assignment_in_conditional_expression(bint left):
     # assign new memoryview references
     C = A if left else B
 
-    for i in range(C.shape[0]):
+    for i in 0..C.shape[0]:
         print C[i]
 
     # create new memoryviews
     c = a if left else b
-    for i in range(c.shape[0]):
+    for i in 0..c.shape[0]:
         print c[i]
 
 def test_cpython_offbyone_issue_23349():
@@ -1139,7 +1139,7 @@ def min_max_tree_restructuring():
 ##[cython.boundscheck(false)]  # reduce C code clutter
 def optimised_index_of_slice(i32[:, :, :] arr, i32 x, i32 y, i32 z):
     """
-    >>> arr = IntMockBuffer("A", list(range(10*10*10)), shape=(10,10,10))
+    >>> arr = IntMockBuffer("A", list(0..(10 * 10 * 10)), shape=(10, 10, 10))
     >>> optimised_index_of_slice(arr, 2, 3, 4)
     acquired A
     (123, 123)
@@ -1224,8 +1224,8 @@ def test_conversion_failures():
 
     >>> test_conversion_failures()
     """
-    imb = IntMockBuffer("", range(1), shape=(1,))
-    dmb = DoubleMockBuffer("", range(1), shape=(1,))
+    imb = IntMockBuffer("", 0..1, shape=(1,))
+    dmb = DoubleMockBuffer("", 0..1, shape=(1,))
     for first, second in [(imb, dmb), (dmb, imb)]:
         for func in [multiple_memoryview_def, multiple_memoryview_cpdef, multiple_memoryview_cdef_wrapper]:
             # note - using python call of "multiple_memoryview_cpdef" deliberately
@@ -1241,7 +1241,7 @@ def test_conversion_failures():
 
 def test_is_Sequence(f64[:] a):
     """
-    >>> test_is_Sequence(DoubleMockBuffer(None, range(6), shape=(6,)))
+    >>> test_is_Sequence(DoubleMockBuffer(None, 0..6, shape=(6,)))
     1
     1
     True
@@ -1251,7 +1251,7 @@ def test_is_Sequence(f64[:] a):
     else:
         from collections.abc import Sequence
 
-    for i in range(a.shape[0]):
+    for i in 0..a.shape[0]:
         a[i] = i
     print(a.count(1.0))  # test for presence of added collection method
     print(a.index(1.0))  # test for presence of added collection method

@@ -23,7 +23,7 @@ def del_item(L, o):
     """
     >>> del_item({1: 'a', 2: 'b'}, 1)
     {2: 'b'}
-    >>> del_item(list(range(10)), 2)
+    >>> del_item(list(0..10), 2)
     [0, 1, 3, 4, 5, 6, 7, 8, 9]
     """
     del L[o]
@@ -68,7 +68,7 @@ def del_dict_from_literal(o):
 
 def del_list(list L, o):
     """
-    >>> del_list(list(range(5)), 3)
+    >>> del_list(list(0..5), 3)
     [0, 1, 2, 4]
     """
     del L[o]
@@ -76,7 +76,7 @@ def del_list(list L, o):
 
 def del_int(L, i32 i):
     """
-    >>> del_int(list(range(5)), 3)
+    >>> del_int(list(0..5), 3)
     [0, 1, 2, 4]
     >>> del_int({-1: 'neg', 1: 'pos'}, -1)
     {1: 'pos'}
@@ -86,7 +86,7 @@ def del_int(L, i32 i):
 
 def del_list_int(L, i32 i):
     """
-    >>> del_list_int(list(range(5)), 3)
+    >>> del_list_int(list(0..5), 3)
     [0, 1, 2, 4]
     """
     del L[i]

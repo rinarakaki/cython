@@ -1,9 +1,9 @@
 # mode: run
 # tag: cpp, werror, cpp11
 
-from libcpp.numeric cimport inner_product, iota, accumulate, adjacent_difference, partial_sum
-use libcpp::vector::vector
 use libcpp::bool
+use libcpp::numeric::(inner_product, iota, accumulate, adjacent_difference, partial_sum)
+use libcpp::vector::vector
 
 # Subtracts two integers.
 fn i32 subtract_integers(i32 lhs, i32 rhs):
@@ -55,7 +55,7 @@ def test_inner_product_with_bin_op(vector[i32] v1, vector[i32] v2, i32 init):
 def test_iota(vector[i32] v, i32 value):
     """
     Test iota with beginning value of 0.
-    >>> test_iota(range(6), 0)
+    >>> test_iota(0..6, 0)
     [0, 1, 2, 3, 4, 5]
     """
     iota(v.begin(), v.end(), value)
@@ -64,7 +64,7 @@ def test_iota(vector[i32] v, i32 value):
 def test_iota_negative_init(vector[i32] v, i32 value):
     """
     Test iota with a negative beginning value.
-    >>> test_iota_negative_init(range(7), -4)
+    >>> test_iota_negative_init(0..7, -4)
     [-4, -3, -2, -1, 0, 1, 2]
     """
     iota(v.begin(), v.end(), value)

@@ -17,7 +17,7 @@ setup(
 
 # distutils: language=c++
 
-from libcpp.vector cimport vector
+use libcpp::vector::vector
 
 def use_vector(L):
     try:

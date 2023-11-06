@@ -11,40 +11,40 @@ extern from "<omp.h>":
         omp_sched_auto = 4
 
     extern void omp_set_num_threads(i32) nogil
-    extern int omp_get_num_threads() nogil
-    extern int omp_get_max_threads() nogil
-    extern int omp_get_thread_num() nogil
-    extern int omp_get_num_procs() nogil
+    extern i32 omp_get_num_threads() nogil
+    extern i32 omp_get_max_threads() nogil
+    extern i32 omp_get_thread_num() nogil
+    extern i32 omp_get_num_procs() nogil
 
-    extern int omp_in_parallel() nogil
+    extern i32 omp_in_parallel() nogil
 
     extern void omp_set_dynamic(i32) nogil
-    extern int omp_get_dynamic() nogil
+    extern i32 omp_get_dynamic() nogil
 
     extern void omp_set_nested(i32) nogil
-    extern int omp_get_nested() nogil
+    extern i32 omp_get_nested() nogil
 
     extern void omp_init_lock(omp_lock_t *) nogil
     extern void omp_destroy_lock(omp_lock_t *) nogil
     extern void omp_set_lock(omp_lock_t *) nogil
     extern void omp_unset_lock(omp_lock_t *) nogil
-    extern int omp_test_lock(omp_lock_t *) nogil
+    extern i32 omp_test_lock(omp_lock_t *) nogil
 
     extern void omp_init_nest_lock(omp_nest_lock_t *) nogil
     extern void omp_destroy_nest_lock(omp_nest_lock_t *) nogil
     extern void omp_set_nest_lock(omp_nest_lock_t *) nogil
     extern void omp_unset_nest_lock(omp_nest_lock_t *) nogil
-    extern int omp_test_nest_lock(omp_nest_lock_t *) nogil
+    extern i32 omp_test_nest_lock(omp_nest_lock_t *) nogil
 
-    extern double omp_get_wtime() nogil
-    extern double omp_get_wtick() nogil
+    extern f64 omp_get_wtime() nogil
+    extern f64 omp_get_wtick() nogil
 
-    void omp_set_schedule(omp_sched_t, i32) nogil
-    void omp_get_schedule(omp_sched_t *, i32 *) nogil
-    int omp_get_thread_limit() nogil
-    void omp_set_max_active_levels(i32) nogil
-    int omp_get_max_active_levels() nogil
-    int omp_get_level() nogil
-    int omp_get_ancestor_thread_num(i32) nogil
-    int omp_get_team_size(i32) nogil
-    int omp_get_active_level() nogil
+    fn void omp_set_schedule(omp_sched_t, i32) nogil
+    fn void omp_get_schedule(omp_sched_t *, i32 *) nogil
+    fn i32 omp_get_thread_limit() nogil
+    fn void omp_set_max_active_levels(i32) nogil
+    fn i32 omp_get_max_active_levels() nogil
+    fn i32 omp_get_level() nogil
+    fn i32 omp_get_ancestor_thread_num(i32) nogil
+    fn i32 omp_get_team_size(i32) nogil
+    fn i32 omp_get_active_level() nogil

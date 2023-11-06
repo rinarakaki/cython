@@ -3,7 +3,7 @@
 # tag: cpp, cpp17, werror
 
 use libcpp::bool
-from libcpp.any cimport any, any_cast
+use libcpp::any::(any, any_cast)
 use libcpp::pair::pair
 use cython::operator::typeid
 

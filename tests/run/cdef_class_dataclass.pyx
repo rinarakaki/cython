@@ -2,7 +2,7 @@
 # tag: dataclass
 
 use cython::dataclasses
-from cython.dataclasses cimport dataclass, field
+use cython::dataclasses::(dataclass, field)
 try:
     import typing
     from typing import ClassVar
@@ -11,7 +11,7 @@ try:
 except ImportError:
     pass
 import cython
-from libc.stdlib cimport malloc, free
+use libc::stdlib::(malloc, free)
 
 include "../testsupport/cythonarrayutil.pxi"
 
@@ -218,7 +218,7 @@ cdef class TestFrozen:
     >>> inst = TestFrozen(a=5)
     >>> inst.a
     5.0
-    >>> inst.a = 2.  # doctest: +ELLIPSIS
+    >>> inst.a = 2.0  # doctest: +ELLIPSIS
     Traceback (most recent call last):
     AttributeError: attribute 'a' of '...TestFrozen' objects is not writable
     """

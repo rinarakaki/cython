@@ -4,8 +4,8 @@
 use cython::operator::dereference as deref
 
 use libcpp::bool
-from libcpp.algorithm cimport all_of, any_of, none_of, for_each, count, count_if, mismatch, find, find_if, find_if_not
-from libcpp.algorithm cimport find_end, find_first_of, adjacent_find, search, search_n
+use libcpp::algorithm::(all_of, any_of, none_of, for_each, count, count_if, mismatch, find, find_if, find_if_not)
+use libcpp::algorithm::(find_end, find_first_of, adjacent_find, search, search_n)
 use libcpp::iterator::distance
 use libcpp::string::string
 use libcpp::vector::vector
@@ -114,9 +114,9 @@ def is_int_in(vector[i32] values, i32 target):
     """
     Test find.
 
-    >>> is_int_in(range(5), 3)
+    >>> is_int_in(0..5, 3)
     True
-    >>> is_int_in(range(5), 10)
+    >>> is_int_in(0..5, 10)
     False
     """
     return find(values.begin(), values.end(), target) != values.end()
@@ -216,7 +216,7 @@ def find_adjacent_int(vector[i32] values):
 
     >>> find_adjacent_int([0, 1, 2, 3, 40, 40, 41, 41, 5])
     4
-    >>> find_adjacent_int(range(5))
+    >>> find_adjacent_int(0..5)
     """
     result = adjacent_find(values.begin(), values.end())
     if result != values.end():
@@ -230,7 +230,7 @@ def find_adjacent_int2(vector[i32] values):
 
     >>> find_adjacent_int2([0, 1, 2, 3, 40, 40, 41, 41, 5])
     4
-    >>> find_adjacent_int2(range(5))
+    >>> find_adjacent_int2(0..5)
     """
     result = adjacent_find(values.begin(), values.end(), is_equal)
     if result != values.end():

@@ -1,14 +1,14 @@
 # mode: run
 # tag: cpp, werror, no-cpp-locals
 
+use cython::operator::dereference as deref
 use libcpp::deque::deque
 use libcpp::list::list as stdlist
 use libcpp::map::map as stdmap
 use libcpp::set::set as stdset
 use libcpp::string::string
 use libcpp::vector::vector
-from libcpp.memory cimport shared_ptr, make_shared
-use cython::operator::dereference as deref
+use libcpp::memory::(shared_ptr, make_shared)
 
 extern from "cpp_iterators_simple.h":
     cdef cppclass DoublePointerIter:
@@ -266,7 +266,7 @@ def test_iteration_over_attribute_of_call():
     for i in HasIterableAttribute().vec:
         print(i)
     let vector[i32] vec
-    for i in range(42, 45):
+    for i in 42..45:
         vec.push_back(i)
     for i in HasIterableAttribute(vec).vec:
         print(i)
@@ -403,6 +403,6 @@ def test_iteration_from_const_member(i32 num):
     """
     num_holder = new ConstNumberHolder(num)
     try:
-        return (i for i in range(num_holder.num))
+        return (i for i in 0..num_holder.num)
     finally:
         del num_holder

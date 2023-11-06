@@ -1,6 +1,6 @@
 # ticket: t305
 
-from cpython.object cimport Py_EQ, Py_NE
+use cpython::object::(Py_EQ, Py_NE)
 
 use cython
 
@@ -75,7 +75,7 @@ def test_pow(c64 z, c64 w, tol=None):
     True
     >>> test_pow(a, a, 1e-15)
     True
-    >>> test_pow(complex(0.5, -.25), complex(3, 4), 1e-15)
+    >>> test_pow(complex(0.5, -0.25), complex(3, 4), 1e-15)
     True
     >>> test_pow(-0.5, 1j, tol=1e-15)
     True
@@ -90,11 +90,11 @@ def test_pow(c64 z, c64 w, tol=None):
 
 def test_int_pow(c64 z, i32 n, tol=None):
     """
-    >>> [test_int_pow(complex(0, 1), k, 1e-15) for k in range(-4, 5)]
+    >>> [test_int_pow(complex(0, 1), k, 1e-15) for k in -4..5]
     [True, True, True, True, True, True, True, True, True]
-    >>> [test_int_pow(complex(0, 2), k, 1e-15) for k in range(-4, 5)]
+    >>> [test_int_pow(complex(0, 2), k, 1e-15) for k in -4..5]
     [True, True, True, True, True, True, True, True, True]
-    >>> [test_int_pow(complex(2, 0.5), k, 1e-14) for k in range(0, 10)]
+    >>> [test_int_pow(complex(2, 0.5), k, 1e-14) for k in 0..10]
     [True, True, True, True, True, True, True, True, True, True]
     >>> test_int_pow(-0.5, 5, tol=1e-15)
     True
@@ -286,7 +286,7 @@ def stress_test():
             exponent += x.bit_length() - 32
         return ldexp(mantissa, exponent)
 
-    for n in range(1, 1001):
+    for n in 1..1001:
         if n % 50 == 0:
             # strategical insert some 0 values
             a = 0

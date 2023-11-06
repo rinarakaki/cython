@@ -4,13 +4,13 @@
 from __future__ import print_function
 
 use cython::operator::dereference as deref
-from cython.operator cimport preincrement, postincrement
+use cython::operator::(preincrement, postincrement)
 use libcpp::bool
-from libcpp.algorithm cimport copy, copy_if, copy_n, copy_backward, move, move_backward, fill, fill_n, transform
-from libcpp.algorithm cimport generate, generate_n, remove, remove_if, remove_copy, remove_copy_if, replace, replace_if
-from libcpp.algorithm cimport replace_copy, replace_copy_if, swap, swap_ranges, iter_swap, reverse, reverse_copy
-from libcpp.algorithm cimport rotate, rotate_copy, unique, unique_copy
-from libcpp.algorithm cimport sort, upper_bound, min_element, max_element
+use libcpp::algorithm::(copy, copy_if, copy_n, copy_backward, move, move_backward, fill, fill_n, transform)
+use libcpp::algorithm::(generate, generate_n, remove, remove_if, remove_copy, remove_copy_if, replace, replace_if)
+use libcpp::algorithm::(replace_copy, replace_copy_if, swap, swap_ranges, iter_swap, reverse, reverse_copy)
+use libcpp::algorithm::(rotate, rotate_copy, unique, unique_copy)
+use libcpp::algorithm::(sort, upper_bound, min_element, max_element)
 use libcpp::iterator::back_inserter
 use libcpp::string::string
 use libcpp::vector::vector
@@ -19,7 +19,7 @@ def copy_int(vector[i32] values):
     """
     Test copy.
 
-    >>> copy_int(range(5))
+    >>> copy_int(0..5)
     [0, 1, 2, 3, 4]
     """
     let vector[i32] out
@@ -33,7 +33,7 @@ def copy_int_if_odd(vector[i32] values):
     """
     Test copy_if.
 
-    >>> copy_int_if_odd(range(5))
+    >>> copy_int_if_odd(0..5)
     [1, 3]
     """
     let vector[i32] out
@@ -44,7 +44,7 @@ def copy_int_n(vector[i32] values, i32 count):
     """
     Test copy_n.
 
-    >>> copy_int_n(range(5), 2)
+    >>> copy_int_n(0..5, 2)
     [0, 1]
     """
     let vector[i32] out
@@ -55,7 +55,7 @@ def copy_int_backward(vector[i32] values):
     """
     Test copy_backward.
 
-    >>> copy_int_backward(range(5))
+    >>> copy_int_backward(0..5)
     [0, 0, 0, 0, 1, 2, 3, 4]
     """
     out = vector[i32](values.size() + 3)
@@ -66,7 +66,7 @@ def move_int(vector[i32] values):
     """
     Test move.
 
-    >>> move_int(range(5))
+    >>> move_int(0..5)
     [0, 1, 2, 3, 4]
     """
     let vector[i32] out
@@ -77,7 +77,7 @@ def move_int_backward(vector[i32] values):
     """
     Test move_backward.
 
-    >>> move_int_backward(range(5))
+    >>> move_int_backward(0..5)
     [0, 0, 0, 0, 1, 2, 3, 4]
     """
     out = vector[i32](values.size() + 3)
@@ -88,7 +88,7 @@ def fill_int(vector[i32] array, i32 value):
     """
     Test fill.
 
-    >>> fill_int(range(5), -1)
+    >>> fill_int(0..5, -1)
     [-1, -1, -1, -1, -1]
     """
     fill(array.begin(), array.end(), value)
@@ -98,7 +98,7 @@ def fill_int_n(vector[i32] array, i32 count, i32 value):
     """
     Test fill_n.
 
-    >>> fill_int_n(range(5), 3, -1)
+    >>> fill_int_n(0..5, 3, -1)
     [-1, -1, -1, 3, 4]
     """
     fill_n(array.begin(), count, value)

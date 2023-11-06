@@ -3,9 +3,9 @@
 
 from __future__ import print_function
 
+use libcpp::algorithm::(is_partitioned, partition, partition_copy, stable_partition, partition_point)
+use libcpp::algorithm::(for_each, copy, reverse)
 use libcpp::bool
-from libcpp.algorithm cimport is_partitioned, partition, partition_copy, stable_partition, partition_point
-from libcpp.algorithm cimport for_each, copy, reverse
 use libcpp::iterator::back_inserter
 use libcpp::vector::vector
 
@@ -19,7 +19,7 @@ def test_is_partitioned():
     True
     False
     """
-    let vector[i32] values = range(10)
+    let vector[i32] values = 0..10
     print(is_partitioned(values.begin(), values.end(), is_even))
 
     partition(values.begin(), values.end(), &is_even)
@@ -35,7 +35,7 @@ def print_partition(vector[i32] values):
     """
     Test partition.
 
-    >> print_partition(range(10))
+    >> print_partition(0..10)
     0 8 2 6 4  *  5 3 7 1 9
     """
     it = partition(values.begin(), values.end(), &is_even)
@@ -48,7 +48,7 @@ def partition_ints_even(vector[i32] values):
     """
     Test partition_copy.
 
-    >>> partition_ints_even(range(10))
+    >>> partition_ints_even(0..10)
     ([0, 2, 4, 6, 8], [1, 3, 5, 7, 9])
     """
     let vector[i32] even_values, odd_values

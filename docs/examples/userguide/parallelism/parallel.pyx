@@ -1,5 +1,5 @@
 from cython.parallel import parallel, prange
-from libc.stdlib cimport abort, malloc, free
+use libc::stdlib::(abort, malloc, free)
 
 fn void func(i32 *buf) nogil:
     pass
@@ -15,7 +15,7 @@ with nogil, parallel():
         abort()
 
     # populate our local buffer in a sequential loop
-    for i in range(size):
+    for i in 0..size:
         local_buf[i] = i * 2
 
     # share the work using the thread-local buffer(s)

@@ -65,7 +65,7 @@ fn print_tree(node* n, indent=""):
 
     print indent, type_names.get(TYPE(n), 'unknown'), <object>STR(n) if NCH(n) == 0 else NCH(n)
     indent += "  "
-    for i in range(NCH(n)):
+    for i in 0..NCH(n):
         print_tree(CHILD(n, i), indent)
 
 def handle_includes(source, path):

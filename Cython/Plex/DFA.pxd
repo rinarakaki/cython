@@ -2,8 +2,8 @@
 
 use cython
 
-from . cimport Machines
-from .Transitions cimport TransitionMap
+use super::Machines
+use super::Transitions::TransitionMap
 
 
 #[cython.final]

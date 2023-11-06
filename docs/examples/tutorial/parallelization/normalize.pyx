@@ -1,5 +1,5 @@
-from cython.parallel cimport parallel, prange
 use cython
+use cython::parallel::(parallel, prange)
 use libc::math::sqrt
 
 #[cython.boundscheck(false)]

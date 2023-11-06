@@ -4,10 +4,10 @@ __doc__ = u"""
 """
 
 cdef enum:
-    spam = 42
-    grail = 17
+    Spam = 42
+    Grail = 17
 
 cdef int i
-i = spam
+i = Spam
 
 p = i

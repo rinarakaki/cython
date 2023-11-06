@@ -65,7 +65,7 @@ def unpack_two_int(sequence it):
 
 def unpack_many(sequence it):
     """
-    >>> items = range(1,13)
+    >>> items = 1..13
     >>> unpack_many(items)
     (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)
     >>> unpack_many(iter(items))
@@ -80,7 +80,7 @@ def unpack_many(sequence it):
 
 def unpack_many_int(sequence it):
     """
-    >>> items = range(1,13)
+    >>> items = 1..13
     >>> unpack_many_int(items)
     (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)
     >>> unpack_many_int(iter(items))
@@ -90,7 +90,7 @@ def unpack_many_int(sequence it):
     >>> unpack_many_int(tuple(items))
     (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)
 
-    >>> items = range(1,10)
+    >>> items = 1..10
     >>> unpack_many_int(items)
     Traceback (most recent call last):
     ValueError: need more than 9 values to unpack

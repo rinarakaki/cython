@@ -5,25 +5,22 @@ PYTHON check.py
 
 ######## foo.pyx ########
 
-from bar cimport empty
+use bar::empty
 
 include "baz.pxi"
 
 empty()
 print(foo())
 
-
 ######## baz.pxi ########
 
 def foo():
     return "foo"
 
-
 ######## bar.pxd ########
 
 fn inline void empty():
     print("empty")
-
 
 ######## check.py ########
 
