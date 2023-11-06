@@ -21,8 +21,8 @@ extern from "templates.h":
 cdef TemplateTest1[i32] a
 cdef TemplateTest1[i32]* b = new TemplateTest1[i32]()
 
-cdef i32 c = a.getValue()
-c = b.getValue()
+cdef i32 c = a.get_value()
+c = b.get_value()
 
 cdef TemplateTest2[i32, i8] d
 cdef TemplateTest2[i32, i8]* e = new TemplateTest2[i32, i8]()
