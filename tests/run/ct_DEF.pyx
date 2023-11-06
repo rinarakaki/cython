@@ -249,7 +249,7 @@ _IGNORE = """
 35:0: The 'DEF' statement is deprecated and will be removed in a future Cython version. Consider using global variables, constants, and in-place literals instead. See https://github.com/cython/cython/issues/4310
 36:0: The 'DEF' statement is deprecated and will be removed in a future Cython version. Consider using global variables, constants, and in-place literals instead. See https://github.com/cython/cython/issues/4310
 37:0: The 'DEF' statement is deprecated and will be removed in a future Cython version. Consider using global variables, constants, and in-place literals instead. See https://github.com/cython/cython/issues/4310
-37:18: Using this floating point value with DEF may lose precision, using 0.5772156649015329
+37:20: Using this floating point value with DEF may lose precision, using 0.5772156649015329
 38:0: The 'DEF' statement is deprecated and will be removed in a future Cython version. Consider using global variables, constants, and in-place literals instead. See https://github.com/cython/cython/issues/4310
 39:0: The 'DEF' statement is deprecated and will be removed in a future Cython version. Consider using global variables, constants, and in-place literals instead. See https://github.com/cython/cython/issues/4310
 40:0: The 'DEF' statement is deprecated and will be removed in a future Cython version. Consider using global variables, constants, and in-place literals instead. See https://github.com/cython/cython/issues/4310
@@ -265,5 +265,5 @@ _IGNORE = """
 """
 
 _WARNINGS = """
-37:18: Using this floating point value with DEF may lose precision, using 0.5772156649015329
+37:20: Using this floating point value with DEF may lose precision, using 0.5772156649015329
 """
