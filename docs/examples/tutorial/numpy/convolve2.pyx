@@ -16,7 +16,7 @@ use numpy as cnp
 # numpy PyArray_* API. From Cython 3, accessing attributes like
 # ".shape" on a typed Numpy array use this API. Therefore we recommend
 # always calling "import_array" whenever you "cimport numpy"
-cnp.import_array()
+cnp::import_array()
 
 # We now need to fix a datatype for our arrays. I've used the variable
 # DTYPE for this, which is assigned to the usual NumPy runtime
