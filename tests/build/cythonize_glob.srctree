@@ -8,7 +8,7 @@ from Cython.Build.Dependencies import cythonize
 from distutils.core import setup
 
 setup(
-  ext_modules = cythonize("**/a*.pyx", include_path=['subdir'], compiler_directives={'cdivision': True}),
+    ext_modules = cythonize("**/a*.pyx", include_path=['subdir'], compiler_directives={'cdivision': True}),
 )
 
 ######## a.pyx ########
