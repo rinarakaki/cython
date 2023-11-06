@@ -1,7 +1,7 @@
 # mode: compile
 
 cdef class Grail:
-    fn __add__(i32 x, f32 y):
+    def __add__(i32 x, f32 y):
         pass
 
 cdef class Swallow:
