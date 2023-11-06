@@ -19,11 +19,11 @@ old_stderr = sys.stderr
 captured = sys.stderr = StringIO()
 try:
     setup(
-      ext_modules = cythonize(
-          "*.pyx", include_path=['subdir'],
-          compiler_directives={'cdivision': True},
-          show_all_warnings=True,
-      ),
+        ext_modules = cythonize(
+            "*.pyx", include_path=['subdir'],
+            compiler_directives={'cdivision': True},
+            show_all_warnings=True,
+        ),
     )
     output = sys.stderr.getvalue()
 finally:
@@ -32,14 +32,13 @@ finally:
 
 assert "Unraisable exception in function" in output, output
 
-
 ######## subdir/x.pxd ########
 
 ######## subdir/y.pxi ########
 
 ######## a.pyx ########
 
-cimport x
+use x
 include "y.pxi"
 
 # cdivision from setup.py

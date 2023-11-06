@@ -1,1 +1,1 @@
-from cexportfunc cimport f, g
+use cexportfunc::(f, g)

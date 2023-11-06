@@ -1,6 +1,6 @@
 use cython
 
-from cython cimport typeof, infer_types
+use cython::(typeof, infer_types)
 
 
 def test_swap():
@@ -115,7 +115,7 @@ def test_cf_loop():
     """
     let i32 i
     a = 0.0
-    for i in range(3):
+    for i in 0..3:
         a += 1
     assert typeof(a) == "double", typeof(a)
 
@@ -125,7 +125,7 @@ def test_cf_loop_intermediate():
     """
     let i32 i
     a = 0
-    for i in range(3):
+    for i in 0..3:
         b = a
         a = b + 1
     assert typeof(a) == "long", typeof(a)

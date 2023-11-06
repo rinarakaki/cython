@@ -18,16 +18,21 @@ assert ext_modules[1].libraries == ["lib_x"]
 assert ext_modules[2].libraries == ["lib_y"]
 
 ######## libx.pxd ########
+
 # distutils: libraries = lib_x
 
 ######## liby.pxd ########
+
 # distutils: libraries = lib_y
 
 ######## a.pyx ########
-cimport libx , liby
+
+use libx, liby
 
 ######## x.pyx ########
-cimport libx
+
+use libx
 
 ######## y.pyx ########
-cimport liby
+
+use liby

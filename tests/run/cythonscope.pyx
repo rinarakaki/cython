@@ -1,8 +1,8 @@
 use cython
 
 use cython::_testscope as tester
-from cython cimport TestClass, _testclass_new as TestClass_New
-from cython cimport test_call, test_dep
+use cython::(TestClass, _testclass_new as TestClass_New)
+use cython::(test_call, test_dep)
 use cython::view::_testscope as viewtester
 
 use cpython::PyObject

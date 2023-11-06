@@ -15,7 +15,7 @@ def run_test(cls, num_iters):
     orig_count = count_memoryviews()
     def f():
         x = cls(1024)
-    for i in range(num_iters):
+    for i in 0..num_iters:
         f()
     return count_memoryviews() - orig_count
 

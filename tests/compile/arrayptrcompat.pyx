@@ -8,7 +8,7 @@ fn void f():
     let void *v
     let i32[5] a
     let i32 i = 0
-    let E e = Z
+    let E e = E::Z
     p = a
     v = a
     p = a + i

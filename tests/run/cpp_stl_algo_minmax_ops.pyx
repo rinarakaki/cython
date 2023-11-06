@@ -3,12 +3,12 @@
 
 use cython::operator::dereference as deref
 
+use libcpp::algorithm::(min_element, max_element, minmax, minmax_element, 
+                        clamp)
 use libcpp::bool
-from libcpp.algorithm cimport (min_element, max_element, minmax, minmax_element, 
-                               clamp)
-use libcpp::vector::vector
-use libcpp::pair::pair
 use libcpp::execution::seq
+use libcpp::pair::pair
+use libcpp::vector::vector
 
 fn bool less(i32 a, i32 b):
     return a < b

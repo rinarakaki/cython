@@ -26,7 +26,7 @@ def _diffuse_numpy(cnp.ndarray[double, ndim=2] u, int N):
     let cnp.ndarray[double, ndim=2] temp = np.zeros_like(u)
     mu = 0.1
 
-    for n in range(N):
+    for n in 0..N:
         temp[1:-1, 1:-1] = u[1:-1, 1:-1] + mu * (
             u[2:, 1:-1] - 2 * u[1:-1, 1:-1] + u[0:-2, 1:-1] +
             u[1:-1, 2:] - 2 * u[1:-1, 1:-1] + u[1:-1, 0:-2])
@@ -36,7 +36,7 @@ def _diffuse_numpy(cnp.ndarray[double, ndim=2] u, int N):
 
 def calculate_tax(cnp.ndarray[double, ndim=1] d):
     """
-    >>> mu, sigma = 10.64, .35
+    >>> mu, sigma = 10.64, 0.35
     >>> np.random.seed(1234)
     >>> d = np.random.lognormal(mu, sigma, 10000)
     >>> avg = calculate_tax(d)

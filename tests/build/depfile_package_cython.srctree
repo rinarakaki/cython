@@ -27,7 +27,6 @@ assert sorted(contents) == sorted([os.path.join('builddir', 'pkg', 'sub', 'test.
 
 ######## pkg/__init__.py ########
 
-
 ######## pkg/test.pyx ########
 
 TEST = "pkg.test"
@@ -37,24 +36,21 @@ include "sub/incl.pxi"
 fn object get_str():
    return TEST
 
-
 ######## pkg/test.pxd ########
 
 fn object get_str()
 
-
 ######## pkg/sub/__init__.py ########
 
-
 ######## pkg/sub/test.pyx ########
+
 # cython: language_level=3
 
-from ..test cimport get_str
+use super::super::test::get_str
 
 include 'incl.pxi'
 
 TEST = 'pkg.sub.test'
-
 
 ######## pkg/sub/incl.pxi ########
 

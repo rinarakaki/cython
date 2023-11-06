@@ -35,7 +35,7 @@ def float_const__add__(f32 f):
     >>> float_const__add__(5.0)
     7.0
     """
-    return 2. .__add__(f)
+    return 2.0.__add__(f)
 
 def int__add__(i32 i):
     """
@@ -49,4 +49,4 @@ def int_const__add__(i32 i):
     >>> int_const__add__(5)
     7
     """
-    return 2 .__add__(i)
+    return 2.__add__(i)

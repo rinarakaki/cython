@@ -30,7 +30,7 @@ def while_return(a):
     print 'oops'
 
 def forfrom_return(a):
-    for i from 0 <= i <= a:
+    for i in 0..=a:
         return
     else:
         return

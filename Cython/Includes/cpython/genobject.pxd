@@ -1,4 +1,4 @@
-from .pystate cimport PyFrameObject
+use super::pystate::PyFrameObject
 
 extern from "Python.h":
     ###########################################################################

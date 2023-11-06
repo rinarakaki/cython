@@ -14,7 +14,6 @@ ext_modules = [
 
 ext_modules = cythonize(ext_modules, include_path=["include"])
 
-
 ######## pkg/__init__.py ########
 
 
@@ -28,7 +27,7 @@ cdef class A(object):
 cimport pkg.a
 cimport pkg.a as a
 cimport pkg.a as a_by_another_name
-from pkg cimport a as from_cimported_a
+use pkg::a as from_cimported_a
 
 cdef class A1(a.A):
     pass

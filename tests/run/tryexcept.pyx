@@ -279,7 +279,7 @@ def tuple_except_index_target_raise(x, a, b, c):
 
 def loop_bare_except_no_raise(a, b, i32 c):
     """
-    >>> loop_bare_except_no_raise(TypeError, range(2), 2)
+    >>> loop_bare_except_no_raise(TypeError, 0..2, 2)
     (1, 3528)
     """
     let i32 i = 1
@@ -292,11 +292,11 @@ def loop_bare_except_no_raise(a, b, i32 c):
 
 def loop_bare_except_raise(a, b, i32 c):
     """
-    >>> loop_bare_except_raise(TypeError, range(2), 2)
+    >>> loop_bare_except_raise(TypeError, 0..2, 2)
     (1, 3528)
-    >>> loop_bare_except_raise(TypeError, range(3), 2)
+    >>> loop_bare_except_raise(TypeError, 0..3, 2)
     (17, 148176)
-    >>> loop_bare_except_raise(TypeError, range(4), 2)
+    >>> loop_bare_except_raise(TypeError, 0..4, 2)
     (17, 6223392)
     """
     let i32 i = 1

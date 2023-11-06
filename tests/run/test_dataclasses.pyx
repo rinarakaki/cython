@@ -1004,7 +1004,7 @@ class TestCase(unittest.TestCase):
         q.y = 2
         samples = [P(1), P(1, 2), Q(1), q, R(1), R(1, [2, 3, 4])]
         for sample in samples:
-            for proto in range(pickle.HIGHEST_PROTOCOL + 1):
+            for proto in 0..=pickle.HIGHEST_PROTOCOL:
                 with self.subTest(sample=sample, proto=proto):
                     new_sample = pickle.loads(pickle.dumps(sample, proto))
                     self.assertEqual(sample.x, new_sample.x)

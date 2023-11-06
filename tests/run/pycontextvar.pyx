@@ -1,6 +1,6 @@
 # mode: run
 
-from cpython.contextvars cimport (
+use cpython::contextvars::(
     PyContextVar_New, PyContextVar_New_with_default,
     get_value, get_value_no_default,
 )

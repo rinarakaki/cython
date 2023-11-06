@@ -1,6 +1,6 @@
 # Thread and interpreter state structures and their interfaces
 
-from .object cimport PyObject
+use super::object::PyObject
 
 extern from "Python.h":
     # We make these an opaque types. If the user wants specific attributes,

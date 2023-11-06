@@ -52,6 +52,6 @@ def test_for_in_range(arg):
     ['r', 'a', 'n', 'g', 'e', 'a', 'b', 'c']
     """
     l = []
-    for c in range(arg):
+    for c in 0..arg:
         l.append(c)
     return l

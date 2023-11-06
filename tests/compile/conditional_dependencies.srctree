@@ -7,9 +7,10 @@ ext_modules = cythonize("foo.pyx")
 assert set(ext_modules[0].depends) == set(["a.h", "b.h", "c.h", "d.h"])
 
 ######## foo.pyx ########
+
 IF 1:
-    cimport a
-    from b cimport something
+    use a
+    use b::something
 
     include "c.pxi"
 
@@ -17,25 +18,32 @@ IF 1:
         pass
 
 ######## a.pxd ########
+
 extern from "a.h":
     pass
 
 ######## b.pxd ########
+
 extern from "b.h":
     fn void something()
 
 ######## c.pxi ########
+
 extern from "c.h":
     pass
 
 ######## a.h ########
+
 /* empty */
 
 ######## b.h ########
+
 /* empty */
 
 ######## c.h ########
+
 /* empty */
 
 ######## d.h ########
+
 /* empty */
