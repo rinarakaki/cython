@@ -2,8 +2,7 @@
 
 import lcmath
 
-
-def nCr(n, r):
+fn nCr(n, r):
     """Return the number of ways to choose r elements of a set of n."""
     return lcmath.exp(
         lcmath.lfactorial(n) -

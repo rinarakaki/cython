@@ -3,15 +3,15 @@
 extern from "<vector>" namespace "std":
     cdef cppclass vector[T]:
         cppclass iterator:
-            T operator*()
-            iterator operator++()
-            bint operator==(iterator)
-            bint operator!=(iterator)
+            fn T operator*()
+            fn iterator operator++()
+            fn bint operator==(iterator)
+            fn bint operator!=(iterator)
         vector()
-        void push_back(T&)
-        T& operator[](i32)
-        T& at(i32)
-        iterator begin()
-        iterator end()
+        fn void push_back(T&)
+        fn T& operator[](i32)
+        fn T& at(i32)
+        fn iterator begin()
+        fn iterator end()
 
 cdef vector[i32].iterator iter  #iter is declared as being of type vector<int>::iterator
