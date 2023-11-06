@@ -28,7 +28,7 @@ def bound_dict_get(dict d):
 #[cython::test_fail_if_path_exists(
     "//ReturnStatNode//PythonCapiCallNode")]
 #[cython::test_assert_path_exists(
-    "//ReturnStatNode//PyMethodCallNode"]
+    "//ReturnStatNode//PyMethodCallNode")]
 def bound_dict_get_reassign(dict d):
     """
     >>> bound_dict_get_reassign({})
@@ -40,7 +40,7 @@ def bound_dict_get_reassign(dict d):
     return get(1)
 
 #[cython::test_assert_path_exists(
-    "//PythonCapiCallNode//NameNode[@name="l"]")]
+    '//PythonCapiCallNode//NameNode[@name="l"]')]
 def unbound_list_sort(list l):
     """
     >>> unbound_list_sort([1, 3, 2])
