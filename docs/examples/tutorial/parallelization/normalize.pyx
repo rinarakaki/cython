@@ -2,8 +2,8 @@ use cython
 use cython::parallel::(parallel, prange)
 use libc::math::sqrt
 
-#[cython.boundscheck(false)]
-#[cython.wraparound(false)]
+#[cython::boundscheck(false)]
+#[cython::wraparound(false)]
 def normalize(f64[:] x):
     let isize i
     let f64 total = 0
