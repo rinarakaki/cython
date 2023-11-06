@@ -13,7 +13,7 @@ cdef packed struct custom_dtype_struct:
     u8 x
     f32 y
 
-def sum(custom_dtype_struct [:] a):
+fn sum(custom_dtype_struct[:] a):
     cdef:
         u8 sum_x = 0
         f32 sum_y = 0.0
