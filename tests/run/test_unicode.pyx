@@ -1451,10 +1451,10 @@ class UnicodeTest(CommonTest,
         self.assertEqual('%o' % letter_m, '155')
         self.assertEqual('%c' % letter_m, 'm')
         if sys.version_info >= (3, 5):
-            self.assertRaisesRegex(TypeError, '%x format: an integer is required, not float', operator.mod, '%x', 3.14),
-            self.assertRaisesRegex(TypeError, '%X format: an integer is required, not float', operator.mod, '%X', 2.11),
-            self.assertRaisesRegex(TypeError, '%o format: an integer is required, not float', operator.mod, '%o', 1.79),
-            self.assertRaisesRegex(TypeError, '%x format: an integer is required, not PseudoFloat', operator.mod, '%x', pi),
+            self.assertRaisesRegex(TypeError, '%x format: an integer is required, not float', operator.r#mod, '%x', 3.14),
+            self.assertRaisesRegex(TypeError, '%X format: an integer is required, not float', operator.r#mod, '%X', 2.11),
+            self.assertRaisesRegex(TypeError, '%o format: an integer is required, not float', operator.r#mod, '%o', 1.79),
+            self.assertRaisesRegex(TypeError, '%x format: an integer is required, not PseudoFloat', operator.r#mod, '%x', pi),
             self.assertRaises(TypeError, operator.r#mod, '%c', pi),
 
     def test_formatting_with_enum(self):
