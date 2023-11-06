@@ -1,7 +1,6 @@
 # mode: compile
 
 cdef class Grail:
-
     def __add__(i32 x, f32 y):
         pass
 

@@ -41,6 +41,7 @@ fn object get_str()
 ######## pkg/sub/__init__.py ########
 
 ######## pkg/sub/test.pyx ########
+
 # cython: language_level=3
 
 use super::super::test::get_str
