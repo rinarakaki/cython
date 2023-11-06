@@ -1,5 +1,5 @@
 cdef class A:
-    def static_def(i32 x):
+    fn static_def(i32 x):
         """
         >>> A.static_def(2)
         ('def', 2)
