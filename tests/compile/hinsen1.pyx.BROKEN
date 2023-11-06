@@ -11,6 +11,6 @@ cdef class SpamAndEggs(Spam):
     fn cook(self):
         return 1
 
-def test():
-    cdef auto s = SpamAndEggs()
+fn test():
+    let auto s = SpamAndEggs()
     return s.cook()
