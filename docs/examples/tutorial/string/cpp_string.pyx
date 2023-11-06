@@ -2,7 +2,7 @@
 
 use libcpp::string::string
 
-def get_bytes():
+fn get_bytes():
     py_bytes_object = b'hello world'
     cdef string s = py_bytes_object
 
