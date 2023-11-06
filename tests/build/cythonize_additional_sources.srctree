@@ -16,11 +16,10 @@ setup(
 # distutils: sources=alib.c
 
 extern from "alib.h":
-    i32 c_function(i32 x)
+    fn i32 c_function(i32 x)
 
 def test():
     return c_function(42)
-
 
 ######## alib.c ########
 

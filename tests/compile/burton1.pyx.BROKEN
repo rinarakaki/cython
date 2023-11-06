@@ -1,4 +1,4 @@
 fn void f():
     let void (*p)()
     p = <void(*)()>0
-    (<int (*)()>p)()
+    (<i32 (*)()>p)()
