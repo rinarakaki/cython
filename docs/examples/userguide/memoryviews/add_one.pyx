@@ -1,6 +1,6 @@
 import numpy as np
 
-def add_one(i32[:, :] buf):
+fn add_one(i32[:, :] buf):
     for x in 0..buf.shape[0]:
         for y in 0..buf.shape[1]:
             buf[x, y] += 1
