@@ -3633,7 +3633,8 @@ def p_c_func_or_var_declaration(s, pos, ctx):
             api = ctx.api,
             overridable = ctx.overridable,
             is_const_method = is_const_method)
-        if ctx.level in ("c_class", "c_class_pxd") and (len(declarator.args) == 0 or declarator.args[0].base_type.name != "self"):
+        if ctx.level in ("c_class", "c_class_pxd") and isinstance(declarator, Nodes.CFuncDeclaratorNode) \
+                and (len(declarator.args) == 0 or declarator.args[0].base_type.name != "self"):
             result.decorators = [Nodes.DecoratorNode(pos, decorator=ExprNodes.NameNode(pos, name="staticmethod"))]
     else:
         #if api:

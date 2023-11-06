@@ -83,7 +83,6 @@ def test_BaseMethods(x):
         del subClass
 
 cdef cppclass WithStatic:
-    @staticmethod
     f64 square(f64 x):
         return x * x
 

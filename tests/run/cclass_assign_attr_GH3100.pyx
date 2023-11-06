@@ -21,7 +21,6 @@ cdef class Foo:
     def meth(self): pass
     @classmethod
     def classmeth(cls): pass
-    @staticmethod
     def staticmeth(): pass
 
     meth2 = meth

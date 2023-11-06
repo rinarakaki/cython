@@ -379,7 +379,6 @@ cdef class CBaseClass(object):
     <fused_def.CBaseClass object> short 10
     """
 
-    @staticmethod
     def mystaticmethod(cython.integral arg1):
         print cython.typeof(arg1), arg1
 

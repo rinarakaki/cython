@@ -53,12 +53,10 @@ cdef class BaseClass(object):
     1 2 3
     """
 
-    @staticmethod
     def mystaticmethod(self, arg1):
         print arg1
 
     #[cython.binding(true)]
-    @staticmethod
     def mystaticmethod2(a, b, c):
         print a, b, c
 
@@ -73,7 +71,6 @@ cdef class SubClass(BaseClass):
     2
     """
 
-    @staticmethod
     def mystaticmethod(self, arg1):
         print arg1
         super().mystaticmethod(self, arg1 + 1)
@@ -98,7 +95,6 @@ class SubSubClass(SubClass):
         super().mystaticmethod(self, arg1 + 1)
 
 cdef class ArgsKwargs(object):
-    @staticmethod
     def with_first_arg(arg1, *args, **kwargs):
         """
         >>> ArgsKwargs().with_first_arg(1, 2, 3, a=4, b=5)
@@ -106,7 +102,6 @@ cdef class ArgsKwargs(object):
         """
         return (arg1, 'pos') + args + tuple(sorted(kwargs.items()))
 
-    @staticmethod
     def only_args_kwargs(*args, **kwargs):
         """
         >>> ArgsKwargs().only_args_kwargs()
@@ -116,7 +111,6 @@ cdef class ArgsKwargs(object):
         """
         return args + tuple(sorted(kwargs.items()))
 
-    @staticmethod
     def no_args():
         """
         >>> ArgsKwargs().no_args()

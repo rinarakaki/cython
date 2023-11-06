@@ -33,7 +33,6 @@ cdef class WrapperClass:
     def b(self):
         return self._ptr.b if self._ptr is not NULL else None
 
-    @staticmethod
     fn WrapperClass from_ptr(my_c_struct *_ptr, bint owner=false):
         """Factory function to create WrapperClass objects from
         given my_c_struct pointer.
@@ -47,7 +46,6 @@ cdef class WrapperClass:
         wrapper.ptr_owner = owner
         return wrapper
 
-    @staticmethod
     fn WrapperClass new_struct():
         """Factory function to create WrapperClass objects with
         newly allocated my_c_struct"""
