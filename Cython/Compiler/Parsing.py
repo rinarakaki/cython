@@ -3633,6 +3633,8 @@ def p_c_func_or_var_declaration(s, pos, ctx):
             api = ctx.api,
             overridable = ctx.overridable,
             is_const_method = is_const_method)
+        if ctx.level in ("c_class", "c_class_pxd") and declarator.args[0].declarator.name != "self":
+            result.decorators = [Nodes.DecoratorNode(pos, decorator=ExprNodes.NameNode(pos, name="staticmethod"))]
     else:
         #if api:
         #    s.error("'api' not allowed with variable declaration")
