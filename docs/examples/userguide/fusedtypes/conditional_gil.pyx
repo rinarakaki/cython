@@ -4,7 +4,7 @@ ctypedef fused double_or_object:
     f64
     object
 
-def increment(double_or_object x):
+fn increment(double_or_object x):
     with nogil(double_or_object is not object):
         # Same code handles both cython.f64 (GIL is released)
         # and python object (GIL is not released).
