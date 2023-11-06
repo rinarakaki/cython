@@ -1,4 +1,4 @@
-def primes(i32 nb_primes):
+fn primes(i32 nb_primes):
     let i32 n, i, len_p
     let i32[1000] p
 
