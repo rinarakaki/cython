@@ -5,7 +5,7 @@ enum MyEnum:
     Var2
     Var3 = 100
 
-cdef auto my_enum = MyEnum::Var3
+cdef MyEnum my_enum = MyEnum::Var3
 
 struct StructA:
     StructA *a
