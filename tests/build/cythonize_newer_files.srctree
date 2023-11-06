@@ -22,7 +22,6 @@ def wait_for_newer_mtime(filename, old_mtime):
         mtime = getmtime(filename)
     return mtime
 
-
 # test the mtime waiting itself
 with open("test_file.txt", 'wb') as f:
     pass
@@ -30,13 +29,11 @@ orig_mtime = getmtime("test_file.txt")
 wait_for_newer_mtime("test_file.txt", orig_mtime)
 assert orig_mtime < getmtime("test_file.txt")
 
-
 def fresh_cythonize(*args):
     clear_function_caches()
     clear_method_caches(DependencyTree.timestamp)
     Cython.Build.Dependencies._dep_tree = None
     cythonize(*args)
-
 
 assert not os.path.exists("a.c")
 

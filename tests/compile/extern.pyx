@@ -2,9 +2,9 @@
 
 cdef extern i32 i
 cdef extern char *s[]
-cdef extern void spam(char c)
+extern fn void spam(char c)
 
-cdef extern i32 eggs():
+extern fn i32 eggs():
     pass
 
 fn i32 grail():
