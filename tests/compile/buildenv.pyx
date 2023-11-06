@@ -29,42 +29,42 @@ extern from *:
     #endif
     """
     # Python runtime
-    statuc i64 PY_VERSION_HEX
+    static i64 PY_VERSION_HEX
 
     # Cython config
-    statuc i32 CYTHON_COMPILING_IN_CPYTHON
-    statuc i32 CYTHON_COMPILING_IN_LIMITED_API
-    statuc i32 CYTHON_COMPILING_IN_PYPY
-    statuc i32 CYTHON_COMPILING_IN_GRAAL
-    statuc i32 CYTHON_COMPILING_IN_NOGIL
-    statuc i32 CYTHON_USE_PYLONG_INTERNALS
-    statuc i32 CYTHON_USE_PYLIST_INTERNALS
-    statuc i32 CYTHON_USE_UNICODE_INTERNALS
-    statuc i32 CYTHON_USE_UNICODE_WRITER
-    statuc i32 CYTHON_AVOID_BORROWED_REFS
-    statuc i32 CYTHON_ASSUME_SAFE_MACROS
-    statuc i32 CYTHON_USE_TYPE_SLOTS
-    statuc i32 CYTHON_UNPACK_METHODS
-    statuc i32 CYTHON_FAST_THREAD_STATE
-    statuc i32 CYTHON_FAST_PYCALL
-    statuc i32 CYTHON_PEP489_MULTI_PHASE_INIT
-    statuc i32 CYTHON_USE_TP_FINALIZE
+    static i32 CYTHON_COMPILING_IN_CPYTHON
+    static i32 CYTHON_COMPILING_IN_LIMITED_API
+    static i32 CYTHON_COMPILING_IN_PYPY
+    static i32 CYTHON_COMPILING_IN_GRAAL
+    static i32 CYTHON_COMPILING_IN_NOGIL
+    static i32 CYTHON_USE_PYLONG_INTERNALS
+    static i32 CYTHON_USE_PYLIST_INTERNALS
+    static i32 CYTHON_USE_UNICODE_INTERNALS
+    static i32 CYTHON_USE_UNICODE_WRITER
+    static i32 CYTHON_AVOID_BORROWED_REFS
+    static i32 CYTHON_ASSUME_SAFE_MACROS
+    static i32 CYTHON_USE_TYPE_SLOTS
+    static i32 CYTHON_UNPACK_METHODS
+    static i32 CYTHON_FAST_THREAD_STATE
+    static i32 CYTHON_FAST_PYCALL
+    static i32 CYTHON_PEP489_MULTI_PHASE_INIT
+    static i32 CYTHON_USE_TP_FINALIZE
 
     # C and platform specifics
-    statuc i32 SIZEOF_INT
-    statuc i32 SIZEOF_LONG
-    statuc i32 SIZEOF_SIZE_T
-    statuc i32 SIZEOF_LONG_LONG
-    statuc i32 SIZEOF_VOID_P
-    statuc i32 SIZEOF_OFF_T
-    statuc i32 SIZEOF_UINTPTR_T
+    static i32 SIZEOF_INT
+    static i32 SIZEOF_LONG
+    static i32 SIZEOF_SIZE_T
+    static i32 SIZEOF_LONG_LONG
+    static i32 SIZEOF_VOID_P
+    static i32 SIZEOF_OFF_T
+    static i32 SIZEOF_UINTPTR_T
 
     # PyLong internals
-    statuc i64 PyLong_BASE
-    statuc i64 PyLong_MASK
-    statuc i32 PyLong_SHIFT
-    statuc i32 digit
-    statuc i32 sdigit
+    static i64 PyLong_BASE
+    static i64 PyLong_MASK
+    static i32 PyLong_SHIFT
+    static i32 digit
+    static i32 sdigit
 
 def config_var(name, default=''):
     return sysconfig.get_config_var(name) or default
