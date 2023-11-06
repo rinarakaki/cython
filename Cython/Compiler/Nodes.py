@@ -517,9 +517,9 @@ class CNameDeclaratorNode(CDeclaratorNode):
             if self.default is not None:
                 base_type = self.default.infer_type(env) or self.default.analyse_types(env)
                 if base_type is None:
-                    error(self.pos, "Cannot infer type from this expression: %s" % self.default)
+                    error(self.pos, "Cannot infer type from given expression: %s" % self.default)
             else:
-                error(self.pos, "'auto' keyword cannot be used without an initialiser")
+                error(self.pos, "'auto' keyword cannot be used without initialiser")
 
         if nonempty and self.name == '':
             # May have mistaken the name for the type.
