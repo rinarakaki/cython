@@ -113,7 +113,7 @@ cdef class ArgsKwargs(object):
 
     def no_args():
         """
-        >>> ArgsKwargs().no_args()
+        >>> ArgsKwargs::no_args()
         OK!
         """
         print("OK!")
