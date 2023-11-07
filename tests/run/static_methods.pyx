@@ -1,4 +1,5 @@
 cdef class A:
+    @staticmethod
     def static_def(i32 x):
         """
         >>> A.static_def(2)
