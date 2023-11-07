@@ -4,6 +4,8 @@ cdef class A:
         """
         >>> A.static_def(2)
         ('def', 2)
+        >>> A().static_def(2)
+        ('def', 2)
         """
         return 'def', x
 
