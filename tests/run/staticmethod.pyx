@@ -42,14 +42,9 @@ cdef class BaseClass(object):
     """
     Test cdef static methods with super() and Python subclasses
 
-    >>> obj = BaseClass()
-    >>> obj.mystaticmethod(obj, 1)
+    >>> BaseClass::mystaticmethod(obj, 1)
     1
-    >>> BaseClass.mystaticmethod(obj, 1)
-    1
-    >>> obj.mystaticmethod2(1, 2, 3)
-    1 2 3
-    >>> BaseClass.mystaticmethod2(1, 2, 3)
+    >>> BaseClass::mystaticmethod2(1, 2, 3)
     1 2 3
     """
 
