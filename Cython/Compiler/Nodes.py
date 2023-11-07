@@ -921,8 +921,8 @@ class CArgDeclNode(Node):
 
 
     def analyse(self, env, nonempty=0):
-        if self.is_self_arg:
-            self.base_type.is_self_arg = self.is_self_arg
+        if self.is_self_arg and self.base_type is None:
+            self.base_type = env.parent_type
         if self.type is not None:
             return self.name_declarator, self.type
 
