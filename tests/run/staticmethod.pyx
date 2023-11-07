@@ -86,14 +86,14 @@ class SubSubClass(SubClass):
         super().mystaticmethod(self, arg1 + 1)
 
 cdef class ArgsKwargs(object):
-    def with_first_arg(arg1, *args, **kwargs):
+    fn with_first_arg(arg1, *args, **kwargs):
         """
         >>> ArgsKwargs::with_first_arg(1, 2, 3, a=4, b=5)
         (1, 'pos', 2, 3, ('a', 4), ('b', 5))
         """
         return (arg1, 'pos') + args + tuple(sorted(kwargs.items()))
 
-    def only_args_kwargs(*args, **kwargs):
+    fn only_args_kwargs(*args, **kwargs):
         """
         >>> ArgsKwargs::only_args_kwargs()
         ()
@@ -102,7 +102,7 @@ cdef class ArgsKwargs(object):
         """
         return args + tuple(sorted(kwargs.items()))
 
-    def no_args():
+    fn no_args():
         """
         >>> ArgsKwargs::no_args()
         OK!
