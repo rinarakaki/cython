@@ -2,10 +2,10 @@ from __future__ import print_function
 
 use cython::typeof
 
-ctypedef bint mybool
+ctypedef u2 mybool
 
 cdef mybool mybul = true
-cdef bint bul = true
+cdef u2 bul = true
 cdef int num = 42
 
 def CondExprNode_to_obj(test):

@@ -26,9 +26,9 @@ extern from "numpy/npy_math.h" nogil:
 
     # These four are actually macros and work on any floating-point type.
     fn i32 isinf "npy_isinf"(long double)  # -1 / 0 / 1
-    fn bint isfinite "npy_isfinite"(long double)
-    fn bint isnan "npy_isnan"(long double)
-    fn bint signbit "npy_signbit"(long double)
+    fn u2 isfinite "npy_isfinite"(long double)
+    fn u2 isnan "npy_isnan"(long double)
+    fn u2 signbit "npy_signbit"(long double)
 
     # Math constants
     long double E "NPY_E"
