@@ -4,6 +4,7 @@
 #
 
 from __future__ import absolute_import
+from os import name
 
 # This should be done automatically
 import cython
@@ -3649,7 +3650,17 @@ def p_c_func_or_var_declaration(s, pos, ctx):
                 args = declarator.base.args
             else:
                 args = declarator.args
-            if len(args) == 0 or args[0].declarator.name != "self":
+            is_static = 0
+            if len(args) == 0:
+                is_static = 1
+            if not is_static:
+                if isinstance(args[0].declarator, Nodes.CPtrDeclaratorNode):
+                    name = args[0].declarator.base.name
+                else:
+                    name = args[0].declarator.name
+                if name != "self":
+                    is_static = 1
+            if is_static:
                 result.decorators = [Nodes.DecoratorNode(pos, decorator=ExprNodes.NameNode(pos, name="staticmethod"))]
     else:
         #if api:
