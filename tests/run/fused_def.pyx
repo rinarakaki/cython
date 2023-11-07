@@ -342,9 +342,9 @@ cdef class CBaseClass(object):
     >>> cls = CBaseClass
     >>> obj = CBaseClass()
 
-    >>> cls::mystaticmethod(10)
+    >>> CBaseClass::mystaticmethod(10)
     long 10
-    >>> cls::mystaticmethod[cy.short](10)
+    >>> CBaseClass::mystaticmethod[cy.short](10)
     short 10
 
     >>> obj.myclassmethod(10)
@@ -375,7 +375,7 @@ cdef class CBaseClass(object):
     <fused_def.CBaseClass object> short 10
     """
 
-    def mystaticmethod(cython.integral arg1):
+    fn mystaticmethod(cython.integral arg1):
         print cython.typeof(arg1), arg1
 
     @classmethod
