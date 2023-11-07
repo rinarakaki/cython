@@ -211,20 +211,20 @@ extern from "datetime.h":
         time (*Time_FromTimeAndFold)(i32, i32, i32 ,i32, object, i32, PyTypeObject*)
 
     # Check type of the object.
-    fn bint PyDate_Check(object op)
-    fn bint PyDate_CheckExact(object op)
+    fn u2 PyDate_Check(object op)
+    fn u2 PyDate_CheckExact(object op)
 
-    fn bint PyDateTime_Check(object op)
-    fn bint PyDateTime_CheckExact(object op)
+    fn u2 PyDateTime_Check(object op)
+    fn u2 PyDateTime_CheckExact(object op)
 
-    fn bint PyTime_Check(object op)
-    fn bint PyTime_CheckExact(object op)
+    fn u2 PyTime_Check(object op)
+    fn u2 PyTime_CheckExact(object op)
 
-    fn bint PyDelta_Check(object op)
-    fn bint PyDelta_CheckExact(object op)
+    fn u2 PyDelta_Check(object op)
+    fn u2 PyDelta_CheckExact(object op)
 
-    fn bint PyTZInfo_Check(object op)
-    fn bint PyTZInfo_CheckExact(object op)
+    fn u2 PyTZInfo_Check(object op)
+    fn u2 PyTZInfo_CheckExact(object op)
 
     # Getters for date and datetime (C macros).
     fn i32 PyDateTime_GET_YEAR(object o)

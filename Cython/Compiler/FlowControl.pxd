@@ -19,16 +19,16 @@ cdef class ControlBlock:
     pub object i_kill
     pub object i_state
 
-    cpdef bint empty(self)
+    cpdef u2 empty(self)
     cpdef detach(self)
     cpdef add_child(self, block)
 
 cdef class ExitBlock(ControlBlock):
-    cpdef bint empty(self)
+    cpdef u2 empty(self)
 
 cdef class NameAssignment:
-    pub bint is_arg
-    pub bint is_deletion
+    pub u2 is_arg
+    pub u2 is_deletion
     pub object lhs
     pub object rhs
     pub object entry
@@ -63,8 +63,8 @@ cdef class ControlFlow:
 
     cpdef newblock(self, ControlBlock parent=*)
     cpdef nextblock(self, ControlBlock parent=*)
-    cpdef bint is_tracked(self, entry)
-    cpdef bint is_statically_assigned(self, entry)
+    cpdef u2 is_tracked(self, entry)
+    cpdef u2 is_statically_assigned(self, entry)
     cpdef mark_position(self, node)
     cpdef mark_assignment(self, lhs, rhs, entry, rhs_scope=*)
     cpdef mark_argument(self, lhs, rhs, entry)
@@ -92,7 +92,7 @@ cdef class Unknown:
 cdef class MessageCollection:
     cdef set messages
 
-#[cython.locals(dirty=bint, block=ControlBlock, parent=ControlBlock,
+#[cython.locals(dirty=u2, block=ControlBlock, parent=ControlBlock,
                 assmt=NameAssignment)]
 fn check_definitions(ControlFlow flow, dict compiler_directives)
 
@@ -105,7 +105,7 @@ cdef class ControlFlowAnalysis(CythonTransform):
     cdef object env
     cdef ControlFlow flow
     cdef object object_expr
-    cdef bint in_inplace_assignment
+    cdef u2 in_inplace_assignment
 
     cpdef mark_assignment(self, lhs, rhs=*, rhs_scope=*)
     cpdef mark_position(self, node)

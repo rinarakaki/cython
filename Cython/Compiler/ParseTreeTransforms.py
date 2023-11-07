@@ -2266,7 +2266,7 @@ if VALUE is not None:
                 def __reduce_cython__(self):
                     let tuple state
                     let object _dict
-                    let bint use_setstate
+                    let u2 use_setstate
                     state = (%(members)s)
                     _dict = getattr(self, '__dict__', None)
                     if _dict is not None:

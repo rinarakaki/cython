@@ -5,13 +5,13 @@ fn i32 raise_py_error() except *:
     raise TypeError("custom")
 
 extern from "cpp_exceptions_helper.h":
-    fn i32 raise_int_raw "raise_int"(bint fire) except +
-    fn i32 raise_int_value "raise_int"(bint fire) except +ValueError
-    fn i32 raise_int_custom "raise_int"(bint fire) except +raise_py_error
+    fn i32 raise_int_raw "raise_int"(u2 fire) except +
+    fn i32 raise_int_value "raise_int"(u2 fire) except +ValueError
+    fn i32 raise_int_custom "raise_int"(u2 fire) except +raise_py_error
 
-    fn i32 raise_index_raw "raise_index"(bint fire) except +
-    fn i32 raise_index_value "raise_index"(bint fire) except +ValueError
-    fn i32 raise_index_custom "raise_index"(bint fire) except +raise_py_error
+    fn i32 raise_index_raw "raise_index"(u2 fire) except +
+    fn i32 raise_index_value "raise_index"(u2 fire) except +ValueError
+    fn i32 raise_index_custom "raise_index"(u2 fire) except +raise_py_error
 
     fn void raise_domain_error() except +
     fn void raise_ios_failure() except +
@@ -21,13 +21,13 @@ extern from "cpp_exceptions_helper.h":
     fn void raise_typeerror() except +
     fn void raise_underflow() except +
 
-    fn raise_or_throw(bint py) except +
-    fn i32 raise_or_throw_int(bint py) except +*
+    fn raise_or_throw(u2 py) except +
+    fn i32 raise_or_throw_int(u2 py) except +*
 
     cdef cppclass Foo:
-        int bar_raw "bar"(bint fire) except +
-        int bar_value "bar"(bint fire) except +ValueError
-        int bar_custom "bar"(bint fire) except +raise_py_error
+        int bar_raw "bar"(u2 fire) except +
+        int bar_value "bar"(u2 fire) except +ValueError
+        int bar_custom "bar"(u2 fire) except +raise_py_error
 
 
 def test_domain_error():
@@ -101,7 +101,7 @@ def test_underflow():
     """
     raise_underflow()
 
-def test_func_that_can_raise_or_throw(bint py):
+def test_func_that_can_raise_or_throw(u2 py):
     """
     >>> test_func_that_can_raise_or_throw(0)
     Traceback (most recent call last):
@@ -114,7 +114,7 @@ def test_func_that_can_raise_or_throw(bint py):
     """
     raise_or_throw(py)
 
-def test_func_that_can_raise_or_throw_c_return(bint py):
+def test_func_that_can_raise_or_throw_c_return(u2 py):
     """
     >>> test_func_that_can_raise_or_throw_c_return(0)
     Traceback (most recent call last):
@@ -127,7 +127,7 @@ def test_func_that_can_raise_or_throw_c_return(bint py):
     """
     raise_or_throw_int(py)
 
-def test_int_raw(bint fire):
+def test_int_raw(u2 fire):
     """
     >>> test_int_raw(false)
     >>> test_int_raw(true)
@@ -137,7 +137,7 @@ def test_int_raw(bint fire):
     """
     raise_int_raw(fire)
 
-def test_int_value(bint fire):
+def test_int_value(u2 fire):
     """
     >>> test_int_value(false)
     >>> test_int_value(true)
@@ -147,7 +147,7 @@ def test_int_value(bint fire):
     """
     raise_int_value(fire)
 
-def test_int_custom(bint fire):
+def test_int_custom(u2 fire):
     """
     >>> test_int_custom(false)
     >>> test_int_custom(true)
@@ -157,7 +157,7 @@ def test_int_custom(bint fire):
     """
     raise_int_custom(fire)
 
-def test_index_raw(bint fire):
+def test_index_raw(u2 fire):
     """
     >>> test_index_raw(false)
     >>> test_index_raw(true)
@@ -167,7 +167,7 @@ def test_index_raw(bint fire):
     """
     raise_index_raw(fire)
 
-def test_index_value(bint fire):
+def test_index_value(u2 fire):
     """
     >>> test_index_value(false)
     >>> test_index_value(true)
@@ -177,7 +177,7 @@ def test_index_value(bint fire):
     """
     raise_index_value(fire)
 
-def test_index_custom(bint fire):
+def test_index_custom(u2 fire):
     """
     >>> test_index_custom(false)
     >>> test_index_custom(true)
@@ -187,7 +187,7 @@ def test_index_custom(bint fire):
     """
     raise_index_custom(fire)
 
-def test_cppclass_method_raw(bint fire):
+def test_cppclass_method_raw(u2 fire):
     """
     >>> test_cppclass_method_raw(false)
     >>> test_cppclass_method_raw(true)
@@ -201,7 +201,7 @@ def test_cppclass_method_raw(bint fire):
     finally:
         del foo
 
-def test_cppclass_method_value(bint fire):
+def test_cppclass_method_value(u2 fire):
     """
     >>> test_cppclass_method_value(false)
     >>> test_cppclass_method_value(true)
@@ -215,7 +215,7 @@ def test_cppclass_method_value(bint fire):
     finally:
         del foo
 
-def test_cppclass_method_custom(bint fire):
+def test_cppclass_method_custom(u2 fire):
     """
     >>> test_cppclass_method_custom(false)
     >>> test_cppclass_method_custom(true)

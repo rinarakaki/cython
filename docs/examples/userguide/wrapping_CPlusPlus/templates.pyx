@@ -6,16 +6,16 @@ use cython::operator::(dereference as deref, preincrement as inc)
 extern from "<vector>" namespace "std":
     cdef cppclass vector[T]:
         cppclass iterator:
-            T operator*()
-            iterator operator++()
-            bint operator==(iterator)
-            bint operator!=(iterator)
+            fn T operator*()
+            fn iterator operator++()
+            fn u2 operator==(iterator)
+            fn u2 operator!=(iterator)
         vector()
-        void push_back(T&)
-        T& operator[](usize)
-        T& at(usize)
-        iterator begin()
-        iterator end()
+        fn void push_back(T&)
+        fn T& operator[](usize)
+        fn T& at(usize)
+        fn iterator begin()
+        fn iterator end()
 
 cdef vector[i32] *v = new vector[i32]()
 cdef i32 i

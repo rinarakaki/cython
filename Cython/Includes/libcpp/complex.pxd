@@ -23,12 +23,12 @@ extern from "<complex>" namespace "std" nogil:
         complex[T] operator/(complex[T]&, T&)
         complex[T] operator/(T&, complex[T]&)
 
-        bint operator==(complex[T]&, complex[T]&)
-        bint operator==(complex[T]&, T&)
-        bint operator==(T&, complex[T]&)
-        bint operator!=(complex[T]&, complex[T]&)
-        bint operator!=(complex[T]&, T&)
-        bint operator!=(T&, complex[T]&)
+        u2 operator==(complex[T]&, complex[T]&)
+        u2 operator==(complex[T]&, T&)
+        u2 operator==(T&, complex[T]&)
+        u2 operator!=(complex[T]&, complex[T]&)
+        u2 operator!=(complex[T]&, T&)
+        u2 operator!=(T&, complex[T]&)
 
         # Access real part
         T real()
