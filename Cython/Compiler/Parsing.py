@@ -3293,7 +3293,7 @@ def p_c_arg_decl(s, ctx, in_pyfunc, is_self_arg = 0, nonempty = 0,
         declarator = p_c_declarator(s, ctx, nonempty=nonempty)
     elif is_self_arg:
         base_type = Nodes.CSimpleBaseTypeNode(pos,
-            name = "self", module_path = [],
+            name = None, module_path = [],
             is_basic_c_type = 0, signed = 0,
             complex = 0, longness = 0,
             is_self_arg = is_self_arg, templates = None
@@ -3657,10 +3657,10 @@ def p_c_func_or_var_declaration(s, pos, ctx):
                 is_static = 1
             if not is_static:
                 if isinstance(args[0].declarator, Nodes.CPtrDeclaratorNode):
-                    name = args[0].base_type.base.name
+                    name = args[0].declarator.base.name
                 else:
-                    name = args[0].base_type.name
-                if name != "self":
+                    name = args[0].declarator.name
+                if name != "":
                     is_static = 1
             if is_static:
                 result.decorators = [Nodes.DecoratorNode(pos, decorator=ExprNodes.NameNode(pos, name="staticmethod"))]
