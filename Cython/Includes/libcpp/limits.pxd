@@ -28,7 +28,9 @@ extern from "<limits>" namespace "std" nogil:
         const bint is_integer
         const bint is_exact
         const i32 radix
+        @staticmethod
         fn T epsilon()
+        @staticmethod
         fn T round_error()
 
         const i32  min_exponent
@@ -41,9 +43,13 @@ extern from "<limits>" namespace "std" nogil:
         const bint has_signaling_NaN
         const float_denorm_style has_denorm
         const bint has_denorm_loss
+        @staticmethod
         fn T infinity()
+        @staticmethod
         fn T quiet_NaN()
+        @staticmethod
         fn T signaling_NaN()
+        @staticmethod
         fn T denorm_min()
 
         const bint is_iec559
