@@ -3633,10 +3633,12 @@ def p_c_func_or_var_declaration(s, pos, ctx):
             api = ctx.api,
             overridable = ctx.overridable,
             is_const_method = is_const_method)
-        if cmethod_flag and hasattr(declarator, "args") \
-                and (len(declarator.args) == 0 or declarator.args[0].base_type.name != "self"):
-            result.decorators = [Nodes.DecoratorNode(pos, decorator=ExprNodes.NameNode(pos, name="staticmethod"))]
+        if cmethod_flag and not hasattr(declarator, 'args'):
+            print("NO ARGS")
             print(declarator)
+        if cmethod_flag and (len(declarator.args) == 0 or declarator.args[0].base_type.name != "self"):
+            print(declarator)
+            result.decorators = [Nodes.DecoratorNode(pos, decorator=ExprNodes.NameNode(pos, name="staticmethod"))]
     else:
         #if api:
         #    s.error("'api' not allowed with variable declaration")
