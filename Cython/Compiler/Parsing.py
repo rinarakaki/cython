@@ -3664,6 +3664,8 @@ def p_c_func_or_var_declaration(s, pos, ctx):
                     is_static = 1
             if is_static:
                 result.decorators = [Nodes.DecoratorNode(pos, decorator=ExprNodes.NameNode(pos, name="staticmethod"))]
+            else:
+                print(args)
     else:
         #if api:
         #    s.error("'api' not allowed with variable declaration")
