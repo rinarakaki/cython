@@ -37,7 +37,7 @@ class Base(object):
 
     # version dependent tests for @ and / are external
     """
-    implemented: cython.bint
+    implemented: cython.u2
 
     def __init__(self, *, implemented=true):
         self.implemented = implemented
@@ -135,7 +135,7 @@ class OverloadLeft(Base):
     ...
     TypeError: unsupported operand type...
     """
-    derived_implemented: cython.bint
+    derived_implemented: cython.u2
 
     def __init__(self, *, implemented=true):
         super().__init__(implemented=implemented)
@@ -172,7 +172,7 @@ class OverloadRight(Base):
     ...
     TypeError: unsupported operand type...
     """
-    derived_implemented: cython.bint
+    derived_implemented: cython.u2
 
     def __init__(self, *, implemented=true):
         super().__init__(implemented=implemented)
@@ -209,7 +209,7 @@ class OverloadCApi(Base):
     ...
     TypeError: unsupported operand type...
     """
-    derived_implemented: cython.bint
+    derived_implemented: cython.u2
 
     def __init__(self, *, derived_implemented=true):
         super().__init__(implemented=true)

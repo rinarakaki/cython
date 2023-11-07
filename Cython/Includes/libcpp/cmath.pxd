@@ -363,49 +363,49 @@ extern from "<cmath>" namespace "std" nogil:
     fn i32 fpclassify(f64 x) except +
     fn i32 fpclassify(long double x) except +
 
-    fn bint isfinite(f32 x) except +
-    fn bint isfinite(f64 x) except +
-    fn bint isfinite(long double x) except +
+    fn u2 isfinite(f32 x) except +
+    fn u2 isfinite(f64 x) except +
+    fn u2 isfinite(long double x) except +
 
-    fn bint isinf(f32 x) except +
-    fn bint isinf(f64 x) except +
-    fn bint isinf(long double x) except +
+    fn u2 isinf(f32 x) except +
+    fn u2 isinf(f64 x) except +
+    fn u2 isinf(long double x) except +
 
-    fn bint isnan(f32 x) except +
-    fn bint isnan(f64 x) except +
-    fn bint isnan(long double x) except +
+    fn u2 isnan(f32 x) except +
+    fn u2 isnan(f64 x) except +
+    fn u2 isnan(long double x) except +
 
-    fn bint isnormal(f32 x) except +
-    fn bint isnormal(f64 x) except +
-    fn bint isnormal(long double x) except +
+    fn u2 isnormal(f32 x) except +
+    fn u2 isnormal(f64 x) except +
+    fn u2 isnormal(long double x) except +
 
-    fn bint signbit(f32 x) except +
-    fn bint signbit(f64 x) except +
-    fn bint signbit(long double x) except +
+    fn u2 signbit(f32 x) except +
+    fn u2 signbit(f64 x) except +
+    fn u2 signbit(long double x) except +
 
-    fn bint isgreater(f32 x, f32 y) except +
-    fn bint isgreater(f64 x, f64 y) except +
-    fn bint isgreater(long double x, long double y) except +
+    fn u2 isgreater(f32 x, f32 y) except +
+    fn u2 isgreater(f64 x, f64 y) except +
+    fn u2 isgreater(long double x, long double y) except +
 
-    fn bint isgreaterequal(f32 x, f32 y) except +
-    fn bint isgreaterequal(f64 x, f64 y) except +
-    fn bint isgreaterequal(long double x, long double y) except +
+    fn u2 isgreaterequal(f32 x, f32 y) except +
+    fn u2 isgreaterequal(f64 x, f64 y) except +
+    fn u2 isgreaterequal(long double x, long double y) except +
 
-    fn bint isless(f32 x, f32 y) except +
-    fn bint isless(f64 x, f64 y) except +
-    fn bint isless(long double x, long double y) except +
+    fn u2 isless(f32 x, f32 y) except +
+    fn u2 isless(f64 x, f64 y) except +
+    fn u2 isless(long double x, long double y) except +
 
-    fn bint islessequal(f32 x, f32 y) except +
-    fn bint islessequal(f64 x, f64 y) except +
-    fn bint islessequal(long double x, long double y) except +
+    fn u2 islessequal(f32 x, f32 y) except +
+    fn u2 islessequal(f64 x, f64 y) except +
+    fn u2 islessequal(long double x, long double y) except +
 
-    fn bint islessgreater(f32 x, f32 y) except +
-    fn bint islessgreater(f64 x, f64 y) except +
-    fn bint islessgreater(long double x, long double y) except +
+    fn u2 islessgreater(f32 x, f32 y) except +
+    fn u2 islessgreater(f64 x, f64 y) except +
+    fn u2 islessgreater(long double x, long double y) except +
 
-    fn bint isunordered(f32 x, f32 y) except +
-    fn bint isunordered(f64 x, f64 y) except +
-    fn bint isunordered(long double x, long double y) except +
+    fn u2 isunordered(f32 x, f32 y) except +
+    fn u2 isunordered(f64 x, f64 y) except +
+    fn u2 isunordered(long double x, long double y) except +
 
     # C++17 mathematical special functions
 

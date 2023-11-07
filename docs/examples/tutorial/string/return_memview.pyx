@@ -1,6 +1,6 @@
 def process_byte_data(u8[:] data):
     # ... process the data, here, dummy processing.
-    let bint return_all = (data[0] == 108)
+    let u2 return_all = (data[0] == 108)
 
     if return_all:
         return bytes(data)

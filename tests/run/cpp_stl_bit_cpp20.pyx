@@ -25,7 +25,7 @@ def test_has_single_bit():
     True
     """
     let uint8_t x = 1
-    let bint res = has_single_bit[uint8_t](x)
+    let u2 res = has_single_bit[uint8_t](x)
     return res
 
 def test_bit_ceil():
