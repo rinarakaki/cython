@@ -3636,7 +3636,7 @@ def p_c_func_or_var_declaration(s, pos, ctx):
         if cmethod_flag and not hasattr(declarator, 'args'):
             print("NO ARGS")
             print(declarator)
-        if cmethod_flag and (len(declarator.args) == 0 or declarator.args[0].base_type.name != "self"):
+        elif cmethod_flag and (len(declarator.args) == 0 or declarator.args[0].base_type.name != "self"):
             print(declarator)
             result.decorators = [Nodes.DecoratorNode(pos, decorator=ExprNodes.NameNode(pos, name="staticmethod"))]
     else:
