@@ -3255,7 +3255,7 @@ def p_c_arg_list(s, ctx = Ctx(), in_pyfunc = 0, cmethod_flag = 0,
     #  Comma-separated list of C argument declarations, possibly empty.
     #  May have a trailing comma.
     args = []
-    is_self_arg = cmethod_flag
+    is_self_arg = cmethod_flag and s.systring == "self" and s.peek()[0] != "IDENT"
     while s.sy not in c_arg_list_terminators:
         args.append(p_c_arg_decl(s, ctx, in_pyfunc, is_self_arg,
             nonempty = nonempty_declarators, kw_only = kw_only,
@@ -3273,7 +3273,7 @@ def p_optional_ellipsis(s):
     else:
         return 0
 
-def p_c_arg_decl(s, ctx, in_pyfunc, cmethod_flag = 0, nonempty = 0,
+def p_c_arg_decl(s, ctx, in_pyfunc, is_self_arg = 0, nonempty = 0,
                  kw_only = 0, annotated = 1):
     pos = s.position()
     not_none = or_none = 0
@@ -3285,10 +3285,20 @@ def p_c_arg_decl(s, ctx, in_pyfunc, cmethod_flag = 0, nonempty = 0,
             name = None, module_path = [],
             is_basic_c_type = 0, signed = 0,
             complex = 0, longness = 0,
-            is_self_arg = cmethod_flag, templates = None)
+            is_self_arg = is_self_arg, templates = None
+        )
+        declarator = p_c_declarator(s, ctx, nonempty = nonempty)
+    elif is_self_arg:
+        base_type = Nodes.CSimpleBaseTypeNode(pos,
+            name = None, module_path = [],
+            is_basic_c_type = 0, signed = 0,
+            complex = 0, longness = 0,
+            is_self_arg = is_self_arg, templates = None
+        )
+        declarator = Nodes.CNameDeclaratorNode(pos, name="self", cname=None, default=None)
     else:
         base_type = p_c_base_type(s, nonempty=nonempty)
-    declarator = p_c_declarator(s, ctx, nonempty = nonempty)
+        declarator = p_c_declarator(s, ctx, nonempty=nonempty)
     if s.sy in ('not', 'or') and not s.in_python_file:
         kind = s.sy
         s.next()
@@ -3633,12 +3643,13 @@ def p_c_func_or_var_declaration(s, pos, ctx):
             api = ctx.api,
             overridable = ctx.overridable,
             is_const_method = is_const_method)
-        if cmethod_flag and not hasattr(declarator, 'args'):
-            print("NO ARGS")
-            print(declarator)
-        elif cmethod_flag and (len(declarator.args) == 0 or declarator.args[0].base_type.name != "self"):
-            print(declarator)
-            result.decorators = [Nodes.DecoratorNode(pos, decorator=ExprNodes.NameNode(pos, name="staticmethod"))]
+        if cmethod_flag:
+            if isinstance(declarator, Nodes.CPtrDeclaratorNode):
+                args = declarator.base.args
+            else:
+                args = declarator.args
+            if len(args) == 0 or args[0].declarator.name != "self":
+                result.decorators = [Nodes.DecoratorNode(pos, decorator=ExprNodes.NameNode(pos, name="staticmethod"))]
     else:
         #if api:
         #    s.error("'api' not allowed with variable declaration")

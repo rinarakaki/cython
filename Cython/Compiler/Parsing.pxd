@@ -180,7 +180,7 @@ fn p_exception_value_clause(PyrexScanner s, bint is_extern)
 cpdef p_c_arg_list(PyrexScanner s, ctx = *, bint in_pyfunc = *, bint cmethod_flag = *,
                    bint nonempty_declarators = *, bint kw_only = *, bint annotated = *)
 fn p_optional_ellipsis(PyrexScanner s)
-fn p_c_arg_decl(PyrexScanner s, ctx, in_pyfunc, bint cmethod_flag = *, bint nonempty = *, bint kw_only = *, bint annotated = *)
+fn p_c_arg_decl(PyrexScanner s, ctx, in_pyfunc, bint is_self_arg = *, bint nonempty = *, bint kw_only = *, bint annotated = *)
 fn p_api(PyrexScanner s)
 fn p_cdef_statement(PyrexScanner s, ctx)
 fn p_cdef_block(PyrexScanner s, ctx)
