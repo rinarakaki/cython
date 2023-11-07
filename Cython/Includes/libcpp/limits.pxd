@@ -18,7 +18,9 @@ extern from "<limits>" namespace "std" nogil:
     #print lm.round_style
     cdef cppclass numeric_limits[T]:
         const bint is_specialized
+        @staticmethod
         fn T min()
+        @staticmethod
         fn T max()
         const i32 digits
         const i32  digits10
