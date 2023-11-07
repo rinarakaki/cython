@@ -56,7 +56,7 @@ def genexp_array_slice_order():
     [0, 1, 2, 3, 4]
     """
     # TODO ideally find a way to add the evaluation of x to this test too
-    x = cython.declare(cython.int[20])
+    x = cython.declare(cython::i32[20])
     x = list(0..20)
     return (a for a in x[zero():five()])
 
@@ -72,7 +72,7 @@ def list_array_slice_order():
     [0, 1, 2, 3, 4]
     """
     # TODO ideally find a way to add the evaluation of x to this test too
-    x = cython.declare(cython.int[20])
+    x = cython.declare(cython::i32[20])
     x = list(0..20)
     return list(a for a in x[zero():five()])
 

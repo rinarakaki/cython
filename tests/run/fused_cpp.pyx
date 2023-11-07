@@ -11,7 +11,7 @@ def test_cpp_specialization(cython.floating element):
     >>> import cython
     >>> test_cpp_specialization[cython.float](10.0)
     vector[float] * float 10.0
-    >>> test_cpp_specialization[cython.f64](10.0)
+    >>> test_cpp_specialization[cython::f64](10.0)
     vector[double] * double 10.0
     """
     let vector[cython.floating] *v = new vector[cython.floating]()

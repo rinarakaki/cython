@@ -148,7 +148,7 @@ def test_fused_pointer_except_null(value):
     AssertionError
     """
     if isinstance(value, int):
-        test_int = cython.declare(cython.i32, value)
+        test_int = cython.declare(cython::i32, value)
         print(fused_pointer_except_null(&test_int)[0])
     elif isinstance(value, float):
         test_float = cython.declare(cython.float, value)
@@ -163,7 +163,7 @@ cpdef cython.integral test_fused_memoryviews(cython.integral[:, :;1] a):
     """
     >>> import cython
     >>> a = create_array((3, 5), mode="c")
-    >>> test_fused_memoryviews[cython.i32](a)
+    >>> test_fused_memoryviews[cython::i32](a)
     7
     """
     return a[1, 2]
@@ -321,7 +321,7 @@ def test_fused_memslice_dtype(cython.floating[:] array):
     >>> sorted(test_fused_memslice_dtype.__signatures__)
     ['double', 'float']
 
-    >>> test_fused_memslice_dtype[cython.f64](get_array(8, 'd'))
+    >>> test_fused_memslice_dtype[cython::f64](get_array(8, 'd'))
     double[:] double[:] 5.0 6.0
     >>> test_fused_memslice_dtype[cython.float](get_array(4, 'f'))
     float[:] float[:] 5.0 6.0
@@ -330,7 +330,7 @@ def test_fused_memslice_dtype(cython.floating[:] array):
     # in the list, but this shouldn't be a hard requirement)
     >>> test_fused_memslice_dtype(None)
     float[:]
-    >>> test_fused_memslice_dtype[cython.f64](None)
+    >>> test_fused_memslice_dtype[cython::f64](None)
     double[:]
     """
     if array is None:
@@ -414,14 +414,14 @@ def test_pylong(int_t i):
 
     >>> test_pylong[int](int(0))
     int
-    >>> test_pylong[cython.i32](int(0))
+    >>> test_pylong[cython::i32](int(0))
     int
     >>> test_pylong(int(0))
     int
 
     >>> test_pylong[int](long(0))
     int
-    >>> test_pylong[cython.i32](long(0))
+    >>> test_pylong[cython::i32](long(0))
     int
     >>> test_pylong(long(0))
     int
@@ -442,7 +442,7 @@ fn _test_index_fused_args(cython.floating f, ints_t i):
 def test_index_fused_args(cython.floating f, ints_t i):
     """
     >>> import cython
-    >>> test_index_fused_args[cython.f64, cython.i32](2.0, 3)
+    >>> test_index_fused_args[cython::f64, cython::i32](2.0, 3)
     double int
     """
     _test_index_fused_args[cython.floating, ints_t](f, i)
@@ -454,7 +454,7 @@ def test_index_const_fused_args(const cython.floating f, const ints_t i):
     """Test indexing function implementation with const fused type args
 
     >>> import cython
-    >>> test_index_const_fused_args[cython.f64, cython.i32](2.0, 3)
+    >>> test_index_const_fused_args[cython::f64, cython::i32](2.0, 3)
     ('const double', 'const int')
     """
     _test_index_const_fused_args[cython.floating, ints_t](f, i)

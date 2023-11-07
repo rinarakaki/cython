@@ -192,7 +192,7 @@ def test_type_inference():
     xo = (x, o)
     assert cython.typeof(xo) == "tuple object", cython.typeof(xo)
 
-#[cython::locals(a=(i32, i32), b=(cython.i64, cython.f64))]
+#[cython::locals(a=(i32, i32), b=(cython::i64, cython::f64))]
 def test_pure_python_declaration(x, y):
     """
     >>> test_pure_python_declaration(1, 2)
@@ -257,7 +257,7 @@ def test_mul_to_ctuple((i32, i32) ab, i32 c):
     Traceback (most recent call last):
     TypeError: Expected a sequence of size 4, got size 6
     """
-    result: tuple[cython.i32, cython.i32, cython.i32, cython.i32] = ab * c
+    result: tuple[cython::i32, cython::i32, cython::i32, cython::i32] = ab * c
     return result
 
 def test_unop((i32, i32) ab):

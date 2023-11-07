@@ -43,9 +43,9 @@ cdef class Scanner:
 
     #[cython::final]
     #[cython::locals(cur_pos=isize, cur_line=isize, cur_line_start=isize,
-                    input_state=i64, next_pos=isize, state=dict,
-                    buf_start_pos=isize, buf_len=isize, buf_index=isize,
-                    trace=u2, discard=isize, data=unicode, buffer=unicode)]
+                     input_state=i64, next_pos=isize, state=dict,
+                     buf_start_pos=isize, buf_len=isize, buf_index=isize,
+                     trace=u2, discard=isize, data=unicode, buffer=unicode)]
     fn run_machine_inlined(self)
 
     fn inline begin(self, state)
