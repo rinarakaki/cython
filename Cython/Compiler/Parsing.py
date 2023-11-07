@@ -3299,6 +3299,7 @@ def p_c_arg_decl(s, ctx, in_pyfunc, is_self_arg = 0, nonempty = 0,
             complex = 0, longness = 0,
             is_self_arg = is_self_arg, templates = None
         )
+        base_type = None
         declarator = Nodes.CNameDeclaratorNode(pos, name="self", cname=None, default=None)
         s.next()
     else:
