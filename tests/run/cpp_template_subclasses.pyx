@@ -139,20 +139,20 @@ cdef cppclass MySubclass[T](MyClass[T]):
       pass
 
 cdef cppclass Getter[T]:
-    T get(bint fire) except *:
+    T get(u2 fire) except *:
         if fire:
             raise RuntimeError
         else:
            raise NotImplementedError
 
 cdef cppclass GetInt(Getter[i32]):
-    i32 get(bint fire) except *:
+    i32 get(u2 fire) except *:
         if fire:
             raise RuntimeError
         else:
             return 389
 
-def test_subclass_exception_values(bint fire):
+def test_subclass_exception_values(u2 fire):
     """
     >>> test_subclass_exception_values(false)
     389

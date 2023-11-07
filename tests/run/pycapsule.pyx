@@ -4,7 +4,7 @@ import gc
 use cpython::pycapsule
 
 cdef int value = 5
-cdef bint destructed = false
+cdef u2 destructed = false
 
 fn void destructor(object obj) noexcept:
     # PyPy's GC does not guarantee immediate execution.

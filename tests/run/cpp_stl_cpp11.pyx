@@ -159,7 +159,7 @@ def test_unordered_map_functionality():
         unordered_map[i32, i32] int_map = unordered_map[i32, i32]()
         pair[i32, i32] pair_insert = pair[i32, i32](1, 2)
         unordered_map[i32, i32].iterator iterator = int_map.begin()
-        pair[unordered_map[i32, i32].iterator, bint] pair_iter  = int_map.insert(pair_insert)
+        pair[unordered_map[i32, i32].iterator, u2] pair_iter  = int_map.insert(pair_insert)
         unordered_map[i32, i32] int_map2
         unordered_map[int, int*] intptr_map
         const i32* intptr

@@ -10,7 +10,7 @@ def if_list_nogil(list obj):
     """
     return _if_list_nogil(obj)
 
-fn bint _if_list_nogil(list obj) nogil:
+fn u2 _if_list_nogil(list obj) nogil:
     if obj:
         return true
     else:
