@@ -592,7 +592,7 @@ def list_comprehension(i32[:] buf, len):
     let i32 i
     print "|".join([str(buf[i]) for i in 0..len])
 
-#[cython.wraparound(false)]
+#[cython::wraparound(false)]
 @testcase
 def wraparound_directive(i32[:] buf, i32 pos_idx, i32 neg_idx):
     """
@@ -607,7 +607,7 @@ def wraparound_directive(i32[:] buf, i32 pos_idx, i32 neg_idx):
     IndexError: Out of bounds on buffer access (axis 0)
     """
     let i32 byneg
-    with cython.wraparound(true):
+    with cython::wraparound(true):
         byneg = buf[neg_idx]
     return buf[pos_idx] + byneg
 
@@ -1055,7 +1055,7 @@ def addref(*args):
 def decref(*args):
     for item in args: Py_DECREF(item)
 
-#[cython.binding(false)]
+#[cython::binding(false)]
 #[cython.always_allow_keywords(false)]
 def get_refcount(x):
     return (<PyObject*>x).ob_refcnt
@@ -1807,7 +1807,7 @@ def test_convert_slicenode_to_indexnode():
     print a[0]
 
 #[cython.boundscheck(false)]
-#[cython.wraparound(false)]
+#[cython::wraparound(false)]
 @testcase
 def test_memslice_prange(arg):
     """

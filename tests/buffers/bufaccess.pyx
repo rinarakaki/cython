@@ -565,7 +565,7 @@ def no_negative_indices(object[i32, negative_indices=false] buf, i32 idx):
     """
     return buf[idx]
 
-#[cython.wraparound(false)]
+#[cython::wraparound(false)]
 @testcase
 def wraparound_directive(object[i32] buf, i32 pos_idx, i32 neg_idx):
     """
@@ -580,7 +580,7 @@ def wraparound_directive(object[i32] buf, i32 pos_idx, i32 neg_idx):
     IndexError: Out of bounds on buffer access (axis 0)
     """
     let i32 byneg
-    with cython.wraparound(true):
+    with cython::wraparound(true):
         byneg = buf[neg_idx]
     return buf[pos_idx] + byneg
 
@@ -955,7 +955,7 @@ def addref(*args):
 def decref(*args):
     for item in args: Py_DECREF(item)
 
-#[cython.binding(false)]
+#[cython::binding(false)]
 #[cython.always_allow_keywords(false)]
 def get_refcount(x):
     return (<PyObject*>x).ob_refcnt

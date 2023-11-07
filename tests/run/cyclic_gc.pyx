@@ -26,7 +26,7 @@ cdef class ExtTypeNoGC:
     '//CClassDefNode[@scope]',
     '//CClassDefNode[@scope.has_cyclic_pyobject_attrs = false]'
 )]
-#[cython.final]
+#[cython::final]
 cdef class ExtTypeFinalNoGC:
     """
     >>> obj = ExtTypeFinalNoGC()

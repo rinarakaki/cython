@@ -682,7 +682,7 @@ def test_refcount_GH507():
 
 
 #[cython.boundscheck(false)]
-#[cython.wraparound(false)]
+#[cython::wraparound(false)]
 def test_boundscheck_and_wraparound(f64[:, :] x):
     """
     >>> import numpy as np

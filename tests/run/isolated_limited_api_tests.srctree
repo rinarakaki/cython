@@ -51,7 +51,7 @@ assert limited.cast_float(bytearray(b"3")) == 3.0
 
 import cython
 
-@cython.binding(False)
+@cython::binding(False)
 def fib(int n):
     cdef int a, b
     a, b = 0, 1
@@ -71,7 +71,7 @@ def lsum(values):
             result += value
     return result
 
-@cython.binding(False)
+@cython::binding(False)
 def raises():
     raise RuntimeError()
 

@@ -243,7 +243,7 @@ def test_boundscheck_signed(list L, tuple t, object o, long ix):
     """
     return L[ix], t[ix], o[ix]
 
-#[cython.wraparound(false)]
+#[cython::wraparound(false)]
 def test_wraparound_signed(list L, tuple t, object o, long ix):
     """
     >>> test_wraparound_signed([1, 2, 4], (1, 2, 4), [1, 2, 4], 2)

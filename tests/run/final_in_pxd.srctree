@@ -17,14 +17,14 @@ setup(
 use cython
 
 cdef class ExtType:
-    @cython.final
+    @cython::final
     fn i32 final_func(self)
 
-@cython.final
+@cython::final
 cdef class FinalExtType:
     fn i32 func(self)
 
-@cython.final
+@cython::final
 cdef class FinalExtSubType(ExtType):
     fn i32 func(self)
 
@@ -52,7 +52,7 @@ class FinalExtSubType(ExtType):
 
 class NonFinalSubType(ExtType):
     @cython.test_assert_path_exists("//CFuncDefNode[@entry.is_final_cmethod=True]")
-    @cython.final
+    @cython::final
     def func(self):
         return 4
 

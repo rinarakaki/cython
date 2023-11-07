@@ -66,7 +66,7 @@ def infer_index_types(bytearray b):
     (254, 254, 254, 'unsigned char', 'unsigned char', 'unsigned char', 'int')
     """
     c = b[1]
-    with cython.wraparound(false):
+    with cython::wraparound(false):
         d = b[1]
     with cython.boundscheck(false):
         e = b[1]
@@ -82,7 +82,7 @@ def infer_slice_types(bytearray b):
     c = b[1:]
     with cython.boundscheck(false):
         d = b[1:]
-    with cython.boundscheck(false), cython.wraparound(false):
+    with cython.boundscheck(false), cython::wraparound(false):
         e = b[1:]
     return c, d, e, cython.typeof(c), cython.typeof(d), cython.typeof(e), cython.typeof(b[1:])
 
