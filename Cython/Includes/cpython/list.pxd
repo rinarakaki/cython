@@ -13,11 +13,11 @@ extern from "Python.h":
     # Python code before setting all items to a real object with
     # PyList_SetItem().
 
-    fn bint PyList_Check(object p)
+    fn u2 PyList_Check(object p)
     # Return true if p is a list object or an instance of a subtype of
     # the list type.
 
-    fn bint PyList_CheckExact(object p)
+    fn u2 PyList_CheckExact(object p)
     # Return true if p is a list object, but not an instance of a
     # subtype of the list type.
 

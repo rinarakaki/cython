@@ -534,36 +534,36 @@ class FusedCFuncDefNode(StatListNode):
                 ctypedef struct {{memviewslice_cname}}:
                     void *memview
 
-                void __PYX_XCLEAR_MEMVIEW({{memviewslice_cname}} *, int have_gil)
-                bint __pyx_memoryview_check(object)
-                bint __PYX_IS_PYPY2 "(CYTHON_COMPILING_IN_PYPY && PY_MAJOR_VERSION == 2)"
+                fn void __PYX_XCLEAR_MEMVIEW({{memviewslice_cname}} *, i32 have_gil)
+                fn u2 __pyx_memoryview_check(object)
+                fn u2 __PYX_IS_PYPY2 "(CYTHON_COMPILING_IN_PYPY && PY_MAJOR_VERSION == 2)"
             """)
 
         pyx_code.local_variable_declarations.put_chunk(
             u"""
-                cdef {{memviewslice_cname}} memslice
-                cdef isize itemsize
-                cdef bint dtype_signed
-                cdef Py_UCS4 kind
+                let {{memviewslice_cname}} memslice
+                let isize itemsize
+                let u2 dtype_signed
+                let Py_UCS4 kind
 
                 itemsize = -1
             """)
 
         if pythran_types:
             pyx_code.local_variable_declarations.put_chunk(u"""
-                cdef bint arg_is_pythran_compatible
-                cdef isize cur_stride
+                let u2 arg_is_pythran_compatible
+                let isize cur_stride
             """)
 
         pyx_code.imports.put_chunk(
             u"""
-                cdef type ndarray
+                let type ndarray
                 ndarray = __Pyx_ImportNumPyArrayTypeIfAvailable()
             """)
 
         pyx_code.imports.put_chunk(
             u"""
-                cdef memoryview arg_as_memoryview
+                let memoryview arg_as_memoryview
             """
         )
 
@@ -586,7 +586,7 @@ class FusedCFuncDefNode(StatListNode):
                                             dtype_type=self._dtype_type(dtype))
                     pyx_code.local_variable_declarations.put_chunk(
                         u"""
-                            cdef bint {{dtype_name}}_is_signed
+                            cdef u2 {{dtype_name}}_is_signed
                             {{dtype_name}}_is_signed = not (<{{dtype_type}}> -1 > 0)
                         """)
 

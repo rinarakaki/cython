@@ -1,6 +1,6 @@
 # mode: compile
 
-def f(obj, i32 i, f64 f, i8 *s1, i8 s2[]):
+fn f(obj, i32 i, f64 f, i8 *s1, i8 s2[]):
     pass
 
 fn g(obj, i32 i, f64 f, i8 *s1, i8 s2[]):

@@ -5,10 +5,10 @@ extern from "Python.h":
     # Generator Objects
     ###########################################################################
 
-    fn bint PyGen_Check(object ob)
+    fn u2 PyGen_Check(object ob)
     # Return true if ob is a generator object; ob must not be NULL.
 
-    fn bint PyGen_CheckExact(object ob)
+    fn u2 PyGen_CheckExact(object ob)
     # Return true if ob's type is PyGen_Type; ob must not be NULL.
 
     fn object PyGen_New(PyFrameObject *frame)

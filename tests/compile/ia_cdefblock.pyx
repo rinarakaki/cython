@@ -6,7 +6,7 @@ cdef:
 
     i32 priv_i
 
-    void priv_f():
+    fn void priv_f():
         global priv_i
         priv_i = 42
 
@@ -16,19 +16,18 @@ pub:
 
     i32 pub_v
 
-    void pub_f():
+    fn void pub_f():
         pass
 
     class PubBlarg [object PubBlargObj, type PubBlargType]:
         pass
 
 cdef api:
-
-    void api_f():
+    fn void api_f():
         pass
 
 pub api:
-    void pub_api_f():
+    fn void pub_api_f():
         pass
 
 priv_f()

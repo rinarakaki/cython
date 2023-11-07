@@ -1,3 +1,3 @@
 # mode: compile
 
-cdef extern void spam(i32, char *)
+extern fn void spam(i32, char *)

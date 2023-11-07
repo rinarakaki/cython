@@ -1,4 +1,4 @@
 extern from *:
-    type bool = bint
+    type bool = u2
     ctypedef void* nullptr_t
     nullptr_t nullptr

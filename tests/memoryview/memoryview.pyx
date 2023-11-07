@@ -1072,7 +1072,7 @@ def test_dtype_object_scalar_assignment():
     (<object> m)[:] = SingleObject(3)
     assert m[0] == m[4] == m[-1] == 3
 
-def test_assignment_in_conditional_expression(bint left):
+def test_assignment_in_conditional_expression(u2 left):
     """
     >>> test_assignment_in_conditional_expression(true)
     1.0

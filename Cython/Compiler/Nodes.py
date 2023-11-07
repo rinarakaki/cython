@@ -185,6 +185,10 @@ class Node(object):
         attrs = ", ".join(f"{key}={value}" for key, value in self.__dict__.items())
         return "%s(%s)" % (self.__class__.__name__, attrs)
 
+    def __repr__(self):
+        attrs = ", ".join(f"{key}={value}" for key, value in self.__dict__.items())
+        return "%s(%s)" % (self.__class__.__name__, attrs)
+
     gil_message = "Operation"
 
     nogil_check = None

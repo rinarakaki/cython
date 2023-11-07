@@ -130,7 +130,7 @@ __Pyx_globals["{{name}}"].__doc__ = {{ repr(enum_doc) }}
 
 @cname("{{funcname}}")
 fn {{funcname}}({{name}} c_val):
-    cdef object __pyx_enum
+    let object __pyx_enum
     # There's a complication here: the Python enum wrapping is only generated
     # for enums defined in the same module that they're used in. Therefore, if
     # the enum was cimported from a different module, we try to import it.

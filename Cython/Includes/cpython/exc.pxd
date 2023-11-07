@@ -52,13 +52,13 @@ extern from "Python.h":
     # of a class, in the case of a class exception, or it may be a
     # subclass of the expected exception.)
 
-    fn bint PyErr_ExceptionMatches(object exc)
+    fn u2 PyErr_ExceptionMatches(object exc)
     # Equivalent to "PyErr_GivenExceptionMatches(PyErr_Occurred(),
     # exc)". This should only be called when an exception is actually
     # set; a memory access violation will occur if no exception has
     # been raised.
 
-    fn bint PyErr_GivenExceptionMatches(object given, object exc)
+    fn u2 PyErr_GivenExceptionMatches(object given, object exc)
     # Return true if the given exception matches the exception in
     # exc. If exc is a class object, this also returns true when given
     # is an instance of a subclass. If exc is a tuple, all exceptions

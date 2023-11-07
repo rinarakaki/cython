@@ -8,11 +8,11 @@ extern from "Python.h":
     # This instance of PyTypeObject represents the Python plain
     # integer type. This is the same object as int and types.IntType.
 
-    fn bint PyInt_Check(object  o)
+    fn u2 PyInt_Check(object  o)
     # Return true if o is of type PyInt_Type or a subtype of
     # PyInt_Type.
 
-    fn bint PyInt_CheckExact(object  o)
+    fn u2 PyInt_CheckExact(object  o)
     # Return true if o is of type PyInt_Type, but not a subtype of
     # PyInt_Type.
 

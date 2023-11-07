@@ -4,7 +4,7 @@ extern from "<stack>" namespace "std" nogil:
         stack() except +
         stack(stack&) except +
         #stack(Container&)
-        bint empty()
+        u2 empty()
         void pop()
         void push(T&) except +
         usize size()
