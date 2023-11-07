@@ -2449,8 +2449,8 @@ def test_noneslice_nogil_check_none(f64[:] m):
     >>> test_noneslice_nogil_check_none(None)
     (True, False)
     """
-    let bint is_none = false
-    let bint not_none = true
+    let u2 is_none = false
+    let u2 not_none = true
 
     with nogil:
         is_none = m is None and None is m and m == None and None == m

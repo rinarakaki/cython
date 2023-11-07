@@ -12,7 +12,7 @@ __doc__ = u"""
 42 spam
 """
 
-cdef int i = 0
+cdef i32 i = 0
 cdef x = 5
 
 def f(a):
@@ -21,4 +21,4 @@ def f(a):
     x = a
 
 def what():
-    print i,x
+    print i, x

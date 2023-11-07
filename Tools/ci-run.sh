@@ -162,7 +162,7 @@ if [[ $NO_CYTHON_COMPILE != "1" ]]; then
   # "with exit code 1158". DW isn't completely sure of this, but has disabled it in 
   # the hope it helps
   SETUP_ARGS="$SETUP_ARGS
-    $(python -c 'import sys; print("-j5" if sys.version_info >= (3,5) and not sys.platform.startswith("win") else "")')"
+    $(python -c 'import sys; print("-j5" if not sys.platform.startswith("win") else "")')"
 
   CFLAGS=$BUILD_CFLAGS \
     python setup.py build_ext -i $SETUP_ARGS || exit 1

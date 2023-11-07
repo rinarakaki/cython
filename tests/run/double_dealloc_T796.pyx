@@ -41,7 +41,7 @@ cdef class Collector:
 cdef class SimpleGarbage:
     cdef Collector c  # to participate in garbage collection
     cdef int index
-    cdef bint deallocated
+    cdef u2 deallocated
     def __cinit__(self):
         self.index = next_counter()
         self.c = Collector()
