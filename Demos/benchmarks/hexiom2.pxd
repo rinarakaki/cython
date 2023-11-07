@@ -14,9 +14,9 @@ cdef class Done:
 
     fn Done clone(self)
     fn inline i32 set_done(self, i32 i, v) except -123
-    fn inline bint already_done(self, i32 i) except -123
-    fn inline bint remove(self, i32 i, v) except -123
-    fn inline bint remove_unfixed(self, v) except -123
+    fn inline u2 already_done(self, i32 i) except -123
+    fn inline u2 remove(self, i32 i, v) except -123
+    fn inline u2 remove_unfixed(self, v) except -123
     fn i32 next_cell(self, Pos pos, i32 strategy=*) except -123
 
     fn i32 filter_tiles(self, i32* tiles) except -123
@@ -41,7 +41,7 @@ cdef class Hex:
     pub i32 count
 
     fn i32 link_nodes(self) except -123
-    fn bint contains_pos(self, tuple pos)
+    fn u2 contains_pos(self, tuple pos)
     fn Node get_by_pos(self, tuple pos)
     fn Node get_by_id(self, i32 id)
 
@@ -53,10 +53,10 @@ cdef class Pos:
 
     fn Pos clone(self)
 
-fn bint constraint_pass(Pos pos, last_move=*) except -123
+fn u2 constraint_pass(Pos pos, last_move=*) except -123
 fn list find_moves(Pos pos, i32 strategy, i32 order)
 fn inline i32 play_move(Pos pos, tuple move) except -123
 fn print_pos(Pos pos, output)
-fn i32 solved(Pos pos, output, bint verbose=*) except -123
-fn i32 solve_step(Pos prev, i32 strategy, order, output, bint first=*) except -123
+fn i32 solved(Pos pos, output, u2 verbose=*) except -123
+fn i32 solve_step(Pos prev, i32 strategy, order, output, u2 first=*) except -123
 fn check_valid(Pos pos)

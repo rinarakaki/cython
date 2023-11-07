@@ -4,7 +4,7 @@ extern from *:
     struct PyTypeObject:
         char* tp_name
     fn PyTypeObject *Py_TYPE(obj)
-    fn bint PyMapping_Check(obj)
+    fn u2 PyMapping_Check(obj)
     fn object PyErr_Format(exc, const char *format, ...)
     fn i32 __Pyx_RaiseUnexpectedTypeError(const char *expected, object obj) except 0
 
@@ -30,7 +30,7 @@ extern from *:
     struct PyTypeObject:
         char* tp_name
     fn PyTypeObject *Py_TYPE(obj)
-    fn bint PyMapping_Check(obj)
+    fn u2 PyMapping_Check(obj)
     fn object PyErr_Format(exc, const char *format, ...)
     fn i32 __Pyx_RaiseUnexpectedTypeError(const char *expected, object obj) except 0
 

@@ -3,7 +3,7 @@ extern from "Python.h":
     # Iterator Objects
     ###########################################################################
 
-    fn bint PySeqIter_Check(object op)
+    fn u2 PySeqIter_Check(object op)
     # Return true if the type of op is PySeqIter_Type.
 
     fn object PySeqIter_New(object seq)
@@ -12,7 +12,7 @@ extern from "Python.h":
     # iteration ends when the sequence raises IndexError for the subscripting
     # operation.
 
-    fn bint PyCallIter_Check(object op)
+    fn u2 PyCallIter_Check(object op)
     # Return true if the type of op is PyCallIter_Type.
 
     fn object PyCallIter_New(object callable, object sentinel)
