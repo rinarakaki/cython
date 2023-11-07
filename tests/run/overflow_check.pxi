@@ -2,8 +2,8 @@ use cython
 
 cdef object two = 2
 
-cdef int size_in_bits_ = sizeof(INT) * 8
-cdef bint is_signed_ = not ((<INT>-1) > 0)
+cdef i32 size_in_bits_ = sizeof(INT) * 8
+cdef u2 is_signed_ = not ((<INT>-1) > 0)
 cdef INT max_value_ = <INT>(two ** (size_in_bits_ - is_signed_) - 1)
 cdef INT min_value_ = ~max_value_
 cdef INT half_ = max_value_ // <INT>2
@@ -20,9 +20,9 @@ import operator
 use libc::math::sqrt
 
 cpdef check(func, op, a, b):
-    cdef INT res = 0, op_res = 0
-    cdef bint func_overflow = False
-    cdef bint assign_overflow = False
+    let INT res = 0, op_res = 0
+    let u2 func_overflow = 0
+    let u2 assign_overflow = 0
     try:
         res = func(a, b)
     except OverflowError:

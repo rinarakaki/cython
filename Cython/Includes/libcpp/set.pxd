@@ -19,10 +19,10 @@ extern from "<set>" namespace "std" nogil:
             iterator operator--()
             iterator operator++(i32)
             iterator operator--(i32)
-            bint operator==(iterator)
-            bint operator==(const_iterator)
-            bint operator!=(iterator)
-            bint operator!=(const_iterator)
+            u2 operator==(iterator)
+            u2 operator==(const_iterator)
+            u2 operator!=(iterator)
+            u2 operator!=(const_iterator)
         cppclass const_iterator:
             const_iterator() except +
             const_iterator(iterator&) except +
@@ -33,10 +33,10 @@ extern from "<set>" namespace "std" nogil:
             const_iterator operator--()
             const_iterator operator++(i32)
             const_iterator operator--(i32)
-            bint operator==(iterator)
-            bint operator==(const_iterator)
-            bint operator!=(iterator)
-            bint operator!=(const_iterator)
+            u2 operator==(iterator)
+            u2 operator==(const_iterator)
+            u2 operator!=(iterator)
+            u2 operator!=(const_iterator)
 
         cppclass const_reverse_iterator
         cppclass reverse_iterator:
@@ -47,10 +47,10 @@ extern from "<set>" namespace "std" nogil:
             reverse_iterator operator--()
             reverse_iterator operator++(i32)
             reverse_iterator operator--(i32)
-            bint operator==(reverse_iterator)
-            bint operator==(const_reverse_iterator)
-            bint operator!=(reverse_iterator)
-            bint operator!=(const_reverse_iterator)
+            u2 operator==(reverse_iterator)
+            u2 operator==(const_reverse_iterator)
+            u2 operator!=(reverse_iterator)
+            u2 operator!=(const_reverse_iterator)
         cppclass const_reverse_iterator:
             const_reverse_iterator() except +
             const_reverse_iterator(reverse_iterator&) except +
@@ -60,27 +60,27 @@ extern from "<set>" namespace "std" nogil:
             const_reverse_iterator operator--()
             const_reverse_iterator operator++(i32)
             const_reverse_iterator operator--(i32)
-            bint operator==(reverse_iterator)
-            bint operator==(const_reverse_iterator)
-            bint operator!=(reverse_iterator)
-            bint operator!=(const_reverse_iterator)
+            u2 operator==(reverse_iterator)
+            u2 operator==(const_reverse_iterator)
+            u2 operator!=(reverse_iterator)
+            u2 operator!=(const_reverse_iterator)
 
         set() except +
         set(set&) except +
         #set(key_compare&)
         #set& operator=(set&)
-        bint operator==(set&, set&)
-        bint operator!=(set&, set&)
-        bint operator<(set&, set&)
-        bint operator>(set&, set&)
-        bint operator<=(set&, set&)
-        bint operator>=(set&, set&)
+        u2 operator==(set&, set&)
+        u2 operator!=(set&, set&)
+        u2 operator<(set&, set&)
+        u2 operator>(set&, set&)
+        u2 operator<=(set&, set&)
+        u2 operator>=(set&, set&)
         iterator begin()
         const_iterator const_begin "begin"()
         const_iterator cbegin()
         void clear()
         usize count(const T&)
-        bint empty()
+        u2 empty()
         iterator end()
         const_iterator const_end "end"()
         const_iterator cend()
@@ -92,7 +92,7 @@ extern from "<set>" namespace "std" nogil:
         usize erase(const T&)
         iterator find(const T&)
         const_iterator const_find "find"(const T&)
-        pair[iterator, bint] insert(const T&) except +
+        pair[iterator, u2] insert(const T&) except +
         iterator insert(iterator, const T&) except +
         iterator insert(const_iterator, const T&) except +
         iterator const_insert "insert"(const_iterator, const T&) except +
@@ -113,7 +113,7 @@ extern from "<set>" namespace "std" nogil:
         const_iterator const_upper_bound "upper_bound"(const T&)
         #value_compare value_comp()
         # C++20
-        bint contains(const T&)
+        u2 contains(const T&)
 
     cdef cppclass multiset[T]:
         ctypedef T value_type
@@ -133,10 +133,10 @@ extern from "<set>" namespace "std" nogil:
             iterator operator--()
             iterator operator++(i32)
             iterator operator--(i32)
-            bint operator==(iterator)
-            bint operator==(const_iterator)
-            bint operator!=(iterator)
-            bint operator!=(const_iterator)
+            u2 operator==(iterator)
+            u2 operator==(const_iterator)
+            u2 operator!=(iterator)
+            u2 operator!=(const_iterator)
         cppclass const_iterator:
             const_iterator() except +
             const_iterator(iterator&) except +
@@ -147,10 +147,10 @@ extern from "<set>" namespace "std" nogil:
             const_iterator operator--()
             const_iterator operator++(i32)
             const_iterator operator--(i32)
-            bint operator==(iterator)
-            bint operator==(const_iterator)
-            bint operator!=(iterator)
-            bint operator!=(const_iterator)
+            u2 operator==(iterator)
+            u2 operator==(const_iterator)
+            u2 operator!=(iterator)
+            u2 operator!=(const_iterator)
 
         cppclass const_reverse_iterator
         cppclass reverse_iterator:
@@ -161,10 +161,10 @@ extern from "<set>" namespace "std" nogil:
             reverse_iterator operator--()
             reverse_iterator operator++(i32)
             reverse_iterator operator--(i32)
-            bint operator==(reverse_iterator)
-            bint operator==(const_reverse_iterator)
-            bint operator!=(reverse_iterator)
-            bint operator!=(const_reverse_iterator)
+            u2 operator==(reverse_iterator)
+            u2 operator==(const_reverse_iterator)
+            u2 operator!=(reverse_iterator)
+            u2 operator!=(const_reverse_iterator)
         cppclass const_reverse_iterator:
             const_reverse_iterator() except +
             const_reverse_iterator(reverse_iterator&) except +
@@ -174,27 +174,27 @@ extern from "<set>" namespace "std" nogil:
             const_reverse_iterator operator--()
             const_reverse_iterator operator++(i32)
             const_reverse_iterator operator--(i32)
-            bint operator==(reverse_iterator)
-            bint operator==(const_reverse_iterator)
-            bint operator!=(reverse_iterator)
-            bint operator!=(const_reverse_iterator)
+            u2 operator==(reverse_iterator)
+            u2 operator==(const_reverse_iterator)
+            u2 operator!=(reverse_iterator)
+            u2 operator!=(const_reverse_iterator)
 
         multiset() except +
         multiset(multiset&) except +
         #multiset(key_compare&)
         #multiset& operator=(multiset&)
-        bint operator==(multiset&, multiset&)
-        bint operator!=(multiset&, multiset&)
-        bint operator<(multiset&, multiset&)
-        bint operator>(multiset&, multiset&)
-        bint operator<=(multiset&, multiset&)
-        bint operator>=(multiset&, multiset&)
+        u2 operator==(multiset&, multiset&)
+        u2 operator!=(multiset&, multiset&)
+        u2 operator<(multiset&, multiset&)
+        u2 operator>(multiset&, multiset&)
+        u2 operator<=(multiset&, multiset&)
+        u2 operator>=(multiset&, multiset&)
         iterator begin()
         const_iterator const_begin "begin"()
         const_iterator cbegin()
         void clear()
         usize count(const T&)
-        bint empty()
+        u2 empty()
         iterator end()
         const_iterator const_end "end"()
         const_iterator cend()
@@ -225,4 +225,4 @@ extern from "<set>" namespace "std" nogil:
         iterator upper_bound(const T&)
         const_iterator const_upper_bound "upper_bound"(const T&)
         # C++20
-        bint contains(const T&)
+        u2 contains(const T&)

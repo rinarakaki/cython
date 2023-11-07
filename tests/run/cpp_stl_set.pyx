@@ -13,7 +13,7 @@ def test_set_insert(vals):
     [-1, 1, 2, 3]
     """
     let set[int] s = set[int]()
-    let pair[set[int].iterator, bint] ret
+    let pair[set[int].iterator, u2] ret
     for v in vals:
         ret = s.insert(v)
     return [item for item in s]
@@ -90,7 +90,7 @@ def test_unordered_set_insert(vals):
     [-1, 1, 2, 3]
     """
     let unordered_set[int] us = unordered_set[int]()
-    let pair[unordered_set[int].iterator, bint] ret
+    let pair[unordered_set[int].iterator, u2] ret
     for v in vals:
         ret = us.insert(v)
     return sorted([item for item in us])

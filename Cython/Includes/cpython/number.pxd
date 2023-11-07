@@ -5,7 +5,7 @@ extern from "Python.h":
     # 6.2 Number Protocol
     #####################################################################
 
-    fn bint PyNumber_Check(object o)
+    fn u2 PyNumber_Check(object o)
     # Returns 1 if the object o provides numeric protocols, and false
     # otherwise. This function always succeeds.
 
@@ -259,6 +259,6 @@ extern from "Python.h":
     # and the value is clipped to PY_SSIZE_T_MIN for a negative
     # integer or PY_SSIZE_T_MAX for a positive integer.
 
-    fn bint PyIndex_Check(object)
+    fn u2 PyIndex_Check(object)
     # Returns True if o is an index integer (has the nb_index slot of
     # the tp_as_number structure filled in).
