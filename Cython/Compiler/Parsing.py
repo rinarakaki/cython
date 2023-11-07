@@ -3293,12 +3293,12 @@ def p_c_arg_decl(s, ctx, in_pyfunc, is_self_arg = 0, nonempty = 0,
         )
         declarator = p_c_declarator(s, ctx, nonempty=nonempty)
     elif is_self_arg:
-        base_type = Nodes.CSimpleBaseTypeNode(pos,
-            name = None, module_path = [],
-            is_basic_c_type = 0, signed = 0,
-            complex = 0, longness = 0,
-            is_self_arg = is_self_arg, templates = None
-        )
+        # base_type = Nodes.CSimpleBaseTypeNode(pos,
+        #     name = None, module_path = [],
+        #     is_basic_c_type = 0, signed = 0,
+        #     complex = 0, longness = 0,
+        #     is_self_arg = is_self_arg, templates = None
+        # )
         base_type = None
         declarator = Nodes.CNameDeclaratorNode(pos, name="self", cname=None, default=None)
         s.next()
@@ -3339,7 +3339,9 @@ def p_c_arg_decl(s, ctx, in_pyfunc, is_self_arg = 0, nonempty = 0,
         or_none = or_none,
         default = default,
         annotation = annotation,
-        kw_only = kw_only)
+        is_self_arg = is_self_arg,
+        kw_only = kw_only,
+    )
 
 def p_api(s):
     if s.sy == 'IDENT' and s.systring == 'api':

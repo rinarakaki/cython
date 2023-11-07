@@ -681,9 +681,7 @@ class CFuncDeclaratorNode(CDeclaratorNode):
             nonempty -= 1
         func_type_args = []
         for i, arg_node in enumerate(self.args):
-            name_declarator, type = arg_node.analyse(
-                env, nonempty=nonempty,
-                is_self_arg=(i == 0 and env.is_c_class_scope and 'staticmethod' not in env.directives))
+            name_declarator, type = arg_node.analyse(env, nonempty=nonempty)
             name = name_declarator.name
             if name in directive_locals:
                 type_node = directive_locals[name]
@@ -922,9 +920,9 @@ class CArgDeclNode(Node):
             return punycodify_name(Naming.var_prefix + self.entry.name)
 
 
-    def analyse(self, env, nonempty=0, is_self_arg=False):
-        if is_self_arg:
-            self.base_type.is_self_arg = self.is_self_arg = is_self_arg
+    def analyse(self, env, nonempty=0):
+        if self.is_self_arg:
+            self.base_type.is_self_arg = self.is_self_arg
         if self.type is not None:
             return self.name_declarator, self.type
 
