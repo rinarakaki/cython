@@ -3287,7 +3287,7 @@ def p_c_arg_decl(s, ctx, in_pyfunc, is_self_arg = 0, nonempty = 0,
             complex = 0, longness = 0,
             is_self_arg = is_self_arg, templates = None
         )
-        declarator = p_c_declarator(s, ctx, nonempty = nonempty)
+        declarator = p_c_declarator(s, ctx, nonempty=nonempty)
     elif is_self_arg:
         base_type = Nodes.CSimpleBaseTypeNode(pos,
             name = None, module_path = [],
@@ -3296,6 +3296,7 @@ def p_c_arg_decl(s, ctx, in_pyfunc, is_self_arg = 0, nonempty = 0,
             is_self_arg = is_self_arg, templates = None
         )
         declarator = Nodes.CNameDeclaratorNode(pos, name="self", cname=None, default=None)
+        s.next()
     else:
         base_type = p_c_base_type(s, nonempty=nonempty)
         declarator = p_c_declarator(s, ctx, nonempty=nonempty)
