@@ -1,7 +1,7 @@
 cdef class A:
-    fn static_def(i32 x):
+    def static_def(i32 x):
         """
-        >>> A::static_def(2)
+        >>> A.static_def(2)
         ('def', 2)
         """
         return 'def', x
@@ -18,14 +18,13 @@ cdef class A:
 #     cpdef static_cpdef(i32 x):
 #         """
 #         >>> A.static_def
-#         >>> A.static_cpdef
+#         >>> A::static_cpdef
 #
 #         >>> A().static_def
-#         >>> A().static_cpdef
 #
-#         >>> A.static_cpdef(2)
+#         >>> A::static_cpdef(2)
 #         ('cpdef', 2)
-#         >>> A().static_cpdef(2)
+#         >>> A::static_cpdef(2)
 #         ('cpdef', 2)
 #         """
 #         return 'cpdef', x
@@ -35,7 +34,7 @@ fn call_static_def(i32 x):
     >>> call_static_def(2)
     ('def', 2)
     """
-    return A::static_def(x)
+    return A.static_def(x)
 
 fn call_static_cdef(i32 x):
     """
@@ -60,12 +59,12 @@ fn call_static_list_comprehension_GH1540(i32 x):
     return [A::static_cdef(&x) for _ in 0..3]
 
 # BROKEN
-#def call_static_cdef_untyped(a, b):
+# def call_static_cdef_untyped(a, b):
 #    """
 #    >>> call_static_cdef_untyped(100, None)
 #    ('cdef_untyped', 100, None)
 #    """
-#    return A.static_cdef_untyped(a, b)
+#    return A::static_cdef_untyped(a, b)
 
 # UNIMPLEMENTED
 # def call_static_cpdef(i32 x):
@@ -80,7 +79,7 @@ cdef class FromPxd:
         return 'pxd_cdef', x[0]
 
     fn static_cdef_with_implicit_object(obj):
-        return obj+1
+        return obj + 1
 
 def call_static_pxd_cdef(i32 x):
     """
