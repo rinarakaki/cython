@@ -3258,7 +3258,7 @@ def p_c_arg_list(s, ctx = Ctx(), in_pyfunc = 0, cmethod_flag = 0,
     if s.in_python_file:
         is_self_arg = cmethod_flag
     else:
-        is_self_arg = cmethod_flag and s.systring == "self" and s.peek()[0] in c_arg_list_terminators
+        is_self_arg = cmethod_flag and s.systring == "self" and s.peek()[0] != "IDENT"
     while s.sy not in c_arg_list_terminators:
         args.append(p_c_arg_decl(s, ctx, in_pyfunc, is_self_arg,
             nonempty = nonempty_declarators, kw_only = kw_only,
