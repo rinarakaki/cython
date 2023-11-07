@@ -197,10 +197,10 @@ extern from "<math.h>" nogil:
     fn long double truncl(long double)
 
     fn i32 isinf(long double)   # -1 / 0 / 1
-    fn bint isfinite(long double)
-    fn bint isnan(long double)
-    fn bint isnormal(long double)
-    fn bint signbit(long double)
+    fn u2 isfinite(long double)
+    fn u2 isnan(long double)
+    fn u2 isnormal(long double)
+    fn u2 signbit(long double)
     fn i32 fpclassify(long double)
     static const i32 FP_NAN
     static const i32 FP_INFINITE

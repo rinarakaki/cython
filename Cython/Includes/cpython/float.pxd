@@ -20,11 +20,11 @@ extern from "Python.h":
     # point type. This is the same object as float and
     # types.FloatType.
 
-    fn bint PyFloat_Check(object p)
+    fn u2 PyFloat_Check(object p)
     # Return true if its argument is a PyFloatObject or a subtype of
     # PyFloatObject.
 
-    fn bint PyFloat_CheckExact(object p)
+    fn u2 PyFloat_CheckExact(object p)
     # Return true if its argument is a PyFloatObject, but not a
     # subtype of PyFloatObject.
 

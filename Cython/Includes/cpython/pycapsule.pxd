@@ -15,7 +15,7 @@ extern from "Python.h":
     # See PyCapsule_New() for the semantics of PyCapsule_Destructor
     # callbacks.
 
-    fn bint PyCapsule_CheckExact(object o)
+    fn u2 PyCapsule_CheckExact(object o)
     # Return true if its argument is a PyCapsule.
 
     fn object PyCapsule_New(void *pointer, const char *name,
@@ -73,7 +73,7 @@ extern from "Python.h":
     # NULL return code somewhat ambiguous; use PyCapsule_IsValid() or
     # PyErr_Occurred() to disambiguate.
 
-    fn bint PyCapsule_IsValid(object capsule, const char *name)
+    fn u2 PyCapsule_IsValid(object capsule, const char *name)
     # Determines whether or not capsule is a valid capsule. A valid
     # capsule is non-NULL, passes PyCapsule_CheckExact(), has a
     # non-NULL pointer stored in it, and its internal name matches the

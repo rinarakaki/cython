@@ -24,11 +24,11 @@ extern from "Python.h":
     # type. This is exposed to Python programs as dict and
     # types.DictType.
 
-    fn bint PyDict_Check(object p)
+    fn u2 PyDict_Check(object p)
     # Return true if p is a dict object or an instance of a subtype of
     # the dict type.
 
-    fn bint PyDict_CheckExact(object p)
+    fn u2 PyDict_CheckExact(object p)
     # Return true if p is a dict object, but not an instance of a
     # subtype of the dict type.
 

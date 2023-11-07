@@ -15,10 +15,10 @@ extern from "Python.h":
     # This instance of PyTypeObject represents the Python long integer
     # type. This is the same object as long and types.LongType.
 
-    fn bint PyLong_Check(object p)
+    fn u2 PyLong_Check(object p)
     # Return true if its argument is a PyLongObject or a subtype of PyLongObject.
 
-    fn bint PyLong_CheckExact(object p)
+    fn u2 PyLong_CheckExact(object p)
     # Return true if its argument is a PyLongObject, but not a subtype of PyLongObject.
 
     fn object PyLong_FromLong(i64 v)
