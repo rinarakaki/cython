@@ -24,8 +24,10 @@ extern from *:
     };
     """
     cppclass Foo:
+        @staticmethod
         fn const char* bar(i32 x)
 
+        @staticmethod
         fn const char* bar(i32 x, i32 y)
 
         const char* baz(i32 x)
