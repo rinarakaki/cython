@@ -3660,7 +3660,7 @@ def p_c_func_or_var_declaration(s, pos, ctx):
                     name = args[0].declarator.base.name
                 else:
                     name = args[0].declarator.name
-                if name != "":
+                if name != "self":
                     is_static = 1
             if is_static:
                 result.decorators = [Nodes.DecoratorNode(pos, decorator=ExprNodes.NameNode(pos, name="staticmethod"))]
