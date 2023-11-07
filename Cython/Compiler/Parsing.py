@@ -3636,7 +3636,6 @@ def p_c_func_or_var_declaration(s, pos, ctx):
         if ctx.level in ("c_class", "c_class_pxd", "cpp_class") and hasattr(declarator, "args") \
                 and (len(declarator.args) == 0 or declarator.args[0].base_type.name != "self"):
             result.decorators = [Nodes.DecoratorNode(pos, decorator=ExprNodes.NameNode(pos, name="staticmethod"))]
-            print("!!!!!! DEBUG !!!!!!!!")
             print(declarator)
     else:
         #if api:
