@@ -3291,14 +3291,14 @@ def p_c_arg_decl(s, ctx, in_pyfunc, is_self_arg = 0, nonempty = 0,
             is_self_arg = is_self_arg, templates = None
         )
         declarator = p_c_declarator(s, ctx, nonempty=nonempty)
-    elif 0 and is_self_arg:
+    elif is_self_arg:
         base_type = Nodes.CSimpleBaseTypeNode(pos,
-            name = None, module_path = [],
+            name = "self", module_path = [],
             is_basic_c_type = 0, signed = 0,
             complex = 0, longness = 0,
             is_self_arg = is_self_arg, templates = None
         )
-        declarator = Nodes.CNameDeclaratorNode(pos, name="self", cname=None, default=None)
+        declarator = Nodes.CNameDeclaratorNode(pos, name=None, cname=None, default=None)
         s.next()
     else:
         base_type = p_c_base_type(s, nonempty=nonempty)
@@ -3657,9 +3657,9 @@ def p_c_func_or_var_declaration(s, pos, ctx):
                 is_static = 1
             if not is_static:
                 if isinstance(args[0].declarator, Nodes.CPtrDeclaratorNode):
-                    name = args[0].declarator.base.name
+                    name = args[0].base_type.base.name
                 else:
-                    name = args[0].declarator.name
+                    name = args[0].base_type.name
                 if name != "self":
                     is_static = 1
             if is_static:
