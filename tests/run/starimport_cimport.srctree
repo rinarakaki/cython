@@ -11,7 +11,7 @@ setup(
     ext_modules = [
         Extension("star_cimport_ext",  ["star_cimport_ext.pyx"]),
         Extension("star_cimport_test", ["star_cimport_test.pyx"]),
-        ],
+    ],
     cmdclass={'build_ext': build_ext},
 )
 
@@ -34,6 +34,6 @@ class test_py:
 
 # Tests a Python star import followed by a cimport
 from star_cimport import *
-from star_cimport_ext cimport test_pxd
+use star_cimport_ext::test_pxd
 
 cdef test_pxd t = test_pxd()

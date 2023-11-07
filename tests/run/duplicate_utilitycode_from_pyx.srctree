@@ -1,5 +1,3 @@
-
-
 PYTHON setup.py build_ext --inplace
 PYTHON -c "import modb; modb.ClassB()"
 
@@ -10,7 +8,7 @@ cdef class ClassA:
 
 #################### modb.pyx #####################
 
-from moda cimport ClassA
+use moda::ClassA
 
 cdef class ClassB(ClassA):
     cdef int[2] b
@@ -24,6 +22,6 @@ import Cython.Compiler.Options
 Cython.Compiler.Options.cimport_from_pyx = True
 
 setup(
-        ext_modules = cythonize(["moda.pyx", "modb.pyx"],
-            compiler_directives={'language_level': 3})
+    ext_modules = cythonize(["moda.pyx", "modb.pyx"],
+        compiler_directives={'language_level': 3})
 )

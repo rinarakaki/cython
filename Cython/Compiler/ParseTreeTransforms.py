@@ -2305,9 +2305,9 @@ if VALUE is not None:
 
             pickle_func = TreeFragment(u"""
                 def __reduce_cython__(self):
-                    cdef tuple state
-                    cdef object _dict
-                    cdef bint use_setstate
+                    let tuple state
+                    let object _dict
+                    let u2 use_setstate
                     state = (%(members)s)
                     _dict = getattr(self, '__dict__', None)
                     if _dict is not None:

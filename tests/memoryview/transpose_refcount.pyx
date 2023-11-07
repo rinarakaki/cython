@@ -2,7 +2,7 @@
 
 use cython::view
 
-fn bint print_upper_right(f64[:, :] M):
+fn u2 print_upper_right(f64[:, :] M):
     print M[0, 1]
 
 cdef class MemViewContainer:
@@ -24,6 +24,6 @@ def test_transpose_refcount():
     3.0
     """
     let f64[:, :] A = view.array(shape=(2, 2), itemsize=sizeof(f64), format="d")
-    A[0, 0], A[0, 1], A[1, 0], A[1, 1] = 1., 2., 3., 4.
+    A[0, 0], A[0, 1], A[1, 0], A[1, 1] = 1.0, 2.0, 3.0, 4.0
     let MemViewContainer container = MemViewContainer(A)
     container.run()

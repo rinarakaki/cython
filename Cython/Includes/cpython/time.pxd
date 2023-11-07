@@ -10,7 +10,7 @@ extern from "Python.h":
     _PyTime_t _PyTime_GetSystemClock() nogil
     fn f64 _PyTime_AsSecondsDouble(_PyTime_t t) nogil
 
-from libc.time cimport (
+use libc::time::(
     tm,
     time_t,
     localtime as libc_localtime,

@@ -209,7 +209,7 @@ def struct_convert(d) -> MyStruct:
     "//CFuncDefNode[@return_type.is_int = true]",
 )]
 #[cython.ccall]
-def exception_default(raise_exc : cython.bint = false) -> cython.i32:
+def exception_default(raise_exc : cython.u2 = false) -> cython.i32:
     """
     >>> exception_default(raise_exc=false)
     10
@@ -238,7 +238,7 @@ def call_exception_default(raise_exc=false):
     "//CFuncDefNode[@return_type.is_int = true]",
 )]
 #[cython.ccall]
-def exception_default_uint(raise_exc : cython.bint = false) -> cython.uint:
+def exception_default_uint(raise_exc : cython.u2 = false) -> cython.u32:
     """
     >>> print(exception_default_uint(raise_exc=false))
     10
@@ -298,7 +298,7 @@ def py_float_default(price : Optional[float]=None, ndigits=4):
     return price, ndigits
 
 cdef class ClassAttribute:
-    cls_attr : cython.float = 1.
+    cls_attr : cython.float = 1.0
 
 #[cython.cfunc]
 def take_ptr(obj: cython.pointer(PyObject)):

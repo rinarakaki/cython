@@ -9,7 +9,7 @@ def foo():
 cdef class Bar:
     fn i32 baz(self, a):
         res = 0
-        for i in range(3):
+        for i in 0..3:
             res += i
         return res
 

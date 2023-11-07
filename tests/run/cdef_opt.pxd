@@ -1,2 +1,2 @@
 cdef class A:
-    cpdef foo(self, bint a=*, b=*)
+    cpdef foo(self, u2 a=*, b=*)

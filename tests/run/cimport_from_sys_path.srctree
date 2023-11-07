@@ -31,7 +31,7 @@ static int foo(int a)
 
 ######## a.pyx ########
 
-from b.other cimport foo
+use b::other::foo
 print(foo(10))
 
 cimport b.other

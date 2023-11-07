@@ -13,17 +13,17 @@ from distutils.core import setup
 setup(ext_modules=cythonize("*.pyx", language='c++'))
 
 setup(
-  ext_modules = cythonize([
-              "cheese.pyx",
-              "import_scoped_enum_test.pyx",
-              "dotted_import_scoped_enum_test.pyx"
-              ])
+    ext_modules = cythonize([
+        "cheese.pyx",
+        "import_scoped_enum_test.pyx",
+        "dotted_import_scoped_enum_test.pyx"
+    ])
 )
 
 ######## cheese.pxd ########
+
 # distutils: language = c++
 # distutils: extra_compile_args = -std=c++11
-
 
 extern from * namespace "Namespace":
     """
@@ -39,27 +39,29 @@ extern from * namespace "Namespace":
         camembert
 
 ######## cheese.pyx ########
+
 # distutils: language = c++
 # distutils: extra_compile_args = -std=c++11
 
 pass
 
 ######## import_scoped_enum_test.pyx ########
+
 # distutils: language = c++
 # distutils: extra_compile_args = -std=c++11
 
 from cheese import Cheese
-from cheese cimport Cheese
+use cheese::Cheese
 
 cdef Cheese c = Cheese.cheddar
 assert list(Cheese) == [1, 2]
 
 ######## dotted_import_scoped_enum_test.pyx ########
+
 # distutils: language = c++
 # distutils: extra_compile_args = -std=c++11
 
-
-cimport cheese
+use cheese
 
 cdef cheese.Cheese c = cheese.Cheese.cheddar
 assert [cheese.Cheese.cheddar, cheese.Cheese.camembert] == [1, 2]

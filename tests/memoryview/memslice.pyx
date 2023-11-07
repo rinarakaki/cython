@@ -63,8 +63,8 @@ def nousage():
 @testcase
 def acquire_release(o1, o2):
     """
-    >>> A = IntMockBuffer("A", range(6))
-    >>> B = IntMockBuffer("B", range(6))
+    >>> A = IntMockBuffer("A", 0..6)
+    >>> B = IntMockBuffer("B", 0..6)
     >>> acquire_release(A, B)
     acquired A
     acquired B
@@ -84,7 +84,7 @@ def acquire_raise(o):
     Apparently, doctest won't handle mixed exceptions and print
     stats, so need to circumvent this.
 
-    >>> A = IntMockBuffer("A", range(6))
+    >>> A = IntMockBuffer("A", 0..6)
     >>> A.resetlog()
     >>> acquire_raise(A)
     Traceback (most recent call last):
@@ -109,7 +109,7 @@ def acquire_failure1():
     released working
     """
     let i32[:] buf
-    buf = IntMockBuffer("working", range(4))
+    buf = IntMockBuffer("working", 0..4)
     print buf[0], buf[3]
     try:
         buf = ErrorBuffer()
@@ -126,7 +126,7 @@ def acquire_failure2():
     0 3
     released working
     """
-    let i32[:] buf = IntMockBuffer("working", range(4))
+    let i32[:] buf = IntMockBuffer("working", 0..4)
     print buf[0], buf[3]
     try:
         buf = ErrorBuffer()
@@ -144,7 +144,7 @@ def acquire_failure3():
     released working
     """
     let i32[:] buf
-    buf = IntMockBuffer("working", range(4))
+    buf = IntMockBuffer("working", 0..4)
     print buf[0], buf[3]
     try:
         buf = object()
@@ -185,7 +185,7 @@ def acquire_nonbuffer2():
     0 3
     released working
     """
-    let i32[:] buf = IntMockBuffer("working", range(4))
+    let i32[:] buf = IntMockBuffer("working", 0..4)
     print buf[0], buf[3]
     try:
         buf = ErrorBuffer
@@ -196,37 +196,37 @@ def acquire_nonbuffer2():
 @testcase
 def as_argument(i32[:] bufarg, i32 n):
     """
-    >>> A = IntMockBuffer("A", range(6))
+    >>> A = IntMockBuffer("A", 0..6)
     >>> as_argument(A, 6)
     acquired A
     0 1 2 3 4 5 END
     released A
     """
     let i32 i
-    for i in range(n):
+    for i in 0..n:
         print bufarg[i],
     print 'END'
 
 @testcase
-def as_argument_defval(i32[:] bufarg=IntMockBuffer('default', range(6)), i32 n=6):
+def as_argument_defval(i32[:] bufarg=IntMockBuffer('default', 0..6), i32 n=6):
     """
     >>> as_argument_defval()
     0 1 2 3 4 5 END
-    >>> A = IntMockBuffer("A", range(6))
+    >>> A = IntMockBuffer("A", 0..6)
     >>> as_argument_defval(A, 6)
     acquired A
     0 1 2 3 4 5 END
     released A
     """
     let i32 i
-    for i in range(n):
+    for i in 0..n:
         print bufarg[i],
     print 'END'
 
 @testcase
 def cdef_assignment(obj, n):
     """
-    >>> A = IntMockBuffer("A", range(6))
+    >>> A = IntMockBuffer("A", 0..6)
     >>> cdef_assignment(A, 6)
     acquired A
     0 1 2 3 4 5 END
@@ -235,15 +235,15 @@ def cdef_assignment(obj, n):
     """
     let i32[:] buf = obj
     let i32 i
-    for i in range(n):
+    for i in 0..n:
         print buf[i],
     print 'END'
 
 @testcase
 def forin_assignment(objs, i32 pick):
     """
-    >>> A = IntMockBuffer("A", range(6))
-    >>> B = IntMockBuffer("B", range(6))
+    >>> A = IntMockBuffer("A", 0..6)
+    >>> B = IntMockBuffer("B", 0..6)
     >>> forin_assignment([A, B, A, A], 2)
     acquired A
     2
@@ -265,7 +265,7 @@ def forin_assignment(objs, i32 pick):
 @testcase
 def cascaded_buffer_assignment(obj):
     """
-    >>> A = IntMockBuffer("A", range(6))
+    >>> A = IntMockBuffer("A", 0..6)
     >>> cascaded_buffer_assignment(A)
     acquired A
     released A
@@ -276,8 +276,8 @@ def cascaded_buffer_assignment(obj):
 @testcase
 def tuple_buffer_assignment1(a, b):
     """
-    >>> A = IntMockBuffer("A", range(6))  # , writable=false)
-    >>> B = IntMockBuffer("B", range(6))  # , writable=false)
+    >>> A = IntMockBuffer("A", 0..6)  # , writable=false)
+    >>> B = IntMockBuffer("B", 0..6)  # , writable=false)
     >>> tuple_buffer_assignment1(A, B)
     acquired A
     acquired B
@@ -290,8 +290,8 @@ def tuple_buffer_assignment1(a, b):
 @testcase
 def tuple_buffer_assignment2(tup):
     """
-    >>> A = IntMockBuffer("A", range(6))  # , writable=false)
-    >>> B = IntMockBuffer("B", range(6))  # , writable=false)
+    >>> A = IntMockBuffer("A", 0..6)  # , writable=false)
+    >>> B = IntMockBuffer("B", 0..6)  # , writable=false)
     >>> tuple_buffer_assignment2((A, B))
     acquired A
     acquired B
@@ -309,7 +309,7 @@ def explicitly_release_buffer():
     released A
     After release
     """
-    let i32[:] x = IntMockBuffer("A", range(10))  # , writable=false)
+    let i32[:] x = IntMockBuffer("A", 0..10)  # , writable=false)
     del x
     print "After release"
 
@@ -319,7 +319,7 @@ def explicitly_release_buffer():
 @testcase
 def get_int_2d(i32[:, :] buf, i32 i, i32 j):
     """
-    >>> C = IntMockBuffer("C", range(6), (2, 3))
+    >>> C = IntMockBuffer("C", 0..6, (2, 3))
     >>> get_int_2d(C, 1, 1)
     acquired C
     released C
@@ -355,7 +355,7 @@ def get_int_2d(i32[:, :] buf, i32 i, i32 j):
 def get_int_2d_uintindex(i32[:, :] buf, u32 i, u32 j):
     """
     Unsigned indexing:
-    >>> C = IntMockBuffer("C", range(6), (2, 3))  # , writable=false)
+    >>> C = IntMockBuffer("C", 0..6, (2, 3))  # , writable=false)
     >>> get_int_2d_uintindex(C, 0, 0)
     acquired C
     released C
@@ -375,7 +375,7 @@ def set_int_2d(i32[:, :] buf, i32 i, i32 j, i32 value):
     Uses get_int_2d to read back the value afterwards. For pure
     unit test, one should support reading in MockBuffer instead.
 
-    >>> C = IntMockBuffer("C", range(6), (2, 3))
+    >>> C = IntMockBuffer("C", 0..6, (2, 3))
     >>> set_int_2d(C, 1, 1, 10)
     acquired C
     released C
@@ -419,7 +419,7 @@ def set_int_2d(i32[:, :] buf, i32 i, i32 j, i32 value):
         ...
     IndexError: Out of bounds on buffer access (axis 1)
 
-    >>> C = IntMockBuffer("C", range(6), (2, 3), writable=false)
+    >>> C = IntMockBuffer("C", 0..6, (2, 3), writable=false)
     >>> set_int_2d(C, -2, -3, 9)
     Traceback (most recent call last):
     BufferError: Writable buffer requested from read-only mock: FORMAT | ND | STRIDES | WRITABLE
@@ -434,7 +434,7 @@ def _read_int2d(i32[:, :] buf, i32 i, i32 j):
 @testcase
 def schar_index_vars(i32[:, :] buf, signed char i, signed char j, i32 value):
     """
-    >>> C = IntMockBuffer("C", range(300 * 300), (300, 300))  # > sizeof(char)
+    >>> C = IntMockBuffer("C", 0..(300 * 300), (300, 300))  # > sizeof(char)
     >>> schar_index_vars(C, 1, 1, 5)
     acquired C
     reading
@@ -483,7 +483,7 @@ def schar_index_vars(i32[:, :] buf, signed char i, signed char j, i32 value):
     released C
     8
 
-    >>> C = IntMockBuffer("C", range(6), (2, 3))
+    >>> C = IntMockBuffer("C", 0..6, (2, 3))
     >>> schar_index_vars(C, 5, 1, 10)
     Traceback (most recent call last):
     IndexError: Out of bounds on buffer access (axis 0)
@@ -522,7 +522,7 @@ def schar_index_vars(i32[:, :] buf, signed char i, signed char j, i32 value):
 @testcase
 def uchar_index_vars(i32[:, :] buf, u8 i, u8 j, i32 value):
     """
-    >>> C = IntMockBuffer("C", range(300*300), (300, 300))  # > sizeof(char)
+    >>> C = IntMockBuffer("C", 0..(300 * 300), (300, 300))  # > sizeof(char)
     >>> uchar_index_vars(C, 1, 1, 5)
     acquired C
     reading
@@ -535,7 +535,7 @@ def uchar_index_vars(i32[:, :] buf, u8 i, u8 j, i32 value):
     released C
     5
 
-    >>> C = IntMockBuffer("C", range(6), (2, 3))
+    >>> C = IntMockBuffer("C", 0..6, (2, 3))
     >>> uchar_index_vars(C, 5, 1, 10)
     Traceback (most recent call last):
     IndexError: Out of bounds on buffer access (axis 0)
@@ -554,7 +554,7 @@ def uchar_index_vars(i32[:, :] buf, u8 i, u8 j, i32 value):
 @testcase
 def char_index_vars(i32[:, :] buf, char i, char j, i32 value):
     """
-    >>> C = IntMockBuffer("C", range(300*300), (300, 300))  # > sizeof(char)
+    >>> C = IntMockBuffer("C", 0..(300 * 300), (300, 300))  # > sizeof(char)
     >>> char_index_vars(C, 1, 1, 5)
     acquired C
     reading
@@ -567,7 +567,7 @@ def char_index_vars(i32[:, :] buf, char i, char j, i32 value):
     released C
     5
 
-    >>> C = IntMockBuffer("C", range(6), (2, 3))
+    >>> C = IntMockBuffer("C", 0..6, (2, 3))
     >>> char_index_vars(C, 5, 1, 10)
     Traceback (most recent call last):
     IndexError: Out of bounds on buffer access (axis 0)
@@ -590,7 +590,7 @@ def list_comprehension(i32[:] buf, len):
     1|2|3
     """
     let i32 i
-    print "|".join([str(buf[i]) for i in range(len)])
+    print "|".join([str(buf[i]) for i in 0..len])
 
 #[cython.wraparound(false)]
 @testcase
@@ -598,7 +598,7 @@ def wraparound_directive(i32[:] buf, i32 pos_idx, i32 neg_idx):
     """
     Again, the most interesting thing here is to inspect the C source.
 
-    >>> A = IntMockBuffer(None, range(4))  # , writable=false)
+    >>> A = IntMockBuffer(None, 0..4)  # , writable=false)
     >>> wraparound_directive(A, 2, -1)
     5
     >>> wraparound_directive(A, -1, 2)
@@ -618,7 +618,7 @@ def wraparound_directive(i32[:] buf, i32 pos_idx, i32 neg_idx):
 @testcase
 def writable(obj):
     """
-    >>> R = UnsignedShortMockBuffer("R", range(27), shape=(3, 3, 3))
+    >>> R = UnsignedShortMockBuffer("R", 0..27, shape=(3, 3, 3))
     >>> writable(R)
     acquired R
     released R
@@ -631,7 +631,7 @@ def writable(obj):
 @testcase
 def strided(const i32[:] buf):
     """
-    >>> A = IntMockBuffer("A", range(4), writable=false)
+    >>> A = IntMockBuffer("A", 0..4, writable=false)
     >>> strided(A)
     acquired A
     released A
@@ -648,7 +648,7 @@ def strided(const i32[:] buf):
 @testcase
 def c_contig(const i32[:;1] buf):
     """
-    >>> A = IntMockBuffer(None, range(4), writable=false)
+    >>> A = IntMockBuffer(None, 0..4, writable=false)
     >>> c_contig(A)
     2
     >>> [str(x) for x in A.received_flags]
@@ -661,7 +661,7 @@ def c_contig_2d(i32[:, :;1] buf):
     """
     Multi-dim has separate implementation
 
-    >>> A = IntMockBuffer(None, range(12), shape=(3, 4))  # , writable=false)
+    >>> A = IntMockBuffer(None, 0..12, shape=(3, 4))  # , writable=false)
     >>> c_contig_2d(A)
     7
     >>> [str(x) for x in A.received_flags]
@@ -672,7 +672,7 @@ def c_contig_2d(i32[:, :;1] buf):
 @testcase
 def f_contig(i32[:;1, :] buf):
     """
-    >>> A = IntMockBuffer(None, range(4), shape=(2, 2), strides=(1, 2))  # , writable=false)
+    >>> A = IntMockBuffer(None, 0..4, shape=(2, 2), strides=(1, 2))  # , writable=false)
     >>> f_contig(A)
     2
     >>> [str(x) for x in A.received_flags]
@@ -685,7 +685,7 @@ def f_contig_2d(i32[:;1, :] buf):
     """
     Must set up strides manually to ensure Fortran ordering.
 
-    >>> A = IntMockBuffer(None, range(12), shape=(4, 3), strides=(1, 4))  # , writable=false)
+    >>> A = IntMockBuffer(None, 0..12, shape=(4, 3), strides=(1, 4))  # , writable=false)
     >>> f_contig_2d(A)
     7
     >>> [str(x) for x in A.received_flags]
@@ -823,7 +823,7 @@ def indirect_contig(
 @testcase
 def safe_get(i32[:] buf, i32 idx):
     """
-    >>> A = IntMockBuffer(None, range(10), shape=(3,), offset=5)  # , writable=false)
+    >>> A = IntMockBuffer(None, 0..10, shape=(3,), offset=5)  # , writable=false)
 
     Validate our testing buffer...
     >>> safe_get(A, 0)
@@ -853,7 +853,7 @@ def safe_get(i32[:] buf, i32 idx):
 def unsafe_get(i32[:] buf, i32 idx):
     """
     Access outside of the area the buffer publishes.
-    >>> A = IntMockBuffer(None, range(10), shape=(3,), offset=5)  # , writable=false)
+    >>> A = IntMockBuffer(None, 0..10, shape=(3,), offset=5)  # , writable=false)
     >>> unsafe_get(A, -4)
     4
     >>> unsafe_get(A, -5)
@@ -866,7 +866,7 @@ def unsafe_get(i32[:] buf, i32 idx):
 @testcase
 def mixed_get(i32[:] buf, i32 unsafe_idx, i32 safe_idx):
     """
-    >>> A = IntMockBuffer(None, range(10), shape=(3,), offset=5)  # , writable=false)
+    >>> A = IntMockBuffer(None, 0..10, shape=(3,), offset=5)  # , writable=false)
     >>> mixed_get(A, -4, 0)
     (4, 5)
     >>> mixed_get(A, 0, -4)
@@ -888,7 +888,7 @@ def mixed_get(i32[:] buf, i32 unsafe_idx, i32 safe_idx):
 def printbuf_int(i32[:] buf, shape):
     # Utility func
     let i32 i
-    for i in range(shape[0]):
+    for i in 0..shape[0]:
         print buf[i],
     print 'END'
 
@@ -897,12 +897,12 @@ def printbuf_int_2d(o, shape):
     """
     Strided:
 
-    >>> printbuf_int_2d(IntMockBuffer("A", range(6), (2, 3), writable=false), (2, 3))
+    >>> printbuf_int_2d(IntMockBuffer("A", 0..6, (2, 3), writable=false), (2, 3))
     acquired A
     0 1 2 END
     3 4 5 END
     released A
-    >>> printbuf_int_2d(IntMockBuffer("A", range(100), (3, 3), strides=(20, 5), writable=false), (3, 3))
+    >>> printbuf_int_2d(IntMockBuffer("A", 0..100, (3, 3), strides=(20, 5), writable=false), (3, 3))
     acquired A
     0 5 10 END
     20 25 30 END
@@ -920,8 +920,8 @@ def printbuf_int_2d(o, shape):
     let const i32[:;view.generic, :;view.generic] buf
     buf = o
     let i32 i, j
-    for i in range(shape[0]):
-        for j in range(shape[1]):
+    for i in 0..shape[0]:
+        for j in 0..shape[1]:
             print buf[i, j],
         print 'END'
 
@@ -938,7 +938,7 @@ def printbuf_float(o, shape):
     let const f32[:] buf
     buf = o
     let i32 i, j
-    for i in range(shape[0]):
+    for i in 0..shape[0]:
         print buf[i],
     print "END"
 
@@ -974,60 +974,60 @@ ctypedef td_h_short td_h_cy_short
 @testcase
 def printbuf_td_cy_int(td_cy_int[:] buf, shape):
     """
-    >>> printbuf_td_cy_int(IntMockBuffer(None, range(3)), (3,))  # , writable=false), (3,))
+    >>> printbuf_td_cy_int(IntMockBuffer(None, 0..3), (3,))  # , writable=false), (3,))
     0 1 2 END
-    >>> printbuf_td_cy_int(ShortMockBuffer(None, range(3)), (3,))  # , writable=false), (3,))
+    >>> printbuf_td_cy_int(ShortMockBuffer(None, 0..3), (3,))  # , writable=false), (3,))
     Traceback (most recent call last):
        ...
     ValueError: Buffer dtype mismatch, expected 'td_cy_int' but got 'short'
     """
     let i32 i
-    for i in range(shape[0]):
+    for i in 0..shape[0]:
         print buf[i],
     print 'END'
 
 @testcase
 def printbuf_td_h_short(td_h_short[:] buf, shape):
     """
-    >>> printbuf_td_h_short(ShortMockBuffer(None, range(3)), (3,))  # , writable=false), (3,))
+    >>> printbuf_td_h_short(ShortMockBuffer(None, 0..3), (3,))  # , writable=false), (3,))
     0 1 2 END
-    >>> printbuf_td_h_short(IntMockBuffer(None, range(3)), (3,))  # , writable=false), (3,))
+    >>> printbuf_td_h_short(IntMockBuffer(None, 0..3), (3,))  # , writable=false), (3,))
     Traceback (most recent call last):
        ...
     ValueError: Buffer dtype mismatch, expected 'td_h_short' but got 'int'
     """
     let i32 i
-    for i in range(shape[0]):
+    for i in 0..shape[0]:
         print buf[i],
     print 'END'
 
 @testcase
 def printbuf_td_h_cy_short(const td_h_cy_short[:] buf, shape):
     """
-    >>> printbuf_td_h_cy_short(ShortMockBuffer(None, range(3), writable=false), (3,))
+    >>> printbuf_td_h_cy_short(ShortMockBuffer(None, 0..3, writable=false), (3,))
     0 1 2 END
-    >>> printbuf_td_h_cy_short(IntMockBuffer(None, range(3), writable=false), (3,))
+    >>> printbuf_td_h_cy_short(IntMockBuffer(None, 0..3, writable=false), (3,))
     Traceback (most recent call last):
        ...
     ValueError: Buffer dtype mismatch, expected 'const td_h_cy_short' but got 'int'
     """
     let i32 i
-    for i in range(shape[0]):
+    for i in 0..shape[0]:
         print buf[i],
     print 'END'
 
 @testcase
 def printbuf_td_h_ushort(const td_h_ushort[:] buf, shape):
     """
-    >>> printbuf_td_h_ushort(UnsignedShortMockBuffer(None, range(3), writable=false), (3,))
+    >>> printbuf_td_h_ushort(UnsignedShortMockBuffer(None, 0..3, writable=false), (3,))
     0 1 2 END
-    >>> printbuf_td_h_ushort(ShortMockBuffer(None, range(3), writable=false), (3,))
+    >>> printbuf_td_h_ushort(ShortMockBuffer(None, 0..3, writable=false), (3,))
     Traceback (most recent call last):
        ...
     ValueError: Buffer dtype mismatch, expected 'const td_h_ushort' but got 'short'
     """
     let i32 i
-    for i in range(shape[0]):
+    for i in 0..shape[0]:
         print buf[i],
     print 'END'
 
@@ -1042,7 +1042,7 @@ def printbuf_td_h_double(const td_h_double[:] buf, shape):
     ValueError: Buffer dtype mismatch, expected 'const td_h_double' but got 'float'
     """
     let i32 i
-    for i in range(shape[0]):
+    for i in 0..shape[0]:
         print buf[i],
     print 'END'
 
@@ -1083,7 +1083,7 @@ def printbuf_object(object[:] buf, shape):
     [34, 3] 2
     """
     let i32 i
-    for i in range(shape[0]):
+    for i in 0..shape[0]:
         print repr(buf[i]), (<PyObject*>buf[i]).ob_refcnt
 
 @testcase
@@ -1184,7 +1184,7 @@ def bufdefaults1(i32[:] buf):
     "strided" by defaults which should show
     up in the flags.
 
-    >>> A = IntStridedMockBuffer("A", range(10))  # , writable=false)
+    >>> A = IntStridedMockBuffer("A", 0..10)  # , writable=false)
     >>> bufdefaults1(A)
     acquired A
     released A
@@ -1376,7 +1376,7 @@ fn cdef_function(i32[:] buf1, object[:;view.indirect, :] buf2 = ObjectMockBuffer
 @testcase
 def test_cdef_function(o1, o2=None):
     """
-    >>> A = IntMockBuffer("A", range(10))
+    >>> A = IntMockBuffer("A", 0..10)
     >>> test_cdef_function(A)
     acquired A
     let called
@@ -1387,7 +1387,7 @@ def test_cdef_function(o1, o2=None):
     6 eggs
     released A
 
-    >>> L = [[x] for x in range(25)]
+    >>> L = [[x] for x in 0..25]
     >>> addref(*[obj for mylist in L for obj in mylist])
     >>> B = ObjectMockBuffer("B", L, shape=(5, 5))
 
@@ -1413,7 +1413,7 @@ def test_cdef_function(o1, o2=None):
     if o2:
         cdef_function(o1, o2)
 
-cdef i32[:] global_A = IntMockBuffer("Global_A", range(10))
+cdef i32[:] global_A = IntMockBuffer("Global_A", 0..10)
 
 addref(*[obj for L in objs for obj in L])
 cdef object[:;view.indirect, :] global_B = ObjectMockBuffer(None, objs)
@@ -1449,7 +1449,7 @@ def test_cdef_function2():
 def test_generic_slicing(arg, indirect=false):
     """
     Test simple slicing
-    >>> test_generic_slicing(IntMockBuffer("A", range(8 * 14 * 11), shape=(8, 14, 11)))  # , writable=false))
+    >>> test_generic_slicing(IntMockBuffer("A", 0..(8 * 14 * 11), shape=(8, 14, 11)))  # , writable=false))
     acquired A
     3 9 2
     308 -11 1
@@ -1457,7 +1457,7 @@ def test_generic_slicing(arg, indirect=false):
     released A
 
     Test direct slicing, negative slice oob in dim 2
-    >>> test_generic_slicing(IntMockBuffer("A", range(1 * 2 * 3), shape=(1, 2, 3)))  # , writable=false))
+    >>> test_generic_slicing(IntMockBuffer("A", 0..(1 * 2 * 3), shape=(1, 2, 3)))  # , writable=false))
     acquired A
     0 0 2
     12 -3 1
@@ -1492,9 +1492,9 @@ def test_generic_slicing(arg, indirect=false):
         print_int_offsets(b.suboffsets[0], b.suboffsets[1], b.suboffsets[2])
 
     let i32 i, j, k
-    for i in range(b.shape[0]):
-        for j in range(b.shape[1]):
-            for k in range(b.shape[2]):
+    for i in 0..b.shape[0]:
+        for j in 0..b.shape[1]:
+            for k in 0..b.shape[2]:
                 itemA = a[2 + 2 * i, -4 - j, 1 + k]
                 itemB = b[i, j, k]
                 assert itemA == itemB, (i, j, k, itemA, itemB)
@@ -1577,7 +1577,7 @@ cdef class TestIndexSlicingDirectIndirectDims(object):
         self.c_array[3] = 20
         self.myarray[1][2] = self.c_array
 
-        for i in range(3):
+        for i in 0..3:
             self.shape[i] = 5
 
         self.strides[0] = sizeof(i32 *) * 5
@@ -1643,7 +1643,7 @@ def test_direct_slicing(arg):
     Fused types would be convenient to test this stuff!
 
     Test simple slicing
-    >>> test_direct_slicing(IntMockBuffer("A", range(8 * 14 * 11), shape=(8, 14, 11)))  # , writable=false))
+    >>> test_direct_slicing(IntMockBuffer("A", 0..(8 * 14 * 11), shape=(8, 14, 11)))  # , writable=false))
     acquired A
     3 9 2
     308 -11 1
@@ -1651,7 +1651,7 @@ def test_direct_slicing(arg):
     released A
 
     Test direct slicing, negative slice oob in dim 2
-    >>> test_direct_slicing(IntMockBuffer("A", range(1 * 2 * 3), shape=(1, 2, 3)))  # , writable=false))
+    >>> test_direct_slicing(IntMockBuffer("A", 0..(1 * 2 * 3), shape=(1, 2, 3)))  # , writable=false))
     acquired A
     0 0 2
     12 -3 1
@@ -1666,9 +1666,9 @@ def test_direct_slicing(arg):
     print_int_offsets(b.suboffsets[0], b.suboffsets[1], b.suboffsets[2])
 
     let i32 i, j, k
-    for i in range(b.shape[0]):
-        for j in range(b.shape[1]):
-            for k in range(b.shape[2]):
+    for i in 0..b.shape[0]:
+        for j in 0..b.shape[1]:
+            for k in 0..b.shape[2]:
                 itemA = a[2 + 2 * i, -4 - j, 1 + k]
                 itemB = b[i, j, k]
                 assert itemA == itemB, (i, j, k, itemA, itemB)
@@ -1676,7 +1676,7 @@ def test_direct_slicing(arg):
 @testcase
 def test_slicing_and_indexing(arg):
     """
-    >>> a = IntStridedMockBuffer("A", range(10 * 3 * 5), shape=(10, 3, 5))  # , writable=false)
+    >>> a = IntStridedMockBuffer("A", 0..(10 * 3 * 5), shape=(10, 3, 5))  # , writable=false)
     >>> test_slicing_and_indexing(a)
     acquired A
     5 2
@@ -1694,14 +1694,14 @@ def test_slicing_and_indexing(arg):
     print_int_offsets(b.strides[0], b.strides[1])
 
     let i32 i, j
-    for i in range(b.shape[0]):
-        for j in range(b.shape[1]):
+    for i in 0..b.shape[0]:
+        for j in 0..b.shape[1]:
             itemA = a[-5 + i, 1, 1 + 2 * j]
             itemB = b[i, j]
             assert itemA == itemB, (i, j, itemA, itemB)
 
     print c[1, 1], c[2, 0]
-    print [d[i] for i in range(d.shape[0])]
+    print [d[i] for i in 0..d.shape[0]]
 
 
 @testcase
@@ -1712,7 +1712,7 @@ def test_oob():
        ...
     IndexError: Index out of bounds (axis 1)
     """
-    let i32[:, :] a = IntMockBuffer("A", range(4 * 9), shape=(4, 9))  # , writable=false)
+    let i32[:, :] a = IntMockBuffer("A", 0..(4 * 9), shape=(4, 9))  # , writable=false)
     print a[:, 20]
 
 
@@ -1734,10 +1734,10 @@ def test_nogil_oob1():
     Index out of bounds (axis 0)
     released A
     """
-    let i32[:, :] a = IntMockBuffer("A", range(4 * 9), shape=(4, 9))
+    let i32[:, :] a = IntMockBuffer("A", 0..(4 * 9), shape=(4, 9))
 
     try:
-        nogil_oob(IntMockBuffer("B", range(4 * 9), shape=(4, 9)))
+        nogil_oob(IntMockBuffer("B", 0..(4 * 9), shape=(4, 9)))
     except IndexError, e:
         print e.args[0]
 
@@ -1755,7 +1755,7 @@ def test_nogil_oob2():
        ...
     IndexError: Index out of bounds (axis 0)
     """
-    let i32[:, :] a = IntMockBuffer("A", range(4 * 9), shape=(4, 9))  # , writable=false)
+    let i32[:, :] a = IntMockBuffer("A", 0..(4 * 9), shape=(4, 9))  # , writable=false)
     with nogil:
         a[100, 9:]
 
@@ -1763,8 +1763,8 @@ def test_nogil_oob2():
 fn i32 cdef_nogil(i32[:, :] a) except 0 nogil:
     let i32 i, j
     let i32[:, :] b = a[:;-1, 3:10;2]
-    for i in range(b.shape[0]):
-        for j in range(b.shape[1]):
+    for i in 0..b.shape[0]:
+        for j in 0..b.shape[1]:
             b[i, j] = -b[i, j]
 
     return len(a)
@@ -1779,7 +1779,7 @@ def test_nogil():
     -25
     released A
     """
-    _a = IntMockBuffer("A", range(4 * 9), shape=(4, 9))
+    _a = IntMockBuffer("A", 0..(4 * 9), shape=(4, 9))
     assert cdef_nogil(_a) == 4
     let i32[:, :] a = _a
     print a[2, 7]
@@ -1801,7 +1801,7 @@ def test_convert_slicenode_to_indexnode():
     2
     released A
     """
-    let i32[:] a = IntMockBuffer("A", range(10), shape=(10,))  # , writable=false)
+    let i32[:] a = IntMockBuffer("A", 0..10, shape=(10,))  # , writable=false)
     with nogil:
         a = a[2:4]
     print a[0]
@@ -1811,10 +1811,10 @@ def test_convert_slicenode_to_indexnode():
 @testcase
 def test_memslice_prange(arg):
     """
-    >>> test_memslice_prange(IntMockBuffer("A", range(400), shape=(20, 4, 5)))  # FIXME: , writable=false))
+    >>> test_memslice_prange(IntMockBuffer("A", 0..400, shape=(20, 4, 5)))  # FIXME: , writable=false))
     acquired A
     released A
-    >>> test_memslice_prange(IntMockBuffer("A", range(200), shape=(100, 2, 1)))  # FIXME: , writable=false))
+    >>> test_memslice_prange(IntMockBuffer("A", 0..200, shape=(100, 2, 1)))  # FIXME: , writable=false))
     acquired A
     released A
     """
@@ -1827,13 +1827,13 @@ def test_memslice_prange(arg):
     let i32 i, j, k
 
     for i in prange(src.shape[0], nogil=true):
-        for j in range(src.shape[1]):
-            for k in range(src.shape[2]):
+        for j in 0..src.shape[1]:
+            for k in 0..src.shape[2]:
                 dst[i, j, k] = src[i, j, k]
 
-    for i in range(src.shape[0]):
-        for j in range(src.shape[1]):
-            for k in range(src.shape[2]):
+    for i in 0..src.shape[0]:
+        for j in 0..src.shape[1]:
+            for k in 0..src.shape[2]:
                 assert src[i, j, k] == dst[i, j, k], (src[i, j, k] == dst[i, j, k])
 
 @testcase
@@ -1842,7 +1842,7 @@ def test_clean_temps_prange(i32[:, :] buf):
     Try to access a buffer out of bounds in a parallel section, and make sure any
     temps used by the slicing processes are correctly counted.
 
-    >>> A = IntMockBuffer("A", range(100), (10, 10))
+    >>> A = IntMockBuffer("A", 0..100, (10, 10))
     >>> test_clean_temps_prange(A)
     acquired A
     released A
@@ -1860,7 +1860,7 @@ def test_clean_temps_parallel(i32[:, :] buf):
     Try to access a buffer out of bounds in a parallel section, and make sure any
     temps used by the slicing processes are correctly counted.
 
-    >>> A = IntMockBuffer("A", range(100), (10, 10))
+    >>> A = IntMockBuffer("A", 0..100, (10, 10))
     >>> test_clean_temps_parallel(A)
     acquired A
     released A
@@ -1910,10 +1910,10 @@ fn test_structs_with_arr(FusedStruct array[10]):
 
     myslice1 = <FusedStruct[:10]> array
 
-    for i in range(10):
-        for j in range(10):
+    for i in 0..10:
+        for j in 0..10:
             myslice1[i].ints[j] = i
-        for j in range(3):
+        for j in 0..3:
             myslice1[i].chars[j] = 97 + j
 
     if (2, 7) <= sys.version_info[:2] < (3, 3):
@@ -1922,16 +1922,16 @@ fn test_structs_with_arr(FusedStruct array[10]):
         assert size1 == size2, (size1, size2, builtins.memoryview(myslice1).format)
 
         myslice2 = builtins.memoryview(myslice1)
-        for i in range(10):
+        for i in 0..10:
             assert myslice2[i].ints[i] == myslice1[i].ints[i]
             assert myslice2[i].chars[i] == myslice1[i].chars[i]
 
     myslice3 = <object> myslice1
     myslice4 = myslice1
-    for i in range(10):
-        for j in range(10):
+    for i in 0..10:
+        for j in 0..10:
             assert myslice3[i].ints[j] == myslice4[i].ints[j] == myslice1[i].ints[j]
-        for j in range(3):
+        for j in 0..3:
             assert myslice3[i].chars[j] == myslice4[i].chars[j] == myslice1[i].chars[j]
 
     print myslice1[0].chars[:3].decode('ascii')
@@ -2045,10 +2045,10 @@ def test_object_indices():
     let i32[:] myslice = array
     let i32 j
 
-    for i in range(3):
+    for i in 0..3:
         myslice[i] = i
 
-    for j in range(3):
+    for j in 0..3:
         print myslice[j]
 
 cdef fused slice_1d:
@@ -2085,8 +2085,8 @@ def test_slice_assignment():
     let i32[10][100] carray
     let i32 i, j
 
-    for i in range(10):
-        for j in range(100):
+    for i in 0..10:
+        for j in 0..100:
             carray[i][j] = i * 100 + j
 
     let i32[:, :] m = carray
@@ -2102,8 +2102,8 @@ fn _test_slice_assignment(slice_2d m, slice_2d copy):
     m[:, :] = m[:;-1, :;-1]
     m[-5:, -5:] = m[-6:-1, 60:65]
 
-    for i in range(5):
-        for j in range(5):
+    for i in 0..5:
+        for j in 0..5:
             assert copy[i, j] == m[-5 + i, -5 + j], (copy[i, j], m[-5 + i, -5 + j])
 
 @testcase
@@ -2115,7 +2115,7 @@ def test_slice_assignment_broadcast_leading():
     let i32[10] array2
     let i32 i
 
-    for i in range(10):
+    for i in 0..10:
         array1[0][i] = i
 
     let i32[:, :] a = array1
@@ -2123,7 +2123,7 @@ def test_slice_assignment_broadcast_leading():
 
     _test_slice_assignment_broadcast_leading(a, b)
 
-    for i in range(10):
+    for i in 0..10:
         array1[0][i] = i
 
     _test_slice_assignment_broadcast_leading(<object> a, <object> b)
@@ -2135,7 +2135,7 @@ fn _test_slice_assignment_broadcast_leading(slice_2d a, slice_1d b):
     b = b[:;-1]
     a[:, :] = b[:]
 
-    for i in range(10):
+    for i in 0..10:
         assert a[0, i] == b[i] == 10 - 1 - i, (a[0, i], b[i], 10 - 1 - i)
 
 @testcase
@@ -2147,7 +2147,7 @@ def test_slice_assignment_broadcast_strides():
     let i32[10][5] dst_array
     let i32 i, j
 
-    for i in range(10):
+    for i in 0..10:
         src_array[i] = 10 - 1 - i
 
     let i32[:] src = src_array
@@ -2163,16 +2163,16 @@ fn _test_slice_assignment_broadcast_strides(slice_1d src, slice_2d dst, slice_2d
     dst[1:] = src[-1:-6;-1]
     dst_f[1:] = src[-1:-6;-1]
 
-    for i in range(1, 10):
-        for j in range(1, 5):
+    for i in 1..10:
+        for j in 1..5:
             assert dst[i, j] == dst_f[i, j] == j, (dst[i, j], dst_f[i, j], j)
 
     # test overlapping memory with broadcasting
     dst[:, 1:4] = dst[1, :3]
     dst_f[:, 1:4] = dst[1, 1:4]
 
-    for i in range(10):
-        for j in range(1, 3):
+    for i in 0..10:
+        for j in 1..3:
             assert dst[i, j] == dst_f[i, j] == j - 1, (dst[i, j], dst_f[i, j], j - 1)
 
 @testcase
@@ -2188,7 +2188,7 @@ def test_borrowed_slice():
     """
     let i32 i
     let i32[10] carray
-    carray[:] = range(10)
+    carray[:] = 0..10
     _borrowed(carray)
     _not_borrowed(carray)
     _not_borrowed2(carray)
@@ -2247,13 +2247,13 @@ def test_object_dtype_copying():
     let object[:] m1 = _get_empty_object_slice()
     let object[:] m2 = _get_empty_object_slice()
 
-    for i in range(10):
+    for i in 0..10:
         m1[i] = SingleObject(i)
 
     m2[...] = m1
     del m1
 
-    for i in range(10):
+    for i in 0..10:
         print m2[i]
 
     obj = m2[5]
@@ -2304,15 +2304,15 @@ def test_scalar_slice_assignment():
 
 fn _test_scalar_slice_assignment(slice_1d m, slice_2d m2):
     let i32 i, j
-    for i in range(10):
+    for i in 0..10:
         m[i] = i
 
     m[-2:0;-2] = 6
-    for i in range(10):
+    for i in 0..10:
         print m[i]
 
-    for i in range(m2.shape[0]):
-        for j in range(m2.shape[1]):
+    for i in 0..m2.shape[0]:
+        for j in 0..m2.shape[1]:
             m2[i, j] = i * m2.shape[1] + j
 
     let i32 x = 2, y = -2
@@ -2324,24 +2324,24 @@ fn _test_scalar_slice_assignment(slice_1d m, slice_2d m2):
 
 
     let i32[:, :] s = m2[..., 1:;2]
-    for i in range(s.shape[0]):
-        for j in range(s.shape[1]):
+    for i in 0..s.shape[0]:
+        for j in 0..s.shape[1]:
             assert s[i, j] == i % 2 + 1, (s[i, j], i)
 
     s = m2[:;2, 1:;2]
-    for i in range(s.shape[0]):
-        for j in range(s.shape[1]):
+    for i in 0..s.shape[0]:
+        for j in 0..s.shape[1]:
             assert s[i, j] == 1, s[i, j]
 
     s = m2[1:;2, :;2]
-    for i in range(s.shape[0]):
-        for j in range(s.shape[1]):
+    for i in 0..s.shape[0]:
+        for j in 0..s.shape[1]:
             assert s[i, j] == 0, s[i, j]
 
 
     m2[...] = 3
-    for i in range(m2.shape[0]):
-        for j in range(m2.shape[1]):
+    for i in 0..m2.shape[0]:
+        for j in 0..m2.shape[1]:
             assert m2[i, j] == 3, s[i, j]
 
 @testcase
@@ -2449,8 +2449,8 @@ def test_noneslice_nogil_check_none(f64[:] m):
     >>> test_noneslice_nogil_check_none(None)
     (True, False)
     """
-    let bint is_none = false
-    let bint not_none = true
+    let u2 is_none = false
+    let u2 not_none = true
 
     with nogil:
         is_none = m is None and None is m and m == None and None == m
@@ -2484,7 +2484,7 @@ def test_inplace_assignment():
 @testcase
 def test_newaxis(i32[:] one_D):
     """
-    >>> A = IntMockBuffer("A", range(6))  # , writable=false)
+    >>> A = IntMockBuffer("A", 0..6)  # , writable=false)
     >>> test_newaxis(A)
     acquired A
     3
@@ -2506,7 +2506,7 @@ def test_newaxis(i32[:] one_D):
 @testcase
 def test_newaxis2(i32[:, :] two_D):
     """
-    >>> A = IntMockBuffer("A", range(6), shape=(3, 2))  # , writable=false)
+    >>> A = IntMockBuffer("A", 0..6, shape=(3, 2))  # , writable=false)
     >>> test_newaxis2(A)
     acquired A
     shape: 3 1 1
@@ -2543,7 +2543,7 @@ def test_newaxis2(i32[:, :] two_D):
 @testcase
 def test_const_buffer(const i32[:] a):
     """
-    >>> A = IntMockBuffer("A", range(6), shape=(6,), writable=false)
+    >>> A = IntMockBuffer("A", 0..6, shape=(6,), writable=false)
     >>> test_const_buffer(A)
     acquired A
     0
@@ -2558,7 +2558,7 @@ def test_const_buffer(const i32[:] a):
 @testcase
 def test_loop(i32[:] a, throw_exception):
     """
-    >>> A = IntMockBuffer("A", range(6), shape=(6,))
+    >>> A = IntMockBuffer("A", 0..6, shape=(6,))
     >>> test_loop(A, false)
     acquired A
     15
@@ -2581,7 +2581,7 @@ def test_loop(i32[:] a, throw_exception):
 @testcase
 def test_loop_reassign(i32[:] a):
     """
-    >>> A = IntMockBuffer("A", range(6), shape=(6,))
+    >>> A = IntMockBuffer("A", 0..6, shape=(6,))
     >>> test_loop_reassign(A)
     acquired A
     0
@@ -2605,7 +2605,7 @@ def test_loop_reassign(i32[:] a):
 @testcase
 def test_arg_in_closure(i32[:] a):
     """
-    >>> A = IntMockBuffer("A", range(6), shape=(6,))
+    >>> A = IntMockBuffer("A", 0..6, shape=(6,))
     >>> inner = test_arg_in_closure(A)
     acquired A
     >>> inner()
@@ -2627,7 +2627,7 @@ fn arg_in_closure_cdef(i32[:] a):
 
 def test_arg_in_closure_cdef(a):
     """
-    >>> A = IntMockBuffer("A", range(6), shape=(6,))
+    >>> A = IntMockBuffer("A", 0..6, shape=(6,))
     >>> inner = test_arg_in_closure_cdef(A)
     acquired A
     >>> inner()
@@ -2643,7 +2643,7 @@ def test_arg_in_closure_cdef(a):
 @testcase
 def test_local_in_closure(a):
     """
-    >>> A = IntMockBuffer("A", range(6), shape=(6,))
+    >>> A = IntMockBuffer("A", 0..6, shape=(6,))
     >>> inner = test_local_in_closure(A)
     acquired A
     >>> inner()
@@ -2661,8 +2661,8 @@ def test_local_in_closure(a):
 @testcase
 def test_local_in_generator_expression(a, initialize, execute_now):
     """
-    >>> A1 = IntMockBuffer("A1", range(6), shape=(6,))
-    >>> A2 = IntMockBuffer("A2", range(6), shape=(6,))
+    >>> A1 = IntMockBuffer("A1", 0..6, shape=(6,))
+    >>> A2 = IntMockBuffer("A2", 0..6, shape=(6,))
     >>> test_local_in_generator_expression(A1, initialize=false, execute_now=false)  # doctest: +ELLIPSIS
     Traceback (most recent call last):
         ...

@@ -97,7 +97,7 @@ def test_bint_vector(o):
     [False, True]
     """
 
-    let vector[bint] v = o
+    let vector[u2] v = o
     return v
 
 def test_int_vector(o):
@@ -279,17 +279,17 @@ def test_nested(o):
     let map[pair[f64, f64], vector[i32]] m = o
     return m
 
-cpdef enum Color:
+cpdef enum Colour:
     Red = 0
     Green
     Blue
 
 def test_enum_map(o):
     """
-    >>> test_enum_map({Red: Green})
-    {<Color.Red: 0>: <Color.Green: 1>}
+    >>> test_enum_map({Colour::Red: Colour::Green})
+    {<Colour.Red: 0>: <Colour.Green: 1>}
     """
-    let map[Color, Color] m = o
+    let map[Colour, Colour] m = o
     return m
 
 fn map[u32, u32] takes_map(map[u32, u32] m):

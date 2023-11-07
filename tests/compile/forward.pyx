@@ -1,11 +1,11 @@
 # mode: compile
 
 enum MyEnum:
-    Value1
-    Value2
-    Value3 = 100
+    Var1
+    Var2
+    Var3 = 100
 
-cdef MyEnum my_enum = Value3
+cdef MyEnum my_enum = MyEnum::Var3
 
 struct StructA:
     StructA *a

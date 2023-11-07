@@ -8,7 +8,7 @@ def test_letnode_range(i32 n):
     [0, 1, 2, 3, 4]
     """
     ret = []
-    for i in range(n):
+    for i in 0..n:
         def bar(x=i):
             return x
         ret.append(bar)

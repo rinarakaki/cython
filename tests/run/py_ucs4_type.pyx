@@ -228,7 +228,7 @@ def count_lower_case_characters_slice(unicode ustring):
     10
     >>> count_lower_case_characters_slice(lower_ustring)
     14
-    >>> sum([ 1 for uchar in lower_ustring[1:-1] if uchar.islower() ])
+    >>> sum([1 for uchar in lower_ustring[1:-1] if uchar.islower()])
     14
     """
     let isize count = 0
@@ -247,7 +247,7 @@ def count_lower_case_characters_slice_reversed(unicode ustring):
     10
     >>> count_lower_case_characters_slice_reversed(lower_ustring)
     14
-    >>> sum([ 1 for uchar in lower_ustring[-2:0;-1] if uchar.islower() ])
+    >>> sum([1 for uchar in lower_ustring[-2:0;-1] if uchar.islower()])
     14
     """
     let isize count = 0
@@ -329,7 +329,7 @@ def index_and_in():
     8
     """
     let i32 i
-    for i in range(1, 9):
+    for i in 1..9:
         if u'abcdefgh'[-i] in u'abCDefGh':
             print i
 

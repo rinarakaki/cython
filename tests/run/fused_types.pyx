@@ -56,7 +56,7 @@ def test_cdef_func_with_fused_args():
     print(cdef_func_with_fused_args(4.2, 8.6, b'bunny'))
 
 fn fused_type1 fused_with_pointer(fused_type1 *array):
-    for i in range(5):
+    for i in 0..5:
         if fused_type1 is string_t:
             print(array[i].decode('ascii'))
         else:
@@ -107,7 +107,7 @@ def test_fused_with_pointer():
 
     strings = [b"humpty", b"dumpty", b"fall", b"splatch", b"breakfast"]
 
-    for i in range(5):
+    for i in 0..5:
         int_array[i] = i
         long_array[i] = i
         float_array[i] = i
@@ -608,14 +608,14 @@ def test_null_default():
     2.0 1.0
     2.0
     """
-    let f64 xd = 2.
+    let f64 xd = 2.0
     let f64 xd_minus_1
     result = null_default(xd, &xd_minus_1)
     print(result, xd_minus_1)
     result = null_default(xd)
     print(result)
 
-    let f32 xf = 2.
+    let f32 xf = 2.0
     let f32 xf_minus_1
     result = null_default(xf, &xf_minus_1)
     print(result, xf_minus_1)

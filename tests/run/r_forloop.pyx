@@ -6,7 +6,7 @@ def go_py():
     Spam!
     Spam!
     """
-    for i in range(4):
+    for i in 0..4:
         print u"Spam!"
 
 def go_py_ret():
@@ -14,7 +14,7 @@ def go_py_ret():
     >>> go_py_ret()
     2
     """
-    for i in range(4):
+    for i in 0..4:
         if i > 1:
             return i
 
@@ -27,7 +27,7 @@ def go_c():
     Spam!
     """
     let i32 i
-    for i in range(4):
+    for i in 0..4:
         print u"Spam!"
 
 def go_c_enumerate():
@@ -39,7 +39,7 @@ def go_c_enumerate():
     True
     """
     let i32 i,k
-    for i,k in enumerate(range(4)):
+    for i, k in enumerate(0..4):
         print i == k
 
 def go_c_int(i32 a, i32 b):
@@ -49,7 +49,7 @@ def go_c_int(i32 a, i32 b):
     Spam!
     """
     let i32 i
-    for i in range(a, b,2):
+    for i in range(a, b, 2):
         print u"Spam!"
 
 def go_c_all():
@@ -60,7 +60,7 @@ def go_c_all():
     Spam!
     """
     let i32 i
-    for i in range(8,2,-2):
+    for i in range(8, 2, -2):
         print u"Spam!"
 
 def go_c_all_exprs(x):
@@ -72,7 +72,7 @@ def go_c_all_exprs(x):
     Spam!
     """
     let i64 i
-    for i in range(4*x,2*x,-3):
+    for i in range(4 * x, 2 * x, -3):
         print u"Spam!"
 
 def go_c_const_exprs():
@@ -82,7 +82,7 @@ def go_c_const_exprs():
     Spam!
     """
     let i32 i
-    for i in range(4*2+1,2*2,-2-1):
+    for i in range(4 * 2 + 1, 2 * 2, -2 - 1):
         print u"Spam!"
 
 def f(x):
@@ -95,7 +95,7 @@ def go_c_calc(x):
     Spam!
     """
     let i64 i
-    for i in range(2*f(x),f(x), -2):
+    for i in range(2 * f(x), f(x), -2):
         print u"Spam!"
 
 def go_c_calc_ret(x):
@@ -104,7 +104,7 @@ def go_c_calc_ret(x):
     6
     """
     let i64 i
-    for i in range(2*f(x),f(x), -2):
+    for i in range(2 * f(x), f(x), -2):
         if i < 2*f(x):
             return i
 
@@ -114,7 +114,7 @@ def go_c_ret():
     2
     """
     let i32 i
-    for i in range(4):
+    for i in 0..4:
         if i > 1:
             return i
 
@@ -126,7 +126,7 @@ def go_list():
     Spam!
     Spam!
     """
-    let list l = list(range(4))
+    let list l = list(0..4)
     for i in l:
         print u"Spam!"
 
@@ -135,7 +135,7 @@ def go_list_ret():
     >>> go_list_ret()
     2
     """
-    let list l = list(range(4))
+    let list l = list(0..4)
     for i in l:
         if i > 1:
             return i
@@ -148,7 +148,7 @@ def go_tuple():
     Spam!
     Spam!
     """
-    let tuple t = tuple(range(4))
+    let tuple t = tuple(0..4)
     for i in t:
         print u"Spam!"
 
@@ -157,7 +157,7 @@ def go_tuple_ret():
     >>> go_tuple_ret()
     2
     """
-    let tuple t = tuple(range(4))
+    let tuple t = tuple(0..4)
     for i in t:
         if i > 1:
             return i
@@ -170,7 +170,7 @@ def go_dict():
     Spam!
     Spam!
     """
-    let dict d = dict(zip(range(4), range(4)))
+    let dict d = dict(zip(0..4, 0..4))
     for i in d:
         print u"Spam!"
 
@@ -181,7 +181,7 @@ def go_dict_ret():
     >>> global_result
     6
     """
-    let dict d = dict(zip(range(4), range(4)))
+    let dict d = dict(zip(0..4, 0..4))
     for i in d:
         if i > 1 and i < 3:
             return i
@@ -189,7 +189,7 @@ def go_dict_ret():
 # test global scope also
 global_result = None
 cdef int i
-for i in range(4*2+1,2*2,-2-1):
+for i in range(4 * 2 + 1, 2 * 2, -2 - 1):
     if i < 7:
         global_result = i
         break

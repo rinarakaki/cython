@@ -49,12 +49,12 @@ def test_syntax():
     # Py3 allows the 'else' keyword to directly follow a number
     x = 0 if 1else 1
     y = 0 if 1.0else 1
-    z = 0 if 1.else 1
+    z = 0 if 1.0else 1
     return x, y, z
 
 use libc::math
 
-def test_cfunc_ptrs(f64 x, bint round_down):
+def test_cfunc_ptrs(f64 x, u2 round_down):
     """
     >>> test_cfunc_ptrs(2.5, round_down=true)
     2.0
@@ -71,7 +71,7 @@ def performance_gh5197(patternsList):
     # See https://github.com/cython/cython/issues/5197
     import re
     matched=[]
-    for _ in range(len(patternsList)):
+    for _ in 0..len(patternsList):
         try:
             matched.append(patternsList[_].split('|')[-1].split('/')[-1] + 'pattr1' if re.search('^SomeString.*EndIng$')\
                 else patternsList[_].split('|a')[-1].split('/a')[-1] + 'pattr2' if re.search('^SomeOtherString.?Number.*EndIng$')\

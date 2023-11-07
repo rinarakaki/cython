@@ -1,10 +1,9 @@
 # https://pubs.opengroup.org/onlinepubs/009695399/basedefs/sys/stat.h.html
 # https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/sys_stat.h.html
 
-from posix.types cimport (blkcnt_t, blksize_t, dev_t, gid_t, ino_t, mode_t,
-                          nlink_t, off_t, time_t, uid_t)
 use posix::time::timespec
-
+use posix::types::(blkcnt_t, blksize_t, dev_t, gid_t, ino_t, mode_t,
+                   nlink_t, off_t, time_t, uid_t)
 
 extern from "<sys/stat.h>" nogil:
     struct struct_stat "stat":
@@ -92,7 +91,7 @@ extern from "<unistd.h>" nogil:
     mode_t S_IXOTH
 
     # test file types
-    fn bint S_TYPEISMQ(struct_stat *buf)
-    fn bint S_TYPEISSEM(struct_stat *buf)
-    fn bint S_TYPEISSHM(struct_stat *buf)
-    fn bint S_TYPEISTMO(struct_stat *buf)
+    fn u2 S_TYPEISMQ(struct_stat *buf)
+    fn u2 S_TYPEISSEM(struct_stat *buf)
+    fn u2 S_TYPEISSHM(struct_stat *buf)
+    fn u2 S_TYPEISTMO(struct_stat *buf)

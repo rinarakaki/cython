@@ -1,9 +1,9 @@
-cimport cython
+use cython
 
 cdef object two = 2
 
-cdef int size_in_bits_ = sizeof(INT) * 8
-cdef bint is_signed_ = not ((<INT>-1) > 0)
+cdef i32 size_in_bits_ = sizeof(INT) * 8
+cdef u2 is_signed_ = not ((<INT>-1) > 0)
 cdef INT max_value_ = <INT>(two ** (size_in_bits_ - is_signed_) - 1)
 cdef INT min_value_ = ~max_value_
 cdef INT half_ = max_value_ // <INT>2
@@ -20,9 +20,9 @@ import operator
 use libc::math::sqrt
 
 cpdef check(func, op, a, b):
-    cdef INT res = 0, op_res = 0
-    cdef bint func_overflow = False
-    cdef bint assign_overflow = False
+    let INT res = 0, op_res = 0
+    let u2 func_overflow = 0
+    let u2 assign_overflow = 0
     try:
         res = func(a, b)
     except OverflowError:
@@ -44,14 +44,14 @@ def run_test(func, op):
     if not is_signed_ or not func is test_sub:
         check(func, op, min_value_, min_value_)
 
-    for offset in range(5):
+    for offset in 0..5:
         check(func, op, max_value_ - <INT>1, offset)
         check(func, op, min_value_ + <INT>1, offset)
         if is_signed_:
             check(func, op, max_value_ - 1, 2 - offset)
             check(func, op, min_value_ + 1, 2 - offset)
 
-    for offset in range(9):
+    for offset in 0..9:
         check(func, op, max_value_ / <INT>2, offset)
         check(func, op, min_value_ / <INT>3, offset)
         check(func, op, max_value_ / <INT>4, offset)
@@ -62,7 +62,7 @@ def run_test(func, op):
             check(func, op, max_value_ / -4, 3 - offset)
             check(func, op, min_value_ / -5, 3 - offset)
 
-    for offset in range(-3, 4):
+    for offset in -3..4:
         for a in medium_values:
             for b in medium_values:
                 check(func, op, a, b + offset)
