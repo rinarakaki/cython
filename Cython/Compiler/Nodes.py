@@ -3124,8 +3124,7 @@ class DefNode(FuncDefNode):
                 error(self.pos, "wrong number of arguments")
                 error(cfunc.pos, "previous declaration here")
             for i, (formal_arg, type_arg) in enumerate(zip(self.args, cfunc_type.args)):
-                name_declarator, type = formal_arg.analyse(scope, nonempty=1,
-                                                           is_self_arg=(i == 0 and scope.is_c_class_scope))
+                name_declarator, type = formal_arg.analyse(scope, nonempty=1)
                 if type is None or type is PyrexTypes.py_object_type:
                     formal_arg.type = type_arg.type
                     formal_arg.name_declarator = name_declarator
