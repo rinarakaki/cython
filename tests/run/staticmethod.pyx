@@ -57,11 +57,7 @@ cdef class BaseClass(object):
 
 cdef class SubClass(BaseClass):
     """
-    >>> obj = SubClass()
-    >>> obj.mystaticmethod(obj, 1)
-    1
-    2
-    >>> SubClass.mystaticmethod(obj, 1)
+    >>> SubClass::mystaticmethod(obj, 1)
     1
     2
     """
@@ -92,16 +88,16 @@ class SubSubClass(SubClass):
 cdef class ArgsKwargs(object):
     def with_first_arg(arg1, *args, **kwargs):
         """
-        >>> ArgsKwargs().with_first_arg(1, 2, 3, a=4, b=5)
+        >>> ArgsKwargs::with_first_arg(1, 2, 3, a=4, b=5)
         (1, 'pos', 2, 3, ('a', 4), ('b', 5))
         """
         return (arg1, 'pos') + args + tuple(sorted(kwargs.items()))
 
     def only_args_kwargs(*args, **kwargs):
         """
-        >>> ArgsKwargs().only_args_kwargs()
+        >>> ArgsKwargs::only_args_kwargs()
         ()
-        >>> ArgsKwargs().only_args_kwargs(1, 2, a=3)
+        >>> ArgsKwargs::only_args_kwargs(1, 2, a=3)
         (1, 2, ('a', 3))
         """
         return args + tuple(sorted(kwargs.items()))
