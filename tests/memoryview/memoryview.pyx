@@ -1299,5 +1299,5 @@ def test_untyped_index(i):
     return mview_arr[i]  # should generate a performance hint
 
 _PERFORMANCE_HINTS = """
-1313:21: Index should be typed for more efficient access
+1299:21: Index should be typed for more efficient access
 """
