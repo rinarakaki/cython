@@ -3293,7 +3293,7 @@ def p_c_arg_decl(s, ctx, in_pyfunc, cmethod_flag = 0, nonempty = 0,
             is_self_arg = cmethod_flag, templates = None)
     else:
         base_type = p_c_base_type(s, nonempty=nonempty)
-    if base_type.name == "type":
+    if isinstance(base_type, Nodes.CSimpleBaseTypeNode) and base_type.name == "type":
         print("!!!!!!!!!!!!!!!!!!!!!!! [p_c_arg_decl] !!!!!!!!!!!!!!!!!!!!!!!")
         print(base_type)
         print(s.peek())
