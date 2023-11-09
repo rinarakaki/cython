@@ -2892,7 +2892,9 @@ def looking_at_name(s):
     return s.sy == 'IDENT' and s.systring not in calling_convention_words
 
 def looking_at_expr(s):
-    if s.systring in base_type_start_words:
+    if s.sy == "const":
+        return False
+    elif s.systring in base_type_start_words:
         return False
     elif s.sy == 'IDENT':
         is_type = False
