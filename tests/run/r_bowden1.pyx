@@ -1,18 +1,17 @@
-__doc__ = u"""
->>> f(100)
-101L
->>> g(3000000000)
-3000000001L
-"""
+# mode: run
 
-import sys
-if sys.version_info[0] >= 3:
-    __doc__ = __doc__.replace(u"L", u"")
 
 def f(x):
-    let u128 ull
-    ull = x
+    """
+    >>> f(100)
+    101
+    """
+    let u128 ull = x
     return ull + 1
 
 def g(u64 x):
+    """
+    >>> g(3000000000)
+    3000000001
+    """
     return x + 1

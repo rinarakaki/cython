@@ -191,20 +191,16 @@ extern from *:
         fn void insert(pair[T, U]&) except +
     cdef cppclass vector "std::vector" [T]:
         pass
-    int PY_MAJOR_VERSION
 
 @cname("{{cname}}")
 fn map[X, Y] {{cname}}(object o) except *:
-    let map[X, Y] m
-    if PY_MAJOR_VERSION < 3:
-        for key, value in o.iteritems():
-            m.insert(pair[X, Y](<X>key, <Y>value))
-    else:
-        for key, value in o.items():
-            m.insert(pair[X, Y](<X>key, <Y>value))
+    let map[X,Y] m
+    for key, value in o.items():
+        m.insert(pair[X, Y](<X>key, <Y>value))
     return m
 
 #################### map.to_py ####################
+
 # TODO: Work out const so that this can take a const
 # reference rather than pass by value.
 

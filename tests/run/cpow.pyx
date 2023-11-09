@@ -4,14 +4,7 @@
 from __future__ import print_function
 
 use cython
-import sys
 
-if sys.version_info[0] > 2:
-    # The <object> path doesn't work in Py2
-    __doc__ = """
-    >>> pow_double_double(-4, 0.5, 1e-15)
-    soft double complex complex
-    """
 
 def pow_double_double(f64 a, f64 b, delta):
     """
@@ -19,6 +12,8 @@ def pow_double_double(f64 a, f64 b, delta):
     soft double complex float
     >>> pow_double_double(4, 0.5, 1e-15)
     soft double complex float
+    >>> pow_double_double(-4, 0.5, 1e-15)
+    soft double complex complex
     """
     c = a**b
     # print out the Cython type, and the coerced type
@@ -253,8 +248,8 @@ def power_coercion_in_nogil_3(f64 a, f64 b, f64 c):
 
 
 _WARNINGS = """
-63:17: Treating '**' as if 'cython.cpow(True)' since it is directly assigned to a a non-complex C numeric type. This is likely to be fragile and we recommend setting 'cython.cpow' explicitly.
-64:32: Treating '**' as if 'cython.cpow(True)' since it is directly assigned to a a non-complex C numeric type. This is likely to be fragile and we recommend setting 'cython.cpow' explicitly.
-179:17: Treating '**' as if 'cython.cpow(True)' since it is directly assigned to a an integer C numeric type. This is likely to be fragile and we recommend setting 'cython.cpow' explicitly.
-180:29: Treating '**' as if 'cython.cpow(True)' since it is directly assigned to a an integer C numeric type. This is likely to be fragile and we recommend setting 'cython.cpow' explicitly.
+58:17: Treating '**' as if 'cython.cpow(True)' since it is directly assigned to a a non-complex C numeric type. This is likely to be fragile and we recommend setting 'cython.cpow' explicitly.
+59:32: Treating '**' as if 'cython.cpow(True)' since it is directly assigned to a a non-complex C numeric type. This is likely to be fragile and we recommend setting 'cython.cpow' explicitly.
+174:18: Treating '**' as if 'cython.cpow(True)' since it is directly assigned to a an integer C numeric type. This is likely to be fragile and we recommend setting 'cython.cpow' explicitly.
+175:29: Treating '**' as if 'cython.cpow(True)' since it is directly assigned to a an integer C numeric type. This is likely to be fragile and we recommend setting 'cython.cpow' explicitly.
 """
