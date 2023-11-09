@@ -100,9 +100,8 @@ def test_map_functionality():
     >>> test_map_functionality()
     'pass'
     """
-    cdef:
-        map[int, const void*] int_map
-        const void* data
+    let map[int, const void*] int_map
+    let const void* data
     int_map[77] = NULL
     data = int_map.const_at(77)
     return "pass"

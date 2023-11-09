@@ -255,5 +255,5 @@ _IGNORE = """
 """
 
 _WARNINGS = """
-26:18: Using this floating point value with DEF may lose precision, using 0.5772156649015329
+26:20: Using this floating point value with DEF may lose precision, using 0.5772156649015329
 """
