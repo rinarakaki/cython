@@ -25,10 +25,10 @@ extern from "<map>" namespace "std" nogil:
             iterator operator--()
             iterator operator++(i32)
             iterator operator--(i32)
-            bint operator==(iterator)
-            bint operator==(const_iterator)
-            bint operator!=(iterator)
-            bint operator!=(const_iterator)
+            u2 operator==(iterator)
+            u2 operator==(const_iterator)
+            u2 operator!=(iterator)
+            u2 operator!=(const_iterator)
         cppclass const_iterator:
             const_iterator() except +
             const_iterator(iterator&) except +
@@ -41,10 +41,10 @@ extern from "<map>" namespace "std" nogil:
             const_iterator operator--()
             const_iterator operator++(i32)
             const_iterator operator--(i32)
-            bint operator==(iterator)
-            bint operator==(const_iterator)
-            bint operator!=(iterator)
-            bint operator!=(const_iterator)
+            u2 operator==(iterator)
+            u2 operator==(const_iterator)
+            u2 operator!=(iterator)
+            u2 operator!=(const_iterator)
 
         cppclass const_reverse_iterator
         cppclass reverse_iterator:
@@ -57,10 +57,10 @@ extern from "<map>" namespace "std" nogil:
             reverse_iterator operator--()
             reverse_iterator operator++(i32)
             reverse_iterator operator--(i32)
-            bint operator==(reverse_iterator)
-            bint operator==(const_reverse_iterator)
-            bint operator!=(reverse_iterator)
-            bint operator!=(const_reverse_iterator)
+            u2 operator==(reverse_iterator)
+            u2 operator==(const_reverse_iterator)
+            u2 operator!=(reverse_iterator)
+            u2 operator!=(const_reverse_iterator)
         cppclass const_reverse_iterator:
             const_reverse_iterator() except +
             const_reverse_iterator(reverse_iterator&) except +
@@ -72,22 +72,22 @@ extern from "<map>" namespace "std" nogil:
             const_reverse_iterator operator--()
             const_reverse_iterator operator++(i32)
             const_reverse_iterator operator--(i32)
-            bint operator==(reverse_iterator)
-            bint operator==(const_reverse_iterator)
-            bint operator!=(reverse_iterator)
-            bint operator!=(const_reverse_iterator)
+            u2 operator==(reverse_iterator)
+            u2 operator==(const_reverse_iterator)
+            u2 operator!=(reverse_iterator)
+            u2 operator!=(const_reverse_iterator)
 
         map() except +
         map(map&) except +
         #map(key_compare&)
         U& operator[](const T&)
         #map& operator=(map&)
-        bint operator==(map&, map&)
-        bint operator!=(map&, map&)
-        bint operator<(map&, map&)
-        bint operator>(map&, map&)
-        bint operator<=(map&, map&)
-        bint operator>=(map&, map&)
+        u2 operator==(map&, map&)
+        u2 operator!=(map&, map&)
+        u2 operator<(map&, map&)
+        u2 operator>(map&, map&)
+        u2 operator<=(map&, map&)
+        u2 operator>=(map&, map&)
         U& at(const T&) except +
         const U& const_at "at"(const T&) except +
         iterator begin()
@@ -95,7 +95,7 @@ extern from "<map>" namespace "std" nogil:
         const_iterator cbegin()
         void clear()
         usize count(const T&)
-        bint empty()
+        u2 empty()
         iterator end()
         const_iterator const_end "end" ()
         const_iterator cend()
@@ -107,7 +107,7 @@ extern from "<map>" namespace "std" nogil:
         usize erase(const T&)
         iterator find(const T&)
         const_iterator const_find "find" (const T&)
-        pair[iterator, bint] insert(const pair[T, U]&) except +
+        pair[iterator, u2] insert(const pair[T, U]&) except +
         iterator insert(const_iterator, const pair[T, U]&) except +
         void insert[InputIt](InputIt, InputIt) except +
         #key_compare key_comp()
@@ -126,7 +126,7 @@ extern from "<map>" namespace "std" nogil:
         const_iterator const_upper_bound "upper_bound"(const T&)
         #value_compare value_comp()
         # C++20
-        bint contains(const T&)
+        u2 contains(const T&)
 
     cdef cppclass multimap[T, U, COMPARE=*, ALLOCATOR=*]:
         ctypedef T key_type
@@ -152,10 +152,10 @@ extern from "<map>" namespace "std" nogil:
             iterator operator--()
             iterator operator++(i32)
             iterator operator--(i32)
-            bint operator==(iterator)
-            bint operator==(const_iterator)
-            bint operator!=(iterator)
-            bint operator!=(const_iterator)
+            u2 operator==(iterator)
+            u2 operator==(const_iterator)
+            u2 operator!=(iterator)
+            u2 operator!=(const_iterator)
         cppclass const_iterator:
             const_iterator() except +
             const_iterator(iterator&) except +
@@ -168,10 +168,10 @@ extern from "<map>" namespace "std" nogil:
             const_iterator operator--()
             const_iterator operator++(i32)
             const_iterator operator--(i32)
-            bint operator==(iterator)
-            bint operator==(const_iterator)
-            bint operator!=(iterator)
-            bint operator!=(const_iterator)
+            u2 operator==(iterator)
+            u2 operator==(const_iterator)
+            u2 operator!=(iterator)
+            u2 operator!=(const_iterator)
 
         cppclass const_reverse_iterator
         cppclass reverse_iterator:
@@ -184,10 +184,10 @@ extern from "<map>" namespace "std" nogil:
             reverse_iterator operator--()
             reverse_iterator operator++(i32)
             reverse_iterator operator--(i32)
-            bint operator==(reverse_iterator)
-            bint operator==(const_reverse_iterator)
-            bint operator!=(reverse_iterator)
-            bint operator!=(const_reverse_iterator)
+            u2 operator==(reverse_iterator)
+            u2 operator==(const_reverse_iterator)
+            u2 operator!=(reverse_iterator)
+            u2 operator!=(const_reverse_iterator)
         cppclass const_reverse_iterator:
             const_reverse_iterator() except +
             const_reverse_iterator(reverse_iterator&) except +
@@ -199,27 +199,27 @@ extern from "<map>" namespace "std" nogil:
             const_reverse_iterator operator--()
             const_reverse_iterator operator++(i32)
             const_reverse_iterator operator--(i32)
-            bint operator==(reverse_iterator)
-            bint operator==(const_reverse_iterator)
-            bint operator!=(reverse_iterator)
-            bint operator!=(const_reverse_iterator)
+            u2 operator==(reverse_iterator)
+            u2 operator==(const_reverse_iterator)
+            u2 operator!=(reverse_iterator)
+            u2 operator!=(const_reverse_iterator)
 
         multimap() except +
         multimap(const multimap&) except +
         #multimap(key_compare&)
         #multimap& operator=(multimap&)
-        bint operator==(const multimap&, const multimap&)
-        bint operator!=(const multimap&, const multimap&)
-        bint operator<(const multimap&, const multimap&)
-        bint operator>(const multimap&, const multimap&)
-        bint operator<=(const multimap&, const multimap&)
-        bint operator>=(const multimap&, const multimap&)
+        u2 operator==(const multimap&, const multimap&)
+        u2 operator!=(const multimap&, const multimap&)
+        u2 operator<(const multimap&, const multimap&)
+        u2 operator>(const multimap&, const multimap&)
+        u2 operator<=(const multimap&, const multimap&)
+        u2 operator>=(const multimap&, const multimap&)
         iterator begin()
         const_iterator const_begin "begin"()
         const_iterator cbegin()
         void clear()
         usize count(const T&)
-        bint empty()
+        u2 empty()
         iterator end()
         const_iterator const_end "end"()
         const_iterator cend()
@@ -249,4 +249,4 @@ extern from "<map>" namespace "std" nogil:
         iterator upper_bound(const T&)
         const_iterator const_upper_bound "upper_bound"(const T&)
         #value_compare value_comp()
-        bint contains(const T&)
+        u2 contains(const T&)

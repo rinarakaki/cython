@@ -37,7 +37,7 @@ class Base(object):
 
     # version dependent tests for @ and / are external
     """
-    implemented: cython.bint
+    implemented: cython.u2
 
     def __init__(self, *, implemented=true):
         self.implemented = implemented
@@ -95,21 +95,17 @@ class Base(object):
         return cython.typeof(self) == 'Base'
 
 
-if sys.version_info >= (3, 5):
-    __doc__ += """
-    >>> Base() @ 1
-    True
-    >>> set() @ Base()
-    True
-    """
+__doc__ += """
+>>> Base() @ 1
+True
+>>> set() @ Base()
+True
 
-if sys.version_info >= (3, 0):
-    __doc__ += """
-    >>> Base() / 1
-    True
-    >>> set() / Base()
-    True
-    """
+>>> Base() / 1
+True
+>>> set() / Base()
+True
+"""
 
 
 #[cython.c_api_binop_methods(false)]
@@ -135,7 +131,7 @@ class OverloadLeft(Base):
     ...
     TypeError: unsupported operand type...
     """
-    derived_implemented: cython.bint
+    derived_implemented: cython.u2
 
     def __init__(self, *, implemented=true):
         super().__init__(implemented=implemented)
@@ -172,7 +168,7 @@ class OverloadRight(Base):
     ...
     TypeError: unsupported operand type...
     """
-    derived_implemented: cython.bint
+    derived_implemented: cython.u2
 
     def __init__(self, *, implemented=true):
         super().__init__(implemented=implemented)
@@ -209,7 +205,7 @@ class OverloadCApi(Base):
     ...
     TypeError: unsupported operand type...
     """
-    derived_implemented: cython.bint
+    derived_implemented: cython.u2
 
     def __init__(self, *, derived_implemented=true):
         super().__init__(implemented=true)
@@ -227,17 +223,16 @@ class OverloadCApi(Base):
             return NotImplemented
 
 
-if sys.version_info >= (3, 5):
-    __doc__ += """
-    >>> d = PyVersionDependent()
-    >>> d @ 2
-    9
-    >>> 2 @ d
-    99
-    >>> i = d
-    >>> i @= 2
-    >>> i
-    999
+__doc__ += """
+>>> d = PyVersionDependent()
+>>> d @ 2
+9
+>>> 2 @ d
+99
+>>> i = d
+>>> i @= 2
+>>> i
+999
 """
 
 

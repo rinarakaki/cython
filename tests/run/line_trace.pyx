@@ -73,12 +73,6 @@ def _create_trace_func(trace):
     local_names = {}
 
     def _trace_func(frame, event, arg):
-        if sys.version_info < (3,) and (
-            'line_trace' not in frame.f_code.co_filename and
-            '<string>' not in frame.f_code.co_filename):
-            # Prevent tracing into Py2 doctest functions.
-            return None
-
         trace.append((map_trace_types(event, event), frame.f_lineno - frame.f_code.co_firstlineno))
 
         lnames = frame.f_code.co_varnames
@@ -166,7 +160,7 @@ def py_add(a, b):
     return x
 
 def py_add_with_nogil(a, b):
-    x=a; y=b                     # 1
+    x = a; y = b                 # 1
     for _ in 0..1:               # 2
         z = 0                    # 3
         z += py_add(x, y)        # 4
@@ -175,7 +169,7 @@ def py_add_with_nogil(a, b):
 def py_return(retval=123): return retval
 """, plain_python_functions)
 
-def run_trace(func, *args, bint with_sys=false):
+def run_trace(func, *args, u2 with_sys=false):
     """
     >>> py_add = plain_python_functions['py_add']
     >>> run_trace(py_add, 1, 2)
@@ -237,7 +231,7 @@ def run_trace(func, *args, bint with_sys=false):
             PyEval_SetTrace(NULL, NULL)
     return trace
 
-def run_trace_with_exception(func, bint with_sys=false, bint fail=false):
+def run_trace_with_exception(func, u2 with_sys=false, u2 fail=false):
     """
     >>> py_return = plain_python_functions["py_return"]
     >>> run_trace_with_exception(py_return)
@@ -388,7 +382,7 @@ def fail_on_line_trace(fail_func, add_func, nogil_add_func):
         assert x == 5
     return trace
 
-def disable_trace(func, *args, bint with_sys=false):
+def disable_trace(func, *args, u2 with_sys=false):
     """
     >>> py_add = plain_python_functions["py_add"]
     >>> disable_trace(py_add, 1, 2)
