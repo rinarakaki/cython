@@ -3412,8 +3412,8 @@ def p_cdef_extern_block(s, pos, ctx):
 
 def p_mod_statement(s, pos, ctx):
     include_file = None
-    s.next()  # s.systring == "mod"
-    include_file = s.systring()
+    s.next()  # s.sy == "mod"
+    include_file = s.systring
     ctx = ctx(cdef_flag = 1, visibility = 'extern')
 
     # Use "docstring" as verbatim string to include
