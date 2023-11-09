@@ -2485,7 +2485,7 @@ def p_statement(s, ctx, first_statement = 0):
         cdef_flag = 1
         overridable = 1
         s.next()
-    elif s.sy in ("pub", "fn", "let", "enum", "struct", "union", "extern"):
+    elif s.sy in ("pub", "fn", "let", "enum", "struct", "union", "extern", "mod"):
         cdef_flag = 1
     if cdef_flag:
         if ctx.level not in ('module', 'module_pxd', 'function', 'c_class', 'c_class_pxd'):
@@ -3345,6 +3345,8 @@ def p_cdef_statement(s, ctx):
     elif s.sy == 'import':
         s.next()
         return p_cdef_extern_block(s, pos, ctx)
+    elif s.sy == "mod":
+        return p_mod_statement(s, pos, ctx)
     elif p_nogil(s):
         ctx.nogil = 1
         if ctx.overridable:
@@ -3407,6 +3409,22 @@ def p_cdef_extern_block(s, pos, ctx):
         verbatim_include = verbatim_include,
         body = body,
         namespace = ctx.namespace)
+
+def p_mod_statement(s, pos, ctx):
+    include_file = None
+    s.next()  # s.systring == "mod"
+    include_file = s.systring()
+    ctx = ctx(cdef_flag = 1, visibility = 'extern')
+
+    # Use "docstring" as verbatim string to include
+    verbatim_include, body = p_suite_with_docstring(s, ctx, True)
+
+    return Nodes.CDefExternNode(pos,
+        include_file = include_file,
+        verbatim_include = verbatim_include,
+        body = body,
+        namespace = ctx.namespace
+    )
 
 def p_c_enum_definition(s, pos, ctx):
     # s.sy == ident 'enum'
