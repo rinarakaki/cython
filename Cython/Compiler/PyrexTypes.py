@@ -4912,16 +4912,17 @@ modifiers_and_name_to_type = {
     (1,  0, "void"): c_void_type,
     (1,  0, "Py_tss_t"): c_pytss_t_type,
 
-    (None, None, "isize") : c_ssize_t_type,
-    (None, None, "usize") : c_size_t_type,
+    (None, None, "u2"):    c_bint_type,
+    (None, None, "isize"): c_ssize_t_type,
+    (None, None, "usize"): c_size_t_type,
     (1,  0, "bint"):       c_bint_type,
     (0,  0, "Py_UNICODE"): c_py_unicode_type,
     (0,  0, "Py_UCS4"):    c_py_ucs4_type,
     (2,  0, "Py_hash_t"):  c_py_hash_t_type,
     (2,  0, "Py_ssize_t"): c_py_ssize_t_type,
-    (2,  0, "ssize_t") :   c_ssize_t_type,
-    (0,  0, "size_t") :    c_size_t_type,
-    (2,  0, "ptrdiff_t") : c_ptrdiff_t_type,
+    (2,  0, "ssize_t"):    c_ssize_t_type,
+    (0,  0, "size_t"):     c_size_t_type,
+    (2,  0, "ptrdiff_t"):  c_ptrdiff_t_type,
 
     (1,  0, "object"): py_object_type,
 }

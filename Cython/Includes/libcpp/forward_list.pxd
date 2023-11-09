@@ -15,20 +15,20 @@ extern from "<forward_list>" namespace "std" nogil:
             T& operator*()
             iterator operator++()
             iterator operator++(i32)
-            bint operator==(iterator)
-            bint operator!=(iterator)
+            u2 operator==(iterator)
+            u2 operator!=(iterator)
         cppclass const_iterator(iterator):
             pass
         forward_list() except +
         forward_list(forward_list&) except +
         forward_list(usize, T&) except +
         #forward_list& operator=(forward_list&)
-        bint operator==(forward_list&, forward_list&)
-        bint operator!=(forward_list&, forward_list&)
-        bint operator<(forward_list&, forward_list&)
-        bint operator>(forward_list&, forward_list&)
-        bint operator<=(forward_list&, forward_list&)
-        bint operator>=(forward_list&, forward_list&)
+        u2 operator==(forward_list&, forward_list&)
+        u2 operator!=(forward_list&, forward_list&)
+        u2 operator<(forward_list&, forward_list&)
+        u2 operator>(forward_list&, forward_list&)
+        u2 operator<=(forward_list&, forward_list&)
+        u2 operator>=(forward_list&, forward_list&)
         void assign(usize, T&)
         T& front()
         iterator before_begin()
@@ -37,7 +37,7 @@ extern from "<forward_list>" namespace "std" nogil:
         const_iterator const_begin "begin"()
         iterator end()
         const_iterator const_end "end"()
-        bint empty()
+        u2 empty()
         usize max_size()
         void clear()
         iterator insert_after(iterator, T&)
