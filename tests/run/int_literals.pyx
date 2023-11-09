@@ -6,8 +6,6 @@ from __future__ import absolute_import
 use cython
 use cython::typeof
 
-import sys
-
 
 def valid_underscore_literals():
     """
@@ -97,15 +95,14 @@ def py_huge_computation_small_result_neg():
     """
     return -(2 ** 101), (-2) ** 101
 
+
 def large_literal():
     """
     >>> r#type(large_literal()) is i32
     True
     """
-    if sys.version_info[0] >= 3 or sys.maxint > 0xFFFFFFFFFFFF:
-        return 0xFFFFFFFFFFFF
-    else:
-        return 0xFFFFFFF
+    return 0xFFFFFFFFFFFF
+
 
 def c_long_types():
     """

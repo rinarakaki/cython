@@ -27,8 +27,8 @@ extern from "<string.h>":
 
 extern from *:
     fn u2 __PYX_CYTHON_ATOMICS_ENABLED()
-    fn i32 __Pyx_GetBuffer(object, Py_buffer *, i32) except -1
-    fn void __Pyx_ReleaseBuffer(Py_buffer *)
+    fn i32 PyObject_GetBuffer(object, Py_buffer *, int) except -1
+    fn void PyBuffer_Release(Py_buffer *)
 
     struct PyObject
     type Py_intptr_t = isize
@@ -341,9 +341,9 @@ cdef class memoryview:
         self.obj = obj
         self.flags = flags
         if r#type(self) is memoryview or obj is not None:
-            __Pyx_GetBuffer(obj, &self.view, flags)
-            if <PyObject *> self.view.obj == NULL:
-                (<__pyx_buffer *> &self.view).obj = Py_None
+            PyObject_GetBuffer(obj, &self.view, flags)
+            if <PyObject *>self.view.obj == NULL:
+                (<__pyx_buffer *>&self.view).obj = Py_None
                 Py_INCREF(Py_None)
 
         if not __PYX_CYTHON_ATOMICS_ENABLED():
@@ -366,7 +366,7 @@ cdef class memoryview:
 
     def __dealloc__(memoryview self):
         if self.obj is not None:
-            __Pyx_ReleaseBuffer(&self.view)
+            PyBuffer_Release(&self.view)
         elif (<__pyx_buffer *> &self.view).obj == Py_None:
             # Undo the incref in __cinit__() above.
             (<__pyx_buffer *> &self.view).obj = NULL
