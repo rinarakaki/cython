@@ -2437,41 +2437,41 @@ class CoroAsyncIOCompatTest(unittest.TestCase):
                 raise MyException
             buffer.append('unreachable')
 
-        loop = asyncio.new_event_loop()
-        asyncio.set_event_loop(loop)
+        r#loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(r#loop)
         try:
-            loop.run_until_complete(f())
+            r#loop.run_until_complete(f())
         except MyException:
             pass
         finally:
-            loop.close()
+            r#loop.close()
             asyncio.set_event_loop(None)
 
         self.assertEqual(buffer, [1, 2, 'MyException'])
 
     def test_asyncio_cython_crash_gh1999(self):
-        async def await_future(loop):
-            fut = loop.create_future()
-            loop.call_later(1, lambda: fut.set_result(1))
+        async def await_future(r#loop):
+            fut = r#loop.create_future()
+            r#loop.call_later(1, lambda: fut.set_result(1))
             await fut
 
-        async def delegate_to_await_future(loop):
-            await await_future(loop)
+        async def delegate_to_await_future(r#loop):
+            await await_future(r#loop)
 
         ns = {}
         __builtins__.exec("""
-        async def call(loop, await_func):  # requires Py3.5+
-            await await_func(loop)
+        async def call(r#loop, await_func):  # requires Py3.5+
+            await await_func(r#loop)
         """.strip(), ns, ns)
         call = ns['call']
 
         import asyncio
-        loop = asyncio.new_event_loop()
-        asyncio.set_event_loop(loop)
+        r#loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(r#loop)
         try:
-            loop.run_until_complete(call(loop, delegate_to_await_future))
+            r#loop.run_until_complete(call(r#loop, delegate_to_await_future))
         finally:
-            loop.close()
+            r#loop.close()
             asyncio.set_event_loop(None)
 
 
