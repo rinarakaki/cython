@@ -6,9 +6,9 @@ use libc::string::(const_char, const_void)
 
 extern from "<stdio.h>" nogil:
     struct FILE
-    cdef FILE *stdin
-    cdef FILE *stdout
-    cdef FILE *stderr
+    static FILE *stdin
+    static FILE *stdout
+    static FILE *stderr
 
     enum: FOPEN_MAX
     enum: FILENAME_MAX
