@@ -1,12 +1,12 @@
-pub enum Truth:
-   FALSE = 0
-   TRUE = 1
+pub enum Bool:
+   False = 0
+   True = 1
 
-def enum_boolctx(Truth arg):
+def enum_boolctx(Bool arg):
     """
-    >>> enum_boolctx(FALSE)
+    >>> enum_boolctx(<u2>Bool::False)
     False
-    >>> enum_boolctx(TRUE)
+    >>> enum_boolctx(<u2>Bool::True)
     True
     """
     if arg:

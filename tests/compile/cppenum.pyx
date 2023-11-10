@@ -12,7 +12,7 @@ cpdef enum class Cheese(u32):
     X = 1
     Y = 2
 
-enum struct parrot_state:
+enum ParrotState:
     Alive = 1
     Dead = 0
 
@@ -27,11 +27,11 @@ fn void eggs():
 eggs()
 
 # enum interdependency
-enum class Colour(i32):
+enum Colour(i32):
     Red = 1
     Green = 2
 
-enum class Colour2(i32):
+enum Colour2(i32):
     Red = (<i32>Colour::Red)
     Green = (<i32>Colour::Green)
 

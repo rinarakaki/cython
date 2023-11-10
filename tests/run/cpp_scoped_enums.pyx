@@ -10,7 +10,7 @@ extern from *:
         Item2
     };
     """
-    cdef enum class Enum1:
+    enum Enum1:
         Item1
         Item2
 
@@ -24,11 +24,11 @@ extern from * namespace "Namespace1":
         };
     }
     """
-    cdef enum class Enum2:
+    enum Enum2:
         Item1
         Item2
 
-cdef enum class Enum3(i32):
+enum Enum3(i32):
     a = 1
     b = 2
 
@@ -40,7 +40,7 @@ extern from *:
         b = 0
     };
     """
-    cdef enum class Enum4 "sorted":
+    enum Enum4 "sorted":
         a
         b
 
@@ -52,7 +52,7 @@ extern from *:
         val = std::numeric_limits<long int>::max(),
     };
     """
-    enum class LongIntEnum(long int):
+    enum LongIntEnum(long int):
         val
 
 def test_compare_enums():

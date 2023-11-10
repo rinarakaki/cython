@@ -2487,6 +2487,8 @@ def p_statement(s, ctx, first_statement = 0):
         s.next()
     elif s.sy in ("pub", "fn", "let", "enum", "struct", "union", "extern"):
         cdef_flag = 1
+    elif s.sy == "use" and s.peek()[0] == "enum":
+        cdef_flag = 1
     if cdef_flag:
         if ctx.level not in ('module', 'module_pxd', 'function', 'c_class', 'c_class_pxd'):
             s.error('cdef statement not allowed here')
@@ -3364,13 +3366,16 @@ def p_cdef_statement(s, ctx):
         return p_c_class_definition(s, pos, ctx)
     elif s.sy == 'IDENT' and s.systring == 'cppclass':
         return p_cpp_class_definition(s, pos, ctx)
-    elif s.sy in struct_enum_union or s.sy == 'IDENT' and s.systring == "packed":
+    elif s.sy in ("struct", "union") or s.sy == 'IDENT' and s.systring == "packed":
         if ctx.level not in ('module', 'module_pxd'):
-            error(pos, "C struct/union/enum definition not allowed here")
+            error(pos, "C struct/union definition not allowed here")
         if ctx.overridable:
-            if s.systring != 'enum':
-                error(pos, "C struct/union cannot be declared cpdef")
-        return p_struct_enum(s, pos, ctx)
+            error(pos, "C struct/union cannot be declared cpdef")
+        return p_c_struct_or_union_definition(s, pos, ctx)
+    elif s.sy == "enum" or s.sy == "use" and s.peek()[0] == "enum":
+        if ctx.level not in ('module', 'module_pxd'):
+            error(pos, "C enum definition not allowed here")
+        return p_c_enum_definition(s, pos, ctx)
     elif s.sy == 'IDENT' and s.systring == 'fused':
         return p_fused_definition(s, pos, ctx)
     elif s.sy == "fn":
@@ -3411,12 +3416,16 @@ def p_cdef_extern_block(s, pos, ctx):
         namespace = ctx.namespace)
 
 def p_c_enum_definition(s, pos, ctx):
-    # s.sy == ident 'enum'
-    s.next()
-
-    scoped = 1
-    if s.context.cpp and s.sy in ("class", "struct"):
+    # s.sy == "enum" or s.sy == "use" and s.peek()[0] == "enum"
+    if s.sy == "enum":
         s.next()
+        scoped = 1
+        if s.context.cpp and s.sy in ("class", "struct"):
+            s.next()
+    else:
+        s.next()
+        s.next()
+        scoped = 0
 
     if s.sy == 'IDENT':
         name = s.systring

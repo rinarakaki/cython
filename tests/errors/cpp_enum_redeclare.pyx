@@ -1,10 +1,10 @@
 # mode: error
 # tag: cpp
 
-enum class Spam:
+enum Spam:
     A
 
-enum class Spam:
+enum Spam:
     B
 
 _ERRORS="""
