@@ -297,7 +297,7 @@ extern from "Python.h":
     # "o.method(args)". Note that if you only pass object  args,
     # PyObject_CallMethodObjArgs is a faster alternative.
 
-    #object PyObject_CallFunctionObjArgs(object callable, ..., NULL)
+    # fn object PyObject_CallFunctionObjArgs(object callable, ..., NULL)
     fn object PyObject_CallFunctionObjArgs(object callable, ...)
     # Return value: New reference.
     # Call a callable Python object callable, with a variable number
@@ -305,7 +305,7 @@ extern from "Python.h":
     # number of parameters followed by NULL. Returns the result of the
     # call on success, or NULL on failure.
 
-    #PyObject* PyObject_CallMethodObjArgs(object o, object name, ..., NULL)
+    # fn PyObject* PyObject_CallMethodObjArgs(object o, object name, ..., NULL)
     fn object PyObject_CallMethodObjArgs(object o, object name, ...)
     # Return value: New reference.
     # Calls a method of the object o, where the name of the method is
