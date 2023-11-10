@@ -8,7 +8,7 @@ extern from "<time.h>" nogil:
 
     enum: CLOCKS_PER_SEC
     fn clock_t clock()             # CPU time
-    fn time_t  time(time_t *)      # wall clock time since Unix epoch
+    fn time_t time(time_t *)      # wall clock time since Unix epoch
 
     struct tm:
         i32  tm_sec

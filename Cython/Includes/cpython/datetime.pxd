@@ -418,8 +418,7 @@ fn inline f64 total_seconds(timedelta obj):
     # Mirrors the "timedelta.total_seconds()" method.
     # Note that this implementation is not guaranteed to give *exactly* the same
     # result as the original method, due to potential differences in floating point rounding.
-    cdef:
-        f64 days, seconds, micros
+    let f64 days, seconds, micros
     days = <f64>PyDateTime_DELTA_GET_DAYS(obj)
     seconds = <f64>PyDateTime_DELTA_GET_SECONDS(obj)
     micros = <f64>PyDateTime_DELTA_GET_MICROSECONDS(obj)
