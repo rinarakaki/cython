@@ -1,29 +1,8 @@
-import sys
-if sys.version_info[0] < 3:
-    __doc__ = u"""
+# mode: run
 
-    >>> test(0)
-    0L
-    >>> test(1)
-    1L
 
-    >>> sys.maxint + 1 > sys.maxint
-    True
-    >>> type(sys.max(i32 *) 2 + 1) is long
-    True
-
-    >>> test(sys.maxint + 1) == sys.maxint + 1
-    True
-    >>> test(sys.max(i32 *) 2 + 1) == sys.max(i32 *) 2 + 1
-    True
-
-    >>> test(256 ** unsigned_long_size() - 1) > 0
-    True
-    >>> test(256 ** unsigned_long_size() - 1) > sys.maxint
-    True
+def test(k):
     """
-else:
-    __doc__ = u"""
     >>> test(0)
     0
     >>> test(1)
@@ -31,8 +10,6 @@ else:
     >>> test(256 ** unsigned_long_size() - 1) > 0
     True
     """
-
-def test(k):
     let u64 m
     m = k
     return m

@@ -954,9 +954,6 @@ class InterpretCompilerDirectives(CythonTransform):
                   directive[-1] not in self.valid_parallel_directives):
                 error(pos, "No such directive: %s" % full_name)
 
-            self.module_scope.use_utility_code(
-                UtilityCode.load_cached("InitThreads", "ModuleSetupCode.c"))
-
         return result
 
     def visit_CImportStatNode(self, node):
@@ -986,8 +983,6 @@ class InterpretCompilerDirectives(CythonTransform):
                     self.cython_module_names.add(u"cython")
                     self.parallel_directives[
                                     u"cython.parallel"] = module_name
-                self.module_scope.use_utility_code(
-                    UtilityCode.load_cached("InitThreads", "ModuleSetupCode.c"))
             elif node.as_name:
                 self.directive_names[node.as_name] = module_name[7:]
             else:
@@ -2264,9 +2259,9 @@ if VALUE is not None:
 
             pickle_func = TreeFragment(u"""
                 def __reduce_cython__(self):
-                    cdef tuple state
-                    cdef object _dict
-                    cdef bint use_setstate
+                    let tuple state
+                    let object _dict
+                    let u2 use_setstate
                     state = (%(members)s)
                     _dict = getattr(self, '__dict__', None)
                     if _dict is not None:

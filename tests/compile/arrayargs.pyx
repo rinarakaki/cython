@@ -19,6 +19,6 @@ struct OtherStruct:
 a = sizeof(i32[23][34])
 b = sizeof(OtherStruct[43])
 
-DEF COUNT = 4
+const COUNT = 4
 c = sizeof(i32[COUNT])
 d = sizeof(OtherStruct[COUNT])

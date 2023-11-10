@@ -12,8 +12,8 @@ extern from "vector" namespace "std":
         cppclass iterator:
             T operator*()
             iterator operator++()
-            bint operator==(iterator)
-            bint operator!=(iterator)
+            u2 operator==(iterator)
+            u2 operator!=(iterator)
 
         iterator end()
         iterator begin()

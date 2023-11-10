@@ -45,17 +45,7 @@ def test_timedelta(i32 days, i32 seconds, i32 useconds):
 
 def test_timezone(i32 days, i32 seconds, i32 useconds, str name):
     '''
-    >>> val = test_timezone(0, 3600, 0, 'CET')
-    >>> print(val)
-    True
+    >>> test_timezone(0, 3600, 0, 'CET')
     '''
-    try:
-        val = timezone_new(timedelta(days, seconds, useconds), name)
-    except RuntimeError:
-        if sys.version_info < (3, 7):
-            return true
-        else:
-            # It's only supposed to raise on Python < 3.7
-            return false
-    else:
-        return true
+    # should not raise
+    timezone_new(timedelta(days, seconds, useconds), name)

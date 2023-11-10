@@ -96,7 +96,7 @@ def test_union_constructor(n, x):
         return u.n
 
 struct with_pointers:
-    bint is_integral
+    u2 is_integral
     int_or_float data
     void* ptr
 

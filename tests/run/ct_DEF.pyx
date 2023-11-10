@@ -3,50 +3,39 @@
 
 use cython
 
-__doc__ = u"""
-    >>> s()
-    b'spam'
-"""
-
 _unicode = unicode
-
-import sys
-IS_PY3 = sys.version_info[0] >= 3
-
-if not IS_PY3:
-    __doc__ = __doc__.replace(u" b'", u" '")
 
 
 def print_large_number(n):
     print(str(n).rstrip('L'))
 
 
-DEF TUPLE = (1, 2, u"buckle my shoe")
-DEF TRUE_FALSE = (True, False)
-DEF NONE = None
+const TUPLE = (1, 2, u"buckle my shoe")
+const TRUE_FALSE = (true, false)
+const NONE = None
 
-DEF CHAR = c'x'
-DEF INT0 = -1
-DEF INT1 = 42
-DEF INT2 = 0x42
-DEF INT3 = -0x42
-DEF LONG = 666L
-DEF LARGE_NUM32 = (1 << 32) - 1
-DEF LARGE_NUM64 = (1 << 64) - 1
-DEF FLOAT = 12.5
-DEF EXACT_FLOAT = 0.577215664901532860606512090082402431
-DEF E_FLOAT = 0.5772156E4  # Cannot currently warn about this since we can't safely compare the string repr.
-DEF BYTES = b"spam"
-DEF UNICODE = u"spam-u"
-DEF TWO = TUPLE[1]
-DEF FIVE = TWO + 3
-DEF TRUE  = TRUE_FALSE[0]
-DEF FALSE = TRUE_FALSE[1]
-DEF INT_TUPLE1 = TUPLE[:2]
-DEF INT_TUPLE2 = TUPLE[1:4;2]
-DEF ELLIPSIS = ...
-DEF EXPRESSION = int(float(2*2)) + int(str(2)) + int(max(1, 2, 3)) + sum([TWO, FIVE])
-DEF UNICODE_EXPRESSION = unicode(BYTES.decode('utf8')).encode('ascii').decode('latin1')
+const CHAR = c'x'
+const INT0 = -1
+const INT1 = 42
+const INT2 = 0x42
+const INT3 = -0x42
+const LONG = 666L
+const LARGE_NUM32 = (1 << 32) - 1
+const LARGE_NUM64 = (1 << 64) - 1
+const FLOAT = 12.5
+const EXACT_FLOAT = 0.577215664901532860606512090082402431
+const E_FLOAT = 0.5772156E4  # Cannot currently warn about this since we can't safely compare the string repr.
+const BYTES = b"spam"
+const UNICODE = u"spam-u"
+const TWO = TUPLE[1]
+const FIVE = TWO + 3
+const TRUE  = TRUE_FALSE[0]
+const FALSE = TRUE_FALSE[1]
+const INT_TUPLE1 = TUPLE[:2]
+const INT_TUPLE2 = TUPLE[1:4;2]
+const ELLIPSIS = ...
+const EXPRESSION = int(float(2*2)) + int(str(2)) + int(max(1, 2, 3)) + sum([TWO, FIVE])
+const UNICODE_EXPRESSION = unicode(BYTES.decode('utf8')).encode('ascii').decode('latin1')
 
 def c():
     """
@@ -124,7 +113,8 @@ def f():
 
 def s():
     """
-    see module docstring above
+    >>> s()
+    b'spam'
     """
     let char* s = BYTES
     return s
@@ -191,7 +181,7 @@ def true():
     >>> true()
     True
     """
-    let bint true = TRUE
+    let u2 true = TRUE
     return true
 
 #[cython.test_assert_path_exists('//BoolNode')]
@@ -200,7 +190,7 @@ def false():
     >>> false()
     False
     """
-    let bint false = FALSE
+    let u2 false = FALSE
     return false
 
 def ellipsis():
@@ -249,7 +239,7 @@ _IGNORE = """
 35:0: The 'DEF' statement is deprecated and will be removed in a future Cython version. Consider using global variables, constants, and in-place literals instead. See https://github.com/cython/cython/issues/4310
 36:0: The 'DEF' statement is deprecated and will be removed in a future Cython version. Consider using global variables, constants, and in-place literals instead. See https://github.com/cython/cython/issues/4310
 37:0: The 'DEF' statement is deprecated and will be removed in a future Cython version. Consider using global variables, constants, and in-place literals instead. See https://github.com/cython/cython/issues/4310
-37:18: Using this floating point value with DEF may lose precision, using 0.5772156649015329
+37:20: Using this floating point value with DEF may lose precision, using 0.5772156649015329
 38:0: The 'DEF' statement is deprecated and will be removed in a future Cython version. Consider using global variables, constants, and in-place literals instead. See https://github.com/cython/cython/issues/4310
 39:0: The 'DEF' statement is deprecated and will be removed in a future Cython version. Consider using global variables, constants, and in-place literals instead. See https://github.com/cython/cython/issues/4310
 40:0: The 'DEF' statement is deprecated and will be removed in a future Cython version. Consider using global variables, constants, and in-place literals instead. See https://github.com/cython/cython/issues/4310
@@ -265,5 +255,5 @@ _IGNORE = """
 """
 
 _WARNINGS = """
-37:18: Using this floating point value with DEF may lose precision, using 0.5772156649015329
+26:20: Using this floating point value with DEF may lose precision, using 0.5772156649015329
 """

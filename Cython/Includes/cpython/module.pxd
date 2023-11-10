@@ -135,11 +135,11 @@ extern from "Python.h":
     # This instance of PyTypeObject represents the Python module
     # type. This is exposed to Python programs as types.ModuleType.
 
-    fn bint PyModule_Check(object p)
+    fn u2 PyModule_Check(object p)
     # Return true if p is a module object, or a subtype of a module
     # object.
 
-    fn bint PyModule_CheckExact(object p)
+    fn u2 PyModule_CheckExact(object p)
     # Return true if p is a module object, but not a subtype of PyModule_Type.
 
     fn object PyModule_NewObject(object name)
