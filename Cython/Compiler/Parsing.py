@@ -3375,6 +3375,8 @@ def p_cdef_statement(s, ctx):
     elif s.sy == "enum" or s.sy == "use" and s.peek()[0] == "enum":
         if ctx.level not in ("module", "module_pxd"):
             error(pos, "C enum definition not allowed here")
+        if ctx.overridable:
+            error(pos, "C enum cannot be declared cpdef")
         return p_c_enum_definition(s, pos, ctx)
     elif s.sy == 'IDENT' and s.systring == 'fused':
         return p_fused_definition(s, pos, ctx)
