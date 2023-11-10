@@ -23,21 +23,21 @@ extern from *:
         Item4
         Item5
 
-def test_enum_to_list():
-    """
-    >>> test_enum_to_list()
-    """
-    assert list(Enum1) == [1, 2]
-    assert list(Enum2) == [4, 5]
+# def test_enum_to_list():
+#     """
+#     >>> test_enum_to_list()
+#     """
+#     assert list(Enum1) == [1, 2]
+#     assert list(Enum2) == [4, 5]
 
-def test_enum_doc():
-    """
-    >>> Enum2.__doc__ == "Apricots and other fruits.\\n        "
-    True
-    >>> Enum1.__doc__ != "Apricots and other fruits.\\n        "
-    True
-    """
-    pass
+# def test_enum_doc():
+#     """
+#     >>> Enum2.__doc__ == "Apricots and other fruits.\\n        "
+#     True
+#     >>> Enum1.__doc__ != "Apricots and other fruits.\\n        "
+#     True
+#     """
+#     pass
 
 def to_from_py_conversion(Enum1 val):
     """

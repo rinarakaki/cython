@@ -98,7 +98,7 @@ extern from *:
     };
     """
     # Cython doesn't know about the duplicates though
-    cpdef use enum ExternHasDuplicates:
+    use enum ExternHasDuplicates:
         EX_DUP_A
         EX_DUP_B
         EX_DUP_C
