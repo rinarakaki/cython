@@ -9,7 +9,7 @@ def enum_boolctx(Bool arg):
     >>> enum_boolctx(Bool::True)
     True
     """
-    if <u2>arg:
+    if <i32>arg:
         return true
     else:
         return false

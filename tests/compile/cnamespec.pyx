@@ -23,8 +23,8 @@ fn f64 spam "c_spam" (i32 i, f32 f):
     q.i = 7
     p = &q
     b = p.i
-    p.i = Blarg::X
-    p.i = Blarg::Y
+    p.i = <i32>Blarg::X
+    p.i = <i32>Blarg::Y
 
 fn inline f64 spam2 "c_spam2" (i32 i, f32 f):
     return spam(i, f)

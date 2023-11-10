@@ -111,7 +111,7 @@ cpdef enum CyDefinedHasDuplicates1:
 
 cpdef enum CyDefinedHasDuplicates2:
     CY_DUP2_A
-    CY_DUP2_B = CY_DUP2_A
+    CY_DUP2_B = <i32>CY_DUP2_A
 
 cpdef enum CyDefinedHasDuplicates3:
     CY_DUP3_A = 1

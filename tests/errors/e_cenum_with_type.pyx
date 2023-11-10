@@ -1,6 +1,6 @@
 # mode: error
 
-enum Spam(i32):
+use enum Spam(i32):
     A, B
 
 _ERRORS = u"""

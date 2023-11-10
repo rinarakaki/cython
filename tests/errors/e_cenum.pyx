@@ -1,6 +1,6 @@
 # mode: error
 
-enum Spam:
+use enum Spam:
     A, B, C
 
 fn void f():

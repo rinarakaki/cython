@@ -11,12 +11,12 @@ enum          EnumB0: EB0 = 0
 cdef api enum EnumB1: EB1 = 1
 
 cdef Int0   i0  = 0
-cdef EnumA0 ea0 = EA0
-cdef EnumB0 eb0 = EB0
+cdef EnumA0 ea0 = EnumA0::EA0
+cdef EnumB0 eb0 = EnumB0::EB0
 
 cdef api Int1   i1  = 0
-cdef api EnumA1 ea1 = EA1
-cdef api EnumB1 eb1 = EB1
+cdef api EnumA1 ea1 = EnumA1::EA1
+cdef api EnumB1 eb1 = EnumB1::EB1
 
 # --
 

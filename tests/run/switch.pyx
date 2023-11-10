@@ -317,7 +317,7 @@ def compile_time_tuple_constant(i32 x):
     else:
         return false
 
-enum X:
+use enum X:
     A = 1
     B
     C

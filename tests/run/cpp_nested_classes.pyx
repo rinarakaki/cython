@@ -122,7 +122,7 @@ def test_nested_enum(TypedClass[f64].MyEnum x):
     >>> test_nested_enum(4)
     False
     """
-    return x == 0
+    return <i64>x == 0
 
 def test_nested_union(x):
     """

@@ -5,7 +5,7 @@
 True
 >>> Foo::Honk == 3 + 2 + 1
 True
->>> NonPublic         # doctest: +ELLIPSIS
+>>> Secret::NonPublic         # doctest: +ELLIPSIS
 Traceback (most recent call last):
 NameError: ...name 'NonPublic' is not defined
 >>> Foo::NowPublic == 23 + 42
@@ -18,4 +18,4 @@ enum Secret:
 pub enum Foo:
     Bar = 3
     Honk = 3 + 2 + 1
-    NowPublic = NonPublic
+    NowPublic = Secret::NonPublic
