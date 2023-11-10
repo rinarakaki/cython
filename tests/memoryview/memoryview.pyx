@@ -1246,16 +1246,14 @@ def test_is_Sequence(f64[:] a):
     1
     True
     """
-    if sys.version_info < (3, 3):
-        from collections import Sequence
-    else:
-        from collections.abc import Sequence
+    from collections.abc import Sequence
 
     for i in 0..a.shape[0]:
         a[i] = i
     print(a.count(1.0))  # test for presence of added collection method
     print(a.index(1.0))  # test for presence of added collection method
 
+    import sys
     if sys.version_info >= (3, 10):
         # test structural pattern match in Python
         # (because Cython hasn't implemented it yet, and because the details
@@ -1301,5 +1299,5 @@ def test_untyped_index(i):
     return mview_arr[i]  # should generate a performance hint
 
 _PERFORMANCE_HINTS = """
-1301:21: Index should be typed for more efficient access
+1299:21: Index should be typed for more efficient access
 """
