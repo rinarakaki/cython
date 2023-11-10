@@ -67,7 +67,7 @@ extern from *:
     cdef enum:  # ExternSecretPyx
         THOUSAND "1000"
 
-cpdef enum PyxEnum:
+cpdef use enum PyxEnum:
     Two = 2
     Three = 3
     Five = 5
