@@ -3367,13 +3367,13 @@ def p_cdef_statement(s, ctx):
     elif s.sy == 'IDENT' and s.systring == 'cppclass':
         return p_cpp_class_definition(s, pos, ctx)
     elif s.sy in ("struct", "union") or s.sy == 'IDENT' and s.systring == "packed":
-        if ctx.level not in ('module', 'module_pxd'):
+        if ctx.level not in ("module", "module_pxd"):
             error(pos, "C struct/union definition not allowed here")
         if ctx.overridable:
             error(pos, "C struct/union cannot be declared cpdef")
         return p_c_struct_or_union_definition(s, pos, ctx)
     elif s.sy == "enum" or s.sy == "use" and s.peek()[0] == "enum":
-        if ctx.level not in ('module', 'module_pxd'):
+        if ctx.level not in ("module", "module_pxd"):
             error(pos, "C enum definition not allowed here")
         return p_c_enum_definition(s, pos, ctx)
     elif s.sy == 'IDENT' and s.systring == 'fused':

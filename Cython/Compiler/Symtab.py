@@ -740,7 +740,7 @@ class Scope(object):
             else:
                 namespace = None
 
-            if scoped:
+            if 0 and scoped:
                 type = PyrexTypes.CppScopedEnumType(name, cname, namespace, doc=doc)
             else:
                 type = PyrexTypes.CEnumType(name, cname, typedef_flag, namespace, doc=doc)
@@ -748,7 +748,7 @@ class Scope(object):
             type = PyrexTypes.c_anon_enum_type
         entry = self.declare_type(name, type, pos, cname = cname,
             visibility = visibility, api = api)
-        if scoped:
+        if 0 and scoped:
             entry.utility_code = Code.UtilityCode.load_cached("EnumClassDecl", "CppSupport.cpp")
             self.use_entry_utility_code(entry)
         entry.create_wrapper = create_wrapper
@@ -2661,6 +2661,23 @@ class CClassScope(ClassScope):
                 entry.as_variable = var_entry
             if base_entry.utility_code:
                 entry.utility_code = base_entry.utility_code
+
+
+class EnumScope(Scope):
+    #  Namespace of a ScopedEnum
+
+    def __init__(self, name, outer_scope):
+        Scope.__init__(self, name, outer_scope, None)
+
+    def declare_var(self, name, type, pos,
+                    cname=None, visibility='extern', pytyping_modifiers=None):
+        # Add an entry for an attribute.
+        if not cname:
+            cname = name
+        self._reject_pytyping_modifiers(pos, pytyping_modifiers)
+        entry = self.declare(name, cname, type, pos, visibility)
+        entry.is_variable = True
+        return entry
 
 
 class CppClassScope(Scope):

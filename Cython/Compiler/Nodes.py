@@ -24,7 +24,7 @@ from . import TypeSlots
 from .PyrexTypes import py_object_type, error_type
 from .Symtab import (ModuleScope, LocalScope, ClosureScope, PropertyScope,
                      StructOrUnionScope, PyClassScope, CppClassScope, TemplateScope, GeneratorExpressionScope,
-                     CppScopedEnumScope, punycodify_name)
+                     EnumScope, punycodify_name)
 from .Code import UtilityCode
 from .StringEncoding import EncodedString
 from . import Future
@@ -1713,7 +1713,7 @@ class CEnumDefNode(StatNode):
         self.entry.type.underlying_type = underlying_type
 
         if self.scoped and self.items is not None:
-            scope = CppScopedEnumScope(self.name, env)
+            scope = EnumScope(self.name, env)
             scope.type = self.entry.type
             scope.directives = env.directives
         else:
