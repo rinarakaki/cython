@@ -3,8 +3,8 @@
 # distutils: extra_compile_args=-fwrapv
 
 extern from *:
-    i32 INT_MAX
-    i64 LONG_MAX
+    static i32 INT_MAX
+    static i64 LONG_MAX
 
 max_int = INT_MAX
 max_long = LONG_MAX

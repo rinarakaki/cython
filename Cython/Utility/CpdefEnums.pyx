@@ -3,7 +3,7 @@
 use cython
 
 extern from *:
-    i32 PY_VERSION_HEX
+    static i32 PY_VERSION_HEX
 
 # @cython.internal
 cdef object __Pyx_EnumBase

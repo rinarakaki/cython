@@ -224,8 +224,8 @@ cdef class DoubleMockBuffer(MockBuffer):
     fn get_itemsize(self): return sizeof(f64)
     fn get_default_format(self): return b"d"
 
-cdef extern from *:
-    void* addr_of_pyobject "(void*)"(object)
+extern from *:
+    fn void* addr_of_pyobject "(void*)"(object)
 
 cdef class ObjectMockBuffer(MockBuffer):
     fn i32 write(self, char* buf, object value) except -1:

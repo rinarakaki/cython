@@ -13,8 +13,8 @@ use cython
 extern from "Python.h":
     struct PyObject
     fn i32 PyIndex_Check(object)
-    PyObject *PyExc_IndexError
-    PyObject *PyExc_ValueError
+    static PyObject *PyExc_IndexError
+    static PyObject *PyExc_ValueError
 
 extern from "pythread.h":
     ctypedef void *PyThread_type_lock
@@ -58,7 +58,7 @@ extern from *:
     struct __pyx_buffer "Py_buffer":
         PyObject *obj
 
-    PyObject *Py_None
+    static PyObject *Py_None
 
     cdef enum:
         PyBUF_C_CONTIGUOUS,
@@ -77,14 +77,14 @@ extern from *:
 
 extern from *:
     ctypedef i32 __pyx_atomic_int_type
-    {{memviewslice_name}} slice_copy_contig "__pyx_memoryview_copy_new_contig"(
-                                 __Pyx_memviewslice *from_mvs,
-                                 char *mode, i32 ndim,
-                                 usize sizeof_dtype, i32 contig_flag,
-                                 u2 dtype_is_object) except * nogil
-    fn u2 slice_is_contig "__pyx_memviewslice_is_contig" (
-                            {{memviewslice_name}} mvs, char order, i32 ndim) nogil
-    fn u2 slices_overlap "__pyx_slices_overlap" ({{memviewslice_name}} *slice1,
+    fn {{memviewslice_name}} slice_copy_contig "__pyx_memoryview_copy_new_contig"(
+        __Pyx_memviewslice *from_mvs,
+        char *mode, i32 ndim,
+        usize sizeof_dtype, i32 contig_flag,
+        u2 dtype_is_object) except * nogil
+    fn u2 slice_is_contig "__pyx_memviewslice_is_contig"(
+        {{memviewslice_name}} mvs, char order, i32 ndim) nogil
+    fn u2 slices_overlap "__pyx_slices_overlap"({{memviewslice_name}} *slice1,
                                                 {{memviewslice_name}} *slice2,
                                                 i32 ndim, usize itemsize) nogil
 
@@ -1438,7 +1438,7 @@ extern from *:
     struct __pyx_typeinfo_string:
         char string[3]
 
-    __pyx_typeinfo_string __Pyx_TypeInfoToFormat(__Pyx_TypeInfo *)
+    fn __pyx_typeinfo_string __Pyx_TypeInfoToFormat(__Pyx_TypeInfo *)
 
 
 @cname('__pyx_format_from_typeinfo')

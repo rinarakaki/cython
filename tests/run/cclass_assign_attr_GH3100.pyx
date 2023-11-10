@@ -6,7 +6,7 @@ extern from *:
     #define TYPESPECS 0
     #endif
     """
-    i32 TYPESPECS
+    static i32 TYPESPECS
 
 cdef class Foo:
     """
