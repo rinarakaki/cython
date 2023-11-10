@@ -3382,7 +3382,7 @@ def p_cdef_statement(s, ctx):
     elif s.sy == "static":
         s.next()
         return p_c_func_or_var_declaration(s, pos, ctx)
-    else:
+    elif ctx.visibility != "extern":
         return p_c_func_or_var_declaration(s, pos, ctx)
 
 def p_cdef_block(s, ctx):
