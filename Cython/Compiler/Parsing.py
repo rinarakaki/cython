@@ -3383,10 +3383,8 @@ def p_cdef_statement(s, ctx):
         s.next()
         return p_c_func_or_var_declaration(s, pos, ctx)
     else:
-        if ctx.visibility == "extern":
-            error(pos, "syntax error in extern block")
-        else:
-            return p_c_func_or_var_declaration(s, pos, ctx)
+        s.expect("static")
+        return p_c_func_or_var_declaration(s, pos, ctx)
 
 def p_cdef_block(s, ctx):
     return p_suite(s, ctx(cdef_flag = 1))
