@@ -80,7 +80,7 @@ extern from "Python.h":
         isize ob_refcnt
         PyTypeObject *ob_type
 
-    cdef PyTypeObject *Py_TYPE(object)
+    fn PyTypeObject *Py_TYPE(object)
 
     fn void* PyObject_Malloc(usize)
     fn void* PyObject_Realloc(void *, usize)
