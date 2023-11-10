@@ -37,19 +37,19 @@ extern from "Python.h":
         PyTrace_C_EXCEPTION
         PyTrace_C_RETURN
 
-    PyInterpreterState * PyInterpreterState_New()
+    fn PyInterpreterState * PyInterpreterState_New()
     fn void PyInterpreterState_Clear(PyInterpreterState *)
     fn void PyInterpreterState_Delete(PyInterpreterState *)
-    PY_INT64_T PyInterpreterState_GetID(PyInterpreterState *)
+    fn PY_INT64_T PyInterpreterState_GetID(PyInterpreterState *)
 
-    PyThreadState * PyThreadState_New(PyInterpreterState *)
+    fn PyThreadState * PyThreadState_New(PyInterpreterState *)
     fn void PyThreadState_Clear(PyThreadState *)
     fn void PyThreadState_Delete(PyThreadState *)
 
-    PyThreadState * PyThreadState_Get()
-    PyThreadState * PyThreadState_Swap(PyThreadState *)  # NOTE: DO NOT USE IN CYTHON CODE !
+    fn PyThreadState * PyThreadState_Get()
+    fn PyThreadState * PyThreadState_Swap(PyThreadState *)  # NOTE: DO NOT USE IN CYTHON CODE !
     fn PyObject * PyThreadState_GetDict()
-    int PyThreadState_SetAsyncExc(long, PyObject *)
+    fn i32 PyThreadState_SetAsyncExc(long, PyObject *)
 
     # Ensure that the current thread is ready to call the Python
     # C API, regardless of the current state of Python, or of its
@@ -71,7 +71,7 @@ extern from "Python.h":
     # When the function returns, the current thread will hold the GIL.
 
     # Failure is a fatal error.
-    PyGILState_STATE PyGILState_Ensure()
+    fn PyGILState_STATE PyGILState_Ensure()
 
     # Release any resources previously acquired.  After this call, Python's
     # state will be the same as it was prior to the corresponding
@@ -87,7 +87,7 @@ extern from "Python.h":
 
     # Routines for advanced debuggers, requested by David Beazley.
     # Don't use unless you know what you are doing!
-    PyInterpreterState * PyInterpreterState_Head()
-    PyInterpreterState * PyInterpreterState_Next(PyInterpreterState *)
-    PyThreadState * PyInterpreterState_ThreadHead(PyInterpreterState *)
-    PyThreadState * PyThreadState_Next(PyThreadState *)
+    fn PyInterpreterState * PyInterpreterState_Head()
+    fn PyInterpreterState * PyInterpreterState_Next(PyInterpreterState *)
+    fn PyThreadState * PyInterpreterState_ThreadHead(PyInterpreterState *)
+    fn PyThreadState * PyThreadState_Next(PyThreadState *)
