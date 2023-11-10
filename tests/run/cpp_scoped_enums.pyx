@@ -61,14 +61,14 @@ def test_compare_enums():
     (True, True, False, False)
     """
     let Enum1 x, y
-    x = Enum1.Item1
-    y = Enum1.Item2
+    x = Enum1::Item1
+    y = Enum1::Item2
 
     return (
-        x == Enum1.Item1,
-        y == Enum1.Item2,
-        x == Enum1.Item2,
-        y == Enum1.Item1
+        x == Enum1::Item1,
+        y == Enum1::Item2,
+        x == Enum1::Item2,
+        y == Enum1::Item1
     )
         
 def test_compare_namespace_enums():
@@ -78,14 +78,14 @@ def test_compare_namespace_enums():
     """
     let Enum2 z, w
     
-    z = Enum2.Item1
-    w = Enum2.Item2
+    z = Enum2::Item1
+    w = Enum2::Item2
 
     return (
-        z == Enum2.Item1,
-        w == Enum2.Item2,
-        z == Enum2.Item2,
-        w == Enum2.Item1
+        z == Enum2::Item1,
+        w == Enum2::Item2,
+        z == Enum2::Item2,
+        w == Enum2::Item1
     )
 
 def test_coerce_to_from_py_value(object i):
@@ -104,10 +104,10 @@ def test_coerce_to_from_py_value(object i):
     OverflowError: Python int too large to convert to C long
     """
     let Enum3 x = i
-    y = Enum3.b
+    y = Enum3::b
 
     return (
-        x == Enum3.a,
+        x == Enum3::a,
         y == int(i)
     )
 
@@ -116,8 +116,8 @@ def test_reserved_cname():
     >>> test_reserved_cname()
     True
     """
-    let Enum4 x = Enum4.a
-    return Enum4.a == int(1)
+    let Enum4 x = Enum4::a
+    return Enum4::a == int(1)
 
 def test_large_enum():
     """

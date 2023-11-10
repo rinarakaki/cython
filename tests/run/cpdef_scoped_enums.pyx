@@ -41,7 +41,7 @@ def test_enum_doc():
 
 def to_from_py_conversion(Enum1 val):
     """
-    >>> to_from_py_conversion(Enum1.Item1) is Enum1.Item1
+    >>> to_from_py_conversion(Enum1::Item1) is Enum1::Item1
     True
 
     Scoped enums should not be used as flags, and therefore attempts to set them
@@ -53,7 +53,7 @@ def to_from_py_conversion(Enum1 val):
 
     # Note that the ability to bitwise-or together the two numbers is inherited
     from the Python enum (so not in Cython's remit to prevent)
-    >>> to_from_py_conversion(Enum1.Item1 | Enum1.Item2)
+    >>> to_from_py_conversion(Enum1::Item1 | Enum1::Item2)
     Traceback (most recent call last):
     ...
     ValueError: 3 is not a valid Enum1
@@ -64,9 +64,9 @@ def test_pickle():
     """
     >>> from pickle import loads, dumps
 
-    >>> loads(dumps(Enum1.Item2)) == Enum1.Item2
+    >>> loads(dumps(Enum1::Item2)) == Enum1::Item2
     True
-    >>> loads(dumps(Enum2.Item4)) == Enum2.Item4
+    >>> loads(dumps(Enum2::Item4)) == Enum2::Item4
     True
     """
     pass
