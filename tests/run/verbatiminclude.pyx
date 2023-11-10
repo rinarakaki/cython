@@ -1,5 +1,5 @@
 extern from "verbatiminclude.h":
-    long cube(long)
+    fn i64 cube(i64)
 
 extern from *:
     """
@@ -8,7 +8,7 @@ extern from *:
         return x * x;
     }
     """
-    i64 square(long)
+    fn i64 square(i64)
 
 extern from "verbatiminclude.h":
     "typedef int myint;"
