@@ -517,9 +517,7 @@ class CNameDeclaratorNode(CDeclaratorNode):
         return self.name
 
     def analyse(self, base_type, env, nonempty=0, visibility=None, in_pxd=False):
-        if env is not None and env.is_c_class_scope and base_type is None and self.name == "self":
-            base_type = env.parent_type
-        elif nonempty and self.name == '':
+        if nonempty and self.name == '':
             # May have mistaken the name for the type.
             if base_type.is_ptr or base_type.is_array or base_type.is_buffer:
                 error(self.pos, "Missing argument name")
