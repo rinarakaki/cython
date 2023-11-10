@@ -1,8 +1,8 @@
 extern from "graminit.c":
     struct grammar:
         pass
-    cdef grammar _PyParser_Grammar
-    cdef int Py_file_input
+    static grammar _PyParser_Grammar
+    static i32 Py_file_input
 
 extern from "node.h":
     struct node
@@ -21,7 +21,7 @@ extern from "parsetok.h":
         const char * s,
         const char * filename,
         grammar * g,
-        int start,
+        i32 start,
         perrdetail * err_ret,
         i32 * flags)
 

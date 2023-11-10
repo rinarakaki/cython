@@ -796,8 +796,8 @@ fn inline tuple PyDataType_SHAPE(dtype d):
         return ()
 
 extern from "numpy/ndarrayobject.h":
-    PyTypeObject PyTimedeltaArrType_Type
-    PyTypeObject PyDatetimeArrType_Type
+    static PyTypeObject PyTimedeltaArrType_Type
+    static PyTypeObject PyDatetimeArrType_Type
     ctypedef int64_t npy_timedelta
     ctypedef int64_t npy_datetime
 
