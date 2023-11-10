@@ -7,16 +7,16 @@ ctypedef pub i32 Int1
 ctypedef     enum EnumA0: EA0
 ctypedef pub enum EnumA1: EA1
 
-cdef enum EnumB0: EB0=0
-pub  enum EnumB1: EB1=1
+cdef enum EnumB0: EB0 = 0
+pub  enum EnumB1: EB1 = 1
 
 cdef Int0   i0  = 0
-cdef EnumA0 ea0 = EA0
-cdef EnumB0 eb0 = EB0
+cdef EnumA0 ea0 = EnumA0::EA0
+cdef EnumB0 eb0 = EnumB0::EB0
 
 pub Int1   i1  = 0
-pub EnumA1 ea1 = EA1
-pub EnumB1 eb1 = EB1
+pub EnumA1 ea1 = EnumA1::EA1
+pub EnumB1 eb1 = EnumB1::EB1
 
 # --
 

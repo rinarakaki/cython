@@ -4,12 +4,12 @@ pub enum Bool:
 
 def enum_boolctx(Bool arg):
     """
-    >>> enum_boolctx(<u2>Bool::False)
+    >>> enum_boolctx(Bool::False)
     False
-    >>> enum_boolctx(<u2>Bool::True)
+    >>> enum_boolctx(Bool::True)
     True
     """
-    if arg:
+    if <u2>arg:
         return true
     else:
         return false
