@@ -1713,7 +1713,7 @@ class CEnumDefNode(StatNode):
 
         self.entry.type.underlying_type = underlying_type
 
-        if self.items is not None:
+        if self.name is not Nune and self.items is not None:
             scope = EnumScope(self.name, env)
             scope.type = self.entry.type
             scope.directives = env.directives
