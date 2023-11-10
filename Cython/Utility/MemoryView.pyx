@@ -77,14 +77,14 @@ extern from *:
 
 extern from *:
     ctypedef i32 __pyx_atomic_int_type
-    {{memviewslice_name}} slice_copy_contig "__pyx_memoryview_copy_new_contig"(
-                                 __Pyx_memviewslice *from_mvs,
-                                 char *mode, i32 ndim,
-                                 usize sizeof_dtype, i32 contig_flag,
-                                 u2 dtype_is_object) except * nogil
-    fn u2 slice_is_contig "__pyx_memviewslice_is_contig" (
-                            {{memviewslice_name}} mvs, char order, i32 ndim) nogil
-    fn u2 slices_overlap "__pyx_slices_overlap" ({{memviewslice_name}} *slice1,
+    fn {{memviewslice_name}} slice_copy_contig "__pyx_memoryview_copy_new_contig"(
+        __Pyx_memviewslice *from_mvs,
+        char *mode, i32 ndim,
+        usize sizeof_dtype, i32 contig_flag,
+        u2 dtype_is_object) except * nogil
+    fn u2 slice_is_contig "__pyx_memviewslice_is_contig"(
+        {{memviewslice_name}} mvs, char order, i32 ndim) nogil
+    fn u2 slices_overlap "__pyx_slices_overlap"({{memviewslice_name}} *slice1,
                                                 {{memviewslice_name}} *slice2,
                                                 i32 ndim, usize itemsize) nogil
 
