@@ -13,11 +13,11 @@ extern from *:
         Item5 = 5
     };
     """
-    cpdef enum Enum1:
+    enum Enum1:
         Item1
         Item2
 
-    cpdef enum Enum2:
+    enum Enum2:
         """Apricots and other fruits.
         """
         Item4

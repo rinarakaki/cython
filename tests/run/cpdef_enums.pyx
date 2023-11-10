@@ -59,7 +59,7 @@ NameError: ...name 'IntEnum' is not defined
 """
 
 extern from *:
-    cpdef enum:  # ExternPyx
+    enum:  # ExternPyx
         ONE "1"
         TEN "10"
         HUNDRED "100"
@@ -72,12 +72,12 @@ cpdef use enum PyxEnum:
     Three = 3
     Five = 5
 
-cpdef enum cpdefPyxDocEnum:
+enum cpdefPyxDocEnum:
     """Home is where...
     """
     Eleven = 11
 
-cpdef enum CpdefPyxDocLineEnum:
+enum CpdefPyxDocLineEnum:
     """Home is where..."""
     Fourteen = 14
 
@@ -104,16 +104,16 @@ extern from *:
         EX_DUP_C
 
 
-cpdef enum CyDefinedHasDuplicates1:
+enum CyDefinedHasDuplicates1:
     CY_DUP1_A
     CY_DUP1_B = 0x00000000
 
 
-cpdef enum CyDefinedHasDuplicates2:
+enum CyDefinedHasDuplicates2:
     CY_DUP2_A
     CY_DUP2_B = <i32>CY_DUP2_A
 
-cpdef enum CyDefinedHasDuplicates3:
+enum CyDefinedHasDuplicates3:
     CY_DUP3_A = 1
     CY_DUP3_B = 0
     CY_DUP3_C  # = 1

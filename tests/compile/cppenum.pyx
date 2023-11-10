@@ -1,14 +1,14 @@
 # mode: compile
 # tag: cpp,cpp11
 
-cpdef enum Spam:
+enum Spam:
     A, B
     C
     D
     E
     F = 42
 
-cpdef enum Cheese(u32):
+enum Cheese(u32):
     X = 1
     Y = 2
 
