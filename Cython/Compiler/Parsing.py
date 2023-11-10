@@ -3414,9 +3414,8 @@ def p_c_enum_definition(s, pos, ctx):
     # s.sy == ident 'enum'
     s.next()
 
-    scoped = False
+    scoped = 1
     if s.context.cpp and s.sy in ("class", "struct"):
-        scoped = True
         s.next()
 
     if s.sy == 'IDENT':
@@ -3465,12 +3464,19 @@ def p_c_enum_definition(s, pos, ctx):
         error(pos, "Empty enum definition not allowed outside a 'cdef extern from' block")
 
     return Nodes.CEnumDefNode(
-        pos, name=name, cname=cname,
-        scoped=scoped, items=items,
+        pos,
+        name=name,
+        cname=cname,
+        scoped=scoped,
+        items=items,
         underlying_type=underlying_type,
-        typedef_flag=ctx.typedef_flag, visibility=ctx.visibility,
+        typedef_flag=ctx.typedef_flag,
+        visibility=ctx.visibility,
         create_wrapper=ctx.overridable,
-        api=ctx.api, in_pxd=ctx.level == 'module_pxd', doc=doc)
+        api=ctx.api,
+        in_pxd=ctx.level == 'module_pxd',
+        doc=doc
+    )
 
 def p_c_enum_line(s, ctx, items):
     if s.sy != 'pass':
