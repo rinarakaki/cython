@@ -23,7 +23,7 @@ extern from "<bit>" namespace "std" nogil:
     fn i32 popcount[T](T)
 
     # endian
-    cpdef enum endian(i32):
+    enum endian(i32):
         little,
         big,
         native
