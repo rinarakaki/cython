@@ -13,8 +13,8 @@ use cython
 extern from "Python.h":
     struct PyObject
     fn i32 PyIndex_Check(object)
-    PyObject *PyExc_IndexError
-    PyObject *PyExc_ValueError
+    static PyObject *PyExc_IndexError
+    static PyObject *PyExc_ValueError
 
 extern from "pythread.h":
     ctypedef void *PyThread_type_lock
@@ -58,7 +58,7 @@ extern from *:
     struct __pyx_buffer "Py_buffer":
         PyObject *obj
 
-    PyObject *Py_None
+    static PyObject *Py_None
 
     cdef enum:
         PyBUF_C_CONTIGUOUS,
