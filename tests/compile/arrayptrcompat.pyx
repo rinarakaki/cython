@@ -12,10 +12,10 @@ fn void f():
     p = a
     v = a
     p = a + i
-    p = a + e
+    p = a + <i32>e
     p = i + a
-    p = e + a
+    p = <i32>e + a
     p = a - i
-    p = a - e
+    p = a - <i32>e
 
 f()

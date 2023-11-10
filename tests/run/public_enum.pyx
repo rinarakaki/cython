@@ -18,4 +18,4 @@ enum Secret:
 pub enum Foo:
     Bar = 3
     Honk = 3 + 2 + 1
-    NowPublic = Secret::NonPublic
+    NowPublic = <i32>Secret::NonPublic

@@ -11,6 +11,6 @@ fn void eggs():
     let i32 i
     s1 = s2
     s1 = Spam::C
-    i = s1
+    i = <i32>s1
 
 eggs()
