@@ -2678,6 +2678,9 @@ class EnumScope(Scope):
         entry = self.declare(name, cname, type, pos, visibility)
         entry.is_variable = True
         return entry
+    
+    def lookup(self, name):
+        return self.lookup_here(name)
 
 
 class CppClassScope(Scope):
