@@ -159,7 +159,7 @@ def test_nested_sub_enum(SpecializedTypedClass.MyEnum x):
     >>> test_nested_sub_enum(4)
     False
     """
-    return x == 0
+    return <i64>x == 0
 
 def test_nested_sub_union(x):
     """

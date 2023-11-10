@@ -52,4 +52,4 @@ def compare_namespace_enums():
     >>> compare_namespace_enums()
     (True, True, True, True)
     """
-    return z == c, c == Item3, d == w, d == Item4
+    return z == c, c == Enum2::Item3, d == w, d == Enum2::Item4
