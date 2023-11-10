@@ -920,6 +920,7 @@ class CArgDeclNode(Node):
 
     def analyse(self, env, nonempty=0):
         if self.is_self_arg:
+            self.type = env.parent_type
             return self.declarator.analyse(env.parent_type, env, nonempty=nonempty)
         if self.type is not None:
             return self.name_declarator, self.type
