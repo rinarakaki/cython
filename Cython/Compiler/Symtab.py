@@ -726,8 +726,8 @@ class Scope(object):
             error(pos, "'%s' previously declared as '%s'" % (
                 entry.name, entry.visibility))
 
-    def declare_enum(self, name, pos, cname, scoped, typedef_flag,
-            visibility='private', api=0, create_wrapper=0, doc=None):
+    def declare_enum(self, name, pos, cname, typedef_flag,
+                     visibility='private', api=0, create_wrapper=0, doc=None):
         if name:
             if not cname:
                 if (self.in_cinclude or visibility == 'public'
@@ -740,15 +740,15 @@ class Scope(object):
             else:
                 namespace = None
 
-            if 0 and scoped:
+            if 0 and 1:
                 type = PyrexTypes.CppScopedEnumType(name, cname, namespace, doc=doc)
             else:
                 type = PyrexTypes.CEnumType(name, cname, typedef_flag, namespace, doc=doc)
         else:
             type = PyrexTypes.c_anon_enum_type
         entry = self.declare_type(name, type, pos, cname = cname,
-            visibility = visibility, api = api)
-        if 0 and scoped:
+                                  visibility = visibility, api = api)
+        if 0 and 1:
             entry.utility_code = Code.UtilityCode.load_cached("EnumClassDecl", "CppSupport.cpp")
             self.use_entry_utility_code(entry)
         entry.create_wrapper = create_wrapper

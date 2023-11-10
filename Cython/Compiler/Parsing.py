@@ -3419,15 +3419,13 @@ def p_cdef_extern_block(s, pos, ctx):
 
 def p_c_enum_definition(s, pos, ctx):
     # s.sy == "enum" or s.sy == "use" and s.peek()[0] == "enum"
-    if s.sy == "enum":
+    use_all = 0
+    if s.sy == "use":
         s.next()
-        scoped = 1
-        if s.context.cpp and s.sy in ("class", "struct"):
-            s.next()
-    else:
+        use_all = 1
+    s.next()
+    if s.context.cpp and s.sy in ("class", "struct"):
         s.next()
-        s.next()
-        scoped = 0
 
     if s.sy == 'IDENT':
         name = s.systring
@@ -3436,10 +3434,9 @@ def p_c_enum_definition(s, pos, ctx):
         if cname is None and ctx.namespace is not None:
             cname = ctx.namespace + "::" + name
     else:
-        scoped = 0
         name = cname = None
 
-    if scoped and s.sy == '(':
+    if s.sy == '(':
         s.next()
         underlying_type = p_c_base_type(s)
         s.expect(')')
@@ -3477,7 +3474,6 @@ def p_c_enum_definition(s, pos, ctx):
         pos,
         name=name,
         cname=cname,
-        scoped=scoped,
         items=items,
         underlying_type=underlying_type,
         typedef_flag=ctx.typedef_flag,
