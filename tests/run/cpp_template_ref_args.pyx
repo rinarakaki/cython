@@ -7,14 +7,13 @@ extern from "cpp_template_ref_args.h":
         Bar()
         # bug: Bar[T] created before class fully defined
         T value
-        Bar[T] & ref() except +
-        const Bar[T] & const_ref() except +
-        const Bar[T] & const_ref_const() except +
+        fn Bar[T] & ref() except +
+        fn const Bar[T] & const_ref() except +
+        fn const Bar[T] & const_ref_const() except +
 
     cdef cppclass Foo[T]:
         Foo()
-        int bar_value(Bar[int] & bar)
-
+        fn i32 bar_value(Bar[int] & bar)
 
 def test_template_ref_arg(i32 x):
     """
