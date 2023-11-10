@@ -6,12 +6,12 @@ extern from "graminit.c":
 
 extern from "node.h":
     struct node
-    void PyNode_Free(node* n)
-    int NCH(node* n)
-    node* CHILD(node* n, i32 ix)
-    node* RCHILD(node* n, i32 ix)
-    short TYPE(node* n)
-    char* STR(node* n)
+    fn void PyNode_Free(node* n)
+    fn i32 NCH(node* n)
+    fn node* CHILD(node* n, i32 ix)
+    fn node* RCHILD(node* n, i32 ix)
+    fn short TYPE(node* n)
+    fn char* STR(node* n)
 
 extern from "parsetok.h":
     struct perrdetail:

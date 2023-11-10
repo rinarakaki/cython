@@ -24,7 +24,7 @@ extern from "Python.h":
     """
     #define my_SET_SIZE(obj, size)  __Pyx_SET_SIZE(obj, size)
     """
-    void my_SET_SIZE(object, isize)
+    fn void my_SET_SIZE(object, isize)
 
 def test_square(x):
     """
