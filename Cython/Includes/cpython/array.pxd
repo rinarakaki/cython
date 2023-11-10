@@ -129,13 +129,13 @@ extern from *:  # Hard-coded utility code hack.
         def __releasebuffer__(self, Py_buffer* info):
             PyObject_Free(info.shape)
 
-    array newarrayobject(PyTypeObject* type, isize size, arraydescr *descr)
+    fn array newarrayobject(PyTypeObject* type, isize size, arraydescr *descr)
 
     # fast resize/realloc
     # not suitable for small increments; reallocation 'to the point'
-    i32 resize(array self, isize n) except -1
+    fn i32 resize(array self, isize n) except -1
     # efficient for small increments (not in Py2.3-)
-    i32 resize_smart(array self, isize n) except -1
+    fn i32 resize_smart(array self, isize n) except -1
 
 fn inline array clone(array template, isize length, u2 zero):
     """ fast creation of a new array, given a template array.

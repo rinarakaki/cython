@@ -49,7 +49,7 @@ extern from "Python.h":
     fn PyThreadState * PyThreadState_Get()
     fn PyThreadState * PyThreadState_Swap(PyThreadState *)  # NOTE: DO NOT USE IN CYTHON CODE !
     fn PyObject * PyThreadState_GetDict()
-    fn i32 PyThreadState_SetAsyncExc(long, PyObject *)
+    fn i32 PyThreadState_SetAsyncExc(i64, PyObject *)
 
     # Ensure that the current thread is ready to call the Python
     # C API, regardless of the current state of Python, or of its

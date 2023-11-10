@@ -1,2 +1,2 @@
 extern from "foo.h":
-    i32 fred()
+    fn i32 fred()

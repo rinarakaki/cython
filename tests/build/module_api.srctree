@@ -89,8 +89,8 @@ flt0 = flt1 = flt2 = 7
 extern from "a_api.h":
     fn i32 import_a() except -1
     ctypedef f32 flt
-    i32 int1, int2, int3
-    flt flt1, flt2, flt3
+    static i32 int1, int2, int3
+    static flt flt1, flt2, flt3
 
 import_a()
 
