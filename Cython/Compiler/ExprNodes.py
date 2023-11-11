@@ -6042,9 +6042,6 @@ class StructExprNode(ExprNode):
         return self.fields, None
 
     def analyse_types(self, env):
-        if self.analysed:
-            return self
-        self.analysed = True
         self.analyse_as_type_constructor(env)
         return self
     
