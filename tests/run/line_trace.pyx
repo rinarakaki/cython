@@ -131,7 +131,7 @@ def cy_add(a, b):
     return x      # 2
 
 def cy_add_with_nogil(a, b):
-    let i32 z, x=a, y=b         # 1
+    let i32 z, x = a, y = b      # 1
     with nogil:                  # 2
         z = 0                    # 3
         z += cy_add_nogil(x, y)  # 4

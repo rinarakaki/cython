@@ -409,9 +409,9 @@ class AsyncBadSyntaxTest(unittest.TestCase):
                    pass
             """,
 
-            #"""async def foo(a:await b):
-            #       pass
-            #""",
+            # """async def foo(a:await b):
+            #        pass
+            # """,
 
             """def baz():
                    async def foo(a=await b):
@@ -512,7 +512,7 @@ class AsyncBadSyntaxTest(unittest.TestCase):
             """async = 1""",
 
             # FIXME: cannot currently request Py3 syntax in cython.inline()
-            #"""print(await=1)"""
+            # """print(await=1)"""
         ]
 
         for code in samples:
