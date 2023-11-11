@@ -22,7 +22,7 @@ extern from "Python.h":
     # of the standard type object. Return false in all other
     # cases.
 
-    fn void PyType_Modified(r#ty r#type)
+    fn void PyType_Modified(r#type type)
     # Invalidate the internal lookup cache for the type and all of its
     # subtypes. This function must be called after any manual modification
     # of the attributes or base classes of the type.
