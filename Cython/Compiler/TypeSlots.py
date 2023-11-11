@@ -738,12 +738,12 @@ class DictOffsetSlot(SlotDescriptor):
             return None
         return '{"__dictoffset__", T_PYSSIZET, %s, READONLY, NULL},' % dict_offset
 
-# # The following slots are (or could be) initialised with an
-# # extern function pointer.
+# The following slots are (or could be) initialised with an
+# extern function pointer.
 #
-#slots_initialised_from_extern = (
+# slots_initialised_from_extern = (
 #    "tp_free",
-#)
+# )
 
 # -----------------------------------------------------------------------------------------
 #
