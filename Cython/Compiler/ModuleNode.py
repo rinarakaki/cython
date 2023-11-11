@@ -3199,7 +3199,7 @@ class ModuleNode(Nodes.Node, Nodes.BlockNode):
         # for cleanup, atexit code, etc., so leaking is better than crashing.
         # At least clearing the module dict here might be a good idea, but could still break
         # user code in atexit or other global registries.
-        ##code.put_decref_clear(env.module_dict_cname, py_object_type, nanny=False)
+        # #code.put_decref_clear(env.module_dict_cname, py_object_type, nanny=False)
         code.putln('}')
         code.putln("#if !CYTHON_USE_MODULE_STATE")
         code.put_decref_clear(env.module_cname, py_object_type, nanny=False, clear_before_decref=True)

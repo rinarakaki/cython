@@ -525,7 +525,7 @@ def test_fused_in_check():
     print(in_check_2[f32, f64](1.0, 2.0))
     print(in_check_3[f32](1.0))
 
-### see GH3642 - presence of cdef inside "unrelated" caused a type to be incorrectly inferred
+# ## see GH3642 - presence of cdef inside "unrelated" caused a type to be incorrectly inferred
 fn unrelated(cython.floating x):
     let cython.floating t = 1
     return t

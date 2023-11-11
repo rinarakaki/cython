@@ -3,9 +3,9 @@ use super::object::PyObject
 extern from "Python.h":
     struct va_list
 
-    ############################################################################
+    # ##########################################################################
     # 7.3.1 String Objects
-    ############################################################################
+    # ##########################################################################
 
     # These functions raise TypeError when expecting a string
     # parameter and are called with a non-string parameter.

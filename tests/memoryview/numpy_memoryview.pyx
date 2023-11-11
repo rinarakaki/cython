@@ -48,7 +48,7 @@ def gc_collect_if_required():
 
 
 #
-### Test slicing memoryview slices
+# ## Test slicing memoryview slices
 #
 
 def test_partial_slicing(array):
@@ -105,7 +105,7 @@ def test_ellipsis(array):
     ae(e.strides[0], e_obj.strides[0])
 
 #
-### Test slicing memoryview objects
+# ## Test slicing memoryview objects
 #
 def test_partial_slicing_memoryview(array):
     """
@@ -301,7 +301,7 @@ def test_coerce_to_numpy():
     deallocating...
     """
     #
-    ### First set up some C arrays that will be used to hold data
+    # ## First set up some C arrays that will be used to hold data
     #
     let MyStruct[20] mystructs
     let SmallStruct[20] smallstructs
@@ -329,7 +329,7 @@ def test_coerce_to_numpy():
     let isize idx = 17
 
     #
-    ### Initialize one element in each array
+    # ## Initialize one element in each array
     #
     mystructs[idx] = {
         'a': 'a',
@@ -370,7 +370,7 @@ def test_coerce_to_numpy():
     h_ushorts[idx] = 44
 
     #
-    ### Create a NumPy array and see if our element can be correctly retrieved
+    # ## Create a NumPy array and see if our element can be correctly retrieved
     #
     mystruct_array = build_numarray(<MyStruct[:4, :5]> <MyStruct *> mystructs)
     print [int(x) for x in mystruct_array[3, 2]]
@@ -574,7 +574,7 @@ def test_struct_attributes():
     print chr(array[0]['attrib3']['c'][0][0])
 
 #
-### Test for NULL strides (C contiguous buffers)
+# ## Test for NULL strides (C contiguous buffers)
 #
 fn getbuffer(Buffer self, Py_buffer *info):
     info.buf = &self.m[0, 0]

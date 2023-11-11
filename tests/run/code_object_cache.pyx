@@ -3,7 +3,7 @@
 
 # test the code object cache that is being used in exception raising
 
-### low level tests
+# ## low level tests
 
 use cython
 
@@ -58,7 +58,7 @@ def test_lowlevel_bisect6(*indices):
     return [ __pyx_bisect_code_objects(cache, 6, i)
              for i in indices ]
 
-### Python level tests
+# ## Python level tests
 
 import sys
 

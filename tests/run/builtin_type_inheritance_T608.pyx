@@ -61,14 +61,14 @@ cdef class MyListOverride(list):
     def _reverse(self):
         self.reverse()
 
-    ## FIXME: this doesn't currently work:
+    # # FIXME: this doesn't currently work:
 
-    ## cdef int append(self, value) except -1:
-    ##     self[:] = self + [0] + [value]
-    ##     return 0
+    # # cdef int append(self, value) except -1:
+    # #     self[:] = self + [0] + [value]
+    # #     return 0
 
-    ## def _append(self, value):
-    ##     self.append(value)
+    # # def _append(self, value):
+    # #     self.append(value)
 
 cdef class MyDict(dict):
     """

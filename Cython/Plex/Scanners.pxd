@@ -39,7 +39,7 @@ cdef class Scanner:
 
     fn inline tuple scan_a_token(self)
 
-    ##cdef tuple position(self)  # used frequently by Parsing.py
+    # #cdef tuple position(self)  # used frequently by Parsing.py
 
     #[cython.final]
     #[cython.locals(cur_pos=isize, cur_line=isize, cur_line_start=isize,

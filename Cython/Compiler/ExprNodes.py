@@ -4976,7 +4976,7 @@ class MemoryViewIndexNode(BufferIndexNode):
                 error(index.pos, "Invalid index for memoryview specified, type %s" % index.type)
                 return self
 
-        ### FIXME: replace by MemoryViewSliceNode if is_memview_slice ?
+        # ## FIXME: replace by MemoryViewSliceNode if is_memview_slice ?
         self.is_memview_index = self.is_memview_index and not self.is_memview_slice
         self.indices = new_indices
         # All indices with all start/stop/step for slices.
@@ -5025,7 +5025,7 @@ class MemoryViewSliceNode(MemoryViewIndexNode):
 
     def analyse_ellipsis_noop(self, env, getting):
         """Slicing operations needing no evaluation, i.e. m[...] or m[:, :]"""
-        ### FIXME: replace directly
+        # ## FIXME: replace directly
         self.is_ellipsis_noop = all(
             index.is_slice and index.start.is_none and index.stop.is_none and index.step.is_none
             for index in self.indices)
@@ -7520,7 +7520,7 @@ class AttributeNode(ExprNode):
         if self.entry and self.entry.is_cmethod and not self.is_called:
 #            error(self.pos, "C method can only be called")
             pass
-        ## Reference to C array turns into pointer to first element.
+        # # Reference to C array turns into pointer to first element.
         #while self.type.is_array:
         #    self.type = self.type.element_ptr_type()
         if self.is_py_attr:

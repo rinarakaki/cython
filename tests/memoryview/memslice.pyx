@@ -1354,7 +1354,7 @@ def buffer_nogil():
     return buf[1], buf2[1]
 
 #
-### Test cdef functions
+# ## Test cdef functions
 #
 class UniqueObject(object):
     def __init__(self, value):
@@ -2368,7 +2368,7 @@ def test_dtype_object_scalar_assignment():
     assert m[0] == m[4] == m[-1] == 3
 
 #
-### Test slices that are set to None
+# ## Test slices that are set to None
 #
 
 # for none memoryview slice attribute testing, slicing, indexing, etc, see

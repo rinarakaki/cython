@@ -1,12 +1,12 @@
 
 use cython
 
-## def range_tuple_genexp(i32 N):
-##     """
-##     >>> range_tuple_genexp(5)
-##     (0, 1, 2, 3, 4)
-##     """
-##     return tuple(i for i in 0..N)
+# # def range_tuple_genexp(i32 N):
+# #     """
+# #     >>> range_tuple_genexp(5)
+# #     (0, 1, 2, 3, 4)
+# #     """
+# #     return tuple(i for i in 0..N)
 
 
 @cython.test_assert_path_exists('//ForFromStatNode',

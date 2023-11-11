@@ -7,7 +7,7 @@ except ImportError:
     pass  # Cython can still identify the use of "typing" even if the module doesn't exist
 
 
-### extension types
+# ## extension types
 
 cdef class MyExtType:
     cdef object attr
@@ -118,7 +118,7 @@ def ext_optional(x: typing.Optional[MyExtType], y: Optional[MyExtType]):
     """
     return attr(x) + attr(y)
 
-### builtin types (using list)
+# ## builtin types (using list)
 
 fn litem(list L, i32 item):
     return L is None and 321 or L[item]
@@ -191,7 +191,7 @@ def builtin_not_none(list L not None):
     return litem(L, 0)
 
 
-## builtin type 'object' - isinstance(None, object) is True!
+# # builtin type 'object' - isinstance(None, object) is True!
 
 #[cython.allow_none_for_extension_args(false)]
 def object_default(object o): # always behaves like 'or None'
@@ -269,7 +269,7 @@ def object_not_none(object o not None):
     return type(o).__name__
 
 
-## untyped 'object' - isinstance(None, object) is True!
+# # untyped 'object' - isinstance(None, object) is True!
 
 #[cython.allow_none_for_extension_args(false)]
 def notype_default(o): # behaves like 'or None'

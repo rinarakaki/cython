@@ -26,7 +26,7 @@ extern from "Python.h":
 include "../buffers/mockbuffers.pxi"
 
 #
-### Test for some coercions
+# ## Test for some coercions
 #
 def init_obj():
     return 3
@@ -1136,7 +1136,7 @@ def min_max_tree_restructuring():
 @cython.test_assert_path_exists(
     '//MemoryViewIndexNode',
 )
-##[cython.boundscheck(false)]  # reduce C code clutter
+# #[cython.boundscheck(false)]  # reduce C code clutter
 def optimised_index_of_slice(i32[:, :, :] arr, i32 x, i32 y, i32 z):
     """
     >>> arr = IntMockBuffer("A", list(0..(10 * 10 * 10)), shape=(10, 10, 10))

@@ -1818,7 +1818,7 @@ class ModuleScope(Scope):
         # Generate typeobj_cname
         if visibility != 'extern' and not type.typeobj_cname:
             type.typeobj_cname = self.mangle(Naming.typeobj_prefix, name)
-        ## Generate typeptr_cname
+        # # Generate typeptr_cname
         #type.typeptr_cname = self.mangle(Naming.typeptr_prefix, name)
         # Check C methods defined
         if type.scope:

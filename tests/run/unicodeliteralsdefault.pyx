@@ -1,7 +1,7 @@
-## keep two lines free to make sure PEP 263 does not apply
-##
+# # keep two lines free to make sure PEP 263 does not apply
+# #
 
-##
+# #
 
 # This file is written in UTF-8, but it has no encoding declaration,
 # so it just defaults to UTF-8 (PEP 3120).

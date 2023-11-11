@@ -555,9 +555,9 @@ def check_definitions(flow, compiler_directives):
                 references[stat.node] = stat.entry
                 stat.entry.cf_references.append(stat)
                 stat.node.cf_state.update(state)
-                ## if not stat.node.allow_null:
-                ##     i_state &= ~i_assmts.bit
-                ## # after successful read, the state is known to be initialised
+                # # if not stat.node.allow_null:
+                # #     i_state &= ~i_assmts.bit
+                # # # after successful read, the state is known to be initialised
                 state.discard(Uninitialized)
                 state.discard(Unknown)
                 for assmt in state:
@@ -1190,8 +1190,8 @@ class ControlFlowAnalysis(CythonTransform):
         entry_point = self.flow.newblock()
         self.flow.exceptions.append(ExceptionDescr(entry_point))
         self.flow.nextblock()
-        ## XXX: links to exception handling point should be added by
-        ## XXX: children nodes
+        # # XXX: links to exception handling point should be added by
+        # # XXX: children nodes
         self.flow.block.add_child(entry_point)
         self.flow.nextblock()
         self.flow.in_try_block += 1

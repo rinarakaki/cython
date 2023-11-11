@@ -1,6 +1,6 @@
 # TODO: Figure out how many of the pass-by-value copies the compiler can eliminate.
 
-#################### string.from_py ####################
+# ################## string.from_py ####################
 
 extern from *:
     cdef cppclass string "{{type}}":
@@ -14,7 +14,7 @@ fn string {{cname}}(object o) except *:
     let const char* data = __Pyx_PyObject_AsStringAndSize(o, &length)
     return string(data, length)
 
-#################### string.to_py ####################
+# ################## string.to_py ####################
 
 # use cython
 # use libcpp::string::string
@@ -32,7 +32,7 @@ fn inline object {{cname.replace("PyObject", py_type, 1)}}(const string& s):
     return __Pyx_{{py_type}}_FromStringAndSize(s.data(), s.size())
 {{endfor}}
 
-#################### vector.from_py ####################
+# ################## vector.from_py ####################
 
 extern from *:
     cdef cppclass vector "std::vector" [T]:
@@ -45,7 +45,7 @@ fn vector[X] {{cname}}(object o) except *:
         v.push_back(<X>item)
     return v
 
-#################### vector.to_py ####################
+# ################## vector.to_py ####################
 
 extern from *:
     cdef cppclass vector "std::vector" [T]:
@@ -76,7 +76,7 @@ fn object {{cname}}(const vector[X]& v):
 
     return o
 
-#################### list.from_py ####################
+# ################## list.from_py ####################
 
 extern from *:
     cdef cppclass cpp_list "std::list" [T]:
@@ -89,7 +89,7 @@ fn cpp_list[X] {{cname}}(object o) except *:
         l.push_back(<X>item)
     return l
 
-#################### list.to_py ####################
+# ################## list.to_py ####################
 
 use cython
 
@@ -129,7 +129,7 @@ fn object {{cname}}(const cpp_list[X]& v):
 
     return o
 
-#################### set.from_py ####################
+# ################## set.from_py ####################
 
 extern from *:
     cdef cppclass set "std::{{maybe_unordered}}set" [T]:
@@ -142,7 +142,7 @@ fn set[X] {{cname}}(object o) except *:
         s.insert(<X>item)
     return s
 
-#################### set.to_py ####################
+# ################## set.to_py ####################
 
 use cython
 
@@ -159,7 +159,7 @@ extern from *:
 fn object {{cname}}(const cpp_set[X]& s):
     return {v for v in s}
 
-#################### pair.from_py ####################
+# ################## pair.from_py ####################
 
 extern from *:
     cdef cppclass pair "std::pair" [T, U]:
@@ -171,7 +171,7 @@ fn pair[X, Y] {{cname}}(object o) except *:
     x, y = o
     return pair[X, Y](<X>x, <Y>y)
 
-#################### pair.to_py ####################
+# ################## pair.to_py ####################
 
 extern from *:
     cdef cppclass pair "std::pair" [T, U]:
@@ -182,7 +182,7 @@ extern from *:
 fn object {{cname}}(const pair[X, Y]& p):
     return p.first, p.second
 
-#################### map.from_py ####################
+# ################## map.from_py ####################
 
 extern from *:
     cdef cppclass pair "std::pair" [T, U]:
@@ -199,7 +199,7 @@ fn map[X, Y] {{cname}}(object o) except *:
         m.insert(pair[X, Y](<X>key, <Y>value))
     return m
 
-#################### map.to_py ####################
+# ################## map.to_py ####################
 
 # TODO: Work out const so that this can take a const
 # reference rather than pass by value.
@@ -229,7 +229,7 @@ fn object {{cname}}(const map[X, Y]& s):
         cython.operator.preincrement(iter)
     return o
 
-#################### complex.from_py ####################
+# ################## complex.from_py ####################
 
 extern from *:
     cdef cppclass std_complex "std::complex" [T]:
@@ -241,7 +241,7 @@ fn std_complex[X] {{cname}}(object o) except *:
     cdef double complex z = o
     return std_complex[X](<X>z.real, <X>z.imag)
 
-#################### complex.to_py ####################
+# ################## complex.to_py ####################
 
 extern from *:
     cdef cppclass std_complex "std::complex" [T]:

@@ -28,7 +28,7 @@ def test_unique_ptr():
     assert alloc_count == 1
     assert dealloc_count == 1
 
-    ##Repeat the above test with an explicit default_delete type
+    # #Repeat the above test with an explicit default_delete type
     alloc_count = 0
     dealloc_count = 0
     let unique_ptr[CountAllocDealloc,default_delete[CountAllocDealloc]] x_ptr2

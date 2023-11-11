@@ -1047,7 +1047,7 @@ class TestCase(unittest.TestCase):
         self.assertTrue(c.b_called)
         self.assertTrue(c.c_called)
 
-        ######################################
+        # ####################################
         # Now, the same thing, except A1 defines __post_init__.
         @dataclass
         class A1:
@@ -3872,19 +3872,19 @@ class TestReplace(unittest.TestCase):
         self.assertEqual(repr(c), "TestReplace.test_recursive_repr_misc_attrs"
                                   ".<locals>.C(f=..., g=1)")
 
-    ## def test_initvar(self):
-    ##     @dataclass
-    ##     class C:
-    ##         x: int
-    ##         y: InitVar[int]
+    # # def test_initvar(self):
+    # #     @dataclass
+    # #     class C:
+    # #         x: int
+    # #         y: InitVar[int]
 
-    ##     c = C(1, 10)
-    ##     d = C(2, 20)
+    # #     c = C(1, 10)
+    # #     d = C(2, 20)
 
-    ##     # In our case, replacing an InitVar is a no-op
-    ##     self.assertEqual(c, replace(c, y=5))
+    # #     # In our case, replacing an InitVar is a no-op
+    # #     self.assertEqual(c, replace(c, y=5))
 
-    ##     replace(c, x=5)
+    # #     replace(c, x=5)
 
 class TestAbstract(unittest.TestCase):
     def test_abc_implementation(self):
@@ -4007,7 +4007,7 @@ class TestKeywordArgs(unittest.TestCase):
                 a: ClassVar[int] = field(kw_only=False)
 
     def test_field_marked_as_kwonly(self):
-        #######################
+        # #####################
         # Using dataclass(kw_only=True)
         @dataclass(kw_only=True)
         class A:
@@ -4024,7 +4024,7 @@ class TestKeywordArgs(unittest.TestCase):
             a: int = field(kw_only=False)
         self.assertFalse(fields(A)[0].kw_only)
 
-        #######################
+        # #####################
         # Using dataclass(kw_only=False)
         @dataclass(kw_only=False)
         class A:
@@ -4041,7 +4041,7 @@ class TestKeywordArgs(unittest.TestCase):
             a: int = field(kw_only=False)
         self.assertFalse(fields(A)[0].kw_only)
 
-        #######################
+        # #####################
         # Not specifying dataclass(kw_only)
         @dataclass
         class A:

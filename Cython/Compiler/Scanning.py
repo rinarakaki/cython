@@ -103,7 +103,7 @@ def initial_compile_time_env():
         'list', 'map', 'max', 'min', 'oct', 'ord', 'pow', 'range',
         'repr', 'reversed', 'round', 'set', 'slice', 'sorted', 'str',
         'sum', 'tuple', 'zip',
-        ### defined below in a platform independent way
+        # ## defined below in a platform independent way
         # 'long', 'unicode', 'reduce', 'xrange'
     )
 

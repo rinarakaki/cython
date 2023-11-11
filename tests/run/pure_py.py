@@ -89,18 +89,18 @@ def test_boundscheck(x):
         return x[2]
 
 
-## CURRENTLY BROKEN - FIXME!!
-## Is this test make sense? Implicit conversion in pure Python??
+# # CURRENTLY BROKEN - FIXME!!
+# # Is this test make sense? Implicit conversion in pure Python??
 
-## @cython.locals(x=cython.int)
-## @cython.locals(y=cython.bint)
-## def test_locals(x):
-##     """
-##     >>> test_locals(5)
-##     True
-##     """
-##     y = x
-##     return y
+# # @cython.locals(x=cython.int)
+# # @cython.locals(y=cython.bint)
+# # def test_locals(x):
+# #     """
+# #     >>> test_locals(5)
+# #     True
+# #     """
+# #     y = x
+# #     return y
 
 
 def test_with_nogil(nogil, should_raise=False):
@@ -171,7 +171,7 @@ def test_imports():
 
     return a == d, compiled == my_compiled
 
-## CURRENTLY BROKEN - FIXME!!
+# # CURRENTLY BROKEN - FIXME!!
 
 # MyStruct3 = typedef(MyStruct[3])
 # MyStruct4 = my_typedef(MyStruct[4])

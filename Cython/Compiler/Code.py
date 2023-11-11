@@ -65,12 +65,12 @@ basicsize_builtins_map = {
 uncachable_builtins = [
     # Global/builtin names that cannot be cached because they may or may not
     # be available at import time, for various reasons:
-    ## - Py3.7+
+    # # - Py3.7+
     'breakpoint',  # might deserve an implementation in Cython
-    ## - Py3.4+
+    # # - Py3.4+
     '__loader__',
     '__spec__',
-    ## - Py3+
+    # # - Py3+
     'BlockingIOError',
     'BrokenPipeError',
     'ChildProcessError',
@@ -93,9 +93,9 @@ uncachable_builtins = [
     '__build_class__',
     'ascii',  # might deserve an implementation in Cython
     #'exec',  # implemented in Cython
-    ## - platform specific
+    # # - platform specific
     'WindowsError',
-    ## - others
+    # # - others
     '_',  # e.g. used by gettext
 ]
 
@@ -222,21 +222,21 @@ class UtilityCodeBase(object):
 
     Code sections in the file can be specified as follows:
 
-        ##### MyUtility.proto #####
+        # ### MyUtility.proto #####
 
         [proto declarations]
 
-        ##### MyUtility.init #####
+        # ### MyUtility.init #####
 
         [code run at module initialization]
 
-        ##### MyUtility #####
+        # ### MyUtility #####
         #@requires: MyOtherUtility
         #@substitute: naming
 
         [definitions]
 
-        ##### MyUtility #####
+        # ### MyUtility #####
         #@substitute: tempita
 
         [requires tempita substitution

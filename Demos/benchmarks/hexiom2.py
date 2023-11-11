@@ -12,7 +12,7 @@ from io import StringIO
 
 import cython
 
-##################################
+# ################################
 class Dir(object):
     def __init__(self, x, y):
         self.x = x
@@ -27,7 +27,7 @@ DIRS = [ Dir(1, 0),
 
 EMPTY = 7
 
-##################################
+# ################################
 class Done(object):
     MIN_CHOICE_STRATEGY = 0
     MAX_CHOICE_STRATEGY = 1
@@ -162,14 +162,14 @@ class Done(object):
         else:
             raise Exception("Wrong strategy: %d" % strategy)
 
-##################################
+# ################################
 class Node(object):
     def __init__(self, pos, id, links):
         self.pos = pos
         self.id = id
         self.links = links
 
-##################################
+# ################################
 class Hex(object):
     @cython.locals(size=cython.int, id=cython.int, x=cython.int, y=cython.int)
     def __init__(self, size):
@@ -214,7 +214,7 @@ class Hex(object):
         return self.nodes_by_id[id]
 
 
-##################################
+# ################################
 class Pos(object):
     def __init__(self, hex, tiles, done = None):
         self.hex = hex
@@ -224,7 +224,7 @@ class Pos(object):
     def clone(self):
         return Pos(self.hex, self.tiles, self.done.clone())
 
-##################################
+# ################################
 
 @cython.locals(pos=Pos, i=cython.long, v=cython.int,
                nid=cython.int, num=cython.int,

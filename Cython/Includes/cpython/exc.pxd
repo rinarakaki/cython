@@ -1,9 +1,9 @@
 use super::object::PyObject
 
 extern from "Python.h":
-    #####################################################################
+    # ###################################################################
     # 3. Exception Handling
-    #####################################################################
+    # ###################################################################
 
     # The functions described in this chapter will let you handle and
     # raise Python exceptions. It is important to understand some of

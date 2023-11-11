@@ -233,7 +233,7 @@ def test_with_for():
         assert sys.getrefcount(manager) == mrefs_before
         assert sys.getrefcount(iterable) == irefs_before
 
-    ##############
+    # ############
 
     async def main():
         nonlocal I
@@ -251,7 +251,7 @@ def test_with_for():
     run_async(main())
     print(I[0])
 
-    ##############
+    # ############
 
     async def main():
         async with Manager(I):

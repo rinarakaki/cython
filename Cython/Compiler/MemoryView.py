@@ -790,7 +790,7 @@ def _resolve_AttributeNode(env, node):
     return entry
 
 #
-### Utility loading
+# ## Utility loading
 #
 
 def load_memview_cy_utility(util_code_name, context=None, **kwargs):

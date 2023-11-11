@@ -25,10 +25,10 @@ extern from "<iterator>" namespace "std" nogil:
         pass
     fn back_insert_iterator[CONTAINER] back_inserter[CONTAINER](CONTAINER &)
     fn front_insert_iterator[CONTAINER] front_inserter[CONTAINER](CONTAINER &)
-    ##Note: this is the C++98 version of inserter.
-    ##The C++11 versions's prototype relies on typedef members of classes, which Cython doesn't currently support:
-    ##template <class Container>
-    ##insert_iterator<Container> inserter (Container& x, typename Container::iterator it)
+    # #Note: this is the C++98 version of inserter.
+    # #The C++11 versions's prototype relies on typedef members of classes, which Cython doesn't currently support:
+    # #template <class Container>
+    # #insert_iterator<Container> inserter (Container& x, typename Container::iterator it)
     fn insert_iterator[CONTAINER] inserter[CONTAINER,ITERATOR](CONTAINER &, ITERATOR)
 
     fn ptrdiff_t distance[It](It first, It last)

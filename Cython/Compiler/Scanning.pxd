@@ -9,15 +9,15 @@ cdef unicode any_string_prefix, IDENT
 fn get_lexicon()
 fn initial_compile_time_env()
 
-## methods commented with '##' out are used by Parsing.py when compiled.
+# # methods commented with '##' out are used by Parsing.py when compiled.
 
 #[cython.final]
 cdef class CompileTimeScope:
     pub dict entries
     pub CompileTimeScope outer
-    ##cdef declare(self, name, value)
-    ##cdef lookup_here(self, name)
-    ##cpdef lookup(self, name)
+    # #cdef declare(self, name, value)
+    # #cdef lookup_here(self, name)
+    # #cpdef lookup(self, name)
 
 #[cython.final]
 cdef class PyrexScanner(Scanner):
@@ -51,15 +51,15 @@ cdef class PyrexScanner(Scanner):
     cpdef indentation_action(self, text)
 
     #cpdef eof_action(self, text)
-    ##cdef next(self)
-    ##cdef peek(self)
+    # #cdef next(self)
+    # #cdef peek(self)
     #cpdef put_back(self, sy, systring)
-    ##cdef u2 expect(self, what, message = *) except -2
-    ##cdef expect_keyword(self, what, message = *)
-    ##cdef expected(self, what, message = *)
-    ##cdef expect_indent(self)
-    ##cdef expect_dedent(self)
-    ##cdef expect_newline(self, message=*, u2 ignore_semicolon=*)
-    ##cdef int enter_async(self) except -1
-    ##cdef int exit_async(self) except -1
+    # #cdef u2 expect(self, what, message = *) except -2
+    # #cdef expect_keyword(self, what, message = *)
+    # #cdef expected(self, what, message = *)
+    # #cdef expect_indent(self)
+    # #cdef expect_dedent(self)
+    # #cdef expect_newline(self, message=*, u2 ignore_semicolon=*)
+    # #cdef int enter_async(self) except -1
+    # #cdef int exit_async(self) except -1
     fn void error_at_scanpos(self, str message) except *

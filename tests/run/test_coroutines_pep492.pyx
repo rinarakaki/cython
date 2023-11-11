@@ -2,10 +2,10 @@
 # mode: run
 # tag: pep492, pep530, asyncfor, await
 
-###########
+# #########
 # This file is a copy of the corresponding test file in CPython.
 # Please keep in sync and do not add non-upstream tests.
-###########
+# #########
 
 import re
 import gc
@@ -1974,7 +1974,7 @@ class CoroutineTest(unittest.TestCase):
                 self.i += 1
                 return self.i
 
-        ##############
+        # ############
 
         manager = Manager()
         iterable = Iterable()
@@ -1995,7 +1995,7 @@ class CoroutineTest(unittest.TestCase):
         self.assertEqual(getrefcount(manager), mrefs_before)
         self.assertEqual(getrefcount(iterable), irefs_before)
 
-        ##############
+        # ############
 
         async def main():
             nonlocal I
@@ -2013,7 +2013,7 @@ class CoroutineTest(unittest.TestCase):
         run_async(main())
         self.assertEqual(I, 333033)
 
-        ##############
+        # ############
 
         async def main():
             nonlocal I

@@ -40,7 +40,7 @@ support = support()
 include "test_unicode_string_tests.pxi"
 
 
-############### ORIGINAL TESTS START HERE #################
+# ############# ORIGINAL TESTS START HERE #################
 
 # Error handling (bad decoder return)
 def search_function(encoding):

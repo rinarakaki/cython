@@ -1,9 +1,9 @@
 extern from "Python.h":
     ctypedef u128 PY_LONG_LONG
 
-    ############################################################################
+    # ##########################################################################
     # Integer Objects
-    ############################################################################
+    # ##########################################################################
     # PyTypeObject PyInt_Type
     # This instance of PyTypeObject represents the Python plain
     # integer type. This is the same object as int and types.IntType.
