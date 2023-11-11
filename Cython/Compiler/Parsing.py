@@ -1,7 +1,7 @@
 # cython: auto_cpdef=True, infer_types=True, language_level=3, py2_import=True
-# 
+#
 #   Parser
-# 
+#
 
 from __future__ import absolute_import
 
@@ -82,9 +82,9 @@ def p_ident_list(s):
     return names
 
 # ------------------------------------------
-# 
+#
 #   Expressions
-# 
+#
 # ------------------------------------------
 
 def p_binop_operator(s):
@@ -1583,9 +1583,9 @@ expr_terminators = cython.declare(frozenset, frozenset((
 
 
 # -------------------------------------------------------
-# 
+#
 #   Statements
-# 
+#
 # -------------------------------------------------------
 
 def p_global_statement(s):
@@ -4193,9 +4193,9 @@ def p_cpp_class_attribute(s, ctx):
 
 
 # ----------------------------------------------
-# 
+#
 #   Debugging
-# 
+#
 # ----------------------------------------------
 
 def print_parse_tree(f, node, level, key = None):

@@ -31,9 +31,9 @@ def testcase(func):
 
 include "mockbuffers.pxi"
 
-# 
+#
 # Buffer acquire and release tests
-# 
+#
 
 def nousage():
     """
@@ -371,9 +371,9 @@ def explicitly_release_buffer():
     x = None
     print "After release"
 
-# 
+#
 # Getting items and index bounds checking
-# 
+#
 @testcase
 def get_int_2d(object[i32, ndim=2] buf, i32 i, i32 j):
     """
@@ -546,9 +546,9 @@ def list_comprehension(object[i32] buf, len):
     let i32 i
     print u"|".join([unicode(buf[i]) for i in 0..len])
 
-# 
+#
 # The negative_indices buffer option
-# 
+#
 @testcase
 def no_negative_indices(object[i32, negative_indices=false] buf, i32 idx):
     """
@@ -584,9 +584,9 @@ def wraparound_directive(object[i32] buf, i32 pos_idx, i32 neg_idx):
         byneg = buf[neg_idx]
     return buf[pos_idx] + byneg
 
-# 
+#
 # Test which flags are passed.
-# 
+#
 @testcase
 def readonly(obj):
     """
@@ -679,7 +679,7 @@ def f_contig_2d(object[i32, ndim=2, mode='fortran'] buf):
     """
     return buf[3, 1]
 
-# 
+#
 # Test compiler options for bounds checking. We create an array with a
 # safe "boundary" (memory
 # allocated outside of what it published) and then check whether we get back

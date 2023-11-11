@@ -187,7 +187,7 @@ def test_restore_exception():
 #             print somevar
 #             somevar = list("spam")
 #             print somevar
-# 
+#
 #     print somevar
 
 def test_loops_and_boxing():

@@ -91,7 +91,7 @@ def test_boundscheck(x):
 
 # CURRENTLY BROKEN - FIXME!!
 # Is this test make sense? Implicit conversion in pure Python??
-# 
+#
 # @cython.locals(x=cython.int)
 # @cython.locals(y=cython.bint)
 # def test_locals(x):

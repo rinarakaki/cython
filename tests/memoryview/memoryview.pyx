@@ -565,13 +565,13 @@ def generic(i32[:;view.generic, :;view.generic] mslice1,
 #    released B
 #    """
 #    buf1, buf2 = mslice1, mslice2
-# 
+#
 #    print buf1[1, 1]
 #    print buf2[1, 1]
-# 
+#
 #    buf1[2, -1] = 10
 #    buf2[2, -1] = 11
-# 
+#
 #    print buf1[2, 2]
 #    print buf2[2, 2]
 

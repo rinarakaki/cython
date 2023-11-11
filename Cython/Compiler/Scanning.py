@@ -1,7 +1,7 @@
 # cython: infer_types=true, language_level=3, auto_pickle=false
-# 
+#
 #   Cython Scanner
-# 
+#
 
 from __future__ import absolute_import
 

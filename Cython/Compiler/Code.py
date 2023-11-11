@@ -222,21 +222,21 @@ class UtilityCodeBase(object):
 
     Code sections in the file can be specified as follows:
 
-        #### MyUtility.proto #####
+        ##### MyUtility.proto #####
 
         [proto declarations]
 
-        #### MyUtility.init #####
+        ##### MyUtility.init #####
 
         [code run at module initialization]
 
-        #### MyUtility #####
+        ##### MyUtility #####
         #@requires: MyOtherUtility
         #@substitute: naming
 
         [definitions]
 
-        #### MyUtility #####
+        ##### MyUtility #####
         #@substitute: tempita
 
         [requires tempita substitution
