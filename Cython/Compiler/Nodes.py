@@ -10343,11 +10343,11 @@ class CnameDecoratorNode(StatNode):
         self.node.generate_execution_code(code)
 
 
-^# -----------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------
 #
 #  Runtime support code
 #
-^# -----------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------
 
 if Options.gcc_branch_hints:
     branch_prediction_macros = """
@@ -10367,12 +10367,12 @@ else:
 #define unlikely(x) (x)
 """
 
-^# -----------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------
 
 printing_utility_code = UtilityCode.load_cached("Print", "Printing.c")
 printing_one_utility_code = UtilityCode.load_cached("PrintOne", "Printing.c")
 
-^# -----------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------
 
 # Exception raising code
 #
@@ -10388,7 +10388,7 @@ swap_exception_utility_code = UtilityCode.load_cached("SwapException", "Exceptio
 reset_exception_utility_code = UtilityCode.load_cached("SaveResetException", "Exceptions.c")
 traceback_utility_code = UtilityCode.load_cached("AddTraceback", "Exceptions.c")
 
-^# -----------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------
 
 get_exception_tuple_utility_code = UtilityCode(
     proto="""

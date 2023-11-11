@@ -745,11 +745,11 @@ class DictOffsetSlot(SlotDescriptor):
 #    "tp_free",
 #)
 
-^# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
 #
 #  Utility functions for accessing slot table data structures
 #
-^# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
 
 
 def get_property_accessor_signature(name):
@@ -811,30 +811,30 @@ def is_reverse_number_slot(name):
     return False
 
 
-^# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
 #
 #  Signatures for generic Python functions and methods.
 #
-^# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
 
 pyfunction_signature = Signature("-*", "O")
 pymethod_signature = Signature("T*", "O")
 
-^# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
 #
 #  Signatures for simple Python functions.
 #
-^# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
 
 pyfunction_noargs = Signature("-", "O")
 pyfunction_onearg = Signature("-O", "O")
 
-^# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
 #
 #  Signatures for the various kinds of function that
 #  can appear in the type object and its substructures.
 #
-^# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
 
 unaryfunc = Signature("T", "O")            # typedef PyObject * (*unaryfunc)(PyObject *);
 binaryfunc = Signature("OO", "O")          # typedef PyObject * (*binaryfunc)(PyObject *, PyObject *);
@@ -891,11 +891,11 @@ getbufferproc = Signature("TBi", "r")      # typedef int (*getbufferproc)(PyObje
 releasebufferproc = Signature("TB", "v")   # typedef void (*releasebufferproc)(PyObject *, Py_buffer *);
 
 
-^# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
 #
 #  Signatures for accessor methods of properties.
 #
-^# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
 
 property_accessor_signatures = {
     '__get__': Signature("T", "O"),
@@ -906,7 +906,7 @@ property_accessor_signatures = {
 
 PyNumberMethods_Py2only_GUARD = "PY_MAJOR_VERSION < 3 || (CYTHON_COMPILING_IN_PYPY && PY_VERSION_HEX < 0x03050000)"
 
-^# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
 #
 #  The main slot table. This table contains descriptors for all the
 #  top-level type slots, beginning with tp_dealloc, in the order they
@@ -916,7 +916,7 @@ PyNumberMethods_Py2only_GUARD = "PY_MAJOR_VERSION < 3 || (CYTHON_COMPILING_IN_PY
 # slot tables for each set of compiler directives are generated lazily and put in
 # the _slot_table_dict
 #
-^# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
 
 class SlotTable(object):
     def __init__(self, old_binops):
