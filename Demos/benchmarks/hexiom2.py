@@ -301,7 +301,7 @@ def constraint_pass(pos, last_move=None):
                         if EMPTY in done[u]:
                             done.set_done(u, EMPTY)
                             changed = True
-                        #else:
+                        # else:
                         #    raise Exception("Houston, we've got a problem")
                 elif num == filled + len(unknown):
                     for u in unknown:
@@ -420,11 +420,11 @@ def solve_step(prev, strategy, order, output, first=False):
         return solved(pos, output)
     else:
         for move in moves:
-            #print("Trying (%d, %d)" % (move[0], move[1]))
+            # print("Trying (%d, %d)" % (move[0], move[1]))
             ret = OPEN
             new_pos = pos.clone()
             play_move(new_pos, move)
-            #print_pos(new_pos)
+            # print_pos(new_pos)
             while constraint_pass(new_pos, move[0]):
                 pass
             cur_status = solved(new_pos, output)

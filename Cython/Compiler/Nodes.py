@@ -1084,7 +1084,7 @@ class CSimpleBaseTypeNode(CBaseTypeNode):
             type = py_object_type
         elif self.name is None:
             if self.is_self_arg and env.is_c_class_scope:
-                #print "CSimpleBaseTypeNode.analyse: defaulting to parent type" ###
+                # print "CSimpleBaseTypeNode.analyse: defaulting to parent type" ###
                 type = env.parent_type
             ## elif self.is_type_arg and env.is_c_class_scope:
             ##     type = Builtin.type_type
@@ -2218,9 +2218,9 @@ class FuncDefNode(StatNode, BlockNode):
         return_type = self.return_type
         if not self.body.is_terminator:
             if return_type.is_pyobject:
-                #if return_type.is_extension_type:
+                # if return_type.is_extension_type:
                 #    lhs = "(PyObject *)%s" % Naming.retval_cname
-                #else:
+                # else:
                 lhs = Naming.retval_cname
                 assure_gil('success')
                 code.put_init_to_py_none(lhs, return_type)
@@ -2244,7 +2244,7 @@ class FuncDefNode(StatNode, BlockNode):
             # Clean up buffers -- this calls a Python function
             # so need to save and restore error state
             buffers_present = len(used_buffer_entries) > 0
-            #memslice_entries = [e for e in lenv.entries.values() if e.type.is_memoryviewslice]
+            # memslice_entries = [e for e in lenv.entries.values() if e.type.is_memoryviewslice]
             if buffers_present:
                 code.globalstate.use_utility_code(restore_exception_utility_code)
                 code.putln("{ PyObject *__pyx_type, *__pyx_value, *__pyx_tb;")
@@ -2254,7 +2254,7 @@ class FuncDefNode(StatNode, BlockNode):
                 code.putln("__Pyx_ErrFetch(&__pyx_type, &__pyx_value, &__pyx_tb);")
                 for entry in used_buffer_entries:
                     Buffer.put_release_buffer_code(code, entry)
-                    #code.putln("%s = 0;" % entry.cname)
+                    # code.putln("%s = 0;" % entry.cname)
                 code.putln("__Pyx_ErrRestore(__pyx_type, __pyx_value, __pyx_tb);}")
 
             if return_type.is_memoryviewslice:
@@ -3240,7 +3240,7 @@ class DefNode(FuncDefNode):
                 if has_np_pythran(env) and base_type.is_pythran_expr:
                     base_type = PyrexTypes.FusedType([
                         base_type,
-                        #PyrexTypes.PythranExpr(pythran_type(self.type, "numpy_texpr")),
+                        # PyrexTypes.PythranExpr(pythran_type(self.type, "numpy_texpr")),
                         base_type.org_buffer])
                 name_declarator, type = \
                     arg.declarator.analyse(base_type, env)
@@ -6720,7 +6720,7 @@ class DelStatNode(StatNode):
                 pass  # del ba[i]
             else:
                 error(arg.pos, "Deletion of non-Python, non-C++ object")
-            #arg.release_target_temp(env)
+            # arg.release_target_temp(env)
         return self
 
     def nogil_check(self, env):
@@ -10183,7 +10183,7 @@ class ParallelRangeNode(ParallelStatNode):
                 if entry.type.is_pyobject:
                     error(self.pos, "Python objects cannot be reductions")
                 else:
-                    #code.put(" reduction(%s:%s)" % (op, entry.cname))
+                    # code.put(" reduction(%s:%s)" % (op, entry.cname))
                     # This is the only way reductions + nesting works in gcc4.5
                     reduction_codepoint.put(
                                 " reduction(%s:%s)" % (op, entry.cname))

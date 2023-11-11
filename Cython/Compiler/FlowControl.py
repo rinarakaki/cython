@@ -1313,7 +1313,7 @@ class ControlFlowAnalysis(CythonTransform):
 
     def visit_BreakStatNode(self, node):
         if not self.flow.loops:
-            #error(node.pos, "break statement not inside loop")
+            # error(node.pos, "break statement not inside loop")
             return node
         loop = self.flow.loops[-1]
         self.mark_position(node)
@@ -1330,7 +1330,7 @@ class ControlFlowAnalysis(CythonTransform):
 
     def visit_ContinueStatNode(self, node):
         if not self.flow.loops:
-            #error(node.pos, "continue statement not inside loop")
+            # error(node.pos, "continue statement not inside loop")
             return node
         loop = self.flow.loops[-1]
         self.mark_position(node)

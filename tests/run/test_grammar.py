@@ -915,12 +915,12 @@ class GrammarTests(unittest.TestCase):
             for case in cases:
                 source = case.format(keyword)
                 with self.subTest(source=source):
-                    #with self.assertRaisesRegex(SyntaxError, custom_msg):
+                    # with self.assertRaisesRegex(SyntaxError, custom_msg):
                     with self.assertRaises(SyntaxError):
                         exec(source)
                 source = source.replace("foo", "(foo.)")
                 with self.subTest(source=source):
-                    #with self.assertRaisesRegex(SyntaxError, "invalid syntax"):
+                    # with self.assertRaisesRegex(SyntaxError, "invalid syntax"):
                     with self.assertRaises(SyntaxError):
                         exec(source)
 

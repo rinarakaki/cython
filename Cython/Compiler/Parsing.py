@@ -3571,7 +3571,7 @@ def p_fused_definition(s, pos, ctx):
     types = []
     while s.sy != 'DEDENT':
         if s.sy != 'pass':
-            #types.append(p_c_declarator(s))
+            # types.append(p_c_declarator(s))
             types.append(p_c_base_type(s))  #, nonempty=1))
         else:
             s.next()

@@ -174,7 +174,7 @@ class CythonMagics(Magics):
             # (requires PEP-489 reinitialisation support).
             # Don't know why this should ever have worked as it reads here.
             # All we really need to do is to update the globals below.
-            #reload(module)
+            # reload(module)
         else:
             __import__(module_name)
             module = sys.modules[module_name]

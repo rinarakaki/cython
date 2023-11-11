@@ -769,7 +769,7 @@ class IterationTransform(Visitor.EnvTransform):
                                          constant_result=1),
             operator = '+',
             type = counter_type,
-            #inplace = True,   # not worth using in-place operation for Py ints
+            # inplace = True,   # not worth using in-place operation for Py ints
             is_temp = counter_type.is_pyobject
             )
 

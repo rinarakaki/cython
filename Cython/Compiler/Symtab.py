@@ -905,7 +905,7 @@ class Scope(object):
                         entry.type = type
                 elif not in_pxd and entry.defined_in_pxd and type.compatible_signature_with(entry.type):
                     # TODO: check that this was done by a signature optimisation and not a user error.
-                    #warning(pos, "Function signature does not match previous declaration", 1)
+                    # warning(pos, "Function signature does not match previous declaration", 1)
                     entry.type = type
                 else:
                     error(pos, "Function signature does not match previous declaration")
@@ -1564,13 +1564,13 @@ class ModuleScope(Scope):
 
         entry = self.lookup_here(name)
         if entry and entry.defined_in_pxd:
-            #if visibility != 'private' and visibility != entry.visibility:
+            # if visibility != 'private' and visibility != entry.visibility:
             #    warning(pos, "Variable '%s' previously declared as '%s'" % (name, entry.visibility), 1)
             if not entry.type.same_as(type):
                 if visibility == 'extern' and entry.visibility == 'extern':
                     warning(pos, "Variable '%s' type does not match previous declaration" % name, 1)
                     entry.type = type
-                #else:
+                # else:
                 #    error(pos, "Variable '%s' type does not match previous declaration" % name)
             if entry.visibility != "private":
                 mangled_cname = self.mangle(Naming.var_prefix, name)
@@ -1768,7 +1768,7 @@ class ModuleScope(Scope):
         #  slot names for it.
         type = entry.type
         if type.base_type and type.base_type.vtabslot_cname:
-            #print "...allocating vtabslot_cname because base type has one" ###
+            # print "...allocating vtabslot_cname because base type has one" ###
             type.vtabslot_cname = "%s.%s" % (
                 Naming.obj_base_cname, type.base_type.vtabslot_cname)
         elif type.scope and type.scope.cfunc_entries:
@@ -1785,10 +1785,10 @@ class ModuleScope(Scope):
                     # builtin base type defines all methods => no vtable needed
                     return
                 base_type = base_type.base_type
-            #print "...allocating vtabslot_cname because there are C methods" ###
+            # print "...allocating vtabslot_cname because there are C methods" ###
             type.vtabslot_cname = Naming.vtabslot_cname
         if type.vtabslot_cname:
-            #print "...allocating other vtable related cnames" ###
+            # print "...allocating other vtable related cnames" ###
             type.vtabstruct_cname = self.mangle(Naming.vtabstruct_prefix, entry.name)
             type.vtabptr_cname = self.mangle(Naming.vtabptr_prefix, entry.name)
 
@@ -1828,7 +1828,7 @@ class ModuleScope(Scope):
                         method_entry.name)
         # Allocate vtable name if necessary
         if type.vtabslot_cname:
-            #print "ModuleScope.check_c_classes: allocating vtable cname for", self ###
+            # print "ModuleScope.check_c_classes: allocating vtable cname for", self ###
             type.vtable_cname = self.mangle(Naming.vtable_prefix, entry.name)
 
     def check_c_classes(self):
@@ -2513,7 +2513,7 @@ class CClassScope(ClassScope):
             else:
                 if defining and entry.func_cname:
                     error(pos, "'%s' already defined" % name)
-                #print "CClassScope.declare_cfunction: checking signature" ###
+                # print "CClassScope.declare_cfunction: checking signature" ###
                 if entry.is_final_cmethod and entry.is_inherited:
                     error(pos, "Overriding final methods is not allowed")
                 elif type.same_c_signature_as(entry.type, as_cmethod = 1) and type.nogil == entry.type.nogil:
@@ -2758,10 +2758,10 @@ class CppClassScope(Scope):
         # inherited type, with cnames modified appropriately
         # to work with this type.
         for base_entry in base_scope.inherited_var_entries + base_scope.var_entries:
-            #constructor/destructor is not inherited
+            # constructor/destructor is not inherited
             if base_entry.name in ("<init>", "<del>"):
                 continue
-            #print base_entry.name, self.entries
+            # print base_entry.name, self.entries
             if base_entry.name in self.entries:
                 base_entry.name    # FIXME: is there anything to do in this case?
             entry = self.declare(base_entry.name, base_entry.cname,

@@ -1247,12 +1247,12 @@ class CoroutineTest(unittest.TestCase):
     def test_cr_await(self):
         @types_coroutine
         def a():
-            #self.assertEqual(inspect.getcoroutinestate(coro_b), inspect.CORO_RUNNING)
+            # self.assertEqual(inspect.getcoroutinestate(coro_b), inspect.CORO_RUNNING)
             self.assertIsNone(coro_b.cr_await)
             yield
-            #self.assertEqual(inspect.getcoroutinestate(coro_b), inspect.CORO_RUNNING)
+            # self.assertEqual(inspect.getcoroutinestate(coro_b), inspect.CORO_RUNNING)
             # FIXME: no idea why the following works in CPython:
-            #self.assertIsNone(coro_b.cr_await)
+            # self.assertIsNone(coro_b.cr_await)
 
         async def c():
             await a()
@@ -1728,7 +1728,7 @@ class CoroutineTest(unittest.TestCase):
             run_async(foo())
         except ZeroDivisionError as exc:
             pass  # FIXME!
-            #if sys.version_info[0] >= 3:
+            # if sys.version_info[0] >= 3:
             #    self.assertTrue(exc.__context__ is not None)
             #    self.assertTrue(isinstance(exc.__context__, ZeroDivisionError))
             #    self.assertTrue(isinstance(exc.__context__.__context__, RuntimeError))
@@ -2064,7 +2064,7 @@ class CoroutineTest(unittest.TestCase):
                 CNT += 1
             CNT += 10
         with self.assertRaises(ZeroDivisionError):
-            #run_async(foo())
+            # run_async(foo())
             with warnings.catch_warnings():
                 warnings.simplefilter("error")
                 # Test that if __aiter__ raises an exception it propagates

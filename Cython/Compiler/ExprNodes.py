@@ -520,7 +520,7 @@ class ExprNode(Node):
 
     def result(self):
         if self.is_temp:
-            #if not self.temp_code:
+            # if not self.temp_code:
             #    pos = (os.path.basename(self.pos[0].get_description()),) + self.pos[1:] if self.pos else '(?)'
             #    raise RuntimeError("temp result name not set in %s at %r" % (
             #        self.__class__.__name__, pos))
@@ -2579,10 +2579,10 @@ class NameNode(AtomicExprNode):
                 self.generate_acquire_buffer(rhs, code)
             assigned = False
             if self.type.is_pyobject:
-                #print "NameNode.generate_assignment_code: to", self.name ###
-                #print "...from", rhs ###
-                #print "...LHS type", self.type, "ctype", self.ctype() ###
-                #print "...RHS type", rhs.type, "ctype", rhs.ctype() ###
+                # print "NameNode.generate_assignment_code: to", self.name ###
+                # print "...from", rhs ###
+                # print "...LHS type", self.type, "ctype", self.ctype() ###
+                # print "...RHS type", rhs.type, "ctype", rhs.ctype() ###
                 if self.use_managed_ref:
                     rhs.make_owned_reference(code)
                     is_external_ref = entry.is_cglobal or self.entry.in_closure or self.entry.from_closure
@@ -4016,7 +4016,7 @@ class IndexNode(_IndexingBaseNode):
             elif base_type is bytearray_type:
                 return PyrexTypes.c_uchar_type
             elif isinstance(self.base, BytesNode):
-                #if env.global_scope().context.language_level >= 3:
+                # if env.global_scope().context.language_level >= 3:
                 #    # inferring 'char' can be made to work in Python 3 mode
                 #    return PyrexTypes.c_char_type
                 # Py2/3 return different types on indexing bytes objects
@@ -4958,7 +4958,7 @@ class MemoryViewIndexNode(BufferIndexNode):
                     value = getattr(index, attr)
                     if not value.is_none:
                         value = value.coerce_to(index_type, env)
-                        #value = value.coerce_to_temp(env)
+                        # value = value.coerce_to_temp(env)
                         setattr(index, attr, value)
                         new_indices.append(value)
 
@@ -6304,7 +6304,7 @@ class SimpleCallNode(CallNode):
                     # nogil anyway)
                     pass
                 else:
-                    #self.args[i] = arg.coerce_to_temp(env)
+                    # self.args[i] = arg.coerce_to_temp(env)
                     # instead: issue a warning
                     if i > 0 or i == 1 and self.self is not None:  # skip first arg
                         warning(arg.pos, "Argument evaluation order in C function call is undefined and may not be as expected", 0)
@@ -6495,8 +6495,8 @@ class SimpleCallNode(CallNode):
                 if self.result():
                     lhs = "%s = " % self.result()
                     if self.is_temp and self.type.is_pyobject:
-                        #return_type = self.type # func_type.return_type
-                        #print "SimpleCallNode.generate_result_code: casting", rhs, \
+                        # return_type = self.type # func_type.return_type
+                        # print "SimpleCallNode.generate_result_code: casting", rhs, \
                         #    "from", return_type, "to pyobject" ###
                         rhs = typecast(py_object_type, self.type, rhs)
                 else:
@@ -6730,7 +6730,7 @@ class InlinedDefNodeCallNode(CallNode):
                     # nogil anyway)
                     pass
                 else:
-                    #self.args[i] = arg.coerce_to_temp(env)
+                    # self.args[i] = arg.coerce_to_temp(env)
                     # instead: issue a warning
                     if i > 0:
                         warning(arg.pos, "Argument evaluation order in C function call is undefined and may not be as expected", 0)
@@ -7832,7 +7832,7 @@ class AttributeNode(ExprNode):
                     "%s = %s;" % (
                         select_code,
                         rhs.move_result_rhs_as(self.ctype())))
-                        #rhs.result()))
+                        # rhs.result()))
             rhs.generate_post_assignment_code(code)
             rhs.free_temps(code)
         self.obj.generate_disposal_code(code)
@@ -8097,7 +8097,7 @@ class SequenceNode(ExprNode):
                 # end up in the constant building function.  Temps
                 # currently don't work there.
 
-                #counter = code.funcstate.allocate_temp(mult_factor.type, manage_ref=False)
+                # counter = code.funcstate.allocate_temp(mult_factor.type, manage_ref=False)
                 counter = Naming.quick_temp_cname
                 code.putln('{ Py_ssize_t %s;' % counter)
                 if arg_count == 1:
@@ -8124,7 +8124,7 @@ class SequenceNode(ExprNode):
 
             if c_mult:
                 code.putln('}')
-                #code.funcstate.release_temp(counter)
+                # code.funcstate.release_temp(counter)
                 code.putln('}')
 
         if mult_factor is not None and mult_factor.type.is_pyobject:
@@ -11040,7 +11040,7 @@ class TypecastNode(ExprNode):
             self.operand = self.operand.coerce_to_simple(env)
         elif self.operand.type.is_fused:
             self.operand = self.operand.coerce_to(self.type, env)
-            #self.type = self.operand.type
+            # self.type = self.operand.type
         if self.type.is_ptr and self.type.base_type.is_cfunction and self.type.base_type.nogil:
             op_type = self.operand.type
             if op_type.is_ptr:
@@ -13680,7 +13680,7 @@ class CascadedCmpNode(Node, CmpNode):
 
     def coerce_cascaded_operands_to_temp(self, env):
         if self.cascade:
-            #self.operand2 = self.operand2.coerce_to_temp(env) #CTT
+            # self.operand2 = self.operand2.coerce_to_temp(env) #CTT
             self.operand2 = self.operand2.coerce_to_simple(env)
             self.cascade.coerce_cascaded_operands_to_temp(env)
 

@@ -60,7 +60,7 @@ class NN(object):
 
         # input activations
         for i in range(self.ni-1):
-            #self.ai[i] = 1.0/(1.0+math.exp(-inputs[i]))
+            # self.ai[i] = 1.0/(1.0+math.exp(-inputs[i]))
             self.ai[i] = inputs[i]
 
         # hidden activations
@@ -144,7 +144,7 @@ class NN(object):
                 targets = p[1]
                 self.update(inputs)
                 error = error + self.backPropagate(targets, N, M)
-            #if i % 100 == 0:
+            # if i % 100 == 0:
             #    print i, 'error %-14f' % error
 
 

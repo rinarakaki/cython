@@ -655,7 +655,7 @@ class MemberTableSlot(SlotDescriptor):
     def get_member_specs(self, scope):
         return [
             get_slot_by_name("tp_dictoffset", scope.directives).members_slot_value(scope),
-            #get_slot_by_name("tp_weaklistoffset").spec_value(scope),
+            # get_slot_by_name("tp_weaklistoffset").spec_value(scope),
         ]
 
     def is_empty(self, scope):

@@ -112,7 +112,7 @@ class Template(object):
             delimiters = (self.default_namespace['start_braces'],
                           self.default_namespace['end_braces'])
         else:
-            #assert len(delimiters) == 2 and all([isinstance(delimiter, basestring)
+            # assert len(delimiters) == 2 and all([isinstance(delimiter, basestring)
             #                                     for delimiter in delimiters])
             self.default_namespace = self.__class__.default_namespace.copy()
             self.default_namespace['start_braces'] = delimiters[0]

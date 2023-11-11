@@ -961,7 +961,7 @@ class ModuleNode(Nodes.Node, Nodes.BlockNode):
         # Forward declarations
         for entry in type_entries:
             if not entry.in_cinclude:
-                #print "generate_type_header_code:", entry.name, repr(entry.type) ###
+                # print "generate_type_header_code:", entry.name, repr(entry.type) ###
                 type = entry.type
                 if type.is_typedef:  # Must test this first!
                     pass
@@ -974,7 +974,7 @@ class ModuleNode(Nodes.Node, Nodes.BlockNode):
         # Actual declarations
         for entry in type_entries:
             if not entry.in_cinclude:
-                #print "generate_type_header_code:", entry.name, repr(entry.type) ###
+                # print "generate_type_header_code:", entry.name, repr(entry.type) ###
                 type = entry.type
                 if type.is_typedef:  # Must test this first!
                     self.generate_typedef(entry, code)
@@ -1223,7 +1223,7 @@ class ModuleNode(Nodes.Node, Nodes.BlockNode):
                     PyrexTypes.public_decl("PyTypeObject", "DL_EXPORT"),
                     name))
             # ??? Do we really need the rest of this? ???
-            #else:
+            # else:
             #    code.putln("static PyTypeObject %s;" % name)
 
     def generate_exttype_vtable_struct(self, entry, code):
@@ -1433,8 +1433,8 @@ class ModuleNode(Nodes.Node, Nodes.BlockNode):
     def generate_typeobj_definitions(self, env, code):
         full_module_name = env.qualified_name
         for entry in env.c_class_entries:
-            #print "generate_typeobj_definitions:", entry.name
-            #print "...visibility =", entry.visibility
+            # print "generate_typeobj_definitions:", entry.name
+            # print "...visibility =", entry.visibility
             if entry.visibility != 'extern':
                 type = entry.type
                 scope = type.scope
@@ -2272,7 +2272,7 @@ class ModuleNode(Nodes.Node, Nodes.BlockNode):
             code.putln("case Py_NE: {")
             code.putln("PyObject *ret;")
             # Python itself does not do this optimisation, it seems...
-            #code.putln("if (o1 == o2) return __Pyx_NewRef(Py_False);")
+            # code.putln("if (o1 == o2) return __Pyx_NewRef(Py_False);")
             code.putln("ret = %s(o1, o2);" % comp_entry['__eq__'].func_cname)
             code.putln("if (likely(ret && ret != Py_NotImplemented)) {")
             code.putln("int b = __Pyx_PyObject_IsTrue(ret);")

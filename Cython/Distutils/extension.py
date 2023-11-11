@@ -57,7 +57,7 @@ class Extension(_Extension.Extension):
                 extra_compile_args=extra_compile_args,
                 extra_link_args=extra_link_args,
                 export_symbols=export_symbols,
-                #swig_opts=swig_opts,
+                # swig_opts=swig_opts,
                 depends=depends,
                 language=language,
                 no_c_in_traceback=no_c_in_traceback,
@@ -76,7 +76,7 @@ class Extension(_Extension.Extension):
             extra_compile_args=extra_compile_args,
             extra_link_args=extra_link_args,
             export_symbols=export_symbols,
-            #swig_opts=swig_opts,
+            # swig_opts=swig_opts,
             depends=depends,
             language=language,
             **kw)

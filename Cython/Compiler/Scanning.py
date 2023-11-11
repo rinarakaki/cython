@@ -409,10 +409,10 @@ class PyrexScanner(Scanner):
         # Check that tabs and spaces are being used consistently.
         if text:
             c = text[0]
-            #print "Scanner.indentation_action: indent with", repr(c) ###
+            # print "Scanner.indentation_action: indent with", repr(c) ###
             if self.indentation_char is None:
                 self.indentation_char = c
-                #print "Scanner.indentation_action: setting indent_char to", repr(c)
+                # print "Scanner.indentation_action: setting indent_char to", repr(c)
             else:
                 if self.indentation_char != c:
                     self.error_at_scanpos("Mixed use of tabs and spaces")
@@ -425,15 +425,15 @@ class PyrexScanner(Scanner):
         if new_level == current_level:
             return
         elif new_level > current_level:
-            #print "...pushing level", new_level ###
+            # print "...pushing level", new_level ###
             self.indentation_stack.append(new_level)
             self.produce('INDENT', '')
         else:
             while new_level < self.current_level():
-                #print "...popping level", self.indentation_stack[-1] ###
+                # print "...popping level", self.indentation_stack[-1] ###
                 self.indentation_stack.pop()
                 self.produce('DEDENT', '')
-            #print "...current level now", self.current_level() ###
+            # print "...current level now", self.current_level() ###
             if new_level != self.current_level():
                 self.error_at_scanpos("Inconsistent indentation")
 

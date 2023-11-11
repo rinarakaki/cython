@@ -466,14 +466,14 @@ class PyxLoader(object):
             self.fullname, fullname))
         if self.init_path:
             # package
-            #print "PACKAGE", fullname
+            # print "PACKAGE", fullname
             module = load_module(fullname, self.init_path,
                                  self.pyxbuild_dir, is_package=True,
                                  build_inplace=self.inplace,
                                  language_level=self.language_level)
             module.__path__ = [self.path]
         else:
-            #print "MODULE", fullname
+            # print "MODULE", fullname
             module = load_module(fullname, self.path,
                                  self.pyxbuild_dir,
                                  build_inplace=self.inplace,
