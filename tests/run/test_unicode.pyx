@@ -2187,11 +2187,11 @@ class UnicodeTest(CommonTest,
             'mac_greek', 'mac_iceland','mac_roman', 'mac_turkish',
             'cp1006', 'iso8859_8',
 
-            ### These have undefined mappings:
-            #'cp424',
+            # ## These have undefined mappings:
+            # 'cp424',
 
-            ### These fail the round-trip:
-            #'cp875'
+            # ## These fail the round-trip:
+            # 'cp875'
 
             ):
             self.assertEqual(str(s, encoding).encode(encoding), s)
@@ -2208,15 +2208,15 @@ class UnicodeTest(CommonTest,
             'iso8859_9', 'koi8_r', 'koi8_u', 'latin_1',
             'mac_cyrillic', 'mac_latin2',
 
-            ### These have undefined mappings:
-            #'cp1250', 'cp1251', 'cp1252', 'cp1253', 'cp1254', 'cp1255',
-            #'cp1256', 'cp1257', 'cp1258',
-            #'cp424', 'cp856', 'cp857', 'cp864', 'cp869', 'cp874',
-            #'iso8859_3', 'iso8859_6', 'iso8859_7', 'koi8_t', 'kz1048',
-            #'mac_greek', 'mac_iceland','mac_roman', 'mac_turkish',
+            # ## These have undefined mappings:
+            # 'cp1250', 'cp1251', 'cp1252', 'cp1253', 'cp1254', 'cp1255',
+            # 'cp1256', 'cp1257', 'cp1258',
+            # 'cp424', 'cp856', 'cp857', 'cp864', 'cp869', 'cp874',
+            # 'iso8859_3', 'iso8859_6', 'iso8859_7', 'koi8_t', 'kz1048',
+            # 'mac_greek', 'mac_iceland','mac_roman', 'mac_turkish',
 
-            ### These fail the round-trip:
-            #'cp1006', 'cp875', 'iso8859_8',
+            # ## These fail the round-trip:
+            # 'cp1006', 'cp875', 'iso8859_8',
 
             ):
             self.assertEqual(str(s, encoding).encode(encoding), s)

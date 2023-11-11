@@ -196,11 +196,11 @@ class ControlFlow(object):
     def mark_reference(self, node, entry):
         if self.block and self.is_tracked(entry):
             self.block.stats.append(NameReference(node, entry))
-            ## XXX: We don't track expression evaluation order so we can't use
-            ## XXX: successful reference as initialization sign.
-            ## # Local variable is definitely bound after this reference
-            ## if not node.allow_null:
-            ##     self.block.bounded.add(entry)
+            # XXX: We don't track expression evaluation order so we can't use
+            # XXX: successful reference as initialization sign.
+            # Local variable is definitely bound after this reference
+            # if not node.allow_null:
+            #     self.block.bounded.add(entry)
             self.entries.add(entry)
 
     def normalize(self):

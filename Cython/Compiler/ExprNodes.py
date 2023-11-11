@@ -1759,9 +1759,9 @@ class UnicodeNode(ConstNode):
 
     def can_coerce_to_char_literal(self):
         return len(self.value) == 1
-            ## or (len(self.value) == 2
-            ##     and (0xD800 <= self.value[0] <= 0xDBFF)
-            ##     and (0xDC00 <= self.value[1] <= 0xDFFF))
+            # or (len(self.value) == 2
+            #     and (0xD800 <= self.value[0] <= 0xDBFF)
+            #     and (0xDC00 <= self.value[1] <= 0xDFFF))
 
     def coerce_to_boolean(self, env):
         bool_value = bool(self.value)

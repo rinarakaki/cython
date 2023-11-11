@@ -88,11 +88,11 @@ uncachable_builtins = [
     'ProcessLookupError',
     'RecursionError',
     'ResourceWarning',
-    #'StopAsyncIteration',  # backported
+    # 'StopAsyncIteration',  # backported
     'TimeoutError',
     '__build_class__',
     'ascii',  # might deserve an implementation in Cython
-    #'exec',  # implemented in Cython
+    # 'exec',  # implemented in Cython
     # # - platform specific
     'WindowsError',
     # # - others
