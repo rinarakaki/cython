@@ -392,23 +392,23 @@ class StatListNode(Node):
         return node  # No node-specific analysis needed
 
     def analyse_declarations(self, env):
-        # print "StatListNode.analyse_declarations" ###
+        # print "StatListNode.analyse_declarations" #
         for stat in self.stats:
             stat.analyse_declarations(env)
 
     def analyse_expressions(self, env):
-        # print "StatListNode.analyse_expressions" ###
+        # print "StatListNode.analyse_expressions" #
         self.stats = [stat.analyse_expressions(env)
                       for stat in self.stats]
         return self
 
     def generate_function_definitions(self, env, code):
-        # print "StatListNode.generate_function_definitions" ###
+        # print "StatListNode.generate_function_definitions" #
         for stat in self.stats:
             stat.generate_function_definitions(env, code)
 
     def generate_execution_code(self, code):
-        # print "StatListNode.generate_execution_code" ###
+        # print "StatListNode.generate_execution_code" #
         for stat in self.stats:
             code.mark_pos(stat.pos)
             stat.generate_execution_code(code)
@@ -1074,7 +1074,7 @@ class CSimpleBaseTypeNode(CBaseTypeNode):
 
     def analyse(self, env, could_be_name=False):
         # Return type descriptor.
-        # print "CSimpleBaseTypeNode.analyse: is_self_arg =", self.is_self_arg ###
+        # print "CSimpleBaseTypeNode.analyse: is_self_arg =", self.is_self_arg #
         type = None
         if self.is_basic_c_type:
             type = PyrexTypes.simple_c_type(self.signed, self.longness, self.name)
@@ -1084,7 +1084,7 @@ class CSimpleBaseTypeNode(CBaseTypeNode):
             type = py_object_type
         elif self.name is None:
             if self.is_self_arg and env.is_c_class_scope:
-                # print "CSimpleBaseTypeNode.analyse: defaulting to parent type" ###
+                # print "CSimpleBaseTypeNode.analyse: defaulting to parent type" #
                 type = env.parent_type
             ## elif self.is_type_arg and env.is_c_class_scope:
             ##     type = Builtin.type_type
@@ -3406,7 +3406,7 @@ class DefNode(FuncDefNode):
             desc, self.name, len(self.args), expected_str))
 
     def declare_pyfunction(self, env):
-        # print "DefNode.declare_pyfunction:", self.name, "in", env ###
+        # print "DefNode.declare_pyfunction:", self.name, "in", env #
         name = self.name
         entry = env.lookup_here(name)
         if entry:

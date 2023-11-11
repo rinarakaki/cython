@@ -173,7 +173,7 @@ def report_error(err, use_stack=True):
             raise AbortError("fatal errors")
 
 def error(position, message):
-    # print("Errors.error:", repr(position), repr(message)) ###
+    # print("Errors.error:", repr(position), repr(message)) #
     if position is None:
         raise InternalError(message)
     err = CompileError(position, message)

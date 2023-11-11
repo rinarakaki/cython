@@ -2050,7 +2050,7 @@ class NameNode(AtomicExprNode):
         #  If coercing to a generic pyobject and this is a builtin
         #  C function with a Python equivalent, manufacture a NameNode
         #  referring to the Python builtin.
-        # print "NameNode.coerce_to:", self.name, dst_type ###
+        # print "NameNode.coerce_to:", self.name, dst_type #
         if dst_type is py_object_type:
             entry = self.entry
             if entry and entry.is_cfunction:
@@ -2277,8 +2277,8 @@ class NameNode(AtomicExprNode):
         return self
 
     def analyse_rvalue_entry(self, env):
-        # print "NameNode.analyse_rvalue_entry:", self.name ###
-        # print "Entry:", self.entry.__dict__ ###
+        # print "NameNode.analyse_rvalue_entry:", self.name #
+        # print "Entry:", self.entry.__dict__ #
         self.analyse_entry(env)
         entry = self.entry
 
@@ -2311,7 +2311,7 @@ class NameNode(AtomicExprNode):
     gil_message = "Accessing Python global or builtin"
 
     def analyse_entry(self, env, is_target=False):
-        # print "NameNode.analyse_entry:", self.name ###
+        # print "NameNode.analyse_entry:", self.name #
         self.check_identifier_kind()
         entry = self.entry
         type = entry.type
@@ -2519,7 +2519,7 @@ class NameNode(AtomicExprNode):
 
     def generate_assignment_code(self, rhs, code, overloaded_assignment=False,
                                  exception_check=None, exception_value=None):
-        # print "NameNode.generate_assignment_code:", self.name ###
+        # print "NameNode.generate_assignment_code:", self.name #
         entry = self.entry
         if entry is None:
             return  # There was an error earlier
@@ -2579,10 +2579,10 @@ class NameNode(AtomicExprNode):
                 self.generate_acquire_buffer(rhs, code)
             assigned = False
             if self.type.is_pyobject:
-                # print "NameNode.generate_assignment_code: to", self.name ###
-                # print "...from", rhs ###
-                # print "...LHS type", self.type, "ctype", self.ctype() ###
-                # print "...RHS type", rhs.type, "ctype", rhs.ctype() ###
+                # print "NameNode.generate_assignment_code: to", self.name #
+                # print "...from", rhs #
+                # print "...LHS type", self.type, "ctype", self.ctype() #
+                # print "...RHS type", rhs.type, "ctype", rhs.ctype() #
                 if self.use_managed_ref:
                     rhs.make_owned_reference(code)
                     is_external_ref = entry.is_cglobal or self.entry.in_closure or self.entry.from_closure
@@ -6497,7 +6497,7 @@ class SimpleCallNode(CallNode):
                     if self.is_temp and self.type.is_pyobject:
                         # return_type = self.type # func_type.return_type
                         # print "SimpleCallNode.generate_result_code: casting", rhs, \
-                        #    "from", return_type, "to pyobject" ###
+                        #    "from", return_type, "to pyobject" #
                         rhs = typecast(py_object_type, self.type, rhs)
                 else:
                     lhs = ""
@@ -7699,7 +7699,7 @@ class AttributeNode(ExprNode):
         # Therefore allowing access to the holder variable
         obj = self.obj
         obj_code = obj.result_as(obj.type)
-        # print "...obj_code =", obj_code ###
+        # print "...obj_code =", obj_code #
         if self.entry and self.entry.is_cmethod:
             if obj.type.is_extension_type and not self.entry.is_builtin_cmethod:
                 if self.entry.final_func_cname:
@@ -11892,7 +11892,7 @@ class NumBinopNode(BinopNode):
             return None
 
     def c_types_okay(self, type1, type2):
-        # print "NumBinopNode.c_types_okay:", type1, type2 ###
+        # print "NumBinopNode.c_types_okay:", type1, type2 #
         return (type1.is_numeric or type1.is_enum) \
             and (type2.is_numeric or type2.is_enum)
 
@@ -11970,7 +11970,7 @@ class IntBinopNode(NumBinopNode):
     #  Binary operation taking integer arguments.
 
     def c_types_okay(self, type1, type2):
-        # print "IntBinopNode.c_types_okay:", type1, type2 ###
+        # print "IntBinopNode.c_types_okay:", type1, type2 #
         return (type1.is_int or type1.is_enum) \
             and (type2.is_int or type2.is_enum)
 
@@ -11994,7 +11994,7 @@ class AddNode(NumBinopNode):
         return None
 
     def compute_c_result_type(self, type1, type2):
-        # print "AddNode.compute_c_result_type:", type1, self.operator, type2 ###
+        # print "AddNode.compute_c_result_type:", type1, self.operator, type2 #
         if (type1.is_ptr or type1.is_array) and (type2.is_int or type2.is_enum):
             return type1
         elif (type2.is_ptr or type2.is_array) and (type1.is_int or type1.is_enum):

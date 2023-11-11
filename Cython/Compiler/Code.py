@@ -2110,12 +2110,12 @@ class CCodeWriter(object):
 
     def put_var_declaration(self, entry, storage_class="",
                             dll_linkage=None, definition=True):
-        # print "Code.put_var_declaration:", entry.name, "definition =", definition ###
+        # print "Code.put_var_declaration:", entry.name, "definition =", definition #
         if entry.visibility == 'private' and not (definition or entry.defined_in_pxd):
-            # print "...private and not definition, skipping", entry.cname ###
+            # print "...private and not definition, skipping", entry.cname #
             return
         if entry.visibility == "private" and not entry.used:
-            # print "...private and not used, skipping", entry.cname ###
+            # print "...private and not used, skipping", entry.cname #
             return
         if not entry.cf_used:
             self.put('CYTHON_UNUSED ')

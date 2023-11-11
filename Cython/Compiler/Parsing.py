@@ -991,7 +991,7 @@ def p_string_literal(s, kind_override=None):
         s.next()
         sy = s.sy
         systr = s.systring
-        # print "p_string_literal: sy =", sy, repr(s.systring) ###
+        # print "p_string_literal: sy =", sy, repr(s.systring) #
         if sy == 'CHARS':
             chars.append(systr)
             if is_python3_source and not has_non_ascii_literal_characters and check_for_non_ascii_characters(systr):
@@ -2323,7 +2323,7 @@ def p_with_template(s):
         error(pos, "Syntax error in template function declaration")
 
 def p_simple_statement(s, first_statement = 0):
-    # print "p_simple_statement:", s.sy, s.systring ###
+    # print "p_simple_statement:", s.sy, s.systring #
     if s.sy == 'global':
         node = p_global_statement(s)
     elif s.sy == 'nonlocal':
@@ -2367,7 +2367,7 @@ def p_simple_statement_list(s, ctx, first_statement = 0):
     if not isinstance(stat, Nodes.PassStatNode):
         stats.append(stat)
     while s.sy == ';':
-        # print "p_simple_statement_list: maybe more to follow" ###
+        # print "p_simple_statement_list: maybe more to follow" #
         s.next()
         if s.sy in ('NEWLINE', 'EOF'):
             break
@@ -2409,7 +2409,7 @@ def p_const_statement(s):
     expr = p_compile_time_expr(s)
     if s.compile_time_eval:
         value = expr.compile_time_value(denv)
-        # print "p_const_statement: %s = %r" % (name, value) ###
+        # print "p_const_statement: %s = %r" % (name, value) #
         denv.declare(name, value)
     s.expect_newline("Expected a newline", ignore_semicolon=True)
     return Nodes.PassStatNode(pos)

@@ -961,7 +961,7 @@ class ModuleNode(Nodes.Node, Nodes.BlockNode):
         # Forward declarations
         for entry in type_entries:
             if not entry.in_cinclude:
-                # print "generate_type_header_code:", entry.name, repr(entry.type) ###
+                # print "generate_type_header_code:", entry.name, repr(entry.type) #
                 type = entry.type
                 if type.is_typedef:  # Must test this first!
                     pass
@@ -974,7 +974,7 @@ class ModuleNode(Nodes.Node, Nodes.BlockNode):
         # Actual declarations
         for entry in type_entries:
             if not entry.in_cinclude:
-                # print "generate_type_header_code:", entry.name, repr(entry.type) ###
+                # print "generate_type_header_code:", entry.name, repr(entry.type) #
                 type = entry.type
                 if type.is_typedef:  # Must test this first!
                     self.generate_typedef(entry, code)

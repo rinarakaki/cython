@@ -1,4 +1,4 @@
-# ## COPIED FROM CPython 3.9 - ADDED PART FOLLOWS ###
+# ## COPIED FROM CPython 3.9 - ADDED PART FOLLOWS #
 # cython: language_level=3
 
 import cython
@@ -91,7 +91,7 @@ if not hasattr(unittest, 'skip'):
 skip = unittest.skip
 
 
-# ## END OF CYTHON ADDED PART - COPIED PART FOLLOWS ###
+# ## END OF CYTHON ADDED PART - COPIED PART FOLLOWS #
 
 # Python test set -- part 1, grammar.
 # This just tests whether the parser accepts them all.
