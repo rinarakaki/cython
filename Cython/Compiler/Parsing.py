@@ -669,12 +669,11 @@ def p_struct_parse_fields(s):
                     s.error("Expected an identifier before '='",
                             pos=arg.pos)
                 encoded_name = s.context.intern_ustring(arg.name)
-                keyword = ExprNodes.IdentifierStringNode(
-                    arg.pos, value=encoded_name)
-                arg = p_test(s)
-                fields.append((keyword, arg))
+                ident = ExprNodes.IdentifierStringNode(arg.pos, value=encoded_name)
+                expr = p_test(s)
+                fields.append(ExprNodes.ExprFieldNode(ident=ident, expr=expr))
             else:
-                fields.append((arg.name, arg))
+                fields.append(ExprNodes.ExprFieldNode(ident=arg.name, expr=arg))
         if s.sy != ",":
             break
         s.next()

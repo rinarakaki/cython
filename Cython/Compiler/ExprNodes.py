@@ -6023,7 +6023,9 @@ class StructExprNode(ExprNode):
     #  Struct expression
     #
     #  path     ExprNode
-    #  fields  [(IdentifierStringNode, ExprNode)]
+    #  fields  [ExprFieldNode]
+
+    subexprs = ["fields"]
 
     def infer_type(self, env):
         type = self.path.analyse_as_type(env)
@@ -6050,6 +6052,31 @@ class StructExprNode(ExprNode):
         type = self.path.analyse_as_type(env)
         if type and type.is_struct_or_union:
             return True
+
+
+class ExprFieldNode(ExprNode):
+    #  Represents a single field in a StructExprNode
+    #
+    #  ident       IdentifierStringNode
+    #  expr        ExprNode
+    subexprs = ["ident", "expr"]
+
+    def calculate_constant_result(self):
+        self.constant_result = (
+            self.ident.constant_result, self.expr.constant_result)
+
+    def analyse_types(self, env):
+        # self.ident = self.ident.analyse_types(env)
+        self.expr = self.expr.analyse_types(env)
+        return self
+
+    def generate_evaluation_code(self, code):
+        # self.ident.generate_evaluation_code(code)
+        self.expr.generate_evaluation_code(code)
+
+    def generate_disposal_code(self, code):
+        # self.ident.generate_disposal_code(code)
+        self.expr.generate_disposal_code(code)
 
 
 class SimpleCallNode(CallNode):
