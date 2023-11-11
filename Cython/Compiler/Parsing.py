@@ -197,7 +197,7 @@ def p_rassoc_binop_expr(s, op, p_subexpr):
 # and_test: not_test ('and' not_test)*
 
 def p_and_test(s):
-    #return p_binop_expr(s, ('and',), p_not_test)
+    # return p_binop_expr(s, ('and',), p_not_test)
     return p_rassoc_binop_expr(s, u'and', p_not_test)
 
 # not_test: 'not' not_test | comparison
@@ -2942,7 +2942,7 @@ def looking_at_expr(s):
         return True
 
 def looking_at_base_type(s):
-    #print "looking_at_base_type?", s.sy, s.systring, s.position()
+    # print "looking_at_base_type?", s.sy, s.systring, s.position()
     return s.sy == 'IDENT' and s.systring in base_type_start_words
 
 def looking_at_dotted_name(s):

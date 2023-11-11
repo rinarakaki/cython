@@ -289,10 +289,10 @@ def test_large_indexing(obj):
     >>> nmaxsize == -py_maxsize
     True
 
-    #>>> p2maxsize == py_maxsize*2
-    #True
-    #>>> n2maxsize == -py_maxsize*2
-    #True
+    # >>> p2maxsize == py_maxsize*2
+    # True
+    # >>> n2maxsize == -py_maxsize*2
+    # True
     """
     return (
         obj[0], obj[1], obj[-1],

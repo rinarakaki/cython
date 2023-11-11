@@ -133,8 +133,8 @@ class ClassEqNe(ClassEq):
     Traceback (most recent call last):
     TypeError...
 
-    #>>> print(a.__eq__.__doc__)
-    #EQ
+    # >>> print(a.__eq__.__doc__)
+    # EQ
     >>> print(a.__ne__.__doc__)
     NE
     """
@@ -234,10 +234,10 @@ class ClassEqNeGe(ClassEqNe):
     Traceback (most recent call last):
     TypeError...
 
-    #>>> print(a.__eq__.__doc__)
-    #EQ
-    #>>> print(a.__ne__.__doc__)
-    #NE
+    # >>> print(a.__eq__.__doc__)
+    # EQ
+    # >>> print(a.__ne__.__doc__)
+    # NE
     >>> print(a.__ge__.__doc__)
     GE
    """

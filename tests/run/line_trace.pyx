@@ -245,9 +245,9 @@ def run_trace_with_exception(func, u2 with_sys=false, u2 fail=false):
     ValueError('failing line trace!')
     [('call', 0)]
 
-    #>>> run_trace_with_exception(lambda: 123, with_sys=true, fail=true)
-    #ValueError('huhu')
-    #[('call', 0), ('line', 1), ('line', 2), ('call', 0), ('line', 0), ('return', 0), ('return', 2)]
+    # >>> run_trace_with_exception(lambda: 123, with_sys=true, fail=true)
+    # ValueError('huhu')
+    # [('call', 0), ('line', 1), ('line', 2), ('call', 0), ('line', 0), ('return', 0), ('return', 2)]
 
     >>> def py_raise_exc(exc=KeyError('huhu')): raise exc
     >>> run_trace_with_exception(py_raise_exc)
@@ -260,9 +260,9 @@ def run_trace_with_exception(func, u2 with_sys=false, u2 fail=false):
     ValueError('failing line trace!')
     [('call', 0)]
 
-    #>>> run_trace_with_exception(raise_exc, with_sys=true, fail=true)
-    #ValueError('huhu')
-    #[('call', 0), ('line', 1), ('line', 2), ('call', 0), ('line', 0), ('exception', 0), ('return', 0), ('line', 3), ('line', 4), ('return', 4)]
+    # >>> run_trace_with_exception(raise_exc, with_sys=true, fail=true)
+    # ValueError('huhu')
+    # [('call', 0), ('line', 1), ('line', 2), ('call', 0), ('line', 0), ('exception', 0), ('return', 0), ('line', 3), ('line', 4), ('return', 4)]
     """
     trace = ['cy_try_except' if fail else 'NO ERROR']
     trace_func = _create__failing_line_trace_func(trace) if fail else _create_trace_func(trace)

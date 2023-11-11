@@ -325,8 +325,8 @@ class CythonTransform(VisitorTransform):
 
 class ScopeTrackingTransform(CythonTransform):
     # Keeps track of type of scopes
-    #scope_type: can be either of 'module', 'function', 'cclass', 'pyclass', 'struct'
-    #scope_node: the node that owns the current scope
+    # scope_type: can be either of 'module', 'function', 'cclass', 'pyclass', 'struct'
+    # scope_node: the node that owns the current scope
 
     def visit_ModuleNode(self, node):
         self.scope_type = 'module'

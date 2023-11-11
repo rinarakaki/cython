@@ -119,8 +119,8 @@ class getattr_py(_getattr):
     ... else: print("FAILED!")
 
     # currently fails, see #1793
-    #>>> a.getattr_called
-    #3
+    # >>> a.getattr_called
+    # 3
     """
 
 

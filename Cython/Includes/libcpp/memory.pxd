@@ -49,7 +49,7 @@ extern from "<memory>" namespace "std" nogil:
         bool operator!=(nullptr_t)
 
     # Forward Declaration not working ("Compiler crash in AnalyseDeclarationsTransform")
-    #cdef cppclass weak_ptr[T]
+    # cdef cppclass weak_ptr[T]
 
     cdef cppclass shared_ptr[T]:
         shared_ptr()

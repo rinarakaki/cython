@@ -1431,7 +1431,7 @@ extern from *:
         __Pyx_StructField* field
         usize parent_offset
 
-    #struct __Pyx_BufFmt_Context:
+    # struct __Pyx_BufFmt_Context:
     #  __Pyx_StructField root
         __Pyx_BufFmt_StackElem* head
 

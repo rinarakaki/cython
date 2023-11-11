@@ -287,9 +287,9 @@ cdef class AI_new:
 
 def test_aiter_raises(AI):
     """
-    #>>> test_aiter_raises(AI_old)
-    #RAISED
-    #0
+    # >>> test_aiter_raises(AI_old)
+    # RAISED
+    # 0
     >>> test_aiter_raises(AI_new)
     RAISED
     0

@@ -86,7 +86,7 @@ def put_acquire_memoryviewslice(lhs_cname, lhs_type, lhs_pos, rhs, code,
         code.putln("%s = %s;" % (rhstmp, rhs.result_as(lhs_type)))
 
     # Allow uninitialized assignment
-    #code.putln(code.put_error_if_unbound(lhs_pos, rhs.entry))
+    # code.putln(code.put_error_if_unbound(lhs_pos, rhs.entry))
     put_assign_to_memviewslice(lhs_cname, rhs, rhstmp, lhs_type, code,
                                have_gil=have_gil, first_assignment=first_assignment)
 

@@ -196,7 +196,7 @@ INVALID_UNDERSCORE_LITERALS = [
 
 class TokenTests(unittest.TestCase):
 
-    #from test.support import check_syntax_error
+    # from test.support import check_syntax_error
     check_syntax_error = check_syntax_error
 
     def test_backslash(self):
@@ -377,7 +377,7 @@ class CNS:
 
 class GrammarTests(unittest.TestCase):
 
-    #from test.support import check_syntax_error, check_syntax_warning
+    # from test.support import check_syntax_error, check_syntax_warning
     check_syntax_error, check_syntax_warning = check_syntax_error, check_syntax_warning
 
     if not hasattr(unittest.TestCase, 'subTest'):

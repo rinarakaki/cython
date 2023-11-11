@@ -1,5 +1,5 @@
 def f(a, b, c):
-    #raise
+    # raise
     raise a
     raise "spam"
     raise a, b

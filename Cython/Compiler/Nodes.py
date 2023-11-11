@@ -141,7 +141,7 @@ class CheckAnalysers(type):
 def _with_metaclass(cls):
     if DebugFlags.debug_trace_code_generation:
         return add_metaclass(VerboseCodeWriter)(cls)
-    #return add_metaclass(CheckAnalysers)(cls)
+    # return add_metaclass(CheckAnalysers)(cls)
     return cls
 
 

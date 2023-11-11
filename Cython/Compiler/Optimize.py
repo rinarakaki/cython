@@ -3603,9 +3603,9 @@ class OptimizeBuiltinCalls(Visitor.NodeRefCleanupMixin,
             func_call = func_call.coerce_to_pyobject(self.current_env)
         return func_call
 
-    #_handle_simple_method_unicode_lower = _inject_unicode_character_conversion
-    #_handle_simple_method_unicode_upper = _inject_unicode_character_conversion
-    #_handle_simple_method_unicode_title = _inject_unicode_character_conversion
+    # _handle_simple_method_unicode_lower = _inject_unicode_character_conversion
+    # _handle_simple_method_unicode_upper = _inject_unicode_character_conversion
+    # _handle_simple_method_unicode_title = _inject_unicode_character_conversion
     '''
 
     PyUnicode_Splitlines_func_type = PyrexTypes.CFuncType(

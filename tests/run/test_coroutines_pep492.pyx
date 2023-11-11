@@ -114,7 +114,7 @@ class AsyncYield(object):
 
 
 def run_async(coro):
-    #assert coro.__class__ is types.GeneratorType
+    # assert coro.__class__ is types.GeneratorType
     assert coro.__class__.__name__.rsplit('.', 1)[-1] in ('coroutine', '_GeneratorWrapper'), coro.__class__.__name__
 
     buffer = []

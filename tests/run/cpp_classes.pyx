@@ -200,7 +200,7 @@ def test_class_in_struct_member():
     start_constructor_count = constructor_count
     start_destructor_count = destructor_count
     e = EmptyViaStructHolder()
-    #assert constructor_count - start_constructor_count == 1, \
+    # assert constructor_count - start_constructor_count == 1, \
     #       constructor_count - start_constructor_count
     del e
     assert destructor_count - start_destructor_count == 1, \

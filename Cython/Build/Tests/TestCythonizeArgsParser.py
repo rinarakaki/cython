@@ -149,7 +149,7 @@ class TestCythonizeArgsParser(TestCase):
         self.assertEqual(options.compile_time_env['MYSIZE'], 10)
         self.assertEqual(options.compile_time_env['ARRSIZE'], 11)
 
-    #testing options
+    # testing options
     def test_option_short(self):
         options, args =  self.parse_args(['-s', 'docstrings=True'])
         self.assertFalse(args)

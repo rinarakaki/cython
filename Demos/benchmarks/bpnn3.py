@@ -162,7 +162,7 @@ def demo():
     # train it with some patterns
     n.train(pat, 5000)
     # test it
-    #n.test(pat)
+    # n.test(pat)
 
 def time(fn, *args):
     import time, traceback

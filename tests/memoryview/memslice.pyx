@@ -2012,7 +2012,7 @@ def test_padded_structs():
     _test_padded(a7)
     # There is a pre-existing bug that doesn't parse the format for this
     # struct properly -- fix this
-    #_test_padded(a8)
+    # _test_padded(a8)
 
 fn _test_padded(FusedPadded myarray[10]):
     # test that the buffer format parser accepts our format string...
