@@ -1432,7 +1432,7 @@ extern from *:
         usize parent_offset
 
     # struct __Pyx_BufFmt_Context:
-    #  __Pyx_StructField root
+    #     __Pyx_StructField root
         __Pyx_BufFmt_StackElem* head
 
     struct __pyx_typeinfo_string:
