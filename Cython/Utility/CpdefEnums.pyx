@@ -1,4 +1,4 @@
-# ################## EnumBase ####################
+################### EnumBase ####################
 
 use cython
 
@@ -12,7 +12,7 @@ from r#enum import IntEnum as __Pyx_EnumBase
 cdef object __Pyx_FlagBase
 from r#enum import IntFlag as __Pyx_FlagBase
 
-# ################## EnumType ####################
+################### EnumType ####################
 
 #@requires: EnumBase
 
@@ -45,7 +45,7 @@ __Pyx_globals['{{item}}'] = {{name}}.{{item}}
 {{endfor}}
 
 
-# ################## CppScopedEnumType ####################
+################### CppScopedEnumType ####################
 
 #@requires: EnumBase
 cdef dict __Pyx_globals = globals()
@@ -61,7 +61,7 @@ __Pyx_globals["{{name}}"].__doc__ = {{ repr(enum_doc) }}
 {{endif}}
 
 
-# ################## EnumTypeToPy ####################
+################### EnumTypeToPy ####################
 
 @cname("{{funcname}}")
 fn {{funcname}}({{name}} c_val):
