@@ -17,6 +17,6 @@ if __name__ == '__main__':
 else:
     # Void cython.* directives.
     from Cython.Shadow import *
-    # # and bring in the __version__
+    # and bring in the __version__
     from Cython import __version__
     from Cython import load_ipython_extension
