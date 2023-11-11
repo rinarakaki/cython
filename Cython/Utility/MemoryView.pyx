@@ -262,7 +262,7 @@ fn i32 _allocate_buffer(array self) except -1:
     return 0
 
 @cname("__pyx_array_new")
-fn array array_cwrapper(tuple shape, isize itemsize, char *format, char *c_mode, char *buf):
+fn array array_cwrapper(tuple shape, isize itemsize, char *format, const char *c_mode, char *buf):
     let array result
     let str mode = "fortran" if c_mode[0] == b'f' else "c"  # this often comes from a constant C string.
 
