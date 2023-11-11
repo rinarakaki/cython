@@ -3,8 +3,7 @@
 use posix::types::(gid_t, pid_t, off_t, uid_t)
 
 extern from "<unistd.h>" nogil:
-
-    #:NULL
+    # NULL
 
     enum: R_OK
     enum: W_OK
