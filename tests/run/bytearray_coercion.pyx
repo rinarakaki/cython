@@ -68,7 +68,7 @@ def infer_index_types(bytearray b):
     c = b[1]
     with cython::wraparound(false):
         d = b[1]
-    with cython.boundscheck(false):
+    with cython::boundscheck(false):
         e = b[1]
     return c, d, e, cython.typeof(c), cython.typeof(d), cython.typeof(e), cython.typeof(b[1])
 
@@ -80,9 +80,9 @@ def infer_slice_types(bytearray b):
     (bytearray(b'bc'), bytearray(b'bc'), bytearray(b'bc'), 'bytearray object', 'bytearray object', 'bytearray object', 'bytearray object')
     """
     c = b[1:]
-    with cython.boundscheck(false):
+    with cython::boundscheck(false):
         d = b[1:]
-    with cython.boundscheck(false), cython::wraparound(false):
+    with cython::boundscheck(false), cython::wraparound(false):
         e = b[1:]
     return c, d, e, cython.typeof(c), cython.typeof(d), cython.typeof(e), cython.typeof(b[1:])
 

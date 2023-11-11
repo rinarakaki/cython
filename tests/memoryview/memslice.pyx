@@ -847,8 +847,8 @@ def safe_get(i32[:] buf, i32 idx):
     """
     return buf[idx]
 
-#[cython.boundscheck(false)] # outer decorators should take precedence
-#[cython.boundscheck(true)]
+#[cython::boundscheck(false)] # outer decorators should take precedence
+#[cython::boundscheck(true)]
 @testcase
 def unsafe_get(i32[:] buf, i32 idx):
     """
@@ -874,9 +874,9 @@ def mixed_get(i32[:] buf, i32 unsafe_idx, i32 safe_idx):
         ...
     IndexError: Out of bounds on buffer access (axis 0)
     """
-    with cython.boundscheck(false):
+    with cython::boundscheck(false):
         one = buf[unsafe_idx]
-    with cython.boundscheck(true):
+    with cython::boundscheck(true):
         two = buf[safe_idx]
     return (one, two)
 
@@ -1340,7 +1340,7 @@ def complex_struct_inplace(LongComplex[:] buf):
 # Nogil
 #
 
-#[cython.boundscheck(false)]
+#[cython::boundscheck(false)]
 @testcase
 def buffer_nogil():
     """
@@ -1759,7 +1759,7 @@ def test_nogil_oob2():
     with nogil:
         a[100, 9:]
 
-#[cython.boundscheck(false)]
+#[cython::boundscheck(false)]
 fn i32 cdef_nogil(i32[:, :] a) except 0 nogil:
     let i32 i, j
     let i32[:, :] b = a[:;-1, 3:10;2]
@@ -1806,7 +1806,7 @@ def test_convert_slicenode_to_indexnode():
         a = a[2:4]
     print a[0]
 
-#[cython.boundscheck(false)]
+#[cython::boundscheck(false)]
 #[cython::wraparound(false)]
 @testcase
 def test_memslice_prange(arg):
