@@ -7333,6 +7333,9 @@ class LoopStatNode(LoopNode, StatNode):
 
     def generate_function_definitions(self, env, code):
         self.body.generate_function_definitions(env, code)
+    
+    def annotate(self, code):
+        self.body.annotate(code)
 
 
 class WhileStatNode(LoopNode, StatNode):
