@@ -254,6 +254,6 @@ def generator_exception():
     raise ValueError(2)
 
 # Generator expressions are inlined in Python 3.12 and no longer show uo in profiles.
-#def generator_expr():
+# def generator_expr():
 #    e = (x for x in range(10))
 #    return sum(e)

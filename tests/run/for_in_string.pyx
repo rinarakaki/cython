@@ -49,7 +49,7 @@ def for_char_in_bytes(bytes s):
     else:
         return 'X'
 
-## Py2 and Py3 behave differently here: Py2->bytes, Py3->integer
+# Py2 and Py3 behave differently here: Py2->bytes, Py3->integer
 #
 # #[cython.test_assert_path_exists("//ForFromStatNode")]
 # #[cython.test_fail_if_path_exists("//ForInStatNode")]
@@ -111,7 +111,7 @@ def for_char_in_enumerate_bytes(bytes s):
     else:
         return 'X'
 
-## Py2 and Py3 behave differently here: Py2->bytes, Py3->integer
+# Py2 and Py3 behave differently here: Py2->bytes, Py3->integer
 #
 # #[cython.test_assert_path_exists("//ForFromStatNode")]
 # #[cython.test_fail_if_path_exists("//ForInStatNode")]

@@ -109,8 +109,8 @@ class CdefClass:
 
 
 # TODO - locals and cdef classes is unreliable, irrespective of qualname
-#@cython.cclass
-#class CdefOnlyLocals:
+# @cython.cclass
+# class CdefOnlyLocals:
 #    """
 #    >>> print(CdefOnlyLocals.l["__qualname__"], CdefOnlyLocals.l["__module__"])
 #    CdefOnlyLocals qualname

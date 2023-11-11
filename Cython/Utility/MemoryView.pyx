@@ -306,7 +306,7 @@ cdef generic = Enum("<strided and direct or indirect>")
 cdef strided = Enum("<strided and direct>") # default
 cdef indirect = Enum("<strided and indirect>")
 # Disable generic_contiguous, as it is a troublemaker
-#cdef generic_contiguous = Enum("<contiguous and direct or indirect>")
+# cdef generic_contiguous = Enum("<contiguous and direct or indirect>")
 cdef contiguous = Enum("<contiguous and direct>")
 cdef indirect_contiguous = Enum("<contiguous and indirect>")
 

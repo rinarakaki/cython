@@ -20,7 +20,7 @@ import SCons
 from SCons.Builder import Builder
 from SCons.Action import Action
 
-#def cython_action(target, source, env):
+# def cython_action(target, source, env):
 #    print target, source, env
 #    from Cython.Compiler.Main import compile as cython_compile
 #    res = cython_compile(str(source[0]))
