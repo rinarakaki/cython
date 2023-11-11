@@ -1107,13 +1107,13 @@ class SlotTable(object):
             EmptySlot("tp_pypy_flags", ifdef="CYTHON_COMPILING_IN_PYPY && PY_VERSION_HEX >= 0x03090000 && PY_VERSION_HEX < 0x030a0000"),
         )
 
-        #------------------------------------------------------------------------------------------
+        # -----------------------------------------------------------------------------------------
         #
         #  Descriptors for special methods which don't appear directly
         #  in the type object or its substructures. These methods are
         #  called from slot functions synthesized by Cython.
         #
-        #------------------------------------------------------------------------------------------
+        # -----------------------------------------------------------------------------------------
 
         MethodSlot(initproc, "", "__cinit__", method_name_to_slot)
         MethodSlot(destructor, "", "__dealloc__", method_name_to_slot)

@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 """
 Translate the byte code of a Python function into the corresponding
 sequences of C code in CPython's "ceval.c".

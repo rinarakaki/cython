@@ -394,7 +394,7 @@ cdef class memoryview:
 
         return itemp
 
-    #@cname('__pyx_memoryview_getitem')
+    # @cname('__pyx_memoryview_getitem')
     def __getitem__(memoryview self, object index):
         if index is Ellipsis:
             return self

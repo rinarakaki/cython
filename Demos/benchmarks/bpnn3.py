@@ -1,4 +1,3 @@
-#!/usr/bin/python
 # Back-Propagation Neural Networks
 #
 # Written in Python.  See https://www.python.org/

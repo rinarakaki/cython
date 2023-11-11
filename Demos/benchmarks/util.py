@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 """Utility code for benchmark scripts."""
 
 __author__ = "collinwinter@google.com (Collin Winter)"
