@@ -5885,7 +5885,7 @@ class SliceIntNode(SliceNode):
 class StructExprNode(ExprNode):
     #  Struct expression
     #
-    #  path     ExprNode
+    #  path     NameNode | AttributeNode
     #  fields  [ExprFieldNode]
 
     subexprs = ["fields"]
@@ -5899,6 +5899,7 @@ class StructExprNode(ExprNode):
     def analyse_types(self, env):
         type = self.path.analyse_as_type(env)
         if type is not None and type.is_struct_or_union:
+            self.type = type
             return self
         else:
             error(self.pos, "Not a struct or union type")
