@@ -1,4 +1,4 @@
-# ################## FromPyStructUtility ####################
+################### FromPyStructUtility ####################
 
 extern from *:
     struct PyTypeObject:
@@ -24,7 +24,7 @@ fn {{struct_type}} {{funcname}}(obj) except *:
     return result
 
 
-# ################## FromPyUnionUtility ####################
+################### FromPyUnionUtility ####################
 
 extern from *:
     struct PyTypeObject:
@@ -60,7 +60,7 @@ fn {{struct_type}} {{funcname}}(obj) except *:
     return result
 
 
-# ################## cfunc.to_py ####################
+################### cfunc.to_py ####################
 
 @cname("{{cname}}")
 fn object {{cname}}({{return_type.ctype}} (*f)({{ ', '.join(arg.type_cname for arg in args) }}) {{except_clause}}):
@@ -70,7 +70,7 @@ fn object {{cname}}({{return_type.ctype}} (*f)({{ ', '.join(arg.type_cname for a
     return wrap
 
 
-# ################## carray.from_py ####################
+################### carray.from_py ####################
 
 extern from *:
     fn object PyErr_Format(exc, const char *format, ...)
@@ -100,7 +100,7 @@ fn i32 {{cname}}(object o, {{base_type}} *v, isize length) except -1:
         length, i)
 
 
-# ################## carray.to_py ####################
+################### carray.to_py ####################
 
 extern from *:
     fn void Py_INCREF(object o)

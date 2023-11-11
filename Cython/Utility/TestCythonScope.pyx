@@ -1,4 +1,4 @@
-######### TestClass ##########
+########## TestClass ##########
 # These utilities are for testing purposes
 
 # The "cythonscope" test calls METH_O functions with their (self, arg) signature.
@@ -57,13 +57,13 @@ from __future__ import print_function
 fn test_dep(obj):
     print('test_dep', obj)
 
-######### TestScope ##########
+########## TestScope ##########
 
 @cname('__pyx_testscope')
 fn object _testscope(i32 value):
     return f"hello from cython scope, value={value}"
 
-######### View.TestScope ##########
+########## View.TestScope ##########
 
 @cname('__pyx_view_testscope')
 fn object _testscope(i32 value):

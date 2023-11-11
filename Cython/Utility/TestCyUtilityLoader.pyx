@@ -1,8 +1,8 @@
-######### TestCyUtilityLoader ##########
+########## TestCyUtilityLoader ##########
 #@requires: OtherUtility
 
 test {{cy_loader}} impl
 
 
-######### OtherUtility ##########
+########## OtherUtility ##########
 req {{cy_loader}} impl
