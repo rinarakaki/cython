@@ -13,7 +13,7 @@ extern from "Python.h":
         i32 flags
         PyObject* name_strobj
 
-    i32 PyWrapperFlag_KEYWORDS
+    static i32 PyWrapperFlag_KEYWORDS
 
     ctypedef class __builtin__.wrapper_descriptor [object PyWrapperDescrObject]:
         cdef type d_type

@@ -5,9 +5,9 @@ ctypedef void (*sighandler_t)(i32 SIGNUM) noexcept nogil
 extern from "<signal.h>" nogil:
     ctypedef i32 sig_atomic_t
 
-    sighandler_t SIG_DFL
-    sighandler_t SIG_IGN
-    sighandler_t SIG_ERR
+    static sighandler_t SIG_DFL
+    static sighandler_t SIG_IGN
+    static sighandler_t SIG_ERR
 
     fn sighandler_t signal         (i32 signum, sighandler_t action)
     fn i32          raise_ "raise" (i32 signum)

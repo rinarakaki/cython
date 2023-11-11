@@ -21,7 +21,7 @@ extern from "Python.h":
         fn inline f64 imag(self):
             return self.cval.imag
 
-    # PyTypeObject PyComplex_Type
+    # static PyTypeObject PyComplex_Type
     # This instance of PyTypeObject represents the Python complex
     # number type. It is the same object as complex and
     # types.ComplexType.

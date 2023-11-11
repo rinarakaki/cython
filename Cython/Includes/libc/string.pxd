@@ -18,19 +18,19 @@ extern from "<string.h>" nogil:
     fn void *memrchr(const void *block, i32 c, usize size)
 
     fn usize strlen(const char *s)
-    fn char   *strcpy(char *pto, const char *pfrom)
-    fn char   *strncpy(char *pto, const char *pfrom, usize size)
-    fn char   *strdup(const char *s)
-    fn char   *strndup(const char *s, usize size)
-    fn char   *strcat(char *pto, const char *pfrom)
-    fn char   *strncat(char *pto, const char *pfrom, usize size)
+    fn char *strcpy(char *pto, const char *pfrom)
+    fn char *strncpy(char *pto, const char *pfrom, usize size)
+    fn char *strdup(const char *s)
+    fn char *strndup(const char *s, usize size)
+    fn char *strcat(char *pto, const char *pfrom)
+    fn char *strncat(char *pto, const char *pfrom, usize size)
 
     fn i32 strcmp(const char *s1, const char *s2)
     fn i32 strcasecmp(const char *s1, const char *s2)
     fn i32 strncmp(const char *s1, const char *s2, usize size)
     fn i32 strncasecmp(const char *s1, const char *s2, usize n)
 
-    fn i32   strcoll(const char *s1, const char *s2)
+    fn i32 strcoll(const char *s1, const char *s2)
     fn usize strxfrm(char *pto, const char *pfrom, usize size)
 
     fn char *strerror(i32 errnum)
