@@ -957,7 +957,6 @@ class ControlFlowAnalysis(CythonTransform):
         # Body block
         self.flow.nextblock()
         self._visit(node.body)
-        self.flow.loops.pop()
         # Loop it
         if self.flow.block:
             self.flow.block.add_child(next_block)
