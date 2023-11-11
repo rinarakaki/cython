@@ -760,20 +760,20 @@ def mixed_get(object[i32] buf, i32 unsafe_idx, i32 safe_idx):
 #
 # Coercions
 #
-# # @testcase
-# # def coercions(object[u8] uc):
-# #     """
-# # TODO
-# #     """
-# #     print type(uc[0])
-# #     uc[0] = -1
-# #     print uc[0]
-# #     uc[0] = <i32>3.14
-# #     print uc[0]
-
-# #     cdef char* ch = b"asfd"
-# #     cdef object[object] objbuf
-# #     objbuf[3] = ch
+# @testcase
+# def coercions(object[u8] uc):
+#     """
+# TODO
+#     """
+#     print type(uc[0])
+#     uc[0] = -1
+#     print uc[0]
+#     uc[0] = <i32>3.14
+#     print uc[0]
+#
+#     cdef char* ch = b"asfd"
+#     cdef object[object] objbuf
+#     objbuf[3] = ch
 
 
 #

@@ -36,11 +36,11 @@ class PyTestClass(object):
 
 # not currently working:
 #
-# # @print_msg("Cy-Done ")
-# # @print_name
-# # @print_msg("Cy-Hello ")
-# # @print_name
-# # @print_msg("Cy-Honk ")
-# # cdef class CyTestClass(object):
-# #     def __init__(self):
-# #         print u"Ho, Ho, Ho!"
+# @print_msg("Cy-Done ")
+# @print_name
+# @print_msg("Cy-Hello ")
+# @print_name
+# @print_msg("Cy-Honk ")
+# cdef class CyTestClass(object):
+#     def __init__(self):
+#         print u"Ho, Ho, Ho!"
