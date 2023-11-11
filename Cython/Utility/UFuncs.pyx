@@ -1,4 +1,4 @@
-# ################### UFuncDefinition ######################
+#################### UFuncDefinition ######################
 
 extern from *:
     ctypedef i32 npy_intp

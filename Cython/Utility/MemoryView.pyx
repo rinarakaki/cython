@@ -1,4 +1,4 @@
-# ################## View.MemoryView ####################
+################### View.MemoryView ####################
 
 # cython: language_level=3str
 # cython: binding=false
@@ -1404,7 +1404,7 @@ fn void _slice_assign_scalar(char *data, isize *shape,
             data += stride
 
 
-# ############# BufferFormatFromTypeInfo ###############
+############## BufferFormatFromTypeInfo ###############
 extern from *:
     struct __Pyx_StructField
 
