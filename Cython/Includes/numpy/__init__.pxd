@@ -189,7 +189,7 @@ extern from "numpy/arrayobject.h":
     cdef enum:
         NPY_MAXDIMS
 
-    npy_intp NPY_MAX_ELSIZE
+    static npy_intp NPY_MAX_ELSIZE
 
     ctypedef void (*PyArray_VectorUnaryFunc)(void *, void *, npy_intp, void *,  void *)
 
@@ -796,8 +796,8 @@ fn inline tuple PyDataType_SHAPE(dtype d):
         return ()
 
 extern from "numpy/ndarrayobject.h":
-    PyTypeObject PyTimedeltaArrType_Type
-    PyTypeObject PyDatetimeArrType_Type
+    static PyTypeObject PyTimedeltaArrType_Type
+    static PyTypeObject PyDatetimeArrType_Type
     type npy_timedelta = int64_t
     type npy_datetime = int64_t
 

@@ -4,7 +4,7 @@ extern from *:
     """
     int c_a, c_b;
     """
-    i32 a "c_a", b "c_b"
+    static i32 a "c_a", b "c_b"
 
 struct Foo "c_foo":
     i32 i "c_i"

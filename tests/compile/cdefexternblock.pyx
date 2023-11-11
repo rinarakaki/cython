@@ -7,7 +7,7 @@ extern from "cheese.h":
     struct roquefort:
         i32 x
 
-    char *swiss
+    static char *swiss
 
     fn void cheddar()
 
@@ -17,5 +17,5 @@ extern from "cheese.h":
     #    def __init__(self):
     #        pass
 
-#cdef runny r = runny()
-#r.a = 42
+# cdef runny r = runny()
+# r.a = 42

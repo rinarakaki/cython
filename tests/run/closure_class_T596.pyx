@@ -28,7 +28,7 @@ def nested_classes(a, b):
 def staff(a, b):
     """
     >>> kls = staff(1, 2)
-    >>> kls.static()
+    >>> kls.r#static()
     (1, 2)
     >>> kls.klass()
     ('Foo', 1, 2)
@@ -40,7 +40,7 @@ def staff(a, b):
         def member(self):
             return a, b
         @staticmethod
-        def static():
+        def r#static():
             return a, b
         @classmethod
         def klass(cls):

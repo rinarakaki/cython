@@ -86,7 +86,7 @@ def test_propagate_StopIteration(it):
     >>> results
     [1, 2]
     """
-    while True:
+    loop:
        yield next(it)
 
 
@@ -101,7 +101,7 @@ def test_catch_StopIteration(it):
     2
     """
     try:
-        while True:
+        loop:
            yield next(it)
     except StopIteration:
         pass

@@ -12,8 +12,8 @@ extern from "Python.h":
     ctypedef class __builtin__.py_long [object PyLongObject]:
         cdef digit* ob_digit
 
-    cdef py_long _PyLong_New(isize s)
+    fn py_long _PyLong_New(isize s)
 
-    cdef i64 PyLong_SHIFT
-    cdef digit PyLong_BASE
-    cdef digit PyLong_MASK
+    static i64 PyLong_SHIFT
+    static digit PyLong_BASE
+    static digit PyLong_MASK

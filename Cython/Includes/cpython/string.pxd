@@ -120,7 +120,7 @@ extern from "Python.h":
     # newpart appended to string. This version decrements the
     # reference count of newpart.
 
-    int _PyString_Resize(PyObject **string, isize newsize) except -1
+    fn i32 _PyString_Resize(PyObject **string, isize newsize) except -1
     # A way to resize a string object even though it is
     # ``immutable''. Only use this to build up a brand new string
     # object; don't use this if the string may already be known in

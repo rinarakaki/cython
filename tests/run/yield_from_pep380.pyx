@@ -166,7 +166,7 @@ def test_delegation_of_send():
     y = next(g)
     x = 1
     try:
-        while 1:
+        loop:
             y = g.send(x)
             trace.append("Yielded %s" % (y,))
             x += 1
@@ -205,7 +205,7 @@ def test_handling_exception_while_delegating_send():
         y = next(g)
         x = 1
         try:
-            while 1:
+            loop:
                 y = g.send(x)
                 trace.append("Yielded %s" % (y,))
                 x += 1
@@ -980,7 +980,7 @@ def test_delegating_generators_claim_to_be_running_send():
     g1 = _reentering_gen()
     res = [next(g1)]
     try:
-        while True:
+        loop:
             res.append(g1.send(42))
     except StopIteration:
         pass
@@ -1019,7 +1019,7 @@ def test_delegating_generators_claim_to_be_running_throw():
     g1 = one()
     res = [next(g1)]
     try:
-        while True:
+        loop:
             res.append(g1.throw(MyErr))
     except StopIteration:
         pass

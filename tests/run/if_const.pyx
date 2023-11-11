@@ -1,7 +1,7 @@
 
 use cython
 
-DEF INT_VAL = 1
+const INT_VAL = 1
 
 def _not_constant_but_False():
     return false

@@ -30,10 +30,10 @@ extern from *:
     fn Py_UCS2 *PyUnicode_2BYTE_DATA(object o)
     fn Py_UCS4 *PyUnicode_4BYTE_DATA(object o)
 
-    int PyUnicode_WCHAR_KIND  # Deprecated since Python 3.10, removed in 3.12.
-    int PyUnicode_1BYTE_KIND
-    int PyUnicode_2BYTE_KIND
-    int PyUnicode_4BYTE_KIND
+    static i32 PyUnicode_WCHAR_KIND  # Deprecated since Python 3.10, removed in 3.12.
+    static i32 PyUnicode_1BYTE_KIND
+    static i32 PyUnicode_2BYTE_KIND
+    static i32 PyUnicode_4BYTE_KIND
     fn void PyUnicode_WRITE(i32 kind, void *data, isize index, Py_UCS4 value)
     fn Py_UCS4 PyUnicode_READ(i32 kind, void *data, isize index)
     fn Py_UCS4 PyUnicode_READ_CHAR(object o, isize index)
@@ -232,7 +232,7 @@ extern from *:
     # suffix match), 0 otherwise.
     # Return -1 if an error occurred.
     fn isize PyUnicode_Tailmatch(object str, object substr,
-                              isize start, isize end, i32 direction) except -1
+                                 isize start, isize end, i32 direction) except -1
 
     # Return the first position of substr in str[start:end] using the given
     # direction (direction == 1 means to do a forward search, direction == -1

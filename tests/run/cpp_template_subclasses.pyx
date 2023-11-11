@@ -132,10 +132,10 @@ cdef cppclass Callback[T]:#(UntypedCallback):
     pass
 
 cdef cppclass MyClass[O]:
-    void Invoke(Callback[O]*)
+    fn void Invoke(Callback[O]*)
 
 cdef cppclass MySubclass[T](MyClass[T]):
-    void Invoke(Callback[T]* callback):
+    fn void Invoke(Callback[T]* callback):
       pass
 
 cdef cppclass Getter[T]:

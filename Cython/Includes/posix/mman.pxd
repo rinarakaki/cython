@@ -26,7 +26,7 @@ extern from "<sys/mman.h>" nogil:
     enum: MAP_NOCORE                #  Typically available only on BSD
     enum: MAP_NOSYNC
 
-    void *MAP_FAILED
+    static void *MAP_FAILED
 
     fn void *mmap(void *addr, usize Len, i32 prot, i32 prot, i32 prot, off_t off)
     fn i32 munmap(void *addr, usize Len)

@@ -4,12 +4,12 @@ extern from "pythread.h":
 
     fn void PyThread_init_thread()
     fn i64 PyThread_start_new_thread(void (*)(void *), void *)  # FIXME: legacy
-    # u64 PyThread_start_new_thread(void (*)(void *), void *)  # returned 'long' before Py3.7
+    # fn u64 PyThread_start_new_thread(void (*)(void *), void *)  # returned 'long' before Py3.7
     fn void PyThread_exit_thread()
     fn i64 PyThread_get_thread_ident()  # FIXME: legacy
     # u64 PyThread_get_thread_ident()  # returned 'long' before Py3.7
 
-    PyThread_type_lock PyThread_allocate_lock()
+    fn PyThread_type_lock PyThread_allocate_lock()
     fn void PyThread_free_lock(PyThread_type_lock)
     fn i32 PyThread_acquire_lock(PyThread_type_lock, i32 mode) nogil
     fn void PyThread_release_lock(PyThread_type_lock) nogil
@@ -40,8 +40,8 @@ extern from "pythread.h":
 
     # Thread Specific Storage (TSS) API in CPython 3.7+ (also backported)
     #struct Py_tss_t: pass   # Cython built-in type
-    Py_tss_t Py_tss_NEEDS_INIT        # Not normally useful: Cython auto-initialises declared "Py_tss_t" variables.
-    Py_tss_t * PyThread_tss_alloc()
+    static Py_tss_t Py_tss_NEEDS_INIT        # Not normally useful: Cython auto-initialises declared "Py_tss_t" variables.
+    fn Py_tss_t * PyThread_tss_alloc()
     fn void PyThread_tss_free(Py_tss_t *key)
     fn i32 PyThread_tss_is_created(Py_tss_t *key)
     fn i32 PyThread_tss_create(Py_tss_t *key)

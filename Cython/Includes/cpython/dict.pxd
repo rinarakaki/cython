@@ -18,7 +18,7 @@ extern from "Python.h":
     # This subtype of PyObject represents a Python dictionary object
     # (i.e. the 'dict' type).
 
-    # PyTypeObject PyDict_Type
+    # static PyTypeObject PyDict_Type
     #
     # This instance of PyTypeObject represents the Python dictionary
     # type. This is exposed to Python programs as dict and

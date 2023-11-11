@@ -49,9 +49,9 @@ OverflowError: ...
 """
 
 extern from *:
-    type ssize_t = long  # XXX This should generate a warning !!!
-    ssize_t PY_SSIZE_T_MAX
-    ssize_t PY_SSIZE_T_MIN
+    type ssize_t = i64  # XXX This should generate a warning !!!
+    static ssize_t PY_SSIZE_T_MAX
+    static ssize_t PY_SSIZE_T_MIN
 
 SSIZE_T_MAX = PY_SSIZE_T_MAX
 SSIZE_T_MIN = PY_SSIZE_T_MIN

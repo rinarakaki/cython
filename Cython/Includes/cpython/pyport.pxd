@@ -4,5 +4,5 @@ extern from "Python.h":
     type uint32_t = u32
     type uint64_t = u32
 
-    const isize PY_SSIZE_T_MIN
-    const isize PY_SSIZE_T_MAX
+    static const isize PY_SSIZE_T_MIN
+    static const isize PY_SSIZE_T_MAX
