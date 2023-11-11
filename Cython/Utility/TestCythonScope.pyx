@@ -49,7 +49,7 @@ fn test_call(obj):
 fn _testclass_new(i32 value):
     return TestClass(value)
 
-########## TestDep ##########
+########### TestDep ##########
 
 from __future__ import print_function
 
