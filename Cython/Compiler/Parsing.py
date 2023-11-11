@@ -2018,6 +2018,13 @@ def p_else_clause(s):
     else:
         return None
 
+def p_loop_statement(s):
+    # s.sy == "loop"
+    pos = s.position()
+    s.next()
+    body = p_suite(s)
+    return Nodes.LoopStatNode(pos, body=body)
+
 def p_while_statement(s):
     # s.sy == 'while'
     pos = s.position()
@@ -2029,7 +2036,6 @@ def p_while_statement(s):
         condition = test, body = body,
         else_clause = else_clause)
 
-
 def p_for_statement(s, is_async=False):
     # s.sy == 'for'
     pos = s.position()
@@ -2039,7 +2045,6 @@ def p_for_statement(s, is_async=False):
     else_clause = p_else_clause(s)
     kw.update(body=body, else_clause=else_clause, is_async=is_async)
     return Nodes.ForStatNode(pos, **kw)
-
 
 def p_for_bounds(s, allow_testlist=True, is_async=False):
     target = p_for_target(s)
@@ -2530,6 +2535,8 @@ def p_statement(s, ctx, first_statement = 0):
                 s.error("Executable statement not allowed here")
             if s.sy == 'if':
                 return p_if_statement(s)
+            elif s.sy == "loop":
+                return p_loop_statement(s)
             elif s.sy == 'while':
                 return p_while_statement(s)
             elif s.sy == 'for':

@@ -7306,6 +7306,21 @@ class LoopNode(object):
     pass
 
 
+class LoopStatNode(LoopNode, StatNode):
+    # loop statement
+    #
+    # body        StatNode
+
+    child_attrs = ["body"]
+
+    def analyse_declarations(self, env):
+        self.body.analyse_declarations(env)
+    
+    def analyse_expressions(self, env):
+        self.body = self.body.analyse_expressions(env)
+        return self
+
+
 class WhileStatNode(LoopNode, StatNode):
     #  while statement
     #
