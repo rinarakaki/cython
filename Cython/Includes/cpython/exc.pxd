@@ -107,14 +107,14 @@ extern from "Python.h":
     # error indicator temporarily; use PyErr_Fetch() to save the
     # current exception state.
 
-    fn void PyErr_SetString(object r#type, char *message)
+    fn void PyErr_SetString(object, char *message)
     # This is the most common way to set the error indicator. The
     # first argument specifies the exception type; it is normally one
     # of the standard exceptions, e.g. PyExc_RuntimeError. You need
     # not increment its reference count. The second argument is an
     # error message; it is converted to a string object.
 
-    fn void PyErr_SetObject(object r#type, object value)
+    fn void PyErr_SetObject(object, object value)
     # This function is similar to PyErr_SetString() but lets you
     # specify an arbitrary Python object for the ``value'' of the
     # exception.
@@ -127,7 +127,7 @@ extern from "Python.h":
     # similar to printf(). The width.precision before a format code is
     # parsed, but the width part is ignored.
 
-    fn void PyErr_SetNone(object r#type)
+    fn void PyErr_SetNone(object)
     # This is a shorthand for "PyErr_SetObject(type, Py_None)".
 
     fn i32 PyErr_BadArgument() except 0
