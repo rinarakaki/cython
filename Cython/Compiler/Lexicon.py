@@ -86,7 +86,7 @@ def make_lexicon():
     escaped_newline = Str("\\\n")
     lineterm = Eol + Opt(Str("\n"))
 
-    comment = Str("#") + Opt(AnyBut("[\n") + Rep(AnyBut("\n")))
+    comment = Str("#") + Eol | Str("# ") + Opt(AnyBut("[\n") + Rep(AnyBut("\n")))
 
     return Lexicon([
         (name, Method('normalize_ident')),
