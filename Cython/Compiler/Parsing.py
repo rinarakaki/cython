@@ -671,9 +671,9 @@ def p_struct_parse_fields(s):
                 encoded_name = s.context.intern_ustring(arg.name)
                 ident = ExprNodes.IdentifierStringNode(arg.pos, value=encoded_name)
                 expr = p_test(s)
-                fields.append(ExprNodes.ExprFieldNode(ident=ident, expr=expr))
+                fields.append(ExprNodes.ExprFieldNode(arg.pos, ident=ident, expr=expr))
             else:
-                fields.append(ExprNodes.ExprFieldNode(ident=arg.name, expr=arg))
+                fields.append(ExprNodes.ExprFieldNode(arg.pos, ident=arg.name, expr=arg))
         if s.sy != ",":
             break
         s.next()
