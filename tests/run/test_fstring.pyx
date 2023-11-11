@@ -613,7 +613,7 @@ non-important content
         # Different error message is raised for other whitespace characters.
         self.assertAllRaise(SyntaxError, r"invalid non-printable character U\+00A0",
                             ["f'''{\xa0}'''",
-                             #"\xa0",
+                             # "\xa0",
                              ])
 
     def test_parens_in_expressions(self):
