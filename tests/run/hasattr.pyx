@@ -29,13 +29,13 @@ def wrap_hasattr(obj, name):
     False
     >>> wrap_hasattr(Foo(), "bar")
     False
-    >>> Foo().baz   #doctest: +ELLIPSIS
+    >>> Foo().baz   # doctest: +ELLIPSIS
     Traceback (most recent call last):
        ...
     ZeroDivisionError: ...
     >>> wrap_hasattr(Foo(), "baz")
     False
-    >>> hasattr(Foo(), None)   #doctest: +ELLIPSIS
+    >>> hasattr(Foo(), None)   # doctest: +ELLIPSIS
     Traceback (most recent call last):
        ...
     TypeError: ...attribute name must be string...

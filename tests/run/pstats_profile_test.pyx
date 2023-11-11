@@ -55,7 +55,7 @@ u"""
     ... except:
     ...    pass
 
-    >>> sorted(callees(s, 'test_profile'))  #doctest: +NORMALIZE_WHITESPACE
+    >>> sorted(callees(s, 'test_profile'))  # doctest: +NORMALIZE_WHITESPACE
     ['f_cdef', 'f_cpdef', 'f_def',
      'f_inline', 'f_inline_prof',
      'f_raise',

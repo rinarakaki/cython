@@ -3872,19 +3872,19 @@ class TestReplace(unittest.TestCase):
         self.assertEqual(repr(c), "TestReplace.test_recursive_repr_misc_attrs"
                                   ".<locals>.C(f=..., g=1)")
 
-    # # def test_initvar(self):
-    # #     @dataclass
-    # #     class C:
-    # #         x: int
-    # #         y: InitVar[int]
+    # def test_initvar(self):
+    #     @dataclass
+    #     class C:
+    #         x: int
+    #         y: InitVar[int]
 
-    # #     c = C(1, 10)
-    # #     d = C(2, 20)
+    #     c = C(1, 10)
+    #     d = C(2, 20)
 
-    # #     # In our case, replacing an InitVar is a no-op
-    # #     self.assertEqual(c, replace(c, y=5))
+    #     # In our case, replacing an InitVar is a no-op
+    #     self.assertEqual(c, replace(c, y=5))
 
-    # #     replace(c, x=5)
+    #     replace(c, x=5)
 
 class TestAbstract(unittest.TestCase):
     def test_abc_implementation(self):

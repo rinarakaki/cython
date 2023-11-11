@@ -67,7 +67,7 @@ u"""
     ...    pass
 
     >>> sorted(list(callees(s, 'test_profile')) + (
-    ...        ['f_noprof', 'nogil_noprof', 'withgil_noprof'] if COMPILED else []))  #doctest: +NORMALIZE_WHITESPACE
+    ...        ['f_noprof', 'nogil_noprof', 'withgil_noprof'] if COMPILED else []))  # doctest: +NORMALIZE_WHITESPACE
     ['f_cdef', 'f_cpdef', 'f_def',
      'f_inline', 'f_inline_prof',
      'f_noprof',

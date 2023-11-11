@@ -1063,7 +1063,7 @@ class CSimpleBaseTypeNode(CBaseTypeNode):
     # longness         integer
     # complex          boolean
     # is_self_arg      boolean      Is self argument of C method
-    # ##is_type_arg      boolean      Is type argument of class method
+    # # is_type_arg      boolean      Is type argument of class method
 
     child_attrs = []
     arg_name = None   # in case the argument name was interpreted as a type
@@ -1127,8 +1127,8 @@ class CSimpleBaseTypeNode(CBaseTypeNode):
                 elif could_be_name:
                     if self.is_self_arg and env.is_c_class_scope:
                         type = env.parent_type
-                    # # elif self.is_type_arg and env.is_c_class_scope:
-                    # #     type = Builtin.type_type
+                    # elif self.is_type_arg and env.is_c_class_scope:
+                    #     type = Builtin.type_type
                     else:
                         type = py_object_type
                     self.arg_name = EncodedString(self.name)

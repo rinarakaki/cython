@@ -582,18 +582,18 @@ class GrammarTests(unittest.TestCase):
         self.assertEqual(ns['x'], (1, 2, 3, 4, 5))
 
     def test_funcdef(self):
-        # ## [decorators] 'def' NAME parameters ['->' test] ':' suite
-        # ## decorator: '@' namedexpr_test NEWLINE
-        # ## decorators: decorator+
-        # ## parameters: '(' [typedargslist] ')'
-        # ## typedargslist: ((tfpdef ['=' test] ',')*
-        # ##                ('*' [tfpdef] (',' tfpdef ['=' test])* [',' '**' tfpdef] | '**' tfpdef)
-        # ##                | tfpdef ['=' test] (',' tfpdef ['=' test])* [','])
-        # ## tfpdef: NAME [':' test]
-        # ## varargslist: ((vfpdef ['=' test] ',')*
-        # ##              ('*' [vfpdef] (',' vfpdef ['=' test])*  [',' '**' vfpdef] | '**' vfpdef)
-        # ##              | vfpdef ['=' test] (',' vfpdef ['=' test])* [','])
-        # ## vfpdef: NAME
+        # [decorators] 'def' NAME parameters ['->' test] ':' suite
+        # decorator: '@' namedexpr_test NEWLINE
+        # decorators: decorator+
+        # parameters: '(' [typedargslist] ')'
+        # typedargslist: ((tfpdef ['=' test] ',')*
+        #                ('*' [tfpdef] (',' tfpdef ['=' test])* [',' '**' tfpdef] | '**' tfpdef)
+        #                | tfpdef ['=' test] (',' tfpdef ['=' test])* [','])
+        # tfpdef: NAME [':' test]
+        # varargslist: ((vfpdef ['=' test] ',')*
+        #              ('*' [vfpdef] (',' vfpdef ['=' test])*  [',' '**' vfpdef] | '**' vfpdef)
+        #              | vfpdef ['=' test] (',' vfpdef ['=' test])* [','])
+        # vfpdef: NAME
         def f1(): pass
         f1()
         f1(*())
@@ -835,7 +835,7 @@ class GrammarTests(unittest.TestCase):
         def f(a, *, b, **kwds,): pass
 
     def test_lambdef(self):
-        # ## lambdef: 'lambda' [varargslist] ':' test
+        # lambdef: 'lambda' [varargslist] ':' test
         l1 = lambda : 0
         self.assertEqual(l1(), 0)
         l2 = lambda : a[d]  # XXX just testing the expression
@@ -870,18 +870,18 @@ class GrammarTests(unittest.TestCase):
         l24 = lambda a, *, b, **kwds,: 0
 
 
-    # ## stmt: simple_stmt | compound_stmt
+    # stmt: simple_stmt | compound_stmt
     # Tested below
 
     def test_simple_stmt(self):
-        # ## simple_stmt: small_stmt (';' small_stmt)* [';']
+        # simple_stmt: small_stmt (';' small_stmt)* [';']
         x = 1; pass; del x
         def foo():
             # verify statements that end with semi-colons
             x = 1; pass; del x;
         foo()
 
-    # ## small_stmt: expr_stmt | pass_stmt | del_stmt | flow_stmt | import_stmt | global_stmt | access_stmt
+    # small_stmt: expr_stmt | pass_stmt | del_stmt | flow_stmt | import_stmt | global_stmt | access_stmt
     # Tested below
 
     def test_expr_stmt(self):
@@ -1357,7 +1357,7 @@ class GrammarTests(unittest.TestCase):
         """
 
 
-    # ## compound_stmt: if_stmt | while_stmt | for_stmt | try_stmt | funcdef | classdef
+    # compound_stmt: if_stmt | while_stmt | for_stmt | try_stmt | funcdef | classdef
     # Tested below
 
     def test_if(self):
@@ -1416,9 +1416,9 @@ class GrammarTests(unittest.TestCase):
         self.assertEqual(result, [1, 2, 3])
 
     def test_try(self):
-        # ## try_stmt: 'try' ':' suite (except_clause ':' suite)+ ['else' ':' suite]
-        # ##         | 'try' ':' suite 'finally' ':' suite
-        # ## except_clause: 'except' [expr ['as' NAME]]
+        # try_stmt: 'try' ':' suite (except_clause ':' suite)+ ['else' ':' suite]
+        #         | 'try' ':' suite 'finally' ':' suite
+        # except_clause: 'except' [expr ['as' NAME]]
         try:
             1/0
         except ZeroDivisionError:
@@ -1456,9 +1456,9 @@ class GrammarTests(unittest.TestCase):
             #
 
     def test_test(self):
-        # ## and_test ('or' and_test)*
-        # ## and_test: not_test ('and' not_test)*
-        # ## not_test: 'not' not_test | comparison
+        # and_test ('or' and_test)*
+        # and_test: not_test ('and' not_test)*
+        # not_test: 'not' not_test | comparison
         if not 1: pass
         if 1 and 1: pass
         if 1 or 1: pass
@@ -1467,8 +1467,8 @@ class GrammarTests(unittest.TestCase):
         if 1 and 1 or 1 and 1 and 1 or not 1 and 1: pass
 
     def test_comparison(self):
-        # ## comparison: expr (comp_op expr)*
-        # ## comp_op: '<'|'>'|'=='|'>='|'<='|'!='|'in'|'not' 'in'|'is'|'is' 'not'
+        # comparison: expr (comp_op expr)*
+        # comp_op: '<'|'>'|'=='|'>='|'<='|'!='|'in'|'not' 'in'|'is'|'is' 'not'
         if 1: pass
         x = (1 == 1)
         if 1 == 1: pass
@@ -1618,8 +1618,8 @@ class GrammarTests(unittest.TestCase):
         x = -1*1/1 + 1*1 - ---1*1
 
     def test_selectors(self):
-        # ## trailer: '(' [testlist] ')' | '[' subscript ']' | '.' NAME
-        # ## subscript: expr | [expr] ':' [expr]
+        # trailer: '(' [testlist] ')' | '[' subscript ']' | '.' NAME
+        # subscript: expr | [expr] ':' [expr]
 
         import sys, time
         c = sys.path[0]
@@ -1648,8 +1648,8 @@ class GrammarTests(unittest.TestCase):
         self.assertEqual(str(L), '[1, (1,), (1, 2), (1, 2, 3)]')
 
     def test_atoms(self):
-        # ## atom: '(' [testlist] ')' | '[' [testlist] ']' | '{' [dictsetmaker] '}' | NAME | NUMBER | STRING
-        # ## dictsetmaker: (test ':' test (',' test ':' test)* [',']) | (test (',' test)* [','])
+        # atom: '(' [testlist] ')' | '[' [testlist] ']' | '{' [dictsetmaker] '}' | NAME | NUMBER | STRING
+        # dictsetmaker: (test ':' test (',' test ':' test)* [',']) | (test (',' test)* [','])
 
         x = (1)
         x = (1 or 2 or 3)
@@ -1678,8 +1678,8 @@ class GrammarTests(unittest.TestCase):
         x = 'x'
         x = 123
 
-    # ## exprlist: expr (',' expr)* [',']
-    # ## testlist: test (',' test)* [',']
+    # exprlist: expr (',' expr)* [',']
+    # testlist: test (',' test)* [',']
     # These have been exercised enough above
 
     def test_classdef(self):

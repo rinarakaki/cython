@@ -179,9 +179,9 @@ extern from "<unistd.h>" nogil:
     enum: _SC_XOPEN_UNIX
     enum: _SC_XOPEN_VERSION
 
-    enum: STDIN_FILENO	#0
-    enum: STDOUT_FILENO	#1
-    enum: STDERR_FILENO	#2
+    enum: STDIN_FILENO 	 # 0
+    enum: STDOUT_FILENO	 # 1
+    enum: STDERR_FILENO	 # 2
 
     ctypedef u32 useconds_t
 

@@ -23,7 +23,7 @@ class Extension(_Extension.Extension):
                  extra_compile_args=None,
                  extra_link_args=None,
                  export_symbols=None,
-                 #swig_opts=None,
+                 # swig_opts=None,
                  depends=None,
                  language=None,
                  cython_include_dirs=None,

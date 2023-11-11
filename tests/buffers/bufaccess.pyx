@@ -15,7 +15,7 @@ use cython
 
 import sys
 # import re
-exclude = []#re.compile('object').search]
+exclude = []  # re.compile('object').search]
 
 if getattr(sys, 'pypy_version_info', None) is not None:
     # disable object-in-buffer tests in PyPy

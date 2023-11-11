@@ -205,7 +205,7 @@ def build_module(name, pyxfilename, pyxbuild_dir=None, inplace=False, language_l
     so_path = os.path.join(common, so_path)
     assert os.path.exists(so_path), "Cannot find: %s" % so_path
 
-    junkpath = os.path.join(os.path.dirname(so_path), name+"_*")  #very dangerous with --inplace ? yes, indeed, trying to eat my files ;)
+    junkpath = os.path.join(os.path.dirname(so_path), name+"_*")  # very dangerous with --inplace ? yes, indeed, trying to eat my files ;)
     junkstuff = glob.glob(junkpath)
     for path in junkstuff:
         if path != so_path:
@@ -345,7 +345,7 @@ class PyxImportLoader(ExtensionFileLoader):
 class PyxArgs(object):
     build_dir=True
     build_in_temp=True
-    setup_args={}   #None
+    setup_args={}  # None
 
 
 def _have_importers():

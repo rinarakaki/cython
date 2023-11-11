@@ -1264,7 +1264,7 @@ const_counter = 1  # As a temporary solution for compiling code in pxds
 class ModuleScope(Scope):
     # module_name          string             Python name of the module
     # module_cname         string             C name of Python module object
-    # #module_dict_cname   string             C name of module dict object
+    # # module_dict_cname   string             C name of module dict object
     # method_table_cname   string             C name of method table
     # doc                  string             Module doc string
     # doc_cname            string             C name of module doc string
@@ -2253,8 +2253,8 @@ class CClassScope(ClassScope):
     #  Namespace of an extension type.
     #
     #  parent_type           PyExtensionType
-    #  #typeobj_cname        string or None
-    #  #objstruct_cname      string
+    #  # typeobj_cname        string or None
+    #  # objstruct_cname      string
     #  method_table_cname    string
     #  getset_table_cname    string
     #  has_pyobject_attrs    boolean  Any PyObject attributes?

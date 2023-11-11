@@ -28,15 +28,15 @@ __doc__ = u"""
 ((1+2j), (3+4j), (5+6j))
 
 >>> b = B()
->>> b.a0 #doctest: +ELLIPSIS
+>>> b.a0 # doctest: +ELLIPSIS
 Traceback (most recent call last):
 AttributeError: ...
 
->>> b.b0 #doctest: +ELLIPSIS
+>>> b.b0 # doctest: +ELLIPSIS
 Traceback (most recent call last):
 AttributeError: ...
 
->>> b.c0 #doctest: +ELLIPSIS
+>>> b.c0 # doctest: +ELLIPSIS
 Traceback (most recent call last):
 AttributeError: ...
 

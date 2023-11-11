@@ -194,7 +194,7 @@ def builtin_not_none(list L not None):
 # # builtin type 'object' - isinstance(None, object) is True!
 
 #[cython.allow_none_for_extension_args(false)]
-def object_default(object o): # always behaves like 'or None'
+def object_default(object o):  # always behaves like 'or None'
     """
     >>> object_default(object())
     'object'

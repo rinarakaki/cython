@@ -16,10 +16,10 @@ def f(a, /, a):
 def f(a, /, *, a):
     pass
 
-# def f(a, b/2, c): #D
+# def f(a, b/2, c): # D
 #    pass
 
-# def f(*args, /): #D
+# def f(*args, /): # D
 #    pass
 
 # def f(*args, a, /):

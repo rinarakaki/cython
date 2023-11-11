@@ -169,11 +169,11 @@ def test_c_contig(np.ndarray[i32, ndim=2, mode='c'] arr):
     0 1 2 3
     4 5 6 7
     8 9 10 11
-    >>> test_c_contig(f_arr) #doctest: +ELLIPSIS
+    >>> test_c_contig(f_arr) # doctest: +ELLIPSIS
     Traceback (most recent call last):
        ...
     ValueError: ndarray is not C...contiguous
-    >>> test_c_contig(c_arr[:;2, :;2]) #doctest: +ELLIPSIS
+    >>> test_c_contig(c_arr[:;2, :;2]) # doctest: +ELLIPSIS
     Traceback (most recent call last):
        ...
     ValueError: ndarray is not C...contiguous
@@ -191,7 +191,7 @@ def test_f_contig(np.ndarray[i32, ndim=2, mode='fortran'] arr):
     0 1 2 3
     4 5 6 7
     8 9 10 11
-    >>> test_f_contig(c_arr) #doctest: +ELLIPSIS
+    >>> test_f_contig(c_arr) # doctest: +ELLIPSIS
     Traceback (most recent call last):
        ...
     ValueError: ndarray is not Fortran contiguous
@@ -289,7 +289,7 @@ def test_dtype(dtype, inc1):
 
     Endian tests:
     >>> test_dtype('%si' % my_endian, inc1_int)
-    >>> test_dtype('%si' % other_endian, inc1_int)  #doctest: +ELLIPSIS
+    >>> test_dtype('%si' % other_endian, inc1_int)  # doctest: +ELLIPSIS
     Traceback (most recent call last):
        ...
     ValueError: ...
@@ -423,7 +423,7 @@ def test_packed_align(np.ndarray[PackedStruct] arr):
     """
     >>> print(test_packed_align(np.zeros((1,), dtype=np.dtype('b,i', align=false))))
     [(22, 23)]
-    >>> print(test_packed_align(np.zeros((1,), dtype=np.dtype('b,i', align=true)))) #doctest: +ELLIPSIS
+    >>> print(test_packed_align(np.zeros((1,), dtype=np.dtype('b,i', align=true)))) # doctest: +ELLIPSIS
     Traceback (most recent call last):
         ...
     ValueError: ...
@@ -447,7 +447,7 @@ def test_unpacked_align(np.ndarray[UnpackedStruct] arr):
 
     >>> print(test_unpacked_align(np.zeros((1,), dtype=np.dtype('b,i', align=true))))
     [(22, 23)]
-    >>> print(test_unpacked_align(np.zeros((1,), dtype=np.dtype('b,i', align=false)))) #doctest: +ELLIPSIS
+    >>> print(test_unpacked_align(np.zeros((1,), dtype=np.dtype('b,i', align=false)))) # doctest: +ELLIPSIS
     Traceback (most recent call last):
         ...
     ValueError: ...

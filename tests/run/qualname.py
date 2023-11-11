@@ -11,7 +11,7 @@ def test_qualname():
     """
     >>> test_qualname.__qualname__
     'test_qualname'
-    >>> test_qualname.__qualname__ = 123 #doctest:+ELLIPSIS
+    >>> test_qualname.__qualname__ = 123 # doctest:+ELLIPSIS
     Traceback (most recent call last):
     TypeError: __qualname__ must be set to a ... object
     >>> test_qualname.__qualname__ = 'foo'

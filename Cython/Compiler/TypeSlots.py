@@ -995,7 +995,7 @@ class SlotTable(object):
             MethodSlot(lenfunc, "sq_length", "__len__", method_name_to_slot),
             EmptySlot("sq_concat"),  # nb_add used instead
             EmptySlot("sq_repeat"),  # nb_multiply used instead
-            SyntheticSlot("sq_item", ["__getitem__"], "0"),    #EmptySlot("sq_item"),   # mp_subscript used instead
+            SyntheticSlot("sq_item", ["__getitem__"], "0"),  # EmptySlot("sq_item"),   # mp_subscript used instead
             MethodSlot(ssizessizeargfunc, "sq_slice", "__getslice__", method_name_to_slot),
             EmptySlot("sq_ass_item"),  # mp_ass_subscript used instead
             SyntheticSlot("sq_ass_slice", ["__setslice__", "__delslice__"], "0"),
@@ -1077,7 +1077,7 @@ class SlotTable(object):
             MemberTableSlot("tp_members"),
             GetSetSlot("tp_getset"),
 
-            BaseClassSlot("tp_base"),  #EmptySlot("tp_base"),
+            BaseClassSlot("tp_base"),  # EmptySlot("tp_base"),
             EmptySlot("tp_dict"),
 
             SyntheticSlot("tp_descr_get", ["__get__"], "0"),
@@ -1086,7 +1086,7 @@ class SlotTable(object):
             DictOffsetSlot("tp_dictoffset", ifdef="!CYTHON_USE_TYPE_SPECS"),  # otherwise set via "__dictoffset__" member
 
             MethodSlot(initproc, "tp_init", "__init__", method_name_to_slot),
-            EmptySlot("tp_alloc"),  #FixedSlot("tp_alloc", "PyType_GenericAlloc"),
+            EmptySlot("tp_alloc"),  # FixedSlot("tp_alloc", "PyType_GenericAlloc"),
             ConstructorSlot("tp_new", "__cinit__"),
             EmptySlot("tp_free"),
 
