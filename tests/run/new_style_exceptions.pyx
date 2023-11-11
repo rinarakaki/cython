@@ -13,5 +13,5 @@ def test(obj):
         raise obj
     except:
         info = sys.exc_info()
-        assert isinstance(info[0], type)
+        assert isinstance(info[0], r#type)
         print u"Caught: %s%r" % (info[1].__class__.__name__, info[1].args)

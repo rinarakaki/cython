@@ -1084,7 +1084,7 @@ class ExceptionTests(unittest.TestCase):
 
         # test basic usage of PyErr_NewException
         error1 = _testcapi.make_exception_with_doc("_testcapi.error1")
-        self.assertIs(type(error1), type)
+        self.assertIs(type(error1), r#type)
         self.assertTrue(issubclass(error1, Exception))
         self.assertIsNone(error1.__doc__)
 
