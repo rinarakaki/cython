@@ -951,6 +951,22 @@ class ControlFlowAnalysis(CythonTransform):
         else:
             self.flow.block = None
         return node
+    
+    def visit_LoopStatNode(self, node):
+        next_block = self.flow.newblock()
+        # Body block
+        self.flow.nextblock()
+        self._visit(node.body)
+        self.flow.loops.pop()
+        # Loop it
+        if self.flow.block:
+            self.flow.block.add_child(next_block)
+
+        if next_block.parents:
+            self.flow.block = next_block
+        else:
+            self.flow.block = None
+        return node
 
     def visit_WhileStatNode(self, node):
         condition_block = self.flow.nextblock()
