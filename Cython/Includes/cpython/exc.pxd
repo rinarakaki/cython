@@ -255,7 +255,7 @@ extern from "Python.h":
     # when an exception has been set but it is impossible for the
     # interpreter to actually raise the exception. It is used, for
     # example, when an exception occurs in an __del__() method.
-    #
+    # 
     # The function is called with a single argument obj that
     # identifies the context in which the unraisable exception
     # occurred. The repr of obj will be printed in the warning
