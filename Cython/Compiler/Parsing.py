@@ -2367,7 +2367,7 @@ def p_simple_statement_list(s, ctx, first_statement = 0):
     if not isinstance(stat, Nodes.PassStatNode):
         stats.append(stat)
     while s.sy == ';':
-        #print "p_simple_statement_list: maybe more to follow" ###
+        # print "p_simple_statement_list: maybe more to follow" ###
         s.next()
         if s.sy in ('NEWLINE', 'EOF'):
             break
@@ -2451,7 +2451,7 @@ def p_statement(s, ctx, first_statement = 0):
     if s.sy == 'ctypedef':
         if ctx.level not in ('module', 'module_pxd'):
             s.error("ctypedef statement not allowed here")
-        #if ctx.api:
+        # if ctx.api:
         #    error(s.position(), "'api' not allowed with 'ctypedef'")
         return p_ctypedef_statement(s, ctx)
     elif s.sy in ("const", "DEF") and ctx.visibility != "extern":
@@ -2744,7 +2744,7 @@ def p_c_simple_base_type(s, nonempty, templates=None):
     if s.sy != 'IDENT':
         error(pos, "Expected an identifier, found '%s'" % s.sy)
     if looking_at_base_type(s):
-        #print "p_c_simple_base_type: looking_at_base_type at", s.position()
+        # print "p_c_simple_base_type: looking_at_base_type at", s.position()
         is_basic = 1
         if s.sy == 'IDENT' and s.systring in builtin_type_names:
             signed, longness = None, None
@@ -2765,7 +2765,7 @@ def p_c_simple_base_type(s, nonempty, templates=None):
             complex = 1
             s.next()
     elif looking_at_dotted_name(s):
-        #print "p_c_simple_base_type: looking_at_type_name at", s.position()
+        # print "p_c_simple_base_type: looking_at_type_name at", s.position()
         name = s.systring
         s.next()
         while s.sy in (".", "::"):
@@ -3647,7 +3647,7 @@ def p_c_func_or_var_declaration(s, pos, ctx):
             overridable = ctx.overridable,
             is_const_method = is_const_method)
     else:
-        #if api:
+        # if api:
         #    s.error("'api' not allowed with variable declaration")
         if is_const_method:
             declarator.is_const_method = is_const_method

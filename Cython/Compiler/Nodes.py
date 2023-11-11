@@ -392,23 +392,23 @@ class StatListNode(Node):
         return node  # No node-specific analysis needed
 
     def analyse_declarations(self, env):
-        #print "StatListNode.analyse_declarations" ###
+        # print "StatListNode.analyse_declarations" ###
         for stat in self.stats:
             stat.analyse_declarations(env)
 
     def analyse_expressions(self, env):
-        #print "StatListNode.analyse_expressions" ###
+        # print "StatListNode.analyse_expressions" ###
         self.stats = [stat.analyse_expressions(env)
                       for stat in self.stats]
         return self
 
     def generate_function_definitions(self, env, code):
-        #print "StatListNode.generate_function_definitions" ###
+        # print "StatListNode.generate_function_definitions" ###
         for stat in self.stats:
             stat.generate_function_definitions(env, code)
 
     def generate_execution_code(self, code):
-        #print "StatListNode.generate_execution_code" ###
+        # print "StatListNode.generate_execution_code" ###
         for stat in self.stats:
             code.mark_pos(stat.pos)
             stat.generate_execution_code(code)
@@ -1074,7 +1074,7 @@ class CSimpleBaseTypeNode(CBaseTypeNode):
 
     def analyse(self, env, could_be_name=False):
         # Return type descriptor.
-        #print "CSimpleBaseTypeNode.analyse: is_self_arg =", self.is_self_arg ###
+        # print "CSimpleBaseTypeNode.analyse: is_self_arg =", self.is_self_arg ###
         type = None
         if self.is_basic_c_type:
             type = PyrexTypes.simple_c_type(self.signed, self.longness, self.name)
@@ -2870,7 +2870,7 @@ class CFuncDefNode(FuncDefNode):
         modifiers = code.build_function_modifiers(self.entry.func_modifiers)
 
         header = self.return_type.declaration_code(entity, dll_linkage=dll_linkage)
-        #print (storage_class, modifiers, header)
+        # print (storage_class, modifiers, header)
         needs_proto = self.is_c_class_method or self.entry.is_cproperty
         if self.template_declaration:
             if needs_proto:
@@ -3406,7 +3406,7 @@ class DefNode(FuncDefNode):
             desc, self.name, len(self.args), expected_str))
 
     def declare_pyfunction(self, env):
-        #print "DefNode.declare_pyfunction:", self.name, "in", env ###
+        # print "DefNode.declare_pyfunction:", self.name, "in", env ###
         name = self.name
         entry = env.lookup_here(name)
         if entry:
@@ -5383,9 +5383,9 @@ class CClassDefNode(ClassDefNode):
         return extra_directives
 
     def analyse_declarations(self, env):
-        #print "CClassDefNode.analyse_declarations:", self.class_name
-        #print "...visibility =", self.visibility
-        #print "...module_name =", self.module_name
+        # print "CClassDefNode.analyse_declarations:", self.class_name
+        # print "...visibility =", self.visibility
+        # print "...module_name =", self.module_name
 
         if env.in_cinclude and not self.objstruct_name:
             error(self.pos, "Object struct name specification required for C class defined in 'extern from' block")
@@ -9124,12 +9124,12 @@ class ParallelStatNode(StatNode, ParallelNode):
 
     is_parallel is true for:
 
-        #pragma omp parallel
-        #pragma omp parallel for
+        # pragma omp parallel
+        # pragma omp parallel for
 
     sections, but NOT for
 
-        #pragma omp for
+        # pragma omp for
 
     We need this to determine the sharing attributes.
 

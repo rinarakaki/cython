@@ -4019,7 +4019,7 @@ class DebugTransform(CythonTransform):
         # our treebuilder and debug output writer
         # (see Cython.Debugger.debug_output.CythonDebugWriter)
         self.tb = self.context.gdb_debug_outputwriter
-        #self.c_output_file = options.output_file
+        # self.c_output_file = options.output_file
         self.c_output_file = result.c_file
 
         # Closure support, basically treat nested functions as if the AST were

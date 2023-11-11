@@ -1424,7 +1424,7 @@ class UnicodeTest(CommonTest,
         self.assertEqual('%.1s' % "a\xe9\u20ac", 'a')
         self.assertEqual('%.2s' % "a\xe9\u20ac", 'a\xe9')
 
-        #issue 19995
+        # issue 19995
         class PseudoInt:
             def __init__(self, value):
                 self.value = int(value)
@@ -2692,7 +2692,7 @@ class CAPITest(unittest.TestCase):
         check_format('repr=\u4eba\u6c11',
                      b'repr=%V', None, b'\xe4\xba\xba\xe6\xb0\x91')
 
-        #Test replace error handler.
+        # Test replace error handler.
         check_format('repr=abc\ufffd',
                      b'repr=%V', None, b'abc\xff')
 

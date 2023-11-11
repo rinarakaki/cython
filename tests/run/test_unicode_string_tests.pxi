@@ -978,7 +978,7 @@ class CommonTest(BaseTest):
         # check that titlecased chars are lowered correctly
         # \u1ffc is the titlecased char
         # Note: differs between Py<3.8 and later.
-        #self.checkequal('\u03a9\u0399\u1ff3\u1ff3\u1ff3',
+        # self.checkequal('\u03a9\u0399\u1ff3\u1ff3\u1ff3',
         #                '\u1ff3\u1ff3\u1ffc\u1ffc', 'capitalize')
         # check with cased non-letter chars
         self.checkequal('\u24c5\u24e8\u24e3\u24d7\u24de\u24dd',
@@ -1162,7 +1162,7 @@ class MixinStrUnicodeUserStringTest:
         self.checkraises(TypeError, 'abc', '__mul__', '')
         # XXX: on a 64-bit system, this doesn't raise an overflow error,
         # but either raises a MemoryError, or succeeds (if you have 54TiB)
-        #self.checkraises(OverflowError, 10000*'abc', '__mul__', 2000000000)
+        # self.checkraises(OverflowError, 10000*'abc', '__mul__', 2000000000)
 
     def test_join(self):
         # join now works with any sequence type
@@ -1174,7 +1174,7 @@ class MixinStrUnicodeUserStringTest:
         self.checkequal('ac', '', 'join', ('a', '', 'c', ''))
         self.checkequal('w x y z', ' ', 'join', Sequence())
         self.checkequal('abc', 'a', 'join', ('abc',))
-        #self.checkequal('z', 'a', 'join', UserList(['z']))
+        # self.checkequal('z', 'a', 'join', UserList(['z']))
         self.checkequal('a.b.c', '.', 'join', ['a', 'b', 'c'])
         self.assertRaises(TypeError, '.'.join, ['a', 'b', 3])
         for i in [5, 25, 125]:
@@ -1183,7 +1183,7 @@ class MixinStrUnicodeUserStringTest:
             self.checkequal(((('a' * i) + '-') * i)[:-1], '-', 'join',
                  ('a' * i,) * i)
 
-        #self.checkequal(str(BadSeq1()), ' ', 'join', BadSeq1())
+        # self.checkequal(str(BadSeq1()), ' ', 'join', BadSeq1())
         self.checkequal('a b c', ' ', 'join', BadSeq2())
 
         self.checkraises(TypeError, ' ', 'join')

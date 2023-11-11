@@ -957,7 +957,7 @@ class ModuleNode(Nodes.Node, Nodes.BlockNode):
 
     def generate_type_header_code(self, type_entries, code):
         # Generate definitions of structs/unions/enums/typedefs/objstructs.
-        #self.generate_gcc33_hack(env, code) # Is this still needed?
+        # self.generate_gcc33_hack(env, code) # Is this still needed?
         # Forward declarations
         for entry in type_entries:
             if not entry.in_cinclude:
@@ -1605,7 +1605,7 @@ class ModuleNode(Nodes.Node, Nodes.BlockNode):
             code.putln("#endif")
         if need_self_cast:
             code.putln("p = %s;" % type.cast_code("o"))
-        #if need_self_cast:
+        # if need_self_cast:
         #    self.generate_self_cast(scope, code)
 
         # from this point on, ensure DECREF(o) on failure
@@ -2477,13 +2477,13 @@ class ModuleNode(Nodes.Node, Nodes.BlockNode):
             "if (!i) i = Py_None;")
         code.putln(
             "if (!c) c = Py_None;")
-        #code.put_incref("i", py_object_type)
-        #code.put_incref("c", py_object_type)
+        # code.put_incref("i", py_object_type)
+        # code.put_incref("c", py_object_type)
         code.putln(
             "r = %s(o, i, c);" % (
                 user_get_entry.func_cname))
-        #code.put_decref("i", py_object_type)
-        #code.put_decref("c", py_object_type)
+        # code.put_decref("i", py_object_type)
+        # code.put_decref("c", py_object_type)
         code.putln(
             "return r;")
         code.putln(
@@ -2637,7 +2637,7 @@ class ModuleNode(Nodes.Node, Nodes.BlockNode):
             header = "DL_EXPORT(PyTypeObject) %s = {"
         else:
             header = "static PyTypeObject %s = {"
-        #code.putln(header % scope.parent_type.typeobj_cname)
+        # code.putln(header % scope.parent_type.typeobj_cname)
         code.putln(header % type.typeobj_cname)
         code.putln(
             "PyVarObject_HEAD_INIT(0, 0)")
@@ -3699,7 +3699,7 @@ class ModuleNode(Nodes.Node, Nodes.BlockNode):
     def generate_type_import_code_for_module(self, module, env, code):
         # Generate type import code for all exported extension types in
         # an imported module.
-        #if module.c_class_entries:
+        # if module.c_class_entries:
         with ModuleImportGenerator(code) as import_generator:
             for entry in module.c_class_entries:
                 if entry.defined_in_pxd:

@@ -353,7 +353,7 @@ the \'lazy\' dog.\n\
         x = ...
         self.assertTrue(x is Ellipsis)
         # FIXME: why is this not rejected ???
-        #self.assertRaises(SyntaxError, eval, ".. .")
+        # self.assertRaises(SyntaxError, eval, ".. .")
 
     def test_eof_error(self):
         samples = ("def foo(", "\ndef foo(", "def foo(\n")
@@ -723,9 +723,9 @@ class GrammarTests(unittest.TestCase):
         pos2key2dict(1,2,tokwarg1=100,tokwarg2=200, k2=100)
 
         # FIXME: currently does not raise an error
-        #self.assertRaises(SyntaxError, eval, "def f(*): pass")
-        #self.assertRaises(SyntaxError, eval, "def f(*,): pass")
-        #self.assertRaises(SyntaxError, eval, "def f(*, **kwds): pass")
+        # self.assertRaises(SyntaxError, eval, "def f(*): pass")
+        # self.assertRaises(SyntaxError, eval, "def f(*,): pass")
+        # self.assertRaises(SyntaxError, eval, "def f(*, **kwds): pass")
 
         # keyword arguments after *arglist
         def f(*args, **kwargs):
@@ -949,7 +949,7 @@ class GrammarTests(unittest.TestCase):
         del abcd[1:2]
 
         # FIXME: currently fails to compile
-        #compile("del a, (b[0].c, (d.e, f.g[1:2])), [h.i.j], ()", "<testcase>", "exec")
+        # compile("del a, (b[0].c, (d.e, f.g[1:2])), [h.i.j], ()", "<testcase>", "exec")
 
     def test_pass_stmt(self):
         # 'pass'
@@ -1248,7 +1248,7 @@ class GrammarTests(unittest.TestCase):
         check_syntax_error(self, "class foo:yield 1")
         check_syntax_error(self, "class foo:yield from ()")
         # Check annotation refleak on SyntaxError
-        #check_syntax_error(self, "def g(a:(yield)): pass")  # no longer a syntax error with PEP-563
+        # check_syntax_error(self, "def g(a:(yield)): pass")  # no longer a syntax error with PEP-563
 
     @skip("Not currently a syntax error")
     def test_yield_in_comprehensions(self):
@@ -1919,7 +1919,7 @@ class GrammarTests(unittest.TestCase):
             return ret
 
         # the next line is not allowed anymore
-        #self.assertEqual([ x() for x in lambda: True, lambda: False if x() ], [True])
+        # self.assertEqual([ x() for x in lambda: True, lambda: False if x() ], [True])
         self.assertEqual([ x() for x in (lambda: True, lambda: False) if x() ], [True])
         self.assertEqual([ x(False) for x in (lambda x: False if x else True, lambda x: True if x else False) if x(False) ], [True])
         self.assertEqual((5 if 1 else _checkeval("check 1", 0)), 5)
@@ -1970,7 +1970,7 @@ class GrammarTests(unittest.TestCase):
                 await someobj()
 
         self.assertEqual(test.__name__, 'test')
-        #self.assertTrue(bool(test.__code__.co_flags & inspect.CO_COROUTINE))
+        # self.assertTrue(bool(test.__code__.co_flags & inspect.CO_COROUTINE))
 
         def decorator(func):
             setattr(func, '_marked', True)
@@ -1981,7 +1981,7 @@ class GrammarTests(unittest.TestCase):
             return 22
         self.assertTrue(test2._marked)
         self.assertEqual(test2.__name__, 'test2')
-        #self.assertTrue(bool(test2.__code__.co_flags & inspect.CO_COROUTINE))
+        # self.assertTrue(bool(test2.__code__.co_flags & inspect.CO_COROUTINE))
 
     def test_async_for(self):
         class Done(Exception): pass

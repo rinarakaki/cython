@@ -305,15 +305,15 @@ class PyxImporter(object):
 
         # searching sys.path ...
 
-        #if DEBUG_IMPORT:  print "SEARCHING", fullname, package_path
+        # if DEBUG_IMPORT:  print "SEARCHING", fullname, package_path
 
         mod_parts = fullname.split('.')
         module_name = mod_parts[-1]
         pyx_module_name = module_name + self.extension
 
         # this may work, but it returns the file content, not its path
-        #import pkgutil
-        #pyx_source = pkgutil.get_data(package, pyx_module_name)
+        # import pkgutil
+        # pyx_source = pkgutil.get_data(package, pyx_module_name)
 
         paths = package_path or sys.path
         for path in paths:

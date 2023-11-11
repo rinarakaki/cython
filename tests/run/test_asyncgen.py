@@ -489,10 +489,10 @@ class AsyncGenTest(unittest.TestCase):
         g.__qualname__ = '123'
         self.assertEqual(g.__qualname__, '123')
 
-        #self.assertIsNone(g.ag_await)
-        #self.assertIsInstance(g.ag_frame, types.FrameType)
+        # self.assertIsNone(g.ag_await)
+        # self.assertIsInstance(g.ag_frame, types.FrameType)
         self.assertFalse(g.ag_running)
-        #self.assertIsInstance(g.ag_code, types.CodeType)
+        # self.assertIsInstance(g.ag_code, types.CodeType)
 
         self.assertTrue(inspect_isawaitable(g.aclose()))
 

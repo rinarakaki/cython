@@ -366,8 +366,8 @@ class PyObjectPtr(object):
             # class
             return cls
 
-        #print('tp_flags = 0x%08x' % tp_flags)
-        #print('tp_name = %r' % tp_name)
+        # print('tp_flags = 0x%08x' % tp_flags)
+        # print('tp_name = %r' % tp_name)
 
         name_map = {'bool': PyBoolObjectPtr,
                     'classobj': PyClassObjectPtr,
@@ -398,7 +398,7 @@ class PyObjectPtr(object):
             return PyDictObjectPtr
         if tp_flags & Py_TPFLAGS_BASE_EXC_SUBCLASS:
             return PyBaseExceptionObjectPtr
-        #if tp_flags & Py_TPFLAGS_TYPE_SUBCLASS:
+        # if tp_flags & Py_TPFLAGS_TYPE_SUBCLASS:
         #    return PyTypeObjectPtr
 
         # Use the base class:

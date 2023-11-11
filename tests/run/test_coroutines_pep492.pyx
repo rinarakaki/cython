@@ -520,7 +520,7 @@ class AsyncBadSyntaxTest(unittest.TestCase):
                 compile(code, "<test>", "exec")
 
     def test_badsyntax_3(self):
-        #with self.assertRaises(DeprecationWarning):
+        # with self.assertRaises(DeprecationWarning):
             with warnings.catch_warnings():
                 warnings.simplefilter("error")
                 compile("async = 1", "<test>", "exec")
@@ -876,11 +876,11 @@ class CoroutineTest(unittest.TestCase):
 
         f = foo()
         self.assertEqual(f.__class__.__name__, 'coroutine')
-        #self.assertIsInstance(f, types.CoroutineType)
-        #self.assertTrue(bool(foo.__code__.co_flags & 0x80))
-        #self.assertTrue(bool(foo.__code__.co_flags & 0x20))
-        #self.assertTrue(bool(f.cr_code.co_flags & 0x80))
-        #self.assertTrue(bool(f.cr_code.co_flags & 0x20))
+        # self.assertIsInstance(f, types.CoroutineType)
+        # self.assertTrue(bool(foo.__code__.co_flags & 0x80))
+        # self.assertTrue(bool(foo.__code__.co_flags & 0x20))
+        # self.assertTrue(bool(f.cr_code.co_flags & 0x80))
+        # self.assertTrue(bool(f.cr_code.co_flags & 0x20))
         self.assertEqual(run_async(f), ([], 10))
 
         self.assertEqual(run_async__await__(foo()), ([], 10))
@@ -1263,18 +1263,18 @@ class CoroutineTest(unittest.TestCase):
             self.assertIsNone(coro_b.cr_await)
 
         coro_b = b()
-        #self.assertEqual(inspect.getcoroutinestate(coro_b), inspect.CORO_CREATED)
+        # self.assertEqual(inspect.getcoroutinestate(coro_b), inspect.CORO_CREATED)
         self.assertIsNone(coro_b.cr_await)
 
         coro_b.send(None)
-        #self.assertEqual(inspect.getcoroutinestate(coro_b), inspect.CORO_SUSPENDED)
-        #self.assertEqual(coro_b.cr_await.cr_await.gi_code.co_name, 'a')
+        # self.assertEqual(inspect.getcoroutinestate(coro_b), inspect.CORO_SUSPENDED)
+        # self.assertEqual(coro_b.cr_await.cr_await.gi_code.co_name, 'a')
         self.assertIsNotNone(coro_b.cr_await.cr_await)
         self.assertEqual(coro_b.cr_await.cr_await.__name__, 'a')
 
         with self.assertRaises(StopIteration):
             coro_b.send(None)  # complete coroutine
-        #self.assertEqual(inspect.getcoroutinestate(coro_b), inspect.CORO_CLOSED)
+        # self.assertEqual(inspect.getcoroutinestate(coro_b), inspect.CORO_CLOSED)
         self.assertIsNone(coro_b.cr_await)
 
     def test_corotype_1(self):

@@ -464,7 +464,7 @@ class Scope(object):
         # user-defined name in this scope.
         prefix = "%s%s_" % (Naming.pyrex_prefix, name)
         return self.mangle(prefix)
-        #return self.parent_scope.mangle(prefix, self.name)
+        # return self.parent_scope.mangle(prefix, self.name)
 
     def mangle_class_private_name(self, name):
         if self.parent_scope:
@@ -1819,7 +1819,7 @@ class ModuleScope(Scope):
         if visibility != 'extern' and not type.typeobj_cname:
             type.typeobj_cname = self.mangle(Naming.typeobj_prefix, name)
         # # Generate typeptr_cname
-        #type.typeptr_cname = self.mangle(Naming.typeptr_prefix, name)
+        # type.typeptr_cname = self.mangle(Naming.typeptr_prefix, name)
         # Check C methods defined
         if type.scope:
             for method_entry in type.scope.cfunc_entries:
@@ -1920,7 +1920,7 @@ class LocalScope(Scope):
         if type.is_pyobject:
             entry.init = "0"
         entry.is_arg = 1
-        #entry.borrowed = 1 # Not using borrowed arg refs for now
+        # entry.borrowed = 1 # Not using borrowed arg refs for now
         self.arg_entries.append(entry)
         return entry
 

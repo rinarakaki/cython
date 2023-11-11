@@ -263,7 +263,7 @@ class StringSourceDescriptor(SourceDescriptor):
     """
     def __init__(self, name, code):
         self.name = name
-        #self.set_file_type_from_name(name)
+        # self.set_file_type_from_name(name)
         self.codelines = [x + "\n" for x in code.split("\n")]
         self._cmp_name = name
 
@@ -404,7 +404,7 @@ class PyrexScanner(Scanner):
     def indentation_action(self, text):
         self.begin('')
         # Indentation within brackets should be ignored.
-        #if self.bracket_nesting_level > 0:
+        # if self.bracket_nesting_level > 0:
         #    return
         # Check that tabs and spaces are being used consistently.
         if text:
@@ -421,7 +421,7 @@ class PyrexScanner(Scanner):
         # Figure out how many indents/dedents to do
         current_level = self.current_level()
         new_level = len(text)
-        #print "Changing indent level from", current_level, "to", new_level ###
+        # print "Changing indent level from", current_level, "to", new_level ###
         if new_level == current_level:
             return
         elif new_level > current_level:

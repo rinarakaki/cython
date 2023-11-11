@@ -7,7 +7,7 @@ extern from "<memory>" namespace "std" nogil:
     cdef cppclass allocator[T]:
         allocator()
         allocator(const allocator &)
-        #allocator(const allocator[U] &) #unique_ptr unit tests fail w/this
+        # allocator(const allocator[U] &) #unique_ptr unit tests fail w/this
         T * address(T &)
         const T * address(const T &) const
         T * allocate( usize n ) # Not to standard.  should be a second default argument
@@ -34,7 +34,7 @@ extern from "<memory>" namespace "std" nogil:
         # Observers
         T* get()
         T& operator*()
-        #T* operator->() # Not Supported
+        # T* operator->() # Not Supported
         bool operator bool()
         bool operator!()
 
@@ -58,7 +58,7 @@ extern from "<memory>" namespace "std" nogil:
         shared_ptr(shared_ptr[T]&)
         shared_ptr(shared_ptr[T]&, T*)
         shared_ptr(unique_ptr[T]&)
-        #shared_ptr(weak_ptr[T]&) # Not Supported
+        # shared_ptr(weak_ptr[T]&) # Not Supported
         shared_ptr[T]& operator=[Y](const shared_ptr[Y]& ptr)
 
         # Modifiers
@@ -69,12 +69,12 @@ extern from "<memory>" namespace "std" nogil:
         # Observers
         T* get()
         T& operator*()
-        #T* operator->() # Not Supported
+        # T* operator->() # Not Supported
         long use_count()
         bool unique()
         bool operator bool()
         bool operator!()
-        #bool owner_before[Y](const weak_ptr[Y]&) # Not Supported
+        # bool owner_before[Y](const weak_ptr[Y]&) # Not Supported
         bool owner_before[Y](const shared_ptr[Y]&)
 
         bool operator==(const shared_ptr&)

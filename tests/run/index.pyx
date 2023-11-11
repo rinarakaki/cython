@@ -297,7 +297,7 @@ def test_large_indexing(obj):
     return (
         obj[0], obj[1], obj[-1],
         obj[maxsize], obj[-maxsize],
-        #obj[maxsize*2], obj[-maxsize*2]     # FIXME!
+        # obj[maxsize*2], obj[-maxsize*2]     # FIXME!
     )
 
 def del_large_index(obj, isize index):
