@@ -101,8 +101,7 @@ def make_lexicon():
 
         (beginstring, Method('begin_string_action')),
 
-        (Bol + comment | spaces + comment, IGNORE),
-        (spaces + comment, IGNORE),
+        (comment, IGNORE),
         (spaces, IGNORE),
         (escaped_newline, IGNORE),
 
