@@ -741,8 +741,8 @@ fn memoryview memview_slice(memoryview memview, object indices):
             slice_memviewslice(
                 p_dst, p_src.shape[dim], p_src.strides[dim], p_src.suboffsets[dim],
                 dim, new_ndim, p_suboffset_dim,
-                cindex, 0, 0, # start, stop, step
-                0, 0, 0, # have_{start,stop,step}
+                cindex, 0, 0,  # start, stop, step
+                0, 0, 0,  # have_{start,stop,step}
                 False)
         elif index is None:
             p_dst.shape[new_ndim] = 1

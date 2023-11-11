@@ -444,7 +444,7 @@ non-important content
         self.assertEqual(f'{"{{}}"}', '{{}}')
 
         self.assertAllRaise(TypeError, 'unhashable type',
-                            ["f'{ {{}} }'", # dict in a set
+                            ["f'{ {{}} }'",  # dict in a set
                              ])
 
     def test_compile_time_concat(self):
