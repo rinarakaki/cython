@@ -1,4 +1,4 @@
-################## Dataclasses_fallback ###############################
+################### Dataclasses_fallback ###############################
 
 # This is the fallback dataclass code if the stdlib module isn't available.
 # It defines enough of the support types to be used with cdef classes
