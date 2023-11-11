@@ -35,7 +35,7 @@ extern from "Python.h":
     # Return true if the type object includes support for the cycle
     # detector; this tests the type flag Py_TPFLAGS_HAVE_GC.
 
-    fn u2 PyType_IsSubtype(r#type, r#type)
+    fn u2 PyType_IsSubtype(r$type, r$type)
     # Return true if a is a subtype of b.
 
     fn object PyType_GenericAlloc(object, isize nitems)
