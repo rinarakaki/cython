@@ -477,7 +477,7 @@ def p_power(s):
         while s.sy in ("(", "[", "."):
             n1 = p_trailer(s, n1)
     else:
-        while s.sy in ("(", "[", ".", "::"):
+        while s.sy in ("(", "[", "{", ".", "::"):
             n1 = p_trailer(s, n1)
     if await_pos:
         n1 = ExprNodes.AwaitExprNode(await_pos, arg=n1)
