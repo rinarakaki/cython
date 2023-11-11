@@ -103,7 +103,7 @@ class ODict(dict):
        dict.__setitem__(self, key, value)
        self._order.append(key)
 
-class Base(type):
+class Base(r#type):
    @staticmethod
    def __prepare__(*args, **kwargs):
        return ODict()

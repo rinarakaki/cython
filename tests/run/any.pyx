@@ -244,7 +244,7 @@ def any_in_gen_builtin_name(seq):
     5
     False
     """
-    return any(type for type in seq)
+    return any(r#type for r#type in seq)
 
 
 @cython.test_assert_path_exists(

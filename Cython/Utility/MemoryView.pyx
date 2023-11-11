@@ -1467,7 +1467,7 @@ fn bytes format_from_typeinfo(__Pyx_TypeInfo *type):
 
         result = alignment.join(parts) + b'}'
     else:
-        fmt = __Pyx_TypeInfoToFormat(type)
+        fmt = __Pyx_TypeInfoToFormat(r#type)
         result = fmt.string
         if type.arraysize[0]:
             extents = [f"{type.arraysize[i]}" for i in 0..type.ndim]

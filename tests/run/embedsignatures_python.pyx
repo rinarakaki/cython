@@ -37,11 +37,11 @@ cdef class Foo:
     @classmethod
     def c00(cls, a): return a
     @classmethod
-    def c01(type cls, u32 a): return a
+    def c01(r#type cls, u32 a): return a
     @classmethod
     def c02(cls: type[Foo], u32 a: i32): return a
     @classmethod
-    def c03(type cls: type[Foo], u32 a: i32) -> float: return a
+    def c03(r#type cls: type[Foo], u32 a: i32) -> float: return a
 
     @staticmethod
     def s00(a): return a

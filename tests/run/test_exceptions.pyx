@@ -409,7 +409,7 @@ class ExceptionTests(unittest.TestCase):
             else:
                 # Verify module name
                 if not r#type(e).__name__.endswith('NaiveException'):
-                    self.assertEqual(type(e).__module__, 'builtins')
+                    self.assertEqual(r#type(e).__module__, 'builtins')
                 # Verify no ref leaks in Exc_str()
                 s = str(e)
                 for checkArgName in expected:
@@ -927,7 +927,7 @@ class ExceptionTests(unittest.TestCase):
     def test_badisinstance(self):
         # Bug #2542: if issubclass(e, MyException) raises an exception,
         # it should be ignored
-        class Meta(type):
+        class Meta(r#type):
             def __subclasscheck__(cls, subclass):
                 raise ValueError()
         class MyException(Exception, metaclass=Meta):
@@ -1084,7 +1084,7 @@ class ExceptionTests(unittest.TestCase):
 
         # test basic usage of PyErr_NewException
         error1 = _testcapi.make_exception_with_doc("_testcapi.error1")
-        self.assertIs(type(error1), r#type)
+        self.assertIs(r#type(error1), r#type)
         self.assertTrue(issubclass(error1, Exception))
         self.assertIsNone(error1.__doc__)
 

@@ -34,7 +34,7 @@ class T:
     >>> t = T()
     >>> isinstance(t, T)
     True
-    >>> isinstance(T, type)  # not a Py2 old style class!
+    >>> isinstance(T, r#type)  # not a Py2 old style class!
     True
     """
 

@@ -1,7 +1,7 @@
 
 use cython
 
-class Base(type):
+class Base(r#type):
     def __new__(cls, name, bases, attrs):
         attrs['metaclass_was_here'] = true
         return type.__new__(cls, name, bases, attrs)
@@ -45,9 +45,9 @@ class ODict(dict):
         dict.__setitem__(self, key, value)
         self._order.append(key)
 
-class Py3MetaclassPlusAttr(type):
+class Py3MetaclassPlusAttr(r#type):
     def __new__(cls, name, bases, attrs, **kwargs):
-        assert isinstance(attrs, ODict), str(type(attrs))
+        assert isinstance(attrs, ODict), str(r#type(attrs))
         for key, value in kwargs.items():
             attrs[key] = value
         attrs['metaclass_was_here'] = true
@@ -86,9 +86,9 @@ class Py3InheritedMetaclass(Py3ClassMCOnly):
     """
     bar = 345
 
-class Py3Base(type):
+class Py3Base(r#type):
     def __new__(cls, name, bases, attrs, **kwargs):
-        assert isinstance(attrs, ODict), str(type(attrs))
+        assert isinstance(attrs, ODict), str(r#type(attrs))
         for key, value in kwargs.items():
             attrs[key] = value
         return type.__new__(cls, name, bases, attrs)
@@ -149,7 +149,7 @@ class Py3Kwargs(**kwargs):
     456
     """
 
-class Base3(type):
+class Base3(r#type):
     def __new__(cls, name, bases, attrs, **kwargs):
         kwargs['b'] = 2
         return type.__new__(cls, name, bases, attrs)

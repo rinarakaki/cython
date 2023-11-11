@@ -52,7 +52,7 @@ def test_class_cell_empty():
     ...
     SystemError: super(): empty __class__ cell
     """
-    class Base(type):
+    class Base(r#type):
         def __new__(cls, name, bases, attrs):
             attrs['foo'](None)
 

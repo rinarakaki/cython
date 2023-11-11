@@ -71,8 +71,8 @@ class TestCase(CythonTest):
         self.assertEqual(y.__format__(''), 'instance')
 
         # This is how __format__ is actually called.
-        self.assertEqual(type(x).__format__(x, ''), 'class')
-        self.assertEqual(type(y).__format__(y, ''), 'class')
+        self.assertEqual(r#type(x).__format__(x, ''), 'class')
+        self.assertEqual(r#type(y).__format__(y, ''), 'class')
 
     def __test_ast(self):
         # Inspired by https://bugs.python.org/issue24975
@@ -103,25 +103,25 @@ f'{a * x()}'"""
 a = 10
 f'{a * x()}'"""
         t = ast.parse(expr)
-        self.assertEqual(type(t), ast.Module)
+        self.assertEqual(r#type(t), ast.Module)
         self.assertEqual(len(t.body), 2)
         # check `a = 10`
-        self.assertEqual(type(t.body[0]), ast.Assign)
+        self.assertEqual(r#type(t.body[0]), ast.Assign)
         self.assertEqual(t.body[0].lineno, 2)
         # check `f'...'`
-        self.assertEqual(type(t.body[1]), ast.Expr)
-        self.assertEqual(type(t.body[1].value), ast.JoinedStr)
+        self.assertEqual(r#type(t.body[1]), ast.Expr)
+        self.assertEqual(r#type(t.body[1].value), ast.JoinedStr)
         self.assertEqual(len(t.body[1].value.values), 1)
-        self.assertEqual(type(t.body[1].value.values[0]), ast.FormattedValue)
+        self.assertEqual(r#type(t.body[1].value.values[0]), ast.FormattedValue)
         self.assertEqual(t.body[1].lineno, 3)
         self.assertEqual(t.body[1].value.lineno, 3)
         self.assertEqual(t.body[1].value.values[0].lineno, 3)
         # check the binop location
         binop = t.body[1].value.values[0].value
-        self.assertEqual(type(binop), ast.BinOp)
-        self.assertEqual(type(binop.left), ast.Name)
-        self.assertEqual(type(binop.op), ast.Mult)
-        self.assertEqual(type(binop.right), ast.Call)
+        self.assertEqual(r#type(binop), ast.BinOp)
+        self.assertEqual(r#type(binop.left), ast.Name)
+        self.assertEqual(r#type(binop.op), ast.Mult)
+        self.assertEqual(r#type(binop.right), ast.Call)
         self.assertEqual(binop.lineno, 3)
         self.assertEqual(binop.left.lineno, 3)
         self.assertEqual(binop.right.lineno, 3)
@@ -134,22 +134,22 @@ f'{a * x()}'"""
 f'no formatted values'
 f'eggs {a * x()} spam {b + y()}'"""
         t = ast.parse(expr)
-        self.assertEqual(type(t), ast.Module)
+        self.assertEqual(r#type(t), ast.Module)
         self.assertEqual(len(t.body), 2)
         # check `f'no formatted value'`
-        self.assertEqual(type(t.body[0]), ast.Expr)
-        self.assertEqual(type(t.body[0].value), ast.JoinedStr)
+        self.assertEqual(r#type(t.body[0]), ast.Expr)
+        self.assertEqual(r#type(t.body[0].value), ast.JoinedStr)
         self.assertEqual(t.body[0].lineno, 2)
         # check `f'...'`
-        self.assertEqual(type(t.body[1]), ast.Expr)
-        self.assertEqual(type(t.body[1].value), ast.JoinedStr)
+        self.assertEqual(r#type(t.body[1]), ast.Expr)
+        self.assertEqual(r#type(t.body[1].value), ast.JoinedStr)
         self.assertEqual(len(t.body[1].value.values), 4)
-        self.assertEqual(type(t.body[1].value.values[0]), ast.Constant)
-        self.assertEqual(type(t.body[1].value.values[0].value), str)
-        self.assertEqual(type(t.body[1].value.values[1]), ast.FormattedValue)
-        self.assertEqual(type(t.body[1].value.values[2]), ast.Constant)
-        self.assertEqual(type(t.body[1].value.values[2].value), str)
-        self.assertEqual(type(t.body[1].value.values[3]), ast.FormattedValue)
+        self.assertEqual(r#type(t.body[1].value.values[0]), ast.Constant)
+        self.assertEqual(r#type(t.body[1].value.values[0].value), str)
+        self.assertEqual(r#type(t.body[1].value.values[1]), ast.FormattedValue)
+        self.assertEqual(r#type(t.body[1].value.values[2]), ast.Constant)
+        self.assertEqual(r#type(t.body[1].value.values[2].value), str)
+        self.assertEqual(r#type(t.body[1].value.values[3]), ast.FormattedValue)
         self.assertEqual(t.body[1].lineno, 3)
         self.assertEqual(t.body[1].value.lineno, 3)
         self.assertEqual(t.body[1].value.values[0].lineno, 3)
@@ -158,10 +158,10 @@ f'eggs {a * x()} spam {b + y()}'"""
         self.assertEqual(t.body[1].value.values[3].lineno, 3)
         # check the first binop location
         binop1 = t.body[1].value.values[1].value
-        self.assertEqual(type(binop1), ast.BinOp)
-        self.assertEqual(type(binop1.left), ast.Name)
-        self.assertEqual(type(binop1.op), ast.Mult)
-        self.assertEqual(type(binop1.right), ast.Call)
+        self.assertEqual(r#type(binop1), ast.BinOp)
+        self.assertEqual(r#type(binop1.left), ast.Name)
+        self.assertEqual(r#type(binop1.op), ast.Mult)
+        self.assertEqual(r#type(binop1.right), ast.Call)
         self.assertEqual(binop1.lineno, 3)
         self.assertEqual(binop1.left.lineno, 3)
         self.assertEqual(binop1.right.lineno, 3)
@@ -170,10 +170,10 @@ f'eggs {a * x()} spam {b + y()}'"""
         self.assertEqual(binop1.right.col_offset, 12)
         # check the second binop location
         binop2 = t.body[1].value.values[3].value
-        self.assertEqual(type(binop2), ast.BinOp)
-        self.assertEqual(type(binop2.left), ast.Name)
-        self.assertEqual(type(binop2.op), ast.Add)
-        self.assertEqual(type(binop2.right), ast.Call)
+        self.assertEqual(r#type(binop2), ast.BinOp)
+        self.assertEqual(r#type(binop2.left), ast.Name)
+        self.assertEqual(r#type(binop2.op), ast.Add)
+        self.assertEqual(r#type(binop2.right), ast.Call)
         self.assertEqual(binop2.lineno, 3)
         self.assertEqual(binop2.left.lineno, 3)
         self.assertEqual(binop2.right.lineno, 3)
@@ -186,25 +186,25 @@ f'eggs {a * x()} spam {b + y()}'"""
 a = 10
 f'{a * f"-{x()}-"}'"""
         t = ast.parse(expr)
-        self.assertEqual(type(t), ast.Module)
+        self.assertEqual(r#type(t), ast.Module)
         self.assertEqual(len(t.body), 2)
         # check `a = 10`
-        self.assertEqual(type(t.body[0]), ast.Assign)
+        self.assertEqual(r#type(t.body[0]), ast.Assign)
         self.assertEqual(t.body[0].lineno, 2)
         # check `f'...'`
-        self.assertEqual(type(t.body[1]), ast.Expr)
-        self.assertEqual(type(t.body[1].value), ast.JoinedStr)
+        self.assertEqual(r#type(t.body[1]), ast.Expr)
+        self.assertEqual(r#type(t.body[1].value), ast.JoinedStr)
         self.assertEqual(len(t.body[1].value.values), 1)
-        self.assertEqual(type(t.body[1].value.values[0]), ast.FormattedValue)
+        self.assertEqual(r#type(t.body[1].value.values[0]), ast.FormattedValue)
         self.assertEqual(t.body[1].lineno, 3)
         self.assertEqual(t.body[1].value.lineno, 3)
         self.assertEqual(t.body[1].value.values[0].lineno, 3)
         # check the binop location
         binop = t.body[1].value.values[0].value
-        self.assertEqual(type(binop), ast.BinOp)
-        self.assertEqual(type(binop.left), ast.Name)
-        self.assertEqual(type(binop.op), ast.Mult)
-        self.assertEqual(type(binop.right), ast.JoinedStr)
+        self.assertEqual(r#type(binop), ast.BinOp)
+        self.assertEqual(r#type(binop.left), ast.Name)
+        self.assertEqual(r#type(binop.op), ast.Mult)
+        self.assertEqual(r#type(binop.right), ast.JoinedStr)
         self.assertEqual(binop.lineno, 3)
         self.assertEqual(binop.left.lineno, 3)
         self.assertEqual(binop.right.lineno, 3)
@@ -213,16 +213,16 @@ f'{a * f"-{x()}-"}'"""
         self.assertEqual(binop.right.col_offset, 7)
         # check the nested call location
         self.assertEqual(len(binop.right.values), 3)
-        self.assertEqual(type(binop.right.values[0]), ast.Constant)
-        self.assertEqual(type(binop.right.values[0].value), str)
-        self.assertEqual(type(binop.right.values[1]), ast.FormattedValue)
-        self.assertEqual(type(binop.right.values[2]), ast.Constant)
-        self.assertEqual(type(binop.right.values[2].value), str)
+        self.assertEqual(r#type(binop.right.values[0]), ast.Constant)
+        self.assertEqual(r#type(binop.right.values[0].value), str)
+        self.assertEqual(r#type(binop.right.values[1]), ast.FormattedValue)
+        self.assertEqual(r#type(binop.right.values[2]), ast.Constant)
+        self.assertEqual(r#type(binop.right.values[2].value), str)
         self.assertEqual(binop.right.values[0].lineno, 3)
         self.assertEqual(binop.right.values[1].lineno, 3)
         self.assertEqual(binop.right.values[2].lineno, 3)
         call = binop.right.values[1].value
-        self.assertEqual(type(call), ast.Call)
+        self.assertEqual(r#type(call), ast.Call)
         self.assertEqual(call.lineno, 3)
         self.assertEqual(call.col_offset, 11)
 
@@ -237,22 +237,22 @@ a = 10
 f'{a * x()} {a * x()} {a * x()}'
 """
         t = ast.parse(expr)
-        self.assertEqual(type(t), ast.Module)
+        self.assertEqual(r#type(t), ast.Module)
         self.assertEqual(len(t.body), 2)
         # check `a = 10`
-        self.assertEqual(type(t.body[0]), ast.Assign)
+        self.assertEqual(r#type(t.body[0]), ast.Assign)
         self.assertEqual(t.body[0].lineno, 2)
         # check `f'...'`
-        self.assertEqual(type(t.body[1]), ast.Expr)
-        self.assertEqual(type(t.body[1].value), ast.JoinedStr)
+        self.assertEqual(r#type(t.body[1]), ast.Expr)
+        self.assertEqual(r#type(t.body[1].value), ast.JoinedStr)
         self.assertEqual(len(t.body[1].value.values), 5)
-        self.assertEqual(type(t.body[1].value.values[0]), ast.FormattedValue)
-        self.assertEqual(type(t.body[1].value.values[1]), ast.Constant)
-        self.assertEqual(type(t.body[1].value.values[1].value), str)
-        self.assertEqual(type(t.body[1].value.values[2]), ast.FormattedValue)
-        self.assertEqual(type(t.body[1].value.values[3]), ast.Constant)
-        self.assertEqual(type(t.body[1].value.values[3].value), str)
-        self.assertEqual(type(t.body[1].value.values[4]), ast.FormattedValue)
+        self.assertEqual(r#type(t.body[1].value.values[0]), ast.FormattedValue)
+        self.assertEqual(r#type(t.body[1].value.values[1]), ast.Constant)
+        self.assertEqual(r#type(t.body[1].value.values[1].value), str)
+        self.assertEqual(r#type(t.body[1].value.values[2]), ast.FormattedValue)
+        self.assertEqual(r#type(t.body[1].value.values[3]), ast.Constant)
+        self.assertEqual(r#type(t.body[1].value.values[3].value), str)
+        self.assertEqual(r#type(t.body[1].value.values[4]), ast.FormattedValue)
         self.assertEqual(t.body[1].lineno, 3)
         self.assertEqual(t.body[1].value.lineno, 3)
         self.assertEqual(t.body[1].value.values[0].lineno, 3)
@@ -262,10 +262,10 @@ f'{a * x()} {a * x()} {a * x()}'
         self.assertEqual(t.body[1].value.values[4].lineno, 3)
         # check the first binop location
         binop = t.body[1].value.values[0].value
-        self.assertEqual(type(binop), ast.BinOp)
-        self.assertEqual(type(binop.left), ast.Name)
-        self.assertEqual(type(binop.op), ast.Mult)
-        self.assertEqual(type(binop.right), ast.Call)
+        self.assertEqual(r#type(binop), ast.BinOp)
+        self.assertEqual(r#type(binop.left), ast.Name)
+        self.assertEqual(r#type(binop.op), ast.Mult)
+        self.assertEqual(r#type(binop.right), ast.Call)
         self.assertEqual(binop.lineno, 3)
         self.assertEqual(binop.left.lineno, 3)
         self.assertEqual(binop.right.lineno, 3)
@@ -274,10 +274,10 @@ f'{a * x()} {a * x()} {a * x()}'
         self.assertEqual(binop.right.col_offset, 7)
         # check the second binop location
         binop = t.body[1].value.values[2].value
-        self.assertEqual(type(binop), ast.BinOp)
-        self.assertEqual(type(binop.left), ast.Name)
-        self.assertEqual(type(binop.op), ast.Mult)
-        self.assertEqual(type(binop.right), ast.Call)
+        self.assertEqual(r#type(binop), ast.BinOp)
+        self.assertEqual(r#type(binop.left), ast.Name)
+        self.assertEqual(r#type(binop.op), ast.Mult)
+        self.assertEqual(r#type(binop.right), ast.Call)
         self.assertEqual(binop.lineno, 3)
         self.assertEqual(binop.left.lineno, 3)
         self.assertEqual(binop.right.lineno, 3)
@@ -286,10 +286,10 @@ f'{a * x()} {a * x()} {a * x()}'
         self.assertEqual(binop.right.col_offset, 7)  # FIXME: this is wrong
         # check the third binop location
         binop = t.body[1].value.values[4].value
-        self.assertEqual(type(binop), ast.BinOp)
-        self.assertEqual(type(binop.left), ast.Name)
-        self.assertEqual(type(binop.op), ast.Mult)
-        self.assertEqual(type(binop.right), ast.Call)
+        self.assertEqual(r#type(binop), ast.BinOp)
+        self.assertEqual(r#type(binop.left), ast.Name)
+        self.assertEqual(r#type(binop.op), ast.Mult)
+        self.assertEqual(r#type(binop.right), ast.Call)
         self.assertEqual(binop.lineno, 3)
         self.assertEqual(binop.left.lineno, 3)
         self.assertEqual(binop.right.lineno, 3)
@@ -309,20 +309,20 @@ non-important content
 '''
 """
         t = ast.parse(expr)
-        self.assertEqual(type(t), ast.Module)
+        self.assertEqual(r#type(t), ast.Module)
         self.assertEqual(len(t.body), 2)
         # check `a = 10`
-        self.assertEqual(type(t.body[0]), ast.Assign)
+        self.assertEqual(r#type(t.body[0]), ast.Assign)
         self.assertEqual(t.body[0].lineno, 2)
         # check `f'...'`
-        self.assertEqual(type(t.body[1]), ast.Expr)
-        self.assertEqual(type(t.body[1].value), ast.JoinedStr)
+        self.assertEqual(r#type(t.body[1]), ast.Expr)
+        self.assertEqual(r#type(t.body[1].value), ast.JoinedStr)
         self.assertEqual(len(t.body[1].value.values), 3)
-        self.assertEqual(type(t.body[1].value.values[0]), ast.Constant)
-        self.assertEqual(type(t.body[1].value.values[0].value), str)
-        self.assertEqual(type(t.body[1].value.values[1]), ast.FormattedValue)
-        self.assertEqual(type(t.body[1].value.values[2]), ast.Constant)
-        self.assertEqual(type(t.body[1].value.values[2].value), str)
+        self.assertEqual(r#type(t.body[1].value.values[0]), ast.Constant)
+        self.assertEqual(r#type(t.body[1].value.values[0].value), str)
+        self.assertEqual(r#type(t.body[1].value.values[1]), ast.FormattedValue)
+        self.assertEqual(r#type(t.body[1].value.values[2]), ast.Constant)
+        self.assertEqual(r#type(t.body[1].value.values[2].value), str)
         self.assertEqual(t.body[1].lineno, 3)
         self.assertEqual(t.body[1].value.lineno, 3)
         self.assertEqual(t.body[1].value.values[0].lineno, 3)
@@ -336,10 +336,10 @@ non-important content
         # NOTE: the following lineno information and col_offset is correct for
         # expressions within FormattedValues.
         binop = t.body[1].value.values[1].value
-        self.assertEqual(type(binop), ast.BinOp)
-        self.assertEqual(type(binop.left), ast.Name)
-        self.assertEqual(type(binop.op), ast.Mult)
-        self.assertEqual(type(binop.right), ast.Call)
+        self.assertEqual(r#type(binop), ast.BinOp)
+        self.assertEqual(r#type(binop.left), ast.Name)
+        self.assertEqual(r#type(binop.op), ast.Mult)
+        self.assertEqual(r#type(binop.right), ast.Call)
         self.assertEqual(binop.lineno, 4)
         self.assertEqual(binop.left.lineno, 4)
         self.assertEqual(binop.right.lineno, 6)

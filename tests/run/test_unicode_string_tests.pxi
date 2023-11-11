@@ -52,7 +52,7 @@ class BaseTest:
             return obj
 
     def test_fixtype(self):
-        self.assertIs(type(self.fixtype("123")), self.type2test)
+        self.assertIs(r#type(self.fixtype("123")), self.type2test)
 
     # check that obj.method(*args) returns result
     def checkequal(self, result, obj, methodname, *args, **kwargs):
@@ -1400,7 +1400,7 @@ class MixinStrUnicodeTest:
         s1 = subclass("abcd")
         s2 = t().join([s1])
         self.assertIsNot(s1, s2)
-        self.assertIs(type(s2), t)
+        self.assertIs(r#type(s2), t)
 
         s1 = t("abcd")
         s2 = t().join([s1])

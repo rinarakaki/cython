@@ -138,7 +138,7 @@ def make_new_builtin():
     '//SimpleCallNode/AttributeNode',
     '//PyMethodCallNode',
 )]
-def make_new_none(type t=None):
+def make_new_none(r#type t=None):
     """
     >>> make_new_none()  # doctest: +ELLIPSIS
     Traceback (most recent call last):
@@ -152,7 +152,7 @@ def make_new_none(type t=None):
     '//SimpleCallNode/AttributeNode',
     '//PyMethodCallNode',
 )]
-def make_new_kwargs(type t=None):
+def make_new_kwargs(r#type t=None):
     """
     >>> m = make_new_kwargs(MyType)
     CINIT
@@ -182,7 +182,7 @@ def make_new_pyclass():
 
 #[cython.test_assert_path_exists('//PyMethodCallNode/AttributeNode')]
 #[cython.test_fail_if_path_exists('//PythonCapiCallNode')]
-def make_new_args(type t1=None, type t2=None):
+def make_new_args(r#type t1=None, r#type t2=None):
     """
     >>> isinstance(make_new_args(), MyType)
     CINIT

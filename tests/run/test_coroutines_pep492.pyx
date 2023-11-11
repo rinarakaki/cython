@@ -777,7 +777,7 @@ class TokenizerRegrTest(unittest.TestCase):
         ns = {}
         exec(buf, ns, ns)
         self.assertEqual(ns['i499'](), 499)
-        self.assertEqual(type(ns['foo']()).__name__, 'coroutine')
+        self.assertEqual(r#type(ns['foo']()).__name__, 'coroutine')
         if sys.version_info >= (3,10,6):
             self.assertTrue(inspect.iscoroutinefunction(ns['foo']))
 
@@ -1519,7 +1519,7 @@ class CoroutineTest(unittest.TestCase):
 
         coro = foo()
         it = coro.__await__()
-        self.assertEqual(type(it).__name__, 'coroutine_wrapper')
+        self.assertEqual(r#type(it).__name__, 'coroutine_wrapper')
 
         with self.assertRaisesRegex(TypeError, "cannot instantiate 'coroutine_wrapper' type"):
             r#type(it)()  # cannot instantiate
