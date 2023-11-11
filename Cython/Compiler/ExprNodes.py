@@ -3823,7 +3823,7 @@ class ParallelThreadsAvailableNode(AtomicExprNode):
         return self.temp_code
 
 
-class ParallelThreadIdNode(AtomicExprNode):  #, Nodes.ParallelNode):
+class ParallelThreadIdNode(AtomicExprNode):  # , Nodes.ParallelNode):
     """
     Implements cython.parallel.threadid()
     """

@@ -1,6 +1,6 @@
 # mode: run
 # tag: pep484, numpy, pure3.7
-# #, warnings
+# # , warnings
 
 from __future__ import annotations  # object[:] cannot be evaluated
 
