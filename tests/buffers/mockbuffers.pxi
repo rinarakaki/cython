@@ -50,7 +50,7 @@ cdef class MockBuffer:
         suboffsets = [-1] * len(shape)
         datashape = [len(data)]
         p = data
-        while true:
+        loop:
             p = p[0]
             if isinstance(p, list): datashape.append(len(p))
             else: break

@@ -972,7 +972,7 @@ class ExceptionTests(unittest.TestCase):
             class MyException(Exception): pass
 
             def setrecursionlimit(depth):
-                while 1:
+                loop:
                     try:
                         sys.setrecursionlimit(depth)
                         return depth

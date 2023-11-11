@@ -166,7 +166,7 @@ def test_delegation_of_send():
     y = next(g)
     x = 1
     try:
-        while 1:
+        loop:
             y = g.send(x)
             trace.append("Yielded %s" % (y,))
             x += 1
@@ -205,7 +205,7 @@ def test_handling_exception_while_delegating_send():
         y = next(g)
         x = 1
         try:
-            while 1:
+            loop:
                 y = g.send(x)
                 trace.append("Yielded %s" % (y,))
                 x += 1
