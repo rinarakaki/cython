@@ -780,7 +780,7 @@ class TrackNumpyAttributes(VisitorTransform, SkipDeclarations):
 class InterpretCompilerDirectives(CythonTransform):
     """
     After parsing, directives can be stored in a number of places:
-    - #cython-comments at the top of the file (stored in ModuleNode)
+    - # cython-comments at the top of the file (stored in ModuleNode)
     - Command-line arguments overriding these
     - @cython.directivename decorators
     - with cython.directivename: statements

@@ -1838,7 +1838,7 @@ class FuncDefNode(StatNode, BlockNode):
     #  Base class for function definition nodes.
     #
     #  return_type     PyrexType
-    #  #filename        string        C name of filename string const
+    #  # filename        string        C name of filename string const
     #  entry           Symtab.Entry
     #  needs_closure   boolean        Whether or not this function has inner functions/classes/yield
     #  needs_outer_scope boolean      Whether or not this function requires outer scope

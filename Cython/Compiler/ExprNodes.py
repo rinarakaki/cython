@@ -11524,7 +11524,7 @@ class TypeofNode(ExprNode):
 
     def analyse_types(self, env):
         self.operand = self.operand.analyse_types(env)
-        value = StringEncoding.EncodedString(str(self.operand.type))  #self.operand.type.typeof_name())
+        value = StringEncoding.EncodedString(str(self.operand.type))  # self.operand.type.typeof_name())
         literal = StringNode(self.pos, value=value)
         literal = literal.analyse_types(env)
         self.literal = literal.coerce_to_pyobject(env)
@@ -13680,7 +13680,7 @@ class CascadedCmpNode(Node, CmpNode):
 
     def coerce_cascaded_operands_to_temp(self, env):
         if self.cascade:
-            # self.operand2 = self.operand2.coerce_to_temp(env) #CTT
+            # self.operand2 = self.operand2.coerce_to_temp(env)  # CTT
             self.operand2 = self.operand2.coerce_to_simple(env)
             self.cascade.coerce_cascaded_operands_to_temp(env)
 

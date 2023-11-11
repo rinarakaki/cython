@@ -120,7 +120,7 @@ assert vec_alloc_int.size() == 10
 cdef libcpp.list.list[i32, allocator[i32]] list_alloc_int = libcpp.list.list[i32, allocator[i32]](10, 1)
 assert list_alloc_int.size() == 10
 
-# #Something about the default params breaks the auto-conversion...
+# Something about the default params breaks the auto-conversion...
 def convert_to_vector(I):
     """
     >>> convert_to_vector([1, 2, 3, 4])
