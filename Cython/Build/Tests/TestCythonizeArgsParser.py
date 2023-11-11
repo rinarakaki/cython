@@ -115,8 +115,8 @@ class TestCythonizeArgsParser(TestCase):
             ('auto_pickle', 42),        # for bool type
             ('auto_pickle', 'NONONO'),  # for bool type
             ('c_string_type', 'bites'),
-            #('c_string_encoding', 'a'),
-            #('language_level', 4),
+            # ('c_string_encoding', 'a'),
+            # ('language_level', 4),
         ]
         for key, value in directives:
             cmd = '{key}={value}'.format(key=key, value=str(value))

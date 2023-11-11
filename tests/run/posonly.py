@@ -269,18 +269,18 @@ class TestMangling(object):
     >>> TestMangling().f2()
     42
 
-    #>>> TestMangling().f3()
-    #(42, 43)
-    #>>> TestMangling().f4()
-    #(42, 43, 44)
+    # >>> TestMangling().f3()
+    # (42, 43)
+    # >>> TestMangling().f4()
+    # (42, 43, 44)
 
     >>> TestMangling().f2(1)
     1
 
-    #>>> TestMangling().f3(1, _TestMangling__b=2)
-    #(1, 2)
-    #>>> TestMangling().f4(1, _TestMangling__b=2, _TestMangling__c=3)
-    #(1, 2, 3)
+    # >>> TestMangling().f3(1, _TestMangling__b=2)
+    # (1, 2)
+    # >>> TestMangling().f4(1, _TestMangling__b=2, _TestMangling__c=3)
+    # (1, 2, 3)
     """
     def f(self, *, __a=42):
         return __a
