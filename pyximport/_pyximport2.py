@@ -481,7 +481,7 @@ class PyxLoader(object):
         return module
 
 
-#install args
+# install args
 class PyxArgs(object):
     build_dir=True
     build_in_temp=True

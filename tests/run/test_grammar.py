@@ -96,7 +96,7 @@ skip = unittest.skip
 # Python test set -- part 1, grammar.
 # This just tests whether the parser accepts them all.
 
-#from test.support import check_syntax_error, check_syntax_warning, use_old_parser
+# from test.support import check_syntax_error, check_syntax_warning, use_old_parser
 import inspect
 import unittest
 import sys
@@ -106,11 +106,11 @@ from sys import *
 
 # different import patterns to check that __annotations__ does not interfere
 # with import machinery
-#import test.ann_module as ann_module
-#import typing
-#from collections import ChainMap
-#from test import ann_module2
-#import test
+# import test.ann_module as ann_module
+# import typing
+# from collections import ChainMap
+# from test import ann_module2
+# import test
 
 # These are shared with test_tokenize and other test modules.
 #

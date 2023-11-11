@@ -1,9 +1,9 @@
 # mode: run
 # tag: cpp, cpp11
 
-#cython: test_fail_if_c_code_has = __Pyx_RefNannySetupContext\("call_a_method_with_an_error_return"
+# cython: test_fail_if_c_code_has = __Pyx_RefNannySetupContext\("call_a_method_with_an_error_return"
 # #cython: test_fail_if_c_code_has = /int __pyx_f_31gil_in_var_initialization_tests_1C_call_a_method_with_an_error_return\(.+{/:/__pyx_vtab/PyGILState_Ensure
-#cython: test_fail_if_c_code_has = __Pyx_RefNannySetupContext\("call_me"
+# cython: test_fail_if_c_code_has = __Pyx_RefNannySetupContext\("call_me"
 # #cython: test_fail_if_c_code_has = /void __pyx_f_31gil_in_var_initialization_tests_1D_call_me\(.+{/:/get_left_edge\(/PyGILState_Ensure
 
 # patterns above look for unwanted __Pyx_RefNannySetupContext and PyGILState_Ensure calls within

@@ -6,16 +6,16 @@ from __future__ import generator_stop
 
 import os
 import sys
-#import inspect
-#import types
+# import inspect
+# import types
 import unittest
 import contextlib
 
-#from unittest import mock
+# from unittest import mock
 
-#from test.support import import_module
+# from test.support import import_module
 
-#asyncio = import_module("asyncio")
+# asyncio = import_module("asyncio")
 
 ZERO = 0
 

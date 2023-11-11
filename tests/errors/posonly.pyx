@@ -16,43 +16,43 @@ def f(a, /, a):
 def f(a, /, *, a):
     pass
 
-#def f(a, b/2, c): #D
+# def f(a, b/2, c): #D
 #    pass
 
-#def f(*args, /): #D
+# def f(*args, /): #D
 #    pass
 
-#def f(*args, a, /):
+# def f(*args, a, /):
 #    pass
 
-#def f(**kwargs, /):
+# def f(**kwargs, /):
 #    pass
 
-#def f(/, a = 1): # D
+# def f(/, a = 1): # D
 #    pass
 
-#def f(/, a):
+# def f(/, a):
 #    pass
 
-#def f(/):
+# def f(/):
 #    pass
 
-#def f(*, a, /):
+# def f(*, a, /):
 #    pass
 
-#def f(*, /, a):
+# def f(*, /, a):
 #    pass
 
-#def f(a, /, c, /):
+# def f(a, /, c, /):
 #    pass
 
-#def f(a, /, c, /, d):
+# def f(a, /, c, /, d):
 #    pass
 
-#def f(a, /, c, /, d, *, e):
+# def f(a, /, c, /, d, *, e):
 #    pass
 
-#def f(a, *, c, /, d, e):
+# def f(a, *, c, /, d, e):
 #    pass
 
 def test_invalid_syntax_lambda(self):
@@ -73,7 +73,7 @@ def test_invalid_syntax_lambda(self):
 async def f(a, b = 5, /, c):
     pass
 
-#def test_multiple_seps(a,/,b,/):
+# def test_multiple_seps(a,/,b,/):
 #    pass
 
 _ERRORS = u"""

@@ -111,7 +111,7 @@ cdef i32 iqnan = numeric_limits[i32].quiet_NaN()
 cdef i32 isnan = numeric_limits[i32].signaling_NaN()
 cdef i32 iinf = numeric_limits[i32].infinity()
 
-#API checks for containers with std::allocator declared
+# API checks for containers with std::allocator declared
 use libcpp::memory::allocator
 
 cdef libcpp.vector.vector[i32, allocator[i32]] vec_alloc_int = libcpp.vector.vector[i32, allocator[i32]](10, 1)

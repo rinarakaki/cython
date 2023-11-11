@@ -275,7 +275,7 @@ def test_with_for():
 
 
 # old-style pre-3.5.2 AIter protocol - no longer supported
-#cdef class AI_old:
+# cdef class AI_old:
 #    async def __aiter__(self):
 #        1/0
 

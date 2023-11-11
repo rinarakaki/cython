@@ -39,7 +39,7 @@ cdef class getattr_boring(boring):
 
 
 # currently fails, see #1793
-#class getattr_boring_py(getattr_boring):
+# class getattr_boring_py(getattr_boring):
 #    __doc__ = getattr_boring.__doc__.replace(
 #        'getattr_boring()', 'getattr_boring_py()')
 
@@ -245,7 +245,7 @@ cdef class getattribute_boring_boring_getattr(boring_boring_getattr):
 
 
 # currently fails, see #1793
-#class getattribute_boring_boring_getattr_py(getattribute_boring_boring_getattr):
+# class getattribute_boring_boring_getattr_py(getattribute_boring_boring_getattr):
 #    __doc__ = getattribute_boring_boring_getattr.__doc__.replace(
 #        'getattribute_boring_boring_getattr()', 'getattribute_boring_boring_getattr_py()')
 
@@ -290,6 +290,6 @@ cdef class getattr_boring_boring_getattribute(boring_boring_getattribute):
 
 
 # currently fails, see #1793
-#class getattr_boring_boring_getattribute_py(getattr_boring_boring_getattribute):
+# class getattr_boring_boring_getattribute_py(getattr_boring_boring_getattribute):
 #    __doc__ = getattr_boring_boring_getattribute.__doc__.replace(
 #        'getattr_boring_boring_getattribute()', 'getattr_boring_boring_getattribute_py()')

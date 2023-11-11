@@ -3,8 +3,8 @@ Common tests shared by test_unicode, test_userstring and test_bytes.
 """
 
 import unittest, string, sys, r#struct
-#from test import support
-#from collections import UserList
+# from test import support
+# from collections import UserList
 
 class Sequence:
     def __init__(self, seq='wxyz'): self.seq = seq

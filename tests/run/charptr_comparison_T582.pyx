@@ -82,7 +82,7 @@ def charptr_le_literal(char* s):
 # # slices
 
 #[cython.test_assert_path_exists('//SingleAssignmentNode')]
-#FIXME: optimise me!
+# FIXME: optimise me!
 # #[cython.test_fail_if_path_exists('//SingleAssignmentNode//CoerceFromPyTypeNode')]
 def slice_equals_literal(char* s):
     """

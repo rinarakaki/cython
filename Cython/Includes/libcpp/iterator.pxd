@@ -1,5 +1,5 @@
-#Basic reference: http://www.cplusplus.com/reference/iterator/
-#Most of these classes are in fact empty structs
+# Basic reference: http://www.cplusplus.com/reference/iterator/
+# Most of these classes are in fact empty structs
 
 from libc.stddef import ptrdiff_t
 

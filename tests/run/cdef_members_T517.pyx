@@ -1,5 +1,5 @@
 # ticket: t517
-#cython: embedsignature=true
+# cython: embedsignature=true
 
 __doc__ = u"""
 >>> a = A()
