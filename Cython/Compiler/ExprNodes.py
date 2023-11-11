@@ -5882,6 +5882,56 @@ class SliceIntNode(SliceNode):
                 a.arg.result()
 
 
+class StructExprNode(ExprNode):
+    #  Struct expression
+    #
+    #  path     ExprNode
+    #  fields  [ExprFieldNode]
+
+    subexprs = ["fields"]
+
+    def infer_type(self, env):
+        return self.path.analyse_as_type(env)
+    
+    def explicit_args_kwds(self):
+        return self.fields, None
+
+    def analyse_types(self, env):
+        type = self.path.analyse_as_type(env)
+        if type is not None and type.is_struct_or_union:
+            return self
+        else:
+            error(self.pos, "Not a struct or union type")
+    
+    def coerce_to(self, dst_type, env):
+        return self
+
+
+class ExprFieldNode(ExprNode):
+    #  Represents a single field in a StructExprNode
+    #
+    #  ident       IdentifierStringNode
+    #  expr        ExprNode
+    subexprs = ["ident", "expr"]
+
+    def calculate_constant_result(self):
+        self.constant_result = (
+            self.ident.constant_result, self.expr.constant_result)
+
+    def analyse_types(self, env):
+        # self.ident = self.ident.analyse_types(env)
+        self.expr = self.expr.analyse_types(env)
+        return self
+
+    def generate_evaluation_code(self, code):
+        # self.ident.generate_evaluation_code(code)
+        self.expr.generate_evaluation_code(code)
+
+    def generate_disposal_code(self, code):
+        # self.ident.generate_disposal_code(code)
+        self.expr.generate_disposal_code(code)
+
+
 class CallNode(ExprNode):
 
     # allow overriding the default 'may_be_none' behaviour
@@ -6018,62 +6068,6 @@ class CallNode(ExprNode):
 
     gil_message = "Calling gil-requiring function"
 
-
-class StructExprNode(ExprNode):
-    #  Struct expression
-    #
-    #  path     ExprNode
-    #  fields  [ExprFieldNode]
-
-    subexprs = ["fields"]
-
-    def infer_type(self, env):
-        type = self.path.analyse_as_type(env)
-        if type is None:
-            error(self.pos, "struct expression can only be applied to a struct")
-            self.type = error_type
-            return
-        constructor = type.get_constructor(self.pos)
-        self.entry = constructor
-        self.type = constructor.type
-        return self.type
-    
-    def explicit_args_kwds(self):
-        return self.fields, None
-
-    def analyse_types(self, env):
-        self.analyse_as_type_constructor(env)
-        return self
-    
-    def analyse_as_type_constructor(self, env):
-        type = self.path.analyse_as_type(env)
-        if type and type.is_struct_or_union:
-            return True
-
-
-class ExprFieldNode(ExprNode):
-    #  Represents a single field in a StructExprNode
-    #
-    #  ident       IdentifierStringNode
-    #  expr        ExprNode
-    subexprs = ["ident", "expr"]
-
-    def calculate_constant_result(self):
-        self.constant_result = (
-            self.ident.constant_result, self.expr.constant_result)
-
-    def analyse_types(self, env):
-        # self.ident = self.ident.analyse_types(env)
-        self.expr = self.expr.analyse_types(env)
-        return self
-
-    def generate_evaluation_code(self, code):
-        # self.ident.generate_evaluation_code(code)
-        self.expr.generate_evaluation_code(code)
-
-    def generate_disposal_code(self, code):
-        # self.ident.generate_disposal_code(code)
-        self.expr.generate_disposal_code(code)
 
 
 class SimpleCallNode(CallNode):
