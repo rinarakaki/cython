@@ -48,7 +48,7 @@ common_reserved_words = [
 ]
 py_reserved_words = common_reserved_words + ["from"]
 pyx_reserved_words = common_reserved_words + [
-    "use", "pub", "extern", "fn", "let", "enum", "struct", "union", "const", "static",
+    "use", "pub", "extern", "fn", "let", "enum", "struct", "union", "const", "static", "loop",
     "include", "ctypedef", "cdef", "cpdef",
     "cimport", "DEF", "IF", "ELIF", "ELSE"
 ]

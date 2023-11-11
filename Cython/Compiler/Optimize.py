@@ -4961,6 +4961,10 @@ class ConstantFolding(Visitor.VisitorTransform, SkipDeclarations):
                     node.pos, key_value_pairs=[], constant_result={})
         return node
 
+    def visit_LoopStatNode(self, node):
+        self.visitchildren(node)
+        return node
+
     def visit_ForInStatNode(self, node):
         self.visitchildren(node)
         sequence = node.iterator.sequence
