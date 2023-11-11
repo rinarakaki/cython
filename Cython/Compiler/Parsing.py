@@ -504,6 +504,8 @@ def p_trailer(s, node1):
         return p_call(s, node1)
     elif s.sy == '[':
         return p_index(s, node1)
+    elif s.sy == "{":
+        return p_struct(s, node1)
     else:  # s.sy in (".", "::")
         s.next()
         name = p_ident(s)
@@ -649,6 +651,42 @@ def p_index(s, base):
             base = base, index = index)
     s.expect(']')
     return result
+
+def p_struct_parse_fields(s):
+    # s.sy == "{"
+    pos = s.position()
+    s.next()
+    fields = []
+    while s.sy != "}":
+        if s.sy == '**':
+            s.next()
+            fields.append(p_test(s))
+        else:
+            arg = p_namedexpr_test(s)
+            if s.sy == "=":
+                s.next()
+                if not arg.is_name:
+                    s.error("Expected an identifier before '='",
+                            pos=arg.pos)
+                encoded_name = s.context.intern_ustring(arg.name)
+                keyword = ExprNodes.IdentifierStringNode(
+                    arg.pos, value=encoded_name)
+                arg = p_test(s)
+                fields.append((keyword, arg))
+            else:
+                fields.append((arg.name, arg))
+        if s.sy != ",":
+            break
+        s.next()
+
+    s.expect("}")
+    return fields
+
+def p_struct(s, base):
+    # s.sy == "{"
+    pos = s.position()
+    fields = p_struct_parse_fields(s)
+    return ExprNodes.StructNode(pos, base = base, fields = fields)
 
 def p_subscript_list(s):
     is_single_value = True
