@@ -6019,6 +6019,39 @@ class CallNode(ExprNode):
     gil_message = "Calling gil-requiring function"
 
 
+class StructExprNode(ExprNode):
+    #  Struct expression
+    #
+    #  path     ExprNode
+    #  fields  [(IdentifierStringNode, ExprNode)]
+
+    def infer_type(self, env):
+        type = self.path.analyse_as_type(env)
+        if type is None:
+            error(self.pos, "struct expression can only be applied to a struct")
+            self.type = error_type
+            return
+        constructor = type.get_constructor(self.pos)
+        self.entry = constructor
+        self.type = constructor.type
+        return self.type
+    
+    def explicit_args_kwds(self):
+        return self.fields, None
+
+    def analyse_types(self, env):
+        if self.analysed:
+            return self
+        self.analysed = True
+        self.analyse_as_type_constructor(env)
+        return self
+    
+    def analyse_as_type_constructor(self, env):
+        type = self.path.analyse_as_type(env)
+        if type and type.is_struct_or_union:
+            return True
+
+
 class SimpleCallNode(CallNode):
     #  Function call without keyword, * or ** args.
     #

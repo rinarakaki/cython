@@ -682,11 +682,11 @@ def p_struct_parse_fields(s):
     s.expect("}")
     return fields
 
-def p_struct(s, base):
+def p_struct(s, path):
     # s.sy == "{"
     pos = s.position()
     fields = p_struct_parse_fields(s)
-    return ExprNodes.StructNode(pos, base = base, fields = fields)
+    return ExprNodes.StructExprNode(pos, path = path, fields = fields)
 
 def p_subscript_list(s):
     is_single_value = True
