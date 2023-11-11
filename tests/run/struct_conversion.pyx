@@ -30,7 +30,7 @@ def test_constructor_kwds(x, y, colour):
     Traceback (most recent call last):
     TypeError:... int...
     """
-    let Point p = Point(x=x, y=y, colour=colour)
+    let Point p = Point { x = x, y = y, colour = colour }
     return p
 
 def return_constructor_kwds(f64 x, y, colour):
