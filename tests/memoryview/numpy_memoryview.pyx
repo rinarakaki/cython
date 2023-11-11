@@ -181,7 +181,7 @@ def test_transpose():
     let dtype_t[:, :] b = a.T
     print a.T.shape[0], a.T.shape[1]
     print a_obj.T.shape
-    print tuple(map(int, numpy_obj.T.shape)) # might use longs in Py2
+    print tuple(map(int, numpy_obj.T.shape))  # might use longs in Py2
 
     let dtype_t[:, :] c
     with nogil:
@@ -228,7 +228,7 @@ def test_copy_and_contig_attributes(a):
     >>> test_copy_and_contig_attributes(a)
     """
     let np.int32_t[:, :] mslice = a
-    let object m = mslice  #  object copy
+    let object m = mslice  # object copy
 
     # Test object copy attributes
     assert np.all(a == np.array(m.copy()))
@@ -243,9 +243,9 @@ def test_copy_and_contig_attributes(a):
 
 ctypedef i32 td_cy_int
 extern from "bufaccess.h":
-    ctypedef td_cy_int td_h_short # Defined as short, but Cython doesn't know this!
-    ctypedef f32 td_h_double # Defined as double
-    ctypedef u32 td_h_ushort # Defined as unsigned short
+    ctypedef td_cy_int td_h_short  # Defined as short, but Cython doesn't know this!
+    ctypedef f32 td_h_double  # Defined as double
+    ctypedef u32 td_h_ushort  # Defined as unsigned short
 ctypedef td_h_short td_h_cy_short
 
 fn void dealloc_callback(void *data) noexcept:
