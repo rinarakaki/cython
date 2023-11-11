@@ -92,9 +92,9 @@ cdef class StringConst:
 #     pub u2 is_unicode
 #     pub u2 intern
 
-#class GlobalState(object):
+# class GlobalState(object):
 
-#def funccontext_property(name):
+# def funccontext_property(name):
 
 cdef class CCodeWriter(object):
     cdef readonly StringIOTree buffer

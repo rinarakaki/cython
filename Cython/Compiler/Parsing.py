@@ -1,7 +1,7 @@
 # cython: auto_cpdef=True, infer_types=True, language_level=3, py2_import=True
-#
+# 
 #   Parser
-#
+# 
 
 from __future__ import absolute_import
 
@@ -81,11 +81,11 @@ def p_ident_list(s):
         s.next()
     return names
 
-#------------------------------------------
-#
+# ------------------------------------------
+# 
 #   Expressions
-#
-#------------------------------------------
+# 
+# ------------------------------------------
 
 def p_binop_operator(s):
     pos = s.position()
@@ -106,7 +106,7 @@ def p_binop_expr(s, ops, p_sub_expr):
                 n1.truedivision = None  # unknown
     return n1
 
-#lambdef: 'lambda' [varargslist] ':' test
+# lambdef: 'lambda' [varargslist] ':' test
 
 def p_lambdef(s):
     # s.sy == 'lambda'
@@ -125,7 +125,7 @@ def p_lambdef(s):
         star_arg = star_arg, starstar_arg = starstar_arg,
         result_expr = expr)
 
-#test: or_test ['if' or_test 'else' test] | lambdef
+# test: or_test ['if' or_test 'else' test] | lambdef
 
 def p_test(s):
     # The check for a following ':=' is only for error reporting purposes.
@@ -172,7 +172,7 @@ def p_namedexpr_test(s):
     return lhs
 
 
-#or_test: and_test ('or' and_test)*
+# or_test: and_test ('or' and_test)*
 
 COMMON_BINOP_MISTAKES = {'||': 'or', '&&': 'and'}
 
@@ -194,13 +194,13 @@ def p_rassoc_binop_expr(s, op, p_subexpr):
                 level=1)
     return n1
 
-#and_test: not_test ('and' not_test)*
+# and_test: not_test ('and' not_test)*
 
 def p_and_test(s):
     #return p_binop_expr(s, ('and',), p_not_test)
     return p_rassoc_binop_expr(s, u'and', p_not_test)
 
-#not_test: 'not' not_test | comparison
+# not_test: 'not' not_test | comparison
 
 def p_not_test(s):
     if s.sy == 'not':
@@ -210,8 +210,8 @@ def p_not_test(s):
     else:
         return p_comparison(s)
 
-#comparison: expr (comp_op expr)*
-#comp_op: '<'|'>'|'=='|'>='|'<='|'<>'|'!='|'in'|'not' 'in'|'is'|'is' 'not'
+# comparison: expr (comp_op expr)*
+# comp_op: '<'|'>'|'=='|'>='|'<='|'<>'|'!='|'in'|'not' 'in'|'is'|'is' 'not'
 
 def p_comparison(s):
     n1 = p_starred_expr(s)
@@ -283,32 +283,32 @@ comparison_ops = cython.declare(frozenset, frozenset((
     'in', 'is', 'not'
 )))
 
-#expr: xor_expr ('|' xor_expr)*
+# expr: xor_expr ('|' xor_expr)*
 
 def p_bit_expr(s):
     return p_binop_expr(s, ('|',), p_xor_expr)
 
-#xor_expr: and_expr ('^' and_expr)*
+# xor_expr: and_expr ('^' and_expr)*
 
 def p_xor_expr(s):
     return p_binop_expr(s, ('^',), p_and_expr)
 
-#and_expr: shift_expr ('&' shift_expr)*
+# and_expr: shift_expr ('&' shift_expr)*
 
 def p_and_expr(s):
     return p_binop_expr(s, ('&',), p_shift_expr)
 
-#shift_expr: arith_expr (('<<'|'>>') arith_expr)*
+# shift_expr: arith_expr (('<<'|'>>') arith_expr)*
 
 def p_shift_expr(s):
     return p_binop_expr(s, ('<<', '>>'), p_arith_expr)
 
-#arith_expr: term (('+'|'-') term)*
+# arith_expr: term (('+'|'-') term)*
 
 def p_arith_expr(s):
     return p_binop_expr(s, ('+', '-'), p_term)
 
-#term: factor (('*'|'@'|'/'|'%'|'//') factor)*
+# term: factor (('*'|'@'|'/'|'%'|'//') factor)*
 
 def p_term(s):
     return p_binop_expr(s, ('*', '@', '/', '%', '//'), p_range_expr)
@@ -340,7 +340,7 @@ def p_range_expr(s):
     else:
         return expr
 
-#factor: ('+'|'-'|'~'|'&'|typecast|sizeof) factor | power
+# factor: ('+'|'-'|'~'|'&'|typecast|sizeof) factor | power
 
 def p_factor(s):
     # little indirection for C-ification purposes
@@ -462,8 +462,8 @@ def p_async_statement(s, ctx, decorators):
         s.error("expected one of 'def', 'for', 'with' after 'async'")
 
 
-#power: atom_expr ('**' factor)*
-#atom_expr: ['await'] atom trailer*
+# power: atom_expr ('**' factor)*
+# atom_expr: ['await'] atom trailer*
 
 def p_power(s):
     if s.systring == 'new' and s.peek()[0] == 'IDENT':
@@ -496,7 +496,7 @@ def p_new_expr(s):
     cppclass = p_c_base_type(s)
     return p_call(s, ExprNodes.NewExprNode(pos, cppclass = cppclass))
 
-#trailer: '(' [arglist] ')' | '[' subscriptlist ']' | '.' NAME
+# trailer: '(' [arglist] ')' | '[' subscriptlist ']' | '.' NAME
 
 def p_trailer(s, node1):
     pos = s.position()
@@ -626,9 +626,9 @@ def p_call(s, function):
             pos, function=function, positional_args=arg_tuple, keyword_args=keyword_dict)
 
 
-#lambdef: 'lambda' [varargslist] ':' test
+# lambdef: 'lambda' [varargslist] ':' test
 
-#subscriptlist: subscript (',' subscript)* [',']
+# subscriptlist: subscript (',' subscript)* [',']
 
 def p_index(s, base):
     # s.sy == '['
@@ -661,7 +661,7 @@ def p_subscript_list(s):
         items.append(p_subscript(s))
     return items, is_single_value
 
-#subscript: '.' '.' '.' | test | [test] ':' [test] [':' [test]]
+# subscript: '.' '.' '.' | test | [test] ':' [test] [':' [test]]
 
 def p_subscript(s):
     # Parse a subscript and return a list of
@@ -717,7 +717,7 @@ def make_slice_node(pos, start, stop = None, step = None):
     return ExprNodes.SliceNode(pos,
         start = start, stop = stop, step = step)
 
-#atom: '(' [yield_expr|testlist_comp] ')' | '[' [listmaker] ']' | '{' [dict_or_set_maker] '}' | '`' testlist '`' | NAME | NUMBER | STRING+
+# atom: '(' [yield_expr|testlist_comp] ')' | '[' [listmaker] ']' | '{' [dict_or_set_maker] '}' | '`' testlist '`' | NAME | NUMBER | STRING+
 
 def p_atom(s):
     pos = s.position()
@@ -1375,7 +1375,7 @@ def p_comp_if(s, body):
 
 
 # since PEP 448:
-#dictorsetmaker: ( ((test ':' test | '**' expr)
+# dictorsetmaker: ( ((test ':' test | '**' expr)
 #                   (comp_for | (',' (test ':' test | '**' expr))* [','])) |
 #                  ((test | star_expr)
 #                   (comp_for | (',' (test | star_expr))* [','])) )
@@ -1534,7 +1534,7 @@ def p_namedexpr_test_or_starred_expr_list(s, expr=None):
     return exprs
 
 
-#testlist: test (',' test)* [',']
+# testlist: test (',' test)* [',']
 
 def p_testlist(s):
     pos = s.position()
@@ -1582,11 +1582,11 @@ expr_terminators = cython.declare(frozenset, frozenset((
     ')', ']', '}', ':', '=', 'NEWLINE')))
 
 
-#-------------------------------------------------------
-#
+# -------------------------------------------------------
+# 
 #   Statements
-#
-#-------------------------------------------------------
+# 
+# -------------------------------------------------------
 
 def p_global_statement(s):
     # assume s.sy == 'global'
@@ -4192,11 +4192,11 @@ def p_cpp_class_attribute(s, ctx):
         return node
 
 
-#----------------------------------------------
-#
+# ----------------------------------------------
+# 
 #   Debugging
-#
-#----------------------------------------------
+# 
+# ----------------------------------------------
 
 def print_parse_tree(f, node, level, key = None):
     ind = "  " * level

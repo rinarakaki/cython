@@ -1,7 +1,7 @@
 # cython: infer_types=true, language_level=3, auto_pickle=false
-#
+# 
 #   Cython Scanner
-#
+# 
 
 from __future__ import absolute_import
 
@@ -37,7 +37,7 @@ def get_lexicon():
     return lexicon
 
 
-#------------------------------------------------------------------
+# ------------------------------------------------------------------
 
 common_reserved_words = [
     "global", "nonlocal", "def", "class", "print", "del", "pass", "break",
@@ -54,7 +54,7 @@ pyx_reserved_words = common_reserved_words + [
 ]
 
 
-#------------------------------------------------------------------
+# ------------------------------------------------------------------
 
 class CompileTimeScope(object):
 
@@ -125,7 +125,7 @@ def initial_compile_time_env():
     return denv
 
 
-#------------------------------------------------------------------
+# ------------------------------------------------------------------
 
 class SourceDescriptor(object):
     """
@@ -295,7 +295,7 @@ class StringSourceDescriptor(SourceDescriptor):
         return "<StringSourceDescriptor:%s>" % self.name
 
 
-#------------------------------------------------------------------
+# ------------------------------------------------------------------
 
 class PyrexScanner(Scanner):
     #  context            Context  Compilation context

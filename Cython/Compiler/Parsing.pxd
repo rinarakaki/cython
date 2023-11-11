@@ -99,11 +99,11 @@ fn p_testlist_star_expr(PyrexScanner s)
 fn p_testlist_comp(PyrexScanner s)
 fn p_genexp(PyrexScanner s, expr)
 
-#-------------------------------------------------------
-#
+# -------------------------------------------------------
+# 
 #   Statements
-#
-#-------------------------------------------------------
+# 
+# -------------------------------------------------------
 
 fn p_global_statement(PyrexScanner s)
 fn p_nonlocal_statement(PyrexScanner s)

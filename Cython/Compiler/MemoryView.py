@@ -28,7 +28,7 @@ memview_c_contiguous = "(PyBUF_C_CONTIGUOUS | PyBUF_FORMAT)"
 memview_f_contiguous = "(PyBUF_F_CONTIGUOUS | PyBUF_FORMAT)"
 memview_any_contiguous = "(PyBUF_ANY_CONTIGUOUS | PyBUF_FORMAT)"
 memview_full_access = "PyBUF_FULL_RO"
-#memview_strided_access = "PyBUF_STRIDED_RO"
+# memview_strided_access = "PyBUF_STRIDED_RO"
 memview_strided_access = "PyBUF_RECORDS_RO"
 
 MEMVIEW_DIRECT = '__Pyx_MEMVIEW_DIRECT'
@@ -69,8 +69,8 @@ def put_init_entry(mv_cname, code):
     code.putln("%s.memview = NULL;" % mv_cname)
 
 
-#def axes_to_str(axes):
-#    return "".join([access[0].upper()+packing[0] for (access, packing) in axes])
+# def axes_to_str(axes):
+#     return "".join([access[0].upper()+packing[0] for (access, packing) in axes])
 
 
 def put_acquire_memoryviewslice(lhs_cname, lhs_type, lhs_pos, rhs, code,

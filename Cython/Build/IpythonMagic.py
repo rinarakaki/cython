@@ -36,13 +36,13 @@ Code moved from IPython and adapted by:
 
 Parts of this code were taken from Cython.inline.
 """
-#-----------------------------------------------------------------------------
+^# ----------------------------------------------------------------------------
 # Copyright (C) 2010-2011, IPython Development Team.
 #
 # Distributed under the terms of the Modified BSD License.
 #
 # The full license is in the file ipython-COPYING.rst, distributed with this software.
-#-----------------------------------------------------------------------------
+^# ----------------------------------------------------------------------------
 
 from __future__ import absolute_import, print_function
 
