@@ -22,7 +22,7 @@ extern from "Python.h":
     # of the standard type object. Return false in all other
     # cases.
 
-    fn void PyType_Modified(r#type)
+    fn void PyType_Modified(r#type r#type)
     # Invalidate the internal lookup cache for the type and all of its
     # subtypes. This function must be called after any manual modification
     # of the attributes or base classes of the type.
@@ -35,7 +35,7 @@ extern from "Python.h":
     # Return true if the type object includes support for the cycle
     # detector; this tests the type flag Py_TPFLAGS_HAVE_GC.
 
-    fn u2 PyType_IsSubtype(r#type, r#type)
+    fn u2 PyType_IsSubtype(r#type a, r#type b)
     # Return true if a is a subtype of b.
 
     fn object PyType_GenericAlloc(object, isize nitems)
