@@ -48,13 +48,13 @@ class Foo(object):
 cdef GLB3 = Foo()
 def f3(arg=GLB3):
     """
-    >>> f3() #doctest: +ELLIPSIS
+    >>> f3()  # doctest: +ELLIPSIS
     <argdefault.Foo object at ...>
     """
     return arg
 def g3(arg=Foo()):
     """
-    >>> g3() #doctest: +ELLIPSIS
+    >>> g3()  # doctest: +ELLIPSIS
     <argdefault.Foo object at ...>
     """
     return arg
@@ -65,13 +65,13 @@ cdef class Bar:
 cdef Bar GLB4 = Bar()
 def f4(arg=GLB4):
     """
-    >>> f4() #doctest: +ELLIPSIS
+    >>> f4()  # doctest: +ELLIPSIS
     <argdefault.Bar object at ...>
     """
     return arg
 def g4(arg=Bar()):
     """
-    >>> g4() #doctest: +ELLIPSIS
+    >>> g4()  # doctest: +ELLIPSIS
     <argdefault.Bar object at ...>
     """
     return arg
@@ -82,13 +82,13 @@ cdef class Bla:
 cdef Bla GLB5 = Bla()
 def f5(Bla arg=GLB5):
     """
-    >>> f5() #doctest: +ELLIPSIS
+    >>> f5()  # doctest: +ELLIPSIS
     <argdefault.Bla object at ...>
     """
     return arg
 def g5(Bla arg=Bla()):
     """
-    >>> g5() #doctest: +ELLIPSIS
+    >>> g5()  # doctest: +ELLIPSIS
     <argdefault.Bla object at ...>
     """
     return arg

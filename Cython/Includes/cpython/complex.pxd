@@ -3,9 +3,9 @@ extern from "Python.h":
         f64 imag
         f64 real
 
-    ############################################################################
+    # ##########################################################################
     # 7.2.5.2 Complex Numbers as Python Objects
-    ############################################################################
+    # ##########################################################################
 
     # PyComplexObject
     # This subtype of PyObject represents a Python complex number object.
@@ -21,16 +21,16 @@ extern from "Python.h":
         fn inline f64 imag(self):
             return self.cval.imag
 
-    # PyTypeObject PyComplex_Type
+    # static PyTypeObject PyComplex_Type
     # This instance of PyTypeObject represents the Python complex
     # number type. It is the same object as complex and
     # types.ComplexType.
 
-    fn bint PyComplex_Check(object p)
+    fn u2 PyComplex_Check(object p)
     # Return true if its argument is a PyComplexObject or a subtype of
     # PyComplexObject.
 
-    fn bint PyComplex_CheckExact(object p)
+    fn u2 PyComplex_CheckExact(object p)
     # Return true if its argument is a PyComplexObject, but not a subtype of PyComplexObject.
 
     fn object PyComplex_FromCComplex(Py_complex v)

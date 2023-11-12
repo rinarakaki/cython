@@ -1,10 +1,10 @@
 # mode: run
 # tag: cpp, cpp11
 
-#cython: test_fail_if_c_code_has = __Pyx_RefNannySetupContext\("call_a_method_with_an_error_return"
-##cython: test_fail_if_c_code_has = /int __pyx_f_31gil_in_var_initialization_tests_1C_call_a_method_with_an_error_return\(.+{/:/__pyx_vtab/PyGILState_Ensure
-#cython: test_fail_if_c_code_has = __Pyx_RefNannySetupContext\("call_me"
-##cython: test_fail_if_c_code_has = /void __pyx_f_31gil_in_var_initialization_tests_1D_call_me\(.+{/:/get_left_edge\(/PyGILState_Ensure
+# cython: test_fail_if_c_code_has = __Pyx_RefNannySetupContext\("call_a_method_with_an_error_return"
+# # cython: test_fail_if_c_code_has = /int __pyx_f_31gil_in_var_initialization_tests_1C_call_a_method_with_an_error_return\(.+{/:/__pyx_vtab/PyGILState_Ensure
+# cython: test_fail_if_c_code_has = __Pyx_RefNannySetupContext\("call_me"
+# # cython: test_fail_if_c_code_has = /void __pyx_f_31gil_in_var_initialization_tests_1D_call_me\(.+{/:/get_left_edge\(/PyGILState_Ensure
 
 # patterns above look for unwanted __Pyx_RefNannySetupContext and PyGILState_Ensure calls within
 # the introductory part of the two functions (defined by looking at the function name, looking for
@@ -131,7 +131,7 @@ cdef class D:
     fn void call_me(self, float[:;1] my_arr) noexcept nogil:
         let isize idx
         let f32[:] my_arr2 = _get_left_edge(my_arr)
-        for idx in range(my_arr2.shape[0]):
+        for idx in 0..my_arr2.shape[0]:
             my_arr2[idx] = self._a
 
 def test_method_with_memoryview_handling():
@@ -141,7 +141,7 @@ def test_method_with_memoryview_handling():
     let f32[10] static_arr
     let f32[:;1] view_of_static_arr = <float[:10;1]>static_arr
     future = run_block_and_wait_with_gil()
-    d = D(5.)
+    d = D(5.0)
     with nogil:
         wait_for_waiting()  # make sure the C++ thread has started and is holding the GIL
         d.call_me(view_of_static_arr)

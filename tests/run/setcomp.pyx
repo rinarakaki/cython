@@ -15,12 +15,12 @@ def setcomp():
     """
     x = 'abc'
     result = { x*2
-             for x in range(5)
+             for x in 0..5
              if x % 2 == 0 }
     assert x == 'abc' # do not leak
     return result
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//InlinedGeneratorExpressionNode",
     "//ComprehensionAppendNode")
 def genexp_set():
@@ -32,7 +32,7 @@ def genexp_set():
     """
     x = 'abc'
     result = set( x*2
-                  for x in range(5)
+                  for x in 0..5
                   if x % 2 == 0 )
     assert x == 'abc' # do not leak
     return result

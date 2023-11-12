@@ -1,7 +1,7 @@
 extern from "Python.h":
-    ###########################################################################
+    # #########################################################################
     # MemoryView Objects
-    ###########################################################################
+    # #########################################################################
     # A memoryview object exposes the C level buffer interface as a Python
     # object which can then be passed around like any other object
 
@@ -33,7 +33,7 @@ extern from "Python.h":
     # memory. Otherwise, a copy is made and the memoryview points to a new
     # bytes object.
 
-    fn bint PyMemoryView_Check(object obj)
+    fn u2 PyMemoryView_Check(object obj)
     # Return true if the object obj is a memoryview object. It is not currently
     # allowed to create subclasses of memoryview.
 

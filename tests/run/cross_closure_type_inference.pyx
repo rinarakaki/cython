@@ -15,7 +15,7 @@ def test_outer_inner_double():
         x = 2.0
     inner()
     assert x == 2.0, str(x)
-    return cython.typeof(x)
+    return cython::typeof(x)
 
 
 def test_outer_inner_double_int():
@@ -30,7 +30,7 @@ def test_outer_inner_double_int():
         x = 1
         y = 2.0
     inner()
-    return cython.typeof(x), cython.typeof(y)
+    return cython::typeof(x), cython::typeof(y)
 
 
 def test_outer_inner_pyarg():
@@ -43,7 +43,7 @@ def test_outer_inner_pyarg():
     def inner(y):
         return x + y
     print inner(1)
-    return cython.typeof(x)
+    return cython::typeof(x)
 
 
 def test_outer_inner_carg():
@@ -56,7 +56,7 @@ def test_outer_inner_carg():
     def inner(f64 y):
         return x + y
     print inner(1)
-    return cython.typeof(x)
+    return cython::typeof(x)
 
 
 def test_outer_inner_incompatible():
@@ -69,7 +69,7 @@ def test_outer_inner_incompatible():
         nonlocal x
         x = 'test'
     inner()
-    return cython.typeof(x)
+    return cython::typeof(x)
 
 
 def test_outer_inner_ptr():
@@ -83,10 +83,10 @@ def test_outer_inner_ptr():
         nonlocal x
         x = 1
         xptr_inner = &x
-        assert cython.typeof(xptr_inner) == cython.typeof(xptr_outer), (
-            '%s != %s' % (cython.typeof(xptr_inner), cython.typeof(xptr_outer)))
+        assert cython::typeof(xptr_inner) == cython::typeof(xptr_outer), (
+            '%s != %s' % (cython::typeof(xptr_inner), cython::typeof(xptr_outer)))
     inner()
-    return cython.typeof(xptr_outer)
+    return cython::typeof(xptr_outer)
 
 
 def test_outer_inner2_double():
@@ -103,4 +103,4 @@ def test_outer_inner2_double():
         x = 3.0
     inner1()
     inner2()
-    return cython.typeof(x)
+    return cython::typeof(x)

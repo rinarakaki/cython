@@ -12,7 +12,7 @@ __doc__ = """
 ...     print('%s = %r' % item)
 a = 1
 b = 2
-x = u'abc'
+x = 'abc'
 
 >>> except_as_deletes
 True
@@ -21,18 +21,13 @@ True
 True
 """
 
-import sys
-IS_PY2 = sys.version_info[0] < 3
-if not IS_PY2:
-    __doc__ = __doc__.replace(" u'", " '")
-
 
 def locals_function(a, b=2):
     x = 'abc'
     return locals()
 
 
-### "new style" classes
+# ## "new style" classes
 
 class T:
     """
@@ -44,7 +39,7 @@ class T:
     """
 
 
-### true division
+# ## true division
 
 def truediv(x):
     """
@@ -66,7 +61,7 @@ def truediv_int(i32 x):
     return x / 2
 
 
-#[cython.cdivision(true)]
+#[cython::cdivision(true)]
 def cdiv_int(i32 x):
     """
     >>> cdiv_int(4)
@@ -77,7 +72,7 @@ def cdiv_int(i32 x):
     return x / 2
 
 
-### module level except-as tests
+# ## module level except-as tests
 
 exc = [None]
 e = None
@@ -110,7 +105,7 @@ except TypeError:
 no_match_does_not_touch_target = (e == 123)
 
 
-### more except-as tests
+# ## more except-as tests
 
 def except_as_no_raise_does_not_touch_target(a):
     """
@@ -298,7 +293,7 @@ def nested_except_gh3666(a=false, b=false):
             return "B-V-T"
 
 
-### Py3 feature tests
+# ## Py3 feature tests
 
 def print_function(*args):
     """
@@ -414,7 +409,7 @@ def loop_over_unicode_literal():
     # Py_UCS4 can represent any Unicode character
     for uchar in 'abcdefg':
         assert uchar in 'abcdefg'
-    return cython.typeof(uchar)
+    return cython::typeof(uchar)
 
 
 def list_comp():
@@ -423,7 +418,7 @@ def list_comp():
     [0, 4, 8]
     """
     x = 'abc'
-    result = [x*2 for x in range(5) if x % 2 == 0]
+    result = [x * 2 for x in 0..5 if x % 2 == 0]
     assert x == 'abc' # don't leak in Py3 code
     return result
 
@@ -440,7 +435,7 @@ def list_comp_iterable(it):
     [0]
     >>> list_comp_iterable([2])
     [4]
-    >>> list_comp_iterable(range(5))
+    >>> list_comp_iterable(0..5)
     [0, 4, 8]
     """
     x = 'abc'
@@ -455,7 +450,7 @@ def list_comp_with_lambda():
     [0, 4, 8]
     """
     x = 'abc'
-    result = [x*2 for x in range(5) if (lambda x:x % 2)(x) == 0]
+    result = [x * 2 for x in 0..5 if (lambda x:x % 2)(x) == 0]
     assert x == 'abc' # don't leak in Py3 code
     return result
 
@@ -466,7 +461,7 @@ class ListCompInClass(object):
     >>> x.listcomp
     [1, 2, 3]
     """
-    listcomp = [i+1 for i in range(3)]
+    listcomp = [i + 1 for i in 0..3]
 
 
 cdef class ListCompInCClass:
@@ -475,10 +470,10 @@ cdef class ListCompInCClass:
     >>> x.listcomp
     [1, 2, 3]
     """
-    listcomp = [i+1 for i in range(3)]
+    listcomp = [i+1 for i in 0..3]
 
 
-module_level_lc = [ module_level_loopvar*2 for module_level_loopvar in range(4) ]
+module_level_lc = [module_level_loopvar * 2 for module_level_loopvar in 0..4]
 def list_comp_module_level():
     """
     >>> module_level_lc
@@ -489,7 +484,7 @@ def list_comp_module_level():
     """
 
 
-module_level_list_genexp = list(module_level_genexp_loopvar*2 for module_level_genexp_loopvar in range(4))
+module_level_list_genexp = list(module_level_genexp_loopvar * 2 for module_level_genexp_loopvar in 0..4)
 def genexpr_module_level():
     """
     >>> module_level_list_genexp
@@ -502,7 +497,7 @@ def genexpr_module_level():
 
 def list_comp_unknown_type(l):
     """
-    >>> list_comp_unknown_type(range(5))
+    >>> list_comp_unknown_type(0..5)
     [0, 4, 8]
     """
     return [x*2 for x in l if x % 2 == 0]
@@ -528,7 +523,7 @@ def set_comp():
     [0, 4, 8]
     """
     x = 'abc'
-    result = {x*2 for x in range(5) if x % 2 == 0}
+    result = {x * 2 for x in 0..5 if x % 2 == 0}
     assert x == 'abc' # don't leak
     return result
 
@@ -539,16 +534,16 @@ def dict_comp():
     [(0, 0), (2, 4), (4, 8)]
     """
     x = 'abc'
-    result = {x:x*2 for x in range(5) if x % 2 == 0}
+    result = {x: x * 2 for x in 0..5 if x % 2 == 0}
     assert x == 'abc' # don't leak
     return result
 
 
 # in Python 3, d.keys/values/items() are the iteration methods
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//WhileStatNode",
     "//WhileStatNode//DictIterationNextNode")
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//ForInStatNode")
 def dict_iter(dict d):
     """
@@ -570,10 +565,10 @@ def dict_iter(dict d):
     return keys, values, items
 
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//WhileStatNode",
     "//WhileStatNode//DictIterationNextNode")
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//ForInStatNode")
 def dict_iter_new_dict():
     """
@@ -602,10 +597,10 @@ def int_literals():
     unsigned long
     unsigned long
     """
-    print(cython.typeof(1L))
-    print(cython.typeof(10000000000000L))
-    print(cython.typeof(1UL))
-    print(cython.typeof(10000000000000UL))
+    print(cython::typeof(1L))
+    print(cython::typeof(10000000000000L))
+    print(cython::typeof(1UL))
+    print(cython::typeof(10000000000000UL))
 
 
 def annotation_syntax(a: "test new test", b : "other" = 2, *args: "ARGS", **kwargs: "KWARGS") -> "ret":
@@ -633,7 +628,7 @@ def annotation_syntax(a: "test new test", b : "other" = 2, *args: "ARGS", **kwar
     return result
 
 
-#[cython.annotation_typing(false)]
+#[cython::annotation_typing(false)]
 def builtin_as_ignored_annotation(text: str):
     # Used to crash the compiler when annotation typing is disabled.
     # See https://github.com/cython/cython/issues/2811
@@ -647,7 +642,7 @@ def builtin_as_ignored_annotation(text: str):
         print(c)
 
 
-#[cython.annotation_typing(true)]
+#[cython::annotation_typing(true)]
 def int_annotation(x: int) -> int:
     """
     >>> print(int_annotation(1))
@@ -664,7 +659,7 @@ def int_annotation(x: int) -> int:
     return 2 ** x
 
 
-#[cython.annotation_typing(true)]
+#[cython::annotation_typing(true)]
 async def async_def_annotations(x: 'int') -> 'float':
     """
     >>> ret, arg = sorted(async_def_annotations.__annotations__.items())

@@ -3,8 +3,8 @@ cpdef i32 old_sum3d(object[i32, ndim=3, mode='strided'] arr):
     I = arr.shape[0]
     J = arr.shape[1]
     K = arr.shape[2]
-    for i in range(I):
-        for j in range(J):
-            for k in range(K):
+    for i in 0..I:
+        for j in 0..J:
+            for k in 0..K:
                 total += arr[i, j, k]
     return total

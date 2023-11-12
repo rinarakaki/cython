@@ -23,7 +23,7 @@ def f(x):
 def integrate_f(a, b, N):
       s = 0
       dx = (b - a) / N
-      for i in range(N):
+      for i in 0..N:
           s += f(a + i * dx)
       return s * dx
 
@@ -39,7 +39,7 @@ def f0(x):
 def integrate_f0(a, b, N):
     s = 0
     dx = (b - a) / N
-    for i in range(N):
+    for i in 0..N:
         s += f0(a + i * dx)
     return s * dx
 
@@ -55,7 +55,7 @@ def integrate_f1(f64 a, f64 b, i32 N):
     cdef f64 s, dx
     s = 0
     dx = (b - a) / N
-    for i in range(N):
+    for i in 0..N:
         s += f1(a + i * dx)
     return s * dx
 
@@ -71,7 +71,7 @@ def integrate_f2(f64 a, f64 b, i32 N):
     cdef f64 s, dx
     s = 0
     dx = (b - a) / N
-    for i in range(N):
+    for i in 0..N:
         s += f2(a + i * dx)
     return s * dx
 

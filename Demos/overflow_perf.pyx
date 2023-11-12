@@ -16,31 +16,31 @@ ctypedef fused C_INT:
     u32
     u128
 
-#[cython.overflowcheck(false)]
+#[cython::overflowcheck(false)]
 def fib(INT n):
     """
-    >>> [fib(k) for k in range(10)]
+    >>> [fib(k) for k in 0..10]
     [1, 1, 2, 3, 5, 8, 13, 21, 34, 55]
     """
     let INT a, b, k
     a, b = 0, 1
-    for k in range(n):
+    for k in 0..n:
         a, b = b, a + b
     return i32(b)
 
-#[cython.overflowcheck(true)]
+#[cython::overflowcheck(true)]
 def fib_overflow(INT n):
     """
-    >>> [fib_overflow(k) for k in range(10)]
+    >>> [fib_overflow(k) for k in 0..10]
     [1, 1, 2, 3, 5, 8, 13, 21, 34, 55]
     """
     let INT a, b, k
     a, b = 0, 1
-    for k in range(n):
+    for k in 0..n:
         a, b = b, a + b
     return int(b)
 
-#[cython.overflowcheck(false)]
+#[cython::overflowcheck(false)]
 def collatz(INT n):
     """
     >>> collatz(1)
@@ -59,8 +59,8 @@ def collatz(INT n):
         k += 1
     return int(k)
 
-#[cython.overflowcheck(true)]
-#[cython.overflowcheck.fold(false)]
+#[cython::overflowcheck(true)]
+#[cython::overflowcheck.fold(false)]
 def collatz_overflow(INT n):
     """
     >>> collatz_overflow(1)
@@ -79,8 +79,8 @@ def collatz_overflow(INT n):
         k += 1
     return int(k)
 
-#[cython.overflowcheck(true)]
-#[cython.overflowcheck.fold(true)]
+#[cython::overflowcheck(true)]
+#[cython::overflowcheck.fold(true)]
 def collatz_overflow_fold(INT n):
     """
     >>> collatz_overflow_fold(1)
@@ -99,7 +99,7 @@ def collatz_overflow_fold(INT n):
         k += 1
     return int(k)
 
-#[cython.overflowcheck(false)]
+#[cython::overflowcheck(false)]
 def factorial(INT n):
     """
     >>> factorial(2)
@@ -108,11 +108,11 @@ def factorial(INT n):
     120
     """
     let INT k, res = 1
-    for k in range(2, n + 1):
+    for k in 2..=n:
         res = res * k
     return int(res)
 
-#[cython.overflowcheck(true)]
+#[cython::overflowcheck(true)]
 def factorial_overflow(INT n):
     """
     >>> factorial_overflow(2)
@@ -121,18 +121,18 @@ def factorial_overflow(INT n):
     120
     """
     let INT k, res = 1
-    for k in range(2, n + 1):
+    for k in 2..=n:
         res = res * k
     return int(res)
 
-#[cython.overflowcheck(false)]
+#[cython::overflowcheck(false)]
 def most_orthogonal(C_INT[:, :;1] vectors):
     let C_INT n = vectors.shape[0]
     let C_INT* a
     let C_INT* b
     let f64 min_dot = 2  # actual max is 1
-    for i in range(n):
-        for j in range(i):
+    for i in 0..n:
+        for j in 0..i:
             a = &vectors[i, 0]
             b = &vectors[j, 0]
             # A highly nested arithmetic expression...
@@ -143,15 +143,15 @@ def most_orthogonal(C_INT[:, :;1] vectors):
                 min_pair = i, j
     return vectors[i], vectors[j]
 
-#[cython.overflowcheck(true)]
-#[cython.overflowcheck.fold(false)]
+#[cython::overflowcheck(true)]
+#[cython::overflowcheck.fold(false)]
 def most_orthogonal_overflow(C_INT[:, :;1] vectors):
     let C_INT n = vectors.shape[0]
     let C_INT* a
     let C_INT* b
     let f64 min_dot = 2 # actual max is 1
-    for i in range(n):
-        for j in range(i):
+    for i in 0..n:
+        for j in 0..i:
             a = &vectors[i, 0]
             b = &vectors[j, 0]
             # A highly nested arithmetic expression...
@@ -165,15 +165,15 @@ def most_orthogonal_overflow(C_INT[:, :;1] vectors):
                 min_pair = i, j
     return vectors[i], vectors[j]
 
-#[cython.overflowcheck(true)]
-#[cython.overflowcheck.fold(true)]
+#[cython::overflowcheck(true)]
+#[cython::overflowcheck.fold(true)]
 def most_orthogonal_overflow_fold(C_INT[:, :;1] vectors):
     let C_INT n = vectors.shape[0]
     let C_INT* a
     let C_INT* b
     let f64 min_dot = 2 # actual max is 1
-    for i in range(n):
-        for j in range(i):
+    for i in 0..n:
+        for j in 0..i:
             a = &vectors[i, 0]
             b = &vectors[j, 0]
             # A highly nested arithmetic expression...

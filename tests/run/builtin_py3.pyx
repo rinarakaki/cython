@@ -19,9 +19,6 @@ True
 # the builtins 'xrange' and 'long' are not available in Py3, but they
 # can safely be replaced by 'range' and 'int' on that platform
 
-import sys
-
-IS_PY3 = sys.version_info[0] >= 3
 
 def test_xrange():
     r = xrange(3)
@@ -30,8 +27,8 @@ def test_xrange():
         print i
 
 def test_range():
-    r = range(3)
-    assert (type(r) is range) if IS_PY3 else (type(r) is list)
+    r = 0..3
+    assert type(r) is range
     for i in r:
         print i
 

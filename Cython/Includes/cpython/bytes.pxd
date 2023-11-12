@@ -1,11 +1,11 @@
-from .object cimport PyObject
+use super::object::PyObject
 
 extern from "Python.h":
     struct va_list
 
-    ############################################################################
+    # ##########################################################################
     # 7.3.1 String Objects
-    ############################################################################
+    # ##########################################################################
 
     # These functions raise TypeError when expecting a string
     # parameter and are called with a non-string parameter.
@@ -16,11 +16,11 @@ extern from "Python.h":
     # it is the same object as bytes and types.BytesType in the Python
     # layer.
 
-    fn bint PyBytes_Check(object o)
+    fn u2 PyBytes_Check(object o)
     # Return true if the object o is a string object or an instance of
     # a subtype of the string type.
 
-    fn bint PyBytes_CheckExact(object o)
+    fn u2 PyBytes_CheckExact(object o)
     # Return true if the object o is a string object, but not an instance of a subtype of the string type.
 
     fn bytes PyBytes_FromString(char *v)

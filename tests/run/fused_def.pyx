@@ -21,11 +21,11 @@ cdef class ExtClassB(Base):
     pass
 
 enum MyEnum:
-    Entry0
-    Entry1
-    Entry2
-    Entry3
-    Entry4
+    Var0
+    Var1
+    Var2
+    Var3
+    Var4
 
 ctypedef fused fused_t:
     str
@@ -127,7 +127,7 @@ def opt_func(fused_t obj, cython.floating myf = 1.2, cython.integral myi = 7,
     Traceback (most recent call last):
     TypeError: Argument 'obj' has incorrect type (expected fused_def.ExtClassA, got object)
     """
-    print cython.typeof(obj), cython.typeof(myf), cython.typeof(myi)
+    print cython::typeof(obj), cython::typeof(myf), cython::typeof(myi)
     print obj, "%.2f" % myf, myi, "%.2f" % f, i
 
 def non_fused_opt(fused_t obj, value=5):
@@ -158,7 +158,7 @@ def test_opt_func():
     str object double long
     ham 5.60 4 5.60 9
     """
-    opt_func("ham", f, Entry4)
+    opt_func("ham", f, MyEnum::Var4)
 
 def test_opt_func_introspection():
     """
@@ -211,7 +211,7 @@ def func_with_object(fused_with_object obj, cython.integral myi = 7):
     Python object long
     ExtClassB 3
     """
-    print cython.typeof(obj), cython.typeof(myi)
+    print cython::typeof(obj), cython::typeof(myi)
     print obj, myi
 
 def args_kwargs(fused_t obj, cython.floating myf = 1.2, *args, **kwargs):
@@ -229,7 +229,7 @@ def args_kwargs(fused_t obj, cython.floating myf = 1.2, *args, **kwargs):
     eggs 5.60 5.60 (1, 2, []) {'d': {}}
 
     """
-    print cython.typeof(obj), cython.typeof(myf)
+    print cython::typeof(obj), cython::typeof(myf)
     print obj, "%.2f" % myf, "%.2f" % f, args, kwargs
 
 class BaseClass(object):
@@ -239,14 +239,14 @@ class BaseClass(object):
 
     @staticmethod
     def mystaticmethod(cython.integral arg1):
-        print cython.typeof(arg1), arg1
+        print cython::typeof(arg1), arg1
 
     @classmethod
     def myclassmethod(cls, cython.integral arg1):
-        print cls, cython.typeof(arg1), arg1
+        print cls, cython::typeof(arg1), arg1
 
     def normalmethod(self, cython.integral arg1):
-        print self, cython.typeof(arg1), arg1
+        print self, cython::typeof(arg1), arg1
 
     def __repr__(self):
         return "<%s.%s object>" % (__name__, type(self).__name__)
@@ -255,16 +255,16 @@ class SubClass(BaseClass):
 
     @staticmethod
     def mystaticmethod(self, cython.integral arg1):
-        print cython.typeof(arg1), arg1
+        print cython::typeof(arg1), arg1
         super().mystaticmethod(arg1 + 1)
 
     @classmethod
     def myclassmethod(cls, cython.integral arg1):
-        print cls, cython.typeof(arg1), arg1
+        print cls, cython::typeof(arg1), arg1
         super().myclassmethod(arg1 + 1)
 
     def normalmethod(self, cython.integral arg1):
-        print self, cython.typeof(arg1), arg1
+        print self, cython::typeof(arg1), arg1
         super().normalmethod(arg1 + 1)
 
 class SubSubClass(SubClass):
@@ -381,17 +381,17 @@ cdef class CBaseClass(object):
 
     @staticmethod
     def mystaticmethod(cython.integral arg1):
-        print cython.typeof(arg1), arg1
+        print cython::typeof(arg1), arg1
 
     @classmethod
     def myclassmethod(cls, cython.integral arg1):
-        print cls.__name__, cython.typeof(arg1), arg1
+        print cls.__name__, cython::typeof(arg1), arg1
 
     def normalmethod(self, cython.integral arg1, arg2, arg3):
-        print self, cython.typeof(arg1), arg1, arg2, arg3
+        print self, cython::typeof(arg1), arg1, arg2, arg3
 
     cpdef cpdefmethod(self, cython.integral arg1):
-        print self, cython.typeof(arg1), arg1
+        print self, cython::typeof(arg1), arg1
 
     def __repr__(self):
         return "<%s.%s object>" % (__name__, type(self).__name__)
@@ -424,8 +424,8 @@ def test_decorators(cython.floating arg):
     [3, 2, 1]
     """
 
-#[cython.binding(true)]
-def bind_me(self, cython.floating a=1.):
+#[cython::binding(true)]
+def bind_me(self, cython.floating a=1.0):
     return a
 
 cdef class HasBound:
@@ -439,7 +439,7 @@ cdef class HasBound:
     2.0
     >>> inst.func_fused()
     1.0
-    >>> inst.func_fused(2.)
+    >>> inst.func_fused(2.0)
     2.0
     >>> bind_me.__defaults__
     (1.0,)

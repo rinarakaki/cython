@@ -105,7 +105,7 @@ fn list to_pylist(cpp_list[i32]& l):
 
 def item_ptr_test(L, i32 x):
     """
-    >>> item_ptr_test(range(10), 100)
+    >>> item_ptr_test(0..10, 100)
     [100, 1, 2, 3, 4, 5, 6, 7, 8, 9]
     """
     let cpp_list[i32] l = L
@@ -128,7 +128,7 @@ def test_value_type_complex(x):
     >>> test_value_type_complex(2)
     (2+0j)
     """
-    let cpp_list[double complex].value_type val = x
+    let cpp_list[c128].value_type val = x
     return val
 
 def test_insert():

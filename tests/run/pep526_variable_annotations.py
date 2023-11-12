@@ -97,11 +97,11 @@ T = TypeVar('T')
 
 
 # FIXME: this fails in Py3.7 now
-#class Box(Generic[T]):
+# class Box(Generic[T]):
 #    def __init__(self, content):
 #        self.content: T = content
 #
-#box = Box(content=5)
+# box = Box(content=5)
 
 
 class Cls(object):
@@ -207,7 +207,7 @@ def test_tuple(a: typing.Tuple[cython.int, cython.float], b: typing.Tuple[cython
     tuple object
     """
     x: typing.Tuple[int, float] = (a[0], a[1])  # note: Python int/float, not cython.int/float
-    y: Tuple[cython.int, ...] = (1,2.)
+    y: Tuple[cython.int, ...] = (1, 2.0)
     plain_tuple: Tuple = ()
     z = a[0]  # should infer to C int
     p = x[1]  # should infer to Python float -> C double
@@ -243,7 +243,7 @@ def test_tuple_without_typing(a: tuple[cython.int, cython.float], b: tuple[cytho
     tuple object
     """
     x: tuple[int, float] = (a[0], a[1])  # note: Python int/float, not cython.int/float
-    y: tuple[cython.int, ...] = (1,2.)
+    y: tuple[cython.int, ...] = (1, 2.0)
     plain_tuple: tuple = ()
     z = a[0]  # should infer to C int
     p = x[1]  # should infer to Python float -> C double

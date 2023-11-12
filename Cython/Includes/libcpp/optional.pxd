@@ -19,7 +19,7 @@ extern from "<optional>" namespace "std" nogil:
         void reset()
         T& emplace(...)
         T& operator*()
-        #T* operator->() # Not Supported
+        # T* operator->() # Not Supported
         optional& operator=(optional&)
         optional& operator=[U](U&)
         bool operator bool()

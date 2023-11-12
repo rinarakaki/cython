@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 import os
 import shutil
 import stat
@@ -156,7 +155,7 @@ if compile_cython_itself:
     cython_compile_minimal = check_option('cython-compile-minimal')
 
 
-def dev_status(version):
+def dev_status(version: str):
     if 'b' in version or 'c' in version:
         # 1b1, 1beta1, 2rc1, ...
         return 'Development Status :: 4 - Beta'

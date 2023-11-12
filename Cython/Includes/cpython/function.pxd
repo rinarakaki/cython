@@ -1,9 +1,9 @@
-from .object cimport PyObject
+use super::object::PyObject
 
 extern from "Python.h":
-    ############################################################################
+    # ##########################################################################
     # 7.5.3 Function Objects
-    ############################################################################
+    # ##########################################################################
     # There are a few functions specific to Python functions.
 
     # PyFunctionObject
@@ -16,7 +16,7 @@ extern from "Python.h":
     # function type. It is exposed to Python programmers as
     # types.FunctionType.
 
-    fn bint PyFunction_Check(object o)
+    fn u2 PyFunction_Check(object o)
     # Return true if o is a function object (has type
     # PyFunction_Type). The parameter must not be NULL.
 

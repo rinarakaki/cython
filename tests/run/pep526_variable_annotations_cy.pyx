@@ -20,9 +20,9 @@ def test_subscripted_types():
     let List[int] b = []
     let _SET_[object] c = set()
 
-    print(cython.typeof(a))
-    print(cython.typeof(b))
-    print(cython.typeof(c))
+    print(cython::typeof(a))
+    print(cython::typeof(b))
+    print(cython::typeof(c))
 
 cdef class TestClassVar:
     """
@@ -49,10 +49,10 @@ def test_tuple(typing.Tuple[int, float] a,  typing.Tuple[int, ...] b,
     tuple object
     """
     let typing.Tuple[int, float] x = (a[0], a[1])  # C int/float
-    let Tuple[int, ...] y = (1,2.)
+    let Tuple[int, ...] y = (1, 2.0)
     z = a[0]  # should infer to C int
 
-    print(cython.typeof(z))
-    print(cython.typeof(x[0]))
-    print(cython.typeof(y))
-    print(cython.typeof(c))
+    print(cython::typeof(z))
+    print(cython::typeof(x[0]))
+    print(cython::typeof(y))
+    print(cython::typeof(c))

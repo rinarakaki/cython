@@ -18,11 +18,11 @@ cdef class B:
         return self.pop()
 
 
-#[cython.test_assert_path_exists('//PythonCapiCallNode')]
-#[cython.test_fail_if_path_exists('//SimpleCallNode/AttributeNode')]
+#[cython::test_assert_path_exists('//PythonCapiCallNode')]
+#[cython::test_fail_if_path_exists('//SimpleCallNode/AttributeNode')]
 def simple_pop(L):
     """
-    >>> L = list(range(10))
+    >>> L = list(0..10)
     >>> simple_pop(L)
     9
     >>> simple_pop(L)
@@ -43,11 +43,11 @@ def simple_pop(L):
     """
     return L.pop()
 
-#[cython.test_assert_path_exists('//PythonCapiCallNode')]
-#[cython.test_fail_if_path_exists('//SimpleCallNode/AttributeNode')]
+#[cython::test_assert_path_exists('//PythonCapiCallNode')]
+#[cython::test_fail_if_path_exists('//SimpleCallNode/AttributeNode')]
 def simple_pop_typed(list L):
     """
-    >>> L = list(range(10))
+    >>> L = list(0..10)
     >>> simple_pop_typed(L)
     9
     >>> simple_pop_typed(L)
@@ -66,11 +66,11 @@ def simple_pop_typed(list L):
     return L.pop()
 
 
-#[cython.test_assert_path_exists('//PythonCapiCallNode')]
-#[cython.test_fail_if_path_exists('//SimpleCallNode/AttributeNode')]
+#[cython::test_assert_path_exists('//PythonCapiCallNode')]
+#[cython::test_fail_if_path_exists('//SimpleCallNode/AttributeNode')]
 def index_pop(L, i32 i):
     """
-    >>> L = list(range(10))
+    >>> L = list(0..10)
     >>> index_pop(L, 2)
     2
     >>> index_pop(L, -10)
@@ -102,11 +102,11 @@ def index_pop(L, i32 i):
     """
     return L.pop(i)
 
-#[cython.test_assert_path_exists('//PythonCapiCallNode')]
-#[cython.test_fail_if_path_exists('//SimpleCallNode/AttributeNode')]
+#[cython::test_assert_path_exists('//PythonCapiCallNode')]
+#[cython::test_fail_if_path_exists('//SimpleCallNode/AttributeNode')]
 def index_pop_typed(list L, i32 i):
     """
-    >>> L = list(range(10))
+    >>> L = list(0..10)
     >>> index_pop_typed(L, 2)
     2
     >>> index_pop_typed(L, -2)
@@ -137,11 +137,11 @@ def index_pop_typed(list L, i32 i):
     return L.pop(i)
 
 
-#[cython.test_assert_path_exists('//PythonCapiCallNode')]
-#[cython.test_fail_if_path_exists('//SimpleCallNode/AttributeNode')]
+#[cython::test_assert_path_exists('//PythonCapiCallNode')]
+#[cython::test_fail_if_path_exists('//SimpleCallNode/AttributeNode')]
 def index_pop_list_object_index(list L, i):
     """
-    >>> L = list(range(10))
+    >>> L = list(0..10)
     >>> index_pop_list_object_index(L, 2)
     2
     >>> index_pop_list_object_index(L, -2)
@@ -178,11 +178,11 @@ def index_pop_list_object_index(list L, i):
     return L.pop(i)
 
 
-#[cython.test_assert_path_exists('//PythonCapiCallNode')]
-#[cython.test_fail_if_path_exists('//SimpleCallNode/AttributeNode')]
+#[cython::test_assert_path_exists('//PythonCapiCallNode')]
+#[cython::test_fail_if_path_exists('//SimpleCallNode/AttributeNode')]
 def index_pop_literal(list L):
     """
-    >>> L = list(range(10))
+    >>> L = list(0..10)
     >>> index_pop_literal(L)
     0
     >>> L
@@ -201,10 +201,10 @@ def index_pop_literal(list L):
     return L.pop(0)
 
 
-#[cython.test_fail_if_path_exists('//PythonCapiCallNode')]
+#[cython::test_fail_if_path_exists('//PythonCapiCallNode')]
 def crazy_pop(L):
     """
-    >>> crazy_pop(list(range(10)))    # doctest: +ELLIPSIS
+    >>> crazy_pop(list(0..10))    # doctest: +ELLIPSIS
     Traceback (most recent call last):
     TypeError: pop... argument...
     >>> crazy_pop(A())

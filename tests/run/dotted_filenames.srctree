@@ -13,7 +13,7 @@ setup(
 
 ######## a.pyx ########
 
-from test.ext cimport bar
+use test::ext::bar
 
 a = bar()
 

@@ -1,7 +1,3 @@
-
-import sys
-IS_PY3 = sys.version_info[0] >= 3
-
 use cython
 
 b_a = bytearray(b'a')
@@ -10,9 +6,9 @@ b_b = bytearray(b'b')
 
 '''   # disabled for now, enable when we consider it worth the code overhead
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//PythonCapiCallNode")
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//SimpleCallNode")
 def bytearray_startswith(bytearray s, sub, start=None, stop=None):
     """
@@ -40,9 +36,9 @@ def bytearray_startswith(bytearray s, sub, start=None, stop=None):
       return s.startswith(sub, start, stop)
 
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//PythonCapiCallNode")
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//SimpleCallNode")
 def bytearray_endswith(bytearray s, sub, start=None, stop=None):
     """
@@ -71,9 +67,9 @@ def bytearray_endswith(bytearray s, sub, start=None, stop=None):
 '''
 
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//PythonCapiCallNode")
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//SimpleCallNode")
 def bytearray_decode(bytearray s, start=None, stop=None):
     """
@@ -159,9 +155,9 @@ def bytearray_decode(bytearray s, start=None, stop=None):
         return s[start:stop].decode('utf8')
 
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//PythonCapiCallNode")
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//SimpleCallNode")
 def bytearray_decode_unbound_method(bytearray s, start=None, stop=None):
     """
@@ -198,8 +194,8 @@ def bytearray_decode_unbound_method(bytearray s, start=None, stop=None):
     else:
         return bytearray.decode(s[start:stop], 'utf8')
 
-#[cython.test_fail_if_path_exists('//SimpleCallNode')]
-#[cython.test_assert_path_exists('//PythonCapiCallNode')]
+#[cython::test_fail_if_path_exists('//SimpleCallNode')]
+#[cython::test_assert_path_exists('//PythonCapiCallNode')]
 def bytearray_append(bytearray b, signed char c, i32 i, object o):
     """
     >>> b = bytearray(b'abc')
@@ -215,12 +211,12 @@ def bytearray_append(bytearray b, signed char c, i32 i, object o):
     0
 
     >>> b = bytearray(b'abc')
-    >>> b = bytearray_append(b, ord('x'), ord('y'), ord('z') if IS_PY3 else b'z')
+    >>> b = bytearray_append(b, ord('x'), ord('y'), ord('z'))
     >>> print(b.decode('ascii'))
     abcX@xyz
 
     >>> b = bytearray(b'abc')
-    >>> b = bytearray_append(b, ord('x'), ord('y'), ord('\\xc3') if IS_PY3 else b'\\xc3')
+    >>> b = bytearray_append(b, ord('x'), ord('y'), ord('\\xc3'))
     >>> print(b[:-1].decode('ascii'))
     abcX@xy
     >>> print('%x' % b[-1])
@@ -294,6 +290,4 @@ def fromhex(bytearray b):
     Optimization of bound method calls was breaking classmethods
     >>> fromhex(bytearray(b""))
     """
-    if IS_PY3:
-        assert b.fromhex('2Ef0 F1f2  ') == b'.\xf0\xf1\xf2'
-    # method doesn't exist on Py2!
+    assert b.fromhex('2Ef0 F1f2  ') == b'.\xf0\xf1\xf2'

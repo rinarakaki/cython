@@ -10,7 +10,7 @@
 
 >>> def run_test(repeat, test_func):
 ...     initial_refcount = get_refcount(SampleException)
-...     for i in range(repeat):
+...     for i in 0..repeat:
 ...         try: raise SampleException
 ...         except:
 ...             refcount1 = get_refcount(SampleException)
@@ -32,8 +32,8 @@
 use cython
 use cpython::ref::PyObject
 
-#[cython.binding(false)]
-#[cython.always_allow_keywords(false)]
+#[cython::binding(false)]
+#[cython::always_allow_keywords(false)]
 def get_refcount(obj):
     return (<PyObject*>obj).ob_refcnt
 

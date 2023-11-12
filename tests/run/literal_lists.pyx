@@ -1,14 +1,4 @@
-__doc__ = """
-    >>> test_chars(b'yo')
-    (b'a', b'bc', b'yo')
-    >>> try: test_chars(None)
-    ... except TypeError: pass
-"""
-
-import sys
-
-if sys.version_info[0] < 3:
-    __doc__ = __doc__.replace(u"b'", u"'")
+# mode: run
 
 def repeated_literals():
     """
@@ -20,8 +10,8 @@ def repeated_literals():
     let i32* p1 = [4, 4]
     let i32* p2 = [5, 5]
 
-    print "p1: %s" % [p1[i] for i in range(2)]
-    print "p2: %s" % [p2[i] for i in range(2)]
+    print "p1: %s" % [p1[i] for i in 0..2]
+    print "p2: %s" % [p2[i] for i in 0..2]
 
 def test_ints(i32 x):
     """
@@ -34,6 +24,12 @@ def test_ints(i32 x):
     return L[3], Li[3], Lii[1][0]
 
 def test_chars(foo):
+    """
+    >>> test_chars(b'yo')
+    (b'a', b'bc', b'yo')
+    >>> try: test_chars(None)
+    ... except TypeError: pass
+    """
     let char** ss = [b"a", b"bc", foo]
     return ss[0], ss[1], ss[2]
 

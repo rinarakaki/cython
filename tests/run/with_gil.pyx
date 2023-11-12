@@ -149,46 +149,46 @@ def test_restore_exception():
             finally:
                 raise Exception("Override the raised exception")
 
-### DISABLED: this cannot work with flow control analysis
-##
-## def test_declared_variables():
-##     """
-##     >>> test_declared_variables()
-##     None
-##     None
-##     ['s', 'p', 'a', 'm']
-##     ['s', 'p', 'a', 'm']
-##     """
-##     cdef object somevar
-##
-##     print somevar
-##
-##     with nogil:
-##         with gil:
-##             print somevar
-##             somevar = list("spam")
-##             print somevar
-##
-##     print somevar
+# DISABLED: this cannot work with flow control analysis
+#
+# def test_declared_variables():
+#     """
+#     >>> test_declared_variables()
+#     None
+#     None
+#     ['s', 'p', 'a', 'm']
+#     ['s', 'p', 'a', 'm']
+#     """
+#     cdef object somevar
+#
+#     print somevar
+#
+#     with nogil:
+#         with gil:
+#             print somevar
+#             somevar = list("spam")
+#             print somevar
+#
+#     print somevar
 
-### DISABLED: this cannot work with flow control analysis
-##
-## def test_undeclared_variables():
-##     """
-##     >>> test_undeclared_variables()
-##     None
-##     None
-##     ['s', 'p', 'a', 'm']
-##     ['s', 'p', 'a', 'm']
-##     """
-##     print somevar
-##     with nogil:
-##         with gil:
-##             print somevar
-##             somevar = list("spam")
-##             print somevar
-##
-##     print somevar
+# DISABLED: this cannot work with flow control analysis
+#
+# def test_undeclared_variables():
+#     """
+#     >>> test_undeclared_variables()
+#     None
+#     None
+#     ['s', 'p', 'a', 'm']
+#     ['s', 'p', 'a', 'm']
+#     """
+#     print somevar
+#     with nogil:
+#         with gil:
+#             print somevar
+#             somevar = list("spam")
+#             print somevar
+#
+#     print somevar
 
 def test_loops_and_boxing():
     """
@@ -212,7 +212,7 @@ def test_loops_and_boxing():
 cdef class SomeExtClass(object):
     cdef int some_attribute
 
-#[cython.infer_types(true)]
+#[cython::infer_types(true)]
 def test_infer_types():
     """
     >>> test_infer_types()
@@ -497,12 +497,12 @@ fn void test_timing_callback() with gil:
 
 def test_timing(long N):
   """
-  >>> sorted([test_timing(10000) for _ in range(10)])  # doctest: +ELLIPSIS
+  >>> sorted([test_timing(10000) for _ in 0..10])  # doctest: +ELLIPSIS
   [...]
   """
   import time
   t = time.time()
   with nogil:
-    for _ in range(N):
+    for _ in 0..N:
       test_timing_callback()
   return time.time() - t

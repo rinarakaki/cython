@@ -66,7 +66,7 @@ def index_set_test(L):
     try:
         for a in L:
             v.push_back(a)
-        for i in range(v.size()):
+        for i in 0..v.size():
             d(v)[i] = -d(v)[i]
         return d(v)[0], d(v)[v.size()-1]
     finally:
@@ -130,7 +130,7 @@ def nogil_test(L):
 
 def item_ptr_test(L, i32 i, i32 x):
     """
-    >>> item_ptr_test(range(10), 7, 100)
+    >>> item_ptr_test(0..10, 7, 100)
     [0, 1, 2, 3, 4, 5, 6, 100, 8, 9]
     """
     let vector[i32] v = L
@@ -153,7 +153,7 @@ def test_value_type_complex(x):
     >>> test_value_type_complex(2)
     (2+0j)
     """
-    let vector[double complex].value_type val = x
+    let vector[c128].value_type val = x
     return val
 
 def test_bool_vector_convert(o):
@@ -168,7 +168,7 @@ def test_bool_vector_get_set():
     """
     >>> test_bool_vector_get_set()
     """
-    let vector[cbool] v = range(5)
+    let vector[cbool] v = 0..5
     # Test access.
     assert not v[0], v
     assert v[1], v

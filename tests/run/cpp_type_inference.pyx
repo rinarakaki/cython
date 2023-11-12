@@ -40,7 +40,7 @@ def test_reversed_vector_iteration(L):
         print('%s: %s' % (typeof(a), a))
     print(typeof(a))
 
-def test_derived_types(i32 size, bint round):
+def test_derived_types(i32 size, u2 round):
     """
     >>> test_derived_types(5, True)
     Shape *
@@ -54,7 +54,7 @@ def test_derived_types(i32 size, bint round):
     print typeof(ptr)
     del ptr
 
-def test_stack_allocated(bint b=true):
+def test_stack_allocated(u2 b=true):
     """
     >>> test_stack_allocated()
     """

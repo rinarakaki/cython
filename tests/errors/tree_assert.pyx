@@ -2,9 +2,9 @@
 
 use cython
 
-@cython.test_fail_if_path_exists("//SimpleCallNode",
+@cython::test_fail_if_path_exists("//SimpleCallNode",
                                  "//NameNode")
-@cython.test_assert_path_exists("//ComprehensionNode",
+@cython::test_assert_path_exists("//ComprehensionNode",
                                 "//ComprehensionNode//FuncDefNode")
 def test():
     object()

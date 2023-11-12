@@ -1,7 +1,7 @@
 # cython: language_level=3
 
 use cython
-from ..StringIOTree cimport StringIOTree
+use super::super::StringIOTree::StringIOTree
 
 cdef class UtilityCodeBase(object):
     cpdef format_code(self, code_string, replace_empty_lines=*)
@@ -37,9 +37,9 @@ cdef class FunctionState:
 
     pub object exc_vars
     pub object current_except
-    pub bint in_try_finally
-    pub bint can_trace
-    pub bint gil_owned
+    pub u2 in_try_finally
+    pub u2 can_trace
+    pub u2 gil_owned
 
     pub list temps_allocated
     pub dict temps_free
@@ -49,13 +49,13 @@ cdef class FunctionState:
     pub list collect_temps_stack
 
     pub object closure_temps
-    pub bint should_declare_error_indicator
-    pub bint uses_error_indicator
-    pub bint error_without_exception
+    pub u2 should_declare_error_indicator
+    pub u2 uses_error_indicator
+    pub u2 error_without_exception
 
-    pub bint needs_refnanny
+    pub u2 needs_refnanny
 
-    #[cython.locals(n=usize)]
+    #[cython::locals(n=usize)]
     cpdef new_label(self, name=*)
     cpdef tuple get_loop_labels(self)
     cpdef set_loop_labels(self, labels)
@@ -69,7 +69,7 @@ cdef class FunctionState:
 cdef class IntConst:
     pub object cname
     pub object value
-    pub bint is_long
+    pub u2 is_long
 
 cdef class PyObjectConst:
     pub object cname
@@ -82,19 +82,19 @@ cdef class StringConst:
     pub dict py_strings
     pub list py_versions
 
-    #[cython.locals(intern=bint, is_str=bint, is_unicode=bint)]
+    #[cython::locals(intern=u2, is_str=u2, is_unicode=u2)]
     cpdef get_py_string_const(self, encoding, identifier=*, is_str=*, py3str_cstring=*)
 
-## cdef class PyStringConst:
-##     pub object cname
-##     pub object encoding
-##     pub bint is_str
-##     pub bint is_unicode
-##     pub bint intern
+# cdef class PyStringConst:
+#     pub object cname
+#     pub object encoding
+#     pub u2 is_str
+#     pub u2 is_unicode
+#     pub u2 intern
 
-#class GlobalState(object):
+# class GlobalState(object):
 
-#def funccontext_property(name):
+# def funccontext_property(name):
 
 cdef class CCodeWriter(object):
     cdef readonly StringIOTree buffer
@@ -106,11 +106,11 @@ cdef class CCodeWriter(object):
     cdef object last_marked_pos
     cdef isize level
     pub isize call_level  # debug-only, see Nodes.py
-    cdef bint bol
+    cdef u2 bol
 
     cpdef write(self, s)
 
-    #[cython.final]
+    #[cython::final]
     fn _write_lines(self, s)
 
     cpdef _write_to_buffer(self, s)
@@ -119,15 +119,15 @@ cdef class CCodeWriter(object):
 
     cpdef put_safe(self, code)
 
-    cpdef putln(self, code=*, bint safe=*)
+    cpdef putln(self, code=*, u2 safe=*)
 
-    #[cython.final]
+    #[cython::final]
     fn increase_indent(self)
 
-    #[cython.final]
+    #[cython::final]
     fn decrease_indent(self)
     
-    #[cython.final]
+    #[cython::final]
     fn indent(self)
 
 cdef class PyrexCodeWriter:

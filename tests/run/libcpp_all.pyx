@@ -52,13 +52,13 @@ cdef map[i32, i32].iterator im1 = m1.begin()
 cdef map[i32, i32].iterator im2 = m1.end()
 cdef map[i32, i32].reverse_iterator rim1 = m1.rbegin()
 cdef map[i32, i32].reverse_iterator rim2 = m1.rend()
-cdef pair[map[i32, i32].iterator, bint] pimb = m1.insert(p1)
+cdef pair[map[i32, i32].iterator, u2] pimb = m1.insert(p1)
 
 cdef set[i32].iterator is1 = s1.begin()
 cdef set[i32].iterator is2 = s1.end()
 cdef set[i32].reverse_iterator ris1 = s1.rbegin()
 cdef set[i32].reverse_iterator ris2 = s1.rend()
-cdef pair[set[i32].iterator, bint] pisb = s1.insert(4)
+cdef pair[set[i32].iterator, u2] pisb = s1.insert(4)
 
 cdef vector[i32].iterator iv1 = v1.begin()
 cdef vector[i32].iterator iv2 = v1.end()
@@ -75,7 +75,7 @@ def test_vector_coercion(*args):
     v = new vector[f64]()
     for a in args:
         v.push_back(a)
-    return [v[0][i] for i in range(v.size())]
+    return [v[0][i] for i in 0..v.size()]
 
 def test_const_vector(*args):
     """
@@ -111,7 +111,7 @@ cdef i32 iqnan = numeric_limits[i32].quiet_NaN()
 cdef i32 isnan = numeric_limits[i32].signaling_NaN()
 cdef i32 iinf = numeric_limits[i32].infinity()
 
-#API checks for containers with std::allocator declared
+# API checks for containers with std::allocator declared
 use libcpp::memory::allocator
 
 cdef libcpp.vector.vector[i32, allocator[i32]] vec_alloc_int = libcpp.vector.vector[i32, allocator[i32]](10, 1)
@@ -120,7 +120,7 @@ assert vec_alloc_int.size() == 10
 cdef libcpp.list.list[i32, allocator[i32]] list_alloc_int = libcpp.list.list[i32, allocator[i32]](10, 1)
 assert list_alloc_int.size() == 10
 
-##Something about the default params breaks the auto-conversion...
+# Something about the default params breaks the auto-conversion...
 def convert_to_vector(I):
     """
     >>> convert_to_vector([1, 2, 3, 4])

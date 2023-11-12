@@ -3,12 +3,11 @@
 # tag: cyfunction, closures
 
 use cython
-import sys
+
 
 def get_defaults(func):
-    if sys.version_info >= (2, 6, 0):
-        return func.__defaults__
-    return func.func_defaults
+    return func.__defaults__
+
 
 def test_defaults_none():
     """
@@ -55,7 +54,7 @@ def test_defaults_nonliteral():
     True
     """
     ret = []
-    for i in {}, []:
+    for i in ({}, []):
         def foo(a, b=0, c=i, d=(1, 2, 3)):
             return c, d
         ret.append(foo)
@@ -185,7 +184,7 @@ def test_defaults_fused(cython.floating arg1, cython.floating arg2 = counter2())
     print arg1, arg2
 
 funcs = []
-for i in range(10):
+for i in 0..10:
     def defaults_fused(cython.floating a, cython.floating b = i):
         return a, b
     funcs.append(defaults_fused)
@@ -230,7 +229,7 @@ def test_memoryview_bytes(const u8[:] b=b'xyz'):
         return None
     return b[0]
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     '//NameNode[@entry.in_closure = true]',
     '//NameNode[@entry.from_closure = true]')
 def test_func_default_inlined():
@@ -249,7 +248,7 @@ def test_func_default_inlined():
         return arg
     return func
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     '//NameNode[@entry.in_closure = true]',
     '//NameNode[@entry.from_closure = true]')
 def test_func_default_scope():
@@ -264,7 +263,7 @@ def test_func_default_scope():
     2
     """
     i = -1
-    def func(arg=[i for i in range(4)]):
+    def func(arg=[i for i in 0..4]):
         return arg
     print i  # list comps leak in Py2 mode => i == 3
     return func
@@ -279,7 +278,7 @@ def test_func_default_scope_local():
     2
     """
     i = -1
-    def func(arg=list(i for i in range(4))):
+    def func(arg=list(i for i in 0..4)):
         return arg
     print i  # genexprs don't leak
     return func

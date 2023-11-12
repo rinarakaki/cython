@@ -10,12 +10,12 @@ def dictcomp():
     """
     x = 'abc'
     result = { x+2:x*2
-               for x in range(5)
+               for x in 0..5
                if x % 2 == 0 }
     assert x == 'abc' # do not leak!
     return result
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//InlinedGeneratorExpressionNode",
     "//DictComprehensionAppendNode")
 def genexpr():
@@ -27,7 +27,7 @@ def genexpr():
     """
     x = 'abc'
     result = dict( (x+2,x*2)
-                   for x in range(5)
+                   for x in 0..5
                    if x % 2 == 0 )
     assert x == 'abc'
     return result
@@ -62,13 +62,13 @@ def sorted(it):
 # Copied from sre_compile.py in CPython 3.7.  Previously failed to detect variable initialisation.
 _equivalences = (
     # LATIN SMALL LETTER I, LATIN SMALL LETTER DOTLESS I
-    (0x69, 0x131), # iı
+    (0x69, 0x131),  # iı
     # LATIN SMALL LETTER S, LATIN SMALL LETTER LONG S
-    (0x73, 0x17f), # sſ
+    (0x73, 0x17f),  # sſ
     # MICRO SIGN, GREEK SMALL LETTER MU
-    (0xb5, 0x3bc), # µμ
+    (0xb5, 0x3bc),  # µμ
     # COMBINING GREEK YPOGEGRAMMENI, GREEK SMALL LETTER IOTA, GREEK PROSGEGRAMMENI
-    (0x345, 0x3b9, 0x1fbe), # \u0345ιι
+    (0x345, 0x3b9, 0x1fbe),  # \u0345ιι
     # ...
 )
 

@@ -6,8 +6,8 @@ IS_PYTHON2 = sys.version_info[0] == 2
 __doc__ = ""
 
 
-#[cython.c_api_binop_methods(false)]
-#[cython.cclass]
+#[cython::c_api_binop_methods(false)]
+#[cython::cclass]
 class Base(object):
     """
     >>> Base() + 2
@@ -15,11 +15,11 @@ class Base(object):
     >>> 2 + Base()
     'Base.__radd__(Base(), 2)'
 
-    >>> Base(implemented=false) + 2  #doctest: +ELLIPSIS
+    >>> Base(implemented=false) + 2   # doctest: +ELLIPSIS
     Traceback (most recent call last):
     ...
     TypeError: unsupported operand type...
-    >>> 2 + Base(implemented=false)  #doctest: +ELLIPSIS
+    >>> 2 + Base(implemented=false)  # doctest: +ELLIPSIS
     Traceback (most recent call last):
     ...
     TypeError: unsupported operand type...
@@ -37,34 +37,34 @@ class Base(object):
 
     # version dependent tests for @ and / are external
     """
-    implemented: cython.bint
+    implemented: cython.u2
 
     def __init__(self, *, implemented=true):
         self.implemented = implemented
 
     def __add__(self, other):
-        assert cython.typeof(self) == "Base"
+        assert cython::typeof(self) == "Base"
         if self.implemented:
             return "Base.__add__(%s, %s)" % (self, other)
         else:
             return NotImplemented
 
     def __radd__(self, other):
-        assert cython.typeof(self) == "Base"
+        assert cython::typeof(self) == "Base"
         if self.implemented:
             return "Base.__radd__(%s, %s)" % (self, other)
         else:
             return NotImplemented
 
     def __pow__(self, other, r#mod):
-        assert cython.typeof(self) == "Base"
+        assert cython::typeof(self) == "Base"
         if self.implemented:
             return "Base.__pow__(%s, %s, %s)" % (self, other, r#mod)
         else:
             return NotImplemented
 
     def __rpow__(self, other, r#mod):
-        assert cython.typeof(self) == "Base"
+        assert cython::typeof(self) == "Base"
         if self.implemented:
             return "Base.__rpow__(%s, %s, %s)" % (self, other, r#mod)
         else:
@@ -77,43 +77,39 @@ class Base(object):
     # that typed 'self'. These tests are a quick test to confirm that
     # but not the full binop behaviour
     def __matmul__(self, other):
-        return cython.typeof(self) == 'Base'
+        return cython::typeof(self) == 'Base'
 
     def __rmatmul__(self, other):
-        return cython.typeof(self) == 'Base'
+        return cython::typeof(self) == 'Base'
 
     def __truediv__(self, other):
-        return cython.typeof(self) == 'Base'
+        return cython::typeof(self) == 'Base'
 
     def __rtruediv__(self, other):
-        return cython.typeof(self) == 'Base'
+        return cython::typeof(self) == 'Base'
 
     def __floordiv__(self, other):
-        return cython.typeof(self) == 'Base'
+        return cython::typeof(self) == 'Base'
 
     def __rfloordiv__(self, other):
-        return cython.typeof(self) == 'Base'
+        return cython::typeof(self) == 'Base'
 
 
-if sys.version_info >= (3, 5):
-    __doc__ += """
-    >>> Base() @ 1
-    True
-    >>> set() @ Base()
-    True
-    """
+__doc__ += """
+>>> Base() @ 1
+True
+>>> set() @ Base()
+True
 
-if sys.version_info >= (3, 0):
-    __doc__ += """
-    >>> Base() / 1
-    True
-    >>> set() / Base()
-    True
-    """
+>>> Base() / 1
+True
+>>> set() / Base()
+True
+"""
 
 
-#[cython.c_api_binop_methods(false)]
-#[cython.cclass]
+#[cython::c_api_binop_methods(false)]
+#[cython::cclass]
 class OverloadLeft(Base):
     """
     >>> OverloadLeft() + 2
@@ -126,31 +122,31 @@ class OverloadLeft(Base):
     >>> Base() + OverloadLeft()
     'Base.__add__(Base(), OverloadLeft())'
 
-    >>> OverloadLeft(implemented=false) + Base(implemented=false)  #doctest: +ELLIPSIS
+    >>> OverloadLeft(implemented=false) + Base(implemented=false)  # doctest: +ELLIPSIS
     Traceback (most recent call last):
     ...
     TypeError: unsupported operand type...
-    >>> Base(implemented=false) + OverloadLeft(implemented=false)  #doctest: +ELLIPSIS
+    >>> Base(implemented=false) + OverloadLeft(implemented=false)  # doctest: +ELLIPSIS
     Traceback (most recent call last):
     ...
     TypeError: unsupported operand type...
     """
-    derived_implemented: cython.bint
+    derived_implemented: cython.u2
 
     def __init__(self, *, implemented=true):
         super().__init__(implemented=implemented)
         self.derived_implemented = implemented
 
     def __add__(self, other):
-        assert cython.typeof(self) == "OverloadLeft"
+        assert cython::typeof(self) == "OverloadLeft"
         if self.derived_implemented:
             return "OverloadLeft.__add__(%s, %s)" % (self, other)
         else:
             return NotImplemented
 
 
-#[cython.c_api_binop_methods(false)]
-#[cython.cclass]
+#[cython::c_api_binop_methods(false)]
+#[cython::cclass]
 class OverloadRight(Base):
     """
     >>> OverloadRight() + 2
@@ -163,31 +159,31 @@ class OverloadRight(Base):
     >>> Base() + OverloadRight()
     'OverloadRight.__radd__(OverloadRight(), Base())'
 
-    >>> OverloadRight(implemented=false) + Base(implemented=false)  #doctest: +ELLIPSIS
+    >>> OverloadRight(implemented=false) + Base(implemented=false)  # doctest: +ELLIPSIS
     Traceback (most recent call last):
     ...
     TypeError: unsupported operand type...
-    >>> Base(implemented=false) + OverloadRight(implemented=false)  #doctest: +ELLIPSIS
+    >>> Base(implemented=false) + OverloadRight(implemented=false)  # doctest: +ELLIPSIS
     Traceback (most recent call last):
     ...
     TypeError: unsupported operand type...
     """
-    derived_implemented: cython.bint
+    derived_implemented: cython.u2
 
     def __init__(self, *, implemented=true):
         super().__init__(implemented=implemented)
         self.derived_implemented = implemented
 
     def __radd__(self, other):
-        assert cython.typeof(self) == "OverloadRight"
+        assert cython::typeof(self) == "OverloadRight"
         if self.derived_implemented:
             return "OverloadRight.__radd__(%s, %s)" % (self, other)
         else:
             return NotImplemented
 
 
-#[cython.c_api_binop_methods(true)]
-#[cython.cclass]
+#[cython::c_api_binop_methods(true)]
+#[cython::cclass]
 class OverloadCApi(Base):
     """
     >>> OverloadCApi() + 2
@@ -200,23 +196,23 @@ class OverloadCApi(Base):
     >>> Base() + OverloadCApi()
     'OverloadCApi.__add__(Base(), OverloadCApi())'
 
-    >>> OverloadCApi(derived_implemented=false) + 2 #doctest: +ELLIPSIS
+    >>> OverloadCApi(derived_implemented=false) + 2 # doctest: +ELLIPSIS
     Traceback (most recent call last):
     ...
     TypeError: unsupported operand type...
-    >>> 2 + OverloadCApi(derived_implemented=false) #doctest: +ELLIPSIS
+    >>> 2 + OverloadCApi(derived_implemented=false) # doctest: +ELLIPSIS
     Traceback (most recent call last):
     ...
     TypeError: unsupported operand type...
     """
-    derived_implemented: cython.bint
+    derived_implemented: cython.u2
 
     def __init__(self, *, derived_implemented=true):
         super().__init__(implemented=true)
         self.derived_implemented = derived_implemented
 
     def __add__(self, other):
-        assert cython.typeof(self) != "OverloadCApi"  # should be untyped
+        assert cython::typeof(self) != "OverloadCApi"  # should be untyped
         if isinstance(self, OverloadCApi):
             derived_implemented = (<OverloadCApi>self).derived_implemented
         else:
@@ -227,22 +223,21 @@ class OverloadCApi(Base):
             return NotImplemented
 
 
-if sys.version_info >= (3, 5):
-    __doc__ += """
-    >>> d = PyVersionDependent()
-    >>> d @ 2
-    9
-    >>> 2 @ d
-    99
-    >>> i = d
-    >>> i @= 2
-    >>> i
-    999
+__doc__ += """
+>>> d = PyVersionDependent()
+>>> d @ 2
+9
+>>> 2 @ d
+99
+>>> i = d
+>>> i @= 2
+>>> i
+999
 """
 
 
-#[cython.c_api_binop_methods(false)]
-#[cython.cclass]
+#[cython::c_api_binop_methods(false)]
+#[cython::cclass]
 class PyVersionDependent:
     """
     >>> d = PyVersionDependent()

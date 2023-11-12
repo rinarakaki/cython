@@ -1,8 +1,8 @@
 use cython
 
 use cython::_testscope as tester
-from cython cimport TestClass, _testclass_new as TestClass_New
-from cython cimport test_call, test_dep
+use cython::(TestClass, _testclass_new as TestClass_New)
+use cython::(test_call, test_dep)
 use cython::view::_testscope as viewtester
 
 use cpython::PyObject
@@ -13,7 +13,7 @@ extern from *:
         i32 value
 
     # Type pointer
-    cdef PyObject *TestClassType "__pyx_TestClass_type"
+    static PyObject *TestClassType "__pyx_TestClass_type"
 
     # This is a cdef function
     fn __pyx_TestClass_New(i32)

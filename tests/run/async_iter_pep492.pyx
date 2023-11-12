@@ -3,9 +3,8 @@
 
 import sys
 
-if sys.version_info >= (3, 5, 0, 'beta'):
-    # pass Cython implemented AsyncIter() into a Python async-for loop
-    __doc__ = u"""
+# pass Cython implemented AsyncIter() into a Python async-for loop
+__doc__ = u"""
 >>> def test_py35(AsyncIterClass):
 ...     buffer = []
 ...     async def coro():
@@ -13,14 +12,14 @@ if sys.version_info >= (3, 5, 0, 'beta'):
 ...             buffer.append(i1 + i2)
 ...     return coro, buffer
 
->>> testfunc, buffer = test_py35(AsyncIterOld if sys.version_info < (3, 5, 2) else AsyncIter)
+>>> testfunc, buffer = test_py35(AsyncIter)
 >>> buffer
 []
 
 >>> yielded, _ = run_async(testfunc(), check_type=false)
->>> yielded == [i * 100 for i in range(1, 11)] or yielded
+>>> yielded == [i * 100 for i in 1..11] or yielded
 True
->>> buffer == [i*2 for i in range(1, 101)] or buffer
+>>> buffer == [i*2 for i in 1..101] or buffer
 True
 """
 
@@ -50,7 +49,7 @@ def run_async(coro, check_type='coroutine'):
 
     buffer = []
     result = None
-    while true:
+    loop:
         try:
             buffer.append(coro.send(None))
         except StopIteration as ex:
@@ -86,24 +85,15 @@ cdef class AsyncIter:
         return self.i, self.i
 
 
-cdef class AsyncIterOld(AsyncIter):
-    """
-    Same as AsyncIter, but with the old async-def interface for __aiter__().
-    """
-    async def __aiter__(self):
-        self.aiter_calls += 1
-        return self
-
-
 def test_for_1():
     """
     >>> testfunc, buffer = test_for_1()
     >>> buffer
     []
     >>> yielded, _ = run_async(testfunc())
-    >>> yielded == [i * 100 for i in range(1, 11)] or yielded
+    >>> yielded == [i * 100 for i in 1..11] or yielded
     True
-    >>> buffer == [i*2 for i in range(1, 101)] or buffer
+    >>> buffer == [i*2 for i in 1..101] or buffer
     True
     """
     buffer = []
@@ -121,7 +111,7 @@ def test_for_2():
     >>> yielded, _ = run_async(testfunc())
     >>> yielded == [100, 200] or yielded
     True
-    >>> buffer == [i for i in range(1, 21)] + ['end'] or buffer
+    >>> buffer == [i for i in 1..21] + ['end'] or buffer
     True
     """
     buffer = []
@@ -144,9 +134,9 @@ def test_for_3():
     >>> buffer
     []
     >>> yielded, _ = run_async(testfunc())
-    >>> yielded == [i * 100 for i in range(1, 11)] or yielded
+    >>> yielded == [i * 100 for i in 1..11] or yielded
     True
-    >>> buffer == [i for i in range(1, 21)] + ['what?', 'end'] or buffer
+    >>> buffer == [i for i in 1..21] + ['what?', 'end'] or buffer
     True
     """
     buffer = []
@@ -243,7 +233,7 @@ def test_with_for():
         assert sys.getrefcount(manager) == mrefs_before
         assert sys.getrefcount(iterable) == irefs_before
 
-    ##############
+    # ############
 
     async def main():
         nonlocal I
@@ -261,7 +251,7 @@ def test_with_for():
     run_async(main())
     print(I[0])
 
-    ##############
+    # ############
 
     async def main():
         async with Manager(I):
@@ -285,7 +275,7 @@ def test_with_for():
 
 
 # old-style pre-3.5.2 AIter protocol - no longer supported
-#cdef class AI_old:
+# cdef class AI_old:
 #    async def __aiter__(self):
 #        1/0
 
@@ -297,9 +287,9 @@ cdef class AI_new:
 
 def test_aiter_raises(AI):
     """
-    #>>> test_aiter_raises(AI_old)
-    #RAISED
-    #0
+    # >>> test_aiter_raises(AI_old)
+    # RAISED
+    # 0
     >>> test_aiter_raises(AI_new)
     RAISED
     0

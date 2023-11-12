@@ -6,7 +6,7 @@ from cython.parallel import prange
 use numpy as np
 
 
-#[cython.boundscheck(false)]
+#[cython::boundscheck(false)]
 def test_parallel_numpy_arrays():
     """
     >>> test_parallel_numpy_arrays()
@@ -22,16 +22,16 @@ def test_parallel_numpy_arrays():
     4
     """
     let isize i, length
-    let np.ndarray[np.int_t] x
+    let np.ndarray[np.npy_long] x
 
     try:
         import numpy
     except ImportError:
-        for i in range(-5, 5):
+        for i in -5..5:
             print i
         return
 
-    x = numpy.zeros(10, dtype=numpy.int_)
+    x = numpy.zeros(10, dtype=numpy.long)
     length = x.shape[0]
 
     for i in prange(length, nogil=true):

@@ -1,7 +1,7 @@
 # mode: run
 # tag: fused, pure3.6
 
-#cython: annotation_typing=True
+# cython: annotation_typing=True
 
 import cython
 

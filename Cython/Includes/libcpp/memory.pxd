@@ -1,4 +1,4 @@
-from libcpp cimport bool, nullptr_t, nullptr
+use libcpp::(bool, nullptr_t, nullptr)
 
 extern from "<memory>" namespace "std" nogil:
     cdef cppclass default_delete[T]:
@@ -7,15 +7,15 @@ extern from "<memory>" namespace "std" nogil:
     cdef cppclass allocator[T]:
         allocator()
         allocator(const allocator &)
-        #allocator(const allocator[U] &) #unique_ptr unit tests fail w/this
+        # allocator(const allocator[U] &)  # unique_ptr unit tests fail w/this
         T * address(T &)
         const T * address(const T &) const
         T * allocate( usize n ) # Not to standard.  should be a second default argument
         void deallocate(T * , usize)
         usize max_size() const
-        void construct( T *, const T &) #C++98.  The C++11 version is variadic AND perfect-forwarding
-        void destroy(T *) #C++98
-        void destroy[U](U *) #unique_ptr unit tests fail w/this
+        void construct( T *, const T &)  # C++98.  The C++11 version is variadic AND perfect-forwarding
+        void destroy(T *)  # C++98
+        void destroy[U](U *)  # unique_ptr unit tests fail w/this
 
 
     cdef cppclass unique_ptr[T,DELETER=*]:
@@ -34,7 +34,7 @@ extern from "<memory>" namespace "std" nogil:
         # Observers
         T* get()
         T& operator*()
-        #T* operator->() # Not Supported
+        # T* operator->() # Not Supported
         bool operator bool()
         bool operator!()
 
@@ -49,7 +49,7 @@ extern from "<memory>" namespace "std" nogil:
         bool operator!=(nullptr_t)
 
     # Forward Declaration not working ("Compiler crash in AnalyseDeclarationsTransform")
-    #cdef cppclass weak_ptr[T]
+    # cdef cppclass weak_ptr[T]
 
     cdef cppclass shared_ptr[T]:
         shared_ptr()
@@ -58,7 +58,7 @@ extern from "<memory>" namespace "std" nogil:
         shared_ptr(shared_ptr[T]&)
         shared_ptr(shared_ptr[T]&, T*)
         shared_ptr(unique_ptr[T]&)
-        #shared_ptr(weak_ptr[T]&) # Not Supported
+        # shared_ptr(weak_ptr[T]&) # Not Supported
         shared_ptr[T]& operator=[Y](const shared_ptr[Y]& ptr)
 
         # Modifiers
@@ -69,12 +69,12 @@ extern from "<memory>" namespace "std" nogil:
         # Observers
         T* get()
         T& operator*()
-        #T* operator->() # Not Supported
+        # T* operator->() # Not Supported
         long use_count()
         bool unique()
         bool operator bool()
         bool operator!()
-        #bool owner_before[Y](const weak_ptr[Y]&) # Not Supported
+        # bool owner_before[Y](const weak_ptr[Y]&) # Not Supported
         bool owner_before[Y](const shared_ptr[Y]&)
 
         bool operator==(const shared_ptr&)

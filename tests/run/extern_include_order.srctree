@@ -12,6 +12,7 @@ setup(
 )
 
 ######## a.pxd ########
+
 # cython: preliminary_late_includes_cy28=True
 
 extern from "a_early.h":
@@ -49,7 +50,7 @@ static my_int square_value_plus_one() {
 
 ######## b.pyx ########
 
-cimport a
+use a
 
 # Likewise, a.square must be explicitly used.
 assert a.square(a.my_value) + 1 == 101

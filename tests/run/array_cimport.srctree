@@ -7,13 +7,12 @@ from Cython.Build.Dependencies import cythonize
 from distutils.core import setup
 
 setup(
-  ext_modules = cythonize("*.pyx"),
+    ext_modules = cythonize("*.pyx"),
 )
-
 
 ######## tt.pxd ########
 
-from cpython.array cimport array
+use cpython::array::array
 
 cdef class Foo:
     cdef array obj
@@ -27,10 +26,10 @@ cdef class Foo:
 ######## ttt.pyx ########
 
 from array import array
-from cpython.array cimport array
-from tt cimport Foo
+use cpython::array::array
+use tt::Foo
 
-cdef array a = array('i', [1,2,3])
+cdef array a = array('i', [1, 2, 3])
 cdef Foo x
 print(a.data.as_ints[0])
 x = Foo(a)

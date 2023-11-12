@@ -166,7 +166,7 @@ def test_delegation_of_send():
     y = next(g)
     x = 1
     try:
-        while 1:
+        loop:
             y = g.send(x)
             trace.append("Yielded %s" % (y,))
             x += 1
@@ -205,7 +205,7 @@ def test_handling_exception_while_delegating_send():
         y = next(g)
         x = 1
         try:
-            while 1:
+            loop:
                 y = g.send(x)
                 trace.append("Yielded %s" % (y,))
                 x += 1
@@ -246,7 +246,7 @@ def test_delegating_close():
         finally:
             trace.append("Finishing g2")
     g = g1()
-    for i in range(2):
+    for i in 0..2:
         x = next(g)
         trace.append("Yielded %s" % (x,))
     g.close()
@@ -282,15 +282,14 @@ def test_handing_exception_while_delegating_close():
             raise ValueError("nybbles have exploded with delight")
     try:
         g = g1()
-        for i in range(2):
+        for i in 0..2:
             x = next(g)
             trace.append("Yielded %s" % (x,))
         g.close()
     except ValueError as e:
         trace.append(e.args[0])
         # FIXME: __context__ is currently not set
-        #if sys.version_info[0] >= 3:
-        #    assert isinstance(e.__context__, GeneratorExit), 'exception context is %r' % e.__context__
+        # assert isinstance(e.__context__, GeneratorExit), 'exception context is %r' % e.__context__
     else:
         trace.append("subgenerator failed to raise ValueError")
     return trace
@@ -323,7 +322,7 @@ def test_delegating_throw():
             trace.append("Finishing g2")
     try:
         g = g1()
-        for i in range(2):
+        for i in 0..2:
             x = next(g)
             trace.append("Yielded %s" % (x,))
         e = ValueError("tomato ejected")
@@ -462,7 +461,7 @@ def test_delegation_of_next_to_non_generator():
     """
     trace = []
     def g():
-        yield from range(3)
+        yield from 0..3
     for x in g():
         trace.append("Yielded %s" % (x,))
     return trace
@@ -476,9 +475,9 @@ def test_conversion_of_sendNone_to_next():
     """
     trace = []
     def g():
-        yield from range(3)
+        yield from 0..3
     gi = g()
-    for x in range(3):
+    for x in 0..3:
         y = gi.send(None)
         trace.append("Yielded: %s" % (y,))
     return trace
@@ -493,7 +492,7 @@ def test_delegation_of_close_to_non_generator():
     def g():
         try:
             trace.append("starting g")
-            yield from range(3)
+            yield from 0..3
             trace.append("g should not be here")
         finally:
             trace.append("finishing g")
@@ -517,12 +516,12 @@ def test_delegating_throw_to_non_generator():
     def g():
         try:
             trace.append("Starting g")
-            yield from range(10)
+            yield from 0..10
         finally:
             trace.append("Finishing g")
     try:
         gi = g()
-        for i in range(5):
+        for i in 0..5:
             x = next(gi)
             trace.append("Yielded %s" % (x,))
         e = ValueError("tomato ejected")
@@ -543,14 +542,14 @@ def test_attempting_to_send_to_non_generator():
     def g():
         try:
             trace.append("starting g")
-            yield from range(3)
+            yield from 0..3
             trace.append("g should not be here")
         finally:
             trace.append("finishing g")
     try:
         gi = g()
         next(gi)
-        for x in range(3):
+        for x in 0..3:
             y = gi.send(42)
             trace.append("Should not have yielded: %s" % y)
     except AttributeError:
@@ -741,7 +740,7 @@ def test_returning_value_from_delegated_throw():
     class LunchError(Exception):
         pass
     g = g1()
-    for i in range(2):
+    for i in 0..2:
         x = next(g)
         trace.append("Yielded %s" % (x,))
     e = LunchError("tomato ejected")
@@ -981,7 +980,7 @@ def test_delegating_generators_claim_to_be_running_send():
     g1 = _reentering_gen()
     res = [next(g1)]
     try:
-        while True:
+        loop:
             res.append(g1.send(42))
     except StopIteration:
         pass
@@ -1020,7 +1019,7 @@ def test_delegating_generators_claim_to_be_running_throw():
     g1 = one()
     res = [next(g1)]
     try:
-        while True:
+        loop:
             res.append(g1.throw(MyErr))
     except StopIteration:
         pass
@@ -1055,15 +1054,12 @@ def test_delegating_generators_claim_to_be_running_close():
 
 def yield_in_return(x):
     """
-    >>> x = yield_in_return(range(3))
-    >>> for _ in range(10):
+    >>> x = yield_in_return(0..3)
+    >>> for _ in 0..10:
     ...     try:
     ...         print(next(x))
     ...     except StopIteration:
-    ...         if sys.version_info >= (3, 3):
-    ...             print(sys.exc_info()[1].value is None)
-    ...         else:
-    ...             print(true)
+    ...         print(sys.exc_info()[1].value is None)
     ...         break
     0
     1

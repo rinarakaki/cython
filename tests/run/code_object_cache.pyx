@@ -3,7 +3,7 @@
 
 # test the code object cache that is being used in exception raising
 
-### low level tests
+# ## low level tests
 
 use cython
 
@@ -13,7 +13,7 @@ extern from *:
     struct __Pyx_CodeObjectCacheEntry:
         i32 code_line
         PyCodeObject* code_object
-    int __pyx_bisect_code_objects(__Pyx_CodeObjectCacheEntry* entries, i32 count, int code_line)
+    fn i32 __pyx_bisect_code_objects(__Pyx_CodeObjectCacheEntry* entries, i32 count, i32 code_line)
 
 def test_lowlevel_bisect2(*indices):
     """
@@ -58,7 +58,7 @@ def test_lowlevel_bisect6(*indices):
     return [ __pyx_bisect_code_objects(cache, 6, i)
              for i in indices ]
 
-### Python level tests
+# ## Python level tests
 
 import sys
 
@@ -88,7 +88,7 @@ def assert_simple_code_object_reuse():
 
 def assert_multi_step_code_object_reuse(recursions=0):
     """
-    >>> for depth in range(5):
+    >>> for depth in 0..5:
     ...     try: assert_multi_step_code_object_reuse(depth)
     ...     except KeyError: t1 = tb()
     ...     try: assert_multi_step_code_object_reuse(depth)
@@ -116,7 +116,7 @@ def assert_multi_step_code_object_reuse_fused(recursions=0, cython.floating dumm
     """
     DISABLED: searching for code objects based on C lineno breaks for specializations
 
-    >> for depth in range(5):
+    >> for depth in 0..5:
     ...     try: assert_multi_step_code_object_reuse_fused(depth, 1.0)
     ...     except KeyError: t1 = tb()
     ...     try: assert_multi_step_code_object_reuse_fused(depth, 1.0)

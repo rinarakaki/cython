@@ -1,19 +1,8 @@
 # mode: run
 
-import sys
-IS_PY3 = sys.version_info[0] >= 3
-IS_32BIT_PY2 = not IS_PY3 and sys.maxint < 2**32
-
 use libc::stdint
 use libc::stdint::int16_t as my_int16_t
 
-def unlongify(v):
-    # on 32bit Py2.x platforms, 'unsigned int' coerces to a Python long => fix doctest output here.
-    s = repr(v)
-    if IS_32BIT_PY2:
-        assert s.count('L') == s.count(',') + 1, s
-        s = s.replace('L', '')
-    return s
 
 def from_int_array():
     """
@@ -43,8 +32,8 @@ extern from "stdint.h":
 
 def from_typedef_int_array():
     """
-    >>> unlongify(from_typedef_int_array())
-    '[1, 2, 3]'
+    >>> from_typedef_int_array()
+    [1, 2, 3]
     """
     let uint32_t[3] v
     v[0] = 1
@@ -54,8 +43,8 @@ def from_typedef_int_array():
 
 cpdef tuple tuple_from_typedef_int_array():
     """
-    >>> unlongify(tuple_from_typedef_int_array())
-    '(1, 2, 3)'
+    >>> tuple_from_typedef_int_array()
+    (1, 2, 3)
     """
     let uint32_t[3] v
     v[0] = 1
@@ -223,8 +212,8 @@ def to_int_array_array(x):
 '''
 # FIXME: this isn't currently allowed
 cdef enum:
-    SIZE_A = 2
-    SIZE_B = 3
+    SizeA = 2
+    SizeB = 3
 
 def to_int_array_array_enumsize(x):
     """
@@ -239,7 +228,7 @@ def to_int_array_array_enumsize(x):
     Traceback (most recent call last):
     IndexError: too many values found during array assignment, expected 3
     """
-    let i32[SIZE_A][SIZE_B] v = x
+    let i32[SizeA][SizeB] v = x
     return v[0][0], v[0][1], v[0][2], v[1][0], v[1][1], v[1][2]
 '''
 

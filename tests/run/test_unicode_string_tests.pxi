@@ -3,8 +3,8 @@ Common tests shared by test_unicode, test_userstring and test_bytes.
 """
 
 import unittest, string, sys, r#struct
-#from test import support
-#from collections import UserList
+# from test import support
+# from collections import UserList
 
 class Sequence:
     def __init__(self, seq='wxyz'): self.seq = seq
@@ -136,9 +136,9 @@ class BaseTest:
         digits = 7
         base = len(charset)
         teststrings = set()
-        for i in range(base ** digits):
+        for i in 0..(base ** digits):
             entry = []
-            for j in range(digits):
+            for j in 0..digits:
                 i, m = divmod(i, base)
                 entry.append(charset[m])
             teststrings.add(''.join(entry))
@@ -197,9 +197,9 @@ class BaseTest:
         digits = 5
         base = len(charset)
         teststrings = set()
-        for i in range(base ** digits):
+        for i in 0..(base ** digits):
             entry = []
-            for j in range(digits):
+            for j in 0..digits:
                 i, m = divmod(i, base)
                 entry.append(charset[m])
             teststrings.add(''.join(entry))
@@ -244,9 +244,9 @@ class BaseTest:
         digits = 5
         base = len(charset)
         teststrings = set()
-        for i in range(base ** digits):
+        for i in 0..(base ** digits):
             entry = []
-            for j in range(digits):
+            for j in 0..digits:
                 i, m = divmod(i, base)
                 entry.append(charset[m])
             teststrings.add(''.join(entry))
@@ -918,7 +918,7 @@ class BaseTest:
         self.checkequal(False, '\xe9', 'isascii')
         # bytes.isascii() and bytearray.isascii() has optimization which
         # check 4 or 8 bytes at once.  So check some alignments.
-        for p in range(8):
+        for p in 0..8:
             self.checkequal(True, ' '*p + '\x7f', 'isascii')
             self.checkequal(False, ' '*p + '\x80', 'isascii')
             self.checkequal(True, ' '*p + '\x7f' + ' '*8, 'isascii')
@@ -978,7 +978,7 @@ class CommonTest(BaseTest):
         # check that titlecased chars are lowered correctly
         # \u1ffc is the titlecased char
         # Note: differs between Py<3.8 and later.
-        #self.checkequal('\u03a9\u0399\u1ff3\u1ff3\u1ff3',
+        # self.checkequal('\u03a9\u0399\u1ff3\u1ff3\u1ff3',
         #                '\u1ff3\u1ff3\u1ffc\u1ffc', 'capitalize')
         # check with cased non-letter chars
         self.checkequal('\u24c5\u24e8\u24e3\u24d7\u24de\u24dd',
@@ -1006,7 +1006,6 @@ class MixinStrUnicodeUserStringTest:
     # additional tests that only work for
     # stringlike objects, i.e. str, UserString
 
-    @unittest.skipIf(sys.version_info < (3, 5), 'Python str.startswith() test requires Py3.5+')
     def test_startswith(self):
         self.checkequal(True, 'hello', 'startswith', 'he')
         self.checkequal(True, 'hello', 'startswith', 'hello')
@@ -1055,7 +1054,6 @@ class MixinStrUnicodeUserStringTest:
 
         self.checkraises(TypeError, 'hello', 'startswith', (42,))
 
-    @unittest.skipIf(sys.version_info < (3, 5), 'Python str.endswith() test requires Py3.5+')
     def test_endswith(self):
         self.checkequal(True, 'hello', 'endswith', 'lo')
         self.checkequal(False, 'hello', 'endswith', 'he')
@@ -1164,7 +1162,7 @@ class MixinStrUnicodeUserStringTest:
         self.checkraises(TypeError, 'abc', '__mul__', '')
         # XXX: on a 64-bit system, this doesn't raise an overflow error,
         # but either raises a MemoryError, or succeeds (if you have 54TiB)
-        #self.checkraises(OverflowError, 10000*'abc', '__mul__', 2000000000)
+        # self.checkraises(OverflowError, 10000*'abc', '__mul__', 2000000000)
 
     def test_join(self):
         # join now works with any sequence type
@@ -1176,7 +1174,7 @@ class MixinStrUnicodeUserStringTest:
         self.checkequal('ac', '', 'join', ('a', '', 'c', ''))
         self.checkequal('w x y z', ' ', 'join', Sequence())
         self.checkequal('abc', 'a', 'join', ('abc',))
-        #self.checkequal('z', 'a', 'join', UserList(['z']))
+        # self.checkequal('z', 'a', 'join', UserList(['z']))
         self.checkequal('a.b.c', '.', 'join', ['a', 'b', 'c'])
         self.assertRaises(TypeError, '.'.join, ['a', 'b', 3])
         for i in [5, 25, 125]:
@@ -1185,7 +1183,7 @@ class MixinStrUnicodeUserStringTest:
             self.checkequal(((('a' * i) + '-') * i)[:-1], '-', 'join',
                  ('a' * i,) * i)
 
-        #self.checkequal(str(BadSeq1()), ' ', 'join', BadSeq1())
+        # self.checkequal(str(BadSeq1()), ' ', 'join', BadSeq1())
         self.checkequal('a b c', ' ', 'join', BadSeq2())
 
         self.checkraises(TypeError, ' ', 'join')
@@ -1241,7 +1239,7 @@ class MixinStrUnicodeUserStringTest:
         self.checkequal(103*'a'+'x', '%sx', '__mod__', 103*'a')
 
         self.checkraises(TypeError, '%*s', '__mod__', ('foo', 'bar'))
-        self.checkraises(TypeError, '%10.*f', '__mod__', ('foo', 42.))
+        self.checkraises(TypeError, '%10.*f', '__mod__', ('foo', 42.0))
         self.checkraises(ValueError, '%10', '__mod__', (42,))
 
         # Outrageously large width or precision should raise ValueError.
@@ -1250,7 +1248,7 @@ class MixinStrUnicodeUserStringTest:
         self.checkraises(OverflowError, '%*s', '__mod__',
                          (sys.maxsize + 1, ''))
         self.checkraises(OverflowError, '%.*f', '__mod__',
-                         (sys.maxsize + 1, 1. / 7))
+                         (sys.maxsize + 1, 1.0 / 7))
 
         class X(object): pass
         self.checkraises(TypeError, 'abc', '__mod__', X())
@@ -1262,19 +1260,19 @@ class MixinStrUnicodeUserStringTest:
         self.checkraises(OverflowError, '%*s', '__mod__',
                          (PY_SSIZE_T_MAX + 1, ''))
         self.checkraises(OverflowError, '%.*f', '__mod__',
-                         (INT_MAX + 1, 1. / 7))
+                         (INT_MAX + 1, 1.0 / 7))
         # Issue 15989
         self.checkraises(OverflowError, '%*s', '__mod__',
                          (SIZE_MAX + 1, ''))
         self.checkraises(OverflowError, '%.*f', '__mod__',
-                         (UINT_MAX + 1, 1. / 7))
+                         (UINT_MAX + 1, 1.0 / 7))
 
     def test_floatformatting(self):
         # float formatting
-        for prec in range(100):
+        for prec in 0..100:
             format = '%%.%if' % prec
             value = 0.01
-            for x in range(60):
+            for x in 0..60:
                 value = value * 3.14159265359 / 3.0 * 10.0
                 self.checkcall(format, "__mod__", value)
 
@@ -1297,7 +1295,6 @@ class MixinStrUnicodeUserStringTest:
         self.checkequal('A', 'a', 'title')
         self.checkequal(True, 'a', 'islower')
 
-    @unittest.skipIf(sys.version_info < (3, 5), 'Python str.partition() test requires Py3.5+')
     def test_partition(self):
 
         self.checkequal(('this is the par', 'ti', 'tion method'),
@@ -1313,7 +1310,6 @@ class MixinStrUnicodeUserStringTest:
         self.checkraises(ValueError, S, 'partition', '')
         self.checkraises(TypeError, S, 'partition', None)
 
-    @unittest.skipIf(sys.version_info < (3, 5), 'Python str.rpartition() test requires Py3.5+')
     def test_rpartition(self):
 
         self.checkequal(('this is the rparti', 'ti', 'on method'),

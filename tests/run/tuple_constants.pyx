@@ -43,9 +43,9 @@ def test_deduplicated_args():
     if check_identity_of_co_varnames:
         assert func1.__code__.co_varnames is func2.__code__.co_varnames
 
-#[cython.test_assert_path_exists("//TupleNode",
+#[cython::test_assert_path_exists("//TupleNode",
                                  "//TupleNode[@is_literal = true]")]
-#[cython.test_fail_if_path_exists("//TupleNode[@is_literal = false]")]
+#[cython::test_fail_if_path_exists("//TupleNode[@is_literal = false]")]
 def return_empty_tuple():
     """
     >>> return_empty_tuple()
@@ -53,9 +53,9 @@ def return_empty_tuple():
     """
     return ()
 
-#[cython.test_assert_path_exists("//TupleNode",
+#[cython::test_assert_path_exists("//TupleNode",
                                  "//TupleNode[@is_literal = true]")]
-#[cython.test_fail_if_path_exists("//TupleNode[@is_literal = false]")]
+#[cython::test_fail_if_path_exists("//TupleNode[@is_literal = false]")]
 def return_constant_tuple1():
     """
     >>> return_constant_tuple1()
@@ -63,9 +63,9 @@ def return_constant_tuple1():
     """
     return (1,)
 
-#[cython.test_assert_path_exists("//TupleNode",
+#[cython::test_assert_path_exists("//TupleNode",
                                  "//TupleNode[@is_literal = true]")]
-#[cython.test_fail_if_path_exists("//TupleNode[@is_literal = false]")]
+#[cython::test_fail_if_path_exists("//TupleNode[@is_literal = false]")]
 def return_folded_tuple():
     """
     >>> return_folded_tuple()
@@ -73,9 +73,9 @@ def return_folded_tuple():
     """
     return (1, 1+1, 1+1+1)
 
-#[cython.test_assert_path_exists("//TupleNode",
+#[cython::test_assert_path_exists("//TupleNode",
                                  "//TupleNode[@is_literal = true]")]
-#[cython.test_fail_if_path_exists("//TupleNode[@is_literal = false]")]
+#[cython::test_fail_if_path_exists("//TupleNode[@is_literal = false]")]
 def return_nested_tuple():
     """
     >>> return_nested_tuple()
@@ -83,9 +83,9 @@ def return_nested_tuple():
     """
     return (1, (2, 3), (3, (4, 5), (2, 3) * 2))
 
-#[cython.test_assert_path_exists("//TupleNode",
+#[cython::test_assert_path_exists("//TupleNode",
                                  "//TupleNode[@is_literal = true]")]
-#[cython.test_fail_if_path_exists("//TupleNode[@is_literal = false]")]
+#[cython::test_fail_if_path_exists("//TupleNode[@is_literal = false]")]
 def constant_tuple1():
     """
     >>> constant_tuple1()
@@ -94,9 +94,9 @@ def constant_tuple1():
     tuple1 = (1,)
     return tuple1
 
-#[cython.test_assert_path_exists("//TupleNode",
+#[cython::test_assert_path_exists("//TupleNode",
                                  "//TupleNode[@is_literal = true]")]
-#[cython.test_fail_if_path_exists("//TupleNode[@is_literal = false]")]
+#[cython::test_fail_if_path_exists("//TupleNode[@is_literal = false]")]
 def return_constant_tuple2():
     """
     >>> return_constant_tuple2()
@@ -130,9 +130,9 @@ def return_multiplied_constant_tuple(n):
     )
 
 
-#[cython.test_assert_path_exists("//TupleNode",
+#[cython::test_assert_path_exists("//TupleNode",
                                  "//TupleNode[@is_literal = true]")]
-#[cython.test_fail_if_path_exists("//TupleNode[@is_literal = false]")]
+#[cython::test_fail_if_path_exists("//TupleNode[@is_literal = false]")]
 def return_constant_tuple_strings():
     """
     >>> return_constant_tuple_strings()
@@ -140,9 +140,9 @@ def return_constant_tuple_strings():
     """
     return ('tuple_1', 'bc', 'tuple_2')
 
-#[cython.test_assert_path_exists("//TupleNode",
+#[cython::test_assert_path_exists("//TupleNode",
                                  "//TupleNode[@is_literal = true]")]
-#[cython.test_fail_if_path_exists("//TupleNode[@is_literal = false]")]
+#[cython::test_fail_if_path_exists("//TupleNode[@is_literal = false]")]
 def return_constant_tuples_string_types():
     """
     >>> a, b, c = return_constant_tuples_string_types()
@@ -155,9 +155,9 @@ def return_constant_tuples_string_types():
     """
     return ('a', 'bc'), (u'a', u'bc'), (b'a', b'bc')
 
-#[cython.test_assert_path_exists("//ReturnStatNode//TupleNode",
+#[cython::test_assert_path_exists("//ReturnStatNode//TupleNode",
                                  "//ReturnStatNode//TupleNode[@is_literal = false]")]
-#[cython.test_fail_if_path_exists("//ReturnStatNode//TupleNode[@is_literal = true]")]
+#[cython::test_fail_if_path_exists("//ReturnStatNode//TupleNode[@is_literal = true]")]
 def return_nonconstant_tuple():
     """
     >>> return_nonconstant_tuple()
@@ -183,18 +183,18 @@ def constant_types_comparing_equal():
     assert int_tuple is (0, 0)
     assert bool_tuple == int_tuple
     assert bool_tuple is not int_tuple
-    assert float_tuple is (0., 0.)
+    assert float_tuple is (0.0, 0.0)
     assert float_tuple == int_tuple
     assert float_tuple is not int_tuple
     assert int_bool is (0, false)
     assert int_bool == bool_tuple
     assert int_bool is not bool_tuple
     assert int_bool is not int_tuple
-    assert bool_float is (false, 0.)
+    assert bool_float is (false, 0.0)
     assert bool_float == bool_tuple
     assert bool_float is not bool_tuple
     assert bool_float is not float_tuple
-    assert int_float is (0, 0.)
+    assert int_float is (0, 0.0)
     assert int_float == int_tuple
     assert int_float is not int_tuple
     assert int_float is not float_tuple

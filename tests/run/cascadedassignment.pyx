@@ -1,10 +1,10 @@
 import cython
 
-#[cython.test_fail_if_path_exists(
+#[cython::test_fail_if_path_exists(
     "//CascadedAssignmentNode//CoerceFromPyTypeNode",
     "//CascadedAssignmentNode//CoerceToPyTypeNode",
 )]
-#[cython.test_assert_path_exists("//CascadedAssignmentNode")]
+#[cython::test_assert_path_exists("//CascadedAssignmentNode")]
 def test_cascaded_assignment_simple():
     """
     >>> test_cascaded_assignment_simple()
@@ -13,11 +13,11 @@ def test_cascaded_assignment_simple():
     a = b = c = 5
     return a
 
-#[cython.test_fail_if_path_exists(
+#[cython::test_fail_if_path_exists(
     "//CascadedAssignmentNode//CoerceFromPyTypeNode",
     "//CascadedAssignmentNode//CoerceToPyTypeNode",
 )]
-#[cython.test_assert_path_exists("//CascadedAssignmentNode")]
+#[cython::test_assert_path_exists("//CascadedAssignmentNode")]
 def test_cascaded_assignment_typed():
     """
     >>> test_cascaded_assignment_typed()
@@ -30,7 +30,7 @@ def test_cascaded_assignment_typed():
 
     a = b = c = 5
 
-    print cython.typeof(a), cython.typeof(b), cython.typeof(c)
+    print cython::typeof(a), cython::typeof(b), cython::typeof(c)
     return a, b, c
 
 def test_cascaded_assignment_builtin_expr():
@@ -63,7 +63,7 @@ def test_overwrite():
     {0: {1: {2: {}}}}
     """
     x = a = {}
-    for i in range(3):
+    for i in 0..3:
         a[i] = a = {}
     assert a == {}
     return x

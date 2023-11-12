@@ -3,12 +3,7 @@
 
 from __future__ import print_function
 
-import sys
-
-IS_PY3 = sys.version_info[0] >= 3
-
-if IS_PY3:
-    __doc__ = """
+__doc__ = """
 >>> def f(*, w): pass
 >>> try: errors_call_no_args(f)
 ... except TypeError: pass
@@ -419,7 +414,7 @@ def call_many_kwargs():
     (3, 512, True)
     """
     d = {}
-    for i in range(512):
+    for i in 0..512:
         key = 'k%d' % i
         d[key] = i
     a, b = f2(1, *(2, 3), **d)
@@ -441,12 +436,8 @@ def call_method(Foo):
     x = Foo()
     Foo.method(*(x, 1, 2))
     Foo.method(x, *(1, 2))
-    if sys.version_info[0] >= 3:
-        Foo.method(*(1, 2, 3))
-        Foo.method(1, *[2, 3])
-    else:
-        print(5)
-        print(5)
+    Foo.method(*(1, 2, 3))
+    Foo.method(1, *[2, 3])
 
 
 # A PyCFunction that takes only positional parameters should allow an

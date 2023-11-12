@@ -11,20 +11,16 @@ setup(
     ext_modules=cythonize("a.py"),
 )
 
-
 ######## a.py ########
 
 class ExtTypePass(object):
     pass
 
-
 class ExtTypePxdDocstring(object):
     pass
 
-
 class ExtTypeDocstring(object):
     """huhu!"""  # this should override the .pxd docstring
-
 
 class ExtTypeAttributes(object):
     """
@@ -36,7 +32,6 @@ class ExtTypeAttributes(object):
         self.a = 123
         self.b = [1, 2, 3]
 
-
 class TypedMethod():
     """
     >>> t = TypedMethod()
@@ -46,7 +41,6 @@ class TypedMethod():
     def meth(self):
         x = bytearray(b'abcdefg')
         return x[0]
-
 
 def func(a, b, c):
     """
@@ -66,7 +60,6 @@ def run_sum_generator_expression(a):
     """
     return sum_generator_expression(a)
 
-
 def test(module):
     import os.path
     assert not os.path.basename(__file__).endswith('.py'), __file__
@@ -82,10 +75,9 @@ def test(module):
     result = doctest.testmod(module, verbose=True)
     assert not result.failed, result.failed
 
-
 ######## a.pxd ########
 
-cimport cython
+use cython
 
 cdef class ExtTypePass:
     pass
@@ -98,7 +90,7 @@ cdef class ExtTypeAttributes:
     cdef readonly list b
 
 cdef class TypedMethod:
-    @cython.locals(x='char[:]')
+    @cython::locals(x='char[:]')
     cpdef meth(self)
 
 cpdef int func(x, int y, z) except? -1  # argument names should not matter, types should

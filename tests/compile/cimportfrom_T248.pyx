@@ -1,19 +1,19 @@
 # ticket: t248
 # mode: compile
 
-from ewing8 cimport (Foo,
+use ewing8::(Foo,
 
 
-                     Blarg)
+             Blarg)
 
-from declandimpl cimport (Sandwich
-
-
-                          ,
+use declandimpl::(Sandwich
 
 
+                   ,
 
 
-                          Tomato)
 
-cdef extern Foo yummy
+
+                   Tomato)
+
+extern static Foo yummy

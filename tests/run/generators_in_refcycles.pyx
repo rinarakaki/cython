@@ -1,17 +1,12 @@
+# mode: run
 
-import sys
-def _next(it):
-    if sys.version_info[0] >= 3:
-        return next(it)
-    else:
-        return it.next()
 
 def test_reference_cycle_cleanup():
     """
     >>> import gc
     >>> delegator, gen, deleted = test_reference_cycle_cleanup()
 
-    >>> _next(delegator(gen()))
+    >>> next(delegator(gen()))
     123
     >>> _ = gc.collect(); print(sorted(deleted))
     ['bar', 'foo']
@@ -30,7 +25,7 @@ def test_reference_cycle_cleanup():
 
     def gen():
         d = Destructed('bar')
-        while True:
+        loop:
             yield 123
 
     return delegator, gen, deleted

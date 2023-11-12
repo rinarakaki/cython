@@ -15,15 +15,15 @@ for e in exts:
         e.sources.append("a.c")
 
 setup(
-  ext_modules = exts,
+    ext_modules = exts,
 )
 
 ######## a.pxd ########
 
 ctypedef api f32 flt
 
-fn i32 int0
-fn f32 flt0
+cdef i32 int0
+cdef f32 flt0
 
 cdef api i32 int1
 cdef api f32 flt1
@@ -37,13 +37,13 @@ cdef class A0:
 ctypedef api class A1 [
      type A1_Type, 
      object A1Object
-     ]:
+]:
      pass
 
 ctypedef pub api class A2 [
      type A2_Type, 
      object A2Object
-     ]:
+]:
      pass
 
 cdef A0 a0
@@ -77,7 +77,7 @@ pub api A2 a2 = A2()
 
 ######## b.pyx ########
 
-from a cimport *
+use a::*
 
 int0 = int1 = int2 = 7
 flt0 = flt1 = flt2 = 7
@@ -87,10 +87,10 @@ flt0 = flt1 = flt2 = 7
 # distutils: language = c++
 
 extern from "a_api.h":
-     i32 import_a() except -1
-     ctypedef f32 flt
-     i32 int1, int2, int3
-     flt flt1, flt2, flt3
+    fn i32 import_a() except -1
+    ctypedef f32 flt
+    static i32 int1, int2, int3
+    static flt flt1, flt2, flt3
 
 import_a()
 
@@ -99,7 +99,6 @@ flt1 = flt2 = flt3 = 5
 
 ######## inita.h ########
 
-#if PY_MAJOR_VERSION >= 3
 void inita(void)
 {
    PyObject *sys_modules = NULL;
@@ -108,7 +107,7 @@ void inita(void)
    if (!sys_modules) return;
    mod = PyInit_a();
    if (!mod) return;
-#if PY_VERSION_HEX >= 0x03050000 && (!CYTHON_COMPILING_IN_PYPY || PYPY_VERSION_NUM >= 0x07030800)
+#if !CYTHON_COMPILING_IN_PYPY || PYPY_VERSION_NUM >= 0x07030800
    /* FIXME: this is incomplete and users shouldn't have to do this in the first place... */
    if (!PyModule_Check(mod)) {
       /* In PEP 489 multi-phase init, PyInit_a returns PyModuleDef */
@@ -123,7 +122,6 @@ void inita(void)
 #endif
    PyDict_SetItemString(sys_modules, (char*)"a", mod);
 }
-#endif
 
 ######## d.pyx ########
 
@@ -132,7 +130,7 @@ extern from "a.h":
 extern from "inita.h":
      pass
 extern from "a.h":
-     void inita() except *
+     fn void inita() except *
      ctypedef f32 flt
      i32 int2, int4
      flt flt2, flt4

@@ -24,7 +24,7 @@ fn i32 one():
     return 1
 
 # FIXME - I don't think this is easy to enforce unfortunately, but it is slightly wrong
-# @cython.test_assert_path_exists("//ForFromStatNode")
+# @cython::test_assert_path_exists("//ForFromStatNode")
 # def genexp_range_argument_order():
 #    """
 #    >>> list(genexp_range_argument_order())
@@ -34,8 +34,8 @@ fn i32 one():
 #    """
 #    return (a for a in range(zero(), five()))
 
-# @cython.test_assert_path_exists("//ForFromStatNode")
-# @cython.test_assert_path_exists(
+# @cython::test_assert_path_exists("//ForFromStatNode")
+# @cython::test_assert_path_exists(
 #    "//InlinedGeneratorExpressionNode",
 #    "//ComprehensionAppendNode")
 # def list_range_argument_order():
@@ -47,7 +47,7 @@ fn i32 one():
 #    """
 #    return list(a for a in range(zero(), five()))
 
-@cython.test_assert_path_exists("//ForFromStatNode")
+@cython::test_assert_path_exists("//ForFromStatNode")
 def genexp_array_slice_order():
     """
     >>> list(genexp_array_slice_order())
@@ -56,12 +56,12 @@ def genexp_array_slice_order():
     [0, 1, 2, 3, 4]
     """
     # TODO ideally find a way to add the evaluation of x to this test too
-    x = cython.declare(cython.int[20])
-    x = list(range(20))
+    x = cython.declare(cython::i32[20])
+    x = list(0..20)
     return (a for a in x[zero():five()])
 
-@cython.test_assert_path_exists("//ForFromStatNode")
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists("//ForFromStatNode")
+@cython::test_assert_path_exists(
     "//InlinedGeneratorExpressionNode",
     "//ComprehensionAppendNode")
 def list_array_slice_order():
@@ -72,8 +72,8 @@ def list_array_slice_order():
     [0, 1, 2, 3, 4]
     """
     # TODO ideally find a way to add the evaluation of x to this test too
-    x = cython.declare(cython.int[20])
-    x = list(range(20))
+    x = cython.declare(cython::i32[20])
+    x = list(0..20)
     return list(a for a in x[zero():five()])
 
 class IndexableClass:
@@ -111,7 +111,7 @@ def genexp_index_order():
     print("Made generator expression")
     return ret
 
-@cython.test_assert_path_exists("//InlinedGeneratorExpressionNode")
+@cython::test_assert_path_exists("//InlinedGeneratorExpressionNode")
 def list_index_order():
     """
     >>> list_index_order()
@@ -142,7 +142,7 @@ def genexpr_fcall_order():
     print("Made generator expression")
     return ret
 
-@cython.test_assert_path_exists("//InlinedGeneratorExpressionNode")
+@cython::test_assert_path_exists("//InlinedGeneratorExpressionNode")
 def list_fcall_order():
     """
     >>> list_fcall_order()

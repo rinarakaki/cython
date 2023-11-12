@@ -9,36 +9,36 @@ from Cython.Build import cythonize
 from distutils.core import setup
 
 setup(
-  ext_modules = cythonize("*.pyx"),
+    ext_modules = cythonize("*.pyx"),
 )
 
 ######## base.pxd ########
 
 cdef class A:
-  cdef dict __dict__
-  cdef int a(self)
+    cdef dict __dict__
+    cdef int a(self)
 
 cdef class B(A):
-  cdef int b(self)
+    cdef int b(self)
 
 ######## base.pyx ########
 
 cdef class A:
-  cdef int a(self):
-    return 1
+    cdef int a(self):
+        return 1
 
 class PyA:
-  pass
+    pass
 
 cdef class B(A, PyA):
-  cdef int b(self):
-    return 2
+    cdef int b(self):
+        return 2
 
 ######## sub.pyx ########
 
-from base cimport B
+use base::B
 print(B)
 
 cdef class C(B):
-  cdef int c(self):
-    return 3
+    cdef int c(self):
+        return 3

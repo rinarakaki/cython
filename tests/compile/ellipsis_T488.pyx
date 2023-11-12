@@ -1,6 +1,6 @@
 # ticket: t488
 # mode: compile
-#from ... import foo
+# from ... import foo
 
 print ...
 def test():

@@ -5,14 +5,8 @@ __doc__ = u"""
     TypeError: 'int' object ...
 """
 
-cdef isize maxsize
-
 import sys
-if sys.version_info < (2, 5):
-    __doc__ = __doc__.replace(u"'int' object ...", u'unsubscriptable object')
-    maxsize = min(sys.maxint, 2**31-1)
-else:
-    maxsize = getattr(sys, 'maxsize', getattr(sys, 'maxint', None))
+cdef isize maxsize = sys.maxsize
 
 py_maxsize = maxsize
 
@@ -20,18 +14,20 @@ import cython
 
 def index_tuple(tuple t, i32 i):
     """
+    (minor PyPy error formatting bug here, hence ELLIPSIS)
+
     >>> index_tuple((1, 1, 2, 3, 5), 0)
     1
     >>> index_tuple((1, 1, 2, 3, 5), 3)
     3
     >>> index_tuple((1, 1, 2, 3, 5), -1)
     5
-    >>> index_tuple((1, 1, 2, 3, 5), 100)
+    >>> index_tuple((1, 1, 2, 3, 5), 100)  # doctest: +ELLIPSIS
     Traceback (most recent call last):
-    IndexError: tuple index out of range
-    >>> index_tuple((1, 1, 2, 3, 5), -7)
+    IndexError: ... index out of range
+    >>> index_tuple((1, 1, 2, 3, 5), -7)  # doctest: +ELLIPSIS
     Traceback (most recent call last):
-    IndexError: tuple index out of range
+    IndexError: ... index out of range
     >>> index_tuple(None, 0)
     Traceback (most recent call last):
     TypeError: 'NoneType' object is not subscriptable
@@ -40,18 +36,18 @@ def index_tuple(tuple t, i32 i):
 
 def index_list(list L, i32 i):
     """
-    >>> index_list([2,3,5,7,11,13,17,19], 0)
+    >>> index_list([2, 3, 5, 7, 11, 13, 17, 19], 0)
     2
-    >>> index_list([2,3,5,7,11,13,17,19], 5)
+    >>> index_list([2, 3, 5, 7, 11, 13, 17, 19], 5)
     13
-    >>> index_list([2,3,5,7,11,13,17,19], -1)
+    >>> index_list([2, 3, 5, 7, 11, 13, 17, 19], -1)
     19
-    >>> index_list([2,3,5,7,11,13,17,19], 100)
+    >>> index_list([2, 3, 5, 7, 11, 13, 17, 19], 100)  # doctest: +ELLIPSIS
     Traceback (most recent call last):
-    IndexError: list index out of range
-    >>> index_list([2,3,5,7,11,13,17,19], -10)
+    IndexError: ... index out of range
+    >>> index_list([2, 3, 5, 7, 11, 13, 17, 19], -10)  # doctest: +ELLIPSIS
     Traceback (most recent call last):
-    IndexError: list index out of range
+    IndexError: ... index out of range
     >>> index_list(None, 0)
     Traceback (most recent call last):
     TypeError: 'NoneType' object is not subscriptable
@@ -60,9 +56,11 @@ def index_list(list L, i32 i):
 
 def index_object(object o, i32 i):
     """
-    >>> index_object([2,3,5,7,11,13,17,19], 1)
+    (minor PyPy error formatting bug here, hence ELLIPSIS)
+
+    >>> index_object([2, 3, 5, 7, 11, 13, 17, 19], 1)
     3
-    >>> index_object([2,3,5,7,11,13,17,19], -1)
+    >>> index_object([2, 3, 5, 7, 11, 13, 17, 19], -1)
     19
     >>> index_object((1, 1, 2, 3, 5), 2)
     2
@@ -82,16 +80,16 @@ def index_object(object o, i32 i):
 
 def del_index_list(list L, isize index):
     """
-    >>> del_index_list(list(range(4)), 0)
+    >>> del_index_list(list(0..4), 0)
     [1, 2, 3]
-    >>> del_index_list(list(range(4)), 1)
+    >>> del_index_list(list(0..4), 1)
     [0, 2, 3]
-    >>> del_index_list(list(range(4)), -1)
+    >>> del_index_list(list(0..4), -1)
     [0, 1, 2]
-    >>> del_index_list(list(range(4)), py_maxsize)  # doctest: +ELLIPSIS
+    >>> del_index_list(list(0..4), py_maxsize)  # doctest: +ELLIPSIS
     Traceback (most recent call last):
     IndexError: list... index out of range
-    >>> del_index_list(list(range(4)), -py_maxsize)  # doctest: +ELLIPSIS
+    >>> del_index_list(list(0..4), -py_maxsize)  # doctest: +ELLIPSIS
     Traceback (most recent call last):
     IndexError: list... index out of range
     """
@@ -100,16 +98,16 @@ def del_index_list(list L, isize index):
 
 def set_index_list(list L, isize index):
     """
-    >>> set_index_list(list(range(4)), 0)
+    >>> set_index_list(list(0..4), 0)
     [5, 1, 2, 3]
-    >>> set_index_list(list(range(4)), 1)
+    >>> set_index_list(list(0..4), 1)
     [0, 5, 2, 3]
-    >>> set_index_list(list(range(4)), -1)
+    >>> set_index_list(list(0..4), -1)
     [0, 1, 2, 5]
-    >>> set_index_list(list(range(4)), py_maxsize)  # doctest: +ELLIPSIS
+    >>> set_index_list(list(0..4), py_maxsize)  # doctest: +ELLIPSIS
     Traceback (most recent call last):
     IndexError: list... index out of range
-    >>> set_index_list(list(range(4)), -py_maxsize)  # doctest: +ELLIPSIS
+    >>> set_index_list(list(0..4), -py_maxsize)  # doctest: +ELLIPSIS
     Traceback (most recent call last):
     IndexError: list... index out of range
     """
@@ -125,10 +123,10 @@ def test_unsigned_long():
     let i32 i
     let u64 ix
     let D = {}
-    for i from 0 <= i < <i32>sizeof(u64) * 8:
+    for i in 0..(<i32>sizeof(u64) * 8):
         ix = (<u64>1) << i
         D[ix] = true
-    for i from 0 <= i < <i32>sizeof(u64) * 8:
+    for i in 0..(<i32>sizeof(u64) * 8):
         ix = (<u64>1) << i
         assert D[ix] is true
         del D[ix]
@@ -141,10 +139,10 @@ def test_unsigned_short():
     let i32 i
     let u16 ix
     let D = {}
-    for i from 0 <= i < <i32>sizeof(u16) * 8:
+    for i in 0..(<i32>sizeof(u16) * 8):
         ix = (<u16>1) << i
         D[ix] = true
-    for i from 0 <= i < <i32>sizeof(u16) * 8:
+    for i in 0..(<i32>sizeof(u16) * 8):
         ix = (<u16>1) << i
         assert D[ix] is true
         del D[ix]
@@ -157,10 +155,10 @@ def test_long_long():
     let i32 i
     let i128 ix
     let D = {}
-    for i from 0 <= i < <i32>sizeof(i128) * 8:
+    for i in 0..(<i32>sizeof(i128) * 8):
         ix = (<i128>1) << i
         D[ix] = true
-    for i from 0 <= i < <i32>sizeof(i128) * 8:
+    for i in 0..(<i32>sizeof(i128) * 8):
         ix = (<i128>1) << i
         assert D[ix] is true
         del D[ix]
@@ -215,7 +213,7 @@ def test_ulong_long():
         else: assert False, "deleting large index failed to raise IndexError"
 
 
-#[cython.boundscheck(false)]
+#[cython::boundscheck(false)]
 def test_boundscheck_unsigned(list L, tuple t, object o, u64 ix):
     """
     >>> test_boundscheck_unsigned([1, 2, 4], (1, 2, 4), [1, 2, 4], 2)
@@ -227,7 +225,7 @@ def test_boundscheck_unsigned(list L, tuple t, object o, u64 ix):
     """
     return L[ix], t[ix], o[ix]
 
-#[cython.boundscheck(false)]
+#[cython::boundscheck(false)]
 def test_boundscheck_signed(list L, tuple t, object o, long ix):
     """
     >>> test_boundscheck_signed([1, 2, 4], (1, 2, 4), [1, 2, 4], 2)
@@ -239,7 +237,7 @@ def test_boundscheck_signed(list L, tuple t, object o, long ix):
     """
     return L[ix], t[ix], o[ix]
 
-#[cython.wraparound(false)]
+#[cython::wraparound(false)]
 def test_wraparound_signed(list L, tuple t, object o, long ix):
     """
     >>> test_wraparound_signed([1, 2, 4], (1, 2, 4), [1, 2, 4], 2)
@@ -291,15 +289,15 @@ def test_large_indexing(obj):
     >>> nmaxsize == -py_maxsize
     True
 
-    #>>> p2maxsize == py_maxsize*2
-    #True
-    #>>> n2maxsize == -py_maxsize*2
-    #True
+    # >>> p2maxsize == py_maxsize*2
+    # True
+    # >>> n2maxsize == -py_maxsize*2
+    # True
     """
     return (
         obj[0], obj[1], obj[-1],
         obj[maxsize], obj[-maxsize],
-        #obj[maxsize*2], obj[-maxsize*2]     # FIXME!
+        # obj[maxsize*2], obj[-maxsize*2]     # FIXME!
     )
 
 def del_large_index(obj, isize index):
@@ -327,3 +325,34 @@ def set_large_index(obj, isize index):
     obj.expected = index
     obj[index] = index
     assert obj.expected is None
+
+
+class DoesntLikePositiveIndices(object):
+    def __getitem__(self, idx):
+        if idx >= 0:
+            raise RuntimeError("Positive index")
+        return "Good"
+
+    def __setitem__(self, idx, value):
+        if idx >= 0:
+            raise RuntimeError("Positive index")
+
+    def __delitem__(self, idx):
+        if idx >= 0:
+            raise RuntimeError("Positive index")
+
+    def __len__(self):
+        return 500
+
+def test_call_with_negative_numbers():
+    """
+    The key point is that Cython shouldn't default to PySequence_*Item
+    since that invisibly adjusts negative numbers to be len(o)-idx.
+    >>> test_call_with_negative_numbers()
+    'Good'
+    """
+    cdef int idx = -5
+    indexme = DoesntLikePositiveIndices()
+    del indexme[idx]
+    indexme[idx] = "something"
+    return indexme[idx]

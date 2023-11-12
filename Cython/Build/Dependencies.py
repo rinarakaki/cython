@@ -1354,7 +1354,7 @@ def _init_multiprocessing_helper():
     signal.signal(signal.SIGINT, signal.SIG_IGN)
 
 
-def cleanup_cache(cache, target_size, ratio=.85):
+def cleanup_cache(cache, target_size, ratio=0.85):
     try:
         p = subprocess.Popen(['du', '-s', '-k', os.path.abspath(cache)], stdout=subprocess.PIPE)
         stdout, _ = p.communicate()

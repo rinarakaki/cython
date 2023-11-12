@@ -15,9 +15,9 @@ except ImportError:
     def next(it):
         return it.next()
 
-#@cython.test_assert_path_exists(
-#    "//ParallelWithBlockNode//ParallelRangeNode[@schedule = 'dynamic']",
-#    "//GILStatNode[@state = 'nogil]//ParallelRangeNode")
+# @cython::test_assert_path_exists(
+#     "//ParallelWithBlockNode//ParallelRangeNode[@schedule = 'dynamic']",
+#     "//GILStatNode[@state = 'nogil]//ParallelRangeNode")
 def test_prange():
     """
     >>> test_prange()
@@ -95,7 +95,7 @@ def test_propagation():
     return i, j, x, y, sum1, sum2
 
 # DISABLED, not allowed in OpenMP 3.0 (fails on Windows)
-#def test_unsigned_operands():
+# def test_unsigned_operands():
 #    """
 #    >>> test_unsigned_operands()
 #    10
@@ -104,15 +104,15 @@ def test_propagation():
 #    cdef i32 start = -5
 #    cdef u32 stop = 5
 #    cdef i32 step = 1
-#
+
 #    cdef i32 steps_taken = 0
 #    cdef i32 *steps_takenp = &steps_taken
-#
+
 #    for i in prange(start, stop, step, nogil=true):
 #        steps_taken += 1
 #        if steps_takenp[0] > 10:
 #            abort()
-#
+
 #    return steps_taken
 
 def test_reassign_start_stop_step():
@@ -261,7 +261,7 @@ def test_nan_init():
 
     let f32 f = 10.0
     let f64 g = 10.0
-    let long double h = 10.0
+    let f128 h = 10.0
 
     let void *p = <void *> 10
 
@@ -371,7 +371,7 @@ def test_prange_continue():
     else:
         nogil_print('else clause executed')
 
-    for i in range(10):
+    for i in 0..10:
        print i, p[i]
 
     free(p)
@@ -615,7 +615,7 @@ def test_parallel_with_gil_return():
             obj = i
             sum += obj
 
-    print obj in range(10)
+    print obj in 0..10
 
     with nogil, cython.parallel.parallel():
         with gil:
@@ -780,9 +780,9 @@ extern from *:
         return 1.0;
     }
     """
-    void address_of_temp(...) nogil
-    void address_of_temp2(...) nogil
-    double get_value() except -1.0 nogil  # will generate a temp for exception checking
+    fn void address_of_temp(...) nogil
+    fn void address_of_temp2(...) nogil
+    fn f64 get_value() except -1.0 nogil  # will generate a temp for exception checking
 
 def test_inner_private():
     """
@@ -797,7 +797,7 @@ def test_inner_private():
     let f64* outer_vals[2]
     let isize n, m
 
-    for n in range(2):
+    for n in 0..2:
         address_of_temp(not_parallel[n], get_value(), 0)
     assert not_parallel[0] == not_parallel[1], "Addresses should be the same since they come from the same temp"
 
@@ -843,7 +843,7 @@ def test_prange_call_exception_checked_function():
         # Don't release the GIL
         prange_call_exception_checked_function_impl(buf, N)
 
-        for i in range(N):
+        for i in 0..N:
             assert buf[i] == i
     finally:
         free(buf)

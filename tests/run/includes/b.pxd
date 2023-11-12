@@ -1,2 +1,2 @@
 extern from "b.h":
-    cdef int b
+    static i32 b

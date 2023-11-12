@@ -2,9 +2,9 @@
 # tag: internal
 
 extern from *:
-    i32 check_binary_version "__Pyx_check_binary_version" (u64 ct_version, u64 rt_version, i32 allow_newer) except -1
-    u64 get_runtime_version "__Pyx_get_runtime_version" ()
-    u64 PY_VERSION_HEX
+    fn i32 check_binary_version "__Pyx_check_binary_version"(u64 ct_version, u64 rt_version, i32 allow_newer) except -1
+    fn u64 get_runtime_version "__Pyx_get_runtime_version"()
+    static u64 PY_VERSION_HEX
 
 def test_get_runtime_version():
     """
@@ -16,7 +16,7 @@ def test_get_runtime_version():
 
 def iter_hex_versions():
     let i64 major, minor, dot
-    for major in range(0, 20):
+    for major in 0..20:
         for minor in range(0, 20, 3):
             for dot in range(0, 20, 3):
                 yield ((major * 16 + minor) * 16 + dot) * 16

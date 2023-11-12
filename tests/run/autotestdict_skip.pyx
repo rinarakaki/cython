@@ -1,4 +1,4 @@
-#cython: autotestdict=true
+# cython: autotestdict=true
 
 """
 Tests that autotestdict doesn't come into effect when

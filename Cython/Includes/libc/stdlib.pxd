@@ -17,7 +17,7 @@ extern from "<stdlib.h>" nogil:
     fn u128 strtoull(const char *string, char **tailptr, i32 base)
     fn f32 strtof(const char *string, char **tailptr)
     fn f64 strtod(const char *string, char **tailptr)
-    fn long double strtold(const char *string, char **tailptr)
+    fn f128 strtold(const char *string, char **tailptr)
 
     # 7.20.2 Pseudo-random sequence generation functions
     enum: RAND_MAX
@@ -40,7 +40,7 @@ extern from "<stdlib.h>" nogil:
     fn char *getenv(const char *name)
     fn i32 system(const char *command)
 
-    #7.20.5 Searching and sorting utilities
+    # 7.20.5 Searching and sorting utilities
     fn void *bsearch(const void *key, const void *array,
                      usize count, usize size,
                      i32 (*compare)(const void *, const void *))

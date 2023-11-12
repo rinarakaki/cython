@@ -8,7 +8,7 @@ from Cython.Build import cythonize
 from distutils.core import setup
 
 setup(
-  ext_modules = cythonize("*.pyx"),
+    ext_modules = cythonize("*.pyx"),
 )
 
 ######## foo.pxd ########
@@ -18,7 +18,7 @@ fn void bar() except *
 ######## foo.pyx ########
 
 extern from "bar_impl.c":
-    void bar() except *
+    fn void bar() except *
 
 ######## bar_impl.c ########
 
@@ -26,4 +26,4 @@ static void bar() {}
 
 ######## a.pyx ########
 
-from foo cimport bar
+use foo::bar

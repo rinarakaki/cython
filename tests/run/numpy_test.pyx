@@ -126,8 +126,8 @@ def print_long_2d(np.ndarray[i64, ndim=2] arr):
     4 9
     """
     let i32 i, j
-    for i in range(arr.shape[0]):
-        print u" ".join([unicode(arr[i, j]) for j in range(arr.shape[1])])
+    for i in 0..arr.shape[0]:
+        print u" ".join([unicode(arr[i, j]) for j in 0..arr.shape[1]])
 
 def put_range_long_1d(np.ndarray[i64] arr):
     """
@@ -156,7 +156,7 @@ def put_range_long_1d(np.ndarray[i64] arr):
     """
     # Writes 0,1,2,... to array and returns array
     let i32 value = 0, i
-    for i in range(arr.shape[0]):
+    for i in 0..arr.shape[0]:
         arr[i] = value
         value += 1
 
@@ -169,18 +169,18 @@ def test_c_contig(np.ndarray[i32, ndim=2, mode='c'] arr):
     0 1 2 3
     4 5 6 7
     8 9 10 11
-    >>> test_c_contig(f_arr) #doctest: +ELLIPSIS
+    >>> test_c_contig(f_arr)  # doctest: +ELLIPSIS
     Traceback (most recent call last):
        ...
     ValueError: ndarray is not C...contiguous
-    >>> test_c_contig(c_arr[:;2, :;2]) #doctest: +ELLIPSIS
+    >>> test_c_contig(c_arr[:;2, :;2])  # doctest: +ELLIPSIS
     Traceback (most recent call last):
        ...
     ValueError: ndarray is not C...contiguous
     """
     let i32 i, j
-    for i in range(arr.shape[0]):
-        print u" ".join([unicode(arr[i, j]) for j in range(arr.shape[1])])
+    for i in 0..arr.shape[0]:
+        print u" ".join([unicode(arr[i, j]) for j in 0..arr.shape[1]])
 
 def test_f_contig(np.ndarray[i32, ndim=2, mode='fortran'] arr):
     """
@@ -191,14 +191,14 @@ def test_f_contig(np.ndarray[i32, ndim=2, mode='fortran'] arr):
     0 1 2 3
     4 5 6 7
     8 9 10 11
-    >>> test_f_contig(c_arr) #doctest: +ELLIPSIS
+    >>> test_f_contig(c_arr)  # doctest: +ELLIPSIS
     Traceback (most recent call last):
        ...
     ValueError: ndarray is not Fortran contiguous
     """
     let i32 i, j
-    for i in range(arr.shape[0]):
-        print u" ".join([unicode(arr[i, j]) for j in range(arr.shape[1])])
+    for i in 0..arr.shape[0]:
+        print u" ".join([unicode(arr[i, j]) for j in 0..arr.shape[1]])
 
 # Exhaustive dtype tests -- increments element [1] by 1 (or 1+1j) for all dtypes
 def inc1_bool(np.ndarray[u8] arr):           arr[1] += 1
@@ -215,11 +215,11 @@ def inc1_ulonglong(np.ndarray[u128] arr): arr[1] += 1
 
 def inc1_float(np.ndarray[f32] arr):                  arr[1] += 1
 def inc1_double(np.ndarray[f64] arr):                arr[1] += 1
-def inc1_longdouble(np.ndarray[long double] arr):       arr[1] += 1
+def inc1_longdouble(np.ndarray[f128] arr):       arr[1] += 1
 
-def inc1_cfloat(np.ndarray[float complex] arr):            arr[1] = arr[1] + 1 + 1j
-def inc1_cdouble(np.ndarray[double complex] arr):          arr[1] = (arr[1] + 1) + 1j
-def inc1_clongdouble(np.ndarray[long double complex] arr): arr[1] = arr[1] + (1 + 1j)
+def inc1_cfloat(np.ndarray[c64] arr):            arr[1] = arr[1] + 1 + 1j
+def inc1_cdouble(np.ndarray[c128] arr):          arr[1] = (arr[1] + 1) + 1j
+def inc1_clongdouble(np.ndarray[c256] arr): arr[1] = arr[1] + (1 + 1j)
 
 def inc1_cfloat_struct(np.ndarray[np.cfloat_t] arr):
     arr[1].real += 1
@@ -230,7 +230,7 @@ def inc1_cdouble_struct(np.ndarray[np.cdouble_t] arr):
     arr[1].imag += 1
 
 def inc1_clongdouble_struct(np.ndarray[np.clongdouble_t] arr):
-    let long double x
+    let f128 x
     x = arr[1].real + 1
     arr[1].real = x
     arr[1].imag = arr[1].imag + 1
@@ -238,9 +238,9 @@ def inc1_clongdouble_struct(np.ndarray[np.clongdouble_t] arr):
 def inc1_object(np.ndarray[object] arr):
     o = arr[1]
     o += 1
-    arr[1] = o # unfortunately, += segfaults for objects
+    arr[1] = o  # unfortunately, += segfaults for objects
 
-def inc1_int_t(np.ndarray[np.int_t] arr):               arr[1] += 1
+def inc1_int_t(np.ndarray[np.npy_long] arr):               arr[1] += 1
 def inc1_longlong_t(np.ndarray[np.longlong_t] arr):     arr[1] += 1
 def inc1_float_t(np.ndarray[np.float_t] arr):           arr[1] += 1
 def inc1_double_t(np.ndarray[np.double_t] arr):         arr[1] += 1
@@ -268,14 +268,14 @@ def test_dtype(dtype, inc1):
     >>> test_dtype('d', inc1_double)
     >>> test_dtype('g', inc1_longdouble)
     >>> test_dtype('O', inc1_object)
-    >>> test_dtype('F', inc1_cfloat) # numpy format codes differ from buffer ones here
+    >>> test_dtype('F', inc1_cfloat)  # numpy format codes differ from buffer ones here
     >>> test_dtype('D', inc1_cdouble)
     >>> test_dtype('G', inc1_clongdouble)
     >>> test_dtype('F', inc1_cfloat_struct)
     >>> test_dtype('D', inc1_cdouble_struct)
     >>> test_dtype('G', inc1_clongdouble_struct)
 
-    >>> test_dtype(np.int_, inc1_int_t)
+    >>> test_dtype(np.npy_long, inc1_int_t)
     >>> test_dtype(np.longlong, inc1_longlong_t)
     >>> test_dtype(np.float_, inc1_float_t)
     >>> test_dtype(np.double, inc1_double_t)
@@ -289,14 +289,14 @@ def test_dtype(dtype, inc1):
 
     Endian tests:
     >>> test_dtype('%si' % my_endian, inc1_int)
-    >>> test_dtype('%si' % other_endian, inc1_int)  #doctest: +ELLIPSIS
+    >>> test_dtype('%si' % other_endian, inc1_int)  # doctest: +ELLIPSIS
     Traceback (most recent call last):
        ...
     ValueError: ...
     """
     if dtype in ("g", np.longdouble,
                  "G", np.clongdouble):
-        if sizeof(f64) == sizeof(long double): # MSVC
+        if sizeof(f64) == sizeof(f128):  # MSVC
             return
     if dtype in ('F', 'D', 'G'):
         a = np.array([0, 10+10j], dtype=dtype)
@@ -423,7 +423,7 @@ def test_packed_align(np.ndarray[PackedStruct] arr):
     """
     >>> print(test_packed_align(np.zeros((1,), dtype=np.dtype('b,i', align=false))))
     [(22, 23)]
-    >>> print(test_packed_align(np.zeros((1,), dtype=np.dtype('b,i', align=true)))) #doctest: +ELLIPSIS
+    >>> print(test_packed_align(np.zeros((1,), dtype=np.dtype('b,i', align=true))))  # doctest: +ELLIPSIS
     Traceback (most recent call last):
         ...
     ValueError: ...
@@ -447,7 +447,7 @@ def test_unpacked_align(np.ndarray[UnpackedStruct] arr):
 
     >>> print(test_unpacked_align(np.zeros((1,), dtype=np.dtype('b,i', align=true))))
     [(22, 23)]
-    >>> print(test_unpacked_align(np.zeros((1,), dtype=np.dtype('b,i', align=false)))) #doctest: +ELLIPSIS
+    >>> print(test_unpacked_align(np.zeros((1,), dtype=np.dtype('b,i', align=false))))  # doctest: +ELLIPSIS
     Traceback (most recent call last):
         ...
     ValueError: ...
@@ -493,7 +493,7 @@ struct Point:
 
 def test_point_record():
     """
-    >>> test_point_record()         # doctest: +NORMALIZE_WHITESPACE
+    >>> test_point_record()  # doctest: +NORMALIZE_WHITESPACE
     array([(0., 0.), (1., -1.), (2., -2.)],
           dtype=[('x', '!f8'), ('y', '!f8')])
     """
@@ -501,7 +501,7 @@ def test_point_record():
     Point_dtype = np.dtype([('x', np.float64), ('y', np.float64)])
     test = np.zeros(3, Point_dtype)
     let i32 i
-    for i in range(3):
+    for i in 0..3:
         test[i].x = i
         test[i].y = -i
     print re.sub(
@@ -517,18 +517,18 @@ def test_fused_ndarray_floating_dtype(np.ndarray[cython.floating, ndim=1] a):
     ['double', 'float']
 
 
-    >>> test_fused_ndarray_floating_dtype[cython.f64](np.arange(10, dtype=np.float64))
+    >>> test_fused_ndarray_floating_dtype[cython::f64](np.arange(10, dtype=np.float64))
     ndarray[double,ndim=1] ndarray[double,ndim=1] 5.0 6.0
     >>> test_fused_ndarray_floating_dtype(np.arange(10, dtype=np.float64))
     ndarray[double,ndim=1] ndarray[double,ndim=1] 5.0 6.0
 
-    >>> test_fused_ndarray_floating_dtype[cython.f32](np.arange(10, dtype=np.float32))
+    >>> test_fused_ndarray_floating_dtype[cython::f32](np.arange(10, dtype=np.float32))
     ndarray[float,ndim=1] ndarray[float,ndim=1] 5.0 6.0
     >>> test_fused_ndarray_floating_dtype(np.arange(10, dtype=np.float32))
     ndarray[float,ndim=1] ndarray[float,ndim=1] 5.0 6.0
     """
     let np.ndarray[cython.floating, ndim=1] b = a
-    print cython.typeof(a), cython.typeof(b), a[5], b[6]
+    print cython::typeof(a), cython::typeof(b), a[5], b[6]
 
 double_array = np.linspace(0, 1, 100)
 int32_array = np.arange(100, dtype=np.int32)
@@ -590,7 +590,7 @@ def test_fused_ndarray_integral_dtype(np.ndarray[cython.integral, ndim=1] a):
     >>> sorted(test_fused_ndarray_integral_dtype.__signatures__)
     ['int', 'long', 'short']
 
-    >>> test_fused_ndarray_integral_dtype[cython.i32](np.arange(10, dtype=np.dtype('i')))
+    >>> test_fused_ndarray_integral_dtype[cython::i32](np.arange(10, dtype=np.dtype('i')))
     5 6
     >>> test_fused_ndarray_integral_dtype(np.arange(10, dtype=np.dtype('i')))
     5 6
@@ -606,8 +606,8 @@ def test_fused_ndarray_integral_dtype(np.ndarray[cython.integral, ndim=1] a):
     print a[5], b[6]
 
 cdef fused fused_dtype:
-    float complex
-    double complex
+    c64
+    c128
     object
 
 @testcase
@@ -624,7 +624,7 @@ def test_fused_ndarray_other_dtypes(np.ndarray[fused_dtype, ndim=1] a):
     ndarray[Python object,ndim=1] ndarray[Python object,ndim=1] 5 6
     """
     let np.ndarray[fused_dtype, ndim=1] b = a
-    print cython.typeof(a), cython.typeof(b), a[5], b[6]
+    print cython::typeof(a), cython::typeof(b), a[5], b[6]
 
 # Test fusing the array types together and runtime dispatch
 struct Foo:
@@ -641,7 +641,7 @@ cdef fused fused_ndarray:
 
 def get_Foo_array():
     let Foo data[10]
-    for i in range(10):
+    for i in 0..10:
         data[i] = [0, 0]
     data[5].b = 9.0
     return np.asarray(<Foo[:]>data).copy()
@@ -663,7 +663,7 @@ def test_fused_ndarray(fused_ndarray a):
     5.0
     """
     let fused_ndarray b = a
-    print cython.typeof(a), cython.typeof(b)
+    print cython::typeof(a), cython::typeof(b)
 
     if fused_ndarray in fused_FooArray:
         print b[5].b
@@ -687,7 +687,7 @@ cpdef test_fused_cpdef_ndarray(fused_ndarray a):
     5.0
     """
     let fused_ndarray b = a
-    print cython.typeof(a), cython.typeof(b)
+    print cython::typeof(a), cython::typeof(b)
 
     if fused_ndarray in fused_FooArray:
         print b[5].b
@@ -753,13 +753,13 @@ cdef fused confusing_fused_typedef:
     actually_long_t
     i32
     u64
-    double complex
+    c128
     u8
     signed char
 
 def test_dispatch_external_typedef(np.ndarray[confusing_fused_typedef] a):
     """
-    >>> test_dispatch_external_typedef(np.arange(-5, 5, dtype=np.int_))
+    >>> test_dispatch_external_typedef(np.arange(-5, 5, dtype=np.npy_long))
     -2
     """
     print a[3]
@@ -770,8 +770,8 @@ cdef fused memslice_fused_dtype:
     f64
     i32
     i64
-    float complex
-    double complex
+    c64
+    c128
     object
 
 @testcase
@@ -792,15 +792,15 @@ def test_fused_memslice_other_dtypes(memslice_fused_dtype[:] a):
     object[:] object[:] 5 6
     """
     let memslice_fused_dtype[:] b = a
-    print cython.typeof(a), cython.typeof(b), a[5], b[6]
+    print cython::typeof(a), cython::typeof(b), a[5], b[6]
 
 cdef fused memslice_fused:
     f32[:]
     f64[:]
     i32[:]
     i64[:]
-    float complex[:]
-    double complex[:]
+    c64[:]
+    c128[:]
     object[:]
 
 @testcase
@@ -821,7 +821,7 @@ def test_fused_memslice(memslice_fused a):
     object[:] object[:] 5 6
     """
     let memslice_fused b = a
-    print cython.typeof(a), cython.typeof(b), a[5], b[6]
+    print cython::typeof(a), cython::typeof(b), a[5], b[6]
 
 @testcase
 def test_dispatch_memoryview_object():
@@ -851,12 +851,12 @@ def test_dispatch_ndim(ndim_t array):
 
     Test indexing using Cython.Shadow
     >>> import cython
-    >>> test_dispatch_ndim[cython.f64[:]](np.empty(5, dtype=np.double))
+    >>> test_dispatch_ndim[cython::f64[:]](np.empty(5, dtype=np.double))
     double[:] 1
-    >>> test_dispatch_ndim[cython.f64[:, :]](np.empty((5, 5), dtype=np.double))
+    >>> test_dispatch_ndim[cython::f64[:, :]](np.empty((5, 5), dtype=np.double))
     double[:, :] 2
     """
-    print cython.typeof(array), np.asarray(array).ndim
+    print cython::typeof(array), np.asarray(array).ndim
 
 @testcase
 def test_copy_buffer(np.ndarray[f64, ndim=1] a):

@@ -1,4 +1,4 @@
-#cython: embedsignature=true, annotation_typing=false
+# cython: embedsignature=true, annotation_typing=false
 
 # signatures here are a little fragile - when they are
 # generated during the build process gives slightly
@@ -8,22 +8,17 @@
 
 import sys
 
-if sys.version_info >= (3, 4):
-    def funcdoc(f):
-        if not getattr(f, "__text_signature__", None):
-            return f.__doc__
-        doc = '%s%s' % (f.__name__, f.__text_signature__)
-        if f.__doc__:
-            if '\n' in f.__doc__:
-                # preceding line endings get stripped
-                doc = '%s\n\n%s' % (doc, f.__doc__)
-            else:
-                doc = '%s\n%s' % (doc, f.__doc__)
-        return doc
-
-else:
-    def funcdoc(f):
+def funcdoc(f):
+    if not getattr(f, "__text_signature__", None):
         return f.__doc__
+    doc = '%s%s' % (f.__name__, f.__text_signature__)
+    if f.__doc__:
+        if '\n' in f.__doc__:
+            # preceding line endings get stripped
+            doc = '%s\n\n%s' % (doc, f.__doc__)
+        else:
+            doc = '%s\n%s' % (doc, f.__doc__)
+    return doc
 
 
 # note the r, we use \n below
@@ -343,7 +338,7 @@ cpdef i32 f_i(i32 i):
 cpdef u32 f_ui(u32 i):
     return i
 
-cpdef bint f_bint(bint i):
+cpdef u2 f_bint(u2 i):
     return i
 
 cpdef i64 f_l(i64 l):
@@ -364,7 +359,7 @@ cpdef f32 f_f(f32 f):
 cpdef f64 f_d(f64 d):
     return d
 
-cpdef long double f_D(long double D):
+cpdef f128 f_D(f128 D):
     return D
 
 ctypedef i32 MyInt
@@ -414,13 +409,13 @@ cdef class Foo:
     def m08(self, a: (1, 2, 3), b: ()) -> tuple: pass
     def m09(self, a: {1, 2, 3}, b: {i for i in ()}) -> set: pass
     def m10(self, a: {1: 1, 2: 2, 3: 3}, b: {}) -> dict: pass
-   #def m11(self, a: [str(i) for i in range(3)]): pass  # Issue 1782
-    def m12(self, a: (str(i) for i in range(3))): pass
-    def m13(self, a: (str(i) for i in range(3) if bool(i))): pass
-    def m14(self, a: {str(i) for i in range(3)}): pass
-    def m15(self, a: {str(i) for i in range(3) if bool(i)}): pass
-    def m16(self, a: {str(i): id(i) for i in range(3)}): pass
-    def m17(self, a: {str(i): id(i) for i in range(3) if bool(i)}): pass
+   # def m11(self, a: [str(i) for i in 0..3]): pass  # Issue 1782
+    def m12(self, a: (str(i) for i in 0..3)): pass
+    def m13(self, a: (str(i) for i in 0..3 if bool(i))): pass
+    def m14(self, a: {str(i) for i in 0..3}): pass
+    def m15(self, a: {str(i) for i in 0..3 if bool(i)}): pass
+    def m16(self, a: {str(i): id(i) for i in 0..3}): pass
+    def m17(self, a: {str(i): id(i) for i in 0..3 if bool(i)}): pass
     def m18(self, a: dict.update(x=42, **dict(), **{})): pass
     def m19(self, a: sys is None, b: sys is not None): pass
     def m20(self, a: sys in [], b: sys not in []): pass
@@ -428,12 +423,12 @@ cdef class Foo:
     def m22(self, a: 42 if sys else None): pass
     def m23(self, a: +int(), b: -int(), c: ~int()): pass
     def m24(self, a: (1+int(2))*3+(4*int(5))**(1+0.0/1)): pass
-    def m25(self, a: list(range(3))[:]): pass
-    def m26(self, a: list(range(3))[1:]): pass
-    def m27(self, a: list(range(3))[:1]): pass
-    def m28(self, a: list(range(3))[:;1]): pass
-    def m29(self, a: list(range(3))[0:1;1]): pass
-    def m30(self, a: list(range(3))[7, 3:2;1, ...]): pass
+    def m25(self, a: list(0..3)[:]): pass
+    def m26(self, a: list(0..3)[1:]): pass
+    def m27(self, a: list(0..3)[:1]): pass
+    def m28(self, a: list(0..3)[:;1]): pass
+    def m29(self, a: list(0..3)[0:1;1]): pass
+    def m30(self, a: list(0..3)[7, 3:2;1, ...]): pass
     def m31(self, f64[:;1] a): pass
     def m32(self, a: tuple[()]) -> tuple[tuple[()]]: pass
 
@@ -476,25 +471,25 @@ Foo.m09(self, a: {1, 2, 3}, b: {i for i in ()}) -> set
 Foo.m10(self, a: {1: 1, 2: 2, 3: 3}, b: {}) -> dict
 
 # >>> print(Foo.m11.__doc__)
-# Foo.m11(self, a: [str(i) for i in range(3)])
+# Foo.m11(self, a: [str(i) for i in 0..3])
 
 >>> print(Foo.m12.__doc__)
-Foo.m12(self, a: (str(i) for i in range(3)))
+Foo.m12(self, a: (str(i) for i in 0..3))
 
 >>> print(Foo.m13.__doc__)
-Foo.m13(self, a: (str(i) for i in range(3) if bool(i)))
+Foo.m13(self, a: (str(i) for i in 0..3 if bool(i)))
 
 >>> print(Foo.m14.__doc__)
-Foo.m14(self, a: {str(i) for i in range(3)})
+Foo.m14(self, a: {str(i) for i in 0..3})
 
 >>> print(Foo.m15.__doc__)
-Foo.m15(self, a: {str(i) for i in range(3) if bool(i)})
+Foo.m15(self, a: {str(i) for i in 0..3 if bool(i)})
 
 >>> print(Foo.m16.__doc__)
-Foo.m16(self, a: {str(i): id(i) for i in range(3)})
+Foo.m16(self, a: {str(i): id(i) for i in 0..3})
 
 >>> print(Foo.m17.__doc__)
-Foo.m17(self, a: {str(i): id(i) for i in range(3) if bool(i)})
+Foo.m17(self, a: {str(i): id(i) for i in 0..3 if bool(i)})
 
 >>> print(Foo.m18.__doc__)
 Foo.m18(self, a: dict.update(x=42, **dict()))
@@ -518,22 +513,22 @@ Foo.m23(self, a: +int(), b: -int(), c: ~int())
 Foo.m24(self, a: (1 + int(2)) * 3 + (4 * int(5)) ** (1 + 0.0 / 1))
 
 >>> print(Foo.m25.__doc__)
-Foo.m25(self, a: list(range(3))[:])
+Foo.m25(self, a: list(0..3)[:])
 
 >>> print(Foo.m26.__doc__)
-Foo.m26(self, a: list(range(3))[1:])
+Foo.m26(self, a: list(0..3)[1:])
 
 >>> print(Foo.m27.__doc__)
-Foo.m27(self, a: list(range(3))[:1])
+Foo.m27(self, a: list(0..3)[:1])
 
 >>> print(Foo.m28.__doc__)
-Foo.m28(self, a: list(range(3))[::1])
+Foo.m28(self, a: list(0..3)[::1])
 
 >>> print(Foo.m29.__doc__)
-Foo.m29(self, a: list(range(3))[0:1:1])
+Foo.m29(self, a: list(0..3)[0:1:1])
 
 >>> print(Foo.m30.__doc__)
-Foo.m30(self, a: list(range(3))[7, 3:2:1, ...])
+Foo.m30(self, a: list(0..3)[7, 3:2:1, ...])
 
 >>> print(Foo.m31.__doc__)
 Foo.m31(self, double[::1] a)

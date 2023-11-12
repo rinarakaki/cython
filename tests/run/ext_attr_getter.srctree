@@ -53,7 +53,6 @@ for name in sorted(glob.glob("getter_fail*.pyx")):
 assert not failed_tests, "Failed tests: %s" % failed_tests
 assert passed_tests  # check that tests were found at all
 
-
 ######## foo.h ########
 
 #include <Python.h>
@@ -102,7 +101,6 @@ int *PyFoo_GetV(FooStructOpaque *f)
 #ifdef __cplusplus
 }
 #endif
-
 
 ######## foo_extension.pyx ########
 
@@ -154,13 +152,11 @@ class OpaqueFoo(Foo):
     def field2(self):
         raise AttributeError('no direct access to field2')
 
-
 ######## getter0.pyx ########
 
 # Access base Foo fields from C via aliased field names
 
 extern from "foo.h":
-
     ctypedef class foo_extension.Foo [object FooStructNominal]:
         cdef:
             i32 field0 "f0"
@@ -176,11 +172,9 @@ def check_pyobj(Foo f):
     # compare the c code to the check_pyobj in getter2.pyx
     return bool(f.field1)
 
-
 ######## getter.pxd ########
 
 # Access base Foo fields from C via getter functions
-
 
 extern from "foo.h":
     ctypedef class foo_extension.Foo [object FooStructOpaque, check_size ignore]:
@@ -206,15 +200,14 @@ extern from "foo.h":
             ret *= 2
             return ret
 
-    i32 PyFoo_GET0M(Foo);  # this is actually a macro !
-    i32 PyFoo_Get1F(Foo);
-    i32 PyFoo_GET2M(Foo);  # this is actually a macro !
-    i32 *PyFoo_GetV(Foo);
-
+    fn i32 PyFoo_GET0M(Foo);  # this is actually a macro !
+    fn i32 PyFoo_Get1F(Foo);
+    fn i32 PyFoo_GET2M(Foo);  # this is actually a macro !
+    fn i32 *PyFoo_GetV(Foo);
 
 ######## getter1.pyx ########
 
-cimport getter
+use getter
 
 def sum(getter.Foo f):
     # Note - not a cdef function but compiling the f.__getattr__('field0')
@@ -230,10 +223,9 @@ def vec0(getter.Foo f):
 def check_binop(getter.Foo f):
     return f.fieldF1 / 10
 
-
 ######## getter2.pyx ########
 
-cimport getter
+use getter
 
 def check_pyobj(getter.Foo f):
     return bool(f.fieldF1)
@@ -243,7 +235,6 @@ def check_unary(getter.Foo f):
 
 def check_meaning_of_life(getter.Foo f):
     return f.meaning_of_life
-
 
 ######## getter_fail_classmethod.pyx ########
 
@@ -255,7 +246,6 @@ extern from "foo.h":
         @classmethod
         fn inline i32 field0(cls):
             print('in classmethod of Foo')
-
 
 ######## getter_fail_dot_getter.pyx ########
 
@@ -271,7 +261,6 @@ extern from "foo.h":
         fn inline void field1(self):
             pass
 
-
 ######## getter_fail_no_inline.pyx ########
 
 # TEST: Properties must be declared "inline".
@@ -281,7 +270,6 @@ extern from "foo.h":
         @property
         fn i32 field0(self):
             pass
-
 
 ######## getter_fail_void.pyx ########
 
@@ -293,7 +281,6 @@ extern from "foo.h":
         fn void field0(self):
             pass
 
-
 ######## getter_fail_no_args.pyx ########
 
 # TEST: Properties must have the right signature.
@@ -304,7 +291,6 @@ extern from "foo.h":
         fn i32 field0():
             pass
 
-
 ######## getter_fail_too_many_args.pyx ########
 
 # TEST: Properties must have the right signature.
@@ -314,7 +300,6 @@ extern from "foo.h":
         @property
         fn i32 field0(x, y):
             pass
-
 
 ######## runner.py ########
 

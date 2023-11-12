@@ -2,7 +2,7 @@
 use cython
 
 dict_size = 4
-d = dict(zip(range(10,dict_size+10), range(dict_size)))
+d = dict(zip(10..(dict_size + 10), 0..dict_size))
 
 
 def dict_iteritems(dict d):
@@ -38,7 +38,7 @@ def dict_itervalues(dict d):
     return d.itervalues()
 
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//WhileStatNode")
 def items(dict d):
     """
@@ -51,7 +51,7 @@ def items(dict d):
     l.sort()
     return l
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//WhileStatNode",
     "//WhileStatNode//DictIterationNextNode")
 def iteritems(dict d):
@@ -67,7 +67,7 @@ def iteritems(dict d):
     l.sort()
     return l
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//WhileStatNode",
     "//WhileStatNode//DictIterationNextNode")
 def optimistic_iteritems(d):
@@ -92,7 +92,7 @@ def optimistic_iteritems(d):
     l.sort()
     return l
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//WhileStatNode",
     "//WhileStatNode//DictIterationNextNode")
 def iteritems_dict():
@@ -106,7 +106,7 @@ def iteritems_dict():
     l.sort()
     return l
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//WhileStatNode",
     "//WhileStatNode//DictIterationNextNode")
 def iteritems_int(dict d):
@@ -132,7 +132,7 @@ def iteritems_int(dict d):
     l.sort()
     return l
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//WhileStatNode",
     "//WhileStatNode//DictIterationNextNode")
 def optimistic_iteritems_int(d):
@@ -168,7 +168,7 @@ def optimistic_iteritems_int(d):
     l.sort()
     return l
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//WhileStatNode",
     "//WhileStatNode//DictIterationNextNode")
 def iteritems_tuple(dict d):
@@ -184,7 +184,7 @@ def iteritems_tuple(dict d):
     l.sort()
     return l
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//WhileStatNode",
     "//WhileStatNode//DictIterationNextNode")
 def iteritems_listcomp(dict d):
@@ -192,7 +192,7 @@ def iteritems_listcomp(dict d):
     l.sort()
     return l
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//WhileStatNode",
     "//WhileStatNode//DictIterationNextNode")
 def iterkeys(dict d):
@@ -208,7 +208,7 @@ def iterkeys(dict d):
     l.sort()
     return l
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//WhileStatNode",
     "//WhileStatNode//DictIterationNextNode")
 def optimistic_iterkeys(d):
@@ -237,7 +237,7 @@ def optimistic_iterkeys(d):
     l.sort()
     return l
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//WhileStatNode",
     "//WhileStatNode//DictIterationNextNode")
 def optimistic_iterkeys_argerror(d):
@@ -248,7 +248,7 @@ def optimistic_iterkeys_argerror(d):
     for k in d.iterkeys(1):
         print k
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//WhileStatNode",
     "//WhileStatNode//DictIterationNextNode")
 def iterkeys_int(dict d):
@@ -268,7 +268,7 @@ def iterkeys_int(dict d):
     l.sort()
     return l
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//WhileStatNode",
     "//WhileStatNode//DictIterationNextNode")
 def iterdict(dict d):
@@ -284,7 +284,7 @@ def iterdict(dict d):
     l.sort()
     return l
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//WhileStatNode",
     "//WhileStatNode//DictIterationNextNode")
 def iterdict_int(dict d):
@@ -304,7 +304,7 @@ def iterdict_int(dict d):
     l.sort()
     return l
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//WhileStatNode",
     "//WhileStatNode//DictIterationNextNode")
 def iterdict_reassign(dict d):
@@ -322,7 +322,7 @@ def iterdict_reassign(dict d):
     l.sort()
     return l
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//WhileStatNode",
     "//WhileStatNode//DictIterationNextNode")
 def iterdict_listcomp(dict d):
@@ -336,7 +336,7 @@ def iterdict_listcomp(dict d):
     l.sort()
     return l
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//WhileStatNode",
     "//WhileStatNode//DictIterationNextNode")
 def itervalues(dict d):
@@ -352,7 +352,7 @@ def itervalues(dict d):
     l.sort()
     return l
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//WhileStatNode",
     "//WhileStatNode//DictIterationNextNode")
 def optimistic_itervalues(d):
@@ -379,7 +379,7 @@ def optimistic_itervalues(d):
     l.sort()
     return l
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//WhileStatNode",
     "//WhileStatNode//DictIterationNextNode")
 def itervalues_int(dict d):
@@ -399,7 +399,7 @@ def itervalues_int(dict d):
     l.sort()
     return l
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//WhileStatNode",
     "//WhileStatNode//DictIterationNextNode")
 def itervalues_listcomp(dict d):
@@ -413,7 +413,7 @@ def itervalues_listcomp(dict d):
     l.sort()
     return l
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//WhileStatNode",
     "//WhileStatNode//DictIterationNextNode")
 def itervalues_kwargs(**d):
@@ -427,7 +427,7 @@ def itervalues_kwargs(**d):
     l.sort()
     return l
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//WhileStatNode",
     "//WhileStatNode//DictIterationNextNode")
 def iterdict_change_size(dict d):
@@ -457,7 +457,7 @@ def iterdict_change_size(dict d):
             break # safety
     return "DONE"
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//WhileStatNode",
     "//WhileStatNode//DictIterationNextNode")
 def optimistic_iterdict_change_size(d):
@@ -495,7 +495,7 @@ def optimistic_iterdict_change_size(d):
     return "DONE"
 
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//WhileStatNode",
     "//WhileStatNode//DictIterationNextNode")
 def values_of_expression(**kwargs):

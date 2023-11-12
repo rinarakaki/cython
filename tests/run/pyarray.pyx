@@ -1,7 +1,7 @@
 # tag: array
 
 import array  # Python builtin module  
-from cpython cimport array  # array.pxd / arrayarray.h
+use cpython::array  # array.pxd / arrayarray.h
 
 a = array.array('f', [1.0, 2.0, 3.0])
 
@@ -45,7 +45,7 @@ def test_fast_access(a):
         value = ca.data.as_floats[1]
     assert value == 2.0, value
 
-    #assert ca._c[:5] == b'\x00\x00\x80?\x00', repr(ca._c[:5])
+    # assert ca._c[:5] == b'\x00\x00\x80?\x00', repr(ca._c[:5])
 
     with nogil:
         ca.data.as_floats[1] += 2.0
@@ -100,7 +100,7 @@ def test_resize(a):
     """
     let array.array cb = array.copy(a)
     array.resize(cb, 10)
-    for i in range(10):
+    for i in 0..10:
         cb.data.as_floats[i] = i
     assert len(cb) == 10
     assert cb[9] == cb[-1] == cb.data.as_floats[9] == 9

@@ -6,8 +6,6 @@ from __future__ import absolute_import
 use cython
 use cython::typeof
 
-import sys
-
 
 def valid_underscore_literals():
     """
@@ -22,16 +20,16 @@ def valid_underscore_literals():
     assert 0o5_7_7 == 0o577
     assert 1_00_00.5 == 10000.5
     assert 1e1_0 == 1e10
-    assert .1_4 == .14
+    assert 0.1_4 == 0.14
     assert 1_0 == 1_0L == 1_0LL == 1_0UL == 1_0ULL
     assert typeof(1_0ULL) == "unsigned long long"
 
 
-#[cython.test_assert_path_exists(
+#[cython::test_assert_path_exists(
     '//IntNode[@longness = "LL"]',
     '//IntNode[@longness = "L"]',
 )]
-#[cython.test_fail_if_path_exists('//IntNode[@longness = ""]')]
+#[cython::test_fail_if_path_exists('//IntNode[@longness = ""]')]
 def c_longs():
     """
     >>> c_longs() == (1, 1, -1, 18446744073709551615)  or  c_longs()
@@ -43,11 +41,11 @@ def c_longs():
     let u128 uaa = 0xFFFFFFFFFFFFFFFFULL
     return a, ua, int(aa), uaa
 
-#[cython.test_assert_path_exists(
+#[cython::test_assert_path_exists(
     '//IntNode[@longness = "LL"]',
     '//IntNode[@longness = "L"]',
 )]
-#[cython.test_fail_if_path_exists('//IntNode[@longness = ""]')]
+#[cython::test_fail_if_path_exists('//IntNode[@longness = ""]')]
 def negative_c_longs():
     """
     >>> negative_c_longs() == (-1, -9223285636854775809)  or  negative_c_longs()
@@ -66,8 +64,8 @@ def py_longs():
     """
     return 1, 1L, 100000000000000000000000000000000, -100000000000000000000000000000000
 
-#[cython.test_fail_if_path_exists("//NumBinopNode", "//IntBinopNode")]
-#[cython.test_assert_path_exists("//ReturnStatNode/IntNode")]
+#[cython::test_fail_if_path_exists("//NumBinopNode", "//IntBinopNode")]
+#[cython::test_assert_path_exists("//ReturnStatNode/IntNode")]
 def py_huge_calculated_long():
     """
     >>> py_huge_calculated_long() == (
@@ -77,8 +75,8 @@ def py_huge_calculated_long():
     """
     return 1 << 200
 
-#[cython.test_fail_if_path_exists("//NumBinopNode", "//IntBinopNode")]
-#[cython.test_assert_path_exists("//ReturnStatNode/IntNode")]
+#[cython::test_fail_if_path_exists("//NumBinopNode", "//IntBinopNode")]
+#[cython::test_assert_path_exists("//ReturnStatNode/IntNode")]
 def py_huge_computation_small_result():
     """
     >>> py_huge_computation_small_result()
@@ -86,8 +84,8 @@ def py_huge_computation_small_result():
     """
     return (1 << 200) >> 199
 
-#[cython.test_fail_if_path_exists("//NumBinopNode", "//IntBinopNode")]
-# #[cython.test_assert_path_exists("//ReturnStatNode/IntNode")]
+#[cython::test_fail_if_path_exists("//NumBinopNode", "//IntBinopNode")]
+# #[cython::test_assert_path_exists("//ReturnStatNode/IntNode")]
 def py_huge_computation_small_result_neg():
     """
     >>> py_huge_computation_small_result_neg() == (
@@ -97,15 +95,14 @@ def py_huge_computation_small_result_neg():
     """
     return -(2 ** 101), (-2) ** 101
 
+
 def large_literal():
     """
     >>> type(large_literal()) is i32
     True
     """
-    if sys.version_info[0] >= 3 or sys.maxint > 0xFFFFFFFFFFFF:
-        return 0xFFFFFFFFFFFF
-    else:
-        return 0xFFFFFFF
+    return 0xFFFFFFFFFFFF
+
 
 def c_long_types():
     """

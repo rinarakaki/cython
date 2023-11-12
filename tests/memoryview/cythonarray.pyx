@@ -59,8 +59,8 @@ def acquire():
             array(shape=(10,10), itemsize=sizeof(i32), format='i')
     let object[u64, ndim=3, mode='fortran'] buf3d = \
             array(shape=(1, 2, 3), itemsize=sizeof(u64), format='L', mode='fortran')
-    let object[long double, ndim=3, mode='fortran'] bufld = \
-            array(shape=(1, 2, 3), itemsize=sizeof(long double), format='g', mode='fortran')
+    let object[f128, ndim=3, mode='fortran'] bufld = \
+            array(shape=(1, 2, 3), itemsize=sizeof(f128), format='g', mode='fortran')
 
 def full_or_strided():
     '''
@@ -118,12 +118,12 @@ def test_cython_array_index():
 fn i32 *getp(i32 dim1=10, i32 dim2=10, dim3=1) except NULL:
     print "getp()"
 
-    let i32 *p = <i32 *> malloc(dim1 * dim2 * dim3 * sizeof(i32))
+    let i32 *p = <i32 *>malloc(dim1 * dim2 * dim3 * sizeof(i32))
 
     if p == NULL:
         raise MemoryError
 
-    for i in range(dim1 * dim2 * dim3):
+    for i in 0..(dim1 * dim2 * dim3):
         p[i] = i
 
     return p
@@ -198,8 +198,8 @@ def test_cyarray_from_carray():
     0 8 21
     """
     let i32[7][8] a
-    for i in range(7):
-        for j in range(8):
+    for i in 0..7:
+        for j in 0..8:
             a[i][j] = i * 8 + j
 
     let i32[:, :] mslice = <i32[:, :]> a
@@ -218,10 +218,6 @@ class InheritFrom(v.array):
 
 def test_char_array_in_python_api(*shape):
     """
-    >>> import sys
-    >>> if sys.version_info[0] < 3:
-    ...     def bytes(b): return memoryview(b).tobytes()  # don't call str()
-
     >>> arr1d = test_char_array_in_python_api(10)
     >>> print(bytes(arr1d).decode('ascii'))
     xxxxxxxxxx
@@ -291,18 +287,15 @@ def test_is_Sequence():
     1
     True
     """
-    import sys
-    if sys.version_info < (3, 3):
-        from collections import Sequence
-    else:
-        from collections.abc import Sequence
+    from collections.abc import Sequence
 
     arr = array(shape=(5,), itemsize=sizeof(char), format='c', mode='c')
-    for i in range(arr.shape[0]):
+    for i in 0..arr.shape[0]:
         arr[i] = f'{i}'.encode('ascii')
     print(arr.count(b'1'))  # test for presence of added collection method
     print(arr.index(b'1'))  # test for presence of added collection method
 
+    import sys
     if sys.version_info >= (3, 10):
         # test structural pattern match in Python
         # (because Cython hasn't implemented it yet, and because the details

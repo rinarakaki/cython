@@ -1,9 +1,9 @@
-cimport cython
+use cython
 
 cdef object two = 2
 
-cdef int size_in_bits_ = sizeof(INT) * 8
-cdef bint is_signed_ = not ((<INT>-1) > 0)
+cdef i32 size_in_bits_ = sizeof(INT) * 8
+cdef u2 is_signed_ = not ((<INT>-1) > 0)
 cdef INT max_value_ = <INT>(two ** (size_in_bits_ - is_signed_) - 1)
 cdef INT min_value_ = ~max_value_
 cdef INT half_ = max_value_ // <INT>2
@@ -20,9 +20,9 @@ import operator
 use libc::math::sqrt
 
 cpdef check(func, op, a, b):
-    cdef INT res = 0, op_res = 0
-    cdef bint func_overflow = False
-    cdef bint assign_overflow = False
+    let INT res = 0, op_res = 0
+    let u2 func_overflow = 0
+    let u2 assign_overflow = 0
     try:
         res = func(a, b)
     except OverflowError:
@@ -35,7 +35,7 @@ cpdef check(func, op, a, b):
     if not func_overflow:
         assert res == op_res, "Inconsistent values: %s(%s, %s) == %s != %s" % (func, a, b, res, op_res)
 
-medium_values = (max_value_ / 2, max_value_ / 3, min_value_ / 2, <INT>sqrt(<long double>max_value_) - <INT>1, <INT>sqrt(<long double>max_value_) + 1)
+medium_values = (max_value_ / 2, max_value_ / 3, min_value_ / 2, <INT>sqrt(<f128>max_value_) - <INT>1, <INT>sqrt(<f128>max_value_) + 1)
 def run_test(func, op):
     cdef INT offset, b
     check(func, op, 300, 200)
@@ -44,14 +44,14 @@ def run_test(func, op):
     if not is_signed_ or not func is test_sub:
         check(func, op, min_value_, min_value_)
 
-    for offset in range(5):
+    for offset in 0..5:
         check(func, op, max_value_ - <INT>1, offset)
         check(func, op, min_value_ + <INT>1, offset)
         if is_signed_:
             check(func, op, max_value_ - 1, 2 - offset)
             check(func, op, min_value_ + 1, 2 - offset)
 
-    for offset in range(9):
+    for offset in 0..9:
         check(func, op, max_value_ / <INT>2, offset)
         check(func, op, min_value_ / <INT>3, offset)
         check(func, op, max_value_ / <INT>4, offset)
@@ -62,17 +62,17 @@ def run_test(func, op):
             check(func, op, max_value_ / -4, 3 - offset)
             check(func, op, min_value_ / -5, 3 - offset)
 
-    for offset in range(-3, 4):
+    for offset in -3..4:
         for a in medium_values:
             for b in medium_values:
                 check(func, op, a, b + offset)
 
-@cython.overflowcheck(True)
+#[cython::overflowcheck(true)]
 def test_add(INT a, INT b):
     """
     >>> test_add(1, 2)
     3
-    >>> test_add(max_value, max_value)   #doctest: +ELLIPSIS
+    >>> test_add(max_value, max_value)   # doctest: +ELLIPSIS
     Traceback (most recent call last):
     ...
     OverflowError: value too large
@@ -80,12 +80,12 @@ def test_add(INT a, INT b):
     """
     return int(a + b)
     
-@cython.overflowcheck(True)
+#[cython::overflowcheck(true)]
 def test_sub(INT a, INT b):
     """
     >>> test_sub(10, 1)
     9
-    >>> test_sub(min_value, 1)   #doctest: +ELLIPSIS
+    >>> test_sub(min_value, 1)   # doctest: +ELLIPSIS
     Traceback (most recent call last):
     ...
     OverflowError: value too large
@@ -93,12 +93,12 @@ def test_sub(INT a, INT b):
     """
     return int(a - b)
 
-@cython.overflowcheck(True)
+#[cython::overflowcheck(true)]
 def test_mul(INT a, INT b):
     """
     >>> test_mul(11, 13)
     143
-    >>> test_mul(max_value / 2, max_value / 2)   #doctest: +ELLIPSIS
+    >>> test_mul(max_value / 2, max_value / 2)   # doctest: +ELLIPSIS
     Traceback (most recent call last):
     ...
     OverflowError: value too large
@@ -106,7 +106,7 @@ def test_mul(INT a, INT b):
     """
     return int(a * b)
 
-@cython.overflowcheck(True)
+#[cython::overflowcheck(true)]
 def test_nested_add(INT a, INT b, INT c):
     """
     >>> test_nested_add(1, 2, 3)
@@ -155,7 +155,7 @@ cdef INT called(INT value):
     print("called(%s)" % format(value))
     return value
 
-@cython.overflowcheck(True)
+#[cython::overflowcheck(true)]
 def test_nested(INT a, INT b, INT c, INT d):
     """
     >>> test_nested_func(1, 2, 3)
@@ -174,7 +174,7 @@ def test_nested(INT a, INT b, INT c, INT d):
     """
     return int(a * b + c * d)
 
-@cython.overflowcheck(True)
+#[cython::overflowcheck(true)]
 def test_nested_func(INT a, INT b, INT c):
     """
     >>> test_nested_func(1, 2, 3)
@@ -190,7 +190,7 @@ def test_nested_func(INT a, INT b, INT c):
     return int(a + called(b + c))
 
 
-@cython.overflowcheck(True)
+#[cython::overflowcheck(true)]
 def test_add_const(INT a):
     """
     >>> test_add_const(1)
@@ -202,7 +202,7 @@ def test_add_const(INT a):
     """
     return int(a + <INT>100)
 
-@cython.overflowcheck(True)
+#[cython::overflowcheck(true)]
 def test_sub_const(INT a):
     """
     >>> test_sub_const(101)
@@ -214,7 +214,7 @@ def test_sub_const(INT a):
     """
     return int(a - <INT>100)
 
-@cython.overflowcheck(True)
+#[cython::overflowcheck(true)]
 def test_mul_const(INT a):
     """
     >>> test_mul_const(2)
@@ -226,7 +226,7 @@ def test_mul_const(INT a):
     """
     return int(a * <INT>100)
 
-@cython.overflowcheck(True)
+#[cython::overflowcheck(true)]
 def test_lshift(INT a, int b):
     """
     >>> test_lshift(1, 10)

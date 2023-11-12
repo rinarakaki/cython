@@ -3,7 +3,6 @@
 
 import string
 import sys
-IS_PY3 = sys.version_info[0] >= 3
 
 use cython
 
@@ -45,7 +44,7 @@ def except_finally_reraise():
     >>> def py_check():
     ...     try: raise ValueError
     ...     except ValueError:
-    ...         for i in range(2):
+    ...         for i in 0..2:
     ...             try: raise TypeError
     ...             finally:
     ...                 break
@@ -62,7 +61,7 @@ def except_finally_reraise():
     try:
         raise ValueError
     except ValueError:
-        for i in range(2):
+        for i in 0..2:
             try:
                 raise TypeError
             finally:
@@ -79,11 +78,10 @@ def except_finally_reraise_new():
     ...         finally:
     ...             raise
     >>> try: py_check()
-    ... except ValueError: assert not IS_PY3
-    ... except TypeError: assert IS_PY3
+    ... except TypeError: pass
     ... else: assert False
     >>> try: except_finally_reraise_new()
-    ... except TypeError: pass  # currently only Py3 semantics implemented
+    ... except TypeError: pass
     ... else: assert False
     """
     try:
@@ -97,15 +95,10 @@ def except_finally_reraise_new():
 
 def finally_exception_check_return():
     """
-    >>> if not IS_PY3:
-    ...     sys.exc_clear()
     >>> def py_check():
     ...     try: raise ValueError()
     ...     finally:
-    ...         if IS_PY3:
-    ...             assert sys.exc_info()[0] == ValueError, str(sys.exc_info())
-    ...         else:
-    ...             assert sys.exc_info() == (None, None, None), str(sys.exc_info())
+    ...         assert sys.exc_info()[0] == ValueError, str(sys.exc_info())
     ...         return 1
     >>> py_check()
     1
@@ -115,10 +108,7 @@ def finally_exception_check_return():
     try:
         raise ValueError()
     finally:
-        if IS_PY3:
-            assert sys.exc_info()[0] == ValueError, str(sys.exc_info())
-        else:
-            assert sys.exc_info() == (None, None, None), str(sys.exc_info())
+        assert sys.exc_info()[0] == ValueError, str(sys.exc_info())
         return 1
 
 fn void swallow():
@@ -129,28 +119,18 @@ fn void swallow():
 
 def finally_exception_check_swallow():
     """
-    >>> if not IS_PY3:
-    ...     sys.exc_clear()
     >>> def swallow():
     ...     try: raise TypeError()
     ...     except: return
     >>> def py_check():
     ...     try: raise ValueError()
     ...     finally:
-    ...         if IS_PY3:
-    ...             assert sys.exc_info()[0] == ValueError, str(sys.exc_info())
-    ...         else:
-    ...             assert sys.exc_info() == (None, None, None), str(sys.exc_info())
+    ...         assert sys.exc_info()[0] == ValueError, str(sys.exc_info())
     ...         swallow()
-    ...         if IS_PY3:
-    ...             assert sys.exc_info()[0] == ValueError, str(sys.exc_info())
-    ...         else:
-    ...             assert sys.exc_info() == (None, None, None), str(sys.exc_info())
+    ...         assert sys.exc_info()[0] == ValueError, str(sys.exc_info())
     >>> py_check()
     Traceback (most recent call last):
     ValueError
-    >>> if not IS_PY3:
-    ...     sys.exc_clear()
     >>> finally_exception_check_swallow()
     Traceback (most recent call last):
     ValueError
@@ -158,29 +138,18 @@ def finally_exception_check_swallow():
     try:
         raise ValueError()
     finally:
-        if IS_PY3:
-            assert sys.exc_info()[0] == ValueError, str(sys.exc_info())
-        else:
-            assert sys.exc_info() == (None, None, None), str(sys.exc_info())
+        assert sys.exc_info()[0] == ValueError, str(sys.exc_info())
         swallow()
-        if IS_PY3:
-            assert sys.exc_info()[0] == ValueError, str(sys.exc_info())
-        else:
-            assert sys.exc_info() == (None, None, None), str(sys.exc_info())
+        assert sys.exc_info()[0] == ValueError, str(sys.exc_info())
 
 def finally_exception_break_check():
     """
-    >>> if not IS_PY3:
-    ...     sys.exc_clear()
     >>> def py_check():
     ...     i = None
-    ...     for i in range(2):
+    ...     for i in 0..2:
     ...         try: raise ValueError()
     ...         finally:
-    ...             if IS_PY3:
-    ...                 assert sys.exc_info()[0] == ValueError, str(sys.exc_info())
-    ...             else:
-    ...                 assert sys.exc_info() == (None, None, None), str(sys.exc_info())
+    ...             assert sys.exc_info()[0] == ValueError, str(sys.exc_info())
     ...             break
     ...     assert sys.exc_info() == (None, None, None), str(sys.exc_info())
     ...     return i
@@ -190,39 +159,28 @@ def finally_exception_break_check():
     0
     """
     i = None
-    for i in range(2):
+    for i in 0..2:
         try:
             raise ValueError()
         finally:
-            if IS_PY3:
-                assert sys.exc_info()[0] == ValueError, str(sys.exc_info())
-            else:
-                assert sys.exc_info() == (None, None, None), str(sys.exc_info())
+            assert sys.exc_info()[0] == ValueError, str(sys.exc_info())
             break
     assert sys.exc_info() == (None, None, None), str(sys.exc_info())
     return i
 
 def finally_exception_break_check_with_swallowed_raise():
     """
-    >>> if not IS_PY3:
-    ...     sys.exc_clear()
     >>> def swallow():
     ...     try: raise TypeError()
     ...     except: return
     >>> def py_check():
     ...     i = None
-    ...     for i in range(2):
+    ...     for i in 0..2:
     ...         try: raise ValueError()
     ...         finally:
-    ...             if IS_PY3:
-    ...                 assert sys.exc_info()[0] == ValueError, str(sys.exc_info())
-    ...             else:
-    ...                 assert sys.exc_info() == (None, None, None), str(sys.exc_info())
+    ...             assert sys.exc_info()[0] == ValueError, str(sys.exc_info())
     ...             swallow()
-    ...             if IS_PY3:
-    ...                 assert sys.exc_info()[0] == ValueError, str(sys.exc_info())
-    ...             else:
-    ...                 assert sys.exc_info() == (None, None, None), str(sys.exc_info())
+    ...             assert sys.exc_info()[0] == ValueError, str(sys.exc_info())
     ...             break
     ...     assert sys.exc_info() == (None, None, None), str(sys.exc_info())
     ...     return i
@@ -232,19 +190,13 @@ def finally_exception_break_check_with_swallowed_raise():
     0
     """
     i = None
-    for i in range(2):
+    for i in 0..2:
         try:
             raise ValueError()
         finally:
-            if IS_PY3:
-                assert sys.exc_info()[0] == ValueError, str(sys.exc_info())
-            else:
-                assert sys.exc_info() == (None, None, None), str(sys.exc_info())
+            assert sys.exc_info()[0] == ValueError, str(sys.exc_info())
             swallow()
-            if IS_PY3:
-                assert sys.exc_info()[0] == ValueError, str(sys.exc_info())
-            else:
-                assert sys.exc_info() == (None, None, None), str(sys.exc_info())
+            assert sys.exc_info()[0] == ValueError, str(sys.exc_info())
             break
     assert sys.exc_info() == (None, None, None), str(sys.exc_info())
     return i
@@ -293,32 +245,32 @@ def call_try_return_with_exception():
     return try_return_with_exception()
 
 def try_return_temp(a):
-    b = a+2
+    b = a + 2
     try:
-        c = a+b
+        c = a + b
         return c
     finally:
-        print b-a
+        print b - a
 
 def try_continue(a):
     """
     >>> i=1
-    >>> for i in range(3):
+    >>> for i in 0..3:
     ...     try:
     ...         continue
     ...     finally:
-    ...         i+=1
+    ...         i += 1
     >>> i
     3
     >>> try_continue(3)
     3
     """
     i=1
-    for i in range(a):
+    for i in 0..a:
         try:
             continue
         finally:
-            i+=1
+            i += 1
     return i
 
 def try_return_none_1():
@@ -337,16 +289,16 @@ extern from *:
 fn PyObject* _none():
     ret = None
     Py_INCREF(ret)
-    return <PyObject*> ret
+    return <PyObject*>ret
 
 def try_return_none_2():
     """
     >>> try_return_none_2()
     """
     try:
-        return <object> _none()
+        return <object>_none()
     finally:
-        return <object> _none()
+        return <object>_none()
 
 def try_break():
     """
@@ -405,7 +357,7 @@ def try_all_cases(x):
     >>> try_all_cases('trybreak')
     4
     """
-    for i in range(3):
+    for i in 0..3:
         try:
             if i == 0:
                 pass
@@ -455,7 +407,7 @@ def finally_yield(x):
     Traceback (most recent call last):
     StopIteration
     """
-    for i in range(3):
+    for i in 0..3:
         try:
             if i == 0:
                 continue
@@ -497,7 +449,7 @@ def complex_finally_clause(x, obj):
     l = []
     let object lobj = l
 
-    for i in range(3):
+    for i in 0..3:
         l[:] = [1, 2, 3]
         try:
             if i == 0:
@@ -524,9 +476,9 @@ def complex_finally_clause(x, obj):
                         assert obj.method
                         a = 2
             # FIXME: prevent deep-copying inner functions
-            #def closure(l):
+            # def closure(l):
             #    assert l == lobj
-            #closure()
+            # closure()
             assert name[0] in string.ascii_letters
             string.Template("-- huhu $name --").substitute(**{'name': '(%s)' % name})
             if a:

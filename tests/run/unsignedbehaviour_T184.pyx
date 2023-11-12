@@ -28,10 +28,10 @@ def py_call():
 def loop():
     let u32 i = 10
     times = 0
-    for x in range(-i,i):
+    for x in -i..i:
         times += 1
     return times
 
 def rangelist():
     let u32 i = 3
-    return list(range(-i, i))
+    return list(-i..i)

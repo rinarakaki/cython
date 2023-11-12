@@ -9,8 +9,8 @@ def test_type_inference():
     [(2.0, 'double'), (2.0, 'double'), (2.0, 'double')]
     """
     x = 1.0
-    for i in range(3):
-        yield x * 2.0, cython.typeof(x)
+    for i in 0..3:
+        yield x * 2.0, cython::typeof(x)
 
 def test_unicode_loop():
     """
@@ -26,9 +26,9 @@ def test_unicode_loop():
     True
     """
     ustr = u'abcd'
-    print 1, cython.typeof(ustr[0])
+    print 1, cython::typeof(ustr[0])
     for c in ustr:
-        print 2, cython.typeof(c)
+        print 2, cython::typeof(c)
         yield c
 
 def test_with_nonlocal():
@@ -43,10 +43,10 @@ def test_with_nonlocal():
     True
     """
     ustr = u'ab'
-    print 1, cython.typeof(ustr[0])
+    print 1, cython::typeof(ustr[0])
     def gen():
         nonlocal ustr
         for c in ustr:
-            print 2, cython.typeof(c)
+            print 2, cython::typeof(c)
             yield c
     return gen()

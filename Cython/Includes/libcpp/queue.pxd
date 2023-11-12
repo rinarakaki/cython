@@ -2,9 +2,9 @@ extern from "<queue>" namespace "std" nogil:
     cdef cppclass queue[T]:
         queue() except +
         queue(queue&) except +
-        #queue(Container&)
+        # queue(Container&)
         T& back()
-        bint empty()
+        u2 empty()
         T& front()
         void pop()
         void push(T&)
@@ -15,8 +15,8 @@ extern from "<queue>" namespace "std" nogil:
     cdef cppclass priority_queue[T]:
         priority_queue() except +
         priority_queue(priority_queue&) except +
-        #priority_queue(Container&)
-        bint empty()
+        # priority_queue(Container&)
+        u2 empty()
         void pop()
         void push(T&)
         usize size()

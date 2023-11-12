@@ -144,7 +144,7 @@ def test_ptr_literal_list_slice_end():
     return (a[0], a[1], a[2], a[3], a[4])
 
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     '//ReturnStatNode//CoerceToPyTypeNode'
 )
 def test_starred_from_array():
@@ -162,11 +162,11 @@ def test_starred_from_array():
     return x, y, z
 
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     '//ParallelAssignmentNode//CoerceToPyTypeNode',
     '//ParallelAssignmentNode//CoerceFromPyTypeNode',
 )
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     '//ParallelAssignmentNode',
     '//ReturnStatNode//CoerceToPyTypeNode'
 )
@@ -183,10 +183,10 @@ def test_multiple_from_array():
     return x, y, z
 
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     '//ParallelAssignmentNode//CoerceToPyTypeNode'
 )
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     '//ParallelAssignmentNode',
     '//ReturnStatNode//CoerceToPyTypeNode'
 )
@@ -203,10 +203,10 @@ def test_multiple_from_array_full_slice():
     return x, y, z
 
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     '//ParallelAssignmentNode//CoerceToPyTypeNode'
 )
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     '//ParallelAssignmentNode',
     '//ReturnStatNode//CoerceToPyTypeNode'
 )
@@ -365,9 +365,9 @@ def assign_slice_from_shorter_array():
 
 
 cdef enum:
-    SIZE = 2
+    Size = 2
 
-ctypedef i32[SIZE] int_array_dyn
+ctypedef i32[Size] int_array_dyn
 
 
 def assign_ptr_to_unknown_csize():
