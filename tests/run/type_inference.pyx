@@ -468,8 +468,8 @@ fn object some_float_value():
     return 2.0
 
 #[infer_types(None)]
-#[cython.test_fail_if_path_exists("//DefNode//NameNode[@type.is_pyobject = true]")]
-#[cython.test_assert_path_exists("//DefNode//NameNode[@type.is_pyobject]",
+#[cython::test_fail_if_path_exists("//DefNode//NameNode[@type.is_pyobject = true]")]
+#[cython::test_assert_path_exists("//DefNode//NameNode[@type.is_pyobject]",
                                  "//DefNode//NameNode[@type.is_pyobject = false]")]
 def double_loop():
     """
@@ -672,7 +672,7 @@ def with_statement():
     print(typeof(x))
     return x
 
-#[cython.final]
+#[cython::final]
 cdef class TypedContextManager(object):
     cpdef double __enter__(self):
         return 2.0

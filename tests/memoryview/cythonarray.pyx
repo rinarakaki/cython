@@ -59,8 +59,8 @@ def acquire():
             array(shape=(10,10), itemsize=sizeof(i32), format='i')
     let object[u64, ndim=3, mode='fortran'] buf3d = \
             array(shape=(1, 2, 3), itemsize=sizeof(u64), format='L', mode='fortran')
-    let object[long double, ndim=3, mode='fortran'] bufld = \
-            array(shape=(1, 2, 3), itemsize=sizeof(long double), format='g', mode='fortran')
+    let object[f128, ndim=3, mode='fortran'] bufld = \
+            array(shape=(1, 2, 3), itemsize=sizeof(f128), format='g', mode='fortran')
 
 def full_or_strided():
     '''

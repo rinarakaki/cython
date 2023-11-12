@@ -308,7 +308,7 @@ extern from "numpy/arrayobject.h":
 
     ctypedef f32         npy_float
     ctypedef f64         npy_double
-    ctypedef long double npy_longdouble
+    ctypedef f128 npy_longdouble
 
     ctypedef i8   npy_int8
     ctypedef i16  npy_int16
@@ -326,9 +326,9 @@ extern from "numpy/arrayobject.h":
 
     ctypedef f32         npy_float32
     ctypedef f64         npy_float64
-    ctypedef long double npy_float80
-    ctypedef long double npy_float96
-    ctypedef long double npy_float128
+    ctypedef f128 npy_float80
+    ctypedef f128 npy_float96
+    ctypedef f128 npy_float128
 
     struct npy_cfloat:
         f64 real
@@ -339,8 +339,8 @@ extern from "numpy/arrayobject.h":
         f64 imag
 
     struct npy_clongdouble:
-        long double real
-        long double imag
+        f128 real
+        f128 imag
 
     struct npy_complex64:
         f32 real
@@ -351,16 +351,16 @@ extern from "numpy/arrayobject.h":
         f64 imag
 
     struct npy_complex160:
-        long double real
-        long double imag
+        f128 real
+        f128 imag
 
     struct npy_complex192:
-        long double real
-        long double imag
+        f128 real
+        f128 imag
 
     struct npy_complex256:
-        long double real
-        long double imag
+        f128 real
+        f128 imag
 
     struct PyArray_Dims:
         npy_intp *ptr
@@ -750,8 +750,8 @@ ctypedef npy_float64    float64_t
 # ctypedef npy_float80    float80_t
 # ctypedef npy_float128   float128_t
 
-ctypedef float complex  complex64_t
-ctypedef double complex complex128_t
+ctypedef c64 complex64_t
+ctypedef c128 complex128_t
 
 ctypedef npy_longlong   longlong_t
 

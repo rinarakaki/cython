@@ -320,8 +320,8 @@ cdef class NestedPackedStructMockBuffer(MockBuffer):
     fn get_default_format(self): return b"ci^ci@i"
 
 struct LongComplex:
-    long double real
-    long double imag
+    f128 real
+    f128 imag
 
 cdef class LongComplexMockBuffer(MockBuffer):
     fn i32 write(self, char* buf, object value) except -1:

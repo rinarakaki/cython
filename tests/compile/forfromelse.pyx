@@ -8,7 +8,7 @@ fn void spam():
         k = j
 
     # new syntax
-    for 0 <= i < 10:
+    for i in 0..10:
         j = i
     else:
         j = k
