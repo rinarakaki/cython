@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 """
 Translate the byte code of a Python function into the corresponding
 sequences of C code in CPython's "ceval.c".
@@ -14,7 +12,7 @@ from dis import get_instructions  # requires Python 3.4+
 
 # collapse some really boring byte codes
 _COLLAPSE = {'NOP', 'LOAD_CONST', 'POP_TOP', 'JUMP_FORWARD'}
-#_COLLAPSE.clear()
+# _COLLAPSE.clear()
 
 _is_start = re.compile(r"\s* switch \s* \( opcode \)", re.VERBOSE).match
 # Py3: TARGET(XX), Py2: case XX

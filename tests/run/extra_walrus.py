@@ -22,7 +22,7 @@ def optimized(x):
 
 # FIXME: currently broken; GH-4146
 # Changing x in the assignment expression should not affect the value used on the right-hand side
-#def order(x):
+# def order(x):
 #    """
 #    >>> order(5)
 #    15

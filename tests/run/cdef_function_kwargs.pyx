@@ -269,7 +269,7 @@ cdef class ExtType:
         print self.optargs()
         print self.optargs(3)
         print self.optargs(a=3)
-        #print self.optargs(b=4)
+        # print self.optargs(b=4)
         print "EXT"
         print ext.optargs(3, 4)
         print ext.optargs(3,b=4)
@@ -277,7 +277,7 @@ cdef class ExtType:
         print ext.optargs()
         print ext.optargs(3)
         print ext.optargs(a=3)
-        #print ext.optargs(b=4)
+        # print ext.optargs(b=4)
 
     cpdef cpmeth_optargs(self, a=1, b=2):
         return (a, b)
@@ -308,7 +308,7 @@ cdef class ExtType:
         print self.cpmeth_optargs()
         print self.cpmeth_optargs(3)
         print self.cpmeth_optargs(a=3)
-        #print self.cpmeth_optargs(b=4)
+        # print self.cpmeth_optargs(b=4)
         print "EXT"
         print ext.cpmeth_optargs(3, 4)
         print ext.cpmeth_optargs(3,b=4)
@@ -316,7 +316,7 @@ cdef class ExtType:
         print ext.cpmeth_optargs()
         print ext.cpmeth_optargs(3)
         print ext.cpmeth_optargs(a=3)
-        #print ext.cpmeth_optargs(b=4)
+        # print ext.cpmeth_optargs(b=4)
 
     cpdef cpmeth_optargs1(self, a=1):
         return a

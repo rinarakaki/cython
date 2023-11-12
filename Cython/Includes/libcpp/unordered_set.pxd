@@ -39,7 +39,7 @@ extern from "<unordered_set>" namespace "std" nogil:
 
         unordered_set() except +
         unordered_set(unordered_set&) except +
-        #unordered_set& operator=(unordered_set&)
+        # unordered_set& operator=(unordered_set&)
         fn u2 operator==(unordered_set&, unordered_set&)
         fn u2 operator!=(unordered_set&, unordered_set&)
         iterator begin()

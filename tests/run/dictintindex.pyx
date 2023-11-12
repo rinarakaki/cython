@@ -187,7 +187,7 @@ def test_del_int():
 
 def test_del_uint():
     """
-    >>> test_del_uint()  #doctest: +ELLIPSIS
+    >>> test_del_uint()  # doctest: +ELLIPSIS
     Traceback (most recent call last):
     KeyError: 0...
     """
@@ -198,7 +198,7 @@ def test_del_uint():
 
 def test_del_longlong():
     """
-    >>> test_del_longlong() #doctest: +ELLIPSIS
+    >>> test_del_longlong() # doctest: +ELLIPSIS
     Traceback (most recent call last):
     KeyError: 0...
     """
@@ -209,7 +209,7 @@ def test_del_longlong():
 
 def test_del_ulonglong():
     """
-    >>> test_del_ulonglong() #doctest: +ELLIPSIS
+    >>> test_del_ulonglong() # doctest: +ELLIPSIS
     Traceback (most recent call last):
     KeyError: 0...
     """
@@ -220,7 +220,7 @@ def test_del_ulonglong():
 
 def test_del_longlong_big():
     """
-    >>> test_del_longlong_big() #doctest: +ELLIPSIS
+    >>> test_del_longlong_big() # doctest: +ELLIPSIS
     Traceback (most recent call last):
     KeyError: ...
     """
@@ -233,7 +233,7 @@ def test_del_longlong_big():
 
 def test_del_ulonglong_big():
     """
-    >>> test_del_ulonglong_big() #doctest: +ELLIPSIS
+    >>> test_del_ulonglong_big() # doctest: +ELLIPSIS
     Traceback (most recent call last):
     KeyError: ...
     """

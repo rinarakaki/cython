@@ -55,7 +55,7 @@ def for_in_break2(data, avoid):
     """
     data_iter = iter(data)
     value = None
-    while 1:
+    loop:
         match = next(data_iter)
         if match is None:
             break

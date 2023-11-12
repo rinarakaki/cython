@@ -1,4 +1,3 @@
-#!/usr/bin/python3
 # cython: language_level=3
 # micro benchmarks for coroutines
 

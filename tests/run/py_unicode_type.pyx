@@ -59,13 +59,13 @@ def unicode_ordinal(Py_UNICODE i):
     True
 
     Value too small:
-    >>> unicode_ordinal(-1) #doctest: +ELLIPSIS
+    >>> unicode_ordinal(-1) # doctest: +ELLIPSIS
     Traceback (most recent call last):
     ...
     OverflowError: ...
 
     Value too large:
-    >>> unicode_ordinal(sys.maxunicode+1) #doctest: +ELLIPSIS
+    >>> unicode_ordinal(sys.maxunicode+1) # doctest: +ELLIPSIS
     Traceback (most recent call last):
     ...
     OverflowError: ...

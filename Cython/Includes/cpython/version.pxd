@@ -13,14 +13,14 @@
 
 extern from *:
     # the complete version, e.g. 0x010502B2 == 1.5.2b2
-    i32 PY_VERSION_HEX
+    static i32 PY_VERSION_HEX
 
     # the individual sections as plain numbers
-    i32 PY_MAJOR_VERSION
-    i32 PY_MINOR_VERSION
-    i32 PY_MICRO_VERSION
-    i32 PY_RELEASE_LEVEL
-    i32 PY_RELEASE_SERIAL
+    static i32 PY_MAJOR_VERSION
+    static i32 PY_MINOR_VERSION
+    static i32 PY_MICRO_VERSION
+    static i32 PY_RELEASE_LEVEL
+    static i32 PY_RELEASE_SERIAL
 
     # Note: PY_RELEASE_LEVEL is one of
     #    0xA (alpha)
@@ -28,5 +28,5 @@ extern from *:
     #    0xC (release candidate)
     #    0xF (final)
 
-    char PY_VERSION[]
-    char PY_PATCHLEVEL_REVISION[]
+    static char PY_VERSION[]
+    static char PY_PATCHLEVEL_REVISION[]

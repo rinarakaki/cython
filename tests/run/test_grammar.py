@@ -1,4 +1,4 @@
-### COPIED FROM CPython 3.9 - ADDED PART FOLLOWS ###
+# ## COPIED FROM CPython 3.9 - ADDED PART FOLLOWS #
 # cython: language_level=3
 
 import cython
@@ -91,12 +91,12 @@ if not hasattr(unittest, 'skip'):
 skip = unittest.skip
 
 
-### END OF CYTHON ADDED PART - COPIED PART FOLLOWS ###
+# ## END OF CYTHON ADDED PART - COPIED PART FOLLOWS #
 
 # Python test set -- part 1, grammar.
 # This just tests whether the parser accepts them all.
 
-#from test.support import check_syntax_error, check_syntax_warning, use_old_parser
+# from test.support import check_syntax_error, check_syntax_warning, use_old_parser
 import inspect
 import unittest
 import sys
@@ -106,11 +106,11 @@ from sys import *
 
 # different import patterns to check that __annotations__ does not interfere
 # with import machinery
-#import test.ann_module as ann_module
-#import typing
-#from collections import ChainMap
-#from test import ann_module2
-#import test
+# import test.ann_module as ann_module
+# import typing
+# from collections import ChainMap
+# from test import ann_module2
+# import test
 
 # These are shared with test_tokenize and other test modules.
 #
@@ -196,7 +196,7 @@ INVALID_UNDERSCORE_LITERALS = [
 
 class TokenTests(unittest.TestCase):
 
-    #from test.support import check_syntax_error
+    # from test.support import check_syntax_error
     check_syntax_error = check_syntax_error
 
     def test_backslash(self):
@@ -353,7 +353,7 @@ the \'lazy\' dog.\n\
         x = ...
         self.assertTrue(x is Ellipsis)
         # FIXME: why is this not rejected ???
-        #self.assertRaises(SyntaxError, eval, ".. .")
+        # self.assertRaises(SyntaxError, eval, ".. .")
 
     def test_eof_error(self):
         samples = ("def foo(", "\ndef foo(", "def foo(\n")
@@ -377,7 +377,7 @@ class CNS:
 
 class GrammarTests(unittest.TestCase):
 
-    #from test.support import check_syntax_error, check_syntax_warning
+    # from test.support import check_syntax_error, check_syntax_warning
     check_syntax_error, check_syntax_warning = check_syntax_error, check_syntax_warning
 
     if not hasattr(unittest.TestCase, 'subTest'):
@@ -582,18 +582,18 @@ class GrammarTests(unittest.TestCase):
         self.assertEqual(ns['x'], (1, 2, 3, 4, 5))
 
     def test_funcdef(self):
-        ### [decorators] 'def' NAME parameters ['->' test] ':' suite
-        ### decorator: '@' namedexpr_test NEWLINE
-        ### decorators: decorator+
-        ### parameters: '(' [typedargslist] ')'
-        ### typedargslist: ((tfpdef ['=' test] ',')*
-        ###                ('*' [tfpdef] (',' tfpdef ['=' test])* [',' '**' tfpdef] | '**' tfpdef)
-        ###                | tfpdef ['=' test] (',' tfpdef ['=' test])* [','])
-        ### tfpdef: NAME [':' test]
-        ### varargslist: ((vfpdef ['=' test] ',')*
-        ###              ('*' [vfpdef] (',' vfpdef ['=' test])*  [',' '**' vfpdef] | '**' vfpdef)
-        ###              | vfpdef ['=' test] (',' vfpdef ['=' test])* [','])
-        ### vfpdef: NAME
+        # [decorators] 'def' NAME parameters ['->' test] ':' suite
+        # decorator: '@' namedexpr_test NEWLINE
+        # decorators: decorator+
+        # parameters: '(' [typedargslist] ')'
+        # typedargslist: ((tfpdef ['=' test] ',')*
+        #                ('*' [tfpdef] (',' tfpdef ['=' test])* [',' '**' tfpdef] | '**' tfpdef)
+        #                | tfpdef ['=' test] (',' tfpdef ['=' test])* [','])
+        # tfpdef: NAME [':' test]
+        # varargslist: ((vfpdef ['=' test] ',')*
+        #              ('*' [vfpdef] (',' vfpdef ['=' test])*  [',' '**' vfpdef] | '**' vfpdef)
+        #              | vfpdef ['=' test] (',' vfpdef ['=' test])* [','])
+        # vfpdef: NAME
         def f1(): pass
         f1()
         f1(*())
@@ -723,9 +723,9 @@ class GrammarTests(unittest.TestCase):
         pos2key2dict(1,2,tokwarg1=100,tokwarg2=200, k2=100)
 
         # FIXME: currently does not raise an error
-        #self.assertRaises(SyntaxError, eval, "def f(*): pass")
-        #self.assertRaises(SyntaxError, eval, "def f(*,): pass")
-        #self.assertRaises(SyntaxError, eval, "def f(*, **kwds): pass")
+        # self.assertRaises(SyntaxError, eval, "def f(*): pass")
+        # self.assertRaises(SyntaxError, eval, "def f(*,): pass")
+        # self.assertRaises(SyntaxError, eval, "def f(*, **kwds): pass")
 
         # keyword arguments after *arglist
         def f(*args, **kwargs):
@@ -835,7 +835,7 @@ class GrammarTests(unittest.TestCase):
         def f(a, *, b, **kwds,): pass
 
     def test_lambdef(self):
-        ### lambdef: 'lambda' [varargslist] ':' test
+        # lambdef: 'lambda' [varargslist] ':' test
         l1 = lambda : 0
         self.assertEqual(l1(), 0)
         l2 = lambda : a[d]  # XXX just testing the expression
@@ -870,18 +870,18 @@ class GrammarTests(unittest.TestCase):
         l24 = lambda a, *, b, **kwds,: 0
 
 
-    ### stmt: simple_stmt | compound_stmt
+    # stmt: simple_stmt | compound_stmt
     # Tested below
 
     def test_simple_stmt(self):
-        ### simple_stmt: small_stmt (';' small_stmt)* [';']
+        # simple_stmt: small_stmt (';' small_stmt)* [';']
         x = 1; pass; del x
         def foo():
             # verify statements that end with semi-colons
             x = 1; pass; del x;
         foo()
 
-    ### small_stmt: expr_stmt | pass_stmt | del_stmt | flow_stmt | import_stmt | global_stmt | access_stmt
+    # small_stmt: expr_stmt | pass_stmt | del_stmt | flow_stmt | import_stmt | global_stmt | access_stmt
     # Tested below
 
     def test_expr_stmt(self):
@@ -915,12 +915,12 @@ class GrammarTests(unittest.TestCase):
             for case in cases:
                 source = case.format(keyword)
                 with self.subTest(source=source):
-                    #with self.assertRaisesRegex(SyntaxError, custom_msg):
+                    # with self.assertRaisesRegex(SyntaxError, custom_msg):
                     with self.assertRaises(SyntaxError):
                         exec(source)
                 source = source.replace("foo", "(foo.)")
                 with self.subTest(source=source):
-                    #with self.assertRaisesRegex(SyntaxError, "invalid syntax"):
+                    # with self.assertRaisesRegex(SyntaxError, "invalid syntax"):
                     with self.assertRaises(SyntaxError):
                         exec(source)
 
@@ -949,7 +949,7 @@ class GrammarTests(unittest.TestCase):
         del abcd[1:2]
 
         # FIXME: currently fails to compile
-        #compile("del a, (b[0].c, (d.e, f.g[1:2])), [h.i.j], ()", "<testcase>", "exec")
+        # compile("del a, (b[0].c, (d.e, f.g[1:2])), [h.i.j], ()", "<testcase>", "exec")
 
     def test_pass_stmt(self):
         # 'pass'
@@ -1248,7 +1248,7 @@ class GrammarTests(unittest.TestCase):
         check_syntax_error(self, "class foo:yield 1")
         check_syntax_error(self, "class foo:yield from ()")
         # Check annotation refleak on SyntaxError
-        #check_syntax_error(self, "def g(a:(yield)): pass")  # no longer a syntax error with PEP-563
+        # check_syntax_error(self, "def g(a:(yield)): pass")  # no longer a syntax error with PEP-563
 
     @skip("Not currently a syntax error")
     def test_yield_in_comprehensions(self):
@@ -1357,7 +1357,7 @@ class GrammarTests(unittest.TestCase):
         """
 
 
-    ### compound_stmt: if_stmt | while_stmt | for_stmt | try_stmt | funcdef | classdef
+    # compound_stmt: if_stmt | while_stmt | for_stmt | try_stmt | funcdef | classdef
     # Tested below
 
     def test_if(self):
@@ -1416,9 +1416,9 @@ class GrammarTests(unittest.TestCase):
         self.assertEqual(result, [1, 2, 3])
 
     def test_try(self):
-        ### try_stmt: 'try' ':' suite (except_clause ':' suite)+ ['else' ':' suite]
-        ###         | 'try' ':' suite 'finally' ':' suite
-        ### except_clause: 'except' [expr ['as' NAME]]
+        # try_stmt: 'try' ':' suite (except_clause ':' suite)+ ['else' ':' suite]
+        #         | 'try' ':' suite 'finally' ':' suite
+        # except_clause: 'except' [expr ['as' NAME]]
         try:
             1/0
         except ZeroDivisionError:
@@ -1456,9 +1456,9 @@ class GrammarTests(unittest.TestCase):
             #
 
     def test_test(self):
-        ### and_test ('or' and_test)*
-        ### and_test: not_test ('and' not_test)*
-        ### not_test: 'not' not_test | comparison
+        # and_test ('or' and_test)*
+        # and_test: not_test ('and' not_test)*
+        # not_test: 'not' not_test | comparison
         if not 1: pass
         if 1 and 1: pass
         if 1 or 1: pass
@@ -1467,8 +1467,8 @@ class GrammarTests(unittest.TestCase):
         if 1 and 1 or 1 and 1 and 1 or not 1 and 1: pass
 
     def test_comparison(self):
-        ### comparison: expr (comp_op expr)*
-        ### comp_op: '<'|'>'|'=='|'>='|'<='|'!='|'in'|'not' 'in'|'is'|'is' 'not'
+        # comparison: expr (comp_op expr)*
+        # comp_op: '<'|'>'|'=='|'>='|'<='|'!='|'in'|'not' 'in'|'is'|'is' 'not'
         if 1: pass
         x = (1 == 1)
         if 1 == 1: pass
@@ -1618,8 +1618,8 @@ class GrammarTests(unittest.TestCase):
         x = -1*1/1 + 1*1 - ---1*1
 
     def test_selectors(self):
-        ### trailer: '(' [testlist] ')' | '[' subscript ']' | '.' NAME
-        ### subscript: expr | [expr] ':' [expr]
+        # trailer: '(' [testlist] ')' | '[' subscript ']' | '.' NAME
+        # subscript: expr | [expr] ':' [expr]
 
         import sys, time
         c = sys.path[0]
@@ -1648,8 +1648,8 @@ class GrammarTests(unittest.TestCase):
         self.assertEqual(str(L), '[1, (1,), (1, 2), (1, 2, 3)]')
 
     def test_atoms(self):
-        ### atom: '(' [testlist] ')' | '[' [testlist] ']' | '{' [dictsetmaker] '}' | NAME | NUMBER | STRING
-        ### dictsetmaker: (test ':' test (',' test ':' test)* [',']) | (test (',' test)* [','])
+        # atom: '(' [testlist] ')' | '[' [testlist] ']' | '{' [dictsetmaker] '}' | NAME | NUMBER | STRING
+        # dictsetmaker: (test ':' test (',' test ':' test)* [',']) | (test (',' test)* [','])
 
         x = (1)
         x = (1 or 2 or 3)
@@ -1678,8 +1678,8 @@ class GrammarTests(unittest.TestCase):
         x = 'x'
         x = 123
 
-    ### exprlist: expr (',' expr)* [',']
-    ### testlist: test (',' test)* [',']
+    # exprlist: expr (',' expr)* [',']
+    # testlist: test (',' test)* [',']
     # These have been exercised enough above
 
     def test_classdef(self):
@@ -1919,7 +1919,7 @@ class GrammarTests(unittest.TestCase):
             return ret
 
         # the next line is not allowed anymore
-        #self.assertEqual([ x() for x in lambda: True, lambda: False if x() ], [True])
+        # self.assertEqual([ x() for x in lambda: True, lambda: False if x() ], [True])
         self.assertEqual([ x() for x in (lambda: True, lambda: False) if x() ], [True])
         self.assertEqual([ x(False) for x in (lambda x: False if x else True, lambda x: True if x else False) if x(False) ], [True])
         self.assertEqual((5 if 1 else _checkeval("check 1", 0)), 5)
@@ -1970,7 +1970,7 @@ class GrammarTests(unittest.TestCase):
                 await someobj()
 
         self.assertEqual(test.__name__, 'test')
-        #self.assertTrue(bool(test.__code__.co_flags & inspect.CO_COROUTINE))
+        # self.assertTrue(bool(test.__code__.co_flags & inspect.CO_COROUTINE))
 
         def decorator(func):
             setattr(func, '_marked', True)
@@ -1981,7 +1981,7 @@ class GrammarTests(unittest.TestCase):
             return 22
         self.assertTrue(test2._marked)
         self.assertEqual(test2.__name__, 'test2')
-        #self.assertTrue(bool(test2.__code__.co_flags & inspect.CO_COROUTINE))
+        # self.assertTrue(bool(test2.__code__.co_flags & inspect.CO_COROUTINE))
 
     def test_async_for(self):
         class Done(Exception): pass

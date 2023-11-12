@@ -41,11 +41,11 @@ def sub(string):
     return subu(string)
 
 
-#cdef class csubu(unicode):
+# cdef class csubu(unicode):
 #    pass
 
 
-#def csub(string):
+# def csub(string):
 #    return csubu(string)
 
 

@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 
 __doc__ = u"""
-#>>> a
-#Traceback (most recent call last):
-#NameError: name 'a' is not defined
-#>>> test_module_scope()
-#>>> a
+# >>> a
+# Traceback (most recent call last):
+# NameError: name 'a' is not defined
+# >>> test_module_scope()
+# >>> a
 """
 
-#def test_module_scope():
+# def test_module_scope():
 #    exec "a=1+1"
 #    return __dict__['a']
 

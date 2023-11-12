@@ -161,8 +161,8 @@ class Plugin(CoveragePlugin):
 
     def file_reporter(self, filename):
         # TODO: let coverage.py handle .py files itself
-        #ext = os.path.splitext(filename)[1].lower()
-        #if ext == '.py':
+        # ext = os.path.splitext(filename)[1].lower()
+        # if ext == '.py':
         #    from coverage.python import PythonFileReporter
         #    return PythonFileReporter(filename)
 
