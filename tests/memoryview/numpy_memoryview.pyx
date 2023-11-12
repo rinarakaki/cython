@@ -675,8 +675,8 @@ def test_refcount_GH507():
     >>> test_refcount_GH507()
     """
     a = np.arange(12).reshape([3, 4])
-    let np.int_t[:, :] a_view = a
-    let np.int_t[:, :] b = a_view[1:2, :].T
+    let np.npy_long[:, :] a_view = a
+    let np.npy_long[:, :] b = a_view[1:2, :].T
 
 
 #[cython.boundscheck(false)]
