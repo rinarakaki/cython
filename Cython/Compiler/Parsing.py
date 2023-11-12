@@ -2448,7 +2448,7 @@ def p_statement(s, ctx, first_statement = 0):
         s.level = ctx.level
         decorators = p_attributes(s)
 
-    if s.sy == "type":
+    if s.systring == "type":
         if ctx.level not in ("module", "module_pxd"):
             s.error("type statement not allowed here")
         return p_type_statement(s, ctx)
@@ -3135,7 +3135,7 @@ def p_c_simple_declarator(s, ctx, empty, is_type, cmethod_flag,
                 s.next()
                 rhs = p_test(s)
         else:
-            if s.sy == "type":
+            if s.systring == "type":
                 print("!!!!!!!!!!!!! p_c_simple_declarator !!!!!!!!!!!!!")
                 print(s.sy, pos)
             if nonempty:
@@ -3685,7 +3685,7 @@ def p_c_func_or_var_declaration(s, pos, ctx):
     return result
 
 def p_type_statement(s, ctx):
-    # s.sy == "type"
+    # s.systring == "type"
     pos = s.position()
     s.next()
     visibility = p_visibility(s, ctx.visibility)
@@ -3950,7 +3950,7 @@ def p_c_class_options(s):
         if s.systring == 'object':
             s.next()
             objstruct_name = p_ident(s)
-        elif s.sy == "type":
+        elif s.systring == "type":
             s.next()
             typeobj_name = p_ident(s)
         elif s.systring == 'check_size':
