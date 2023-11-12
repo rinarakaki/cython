@@ -457,12 +457,12 @@ class PyrexScanner(Scanner):
                     self.keywords.pop('exec', None)
                 else:
                     sy = self.keywords[systring]  # intern
+            elif systring.startswith("r#"):
+                systring = systring[2:]
             systring = self.context.intern_ustring(systring)
         if self.put_back_on_failure is not None:
             self.put_back_on_failure.append((sy, systring, self.position()))
         self.sy = sy
-        if systring.startswith("r#"):
-            systring = systring[2:]
         self.systring = systring
         if False:  # debug_scanner:
             _, line, col = self.position()
@@ -519,7 +519,7 @@ class PyrexScanner(Scanner):
             self.error(message)
         else:
             if self.sy == IDENT:
-                found = "IDENT '%s'" % self.systring
+                found = "'IDENT' ('%s')" % self.systring
             else:
                 found = "'%s'" % self.sy
             self.error("Expected '%s', found %s" % (what, found))
