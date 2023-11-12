@@ -1297,7 +1297,7 @@ def const_nested_packed_struct(const NestedPackedStruct[:] buf):
     print buf[0].a, buf[0].b, buf[0].sub.a, buf[0].sub.b, buf[0].c
 
 @testcase
-def complex_dtype(long double complex[:] buf):
+def complex_dtype(c256[:] buf):
     """
     >>> complex_dtype(LongComplexMockBuffer(None, [(0, -1)]))  # , writable=false))
     -1j
@@ -1305,7 +1305,7 @@ def complex_dtype(long double complex[:] buf):
     print buf[0]
 
 @testcase
-def complex_inplace(long double complex[:] buf):
+def complex_inplace(c256[:] buf):
     """
     >>> complex_inplace(LongComplexMockBuffer(None, [(0, -1)]))
     (1+1j)

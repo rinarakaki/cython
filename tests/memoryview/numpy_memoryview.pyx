@@ -318,9 +318,9 @@ def test_coerce_to_numpy():
     let f64[20] doubles
     let long double[20] longdoubles
 
-    let float complex[20] floatcomplex
-    let double complex[20] doublecomplex
-    let long double complex[20] longdoublecomplex
+    let c64[20] floatcomplex
+    let c128[20] doublecomplex
+    let c256[20] longdoublecomplex
 
     let td_h_short[20] h_shorts
     let td_h_double[20] h_doubles
@@ -388,9 +388,9 @@ def test_coerce_to_numpy():
     index(<f64[:4, :5]> <f64 *> doubles)
     index(<long double[:4, :5]> <long double *> longdoubles)
 
-    index(<float complex[:4, :5]> <float complex *> floatcomplex)
-    index(<double complex[:4, :5]> <double complex *> doublecomplex)
-    index(<long double complex[:4, :5]> <long double complex *> longdoublecomplex)
+    index(<c64[:4, :5]> <c64 *> floatcomplex)
+    index(<c128[:4, :5]> <c128 *> doublecomplex)
+    index(<c256[:4, :5]> <c256 *> longdoublecomplex)
 
     index(<td_h_short[:4, :5]> <td_h_short *> h_shorts)
     index(<td_h_double[:4, :5]> <td_h_double *> h_doubles)

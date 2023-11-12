@@ -36,7 +36,7 @@ builtin_t = cython.fused_type(str, unicode, bytes)
 ctypedef fused fusedbunch:
     i32
     i64
-    complex
+    c128
     string_t
 
 ctypedef fused fused1:
