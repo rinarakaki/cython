@@ -27,9 +27,9 @@ f32 = float = py_float
 f64 = double = py_float
 longdouble = py_float
 complex = py_complex
-floatcomplex = py_complex
-doublecomplex = py_complex
-longdoublecomplex = py_complex
+c64 = floatcomplex = py_complex
+c128 = doublecomplex = py_complex
+c256 = longdoublecomplex = py_complex
 u2 = bint = py_bool
 void = Union[None]
 basestring = py_str
