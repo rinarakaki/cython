@@ -4,8 +4,8 @@ cdef signed   float       e
 cdef unsigned float       f
 cdef signed   double      g
 cdef unsigned double      h
-cdef signed   long double i
-cdef unsigned long double j
+cdef signed   f128 i
+cdef unsigned f128 j
 
 
 _ERRORS = u"""

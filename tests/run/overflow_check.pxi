@@ -35,7 +35,7 @@ cpdef check(func, op, a, b):
     if not func_overflow:
         assert res == op_res, "Inconsistent values: %s(%s, %s) == %s != %s" % (func, a, b, res, op_res)
 
-medium_values = (max_value_ / 2, max_value_ / 3, min_value_ / 2, <INT>sqrt(<long double>max_value_) - <INT>1, <INT>sqrt(<long double>max_value_) + 1)
+medium_values = (max_value_ / 2, max_value_ / 3, min_value_ / 2, <INT>sqrt(<f128>max_value_) - <INT>1, <INT>sqrt(<f128>max_value_) + 1)
 def run_test(func, op):
     cdef INT offset, b
     check(func, op, 300, 200)

@@ -4,8 +4,8 @@
 # cython: c_string_type=bytearray
 
 cpdef object      f00(object a): return a
-cpdef long double f01(u32 a): return <f64>a
-cpdef long double f02(u32 a: float): return <f64>a
+cpdef f128 f01(u32 a): return <f64>a
+cpdef f128 f02(u32 a: float): return <f64>a
 
 __doc__ = ur"""
 >>> print(f00.__doc__)
@@ -175,7 +175,7 @@ cdef class Bar:
 
     cpdef f32              m50(self, f32                 a): return a
     cpdef f64              m60(self, f64                 a): return a
-    cpdef long double      m70(self, long double         a): return a
+    cpdef f128      m70(self, f128         a): return a
 
     cpdef c64              m51(self, c64                 a): return a
     cpdef c128             m61(self, c128                 a): return a

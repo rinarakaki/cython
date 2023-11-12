@@ -215,7 +215,7 @@ def inc1_ulonglong(np.ndarray[u128] arr): arr[1] += 1
 
 def inc1_float(np.ndarray[f32] arr):                  arr[1] += 1
 def inc1_double(np.ndarray[f64] arr):                arr[1] += 1
-def inc1_longdouble(np.ndarray[long double] arr):       arr[1] += 1
+def inc1_longdouble(np.ndarray[f128] arr):       arr[1] += 1
 
 def inc1_cfloat(np.ndarray[c64] arr):            arr[1] = arr[1] + 1 + 1j
 def inc1_cdouble(np.ndarray[c128] arr):          arr[1] = (arr[1] + 1) + 1j
@@ -230,7 +230,7 @@ def inc1_cdouble_struct(np.ndarray[np.cdouble_t] arr):
     arr[1].imag += 1
 
 def inc1_clongdouble_struct(np.ndarray[np.clongdouble_t] arr):
-    let long double x
+    let f128 x
     x = arr[1].real + 1
     arr[1].real = x
     arr[1].imag = arr[1].imag + 1
@@ -296,7 +296,7 @@ def test_dtype(dtype, inc1):
     """
     if dtype in ("g", np.longdouble,
                  "G", np.clongdouble):
-        if sizeof(f64) == sizeof(long double):  # MSVC
+        if sizeof(f64) == sizeof(f128):  # MSVC
             return
     if dtype in ('F', 'D', 'G'):
         a = np.array([0, 10+10j], dtype=dtype)

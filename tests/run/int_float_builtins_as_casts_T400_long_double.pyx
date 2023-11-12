@@ -8,7 +8,7 @@ use cython
     "//PythonCapiCallNode",
     "//PythonCapiCallNode/PythonCapiFunctionNode/@cname = '__Pyx_truncl'",
 )
-def long_double_to_float_int(long double x):
+def long_double_to_float_int(f128 x):
     """
     >>> long_double_to_float_int(4.1)
     4.0
