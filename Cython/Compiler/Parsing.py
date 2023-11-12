@@ -3070,6 +3070,9 @@ def p_c_func_declarator(s, pos, ctx, base, cmethod_flag):
     args = p_c_arg_list(s, ctx, cmethod_flag = cmethod_flag,
                         nonempty_declarators = 0)
     ellipsis = p_optional_ellipsis(s)
+    if s.sy != ")":
+        print("!!!!!!!!! p_c_func_declarator !!!!!!!!!!!!!")
+        print(p_c_arg_list)
     s.expect(')')
     nogil = p_nogil(s)
     exc_val, exc_check, exc_clause = p_exception_value_clause(s, ctx.visibility == 'extern')
@@ -3302,10 +3305,6 @@ def p_c_arg_decl(s, ctx, in_pyfunc, cmethod_flag = 0, nonempty = 0,
             is_self_arg = cmethod_flag, templates = None)
     else:
         base_type = p_c_base_type(s, nonempty=nonempty)
-    if isinstance(base_type, Nodes.CSimpleBaseTypeNode) and base_type.name == "type":
-        print("!!!!!!!!!!!!!!!!!!!!!!! [p_c_arg_decl] !!!!!!!!!!!!!!!!!!!!!!!")
-        print(base_type)
-        print(s.peek())
     declarator = p_c_declarator(s, ctx, nonempty = nonempty)
     if s.sy in ('not', 'or') and not s.in_python_file:
         kind = s.sy
