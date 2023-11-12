@@ -65,7 +65,7 @@ class Ctx(object):
 
 def p_ident(s, message="Expected an identifier, found '%s'"):
     if s.sy == 'IDENT':
-        name = s.context.intern_ustring(s.systring)
+        name = s.context.intern_ustring(s.token)
         s.next()
         return name
     else:
@@ -74,7 +74,7 @@ def p_ident(s, message="Expected an identifier, found '%s'"):
 def p_ident_list(s):
     names = []
     while s.sy == 'IDENT':
-        names.append(s.context.intern_ustring(s.systring))
+        names.append(s.context.intern_ustring(s.token))
         s.next()
         if s.sy != ',':
             break
@@ -361,7 +361,7 @@ def _p_factor(s):
             return ExprNodes.AmpersandNode(pos, operand = arg)
         elif sy == "<":
             return p_typecast(s)
-        elif sy == 'IDENT' and s.systring == "sizeof":
+        elif sy == 'IDENT' and s.token == "sizeof":
             return p_sizeof(s)
     return p_power(s)
 
@@ -420,7 +420,7 @@ def p_yield_expression(s):
     pos = s.position()
     s.next()
     is_yield_from = False
-    if s.sy == "from" or not s.in_python_file and s.systring == "from":
+    if s.sy == "from" or not s.in_python_file and s.token == "from":
         is_yield_from = True
         s.next()
     if s.sy != ')' and s.sy not in statement_terminators:
@@ -466,7 +466,7 @@ def p_async_statement(s, ctx, decorators):
 # atom_expr: ['await'] atom trailer*
 
 def p_power(s):
-    if s.systring == 'new' and s.peek()[0] == 'IDENT':
+    if s.token == 'new' and s.peek()[0] == 'IDENT':
         return p_new_expr(s)
     await_pos = None
     if s.sy == 'await':
@@ -490,7 +490,7 @@ def p_power(s):
 
 
 def p_new_expr(s):
-    # s.systring == 'new'.
+    # s.token == 'new'.
     pos = s.position()
     s.next()
     cppclass = p_c_base_type(s)
@@ -744,11 +744,11 @@ def p_atom(s):
     elif sy == 'INT':
         return p_int_literal(s)
     elif sy == 'FLOAT':
-        value = s.systring
+        value = s.token
         s.next()
         return ExprNodes.FloatNode(pos, value = value)
     elif sy == 'IMAG':
-        value = s.systring[:-1]
+        value = s.token[:-1]
         s.next()
         return ExprNodes.ImagNode(pos, value = value)
     elif sy == 'BEGIN_STRING':
@@ -766,7 +766,7 @@ def p_atom(s):
         else:
             s.error("invalid string kind '%s'" % kind)
     elif sy == 'IDENT':
-        name = s.systring
+        name = s.token
         if name == "None":
             result = ExprNodes.NoneNode(pos)
         elif name in ("true", "True"):
@@ -784,7 +784,7 @@ def p_atom(s):
 
 def p_int_literal(s):
     pos = s.position()
-    value = s.systring
+    value = s.token
     s.next()
     unsigned = ""
     longness = ""
@@ -944,8 +944,8 @@ def p_string_literal(s, kind_override=None):
     pos = s.position()
     is_python3_source = s.context.language_level >= 3
     has_non_ascii_literal_characters = False
-    string_start_pos = (pos[0], pos[1], pos[2] + len(s.systring))
-    kind_string = s.systring.rstrip('"\'').lower()
+    string_start_pos = (pos[0], pos[1], pos[2] + len(s.token))
+    kind_string = s.token.rstrip('"\'').lower()
     if len(kind_string) > 1:
         if len(set(kind_string)) != len(kind_string):
             error(pos, 'Duplicate string prefix character')
@@ -990,8 +990,8 @@ def p_string_literal(s, kind_override=None):
     while 1:
         s.next()
         sy = s.sy
-        systr = s.systring
-        # print "p_string_literal: sy =", sy, repr(s.systring) #
+        systr = s.token
+        # print "p_string_literal: sy =", sy, repr(s.token) #
         if sy == 'CHARS':
             chars.append(systr)
             if is_python3_source and not has_non_ascii_literal_characters and check_for_non_ascii_characters(systr):
@@ -1012,7 +1012,7 @@ def p_string_literal(s, kind_override=None):
             s.error("Unclosed string literal", pos=pos)
         else:
             s.error("Unexpected token %r:%r in string literal" % (
-                sy, s.systring))
+                sy, s.token))
 
     if kind == 'c':
         unicode_value = None
@@ -1762,7 +1762,7 @@ def p_raise_statement(s):
             if s.sy == ',':
                 s.next()
                 exc_tb = p_test(s)
-        elif s.sy == "from" or not s.in_python_file and s.systring == "from":
+        elif s.sy == "from" or not s.in_python_file and s.token == "from":
             s.next()
             cause = p_test(s)
     if exc_type or exc_value or exc_tb:
@@ -1927,7 +1927,7 @@ def p_imported_name(s):
 def p_path(s, as_allowed):
     pos = s.position()
     level = 0
-    while s.sy == "IDENT" and s.systring == "super":
+    while s.sy == "IDENT" and s.token == "super":
         level += 1
         s.next()
         s.expect("::")
@@ -1969,7 +1969,7 @@ def p_dotted_name(s, as_allowed):
 
 
 def p_as_name(s):
-    if s.sy == 'IDENT' and s.systring == 'as':
+    if s.sy == 'IDENT' and s.token == 'as':
         s.next()
         return p_ident(s)
     else:
@@ -2053,7 +2053,7 @@ def p_for_bounds(s, allow_testlist=True, is_async=False):
         iterator = p_for_iterator(s, allow_testlist, is_async=is_async)
         return dict(target=target, iterator=iterator)
     elif not s.in_python_file and not is_async:
-        if s.systring == "from":
+        if s.token == "from":
             s.next()
             bound1 = p_bit_expr(s)
         else:
@@ -2098,7 +2098,7 @@ def p_for_from_relation(s):
         s.error("Expected one of '<', '<=', '>' '>='")
 
 def p_for_from_step(s):
-    if s.sy == 'IDENT' and s.systring == 'by':
+    if s.sy == 'IDENT' and s.token == 'by':
         s.next()
         step = p_bit_expr(s)
         return step
@@ -2178,11 +2178,11 @@ def p_except_clause(s):
             exc_type = exc_type.args
         else:
             exc_type = [exc_type]
-        if s.sy == ',' or (s.sy == 'IDENT' and s.systring == 'as'
+        if s.sy == ',' or (s.sy == 'IDENT' and s.token == 'as'
                            and s.context.language_level == 2):
             s.next()
             exc_value = p_test(s)
-        elif s.sy == 'IDENT' and s.systring == 'as':
+        elif s.sy == 'IDENT' and s.token == 'as':
             # Py3 syntax requires a name here
             s.next()
             pos2 = s.position()
@@ -2217,7 +2217,7 @@ def p_include_statement(s, ctx):
 
 def p_with_statement(s):
     s.next()  # 'with'
-    if s.systring == 'template' and not s.in_python_file:
+    if s.token == 'template' and not s.in_python_file:
         node = p_with_template(s)
     else:
         node = p_with_items(s)
@@ -2275,10 +2275,10 @@ def p_with_item(s, is_async):
     # This is because GILStatNode does a reasonable amount of initialization in its
     # constructor, and requires "body" to be set, which we don't currently have
     pos = s.position()
-    if not s.in_python_file and s.sy == 'IDENT' and s.systring in ('nogil', 'gil'):
+    if not s.in_python_file and s.sy == 'IDENT' and s.token in ('nogil', 'gil'):
         if is_async:
             s.error("with gil/nogil cannot be async")
-        state = s.systring
+        state = s.token
         s.next()
 
         # support conditional gil/nogil
@@ -2292,7 +2292,7 @@ def p_with_item(s, is_async):
     else:
         manager = p_test(s)
         target = None
-        if s.sy == 'IDENT' and s.systring == 'as':
+        if s.sy == 'IDENT' and s.token == 'as':
             s.next()
             target = p_starred_expr(s)
         return Nodes.WithStatNode, pos, {"manager": manager, "target": target, "is_async": is_async}
@@ -2303,11 +2303,11 @@ def p_with_template(s):
     templates = []
     s.next()
     s.expect('[')
-    templates.append(s.systring)
+    templates.append(s.token)
     s.next()
-    while s.systring == ',':
+    while s.token == ',':
         s.next()
-        templates.append(s.systring)
+        templates.append(s.token)
         s.next()
     s.expect(']')
     if s.sy == ':':
@@ -2323,7 +2323,7 @@ def p_with_template(s):
         error(pos, "Syntax error in template function declaration")
 
 def p_simple_statement(s, first_statement = 0):
-    # print "p_simple_statement:", s.sy, s.systring #
+    # print "p_simple_statement:", s.sy, s.token #
     if s.sy == 'global':
         node = p_global_statement(s)
     elif s.sy == 'nonlocal':
@@ -2346,7 +2346,7 @@ def p_simple_statement(s, first_statement = 0):
         node = p_use_statement(s)
     elif s.sy in ("import", "cimport"):
         node = p_import_statement(s)
-    elif s.sy == "from" or not s.in_python_file and s.systring == "from":
+    elif s.sy == "from" or not s.in_python_file and s.token == "from":
         node = p_from_import_statement(s, first_statement = first_statement)
     elif s.sy == 'yield':
         node = p_yield_statement(s)
@@ -2478,7 +2478,7 @@ def p_statement(s, ctx, first_statement = 0):
         s.level = ctx.level
         decorators += p_decorators(s)
         if not ctx.allow_struct_enum_decorator and s.sy not in ("def", "fn", "cdef", "cpdef", "class", "async"):
-            if s.sy == 'IDENT' and s.systring == 'async':
+            if s.sy == 'IDENT' and s.token == 'async':
                 pass  # handled below
             else:
                 s.error("Decorators can only be followed by functions or classes")
@@ -2527,7 +2527,7 @@ def p_statement(s, ctx, first_statement = 0):
             if ctx.level not in ('module', 'module_pxd'):
                 s.error("include statement not allowed here")
             return p_include_statement(s, ctx)
-        elif ctx.level == 'c_class' and s.sy == 'IDENT' and s.systring == 'property':
+        elif ctx.level == 'c_class' and s.sy == 'IDENT' and s.token == 'property':
             return p_property_decl(s)
         elif s.sy == 'pass' and ctx.level != 'property':
             return p_pass_statement(s, with_newline=True)
@@ -2553,8 +2553,8 @@ def p_statement(s, ctx, first_statement = 0):
                 s.next()
                 return p_async_statement(s, ctx, decorators)
             else:
-                if s.sy == 'IDENT' and s.systring == 'async':
-                    ident_name = s.systring
+                if s.sy == 'IDENT' and s.token == 'async':
+                    ident_name = s.token
                     ident_pos = s.position()
                     # PEP 492 enables the async/await keywords when it spots "async def ..."
                     s.next()
@@ -2629,7 +2629,7 @@ def p_positional_and_keyword_args(s, end_sy_set, templates = None):
 
         parsed_type = False
         if s.sy == 'IDENT' and s.peek()[0] == '=':
-            ident = s.systring
+            ident = s.token
             s.next()  # s.sy is '='
             s.next()
             if looking_at_expr(s):
@@ -2674,8 +2674,8 @@ def p_c_base_type(s, nonempty=False, templates=None):
         return p_c_simple_base_type(s, nonempty=nonempty, templates=templates)
 
 def p_calling_convention(s):
-    if s.sy == 'IDENT' and s.systring in calling_convention_words:
-        result = s.systring
+    if s.sy == 'IDENT' and s.token in calling_convention_words:
+        result = s.token
         s.next()
         return result
     else:
@@ -2729,7 +2729,7 @@ def p_c_simple_base_type(s, nonempty, templates=None):
         if s.sy == "const":
             if is_const: error(pos, "Duplicate 'const'")
             is_const = 1
-        elif s.systring == 'volatile':
+        elif s.token == 'volatile':
             if is_volatile: error(pos, "Duplicate 'volatile'")
             is_volatile = 1
         else:
@@ -2750,34 +2750,34 @@ def p_c_simple_base_type(s, nonempty, templates=None):
     if looking_at_base_type(s):
         # print "p_c_simple_base_type: looking_at_base_type at", s.position()
         is_basic = 1
-        if s.sy == 'IDENT' and s.systring in builtin_type_names:
+        if s.sy == 'IDENT' and s.token in builtin_type_names:
             signed, longness = None, None
-            name = s.systring
+            name = s.token
             s.next()
-        elif s.sy == 'IDENT' and s.systring in special_basic_c_types:
-            signed, longness = special_basic_c_types[s.systring]
-            name = s.systring
+        elif s.sy == 'IDENT' and s.token in special_basic_c_types:
+            signed, longness = special_basic_c_types[s.token]
+            name = s.token
             s.next()
         else:
             signed, longness = p_sign_and_longness(s)
-            if s.sy == 'IDENT' and s.systring in basic_c_type_names:
-                name = s.systring
+            if s.sy == 'IDENT' and s.token in basic_c_type_names:
+                name = s.token
                 s.next()
             else:
                 name = 'int'  # long [int], short [int], long [int] complex, etc.
-        if s.sy == 'IDENT' and s.systring == 'complex':
+        if s.sy == 'IDENT' and s.token == 'complex':
             complex = 1
             s.next()
     elif looking_at_dotted_name(s):
         # print "p_c_simple_base_type: looking_at_type_name at", s.position()
-        name = s.systring
+        name = s.token
         s.next()
         while s.sy in (".", "::"):
             module_path.append(name)
             s.next()
             name = p_ident(s)
     else:
-        name = s.systring
+        name = s.token
         name_pos = s.position()
         s.next()
         if nonempty and s.sy not in ("const", "IDENT"):
@@ -2786,7 +2786,7 @@ def p_c_simple_base_type(s, nonempty, templates=None):
                 old_pos = s.position()
                 s.next()
                 if (s.sy == '*' or s.sy == '**' or s.sy == '&'
-                        or (s.sy == 'IDENT' and s.systring in calling_convention_words)):
+                        or (s.sy == 'IDENT' and s.token in calling_convention_words)):
                     s.put_back(u'(', u'(', old_pos)
                 else:
                     s.put_back(u'(', u'(', old_pos)
@@ -2867,13 +2867,13 @@ def is_memoryviewslice_access(s):
     # a memoryview slice declaration is distinguishable from a buffer access
     # declaration by the first entry in the bracketed list.  The buffer will
     # not have an unnested colon in the first entry; the memoryview slice will.
-    saved = [(s.sy, s.systring, s.position())]
+    saved = [(s.sy, s.token, s.position())]
     s.next()
     retval = False
-    if s.systring == ':':
+    if s.token == ':':
         retval = True
     elif s.sy == 'INT':
-        saved.append((s.sy, s.systring, s.position()))
+        saved.append((s.sy, s.token, s.position()))
         s.next()
         if s.sy == ':':
             retval = True
@@ -2900,26 +2900,26 @@ def p_memoryviewslice_access(s, base_type_node):
     return result
 
 def looking_at_name(s):
-    return s.sy == 'IDENT' and s.systring not in calling_convention_words
+    return s.sy == 'IDENT' and s.token not in calling_convention_words
 
 def looking_at_expr(s):
     if s.sy == "const":
         return False
-    elif s.systring in base_type_start_words:
+    elif s.token in base_type_start_words:
         return False
     elif s.sy == 'IDENT':
         is_type = False
-        name = s.systring
+        name = s.token
         name_pos = s.position()
         dotted_path = []
         s.next()
 
         while s.sy == '.':
             s.next()
-            dotted_path.append((s.systring, s.position()))
+            dotted_path.append((s.token, s.position()))
             s.expect('IDENT')
 
-        saved = s.sy, s.systring, s.position()
+        saved = s.sy, s.token, s.position()
         if s.sy == 'IDENT':
             is_type = True
         elif s.sy == '*' or s.sy == '**':
@@ -2946,8 +2946,8 @@ def looking_at_expr(s):
         return True
 
 def looking_at_base_type(s):
-    # print "looking_at_base_type?", s.sy, s.systring, s.position()
-    return s.sy == 'IDENT' and s.systring in base_type_start_words
+    # print "looking_at_base_type?", s.sy, s.token, s.position()
+    return s.sy == 'IDENT' and s.token in base_type_start_words
 
 def looking_at_dotted_name(s):
     return s.sy == 'IDENT' and s.peek()[0] in (".", "::")
@@ -2992,14 +2992,14 @@ struct_enum_union = cython.declare(frozenset, frozenset((
 def p_sign_and_longness(s):
     signed = 1
     longness = 0
-    while s.sy == 'IDENT' and s.systring in sign_and_longness_words:
-        if s.systring == 'unsigned':
+    while s.sy == 'IDENT' and s.token in sign_and_longness_words:
+        if s.token == 'unsigned':
             signed = 0
-        elif s.systring == 'signed':
+        elif s.token == 'signed':
             signed = 2
-        elif s.systring == 'short':
+        elif s.token == 'short':
             longness = -1
-        elif s.systring == 'long':
+        elif s.token == 'long':
             longness += 1
         s.next()
     return signed, longness
@@ -3125,7 +3125,7 @@ def p_c_simple_declarator(s, ctx, empty, is_type, cmethod_flag,
     else:
         rhs = None
         if s.sy == 'IDENT':
-            name = s.systring
+            name = s.token
             if empty:
                 error(s.position(), "Declarator should be empty")
             s.next()
@@ -3165,7 +3165,7 @@ def p_c_simple_declarator(s, ctx, empty, is_type, cmethod_flag,
                             fatal=False)
                 name += op
             elif op == 'IDENT':
-                op = s.systring
+                op = s.token
                 if op not in supported_overloaded_operators:
                     s.error("Overloading operator '%s' not yet supported." % op,
                             fatal=False)
@@ -3177,7 +3177,7 @@ def p_c_simple_declarator(s, ctx, empty, is_type, cmethod_flag,
     return result
 
 def p_nogil(s):
-    if s.sy == 'IDENT' and s.systring == 'nogil':
+    if s.sy == 'IDENT' and s.token == 'nogil':
         s.next()
         return 1
     else:
@@ -3220,7 +3220,7 @@ def p_exception_value_clause(s, is_extern):
     exc_val = None
     exc_check = False if is_extern else True
 
-    if s.sy == 'IDENT' and s.systring == 'noexcept':
+    if s.sy == 'IDENT' and s.token == 'noexcept':
         exc_clause = True
         s.next()
         exc_check = False
@@ -3235,7 +3235,7 @@ def p_exception_value_clause(s, is_extern):
             plus_char_pos = s.position()[2]
             s.next()
             if s.sy == 'IDENT':
-                name = s.systring
+                name = s.token
                 if name == 'nogil':
                     if s.position()[2] == plus_char_pos + 1:
                         error(s.position(),
@@ -3305,7 +3305,7 @@ def p_c_arg_decl(s, ctx, in_pyfunc, cmethod_flag = 0, nonempty = 0,
     if s.sy in ('not', 'or') and not s.in_python_file:
         kind = s.sy
         s.next()
-        if s.sy == 'IDENT' and s.systring == 'None':
+        if s.sy == 'IDENT' and s.token == 'None':
             s.next()
         else:
             s.error("Expected 'None'")
@@ -3339,7 +3339,7 @@ def p_c_arg_decl(s, ctx, in_pyfunc, cmethod_flag = 0, nonempty = 0,
         kw_only = kw_only)
 
 def p_api(s):
-    if s.sy == 'IDENT' and s.systring == 'api':
+    if s.sy == 'IDENT' and s.token == 'api':
         s.next()
         return 1
     else:
@@ -3352,7 +3352,7 @@ def p_cdef_statement(s, ctx):
     if ctx.api:
         if ctx.visibility not in ("private", "pub", "public"):
             error(pos, "Cannot combine 'api' with '%s'" % ctx.visibility)
-    if ctx.visibility == "extern" and s.systring == "from":
+    if ctx.visibility == "extern" and s.token == "from":
         return p_cdef_extern_block(s, pos, ctx)
     elif s.sy == 'import':
         s.next()
@@ -3372,16 +3372,16 @@ def p_cdef_statement(s, ctx):
         if ctx.overridable:
             error(pos, "Extension types cannot be declared cpdef")
         return p_c_class_definition(s, pos, ctx)
-    elif s.sy == 'IDENT' and s.systring == 'cppclass':
+    elif s.sy == 'IDENT' and s.token == 'cppclass':
         return p_cpp_class_definition(s, pos, ctx)
-    elif s.sy in struct_enum_union or s.sy == 'IDENT' and s.systring == "packed":
+    elif s.sy in struct_enum_union or s.sy == 'IDENT' and s.token == "packed":
         if ctx.level not in ('module', 'module_pxd'):
             error(pos, "C struct/union/enum definition not allowed here")
         if ctx.overridable:
-            if s.systring != 'enum':
+            if s.token != 'enum':
                 error(pos, "C struct/union cannot be declared cpdef")
         return p_struct_enum(s, pos, ctx)
-    elif s.sy == 'IDENT' and s.systring == 'fused':
+    elif s.sy == 'IDENT' and s.token == 'fused':
         return p_fused_definition(s, pos, ctx)
     elif s.sy == "fn":
         s.next()
@@ -3402,13 +3402,13 @@ def p_cdef_extern_block(s, pos, ctx):
     if ctx.overridable:
         error(pos, "cdef extern blocks cannot be declared cpdef")
     include_file = None
-    s.next()  # s.systring == "from"
+    s.next()  # s.token == "from"
     if s.sy == '*':
         s.next()
     else:
         include_file = p_string_literal(s, 'u')[2]
     ctx = ctx(cdef_flag = 1, visibility = 'extern')
-    if s.systring == "namespace":
+    if s.token == "namespace":
         s.next()
         ctx.namespace = p_string_literal(s, 'u')[2]
     if p_nogil(s):
@@ -3433,7 +3433,7 @@ def p_c_enum_definition(s, pos, ctx):
         s.next()
 
     if s.sy == 'IDENT':
-        name = s.systring
+        name = s.token
         s.next()
         cname = p_opt_cname(s)
         if cname is None and ctx.namespace is not None:
@@ -3512,13 +3512,13 @@ def p_c_enum_item(s, ctx, items):
 
 def p_c_struct_or_union_definition(s, pos, ctx):
     packed = False
-    if s.systring == 'packed':
+    if s.token == 'packed':
         packed = True
         s.next()
         if s.sy != "struct":
             s.expected('struct')
     # s.sy == ident 'struct' or 'union'
-    kind = s.systring
+    kind = s.token
     s.next()
     name = p_ident(s)
     cname = p_opt_cname(s)
@@ -3559,7 +3559,7 @@ def p_fused_definition(s, pos, ctx):
     c(type)def fused my_fused_type:
         ...
     """
-    # s.systring == 'fused'
+    # s.token == 'fused'
 
     if ctx.level not in ('module', 'module_pxd'):
         error(pos, "Fused type definition not allowed here")
@@ -3589,7 +3589,7 @@ def p_fused_definition(s, pos, ctx):
     return Nodes.FusedTypeNode(pos, name=name, types=types)
 
 def p_struct_enum(s, pos, ctx):
-    if s.systring == 'enum':
+    if s.token == 'enum':
         return p_c_enum_definition(s, pos, ctx)
     else:
         return p_c_struct_or_union_definition(s, pos, ctx)
@@ -3597,11 +3597,11 @@ def p_struct_enum(s, pos, ctx):
 def p_visibility(s, prev_visibility):
     pos = s.position()
     visibility = prev_visibility
-    if s.sy in ("pub", "extern") or s.sy == 'IDENT' and s.systring in ("public", "readonly"):
+    if s.sy in ("pub", "extern") or s.sy == 'IDENT' and s.token in ("public", "readonly"):
         if s.sy == "pub":
             visibility = "public"
         else:
-            visibility = s.systring
+            visibility = s.token
         if prev_visibility != 'private' and visibility != prev_visibility:
             s.error("Conflicting visibility options '%s' and '%s'"
                 % (prev_visibility, visibility), fatal=False)
@@ -3609,8 +3609,8 @@ def p_visibility(s, prev_visibility):
     return visibility
 
 def p_c_modifiers(s):
-    if s.sy == 'IDENT' and s.systring in ('inline',):
-        modifier = s.systring
+    if s.sy == 'IDENT' and s.token in ('inline',):
+        modifier = s.token
         s.next()
         return [modifier] + p_c_modifiers(s)
     return []
@@ -3714,9 +3714,9 @@ def p_ctypedef_statement(s, ctx):
         ctx.api = 1
     if s.sy == 'class':
         return p_c_class_definition(s, pos, ctx)
-    elif s.sy in struct_enum_union or s.sy == 'IDENT' and s.systring == "packed":
+    elif s.sy in struct_enum_union or s.sy == 'IDENT' and s.token == "packed":
         return p_struct_enum(s, pos, ctx)
-    elif s.sy == 'IDENT' and s.systring == 'fused':
+    elif s.sy == 'IDENT' and s.token == 'fused':
         return p_fused_definition(s, pos, ctx)
     else:
         base_type = p_c_base_type(s, nonempty = 1)
@@ -3773,15 +3773,15 @@ def p_def_statement(s, decorators=None, is_async_def=False):
         '(',
         "Expected '(', found '%s'. Did you use cdef syntax in a Python declaration? "
         "Use decorators and Python type annotations instead." % (
-            s.systring if s.sy == 'IDENT' else s.sy))
+            s.token if s.sy == 'IDENT' else s.sy))
     args, star_arg, starstar_arg = p_varargslist(s, terminator=')')
     s.expect(')')
-    _reject_cdef_modifier_in_py(s, s.systring)
+    _reject_cdef_modifier_in_py(s, s.token)
     return_type_annotation = None
     if s.sy == '->':
         s.next()
         return_type_annotation = p_annotation(s)
-        _reject_cdef_modifier_in_py(s, s.systring)
+        _reject_cdef_modifier_in_py(s, s.token)
 
     doc, body = p_suite_with_docstring(s, Ctx(level='function'))
     if is_async_def:
@@ -3873,7 +3873,7 @@ def p_c_class_definition(s, pos,  ctx):
         class_name = p_ident(s)
     if module_path and ctx.visibility != 'extern':
         error(pos, "Qualified class name only allowed for 'extern' C class")
-    if module_path and s.sy == 'IDENT' and s.systring == 'as':
+    if module_path and s.sy == 'IDENT' and s.token == 'as':
         s.next()
         as_name = p_ident(s)
     else:
@@ -3946,13 +3946,13 @@ def p_c_class_options(s):
     while 1:
         if s.sy != 'IDENT':
             break
-        if s.systring == 'object':
+        if s.token == 'object':
             s.next()
             objstruct_name = p_ident(s)
         elif s.sy == "type":
             s.next()
             typeobj_name = p_ident(s)
-        elif s.systring == 'check_size':
+        elif s.token == 'check_size':
             s.next()
             check_size = p_ident(s)
             if check_size not in ('ignore', 'warn', 'error'):
@@ -4037,7 +4037,7 @@ def p_code(s, level=None, ctx=Ctx):
     body = p_statement_list(s, ctx(level = level), first_statement = 1)
     if s.sy != 'EOF':
         s.error("Syntax error in statement [%s,%s]" % (
-            repr(s.sy), repr(s.systring)))
+            repr(s.sy), repr(s.token)))
     return body
 
 
@@ -4049,7 +4049,7 @@ def p_compiler_directive_comments(s):
     result = {}
     while s.sy == 'commentline':
         pos = s.position()
-        m = _match_compiler_directive_comment(s.systring)
+        m = _match_compiler_directive_comment(s.token)
         if m:
             directives_string = m.group(1).strip()
             try:
@@ -4106,7 +4106,7 @@ def p_module(s, pxd, full_module_name, ctx=Ctx):
     body = p_statement_list(s, ctx(level=level), first_statement = 1)
     if s.sy != 'EOF':
         s.error("Syntax error in statement [%s,%s]" % (
-            repr(s.sy), repr(s.systring)))
+            repr(s.sy), repr(s.token)))
     return ModuleNode(pos, doc = doc, body = body,
                       full_module_name = full_module_name,
                       directive_comments = directive_comments)
@@ -4187,12 +4187,12 @@ def p_cpp_class_attribute(s, ctx):
     decorators = None
     if s.sy == '@':
         decorators = p_decorators(s)
-    if s.systring == 'cppclass':
+    if s.token == 'cppclass':
         return p_cpp_class_definition(s, s.position(), ctx)
-    elif s.systring == 'ctypedef':
+    elif s.token == 'ctypedef':
         return p_ctypedef_statement(s, ctx)
-    elif s.sy in struct_enum_union or s.sy == 'IDENT' and s.systring == "packed":
-        if s.systring != 'enum':
+    elif s.sy in struct_enum_union or s.sy == 'IDENT' and s.token == "packed":
+        if s.token != 'enum':
             return p_cpp_class_definition(s, s.position(), ctx)
         else:
             return p_struct_enum(s, s.position(), ctx)

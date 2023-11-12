@@ -465,9 +465,14 @@ class PyrexScanner(Scanner):
         if self.put_back_on_failure is not None:
             self.put_back_on_failure.append((sy, systring, self.position()))
         self.sy = sy
-        if systring.startswith("r#"):
-            systring = systring[2:]
         self.systring = systring
+        if systring.startswith("r#"):
+            self.token = systring[2:]
+            print("!!!!!!!!!! next !!!!!!!!!!")
+            print("raw identifier detected")
+            print(self.token)
+        else:
+            self.token = systring
         if False:  # debug_scanner:
             _, line, col = self.position()
             if not self.systring or self.sy == self.systring:
