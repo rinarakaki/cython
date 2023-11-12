@@ -366,7 +366,7 @@ type MyInt = i32
 cpdef MyInt f_my_i(MyInt i):
     return i
 
-type MyFloat = float
+type MyFloat = f32
 cpdef MyFloat f_my_f(MyFloat f):
     return f
 

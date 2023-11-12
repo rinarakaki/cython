@@ -180,8 +180,8 @@ def make_new_pyclass():
     m = MyTypeSubClass.__new__(MyTypeSubClass)
     return m
 
-#[cython::test_assert_path_exists("//PyMethodCallNode/AttributeNode")]
-#[cython::test_fail_if_path_exists("//PythonCapiCallNode")]
+#[cython::test_assert_path_exists('//PyMethodCallNode/AttributeNode')]
+#[cython::test_fail_if_path_exists('//PythonCapiCallNode')]
 def make_new_args(type t1=None, type t2=None):
     """
     >>> isinstance(make_new_args(), MyType)

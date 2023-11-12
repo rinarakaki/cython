@@ -127,7 +127,7 @@ extern from "Python.h":
     # similar to printf(). The width.precision before a format code is
     # parsed, but the width part is ignored.
 
-    fn void PyErr_SetNone(object)
+    fn void PyErr_SetNone(object type)
     # This is a shorthand for "PyErr_SetObject(type, Py_None)".
 
     fn i32 PyErr_BadArgument() except 0
