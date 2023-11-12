@@ -107,6 +107,7 @@ def make_lexicon():
 
         State('INDENT', [
             (comment + lineterm, Method('commentline')),
+            (lineterm, IGNORE),
             (spaces + Opt(comment) + lineterm, IGNORE),
             (indentation, Method('indentation_action')),
             (Eof, Method('eof_action'))
