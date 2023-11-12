@@ -14,7 +14,7 @@ ctypedef c128 mycomplex
 struct MyStruct:
     mycomplex a, b
 
-#[cython.cdivision(false)]
+#[cython::cdivision(false)]
 def test(index_t x):
     let index_t y = x // 2
     let MyStruct s

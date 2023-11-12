@@ -11,12 +11,12 @@ def test_cpp_specialization(cython.floating element):
     >>> import cython
     >>> test_cpp_specialization[cython.float](10.0)
     vector[float] * float 10.0
-    >>> test_cpp_specialization[cython.f64](10.0)
+    >>> test_cpp_specialization[cython::f64](10.0)
     vector[double] * double 10.0
     """
     let vector[cython.floating] *v = new vector[cython.floating]()
     v.push_back(element)
-    print cython.typeof(v), cython.typeof(element), v.at(0)
+    print cython::typeof(v), cython::typeof(element), v.at(0)
 
 cdef fused C:
    i32
@@ -58,7 +58,7 @@ ctypedef fused nested_fused:
 
 fn vec_of_fused(nested_fused v):
     x = v[0]
-    return cython.typeof(x)
+    return cython::typeof(x)
 
 def test_nested_fused():
     """
@@ -76,7 +76,7 @@ ctypedef fused nested_fused2:
 
 fn map_of_fused(nested_fused2 m):
     for pair in m:
-        return cython.typeof(pair.first), cython.typeof(pair.second)
+        return cython::typeof(pair.first), cython::typeof(pair.second)
 
 def test_nested_fused2():
     """

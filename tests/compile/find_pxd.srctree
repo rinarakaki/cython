@@ -54,4 +54,4 @@ ctypedef int my_type
 
 use numpy
 
-cdef numpy.my_type foo
+cdef numpy::my_type foo

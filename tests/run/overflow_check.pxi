@@ -67,7 +67,7 @@ def run_test(func, op):
             for b in medium_values:
                 check(func, op, a, b + offset)
 
-@cython.overflowcheck(True)
+#[cython::overflowcheck(true)]
 def test_add(INT a, INT b):
     """
     >>> test_add(1, 2)
@@ -80,7 +80,7 @@ def test_add(INT a, INT b):
     """
     return int(a + b)
     
-@cython.overflowcheck(True)
+#[cython::overflowcheck(true)]
 def test_sub(INT a, INT b):
     """
     >>> test_sub(10, 1)
@@ -93,7 +93,7 @@ def test_sub(INT a, INT b):
     """
     return int(a - b)
 
-@cython.overflowcheck(True)
+#[cython::overflowcheck(true)]
 def test_mul(INT a, INT b):
     """
     >>> test_mul(11, 13)
@@ -106,7 +106,7 @@ def test_mul(INT a, INT b):
     """
     return int(a * b)
 
-@cython.overflowcheck(True)
+#[cython::overflowcheck(true)]
 def test_nested_add(INT a, INT b, INT c):
     """
     >>> test_nested_add(1, 2, 3)
@@ -155,7 +155,7 @@ cdef INT called(INT value):
     print("called(%s)" % format(value))
     return value
 
-@cython.overflowcheck(True)
+#[cython::overflowcheck(true)]
 def test_nested(INT a, INT b, INT c, INT d):
     """
     >>> test_nested_func(1, 2, 3)
@@ -174,7 +174,7 @@ def test_nested(INT a, INT b, INT c, INT d):
     """
     return int(a * b + c * d)
 
-@cython.overflowcheck(True)
+#[cython::overflowcheck(true)]
 def test_nested_func(INT a, INT b, INT c):
     """
     >>> test_nested_func(1, 2, 3)
@@ -190,7 +190,7 @@ def test_nested_func(INT a, INT b, INT c):
     return int(a + called(b + c))
 
 
-@cython.overflowcheck(True)
+#[cython::overflowcheck(true)]
 def test_add_const(INT a):
     """
     >>> test_add_const(1)
@@ -202,7 +202,7 @@ def test_add_const(INT a):
     """
     return int(a + <INT>100)
 
-@cython.overflowcheck(True)
+#[cython::overflowcheck(true)]
 def test_sub_const(INT a):
     """
     >>> test_sub_const(101)
@@ -214,7 +214,7 @@ def test_sub_const(INT a):
     """
     return int(a - <INT>100)
 
-@cython.overflowcheck(True)
+#[cython::overflowcheck(true)]
 def test_mul_const(INT a):
     """
     >>> test_mul_const(2)
@@ -226,7 +226,7 @@ def test_mul_const(INT a):
     """
     return int(a * <INT>100)
 
-@cython.overflowcheck(True)
+#[cython::overflowcheck(true)]
 def test_lshift(INT a, int b):
     """
     >>> test_lshift(1, 10)

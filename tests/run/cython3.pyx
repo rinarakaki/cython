@@ -61,7 +61,7 @@ def truediv_int(i32 x):
     return x / 2
 
 
-#[cython.cdivision(true)]
+#[cython::cdivision(true)]
 def cdiv_int(i32 x):
     """
     >>> cdiv_int(4)
@@ -409,7 +409,7 @@ def loop_over_unicode_literal():
     # Py_UCS4 can represent any Unicode character
     for uchar in 'abcdefg':
         assert uchar in 'abcdefg'
-    return cython.typeof(uchar)
+    return cython::typeof(uchar)
 
 
 def list_comp():
@@ -540,10 +540,10 @@ def dict_comp():
 
 
 # in Python 3, d.keys/values/items() are the iteration methods
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//WhileStatNode",
     "//WhileStatNode//DictIterationNextNode")
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//ForInStatNode")
 def dict_iter(dict d):
     """
@@ -565,10 +565,10 @@ def dict_iter(dict d):
     return keys, values, items
 
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//WhileStatNode",
     "//WhileStatNode//DictIterationNextNode")
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//ForInStatNode")
 def dict_iter_new_dict():
     """
@@ -597,10 +597,10 @@ def int_literals():
     unsigned long
     unsigned long
     """
-    print(cython.typeof(1L))
-    print(cython.typeof(10000000000000L))
-    print(cython.typeof(1UL))
-    print(cython.typeof(10000000000000UL))
+    print(cython::typeof(1L))
+    print(cython::typeof(10000000000000L))
+    print(cython::typeof(1UL))
+    print(cython::typeof(10000000000000UL))
 
 
 def annotation_syntax(a: "test new test", b : "other" = 2, *args: "ARGS", **kwargs: "KWARGS") -> "ret":
@@ -628,7 +628,7 @@ def annotation_syntax(a: "test new test", b : "other" = 2, *args: "ARGS", **kwar
     return result
 
 
-#[cython.annotation_typing(false)]
+#[cython::annotation_typing(false)]
 def builtin_as_ignored_annotation(text: str):
     # Used to crash the compiler when annotation typing is disabled.
     # See https://github.com/cython/cython/issues/2811
@@ -642,7 +642,7 @@ def builtin_as_ignored_annotation(text: str):
         print(c)
 
 
-#[cython.annotation_typing(true)]
+#[cython::annotation_typing(true)]
 def int_annotation(x: int) -> int:
     """
     >>> print(int_annotation(1))
@@ -659,7 +659,7 @@ def int_annotation(x: int) -> int:
     return 2 ** x
 
 
-#[cython.annotation_typing(true)]
+#[cython::annotation_typing(true)]
 async def async_def_annotations(x: 'int') -> 'float':
     """
     >>> ret, arg = sorted(async_def_annotations.__annotations__.items())

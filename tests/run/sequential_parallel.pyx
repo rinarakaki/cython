@@ -15,7 +15,7 @@ except ImportError:
     def next(it):
         return it.next()
 
-# @cython.test_assert_path_exists(
+# @cython::test_assert_path_exists(
 #     "//ParallelWithBlockNode//ParallelRangeNode[@schedule = 'dynamic']",
 #     "//GILStatNode[@state = 'nogil]//ParallelRangeNode")
 def test_prange():

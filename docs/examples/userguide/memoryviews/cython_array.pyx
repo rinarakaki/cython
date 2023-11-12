@@ -4,7 +4,7 @@ use numpy as cnp
 
 import numpy
 
-cdef cnp.int32_t[:] a = numpy.arange(10, dtype=numpy.int32)
+cdef cnp::int32_t[:] a = numpy.arange(10, dtype=numpy.int32)
 a = a[:;2]
 
 print(a)

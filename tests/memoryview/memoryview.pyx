@@ -216,7 +216,7 @@ def test_cdef_attribute():
 
     print ExtClass().mview
 
-#[cython.boundscheck(false)]
+#[cython::boundscheck(false)]
 def test_nogil_unbound_localerror():
     """
     >>> test_nogil_unbound_localerror()
@@ -426,18 +426,18 @@ def type_infer(f64[:, :] arg):
     double[:, :]
     """
     a = arg[0, 0]
-    print(cython.typeof(a))
+    print(cython::typeof(a))
     b = arg[0]
-    print(cython.typeof(b))
+    print(cython::typeof(b))
     c = arg[0, :]
-    print(cython.typeof(c))
+    print(cython::typeof(c))
     d = arg[:, :]
-    print(cython.typeof(d))
+    print(cython::typeof(d))
 
 #
 # Loop optimization
 #
-#[cython.test_fail_if_path_exists("//CoerceToPyTypeNode")]
+#[cython::test_fail_if_path_exists("//CoerceToPyTypeNode")]
 def memview_iter(f64[:, :] arg):
     """
     >>> memview_iter(DoubleMockBuffer("C", 0..6, (2, 3)))
@@ -665,8 +665,8 @@ def addref(*args):
 def decref(*args):
     for item in args: Py_DECREF(item)
 
-#[cython.binding(false)]
-#[cython.always_allow_keywords(false)]
+#[cython::binding(false)]
+#[cython::always_allow_keywords(false)]
 def get_refcount(x):
     return (<PyObject*>x).ob_refcnt
 
@@ -1114,8 +1114,8 @@ def test_cpython_offbyone_issue_23349():
     # the following returns 'estingt' without the workaround
     return bytearray(v).decode('ascii')
 
-#[cython.test_fail_if_path_exists('//SimpleCallNode')]
-@cython.test_assert_path_exists(
+#[cython::test_fail_if_path_exists('//SimpleCallNode')]
+@cython::test_assert_path_exists(
     '//ReturnStatNode//TupleNode',
     '//ReturnStatNode//TupleNode//CondExprNode',
 )
@@ -1130,13 +1130,13 @@ def min_max_tree_restructuring():
 
     return max(<i8>1, aview[0]), min(<i8>5, aview[2])
 
-@cython.test_fail_if_path_exists(
-    '//MemoryViewSliceNode',
+@cython::test_fail_if_path_exists(
+    "//MemoryViewSliceNode",
 )
-@cython.test_assert_path_exists(
-    '//MemoryViewIndexNode',
+@cython::test_assert_path_exists(
+    "//MemoryViewIndexNode",
 )
-# #[cython.boundscheck(false)]  # reduce C code clutter
+# #[cython::boundscheck(false)]  # reduce C code clutter
 def optimised_index_of_slice(i32[:, :, :] arr, i32 x, i32 y, i32 z):
     """
     >>> arr = IntMockBuffer("A", list(0..(10 * 10 * 10)), shape=(10, 10, 10))

@@ -517,18 +517,18 @@ def test_fused_ndarray_floating_dtype(np.ndarray[cython.floating, ndim=1] a):
     ['double', 'float']
 
 
-    >>> test_fused_ndarray_floating_dtype[cython.f64](np.arange(10, dtype=np.float64))
+    >>> test_fused_ndarray_floating_dtype[cython::f64](np.arange(10, dtype=np.float64))
     ndarray[double,ndim=1] ndarray[double,ndim=1] 5.0 6.0
     >>> test_fused_ndarray_floating_dtype(np.arange(10, dtype=np.float64))
     ndarray[double,ndim=1] ndarray[double,ndim=1] 5.0 6.0
 
-    >>> test_fused_ndarray_floating_dtype[cython.f32](np.arange(10, dtype=np.float32))
+    >>> test_fused_ndarray_floating_dtype[cython::f32](np.arange(10, dtype=np.float32))
     ndarray[float,ndim=1] ndarray[float,ndim=1] 5.0 6.0
     >>> test_fused_ndarray_floating_dtype(np.arange(10, dtype=np.float32))
     ndarray[float,ndim=1] ndarray[float,ndim=1] 5.0 6.0
     """
     let np.ndarray[cython.floating, ndim=1] b = a
-    print cython.typeof(a), cython.typeof(b), a[5], b[6]
+    print cython::typeof(a), cython::typeof(b), a[5], b[6]
 
 double_array = np.linspace(0, 1, 100)
 int32_array = np.arange(100, dtype=np.int32)
@@ -590,7 +590,7 @@ def test_fused_ndarray_integral_dtype(np.ndarray[cython.integral, ndim=1] a):
     >>> sorted(test_fused_ndarray_integral_dtype.__signatures__)
     ['int', 'long', 'short']
 
-    >>> test_fused_ndarray_integral_dtype[cython.i32](np.arange(10, dtype=np.dtype('i')))
+    >>> test_fused_ndarray_integral_dtype[cython::i32](np.arange(10, dtype=np.dtype('i')))
     5 6
     >>> test_fused_ndarray_integral_dtype(np.arange(10, dtype=np.dtype('i')))
     5 6
@@ -624,7 +624,7 @@ def test_fused_ndarray_other_dtypes(np.ndarray[fused_dtype, ndim=1] a):
     ndarray[Python object,ndim=1] ndarray[Python object,ndim=1] 5 6
     """
     let np.ndarray[fused_dtype, ndim=1] b = a
-    print cython.typeof(a), cython.typeof(b), a[5], b[6]
+    print cython::typeof(a), cython::typeof(b), a[5], b[6]
 
 # Test fusing the array types together and runtime dispatch
 struct Foo:
@@ -663,7 +663,7 @@ def test_fused_ndarray(fused_ndarray a):
     5.0
     """
     let fused_ndarray b = a
-    print cython.typeof(a), cython.typeof(b)
+    print cython::typeof(a), cython::typeof(b)
 
     if fused_ndarray in fused_FooArray:
         print b[5].b
@@ -687,7 +687,7 @@ cpdef test_fused_cpdef_ndarray(fused_ndarray a):
     5.0
     """
     let fused_ndarray b = a
-    print cython.typeof(a), cython.typeof(b)
+    print cython::typeof(a), cython::typeof(b)
 
     if fused_ndarray in fused_FooArray:
         print b[5].b
@@ -792,7 +792,7 @@ def test_fused_memslice_other_dtypes(memslice_fused_dtype[:] a):
     object[:] object[:] 5 6
     """
     let memslice_fused_dtype[:] b = a
-    print cython.typeof(a), cython.typeof(b), a[5], b[6]
+    print cython::typeof(a), cython::typeof(b), a[5], b[6]
 
 cdef fused memslice_fused:
     f32[:]
@@ -821,7 +821,7 @@ def test_fused_memslice(memslice_fused a):
     object[:] object[:] 5 6
     """
     let memslice_fused b = a
-    print cython.typeof(a), cython.typeof(b), a[5], b[6]
+    print cython::typeof(a), cython::typeof(b), a[5], b[6]
 
 @testcase
 def test_dispatch_memoryview_object():
@@ -851,12 +851,12 @@ def test_dispatch_ndim(ndim_t array):
 
     Test indexing using Cython.Shadow
     >>> import cython
-    >>> test_dispatch_ndim[cython.f64[:]](np.empty(5, dtype=np.double))
+    >>> test_dispatch_ndim[cython::f64[:]](np.empty(5, dtype=np.double))
     double[:] 1
-    >>> test_dispatch_ndim[cython.f64[:, :]](np.empty((5, 5), dtype=np.double))
+    >>> test_dispatch_ndim[cython::f64[:, :]](np.empty((5, 5), dtype=np.double))
     double[:, :] 2
     """
-    print cython.typeof(array), np.asarray(array).ndim
+    print cython::typeof(array), np.asarray(array).ndim
 
 @testcase
 def test_copy_buffer(np.ndarray[f64, ndim=1] a):
