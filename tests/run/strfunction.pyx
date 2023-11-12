@@ -36,10 +36,10 @@ def sub(string):
     """
     return subs(string)
 
-#cdef class subs(str):
+# cdef class subs(str):
 #    pass
 
-#def csub(string):
+# def csub(string):
 #    return csubs(string)
 
 

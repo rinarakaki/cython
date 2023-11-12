@@ -53,42 +53,42 @@ extern from "<unistd.h>" nogil:
     fn i32 utimensat(i32, const char *, const timespec *, i32 flags)
 
     # Macros for st_mode
-    mode_t S_ISREG(mode_t)
-    mode_t S_ISDIR(mode_t)
-    mode_t S_ISCHR(mode_t)
-    mode_t S_ISBLK(mode_t)
-    mode_t S_ISFIFO(mode_t)
-    mode_t S_ISLNK(mode_t)
-    mode_t S_ISSOCK(mode_t)
+    fn mode_t S_ISREG(mode_t)
+    fn mode_t S_ISDIR(mode_t)
+    fn mode_t S_ISCHR(mode_t)
+    fn mode_t S_ISBLK(mode_t)
+    fn mode_t S_ISFIFO(mode_t)
+    fn mode_t S_ISLNK(mode_t)
+    fn mode_t S_ISSOCK(mode_t)
 
-    mode_t S_IFMT
-    mode_t S_IFREG
-    mode_t S_IFDIR
-    mode_t S_IFCHR
-    mode_t S_IFBLK
-    mode_t S_IFIFO
-    mode_t S_IFLNK
-    mode_t S_IFSOCK
+    static mode_t S_IFMT
+    static mode_t S_IFREG
+    static mode_t S_IFDIR
+    static mode_t S_IFCHR
+    static mode_t S_IFBLK
+    static mode_t S_IFIFO
+    static mode_t S_IFLNK
+    static mode_t S_IFSOCK
 
     # Permissions
-    mode_t S_ISUID
-    mode_t S_ISGID
-    mode_t S_ISVTX
+    static mode_t S_ISUID
+    static mode_t S_ISGID
+    static mode_t S_ISVTX
 
-    mode_t S_IRWXU
-    mode_t S_IRUSR
-    mode_t S_IWUSR
-    mode_t S_IXUSR
+    static mode_t S_IRWXU
+    static mode_t S_IRUSR
+    static mode_t S_IWUSR
+    static mode_t S_IXUSR
 
-    mode_t S_IRWXG
-    mode_t S_IRGRP
-    mode_t S_IWGRP
-    mode_t S_IXGRP
+    static mode_t S_IRWXG
+    static mode_t S_IRGRP
+    static mode_t S_IWGRP
+    static mode_t S_IXGRP
 
-    mode_t S_IRWXO
-    mode_t S_IROTH
-    mode_t S_IWOTH
-    mode_t S_IXOTH
+    static mode_t S_IRWXO
+    static mode_t S_IROTH
+    static mode_t S_IWOTH
+    static mode_t S_IXOTH
 
     # test file types
     fn u2 S_TYPEISMQ(struct_stat *buf)

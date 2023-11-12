@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 """Simple, brute-force N-Queens solver."""
 
 __author__ = "collinwinter@google.com (Collin Winter)"

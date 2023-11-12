@@ -9,11 +9,6 @@ extern from "Python.h":
         PyTypeObject *ob_type
 
 extern from "Python.h":
-    """
-    #if PY_MAJOR_VERSION < 3
-     #include "longintrepr.h"
-    #endif
-    """
     struct _longobject:
         i32 ob_refcnt
         PyTypeObject *ob_type

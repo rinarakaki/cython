@@ -3,8 +3,8 @@
 # distutils: extra_compile_args=-fwrapv
 
 extern from *:
-    i32 INT_MAX
-    i64 LONG_MAX
+    static i32 INT_MAX
+    static i64 LONG_MAX
 
 max_int = INT_MAX
 max_long = LONG_MAX
@@ -50,7 +50,7 @@ def int_abs(i32 a):
     True
     >>> int_abs(-5.1) == 5
     True
-    >>> int_abs(-max_int-1)     #doctest: +ELLIPSIS
+    >>> int_abs(-max_int-1)     # doctest: +ELLIPSIS
     Traceback (most recent call last):
         ...
     OverflowError: ...
@@ -71,7 +71,7 @@ def test_c_int_abs(i32 a):
     True
     >>> test_c_int_abs(-5.1) == 5
     True
-    >>> test_c_int_abs(-max_int-1)     #doctest: +ELLIPSIS
+    >>> test_c_int_abs(-max_int-1)     # doctest: +ELLIPSIS
     Traceback (most recent call last):
         ...
     OverflowError: ...
@@ -112,7 +112,7 @@ def long_abs(i64 a):
     True
     >>> long_abs(-5.1) == 5
     True
-    >>> long_abs(-max_long-1)     #doctest: +ELLIPSIS
+    >>> long_abs(-max_long-1)     # doctest: +ELLIPSIS
     Traceback (most recent call last):
         ...
     OverflowError: ...
@@ -133,7 +133,7 @@ def test_c_long_abs(i64 a):
     True
     >>> test_c_long_abs(-5.1) == 5
     True
-    >>> test_c_long_abs(-max_long-1)     #doctest: +ELLIPSIS
+    >>> test_c_long_abs(-max_long-1)     # doctest: +ELLIPSIS
     Traceback (most recent call last):
         ...
     OverflowError: ...
@@ -176,7 +176,7 @@ def long_long_abs(i128 a):
     """
     >>> long_long_abs(-(2**33)) == 2**33
     True
-    >>> long_long_abs(-max_long_long-1)     #doctest: +ELLIPSIS
+    >>> long_long_abs(-max_long_long-1)     # doctest: +ELLIPSIS
     Traceback (most recent call last):
         ...
     OverflowError: ...
@@ -195,7 +195,7 @@ def test_c_long_long_abs(i128 a):
     """
     >>> test_c_long_long_abs(-(2**33)) == 2**33
     True
-    >>> test_c_long_long_abs(-max_long_long-1)     #doctest: +ELLIPSIS
+    >>> test_c_long_long_abs(-max_long_long-1)     # doctest: +ELLIPSIS
     Traceback (most recent call last):
         ...
     OverflowError: ...

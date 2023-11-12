@@ -378,7 +378,7 @@ class FusedCFuncDefNode(StatListNode):
                     cond += ' and arg_is_pythran_compatible'
 
                 with codewriter.indenter("if %s:" % cond):
-                    #codewriter.putln("print 'buffer match found based on numpy dtype'")
+                    # codewriter.putln("print 'buffer match found based on numpy dtype'")
                     codewriter.putln(self.match)
                     codewriter.putln("break")
 

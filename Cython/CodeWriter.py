@@ -382,6 +382,10 @@ class StatementWriter(DeclarationWriter):
         if node.else_clause is not None:
             self.line("else:")
             self._visit_indented(node.else_clause)
+    
+    def visit_LoopStatNode(self, node):
+        self.line("loop:")
+        self._visit_indented(node.body)
 
     def visit_WhileStatNode(self, node):
         self.startline(u"while ")

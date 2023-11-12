@@ -3,9 +3,9 @@ use super::object::PyObject
 extern from "Python.h":
     struct va_list
 
-    ############################################################################
+    # ##########################################################################
     # 7.3.1 String Objects
-    ############################################################################
+    # ##########################################################################
 
     # These functions raise TypeError when expecting a string
     # parameter and are called with a non-string parameter.
@@ -120,7 +120,7 @@ extern from "Python.h":
     # newpart appended to string. This version decrements the
     # reference count of newpart.
 
-    int _PyString_Resize(PyObject **string, isize newsize) except -1
+    fn i32 _PyString_Resize(PyObject **string, isize newsize) except -1
     # A way to resize a string object even though it is
     # ``immutable''. Only use this to build up a brand new string
     # object; don't use this if the string may already be known in

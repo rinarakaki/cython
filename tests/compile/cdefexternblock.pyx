@@ -7,15 +7,15 @@ extern from "cheese.h":
     struct roquefort:
         i32 x
 
-    char *swiss
+    static char *swiss
 
     fn void cheddar()
 
     # FIXME: find a real declaration here.
-    #class external.runny [object runny_obj]:
+    # class external.runny [object runny_obj]:
     #    cdef int a
     #    def __init__(self):
     #        pass
 
-#cdef runny r = runny()
-#r.a = 42
+# cdef runny r = runny()
+# r.a = 42

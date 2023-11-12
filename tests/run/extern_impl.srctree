@@ -18,7 +18,7 @@ fn void bar() except *
 ######## foo.pyx ########
 
 extern from "bar_impl.c":
-    void bar() except *
+    fn void bar() except *
 
 ######## bar_impl.c ########
 

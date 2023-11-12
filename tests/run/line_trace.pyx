@@ -73,12 +73,6 @@ def _create_trace_func(trace):
     local_names = {}
 
     def _trace_func(frame, event, arg):
-        if sys.version_info < (3,) and (
-            'line_trace' not in frame.f_code.co_filename and
-            '<string>' not in frame.f_code.co_filename):
-            # Prevent tracing into Py2 doctest functions.
-            return None
-
         trace.append((map_trace_types(event, event), frame.f_lineno - frame.f_code.co_firstlineno))
 
         lnames = frame.f_code.co_varnames
@@ -137,7 +131,7 @@ def cy_add(a, b):
     return x      # 2
 
 def cy_add_with_nogil(a, b):
-    let i32 z, x=a, y=b         # 1
+    let i32 z, x = a, y = b      # 1
     with nogil:                  # 2
         z = 0                    # 3
         z += cy_add_nogil(x, y)  # 4
@@ -251,9 +245,9 @@ def run_trace_with_exception(func, u2 with_sys=false, u2 fail=false):
     ValueError('failing line trace!')
     [('call', 0)]
 
-    #>>> run_trace_with_exception(lambda: 123, with_sys=true, fail=true)
-    #ValueError('huhu')
-    #[('call', 0), ('line', 1), ('line', 2), ('call', 0), ('line', 0), ('return', 0), ('return', 2)]
+    # >>> run_trace_with_exception(lambda: 123, with_sys=true, fail=true)
+    # ValueError('huhu')
+    # [('call', 0), ('line', 1), ('line', 2), ('call', 0), ('line', 0), ('return', 0), ('return', 2)]
 
     >>> def py_raise_exc(exc=KeyError('huhu')): raise exc
     >>> run_trace_with_exception(py_raise_exc)
@@ -266,9 +260,9 @@ def run_trace_with_exception(func, u2 with_sys=false, u2 fail=false):
     ValueError('failing line trace!')
     [('call', 0)]
 
-    #>>> run_trace_with_exception(raise_exc, with_sys=true, fail=true)
-    #ValueError('huhu')
-    #[('call', 0), ('line', 1), ('line', 2), ('call', 0), ('line', 0), ('exception', 0), ('return', 0), ('line', 3), ('line', 4), ('return', 4)]
+    # >>> run_trace_with_exception(raise_exc, with_sys=true, fail=true)
+    # ValueError('huhu')
+    # [('call', 0), ('line', 1), ('line', 2), ('call', 0), ('line', 0), ('exception', 0), ('return', 0), ('line', 3), ('line', 4), ('return', 4)]
     """
     trace = ['cy_try_except' if fail else 'NO ERROR']
     trace_func = _create__failing_line_trace_func(trace) if fail else _create_trace_func(trace)

@@ -3,9 +3,15 @@
 
 use cython
 
+
 extern from *:
-    u64 PY_VERSION_HEX
-    u64 Py_TPFLAGS_HAVE_VERSION_TAG
+    static u64 Py_TPFLAGS_HAVE_VERSION_TAG
+    struct PyTypeObject:
+        u64 tp_flags
+
+extern from *:
+    static u64 PY_VERSION_HEX
+    static u64 Py_TPFLAGS_HAVE_VERSION_TAG
     struct PyTypeObject:
         u64 tp_flags
 
