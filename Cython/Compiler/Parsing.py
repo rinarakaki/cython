@@ -3141,7 +3141,7 @@ def p_c_simple_declarator(s, ctx, empty, is_type, cmethod_flag,
                 s.next()
                 rhs = p_test(s)
         else:
-            print("!!!!!!!!!!!!! p_c_simple_declarator ("!!!!!!!!!!!!!")
+            print("!!!!!!!!!!!!! p_c_simple_declarator !!!!!!!!!!!!!")
             print(s.sy)
             if nonempty:
                 error(s.position(), "Empty declarator")
