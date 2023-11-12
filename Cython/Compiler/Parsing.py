@@ -3072,7 +3072,7 @@ def p_c_func_declarator(s, pos, ctx, base, cmethod_flag):
     ellipsis = p_optional_ellipsis(s)
     if s.sy != ")":
         print("!!!!!!!!! p_c_func_declarator !!!!!!!!!!!!!")
-        print(p_c_arg_list)
+        print(args)
     s.expect(')')
     nogil = p_nogil(s)
     exc_val, exc_check, exc_clause = p_exception_value_clause(s, ctx.visibility == 'extern')
@@ -3141,8 +3141,9 @@ def p_c_simple_declarator(s, ctx, empty, is_type, cmethod_flag,
                 s.next()
                 rhs = p_test(s)
         else:
-            print("!!!!!!!!!!!!! p_c_simple_declarator !!!!!!!!!!!!!")
-            print(s.sy)
+            if s.sy == "type":
+                print("!!!!!!!!!!!!! p_c_simple_declarator !!!!!!!!!!!!!")
+                print(s.sy, pos)
             if nonempty:
                 error(s.position(), "Empty declarator")
             name = ""
