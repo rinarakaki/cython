@@ -38,13 +38,13 @@ extern from "Python.h":
     fn u2 PyType_IsSubtype(r#type a, r#type b)
     # Return true if a is a subtype of b.
 
-    fn object PyType_GenericAlloc(object, isize nitems)
+    fn object PyType_GenericAlloc(object r#type, isize nitems)
     # Return value: New reference.
 
-    fn object PyType_GenericNew(r#type, object args, object kwds)
+    fn object PyType_GenericNew(r#type r#type, object args, object kwds)
     # Return value: New reference.
 
-    fn u2 PyType_Ready(r#type) except -1
+    fn u2 PyType_Ready(r#type r#type) except -1
     # Finalize a type object. This should be called on all type
     # objects to finish their initialization. This function is
     # responsible for adding inherited slots from a type's base
