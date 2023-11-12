@@ -48,7 +48,7 @@ def make_lexicon():
     decimal_fract = decimal + dot + decimal
 
     # name = letter + Rep(letter | digit)
-    name = Opt(Str("r#") | Str("r$")) + unicode_start_character + Rep(unicode_continuation_character)
+    name = Opt(Str("r#")) + unicode_start_character + Rep(unicode_continuation_character)
     intconst = (prefixed_digits(nonzero_digit, digit) |  # decimal literals with underscores must not start with '0'
                 (Str("0") + (prefixed_digits(Any("Xx"), hexdigit) |
                              prefixed_digits(Any("Oo"), octdigit) |
