@@ -3063,9 +3063,6 @@ def p_c_func_declarator(s, pos, ctx, base, cmethod_flag):
     args = p_c_arg_list(s, ctx, cmethod_flag = cmethod_flag,
                         nonempty_declarators = 0)
     ellipsis = p_optional_ellipsis(s)
-    if s.sy != ")":
-        print("!!!!!!!!! p_c_func_declarator !!!!!!!!!!!!!")
-        print(args)
     s.expect(')')
     nogil = p_nogil(s)
     exc_val, exc_check, exc_clause = p_exception_value_clause(s, ctx.visibility == 'extern')
@@ -3134,9 +3131,6 @@ def p_c_simple_declarator(s, ctx, empty, is_type, cmethod_flag,
                 s.next()
                 rhs = p_test(s)
         else:
-            if s.systring == "type":
-                print("!!!!!!!!!!!!! p_c_simple_declarator !!!!!!!!!!!!!")
-                print(s.sy, pos)
             if nonempty:
                 error(s.position(), "Empty declarator")
             name = ""
@@ -3663,10 +3657,6 @@ def p_c_func_or_var_declaration(s, pos, ctx):
                                         assignable = 1, nonempty = 1)
             declarators.append(declarator)
         doc_line = s.start_line + 1
-        if s.sy != "NEWLINE":
-            print("!!!!!!!!!!!!!!! p_c_func_or_var_declaration !!!!!!!!!!!!!!!")
-            print(base_type)
-            print(declarator)
         s.expect_newline("Syntax error in C variable declaration", ignore_semicolon=True)
         if ctx.level in ('c_class', 'c_class_pxd') and s.start_line == doc_line:
             doc = p_doc_string(s)
