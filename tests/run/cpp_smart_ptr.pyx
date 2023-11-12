@@ -79,7 +79,7 @@ def test_const_shared_ptr():
     assert dealloc_count == 1
 
 cdef cppclass A:
-    void some_method():  # Force this to be a polymorphic class for dynamic cast.
+    fn void some_method():  # Force this to be a polymorphic class for dynamic cast.
         pass
 
 cdef cppclass B(A):

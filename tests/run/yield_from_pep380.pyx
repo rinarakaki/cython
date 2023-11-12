@@ -166,7 +166,7 @@ def test_delegation_of_send():
     y = next(g)
     x = 1
     try:
-        while 1:
+        loop:
             y = g.send(x)
             trace.append("Yielded %s" % (y,))
             x += 1
@@ -205,7 +205,7 @@ def test_handling_exception_while_delegating_send():
         y = next(g)
         x = 1
         try:
-            while 1:
+            loop:
                 y = g.send(x)
                 trace.append("Yielded %s" % (y,))
                 x += 1
@@ -289,8 +289,7 @@ def test_handing_exception_while_delegating_close():
     except ValueError as e:
         trace.append(e.args[0])
         # FIXME: __context__ is currently not set
-        #if sys.version_info[0] >= 3:
-        #    assert isinstance(e.__context__, GeneratorExit), 'exception context is %r' % e.__context__
+        #assert isinstance(e.__context__, GeneratorExit), 'exception context is %r' % e.__context__
     else:
         trace.append("subgenerator failed to raise ValueError")
     return trace
@@ -981,7 +980,7 @@ def test_delegating_generators_claim_to_be_running_send():
     g1 = _reentering_gen()
     res = [next(g1)]
     try:
-        while True:
+        loop:
             res.append(g1.send(42))
     except StopIteration:
         pass
@@ -1020,7 +1019,7 @@ def test_delegating_generators_claim_to_be_running_throw():
     g1 = one()
     res = [next(g1)]
     try:
-        while True:
+        loop:
             res.append(g1.throw(MyErr))
     except StopIteration:
         pass
@@ -1060,10 +1059,7 @@ def yield_in_return(x):
     ...     try:
     ...         print(next(x))
     ...     except StopIteration:
-    ...         if sys.version_info >= (3, 3):
-    ...             print(sys.exc_info()[1].value is None)
-    ...         else:
-    ...             print(true)
+    ...         print(sys.exc_info()[1].value is None)
     ...         break
     0
     1

@@ -28,13 +28,13 @@ setup(ext_modules=ext_modules)
 ######## src/a.pyx ########
 
 extern from "helper.h":
-    i32 value1
+    static i32 value1
 
 extern from "subdir/helper.h":
-    i32 value2
+    static i32 value2
 
 extern from "pkg/pkg_helper.h":
-    i32 value3
+    static i32 value3
 
 assert value1 == 100
 assert value2 == 200
@@ -53,13 +53,13 @@ i32 value2 = 200;
 ######## src/pkg/b.pyx ########
 
 extern from "../fake/helper.h":
-    i32 value2
+    static i32 value2
 
 extern from "pkg_helper.h":
-    i32 value3
+    static i32 value3
 
 extern from "subdir/pkg_helper.h":
-    i32 value4
+    static i32 value4
 
 assert value2 == 200
 assert value3 == 300

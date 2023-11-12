@@ -22,7 +22,7 @@ finally: pass
 for i in (1, 2):
     return None
 
-while true:
+loop:
     return None
 
 if _runtime_true():

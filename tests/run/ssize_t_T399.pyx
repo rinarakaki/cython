@@ -50,8 +50,8 @@ OverflowError: ...
 
 extern from *:
     ctypedef long ssize_t # XXX This should generate a warning !!!
-    ssize_t PY_SSIZE_T_MAX
-    ssize_t PY_SSIZE_T_MIN
+    static ssize_t PY_SSIZE_T_MAX
+    static ssize_t PY_SSIZE_T_MIN
 
 SSIZE_T_MAX = PY_SSIZE_T_MAX
 SSIZE_T_MIN = PY_SSIZE_T_MIN

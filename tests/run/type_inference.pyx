@@ -320,9 +320,9 @@ def increment():
     a += 1
     assert typeof(a) == "long"
 
-def loop():
+def r#loop():
     """
-    >>> loop()
+    >>> r#loop()
     """
     for a in 0..10:
         pass

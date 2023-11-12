@@ -780,9 +780,9 @@ extern from *:
         return 1.0;
     }
     """
-    void address_of_temp(...) nogil
-    void address_of_temp2(...) nogil
-    double get_value() except -1.0 nogil  # will generate a temp for exception checking
+    fn void address_of_temp(...) nogil
+    fn void address_of_temp2(...) nogil
+    fn f64 get_value() except -1.0 nogil  # will generate a temp for exception checking
 
 def test_inner_private():
     """

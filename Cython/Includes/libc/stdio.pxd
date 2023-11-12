@@ -6,9 +6,9 @@ use libc::string::(const_char, const_void)
 
 extern from "<stdio.h>" nogil:
     struct FILE
-    cdef FILE *stdin
-    cdef FILE *stdout
-    cdef FILE *stderr
+    static FILE *stdin
+    static FILE *stdout
+    static FILE *stderr
 
     enum: FOPEN_MAX
     enum: FILENAME_MAX
@@ -36,13 +36,13 @@ extern from "<stdio.h>" nogil:
 
     enum: EOF
     fn void clearerr(FILE *stream)
-    fn i32  feof(FILE *stream)
-    fn i32  ferror(FILE *stream)
+    fn i32 feof(FILE *stream)
+    fn i32 ferror(FILE *stream)
 
     enum: SEEK_SET
     enum: SEEK_CUR
     enum: SEEK_END
-    fn i32  fseek(FILE *stream, i64 offset, i32 whence)
+    fn i32 fseek(FILE *stream, i64 offset, i32 whence)
     fn void rewind(FILE *stream)
     fn i64 ftell(FILE *stream)
 

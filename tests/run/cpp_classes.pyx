@@ -5,25 +5,25 @@ use libcpp::vector::vector
 
 extern from "shapes.h" namespace "shapes":
     cdef cppclass Shape:
-        float area()
+        fn f32 area()
 
     cdef cppclass Ellipse(Shape):
         Ellipse(i32 a, i32 b) except + nogil
 
     cdef cppclass Circle(Ellipse):
-        int radius
+        i32 radius
         Circle(i32 r) except +
 
     cdef cppclass Rectangle(Shape):
-        int width
-        int height
+        i32 width
+        i32 height
         Rectangle() except +
         Rectangle(i32 h, i32 w) except +
-        i32 method(i32 x)
-        i32 method(u2 b)
+        fn i32 method(i32 x)
+        fn i32 method(u2 b)
 
     cdef cppclass Square(Rectangle):
-        int side
+        i32 side
         Square(i32 s) except +
 
     cdef cppclass Empty(Shape):
@@ -42,7 +42,7 @@ def test_new_del():
     2 0
     2 2
     """
-    c,d = constructor_count, destructor_count
+    c, d = constructor_count, destructor_count
     let Rectangle *rect = new Rectangle(10, 20)
     let Circle *circ = new Circle(15)
     print constructor_count-c, destructor_count-d

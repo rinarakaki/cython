@@ -7306,6 +7306,38 @@ class LoopNode(object):
     pass
 
 
+class LoopStatNode(LoopNode, StatNode):
+    # loop statement
+    #
+    # body        StatNode
+
+    child_attrs = ["body"]
+
+    def analyse_declarations(self, env):
+        self.body.analyse_declarations(env)
+    
+    def analyse_expressions(self, env):
+        self.body = self.body.analyse_expressions(env)
+        return self
+    
+    def generate_execution_code(self, code):
+        code.mark_pos(self.pos)
+        old_loop_labels = code.new_loop_labels()
+        code.putln("while (1) {")
+        self.body.generate_execution_code(code)
+        code.put_label(code.continue_label)
+        code.putln("}")
+        break_label = code.break_label
+        code.set_loop_labels(old_loop_labels)
+        code.put_label(break_label)
+
+    def generate_function_definitions(self, env, code):
+        self.body.generate_function_definitions(env, code)
+    
+    def annotate(self, code):
+        self.body.annotate(code)
+
+
 class WhileStatNode(LoopNode, StatNode):
     #  while statement
     #
@@ -7331,8 +7363,7 @@ class WhileStatNode(LoopNode, StatNode):
     def generate_execution_code(self, code):
         code.mark_pos(self.pos)
         old_loop_labels = code.new_loop_labels()
-        code.putln(
-            "while (1) {")
+        code.putln("while (1) {")
         if self.condition:
             self.condition.generate_evaluation_code(code)
             self.condition.generate_disposal_code(code)

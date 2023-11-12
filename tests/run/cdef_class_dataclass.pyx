@@ -226,8 +226,8 @@ cdef class TestFrozen:
 
 def get_dataclass_initvar():
     return py_dataclasses.InitVar
-  
-@dataclass(kw_only=true)
+
+@dataclass(kw_only=True)
 cdef class TestKwOnly:
     """
     >>> inst = TestKwOnly(a=3, b=2)
@@ -254,30 +254,28 @@ cdef class TestKwOnly:
     a: cython.f64 = 2.0
     b: cython.i64
 
-import sys
-if sys.version_info >= (3, 7):
-    __doc__ = """
-    >>> from dataclasses import Field, is_dataclass, fields, InitVar
+__doc__ = """
+>>> from dataclasses import Field, is_dataclass, fields, InitVar
 
-    # It uses the types from the standard library where available
-    >>> all(isinstance(v, Field) for v in BasicDataclass.__dataclass_fields__.values())
-    True
+# It uses the types from the standard library where available
+>>> all(isinstance(v, Field) for v in BasicDataclass.__dataclass_fields__.values())
+True
 
-    # check out Cython dataclasses are close enough to convince it
-    >>> is_dataclass(BasicDataclass)
-    True
-    >>> is_dataclass(BasicDataclass(1.5))
-    True
-    >>> is_dataclass(InheritsFromDataclass)
-    True
-    >>> is_dataclass(NotADataclass)
-    False
-    >>> is_dataclass(InheritsFromNotADataclass)
-    True
-    >>> [ f.name for f in fields(BasicDataclass)]
-    ['a', 'b', 'c', 'd']
-    >>> [ f.name for f in fields(InitClassVars)]
-    ['a']
-    >>> get_dataclass_initvar() == InitVar
-    True
-    """
+# check out Cython dataclasses are close enough to convince it
+>>> is_dataclass(BasicDataclass)
+True
+>>> is_dataclass(BasicDataclass(1.5))
+True
+>>> is_dataclass(InheritsFromDataclass)
+True
+>>> is_dataclass(NotADataclass)
+False
+>>> is_dataclass(InheritsFromNotADataclass)
+True
+>>> [ f.name for f in fields(BasicDataclass)]
+['a', 'b', 'c', 'd']
+>>> [ f.name for f in fields(InitClassVars)]
+['a']
+>>> get_dataclass_initvar() == InitVar
+True
+"""

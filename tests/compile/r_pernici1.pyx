@@ -8,7 +8,7 @@ __doc__ = u"""
 """
 
 extern from "math.h":
-    f64 M_PI
+    static f64 M_PI
 
 # cdef u64 n1
 # n1 = 4293858116

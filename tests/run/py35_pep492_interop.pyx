@@ -10,7 +10,7 @@ def run_async(coro, ignore_type=false):
 
     buffer = []
     result = None
-    while True:
+    loop:
         try:
             buffer.append(coro.send(None))
         except StopIteration as ex:
@@ -25,7 +25,7 @@ def run_async__await__(coro):
     buffer = []
     result = None
     i = 0
-    while True:
+    loop:
         try:
             if i % 2:
                 buffer.append(next(aw))

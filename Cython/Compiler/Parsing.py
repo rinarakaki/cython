@@ -2018,6 +2018,13 @@ def p_else_clause(s):
     else:
         return None
 
+def p_loop_statement(s):
+    # s.sy == "loop"
+    pos = s.position()
+    s.next()
+    body = p_suite(s)
+    return Nodes.LoopStatNode(pos, body=body)
+
 def p_while_statement(s):
     # s.sy == 'while'
     pos = s.position()
@@ -2029,7 +2036,6 @@ def p_while_statement(s):
         condition = test, body = body,
         else_clause = else_clause)
 
-
 def p_for_statement(s, is_async=False):
     # s.sy == 'for'
     pos = s.position()
@@ -2039,7 +2045,6 @@ def p_for_statement(s, is_async=False):
     else_clause = p_else_clause(s)
     kw.update(body=body, else_clause=else_clause, is_async=is_async)
     return Nodes.ForStatNode(pos, **kw)
-
 
 def p_for_bounds(s, allow_testlist=True, is_async=False):
     target = p_for_target(s)
@@ -2395,7 +2400,7 @@ def p_compile_time_expr(s):
     s.compile_time_expr = old
     return expr
 
-def p_DEF_statement(s):
+def p_const_statement(s):
     pos = s.position()
     denv = s.compile_time_env
     s.next()  # 'DEF'
@@ -2404,7 +2409,7 @@ def p_DEF_statement(s):
     expr = p_compile_time_expr(s)
     if s.compile_time_eval:
         value = expr.compile_time_value(denv)
-        #print "p_DEF_statement: %s = %r" % (name, value) ###
+        # print "p_const_statement: %s = %r" % (name, value) ###
         denv.declare(name, value)
     s.expect_newline("Expected a newline", ignore_semicolon=True)
     return Nodes.PassStatNode(pos)
@@ -2449,14 +2454,14 @@ def p_statement(s, ctx, first_statement = 0):
         #if ctx.api:
         #    error(s.position(), "'api' not allowed with 'ctypedef'")
         return p_ctypedef_statement(s, ctx)
-    elif s.sy == 'DEF':
+    elif s.sy in ("const", "DEF") and ctx.visibility != "extern":
         # We used to dep-warn about this but removed the warning again since
         # we don't have a good answer yet for all use cases.
         # warning(s.position(),
         #         "The 'DEF' statement is deprecated and will be removed in a future Cython version. "
         #         "Consider using global variables, constants, and in-place literals instead. "
         #         "See https://github.com/cython/cython/issues/4310", level=1)
-        return p_DEF_statement(s)
+        return p_const_statement(s)
     elif s.sy == 'IF':
         warning(s.position(),
                 "The 'IF' statement is deprecated and will be removed in a future Cython version. "
@@ -2485,7 +2490,7 @@ def p_statement(s, ctx, first_statement = 0):
         cdef_flag = 1
         overridable = 1
         s.next()
-    elif s.sy in ("pub", "fn", "let", "enum", "struct", "union", "extern"):
+    elif s.sy in ("pub", "fn", "let", "enum", "struct", "union", "extern", "static"):
         cdef_flag = 1
     if cdef_flag:
         if ctx.level not in ('module', 'module_pxd', 'function', 'c_class', 'c_class_pxd'):
@@ -2530,6 +2535,8 @@ def p_statement(s, ctx, first_statement = 0):
                 s.error("Executable statement not allowed here")
             if s.sy == 'if':
                 return p_if_statement(s)
+            elif s.sy == "loop":
+                return p_loop_statement(s)
             elif s.sy == 'while':
                 return p_while_statement(s)
             elif s.sy == 'for':
@@ -2714,8 +2721,8 @@ def p_c_simple_base_type(s, nonempty, templates=None):
 
     # Handle const/volatile
     is_const = is_volatile = 0
-    while s.sy == 'IDENT':
-        if s.systring == 'const':
+    while s.sy in ("const", "IDENT"):
+        if s.sy == "const":
             if is_const: error(pos, "Duplicate 'const'")
             is_const = 1
         elif s.systring == 'volatile':
@@ -2769,7 +2776,7 @@ def p_c_simple_base_type(s, nonempty, templates=None):
         name = s.systring
         name_pos = s.position()
         s.next()
-        if nonempty and s.sy != 'IDENT':
+        if nonempty and s.sy not in ("const", "IDENT"):
             # Make sure this is not a declaration of a variable or function.
             if s.sy == '(':
                 old_pos = s.position()
@@ -2892,7 +2899,9 @@ def looking_at_name(s):
     return s.sy == 'IDENT' and s.systring not in calling_convention_words
 
 def looking_at_expr(s):
-    if s.systring in base_type_start_words:
+    if s.sy == "const":
+        return False
+    elif s.systring in base_type_start_words:
         return False
     elif s.sy == 'IDENT':
         is_type = False
@@ -3095,7 +3104,7 @@ def p_c_simple_declarator(s, ctx, empty, is_type, cmethod_flag,
         s.next()
 
         const_pos = s.position()
-        is_const = s.systring == 'const' and s.sy == 'IDENT'
+        is_const = s.sy == "const"
         if is_const:
             s.next()
 
@@ -3378,6 +3387,9 @@ def p_cdef_statement(s, ctx):
     elif s.sy == "let":
         s.next()
         return p_c_func_or_var_declaration(s, pos, ctx)
+    elif s.sy == "static":
+        s.next()
+        return p_c_func_or_var_declaration(s, pos, ctx)
     else:
         return p_c_func_or_var_declaration(s, pos, ctx)
 
@@ -3608,7 +3620,7 @@ def p_c_func_or_var_declaration(s, pos, ctx):
     declarator = p_c_declarator(s, ctx(modifiers=modifiers), cmethod_flag = cmethod_flag,
                                 assignable = 1, nonempty = 1)
     declarator.overridable = ctx.overridable
-    if s.sy == 'IDENT' and s.systring == 'const' and ctx.level == 'cpp_class':
+    if s.sy == "const" and ctx.level == 'cpp_class':
         s.next()
         is_const_method = 1
     else:
