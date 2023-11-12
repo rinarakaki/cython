@@ -1,35 +1,35 @@
 extern from "<complex.h>" nogil:
     # Trigonometric functions.
-    fn double complex cacos(double complex z)
-    fn double complex casin(double complex z)
-    fn double complex catan(double complex z)
-    fn double complex ccos(double complex z)
-    fn double complex csin(double complex z)
-    fn double complex ctan(double complex z)
+    fn c128 cacos(c128 z)
+    fn c128 casin(c128 z)
+    fn c128 catan(c128 z)
+    fn c128 ccos(c128 z)
+    fn c128 csin(c128 z)
+    fn c128 ctan(c128 z)
 
     # Hyperbolic functions.
-    fn double complex cacosh(double complex z)
-    fn double complex casinh(double complex z)
-    fn double complex catanh(double complex z)
-    fn double complex ccosh(double complex z)
-    fn double complex csinh(double complex z)
-    fn double complex ctanh(double complex z)
+    fn c128 cacosh(c128 z)
+    fn c128 casinh(c128 z)
+    fn c128 catanh(c128 z)
+    fn c128 ccosh(c128 z)
+    fn c128 csinh(c128 z)
+    fn c128 ctanh(c128 z)
 
     # Exponential and logarithmic functions.
-    fn double complex cexp(double complex z)
-    fn double complex clog(double complex z)
-    fn double complex clog10(double complex z)
+    fn c128 cexp(c128 z)
+    fn c128 clog(c128 z)
+    fn c128 clog10(c128 z)
 
     # Power functions.
-    fn double complex cpow(double complex x, double complex y)
-    fn double complex csqrt(double complex z)
+    fn c128 cpow(c128 x, c128 y)
+    fn c128 csqrt(c128 z)
 
     # Absolute value, conjugates, and projection.
-    fn f64 cabs(double complex z)
-    fn f64 carg(double complex z)
-    fn double complex conj(double complex z)
-    fn double complex cproj(double complex z)
+    fn f64 cabs(c128 z)
+    fn f64 carg(c128 z)
+    fn c128 conj(c128 z)
+    fn c128 cproj(c128 z)
 
     # Decomposing complex values.
-    fn f64 cimag(double complex z)
-    fn f64 creal(double complex z)
+    fn f64 cimag(c128 z)
+    fn f64 creal(c128 z)

@@ -295,7 +295,7 @@ def nested_packed_struct(NestedPackedStruct[:] mslice):
     d = buf[0]
     print d['a'], d['b'], d['sub']['a'], d['sub']['b'], d['c']
 
-def complex_dtype(long double complex[:] mslice):
+def complex_dtype(c256[:] mslice):
     """
     >>> complex_dtype(LongComplexMockBuffer(None, [(0, -1)]))
     -1j
@@ -303,7 +303,7 @@ def complex_dtype(long double complex[:] mslice):
     let object buf = mslice
     print buf[0]
 
-def complex_inplace(long double complex[:] mslice):
+def complex_inplace(c256[:] mslice):
     """
     >>> complex_inplace(LongComplexMockBuffer(None, [(0, -1)]))
     (1+1j)

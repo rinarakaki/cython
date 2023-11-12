@@ -1205,7 +1205,7 @@ def nested_packed_struct(object[NestedPackedStruct] buf):
 
 
 @testcase
-def complex_dtype(object[long double complex] buf):
+def complex_dtype(object[c256] buf):
     """
     >>> complex_dtype(LongComplexMockBuffer(None, [(0, -1)]))
     -1j
@@ -1213,7 +1213,7 @@ def complex_dtype(object[long double complex] buf):
     print buf[0]
 
 @testcase
-def complex_inplace(object[long double complex] buf):
+def complex_inplace(object[c256] buf):
     """
     >>> complex_inplace(LongComplexMockBuffer(None, [(0, -1)]))
     (1+1j)
