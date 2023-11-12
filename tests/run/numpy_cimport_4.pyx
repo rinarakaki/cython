@@ -2,7 +2,7 @@
 # tag: warnings, numpy
 
 use numpy
-<void>numpy.import_array # dummy call should stop Cython auto-generating call to import_array
+<void>numpy.import_array  # dummy call should stop Cython auto-generating call to import_array
 
 extern from *:
     """
@@ -17,7 +17,7 @@ def check_array_api():
     >>> check_array_api()
     True
     """
-    return _check_array_api() == NULL # not initialized
+    return _check_array_api() == NULL  # not initialized
 
 
 _WARNINGS = """

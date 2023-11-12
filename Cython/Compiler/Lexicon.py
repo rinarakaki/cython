@@ -48,7 +48,7 @@ def make_lexicon():
     decimal_fract = decimal + dot + decimal
 
     # name = letter + Rep(letter | digit)
-    name = Opt(Str("r#") | Str("r$")) + unicode_start_character + Rep(unicode_continuation_character)
+    name = Opt(Str("r#")) + unicode_start_character + Rep(unicode_continuation_character)
     intconst = (prefixed_digits(nonzero_digit, digit) |  # decimal literals with underscores must not start with '0'
                 (Str("0") + (prefixed_digits(Any("Xx"), hexdigit) |
                              prefixed_digits(Any("Oo"), octdigit) |
@@ -86,7 +86,7 @@ def make_lexicon():
     escaped_newline = Str("\\\n")
     lineterm = Eol + Opt(Str("\n"))
 
-    comment = Str("#") + Eol | Str("# ") + Opt(AnyBut("[\n") + Rep(AnyBut("\n")))
+    comment = Str("#") + Opt(spaces + Rep(AnyBut("\n")))
 
     return Lexicon([
         (name, Method('normalize_ident')),
@@ -152,8 +152,8 @@ def make_lexicon():
         ],
 
         # FIXME: Plex 1.9 needs different args here from Plex 1.1.4
-        #debug_flags = scanner_debug_flags,
-        #debug_file = scanner_dump_file
+        # debug_flags = scanner_debug_flags,
+        # debug_file = scanner_dump_file
         )
 
 

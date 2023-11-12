@@ -99,11 +99,11 @@ fn p_testlist_star_expr(PyrexScanner s)
 fn p_testlist_comp(PyrexScanner s)
 fn p_genexp(PyrexScanner s, expr)
 
-#-------------------------------------------------------
+# -------------------------------------------------------
 #
 #   Statements
 #
-#-------------------------------------------------------
+# -------------------------------------------------------
 
 fn p_global_statement(PyrexScanner s)
 fn p_nonlocal_statement(PyrexScanner s)
@@ -195,6 +195,7 @@ fn p_struct_enum(PyrexScanner s, pos, ctx)
 fn p_visibility(PyrexScanner s, prev_visibility)
 fn p_c_modifiers(PyrexScanner s)
 fn p_c_func_or_var_declaration(PyrexScanner s, pos, ctx)
+fn p_type_statement(PyrexScanner s, ctx)
 fn p_ctypedef_statement(PyrexScanner s, ctx)
 fn p_decorators(PyrexScanner s)
 fn _reject_cdef_modifier_in_py(PyrexScanner s, name)

@@ -48,7 +48,7 @@ def gc_collect_if_required():
 
 
 #
-### Test slicing memoryview slices
+# Test slicing memoryview slices
 #
 
 def test_partial_slicing(array):
@@ -105,7 +105,7 @@ def test_ellipsis(array):
     ae(e.strides[0], e_obj.strides[0])
 
 #
-### Test slicing memoryview objects
+# Test slicing memoryview objects
 #
 def test_partial_slicing_memoryview(array):
     """
@@ -181,7 +181,7 @@ def test_transpose():
     let dtype_t[:, :] b = a.T
     print a.T.shape[0], a.T.shape[1]
     print a_obj.T.shape
-    print tuple(map(int, numpy_obj.T.shape)) # might use longs in Py2
+    print tuple(map(int, numpy_obj.T.shape))  # might use longs in Py2
 
     let dtype_t[:, :] c
     with nogil:
@@ -228,7 +228,7 @@ def test_copy_and_contig_attributes(a):
     >>> test_copy_and_contig_attributes(a)
     """
     let np.int32_t[:, :] mslice = a
-    let object m = mslice  #  object copy
+    let object m = mslice  # object copy
 
     # Test object copy attributes
     assert np.all(a == np.array(m.copy()))
@@ -243,10 +243,10 @@ def test_copy_and_contig_attributes(a):
 
 type td_cy_int = i32
 extern from "bufaccess.h":
-    type td_h_short = td_cy_int  # Defined as short, but Cython doesn't know this!
-    type td_h_double = f32  # Defined as double
-    type td_h_ushort = u32  # Defined as unsigned short
-type td_h_cy_short = td_h_short
+    ctypedef td_cy_int td_h_short  # Defined as short, but Cython doesn't know this!
+    ctypedef f32 td_h_double  # Defined as double
+    ctypedef u32 td_h_ushort  # Defined as unsigned short
+ctypedef td_h_short td_h_cy_short
 
 fn void dealloc_callback(void *data) noexcept:
     print "deallocating..."
@@ -301,7 +301,7 @@ def test_coerce_to_numpy():
     deallocating...
     """
     #
-    ### First set up some C arrays that will be used to hold data
+    # First set up some C arrays that will be used to hold data
     #
     let MyStruct[20] mystructs
     let SmallStruct[20] smallstructs
@@ -329,7 +329,7 @@ def test_coerce_to_numpy():
     let isize idx = 17
 
     #
-    ### Initialize one element in each array
+    # Initialize one element in each array
     #
     mystructs[idx] = {
         'a': 'a',
@@ -370,7 +370,7 @@ def test_coerce_to_numpy():
     h_ushorts[idx] = 44
 
     #
-    ### Create a NumPy array and see if our element can be correctly retrieved
+    # Create a NumPy array and see if our element can be correctly retrieved
     #
     mystruct_array = build_numarray(<MyStruct[:4, :5]> <MyStruct *> mystructs)
     print [int(x) for x in mystruct_array[3, 2]]
@@ -574,7 +574,7 @@ def test_struct_attributes():
     print chr(array[0]['attrib3']['c'][0][0])
 
 #
-### Test for NULL strides (C contiguous buffers)
+# Test for NULL strides (C contiguous buffers)
 #
 fn getbuffer(Buffer self, Py_buffer *info):
     info.buf = &self.m[0, 0]
@@ -675,8 +675,8 @@ def test_refcount_GH507():
     >>> test_refcount_GH507()
     """
     a = np.arange(12).reshape([3, 4])
-    let np.int_t[:, :] a_view = a
-    let np.int_t[:, :] b = a_view[1:2, :].T
+    let np.npy_long[:, :] a_view = a
+    let np.npy_long[:, :] b = a_view[1:2, :].T
 
 
 #[cython.boundscheck(false)]

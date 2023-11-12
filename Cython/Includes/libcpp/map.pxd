@@ -79,9 +79,9 @@ extern from "<map>" namespace "std" nogil:
 
         map() except +
         map(map&) except +
-        #map(key_compare&)
+        # map(key_compare&)
         U& operator[](const T&)
-        #map& operator=(map&)
+        # map& operator=(map&)
         u2 operator==(map&, map&)
         u2 operator!=(map&, map&)
         u2 operator<(map&, map&)
@@ -110,7 +110,7 @@ extern from "<map>" namespace "std" nogil:
         pair[iterator, u2] insert(const pair[T, U]&) except +
         iterator insert(const_iterator, const pair[T, U]&) except +
         void insert[InputIt](InputIt, InputIt) except +
-        #key_compare key_comp()
+        # key_compare key_comp()
         iterator lower_bound(const T&)
         const_iterator const_lower_bound "lower_bound"(const T&)
         usize max_size()
@@ -124,7 +124,7 @@ extern from "<map>" namespace "std" nogil:
         void swap(map&)
         iterator upper_bound(const T&)
         const_iterator const_upper_bound "upper_bound"(const T&)
-        #value_compare value_comp()
+        # value_compare value_comp()
         # C++20
         u2 contains(const T&)
 
@@ -206,8 +206,8 @@ extern from "<map>" namespace "std" nogil:
 
         multimap() except +
         multimap(const multimap&) except +
-        #multimap(key_compare&)
-        #multimap& operator=(multimap&)
+        # multimap(key_compare&)
+        # multimap& operator=(multimap&)
         u2 operator==(const multimap&, const multimap&)
         u2 operator!=(const multimap&, const multimap&)
         u2 operator<(const multimap&, const multimap&)
@@ -234,7 +234,7 @@ extern from "<map>" namespace "std" nogil:
         iterator insert(const pair[T, U]&) except +
         iterator insert(const_iterator, const pair[T, U]&) except +
         void insert[InputIt](InputIt, InputIt) except +
-        #key_compare key_comp()
+        # key_compare key_comp()
         iterator lower_bound(const T&)
         const_iterator const_lower_bound "lower_bound"(const T&)
         usize max_size()
@@ -248,5 +248,5 @@ extern from "<map>" namespace "std" nogil:
         void swap(multimap&)
         iterator upper_bound(const T&)
         const_iterator const_upper_bound "upper_bound"(const T&)
-        #value_compare value_comp()
+        # value_compare value_comp()
         u2 contains(const T&)

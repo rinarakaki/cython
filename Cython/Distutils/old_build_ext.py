@@ -213,14 +213,14 @@ class old_build_ext(_build_ext.build_ext):
         # use what was parsed from the command-line or the configuration file.
         # cplus will also be set to true is extension.language is equal to
         # 'C++' or 'c++'.
-        #try:
+        # try:
         #    create_listing = self.cython_create_listing or \
         #                        extension.cython_create_listing
         #    cplus = self.cython_cplus or \
         #                extension.cython_cplus or \
         #                (extension.language != None and \
         #                    extension.language.lower() == 'c++')
-        #except AttributeError:
+        # except AttributeError:
         #    create_listing = self.cython_create_listing
         #    cplus = self.cython_cplus or \
         #                (extension.language != None and \

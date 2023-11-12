@@ -1,9 +1,9 @@
 use super::object::PyObject
 
 extern from "Python.h":
-    #####################################################################
+    # ###################################################################
     # 3. Exception Handling
-    #####################################################################
+    # ###################################################################
 
     # The functions described in this chapter will let you handle and
     # raise Python exceptions. It is important to understand some of
@@ -107,14 +107,14 @@ extern from "Python.h":
     # error indicator temporarily; use PyErr_Fetch() to save the
     # current exception state.
 
-    fn void PyErr_SetString(object, char *message)
+    fn void PyErr_SetString(object r#type, char *message)
     # This is the most common way to set the error indicator. The
     # first argument specifies the exception type; it is normally one
     # of the standard exceptions, e.g. PyExc_RuntimeError. You need
     # not increment its reference count. The second argument is an
     # error message; it is converted to a string object.
 
-    fn void PyErr_SetObject(object, object value)
+    fn void PyErr_SetObject(object r#type, object value)
     # This function is similar to PyErr_SetString() but lets you
     # specify an arbitrary Python object for the ``value'' of the
     # exception.
@@ -255,7 +255,7 @@ extern from "Python.h":
     # when an exception has been set but it is impossible for the
     # interpreter to actually raise the exception. It is used, for
     # example, when an exception occurs in an __del__() method.
-    #
+    # 
     # The function is called with a single argument obj that
     # identifies the context in which the unraisable exception
     # occurred. The repr of obj will be printed in the warning

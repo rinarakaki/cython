@@ -247,7 +247,7 @@ def mod_obj_m2(int2):
 
 def mod_obj_m2f(obj2):
     """
-    >>> 0 % -2.0 == 0.0    # -0.0 in Py2.7+
+    >>> 0 % -2.0 == 0.0  # -0.0 in Py2.7+
     True
     >>> mod_obj_m2f(0)
     -0.0

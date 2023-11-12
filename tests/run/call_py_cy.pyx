@@ -2,9 +2,9 @@
 # tag: cyfunction,call,python
 # cython: binding=true
 
-#######
+# #####
 # Test that Cython and Python functions can call each other in various signature combinations.
-#######
+# #####
 
 py_call_noargs = eval("lambda: 'noargs'")
 py_call_onearg = eval("lambda arg: arg")

@@ -2,9 +2,9 @@ extern from "Python.h":
     type PY_LONG_LONG = i128
     ctypedef u128 uPY_LONG_LONG "unsigned PY_LONG_LONG"
 
-    ############################################################################
+    # ##########################################################################
     # 7.2.3 Long Integer Objects
-    ############################################################################
+    # ##########################################################################
 
     # PyLongObject
     #
@@ -120,7 +120,7 @@ extern from "Python.h":
     # raised.
 
     fn uPY_LONG_LONG PyLong_AsUnsignedLongLong(object pylong) except? -1
-    #unsigned PY_LONG_LONG PyLong_AsUnsignedLongLong(object pylong)
+    # unsigned PY_LONG_LONG PyLong_AsUnsignedLongLong(object pylong)
     # Return a C unsigned long long from a Python long integer. If
     # pylong cannot be represented as an unsigned long long, an
     # OverflowError will be raised if the value is positive, or a
@@ -131,7 +131,7 @@ extern from "Python.h":
     # checking for overflow.
 
     fn uPY_LONG_LONG PyLong_AsUnsignedLongLongMask(object io) except? -1
-    #unsigned PY_LONG_LONG PyLong_AsUnsignedLongLongMask(object io)
+    # unsigned PY_LONG_LONG PyLong_AsUnsignedLongLongMask(object io)
     # Return a C unsigned long long from a Python long integer,
     # without checking for overflow.
 

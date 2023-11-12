@@ -444,7 +444,7 @@ non-important content
         self.assertEqual(f'{"{{}}"}', '{{}}')
 
         self.assertAllRaise(TypeError, 'unhashable type',
-                            ["f'{ {{}} }'", # dict in a set
+                            ["f'{ {{}} }'",  # dict in a set
                              ])
 
     def test_compile_time_concat(self):
@@ -554,7 +554,7 @@ non-important content
 
         # CYTHON: The nesting restriction seems rather arbitrary. Ignoring it for now and instead test that it works.
         self.assertEqual(f'result: {value:{width:{0}}.{precision:1}}', 'result:      12.35')
-        #self.assertAllRaise(SyntaxError, "f-string: expressions nested too deeply",
+        # self.assertAllRaise(SyntaxError, "f-string: expressions nested too deeply",
         #                    [# Can't nest format specifiers.
         #                     "f'result: {value:{width:{0}}.{precision:1}}'",
         #                     ])
@@ -613,7 +613,7 @@ non-important content
         # Different error message is raised for other whitespace characters.
         self.assertAllRaise(SyntaxError, r"invalid non-printable character U\+00A0",
                             ["f'''{\xa0}'''",
-                             #"\xa0",
+                             # "\xa0",
                              ])
 
     def test_parens_in_expressions(self):
@@ -677,9 +677,9 @@ non-important content
         self.assertEqual(f'2\x203', '2 3')
         self.assertEqual(f'\x203', ' 3')
 
-        #with self.assertWarns(DeprecationWarning):  # invalid escape sequence
+        # with self.assertWarns(DeprecationWarning):  # invalid escape sequence
         #    value = cy_eval(r"f'\{6*7}'")
-        #self.assertEqual(value, '\\42')
+        # self.assertEqual(value, '\\42')
         self.assertEqual(f'\\{6*7}', '\\42')
         self.assertEqual(fr'\{6*7}', '\\42')
 
@@ -1207,8 +1207,8 @@ non-important content
         # this will be to dynamically created and exec the f-strings.  But
         # that's such a hassle I'll save it for another day.  For now, convert
         # the tabs to spaces just to shut up patchcheck.
-        #self.assertEqual(f'X{x =}Y', 'Xx\t='+repr(x)+'Y')
-        #self.assertEqual(f'X{x =       }Y', 'Xx\t=\t'+repr(x)+'Y')
+        # self.assertEqual(f'X{x =}Y', 'Xx\t='+repr(x)+'Y')
+        # self.assertEqual(f'X{x =       }Y', 'Xx\t=\t'+repr(x)+'Y')
 
 
     def test_walrus(self):

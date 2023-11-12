@@ -157,7 +157,7 @@ def handle_dependencies(pyxfilename):
 
         # only for unit testing to see we did the right thing
         if testing:
-            _test_files[:] = []  #$pycheck_no
+            _test_files[:] = []  # $pycheck_no
 
         # if any file that the pyxfile depends upon is newer than
         # the pyx file, 'touch' the pyx file so that distutils will
@@ -205,7 +205,7 @@ def build_module(name, pyxfilename, pyxbuild_dir=None, inplace=False, language_l
     so_path = os.path.join(common, so_path)
     assert os.path.exists(so_path), "Cannot find: %s" % so_path
 
-    junkpath = os.path.join(os.path.dirname(so_path), name+"_*")  #very dangerous with --inplace ? yes, indeed, trying to eat my files ;)
+    junkpath = os.path.join(os.path.dirname(so_path), name+"_*")  # very dangerous with --inplace ? yes, indeed, trying to eat my files ;)
     junkstuff = glob.glob(junkpath)
     for path in junkstuff:
         if path != so_path:
@@ -341,11 +341,11 @@ class PyxImportLoader(ExtensionFileLoader):
                     module.__file__, traceback.format_exception_only(*sys.exc_info()[:2])))
 
 
-#install args
+# install args
 class PyxArgs(object):
     build_dir=True
     build_in_temp=True
-    setup_args={}   #None
+    setup_args={}  # None
 
 
 def _have_importers():
@@ -420,7 +420,7 @@ def install(pyximport=True, pyimport=False, build_dir=None, build_in_temp=True,
         build_dir = os.path.join(os.path.expanduser('~'), '.pyxbld')
 
     global pyxargs
-    pyxargs = PyxArgs()  #$pycheck_no
+    pyxargs = PyxArgs()  # $pycheck_no
     pyxargs.build_dir = build_dir
     pyxargs.build_in_temp = build_in_temp
     pyxargs.setup_args = (setup_args or {}).copy()

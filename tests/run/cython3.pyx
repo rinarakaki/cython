@@ -27,7 +27,7 @@ def locals_function(a, b=2):
     return locals()
 
 
-### "new style" classes
+# ## "new style" classes
 
 class T:
     """
@@ -39,7 +39,7 @@ class T:
     """
 
 
-### true division
+# ## true division
 
 def truediv(x):
     """
@@ -72,7 +72,7 @@ def cdiv_int(i32 x):
     return x / 2
 
 
-### module level except-as tests
+# ## module level except-as tests
 
 exc = [None]
 e = None
@@ -105,7 +105,7 @@ except TypeError:
 no_match_does_not_touch_target = (e == 123)
 
 
-### more except-as tests
+# ## more except-as tests
 
 def except_as_no_raise_does_not_touch_target(a):
     """
@@ -293,7 +293,7 @@ def nested_except_gh3666(a=false, b=false):
             return "B-V-T"
 
 
-### Py3 feature tests
+# ## Py3 feature tests
 
 def print_function(*args):
     """

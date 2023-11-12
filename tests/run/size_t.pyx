@@ -12,7 +12,7 @@ __doc__ = u"""
 ... except (OverflowError, TypeError): print("ERROR")
 ERROR
 
->>> test(1<<128) #doctest: +ELLIPSIS
+>>> test(1<<128) # doctest: +ELLIPSIS
 Traceback (most recent call last):
     ...
 OverflowError: ...
@@ -27,7 +27,7 @@ True
 >>> try: a.foo(-1)
 ... except (OverflowError, TypeError): print("ERROR")
 ERROR
->>> a.foo(1 << 180) #doctest: +ELLIPSIS
+>>> a.foo(1 << 180) # doctest: +ELLIPSIS
 Traceback (most recent call last):
     ...
 OverflowError: ...

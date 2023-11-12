@@ -6,16 +6,16 @@ from __future__ import generator_stop
 
 import os
 import sys
-#import inspect
-#import types
+# import inspect
+# import types
 import unittest
 import contextlib
 
-#from unittest import mock
+# from unittest import mock
 
-#from test.support import import_module
+# from test.support import import_module
 
-#asyncio = import_module("asyncio")
+# asyncio = import_module("asyncio")
 
 ZERO = 0
 
@@ -489,10 +489,10 @@ class AsyncGenTest(unittest.TestCase):
         g.__qualname__ = '123'
         self.assertEqual(g.__qualname__, '123')
 
-        #self.assertIsNone(g.ag_await)
-        #self.assertIsInstance(g.ag_frame, types.FrameType)
+        # self.assertIsNone(g.ag_await)
+        # self.assertIsInstance(g.ag_frame, types.FrameType)
         self.assertFalse(g.ag_running)
-        #self.assertIsInstance(g.ag_code, types.CodeType)
+        # self.assertIsInstance(g.ag_code, types.CodeType)
 
         self.assertTrue(inspect_isawaitable(g.aclose()))
 

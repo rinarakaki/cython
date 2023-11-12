@@ -1,4 +1,4 @@
-#cython: language_level=2
+# cython: language_level=2
 # mode: run
 # ticket: t653
 

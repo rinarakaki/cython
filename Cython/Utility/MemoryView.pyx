@@ -105,7 +105,7 @@ except:
     __pyx_collections_abc_Sequence = None
 
 #
-### cython.array class
+# ## cython.array class
 #
 
 #[cython.collection_type("sequence")]
@@ -275,7 +275,7 @@ fn array array_cwrapper(tuple shape, isize itemsize, char *format, const char *c
     return result
 
 #
-### Memoryview constants and cython.view.memoryview class
+# ## Memoryview constants and cython.view.memoryview class
 #
 
 # Disable generic_contiguous, as it makes trouble verifying contiguity:
@@ -306,7 +306,7 @@ cdef generic = Enum("<strided and direct or indirect>")
 cdef strided = Enum("<strided and direct>") # default
 cdef indirect = Enum("<strided and indirect>")
 # Disable generic_contiguous, as it is a troublemaker
-#cdef generic_contiguous = Enum("<contiguous and direct or indirect>")
+# cdef generic_contiguous = Enum("<contiguous and direct or indirect>")
 cdef contiguous = Enum("<contiguous and direct>")
 cdef indirect_contiguous = Enum("<contiguous and indirect>")
 
@@ -314,8 +314,8 @@ cdef indirect_contiguous = Enum("<contiguous and indirect>")
 
 
 # pre-allocate thread locks for reuse
-## note that this could be implemented in a more beautiful way in "normal" Cython,
-## but this code gets merged into the user module and not everything works there.
+# # note that this could be implemented in a more beautiful way in "normal" Cython,
+# # but this code gets merged into the user module and not everything works there.
 cdef i32 __pyx_memoryview_thread_locks_used = 0
 cdef PyThread_type_lock[{{THREAD_LOCKS_PREALLOCATED}}] __pyx_memoryview_thread_locks = [
 {{for _ in range(THREAD_LOCKS_PREALLOCATED)}}
@@ -394,7 +394,7 @@ cdef class memoryview:
 
         return itemp
 
-    #@cname('__pyx_memoryview_getitem')
+    # @cname('__pyx_memoryview_getitem')
     def __getitem__(memoryview self, object index):
         if index is Ellipsis:
             return self
@@ -695,7 +695,7 @@ fn i32 assert_direct_dimensions(isize *suboffsets, i32 ndim) except -1:
     return 0  # return type just used as an error flag
 
 #
-### Slicing a memoryview
+# ## Slicing a memoryview
 #
 
 @cname('__pyx_memview_slice')
@@ -741,8 +741,8 @@ fn memoryview memview_slice(memoryview memview, object indices):
             slice_memviewslice(
                 p_dst, p_src.shape[dim], p_src.strides[dim], p_src.suboffsets[dim],
                 dim, new_ndim, p_suboffset_dim,
-                cindex, 0, 0, # start, stop, step
-                0, 0, 0, # have_{start,stop,step}
+                cindex, 0, 0,  # start, stop, step
+                0, 0, 0,  # have_{start,stop,step}
                 False)
         elif index is None:
             p_dst.shape[new_ndim] = 1
@@ -777,7 +777,7 @@ fn memoryview memview_slice(memoryview memview, object indices):
 
 
 #
-### Slicing in a single dimension of a memoryviewslice
+# ## Slicing in a single dimension of a memoryviewslice
 #
 
 @cname('__pyx_memoryview_slice_memviewslice')
@@ -881,7 +881,7 @@ fn i32 slice_memviewslice(
     return 0
 
 #
-### Index a memoryview
+# ## Index a memoryview
 #
 @cname('__pyx_pybuffer_index')
 fn char *pybuffer_index(Py_buffer *view, char *bufp, isize index,
@@ -914,7 +914,7 @@ fn char *pybuffer_index(Py_buffer *view, char *bufp, isize index,
     return resultp
 
 #
-### Transposing a memoryviewslice
+# ## Transposing a memoryviewslice
 #
 @cname('__pyx_memslice_transpose')
 fn i32 transpose_memslice({{memviewslice_name}} *memslice) except -1 nogil:
@@ -936,7 +936,7 @@ fn i32 transpose_memslice({{memviewslice_name}} *memslice) except -1 nogil:
     return 0
 
 #
-### Creating new memoryview objects from slices and memoryviews
+# ## Creating new memoryview objects from slices and memoryviews
 #
 #[cython.collection_type("sequence")]
 @cname('__pyx_memoryviewslice')
@@ -1094,7 +1094,7 @@ fn memoryview_copy_from_slice(memoryview memview, {{memviewslice_name}} *memview
                                 memview.dtype_is_object)
 
 #
-### Copy the contents of a memoryview slices
+# ## Copy the contents of a memoryview slices
 #
 fn isize abs_isize(isize arg) noexcept nogil:
     return -arg if arg < 0 else arg
@@ -1341,8 +1341,8 @@ fn void broadcast_leading({{memviewslice_name}} *mslice,
         mslice.suboffsets[i] = -1
 
 #
-### Take care of refcounting the objects in slices. Do this separately from any copying,
-### to minimize acquiring the GIL
+# ## Take care of refcounting the objects in slices. Do this separately from any copying,
+# ## to minimize acquiring the GIL
 #
 
 @cname('__pyx_memoryview_refcount_copying')
@@ -1375,7 +1375,7 @@ fn void refcount_objects_in_slice(char *data, isize *shape,
         data += stride
 
 #
-### Scalar to slice assignment
+# ## Scalar to slice assignment
 #
 @cname('__pyx_memoryview_slice_assign_scalar')
 fn void slice_assign_scalar({{memviewslice_name}} *dst, i32 ndim,
@@ -1431,8 +1431,8 @@ extern from *:
         __Pyx_StructField* field
         usize parent_offset
 
-    #struct __Pyx_BufFmt_Context:
-    #  __Pyx_StructField root
+    # struct __Pyx_BufFmt_Context:
+    #     __Pyx_StructField root
         __Pyx_BufFmt_StackElem* head
 
     struct __pyx_typeinfo_string:

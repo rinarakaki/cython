@@ -1,5 +1,5 @@
-#cython: c_string_type = unicode
-#cython: c_string_encoding = ascii
+# cython: c_string_type = unicode
+# cython: c_string_encoding = ascii
 
 auto_string_type = unicode
 
