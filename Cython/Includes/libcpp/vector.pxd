@@ -116,9 +116,9 @@ extern from "<vector>" namespace "std" nogil:
         vector(vector&) except +
         vector(size_type) except +
         vector(size_type, T&) except +
-        #vector[InputIt](InputIt, InputIt)
+        # vector[InputIt](InputIt, InputIt)
         T& operator[](size_type)
-        #vector& operator=(vector&)
+        # vector& operator=(vector&)
         u2 operator==(vector&, vector&)
         u2 operator!=(vector&, vector&)
         u2 operator<(vector&, vector&)

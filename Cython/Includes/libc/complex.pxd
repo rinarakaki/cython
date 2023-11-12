@@ -1,34 +1,34 @@
 extern from "<complex.h>" nogil:
     # Trigonometric functions.
-    double complex cacos(double complex z)
-    double complex casin(double complex z)
-    double complex catan(double complex z)
-    double complex ccos(double complex z)
-    double complex csin(double complex z)
-    double complex ctan(double complex z)
+    fn double complex cacos(double complex z)
+    fn double complex casin(double complex z)
+    fn double complex catan(double complex z)
+    fn double complex ccos(double complex z)
+    fn double complex csin(double complex z)
+    fn double complex ctan(double complex z)
 
     # Hyperbolic functions.
-    double complex cacosh(double complex z)
-    double complex casinh(double complex z)
-    double complex catanh(double complex z)
-    double complex ccosh(double complex z)
-    double complex csinh(double complex z)
-    double complex ctanh(double complex z)
+    fn double complex cacosh(double complex z)
+    fn double complex casinh(double complex z)
+    fn double complex catanh(double complex z)
+    fn double complex ccosh(double complex z)
+    fn double complex csinh(double complex z)
+    fn double complex ctanh(double complex z)
 
     # Exponential and logarithmic functions.
-    double complex cexp(double complex z)
-    double complex clog(double complex z)
-    double complex clog10(double complex z)
+    fn double complex cexp(double complex z)
+    fn double complex clog(double complex z)
+    fn double complex clog10(double complex z)
 
     # Power functions.
-    double complex cpow(double complex x, double complex y)
-    double complex csqrt(double complex z)
+    fn double complex cpow(double complex x, double complex y)
+    fn double complex csqrt(double complex z)
 
     # Absolute value, conjugates, and projection.
     fn f64 cabs(double complex z)
     fn f64 carg(double complex z)
-    double complex conj(double complex z)
-    double complex cproj(double complex z)
+    fn double complex conj(double complex z)
+    fn double complex cproj(double complex z)
 
     # Decomposing complex values.
     fn f64 cimag(double complex z)

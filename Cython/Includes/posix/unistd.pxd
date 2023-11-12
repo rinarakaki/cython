@@ -3,8 +3,7 @@
 use posix::types::(gid_t, pid_t, off_t, uid_t)
 
 extern from "<unistd.h>" nogil:
-
-    #:NULL
+    # NULL
 
     enum: R_OK
     enum: W_OK
@@ -179,9 +178,9 @@ extern from "<unistd.h>" nogil:
     enum: _SC_XOPEN_UNIX
     enum: _SC_XOPEN_VERSION
 
-    enum: STDIN_FILENO	#0
-    enum: STDOUT_FILENO	#1
-    enum: STDERR_FILENO	#2
+    enum: STDIN_FILENO 	 # 0
+    enum: STDOUT_FILENO	 # 1
+    enum: STDERR_FILENO	 # 2
 
     ctypedef u32 useconds_t
 

@@ -50,7 +50,7 @@ pub  api class Bar3 [type PyBar3_Type, object PyBar3_Object]: pass
 # --
 
 extern from *:
-    void foo()
+    fn void foo()
 
 fn inline       void bar (): pass
 fn              void bar0()

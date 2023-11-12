@@ -89,18 +89,18 @@ def test_boundscheck(x):
         return x[2]
 
 
-## CURRENTLY BROKEN - FIXME!!
-## Is this test make sense? Implicit conversion in pure Python??
-
-## @cython.locals(x=cython.int)
-## @cython.locals(y=cython.bint)
-## def test_locals(x):
-##     """
-##     >>> test_locals(5)
-##     True
-##     """
-##     y = x
-##     return y
+# CURRENTLY BROKEN - FIXME!!
+# Is this test make sense? Implicit conversion in pure Python??
+#
+# @cython.locals(x=cython.int)
+# @cython.locals(y=cython.bint)
+# def test_locals(x):
+#     """
+#     >>> test_locals(5)
+#     True
+#     """
+#     y = x
+#     return y
 
 
 def test_with_nogil(nogil, should_raise=False):
@@ -171,7 +171,7 @@ def test_imports():
 
     return a == d, compiled == my_compiled
 
-## CURRENTLY BROKEN - FIXME!!
+# # CURRENTLY BROKEN - FIXME!!
 
 # MyStruct3 = typedef(MyStruct[3])
 # MyStruct4 = my_typedef(MyStruct[4])
@@ -211,10 +211,10 @@ def test_declare_c_types(n):
     f01 = cython.declare(cython.double, n)
     f02 = cython.declare(cython.longdouble, n)
     #
-    #z00 = cython.declare(cython.complex, n+1j)
-    #z01 = cython.declare(cython.floatcomplex, n+1j)
-    #z02 = cython.declare(cython.doublecomplex, n+1j)
-    #z03 = cython.declare(cython.longdoublecomplex, n+1j)
+    # z00 = cython.declare(cython.complex, n+1j)
+    # z01 = cython.declare(cython.floatcomplex, n+1j)
+    # z02 = cython.declare(cython.doublecomplex, n+1j)
+    # z03 = cython.declare(cython.longdoublecomplex, n+1j)
 
 
 @cython.ccall
@@ -550,7 +550,7 @@ def empty_declare():
     r3.x = 12.3
     assert r3.x == 12.3
 
-    #It generates a correct C code, but raises an exception when interpreted
+    # It generates a correct C code, but raises an exception when interpreted
     if cython.compiled:
         r4[0].is_integral = True
         assert r4[0].is_integral == True

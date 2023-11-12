@@ -95,9 +95,9 @@ cdef class A:
         """
         >>> A().meth0_nokw()
         >>> A().meth0_nokw(**{})
-        >>> try: pass  #A.meth0_nokw(self=A())
+        >>> try: pass  # A.meth0_nokw(self=A())
         ... except TypeError as exc: assert 'needs an argument' in str(exc), "Unexpected message: %s" % exc
-        ... else: pass  #assert false, "No TypeError for missing 'self' positional argument"
+        ... else: pass  # assert false, "No TypeError for missing 'self' positional argument"
         """
 
     #[cython.always_allow_keywords(true)]
@@ -106,10 +106,10 @@ cdef class A:
         >>> A().meth0_kw()
         >>> A().meth0_kw(**{})
         >>> A.meth0_kw(A())
-        >>> #A.meth0_kw(self=A())
-        >>> try: pass  #A().meth0_kw(self=A())
+        >>> # A.meth0_kw(self=A())
+        >>> try: pass  # A().meth0_kw(self=A())
         ... except TypeError as exc: assert 'multiple' in str(exc), "Unexpected message: %s" % exc
-        ... else: pass  #assert false, "No TypeError when passing 'self' argument twice"
+        ... else: pass  # assert false, "No TypeError when passing 'self' argument twice"
         """
 
     #[cython.always_allow_keywords(true)]
@@ -119,7 +119,7 @@ cdef class A:
         >>> A().meth1_kw(*[None])
         >>> A().meth1_kw(arg=None)
         >>> A.meth1_kw(A(), arg=None)
-        >>> #A.meth1_kw(self=A(), arg=None)
+        >>> # A.meth1_kw(self=A(), arg=None)
         """
 
     #[cython.always_allow_keywords(false)]

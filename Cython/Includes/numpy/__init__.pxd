@@ -189,7 +189,7 @@ extern from "numpy/arrayobject.h":
     cdef enum:
         NPY_MAXDIMS
 
-    npy_intp NPY_MAX_ELSIZE
+    static npy_intp NPY_MAX_ELSIZE
 
     ctypedef void (*PyArray_VectorUnaryFunc)(void *, void *, npy_intp, void *,  void *)
 
@@ -753,12 +753,8 @@ ctypedef npy_float64    float64_t
 ctypedef float complex  complex64_t
 ctypedef double complex complex128_t
 
-# The i32 types are mapped a bit surprising --
-# numpy.i32 corresponds to 'l' and numpy.long to 'q'
-ctypedef npy_long       int_t
 ctypedef npy_longlong   longlong_t
 
-ctypedef npy_ulong      uint_t
 ctypedef npy_ulonglong  ulonglong_t
 
 ctypedef npy_intp       intp_t
@@ -796,8 +792,8 @@ fn inline tuple PyDataType_SHAPE(dtype d):
         return ()
 
 extern from "numpy/ndarrayobject.h":
-    PyTypeObject PyTimedeltaArrType_Type
-    PyTypeObject PyDatetimeArrType_Type
+    static PyTypeObject PyTimedeltaArrType_Type
+    static PyTypeObject PyDatetimeArrType_Type
     ctypedef int64_t npy_timedelta
     ctypedef int64_t npy_datetime
 
@@ -970,7 +966,7 @@ extern from "numpy/ufuncobject.h":
     fn i32 _import_umath() except -1
 
 fn inline void set_array_base(ndarray arr, object base):
-    Py_INCREF(base) # important to do this before stealing the reference below!
+    Py_INCREF(base)  # important to do this before stealing the reference below!
     PyArray_SetBaseObject(arr, base)
 
 fn inline object get_array_base(ndarray arr):

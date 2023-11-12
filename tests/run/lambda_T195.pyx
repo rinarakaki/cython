@@ -3,12 +3,12 @@
 # ticket: t195
 
 __doc__ = u"""
-#>>> py_identity = lambda x:x
-#>>> py_identity(1) == cy_identity(1)
-#True
+# >>> py_identity = lambda x:x
+# >>> py_identity(1) == cy_identity(1)
+# True
 """
 
-#cy_identity = lambda x:x
+# cy_identity = lambda x:x
 
 
 def make_identity():

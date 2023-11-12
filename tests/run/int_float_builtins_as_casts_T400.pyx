@@ -47,17 +47,17 @@ def int_to_pyssizet_int(i32 x):
     let isize r = int(x)
     return r
 
-## #[cython.test_assert_path_exists("//SingleAssignmentNode/TypecastNode")]
-## #[cython.test_fail_if_path_exists("//SimpleCallNode")]
-## def double_to_pyssizet_float(f64 x):
-##     """
-##     >>> double_to_pyssizet_float(4.1)
-##     4
-##     >>> double_to_pyssizet_float(4)
-##     4
-##     """
-##     cdef isize r = float(x)
-##     return r
+# #[cython.test_assert_path_exists("//SingleAssignmentNode/TypecastNode")]
+# #[cython.test_fail_if_path_exists("//SimpleCallNode")]
+# def double_to_pyssizet_float(f64 x):
+#     """
+#     >>> double_to_pyssizet_float(4.1)
+#     4
+#     >>> double_to_pyssizet_float(4)
+#     4
+#     """
+#     cdef isize r = float(x)
+#     return r
 
 #[cython.test_assert_path_exists("//SingleAssignmentNode/TypecastNode")]
 #[cython.test_fail_if_path_exists("//SimpleCallNode")]

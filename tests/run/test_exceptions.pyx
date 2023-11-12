@@ -97,8 +97,8 @@ class ExceptionTests(unittest.TestCase):
         self.raise_catch(MemoryError, "MemoryError")
 
         self.raise_catch(NameError, "NameError")
-        #try: x = undefined_variable
-        #except NameError: pass
+        # try: x = undefined_variable
+        # except NameError: pass
 
         self.raise_catch(OverflowError, "OverflowError")
         x = 1
@@ -972,7 +972,7 @@ class ExceptionTests(unittest.TestCase):
             class MyException(Exception): pass
 
             def setrecursionlimit(depth):
-                while 1:
+                loop:
                     try:
                         sys.setrecursionlimit(depth)
                         return depth
@@ -1232,7 +1232,7 @@ class ExceptionTests(unittest.TestCase):
             self.assertIn(b'MemoryError', err)
 
     def test_yield_in_nested_try_excepts(self):
-        #Issue #25612
+        # Issue #25612
         class MainError(Exception):
             pass
 
@@ -1256,7 +1256,7 @@ class ExceptionTests(unittest.TestCase):
 
     @unittest.skip('currently fails')  #  FIXME: fails in the "inside" assertion but not "outside"
     def test_generator_doesnt_retain_old_exc2(self):
-        #Issue 28884#msg282532
+        # Issue 28884#msg282532
         def g():
             try:
                 raise ValueError
@@ -1275,7 +1275,7 @@ class ExceptionTests(unittest.TestCase):
         self.assertEqual(next(gen), 2)
 
     def test_raise_in_generator(self):
-        #Issue 25612#msg304117
+        # Issue 25612#msg304117
         def g():
             yield 1
             raise

@@ -769,7 +769,7 @@ class IterationTransform(Visitor.EnvTransform):
                                          constant_result=1),
             operator = '+',
             type = counter_type,
-            #inplace = True,   # not worth using in-place operation for Py ints
+            # inplace = True,   # not worth using in-place operation for Py ints
             is_temp = counter_type.is_pyobject
             )
 
@@ -2128,7 +2128,7 @@ class OptimizeBuiltinCalls(Visitor.NodeRefCleanupMixin,
     function replacements that do not alter the function return type
     in a way that was not anticipated by the type analysis.
     """
-    ### cleanup to avoid redundant coercions to/from Python types
+    # ## cleanup to avoid redundant coercions to/from Python types
 
     def visit_PyTypeTestNode(self, node):
         """Flatten redundant type checks after tree changes.
@@ -2377,7 +2377,7 @@ class OptimizeBuiltinCalls(Visitor.NodeRefCleanupMixin,
         error(node.pos, "%s(%s) called with wrong number of args, %sfound %d" % (
             function_name, arg_str, expected_str, len(args)))
 
-    ### generic fallbacks
+    # ## generic fallbacks
 
     def _handle_function(self, node, function_name, function, arg_list, kwargs):
         return node
@@ -2424,7 +2424,7 @@ class OptimizeBuiltinCalls(Visitor.NodeRefCleanupMixin,
         call_node.analysed = True
         return call_node.coerce_to(node.type, self.current_env())
 
-    ### builtin types
+    # ## builtin types
 
     def _optimise_generic_builtin_method_call(self, node, attr_name, function, arg_list, is_unbound_method):
         """
@@ -2783,7 +2783,7 @@ class OptimizeBuiltinCalls(Visitor.NodeRefCleanupMixin,
         return node
 
 
-    ### builtin functions
+    # ## builtin functions
 
     Pyx_ssize_strlen_func_type = PyrexTypes.CFuncType(
         PyrexTypes.c_py_ssize_t_type, [
@@ -2989,7 +2989,7 @@ class OptimizeBuiltinCalls(Visitor.NodeRefCleanupMixin,
                     ).coerce_to(node.type, self.current_env())
         return node
 
-    ### special methods
+    # ## special methods
 
     Pyx_tp_new_func_type = PyrexTypes.CFuncType(
         PyrexTypes.py_object_type, [
@@ -3084,7 +3084,7 @@ class OptimizeBuiltinCalls(Visitor.NodeRefCleanupMixin,
         # TODO: optimizations of the instance.__class__() call might be possible in future.
         return node
 
-    ### methods of builtin types
+    # ## methods of builtin types
 
     PyObject_Append_func_type = PyrexTypes.CFuncType(
         PyrexTypes.c_returncode_type, [
@@ -3533,7 +3533,7 @@ class OptimizeBuiltinCalls(Visitor.NodeRefCleanupMixin,
             call_node = ExprNodes.CoerceToPyTypeNode(call_node, self.current_env(), node.type)
         return call_node
 
-    ### unicode type methods
+    # ## unicode type methods
 
     PyUnicode_uchar_predicate_func_type = PyrexTypes.CFuncType(
         PyrexTypes.c_bint_type, [
@@ -3603,9 +3603,9 @@ class OptimizeBuiltinCalls(Visitor.NodeRefCleanupMixin,
             func_call = func_call.coerce_to_pyobject(self.current_env)
         return func_call
 
-    #_handle_simple_method_unicode_lower = _inject_unicode_character_conversion
-    #_handle_simple_method_unicode_upper = _inject_unicode_character_conversion
-    #_handle_simple_method_unicode_title = _inject_unicode_character_conversion
+    # _handle_simple_method_unicode_lower = _inject_unicode_character_conversion
+    # _handle_simple_method_unicode_upper = _inject_unicode_character_conversion
+    # _handle_simple_method_unicode_title = _inject_unicode_character_conversion
     '''
 
     PyUnicode_Splitlines_func_type = PyrexTypes.CFuncType(
@@ -4126,7 +4126,7 @@ class OptimizeBuiltinCalls(Visitor.NodeRefCleanupMixin,
             bytes_tailmatch_utility_code, -1)
     '''
 
-    ### helpers
+    # ## helpers
 
     def _substitute_method_call(self, node, function, name, func_type,
                                 attr_name, is_unbound_method, args=(),
@@ -4959,6 +4959,10 @@ class ConstantFolding(Visitor.VisitorTransform, SkipDeclarations):
             elif node.type is Builtin.dict_type:
                 return ExprNodes.DictNode(
                     node.pos, key_value_pairs=[], constant_result={})
+        return node
+
+    def visit_LoopStatNode(self, node):
+        self.visitchildren(node)
         return node
 
     def visit_ForInStatNode(self, node):

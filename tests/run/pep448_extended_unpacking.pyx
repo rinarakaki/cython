@@ -22,7 +22,7 @@ class Map(object):
     def __getitem__(self, key):
         return self.mapping[key]
 
-#### tuples
+# ## tuples
 
 #[cython.test_fail_if_path_exists(
     "//TupleNode//TupleNode",
@@ -151,7 +151,7 @@ def unpack_tuple_in_string_formatting(a, *args):
     """
     return "%s %r" % (a, *args)
 
-#### lists
+# ## lists
 
 #[cython.test_fail_if_path_exists(
     "//ListNode//ListNode",
@@ -287,7 +287,7 @@ def unpack_starred_arg_for_in_operator(x, l, m):
     """
     return x in [*l, *m]
 
-###### sets
+# #### sets
 
 #[cython.test_fail_if_path_exists(
     "//SetNode//SetNode",
@@ -409,7 +409,7 @@ def unpack_set_keep_originals(a, b, c):
     """
     return {*a, *b, 2, *c}
 
-#### dicts
+# ## dicts
 
 #[cython.test_fail_if_path_exists(
     "//DictNode//DictNode",

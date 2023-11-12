@@ -99,11 +99,11 @@ fn p_testlist_star_expr(PyrexScanner s)
 fn p_testlist_comp(PyrexScanner s)
 fn p_genexp(PyrexScanner s, expr)
 
-#-------------------------------------------------------
+# -------------------------------------------------------
 #
 #   Statements
 #
-#-------------------------------------------------------
+# -------------------------------------------------------
 
 fn p_global_statement(PyrexScanner s)
 fn p_nonlocal_statement(PyrexScanner s)
@@ -125,6 +125,7 @@ fn p_assert_statement(PyrexScanner s)
 fn p_if_statement(PyrexScanner s)
 fn p_if_clause(PyrexScanner s)
 fn p_else_clause(PyrexScanner s)
+fn p_loop_statement(PyrexScanner s)
 fn p_while_statement(PyrexScanner s)
 fn p_for_statement(PyrexScanner s, u2 is_async=*)
 fn dict p_for_bounds(PyrexScanner s, u2 allow_testlist=*, u2 is_async=*)

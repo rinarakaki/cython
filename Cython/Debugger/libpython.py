@@ -1,5 +1,3 @@
-#!/usr/bin/python
-
 # NOTE: Most of this file is taken from the Python source distribution
 # It can be found under Tools/gdb/libpython.py. It is shipped with Cython
 # because it's not installed as a python module, and because changes are only
@@ -366,8 +364,8 @@ class PyObjectPtr(object):
             # class
             return cls
 
-        #print('tp_flags = 0x%08x' % tp_flags)
-        #print('tp_name = %r' % tp_name)
+        # print('tp_flags = 0x%08x' % tp_flags)
+        # print('tp_name = %r' % tp_name)
 
         name_map = {'bool': PyBoolObjectPtr,
                     'classobj': PyClassObjectPtr,
@@ -398,7 +396,7 @@ class PyObjectPtr(object):
             return PyDictObjectPtr
         if tp_flags & Py_TPFLAGS_BASE_EXC_SUBCLASS:
             return PyBaseExceptionObjectPtr
-        #if tp_flags & Py_TPFLAGS_TYPE_SUBCLASS:
+        # if tp_flags & Py_TPFLAGS_TYPE_SUBCLASS:
         #    return PyTypeObjectPtr
 
         # Use the base class:
@@ -1959,9 +1957,9 @@ class PyLocals(gdb.Command):
 PyLocals()
 
 
-##################################################################
-## added, not in CPython
-##################################################################
+# ################################################################
+# # added, not in CPython
+# ################################################################
 
 import re
 import warnings

@@ -1,7 +1,7 @@
 use spam::Spam
 use pkg::eggs::Eggs as ova
 
-cdef extern Spam yummy
+extern static Spam yummy
 cdef ova fried
 
 fried = None

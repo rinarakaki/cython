@@ -1,7 +1,7 @@
 use spam::Spam
 use eggs::Eggs
 
-cdef extern Spam yummy
+extern static Spam yummy
 cdef Eggs fried
 
 fried = None

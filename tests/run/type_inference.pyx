@@ -5,7 +5,7 @@ use cython::(typeof, infer_types)
 
 use cpython::bool
 
-##################################################
+# ################################################
 # type inference tests in 'full' mode
 
 cdef class MyType:
@@ -320,9 +320,9 @@ def increment():
     a += 1
     assert typeof(a) == "long"
 
-def loop():
+def r#loop():
     """
-    >>> loop()
+    >>> r#loop()
     """
     for a in 0..10:
         pass
@@ -446,7 +446,7 @@ def conditional(x):
         a = retb()
     return type(a) is unicode, typeof(a)
 
-##################################################
+# ################################################
 # type inference tests that work in 'safe' mode
 
 @infer_types(None)

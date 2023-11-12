@@ -65,12 +65,12 @@ basicsize_builtins_map = {
 uncachable_builtins = [
     # Global/builtin names that cannot be cached because they may or may not
     # be available at import time, for various reasons:
-    ## - Py3.7+
+    # # - Py3.7+
     'breakpoint',  # might deserve an implementation in Cython
-    ## - Py3.4+
+    # # - Py3.4+
     '__loader__',
     '__spec__',
-    ## - Py3+
+    # # - Py3+
     'BlockingIOError',
     'BrokenPipeError',
     'ChildProcessError',
@@ -88,14 +88,14 @@ uncachable_builtins = [
     'ProcessLookupError',
     'RecursionError',
     'ResourceWarning',
-    #'StopAsyncIteration',  # backported
+    # 'StopAsyncIteration',  # backported
     'TimeoutError',
     '__build_class__',
     'ascii',  # might deserve an implementation in Cython
-    #'exec',  # implemented in Cython
-    ## - platform specific
+    # 'exec',  # implemented in Cython
+    # # - platform specific
     'WindowsError',
-    ## - others
+    # # - others
     '_',  # e.g. used by gettext
 ]
 
@@ -758,7 +758,7 @@ class FunctionState(object):
                     '%s [%s]' % (name, ctype)
                     for name, ctype, is_pytemp in sorted(leftovers)]),
                 )
-                #print(msg)
+                # print(msg)
                 raise RuntimeError(msg)
 
     # labels
@@ -1666,9 +1666,9 @@ class GlobalState(object):
             if py_type == 'float':
                 function = 'PyFloat_FromDouble(%s)'
             elif py_type == 'long':
-                function = 'PyLong_FromString((char *)"%s", 0, 0)'
+                function = 'PyLong_FromString("%s", 0, 0)'
             elif Utils.long_literal(value):
-                function = 'PyInt_FromString((char *)"%s", 0, 0)'
+                function = 'PyInt_FromString("%s", 0, 0)'
             elif len(value.lstrip('-')) > 4:
                 function = "PyInt_FromLong(%sL)"
             else:
@@ -2110,12 +2110,12 @@ class CCodeWriter(object):
 
     def put_var_declaration(self, entry, storage_class="",
                             dll_linkage=None, definition=True):
-        #print "Code.put_var_declaration:", entry.name, "definition =", definition ###
+        # print "Code.put_var_declaration:", entry.name, "definition =", definition #
         if entry.visibility == 'private' and not (definition or entry.defined_in_pxd):
-            #print "...private and not definition, skipping", entry.cname ###
+            # print "...private and not definition, skipping", entry.cname #
             return
         if entry.visibility == "private" and not entry.used:
-            #print "...private and not used, skipping", entry.cname ###
+            # print "...private and not used, skipping", entry.cname #
             return
         if not entry.cf_used:
             self.put('CYTHON_UNUSED ')
@@ -2300,8 +2300,8 @@ class CCodeWriter(object):
 
     def put_init_var_to_py_none(self, entry, template = "%s", nanny=True):
         code = template % entry.cname
-        #if entry.type.is_extension_type:
-        #    code = "((PyObject*)%s)" % code
+        # if entry.type.is_extension_type:
+        #     code = "((PyObject*)%s)" % code
         self.put_init_to_py_none(code, entry.type, nanny)
         if entry.in_closure:
             self.put_giveref('Py_None')

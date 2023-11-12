@@ -717,7 +717,7 @@ class MemoryViewSliceType(PyrexType):
 
     def same_as_resolved_type(self, other_type):
         return ((other_type.is_memoryviewslice and
-            #self.writable_needed == other_type.writable_needed and  # FIXME: should be only uni-directional
+            # self.writable_needed == other_type.writable_needed and  # FIXME: should be only uni-directional
             self.dtype.same_as(other_type.dtype) and
             self.axes == other_type.axes) or
             other_type is error_type)
@@ -873,7 +873,7 @@ class MemoryViewSliceType(PyrexType):
 
         src = self
 
-        #if not copying and self.writable_needed and not dst.writable_needed:
+        # if not copying and self.writable_needed and not dst.writable_needed:
         #    return False
 
         src_dtype, dst_dtype = src.dtype, dst.dtype
@@ -2884,7 +2884,7 @@ class CPtrType(CPointerBaseType):
 
     def declaration_code(self, entity_code,
             for_display = 0, dll_linkage = None, pyrex = 0):
-        #print "CPtrType.declaration_code: pointer to", self.base_type ###
+        # print "CPtrType.declaration_code: pointer to", self.base_type #
         return self.base_type.declaration_code(
             "*%s" % entity_code,
             for_display, dll_linkage, pyrex)
@@ -2995,7 +2995,7 @@ class CReferenceType(CReferenceBaseType):
 
     def declaration_code(self, entity_code,
             for_display = 0, dll_linkage = None, pyrex = 0):
-        #print "CReferenceType.declaration_code: pointer to", self.base_type ###
+        # print "CReferenceType.declaration_code: pointer to", self.base_type #
         return self.ref_base_type.declaration_code(
             "&%s" % entity_code,
             for_display, dll_linkage, pyrex)
@@ -3010,7 +3010,7 @@ class CFakeReferenceType(CReferenceType):
 
     def declaration_code(self, entity_code,
             for_display = 0, dll_linkage = None, pyrex = 0):
-        #print "CReferenceType.declaration_code: pointer to", self.base_type ###
+        # print "CReferenceType.declaration_code: pointer to", self.base_type #
         return "__Pyx_FakeReference<%s> %s" % (self.ref_base_type.empty_declaration_code(), entity_code)
 
 
@@ -3124,8 +3124,8 @@ class CFuncType(CType):
         # If 'exact_semantics' is false, allow any equivalent C signatures
         # if the Cython semantics are compatible, i.e. the same or wider for 'other_type'.
 
-        #print "CFuncType.same_c_signature_as_resolved_type:", \
-        #    self, other_type, "as_cmethod =", as_cmethod ###
+        # print "CFuncType.same_c_signature_as_resolved_type:", \
+        #    self, other_type, "as_cmethod =", as_cmethod #
         if other_type is error_type:
             return 1
         if not other_type.is_cfunction:
@@ -3183,8 +3183,8 @@ class CFuncType(CType):
         return self.compatible_signature_with_resolved_type(other_type.resolve(), as_cmethod)
 
     def compatible_signature_with_resolved_type(self, other_type, as_cmethod):
-        #print "CFuncType.same_c_signature_as_resolved_type:", \
-        #    self, other_type, "as_cmethod =", as_cmethod ###
+        # print "CFuncType.same_c_signature_as_resolved_type:", \
+        #    self, other_type, "as_cmethod =", as_cmethod #
         if other_type is error_type:
             return 1
         if not other_type.is_cfunction:
@@ -3264,15 +3264,15 @@ class CFuncType(CType):
         return 1
 
     def same_calling_convention_as(self, other):
-        ## XXX Under discussion ...
-        ## callspec_words = ("__stdcall", "__cdecl", "__fastcall")
-        ## cs1 = self.calling_convention
-        ## cs2 = other.calling_convention
-        ## if (cs1 in callspec_words or
-        ##     cs2 in callspec_words):
-        ##     return cs1 == cs2
-        ## else:
-        ##     return True
+        # XXX Under discussion ...
+        # callspec_words = ("__stdcall", "__cdecl", "__fastcall")
+        # cs1 = self.calling_convention
+        # cs2 = other.calling_convention
+        # if (cs1 in callspec_words or
+        #     cs2 in callspec_words):
+        #     return cs1 == cs2
+        # else:
+        #     return True
         sc1 = self.calling_convention == '__stdcall'
         sc2 = other.calling_convention == '__stdcall'
         return sc1 == sc2
@@ -4866,7 +4866,7 @@ memoryviewslice_type = CStructOrUnionType("memoryviewslice", "struct",
                                           None, 1, "__Pyx_memviewslice")
 
 modifiers_and_name_to_type = {
-    #(signed, longness, name) : type
+    # (signed, longness, name) : type
     (None, None, "u8"): c_uchar_type,
     (None, None, "i8"): c_char_type,
     (0,  0, "char"): c_uchar_type,
@@ -5400,7 +5400,7 @@ def typecast(to_type, from_type, expr_code):
         # no cast needed, builtins are PyObject* already
         return expr_code
     else:
-        #print "typecast: to", to_type, "from", from_type ###
+        # print "typecast: to", to_type, "from", from_type #
         return to_type.cast_code(expr_code)
 
 def type_list_identifier(types):

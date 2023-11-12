@@ -11,7 +11,7 @@ def test_qualname():
     """
     >>> test_qualname.__qualname__
     'test_qualname'
-    >>> test_qualname.__qualname__ = 123 #doctest:+ELLIPSIS
+    >>> test_qualname.__qualname__ = 123 # doctest:+ELLIPSIS
     Traceback (most recent call last):
     TypeError: __qualname__ must be set to a ... object
     >>> test_qualname.__qualname__ = 'foo'
@@ -98,8 +98,8 @@ class CdefClass:
     >>> print(CdefClass.__qualname__, CdefClass.__module__)
     CdefClass qualname
 
-    #>>> print(CdefClass.l["__qualname__"], CdefClass.l["__module__"])
-    #CdefClass qualname
+    # >>> print(CdefClass.l["__qualname__"], CdefClass.l["__module__"])
+    # CdefClass qualname
     """
     qn = __qualname__
     m = __module__
@@ -109,8 +109,8 @@ class CdefClass:
 
 
 # TODO - locals and cdef classes is unreliable, irrespective of qualname
-#@cython.cclass
-#class CdefOnlyLocals:
+# @cython.cclass
+# class CdefOnlyLocals:
 #    """
 #    >>> print(CdefOnlyLocals.l["__qualname__"], CdefOnlyLocals.l["__module__"])
 #    CdefOnlyLocals qualname
@@ -124,29 +124,29 @@ class CdefModifyNames:
     I'm not a qualname I'm not a module
 
     # TODO - enable when https://github.com/cython/cython/issues/4815 is fixed
-    #>>> hasattr(CdefModifyNames, "qn_deleted")
-    #False
-    #>>> hasattr(CdefModifyNames, "m_deleted")
-    #False
+    # >>> hasattr(CdefModifyNames, "qn_deleted")
+    # False
+    # >>> hasattr(CdefModifyNames, "m_deleted")
+    # False
 
-    #>>> print(CdefModifyNames.l["__qualname__"], CdefModifyNames.l["__module__"])
-    #I'm not a qualname I'm not a module
+    # >>> print(CdefModifyNames.l["__qualname__"], CdefModifyNames.l["__module__"])
+    # I'm not a qualname I'm not a module
     """
     __qualname__ = "I'm not a qualname"
     __module__ = "I'm not a module"
     qn_reassigned = __qualname__
     m_reassigned = __module__
     # TODO - locals and cdef classes is unreliable, irrespective of qualname
-    #l = locals().copy()
+    # l = locals().copy()
     # TODO del inside cdef class scope is broken
     # https://github.com/cython/cython/issues/4815
-    #del __qualname__
-    #del __module__
-    #try:
+    # del __qualname__
+    # del __module__
+    # try:
     #    qn_deleted = __qualname__
-    #except NameError:
+    # except NameError:
     #    pass
-    #try:
+    # try:
     #    m_deleted = __module__
-    #except NameError:
+    # except NameError:
     #    pass
