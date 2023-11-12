@@ -3141,6 +3141,8 @@ def p_c_simple_declarator(s, ctx, empty, is_type, cmethod_flag,
                 s.next()
                 rhs = p_test(s)
         else:
+            print("!!!!!!!!!!!!! p_c_simple_declarator ("!!!!!!!!!!!!!")
+            print(s.sy)
             if nonempty:
                 error(s.position(), "Empty declarator")
             name = ""
@@ -3667,6 +3669,10 @@ def p_c_func_or_var_declaration(s, pos, ctx):
                                         assignable = 1, nonempty = 1)
             declarators.append(declarator)
         doc_line = s.start_line + 1
+        if s.sy != "NEWLINE":
+            print("!!!!!!!!!!!!!!! p_c_func_or_var_declaration !!!!!!!!!!!!!!!")
+            print(base_type)
+            print(declarator)
         s.expect_newline("Syntax error in C variable declaration", ignore_semicolon=True)
         if ctx.level in ('c_class', 'c_class_pxd') and s.start_line == doc_line:
             doc = p_doc_string(s)
