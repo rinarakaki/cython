@@ -169,11 +169,11 @@ def test_c_contig(np.ndarray[i32, ndim=2, mode='c'] arr):
     0 1 2 3
     4 5 6 7
     8 9 10 11
-    >>> test_c_contig(f_arr) #doctest: +ELLIPSIS
+    >>> test_c_contig(f_arr)  # doctest: +ELLIPSIS
     Traceback (most recent call last):
        ...
     ValueError: ndarray is not C...contiguous
-    >>> test_c_contig(c_arr[:;2, :;2]) #doctest: +ELLIPSIS
+    >>> test_c_contig(c_arr[:;2, :;2])  # doctest: +ELLIPSIS
     Traceback (most recent call last):
        ...
     ValueError: ndarray is not C...contiguous
@@ -191,7 +191,7 @@ def test_f_contig(np.ndarray[i32, ndim=2, mode='fortran'] arr):
     0 1 2 3
     4 5 6 7
     8 9 10 11
-    >>> test_f_contig(c_arr) #doctest: +ELLIPSIS
+    >>> test_f_contig(c_arr)  # doctest: +ELLIPSIS
     Traceback (most recent call last):
        ...
     ValueError: ndarray is not Fortran contiguous
@@ -238,7 +238,7 @@ def inc1_clongdouble_struct(np.ndarray[np.clongdouble_t] arr):
 def inc1_object(np.ndarray[object] arr):
     o = arr[1]
     o += 1
-    arr[1] = o # unfortunately, += segfaults for objects
+    arr[1] = o  # unfortunately, += segfaults for objects
 
 def inc1_int_t(np.ndarray[np.npy_long] arr):               arr[1] += 1
 def inc1_longlong_t(np.ndarray[np.longlong_t] arr):     arr[1] += 1
@@ -268,7 +268,7 @@ def test_dtype(dtype, inc1):
     >>> test_dtype('d', inc1_double)
     >>> test_dtype('g', inc1_longdouble)
     >>> test_dtype('O', inc1_object)
-    >>> test_dtype('F', inc1_cfloat) # numpy format codes differ from buffer ones here
+    >>> test_dtype('F', inc1_cfloat)  # numpy format codes differ from buffer ones here
     >>> test_dtype('D', inc1_cdouble)
     >>> test_dtype('G', inc1_clongdouble)
     >>> test_dtype('F', inc1_cfloat_struct)
@@ -289,14 +289,14 @@ def test_dtype(dtype, inc1):
 
     Endian tests:
     >>> test_dtype('%si' % my_endian, inc1_int)
-    >>> test_dtype('%si' % other_endian, inc1_int)  #doctest: +ELLIPSIS
+    >>> test_dtype('%si' % other_endian, inc1_int)  # doctest: +ELLIPSIS
     Traceback (most recent call last):
        ...
     ValueError: ...
     """
     if dtype in ("g", np.longdouble,
                  "G", np.clongdouble):
-        if sizeof(f64) == sizeof(long double): # MSVC
+        if sizeof(f64) == sizeof(long double):  # MSVC
             return
     if dtype in ('F', 'D', 'G'):
         a = np.array([0, 10+10j], dtype=dtype)
@@ -423,7 +423,7 @@ def test_packed_align(np.ndarray[PackedStruct] arr):
     """
     >>> print(test_packed_align(np.zeros((1,), dtype=np.dtype('b,i', align=false))))
     [(22, 23)]
-    >>> print(test_packed_align(np.zeros((1,), dtype=np.dtype('b,i', align=true)))) #doctest: +ELLIPSIS
+    >>> print(test_packed_align(np.zeros((1,), dtype=np.dtype('b,i', align=true))))  # doctest: +ELLIPSIS
     Traceback (most recent call last):
         ...
     ValueError: ...
@@ -447,7 +447,7 @@ def test_unpacked_align(np.ndarray[UnpackedStruct] arr):
 
     >>> print(test_unpacked_align(np.zeros((1,), dtype=np.dtype('b,i', align=true))))
     [(22, 23)]
-    >>> print(test_unpacked_align(np.zeros((1,), dtype=np.dtype('b,i', align=false)))) #doctest: +ELLIPSIS
+    >>> print(test_unpacked_align(np.zeros((1,), dtype=np.dtype('b,i', align=false))))  # doctest: +ELLIPSIS
     Traceback (most recent call last):
         ...
     ValueError: ...
@@ -493,7 +493,7 @@ struct Point:
 
 def test_point_record():
     """
-    >>> test_point_record()         # doctest: +NORMALIZE_WHITESPACE
+    >>> test_point_record()  # doctest: +NORMALIZE_WHITESPACE
     array([(0., 0.), (1., -1.), (2., -2.)],
           dtype=[('x', '!f8'), ('y', '!f8')])
     """

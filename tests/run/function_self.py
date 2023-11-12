@@ -32,7 +32,7 @@ def fused(x):
     return nested_in_fused
 
 # FIXME - doesn't currently work at all
-#def get_nested_fused(x):
+# def get_nested_fused(x):
 #    @cython.locals(x=cython.floating)
 #    def nested_fused(y):
 #        return x+y

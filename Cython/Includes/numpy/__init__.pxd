@@ -966,7 +966,7 @@ extern from "numpy/ufuncobject.h":
     fn i32 _import_umath() except -1
 
 fn inline void set_array_base(ndarray arr, object base):
-    Py_INCREF(base) # important to do this before stealing the reference below!
+    Py_INCREF(base)  # important to do this before stealing the reference below!
     PyArray_SetBaseObject(arr, base)
 
 fn inline object get_array_base(ndarray arr):

@@ -62,7 +62,8 @@ for source_file in [
 
 
 ######## pymodule.c ########
-#error Do not use this file, it is the result of a failed Cython compilation.
+
+# error Do not use this file, it is the result of a failed Cython compilation.
 
 ######## pymodule.py ########
 """
@@ -70,7 +71,8 @@ Overwriting a failed .py file result works
 """
 
 ######## cymodule.c ########
-#error Do not use this file, it is the result of a failed Cython compilation.
+
+# error Do not use this file, it is the result of a failed Cython compilation.
 
 ######## cymodule.pyx ########
 """

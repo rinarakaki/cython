@@ -5,9 +5,9 @@ cdef class Spam:
 
 fn Spam foo():
     return blarg()
-    #cdef Spam grail
-    #grail = blarg()
-    #return grail
+    # cdef Spam grail
+    # grail = blarg()
+    # return grail
 
 fn object blarg():
     pass

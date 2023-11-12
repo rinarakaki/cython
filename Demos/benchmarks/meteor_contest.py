@@ -138,8 +138,8 @@ def main(n):
         pieces_left = list(range(len(pieces)))
         solutions = []
         solve(SOLVE_ARG, 0, free, curr_board, pieces_left, solutions)
-        #print len(solutions),  'solutions found\n'
-        #for i in (0, -1): print_board(solutions[i])
+        # print len(solutions),  'solutions found\n'
+        # for i in (0, -1): print_board(solutions[i])
         tk = time.time()
         times.append(tk - t0)
     return times

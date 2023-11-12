@@ -2,11 +2,11 @@
 
 use cython
 
-################################################################################
-## plain char*
+# ##############################################################################
+# # plain char*
 
 #[cython.test_assert_path_exists('//SingleAssignmentNode')]
-##[cython.test_fail_if_path_exists('//SingleAssignmentNode//CoerceFromPyTypeNode')]
+# #[cython.test_fail_if_path_exists('//SingleAssignmentNode//CoerceFromPyTypeNode')]
 def charptr_equals_literal(char* s):
     """
     >>> charptr_equals_literal('abc'.encode('ASCII'))
@@ -78,12 +78,12 @@ def charptr_le_literal(char* s):
     return result
 
 
-################################################################################
-## slices
+# ##############################################################################
+# # slices
 
 #[cython.test_assert_path_exists('//SingleAssignmentNode')]
-#FIXME: optimise me!
-##[cython.test_fail_if_path_exists('//SingleAssignmentNode//CoerceFromPyTypeNode')]
+# FIXME: optimise me!
+# #[cython.test_fail_if_path_exists('//SingleAssignmentNode//CoerceFromPyTypeNode')]
 def slice_equals_literal(char* s):
     """
     >>> slice_equals_literal('abc'.encode('ASCII'))

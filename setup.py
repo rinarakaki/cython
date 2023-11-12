@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 try:
     from setuptools import setup, Extension
 except ImportError:

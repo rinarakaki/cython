@@ -21,7 +21,7 @@ def locals_function(a, b=2):
     return locals()
 
 
-### true division
+# ## true division
 
 def truediv(x):
     """
@@ -43,7 +43,7 @@ def truediv_int(i32 x):
     return x / 2
 
 
-### Py3 feature tests
+# ## Py3 feature tests
 
 def print_function(*args):
     """

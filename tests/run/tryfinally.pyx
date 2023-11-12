@@ -476,9 +476,9 @@ def complex_finally_clause(x, obj):
                         assert obj.method
                         a = 2
             # FIXME: prevent deep-copying inner functions
-            #def closure(l):
+            # def closure(l):
             #    assert l == lobj
-            #closure()
+            # closure()
             assert name[0] in string.ascii_letters
             string.Template("-- huhu $name --").substitute(**{'name': '(%s)' % name})
             if a:

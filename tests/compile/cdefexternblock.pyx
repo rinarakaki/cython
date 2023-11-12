@@ -12,7 +12,7 @@ extern from "cheese.h":
     fn void cheddar()
 
     # FIXME: find a real declaration here.
-    #class external.runny [object runny_obj]:
+    # class external.runny [object runny_obj]:
     #    cdef int a
     #    def __init__(self):
     #        pass

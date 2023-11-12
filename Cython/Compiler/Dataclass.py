@@ -671,15 +671,15 @@ def get_field_type(pos, entry):
         return entry.annotation.string
         # If they do in future then we may need to look up into that
         # to duplicating the node. The code below should do this:
-        #class_name_node = ExprNodes.NameNode(pos, name=entry.scope.name)
-        #annotations = ExprNodes.AttributeNode(
-        #    pos, obj=class_name_node,
-        #    attribute=EncodedString("__annotations__")
-        #)
-        #return ExprNodes.IndexNode(
-        #    pos, base=annotations,
-        #    index=ExprNodes.StringNode(pos, value=entry.name)
-        #)
+        # class_name_node = ExprNodes.NameNode(pos, name=entry.scope.name)
+        # annotations = ExprNodes.AttributeNode(
+        #     pos, obj=class_name_node,
+        #     attribute=EncodedString("__annotations__")
+        # )
+        # return ExprNodes.IndexNode(
+        #     pos, base=annotations,
+        #     index=ExprNodes.StringNode(pos, value=entry.name)
+        # )
     else:
         # it's slightly unclear what the best option is here - we could
         # try to return PyType_Type. This case should only happen with

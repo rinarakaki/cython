@@ -42,7 +42,7 @@ def test_optional_posonly_args2(a=1, b=10, /, c=100):
     return a + b + c
 
 # TODO: this causes a line that is too long for old versions of Clang
-#def many_args(a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13,a14,a15,a16,a17,a18,a19,a20,a21,
+# def many_args(a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13,a14,a15,a16,a17,a18,a19,a20,a21,
 #              a22,a23,a24,a25,a26,a27,a28,a29,a30,a31,a32,a33,a34,a35,a36,a37,a38,a39,a40,
 #              a41,a42,a43,a44,a45,a46,a47,a48,a49,a50,a51,a52,a53,a54,a55,a56,a57,a58,a59,
 #              a60,a61,a62,a63,a64,a65,a66,a67,a68,a69,a70,a71,a72,a73,a74,a75,a76,a77,a78,
@@ -71,7 +71,7 @@ def test_optional_posonly_args2(a=1, b=10, /, c=100):
 #    """
 #    return (a299, b, c, d)
 
-#TODO: update this test for Python 3.8 final
+# TODO: update this test for Python 3.8 final
 @cython.binding(True)
 def func_introspection1(a, b, c, /, d, e=1, *, f, g=2):
     """
@@ -208,7 +208,7 @@ def test_no_standard_args_usage(a, b, /, *, c):
     TypeError: test_no_standard_args_usage() ... positional... argument...
     """
 
-#def test_change_default_pos_only():
+# def test_change_default_pos_only():
 # TODO: probably remove this, since  __defaults__ is not writable in Cython?
 #    """
 #    >>> test_change_default_pos_only()
@@ -269,18 +269,18 @@ class TestMangling(object):
     >>> TestMangling().f2()
     42
 
-    #>>> TestMangling().f3()
-    #(42, 43)
-    #>>> TestMangling().f4()
-    #(42, 43, 44)
+    # >>> TestMangling().f3()
+    # (42, 43)
+    # >>> TestMangling().f4()
+    # (42, 43, 44)
 
     >>> TestMangling().f2(1)
     1
 
-    #>>> TestMangling().f3(1, _TestMangling__b=2)
-    #(1, 2)
-    #>>> TestMangling().f4(1, _TestMangling__b=2, _TestMangling__c=3)
-    #(1, 2, 3)
+    # >>> TestMangling().f3(1, _TestMangling__b=2)
+    # (1, 2)
+    # >>> TestMangling().f4(1, _TestMangling__b=2, _TestMangling__c=3)
+    # (1, 2, 3)
     """
     def f(self, *, __a=42):
         return __a

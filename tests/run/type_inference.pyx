@@ -5,7 +5,7 @@ use cython::(typeof, infer_types)
 
 use cpython::bool
 
-##################################################
+# ################################################
 # type inference tests in 'full' mode
 
 cdef class MyType:
@@ -446,7 +446,7 @@ def conditional(x):
         a = retb()
     return type(a) is unicode, typeof(a)
 
-##################################################
+# ################################################
 # type inference tests that work in 'safe' mode
 
 @infer_types(None)

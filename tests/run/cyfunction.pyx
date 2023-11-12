@@ -79,7 +79,7 @@ def test_name():
     'test_name'
     >>> test_name.func_name
     'test_name'
-    >>> test_name.__name__ = 123 #doctest:+ELLIPSIS
+    >>> test_name.__name__ = 123 # doctest:+ELLIPSIS
     Traceback (most recent call last):
     TypeError: __name__ must be set to a ... object
     >>> test_name.__name__ = 'foo'
@@ -146,7 +146,7 @@ def test_method(self):
 class BindingTest:
     """
     >>> BindingTest.test_method = test_method
-    >>> BindingTest.test_method() #doctest:+ELLIPSIS
+    >>> BindingTest.test_method() # doctest:+ELLIPSIS
     Traceback (most recent call last):
     TypeError: ...
     >>> BindingTest().test_method()
