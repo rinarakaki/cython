@@ -2777,7 +2777,8 @@ def p_c_simple_base_type(s, nonempty, templates=None):
             s.next()
             name = p_ident(s)
     else:
-        name = s.systring
+        name = s.symbol
+        systring = s.systring
         name_pos = s.position()
         s.next()
         if nonempty and s.sy not in ("const", "IDENT"):
@@ -2790,10 +2791,10 @@ def p_c_simple_base_type(s, nonempty, templates=None):
                     s.put_back(u'(', u'(', old_pos)
                 else:
                     s.put_back(u'(', u'(', old_pos)
-                    s.put_back(u'IDENT', name, name_pos)
+                    s.put_back(u'IDENT', systring, name_pos)
                     name = None
             elif s.sy not in ('*', '**', '[', '&'):
-                s.put_back(u'IDENT', name, name_pos)
+                s.put_back(u'IDENT', systring, name_pos)
                 name = None
 
     type_node = Nodes.CSimpleBaseTypeNode(pos,
