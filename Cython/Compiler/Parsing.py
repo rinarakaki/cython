@@ -65,7 +65,7 @@ class Ctx(object):
 
 def p_ident(s, message="Expected an identifier, found '%s'"):
     if s.sy == "IDENT":
-        name = s.context.intern_ustring(s.symbol)
+        name = s.context.intern_ustring(s.systring)
         s.next()
         return name
     else:
@@ -74,7 +74,7 @@ def p_ident(s, message="Expected an identifier, found '%s'"):
 def p_ident_list(s):
     names = []
     while s.sy == "IDENT":
-        names.append(s.context.intern_ustring(s.symbol))
+        names.append(s.context.intern_ustring(s.systring))
         s.next()
         if s.sy != ',':
             break
@@ -776,7 +776,7 @@ def p_atom(s):
         elif name == "NULL" and not s.in_python_file:
             result = ExprNodes.NullNode(pos)
         else:
-            result = p_name(s, s.symbol)
+            result = p_name(s, s.systring)
         s.next()
         return result
     else:
@@ -2629,7 +2629,7 @@ def p_positional_and_keyword_args(s, end_sy_set, templates = None):
 
         parsed_type = False
         if s.sy == 'IDENT' and s.peek()[0] == '=':
-            ident = s.symbol
+            ident = s.systring
             s.next()  # s.sy is '='
             s.next()
             if looking_at_expr(s):
@@ -2770,14 +2770,14 @@ def p_c_simple_base_type(s, nonempty, templates=None):
             s.next()
     elif looking_at_dotted_name(s):
         # print "p_c_simple_base_type: looking_at_type_name at", s.position()
-        name = s.symbol
+        name = s.systring
         s.next()
         while s.sy in (".", "::"):
             module_path.append(name)
             s.next()
             name = p_ident(s)
     else:
-        name = s.symbol
+        name = s.systring
         systring = s.systring
         name_pos = s.position()
         s.next()
@@ -3126,7 +3126,7 @@ def p_c_simple_declarator(s, ctx, empty, is_type, cmethod_flag,
     else:
         rhs = None
         if s.sy == 'IDENT':
-            name = s.symbol
+            name = s.systring
             if empty:
                 error(s.position(), "Declarator should be empty")
             s.next()
@@ -3434,7 +3434,7 @@ def p_c_enum_definition(s, pos, ctx):
         s.next()
 
     if s.sy == 'IDENT':
-        name = s.symbol
+        name = s.systring
         s.next()
         cname = p_opt_cname(s)
         if cname is None and ctx.namespace is not None:

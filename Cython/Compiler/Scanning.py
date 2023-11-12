@@ -465,11 +465,9 @@ class PyrexScanner(Scanner):
         if self.put_back_on_failure is not None:
             self.put_back_on_failure.append((sy, systring, self.position()))
         self.sy = sy
-        self.systring = systring
         if systring.startswith("r#"):
-            self.symbol = systring[2:]
-        else:
-            self.symbol = systring
+            systring = systring[2:]
+        self.systring = systring
         if False:  # debug_scanner:
             _, line, col = self.position()
             if not self.systring or self.sy == self.systring:
@@ -492,12 +490,7 @@ class PyrexScanner(Scanner):
         self.unread(self.sy, self.systring, self.last_token_position_tuple)
         self.sy = sy
         self.systring = systring
-        if systring.startswith("r#"):
-            self.symbol = systring[2:]
-        else:
-            self.symbol = systring
         self.last_token_position_tuple = pos
-
 
     def error(self, message, pos=None, fatal=True):
         if pos is None:
