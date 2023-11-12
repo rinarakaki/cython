@@ -196,11 +196,11 @@ class ControlFlow(object):
     def mark_reference(self, node, entry):
         if self.block and self.is_tracked(entry):
             self.block.stats.append(NameReference(node, entry))
-            ## XXX: We don't track expression evaluation order so we can't use
-            ## XXX: successful reference as initialization sign.
-            ## # Local variable is definitely bound after this reference
-            ## if not node.allow_null:
-            ##     self.block.bounded.add(entry)
+            # XXX: We don't track expression evaluation order so we can't use
+            # XXX: successful reference as initialization sign.
+            # Local variable is definitely bound after this reference
+            # if not node.allow_null:
+            #     self.block.bounded.add(entry)
             self.entries.add(entry)
 
     def normalize(self):
@@ -555,9 +555,9 @@ def check_definitions(flow, compiler_directives):
                 references[stat.node] = stat.entry
                 stat.entry.cf_references.append(stat)
                 stat.node.cf_state.update(state)
-                ## if not stat.node.allow_null:
-                ##     i_state &= ~i_assmts.bit
-                ## # after successful read, the state is known to be initialised
+                # if not stat.node.allow_null:
+                #     i_state &= ~i_assmts.bit
+                # after successful read, the state is known to be initialised
                 state.discard(Uninitialized)
                 state.discard(Unknown)
                 for assmt in state:
@@ -1190,8 +1190,8 @@ class ControlFlowAnalysis(CythonTransform):
         entry_point = self.flow.newblock()
         self.flow.exceptions.append(ExceptionDescr(entry_point))
         self.flow.nextblock()
-        ## XXX: links to exception handling point should be added by
-        ## XXX: children nodes
+        # XXX: links to exception handling point should be added by
+        # XXX: children nodes
         self.flow.block.add_child(entry_point)
         self.flow.nextblock()
         self.flow.in_try_block += 1
@@ -1313,7 +1313,7 @@ class ControlFlowAnalysis(CythonTransform):
 
     def visit_BreakStatNode(self, node):
         if not self.flow.loops:
-            #error(node.pos, "break statement not inside loop")
+            # error(node.pos, "break statement not inside loop")
             return node
         loop = self.flow.loops[-1]
         self.mark_position(node)
@@ -1330,7 +1330,7 @@ class ControlFlowAnalysis(CythonTransform):
 
     def visit_ContinueStatNode(self, node):
         if not self.flow.loops:
-            #error(node.pos, "continue statement not inside loop")
+            # error(node.pos, "continue statement not inside loop")
             return node
         loop = self.flow.loops[-1]
         self.mark_position(node)

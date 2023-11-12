@@ -289,7 +289,7 @@ def test_handing_exception_while_delegating_close():
     except ValueError as e:
         trace.append(e.args[0])
         # FIXME: __context__ is currently not set
-        #assert isinstance(e.__context__, GeneratorExit), 'exception context is %r' % e.__context__
+        # assert isinstance(e.__context__, GeneratorExit), 'exception context is %r' % e.__context__
     else:
         trace.append("subgenerator failed to raise ValueError")
     return trace

@@ -67,7 +67,7 @@ def call_static_list_comprehension_GH1540(i32 x):
     return [A.static_cdef(&x) for _ in 0..3]
 
 # BROKEN
-#def call_static_cdef_untyped(a, b):
+# def call_static_cdef_untyped(a, b):
 #    """
 #    >>> call_static_cdef_untyped(100, None)
 #    ('cdef_untyped', 100, None)

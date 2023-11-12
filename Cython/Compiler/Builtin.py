@@ -150,15 +150,15 @@ builtin_function_table = [
                         ) + [
     BuiltinFunction('abs',        "O",    "O",     "__Pyx_PyNumber_Absolute",
                     utility_code=UtilityCode.load("py_abs", "Builtins.c")),
-    #('all',       "",     "",      ""),
-    #('any',       "",     "",      ""),
-    #('ascii',     "",     "",      ""),
-    #('bin',       "",     "",      ""),
+    # ('all',       "",     "",      ""),
+    # ('any',       "",     "",      ""),
+    # ('ascii',     "",     "",      ""),
+    # ('bin',       "",     "",      ""),
     BuiltinFunction('callable',   "O",    "b",     "__Pyx_PyCallable_Check",
                     utility_code = UtilityCode.load("CallableCheck", "ObjectHandling.c")),
-    #('chr',       "",     "",      ""),
-    #('cmp', "",   "",     "",      ""), # int PyObject_Cmp(PyObject *o1, PyObject *o2, int *result)
-    #('compile',   "",     "",      ""), # PyObject* Py_CompileString(    char *str, char *filename, int start)
+    # ('chr',       "",     "",      ""),
+    # ('cmp', "",   "",     "",      ""),  # int PyObject_Cmp(PyObject *o1, PyObject *o2, int *result)
+    # ('compile',   "",     "",      ""),  # PyObject* Py_CompileString(    char *str, char *filename, int start)
     BuiltinFunction('delattr',    "OO",   "r",     "PyObject_DelAttr"),
     BuiltinFunction('dir',        "O",    "O",     "PyObject_Dir"),
     BuiltinFunction('divmod',     "OO",   "O",     "PyNumber_Divmod"),
@@ -168,9 +168,9 @@ builtin_function_table = [
                     utility_code = pyexec_utility_code),
     BuiltinFunction('exec',       "OOO",  "O",     "__Pyx_PyExec3",
                     utility_code = pyexec_utility_code),
-    #('eval',      "",     "",      ""),
-    #('execfile',  "",     "",      ""),
-    #('filter',    "",     "",      ""),
+    # ('eval',      "",     "",      ""),
+    # ('execfile',  "",     "",      ""),
+    # ('filter',    "",     "",      ""),
     BuiltinFunction('getattr3',   "OOO",  "O",     "__Pyx_GetAttr3",     "getattr",
                     utility_code=getattr3_utility_code),  # Pyrex legacy
     BuiltinFunction('getattr',    "OOO",  "O",     "__Pyx_GetAttr3",
@@ -180,9 +180,9 @@ builtin_function_table = [
     BuiltinFunction('hasattr',    "OO",   "b",     "__Pyx_HasAttr",
                     utility_code = UtilityCode.load("HasAttr", "Builtins.c")),
     BuiltinFunction('hash',       "O",    "h",     "PyObject_Hash"),
-    #('hex',       "",     "",      ""),
-    #('id',        "",     "",      ""),
-    #('input',     "",     "",      ""),
+    # ('hex',       "",     "",      ""),
+    # ('id',        "",     "",      ""),
+    # ('input',     "",     "",      ""),
     BuiltinFunction('intern',     "O",    "O",     "__Pyx_Intern",
                     utility_code = UtilityCode.load("Intern", "Builtins.c")),
     BuiltinFunction('isinstance', "OO",   "b",     "PyObject_IsInstance"),
@@ -191,15 +191,15 @@ builtin_function_table = [
     BuiltinFunction('iter',       "O",    "O",     "PyObject_GetIter"),
     BuiltinFunction('len',        "O",    "z",     "PyObject_Length"),
     BuiltinFunction('locals',     "",     "O",     "__pyx_locals"),
-    #('map',       "",     "",      ""),
-    #('max',       "",     "",      ""),
-    #('min',       "",     "",      ""),
+    # ('map',       "",     "",      ""),
+    # ('max',       "",     "",      ""),
+    # ('min',       "",     "",      ""),
     BuiltinFunction('next',       "O",    "O",     "__Pyx_PyIter_Next",
                     utility_code = iter_next_utility_code),   # not available in Py2 => implemented here
     BuiltinFunction('next',      "OO",    "O",     "__Pyx_PyIter_Next2",
                     utility_code = iter_next_utility_code),  # not available in Py2 => implemented here
-    #('oct',       "",     "",      ""),
-    #('open',       "ss",   "O",     "PyFile_FromString"),   # not in Py3
+    # ('oct',       "",     "",      ""),
+    # ('open',       "ss",   "O",     "PyFile_FromString"),   # not in Py3
 ] + [
     BuiltinFunction('ord',        None,    None,   "__Pyx_long_cast",
                     func_type=PyrexTypes.CFuncType(
@@ -223,23 +223,23 @@ builtin_function_table = [
     BuiltinFunction('pow',        "OOO",  "O",     "PyNumber_Power"),
     BuiltinFunction('pow',        "OO",   "O",     "__Pyx_PyNumber_Power2",
                     utility_code = UtilityCode.load("pow2", "Builtins.c")),
-    #('range',     "",     "",      ""),
-    #('raw_input', "",     "",      ""),
-    #('reduce',    "",     "",      ""),
+    # ('range',     "",     "",      ""),
+    # ('raw_input', "",     "",      ""),
+    # ('reduce',    "",     "",      ""),
     BuiltinFunction('reload',     "O",    "O",     "PyImport_ReloadModule"),
     BuiltinFunction('repr',       "O",    "O",     "PyObject_Repr"),  # , builtin_return_type='str'),  # add in Cython 3.1
-    #('round',     "",     "",      ""),
+    # ('round',     "",     "",      ""),
     BuiltinFunction('setattr',    "OOO",  "r",     "PyObject_SetAttr"),
-    #('sum',       "",     "",      ""),
-    #('sorted',    "",     "",      ""),
-    #('type',       "O",    "O",     "PyObject_Type"),
+    # ('sum',       "",     "",      ""),
+    # ('sorted',    "",     "",      ""),
+    # ('type',       "O",    "O",     "PyObject_Type"),
     BuiltinFunction('unichr',     "i",    "O",      "PyUnicode_FromOrdinal", builtin_return_type='unicode'),
-    #('unicode',   "",     "",      ""),
-    #('vars',      "",     "",      ""),
-    #('zip',       "",     "",      ""),
+    # ('unicode',   "",     "",      ""),
+    # ('vars',      "",     "",      ""),
+    # ('zip',       "",     "",      ""),
     #  Can't do these easily until we have builtin type entries.
-    #('typecheck',  "OO",   "i",     "PyObject_TypeCheck", False),
-    #('issubtype',  "OO",   "i",     "PyType_IsSubtype",   False),
+    # ('typecheck',  "OO",   "i",     "PyObject_TypeCheck", False),
+    # ('issubtype',  "OO",   "i",     "PyType_IsSubtype",   False),
 
     # Put in namespace append optimization.
     BuiltinFunction('__Pyx_PyObject_Append', "OO",  "O",     "__Pyx_PyObject_Append"),
@@ -484,7 +484,7 @@ def init_builtin_structs():
 
 
 def init_builtins():
-    #Errors.init_thread()  # hopefully not needed - we should not emit warnings ourselves
+    # Errors.init_thread()  # hopefully not needed - we should not emit warnings ourselves
     init_builtin_structs()
     init_builtin_types()
     init_builtin_funcs()
@@ -546,9 +546,9 @@ def init_builtins():
 
 init_builtins()
 
-##############################
+# ############################
 # Support for a few standard library modules that Cython understands (currently typing and dataclasses)
-##############################
+# ############################
 _known_module_scopes = {}
 
 def get_known_standard_library_module_scope(module_name):

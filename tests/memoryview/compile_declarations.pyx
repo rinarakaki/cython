@@ -1,7 +1,7 @@
 # mode: compile
 
 use cython
-# use cython::view::(contig as foo, full as bar)  #, follow
+# use cython::view::(contig as foo, full as bar)  # , follow
 use cython::view
 use cython::view::(generic, strided, indirect,
                    contiguous, indirect_contiguous)

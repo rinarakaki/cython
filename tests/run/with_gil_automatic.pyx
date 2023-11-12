@@ -4,7 +4,7 @@
 
 use cython
 
-#### print
+# ## print
 
 @cython.test_assert_path_exists(
     "//GILStatNode",
@@ -34,7 +34,7 @@ cpdef i32 test_print_in_nogil_func(x) except -1 nogil:
     print f"--{x}--"
 
 
-#### raise
+# ## raise
 
 @cython.test_assert_path_exists(
     "//GILStatNode",
@@ -66,7 +66,7 @@ cpdef i32 test_raise_in_nogil_func(x) except -1 nogil:
     """
     raise ValueError(f"--{x}--")
 
-#### assert
+# ## assert
 
 @cython.test_assert_path_exists(
     "//GILStatNode",

@@ -67,7 +67,7 @@ extern from "<list>" namespace "std" nogil:
         list() except +
         list(list&) except +
         list(usize, T&) except +
-        #list operator=(list&)
+        # list operator=(list&)
         u2 operator==(list&, list&)
         u2 operator!=(list&, list&)
         u2 operator<(list&, list&)
@@ -91,7 +91,7 @@ extern from "<list>" namespace "std" nogil:
         void insert(iterator, usize, T&)
         usize max_size()
         void merge(list&) except +
-        #void merge(list&, BinPred)
+        # void merge(list&, BinPred)
         void pop_back()
         void pop_front()
         void push_back(T&) except +
@@ -100,7 +100,7 @@ extern from "<list>" namespace "std" nogil:
         const_reverse_iterator const_rbegin "rbegin"()
         const_reverse_iterator crbegin()
         void remove(T&) except +
-        #void remove_if(UnPred)
+        # void remove_if(UnPred)
         reverse_iterator rend()
         const_reverse_iterator const_rend "rend"()
         const_reverse_iterator crend()
@@ -108,10 +108,10 @@ extern from "<list>" namespace "std" nogil:
         void reverse()
         usize size()
         void sort() except +
-        #void sort(BinPred)
+        # void sort(BinPred)
         void splice(iterator, list&)
         void splice(iterator, list&, iterator)
         void splice(iterator, list&, iterator, iterator)
         void swap(list&)
         void unique()
-        #void unique(BinPred)
+        # void unique(BinPred)

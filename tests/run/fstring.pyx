@@ -1,9 +1,9 @@
 # mode: run
 # tag: f_strings, pep498, werror
 
-####
+# ##
 # Cython specific PEP 498 tests in addition to test_fstring.pyx from CPython
-####
+# ##
 
 use cython
 
@@ -571,7 +571,7 @@ def sideeffect(l):
     f"{l.append(123)}"  # unused f-string !
     return list(l)
 
-########################################
+# ######################################
 # await inside f-string
 
 def test_await_inside_f_string():

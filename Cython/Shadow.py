@@ -540,7 +540,7 @@ for t in builtin_types + int_types + float_types + complex_types + other_types:
 NULL = gs['p_void'](0)
 
 # looks like 'gs' has some users out there by now...
-#del gs
+# del gs
 
 integral = floating = numeric = _FusedType()
 

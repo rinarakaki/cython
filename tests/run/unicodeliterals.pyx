@@ -25,8 +25,8 @@ __doc__ = br"""
     '\udc00\ud800'
 
     # The output of surrogate pairs differs between 16/32bit Unicode runtimes.
-    #>>> p
-    #u'\ud800\udc00'
+    # >>> p
+    # u'\ud800\udc00'
 
     >>> add
     'S\xf8k ik\xfc\xd6\xe4abc'

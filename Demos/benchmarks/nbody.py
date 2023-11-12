@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 """N-body benchmark from the Computer Language Benchmarks Game.
 
 This is intended to support Unladen Swallow's perf.py. Accordingly, it has been

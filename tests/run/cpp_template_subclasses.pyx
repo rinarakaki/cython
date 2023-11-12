@@ -128,7 +128,7 @@ def test_GH1599(a, b):
 
 # Related to GH Issue #1852.
 
-cdef cppclass Callback[T]:#(UntypedCallback):
+cdef cppclass Callback[T]:  # (UntypedCallback):
     pass
 
 cdef cppclass MyClass[O]:

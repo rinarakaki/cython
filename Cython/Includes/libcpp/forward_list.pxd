@@ -22,7 +22,7 @@ extern from "<forward_list>" namespace "std" nogil:
         forward_list() except +
         forward_list(forward_list&) except +
         forward_list(usize, T&) except +
-        #forward_list& operator=(forward_list&)
+        # forward_list& operator=(forward_list&)
         u2 operator==(forward_list&, forward_list&)
         u2 operator!=(forward_list&, forward_list&)
         u2 operator<(forward_list&, forward_list&)

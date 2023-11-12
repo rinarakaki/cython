@@ -95,7 +95,7 @@ def dump_issues(repo):
     write_gzjson(filename, issues)
 
 
-### TESTS
+# ## TESTS
 
 def test_join_list_data():
     assert join_list_data([]) == []
@@ -135,7 +135,7 @@ def test_write_gzjson():
             assert f.read() == b'[\n  {}\n]'
 
 
-### MAIN
+# ## MAIN
 
 if __name__ == '__main__':
     repo_name = parse_repo_name(find_origin_url())
