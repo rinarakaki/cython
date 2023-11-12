@@ -25,7 +25,7 @@ Py_UCS4 = Union[py_int, str]
 Py_UNICODE = Union[py_int, str]
 f32 = float = py_float
 f64 = double = py_float
-longdouble = py_float
+f128 = longdouble = py_float
 complex = py_complex
 c64 = floatcomplex = py_complex
 c128 = doublecomplex = py_complex

@@ -54,4 +54,4 @@ type my_type = i32
 
 use numpy
 
-cdef numpy.my_type foo
+cdef numpy::my_type foo

@@ -83,7 +83,7 @@ cdef class A:
     pub i128 q
     pub f32 f
     pub f64 d
-    pub long double g
+    pub f128 g
     pub c64 Zf
     pub c128 Zd
     pub c256 Zg
@@ -94,7 +94,7 @@ cdef class A:
     cdef readonly i128 ro_q
     cdef readonly f32 ro_f
     cdef readonly f64 ro_d
-    cdef readonly long double ro_g
+    cdef readonly f128 ro_g
     cdef readonly c64 ro_Zf
     cdef readonly c128 ro_Zd
     cdef readonly c256 ro_Zg

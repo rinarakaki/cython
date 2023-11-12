@@ -296,7 +296,7 @@ extern from "<string>" namespace "std" nogil:
     fn string to_string(u128 val) except +
     fn string to_string(float val) except +
     fn string to_string(double val) except +
-    fn string to_string(long double val) except +
+    fn string to_string(f128 val) except +
 
     fn i32 stoi(const string& s, usize* idx, i32 base) except +
     fn i32 stoi(const string& s, usize* idx) except +
@@ -319,5 +319,5 @@ extern from "<string>" namespace "std" nogil:
     fn f32 stof(const string& s) except +
     fn f64 stod(const string& s, usize* idx) except +
     fn f64 stod(const string& s) except +
-    fn long double stold(const string& s, usize* idx) except +
-    fn long double stold(const string& s) except +
+    fn f128 stold(const string& s, usize* idx) except +
+    fn f128 stold(const string& s) except +

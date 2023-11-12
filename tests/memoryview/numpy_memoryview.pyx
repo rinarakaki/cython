@@ -316,7 +316,7 @@ def test_coerce_to_numpy():
 
     let f32[20] floats
     let f64[20] doubles
-    let long double[20] longdoubles
+    let f128[20] longdoubles
 
     let c64[20] floatcomplex
     let c128[20] doublecomplex
@@ -386,7 +386,7 @@ def test_coerce_to_numpy():
 
     index(<f32[:4, :5]> <f32 *> floats)
     index(<f64[:4, :5]> <f64 *> doubles)
-    index(<long double[:4, :5]> <long double *> longdoubles)
+    index(<f128[:4, :5]> <f128 *> longdoubles)
 
     index(<c64[:4, :5]> <c64 *> floatcomplex)
     index(<c128[:4, :5]> <c128 *> doublecomplex)
@@ -679,8 +679,8 @@ def test_refcount_GH507():
     let np.npy_long[:, :] b = a_view[1:2, :].T
 
 
-#[cython.boundscheck(false)]
-#[cython.wraparound(false)]
+#[cython::boundscheck(false)]
+#[cython::wraparound(false)]
 def test_boundscheck_and_wraparound(f64[:, :] x):
     """
     >>> import numpy as np

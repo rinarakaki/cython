@@ -20,7 +20,7 @@ def setcomp():
     assert x == 'abc' # do not leak
     return result
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//InlinedGeneratorExpressionNode",
     "//ComprehensionAppendNode")
 def genexp_set():

@@ -16,7 +16,7 @@ use numpy as cnp
 # numpy PyArray_* API. From Cython 3, accessing attributes like
 # ".shape" on a typed Numpy array use this API. Therefore we recommend
 # always calling "import_array" whenever you "cimport numpy"
-cnp.import_array()
+cnp::import_array()
 
 # We now need to fix a datatype for our arrays. I've used the variable
 # DTYPE for this, which is assigned to the usual NumPy runtime
@@ -36,7 +36,7 @@ type DTYPE_t = cnp.int64_t
 # this has is to a) insert checks that the function arguments really are
 # NumPy arrays, and b) make some attribute access like f.shape[0] much
 # more efficient. (In this example this doesn't matter though.)
-def naive_convolve(cnp.ndarray f, cnp.ndarray g):
+def naive_convolve(cnp::ndarray f, cnp::ndarray g):
     if g.shape[0] % 2 != 1 or g.shape[1] % 2 != 1:
         raise ValueError("Only odd dimensions on filter supported")
     assert f.dtype == DTYPE and g.dtype == DTYPE
@@ -58,7 +58,7 @@ def naive_convolve(cnp.ndarray f, cnp.ndarray g):
     let i32 tmid = tmax // 2
     let i32 xmax = vmax + 2 * smid
     let i32 ymax = wmax + 2 * tmid
-    let cnp.ndarray h = np.zeros([xmax, ymax], dtype=DTYPE)
+    let cnp::ndarray h = np.zeros([xmax, ymax], dtype=DTYPE)
     let i32 x, y, s, t, v, w
 
     # It is very important to type ALL your variables. You do not get any

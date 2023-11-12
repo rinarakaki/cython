@@ -21,7 +21,7 @@ text = u'ab jd  sdflk as sa  sadas asdas fsdf '
 pipe_sep = u'|'
 
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//PythonCapiCallNode",
 )
 def test_unicode_join_bound(unicode sep, l):

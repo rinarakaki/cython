@@ -90,7 +90,7 @@ def tuple_none_list():
     return tuple(none)
 
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     '//SimpleCallNode',
     '//PythonCapiCallNode'
 )
@@ -102,7 +102,7 @@ def tuple_of_tuple_literal():
     return tuple(tuple(tuple((1, 2, 3))))
 
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     '//SimpleCallNode',
     '//PythonCapiCallNode'
 )
@@ -114,7 +114,7 @@ def tuple_of_args_tuple(*args):
     return tuple(tuple(tuple(args)))
 
 
-#[cython.test_fail_if_path_exists('//SimpleCallNode//SimpleCallNode')]
+#[cython::test_fail_if_path_exists('//SimpleCallNode//SimpleCallNode')]
 def tuple_of_object(ob):
     """
     >>> tuple(r#type(1))  # doctest: +ELLIPSIS
@@ -126,7 +126,7 @@ def tuple_of_object(ob):
     return tuple(ob)
 
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     '//SimpleCallNode',
     '//PythonCapiCallNode//PythonCapiCallNode'
 )
@@ -141,7 +141,7 @@ def tuple_of_tuple_or_none(tuple x):
     return tuple(tuple(tuple(x)))
 
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//ExprStatNode//TupleNode",
     "//ExprStatNode",
 )
@@ -155,7 +155,7 @@ def unused_literals():
     # (int(), 2, 3)
 
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//ExprStatNode",
     "//ExprStatNode//TupleNode",
 )

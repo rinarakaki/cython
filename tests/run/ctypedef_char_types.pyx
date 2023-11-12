@@ -4,7 +4,7 @@ use cython::typeof
 
 use libc::string::(const_char, const_uchar)
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//NameNode[@name = 'st' and @type.is_string = true]",
     "//NameNode[@name = 'ust' and @type.is_string = true]",
     "//NameNode[@name = 'my_st' and @type.is_string = true]",

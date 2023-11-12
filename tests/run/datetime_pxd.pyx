@@ -215,7 +215,7 @@ def test_timedelta_total_seconds():
     return total_seconds(td), pytd.total_seconds()
 
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//CoerceFromPyTypeNode",
     "//AttributeNode",
 )
