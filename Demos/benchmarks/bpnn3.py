@@ -1,4 +1,3 @@
-#!/usr/bin/python
 # Back-Propagation Neural Networks
 #
 # Written in Python.  See https://www.python.org/
@@ -60,7 +59,7 @@ class NN(object):
 
         # input activations
         for i in range(self.ni-1):
-            #self.ai[i] = 1.0/(1.0+math.exp(-inputs[i]))
+            # self.ai[i] = 1.0/(1.0+math.exp(-inputs[i]))
             self.ai[i] = inputs[i]
 
         # hidden activations
@@ -144,7 +143,7 @@ class NN(object):
                 targets = p[1]
                 self.update(inputs)
                 error = error + self.backPropagate(targets, N, M)
-            #if i % 100 == 0:
+            # if i % 100 == 0:
             #    print i, 'error %-14f' % error
 
 
@@ -162,7 +161,7 @@ def demo():
     # train it with some patterns
     n.train(pat, 5000)
     # test it
-    #n.test(pat)
+    # n.test(pat)
 
 def time(fn, *args):
     import time, traceback

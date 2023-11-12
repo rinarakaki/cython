@@ -11,11 +11,11 @@ extern from "<limits>" namespace "std" nogil:
         denorm_absent         = 0
         denorm_present        = 1
 
-    #The static methods can be called as, e.g. numeric_limits[int].round_error(), etc.
-    #The const data members should be declared as static.  Cython currently doesn't allow that
-    #and/or I can't figure it out, so you must instantiate an object to access, e.g.
-    #cdef numeric_limits[double] lm
-    #print lm.round_style
+    # The static methods can be called as, e.g. numeric_limits[int].round_error(), etc.
+    # The const data members should be declared as static.  Cython currently doesn't allow that
+    # and/or I can't figure it out, so you must instantiate an object to access, e.g.
+    # cdef numeric_limits[double] lm
+    # print lm.round_style
     cdef cppclass numeric_limits[T]:
         const u2 is_specialized
         @staticmethod

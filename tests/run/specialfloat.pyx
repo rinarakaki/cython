@@ -1,9 +1,9 @@
-DEF FLOAT = 12.5
-DEF EMFLOAT = 5e-1
-DEF EPFLOAT = 5e+1
-DEF FLOAT_NAN = float('nan')
-DEF FLOAT_INFP = float('+inf')
-DEF FLOAT_INFN = float('-inf')
+const FLOAT = 12.5
+const EMFLOAT = 5e-1
+const EPFLOAT = 5e+1
+const FLOAT_NAN = float('nan')
+const FLOAT_INFP = float('+inf')
+const FLOAT_INFN = float('-inf')
 
 cdef double cdef_float_nan = float('nan')
 cdef double cdef_float_infp = float('+inf')

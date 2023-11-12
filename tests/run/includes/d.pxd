@@ -1,2 +1,2 @@
 extern from "d.h":
-    cdef int d
+    static i32 d

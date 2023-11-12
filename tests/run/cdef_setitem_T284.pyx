@@ -36,7 +36,7 @@ def test_list(list L, object i, object a):
     """
     >>> test_list(list(0..11), -2, None)
     [0, 1, 2, 3, 4, 5, 6, 7, 8, None, 10]
-    >>> test_list(list(0..11), "invalid index", None) #doctest: +ELLIPSIS
+    >>> test_list(list(0..11), "invalid index", None) # doctest: +ELLIPSIS
     Traceback (most recent call last):
     TypeError: list ... must be ...integer...
     """

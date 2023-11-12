@@ -32,8 +32,8 @@ extern from "Python.h":
     # PySliceObject* before.
 
     fn i32 PySlice_GetIndicesEx(object slice, isize length,
-                             isize *start, isize *stop, isize *step,
-                             isize *slicelength) except -1
+                                isize *start, isize *stop, isize *step,
+                                isize *slicelength) except -1
     #
     # Usable replacement for PySlice_GetIndices(). Retrieve the start, stop, and step
     # indices from the slice object slice assuming a sequence of length length, and
@@ -46,7 +46,7 @@ extern from "Python.h":
     # PySliceObject* before.
 
     fn i32 PySlice_Unpack(object slice, isize *start, isize *stop,
-                       isize *step) except -1
+                          isize *step) except -1
     # Extract the start, stop and step data members from a slice object as C
     # integers. Silently reduce values larger than PY_SSIZE_T_MAX to
     # PY_SSIZE_T_MAX, silently boost the start and stop values less than
@@ -58,7 +58,7 @@ extern from "Python.h":
     # New in version 3.6.1.
 
     fn isize PySlice_AdjustIndices(isize length, isize *start,
-                                isize *stop, isize step)
+                                   isize *stop, isize step)
     # Adjust start/end slice indices assuming a sequence of the specified
     # length. Out of bounds indices are clipped in a manner consistent with
     # the handling of normal slices.

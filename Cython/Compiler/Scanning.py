@@ -1,4 +1,4 @@
-# cython: infer_types=True, language_level=3, auto_pickle=False
+# cython: infer_types=true, language_level=3, auto_pickle=false
 #
 #   Cython Scanner
 #
@@ -37,7 +37,7 @@ def get_lexicon():
     return lexicon
 
 
-#------------------------------------------------------------------
+# ------------------------------------------------------------------
 
 common_reserved_words = [
     "global", "nonlocal", "def", "class", "print", "del", "pass", "break",
@@ -48,13 +48,13 @@ common_reserved_words = [
 ]
 py_reserved_words = common_reserved_words + ["from"]
 pyx_reserved_words = common_reserved_words + [
-    "use", "pub", "extern", "fn", "let", "enum", "struct", "union",
+    "use", "pub", "extern", "fn", "let", "enum", "struct", "union", "const", "static", "loop",
     "include", "ctypedef", "cdef", "cpdef",
     "cimport", "DEF", "IF", "ELIF", "ELSE"
 ]
 
 
-#------------------------------------------------------------------
+# ------------------------------------------------------------------
 
 class CompileTimeScope(object):
 
@@ -103,7 +103,7 @@ def initial_compile_time_env():
         'list', 'map', 'max', 'min', 'oct', 'ord', 'pow', 'range',
         'repr', 'reversed', 'round', 'set', 'slice', 'sorted', 'str',
         'sum', 'tuple', 'zip',
-        ### defined below in a platform independent way
+        # ## defined below in a platform independent way
         # 'long', 'unicode', 'reduce', 'xrange'
     )
 
@@ -125,7 +125,7 @@ def initial_compile_time_env():
     return denv
 
 
-#------------------------------------------------------------------
+# ------------------------------------------------------------------
 
 class SourceDescriptor(object):
     """
@@ -263,7 +263,7 @@ class StringSourceDescriptor(SourceDescriptor):
     """
     def __init__(self, name, code):
         self.name = name
-        #self.set_file_type_from_name(name)
+        # self.set_file_type_from_name(name)
         self.codelines = [x + "\n" for x in code.split("\n")]
         self._cmp_name = name
 
@@ -295,7 +295,7 @@ class StringSourceDescriptor(SourceDescriptor):
         return "<StringSourceDescriptor:%s>" % self.name
 
 
-#------------------------------------------------------------------
+# ------------------------------------------------------------------
 
 class PyrexScanner(Scanner):
     #  context            Context  Compilation context
@@ -404,15 +404,15 @@ class PyrexScanner(Scanner):
     def indentation_action(self, text):
         self.begin('')
         # Indentation within brackets should be ignored.
-        #if self.bracket_nesting_level > 0:
+        # if self.bracket_nesting_level > 0:
         #    return
         # Check that tabs and spaces are being used consistently.
         if text:
             c = text[0]
-            #print "Scanner.indentation_action: indent with", repr(c) ###
+            # print "Scanner.indentation_action: indent with", repr(c) #
             if self.indentation_char is None:
                 self.indentation_char = c
-                #print "Scanner.indentation_action: setting indent_char to", repr(c)
+                # print "Scanner.indentation_action: setting indent_char to", repr(c)
             else:
                 if self.indentation_char != c:
                     self.error_at_scanpos("Mixed use of tabs and spaces")
@@ -421,19 +421,19 @@ class PyrexScanner(Scanner):
         # Figure out how many indents/dedents to do
         current_level = self.current_level()
         new_level = len(text)
-        #print "Changing indent level from", current_level, "to", new_level ###
+        # print "Changing indent level from", current_level, "to", new_level #
         if new_level == current_level:
             return
         elif new_level > current_level:
-            #print "...pushing level", new_level ###
+            # print "...pushing level", new_level #
             self.indentation_stack.append(new_level)
             self.produce('INDENT', '')
         else:
             while new_level < self.current_level():
-                #print "...popping level", self.indentation_stack[-1] ###
+                # print "...popping level", self.indentation_stack[-1] #
                 self.indentation_stack.pop()
                 self.produce('DEDENT', '')
-            #print "...current level now", self.current_level() ###
+            # print "...current level now", self.current_level() #
             if new_level != self.current_level():
                 self.error_at_scanpos("Inconsistent indentation")
 

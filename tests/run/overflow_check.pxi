@@ -72,7 +72,7 @@ def test_add(INT a, INT b):
     """
     >>> test_add(1, 2)
     3
-    >>> test_add(max_value, max_value)   #doctest: +ELLIPSIS
+    >>> test_add(max_value, max_value)   # doctest: +ELLIPSIS
     Traceback (most recent call last):
     ...
     OverflowError: value too large
@@ -85,7 +85,7 @@ def test_sub(INT a, INT b):
     """
     >>> test_sub(10, 1)
     9
-    >>> test_sub(min_value, 1)   #doctest: +ELLIPSIS
+    >>> test_sub(min_value, 1)   # doctest: +ELLIPSIS
     Traceback (most recent call last):
     ...
     OverflowError: value too large
@@ -98,7 +98,7 @@ def test_mul(INT a, INT b):
     """
     >>> test_mul(11, 13)
     143
-    >>> test_mul(max_value / 2, max_value / 2)   #doctest: +ELLIPSIS
+    >>> test_mul(max_value / 2, max_value / 2)   # doctest: +ELLIPSIS
     Traceback (most recent call last):
     ...
     OverflowError: value too large

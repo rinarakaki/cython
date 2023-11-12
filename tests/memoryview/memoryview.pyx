@@ -26,7 +26,7 @@ extern from "Python.h":
 include "../buffers/mockbuffers.pxi"
 
 #
-### Test for some coercions
+# ## Test for some coercions
 #
 def init_obj():
     return 3
@@ -565,13 +565,13 @@ def generic(i32[:;view.generic, :;view.generic] mslice1,
 #    released B
 #    """
 #    buf1, buf2 = mslice1, mslice2
-# 
+#
 #    print buf1[1, 1]
 #    print buf2[1, 1]
-# 
+#
 #    buf1[2, -1] = 10
 #    buf2[2, -1] = 11
-# 
+#
 #    print buf1[2, 2]
 #    print buf2[2, 2]
 
@@ -1136,7 +1136,7 @@ def min_max_tree_restructuring():
 @cython.test_assert_path_exists(
     '//MemoryViewIndexNode',
 )
-##[cython.boundscheck(false)]  # reduce C code clutter
+# #[cython.boundscheck(false)]  # reduce C code clutter
 def optimised_index_of_slice(i32[:, :, :] arr, i32 x, i32 y, i32 z):
     """
     >>> arr = IntMockBuffer("A", list(0..(10 * 10 * 10)), shape=(10, 10, 10))
@@ -1246,16 +1246,14 @@ def test_is_Sequence(f64[:] a):
     1
     True
     """
-    if sys.version_info < (3, 3):
-        from collections import Sequence
-    else:
-        from collections.abc import Sequence
+    from collections.abc import Sequence
 
     for i in 0..a.shape[0]:
         a[i] = i
     print(a.count(1.0))  # test for presence of added collection method
     print(a.index(1.0))  # test for presence of added collection method
 
+    import sys
     if sys.version_info >= (3, 10):
         # test structural pattern match in Python
         # (because Cython hasn't implemented it yet, and because the details
@@ -1301,5 +1299,5 @@ def test_untyped_index(i):
     return mview_arr[i]  # should generate a performance hint
 
 _PERFORMANCE_HINTS = """
-1301:21: Index should be typed for more efficient access
+1299:21: Index should be typed for more efficient access
 """

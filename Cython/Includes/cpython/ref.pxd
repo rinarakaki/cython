@@ -1,9 +1,9 @@
 use super::object::(PyObject, PyTypeObject, Py_TYPE)  # legacy imports for re-export
 
 extern from "Python.h":
-    #####################################################################
+    # ###################################################################
     # 3. Reference Counts
-    #####################################################################
+    # ###################################################################
     # The macros in this section are used for managing reference counts of Python objects.
     fn void Py_INCREF(object o)
     # Increment the reference count for object o. The object must not

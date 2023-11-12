@@ -4,7 +4,7 @@ use cpython::object::(Py_EQ, Py_NE)
 
 use cython
 
-DEF C21 = 2-1j
+const C21 = 2-1j
 
 cdef class Complex3j:
     """
@@ -219,23 +219,23 @@ fn cdouble test_conjugate_nogil(cdouble z) nogil:
     return z.conjugate()
 test_conjugate_nogil(0) # use it
 
-## extern from "complex_numbers_T305.h":
-##     ctypedef f64 double_really_float "myfloat"
-##     ctypedef f32 float_really_double "mydouble"
-##     ctypedef f32 real_float "myfloat"
-##     ctypedef f64 real_double "mydouble"
+# extern from "complex_numbers_T305.h":
+#     ctypedef f64 double_really_float "myfloat"
+#     ctypedef f32 float_really_double "mydouble"
+#     ctypedef f32 real_float "myfloat"
+#     ctypedef f64 real_double "mydouble"
 
-## def test_conjugate_nosizeassumptions(double_really_float x,
-##                                      float_really_double y,
-##                                      real_float z, real_double w):
-##     """
-##     >>> test_conjugate_nosizeassumptions(1, 1, 1, 1)
-##     (-1j, -1j, -1j, -1j)
-##     >>> ["%.2f" % x.imag for x in test_conjugate_nosizeassumptions(2e300, 2e300, 2e300, 2e300)]
-##     ['-inf', '-2e+300', '-inf', '-2e+300']
-##     """
-##     cdef double complex I = 1j
-##     return ((x*I).conjugate(), (y*I).conjugate(), (z*I).conjugate(), (w*I).conjugate())
+# def test_conjugate_nosizeassumptions(double_really_float x,
+#                                      float_really_double y,
+#                                      real_float z, real_double w):
+#     """
+#     >>> test_conjugate_nosizeassumptions(1, 1, 1, 1)
+#     (-1j, -1j, -1j, -1j)
+#     >>> ["%.2f" % x.imag for x in test_conjugate_nosizeassumptions(2e300, 2e300, 2e300, 2e300)]
+#     ['-inf', '-2e+300', '-inf', '-2e+300']
+#     """
+#     cdef double complex I = 1j
+#     return ((x*I).conjugate(), (y*I).conjugate(), (z*I).conjugate(), (w*I).conjugate())
 
 ctypedef f64 mydouble
 def test_coerce_typedef_multiply(mydouble x, double complex z):

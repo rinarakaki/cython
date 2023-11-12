@@ -14,9 +14,9 @@ extern from "Python.h":
     #endif
     """
 
-    ############################################################################
+    # ##########################################################################
     # Context Variables Objects
-    ############################################################################
+    # ##########################################################################
 
     # PyContext
     # The C structure used to represent a `contextvars.Context` object.
@@ -27,13 +27,13 @@ extern from "Python.h":
     # PyContextToken
     # The C structure used to represent a `contextvars.Token` object.
 
-    # PyTypeObject PyContext_Type
+    # static PyTypeObject PyContext_Type
     # Type object representing the `contextvars.Context` type.
 
-    # PyTypeObject PyContextVar_Type
+    # static PyTypeObject PyContextVar_Type
     # Type object representing the `contextvars.ContextVar` type.
 
-    # PyTypeObject PyContextToken_Type
+    # static PyTypeObject PyContextToken_Type
     # Type object representing the `contextvars.Token` type.
 
     fn u2 PyContext_CheckExact(object obj)

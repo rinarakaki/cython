@@ -122,7 +122,7 @@ class CythonUtilityCode(Code.UtilityCodeBase):
             cpp=cython_scope.is_cpp() if cython_scope else False)
         context.prefix = self.prefix
         context.cython_scope = cython_scope
-        #context = StringParseContext(self.name)
+        # context = StringParseContext(self.name)
         tree = parse_from_strings(
             self.name, self.impl, context=context, allow_struct_enum_decorator=True,
             in_utility_code=True)
@@ -139,7 +139,7 @@ class CythonUtilityCode(Code.UtilityCodeBase):
 
         transform = ParseTreeTransforms.CnameDirectivesTransform(context)
         # InterpretCompilerDirectives already does a cdef declarator check
-        #before = ParseTreeTransforms.DecoratorTransform
+        # before = ParseTreeTransforms.DecoratorTransform
         before = ParseTreeTransforms.InterpretCompilerDirectives
         pipeline = Pipeline.insert_into_pipeline(pipeline, transform,
                                                  before=before)

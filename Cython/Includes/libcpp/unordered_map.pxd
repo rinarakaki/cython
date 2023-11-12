@@ -46,9 +46,9 @@ extern from "<unordered_map>" namespace "std" nogil:
 
         unordered_map() except +
         unordered_map(unordered_map&) except +
-        #unordered_map(key_compare&)
+        # unordered_map(key_compare&)
         U& operator[](const T&)
-        #unordered_map& operator=(unordered_map&)
+        # unordered_map& operator=(unordered_map&)
         fn u2 operator==(unordered_map&, unordered_map&)
         fn u2 operator!=(unordered_map&, unordered_map&)
         fn u2 operator<(unordered_map&, unordered_map&)
@@ -77,7 +77,7 @@ extern from "<unordered_map>" namespace "std" nogil:
         pair[iterator, u2] insert(const pair[T, U]&) except +
         iterator insert(const_iterator, const pair[T, U]&) except +
         fn void insert[InputIt](InputIt, InputIt) except +
-        #key_compare key_comp()
+        # key_compare key_comp()
         iterator lower_bound(const T&)
         fn const_iterator const_lower_bound "lower_bound"(const T&)
         fn usize max_size()
@@ -85,7 +85,7 @@ extern from "<unordered_map>" namespace "std" nogil:
         fn void swap(unordered_map&)
         iterator upper_bound(const T&)
         fn const_iterator const_upper_bound "upper_bound"(const T&)
-        #value_compare value_comp()
+        # value_compare value_comp()
         fn void max_load_factor(float)
         fn float max_load_factor()
         fn float load_factor()
@@ -139,8 +139,8 @@ extern from "<unordered_map>" namespace "std" nogil:
 
         unordered_multimap() except +
         unordered_multimap(const unordered_multimap&) except +
-        #unordered_multimap(key_compare&)
-        #unordered_map& operator=(unordered_multimap&)
+        # unordered_multimap(key_compare&)
+        # unordered_map& operator=(unordered_multimap&)
         fn u2 operator==(const unordered_multimap&, const unordered_multimap&)
         fn u2 operator!=(const unordered_multimap&, const unordered_multimap&)
         fn u2 operator<(const unordered_multimap&, const unordered_multimap&)
@@ -150,16 +150,16 @@ extern from "<unordered_map>" namespace "std" nogil:
         iterator begin()
         fn const_iterator const_begin "begin"()
         fn const_iterator cbegin()
-        #local_iterator begin(usize)
-        #const_local_iterator const_begin "begin"(usize)
+        # local_iterator begin(usize)
+        # const_local_iterator const_begin "begin"(usize)
         fn void clear()
         fn usize count(const T&)
         fn u2 empty()
         iterator end()
         fn const_iterator const_end "end"()
         fn const_iterator cend()
-        #local_iterator end(usize)
-        #const_local_iterator const_end "end"(usize)
+        # local_iterator end(usize)
+        # const_local_iterator const_end "end"(usize)
         pair[iterator, iterator] equal_range(const T&)
         pair[const_iterator, const_iterator] const_equal_range "equal_range"(const T&)
         iterator erase(iterator)
@@ -171,7 +171,7 @@ extern from "<unordered_map>" namespace "std" nogil:
         iterator insert(const pair[T, U]&) except +
         iterator insert(const_iterator, const pair[T, U]&) except +
         fn void insert[InputIt](InputIt, InputIt) except +
-        #key_compare key_comp()
+        # key_compare key_comp()
         iterator lower_bound(const T&)
         fn const_iterator const_lower_bound "lower_bound"(const T&)
         fn usize max_size()

@@ -18,10 +18,7 @@ from functools import wraps
 import gc
 import sys
 
-if sys.version_info[0] < 3:
-    import __builtin__ as builtins
-else:
-    import builtins
+import builtins
 
 try:
     from Cython.Tests.this_module_does_not_exist import *
@@ -1357,7 +1354,7 @@ def buffer_nogil():
     return buf[1], buf2[1]
 
 #
-### Test cdef functions
+# ## Test cdef functions
 #
 class UniqueObject(object):
     def __init__(self, value):
@@ -1916,17 +1913,7 @@ fn test_structs_with_arr(FusedStruct array[10]):
         for j in 0..3:
             myslice1[i].chars[j] = 97 + j
 
-    if (2, 7) <= sys.version_info[:2] < (3, 3):
-        size1 = <isize>sizeof(FusedStruct)
-        size2 = len(builtins.memoryview(myslice1)[0])
-        assert size1 == size2, (size1, size2, builtins.memoryview(myslice1).format)
-
-        myslice2 = builtins.memoryview(myslice1)
-        for i in 0..10:
-            assert myslice2[i].ints[i] == myslice1[i].ints[i]
-            assert myslice2[i].chars[i] == myslice1[i].chars[i]
-
-    myslice3 = <object> myslice1
+    myslice3 = <object>myslice1
     myslice4 = myslice1
     for i in 0..10:
         for j in 0..10:
@@ -2025,7 +2012,7 @@ def test_padded_structs():
     _test_padded(a7)
     # There is a pre-existing bug that doesn't parse the format for this
     # struct properly -- fix this
-    #_test_padded(a8)
+    # _test_padded(a8)
 
 fn _test_padded(FusedPadded myarray[10]):
     # test that the buffer format parser accepts our format string...
@@ -2381,7 +2368,7 @@ def test_dtype_object_scalar_assignment():
     assert m[0] == m[4] == m[-1] == 3
 
 #
-### Test slices that are set to None
+# ## Test slices that are set to None
 #
 
 # for none memoryview slice attribute testing, slicing, indexing, etc, see

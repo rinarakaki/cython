@@ -123,7 +123,7 @@ def simple_send():
     3
     """
     i = None
-    while True:
+    loop:
         i = yield i
 
 def raising():
@@ -172,7 +172,7 @@ def test_close():
     Traceback (most recent call last):
     StopIteration
     """
-    while True:
+    loop:
         yield
 
 def test_ignore_close():
@@ -210,7 +210,7 @@ def check_throw():
     Traceback (most recent call last):
     StopIteration
     """
-    while True:
+    loop:
         try:
             yield
         except ValueError:

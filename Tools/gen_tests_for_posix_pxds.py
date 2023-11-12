@@ -1,5 +1,3 @@
-#!/usr/bin/python3
-
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__) / "../.."
