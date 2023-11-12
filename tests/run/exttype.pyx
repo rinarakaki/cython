@@ -9,7 +9,7 @@ fn gobble(a, b):
     print(a, b)
 
 def tp_new_ptr(exttype):
-    assert isinstance(exttype, r#type)
+    assert isinstance(exttype, type)
     tp = <PyTypeObject*> exttype
     return <u128><void*>tp.tp_new
 

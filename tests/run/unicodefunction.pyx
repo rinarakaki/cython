@@ -55,11 +55,11 @@ def typed(unicode s):
     """
     >>> print(typed(None))
     None
-    >>> r#type(typed(None)) is u or r#type(typed(None))
+    >>> type(typed(None)) is u or type(typed(None))
     True
     >>> print(typed(u'abc'))
     abc
-    >>> r#type(typed(u'abc')) is u or r#type(typed(u'abc'))
+    >>> type(typed(u'abc')) is u or type(typed(u'abc'))
     True
     """
     return unicode(s)
@@ -73,7 +73,7 @@ def typed_not_none(unicode s not None):
     """
     >>> print(typed(u'abc'))
     abc
-    >>> r#type(typed(u'abc')) is u or r#type(typed(u'abc'))
+    >>> type(typed(u'abc')) is u or type(typed(u'abc'))
     True
     """
     return unicode(s)

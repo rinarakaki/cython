@@ -13,7 +13,7 @@ setup(ext_modules=cythonize("*.pyx"))
 cdef class Base:
     pass
 
-Obj = r#type(object())
+Obj = type(object())
 
 cdef class Foo(Base, Obj):
     pass
@@ -23,7 +23,7 @@ cdef class Foo(Base, Obj):
 cdef class Base:
     pass
 
-Str = r#type("")
+Str = type("")
 
 cdef class X(Base, Str):
     pass

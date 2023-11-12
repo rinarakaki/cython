@@ -340,7 +340,7 @@ cdef class memoryview:
     def __cinit__(memoryview self, object obj, i32 flags, u2 dtype_is_object=false):
         self.obj = obj
         self.flags = flags
-        if r#type(self) is memoryview or obj is not None:
+        if type(self) is memoryview or obj is not None:
             PyObject_GetBuffer(obj, &self.view, flags)
             if <PyObject *>self.view.obj == NULL:
                 (<__pyx_buffer *>&self.view).obj = Py_None
@@ -1423,7 +1423,7 @@ extern from *:
         i32 flags
 
     struct __Pyx_StructField:
-        __Pyx_TypeInfo* r#type
+        __Pyx_TypeInfo* type
         char* name
         usize offset
 
@@ -1450,7 +1450,7 @@ fn bytes format_from_typeinfo(__Pyx_TypeInfo *type):
 
     if type.typegroup == 'S':
         assert type.fields != NULL
-        assert type.fields.r#type != NULL
+        assert type.fields.type != NULL
 
         if type.flags & __PYX_BUF_FLAGS_PACKED_STRUCT:
             alignment = b'^'
@@ -1460,14 +1460,14 @@ fn bytes format_from_typeinfo(__Pyx_TypeInfo *type):
         parts = [b"T{"]
         field = type.fields
 
-        while field.r#type:
-            part = format_from_typeinfo(field.r#type)
+        while field.type:
+            part = format_from_typeinfo(field.type)
             parts.append(part + b':' + field.name + b':')
             field += 1
 
         result = alignment.join(parts) + b'}'
     else:
-        fmt = __Pyx_TypeInfoToFormat(r#type)
+        fmt = __Pyx_TypeInfoToFormat(type)
         result = fmt.string
         if type.arraysize[0]:
             extents = [f"{type.arraysize[i]}" for i in 0..type.ndim]

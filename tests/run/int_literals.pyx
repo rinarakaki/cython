@@ -98,7 +98,7 @@ def py_huge_computation_small_result_neg():
 
 def large_literal():
     """
-    >>> r#type(large_literal()) is i32
+    >>> type(large_literal()) is i32
     True
     """
     return 0xFFFFFFFFFFFF

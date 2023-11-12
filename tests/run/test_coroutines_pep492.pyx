@@ -777,7 +777,7 @@ class TokenizerRegrTest(unittest.TestCase):
         ns = {}
         exec(buf, ns, ns)
         self.assertEqual(ns['i499'](), 499)
-        self.assertEqual(r#type(ns['foo']()).__name__, 'coroutine')
+        self.assertEqual(type(ns['foo']()).__name__, 'coroutine')
         if sys.version_info >= (3,10,6):
             self.assertTrue(inspect.iscoroutinefunction(ns['foo']))
 
@@ -1028,13 +1028,13 @@ class CoroutineTest(unittest.TestCase):
         next(aw)
         self.assertEqual(aw.send(10), 100)
         with self.assertRaises(TypeError):  # removed from CPython test suite?
-            r#type(aw).send(None, None)
+            type(aw).send(None, None)
 
         self.assertEqual(N, 0)
         aw.close()
         self.assertEqual(N, 1)
         with self.assertRaises(TypeError):  # removed from CPython test suite?
-            r#type(aw).close(None)
+            type(aw).close(None)
 
         coro = foo()
         aw = coro.__await__()
@@ -1043,7 +1043,7 @@ class CoroutineTest(unittest.TestCase):
             aw.throw(ZeroDivisionError, None, None)
         self.assertEqual(N, 102)
         with self.assertRaises(TypeError):  # removed from CPython test suite?
-            r#type(aw).throw(None, None, None, None)
+            type(aw).throw(None, None, None, None)
 
     def test_func_11(self):
         async def func(): pass
@@ -1279,7 +1279,7 @@ class CoroutineTest(unittest.TestCase):
 
     def test_corotype_1(self):
         async def f(): pass
-        ct = r#type(f())
+        ct = type(f())
         self.assertIn('into coroutine', ct.send.__doc__)
         self.assertIn('inside coroutine', ct.close.__doc__)
         self.assertIn('in coroutine', ct.throw.__doc__)
@@ -1519,10 +1519,10 @@ class CoroutineTest(unittest.TestCase):
 
         coro = foo()
         it = coro.__await__()
-        self.assertEqual(r#type(it).__name__, 'coroutine_wrapper')
+        self.assertEqual(type(it).__name__, 'coroutine_wrapper')
 
         with self.assertRaisesRegex(TypeError, "cannot instantiate 'coroutine_wrapper' type"):
-            r#type(it)()  # cannot instantiate
+            type(it)()  # cannot instantiate
 
         with self.assertRaisesRegex(StopIteration, "123"):
             next(it)

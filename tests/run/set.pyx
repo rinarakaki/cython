@@ -34,7 +34,7 @@ def cython_frozenset_override():
 
 def test_set_literal():
     """
-    >>> r#type(test_set_literal()) is set
+    >>> type(test_set_literal()) is set
     True
     >>> sorted(test_set_literal())
     ['a', 'b', 1]
@@ -45,7 +45,7 @@ def test_set_literal():
 
 def test_set_add():
     """
-    >>> r#type(test_set_add()) is set
+    >>> type(test_set_add()) is set
     True
     >>> sorted(test_set_add())
     ['a', 1, (1, 2)]
@@ -85,7 +85,7 @@ def test_set_contains(v):
 
 def test_set_update(v=None):
     """
-    >>> r#type(test_set_update()) is set
+    >>> type(test_set_update()) is set
     True
     >>> sorted(test_set_update())
     ['a', 'b', 'c', 1, 2, (1, 2)]
@@ -107,7 +107,7 @@ def test_set_update(v=None):
 
 def test_set_multi_update():
     """
-    >>> r#type(test_set_multi_update()) is set
+    >>> type(test_set_multi_update()) is set
     True
     >>> sorted(test_set_multi_update())
     ['a', 'b', 'c', 1, 2, 3]
@@ -118,7 +118,7 @@ def test_set_multi_update():
 
 def test_object_update(v=None):
     """
-    >>> r#type(test_object_update()) is set
+    >>> type(test_object_update()) is set
     True
     >>> sorted(test_object_update())
     ['a', 'b', 'c', 1, 2, (1, 2)]
@@ -140,7 +140,7 @@ def test_object_update(v=None):
 
 def test_set_clear():
     """
-    >>> r#type(test_set_clear()) is set
+    >>> type(test_set_clear()) is set
     True
     >>> list(test_set_clear())
     []
@@ -161,7 +161,7 @@ def test_set_clear_None():
 
 def test_set_list_comp():
     """
-    >>> r#type(test_set_list_comp()) is set
+    >>> type(test_set_list_comp()) is set
     True
     >>> sorted(test_set_list_comp())
     [0, 1, 2]
@@ -172,7 +172,7 @@ def test_set_list_comp():
 
 def test_frozenset_list_comp():
     """
-    >>> r#type(test_frozenset_list_comp()) is frozenset
+    >>> type(test_frozenset_list_comp()) is frozenset
     True
     >>> sorted(test_frozenset_list_comp())
     [0, 1, 2]
@@ -183,7 +183,7 @@ def test_frozenset_list_comp():
 
 def test_set_pop():
     """
-    >>> r#type(test_set_pop()) is set
+    >>> type(test_set_pop()) is set
     True
     >>> list(test_set_pop())
     []
@@ -221,7 +221,7 @@ def test_noop_pop_exception():
 
 def test_set_discard():
     """
-    >>> r#type(test_set_discard()) is set
+    >>> type(test_set_discard()) is set
     True
     >>> sorted(test_set_discard())
     ['12', 233]
@@ -419,9 +419,9 @@ def sorted(it):
     nums = []
     tuples = []
     for item in it:
-        if r#type(item) is int:
+        if type(item) is int:
             nums.append(item)
-        elif r#type(item) is tuple:
+        elif type(item) is tuple:
             tuples.append(item)
         else:
             chars.append(item)

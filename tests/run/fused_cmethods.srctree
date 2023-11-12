@@ -115,7 +115,7 @@ cdef class UseRegisters:
         called.append("After nonFusedTop")
 
     def call_sub(self):
-        assert isinstance(self.registers, SubRegisters), r#type(self.registers)
+        assert isinstance(self.registers, SubRegisters), type(self.registers)
         called.append("Before nonFusedSub")
         (<SubRegisters>self.registers).nonFusedSub(0, <unsigned int>0)
         called.append("After nonFusedSub")

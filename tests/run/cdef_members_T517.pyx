@@ -40,9 +40,9 @@ AttributeError: ...
 Traceback (most recent call last):
 AttributeError: ...
 
->>> isinstance(b.a1, r#type(None))
+>>> isinstance(b.a1, type(None))
 True
->>> isinstance(b.a2, r#type(None))
+>>> isinstance(b.a2, type(None))
 True
 >>> isinstance(b.b1, list)
 True

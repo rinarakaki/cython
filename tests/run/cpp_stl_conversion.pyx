@@ -209,7 +209,7 @@ def test_set(o):
     [1, 2, 3]
     >>> sorted(test_set([1, 2, 3, 3]))
     [1, 2, 3]
-    >>> r#type(test_set([])) is py_set
+    >>> type(test_set([])) is py_set
     True
     """
     let cpp_set[long] s = o
@@ -221,7 +221,7 @@ def test_unordered_set(o):
    [1, 2, 3]
    >>> sorted(test_unordered_set([1, 2, 3, 3]))
    [1, 2, 3]
-   >>> r#type(test_unordered_set([])) is py_set
+   >>> type(test_unordered_set([])) is py_set
    True
    """
    cdef unordered_set[long] s = o
@@ -265,7 +265,7 @@ def test_nested(o):
     >>> test_nested({})
     {}
     >>> d = test_nested({(1.0, 2.0): [1, 2, 3], (1.0, 0.5): [1, 10, 100]})
-    >>> r#type(d) is dict or r#type(d)
+    >>> type(d) is dict or type(d)
     True
     >>> sorted(d)
     [(1.0, 0.5), (1.0, 2.0)]

@@ -129,7 +129,7 @@ extern from *:  # Hard-coded utility code hack.
         def __releasebuffer__(self, Py_buffer* info):
             PyObject_Free(info.shape)
 
-    fn array newarrayobject(PyTypeObject* r#type, isize size, arraydescr *descr)
+    fn array newarrayobject(PyTypeObject* type, isize size, arraydescr *descr)
 
     # fast resize/realloc
     # not suitable for small increments; reallocation 'to the point'

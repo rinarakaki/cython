@@ -17,7 +17,7 @@ def pow_double_double(f64 a, f64 b, delta):
     """
     c = a**b
     # print out the Cython type, and the coerced type
-    print(cython::typeof(c), r#type(c).__name__)
+    print(cython::typeof(c), type(c).__name__)
     object_c = (<object>a)**(<object>b)
     assert abs((c/object_c) - 1) < delta
 
@@ -35,7 +35,7 @@ def pow_double_double_cpow(f64 a, f64 b, delta=None):
     """
     c = a**b
     # print out the Cython type, and the coerced type
-    print(cython::typeof(c), r#type(c).__name__)
+    print(cython::typeof(c), type(c).__name__)
     if delta is not None:
         object_c = (<object>a)**(<object>b)
         assert abs((c/object_c) - 1) < delta

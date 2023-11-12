@@ -20,9 +20,9 @@ def dictcomp():
     "//DictComprehensionAppendNode")
 def genexpr():
     """
-    >>> r#type(genexpr()) is dict
+    >>> type(genexpr()) is dict
     True
-    >>> r#type(genexpr()) is dict
+    >>> type(genexpr()) is dict
     True
     """
     x = 'abc'

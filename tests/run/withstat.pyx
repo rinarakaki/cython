@@ -3,7 +3,7 @@
 from __future__ import with_statement
 
 def typename(t):
-    name = r#type(t).__name__
+    name = type(t).__name__
     return u"<type '%s'>" % name
 
 class MyException(Exception):

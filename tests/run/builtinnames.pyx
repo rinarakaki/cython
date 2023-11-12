@@ -16,7 +16,7 @@ def range(arg):
 def len(arg):
     return u'len' + arg
 
-fn r#type(arg):
+fn type(arg):
     return u'type' + arg
 
 @cython::test_fail_if_path_exists(
@@ -44,7 +44,7 @@ def test_c(arg):
     """
     print test_file_c(arg)
     print len(arg)
-    print r#type(arg)
+    print type(arg)
 
 def test_for_in_range(arg):
     """

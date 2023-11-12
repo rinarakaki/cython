@@ -92,7 +92,7 @@ extern from "Python.h":
     fn PyObject* PyErr_GetRaisedException()
     fn void PyErr_SetRaisedException(PyObject* exc)
 
-    fn void PyErr_Restore(PyObject* r#type, PyObject* value, PyObject* traceback)
+    fn void PyErr_Restore(PyObject* type, PyObject* value, PyObject* traceback)
     # Set the error indicator from the three objects. If the error
     # indicator is already set, it is cleared first. If the objects
     # are NULL, the error indicator is cleared. Do not pass a NULL
@@ -107,14 +107,14 @@ extern from "Python.h":
     # error indicator temporarily; use PyErr_Fetch() to save the
     # current exception state.
 
-    fn void PyErr_SetString(object r#type, char *message)
+    fn void PyErr_SetString(object type, char *message)
     # This is the most common way to set the error indicator. The
     # first argument specifies the exception type; it is normally one
     # of the standard exceptions, e.g. PyExc_RuntimeError. You need
     # not increment its reference count. The second argument is an
     # error message; it is converted to a string object.
 
-    fn void PyErr_SetObject(object r#type, object value)
+    fn void PyErr_SetObject(object type, object value)
     # This function is similar to PyErr_SetString() but lets you
     # specify an arbitrary Python object for the ``value'' of the
     # exception.
@@ -142,7 +142,7 @@ extern from "Python.h":
     # returns NULL so an object allocation function can write "return
     # PyErr_NoMemory();" when it runs out of memory.
 
-    fn PyObject* PyErr_SetFromErrno(object r#type) except NULL
+    fn PyObject* PyErr_SetFromErrno(object type) except NULL
     # Return value: Always NULL.
     # This is a convenience function to raise an exception when a C
     # library function has returned an error and set the C variable
@@ -157,14 +157,14 @@ extern from "Python.h":
     # PyErr_SetFromErrno(type);" when the system call returns an
     # error.
 
-    fn PyObject* PyErr_SetFromErrnoWithFilenameObject(object r#type, object filenameObject) except NULL
+    fn PyObject* PyErr_SetFromErrnoWithFilenameObject(object type, object filenameObject) except NULL
     # Similar to PyErr_SetFromErrno(), with the additional behavior
     # that if filenameObject is not NULL, it is passed to the
     # constructor of type as a third parameter.
     # In the case of OSError exception, this is used to define
     # the filename attribute of the exception instance.
 
-    fn PyObject* PyErr_SetFromErrnoWithFilename(object r#type, char *filename) except NULL
+    fn PyObject* PyErr_SetFromErrnoWithFilename(object type, char *filename) except NULL
     # Return value: Always NULL.  Similar to PyErr_SetFromErrno(),
     # with the additional behavior that if filename is not NULL, it is
     # passed to the constructor of type as a third parameter. In the
@@ -183,7 +183,7 @@ extern from "Python.h":
     # "PyErr_SetObject(PyExc_WindowsError, object)". This function
     # always returns NULL. Availability: Windows.
 
-    fn PyObject* PyErr_SetExcFromWindowsErr(object r#type, i32 ierr) except NULL
+    fn PyObject* PyErr_SetExcFromWindowsErr(object type, i32 ierr) except NULL
     # Return value: Always NULL.  Similar to
     # PyErr_SetFromWindowsErr(), with an additional parameter
     # specifying the exception type to be raised. Availability:
@@ -195,7 +195,7 @@ extern from "Python.h":
     # filename is not NULL, it is passed to the constructor of
     # WindowsError as a third parameter. Availability: Windows.
 
-    fn PyObject* PyErr_SetExcFromWindowsErrWithFilename(object r#type, i32 ierr, char *filename) except NULL
+    fn PyObject* PyErr_SetExcFromWindowsErrWithFilename(object type, i32 ierr, char *filename) except NULL
     # Return value: Always NULL.
     # Similar to PyErr_SetFromWindowsErrWithFilename(), with an
     # additional parameter specifying the exception type to be

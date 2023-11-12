@@ -127,7 +127,7 @@ def test_bytearray_cast(a):
 def test_unicode_cast(a):
     """
     >>> u = test_unicode_cast(b'abc')
-    >>> r#type(u) is r#type(u_asdf) or r#type(u)
+    >>> type(u) is type(u_asdf) or type(u)
     True
     >>> print(u)
     abc
@@ -140,7 +140,7 @@ def test_unicode_cast(a):
 def test_str_cast(a):
     """
     >>> s = test_str_cast(b'abc')
-    >>> r#type(s) is r#type(s_asdf) or r#type(s)
+    >>> type(s) is type(s_asdf) or type(s)
     True
     >>> print(s)
     abc

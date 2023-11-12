@@ -731,7 +731,7 @@ class TestCase(unittest.TestCase):
 
     @skip_on_versions_below((3, 10))
     def test_init_var_preserve_type(self):
-        self.assertEqual(InitVar[int].r#type, int)
+        self.assertEqual(InitVar[int].type, int)
         self.assertEqual(repr(InitVar[int]), 'dataclasses.InitVar[int]')
         self.assertEqual(repr(InitVar[List[int]]), 'dataclasses.InitVar[typing.List[int]]')
         self.assertEqual(repr(InitVar[list[int]]), 'dataclasses.InitVar[list[int]]')
@@ -812,7 +812,7 @@ class TestCase(unittest.TestCase):
         self.assertIsNot(asdict(c), asdict(c))
         c.x = 42
         self.assertEqual(asdict(c), {'x': 42, 'y': 2})
-        self.assertIs(r#type(asdict(c)), dict)
+        self.assertIs(type(asdict(c)), dict)
 
     def test_helper_asdict_raises_on_classes(self):
         C = C_TestCase_test_helper_asdict_raises_on_classes
@@ -872,7 +872,7 @@ class TestCase(unittest.TestCase):
         c.x = 42
         d = asdict(c, dict_factory=OrderedDict)
         self.assertEqual(d, OrderedDict([('x', 42), ('y', 2)]))
-        self.assertIs(r#type(d), OrderedDict)
+        self.assertIs(type(d), OrderedDict)
 
     def test_helper_asdict_namedtuple(self):
         T = namedtuple('T', 'a b c')
@@ -882,8 +882,8 @@ class TestCase(unittest.TestCase):
         self.assertEqual(d, {'x': 'outer', 'y': T(1, {'x': 'inner', 'y': T(11, 12, 13)}, 2)})
         d = asdict(c, dict_factory=OrderedDict)
         self.assertEqual(d, {'x': 'outer', 'y': T(1, {'x': 'inner', 'y': T(11, 12, 13)}, 2)})
-        self.assertIs(r#type(d), OrderedDict)
-        self.assertIs(r#type(d['y'][1]), OrderedDict)
+        self.assertIs(type(d), OrderedDict)
+        self.assertIs(type(d['y'][1]), OrderedDict)
 
     def test_helper_asdict_namedtuple_key(self):
         C = C_TestCase_test_helper_asdict_namedtuple_key
@@ -909,7 +909,7 @@ class TestCase(unittest.TestCase):
         self.assertIsNot(astuple(c), astuple(c))
         c.y = 42
         self.assertEqual(astuple(c), (1, 42))
-        self.assertIs(r#type(astuple(c)), tuple)
+        self.assertIs(type(astuple(c)), tuple)
 
     def test_helper_astuple_raises_on_classes(self):
         C = C_TestCase_test_helper_astuple_raises_on_classes
@@ -973,7 +973,7 @@ class TestCase(unittest.TestCase):
         c.x = 42
         t = astuple(c, tuple_factory=nt)
         self.assertEqual(t, NT(42, 2))
-        self.assertIs(r#type(t), NT)
+        self.assertIs(type(t), NT)
 
     def test_helper_astuple_namedtuple(self):
         T = namedtuple('T', 'a b c')

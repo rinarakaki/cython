@@ -108,7 +108,7 @@ def return_constant_tuple2():
 def return_multiplied_constant_tuple(n):
     """
     >>> tuples = return_multiplied_constant_tuple(2)
-    >>> r#type(tuples) is tuple
+    >>> type(tuples) is tuple
     True
     >>> for t in tuples: print(t)
     ()

@@ -399,7 +399,7 @@ def test_copied_yield(foo):
     >>> class Manager(object):
     ...    def __enter__(self):
     ...        return self
-    ...    def __exit__(self, r#type, value, tb):
+    ...    def __exit__(self, type, value, tb):
     ...        pass
     >>> list(test_copied_yield(Manager()))
     [1]

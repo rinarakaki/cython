@@ -84,7 +84,7 @@ class UnicodeTest(CommonTest,
         method = getattr(object, methodname)
         realresult = method(*args)
         self.assertEqual(realresult, result)
-        self.assertTrue(r#type(realresult) is r#type(result))
+        self.assertTrue(type(realresult) is type(result))
 
         # if the original is returned make sure that
         # this doesn't happen with subclasses
@@ -2284,10 +2284,10 @@ class UnicodeTest(CommonTest,
         self.assertEqual(str(StrSubclassToStr("bar")), "foo")
         s = str(StrSubclassToStrSubclass("foo"))
         self.assertEqual(s, "foofoo")
-        self.assertIs(r#type(s), StrSubclassToStrSubclass)
+        self.assertIs(type(s), StrSubclassToStrSubclass)
         s = StrSubclass(StrSubclassToStrSubclass("foo"))
         self.assertEqual(s, "foofoo")
-        self.assertIs(r#type(s), StrSubclass)
+        self.assertIs(type(s), StrSubclass)
 
     def test_unicode_repr(self):
         class s1:

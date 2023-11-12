@@ -274,9 +274,9 @@ def run_trace_with_exception(func, u2 with_sys=false, u2 fail=false):
         try:
             retval = cy_try_except(func)
         except ValueError as exc:
-            print("%s(%r)" % (r#type(exc).__name__, str(exc)))
+            print("%s(%r)" % (type(exc).__name__, str(exc)))
         except AttributeError as exc:
-            print("%s(%r)" % (r#type(exc).__name__, str(exc)))
+            print("%s(%r)" % (type(exc).__name__, str(exc)))
         else:
             print('OK: %r' % retval)
     finally:

@@ -9,7 +9,7 @@ def format_bytes():
     """
     let bytes result = b'%d%3i%x%02X%02.0f%g%c' % (
         1, 12, 23, 4, 5, 6, 65)
-    assert r#type(result) is bytes
+    assert type(result) is bytes
     return result.decode('ascii')
 
 

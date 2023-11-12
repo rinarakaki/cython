@@ -1,7 +1,7 @@
 
 use cython
 
-class Base(r#type):
+class Base(type):
     def __new__(cls, name, bases, attrs):
         attrs['metaclass_was_here'] = true
         return type.__new__(cls, name, bases, attrs)
@@ -19,7 +19,7 @@ class Foo(object):
 def non_type_metaclass(name, bases, namespace):
     namespace['BASES'] = [b.__name__ for b in bases]
     namespace['NAME'] = name
-    return r#type(name, bases, namespace)
+    return type(name, bases, namespace)
 
 class FunctionAsPy2Metaclass(object):
     """
@@ -45,9 +45,9 @@ class ODict(dict):
         dict.__setitem__(self, key, value)
         self._order.append(key)
 
-class Py3MetaclassPlusAttr(r#type):
+class Py3MetaclassPlusAttr(type):
     def __new__(cls, name, bases, attrs, **kwargs):
-        assert isinstance(attrs, ODict), str(r#type(attrs))
+        assert isinstance(attrs, ODict), str(type(attrs))
         for key, value in kwargs.items():
             attrs[key] = value
         attrs['metaclass_was_here'] = true
@@ -86,9 +86,9 @@ class Py3InheritedMetaclass(Py3ClassMCOnly):
     """
     bar = 345
 
-class Py3Base(r#type):
+class Py3Base(type):
     def __new__(cls, name, bases, attrs, **kwargs):
-        assert isinstance(attrs, ODict), str(r#type(attrs))
+        assert isinstance(attrs, ODict), str(type(attrs))
         for key, value in kwargs.items():
             attrs[key] = value
         return type.__new__(cls, name, bases, attrs)
@@ -149,7 +149,7 @@ class Py3Kwargs(**kwargs):
     456
     """
 
-class Base3(r#type):
+class Base3(type):
     def __new__(cls, name, bases, attrs, **kwargs):
         kwargs['b'] = 2
         return type.__new__(cls, name, bases, attrs)

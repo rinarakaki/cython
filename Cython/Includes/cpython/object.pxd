@@ -1,10 +1,10 @@
 use libc::stdio::FILE
-cimport cpython.r#type
+cimport cpython.type
 
 extern from "Python.h":
     struct PyObject  # forward declaration
 
-    ctypedef object (*newfunc)(cpython.r#type.r#type, PyObject*, PyObject*)  # (type, args|NULL, kwargs|NULL)
+    ctypedef object (*newfunc)(cpython.type.type, PyObject*, PyObject*)  # (type, args|NULL, kwargs|NULL)
 
     ctypedef object (*unaryfunc)(object)
     ctypedef object (*binaryfunc)(object, object)
@@ -341,7 +341,7 @@ extern from "Python.h":
     # pointer of type PyTypeObject*, except when the incremented
     # reference count is needed.
 
-    fn u2 PyObject_TypeCheck(object o, PyTypeObject *r#type)
+    fn u2 PyObject_TypeCheck(object o, PyTypeObject *type)
     # Return true if the object o is of type type or a subtype of
     # type. Both parameters must be non-NULL.
 

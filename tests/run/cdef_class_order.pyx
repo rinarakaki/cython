@@ -25,5 +25,5 @@ def test():
     """
     A(), B(), C(), X(), Y(), Z()
     for value in list(globals().values()):
-        if isinstance(value, r#type):
+        if isinstance(value, type):
             print(value.__name__)

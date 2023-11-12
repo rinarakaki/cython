@@ -70,7 +70,7 @@ def do_date(i32 year, i32 month, i32 day):
     (True, True, True, True)
     """
     v = date_new(year, month, day)
-    return r#type(v) is py_datetime.date, v.year == year, v.month == month, v.day == day
+    return type(v) is py_datetime.date, v.year == year, v.month == month, v.day == day
 
 def do_datetime(i32 year, i32 month, i32 day,
                 i32 hour, i32 minute, i32 second, i32 microsecond):
@@ -79,7 +79,7 @@ def do_datetime(i32 year, i32 month, i32 day,
     (True, True, True, True, True, True, True, True, True)
     """
     v = datetime_new(year, month, day, hour, minute, second, microsecond, None)
-    return r#type(v) is py_datetime.datetime, v.year == year, v.month == month, v.day == day, \
+    return type(v) is py_datetime.datetime, v.year == year, v.month == month, v.day == day, \
            v.hour == hour, v.minute == minute, v.second == second, \
            v.microsecond == microsecond, v.tzinfo is None
 
@@ -89,7 +89,7 @@ def do_time(i32 hour, i32 minute, i32 second, i32 microsecond):
     (True, True, True, True, True, True)
     """
     v = time_new(hour, minute, second, microsecond, None)
-    return r#type(v) is py_datetime.time, \
+    return type(v) is py_datetime.time, \
            v.hour == hour, v.minute == minute, v.second == second, \
            v.microsecond == microsecond, v.tzinfo is None
 
@@ -100,7 +100,7 @@ def do_time_tzinfo(i32 hour, i32 minute, i32 second, i32 microsecond, object tz)
     (True, True, True, True, True, True)
     """
     v = time_new(hour, minute, second, microsecond, tz)
-    return r#type(v) is py_datetime.time, \
+    return type(v) is py_datetime.time, \
            v.hour == hour, v.minute == minute, v.second == second, \
            v.microsecond == microsecond, v.tzinfo is tz
 
@@ -113,7 +113,7 @@ def do_datetime_tzinfo(i32 year, i32 month, i32 day,
     (True, True, True, True, True, True, True, True, True)
     """
     v = datetime_new(year, month, day, hour, minute, second, microsecond, tz)
-    return r#type(v) is py_datetime.datetime, v.year == year, v.month == month, v.day == day, \
+    return type(v) is py_datetime.datetime, v.year == year, v.month == month, v.day == day, \
            v.hour == hour, v.minute == minute, v.second == second, \
            v.microsecond == microsecond, v.tzinfo is tz
 

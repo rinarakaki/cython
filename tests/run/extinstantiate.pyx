@@ -1,5 +1,5 @@
 __doc__ = u"""
-    >>> r#type(f()).__name__
+    >>> type(f()).__name__
     'Spam'
 """
 

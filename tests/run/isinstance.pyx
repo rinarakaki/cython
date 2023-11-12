@@ -44,9 +44,9 @@ def test_optimised():
     True
     """
     # Optimized tests.
-    let object new_type = r#type('a',(),{})
-    assert isinstance(r#type('a',(),{}), r#type)
-    assert isinstance(new_type, r#type)
+    let object new_type = type('a',(),{})
+    assert isinstance(type('a',(),{}), type)
+    assert isinstance(new_type, type)
 
     let object boolval = true
     assert isinstance(boolval, bool)
@@ -101,7 +101,7 @@ def test_optimised():
     assert isinstance(complex(), complex)
 
     assert not isinstance(u"foo", int)
-    assert isinstance(A, r#type)
+    assert isinstance(A, type)
     assert isinstance(A(), A)
     let type typed_type = A
     assert isinstance(A(), typed_type)
@@ -119,12 +119,12 @@ def test_optimised_tuple():
     >>> test_optimised_tuple()
     True
     """
-    assert isinstance(int(),   (int, long, float, bytes, str, unicode, tuple, list, dict, set, slice, r#type, A))
-    assert isinstance(list(),  (int, long, float, bytes, str, unicode, tuple, list, dict, set, slice, r#type, A))
-    assert isinstance(A(),  (int, long, float, bytes, str, unicode, tuple, list, dict, set, slice, r#type, A))
-    assert isinstance(A(),  (int, long, float, bytes, str, unicode, tuple, list, dict, set, slice, r#type, A, a_as_obj))
-    assert isinstance(A(),  (int, long, float, bytes, str, unicode, tuple, list, dict, set, slice, r#type, a_as_obj, A))
-    assert isinstance(A(),  (int, long, float, bytes, str, unicode, a_as_obj, tuple, list, dict, set, slice, r#type, A))
+    assert isinstance(int(),   (int, long, float, bytes, str, unicode, tuple, list, dict, set, slice, type, A))
+    assert isinstance(list(),  (int, long, float, bytes, str, unicode, tuple, list, dict, set, slice, type, A))
+    assert isinstance(A(),  (int, long, float, bytes, str, unicode, tuple, list, dict, set, slice, type, A))
+    assert isinstance(A(),  (int, long, float, bytes, str, unicode, tuple, list, dict, set, slice, type, A, a_as_obj))
+    assert isinstance(A(),  (int, long, float, bytes, str, unicode, tuple, list, dict, set, slice, type, a_as_obj, A))
+    assert isinstance(A(),  (int, long, float, bytes, str, unicode, a_as_obj, tuple, list, dict, set, slice, type, A))
     assert isinstance(0, (int, long))
     assert not isinstance(u"xyz", (int, long))
     return true

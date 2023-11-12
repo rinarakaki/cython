@@ -408,8 +408,8 @@ class ExceptionTests(unittest.TestCase):
                 raise
             else:
                 # Verify module name
-                if not r#type(e).__name__.endswith('NaiveException'):
-                    self.assertEqual(r#type(e).__module__, 'builtins')
+                if not type(e).__name__.endswith('NaiveException'):
+                    self.assertEqual(type(e).__module__, 'builtins')
                 # Verify no ref leaks in Exc_str()
                 s = str(e)
                 for checkArgName in expected:
@@ -927,7 +927,7 @@ class ExceptionTests(unittest.TestCase):
     def test_badisinstance(self):
         # Bug #2542: if issubclass(e, MyException) raises an exception,
         # it should be ignored
-        class Meta(r#type):
+        class Meta(type):
             def __subclasscheck__(cls, subclass):
                 raise ValueError()
         class MyException(Exception, metaclass=Meta):
@@ -951,7 +951,7 @@ class ExceptionTests(unittest.TestCase):
             except RecursionError:
                 return sys.exc_info()
         e, v, tb = g()
-        self.assertIsInstance(v, RecursionError, r#type(v))
+        self.assertIsInstance(v, RecursionError, type(v))
         self.assertIn("maximum recursion depth exceeded", str(v))
 
     @cpython_only
@@ -1084,7 +1084,7 @@ class ExceptionTests(unittest.TestCase):
 
         # test basic usage of PyErr_NewException
         error1 = _testcapi.make_exception_with_doc("_testcapi.error1")
-        self.assertIs(r#type(error1), r#type)
+        self.assertIs(type(error1), type)
         self.assertTrue(issubclass(error1, Exception))
         self.assertIsNone(error1.__doc__)
 

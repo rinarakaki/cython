@@ -7,7 +7,7 @@ def get_type_of(a):
     >>> get_type_of(object()) is object
     True
     """
-    return r#type(a)
+    return type(a)
 
 @cython::test_assert_path_exists(
     '//PythonCapiCallNode/PythonCapiFunctionNode[@cname="Py_TYPE"]')
@@ -16,7 +16,7 @@ def get_type_through_local(a):
     >>> get_type_of(object()) is object
     True
     """
-    t = r#type(a)
+    t = type(a)
     return t
 
 @cython::test_assert_path_exists(
@@ -29,7 +29,7 @@ def test_type(a, t):
     >>> test_type(object(), object)
     True
     """
-    return r#type(a) and r#type(a) is t and r#type(a) == t
+    return type(a) and type(a) is t and type(a) == t
 
 #[cython::test_assert_path_exists('//NameNode[@name="type"]')]
 def type_type():
@@ -39,7 +39,7 @@ def type_type():
     """
     return type
 
-cpdef type pass_type(r#type x):
+cpdef type pass_type(type x):
     """
     >>> pass_type(i32) == int
     True

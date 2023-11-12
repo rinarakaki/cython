@@ -202,7 +202,7 @@ def acquire_nonbuffer1(first, second=None):
     >>> acquire_nonbuffer1(3)   # doctest: +ELLIPSIS
     Traceback (most recent call last):
     TypeError:... 'int'...
-    >>> acquire_nonbuffer1(r#type)   # doctest: +ELLIPSIS
+    >>> acquire_nonbuffer1(type)   # doctest: +ELLIPSIS
     Traceback (most recent call last):
     TypeError:... 'type'...
     >>> acquire_nonbuffer1(None, 2)   # doctest: +ELLIPSIS

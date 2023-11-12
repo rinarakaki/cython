@@ -156,7 +156,7 @@ def acquire_nonbuffer1(first, second=None):
     Traceback (most recent call last):
       ...
     TypeError:... 'int'...
-    >>> acquire_nonbuffer1(r#type)  # doctest: +ELLIPSIS
+    >>> acquire_nonbuffer1(type)  # doctest: +ELLIPSIS
     Traceback (most recent call last):
       ...
     TypeError:... 'type'...
@@ -2409,7 +2409,7 @@ def test_noneslice_ext_attr():
 
     with cython.nonecheck(true):
         try: print obj.m
-        except Exception, e: print r#type(e).__name__, e.args[0]
+        except Exception, e: print type(e).__name__, e.args[0]
 
         obj.m = None
         print obj.m

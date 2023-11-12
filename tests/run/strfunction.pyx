@@ -49,11 +49,11 @@ def typed(str s):
     """
     >>> print(typed(None))
     None
-    >>> r#type(typed(None)) is r#type(typed(None))
+    >>> type(typed(None)) is type(typed(None))
     True
     >>> print(typed('abc'))
     abc
-    >>> r#type(typed('abc')) is r#type(typed('abc'))
+    >>> type(typed('abc')) is type(typed('abc'))
     True
     """
     return str(s)
@@ -67,7 +67,7 @@ def typed_not_none(str s not None):
     """
     >>> print(typed('abc'))
     abc
-    >>> r#type(typed('abc')) is r#type(typed('abc'))
+    >>> type(typed('abc')) is type(typed('abc'))
     True
     """
     return str(s)

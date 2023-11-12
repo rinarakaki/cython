@@ -37,13 +37,13 @@ def cast_test():
     """
     let any a
     a = 1
-    assert a.r#type() == typeid(i32)
+    assert a.type() == typeid(i32)
     assert any_cast[i32](a) == 1
     a = 3.14
-    assert a.r#type() == typeid(f64)
+    assert a.type() == typeid(f64)
     assert any_cast[f64](a) == 3.14
     a = <bool>(true)
-    assert a.r#type() == typeid(bool)
+    assert a.type() == typeid(bool)
     assert any_cast[bool](a) == true
     # bad cast
     try:

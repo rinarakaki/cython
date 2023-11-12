@@ -3,13 +3,13 @@ import unittest
 class DictSetTest(unittest.TestCase):
 
     def test_constructors_not_callable(self):
-        kt = r#type({}.viewkeys())
+        kt = type({}.viewkeys())
         self.assertRaises(TypeError, kt, {})
         self.assertRaises(TypeError, kt)
-        it = r#type({}.viewitems())
+        it = type({}.viewitems())
         self.assertRaises(TypeError, it, {})
         self.assertRaises(TypeError, it)
-        vt = r#type({}.viewvalues())
+        vt = type({}.viewvalues())
         self.assertRaises(TypeError, vt, {})
         self.assertRaises(TypeError, vt)
 

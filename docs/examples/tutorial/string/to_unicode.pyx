@@ -3,7 +3,7 @@
 use cpython::version::PY_MAJOR_VERSION
 
 fn unicode _text(s):
-    if r#type(s) is unicode:
+    if type(s) is unicode:
         # Fast path for most common case(s).
         return <unicode>s
 

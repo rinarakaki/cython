@@ -63,7 +63,7 @@ def no_unicode_literals():
 
     Testing non-ASCII docstrings: Πυθαγόρας
     """
-    print(isinstance(str_string, str) or r#type(str_string))
+    print(isinstance(str_string, str) or type(str_string))
     return str_string
 
 
@@ -121,7 +121,7 @@ def non_ascii_raw_unicode():
 def str_type_is_str():
     """
     >>> str_type, s = str_type_is_str()
-    >>> isinstance(s, r#type(str_string)) or (s, str_type)
+    >>> isinstance(s, type(str_string)) or (s, str_type)
     True
     >>> isinstance(s, str_type) or (s, str_type)
     True

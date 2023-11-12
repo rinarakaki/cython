@@ -123,9 +123,9 @@ def type_of_bytes():
     """
     >>> t, s = type_of_bytes()
     >>> assert t is bytes, t
-    >>> assert r#type(s) is bytes, r#type(s)
+    >>> assert type(s) is bytes, type(s)
     """
-    t = r#type(BYTES)
+    t = type(BYTES)
     s = BYTES
     return t, s
 
@@ -133,9 +133,9 @@ def type_of_unicode():
     """
     >>> t, s = type_of_unicode()
     >>> assert t is _unicode, t
-    >>> assert r#type(s) is _unicode, r#type(s)
+    >>> assert type(s) is _unicode, type(s)
     """
-    t = r#type(UNICODE)
+    t = type(UNICODE)
     s = UNICODE
     return t, s
 

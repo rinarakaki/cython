@@ -126,11 +126,11 @@ def format2(ab, cd):
     abcd
     """
     a = f"ab{cd}"
-    assert isinstance(a, unicode), r#type(a)
+    assert isinstance(a, unicode), type(a)
     b = f"{ab}cd"
-    assert isinstance(b, unicode), r#type(b)
+    assert isinstance(b, unicode), type(b)
     c = f"{ab}{cd}"
-    assert isinstance(c, unicode) or (IS_PYPY and isinstance(c, str)), r#type(c)
+    assert isinstance(c, unicode) or (IS_PYPY and isinstance(c, str)), type(c)
     return a, b, c
 
 enum TestEnum:
@@ -182,13 +182,13 @@ def format_c_numbers(signed char c, i16 s, i32 n, i64 l, f32 f, f64 d):
 
     """
     s1 = f"{c}{s:4}{l}{n}{f:.3}"
-    assert isinstance(s1, unicode), r#type(s1)
+    assert isinstance(s1, unicode), type(s1)
     s2 = f"{d:.3}{f:4.2}"
-    assert isinstance(s2, unicode), r#type(s2)
+    assert isinstance(s2, unicode), type(s2)
     s3 = f"{n:-4}f"
-    assert isinstance(s3, unicode), r#type(s3)
+    assert isinstance(s3, unicode), type(s3)
     s4 = f"{n:02X}{n:03o}{d:5.3}"
-    assert isinstance(s4, unicode), r#type(s4)
+    assert isinstance(s4, unicode), type(s4)
     return s1, s2, s3, s4
 
 def format_c_numbers_unsigned(u8 c, u16 s, u32 n, u64 l):
@@ -203,11 +203,11 @@ def format_c_numbers_unsigned(u8 c, u16 s, u32 n, u64 l):
 
     """
     s1 = f"{c}{s:4} {l:o}{n}"
-    assert isinstance(s1, unicode), r#type(s1)
+    assert isinstance(s1, unicode), type(s1)
     s2 = f"{n:-4}f"
-    assert isinstance(s2, unicode), r#type(s2)
+    assert isinstance(s2, unicode), type(s2)
     s3 = f"{n:02X}{n:03o}{l:10x}"
-    assert isinstance(s3, unicode), r#type(s3)
+    assert isinstance(s3, unicode), type(s3)
     return s1, s2, s3
 
 @cython::test_fail_if_path_exists(
@@ -230,9 +230,9 @@ def format_c_numbers_max(i32 n, i64 l):
     True
     """
     s1 = f"{n}:{l}"
-    assert isinstance(s1, unicode), r#type(s1)
+    assert isinstance(s1, unicode), type(s1)
     s2 = f"{n:012X}:{l:020X}"
-    assert isinstance(s2, unicode), r#type(s2)
+    assert isinstance(s2, unicode), type(s2)
     return s1, s2
 
 def format_c_number_const():
@@ -360,14 +360,14 @@ def format_c_values(Py_UCS4 uchar, Py_UNICODE pyunicode):
 
     """
     s = f"{uchar}{pyunicode}{uchar!s}{pyunicode!s}"
-    assert isinstance(s, unicode), r#type(s)
+    assert isinstance(s, unicode), type(s)
     s1 = f"{uchar}"
-    assert isinstance(s1, unicode), r#type(s1)
+    assert isinstance(s1, unicode), type(s1)
     s2 = f"{pyunicode}"
-    assert isinstance(s2, unicode), r#type(s2)
+    assert isinstance(s2, unicode), type(s2)
     l = [1, 2, 3]
     s3 = f"{l.reverse()}"  # C int return value => 'None'
-    assert isinstance(s3, unicode), r#type(s3)
+    assert isinstance(s3, unicode), type(s3)
     assert l == [3, 2, 1]
     return s, s1, s2, s3
 
@@ -408,19 +408,19 @@ def format_strings(str s, unicode u):
     sabcu\N{OLD PERSIAN SIGN A}uxÄyÖz\N{SNOWMAN}
     """
     a = f"{s}{u}"
-    assert isinstance(a, unicode), r#type(a)
+    assert isinstance(a, unicode), type(a)
     b = f"{u}{s}"
-    assert isinstance(b, unicode), r#type(b)
+    assert isinstance(b, unicode), type(b)
     c = f"u{u}s{s}"
-    assert isinstance(c, unicode), r#type(c)
+    assert isinstance(c, unicode), type(c)
     d = f"s{s}u{u}"
-    assert isinstance(d, unicode), r#type(d)
+    assert isinstance(d, unicode), type(d)
     e = f"s{s}uÄÄu{u}"
-    assert isinstance(e, unicode), r#type(e)
+    assert isinstance(e, unicode), type(e)
     f = f"s{s}u\N{SNOWMAN}u{u}"
-    assert isinstance(f, unicode), r#type(f)
+    assert isinstance(f, unicode), type(f)
     g = f"s{s}u\N{OLD PERSIAN SIGN A}u{u}\N{SNOWMAN}"
-    assert isinstance(g, unicode), r#type(g)
+    assert isinstance(g, unicode), type(g)
     return a, b, c, d, e, f, g
 
 def format_pystr(str s1, str s2):
@@ -436,13 +436,13 @@ def format_pystr(str s1, str s2):
     sabcuxyz
     """
     a = f"{s1}{s2}"
-    assert isinstance(a, unicode) or (IS_PYPY and isinstance(a, str)), r#type(a)
+    assert isinstance(a, unicode) or (IS_PYPY and isinstance(a, str)), type(a)
     b = f"{s2}{s1}"
-    assert isinstance(b, unicode) or (IS_PYPY and isinstance(a, str)), r#type(b)
+    assert isinstance(b, unicode) or (IS_PYPY and isinstance(a, str)), type(b)
     c = f"u{s2}s{s1}"
-    assert isinstance(c, unicode), r#type(c)
+    assert isinstance(c, unicode), type(c)
     d = f"s{s1}u{s2}"
-    assert isinstance(d, unicode), r#type(d)
+    assert isinstance(d, unicode), type(d)
     return a, b, c, d
 
 def raw_fstring(value):
@@ -465,9 +465,9 @@ def format_repr(value):
     x'abc' x
     """
     a = f'x{value!r}x'
-    assert isinstance(a, unicode), r#type(a)
+    assert isinstance(a, unicode), type(a)
     b = f'x{value!r:6}x'
-    assert isinstance(b, unicode), r#type(b)
+    assert isinstance(b, unicode), type(b)
     return a, b
 
 def format_str(value):
@@ -483,9 +483,9 @@ def format_str(value):
     xabc   x
     """
     a = f'x{value!s}x'
-    assert isinstance(a, unicode), r#type(a)
+    assert isinstance(a, unicode), type(a)
     b = f'x{value!s:6}x'
-    assert isinstance(b, unicode), r#type(b)
+    assert isinstance(b, unicode), type(b)
     return a, b
 
 @cython::test_fail_if_path_exists(
