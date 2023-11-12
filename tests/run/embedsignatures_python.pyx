@@ -177,7 +177,7 @@ cdef class Bar:
     cpdef f64                 m60(self, f64                 a): return a
     cpdef long double         m70(self, long double         a): return a
 
-    cpdef c32                 m51(self, c32                 a): return a
+    cpdef c64                 m51(self, c64                 a): return a
     cpdef c128                 m61(self, c128                 a): return a
     cpdef long double complex m71(self, long double complex a): return a
 

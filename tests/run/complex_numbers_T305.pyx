@@ -36,7 +36,7 @@ def test_object_conversion(o):
     >>> test_object_conversion(2j - 0.5)
     ((-0.5+2j), (-0.5+2j))
     """
-    let c32 a = o
+    let c64 a = o
     let c128 b = o
     return (a, b)
 
@@ -116,7 +116,7 @@ def test_div_by_zero(c128 z):
     """
     return 1 / z
 
-def test_coercion(i32 a, f32 b, f64 c, c32 d, c128 e):
+def test_coercion(i32 a, f32 b, f64 c, c64 d, c128 e):
     """
     >>> test_coercion(1, 1.5, 2.5, 4 + 1j, 10j)
     (1+0j)
@@ -192,7 +192,7 @@ def test_real_imag_assignment(object a, f64 b):
     z.imag = b
     return z
 
-def test_conjugate(c32 z):
+def test_conjugate(c64 z):
     """
     >>> test_conjugate(2 + 3j)
     (2-3j)

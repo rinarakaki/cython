@@ -455,7 +455,7 @@ builtin_types = [
     'f64',
     'isize',
     'usize',
-    'c32',
+    'c64',
     'c128',
 ]
 int_types = [
