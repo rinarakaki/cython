@@ -492,6 +492,10 @@ class PyrexScanner(Scanner):
         self.unread(self.sy, self.systring, self.last_token_position_tuple)
         self.sy = sy
         self.systring = systring
+        if systring.startswith("r#"):
+            self.symbol = systring[2:]
+        else:
+            self.symbol = systring
         self.last_token_position_tuple = pos
 
 
