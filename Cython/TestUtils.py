@@ -243,14 +243,14 @@ class TreeAssertVisitor(VisitorTransform):
 
         def validate_file_content(file_path, content):
             for pattern in patterns:
-                #print("Searching pattern '%s'" % pattern)
+                # print("Searching pattern '%s'" % pattern)
                 start, end, pattern = _parse_pattern(pattern)
                 section = extract_section(file_path, content, start, end)
                 if not re.search(pattern, section):
                     fail(self._module_pos, pattern, found=False, file_path=file_path)
 
             for antipattern in antipatterns:
-                #print("Searching antipattern '%s'" % antipattern)
+                # print("Searching antipattern '%s'" % antipattern)
                 start, end, antipattern = _parse_pattern(antipattern)
                 section = extract_section(file_path, content, start, end)
                 if re.search(antipattern, section):
@@ -259,7 +259,7 @@ class TreeAssertVisitor(VisitorTransform):
         def validate_c_file(result):
             c_file = result.c_file
             if not (patterns or antipatterns):
-                #print("No patterns defined for %s" % c_file)
+                # print("No patterns defined for %s" % c_file)
                 return result
 
             with open(c_file, encoding='utf8') as f:

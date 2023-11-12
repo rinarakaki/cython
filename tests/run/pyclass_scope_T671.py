@@ -43,7 +43,7 @@ def conditional(a, cond):
 
 def name_error():
     """
-    >>> name_error() #doctest: +ELLIPSIS
+    >>> name_error() # doctest: +ELLIPSIS
     Traceback (most recent call last):
     ...
     NameError: ...B...
@@ -55,7 +55,7 @@ def conditional_name_error(cond):
     """
     >>> conditional_name_error(True).B
     4321
-    >>> conditional_name_error(False).B #doctest: +ELLIPSIS
+    >>> conditional_name_error(False).B # doctest: +ELLIPSIS
     Traceback (most recent call last):
     ...
     NameError: ...B...
@@ -71,7 +71,7 @@ del C
 
 def name_error_deleted():
     """
-    >>> name_error_deleted() #doctest: +ELLIPSIS
+    >>> name_error_deleted() # doctest: +ELLIPSIS
     Traceback (most recent call last):
     ...
     NameError: ...C...

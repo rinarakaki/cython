@@ -807,7 +807,7 @@ class TrackNumpyAttributes(VisitorTransform, SkipDeclarations):
 class InterpretCompilerDirectives(CythonTransform):
     """
     After parsing, directives can be stored in a number of places:
-    - #cython-comments at the top of the file (stored in ModuleNode)
+    - # cython-comments at the top of the file (stored in ModuleNode)
     - Command-line arguments overriding these
     - @cython.directivename decorators
     - with cython.directivename: statements
@@ -984,9 +984,6 @@ class InterpretCompilerDirectives(CythonTransform):
                   directive[-1] not in self.valid_parallel_directives):
                 error(pos, "No such directive: %s" % full_name)
 
-            self.module_scope.use_utility_code(
-                UtilityCode.load_cached("InitThreads", "ModuleSetupCode.c"))
-
         return result
 
     def visit_CImportStatNode(self, node):
@@ -1016,8 +1013,6 @@ class InterpretCompilerDirectives(CythonTransform):
                     self.cython_module_names.add(u"cython")
                     self.parallel_directives[
                                     u"cython.parallel"] = module_name
-                self.module_scope.use_utility_code(
-                    UtilityCode.load_cached("InitThreads", "ModuleSetupCode.c"))
             elif node.as_name:
                 self.directive_names[node.as_name] = module_name[7:]
             else:
@@ -4068,7 +4063,7 @@ class DebugTransform(CythonTransform):
         # our treebuilder and debug output writer
         # (see Cython.Debugger.debug_output.CythonDebugWriter)
         self.tb = self.context.gdb_debug_outputwriter
-        #self.c_output_file = options.output_file
+        # self.c_output_file = options.output_file
         self.c_output_file = result.c_file
 
         # Closure support, basically treat nested functions as if the AST were

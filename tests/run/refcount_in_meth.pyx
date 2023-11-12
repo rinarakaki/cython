@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 __doc__=u"""
 >>> t = RefCountInMeth()
 >>> t.chk_meth()

@@ -1,7 +1,7 @@
 extern from "Python.h":
-    #####################################################################
+    # ###################################################################
     # 9.2 Memory Interface
-    #####################################################################
+    # ###################################################################
     # You are definitely *supposed* to use these: "In most situations,
     # however, it is recommended to allocate memory from the Python
     # heap specifically because the latter is under control of the
@@ -85,9 +85,9 @@ extern from "Python.h":
     # PyMem_MALLOC(), PyMem_REALLOC(), PyMem_FREE().
     # PyMem_NEW(), PyMem_RESIZE(), PyMem_DEL().
 
-    #####################################################################
+    # ###################################################################
     # Raw object memory interface
-    #####################################################################
+    # ###################################################################
 
     # Functions to call the same malloc/realloc/free as used by Python's
     # object allocator.  If WITH_PYMALLOC is enabled, these may differ from

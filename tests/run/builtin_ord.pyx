@@ -38,7 +38,7 @@ def ord_const():
 
 
 #[cython.test_assert_path_exists('//PrimaryCmpNode//IntNode')]
-##[cython.test_fail_if_path_exists('//SimpleCallNode')]
+# #[cython.test_fail_if_path_exists('//SimpleCallNode')]
 def unicode_for_loop_ord(unicode s):
     """
     >>> unicode_for_loop_ord(ustring_with_a)
@@ -70,8 +70,8 @@ def compare_to_char(s):
 def ord_object(s):
     """
     >>> try: ord_object('abc')
-    ... except ValueError: assert sys.version_info[0] >= 3
-    ... except TypeError: assert sys.version_info[0] < 3
+    ... except ValueError: pass
+    ... except TypeError: print("FAILED!")
     >>> ord_object('a')
     97
     >>> ord_object(b'a')

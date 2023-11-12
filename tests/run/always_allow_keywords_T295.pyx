@@ -3,9 +3,6 @@
 
 use cython
 
-import sys
-IS_PY2 = sys.version_info[0] == 2
-
 
 def assert_typeerror_no_keywords(func, *args, **kwds):
     # Python 3.9 produces an slightly different error message
@@ -82,7 +79,7 @@ cdef class A:
 
     >>> PyA().meth0()
     >>> PyA.meth0(PyA())
-    >>> if not IS_PY2: PyA.meth0(self=PyA())
+    >>> PyA.meth0(self=PyA())
     >>> try: PyA().meth0(self=PyA())
     ... except TypeError as exc: assert 'multiple' in str(exc), "Unexpected message: %s" % exc
     ... else: assert false, "No TypeError when passing 'self' argument twice"
@@ -90,7 +87,7 @@ cdef class A:
     >>> PyA().meth1(1)
     >>> PyA.meth1(PyA(), 1)
     >>> PyA.meth1(PyA(), arg=1)
-    >>> if not IS_PY2: PyA.meth1(self=PyA(), arg=1)
+    >>> PyA.meth1(self=PyA(), arg=1)
     """
 
     #[cython.always_allow_keywords(false)]
@@ -98,9 +95,9 @@ cdef class A:
         """
         >>> A().meth0_nokw()
         >>> A().meth0_nokw(**{})
-        >>> try: pass  #A.meth0_nokw(self=A())
+        >>> try: pass  # A.meth0_nokw(self=A())
         ... except TypeError as exc: assert 'needs an argument' in str(exc), "Unexpected message: %s" % exc
-        ... else: pass  #assert false, "No TypeError for missing 'self' positional argument"
+        ... else: pass  # assert false, "No TypeError for missing 'self' positional argument"
         """
 
     #[cython.always_allow_keywords(true)]
@@ -109,10 +106,10 @@ cdef class A:
         >>> A().meth0_kw()
         >>> A().meth0_kw(**{})
         >>> A.meth0_kw(A())
-        >>> #A.meth0_kw(self=A())
-        >>> try: pass  #A().meth0_kw(self=A())
+        >>> # A.meth0_kw(self=A())
+        >>> try: pass  # A().meth0_kw(self=A())
         ... except TypeError as exc: assert 'multiple' in str(exc), "Unexpected message: %s" % exc
-        ... else: pass  #assert false, "No TypeError when passing 'self' argument twice"
+        ... else: pass  # assert false, "No TypeError when passing 'self' argument twice"
         """
 
     #[cython.always_allow_keywords(true)]
@@ -122,7 +119,7 @@ cdef class A:
         >>> A().meth1_kw(*[None])
         >>> A().meth1_kw(arg=None)
         >>> A.meth1_kw(A(), arg=None)
-        >>> #A.meth1_kw(self=A(), arg=None)
+        >>> # A.meth1_kw(self=A(), arg=None)
         """
 
     #[cython.always_allow_keywords(false)]
@@ -160,7 +157,7 @@ class B(object):
         """
         >>> B().meth0_nokw()
         >>> B().meth0_nokw(**{})
-        >>> if not IS_PY2: assert_typeerror_no_keywords(B.meth0_nokw, self=B())
+        >>> assert_typeerror_no_keywords(B.meth0_nokw, self=B())
         """
 
     #[cython.always_allow_keywords(true)]
@@ -169,7 +166,7 @@ class B(object):
         >>> B().meth0_kw()
         >>> B().meth0_kw(**{})
         >>> B.meth0_kw(B())
-        >>> if not IS_PY2: B.meth0_kw(self=B())
+        >>> B.meth0_kw(self=B())
         >>> try: B().meth0_kw(self=B())
         ... except TypeError as exc: assert 'multiple' in str(exc), "Unexpected message: %s" % exc
         ... else: assert false, "No TypeError when passing 'self' argument twice"
@@ -182,7 +179,7 @@ class B(object):
         >>> B().meth1(*[None])
         >>> B().meth1(arg=None)
         >>> B.meth1(B(), arg=None)
-        >>> if not IS_PY2: B.meth1(self=B(), arg=None)
+        >>> B.meth1(self=B(), arg=None)
         """
 
     #[cython.always_allow_keywords(false)]
@@ -191,7 +188,7 @@ class B(object):
         >>> B().meth2(None)
         >>> B().meth2(*[None])
         >>> B.meth2(B(), None)
-        >>> if not IS_PY2: B.meth2(self=B(), arg=None)
+        >>> B.meth2(self=B(), arg=None)
         >>> B().meth2(arg=None)  # assert_typeerror_no_keywords(B().meth2, arg=None)  -> not a cdef class!
         """
 

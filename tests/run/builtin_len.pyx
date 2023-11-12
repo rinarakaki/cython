@@ -38,7 +38,7 @@ def len_bytes(bytes s):
     """
     return len(s)
 
-#@cython.test_assert_path_exists(
+# @cython.test_assert_path_exists(
 #    "//CoerceToPyTypeNode",
 #    "//PythonCapiCallNode")
 def len_str(str s):

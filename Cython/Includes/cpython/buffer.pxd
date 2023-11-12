@@ -7,7 +7,7 @@ extern from "Python.h":
     cdef enum:
         PyBUF_SIMPLE,
         PyBUF_WRITABLE,
-        PyBUF_WRITEABLE, # backwards compatibility
+        PyBUF_WRITEABLE,  # backwards compatibility
         PyBUF_FORMAT,
         PyBUF_ND,
         PyBUF_STRIDES,
@@ -99,7 +99,7 @@ extern from "Python.h":
     # given shape with the given number of bytes per element.
 
     fn i32 PyBuffer_FillInfo(Py_buffer *view, object exporter, void *buf,
-                            isize len, i32 readonly, i32 flags) except -1
+                             isize len, i32 readonly, i32 flags) except -1
     # Fill in a buffer-info structure, view, correctly for an exporter
     # that can only share a contiguous chunk of memory of “unsigned
     # bytes” of the given length. Return 0 on success and -1 (with

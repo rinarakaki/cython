@@ -11,9 +11,9 @@ from Cython.Build.Dependencies import cythonize
 from distutils.core import setup
 import sys
 if sys.platform == 'win32':
-   MATH_LIBS = []
+    MATH_LIBS = []
 else:
-   MATH_LIBS = ['m']
+    MATH_LIBS = ['m']
 
 setup(
     ext_modules = cythonize("*.pyx", aliases={'MATH_LIBS': MATH_LIBS}),
@@ -25,7 +25,7 @@ setup(
 # distutils: libraries = MATH_LIBS
 
 extern from "my_lib_helper.cpp" namespace "A":
-    i32 x
+    static i32 x
 
 ######## my_lib_helper.cpp #######
 

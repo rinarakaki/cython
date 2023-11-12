@@ -8,7 +8,7 @@ use super::Visitor::(
 )
 
 # Don't include mixins, only the main classes.
-#cdef class SkipDeclarations:
+# cdef class SkipDeclarations:
 
 cdef class NormalizeTree(CythonTransform):
     cdef u2 is_in_statlist
@@ -70,8 +70,8 @@ cdef class CreateClosureClasses(CythonTransform):
     fn create_class_from_scope(self, node, target_module_scope, inner_node=*)
     fn find_entries_used_in_closures(self, node)
 
-#cdef class InjectGilHandling(VisitorTransform, SkipDeclarations):
-#    cdef u2 nogil
+# cdef class InjectGilHandling(VisitorTransform, SkipDeclarations):
+#     cdef u2 nogil
 
 cdef class GilCheck(VisitorTransform):
     cdef list env_stack

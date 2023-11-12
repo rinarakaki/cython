@@ -71,36 +71,36 @@ def star_unpack_unicode():
 
 # the following is not supported due to Py2/Py3 bytes differences
 
-## def unpack_single_bytes():
-##     """
-##     >>> print(unpack_single_bytes().decode('ASCII'))
-##     a
-##     """
-##     a, = b'a'
-##     return a
+# def unpack_single_bytes():
+#     """
+#     >>> print(unpack_single_bytes().decode('ASCII'))
+#     a
+#     """
+#     a, = b'a'
+#     return a
 
-## def unpack_bytes():
-##     """
-##     >>> a, b = unpack_bytes()
-##     >>> print(a.decode('ASCII'))
-##     a
-##     >>> print(b.decode('ASCII'))
-##     b
-##     """
-##     a, b = b'ab'
-##     return a, b
+# def unpack_bytes():
+#     """
+#     >>> a, b = unpack_bytes()
+#     >>> print(a.decode('ASCII'))
+#     a
+#     >>> print(b.decode('ASCII'))
+#     b
+#     """
+#     a, b = b'ab'
+#     return a, b
 
-## def star_unpack_bytes():
-##     """
-##     >>> a, b, c = star_unpack_bytes()
-##     >>> print(a.decode('ASCII'))
-##     a
-##     >>> type(b) is list
-##     True
-##     >>> print(''.join([ch.decode('ASCII') for ch in b]))
-##     bbb
-##     >>> print(c.decode('ASCII'))
-##     c
-##     """
-##     a,*b,c = b'abbbc'
-##     return a, b, c
+# def star_unpack_bytes():
+#     """
+#     >>> a, b, c = star_unpack_bytes()
+#     >>> print(a.decode('ASCII'))
+#     a
+#     >>> type(b) is list
+#     True
+#     >>> print(''.join([ch.decode('ASCII') for ch in b]))
+#     bbb
+#     >>> print(c.decode('ASCII'))
+#     c
+#     """
+#     a, *b, c = b'abbbc'
+#     return a, b, c
