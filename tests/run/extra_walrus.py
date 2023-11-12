@@ -7,7 +7,7 @@
 import cython
 import sys
 
-@cython::test_assert_path_exists("//PythonCapiCallNode")
+@cython.test_assert_path_exists("//PythonCapiCallNode")
 def optimized(x):
     """
     x*2 is optimized to a PythonCapiCallNode. The test fails unless the CloneNode is kept up-to-date
@@ -29,7 +29,7 @@ def optimized(x):
 #    """
 #    return x+(x:=x*2)
 
-@cython::test_fail_if_path_exists("//CloneNode")
+@cython.test_fail_if_path_exists("//CloneNode")
 def optimize_literals1():
     """
     There's a small optimization for literals to avoid creating unnecessary temps
@@ -40,7 +40,7 @@ def optimize_literals1():
     return (x := 10)
 
 
-@cython::test_fail_if_path_exists("//CloneNode")
+@cython.test_fail_if_path_exists("//CloneNode")
 def optimize_literals2():
     """
     There's a small optimization for literals to avoid creating unnecessary temps
@@ -52,7 +52,7 @@ def optimize_literals2():
     return (x := u"a string")
 
 
-@cython::test_fail_if_path_exists("//CloneNode")
+@cython.test_fail_if_path_exists("//CloneNode")
 def optimize_literals3():
     """
     There's a small optimization for literals to avoid creating unnecessary temps
@@ -64,7 +64,7 @@ def optimize_literals3():
     return (x := b"a bytes")
 
 
-@cython::test_fail_if_path_exists("//CloneNode")
+@cython.test_fail_if_path_exists("//CloneNode")
 def optimize_literals4():
     """
     There's a small optimization for literals to avoid creating unnecessary temps
@@ -76,7 +76,7 @@ def optimize_literals4():
     return (x := (u"tuple", 1, 1.0, b"stuff"))
 
 
-@cython::test_fail_if_path_exists("//CoerceToPyTypeNode//AssignmentExpressionNode")
+@cython.test_fail_if_path_exists("//CoerceToPyTypeNode//AssignmentExpressionNode")
 def avoid_extra_coercion(x : cython.double):
     """
     The assignment expression and x are both coerced to PyObject - this should happen only once

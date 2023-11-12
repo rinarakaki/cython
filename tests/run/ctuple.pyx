@@ -179,7 +179,7 @@ def cast_to_ctuple(*o):
     x, y = <(i32, f64)>o
     return x, y
 
-#[cython.infer_types(true)]
+#[cython::infer_types(true)]
 def test_type_inference():
     """
     >>> test_type_inference()
@@ -188,9 +188,9 @@ def test_type_inference():
     let f64 y = 2
     let object o = 3
     xy = (x, y)
-    assert cython.typeof(xy) == "(int, double)", cython.typeof(xy)
+    assert cython::typeof(xy) == "(int, double)", cython::typeof(xy)
     xo = (x, o)
-    assert cython.typeof(xo) == "tuple object", cython.typeof(xo)
+    assert cython::typeof(xo) == "tuple object", cython::typeof(xo)
 
 #[cython::locals(a=(i32, i32), b=(cython::i64, cython::f64))]
 def test_pure_python_declaration(x, y):
@@ -209,8 +209,8 @@ def test_pure_python_declaration(x, y):
     """
     a = (x, y)
     b = (x, y)
-    print(cython.typeof(a))
-    print(cython.typeof(b))
+    print(cython::typeof(a))
+    print(cython::typeof(b))
     return (a, b)
 
 def test_equality((i32, i32) ab, (i32, i32) cd, (i32, i32) ef):

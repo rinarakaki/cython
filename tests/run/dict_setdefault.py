@@ -22,8 +22,8 @@ class CountedHashable(object):
         self.eq_count += 1
         return id(self) == id(other)
 
-@cython::test_fail_if_path_exists('//AttributeNode')
-@cython::test_assert_path_exists('//PythonCapiCallNode')
+@cython.test_fail_if_path_exists('//AttributeNode')
+@cython.test_assert_path_exists('//PythonCapiCallNode')
 @cython.locals(d=dict)
 def setdefault1(d, key):
     """
@@ -67,8 +67,8 @@ def setdefault1(d, key):
     """
     return d.setdefault(key)
 
-@cython::test_fail_if_path_exists('//AttributeNode')
-@cython::test_assert_path_exists('//PythonCapiCallNode')
+@cython.test_fail_if_path_exists('//AttributeNode')
+@cython.test_assert_path_exists('//PythonCapiCallNode')
 @cython.locals(d=dict)
 def setdefault2(d, key, value):
     """

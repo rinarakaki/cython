@@ -4,8 +4,8 @@
 import cython
 
 
-@cython::test_fail_if_path_exists("//MulNode")
-@cython::test_assert_path_exists("//ListNode[@mult_factor]")
+@cython.test_fail_if_path_exists("//MulNode")
+@cython.test_assert_path_exists("//ListNode[@mult_factor]")
 def cint_times_list(n: cython.int):
     """
     >>> cint_times_list(3)
@@ -25,8 +25,8 @@ def cint_times_list(n: cython.int):
     print(d)
 
 
-@cython::test_fail_if_path_exists("//MulNode")
-@cython::test_assert_path_exists("//ListNode[@mult_factor]")
+@cython.test_fail_if_path_exists("//MulNode")
+@cython.test_assert_path_exists("//ListNode[@mult_factor]")
 def list_times_cint(n: cython.int):
     """
     >>> list_times_cint(3)
@@ -46,8 +46,8 @@ def list_times_cint(n: cython.int):
     print(d)
 
 
-@cython::test_fail_if_path_exists("//MulNode")
-@cython::test_assert_path_exists("//TupleNode[@mult_factor]")
+@cython.test_fail_if_path_exists("//MulNode")
+@cython.test_assert_path_exists("//TupleNode[@mult_factor]")
 def const_times_tuple(v: cython.int):
     """
     >>> const_times_tuple(4)
@@ -67,8 +67,8 @@ def const_times_tuple(v: cython.int):
     print(d)
 
 
-@cython::test_fail_if_path_exists("//MulNode")
-@cython::test_assert_path_exists("//TupleNode[@mult_factor]")
+@cython.test_fail_if_path_exists("//MulNode")
+@cython.test_assert_path_exists("//TupleNode[@mult_factor]")
 def cint_times_tuple(n: cython.int):
     """
     >>> cint_times_tuple(3)
@@ -88,8 +88,8 @@ def cint_times_tuple(n: cython.int):
     print(d)
 
 
-@cython::test_fail_if_path_exists("//MulNode")
-@cython::test_assert_path_exists("//TupleNode[@mult_factor]")
+@cython.test_fail_if_path_exists("//MulNode")
+@cython.test_assert_path_exists("//TupleNode[@mult_factor]")
 def tuple_times_cint(n: cython.int):
     """
     >>> tuple_times_cint(3)
@@ -110,7 +110,7 @@ def tuple_times_cint(n: cython.int):
 
 
 # TODO: enable in Cython 3.1 when we can infer unsafe C int operations as PyLong
-# @cython::test_fail_if_path_exists("//MulNode")
+# @cython.test_fail_if_path_exists("//MulNode")
 def list_times_pyint(n: cython.longlong):
     """
     >>> list_times_cint(3)
@@ -144,8 +144,8 @@ def reset_sideeffect():
     _sideeffect_value = 0
 
 
-@cython::test_fail_if_path_exists("//MulNode")
-@cython::test_assert_path_exists("//ListNode[@mult_factor]")
+@cython.test_fail_if_path_exists("//MulNode")
+@cython.test_assert_path_exists("//ListNode[@mult_factor]")
 def complicated_cint_times_list(n: cython.int):
     """
     >>> complicated_cint_times_list(3)

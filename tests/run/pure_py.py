@@ -321,7 +321,7 @@ def test_cdef_nogil(x):
 def has_inner_func(x):
     # the inner function must remain a Python function
     # (and inline must not be applied to it)
-    @cython::test_fail_if_path_exists("//CFuncDefNode")
+    @cython.test_fail_if_path_exists("//CFuncDefNode")
     def inner():
         return x
     return inner
@@ -351,7 +351,7 @@ def count_digits_in_carray(digits):
     return counts
 
 
-@cython::test_assert_path_exists("//CFuncDeclaratorNode//IntNode[@base_10_value = '-1']")
+@cython.test_assert_path_exists("//CFuncDeclaratorNode//IntNode[@base_10_value = '-1']")
 @cython.ccall
 @cython.returns(cython.long)
 @cython.exceptval(-1)
@@ -368,7 +368,7 @@ def ccall_except(x):
     return x+1
 
 
-@cython::test_assert_path_exists("//CFuncDeclaratorNode//IntNode[@base_10_value = '-1']")
+@cython.test_assert_path_exists("//CFuncDeclaratorNode//IntNode[@base_10_value = '-1']")
 @cython.cfunc
 @cython.returns(cython.long)
 @cython.exceptval(-1)
@@ -389,7 +389,7 @@ def call_cdef_except(x):
     return cdef_except(x)
 
 
-@cython::test_assert_path_exists("//CFuncDeclaratorNode//IntNode[@base_10_value = '-1']")
+@cython.test_assert_path_exists("//CFuncDeclaratorNode//IntNode[@base_10_value = '-1']")
 @cython.ccall
 @cython.returns(cython.long)
 @cython.exceptval(-1, check=True)
@@ -408,8 +408,8 @@ def ccall_except_check(x):
     return x+1
 
 
-@cython::test_fail_if_path_exists("//CFuncDeclaratorNode//IntNode[@base_10_value = '-1']")
-@cython::test_assert_path_exists("//CFuncDeclaratorNode")
+@cython.test_fail_if_path_exists("//CFuncDeclaratorNode//IntNode[@base_10_value = '-1']")
+@cython.test_assert_path_exists("//CFuncDeclaratorNode")
 @cython.ccall
 @cython.returns(cython.long)
 @cython.exceptval(check=True)
@@ -426,8 +426,8 @@ def ccall_except_check_always(x):
     return x+1
 
 
-@cython::test_fail_if_path_exists("//CFuncDeclaratorNode//IntNode[@base_10_value = '-1']")
-@cython::test_assert_path_exists("//CFuncDeclaratorNode")
+@cython.test_fail_if_path_exists("//CFuncDeclaratorNode//IntNode[@base_10_value = '-1']")
+@cython.test_assert_path_exists("//CFuncDeclaratorNode")
 @cython.ccall
 @cython.returns(cython.long)
 @cython.exceptval(check=False)

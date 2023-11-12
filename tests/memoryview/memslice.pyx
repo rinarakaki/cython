@@ -1053,7 +1053,7 @@ def decref(*args):
     for item in args: Py_DECREF(item)
 
 #[cython::binding(false)]
-#[cython.always_allow_keywords(false)]
+#[cython::always_allow_keywords(false)]
 def get_refcount(x):
     return (<PyObject*>x).ob_refcnt
 

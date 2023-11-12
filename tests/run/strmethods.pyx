@@ -85,7 +85,7 @@ def str_join(str s, args):
     babab
     """
     result = s.join(args)
-    assert cython.typeof(result) == 'basestring object', cython.typeof(result)
+    assert cython::typeof(result) == 'basestring object', cython::typeof(result)
     return result
 
 
@@ -101,7 +101,7 @@ def literal_join(args):
     a|b|c|d|e|f|g
     """
     result = '|'.join(args)
-    assert cython.typeof(result) == 'basestring object', cython.typeof(result)
+    assert cython::typeof(result) == 'basestring object', cython::typeof(result)
     return result
 
 
@@ -125,7 +125,7 @@ def mod_format(str s, values):
     >>> mod_format(None, RMod())
     123
     """
-    assert cython.typeof(s % values) == 'basestring object', cython.typeof(s % values)
+    assert cython::typeof(s % values) == 'basestring object', cython::typeof(s % values)
     return s % values
 
 
@@ -138,7 +138,7 @@ def mod_format_literal(values):
     >>> mod_format_literal(['sa']) == "abc['sa']def"  or  mod_format(format1, ['sa'])
     True
     """
-    assert cython.typeof('abc%sdef' % values) == 'basestring object', cython.typeof('abc%sdef' % values)
+    assert cython::typeof('abc%sdef' % values) == 'basestring object', cython::typeof('abc%sdef' % values)
     return 'abc%sdef' % values
 
 
@@ -150,5 +150,5 @@ def mod_format_tuple(*values):
     Traceback (most recent call last):
     TypeError: not enough arguments for format string
     """
-    assert cython.typeof('abc%sdef' % values) == 'basestring object', cython.typeof('abc%sdef' % values)
+    assert cython::typeof('abc%sdef' % values) == 'basestring object', cython::typeof('abc%sdef' % values)
     return 'abc%sdef' % values

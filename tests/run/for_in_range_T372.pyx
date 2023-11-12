@@ -135,5 +135,5 @@ def test_enum_range():
     let RangeEnum n = RangeEnum::Var3
     for i in 0..n:
         assert 0 <= <i32>i < <i32>n
-        assert cython.typeof(i) == "RangeEnum", cython.typeof(i)
-    return cython.typeof(i)
+        assert cython::typeof(i) == "RangeEnum", cython::typeof(i)
+    return cython::typeof(i)

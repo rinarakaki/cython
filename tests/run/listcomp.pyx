@@ -47,14 +47,14 @@ def inferred_type():
     >>> inferred_type()
     ['A', 'A', 'A']
     """
-    print [cython.typeof(obj) for obj in [A(), A(), A()]]
+    print [cython::typeof(obj) for obj in [A(), A(), A()]]
 
 def not_inferred_type():
     """
     >>> not_inferred_type()
     ['Python object', 'Python object', 'Python object']
     """
-    print [cython.typeof(obj) for obj in [1, A(), 'abc']]
+    print [cython::typeof(obj) for obj in [1, A(), 'abc']]
 
 def iterdict():
     """

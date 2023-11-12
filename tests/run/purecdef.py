@@ -1,12 +1,12 @@
 import cython
 from cython import cfunc, cclass, ccall
 
-@cython::test_assert_path_exists('//CFuncDefNode')
+@cython.test_assert_path_exists('//CFuncDefNode')
 @cython.cfunc
 def ftang():
     x = 0
 
-@cython::test_assert_path_exists('//CFuncDefNode')
+@cython.test_assert_path_exists('//CFuncDefNode')
 @cfunc
 def fpure(a):
     return a*2
@@ -20,15 +20,15 @@ def test():
     return fpure(2)
 
 with cfunc:
-    @cython::test_assert_path_exists('//CFuncDefNode')
+    @cython.test_assert_path_exists('//CFuncDefNode')
     def fwith1(a):
         return a*3
 
-    @cython::test_assert_path_exists('//CFuncDefNode')
+    @cython.test_assert_path_exists('//CFuncDefNode')
     def fwith2(a):
         return a*4
 
-    @cython::test_assert_path_exists(
+    @cython.test_assert_path_exists(
         '//CFuncDefNode',
         '//LambdaNode',
         '//GeneratorDefNode',
@@ -40,12 +40,12 @@ with cfunc:
 
 
 with cclass:
-    @cython::test_assert_path_exists('//CClassDefNode')
+    @cython.test_assert_path_exists('//CClassDefNode')
     class Egg(object):
         pass
-    @cython::test_assert_path_exists('//CClassDefNode')
+    @cython.test_assert_path_exists('//CClassDefNode')
     class BigEgg(object):
-        @cython::test_assert_path_exists('//CFuncDefNode')
+        @cython.test_assert_path_exists('//CFuncDefNode')
         @cython.cfunc
         def f(self, a):
             return a*10
@@ -57,7 +57,7 @@ def test_with():
     """
     return fwith1(1), fwith2(1), BigEgg().f(5)
 
-@cython::test_assert_path_exists('//CClassDefNode')
+@cython.test_assert_path_exists('//CClassDefNode')
 @cython.cclass
 class PureFoo(object):
     a = cython.declare(cython.double)
@@ -68,7 +68,7 @@ class PureFoo(object):
     def __call__(self):
         return self.a
 
-    @cython::test_assert_path_exists('//CFuncDefNode')
+    @cython.test_assert_path_exists('//CFuncDefNode')
     @cython.cfunc
     def puremeth(self, a):
         return a*2

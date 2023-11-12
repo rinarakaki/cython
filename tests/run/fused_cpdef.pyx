@@ -9,9 +9,9 @@ cy = __import__("cython")
 cpdef func1(self, cython.integral x):
     print(f"{self},", end=' ')
     if cython.integral is int:
-        print('x is int', x, cython.typeof(x))
+        print('x is int', x, cython::typeof(x))
     else:
-        print('x is long', x, cython.typeof(x))
+        print('x is long', x, cython::typeof(x))
 
 
 class A(object):
@@ -24,9 +24,9 @@ cdef class B:
     cpdef int meth(self, cython.integral x):
         print(f"{self},", end=' ')
         if cython.integral is int:
-            print('x is int', x, cython.typeof(x))
+            print('x is int', x, cython::typeof(x))
         else:
-            print('x is long', x, cython.typeof(x))
+            print('x is long', x, cython::typeof(x))
         return 0
 
     def __str__(self):

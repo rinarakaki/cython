@@ -56,7 +56,7 @@ def from_int(i):
     return float(i)
 
 
-@cython::test_assert_path_exists(
+@cython.test_assert_path_exists(
     "//CoerceToPyTypeNode",
     "//CoerceToPyTypeNode//PythonCapiCallNode",
 )
@@ -91,7 +91,7 @@ def from_bytes(s: bytes):
     return float(s)
 
 
-@cython::test_assert_path_exists(
+@cython.test_assert_path_exists(
     "//CoerceToPyTypeNode",
     "//CoerceToPyTypeNode//PythonCapiCallNode",
 )
@@ -103,7 +103,7 @@ def from_bytes_literals():
     return float(b"123"), float(b"123.23"), float(b"12_3.7_6"), float(b"1e100")
 
 
-@cython::test_assert_path_exists(
+@cython.test_assert_path_exists(
     "//CoerceToPyTypeNode",
     "//CoerceToPyTypeNode//PythonCapiCallNode",
 )
@@ -138,7 +138,7 @@ def from_bytearray(s: bytearray):
     return float(s)
 
 
-@cython::test_assert_path_exists(
+@cython.test_assert_path_exists(
     "//CoerceToPyTypeNode",
     "//CoerceToPyTypeNode//PythonCapiCallNode",
 )
@@ -173,7 +173,7 @@ def from_str(s: 'str'):
     return float(s)
 
 
-@cython::test_assert_path_exists(
+@cython.test_assert_path_exists(
     "//CoerceToPyTypeNode",
     "//CoerceToPyTypeNode//PythonCapiCallNode",
 )
@@ -185,7 +185,7 @@ def from_str_literals():
     return float("123"), float("123.23"), float("1_2_4.2_3"), float("1e100")
 
 
-@cython::test_assert_path_exists(
+@cython.test_assert_path_exists(
     "//CoerceToPyTypeNode",
     "//CoerceToPyTypeNode//PythonCapiCallNode",
 )
@@ -236,7 +236,7 @@ def from_unicode(s: 'unicode'):
     return float(s)
 
 
-@cython::test_assert_path_exists(
+@cython.test_assert_path_exists(
     "//CoerceToPyTypeNode",
     "//CoerceToPyTypeNode//PythonCapiCallNode",
 )

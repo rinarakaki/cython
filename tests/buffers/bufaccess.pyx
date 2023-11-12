@@ -565,7 +565,7 @@ def no_negative_indices(object[i32, negative_indices=false] buf, i32 idx):
     """
     return buf[idx]
 
-#[cython.wraparound(false)]
+#[cython::wraparound(false)]
 @testcase
 def wraparound_directive(object[i32] buf, i32 pos_idx, i32 neg_idx):
     """
@@ -712,7 +712,7 @@ def safe_get(object[i32] buf, i32 idx):
     """
     return buf[idx]
 
-#[cython::boundscheck(false)] # outer decorators should take precedence
+#[cython::boundscheck(false)]  # outer decorators should take precedence
 #[cython::boundscheck(true)]
 @testcase
 def unsafe_get(object[i32] buf, i32 idx):
@@ -956,7 +956,7 @@ def decref(*args):
     for item in args: Py_DECREF(item)
 
 #[cython::binding(false)]
-#[cython.always_allow_keywords(false)]
+#[cython::always_allow_keywords(false)]
 def get_refcount(x):
     return (<PyObject*>x).ob_refcnt
 

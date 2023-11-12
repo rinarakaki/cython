@@ -426,13 +426,13 @@ def type_infer(f64[:, :] arg):
     double[:, :]
     """
     a = arg[0, 0]
-    print(cython.typeof(a))
+    print(cython::typeof(a))
     b = arg[0]
-    print(cython.typeof(b))
+    print(cython::typeof(b))
     c = arg[0, :]
-    print(cython.typeof(c))
+    print(cython::typeof(c))
     d = arg[:, :]
-    print(cython.typeof(d))
+    print(cython::typeof(d))
 
 #
 # Loop optimization
@@ -666,7 +666,7 @@ def decref(*args):
     for item in args: Py_DECREF(item)
 
 #[cython::binding(false)]
-#[cython.always_allow_keywords(false)]
+#[cython::always_allow_keywords(false)]
 def get_refcount(x):
     return (<PyObject*>x).ob_refcnt
 

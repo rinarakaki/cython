@@ -175,7 +175,7 @@ cdef class ExtType:
     """
     #[cython::locals(x="ExtType")]
     def forward_ref(self, x):
-        return cython.typeof(x)
+        return cython::typeof(x)
 
 
 def ext_type_string_ref(x: "ExtType"):
@@ -184,13 +184,13 @@ def ext_type_string_ref(x: "ExtType"):
     >>> ext_type_string_ref(x)
     'ExtType'
     """
-    return cython.typeof(x)
+    return cython::typeof(x)
 
 
 with cython.cdivision(true):
 
-    #[cython.cdivision(false)]
-    #[cython.cdivision(true)]
+    #[cython::cdivision(false)]
+    #[cython::cdivision(true)]
     def test_override_reset(x: cython.int):
         """
         >>> test_override_reset(-3)  # @cdivision(false)
@@ -198,8 +198,8 @@ with cython.cdivision(true):
         """
         return x / 2
 
-    #[cython.cdivision(true)]
-    #[cython.cdivision(false)]
+    #[cython::cdivision(true)]
+    #[cython::cdivision(false)]
     def test_override_set(x: cython.int):
         """
         >>> test_override_set(-5)  # @cdivision(true)
@@ -207,18 +207,18 @@ with cython.cdivision(true):
         """
         return x / 3
 
-    #[cython.cdivision(true)]
-    #[cython.cdivision(false)]
-    #[cython.cdivision(true)]
-    #[cython.cdivision(false)]
-    #[cython.cdivision(false)]
-    #[cython.cdivision(false)]
-    #[cython.cdivision(true)]
-    #[cython.cdivision(false)]
-    #[cython.cdivision(true)]
-    #[cython.cdivision(true)]
-    #[cython.cdivision(true)]
-    #[cython.cdivision(false)]
+    #[cython::cdivision(true)]
+    #[cython::cdivision(false)]
+    #[cython::cdivision(true)]
+    #[cython::cdivision(false)]
+    #[cython::cdivision(false)]
+    #[cython::cdivision(false)]
+    #[cython::cdivision(true)]
+    #[cython::cdivision(false)]
+    #[cython::cdivision(true)]
+    #[cython::cdivision(true)]
+    #[cython::cdivision(true)]
+    #[cython::cdivision(false)]
     def test_override_set_repeated(x: cython.int):
         """
         >>> test_override_set_repeated(-5)  # @cdivision(true)

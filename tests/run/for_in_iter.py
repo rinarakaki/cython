@@ -37,8 +37,8 @@ def for_in_list():
     [1, 2, 3, 4, 5]
     """
 
-@cython::test_assert_path_exists('//TupleNode//IntNode')
-@cython::test_fail_if_path_exists('//ListNode//IntNode')
+@cython.test_assert_path_exists('//TupleNode//IntNode')
+@cython.test_fail_if_path_exists('//ListNode//IntNode')
 def for_in_literal_list():
     """
     >>> for_in_literal_list()
@@ -49,8 +49,8 @@ def for_in_literal_list():
         l.append(i)
     return l
 
-@cython::test_assert_path_exists('//TupleNode//IntNode')
-@cython::test_fail_if_path_exists('//ListNode//IntNode')
+@cython.test_assert_path_exists('//TupleNode//IntNode')
+@cython.test_fail_if_path_exists('//ListNode//IntNode')
 def for_in_literal_mult_list():
     """
     >>> for_in_literal_mult_list()
@@ -76,8 +76,8 @@ def listcomp_over_multiplied_constant_tuple():
     ]
 
 
-@cython::test_assert_path_exists('//ReturnStatNode//ForInStatNode//TupleNode')
-@cython::test_fail_if_path_exists('//ReturnStatNode//ForInStatNode//ListNode')
+@cython.test_assert_path_exists('//ReturnStatNode//ForInStatNode//TupleNode')
+@cython.test_fail_if_path_exists('//ReturnStatNode//ForInStatNode//ListNode')
 def listcomp_over_multiplied_constant_list():
     """
     >>> listcomp_over_multiplied_constant_list()
