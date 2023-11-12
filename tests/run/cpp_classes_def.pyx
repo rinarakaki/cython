@@ -21,10 +21,10 @@ cdef cppclass RegularPolygon(Shape):
     __init__(i32 n, float radius):
         this.n = n
         this.radius = radius
-    float area() noexcept const:
+    fn f32 area() noexcept const:
         cdef f64 theta = pi / this.n
         return this.radius * this.radius * sin(theta) * cos(theta) * this.n
-    void do_with() except *:
+    fn void do_with() except *:
         # only a compile test - the file doesn't actually have to exist
         # "with" was broken by https://github.com/cython/cython/issues/4212
         with open("does not matter") as f:
@@ -34,13 +34,13 @@ def test_Poly(i32 n, float radius=1):
     """
     >>> test_Poly(4)
     2.0
-    >>> test_Poly(3)         #doctest: +ELLIPSIS
+    >>> test_Poly(3)         # doctest: +ELLIPSIS
     1.29903...
-    >>> test_Poly(3, 10.0)   #doctest: +ELLIPSIS
+    >>> test_Poly(3, 10.0)   # doctest: +ELLIPSIS
     129.903...
-    >>> test_Poly(100)       #doctest: +ELLIPSIS
+    >>> test_Poly(100)       # doctest: +ELLIPSIS
     3.13952...
-    >>> test_Poly(1000)      #doctest: +ELLIPSIS
+    >>> test_Poly(1000)      # doctest: +ELLIPSIS
     3.14157...
     """
     let RegularPolygon* poly
@@ -125,9 +125,9 @@ def test_init_dealloc():
 
 cdef cppclass WithTemplate[T]:
     T value
-    void set_value(T value):
+    fn void set_value(T value):
         this.value = value
-    T get_value():
+    fn T get_value():
         return this.value
 
 cdef cppclass ResolveTemplate(WithTemplate[long]):

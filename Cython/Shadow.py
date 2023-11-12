@@ -455,6 +455,9 @@ builtin_types = [
     'f64',
     'isize',
     'usize',
+    'c64',
+    'c128',
+    'c258',
 ]
 int_types = [
     'char',
@@ -509,6 +512,8 @@ for name in builtin_types:
         gs[name] = typedef(py_int, name)
     elif name[0] == 'f':
         gs[name] = typedef(py_float, name)
+    elif name[0] == 'c':
+        gs[name] = typedef(py_complex, name)
     else:
         raise ValueError(name)
 
@@ -536,7 +541,7 @@ for t in builtin_types + int_types + float_types + complex_types + other_types:
 NULL = gs['p_void'](0)
 
 # looks like 'gs' has some users out there by now...
-#del gs
+# del gs
 
 integral = floating = numeric = _FusedType()
 

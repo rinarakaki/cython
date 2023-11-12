@@ -49,7 +49,7 @@ def run_async(coro, check_type='coroutine'):
 
     buffer = []
     result = None
-    while true:
+    loop:
         try:
             buffer.append(coro.send(None))
         except StopIteration as ex:
@@ -233,7 +233,7 @@ def test_with_for():
         assert sys.getrefcount(manager) == mrefs_before
         assert sys.getrefcount(iterable) == irefs_before
 
-    ##############
+    # ############
 
     async def main():
         nonlocal I
@@ -251,7 +251,7 @@ def test_with_for():
     run_async(main())
     print(I[0])
 
-    ##############
+    # ############
 
     async def main():
         async with Manager(I):
@@ -275,7 +275,7 @@ def test_with_for():
 
 
 # old-style pre-3.5.2 AIter protocol - no longer supported
-#cdef class AI_old:
+# cdef class AI_old:
 #    async def __aiter__(self):
 #        1/0
 
@@ -287,9 +287,9 @@ cdef class AI_new:
 
 def test_aiter_raises(AI):
     """
-    #>>> test_aiter_raises(AI_old)
-    #RAISED
-    #0
+    # >>> test_aiter_raises(AI_old)
+    # RAISED
+    # 0
     >>> test_aiter_raises(AI_new)
     RAISED
     0

@@ -8,9 +8,9 @@ extern from "externsue.h":
     union Soviet:
         i8 c
 
-cdef extern Eggs e
-cdef extern Spam s
-cdef extern Soviet u
+extern static Eggs e
+extern static Spam s
+extern static Soviet u
 
 fn void tomato():
     global e

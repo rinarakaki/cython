@@ -64,7 +64,7 @@ fn make_slice_nodes(pos, subscripts)
 cpdef make_slice_node(pos, start, stop = *, step = *)
 fn p_atom(PyrexScanner s)
 
-#[cython.locals(value=unicode)]
+#[cython::locals(value=unicode)]
 fn p_int_literal(PyrexScanner s)
 
 fn p_name(PyrexScanner s, name)
@@ -73,16 +73,16 @@ fn p_cat_string_literal(PyrexScanner s)
 fn p_opt_string_literal(PyrexScanner s, required_type=*)
 fn u2 check_for_non_ascii_characters(unicode string)
 
-#[cython.locals(systr=unicode, is_python3_source=u2, is_raw=u2)]
+#[cython::locals(systr=unicode, is_python3_source=u2, is_raw=u2)]
 fn p_string_literal(PyrexScanner s, kind_override=*)
 
 fn _append_escape_sequence(kind, builder, unicode escape_sequence, PyrexScanner s)
 fn tuple _f_string_error_pos(pos, string, isize i)
 
-#[cython.locals(i=isize, size=isize, c=Py_UCS4, next_start=isize)]
+#[cython::locals(i=isize, size=isize, c=Py_UCS4, next_start=isize)]
 fn list p_f_string(PyrexScanner s, unicode_value, pos, u2 is_raw)
 
-#[cython.locals(i=isize, size=isize, c=Py_UCS4, quote_char=Py_UCS4, NO_CHAR=Py_UCS4)]
+#[cython::locals(i=isize, size=isize, c=Py_UCS4, quote_char=Py_UCS4, NO_CHAR=Py_UCS4)]
 fn tuple p_f_string_expr(PyrexScanner s, unicode_value, pos, isize starting_index, u2 is_raw)
 
 fn p_list_maker(PyrexScanner s)
@@ -99,11 +99,11 @@ fn p_testlist_star_expr(PyrexScanner s)
 fn p_testlist_comp(PyrexScanner s)
 fn p_genexp(PyrexScanner s, expr)
 
-#-------------------------------------------------------
+# -------------------------------------------------------
 #
 #   Statements
 #
-#-------------------------------------------------------
+# -------------------------------------------------------
 
 fn p_global_statement(PyrexScanner s)
 fn p_nonlocal_statement(PyrexScanner s)
@@ -125,6 +125,7 @@ fn p_assert_statement(PyrexScanner s)
 fn p_if_statement(PyrexScanner s)
 fn p_if_clause(PyrexScanner s)
 fn p_else_clause(PyrexScanner s)
+fn p_loop_statement(PyrexScanner s)
 fn p_while_statement(PyrexScanner s)
 fn p_for_statement(PyrexScanner s, u2 is_async=*)
 fn dict p_for_bounds(PyrexScanner s, u2 allow_testlist=*, u2 is_async=*)
@@ -144,7 +145,7 @@ fn p_with_template(PyrexScanner s)
 fn p_simple_statement(PyrexScanner s, u2 first_statement = *)
 fn p_simple_statement_list(PyrexScanner s, ctx, u2 first_statement = *)
 fn p_compile_time_expr(PyrexScanner s)
-fn p_DEF_statement(PyrexScanner s)
+fn p_const_statement(PyrexScanner s)
 fn p_IF_statement(PyrexScanner s, ctx)
 fn p_statement(PyrexScanner s, ctx, u2 first_statement = *)
 fn p_statement_list(PyrexScanner s, ctx, u2 first_statement = *)

@@ -237,7 +237,7 @@ extern from "datetime.h":
     fn i32 PyDateTime_DATE_GET_SECOND(object o)
     fn i32 PyDateTime_DATE_GET_MICROSECOND(object o)
     fn i32 PyDateTime_DATE_GET_FOLD(object o)
-    PyObject* PyDateTime_DATE_GET_TZINFO(object o)  # returns a borrowed reference
+    fn PyObject* PyDateTime_DATE_GET_TZINFO(object o)  # returns a borrowed reference
 
     # Getters for time (C macros).
     fn i32 PyDateTime_TIME_GET_HOUR(object o)
@@ -245,7 +245,7 @@ extern from "datetime.h":
     fn i32 PyDateTime_TIME_GET_SECOND(object o)
     fn i32 PyDateTime_TIME_GET_MICROSECOND(object o)
     fn i32 PyDateTime_TIME_GET_FOLD(object o)
-    PyObject* PyDateTime_TIME_GET_TZINFO(object o)  # returns a borrowed reference
+    fn PyObject* PyDateTime_TIME_GET_TZINFO(object o)  # returns a borrowed reference
 
     # Getters for timedelta (C macros).
     fn i32 PyDateTime_DELTA_GET_DAYS(object o)
@@ -260,20 +260,20 @@ extern from "datetime.h":
     fn object __Pyx_TimeZone_FromOffsetAndName(object offset, PyObject* name)
 
     # Constructors for the DB API
-    datetime PyDateTime_FromTimeStamp(object args)
-    date PyDate_FromTimeStamp(object args)
+    fn datetime PyDateTime_FromTimeStamp(object args)
+    fn date PyDate_FromTimeStamp(object args)
 
     # PEP 495 constructors but patched above to allow passing tz
-    datetime __Pyx_DateTime_DateTimeWithFold(i32, i32, i32, i32, i32, i32, i32, object, i32)
-    datetime __Pyx_DateTime_TimeWithFold(i32, i32, i32 ,i32, object, i32)
+    fn datetime __Pyx_DateTime_DateTimeWithFold(i32, i32, i32, i32, i32, i32, i32, object, i32)
+    fn datetime __Pyx_DateTime_TimeWithFold(i32, i32, i32 ,i32, object, i32)
 
     # PyDateTime CAPI object.
-    PyDateTime_CAPI *PyDateTimeAPI
+    static PyDateTime_CAPI *PyDateTimeAPI
 
-    PyObject* PyDateTime_TimeZone_UTC
+    static PyObject* PyDateTime_TimeZone_UTC
 
     # PyDateTime_TimeZone_UTC is Python 3.7+ so instead we use the following macro
-    PyObject* __Pyx_TimeZone_UTC
+    static PyObject* __Pyx_TimeZone_UTC
 
     fn void PyDateTime_IMPORT()
 
@@ -418,8 +418,7 @@ fn inline f64 total_seconds(timedelta obj):
     # Mirrors the "timedelta.total_seconds()" method.
     # Note that this implementation is not guaranteed to give *exactly* the same
     # result as the original method, due to potential differences in floating point rounding.
-    cdef:
-        f64 days, seconds, micros
+    let f64 days, seconds, micros
     days = <f64>PyDateTime_DELTA_GET_DAYS(obj)
     seconds = <f64>PyDateTime_DELTA_GET_SECONDS(obj)
     micros = <f64>PyDateTime_DELTA_GET_MICROSECONDS(obj)

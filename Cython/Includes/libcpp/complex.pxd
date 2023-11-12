@@ -5,8 +5,8 @@ extern from "<complex>" namespace "std" nogil:
         complex() except +
         complex(T, T) except +
         complex(complex[T]&) except +
-        # How to make the converting constructor, i.e. convert complex[double]
-        # to complex[float]?
+        # How to make the converting constructor, i.e. convert complex[f64]
+        # to complex[f32]?
 
         complex[T] operator+(complex[T]&)
         complex[T] operator-(complex[T]&)
@@ -39,63 +39,63 @@ extern from "<complex>" namespace "std" nogil:
         void imag(T)
 
     # Return real part
-    T real[T](complex[T]&)
-    long double real(long double)
-    fn f64 real(double)
-    fn f32 real(float)
+    fn T real[T](complex[T]&)
+    fn f128 real(f128)
+    fn f64 real(f64)
+    fn f32 real(f32)
 
     # Return imaginary part
-    T imag[T](complex[T]&)
-    long double imag(long double)
-    fn f64 imag(double)
-    fn f32 imag(float)
+    fn T imag[T](complex[T]&)
+    fn f128 imag(f128)
+    fn f64 imag(f64)
+    fn f32 imag(f32)
 
-    T abs[T](complex[T]&)
-    T arg[T](complex[T]&)
-    long double arg(long double)
-    fn f64 arg(double)
-    fn f32 arg(float)
+    fn T abs[T](complex[T]&)
+    fn T arg[T](complex[T]&)
+    fn f128 arg(f128)
+    fn f64 arg(f64)
+    fn f32 arg(f32)
 
-    T norm[T](complex[T])
-    long double norm(long double)
-    fn f64 norm(double)
-    fn f32 norm(float)
+    fn T norm[T](complex[T])
+    fn f128 norm(f128)
+    fn f64 norm(f64)
+    fn f32 norm(f32)
 
-    complex[T] conj[T](complex[T]&)
-    complex[long double] conj(long double)
-    complex[double] conj(double)
-    complex[float] conj(float)
+    fn complex[T] conj[T](complex[T]&)
+    fn complex[f128] conj(f128)
+    fn complex[f64] conj(f64)
+    fn complex[f32] conj(f32)
 
-    complex[T] proj[T](complex[T])
-    complex[long double] proj(long double)
-    complex[double] proj(double)
-    complex[float] proj(float)
+    fn complex[T] proj[T](complex[T])
+    fn complex[f128] proj(f128)
+    fn complex[f64] proj(f64)
+    fn complex[f32] proj(f32)
 
-    complex[T] polar[T](T&, T&)
-    complex[T] ploar[T](T&)
+    fn complex[T] polar[T](T&, T&)
+    fn complex[T] ploar[T](T&)
 
-    complex[T] exp[T](complex[T]&)
-    complex[T] log[T](complex[T]&)
-    complex[T] log10[T](complex[T]&)
+    fn complex[T] exp[T](complex[T]&)
+    fn complex[T] log[T](complex[T]&)
+    fn complex[T] log10[T](complex[T]&)
 
-    complex[T] pow[T](complex[T]&, complex[T]&)
-    complex[T] pow[T](complex[T]&, T&)
-    complex[T] pow[T](T&, complex[T]&)
+    fn complex[T] pow[T](complex[T]&, complex[T]&)
+    fn complex[T] pow[T](complex[T]&, T&)
+    fn complex[T] pow[T](T&, complex[T]&)
     # There are some promotion versions too
 
-    complex[T] sqrt[T](complex[T]&)
+    fn complex[T] sqrt[T](complex[T]&)
 
-    complex[T] sin[T](complex[T]&)
-    complex[T] cos[T](complex[T]&)
-    complex[T] tan[T](complex[T]&)
-    complex[T] asin[T](complex[T]&)
-    complex[T] acos[T](complex[T]&)
-    complex[T] atan[T](complex[T]&)
+    fn complex[T] sin[T](complex[T]&)
+    fn complex[T] cos[T](complex[T]&)
+    fn complex[T] tan[T](complex[T]&)
+    fn complex[T] asin[T](complex[T]&)
+    fn complex[T] acos[T](complex[T]&)
+    fn complex[T] atan[T](complex[T]&)
 
-    complex[T] sinh[T](complex[T]&)
-    complex[T] cosh[T](complex[T]&)
-    complex[T] tanh[T](complex[T]&)
+    fn complex[T] sinh[T](complex[T]&)
+    fn complex[T] cosh[T](complex[T]&)
+    fn complex[T] tanh[T](complex[T]&)
 
-    complex[T] asinh[T](complex[T]&)
-    complex[T] acosh[T](complex[T]&)
-    complex[T] atanh[T](complex[T]&)
+    fn complex[T] asinh[T](complex[T]&)
+    fn complex[T] acosh[T](complex[T]&)
+    fn complex[T] atanh[T](complex[T]&)

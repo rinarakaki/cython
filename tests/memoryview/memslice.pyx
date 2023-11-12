@@ -589,7 +589,7 @@ def list_comprehension(i32[:] buf, len):
     let i32 i
     print "|".join([str(buf[i]) for i in 0..len])
 
-#[cython.wraparound(false)]
+#[cython::wraparound(false)]
 @testcase
 def wraparound_directive(i32[:] buf, i32 pos_idx, i32 neg_idx):
     """
@@ -604,7 +604,7 @@ def wraparound_directive(i32[:] buf, i32 pos_idx, i32 neg_idx):
     IndexError: Out of bounds on buffer access (axis 0)
     """
     let i32 byneg
-    with cython.wraparound(true):
+    with cython::wraparound(true):
         byneg = buf[neg_idx]
     return buf[pos_idx] + byneg
 
@@ -844,8 +844,8 @@ def safe_get(i32[:] buf, i32 idx):
     """
     return buf[idx]
 
-#[cython.boundscheck(false)] # outer decorators should take precedence
-#[cython.boundscheck(true)]
+#[cython::boundscheck(false)] # outer decorators should take precedence
+#[cython::boundscheck(true)]
 @testcase
 def unsafe_get(i32[:] buf, i32 idx):
     """
@@ -871,9 +871,9 @@ def mixed_get(i32[:] buf, i32 unsafe_idx, i32 safe_idx):
         ...
     IndexError: Out of bounds on buffer access (axis 0)
     """
-    with cython.boundscheck(false):
+    with cython::boundscheck(false):
         one = buf[unsafe_idx]
-    with cython.boundscheck(true):
+    with cython::boundscheck(true):
         two = buf[safe_idx]
     return (one, two)
 
@@ -1052,8 +1052,8 @@ def addref(*args):
 def decref(*args):
     for item in args: Py_DECREF(item)
 
-#[cython.binding(false)]
-#[cython.always_allow_keywords(false)]
+#[cython::binding(false)]
+#[cython::always_allow_keywords(false)]
 def get_refcount(x):
     return (<PyObject*>x).ob_refcnt
 
@@ -1297,7 +1297,7 @@ def const_nested_packed_struct(const NestedPackedStruct[:] buf):
     print buf[0].a, buf[0].b, buf[0].sub.a, buf[0].sub.b, buf[0].c
 
 @testcase
-def complex_dtype(long double complex[:] buf):
+def complex_dtype(c256[:] buf):
     """
     >>> complex_dtype(LongComplexMockBuffer(None, [(0, -1)]))  # , writable=false))
     -1j
@@ -1305,7 +1305,7 @@ def complex_dtype(long double complex[:] buf):
     print buf[0]
 
 @testcase
-def complex_inplace(long double complex[:] buf):
+def complex_inplace(c256[:] buf):
     """
     >>> complex_inplace(LongComplexMockBuffer(None, [(0, -1)]))
     (1+1j)
@@ -1337,7 +1337,7 @@ def complex_struct_inplace(LongComplex[:] buf):
 # Nogil
 #
 
-#[cython.boundscheck(false)]
+#[cython::boundscheck(false)]
 @testcase
 def buffer_nogil():
     """
@@ -1354,7 +1354,7 @@ def buffer_nogil():
     return buf[1], buf2[1]
 
 #
-### Test cdef functions
+# ## Test cdef functions
 #
 class UniqueObject(object):
     def __init__(self, value):
@@ -1756,7 +1756,7 @@ def test_nogil_oob2():
     with nogil:
         a[100, 9:]
 
-#[cython.boundscheck(false)]
+#[cython::boundscheck(false)]
 fn i32 cdef_nogil(i32[:, :] a) except 0 nogil:
     let i32 i, j
     let i32[:, :] b = a[:;-1, 3:10;2]
@@ -1803,8 +1803,8 @@ def test_convert_slicenode_to_indexnode():
         a = a[2:4]
     print a[0]
 
-#[cython.boundscheck(false)]
-#[cython.wraparound(false)]
+#[cython::boundscheck(false)]
+#[cython::wraparound(false)]
 @testcase
 def test_memslice_prange(arg):
     """
@@ -2012,7 +2012,7 @@ def test_padded_structs():
     _test_padded(a7)
     # There is a pre-existing bug that doesn't parse the format for this
     # struct properly -- fix this
-    #_test_padded(a8)
+    # _test_padded(a8)
 
 fn _test_padded(FusedPadded myarray[10]):
     # test that the buffer format parser accepts our format string...
@@ -2368,7 +2368,7 @@ def test_dtype_object_scalar_assignment():
     assert m[0] == m[4] == m[-1] == 3
 
 #
-### Test slices that are set to None
+# ## Test slices that are set to None
 #
 
 # for none memoryview slice attribute testing, slicing, indexing, etc, see

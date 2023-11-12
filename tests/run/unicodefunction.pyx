@@ -41,16 +41,16 @@ def sub(string):
     return subu(string)
 
 
-#cdef class csubu(unicode):
+# cdef class csubu(unicode):
 #    pass
 
 
-#def csub(string):
+# def csub(string):
 #    return csubu(string)
 
 
-#[cython.test_fail_if_path_exists("//SimpleCallNode")]
-#[cython.test_assert_path_exists("//PythonCapiCallNode")]
+#[cython::test_fail_if_path_exists("//SimpleCallNode")]
+#[cython::test_assert_path_exists("//PythonCapiCallNode")]
 def typed(unicode s):
     """
     >>> print(typed(None))
@@ -65,7 +65,7 @@ def typed(unicode s):
     return unicode(s)
 
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//SimpleCallNode",
     "//PythonCapiCallNode",
 )

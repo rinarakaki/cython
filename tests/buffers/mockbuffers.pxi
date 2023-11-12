@@ -50,7 +50,7 @@ cdef class MockBuffer:
         suboffsets = [-1] * len(shape)
         datashape = [len(data)]
         p = data
-        while true:
+        loop:
             p = p[0]
             if isinstance(p, list): datashape.append(len(p))
             else: break
@@ -224,8 +224,8 @@ cdef class DoubleMockBuffer(MockBuffer):
     fn get_itemsize(self): return sizeof(f64)
     fn get_default_format(self): return b"d"
 
-cdef extern from *:
-    void* addr_of_pyobject "(void*)"(object)
+extern from *:
+    fn void* addr_of_pyobject "(void*)"(object)
 
 cdef class ObjectMockBuffer(MockBuffer):
     fn i32 write(self, char* buf, object value) except -1:
@@ -320,8 +320,8 @@ cdef class NestedPackedStructMockBuffer(MockBuffer):
     fn get_default_format(self): return b"ci^ci@i"
 
 struct LongComplex:
-    long double real
-    long double imag
+    f128 real
+    f128 imag
 
 cdef class LongComplexMockBuffer(MockBuffer):
     fn i32 write(self, char* buf, object value) except -1:

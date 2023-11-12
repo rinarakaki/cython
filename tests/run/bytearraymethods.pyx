@@ -6,9 +6,9 @@ b_b = bytearray(b'b')
 
 '''   # disabled for now, enable when we consider it worth the code overhead
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//PythonCapiCallNode")
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//SimpleCallNode")
 def bytearray_startswith(bytearray s, sub, start=None, stop=None):
     """
@@ -36,9 +36,9 @@ def bytearray_startswith(bytearray s, sub, start=None, stop=None):
       return s.startswith(sub, start, stop)
 
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//PythonCapiCallNode")
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//SimpleCallNode")
 def bytearray_endswith(bytearray s, sub, start=None, stop=None):
     """
@@ -67,9 +67,9 @@ def bytearray_endswith(bytearray s, sub, start=None, stop=None):
 '''
 
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//PythonCapiCallNode")
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//SimpleCallNode")
 def bytearray_decode(bytearray s, start=None, stop=None):
     """
@@ -155,9 +155,9 @@ def bytearray_decode(bytearray s, start=None, stop=None):
         return s[start:stop].decode('utf8')
 
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//PythonCapiCallNode")
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//SimpleCallNode")
 def bytearray_decode_unbound_method(bytearray s, start=None, stop=None):
     """
@@ -194,8 +194,8 @@ def bytearray_decode_unbound_method(bytearray s, start=None, stop=None):
     else:
         return bytearray.decode(s[start:stop], 'utf8')
 
-#[cython.test_fail_if_path_exists('//SimpleCallNode')]
-#[cython.test_assert_path_exists('//PythonCapiCallNode')]
+#[cython::test_fail_if_path_exists('//SimpleCallNode')]
+#[cython::test_assert_path_exists('//PythonCapiCallNode')]
 def bytearray_append(bytearray b, signed char c, i32 i, object o):
     """
     >>> b = bytearray(b'abc')

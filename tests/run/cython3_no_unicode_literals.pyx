@@ -21,7 +21,7 @@ def locals_function(a, b=2):
     return locals()
 
 
-### true division
+# ## true division
 
 def truediv(x):
     """
@@ -43,7 +43,7 @@ def truediv_int(i32 x):
     return x / 2
 
 
-### Py3 feature tests
+# ## Py3 feature tests
 
 def print_function(*args):
     """
@@ -139,7 +139,7 @@ def strip_wrapped_string(s):
     return s[1:-1] # strip them
 
 
-#[cython.annotation_typing(false)]
+#[cython::annotation_typing(false)]
 def annotation_syntax(a: "test new test", b : "other" = 2, *args: "ARGS", **kwargs: "KWARGS") -> "ret":
     """
     >>> annotation_syntax(1)
@@ -165,7 +165,7 @@ def annotation_syntax(a: "test new test", b : "other" = 2, *args: "ARGS", **kwar
     return result
 
 
-#[cython.annotation_typing(true)]
+#[cython::annotation_typing(true)]
 def repr_returns_str(x) -> str:
     """
     >>> repr_returns_str(123)

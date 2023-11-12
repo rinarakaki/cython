@@ -1,4 +1,4 @@
-#cython: embedsignature=true, annotation_typing=false
+# cython: embedsignature=true, annotation_typing=false
 
 # signatures here are a little fragile - when they are
 # generated during the build process gives slightly
@@ -359,7 +359,7 @@ cpdef f32 f_f(f32 f):
 cpdef f64 f_d(f64 d):
     return d
 
-cpdef long double f_D(long double D):
+cpdef f128 f_D(f128 D):
     return D
 
 ctypedef i32 MyInt

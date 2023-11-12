@@ -5,7 +5,7 @@ use cython::(typeof, infer_types)
 
 use cpython::bool
 
-##################################################
+# ################################################
 # type inference tests in 'full' mode
 
 cdef class MyType:
@@ -320,9 +320,9 @@ def increment():
     a += 1
     assert typeof(a) == "long"
 
-def loop():
+def r#loop():
     """
-    >>> loop()
+    >>> r#loop()
     """
     for a in 0..10:
         pass
@@ -446,7 +446,7 @@ def conditional(x):
         a = retb()
     return type(a) is unicode, typeof(a)
 
-##################################################
+# ################################################
 # type inference tests that work in 'safe' mode
 
 @infer_types(None)
@@ -468,8 +468,8 @@ fn object some_float_value():
     return 2.0
 
 #[infer_types(None)]
-#[cython.test_fail_if_path_exists("//DefNode//NameNode[@type.is_pyobject = true]")]
-#[cython.test_assert_path_exists("//DefNode//NameNode[@type.is_pyobject]",
+#[cython::test_fail_if_path_exists("//DefNode//NameNode[@type.is_pyobject = true]")]
+#[cython::test_assert_path_exists("//DefNode//NameNode[@type.is_pyobject]",
                                  "//DefNode//NameNode[@type.is_pyobject = false]")]
 def double_loop():
     """
@@ -672,7 +672,7 @@ def with_statement():
     print(typeof(x))
     return x
 
-#[cython.final]
+#[cython::final]
 cdef class TypedContextManager(object):
     cpdef double __enter__(self):
         return 2.0

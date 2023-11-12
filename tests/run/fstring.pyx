@@ -1,9 +1,9 @@
 # mode: run
 # tag: f_strings, pep498, werror
 
-####
+# ##
 # Cython specific PEP 498 tests in addition to test_fstring.pyx from CPython
-####
+# ##
 
 use cython
 
@@ -16,10 +16,10 @@ max_int = INT_MAX
 max_long = LONG_MAX
 min_long = LONG_MIN
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//JoinedStrNode",
 )
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//AddNode",
 )
 def concat_strings(a, b):
@@ -74,7 +74,7 @@ def concat_strings(a, b):
     print(f"{a}{'x'+b}")      # fresh temp string right
     print(f"{a+'x'}{'x'+b}")  # fresh temp strings right and left
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//FormattedValueNode",
     "//JoinedStrNode",
     "//AddNode",
@@ -95,7 +95,7 @@ def escaping():
     s = f'{"{{}}"}'
     assert s == '{{}}', s
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//FormattedValueNode",
     "//JoinedStrNode",
     "//AddNode",
@@ -137,7 +137,7 @@ enum TestEnum:
     Abc = 1
     Xyz = 2
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//CoerceToPyTypeNode",
 )
 def format_c_enum():
@@ -146,7 +146,7 @@ def format_c_enum():
     >>> s == '1-2' or s
     True
     """
-    return f"{TestEnum::Abc}-{TestEnum::Xyz}"
+    return f"{Abc}-{Xyz}"
 
 def format_c_numbers(signed char c, i16 s, i32 n, i64 l, f32 f, f64 d):
     """
@@ -210,7 +210,7 @@ def format_c_numbers_unsigned(u8 c, u16 s, u32 n, u64 l):
     assert isinstance(s3, unicode), type(s3)
     return s1, s2, s3
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//CoerceToPyTypeNode",
 )
 def format_c_numbers_max(i32 n, i64 l):
@@ -243,7 +243,7 @@ def format_c_number_const():
     """
     return f"{LONG_MAX}"
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//CoerceToPyTypeNode",
 )
 def format_c_number_range(i32 n):
@@ -253,7 +253,7 @@ def format_c_number_range(i32 n):
     """
     return f'{n}'
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//CoerceToPyTypeNode",
 )
 def format_c_number_range_width(i32 n):
@@ -274,7 +274,7 @@ def format_c_number_range_width0(i32 n):
     """
     return f'{n:00}'
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//CoerceToPyTypeNode",
 )
 def format_c_number_range_width1(i32 n):
@@ -286,7 +286,7 @@ def format_c_number_range_width1(i32 n):
     """
     return f'{n:01}'
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//CoerceToPyTypeNode",
 )
 def format_c_number_range_width_m4(i32 n):
@@ -309,7 +309,7 @@ def format_c_number_range_dyn_width(i32 n, i32 width):
     """
     return f'{n:0{width}}'
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//CoerceToPyTypeNode",
 )
 def format_bool(u2 x):
@@ -488,7 +488,7 @@ def format_str(value):
     assert isinstance(b, unicode), type(b)
     return a, b
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//FormattedValueNode",  # bytes.decode() returns unicode => formatting is useless
     "//JoinedStrNode",       # replaced by call to PyUnicode_Concat()
     "//PythonCapiCallNode//PythonCapiCallNode",
@@ -500,11 +500,11 @@ def format_decoded_bytes(bytes value):
     """
     return f"U-{value.decode('utf-8')}"
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//AddNode",
     "//ModNode",
 )
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//FormattedValueNode",
     "//JoinedStrNode",
 )
@@ -539,7 +539,7 @@ def generated_fstring(i32 i, f32 f, unicode u not None, o):
         f, f,
     )
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//FormattedValueNode",
     "//JoinedStrNode",
 )
@@ -551,7 +551,7 @@ def percent_s_unicode(u, i32 i):
     """
     return u"%s-%d" % (u, i)
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//FormattedValueNode",
 )
 def sideeffect(l):
@@ -571,7 +571,7 @@ def sideeffect(l):
     f"{l.append(123)}"  # unused f-string !
     return list(l)
 
-########################################
+# ######################################
 # await inside f-string
 
 def test_await_inside_f_string():

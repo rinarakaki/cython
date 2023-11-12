@@ -48,7 +48,7 @@ def gc_collect_if_required():
 
 
 #
-### Test slicing memoryview slices
+# Test slicing memoryview slices
 #
 
 def test_partial_slicing(array):
@@ -105,7 +105,7 @@ def test_ellipsis(array):
     ae(e.strides[0], e_obj.strides[0])
 
 #
-### Test slicing memoryview objects
+# Test slicing memoryview objects
 #
 def test_partial_slicing_memoryview(array):
     """
@@ -181,7 +181,7 @@ def test_transpose():
     let dtype_t[:, :] b = a.T
     print a.T.shape[0], a.T.shape[1]
     print a_obj.T.shape
-    print tuple(map(int, numpy_obj.T.shape)) # might use longs in Py2
+    print tuple(map(int, numpy_obj.T.shape))  # might use longs in Py2
 
     let dtype_t[:, :] c
     with nogil:
@@ -228,7 +228,7 @@ def test_copy_and_contig_attributes(a):
     >>> test_copy_and_contig_attributes(a)
     """
     let np.int32_t[:, :] mslice = a
-    let object m = mslice  #  object copy
+    let object m = mslice  # object copy
 
     # Test object copy attributes
     assert np.all(a == np.array(m.copy()))
@@ -243,9 +243,9 @@ def test_copy_and_contig_attributes(a):
 
 ctypedef i32 td_cy_int
 extern from "bufaccess.h":
-    ctypedef td_cy_int td_h_short # Defined as short, but Cython doesn't know this!
-    ctypedef f32 td_h_double # Defined as double
-    ctypedef u32 td_h_ushort # Defined as unsigned short
+    ctypedef td_cy_int td_h_short  # Defined as short, but Cython doesn't know this!
+    ctypedef f32 td_h_double  # Defined as double
+    ctypedef u32 td_h_ushort  # Defined as unsigned short
 ctypedef td_h_short td_h_cy_short
 
 fn void dealloc_callback(void *data) noexcept:
@@ -301,7 +301,7 @@ def test_coerce_to_numpy():
     deallocating...
     """
     #
-    ### First set up some C arrays that will be used to hold data
+    # First set up some C arrays that will be used to hold data
     #
     let MyStruct[20] mystructs
     let SmallStruct[20] smallstructs
@@ -316,11 +316,11 @@ def test_coerce_to_numpy():
 
     let f32[20] floats
     let f64[20] doubles
-    let long double[20] longdoubles
+    let f128[20] longdoubles
 
-    let float complex[20] floatcomplex
-    let double complex[20] doublecomplex
-    let long double complex[20] longdoublecomplex
+    let c64[20] floatcomplex
+    let c128[20] doublecomplex
+    let c256[20] longdoublecomplex
 
     let td_h_short[20] h_shorts
     let td_h_double[20] h_doubles
@@ -329,7 +329,7 @@ def test_coerce_to_numpy():
     let isize idx = 17
 
     #
-    ### Initialize one element in each array
+    # Initialize one element in each array
     #
     mystructs[idx] = {
         'a': 'a',
@@ -370,7 +370,7 @@ def test_coerce_to_numpy():
     h_ushorts[idx] = 44
 
     #
-    ### Create a NumPy array and see if our element can be correctly retrieved
+    # Create a NumPy array and see if our element can be correctly retrieved
     #
     mystruct_array = build_numarray(<MyStruct[:4, :5]> <MyStruct *> mystructs)
     print [int(x) for x in mystruct_array[3, 2]]
@@ -386,11 +386,11 @@ def test_coerce_to_numpy():
 
     index(<f32[:4, :5]> <f32 *> floats)
     index(<f64[:4, :5]> <f64 *> doubles)
-    index(<long double[:4, :5]> <long double *> longdoubles)
+    index(<f128[:4, :5]> <f128 *> longdoubles)
 
-    index(<float complex[:4, :5]> <float complex *> floatcomplex)
-    index(<double complex[:4, :5]> <double complex *> doublecomplex)
-    index(<long double complex[:4, :5]> <long double complex *> longdoublecomplex)
+    index(<c64[:4, :5]> <c64 *> floatcomplex)
+    index(<c128[:4, :5]> <c128 *> doublecomplex)
+    index(<c256[:4, :5]> <c256 *> longdoublecomplex)
 
     index(<td_h_short[:4, :5]> <td_h_short *> h_shorts)
     index(<td_h_double[:4, :5]> <td_h_double *> h_doubles)
@@ -574,7 +574,7 @@ def test_struct_attributes():
     print chr(array[0]['attrib3']['c'][0][0])
 
 #
-### Test for NULL strides (C contiguous buffers)
+# Test for NULL strides (C contiguous buffers)
 #
 fn getbuffer(Buffer self, Py_buffer *info):
     info.buf = &self.m[0, 0]
@@ -675,12 +675,12 @@ def test_refcount_GH507():
     >>> test_refcount_GH507()
     """
     a = np.arange(12).reshape([3, 4])
-    let np.int_t[:, :] a_view = a
-    let np.int_t[:, :] b = a_view[1:2, :].T
+    let np.npy_long[:, :] a_view = a
+    let np.npy_long[:, :] b = a_view[1:2, :].T
 
 
-#[cython.boundscheck(false)]
-#[cython.wraparound(false)]
+#[cython::boundscheck(false)]
+#[cython::wraparound(false)]
 def test_boundscheck_and_wraparound(f64[:, :] x):
     """
     >>> import numpy as np

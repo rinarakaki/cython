@@ -3,7 +3,7 @@ extern from "<stack>" namespace "std" nogil:
         ctypedef T value_type
         stack() except +
         stack(stack&) except +
-        #stack(Container&)
+        # stack(Container&)
         u2 empty()
         void pop()
         void push(T&) except +
