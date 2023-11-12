@@ -64,7 +64,7 @@ class Ctx(object):
 
 
 def p_ident(s, message="Expected an identifier, found '%s'"):
-    if s.sy == 'IDENT':
+    if s.sy == "IDENT":
         name = s.context.intern_ustring(s.symbol)
         s.next()
         return name
@@ -73,7 +73,7 @@ def p_ident(s, message="Expected an identifier, found '%s'"):
 
 def p_ident_list(s):
     names = []
-    while s.sy == 'IDENT':
+    while s.sy == "IDENT":
         names.append(s.context.intern_ustring(s.symbol))
         s.next()
         if s.sy != ',':
@@ -2908,7 +2908,7 @@ def looking_at_expr(s):
         return False
     elif s.systring in base_type_start_words:
         return False
-    elif s.sy == 'IDENT':
+    elif s.sy == "IDENT":
         is_type = False
         name = s.systring
         name_pos = s.position()
@@ -3425,7 +3425,7 @@ def p_cdef_extern_block(s, pos, ctx):
         namespace = ctx.namespace)
 
 def p_c_enum_definition(s, pos, ctx):
-    # s.sy == ident 'enum'
+    # s.sy == "enum"
     s.next()
 
     scoped = False
@@ -3434,7 +3434,7 @@ def p_c_enum_definition(s, pos, ctx):
         s.next()
 
     if s.sy == 'IDENT':
-        name = s.systring
+        name = s.symbol
         s.next()
         cname = p_opt_cname(s)
         if cname is None and ctx.namespace is not None:
