@@ -450,21 +450,21 @@ class PyrexScanner(Scanner):
             self.error_at_scanpos("Unrecognized character")
             return  # just a marker, error() always raises
         if sy == IDENT:
-            if systring in self.keywords:
+            if systring.startswith("r#"):
+                systring = systring[2:]
+            elif systring in self.keywords:
                 if systring == u'print' and print_function in self.context.future_directives:
                     self.keywords.pop('print', None)
                 elif systring == u'exec' and self.context.language_level >= 3:
                     self.keywords.pop('exec', None)
                 else:
                     sy = self.keywords[systring]  # intern
-            elif systring.startswith("r#"):
-                systring = systring[2:]
             systring = self.context.intern_ustring(systring)
         if self.put_back_on_failure is not None:
             self.put_back_on_failure.append((sy, systring, self.position()))
         self.sy = sy
         self.systring = systring
-        if 1:  # debug_scanner:
+        if False:  # debug_scanner:
             _, line, col = self.position()
             if not self.systring or self.sy == self.systring:
                 t = self.sy
