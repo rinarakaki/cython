@@ -9,7 +9,7 @@ use cython
 
 ctypedef isize index_t
 
-ctypedef c64 mycomplex
+ctypedef c128 mycomplex
 
 struct MyStruct:
     mycomplex a, b

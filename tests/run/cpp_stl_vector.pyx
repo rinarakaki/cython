@@ -153,7 +153,7 @@ def test_value_type_complex(x):
     >>> test_value_type_complex(2)
     (2+0j)
     """
-    let vector[c64].value_type val = x
+    let vector[c128].value_type val = x
     return val
 
 def test_bool_vector_convert(o):

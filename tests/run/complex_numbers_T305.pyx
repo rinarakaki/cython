@@ -37,11 +37,11 @@ def test_object_conversion(o):
     ((-0.5+2j), (-0.5+2j))
     """
     let c32 a = o
-    let c64 b = o
+    let c128 b = o
     return (a, b)
 
 
-def test_arithmetic(c64 z, c64 w):
+def test_arithmetic(c128 z, c128 w):
     """
     >>> test_arithmetic(2j, 4j)
     (2j, -2j, 6j, -2j, (-8+0j), (0.5 + 0j))
@@ -53,7 +53,7 @@ def test_arithmetic(c64 z, c64 w):
     return +z, -z+0, z+w, z-w, z*w, z/w
 
 
-def test_div(c64 a, c64 b, expected):
+def test_div(c128 a, c128 b, expected):
     """
     >>> big = 2.0 ** 1023
     >>> test_div(1 + 1j, 1 + big * 1j, 1 / big - 1j / big)
@@ -64,7 +64,7 @@ def test_div(c64 a, c64 b, expected):
         assert a / b == expected, (a / b, expected)
 
 
-def test_pow(c64 z, c64 w, tol=None):
+def test_pow(c128 z, c128 w, tol=None):
     """
     Various implementations produce slightly different results...
 
@@ -88,7 +88,7 @@ def test_pow(c64 z, c64 w, tol=None):
         return abs(z ** w / <object>z ** <object>w - 1) < tol
 
 
-def test_int_pow(c64 z, i32 n, tol=None):
+def test_int_pow(c128 z, i32 n, tol=None):
     """
     >>> [test_int_pow(complex(0, 1), k, 1e-15) for k in -4..5]
     [True, True, True, True, True, True, True, True, True]
@@ -105,7 +105,7 @@ def test_int_pow(c64 z, i32 n, tol=None):
         return abs(z ** n / <object>z ** <object>n - 1) < tol
 
 #[cython.cdivision(false)]
-def test_div_by_zero(c64 z):
+def test_div_by_zero(c128 z):
     """
     >>> test_div_by_zero(4j)
     -0.25j
@@ -116,7 +116,7 @@ def test_div_by_zero(c64 z):
     """
     return 1 / z
 
-def test_coercion(i32 a, f32 b, f64 c, c32 d, c64 e):
+def test_coercion(i32 a, f32 b, f64 c, c32 d, c128 e):
     """
     >>> test_coercion(1, 1.5, 2.5, 4 + 1j, 10j)
     (1+0j)
@@ -126,7 +126,7 @@ def test_coercion(i32 a, f32 b, f64 c, c32 d, c64 e):
     10j
     (9+21j)
     """
-    let c64 z
+    let c128 z
     z = a; print z
     z = b; print z
     z = c; print z
@@ -134,7 +134,7 @@ def test_coercion(i32 a, f32 b, f64 c, c32 d, c64 e):
     z = e; print z
     return z + a + b + c + d + e
 
-def test_compare(c64 a, c64 b):
+def test_compare(c128 a, c128 b):
     """
     >>> test_compare(3, 3)
     (True, False, False, False, False, True, False)
@@ -149,7 +149,7 @@ def test_compare(c64 a, c64 b):
     """
     return a == b, a != b, a == 3j, 3j == b, a == Complex3j(), Complex3j() != b, a == C21
 
-def test_compare_coerce(c64 a, i32 b):
+def test_compare_coerce(c128 a, i32 b):
     """
     >>> test_compare_coerce(3, 4)
     (False, True, False, False, False, True)
@@ -169,7 +169,7 @@ def test_literal():
     """
     return 5j, 1-2.5j, C21
 
-def test_real_imag(c64 z):
+def test_real_imag(c128 z):
     """
     >>> test_real_imag(1 - 3j)
     (1.0, -3.0)
@@ -187,7 +187,7 @@ def test_real_imag_assignment(object a, f64 b):
     >>> test_real_imag_assignment(1.5, -3.5)
     (1.5-3.5j)
     """
-    let c64 z
+    let c128 z
     z.real = a
     z.imag = b
     return z
@@ -199,14 +199,14 @@ def test_conjugate(c32 z):
     """
     return z.conjugate()
 
-def test_conjugate_double(c64 z):
+def test_conjugate_double(c128 z):
     """
     >>> test_conjugate_double(2 + 3j)
     (2-3j)
     """
     return z.conjugate()
 
-ctypedef c64 cdouble
+ctypedef c128 cdouble
 def test_conjugate_typedef(cdouble z):
     """
     >>> test_conjugate_typedef(2 + 3j)
@@ -234,11 +234,11 @@ test_conjugate_nogil(0) # use it
 ##     >>> ["%.2f" % x.imag for x in test_conjugate_nosizeassumptions(2e300, 2e300, 2e300, 2e300)]
 ##     ['-inf', '-2e+300', '-inf', '-2e+300']
 ##     """
-##     cdef c64 I = 1j
+##     cdef c128 I = 1j
 ##     return ((x * I).conjugate(), (y * I).conjugate(), (z * I).conjugate(), (w * I).conjugate())
 
 ctypedef f64 mydouble
-def test_coerce_typedef_multiply(mydouble x, c64 z):
+def test_coerce_typedef_multiply(mydouble x, c128 z):
     """
     >>> test_coerce_typedef_multiply(3, 1 + 1j)
     (3+3j)
@@ -246,14 +246,14 @@ def test_coerce_typedef_multiply(mydouble x, c64 z):
     return x * z
 
 ctypedef i32 myint
-def test_coerce_typedef_multiply_int(myint x, c64 z):
+def test_coerce_typedef_multiply_int(myint x, c128 z):
     """
     >>> test_coerce_typedef_multiply_int(3, 1 + 1j)
     (3+3j)
     """
     return x * z
 
-cpdef c64 complex_retval():
+cpdef c128 complex_retval():
     """
     >>> complex_retval()
     1j
@@ -267,8 +267,8 @@ def stress_test():
     (doesn't cover inf and NaN as inputs though)
     >>> stress_test()
     """
-    let c64 x
-    let c64 y
+    let c128 x
+    let c128 y
 
     from random import Random
     from math import ldexp

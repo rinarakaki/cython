@@ -2962,7 +2962,7 @@ builtin_type_names = cython.declare(frozenset, frozenset((
     "u8", "u16", "u32", "u64", "u128",
     "f32", "f64",
     "u2",
-    "c32", "c64",
+    "c32", "c128",
     "isize", "usize")))
 
 basic_c_type_names = cython.declare(frozenset, frozenset((

@@ -1,7 +1,7 @@
 # mode: run
 # ticket: t693
 
-fn c64 func(c64 x):                                                  
+fn c128 func(c128 x):                                                  
     print "hello"
     return x
 

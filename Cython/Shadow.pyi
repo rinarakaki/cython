@@ -28,7 +28,7 @@ f64 = double = py_float
 longdouble = py_float
 complex = py_complex
 c32 = floatcomplex = py_complex
-c64 = doublecomplex = py_complex
+c128 = doublecomplex = py_complex
 longdoublecomplex = py_complex
 u2 = bint = py_bool
 void = Union[None]
