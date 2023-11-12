@@ -86,9 +86,9 @@ extern from "Python.h":
     fn void* PyObject_Realloc(void *, usize)
     fn void PyObject_Free(void *)
 
-    #####################################################################
+    # ###################################################################
     # 6.1 Object Protocol
-    #####################################################################
+    # ###################################################################
     fn i32 PyObject_Print(object o, FILE *fp, i32 flags) except -1
     # Print an object o, on file fp. Returns -1 on error. The flags
     # argument is used to enable certain printing options. The only

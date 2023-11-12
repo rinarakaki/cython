@@ -53,7 +53,7 @@ def pythran_type(Ty, ptype="ndarray"):
             return "pythonic::types::%s<%s,pythonic::types::pshape<%s>>" % (ptype,ctype, ",".join(("long",)*ndim))
     if Ty.is_pythran_expr:
         return Ty.pythran_type
-    #if Ty.is_none:
+    # if Ty.is_none:
     #    return "decltype(pythonic::builtins::None)"
     if Ty.is_numeric:
         return Ty.sign_and_name()

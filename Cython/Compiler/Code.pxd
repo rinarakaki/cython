@@ -85,16 +85,16 @@ cdef class StringConst:
     #[cython.locals(intern=u2, is_str=u2, is_unicode=u2)]
     cpdef get_py_string_const(self, encoding, identifier=*, is_str=*, py3str_cstring=*)
 
-## cdef class PyStringConst:
-##     pub object cname
-##     pub object encoding
-##     pub u2 is_str
-##     pub u2 is_unicode
-##     pub u2 intern
+# cdef class PyStringConst:
+#     pub object cname
+#     pub object encoding
+#     pub u2 is_str
+#     pub u2 is_unicode
+#     pub u2 intern
 
-#class GlobalState(object):
+# class GlobalState(object):
 
-#def funccontext_property(name):
+# def funccontext_property(name):
 
 cdef class CCodeWriter(object):
     cdef readonly StringIOTree buffer

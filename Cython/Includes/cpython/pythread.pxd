@@ -39,7 +39,7 @@ extern from "pythread.h":
     fn void PyThread_ReInitTLS()
 
     # Thread Specific Storage (TSS) API in CPython 3.7+ (also backported)
-    #struct Py_tss_t: pass   # Cython built-in type
+    # struct Py_tss_t: pass   # Cython built-in type
     static Py_tss_t Py_tss_NEEDS_INIT        # Not normally useful: Cython auto-initialises declared "Py_tss_t" variables.
     fn Py_tss_t * PyThread_tss_alloc()
     fn void PyThread_tss_free(Py_tss_t *key)

@@ -4,7 +4,7 @@ extern from *:
     static const isize PY_SSIZE_T_MIN
     static const isize PY_SSIZE_T_MAX
 
-############################################################
+# ##########################################################
 # tests for char* slicing
 
 cdef const char* cstring = "abcABCqtp"

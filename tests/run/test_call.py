@@ -70,7 +70,7 @@ class CFunctionCalls(unittest.TestCase):
         else:
             raise RuntimeError
 
-    ### Cython makes this a compile time error
+    # ## Cython makes this a compile time error
     # def test_oldargs0_0_kw(self):
     #     try:
     #         {}.keys(x=2)

@@ -67,4 +67,4 @@ _ERRORS = u"""
 53:20: cdef variable 'var' declared after it is used
 """
 # FIXME not detected
-#37:13: cdef variable 'r' declared after it is used
+# 37:13: cdef variable 'r' declared after it is used

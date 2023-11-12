@@ -34,13 +34,13 @@ def test_Poly(i32 n, float radius=1):
     """
     >>> test_Poly(4)
     2.0
-    >>> test_Poly(3)         #doctest: +ELLIPSIS
+    >>> test_Poly(3)         # doctest: +ELLIPSIS
     1.29903...
-    >>> test_Poly(3, 10.0)   #doctest: +ELLIPSIS
+    >>> test_Poly(3, 10.0)   # doctest: +ELLIPSIS
     129.903...
-    >>> test_Poly(100)       #doctest: +ELLIPSIS
+    >>> test_Poly(100)       # doctest: +ELLIPSIS
     3.13952...
-    >>> test_Poly(1000)      #doctest: +ELLIPSIS
+    >>> test_Poly(1000)      # doctest: +ELLIPSIS
     3.14157...
     """
     let RegularPolygon* poly

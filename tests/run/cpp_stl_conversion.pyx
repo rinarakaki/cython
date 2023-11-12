@@ -106,7 +106,7 @@ def test_int_vector(o):
     [1, 10, 100]
     >>> test_int_vector(py_xrange(1,10,2))
     [1, 3, 5, 7, 9]
-    >>> test_int_vector([10**20])       #doctest: +ELLIPSIS
+    >>> test_int_vector([10**20])       # doctest: +ELLIPSIS
     Traceback (most recent call last):
     ...
     OverflowError: ...
@@ -173,13 +173,13 @@ def test_typedef_vector(o):
     """
     >>> test_typedef_vector([1, 2, 3])
     [1, 2, 3]
-    >>> test_typedef_vector([1, 2, 3**100])       #doctest: +ELLIPSIS
+    >>> test_typedef_vector([1, 2, 3**100])       # doctest: +ELLIPSIS
     Traceback (most recent call last):
     ...
     OverflowError: ...
 
     "TypeError: an integer is required" on CPython
-    >>> test_typedef_vector([1, 2, None])       #doctest: +ELLIPSIS
+    >>> test_typedef_vector([1, 2, None])       # doctest: +ELLIPSIS
     Traceback (most recent call last):
     ...
     TypeError: ...int...

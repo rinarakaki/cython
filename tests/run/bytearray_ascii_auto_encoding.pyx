@@ -1,5 +1,5 @@
-#cython: c_string_type = bytearray
-#cython: c_string_encoding = ascii
+# cython: c_string_type = bytearray
+# cython: c_string_encoding = ascii
 
 "End of first directives"
 

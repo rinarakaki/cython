@@ -53,7 +53,7 @@ extern from "<stdint.h>" nogil:
     static uint16_t UINT16_MAX
     static uint32_t UINT32_MAX
     static uint64_t UINT64_MAX
-    #7.18.2.2 Limits of minimum-width integer types
+    # 7.18.2.2 Limits of minimum-width integer types
     static int_least8_t     INT_LEAST8_MIN
     static int_least16_t   INT_LEAST16_MIN
     static int_least32_t   INT_LEAST32_MIN
@@ -66,7 +66,7 @@ extern from "<stdint.h>" nogil:
     static uint_least16_t UINT_LEAST16_MAX
     static uint_least32_t UINT_LEAST32_MAX
     static uint_least64_t UINT_LEAST64_MAX
-    #7.18.2.3 Limits of fastest minimum-width integer types
+    # 7.18.2.3 Limits of fastest minimum-width integer types
     static int_fast8_t     INT_FAST8_MIN
     static int_fast16_t   INT_FAST16_MIN
     static int_fast32_t   INT_FAST32_MIN
@@ -79,7 +79,7 @@ extern from "<stdint.h>" nogil:
     static uint_fast16_t UINT_FAST16_MAX
     static uint_fast32_t UINT_FAST32_MAX
     static uint_fast64_t UINT_FAST64_MAX
-    #7.18.2.4 Limits of integer types capable of holding object pointers
+    # 7.18.2.4 Limits of integer types capable of holding object pointers
     enum:  INTPTR_MIN
     enum:  INTPTR_MAX
     enum: UINTPTR_MAX

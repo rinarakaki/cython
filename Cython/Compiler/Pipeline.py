@@ -203,7 +203,7 @@ def create_pipeline(context, mode, exclude_classes=()):
         AnalyseDeclarationsTransform(context),
         AutoTestDictTransform(context),
         EmbedSignature(context),
-        EarlyReplaceBuiltinCalls(context),  ## Necessary?
+        EarlyReplaceBuiltinCalls(context),  # Necessary?
         TransformBuiltinMethods(context),
         MarkParallelAssignments(context),
         ControlFlowAnalysis(context),
@@ -218,8 +218,8 @@ def create_pipeline(context, mode, exclude_classes=()):
         ExpandInplaceOperators(context),
         IterationTransform(context),
         SwitchTransform(context),
-        OptimizeBuiltinCalls(context),  ## Necessary?
-        CreateClosureClasses(context),  ## After all lookups and type inference
+        OptimizeBuiltinCalls(context),  # Necessary?
+        CreateClosureClasses(context),  # After all lookups and type inference
         CalculateQualifiedNamesTransform(context),
         ConsolidateOverflowCheck(context),
         DropRefcountingTransform(),

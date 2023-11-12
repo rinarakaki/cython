@@ -116,9 +116,9 @@ extern from "<deque>" namespace "std" nogil:
         deque(deque&) except +
         deque(usize) except +
         deque(usize, T&) except +
-        #deque[InputIt](InputIt, InputIt)
+        # deque[InputIt](InputIt, InputIt)
         T& operator[](usize)
-        #deque& operator=(deque&)
+        # deque& operator=(deque&)
         u2 operator==(deque&, deque&)
         u2 operator!=(deque&, deque&)
         u2 operator<(deque&, deque&)
@@ -149,10 +149,10 @@ extern from "<deque>" namespace "std" nogil:
         void push_back(T&) except +
         void push_front(T&) except +
         reverse_iterator rbegin()
-        #const_reverse_iterator rbegin()
+        # const_reverse_iterator rbegin()
         const_reverse_iterator crbegin()
         reverse_iterator rend()
-        #const_reverse_iterator rend()
+        # const_reverse_iterator rend()
         const_reverse_iterator crend()
         void resize(usize) except +
         void resize(usize, T&) except +

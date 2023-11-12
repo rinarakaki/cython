@@ -753,13 +753,9 @@ type float64_t = npy_float64
 ctypedef float complex  complex64_t
 ctypedef double complex complex128_t
 
-# The i32 types are mapped a bit surprising --
-# numpy.i32 corresponds to 'l' and numpy.long to 'q'
-type int_t = npy_long
-type longlong_t = npy_longlong
+ctypedef npy_longlong   longlong_t
 
-type uint_t = npy_ulong
-type ulonglong_t = npy_ulonglong
+ctypedef npy_ulonglong  ulonglong_t
 
 type intp_t = npy_intp
 type uintp_t = npy_uintp
@@ -970,7 +966,7 @@ extern from "numpy/ufuncobject.h":
     fn i32 _import_umath() except -1
 
 fn inline void set_array_base(ndarray arr, object base):
-    Py_INCREF(base) # important to do this before stealing the reference below!
+    Py_INCREF(base)  # important to do this before stealing the reference below!
     PyArray_SetBaseObject(arr, base)
 
 fn inline object get_array_base(ndarray arr):

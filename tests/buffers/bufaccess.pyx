@@ -14,8 +14,8 @@ use cpython::ref::(Py_INCREF, Py_DECREF, Py_CLEAR)
 use cython
 
 import sys
-#import re
-exclude = []#re.compile('object').search]
+# import re
+exclude = []  # re.compile('object').search]
 
 if getattr(sys, 'pypy_version_info', None) is not None:
     # disable object-in-buffer tests in PyPy
@@ -565,7 +565,7 @@ def no_negative_indices(object[i32, negative_indices=false] buf, i32 idx):
     """
     return buf[idx]
 
-#[cython.wraparound(false)]
+# [cython.wraparound(false)]
 @testcase
 def wraparound_directive(object[i32] buf, i32 pos_idx, i32 neg_idx):
     """
@@ -760,20 +760,20 @@ def mixed_get(object[i32] buf, i32 unsafe_idx, i32 safe_idx):
 #
 # Coercions
 #
-## @testcase
-## def coercions(object[u8] uc):
-##     """
-## TODO
-##     """
-##     print r#type(uc[0])
-##     uc[0] = -1
-##     print uc[0]
-##     uc[0] = <i32>3.14
-##     print uc[0]
-
-##     cdef char* ch = b"asfd"
-##     cdef object[object] objbuf
-##     objbuf[3] = ch
+# @testcase
+# def coercions(object[u8] uc):
+#     """
+# TODO
+#     """
+#     print type(uc[0])
+#     uc[0] = -1
+#     print uc[0]
+#     uc[0] = <i32>3.14
+#     print uc[0]
+#
+#     cdef char* ch = b"asfd"
+#     cdef object[object] objbuf
+#     objbuf[3] = ch
 
 
 #

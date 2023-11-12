@@ -31,7 +31,7 @@ class TestCdefAttr(object):
     >>> TestCdefAttr.cdefval1
     11
 
-    >>> #TestCdefAttr.cdefval2
+    >>> # TestCdefAttr.cdefval2
     """
     cdefvar = 11
     cdefval1 = cdefvar
