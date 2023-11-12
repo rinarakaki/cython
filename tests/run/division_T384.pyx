@@ -9,7 +9,7 @@ use cython
 
 ctypedef isize index_t
 
-ctypedef double complex mycomplex
+ctypedef c128 mycomplex
 
 struct MyStruct:
     mycomplex a, b
@@ -18,5 +18,5 @@ struct MyStruct:
 def test(index_t x):
     let index_t y = x // 2
     let MyStruct s
-    s.a = x + y*1j
+    s.a = x + y * 1j
     return s.a

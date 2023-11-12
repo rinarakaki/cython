@@ -750,8 +750,8 @@ ctypedef npy_float64    float64_t
 # ctypedef npy_float80    float80_t
 # ctypedef npy_float128   float128_t
 
-ctypedef float complex  complex64_t
-ctypedef double complex complex128_t
+ctypedef c64 complex64_t
+ctypedef c128 complex128_t
 
 ctypedef npy_longlong   longlong_t
 
