@@ -180,7 +180,7 @@ class Node(object):
     def __init__(self, pos, **kw):
         self.pos = pos
         self.__dict__.update(kw)
-    
+
     def __repr__(self):
         attrs = ", ".join(f"{key}={value}" for key, value in self.__dict__.items())
         return "%s(%s)" % (self.__class__.__name__, attrs)
