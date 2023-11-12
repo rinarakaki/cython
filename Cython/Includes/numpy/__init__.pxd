@@ -552,7 +552,7 @@ extern from "numpy/arrayobject.h":
     # Functions taking dtype and returning object/ndarray are disabled
     # for now as they steal dtype references. I'm conservative and disable
     # more than is probably needed until it can be checked further.
-    fn i32 PyArray_SetNumericOps       (object)
+    fn i32 PyArray_SetNumericOps(object)
     fn object PyArray_GetNumericOps()
     fn i32 PyArray_INCREF(ndarray)
     fn i32 PyArray_XDECREF(ndarray)
