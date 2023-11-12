@@ -1,4 +1,4 @@
-git+https://github.com/rnarkk/numpy.git@comments
+numpy
 coverage
 pycodestyle
 pytest
