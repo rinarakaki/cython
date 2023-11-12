@@ -457,7 +457,7 @@ class PyrexScanner(Scanner):
                     self.keywords.pop('exec', None)
                 else:
                     sy = self.keywords[systring]  # intern
-            elif 0 and systring.startswith("r#"):
+            elif systring.startswith("r#"):
                 systring = systring[2:]
             systring = self.context.intern_ustring(systring)
         if self.put_back_on_failure is not None:
