@@ -2629,7 +2629,7 @@ def p_positional_and_keyword_args(s, end_sy_set, templates = None):
 
         parsed_type = False
         if s.sy == 'IDENT' and s.peek()[0] == '=':
-            ident = s.systring
+            ident = s.symbol
             s.next()  # s.sy is '='
             s.next()
             if looking_at_expr(s):
@@ -2770,7 +2770,7 @@ def p_c_simple_base_type(s, nonempty, templates=None):
             s.next()
     elif looking_at_dotted_name(s):
         # print "p_c_simple_base_type: looking_at_type_name at", s.position()
-        name = s.systring
+        name = s.symbol
         s.next()
         while s.sy in (".", "::"):
             module_path.append(name)
@@ -3518,8 +3518,8 @@ def p_c_struct_or_union_definition(s, pos, ctx):
         s.next()
         if s.sy != "struct":
             s.expected('struct')
-    # s.sy == ident 'struct' or 'union'
-    kind = s.systring
+    # s.sy == 'struct' or 'union'
+    kind = s.sy
     s.next()
     name = p_ident(s)
     cname = p_opt_cname(s)
