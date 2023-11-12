@@ -6,7 +6,7 @@ pub struct Foo:
 struct Blarg:
     i32 c, d
 
-pub type Zax = Foo 
+ctypedef pub Foo Zax
 
 pub class C[type C_Type, object C_Obj]:
     pass
