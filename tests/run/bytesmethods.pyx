@@ -1,8 +1,8 @@
 use cython
 
 extern from *:
-    const isize PY_SSIZE_T_MIN
-    const isize PY_SSIZE_T_MAX
+    static const isize PY_SSIZE_T_MIN
+    static const isize PY_SSIZE_T_MAX
 
 SSIZE_T_MAX = PY_SSIZE_T_MAX
 SSIZE_T_MIN = PY_SSIZE_T_MIN
@@ -11,12 +11,9 @@ SSIZE_T_MIN = PY_SSIZE_T_MIN
 b_a = b'a'
 b_b = b'b'
 
-import sys
 
-@cython.test_assert_path_exists(
-    "//PythonCapiCallNode")
-@cython.test_fail_if_path_exists(
-    "//SimpleCallNode")
+#[cython::test_assert_path_exists("//PythonCapiCallNode")]
+#[cython::test_fail_if_path_exists("//SimpleCallNode")]
 def bytes_startswith(bytes s, sub, start=None, stop=None):
     """
     >>> bytes_startswith(b_a, b_a)
@@ -42,9 +39,9 @@ def bytes_startswith(bytes s, sub, start=None, stop=None):
     else:
       return s.startswith(sub, start, stop)
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//PythonCapiCallNode")
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//SimpleCallNode")
 def bytes_endswith(bytes s, sub, start=None, stop=None):
     """
@@ -71,9 +68,9 @@ def bytes_endswith(bytes s, sub, start=None, stop=None):
     else:
       return s.endswith(sub, start, stop)
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//PythonCapiCallNode")
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//SimpleCallNode")
 def bytes_decode(bytes s, start=None, stop=None):
     """
@@ -166,9 +163,9 @@ def bytes_decode(bytes s, start=None, stop=None):
     else:
         return s[start:stop].decode('utf8')
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//PythonCapiCallNode")
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//SimpleCallNode")
 def bytes_decode_utf16(bytes s):
     """
@@ -178,9 +175,9 @@ def bytes_decode_utf16(bytes s):
     """
     return s.decode('utf16')
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//PythonCapiCallNode")
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//SimpleCallNode")
 def bytes_decode_utf16_le(bytes s):
     """
@@ -191,9 +188,9 @@ def bytes_decode_utf16_le(bytes s):
     """
     return s.decode('utf_16_le')
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//PythonCapiCallNode")
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//SimpleCallNode")
 def bytes_decode_utf16_be(bytes s):
     """
@@ -204,9 +201,9 @@ def bytes_decode_utf16_be(bytes s):
     """
     return s.decode('utf_16_be')
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//PythonCapiCallNode")
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//SimpleCallNode")
 def bytes_decode_unbound_method(bytes s, start=None, stop=None):
     """
@@ -243,7 +240,7 @@ def bytes_decode_unbound_method(bytes s, start=None, stop=None):
     else:
         return bytes.decode(s[start:stop], 'utf8')
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//SimpleCallNode",
     "//SimpleCallNode//NoneCheckNode",
     "//SimpleCallNode//AttributeNode[@is_py_attr = false]")
@@ -256,10 +253,10 @@ def bytes_join(bytes s, *args):
     assert cython.typeof(result) == 'Python object', cython.typeof(result)
     return result
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//SimpleCallNode//NoneCheckNode",
 )
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//SimpleCallNode",
     "//SimpleCallNode//AttributeNode[@is_py_attr = false]")
 def literal_join(*args):
@@ -277,6 +274,4 @@ def fromhex(bytes b):
     Optimization of bound method calls was breaking classmethods
     >>> fromhex(b"")
     """
-    if sys.version_info[0] > 2:
-        assert b.fromhex('2Ef0 F1f2  ') == b'.\xf0\xf1\xf2'
-    # method doesn't exist on Py2!
+    assert b.fromhex('2Ef0 F1f2  ') == b'.\xf0\xf1\xf2'

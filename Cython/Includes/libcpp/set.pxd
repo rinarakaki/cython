@@ -67,8 +67,8 @@ extern from "<set>" namespace "std" nogil:
 
         set() except +
         set(set&) except +
-        #set(key_compare&)
-        #set& operator=(set&)
+        # set(key_compare&)
+        # set& operator=(set&)
         u2 operator==(set&, set&)
         u2 operator!=(set&, set&)
         u2 operator<(set&, set&)
@@ -97,7 +97,7 @@ extern from "<set>" namespace "std" nogil:
         iterator insert(const_iterator, const T&) except +
         iterator const_insert "insert"(const_iterator, const T&) except +
         void insert[InputIt](InputIt, InputIt) except +
-        #key_compare key_comp()
+        # key_compare key_comp()
         iterator lower_bound(const T&)
         const_iterator const_lower_bound "lower_bound"(const T&)
         usize max_size()
@@ -111,7 +111,7 @@ extern from "<set>" namespace "std" nogil:
         void swap(set&)
         iterator upper_bound(const T&)
         const_iterator const_upper_bound "upper_bound"(const T&)
-        #value_compare value_comp()
+        # value_compare value_comp()
         # C++20
         u2 contains(const T&)
 
@@ -181,8 +181,8 @@ extern from "<set>" namespace "std" nogil:
 
         multiset() except +
         multiset(multiset&) except +
-        #multiset(key_compare&)
-        #multiset& operator=(multiset&)
+        # multiset(key_compare&)
+        # multiset& operator=(multiset&)
         u2 operator==(multiset&, multiset&)
         u2 operator!=(multiset&, multiset&)
         u2 operator<(multiset&, multiset&)
@@ -210,7 +210,7 @@ extern from "<set>" namespace "std" nogil:
         iterator insert(iterator, const T&) except +
         iterator const_insert "insert"(const_iterator, const T&) except +
         void insert[InputIt](InputIt, InputIt) except +
-        #key_compare key_comp()
+        # key_compare key_comp()
         iterator lower_bound(const T&)
         const_iterator const_lower_bound "lower_bound"(const T&)
         usize max_size()

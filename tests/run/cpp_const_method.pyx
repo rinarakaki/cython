@@ -8,9 +8,9 @@ cdef cppclass Wrapper[T]:
     T value
     __init__(T &value):
         this.value = value
-    void set(T &value):
+    fn void set(T &value):
         this.value = value
-    T get() const:
+    fn T get() const:
         return this.value
 
 def test_const_get(i32 x):

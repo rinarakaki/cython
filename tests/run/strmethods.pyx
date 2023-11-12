@@ -1,6 +1,6 @@
 use cython
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//PythonCapiCallNode")
 def str_startswith(str s, sub, start=None, stop=None):
     """
@@ -27,7 +27,7 @@ def str_startswith(str s, sub, start=None, stop=None):
     else:
       return s.startswith(sub, start, stop)
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//PythonCapiCallNode")
 def str_endswith(str s, sub, start=None, stop=None):
     """
@@ -75,7 +75,7 @@ def str_as_name(str):
     return str.endswith("x")
 
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//SimpleCallNode",
     "//SimpleCallNode//NoneCheckNode",
     "//SimpleCallNode//AttributeNode[@is_py_attr = false]")
@@ -89,10 +89,10 @@ def str_join(str s, args):
     return result
 
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//SimpleCallNode//NoneCheckNode",
 )
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//SimpleCallNode",
     "//SimpleCallNode//AttributeNode[@is_py_attr = false]")
 def literal_join(args):

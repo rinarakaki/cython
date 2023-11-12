@@ -5,18 +5,7 @@
 import cython
 
 
-import sys
-IS_PY2 = sys.version_info < (3, 0)
-
-
-def print_big_ints(t):
-    s = repr(t)
-    if IS_PY2:
-        s = s.replace('L', '')
-    print(s)
-
-
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//UnaryMinusNode",
     "//UnaryPlusNode",
 )
@@ -35,7 +24,7 @@ def unop_floats():
     return not1, plus1, minus1, not3, plus3, minus3, mix
 
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//UnaryMinusNode",
     "//UnaryPlusNode",
     "//CoerceToPyTypeNode",
@@ -55,7 +44,7 @@ def unop_py_floats_tuple():
         +-++-- 2.0)
 
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//UnaryMinusNode",
     "//UnaryPlusNode",
 )
@@ -74,7 +63,7 @@ def unop_ints():
     return not1, plus1, minus1, not3, plus3, minus3, mix
 
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//UnaryMinusNode",
     "//UnaryPlusNode",
     "//NotNode",
@@ -94,7 +83,7 @@ def unop_bool():
     return not1, plus1, minus1, not3, plus3, minus3, mix
 
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//AddNode",
     "//SubNode",
 )
@@ -120,13 +109,13 @@ def binop_bool():
     return plus1, pmix1, minus1, and1, or1, ormix1, xor1, plus3, pmix3, minus3, and3, or3, ormix3, xor3
 
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//MulNode",
     "//PowNode",
 )
 def binop_mul_pow():
     """
-    >>> print_big_ints(binop_mul_pow())
+    >>> binop_mul_pow()
     (800, 12193263111263526900, 248832, 12467572902176589255564000298710470656)
     """
     mul_int = 20 * 40
@@ -138,7 +127,7 @@ def binop_mul_pow():
 
 def binop_pow_negative():
     """
-    >>> print_big_ints(binop_pow_negative())
+    >>> binop_pow_negative()
     (4.018775720164609e-06, 8.020807320287816e-38, 0.1)
     """
     pow_int = 12 ** -5
@@ -147,7 +136,7 @@ def binop_pow_negative():
     return (pow_int, pow_large_int, pow_expression_int)
 
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//SliceIndexNode",
 )
 def slicing2():
@@ -168,7 +157,7 @@ def slicing2():
     return lst0, lst1, lst2, lst3, tpl0, tpl1, tpl2, tpl3
 
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//SliceIndexNode",
 )
 def str_slicing2():
@@ -191,7 +180,7 @@ def str_slicing2():
     return str0, str1, str2, str3
 
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//IfStatNode",
 )
 def str_in_and_not_in():
@@ -203,7 +192,7 @@ def str_in_and_not_in():
     else: return False
 
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//WhileStatNode",
 )
 def while_false():
@@ -214,7 +203,7 @@ def while_false():
         return False
 
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//WhileStatNode",
     )
 def while_false_else():
@@ -228,13 +217,13 @@ def while_false_else():
         return True
 
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//WhileStatNode//PrintStatNode",
     "//WhileStatNode//PrimaryCmpNode",
     "//WhileStatNode/BoolNode",
     "//WhileStatNode/IntNode",
 )
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//WhileStatNode",
 )
 def while_true():
@@ -248,7 +237,7 @@ def while_true():
         print("FAIL")
 
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//ForInStatNode",
 )
 def for_in_empty():
@@ -259,7 +248,7 @@ def for_in_empty():
         print("LOOP")
 
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//ForInStatNode",
 )
 def for_in_empty_else():
@@ -273,11 +262,11 @@ def for_in_empty_else():
         return True
 
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//ComprehensionNode",
     "//ForInStatNode",
 )
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//ListNode",
 )
 def for_in_empty_listcomp():
@@ -288,11 +277,11 @@ def for_in_empty_listcomp():
     return [i for i in []]
 
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//ComprehensionNode",
     "//ForInStatNode",
 )
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//ListNode",
 )
 def for_in_empty_nested_listcomp():
@@ -303,10 +292,10 @@ def for_in_empty_nested_listcomp():
     return [x for _ in [] for x in [1, 2, 3]]
 
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//ForInStatNode//ForInStatNode",
 )
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//ForInStatNode",
     "//ComprehensionNode",
 )
@@ -318,7 +307,7 @@ def for_in_nested_listcomp():
     return [x for x in [1, 2, 3] for _ in []]
 
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//MulNode",
 )
 def mult_empty_list():
@@ -329,7 +318,7 @@ def mult_empty_list():
     return 5 * [] * 100
 
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//MulNode",
 )
 def mult_list_int_int():
@@ -340,7 +329,7 @@ def mult_list_int_int():
     return [1, 2] * 2 * 3
 
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//MulNode",
 )
 def mult_int_list_int():
@@ -351,7 +340,7 @@ def mult_int_list_int():
     return 3 * [1, 2] * 2
 
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//MulNode",
     "//ListNode//IntNode",
 )
@@ -363,7 +352,7 @@ def neg_mult_list():
     return -5 * [1, 2] * -100
 
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//MulNode",
     "//ListNode//IntNode",
 )
@@ -375,10 +364,10 @@ def zero_mult_list():
     return 0 * [1, 2] * 0
 
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//BoolNode",
 )
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//PrimaryCmpNode",
     "//MulNode",
     "//ListNode//IntNode",
@@ -391,10 +380,10 @@ def in_mult_list():
     return 5 in 100 * [1, 2] * 0
 
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//BoolNode",
 )
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//PrimaryCmpNode",
     "//MulNode",
     "//ListNode//IntNode",
@@ -407,10 +396,10 @@ def not_in_mult_list():
     return 5 not in 100 * [1, 2] * 0
 
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//BoolNode",
 )
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//PrimaryCmpNode",
     "//MulNode",
     "//ListNode//IntNode",
@@ -423,7 +412,7 @@ def combined():
     return 5 in 100 * [1, 2] * 0  or  5 not in 100 * [] * 10
 
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     '//IntNode[@base_10_value = "2"]',
     '//IntNode[@base_10_value = "4"]',
     '//IntNode[@base_10_value = "5"]',
@@ -433,7 +422,7 @@ def combined():
     '//PrimaryCmpNode[.//IntNode[@base_10_value = "2"] and .//IntNode[@base_10_value = "4"]]',
     '//PrimaryCmpNode[.//IntNode[@base_10_value = "5"] and .//IntNode[@base_10_value = "7"]]',
 )
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     '//IntNode[@base_10_value = "1"]',
     '//IntNode[@base_10_value = "8"]',
     '//PrimaryCmpNode[.//IntNode[@base_10_value = "4"] and .//IntNode[@base_10_value = "5"]]',
@@ -456,7 +445,7 @@ def cascaded_cmp_with_partial_constants(a, b):
     return 1 < 2 < a < 4 < 5 < b < 7 < 8
 
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     '//IntNode[@base_10_value = "2"]',
     '//IntNode[@base_10_value = "4"]',
     '//IntNode[@base_10_value = "5"]',
@@ -468,7 +457,7 @@ def cascaded_cmp_with_partial_constants(a, b):
     '//BoolBinopNode[.//PrimaryCmpNode//IntNode[@base_10_value = "4"] and .//PrimaryCmpNode//IntNode[@base_10_value = "5"]]',
     '//BoolNode[@value = False]',
 )
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     '//SingleAssignmentNode//NameNode[@name = "c"]',
     '//IntNode[@base_10_value = "1"]',
     '//PrimaryCmpNode[.//IntNode[@base_10_value = "4"] and .//IntNode[@base_10_value = "5"]]',
@@ -490,13 +479,13 @@ def cascaded_cmp_with_partial_constants_and_false_end(a, b, c):
     return x
 
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     '//PrimaryCmpNode',
     '//PrimaryCmpNode//IntNode',
     '//PrimaryCmpNode//IntNode[@base_10_value = "0"]',
     '//PrimaryCmpNode//IntNode[@base_10_value = "4294967296"]',
 )
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     '//PrimaryCmpNode//IntBinopNode',
     '//PrimaryCmpNode//IntNode[@base_10_value = "1"]',
     '//PrimaryCmpNode//IntNode[@base_10_value = "32"]',

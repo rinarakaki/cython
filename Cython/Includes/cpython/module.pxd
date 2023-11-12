@@ -3,9 +3,9 @@ use super::object::PyObject
 extern from "Python.h":
     struct _inittab
 
-    #####################################################################
+    # ###################################################################
     # 5.3 Importing Modules
-    #####################################################################
+    # ###################################################################
     fn object PyImport_ImportModule(const char *name)
     # Return value: New reference.
     # This is a simplified interface to PyImport_ImportModuleEx()
@@ -126,9 +126,9 @@ extern from "Python.h":
     # are added to the internal table. This should be called before
     # Py_Initialize().
 
-    #####################################################################
+    # ###################################################################
     # 7.5.5 Module Objects
-    #####################################################################
+    # ###################################################################
 
     # PyTypeObject PyModule_Type
     #

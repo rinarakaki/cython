@@ -22,7 +22,7 @@ def test_parallel_numpy_arrays():
     4
     """
     let isize i, length
-    let np.ndarray[np.int_t] x
+    let np.ndarray[np.npy_long] x
 
     try:
         import numpy
@@ -31,7 +31,7 @@ def test_parallel_numpy_arrays():
             print i
         return
 
-    x = numpy.zeros(10, dtype=numpy.int_)
+    x = numpy.zeros(10, dtype=numpy.long)
     length = x.shape[0]
 
     for i in prange(length, nogil=true):

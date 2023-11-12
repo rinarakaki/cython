@@ -36,22 +36,22 @@ cdef class NonFinalSubType(ExtType):
 import cython
 
 class ExtType(object):
-    @cython.test_assert_path_exists("//CFuncDefNode[@entry.is_final_cmethod=True]")
+    @cython::test_assert_path_exists("//CFuncDefNode[@entry.is_final_cmethod=True]")
     def final_func(self):
         return 1
 
 class FinalExtType(object):
-    @cython.test_assert_path_exists("//CFuncDefNode[@entry.is_final_cmethod=True]")
+    @cython::test_assert_path_exists("//CFuncDefNode[@entry.is_final_cmethod=True]")
     def func(self):
         return 2
 
 class FinalExtSubType(ExtType):
-    @cython.test_assert_path_exists("//CFuncDefNode[@entry.is_final_cmethod=True]")
+    @cython::test_assert_path_exists("//CFuncDefNode[@entry.is_final_cmethod=True]")
     def func(self):
         return 3
 
 class NonFinalSubType(ExtType):
-    @cython.test_assert_path_exists("//CFuncDefNode[@entry.is_final_cmethod=True]")
+    @cython::test_assert_path_exists("//CFuncDefNode[@entry.is_final_cmethod=True]")
     @cython::final
     def func(self):
         return 4

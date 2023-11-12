@@ -9,16 +9,16 @@ extern from "Python.h":
     #endif
     """
 
-    ############################################################################
+    # ##########################################################################
     # 7.4.1 Dictionary Objects
-    ############################################################################
+    # ##########################################################################
 
     # PyDictObject
     #
     # This subtype of PyObject represents a Python dictionary object
     # (i.e. the 'dict' type).
 
-    # PyTypeObject PyDict_Type
+    # static PyTypeObject PyDict_Type
     #
     # This instance of PyTypeObject represents the Python dictionary
     # type. This is exposed to Python programs as dict and
@@ -134,13 +134,13 @@ extern from "Python.h":
     # sparse, the offsets are not consecutive.
     # For example:
     #
-    #object key, *value;
-    #int pos = 0;
+    # object key, *value;
+    # int pos = 0;
     #
-    #while (PyDict_Next(self->dict, &pos, &key, &value)) {
+    # while (PyDict_Next(self->dict, &pos, &key, &value)) {
     #   /* do something interesting with the values... */
     #    ...
-    #}
+    # }
     # The dictionary p should not be mutated during iteration. It is
     # safe (since Python 2.1) to modify the values of the keys as you
     # iterate over the dictionary, but only so long as the set of keys
@@ -180,7 +180,7 @@ extern from "Python.h":
     # wins. Return 0 on success or -1 if an exception was
     # raised. Equivalent Python (except for the return value):
     #
-    #def PyDict_MergeFromSeq2(a, seq2, override):
+    # def PyDict_MergeFromSeq2(a, seq2, override):
     #    for key, value in seq2:
     #        if override or key not in a:
     #            a[key] = value

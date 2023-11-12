@@ -115,7 +115,7 @@ def test_plus_one():
     (1+1j)
     """
 
-###### Test flow-control ######
+# #### Test flow-control ######
 # An initial implementation of ufunc did some odd restructuring of the code to
 # bring the functions completely inline at the Cython level. These tests were to
 # test that "return" statements work. They're less needed now, but don't do any

@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 
 #
 #   Updates Cython's Lexicon.py with the unicode characters that are accepted as

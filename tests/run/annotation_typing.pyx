@@ -165,11 +165,11 @@ def struct_io(s : MyStruct) -> MyStruct:
     t.x, t.y = s.y, s.x
     return t
 
-#[cython.test_fail_if_path_exists(
+#[cython::test_fail_if_path_exists(
     "//CoerceFromPyTypeNode",
     "//SimpleCallNode//CoerceToPyTypeNode",
 )]
-#[cython.test_assert_path_exists(
+#[cython::test_assert_path_exists(
     "//CoerceToPyTypeNode",
     "//CoerceToPyTypeNode//SimpleCallNode",
 )]
@@ -184,7 +184,7 @@ def call_struct_io(s : MyStruct) -> MyStruct:
     """
     return struct_io(s)
 
-#[cython.test_assert_path_exists(
+#[cython::test_assert_path_exists(
     "//CFuncDefNode",
     "//CFuncDefNode//DefNode",
     "//CFuncDefNode[@return_type]",
@@ -202,7 +202,7 @@ def struct_convert(d) -> MyStruct:
     """
     return d
 
-#[cython.test_assert_path_exists(
+#[cython::test_assert_path_exists(
     "//CFuncDefNode",
     "//CFuncDefNode//DefNode",
     "//CFuncDefNode[@return_type]",
@@ -231,7 +231,7 @@ def call_exception_default(raise_exc=false):
     """
     return exception_default(raise_exc)
 
-#[cython.test_assert_path_exists(
+#[cython::test_assert_path_exists(
     "//CFuncDefNode",
     "//CFuncDefNode//DefNode",
     "//CFuncDefNode[@return_type]",

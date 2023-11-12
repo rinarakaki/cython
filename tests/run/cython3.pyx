@@ -12,7 +12,7 @@ __doc__ = """
 ...     print('%s = %r' % item)
 a = 1
 b = 2
-x = u'abc'
+x = 'abc'
 
 >>> except_as_deletes
 True
@@ -21,18 +21,13 @@ True
 True
 """
 
-import sys
-IS_PY2 = sys.version_info[0] < 3
-if not IS_PY2:
-    __doc__ = __doc__.replace(" u'", " '")
-
 
 def locals_function(a, b=2):
     x = 'abc'
     return locals()
 
 
-### "new style" classes
+# ## "new style" classes
 
 class T:
     """
@@ -44,7 +39,7 @@ class T:
     """
 
 
-### true division
+# ## true division
 
 def truediv(x):
     """
@@ -77,7 +72,7 @@ def cdiv_int(i32 x):
     return x / 2
 
 
-### module level except-as tests
+# ## module level except-as tests
 
 exc = [None]
 e = None
@@ -110,7 +105,7 @@ except TypeError:
 no_match_does_not_touch_target = (e == 123)
 
 
-### more except-as tests
+# ## more except-as tests
 
 def except_as_no_raise_does_not_touch_target(a):
     """
@@ -298,7 +293,7 @@ def nested_except_gh3666(a=false, b=false):
             return "B-V-T"
 
 
-### Py3 feature tests
+# ## Py3 feature tests
 
 def print_function(*args):
     """
@@ -545,10 +540,10 @@ def dict_comp():
 
 
 # in Python 3, d.keys/values/items() are the iteration methods
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//WhileStatNode",
     "//WhileStatNode//DictIterationNextNode")
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//ForInStatNode")
 def dict_iter(dict d):
     """
@@ -570,10 +565,10 @@ def dict_iter(dict d):
     return keys, values, items
 
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//WhileStatNode",
     "//WhileStatNode//DictIterationNextNode")
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//ForInStatNode")
 def dict_iter_new_dict():
     """

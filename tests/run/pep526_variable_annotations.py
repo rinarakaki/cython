@@ -97,11 +97,11 @@ T = TypeVar('T')
 
 
 # FIXME: this fails in Py3.7 now
-#class Box(Generic[T]):
+# class Box(Generic[T]):
 #    def __init__(self, content):
 #        self.content: T = content
 #
-#box = Box(content=5)
+# box = Box(content=5)
 
 
 class Cls(object):
@@ -120,7 +120,7 @@ d['b']: int      # Annotates d['b'] with int.
 (y): int = 0  # Same situation here.
 
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//WhileStatNode",
     "//WhileStatNode//DictIterationNextNode",
 )
@@ -139,7 +139,7 @@ def iter_declared_dict(d):
     return s
 
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//WhileStatNode",
     "//WhileStatNode//DictIterationNextNode",
 )

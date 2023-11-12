@@ -409,8 +409,8 @@ cdef fused int_t:
 def test_pylong(int_t i):
     """
     >>> import cython
-    >>> try:    long = long # Python 2
-    ... except: long = int  # Python 3
+    >>> try:    long = long  # Python 2
+    ... except: long = int   # Python 3
 
     >>> test_pylong[int](int(0))
     int
@@ -525,7 +525,7 @@ def test_fused_in_check():
     print(in_check_2[f32, f64](1.0, 2.0))
     print(in_check_3[f32](1.0))
 
-### see GH3642 - presence of cdef inside "unrelated" caused a type to be incorrectly inferred
+# see GH3642 - presence of cdef inside "unrelated" caused a type to be incorrectly inferred
 fn unrelated(cython.floating x):
     let cython.floating t = 1
     return t
