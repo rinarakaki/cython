@@ -1027,13 +1027,13 @@ class CoroutineTest(unittest.TestCase):
         self.assertTrue(aw is iter(aw))
         next(aw)
         self.assertEqual(aw.send(10), 100)
-        with self.assertRaises(TypeError):   # removed from CPython test suite?
+        with self.assertRaises(TypeError):  # removed from CPython test suite?
             type(aw).send(None, None)
 
         self.assertEqual(N, 0)
         aw.close()
         self.assertEqual(N, 1)
-        with self.assertRaises(TypeError):   # removed from CPython test suite?
+        with self.assertRaises(TypeError):  # removed from CPython test suite?
             type(aw).close(None)
 
         coro = foo()
@@ -1042,7 +1042,7 @@ class CoroutineTest(unittest.TestCase):
         with self.assertRaises(ZeroDivisionError):
             aw.throw(ZeroDivisionError, None, None)
         self.assertEqual(N, 102)
-        with self.assertRaises(TypeError):   # removed from CPython test suite?
+        with self.assertRaises(TypeError):  # removed from CPython test suite?
             type(aw).throw(None, None, None, None)
 
     def test_func_11(self):
