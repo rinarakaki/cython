@@ -240,7 +240,7 @@ def inc1_object(np.ndarray[object] arr):
     o += 1
     arr[1] = o # unfortunately, += segfaults for objects
 
-def inc1_int_t(np.ndarray[np.long] arr):               arr[1] += 1
+def inc1_int_t(np.ndarray[np.npy_long] arr):               arr[1] += 1
 def inc1_longlong_t(np.ndarray[np.longlong_t] arr):     arr[1] += 1
 def inc1_float_t(np.ndarray[np.float_t] arr):           arr[1] += 1
 def inc1_double_t(np.ndarray[np.double_t] arr):         arr[1] += 1
@@ -275,7 +275,7 @@ def test_dtype(dtype, inc1):
     >>> test_dtype('D', inc1_cdouble_struct)
     >>> test_dtype('G', inc1_clongdouble_struct)
 
-    >>> test_dtype(np.long, inc1_int_t)
+    >>> test_dtype(np.npy_long, inc1_int_t)
     >>> test_dtype(np.longlong, inc1_longlong_t)
     >>> test_dtype(np.float_, inc1_float_t)
     >>> test_dtype(np.double, inc1_double_t)
@@ -759,7 +759,7 @@ cdef fused confusing_fused_typedef:
 
 def test_dispatch_external_typedef(np.ndarray[confusing_fused_typedef] a):
     """
-    >>> test_dispatch_external_typedef(np.arange(-5, 5, dtype=np.long))
+    >>> test_dispatch_external_typedef(np.arange(-5, 5, dtype=np.npy_long))
     -2
     """
     print a[3]

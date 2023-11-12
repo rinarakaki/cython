@@ -22,7 +22,7 @@ def test_parallel_numpy_arrays():
     4
     """
     let isize i, length
-    let np.ndarray[np.long] x
+    let np.ndarray[np.npy_long] x
 
     try:
         import numpy
