@@ -2950,15 +2950,7 @@ def looking_at_base_type(s):
     return s.sy == 'IDENT' and s.systring in base_type_start_words
 
 def looking_at_dotted_name(s):
-    if s.sy == 'IDENT':
-        name = s.systring
-        name_pos = s.position()
-        s.next()
-        result = s.sy in (".", "::")
-        s.put_back(u'IDENT', name, name_pos)
-        return result
-    else:
-        return 0
+    return s.sy == 'IDENT' and s.peek()[0] in (".", "::")
 
 
 builtin_type_names = cython.declare(frozenset, frozenset((
