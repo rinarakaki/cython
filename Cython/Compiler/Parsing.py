@@ -2448,7 +2448,7 @@ def p_statement(s, ctx, first_statement = 0):
         s.level = ctx.level
         decorators = p_attributes(s)
 
-    if s.systring == "type":
+    if s.systring == "type" and s.peek()[0] == "IDENT":
         if ctx.level not in ("module", "module_pxd"):
             s.error("type statement not allowed here")
         return p_type_statement(s, ctx)
