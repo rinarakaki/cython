@@ -101,13 +101,13 @@ def make_lexicon():
 
         (beginstring, Method('begin_string_action')),
 
-        (comment, IGNORE),
+        # (comment, IGNORE),
         (spaces, IGNORE),
         (escaped_newline, IGNORE),
 
         State('INDENT', [
             (comment + lineterm, Method('commentline')),
-            (Opt(spaces) + Opt(comment) + lineterm, IGNORE),
+            (spaces + Opt(comment) + lineterm, IGNORE),
             (indentation, Method('indentation_action')),
             (Eof, Method('eof_action'))
         ]),
