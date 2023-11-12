@@ -24,7 +24,7 @@ class Map(object):
 
 # ## tuples
 
-#[cython.test_fail_if_path_exists(
+#[cython::test_fail_if_path_exists(
     "//TupleNode//TupleNode",
     "//MergedSequenceNode",
 )]
@@ -42,7 +42,7 @@ def unpack_tuple_literal_mult():
     """
     return (*((1, 2, *((4, 5) * 2)) * 3),)
 
-#[cython.test_fail_if_path_exists(
+#[cython::test_fail_if_path_exists(
     "//TupleNode//TupleNode",
     "//MergedSequenceNode",
 )]
@@ -153,7 +153,7 @@ def unpack_tuple_in_string_formatting(a, *args):
 
 # ## lists
 
-#[cython.test_fail_if_path_exists(
+#[cython::test_fail_if_path_exists(
     "//ListNode//ListNode",
     "//MergedSequenceNode",
 )]
@@ -187,7 +187,7 @@ def unpack_list_tuple_bad_mult():
     """
     return [*(1,) * 1.5]
 
-#[cython.test_fail_if_path_exists(
+#[cython::test_fail_if_path_exists(
     "//ListNode//ListNode",
     "//MergedSequenceNode",
 )]
@@ -289,7 +289,7 @@ def unpack_starred_arg_for_in_operator(x, l, m):
 
 # #### sets
 
-#[cython.test_fail_if_path_exists(
+#[cython::test_fail_if_path_exists(
     "//SetNode//SetNode",
     "//MergedSequenceNode",
 )]
@@ -411,7 +411,7 @@ def unpack_set_keep_originals(a, b, c):
 
 # ## dicts
 
-#[cython.test_fail_if_path_exists(
+#[cython::test_fail_if_path_exists(
     "//DictNode//DictNode",
     "//MergedDictNode",
 )]
@@ -423,7 +423,7 @@ def unpack_dict_literal():
     """
     return {**{'a': 1, 'b': 2, **{'c': 4, 'd': 5}}}
 
-#[cython.test_fail_if_path_exists(
+#[cython::test_fail_if_path_exists(
     "//DictNode//DictNode",
     "//MergedDictNode",
 )]
@@ -470,8 +470,8 @@ def unpack_dict_simple(it):
     """
     return {**it}
 
-#[cython.test_assert_path_exists('//MergedDictNode')]
-#[cython.test_fail_if_path_exists(
+#[cython::test_assert_path_exists('//MergedDictNode')]
+#[cython::test_fail_if_path_exists(
     '//MergedDictNode//MergedDictNode',
 )]
 def unpack_dict_from_iterable(it):
@@ -546,7 +546,7 @@ def unpack_dict_keep_originals(a, b, c):
     """
     return {**a, **b, 2: 4, **c}
 
-#[cython.test_assert_path_exists(
+#[cython::test_assert_path_exists(
     '//MergedDictNode',
     '//MergedDictNode//MergedDictNode',
     '//MergedDictNode//MergedDictNode//DictNode',

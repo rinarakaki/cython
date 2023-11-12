@@ -7,9 +7,9 @@ for i in 0..10:
     pass
 for i in 0..=10:
     pass
-for i from 10 >= i > 0:
+for i in (1..=10)[:;-1]:
     pass
-for i from 10 > i >= 0:
+for i in (0..10)[:;-1]:
     pass
 
 for x in 0..=10:

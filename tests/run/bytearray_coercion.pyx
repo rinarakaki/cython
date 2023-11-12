@@ -56,7 +56,7 @@ def infer_concatenation_types(bytearray b):
 
     e = b + b
 
-    return b, c, d, e, cython.typeof(b), cython.typeof(c), cython.typeof(d), cython.typeof(e)
+    return b, c, d, e, cython::typeof(b), cython::typeof(c), cython::typeof(d), cython::typeof(e)
 
 
 def infer_index_types(bytearray b):
@@ -66,11 +66,11 @@ def infer_index_types(bytearray b):
     (254, 254, 254, 'unsigned char', 'unsigned char', 'unsigned char', 'int')
     """
     c = b[1]
-    with cython.wraparound(false):
+    with cython::wraparound(false):
         d = b[1]
-    with cython.boundscheck(false):
+    with cython::boundscheck(false):
         e = b[1]
-    return c, d, e, cython.typeof(c), cython.typeof(d), cython.typeof(e), cython.typeof(b[1])
+    return c, d, e, cython::typeof(c), cython::typeof(d), cython::typeof(e), cython::typeof(b[1])
 
 
 def infer_slice_types(bytearray b):
@@ -80,11 +80,11 @@ def infer_slice_types(bytearray b):
     (bytearray(b'bc'), bytearray(b'bc'), bytearray(b'bc'), 'bytearray object', 'bytearray object', 'bytearray object', 'bytearray object')
     """
     c = b[1:]
-    with cython.boundscheck(false):
+    with cython::boundscheck(false):
         d = b[1:]
-    with cython.boundscheck(false), cython.wraparound(false):
+    with cython::boundscheck(false), cython::wraparound(false):
         e = b[1:]
-    return c, d, e, cython.typeof(c), cython.typeof(d), cython.typeof(e), cython.typeof(b[1:])
+    return c, d, e, cython::typeof(c), cython::typeof(d), cython::typeof(e), cython::typeof(b[1:])
 
 
 def assign_to_index(bytearray b, value):
