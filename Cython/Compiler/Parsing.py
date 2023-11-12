@@ -3126,7 +3126,7 @@ def p_c_simple_declarator(s, ctx, empty, is_type, cmethod_flag,
     else:
         rhs = None
         if s.sy == 'IDENT':
-            name = s.systring
+            name = s.symbol
             if empty:
                 error(s.position(), "Declarator should be empty")
             s.next()
