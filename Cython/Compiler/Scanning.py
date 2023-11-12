@@ -468,9 +468,6 @@ class PyrexScanner(Scanner):
         self.systring = systring
         if systring.startswith("r#"):
             self.token = systring[2:]
-            print("!!!!!!!!!! next !!!!!!!!!!")
-            print("raw identifier detected")
-            print(self.token)
         else:
             self.token = systring
         if False:  # debug_scanner:
