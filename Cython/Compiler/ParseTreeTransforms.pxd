@@ -70,7 +70,7 @@ cdef class CreateClosureClasses(CythonTransform):
     fn find_entries_used_in_closures(self, node)
 
 # cdef class InjectGilHandling(VisitorTransform, SkipDeclarations):
-#    cdef u2 nogil
+#     cdef u2 nogil
 
 cdef class GilCheck(VisitorTransform):
     cdef list env_stack

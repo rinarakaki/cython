@@ -2219,7 +2219,7 @@ class FuncDefNode(StatNode, BlockNode):
         if not self.body.is_terminator:
             if return_type.is_pyobject:
                 # if return_type.is_extension_type:
-                #    lhs = "(PyObject *)%s" % Naming.retval_cname
+                #     lhs = "(PyObject *)%s" % Naming.retval_cname
                 # else:
                 lhs = Naming.retval_cname
                 assure_gil('success')
@@ -9124,12 +9124,12 @@ class ParallelStatNode(StatNode, ParallelNode):
 
     is_parallel is true for:
 
-        # pragma omp parallel
-        # pragma omp parallel for
+        #pragma omp parallel
+        #pragma omp parallel for
 
     sections, but NOT for
 
-        # pragma omp for
+        #pragma omp for
 
     We need this to determine the sharing attributes.
 

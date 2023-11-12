@@ -521,9 +521,9 @@ class ExprNode(Node):
     def result(self):
         if self.is_temp:
             # if not self.temp_code:
-            #    pos = (os.path.basename(self.pos[0].get_description()),) + self.pos[1:] if self.pos else '(?)'
-            #    raise RuntimeError("temp result name not set in %s at %r" % (
-            #        self.__class__.__name__, pos))
+            #     pos = (os.path.basename(self.pos[0].get_description()),) + self.pos[1:] if self.pos else '(?)'
+            #     raise RuntimeError("temp result name not set in %s at %r" % (
+            #         self.__class__.__name__, pos))
             return self.temp_code
         else:
             return self.calculate_result_code()
@@ -6497,7 +6497,7 @@ class SimpleCallNode(CallNode):
                     if self.is_temp and self.type.is_pyobject:
                         # return_type = self.type # func_type.return_type
                         # print "SimpleCallNode.generate_result_code: casting", rhs, \
-                        #    "from", return_type, "to pyobject" #
+                        #     "from", return_type, "to pyobject" #
                         rhs = typecast(py_object_type, self.type, rhs)
                 else:
                     lhs = ""
@@ -7522,7 +7522,7 @@ class AttributeNode(ExprNode):
             pass
         # # Reference to C array turns into pointer to first element.
         # while self.type.is_array:
-        #    self.type = self.type.element_ptr_type()
+        #     self.type = self.type.element_ptr_type()
         if self.is_py_attr:
             if not target:
                 self.is_temp = 1
@@ -7535,7 +7535,7 @@ class AttributeNode(ExprNode):
             # TODO: implement writable C-properties?
             error(self.pos, "Assignment to a read-only property")
         # elif self.type.is_memoryviewslice and not target:
-        #    self.is_temp = True
+        #     self.is_temp = True
         return self
 
     def analyse_attribute(self, env, obj_type = None):
@@ -14309,7 +14309,7 @@ class CoerceToTempNode(CoercionNode):
         return self
 
     def generate_result_code(self, code):
-        # self.arg.generate_evaluation_code(code) # Already done
+        # self.arg.generate_evaluation_code(code)  # Already done
         # by generic generate_subexpr_evaluation_code!
         code.putln("%s = %s;" % (
             self.result(), self.arg.result_as(self.ctype())))

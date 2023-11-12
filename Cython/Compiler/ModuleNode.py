@@ -1224,7 +1224,7 @@ class ModuleNode(Nodes.Node, Nodes.BlockNode):
                     name))
             # ??? Do we really need the rest of this? ???
             # else:
-            #    code.putln("static PyTypeObject %s;" % name)
+            #     code.putln("static PyTypeObject %s;" % name)
 
     def generate_exttype_vtable_struct(self, entry, code):
         if not entry.used:
