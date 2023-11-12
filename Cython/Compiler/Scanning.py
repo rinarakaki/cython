@@ -464,7 +464,7 @@ class PyrexScanner(Scanner):
             self.put_back_on_failure.append((sy, systring, self.position()))
         self.sy = sy
         self.systring = systring
-        if False:  # debug_scanner:
+        if 1:  # debug_scanner:
             _, line, col = self.position()
             if not self.systring or self.sy == self.systring:
                 t = self.sy
