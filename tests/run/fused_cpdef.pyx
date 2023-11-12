@@ -139,7 +139,7 @@ def test_nomatch():
     TypeError: No matching signature found
     """
 
-ctypedef long double long_double
+ctypedef f128 long_double
 
 cpdef multiarg(cython.integral x, cython.floating y):
     if cython.integral is int:

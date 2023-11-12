@@ -19,29 +19,29 @@
 
 extern from "numpy/npy_math.h" nogil:
     # Floating-point classification
-    static long double NAN "NPY_NAN"
-    static long double INFINITY "NPY_INFINITY"
-    static long double PZERO "NPY_PZERO"        # positive zero
-    static long double NZERO "NPY_NZERO"        # negative zero
+    static f128 NAN "NPY_NAN"
+    static f128 INFINITY "NPY_INFINITY"
+    static f128 PZERO "NPY_PZERO"        # positive zero
+    static f128 NZERO "NPY_NZERO"        # negative zero
 
     # These four are actually macros and work on any floating-point type.
-    fn i32 isinf "npy_isinf"(long double)  # -1 / 0 / 1
-    fn u2 isfinite "npy_isfinite"(long double)
-    fn u2 isnan "npy_isnan"(long double)
-    fn u2 signbit "npy_signbit"(long double)
+    fn i32 isinf "npy_isinf"(f128)  # -1 / 0 / 1
+    fn u2 isfinite "npy_isfinite"(f128)
+    fn u2 isnan "npy_isnan"(f128)
+    fn u2 signbit "npy_signbit"(f128)
 
     # Math constants
-    static long double E "NPY_E"
-    static long double LOG2E "NPY_LOG2E"       # ln(e) / ln(2)
-    static long double LOG10E "NPY_LOG10E"     # ln(e) / ln(10)
-    static long double LOGE2 "NPY_LOGE2"       # ln(2)
-    static long double LOGE10 "NPY_LOGE10"     # ln(10)
-    static long double PI "NPY_PI"
-    static long double PI_2 "NPY_PI_2"         # pi / 2
-    static long double PI_4 "NPY_PI_4"         # pi / 4
-    static long double NPY_1_PI                # 1 / pi; NPY_ because of ident syntax
-    static long double NPY_2_PI                # 2 / pi
-    static long double EULER "NPY_EULER"       # Euler constant (gamma, 0.57721)
+    static f128 E "NPY_E"
+    static f128 LOG2E "NPY_LOG2E"       # ln(e) / ln(2)
+    static f128 LOG10E "NPY_LOG10E"     # ln(e) / ln(10)
+    static f128 LOGE2 "NPY_LOGE2"       # ln(2)
+    static f128 LOGE10 "NPY_LOGE10"     # ln(10)
+    static f128 PI "NPY_PI"
+    static f128 PI_2 "NPY_PI_2"         # pi / 2
+    static f128 PI_4 "NPY_PI_4"         # pi / 4
+    static f128 NPY_1_PI                # 1 / pi; NPY_ because of ident syntax
+    static f128 NPY_2_PI                # 2 / pi
+    static f128 EULER "NPY_EULER"       # Euler constant (gamma, 0.57721)
 
     # Low-level floating point manipulation (NumPy >=1.4)
     fn f32 copysignf "npy_copysignf"(f32, f32)
@@ -50,9 +50,9 @@ extern from "numpy/npy_math.h" nogil:
     fn f64 copysign "npy_copysign"(f64, f64)
     fn f64 nextafter "npy_nextafter"(f64 x, f64 y)
     fn f64 spacing "npy_spacing"(f64 x)
-    fn long double copysignl "npy_copysignl"(long double, long double)
-    fn long double nextafterl "npy_nextafterl"(long double x, long double y)
-    fn long double spacingl "npy_spacingl"(long double x)
+    fn f128 copysignl "npy_copysignl"(f128, f128)
+    fn f128 nextafterl "npy_nextafterl"(f128 x, f128 y)
+    fn f128 spacingl "npy_spacingl"(f128 x)
 
     # Float C99 functions
     fn f32 sinf "npy_sinf"(f32 x)
@@ -86,35 +86,35 @@ extern from "numpy/npy_math.h" nogil:
     fn f32 modff "npy_modff"(f32 x, f32* y)
 
     # Long double C99 functions
-    fn long double sinl "npy_sinl"(long double x)
-    fn long double cosl "npy_cosl"(long double x)
-    fn long double tanl "npy_tanl"(long double x)
-    fn long double sinhl "npy_sinhl"(long double x)
-    fn long double coshl "npy_coshl"(long double x)
-    fn long double tanhl "npy_tanhl"(long double x)
-    fn long double fabsl "npy_fabsl"(long double x)
-    fn long double floorl "npy_floorl"(long double x)
-    fn long double ceill "npy_ceill"(long double x)
-    fn long double rintl "npy_rintl"(long double x)
-    fn long double sqrtl "npy_sqrtl"(long double x)
-    fn long double log10l "npy_log10l"(long double x)
-    fn long double logl "npy_logl"(long double x)
-    fn long double expl "npy_expl"(long double x)
-    fn long double expm1l "npy_expm1l"(long double x)
-    fn long double asinl "npy_asinl"(long double x)
-    fn long double acosl "npy_acosl"(long double x)
-    fn long double atanl "npy_atanl"(long double x)
-    fn long double asinhl "npy_asinhl"(long double x)
-    fn long double acoshl "npy_acoshl"(long double x)
-    fn long double atanhl "npy_atanhl"(long double x)
-    fn long double log1pl "npy_log1pl"(long double x)
-    fn long double exp2l "npy_exp2l"(long double x)
-    fn long double log2l "npy_log2l"(long double x)
-    fn long double atan2l "npy_atan2l"(long double x, long double y)
-    fn long double hypotl "npy_hypotl"(long double x, long double y)
-    fn long double powl "npy_powl"(long double x, long double y)
-    fn long double fmodl "npy_fmodl"(long double x, long double y)
-    fn long double modfl "npy_modfl"(long double x, long double* y)
+    fn f128 sinl "npy_sinl"(f128 x)
+    fn f128 cosl "npy_cosl"(f128 x)
+    fn f128 tanl "npy_tanl"(f128 x)
+    fn f128 sinhl "npy_sinhl"(f128 x)
+    fn f128 coshl "npy_coshl"(f128 x)
+    fn f128 tanhl "npy_tanhl"(f128 x)
+    fn f128 fabsl "npy_fabsl"(f128 x)
+    fn f128 floorl "npy_floorl"(f128 x)
+    fn f128 ceill "npy_ceill"(f128 x)
+    fn f128 rintl "npy_rintl"(f128 x)
+    fn f128 sqrtl "npy_sqrtl"(f128 x)
+    fn f128 log10l "npy_log10l"(f128 x)
+    fn f128 logl "npy_logl"(f128 x)
+    fn f128 expl "npy_expl"(f128 x)
+    fn f128 expm1l "npy_expm1l"(f128 x)
+    fn f128 asinl "npy_asinl"(f128 x)
+    fn f128 acosl "npy_acosl"(f128 x)
+    fn f128 atanl "npy_atanl"(f128 x)
+    fn f128 asinhl "npy_asinhl"(f128 x)
+    fn f128 acoshl "npy_acoshl"(f128 x)
+    fn f128 atanhl "npy_atanhl"(f128 x)
+    fn f128 log1pl "npy_log1pl"(f128 x)
+    fn f128 exp2l "npy_exp2l"(f128 x)
+    fn f128 log2l "npy_log2l"(f128 x)
+    fn f128 atan2l "npy_atan2l"(f128 x, f128 y)
+    fn f128 hypotl "npy_hypotl"(f128 x, f128 y)
+    fn f128 powl "npy_powl"(f128 x, f128 y)
+    fn f128 fmodl "npy_fmodl"(f128 x, f128 y)
+    fn f128 modfl "npy_modfl"(f128 x, f128* y)
 
     # NumPy extensions
     fn f32 deg2radf "npy_deg2radf"(f32 x)
@@ -127,7 +127,7 @@ extern from "numpy/npy_math.h" nogil:
     fn f64 logaddexp "npy_logaddexp"(f64 x, f64 y)
     fn f64 logaddexp2 "npy_logaddexp2"(f64 x, f64 y)
 
-    fn long double deg2radl "npy_deg2radl"(long double x)
-    fn long double rad2degl "npy_rad2degl"(long double x)
-    fn long double logaddexpl "npy_logaddexpl"(long double x, long double y)
-    fn long double logaddexp2l "npy_logaddexp2l"(long double x, long double y)
+    fn f128 deg2radl "npy_deg2radl"(f128 x)
+    fn f128 rad2degl "npy_rad2degl"(f128 x)
+    fn f128 logaddexpl "npy_logaddexpl"(f128 x, f128 y)
+    fn f128 logaddexp2l "npy_logaddexp2l"(f128 x, f128 y)

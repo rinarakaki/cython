@@ -4898,6 +4898,7 @@ modifiers_and_name_to_type = {
 
     (None, None, "f32"): c_float_type,
     (None, None, "f64"): c_double_type,
+    (None, None, "f128"): c_longdouble_type,
     (1,  0, "float"):  c_float_type,
     (1,  0, "double"): c_double_type,
     (1,  1, "double"): c_longdouble_type,

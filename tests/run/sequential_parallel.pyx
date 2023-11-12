@@ -261,7 +261,7 @@ def test_nan_init():
 
     let f32 f = 10.0
     let f64 g = 10.0
-    let long double h = 10.0
+    let f128 h = 10.0
 
     let void *p = <void *> 10
 
