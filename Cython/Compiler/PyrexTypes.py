@@ -4904,6 +4904,7 @@ modifiers_and_name_to_type = {
 
     (None, None, "c64"): c_float_complex_type,
     (None, None, "c128"): c_double_complex_type,
+    (None, None, "c256"): c_longdouble_complex_type,
     (1,  0, "complex"):  c_double_complex_type,  # C: float, Python: double => Python wins
     (1,  0, "floatcomplex"):  c_float_complex_type,
     (1,  0, "doublecomplex"): c_double_complex_type,

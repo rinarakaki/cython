@@ -84,7 +84,7 @@ cdef class A:
     pub long double g
     pub c64 Zf
     pub c128 Zd
-    pub long double complex Zg
+    pub c256 Zg
 
     cdef readonly i16 ro_h
     cdef readonly i32 ro_i
@@ -95,7 +95,7 @@ cdef class A:
     cdef readonly long double ro_g
     cdef readonly c64 ro_Zf
     cdef readonly c128 ro_Zd
-    cdef readonly long double complex ro_Zg
+    cdef readonly c256 ro_Zg
 
     def __cinit__(self):
         self.ro_h = 7

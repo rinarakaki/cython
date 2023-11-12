@@ -457,6 +457,7 @@ builtin_types = [
     'usize',
     'c64',
     'c128',
+    'c258',
 ]
 int_types = [
     'char',

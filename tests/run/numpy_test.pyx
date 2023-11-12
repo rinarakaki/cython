@@ -217,9 +217,9 @@ def inc1_float(np.ndarray[f32] arr):                  arr[1] += 1
 def inc1_double(np.ndarray[f64] arr):                arr[1] += 1
 def inc1_longdouble(np.ndarray[long double] arr):       arr[1] += 1
 
-def inc1_cfloat(np.ndarray[float complex] arr):            arr[1] = arr[1] + 1 + 1j
-def inc1_cdouble(np.ndarray[double complex] arr):          arr[1] = (arr[1] + 1) + 1j
-def inc1_clongdouble(np.ndarray[long double complex] arr): arr[1] = arr[1] + (1 + 1j)
+def inc1_cfloat(np.ndarray[c64] arr):            arr[1] = arr[1] + 1 + 1j
+def inc1_cdouble(np.ndarray[c128] arr):          arr[1] = (arr[1] + 1) + 1j
+def inc1_clongdouble(np.ndarray[c256] arr): arr[1] = arr[1] + (1 + 1j)
 
 def inc1_cfloat_struct(np.ndarray[np.cfloat_t] arr):
     arr[1].real += 1
@@ -606,8 +606,8 @@ def test_fused_ndarray_integral_dtype(np.ndarray[cython.integral, ndim=1] a):
     print a[5], b[6]
 
 cdef fused fused_dtype:
-    float complex
-    double complex
+    c64
+    c128
     object
 
 @testcase
@@ -753,7 +753,7 @@ cdef fused confusing_fused_typedef:
     actually_long_t
     i32
     u64
-    double complex
+    c128
     u8
     signed char
 
@@ -770,8 +770,8 @@ cdef fused memslice_fused_dtype:
     f64
     i32
     i64
-    float complex
-    double complex
+    c64
+    c128
     object
 
 @testcase
@@ -799,8 +799,8 @@ cdef fused memslice_fused:
     f64[:]
     i32[:]
     i64[:]
-    float complex[:]
-    double complex[:]
+    c64[:]
+    c128[:]
     object[:]
 
 @testcase

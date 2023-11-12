@@ -29,7 +29,7 @@ longdouble = py_float
 complex = py_complex
 c64 = floatcomplex = py_complex
 c128 = doublecomplex = py_complex
-longdoublecomplex = py_complex
+c258 = longdoublecomplex = py_complex
 u2 = bint = py_bool
 void = Union[None]
 basestring = py_str
