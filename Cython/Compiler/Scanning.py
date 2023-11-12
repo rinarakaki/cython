@@ -346,15 +346,11 @@ class PyrexScanner(Scanner):
 
         self.put_back_on_failure = None
 
-        self.is_raw = 0
-
         self.begin('INDENT')
         self.sy = ''
         self.next()
 
     def normalize_ident(self, text):
-        if text.startswith("r#"):
-            self.is_raw = 1
         try:
             text.encode('ascii')  # really just name.isascii but supports Python 2 and 3
         except UnicodeEncodeError:

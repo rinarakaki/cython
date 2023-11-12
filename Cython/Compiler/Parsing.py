@@ -64,7 +64,7 @@ class Ctx(object):
 
 
 def p_ident(s, message="Expected an identifier, found '%s'"):
-    if s.sy == "IDENT":
+    if s.sy == 'IDENT':
         name = s.context.intern_ustring(s.systring)
         s.next()
         return name
@@ -73,7 +73,7 @@ def p_ident(s, message="Expected an identifier, found '%s'"):
 
 def p_ident_list(s):
     names = []
-    while s.sy == "IDENT":
+    while s.sy == 'IDENT':
         names.append(s.context.intern_ustring(s.systring))
         s.next()
         if s.sy != ',':
@@ -776,7 +776,7 @@ def p_atom(s):
         elif name == "NULL" and not s.in_python_file:
             result = ExprNodes.NullNode(pos)
         else:
-            result = p_name(s, s.systring)
+            result = p_name(s, name)
         s.next()
         return result
     else:
@@ -2778,7 +2778,6 @@ def p_c_simple_base_type(s, nonempty, templates=None):
             name = p_ident(s)
     else:
         name = s.systring
-        systring = s.systring
         name_pos = s.position()
         s.next()
         if nonempty and s.sy not in ("const", "IDENT"):
@@ -2791,10 +2790,10 @@ def p_c_simple_base_type(s, nonempty, templates=None):
                     s.put_back(u'(', u'(', old_pos)
                 else:
                     s.put_back(u'(', u'(', old_pos)
-                    s.put_back(u'IDENT', systring, name_pos)
+                    s.put_back(u'IDENT', name, name_pos)
                     name = None
             elif s.sy not in ('*', '**', '[', '&'):
-                s.put_back(u'IDENT', systring, name_pos)
+                s.put_back(u'IDENT', name, name_pos)
                 name = None
 
     type_node = Nodes.CSimpleBaseTypeNode(pos,
@@ -2908,7 +2907,7 @@ def looking_at_expr(s):
         return False
     elif s.systring in base_type_start_words:
         return False
-    elif s.sy == "IDENT":
+    elif s.sy == 'IDENT':
         is_type = False
         name = s.systring
         name_pos = s.position()
@@ -3425,7 +3424,7 @@ def p_cdef_extern_block(s, pos, ctx):
         namespace = ctx.namespace)
 
 def p_c_enum_definition(s, pos, ctx):
-    # s.sy == "enum"
+    # s.sy == ident 'enum'
     s.next()
 
     scoped = False
@@ -3518,8 +3517,8 @@ def p_c_struct_or_union_definition(s, pos, ctx):
         s.next()
         if s.sy != "struct":
             s.expected('struct')
-    # s.sy == 'struct' or 'union'
-    kind = s.sy
+    # s.sy == ident 'struct' or 'union'
+    kind = s.systring
     s.next()
     name = p_ident(s)
     cname = p_opt_cname(s)
