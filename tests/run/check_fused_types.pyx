@@ -11,8 +11,8 @@ base_t = cython.fused_type(i16, i32)
 
 # complex_t = cython.fused_type(cython.floatcomplex, cython.doublecomplex)
 cdef fused complex_t:
-    float complex
-    double complex
+    c64
+    c128
 
 ctypedef base_t **base_t_p_p
 
@@ -23,8 +23,8 @@ cdef fused composed_t:
     f32
     string_t
     cython.pp_int
-    float complex
-    double complex
+    c64
+    c128
     int complex
     long complex
 
@@ -180,7 +180,7 @@ def test_composed_types():
     spam eggs
     spam
     """
-    let double complex a = 0.5 + 0.6j, b = 0.4 -0.2j, result
+    let c128 a = 0.5 + 0.6j, b = 0.4 -0.2j, result
     let i32 c = 7, d = 8
     let i32 *cp = &c, *dp = &d
     let string_t e = "spam", f = "eggs"

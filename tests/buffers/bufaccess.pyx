@@ -565,7 +565,7 @@ def no_negative_indices(object[i32, negative_indices=false] buf, i32 idx):
     """
     return buf[idx]
 
-# [cython.wraparound(false)]
+#[cython::wraparound(false)]
 @testcase
 def wraparound_directive(object[i32] buf, i32 pos_idx, i32 neg_idx):
     """
@@ -580,7 +580,7 @@ def wraparound_directive(object[i32] buf, i32 pos_idx, i32 neg_idx):
     IndexError: Out of bounds on buffer access (axis 0)
     """
     let i32 byneg
-    with cython.wraparound(true):
+    with cython::wraparound(true):
         byneg = buf[neg_idx]
     return buf[pos_idx] + byneg
 
@@ -712,8 +712,8 @@ def safe_get(object[i32] buf, i32 idx):
     """
     return buf[idx]
 
-#[cython.boundscheck(false)] # outer decorators should take precedence
-#[cython.boundscheck(true)]
+#[cython::boundscheck(false)]  # outer decorators should take precedence
+#[cython::boundscheck(true)]
 @testcase
 def unsafe_get(object[i32] buf, i32 idx):
     """
@@ -728,7 +728,7 @@ def unsafe_get(object[i32] buf, i32 idx):
     """
     return buf[idx]
 
-#[cython.boundscheck(false)]
+#[cython::boundscheck(false)]
 @testcase
 def unsafe_get_nonegative(object[i32, negative_indices=false] buf, i32 idx):
     """
@@ -751,9 +751,9 @@ def mixed_get(object[i32] buf, i32 unsafe_idx, i32 safe_idx):
         ...
     IndexError: Out of bounds on buffer access (axis 0)
     """
-    with cython.boundscheck(false):
+    with cython::boundscheck(false):
         one = buf[unsafe_idx]
-    with cython.boundscheck(true):
+    with cython::boundscheck(true):
         two = buf[safe_idx]
     return (one, two)
 
@@ -955,8 +955,8 @@ def addref(*args):
 def decref(*args):
     for item in args: Py_DECREF(item)
 
-#[cython.binding(false)]
-#[cython.always_allow_keywords(false)]
+#[cython::binding(false)]
+#[cython::always_allow_keywords(false)]
 def get_refcount(x):
     return (<PyObject*>x).ob_refcnt
 
@@ -1205,7 +1205,7 @@ def nested_packed_struct(object[NestedPackedStruct] buf):
 
 
 @testcase
-def complex_dtype(object[long double complex] buf):
+def complex_dtype(object[c256] buf):
     """
     >>> complex_dtype(LongComplexMockBuffer(None, [(0, -1)]))
     -1j
@@ -1213,7 +1213,7 @@ def complex_dtype(object[long double complex] buf):
     print buf[0]
 
 @testcase
-def complex_inplace(object[long double complex] buf):
+def complex_inplace(object[c256] buf):
     """
     >>> complex_inplace(LongComplexMockBuffer(None, [(0, -1)]))
     (1+1j)
@@ -1244,7 +1244,7 @@ def complex_struct_inplace(object[LongComplex] buf):
 #
 # Nogil
 #
-#[cython.boundscheck(false)]
+#[cython::boundscheck(false)]
 @testcase
 def buffer_nogil():
     """
