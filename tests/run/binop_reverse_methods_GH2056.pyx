@@ -15,11 +15,11 @@ class Base(object):
     >>> 2 + Base()
     'Base.__radd__(Base(), 2)'
 
-    >>> Base(implemented=false) + 2  #doctest: +ELLIPSIS
+    >>> Base(implemented=false) + 2   # doctest: +ELLIPSIS
     Traceback (most recent call last):
     ...
     TypeError: unsupported operand type...
-    >>> 2 + Base(implemented=false)  #doctest: +ELLIPSIS
+    >>> 2 + Base(implemented=false)  # doctest: +ELLIPSIS
     Traceback (most recent call last):
     ...
     TypeError: unsupported operand type...
@@ -95,21 +95,17 @@ class Base(object):
         return cython.typeof(self) == 'Base'
 
 
-if sys.version_info >= (3, 5):
-    __doc__ += """
-    >>> Base() @ 1
-    True
-    >>> set() @ Base()
-    True
-    """
+__doc__ += """
+>>> Base() @ 1
+True
+>>> set() @ Base()
+True
 
-if sys.version_info >= (3, 0):
-    __doc__ += """
-    >>> Base() / 1
-    True
-    >>> set() / Base()
-    True
-    """
+>>> Base() / 1
+True
+>>> set() / Base()
+True
+"""
 
 
 #[cython.c_api_binop_methods(false)]
@@ -126,11 +122,11 @@ class OverloadLeft(Base):
     >>> Base() + OverloadLeft()
     'Base.__add__(Base(), OverloadLeft())'
 
-    >>> OverloadLeft(implemented=false) + Base(implemented=false)  #doctest: +ELLIPSIS
+    >>> OverloadLeft(implemented=false) + Base(implemented=false)  # doctest: +ELLIPSIS
     Traceback (most recent call last):
     ...
     TypeError: unsupported operand type...
-    >>> Base(implemented=false) + OverloadLeft(implemented=false)  #doctest: +ELLIPSIS
+    >>> Base(implemented=false) + OverloadLeft(implemented=false)  # doctest: +ELLIPSIS
     Traceback (most recent call last):
     ...
     TypeError: unsupported operand type...
@@ -163,11 +159,11 @@ class OverloadRight(Base):
     >>> Base() + OverloadRight()
     'OverloadRight.__radd__(OverloadRight(), Base())'
 
-    >>> OverloadRight(implemented=false) + Base(implemented=false)  #doctest: +ELLIPSIS
+    >>> OverloadRight(implemented=false) + Base(implemented=false)  # doctest: +ELLIPSIS
     Traceback (most recent call last):
     ...
     TypeError: unsupported operand type...
-    >>> Base(implemented=false) + OverloadRight(implemented=false)  #doctest: +ELLIPSIS
+    >>> Base(implemented=false) + OverloadRight(implemented=false)  # doctest: +ELLIPSIS
     Traceback (most recent call last):
     ...
     TypeError: unsupported operand type...
@@ -200,11 +196,11 @@ class OverloadCApi(Base):
     >>> Base() + OverloadCApi()
     'OverloadCApi.__add__(Base(), OverloadCApi())'
 
-    >>> OverloadCApi(derived_implemented=false) + 2 #doctest: +ELLIPSIS
+    >>> OverloadCApi(derived_implemented=false) + 2 # doctest: +ELLIPSIS
     Traceback (most recent call last):
     ...
     TypeError: unsupported operand type...
-    >>> 2 + OverloadCApi(derived_implemented=false) #doctest: +ELLIPSIS
+    >>> 2 + OverloadCApi(derived_implemented=false) # doctest: +ELLIPSIS
     Traceback (most recent call last):
     ...
     TypeError: unsupported operand type...
@@ -227,17 +223,16 @@ class OverloadCApi(Base):
             return NotImplemented
 
 
-if sys.version_info >= (3, 5):
-    __doc__ += """
-    >>> d = PyVersionDependent()
-    >>> d @ 2
-    9
-    >>> 2 @ d
-    99
-    >>> i = d
-    >>> i @= 2
-    >>> i
-    999
+__doc__ += """
+>>> d = PyVersionDependent()
+>>> d @ 2
+9
+>>> 2 @ d
+99
+>>> i = d
+>>> i @= 2
+>>> i
+999
 """
 
 

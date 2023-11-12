@@ -8,8 +8,8 @@ import textwrap
 import unittest
 import tempfile
 import subprocess
-#import distutils.core
-#from distutils import sysconfig
+# import distutils.core
+# from distutils import sysconfig
 from distutils import ccompiler
 
 import runtests
@@ -269,7 +269,7 @@ class TestAll(GdbDebuggerTestCase):
             sys.stderr.write(errmsg)
 
         # FIXME: re-enable this to make the test fail on internal failures
-        #self.assertEqual(exit_status, 0)
+        # self.assertEqual(exit_status, 0)
 
 
 if __name__ == '__main__':

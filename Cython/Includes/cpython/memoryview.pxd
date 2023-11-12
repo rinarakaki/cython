@@ -1,7 +1,7 @@
 extern from "Python.h":
-    ###########################################################################
+    # #########################################################################
     # MemoryView Objects
-    ###########################################################################
+    # #########################################################################
     # A memoryview object exposes the C level buffer interface as a Python
     # object which can then be passed around like any other object
 

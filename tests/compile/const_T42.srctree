@@ -7,12 +7,12 @@ PYTHON -c "import test"
 # distutils: language = c++
 
 extern from "test.h":
-    ctypedef struct c_Test "Test":
+    struct c_Test "Test":
         const char *get_string() except +RuntimeError
 
 cdef class Test:
     cdef c_Test *thisptr
-    def get_string(self):
+    fn get_string(self):
         return self.thisptr.get_string()
 
 ######## test.h ########

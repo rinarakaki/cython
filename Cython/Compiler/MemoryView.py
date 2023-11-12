@@ -28,7 +28,7 @@ memview_c_contiguous = "(PyBUF_C_CONTIGUOUS | PyBUF_FORMAT)"
 memview_f_contiguous = "(PyBUF_F_CONTIGUOUS | PyBUF_FORMAT)"
 memview_any_contiguous = "(PyBUF_ANY_CONTIGUOUS | PyBUF_FORMAT)"
 memview_full_access = "PyBUF_FULL_RO"
-#memview_strided_access = "PyBUF_STRIDED_RO"
+# memview_strided_access = "PyBUF_STRIDED_RO"
 memview_strided_access = "PyBUF_RECORDS_RO"
 
 MEMVIEW_DIRECT = '__Pyx_MEMVIEW_DIRECT'
@@ -69,8 +69,8 @@ def put_init_entry(mv_cname, code):
     code.putln("%s.memview = NULL;" % mv_cname)
 
 
-#def axes_to_str(axes):
-#    return "".join([access[0].upper()+packing[0] for (access, packing) in axes])
+# def axes_to_str(axes):
+#     return "".join([access[0].upper()+packing[0] for (access, packing) in axes])
 
 
 def put_acquire_memoryviewslice(lhs_cname, lhs_type, lhs_pos, rhs, code,
@@ -86,7 +86,7 @@ def put_acquire_memoryviewslice(lhs_cname, lhs_type, lhs_pos, rhs, code,
         code.putln("%s = %s;" % (rhstmp, rhs.result_as(lhs_type)))
 
     # Allow uninitialized assignment
-    #code.putln(code.put_error_if_unbound(lhs_pos, rhs.entry))
+    # code.putln(code.put_error_if_unbound(lhs_pos, rhs.entry))
     put_assign_to_memviewslice(lhs_cname, rhs, rhstmp, lhs_type, code,
                                have_gil=have_gil, first_assignment=first_assignment)
 
@@ -790,7 +790,7 @@ def _resolve_AttributeNode(env, node):
     return entry
 
 #
-### Utility loading
+# ## Utility loading
 #
 
 def load_memview_cy_utility(util_code_name, context=None, **kwargs):
@@ -846,8 +846,7 @@ copy_contents_new_utility = load_memview_c_utility(
 view_utility_code = load_memview_cy_utility(
         "View.MemoryView",
         context=context,
-        requires=[Buffer.GetAndReleaseBufferUtilityCode(),
-                  Buffer.buffer_struct_declare_code,
+        requires=[Buffer.buffer_struct_declare_code,
                   Buffer.buffer_formats_declare_code,
                   memviewslice_init_code,
                   is_contig_utility,

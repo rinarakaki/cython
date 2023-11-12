@@ -247,7 +247,7 @@ def mod_obj_m2(int2):
 
 def mod_obj_m2f(obj2):
     """
-    >>> 0 % -2.0 == 0.0    # -0.0 in Py2.7+
+    >>> 0 % -2.0 == 0.0  # -0.0 in Py2.7+
     True
     >>> mod_obj_m2f(0)
     -0.0
@@ -276,19 +276,19 @@ def modint(i32 int2, int int3):
 
 def modptr():
     """
-    >>> print(modptr() if sys.version_info[0] < 3 else 'spameggs')
-    spameggs
+    >>> modptr()
+    b'spameggs'
     """
     let char *str2, *str3
     str2 = "spam%s"
     str3 = "eggs"
-    obj1 = str2 % str3  # '%' operator doesn't work on byte strings in Py3
+    obj1 = str2 % str3
     return obj1
 
 
 def mod_bigint(obj):
     """
-    >>> print(mod_bigint(3316000000000))
+    >>> mod_bigint(3316000000000)
     319
     """
     result = obj % 999

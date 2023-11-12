@@ -172,7 +172,7 @@ def run_coverage(module):
 
     out = StringIO()
     cov.report(file=out)
-    #cov.report([module], file=out)
+    # cov.report([module], file=out)
     lines = out.getvalue().splitlines()
     assert any(module_path in line for line in lines), "'%s' not found in coverage report:\n\n%s" % (
         module_path, out.getvalue())

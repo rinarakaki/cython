@@ -815,10 +815,10 @@ def multiply(unicode ustring, i32 mul):
     """
     return ustring * mul
 
-#@cython.test_fail_if_path_exists(
+# @cython.test_fail_if_path_exists(
 #    "//CoerceToPyTypeNode",
 #    "//CastNode", "//TypecastNode")
-#@cython.test_assert_path_exists(
+# @cython.test_assert_path_exists(
 #    "//PythonCapiCallNode")
 def multiply_inplace(unicode ustring, i32 mul):
     """

@@ -97,8 +97,8 @@ class ExceptionTests(unittest.TestCase):
         self.raise_catch(MemoryError, "MemoryError")
 
         self.raise_catch(NameError, "NameError")
-        #try: x = undefined_variable
-        #except NameError: pass
+        # try: x = undefined_variable
+        # except NameError: pass
 
         self.raise_catch(OverflowError, "OverflowError")
         x = 1
@@ -172,7 +172,7 @@ class ExceptionTests(unittest.TestCase):
             try:
                 compile(src, '<fragment>', 'exec')
             except exception as e:
-                if e.msg != msg and sys.version_info >= (3, 6):
+                if e.msg != msg:
                     self.fail("expected %s, got %s" % (msg, e.msg))
             else:
                 self.fail("failed to get expected SyntaxError")
@@ -972,7 +972,7 @@ class ExceptionTests(unittest.TestCase):
             class MyException(Exception): pass
 
             def setrecursionlimit(depth):
-                while 1:
+                loop:
                     try:
                         sys.setrecursionlimit(depth)
                         return depth
@@ -1187,13 +1187,11 @@ class ExceptionTests(unittest.TestCase):
                 self.assertIn("raise exc", report)
                 if test_class is BrokenExceptionDel:
                     self.assertIn("BrokenStrException", report)
-                    if sys.version_info >= (3, 6):
-                        self.assertIn("<exception str() failed>", report)
+                    self.assertIn("<exception str() failed>", report)
                 else:
                     self.assertIn("ValueError", report)
                     self.assertIn("del is broken", report)
-                if sys.version_info >= (3, 6):
-                    self.assertTrue(report.endswith("\n"))
+                self.assertTrue(report.endswith("\n"))
 
     def test_unhandled(self):
         # Check for sensible reporting of unhandled exceptions
@@ -1211,12 +1209,10 @@ class ExceptionTests(unittest.TestCase):
                 self.assertIn("raise exc", report)
                 self.assertIn(exc_type.__name__, report)
                 if exc_type is BrokenStrException:
-                    if sys.version_info >= (3, 6):
-                        self.assertIn("<exception str() failed>", report)
+                    self.assertIn("<exception str() failed>", report)
                 else:
                     self.assertIn("test message", report)
-                if sys.version_info >= (3, 6):
-                    self.assertTrue(report.endswith("\n"))
+                self.assertTrue(report.endswith("\n"))
 
     @cpython_only
     def test_memory_error_in_PyErr_PrintEx(self):
@@ -1236,7 +1232,7 @@ class ExceptionTests(unittest.TestCase):
             self.assertIn(b'MemoryError', err)
 
     def test_yield_in_nested_try_excepts(self):
-        #Issue #25612
+        # Issue #25612
         class MainError(Exception):
             pass
 
@@ -1260,7 +1256,7 @@ class ExceptionTests(unittest.TestCase):
 
     @unittest.skip('currently fails')  #  FIXME: fails in the "inside" assertion but not "outside"
     def test_generator_doesnt_retain_old_exc2(self):
-        #Issue 28884#msg282532
+        # Issue 28884#msg282532
         def g():
             try:
                 raise ValueError
@@ -1279,7 +1275,7 @@ class ExceptionTests(unittest.TestCase):
         self.assertEqual(next(gen), 2)
 
     def test_raise_in_generator(self):
-        #Issue 25612#msg304117
+        # Issue 25612#msg304117
         def g():
             yield 1
             raise
@@ -1297,7 +1293,6 @@ class ExceptionTests(unittest.TestCase):
 
 class ImportErrorTests(unittest.TestCase):
 
-    @unittest.skipIf(sys.version_info < (3, 6), "Requires Py3.6+")
     def test_attributes(self):
         # Setting 'name' and 'path' should not be a problem.
         exc = ImportError('test')
@@ -1316,8 +1311,7 @@ class ImportErrorTests(unittest.TestCase):
         self.assertEqual(exc.name, 'somename')
         self.assertEqual(exc.path, 'somepath')
 
-        msg = ("'invalid' is an invalid keyword argument for ImportError"
-               if sys.version_info >= (3, 7) else ".*keyword argument.*")
+        msg = "'invalid' is an invalid keyword argument for ImportError"
         with self.assertRaisesRegex(TypeError, msg):
             ImportError('test', invalid='keyword')
 
@@ -1333,7 +1327,6 @@ class ImportErrorTests(unittest.TestCase):
         with self.assertRaisesRegex(TypeError, msg):
             ImportError('test', invalid='keyword', another=true)
 
-    @unittest.skipIf(sys.version_info < (3, 7), "requires Py3.7+")
     def test_reset_attributes(self):
         exc = ImportError('test', name='name', path='path')
         self.assertEqual(exc.args, ('test',))
@@ -1355,7 +1348,6 @@ class ImportErrorTests(unittest.TestCase):
             exc = ImportError(arg)
             self.assertEqual(str(arg), str(exc))
 
-    @unittest.skipIf(sys.version_info < (3, 6), "Requires Py3.6+")
     def test_copy_pickle(self):
         for kwargs in (dict(),
                        dict(name='somename'),

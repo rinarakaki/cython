@@ -5,8 +5,8 @@
 
 use cython
 
-##[cython.test_assert_path_exists('//ComprehensionNode')]
-##[cython.test_fail_if_path_exists('//SimpleCallNode')]
+# #[cython.test_assert_path_exists('//ComprehensionNode')]
+# #[cython.test_fail_if_path_exists('//SimpleCallNode')]
 def list_genexpr_iterable_lookup():
     """
     >>> x = (0,1,2,3,4,5)
@@ -22,8 +22,8 @@ def list_genexpr_iterable_lookup():
     return result
 
 
-##[cython.test_assert_path_exists('//ComprehensionNode')]
-##[cython.test_fail_if_path_exists('//SingleAssignmentNode//SimpleCallNode')]
+# #[cython.test_assert_path_exists('//ComprehensionNode')]
+# #[cython.test_fail_if_path_exists('//SingleAssignmentNode//SimpleCallNode')]
 def genexpr_iterable_in_closure():
     """
     >>> genexpr_iterable_in_closure()
@@ -36,10 +36,6 @@ def genexpr_iterable_in_closure():
     assert x == 'abc' # don't leak in Py3 code
     assert f() == 'abc' # don't leak in Py3 code
 
-    # Py2 cleanup (pretty irrelevant to the actual test!)
-    import sys
-    if sys.version_info[0] == 2:
-        result = map(bytes, result)
     return result
 
 

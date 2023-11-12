@@ -36,13 +36,13 @@ Code moved from IPython and adapted by:
 
 Parts of this code were taken from Cython.inline.
 """
-#-----------------------------------------------------------------------------
+# ----------------------------------------------------------------------------
 # Copyright (C) 2010-2011, IPython Development Team.
 #
 # Distributed under the terms of the Modified BSD License.
 #
 # The full license is in the file ipython-COPYING.rst, distributed with this software.
-#-----------------------------------------------------------------------------
+# ----------------------------------------------------------------------------
 
 from __future__ import absolute_import, print_function
 
@@ -174,7 +174,7 @@ class CythonMagics(Magics):
             # (requires PEP-489 reinitialisation support).
             # Don't know why this should ever have worked as it reads here.
             # All we really need to do is to update the globals below.
-            #reload(module)
+            # reload(module)
         else:
             __import__(module_name)
             module = sys.modules[module_name]

@@ -1,5 +1,5 @@
 # ticket: t417
-#cython: autotestdict=true
+# cython: autotestdict=true
 
 cdef class Foo:
     cdef int i

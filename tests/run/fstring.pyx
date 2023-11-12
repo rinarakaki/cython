@@ -1,9 +1,9 @@
 # mode: run
 # tag: f_strings, pep498, werror
 
-####
+# ##
 # Cython specific PEP 498 tests in addition to test_fstring.pyx from CPython
-####
+# ##
 
 use cython
 
@@ -146,7 +146,7 @@ def format_c_enum():
     >>> s == '1-2' or s
     True
     """
-    return f"{TestEnum::Abc}-{TestEnum::Xyz}"
+    return f"{Abc}-{Xyz}"
 
 def format_c_numbers(signed char c, i16 s, i32 n, i64 l, f32 f, f64 d):
     """
@@ -571,7 +571,7 @@ def sideeffect(l):
     f"{l.append(123)}"  # unused f-string !
     return list(l)
 
-########################################
+# ######################################
 # await inside f-string
 
 def test_await_inside_f_string():

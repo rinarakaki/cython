@@ -28,7 +28,7 @@ class TestCythonUtils(unittest.TestCase):
         self.assertEqual('0x001D00F0', build_hex_version('0.29'))
         self.assertEqual('0x040000F0', build_hex_version('4.0'))
 
-    ############################## Cached Methods ##############################
+    # ############################ Cached Methods ##############################
 
     def test_cache_method_name(self):
         method_name = "foo"

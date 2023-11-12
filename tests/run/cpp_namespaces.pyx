@@ -10,10 +10,10 @@ extern from "cpp_namespaces_helper.h" namespace "A":
     fn void f(A_t)
 
 extern from "cpp_namespaces_helper.h" namespace "outer":
-    i32 outer_value
+    static i32 outer_value
 
 extern from "cpp_namespaces_helper.h" namespace "outer::inner":
-    i32 inner_value
+    static i32 inner_value
 
 def test_function(x, y):
     """

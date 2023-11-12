@@ -86,8 +86,8 @@ def test_nested():
 
     return res
 
-DEF FREE_GIL = true
-DEF FREE_GIL_FALSE = false
+const FREE_GIL = true
+const FREE_GIL_FALSE = false
 
 def test_nested_condition_false():
     """

@@ -1,12 +1,12 @@
 
 extern from "Python.h":
 
-    ###########################################################################
+    # #########################################################################
     # Warning:
     #
     # The CObject API is deprecated as of Python 3.1. Please switch to
     # the new Capsules API.
-    ###########################################################################
+    # #########################################################################
 
     fn i32 PyCObject_Check(object p)
     #     Return true if its argument is a PyCObject.

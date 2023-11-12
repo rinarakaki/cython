@@ -19,7 +19,7 @@ extern from "Python.h":
     # Return true if its argument is a PyCapsule.
 
     fn object PyCapsule_New(void *pointer, const char *name,
-                         PyCapsule_Destructor destructor)
+                            PyCapsule_Destructor destructor)
     # Return value: New reference.
     #
     # Create a PyCapsule encapsulating the pointer. The pointer
@@ -49,7 +49,7 @@ extern from "Python.h":
     # passed in must also be NULL. Python uses the C function strcmp()
     # to compare capsule names.
 
-    PyCapsule_Destructor PyCapsule_GetDestructor(object capsule) except? NULL
+    fn PyCapsule_Destructor PyCapsule_GetDestructor(object capsule) except? NULL
     # Return the current destructor stored in the capsule. On failure,
     # set an exception and return NULL.
     #
@@ -57,7 +57,7 @@ extern from "Python.h":
     # a NULL return code somewhat ambiguous; use PyCapsule_IsValid()
     # or PyErr_Occurred() to disambiguate.
 
-    const char* PyCapsule_GetName(object capsule) except? NULL
+    fn const char* PyCapsule_GetName(object capsule) except? NULL
     # Return the current name stored in the capsule. On failure, set
     # an exception and return NULL.
     #
