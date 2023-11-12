@@ -346,11 +346,15 @@ class PyrexScanner(Scanner):
 
         self.put_back_on_failure = None
 
+        self.is_raw = 0
+
         self.begin('INDENT')
         self.sy = ''
         self.next()
 
     def normalize_ident(self, text):
+        if text.startswith("r#"):
+            self.is_raw = 1
         try:
             text.encode('ascii')  # really just name.isascii but supports Python 2 and 3
         except UnicodeEncodeError:
@@ -450,9 +454,7 @@ class PyrexScanner(Scanner):
             self.error_at_scanpos("Unrecognized character")
             return  # just a marker, error() always raises
         if sy == IDENT:
-            if systring.startswith("r#"):
-                systring = systring[2:]
-            elif systring in self.keywords:
+            if systring in self.keywords:
                 if systring == u'print' and print_function in self.context.future_directives:
                     self.keywords.pop('print', None)
                 elif systring == u'exec' and self.context.language_level >= 3:
@@ -463,6 +465,8 @@ class PyrexScanner(Scanner):
         if self.put_back_on_failure is not None:
             self.put_back_on_failure.append((sy, systring, self.position()))
         self.sy = sy
+        if systring.startswith("r#"):
+            systring = systring[2:]
         self.systring = systring
         if False:  # debug_scanner:
             _, line, col = self.position()
