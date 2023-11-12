@@ -7,14 +7,14 @@ extern from "Python.h":
     ctypedef i32 wchar_t
 
     fn void Py_SetProgramName(wchar_t *)
-    wchar_t *Py_GetProgramName()
+    fn wchar_t *Py_GetProgramName()
 
     fn void Py_SetPythonHome(wchar_t *)
-    wchar_t *Py_GetPythonHome()
+    fn wchar_t *Py_GetPythonHome()
 
     # Only used by applications that embed the interpreter and need to
     # override the standard encoding determination mechanism
-    int Py_SetStandardStreamEncoding(const char *encoding, const char *errors)
+    fn i32 Py_SetStandardStreamEncoding(const char *encoding, const char *errors)
 
     fn void Py_Initialize()
     fn void Py_InitializeEx(i32)
@@ -22,7 +22,7 @@ extern from "Python.h":
     fn void Py_Finalize()
     fn i32 Py_FinalizeEx()
     fn i32 Py_IsInitialized()
-    PyThreadState *Py_NewInterpreter()
+    fn PyThreadState *Py_NewInterpreter()
     fn void Py_EndInterpreter(PyThreadState *)
 
     # _Py_PyAtExit is for the atexit module, Py_AtExit is for low-level
@@ -41,25 +41,25 @@ extern from "Python.h":
     fn i32 Py_Main(i32 argc, wchar_t **argv)
 
     # In getpath.c
-    wchar_t *Py_GetProgramFullPath()
-    wchar_t *Py_GetPrefix()
-    wchar_t *Py_GetExecPrefix()
-    wchar_t *Py_GetPath()
+    fn wchar_t *Py_GetProgramFullPath()
+    fn wchar_t *Py_GetPrefix()
+    fn wchar_t *Py_GetExecPrefix()
+    fn wchar_t *Py_GetPath()
     fn void Py_SetPath(const wchar_t *)
     fn i32 _Py_CheckPython3()
 
     # In their own files
-    const char *Py_GetVersion()
-    const char *Py_GetPlatform()
-    const char *Py_GetCopyright()
-    const char *Py_GetCompiler()
-    const char *Py_GetBuildInfo()
-    const char *_Py_gitidentifier()
-    const char *_Py_gitversion()
+    fn const char *Py_GetVersion()
+    fn const char *Py_GetPlatform()
+    fn const char *Py_GetCopyright()
+    fn const char *Py_GetCompiler()
+    fn const char *Py_GetBuildInfo()
+    fn const char *_Py_gitidentifier()
+    fn const char *_Py_gitversion()
 
     ctypedef void (*PyOS_sighandler_t)(i32)
-    PyOS_sighandler_t PyOS_getsig(i32)
-    PyOS_sighandler_t PyOS_setsig(i32, PyOS_sighandler_t)
+    fn PyOS_sighandler_t PyOS_getsig(i32)
+    fn PyOS_sighandler_t PyOS_setsig(i32, PyOS_sighandler_t)
 
     # Random
     fn i32 _PyOS_URandom(void *buffer, isize size)

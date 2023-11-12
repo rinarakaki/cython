@@ -99,6 +99,10 @@ class MarkParallelAssignments(EnvTransform):
         self.visitchildren(node)
         return node
 
+    def visit_LoopStatNode(self, node):
+        self.visitchildren(node)
+        return node
+
     def visit_ForInStatNode(self, node):
         # TODO: Remove redundancy with range optimization...
         is_special = False

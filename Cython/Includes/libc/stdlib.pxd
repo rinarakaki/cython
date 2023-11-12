@@ -40,7 +40,7 @@ extern from "<stdlib.h>" nogil:
     fn char *getenv(const char *name)
     fn i32 system(const char *command)
 
-    #7.20.5 Searching and sorting utilities
+    # 7.20.5 Searching and sorting utilities
     fn void *bsearch(const void *key, const void *array,
                      usize count, usize size,
                      i32 (*compare)(const void *, const void *))

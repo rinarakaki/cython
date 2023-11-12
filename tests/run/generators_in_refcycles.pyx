@@ -25,7 +25,7 @@ def test_reference_cycle_cleanup():
 
     def gen():
         d = Destructed('bar')
-        while True:
+        loop:
             yield 123
 
     return delegator, gen, deleted

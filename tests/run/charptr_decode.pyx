@@ -1,10 +1,10 @@
 use cython
 
 extern from *:
-    const isize PY_SSIZE_T_MIN
-    const isize PY_SSIZE_T_MAX
+    static const isize PY_SSIZE_T_MIN
+    static const isize PY_SSIZE_T_MAX
 
-############################################################
+# ##########################################################
 # tests for char* slicing
 
 cdef const char* cstring = "abcABCqtp"

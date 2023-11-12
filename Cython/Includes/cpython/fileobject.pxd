@@ -12,9 +12,9 @@ third-party code is advised to access the io APIs instead.
 """
 
 extern from "Python.h":
-    ###########################################################################
+    # #########################################################################
     # File Objects
-    ###########################################################################
+    # #########################################################################
 
     fn object PyFile_FromFd(i32 fd, const char *name, const char *mode, i32 buffering,
                             const char *encoding, const char *errors, const char *newline, i32 closefd)

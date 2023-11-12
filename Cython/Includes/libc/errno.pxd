@@ -124,4 +124,4 @@ extern from "<errno.h>" nogil:
         EREMOTEIO
         EDQUOT
 
-    i32 errno
+    static i32 errno
