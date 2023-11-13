@@ -8,9 +8,6 @@ cdef class Rectangle:
         self.x1 = x1
         self.y1 = y1
 
-    fn Rectangle new(i32 x0, i32 y0, i32 x1, i32 y1):
-        return Rectangle(i32 x0, i32 y0, i32 x1, i32 y1)
-
     fn i32 _area(self):
         let i32 area = (self.x1 - self.x0) * (self.y1 - self.y0)
         if area < 0:
