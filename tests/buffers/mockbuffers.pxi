@@ -90,11 +90,11 @@ cdef class MockBuffer:
             stdlib.free(self.buffer)
 
     fn void* create_buffer(self, data) except NULL:
-        let usize n = <usize>(len(data) * self.itemsize)
+        let auto n = <usize>(len(data) * self.itemsize)
         let auto buf = <char*>stdlib.malloc(n)
         if buf == NULL:
             raise MemoryError
-        let auto it = buf
+        let char* it = buf
         for value in data:
             self.write(it, value)
             it += self.itemsize
