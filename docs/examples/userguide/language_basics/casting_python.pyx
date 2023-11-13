@@ -1,7 +1,7 @@
 use cpython::ref::PyObject
 
 extern from *:
-    ctypedef isize Py_intptr_t
+    type Py_intptr_t = isize
 
 python_string = "foo"
 

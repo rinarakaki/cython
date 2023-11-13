@@ -488,7 +488,6 @@ class PyrexScanner(Scanner):
         self.systring = systring
         self.last_token_position_tuple = pos
 
-
     def error(self, message, pos=None, fatal=True):
         if pos is None:
             pos = self.position()

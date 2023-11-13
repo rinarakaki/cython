@@ -575,12 +575,12 @@ def generic(i32[:;view.generic, :;view.generic] mslice1,
 #    print buf1[2, 2]
 #    print buf2[2, 2]
 
-ctypedef i32 td_cy_int
+type td_cy_int = i32
 extern from "bufaccess.h":
-    ctypedef td_cy_int td_h_short # Defined as short, but Cython doesn't know this!
-    ctypedef f32 td_h_double # Defined as double
-    ctypedef u32 td_h_ushort # Defined as unsigned short
-ctypedef td_h_short td_h_cy_short
+    type td_h_short = td_cy_int  # Defined as short, but Cython doesn't know this!
+    type td_h_double = f32  # Defined as double
+    type td_h_ushort = u32  # Defined as unsigned short
+type td_h_cy_short = td_h_short
 
 def printbuf_td_cy_int(td_cy_int[:] mslice, shape):
     """
@@ -1270,7 +1270,7 @@ match arr:
 
     return isinstance(<object>a, Sequence)
 
-ctypedef i32 aliasT
+type aliasT = i32
 def test_assignment_typedef():
     """
     >>> test_assignment_typedef()

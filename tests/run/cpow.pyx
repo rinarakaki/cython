@@ -187,7 +187,7 @@ def pow_int_int_non_negative(i32 a, u32 b):
     print(cython::typeof(c1))
     print(cython::typeof(c2))
 
-ctypedef double f64
+type mydouble = f64
 
 def pythagoras_with_typedef(f64 a, f64 b):
     # see https://github.com/cython/cython/issues/5203
@@ -197,7 +197,7 @@ def pythagoras_with_typedef(f64 a, f64 b):
     >>> pyresult - 0.001 < rc < pyresult + 0.001  or  (rc, pyresult)
     True
     """
-    let f64 result = a * a + b * b
+    let mydouble result = a * a + b * b
     result = 1.0 / result ** 0.5
     return result
 
