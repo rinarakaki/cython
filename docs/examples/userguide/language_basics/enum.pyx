@@ -7,5 +7,5 @@ enum CheeseState:
     Soft = 2
     Runny = 3
 
-print(CheeseType.Cheddar)
-print(CheeseState.Hard)
+print(CheeseType::Cheddar)
+print(CheeseState::Hard)

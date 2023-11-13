@@ -147,7 +147,7 @@ def infer_division_type():
     8333333.25
     """
     v = (10000**2 - 1) / 12
-    print(cython.typeof(v))
+    print(cython::typeof(v))
     return v
 
 def int_int(i32 a, i32 b):

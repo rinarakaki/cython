@@ -2,7 +2,7 @@
 
 use cython
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     '//AssertStatNode',
     '//AssertStatNode//RaiseStatNode',
 )
@@ -23,7 +23,7 @@ def f(a, b, i32 i):
     assert a + b
     assert i
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     '//AssertStatNode',
     '//AssertStatNode//RaiseStatNode',
     '//AssertStatNode//RaiseStatNode//TupleNode',
@@ -40,7 +40,7 @@ def g(a, b):
     """
     assert a, b
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     '//AssertStatNode',
     '//AssertStatNode//RaiseStatNode',
     '//AssertStatNode//RaiseStatNode//TupleNode',
@@ -57,7 +57,7 @@ def g(a, b):
     """
     assert a, b
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     '//AssertStatNode',
     '//AssertStatNode//RaiseStatNode',
     '//AssertStatNode//RaiseStatNode//TupleNode',
@@ -71,11 +71,11 @@ def assert_with_tuple_arg(a):
     """
     assert a, (1, 2)
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     '//AssertStatNode',
     '//AssertStatNode//RaiseStatNode',
 )
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     '//AssertStatNode//TupleNode',
 )
 def assert_with_str_arg(a):

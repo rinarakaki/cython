@@ -15,7 +15,7 @@ except ImportError:
     def next(it):
         return it.next()
 
-# @cython.test_assert_path_exists(
+# @cython::test_assert_path_exists(
 #     "//ParallelWithBlockNode//ParallelRangeNode[@schedule = 'dynamic']",
 #     "//GILStatNode[@state = 'nogil]//ParallelRangeNode")
 def test_prange():
@@ -231,10 +231,10 @@ def test_pure_mode():
         print pure_parallel.threadid()
 
 extern from "types.h":
-    ctypedef i16 actually_long_t
-    ctypedef i64 actually_short_t
+    type actually_long_t = i16
+    type actually_short_t = i64
 
-ctypedef i32 myint_t
+type myint_t = i32
 
 def test_nan_init():
     """
@@ -261,7 +261,7 @@ def test_nan_init():
 
     let f32 f = 10.0
     let f64 g = 10.0
-    let long double h = 10.0
+    let f128 h = 10.0
 
     let void *p = <void *> 10
 

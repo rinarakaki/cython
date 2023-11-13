@@ -18,7 +18,7 @@ fn log(level, action, obj, lineno):
 
 LOG_NONE, LOG_ALL = 0..2
 
-#[cython.final]
+#[cython::final]
 cdef class Context(object):
     cdef readonly object name, filename
     cdef readonly dict refs
@@ -117,7 +117,7 @@ fn void GOTREF(PyObject* ctx, PyObject* p_obj, isize lineno):
 fn u2 GIVEREF_and_report(PyObject* ctx, PyObject* p_obj, isize lineno):
     if ctx == NULL: return 1
     let (PyObject*) type = NULL, value = NULL, tb = NULL
-    let mut u2 decref_ok = false
+    let mut u2 decref_ok = 0
     PyErr_Fetch(&type, &value, &tb)
     try:
         decref_ok = (<Context>ctx).delref(

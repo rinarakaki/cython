@@ -97,7 +97,7 @@ def method_name():
     """
     return [].append.__name__
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     '//PythonCapiCallNode')
 def append_optimized(probably_list):
     """
@@ -116,7 +116,7 @@ cdef class AppendBug:
     def __init__(self, append):
         self.append = append
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     '//PythonCapiCallNode')
 def specific_attribute(AppendBug a):
     """

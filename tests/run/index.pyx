@@ -213,7 +213,7 @@ def test_ulong_long():
         else: assert False, "deleting large index failed to raise IndexError"
 
 
-#[cython.boundscheck(false)]
+#[cython::boundscheck(false)]
 def test_boundscheck_unsigned(list L, tuple t, object o, u64 ix):
     """
     >>> test_boundscheck_unsigned([1, 2, 4], (1, 2, 4), [1, 2, 4], 2)
@@ -225,7 +225,7 @@ def test_boundscheck_unsigned(list L, tuple t, object o, u64 ix):
     """
     return L[ix], t[ix], o[ix]
 
-#[cython.boundscheck(false)]
+#[cython::boundscheck(false)]
 def test_boundscheck_signed(list L, tuple t, object o, long ix):
     """
     >>> test_boundscheck_signed([1, 2, 4], (1, 2, 4), [1, 2, 4], 2)
@@ -237,7 +237,7 @@ def test_boundscheck_signed(list L, tuple t, object o, long ix):
     """
     return L[ix], t[ix], o[ix]
 
-#[cython.wraparound(false)]
+#[cython::wraparound(false)]
 def test_wraparound_signed(list L, tuple t, object o, long ix):
     """
     >>> test_wraparound_signed([1, 2, 4], (1, 2, 4), [1, 2, 4], 2)
