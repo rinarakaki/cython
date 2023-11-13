@@ -132,7 +132,7 @@ class DeclarationWriter(TreeVisitor):
         self.put(node.name)
     
     def visit_CPtrTypeNode(self, node):
-        self.visit(node.base)
+        self.visit(node.base_type)
         self.put("*")
 
     def visit_CSimpleBaseTypeNode(self, node):
