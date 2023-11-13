@@ -229,7 +229,7 @@ def test_memoryview_bytes(const u8[:] b=b'xyz'):
         return None
     return b[0]
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     '//NameNode[@entry.in_closure = true]',
     '//NameNode[@entry.from_closure = true]')
 def test_func_default_inlined():
@@ -248,7 +248,7 @@ def test_func_default_inlined():
         return arg
     return func
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     '//NameNode[@entry.in_closure = true]',
     '//NameNode[@entry.from_closure = true]')
 def test_func_default_scope():

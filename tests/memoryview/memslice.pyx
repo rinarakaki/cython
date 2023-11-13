@@ -589,7 +589,7 @@ def list_comprehension(i32[:] buf, len):
     let i32 i
     print "|".join([str(buf[i]) for i in 0..len])
 
-#[cython.wraparound(false)]
+#[cython::wraparound(false)]
 @testcase
 def wraparound_directive(i32[:] buf, i32 pos_idx, i32 neg_idx):
     """
@@ -604,7 +604,7 @@ def wraparound_directive(i32[:] buf, i32 pos_idx, i32 neg_idx):
     IndexError: Out of bounds on buffer access (axis 0)
     """
     let i32 byneg
-    with cython.wraparound(true):
+    with cython::wraparound(true):
         byneg = buf[neg_idx]
     return buf[pos_idx] + byneg
 
@@ -844,8 +844,8 @@ def safe_get(i32[:] buf, i32 idx):
     """
     return buf[idx]
 
-#[cython.boundscheck(false)] # outer decorators should take precedence
-#[cython.boundscheck(true)]
+#[cython::boundscheck(false)] # outer decorators should take precedence
+#[cython::boundscheck(true)]
 @testcase
 def unsafe_get(i32[:] buf, i32 idx):
     """
@@ -871,9 +871,9 @@ def mixed_get(i32[:] buf, i32 unsafe_idx, i32 safe_idx):
         ...
     IndexError: Out of bounds on buffer access (axis 0)
     """
-    with cython.boundscheck(false):
+    with cython::boundscheck(false):
         one = buf[unsafe_idx]
-    with cython.boundscheck(true):
+    with cython::boundscheck(true):
         two = buf[safe_idx]
     return (one, two)
 
@@ -961,12 +961,12 @@ def inplace_operators(i32[:] buf):
 # Test three layers of typedefs going through a h file for plain int, and
 # simply a header file typedef for floats and unsigned.
 
-ctypedef i32 td_cy_int
+type td_cy_int = i32
 extern from "bufaccess.h":
-    ctypedef td_cy_int td_h_short # Defined as short, but Cython doesn't know this!
-    ctypedef f32 td_h_double # Defined as double
-    ctypedef u32 td_h_ushort # Defined as unsigned short
-ctypedef td_h_short td_h_cy_short
+    type td_h_short = td_cy_int  # Defined as short, but Cython doesn't know this!
+    type td_h_double = f32  # Defined as double
+    type td_h_ushort = u32  # Defined as unsigned short
+type td_h_cy_short = td_h_short
 
 @testcase
 def printbuf_td_cy_int(td_cy_int[:] buf, shape):
@@ -1052,8 +1052,8 @@ def addref(*args):
 def decref(*args):
     for item in args: Py_DECREF(item)
 
-#[cython.binding(false)]
-#[cython.always_allow_keywords(false)]
+#[cython::binding(false)]
+#[cython::always_allow_keywords(false)]
 def get_refcount(x):
     return (<PyObject*>x).ob_refcnt
 
@@ -1297,7 +1297,7 @@ def const_nested_packed_struct(const NestedPackedStruct[:] buf):
     print buf[0].a, buf[0].b, buf[0].sub.a, buf[0].sub.b, buf[0].c
 
 @testcase
-def complex_dtype(long double complex[:] buf):
+def complex_dtype(c256[:] buf):
     """
     >>> complex_dtype(LongComplexMockBuffer(None, [(0, -1)]))  # , writable=false))
     -1j
@@ -1305,7 +1305,7 @@ def complex_dtype(long double complex[:] buf):
     print buf[0]
 
 @testcase
-def complex_inplace(long double complex[:] buf):
+def complex_inplace(c256[:] buf):
     """
     >>> complex_inplace(LongComplexMockBuffer(None, [(0, -1)]))
     (1+1j)
@@ -1337,7 +1337,7 @@ def complex_struct_inplace(LongComplex[:] buf):
 # Nogil
 #
 
-#[cython.boundscheck(false)]
+#[cython::boundscheck(false)]
 @testcase
 def buffer_nogil():
     """
@@ -1756,7 +1756,7 @@ def test_nogil_oob2():
     with nogil:
         a[100, 9:]
 
-#[cython.boundscheck(false)]
+#[cython::boundscheck(false)]
 fn i32 cdef_nogil(i32[:, :] a) except 0 nogil:
     let i32 i, j
     let i32[:, :] b = a[:;-1, 3:10;2]
@@ -1803,8 +1803,8 @@ def test_convert_slicenode_to_indexnode():
         a = a[2:4]
     print a[0]
 
-#[cython.boundscheck(false)]
-#[cython.wraparound(false)]
+#[cython::boundscheck(false)]
+#[cython::wraparound(false)]
 @testcase
 def test_memslice_prange(arg):
     """

@@ -56,11 +56,11 @@ cdef class DoesntHaveDel:
 use cython
 use baseclasses::(HasDel, DoesntHaveDel)
 
-@cython.final
+@cython::final
 cdef class HasIndirectDel(HasDel):
     pass
 
-@cython.final
+@cython::final
 cdef class NoIndirectDel(DoesntHaveDel):
     # But Cython can't tell that we don't have __del__ until runtime,
     # so has to generate code to call it (and not crash!)

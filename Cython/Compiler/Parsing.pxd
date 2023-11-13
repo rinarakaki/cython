@@ -65,20 +65,20 @@ cpdef make_slice_node(pos, start, stop = *, step = *)
 fn p_atom(PyrexScanner s)
 fn p_atom_string(PyrexScanner s)
 fn p_atom_ident_constants(PyrexScanner s, u2 bools_are_pybool = *)
-#[cython.locals(value=unicode)]
+#[cython::locals(value=unicode)]
 fn p_int_literal(PyrexScanner s)
 fn p_name(PyrexScanner s, name)
 fn wrap_compile_time_constant(pos, value)
 fn p_cat_string_literal(PyrexScanner s)
 fn p_opt_string_literal(PyrexScanner s, required_type=*)
 fn u2 check_for_non_ascii_characters(unicode string)
-#[cython.locals(systr=unicode, is_python3_source=u2, is_raw=u2)]
+#[cython::locals(systr=unicode, is_python3_source=u2, is_raw=u2)]
 fn p_string_literal(PyrexScanner s, kind_override=*)
 fn _append_escape_sequence(kind, builder, unicode escape_sequence, PyrexScanner s)
 fn tuple _f_string_error_pos(pos, string, isize i)
-#[cython.locals(i=isize, size=isize, c=Py_UCS4, next_start=isize)]
+#[cython::locals(i=isize, size=isize, c=Py_UCS4, next_start=isize)]
 fn list p_f_string(PyrexScanner s, unicode_value, pos, u2 is_raw)
-#[cython.locals(i=isize, size=isize, c=Py_UCS4, quote_char=Py_UCS4, NO_CHAR=Py_UCS4)]
+#[cython::locals(i=isize, size=isize, c=Py_UCS4, quote_char=Py_UCS4, NO_CHAR=Py_UCS4)]
 fn tuple p_f_string_expr(PyrexScanner s, unicode_value, pos, isize starting_index, u2 is_raw)
 fn p_list_maker(PyrexScanner s)
 fn p_comp_iter(PyrexScanner s, body)
@@ -188,8 +188,10 @@ fn p_c_struct_or_union_definition(PyrexScanner s, pos, ctx)
 fn p_fused_definition(PyrexScanner s, pos, ctx)
 fn p_struct_enum(PyrexScanner s, pos, ctx)
 fn p_visibility(PyrexScanner s, prev_visibility)
+fn p_let_statement(PyrexScanner s, pos, ctx)
 fn p_c_modifiers(PyrexScanner s)
 fn p_c_func_or_var_declaration(PyrexScanner s, pos, ctx)
+fn p_type_statement(PyrexScanner s, ctx)
 fn p_ctypedef_statement(PyrexScanner s, ctx)
 fn p_decorators(PyrexScanner s)
 fn _reject_cdef_modifier_in_py(PyrexScanner s, name)

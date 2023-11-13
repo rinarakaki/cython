@@ -10,7 +10,7 @@ ustring = u'abc\xE9def'
 surrogates_ustring = u'abc\U00010000def'
 
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//SliceIndexNode",
     )
 def bytes_slicing2():
@@ -33,7 +33,7 @@ def bytes_slicing2():
     return str0, str1, str2, str3
 
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//SliceIndexNode",
     )
 def unicode_slicing2():
@@ -56,7 +56,7 @@ def unicode_slicing2():
     return str0, str1, str2, str3
 
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//SliceIndexNode",
     )
 def unicode_slicing_unsafe_surrogates2():
@@ -68,7 +68,7 @@ def unicode_slicing_unsafe_surrogates2():
     return ustring
 
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//SliceIndexNode",
     )
 def unicode_slicing_safe_surrogates2():
@@ -82,11 +82,11 @@ def unicode_slicing_safe_surrogates2():
     return ustring
 
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//ComprehensionNode",
     "//ForInStatNode",
 )
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//SetNode",
 )
 def for_in_empty_setcomp():
@@ -100,10 +100,10 @@ def for_in_empty_setcomp():
     return {i for i in []}
 
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//ReturnStatNode//AddNode",
 )
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//ListNode//AddNode",
 )
 def add_strings():

@@ -103,7 +103,7 @@ def test_inference(i32 k):
     27
     """
     res = one_param(&k)
-    assert cython.typeof(res) == 'i32 *', cython.typeof(res)
+    assert cython::typeof(res) == 'i32 *', cython::typeof(res)
     return res[0]
 
 def test_overload_GH1583():
