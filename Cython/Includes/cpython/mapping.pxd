@@ -12,7 +12,7 @@ extern from "Python.h":
     # failure. For objects that do not provide mapping protocol, this
     # is equivalent to the Python expression "len(o)".
 
-    fn i32 PyMapping_DelItemString(object o, char *key) except -1
+    fn i32 PyMapping_DelItemString(object o, char* key) except -1
     # Remove the mapping for object key from the object o. Return -1
     # on failure. This is equivalent to the Python statement "del
     # o[key]".
@@ -22,7 +22,7 @@ extern from "Python.h":
     # on failure. This is equivalent to the Python statement "del
     # o[key]".
 
-    fn u2 PyMapping_HasKeyString(object o, char *key)
+    fn u2 PyMapping_HasKeyString(object o, char* key)
     # On success, return 1 if the mapping object has the key key and 0
     # otherwise. This is equivalent to the Python expression
     # "o.has_key(key)". This function always succeeds.
@@ -50,13 +50,13 @@ extern from "Python.h":
     # item is a tuple containing a key-value pair. On failure, return
     # NULL. This is equivalent to the Python expression "o.items()".
 
-    fn object PyMapping_GetItemString(object o, char *key)
+    fn object PyMapping_GetItemString(object o, char* key)
     # Return value: New reference.
     # Return element of o corresponding to the object key or NULL on
     # failure. This is the equivalent of the Python expression
     # "o[key]".
 
-    fn i32 PyMapping_SetItemString(object o, char *key, object v) except -1
+    fn i32 PyMapping_SetItemString(object o, char* key, object v) except -1
     # Map the object key to the value v in object o. Returns -1 on
     # failure. This is the equivalent of the Python statement "o[key]
     # = v".

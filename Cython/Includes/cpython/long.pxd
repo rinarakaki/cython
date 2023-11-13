@@ -49,7 +49,7 @@ extern from "Python.h":
     # Return value: New reference.
     # Return a new PyLongObject object from the integer part of v, or NULL on failure.
 
-    fn object PyLong_FromString(char *str, char **pend, i32 base)
+    fn object PyLong_FromString(char* str, char** pend, i32 base)
     # Return value: New reference.
     # Return a new PyLongObject based on the string value in str,
     # which is interpreted according to the radix in base. If pend is
@@ -77,7 +77,7 @@ extern from "Python.h":
     # PyUnicode_EncodeDecimal() and then converted using PyLong_FromString().
     # New in version 3.3.
 
-    fn object PyLong_FromVoidPtr(void *p)
+    fn object PyLong_FromVoidPtr(void* p)
     # Return value: New reference.
     # Create a Python integer or long integer from the pointer p. The
     # pointer value can be retrieved from the resulting value using
@@ -88,7 +88,7 @@ extern from "Python.h":
     # Return a C long representation of the contents of pylong. If
     # pylong is greater than LONG_MAX, an OverflowError is raised.
 
-    fn i64 PyLong_AsLongAndOverflow(object pylong, i32 *overflow) except? -1
+    fn i64 PyLong_AsLongAndOverflow(object pylong, i32* overflow) except? -1
     # Return a C long representation of the contents of pylong. If pylong is
     # greater than LONG_MAX or less than LONG_MIN, set *overflow to 1 or -1,
     # respectively, and return -1; otherwise, set *overflow to 0. If any other
@@ -96,7 +96,7 @@ extern from "Python.h":
     # be returned and *overflow will be 0.
     # New in version 2.7.
 
-    fn PY_LONG_LONG PyLong_AsLongLongAndOverflow(object pylong, i32 *overflow) except? -1
+    fn PY_LONG_LONG PyLong_AsLongLongAndOverflow(object pylong, i32* overflow) except? -1
     # Return a C long long representation of the contents of pylong. If pylong
     # is greater than PY_LLONG_MAX or less than PY_LLONG_MIN, set *overflow to
     # 1 or -1, respectively, and return -1; otherwise, set *overflow to 0. If
