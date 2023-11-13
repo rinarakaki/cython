@@ -6,8 +6,8 @@ __doc__ = u"""
    >>> test_lvalue_ref_assignment()
 """
 
-ctypedef double*  dp
-ctypedef double** dpp
+type dp = double* 
+type dpp = double**
 
 fn void foo(vector[dpp] &bar, vector[vector[dp]] &baz) nogil:
     bar[0] = &baz[0][0]

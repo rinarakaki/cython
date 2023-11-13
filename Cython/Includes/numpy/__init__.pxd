@@ -750,12 +750,12 @@ type float64_t = npy_float64
 # type float80_t = npy_float80
 # type float128_t = npy_float128
 
-ctypedef c64 complex64_t
-ctypedef c128 complex128_t
+type complex64_t = c64
+type complex128_t = c128
 
-ctypedef npy_longlong   longlong_t
+type longlong_t = npy_longlong  
 
-ctypedef npy_ulonglong  ulonglong_t
+type ulonglong_t = npy_ulonglong 
 
 type intp_t = npy_intp
 type uintp_t = npy_uintp

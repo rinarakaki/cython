@@ -3,7 +3,7 @@ use check_fused_types_pxd
 
 import math
 
-ctypedef char *string_t
+type string_t = char*
 
 fused_t = cython.fused_type(i32, i64, f32, string_t)
 other_t = cython.fused_type(i32, i64)
@@ -14,7 +14,7 @@ cdef fused complex_t:
     c64
     c128
 
-ctypedef base_t **base_t_p_p
+type base_t_p_p = base_t**
 
 # ctypedef cython.fused_type(char, base_t_p_p, fused_t, complex_t) composed_t
 cdef fused composed_t:

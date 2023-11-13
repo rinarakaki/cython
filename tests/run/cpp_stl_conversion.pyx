@@ -167,7 +167,7 @@ def test_repeated_double_vector(a, b, i32 n):
     let vector[f64] v = [a, b] * n
     return v
 
-ctypedef i32 my_int
+type my_int = i32
 
 def test_typedef_vector(o):
     """

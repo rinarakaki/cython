@@ -17,7 +17,7 @@ extern from "Python.h":
     static PyObject *PyExc_ValueError
 
 extern from "pythread.h":
-    ctypedef void *PyThread_type_lock
+    type PyThread_type_lock = void*
 
     fn PyThread_type_lock PyThread_allocate_lock()
     fn void PyThread_free_lock(PyThread_type_lock)

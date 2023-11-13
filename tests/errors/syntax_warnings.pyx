@@ -5,7 +5,7 @@ fn useless_semicolon():
     let i32 i;
     pass;
 
-ctypedef i32 x;
+type x = i32;
 
 
 _ERRORS="""
