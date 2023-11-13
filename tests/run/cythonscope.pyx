@@ -80,7 +80,7 @@ def test_extclass_c_methods():
     Hello from cpdef_cname_method 5
     Hello from def_cname_method 6
     """
-    let auto obj1 = TestClass(11)
+    let TestClass obj1 = TestClass(11)
     let auto obj2 = TestClass_New(22)
 
     __pyx_TestClass_cdef_method(obj1, 1)
