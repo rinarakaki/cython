@@ -1158,6 +1158,17 @@ class CSimpleBaseTypeNode(CBaseTypeNode):
             type = PyrexTypes.error_type
         return type
 
+
+class CPtrTypeNode(CBaseTypeNode):
+    # base_type     CBaseTypeNode
+
+    child_attrs = ["base_type"]
+
+    def analyse(self, env, could_be_name=False):
+        base_type = self.base_type.analyse(env)
+        return PyrexTypes.c_ptr_type(base_type)
+
+
 class MemoryViewSliceTypeNode(CBaseTypeNode):
 
     name = 'memoryview'

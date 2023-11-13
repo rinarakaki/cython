@@ -2803,6 +2803,15 @@ def p_c_simple_base_type(s, nonempty, templates=None):
         templates = templates)
 
     #    declarations here.
+    if s.sy in ("*", "**"):
+        # scanner returns "**" as a single token
+        is_ptrptr = s.sy == "**"
+        s.next()
+
+        if is_ptrptr:
+            type_node = Nodes.CPtrTypeNode(pos, base_type=type_node)
+        type_node = Nodes.CPtrTypeNode(pos, base_type=type_node)
+
     if s.sy == '[':
         if is_memoryviewslice_access(s):
             type_node = p_memoryviewslice_access(s, type_node)
