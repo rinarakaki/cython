@@ -115,7 +115,7 @@ def test_extclass_cython_methods():
     Hello from cpdef_cname_method 5
     Hello from def_cname_method 6
     """
-    let auto obj1 = TestClass(11)
+    let TestClass obj1 = TestClass(11)
     let auto obj2 = TestClass_New(22)
 
     obj1.cdef_method(1)
