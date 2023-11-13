@@ -2672,16 +2672,15 @@ def p_c_base_type(s, nonempty=False, templates=None):
     pos = s.position()
     # Handle const/volatile
     is_const = is_volatile = 0
-    while s.sy in ("const", "IDENT"):
+    while s.sy == "const" or s.systring == "volatile":
         if s.sy == "const":
             if is_const: error(pos, "Duplicate 'const'")
             is_const = 1
+            s.next()
         elif s.systring == 'volatile':
             if is_volatile: error(pos, "Duplicate 'volatile'")
             is_volatile = 1
-        else:
-            break
-        s.next()
+            s.next()
 
     if s.sy == '(':
         base_type = p_c_complex_base_type(s, templates = templates)
@@ -2701,11 +2700,11 @@ def p_c_base_type(s, nonempty=False, templates=None):
         # scanner returns "**" as a single token
         is_ptrptr = s.sy == "**"
         s.next()
-
         if is_ptrptr:
             base_type = Nodes.CPtrTypeNode(pos, base_type=base_type)
         base_type = Nodes.CPtrTypeNode(pos, base_type=base_type)
-        return base_type
+    
+    return base_type
 
 def p_calling_convention(s):
     if s.sy == 'IDENT' and s.systring in calling_convention_words:
