@@ -9,19 +9,19 @@ def mult_decl_test():
 def def_test():
     let i32 j = 10
     i[0] = j
-    let i32 *i = NULL # pointer variables are special case
+    let i32* i = NULL # pointer variables are special case
 
 fn cdef_test():
     let i32 j = 10
     i[0] = j
     print "%d" % i[0]
-    let i32 *i = NULL
+    let i32* i = NULL
 
 cpdef cpdef_test():
     let i32 j = 10
     i[0] = j
     print "%d" % i[0]
-    let i32 *i = NULL
+    let i32* i = NULL
 
 s.upper()
 cdef str s = "Test"
@@ -47,7 +47,7 @@ def g(x):
 
 cdef i32 d = 20
 baz[0] = d
-cdef i32 *baz
+cdef i32* baz
 
 print var[0][0]
 cdef u128[100][100] var
