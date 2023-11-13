@@ -474,7 +474,7 @@ cdef class memoryview:
             PyMem_Free(tmp)
 
     fn setitem_indexed(self, index, value):
-        let auto itemp = self.get_item_pointer(index)
+        let char *itemp = self.get_item_pointer(index)
         self.assign_item_from_object(itemp, value)
 
     fn convert_item_to_object(self, char *itemp):
