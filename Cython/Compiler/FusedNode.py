@@ -686,10 +686,10 @@ class FusedCFuncDefNode(StatListNode):
         decl_code = Code.PyxCodeWriter(context=context)
         decl_code.put_chunk(
             u"""
-                cdef extern from *:
-                    void __pyx_PyErr_Clear "PyErr_Clear" ()
-                    type __Pyx_ImportNumPyArrayTypeIfAvailable()
-                    int __Pyx_Is_Little_Endian()
+                extern from *:
+                    fn void __pyx_PyErr_Clear "PyErr_Clear" ()
+                    fn type __Pyx_ImportNumPyArrayTypeIfAvailable()
+                    fn i32 __Pyx_Is_Little_Endian()
             """)
         decl_code.indent()
 
@@ -699,15 +699,15 @@ class FusedCFuncDefNode(StatListNode):
                     # FIXME: use a typed signature - currently fails badly because
                     #        default arguments inherit the types we specify here!
 
-                    cdef list search_list
-                    cdef dict sigindex_node
+                    let list search_list
+                    let dict sigindex_node
 
                     dest_sig = [None] * {{n_fused}}
 
                     if kwargs is not None and not kwargs:
                         kwargs = None
 
-                    cdef isize i
+                    let isize i
 
                     # instance check body
             """)
