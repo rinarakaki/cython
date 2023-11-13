@@ -12,5 +12,6 @@ cdef class SpamAndEggs(Spam):
         return 1
 
 fn test():
-    let auto s = SpamAndEggs()
+    let SpamAndEggs s
+    s = SpamAndEggs()
     return s.cook()
