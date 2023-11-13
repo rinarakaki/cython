@@ -81,7 +81,7 @@ def test_extclass_c_methods():
     Hello from def_cname_method 6
     """
     let TestClass obj1 = TestClass(11)
-    let auto obj2 = TestClass_New(22)
+    let TestClass obj2 = TestClass_New(22)
 
     __pyx_TestClass_cdef_method(obj1, 1)
     __pyx_TestClass_cpdef_method(obj1, 2, True)
@@ -116,7 +116,7 @@ def test_extclass_cython_methods():
     Hello from def_cname_method 6
     """
     let TestClass obj1 = TestClass(11)
-    let auto obj2 = TestClass_New(22)
+    let TestClass obj2 = TestClass_New(22)
 
     obj1.cdef_method(1)
     obj1.cpdef_method(2)
