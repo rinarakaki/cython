@@ -2,7 +2,7 @@ from __future__ import print_function
 
 use cython::typeof
 
-ctypedef u2 mybool
+type mybool = u2
 
 cdef mybool mybul = true
 cdef u2 bul = true

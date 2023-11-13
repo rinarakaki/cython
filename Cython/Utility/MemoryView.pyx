@@ -31,7 +31,7 @@ extern from *:
     fn void PyBuffer_Release(Py_buffer *)
 
     struct PyObject
-    ctypedef isize Py_intptr_t
+    type Py_intptr_t = isize
     fn void Py_INCREF(PyObject *)
     fn void Py_DECREF(PyObject *)
 
@@ -76,7 +76,7 @@ extern from *:
         pass
 
 extern from *:
-    ctypedef i32 __pyx_atomic_int_type
+    type __pyx_atomic_int_type = i32
     fn {{memviewslice_name}} slice_copy_contig "__pyx_memoryview_copy_new_contig"(
         __Pyx_memviewslice *from_mvs,
         char *mode, i32 ndim,
@@ -342,8 +342,8 @@ cdef class memoryview:
         self.flags = flags
         if type(self) is memoryview or obj is not None:
             PyObject_GetBuffer(obj, &self.view, flags)
-            if <PyObject *> self.view.obj == NULL:
-                (<__pyx_buffer *> &self.view).obj = Py_None
+            if <PyObject *>self.view.obj == NULL:
+                (<__pyx_buffer *>&self.view).obj = Py_None
                 Py_INCREF(Py_None)
 
         if not __PYX_CYTHON_ATOMICS_ENABLED():

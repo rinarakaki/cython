@@ -2448,7 +2448,11 @@ def p_statement(s, ctx, first_statement = 0):
         s.level = ctx.level
         decorators = p_attributes(s)
 
-    if s.sy == 'ctypedef':
+    if not s.in_python_file and s.systring == "type" and s.peek()[0] == "IDENT":
+        if ctx.level not in ("module", "module_pxd"):
+            s.error("type statement not allowed here")
+        return p_type_statement(s, ctx)
+    elif s.sy == 'ctypedef':
         if ctx.level not in ('module', 'module_pxd'):
             s.error("ctypedef statement not allowed here")
         # if ctx.api:
@@ -2946,15 +2950,7 @@ def looking_at_base_type(s):
     return s.sy == 'IDENT' and s.systring in base_type_start_words
 
 def looking_at_dotted_name(s):
-    if s.sy == 'IDENT':
-        name = s.systring
-        name_pos = s.position()
-        s.next()
-        result = s.sy in (".", "::")
-        s.put_back(u'IDENT', name, name_pos)
-        return result
-    else:
-        return 0
+    return s.sy == "IDENT" and s.peek()[0] in (".", "::")
 
 
 builtin_type_names = cython.declare(frozenset, frozenset((
@@ -3677,6 +3673,26 @@ def p_c_func_or_var_declaration(s, pos, ctx):
             overridable = ctx.overridable)
     return result
 
+def p_type_statement(s, ctx):
+    # s.systring == "type"
+    pos = s.position()
+    s.next()
+    visibility = p_visibility(s, ctx.visibility)
+    api = p_api(s)
+    ctx = ctx(typedef_flag=1, visibility=visibility)
+    declarator = p_c_declarator(s, ctx, is_type=1, assignable=0)
+    s.expect("=")
+    base_type = p_c_base_type(s)
+    s.expect_newline("Syntax error in type statement", ignore_semicolon=True)
+    return Nodes.CTypeDefNode(
+        pos,
+        base_type=base_type,
+        declarator=declarator,
+        visibility=visibility,
+        api=api,
+        in_pxd=ctx.level == "module_pxd"
+    )
+
 def p_ctypedef_statement(s, ctx):
     # s.sy == 'ctypedef'
     pos = s.position()
@@ -3923,7 +3939,7 @@ def p_c_class_options(s):
         if s.systring == 'object':
             s.next()
             objstruct_name = p_ident(s)
-        elif s.systring == 'type':
+        elif s.systring == "type":
             s.next()
             typeobj_name = p_ident(s)
         elif s.systring == 'check_size':

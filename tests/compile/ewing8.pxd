@@ -1,8 +1,8 @@
 struct Foo
 cdef class Blarg
 
-ctypedef Foo FooType
-ctypedef Blarg BlargType
+type FooType = Foo
+type BlargType = Blarg
 
 struct Foo:
     FooType *f
