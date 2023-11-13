@@ -24,7 +24,7 @@ extern from "struct_field_adaptation.h":
     fn void set_newly_added_field "_mylib_set_newly_added_field" (StructType *struct_ptr, i32 value)
 
 
-cdef auto some_struct_ptr = get_struct_ptr()
+cdef StructType *some_struct_ptr = get_struct_ptr()
 
 print(some_struct_ptr.field1)
 if HAS_NEWLY_ADDED_FIELD:
