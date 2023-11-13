@@ -557,8 +557,7 @@ class FusedCFuncDefNode(StatListNode):
 
         pyx_code.imports.put_chunk(
             u"""
-                let type ndarray
-                ndarray = __Pyx_ImportNumPyArrayTypeIfAvailable()
+                let type ndarray = __Pyx_ImportNumPyArrayTypeIfAvailable()
             """)
 
         pyx_code.imports.put_chunk(
