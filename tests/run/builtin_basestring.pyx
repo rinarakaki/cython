@@ -75,7 +75,7 @@ def basestring_typed_argument(basestring obj):
     return obj
 
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//SimpleCallNode",
     "//SimpleCallNode//NoneCheckNode",
     "//SimpleCallNode//AttributeNode[@is_py_attr = false]")

@@ -1,8 +1,8 @@
 # 7.17 Common definitions <stddef.h>
 
 extern from "<stddef.h>":
-    ctypedef i32 ptrdiff_t
+    type ptrdiff_t = i32
 
-    ctypedef u32 size_t
+    type size_t = u32
 
-    ctypedef i32 wchar_t
+    type wchar_t = i32

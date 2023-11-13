@@ -10,7 +10,7 @@ teststring
 """
 
 extern from *:
-    ctypedef void PyObject
+    type PyObject = void
 
 def f():
     let void* p1

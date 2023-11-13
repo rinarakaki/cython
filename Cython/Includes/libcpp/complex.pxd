@@ -5,8 +5,8 @@ extern from "<complex>" namespace "std" nogil:
         complex() except +
         complex(T, T) except +
         complex(complex[T]&) except +
-        # How to make the converting constructor, i.e. convert complex[double]
-        # to complex[float]?
+        # How to make the converting constructor, i.e. convert complex[f64]
+        # to complex[f32]?
 
         complex[T] operator+(complex[T]&)
         complex[T] operator-(complex[T]&)
@@ -40,36 +40,36 @@ extern from "<complex>" namespace "std" nogil:
 
     # Return real part
     fn T real[T](complex[T]&)
-    fn long double real(long double)
-    fn f64 real(double)
-    fn f32 real(float)
+    fn f128 real(f128)
+    fn f64 real(f64)
+    fn f32 real(f32)
 
     # Return imaginary part
     fn T imag[T](complex[T]&)
-    fn long double imag(long double)
-    fn f64 imag(double)
-    fn f32 imag(float)
+    fn f128 imag(f128)
+    fn f64 imag(f64)
+    fn f32 imag(f32)
 
     fn T abs[T](complex[T]&)
     fn T arg[T](complex[T]&)
-    fn long double arg(long double)
-    fn f64 arg(double)
-    fn f32 arg(float)
+    fn f128 arg(f128)
+    fn f64 arg(f64)
+    fn f32 arg(f32)
 
     fn T norm[T](complex[T])
-    fn long double norm(long double)
-    fn f64 norm(double)
-    fn f32 norm(float)
+    fn f128 norm(f128)
+    fn f64 norm(f64)
+    fn f32 norm(f32)
 
     fn complex[T] conj[T](complex[T]&)
-    fn complex[long double] conj(long double)
-    fn complex[double] conj(double)
-    fn complex[float] conj(float)
+    fn complex[f128] conj(f128)
+    fn complex[f64] conj(f64)
+    fn complex[f32] conj(f32)
 
     fn complex[T] proj[T](complex[T])
-    fn complex[long double] proj(long double)
-    fn complex[double] proj(double)
-    fn complex[float] proj(float)
+    fn complex[f128] proj(f128)
+    fn complex[f64] proj(f64)
+    fn complex[f32] proj(f32)
 
     fn complex[T] polar[T](T&, T&)
     fn complex[T] ploar[T](T&)
