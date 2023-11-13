@@ -3680,9 +3680,9 @@ def p_type_statement(s, ctx):
     visibility = p_visibility(s, ctx.visibility)
     api = p_api(s)
     ctx = ctx(typedef_flag=1, visibility=visibility)
-    declarator = p_c_declarator(s, ctx, is_type=1, nonempty=1)
+    declarator = p_c_declarator(s, ctx, is_type=1)
     s.expect("=")
-    base_type = p_c_base_type(s, nonempty=1)
+    base_type = p_c_base_type(s)
     s.expect_newline("Syntax error in type statement", ignore_semicolon=True)
     return Nodes.CTypeDefNode(
         pos,
