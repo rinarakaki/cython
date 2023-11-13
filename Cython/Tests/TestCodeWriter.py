@@ -49,15 +49,15 @@ class TestCodeWriter(CythonTest):
 
     def test_cdef(self):
         self.t(u"""
-                    cdef f(x, y, z):
+                    fn f(x, y, z):
                         pass
-                    cdef public void (x = 34, y = 54, z):
+                    fn public void (x = 34, y = 54, z):
                         pass
-                    cdef f(int *x, void *y, Value *z):
+                    fn f(i32* x, void* y, Value* z):
                         pass
-                    cdef f(int **x, void **y, Value **z):
+                    fn f(i32** x, void** y, Value** z):
                         pass
-                    cdef inline f(int &x, Value &z):
+                    fn inline f(i32 &x, Value &z):
                         pass
                """)
 

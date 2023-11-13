@@ -2669,10 +2669,43 @@ def p_positional_and_keyword_args(s, end_sy_set, templates = None):
     return positional_args, keyword_args
 
 def p_c_base_type(s, nonempty=False, templates=None):
+    pos = s.position()
+    # Handle const/volatile
+    is_const = is_volatile = 0
+    while s.sy in ("const", "IDENT"):
+        if s.sy == "const":
+            if is_const: error(pos, "Duplicate 'const'")
+            is_const = 1
+        elif s.systring == 'volatile':
+            if is_volatile: error(pos, "Duplicate 'volatile'")
+            is_volatile = 1
+        else:
+            break
+        s.next()
+
     if s.sy == '(':
-        return p_c_complex_base_type(s, templates = templates)
+        base_type = p_c_complex_base_type(s, templates = templates)
     else:
-        return p_c_simple_base_type(s, nonempty=nonempty, templates=templates)
+        base_type = p_c_simple_base_type(s, nonempty=nonempty, templates=templates)
+    
+    if is_const or is_volatile:
+        if isinstance(base_type, Nodes.MemoryViewSliceTypeNode):
+            # reverse order to avoid having to write "(const int)[:]"
+            base_type.base_type_node = Nodes.CConstOrVolatileTypeNode(pos,
+                base_type=base_type.base_type_node, is_const=is_const, is_volatile=is_volatile)
+        else:
+            base_type = Nodes.CConstOrVolatileTypeNode(pos,
+                base_type=base_type, is_const=is_const, is_volatile=is_volatile)
+    
+    if s.sy in ("*", "**"):
+        # scanner returns "**" as a single token
+        is_ptrptr = s.sy == "**"
+        s.next()
+
+        if is_ptrptr:
+            base_type = Nodes.CPtrTypeNode(pos, base_type=base_type)
+        base_type = Nodes.CPtrTypeNode(pos, base_type=base_type)
+        return base_type
 
 def p_calling_convention(s):
     if s.sy == 'IDENT' and s.systring in calling_convention_words:
@@ -2723,28 +2756,6 @@ def p_c_simple_base_type(s, nonempty, templates=None):
     complex = 0
     module_path = []
     pos = s.position()
-
-    # Handle const/volatile
-    is_const = is_volatile = 0
-    while s.sy in ("const", "IDENT"):
-        if s.sy == "const":
-            if is_const: error(pos, "Duplicate 'const'")
-            is_const = 1
-        elif s.systring == 'volatile':
-            if is_volatile: error(pos, "Duplicate 'volatile'")
-            is_volatile = 1
-        else:
-            break
-        s.next()
-    if is_const or is_volatile:
-        base_type = p_c_base_type(s, nonempty=nonempty, templates=templates)
-        if isinstance(base_type, Nodes.MemoryViewSliceTypeNode):
-            # reverse order to avoid having to write "(const int)[:]"
-            base_type.base_type_node = Nodes.CConstOrVolatileTypeNode(pos,
-                base_type=base_type.base_type_node, is_const=is_const, is_volatile=is_volatile)
-            return base_type
-        return Nodes.CConstOrVolatileTypeNode(pos,
-            base_type=base_type, is_const=is_const, is_volatile=is_volatile)
 
     if s.sy != 'IDENT':
         error(pos, "Expected an identifier, found '%s'" % s.sy)
@@ -2804,15 +2815,6 @@ def p_c_simple_base_type(s, nonempty, templates=None):
         templates = templates)
 
     #    declarations here.
-    if s.sy in ("*", "**"):
-        # scanner returns "**" as a single token
-        is_ptrptr = s.sy == "**"
-        s.next()
-
-        if is_ptrptr:
-            type_node = Nodes.CPtrTypeNode(pos, base_type=type_node)
-        type_node = Nodes.CPtrTypeNode(pos, base_type=type_node)
-
     if s.sy == '[':
         if is_memoryviewslice_access(s):
             type_node = p_memoryviewslice_access(s, type_node)
