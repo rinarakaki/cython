@@ -519,7 +519,8 @@ class CNameDeclaratorNode(CDeclaratorNode):
     def analyse(self, base_type, env, nonempty=0, visibility=None, in_pxd=False):
         if base_type is None:
             if self.default is not None:
-                base_type = self.default.infer_type(env) or self.default.analyse_types(env)
+                self.default.analyse_types(env)
+                base_type = self.default.infer_type(env)
                 if base_type is None:
                     print(self.default)
                     error(self.pos, "Cannot infer type from given expression: %s" % self.default)
