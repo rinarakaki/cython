@@ -3114,6 +3114,8 @@ def p_c_simple_declarator(s, ctx, empty, is_type, cmethod_flag,
             # scanner returns '**' as a single token
             is_ptrptr = 1
             s.next()
+        else:
+            is_ptrptr = 0
 
         const_pos = s.position()
         is_const = s.sy == "const"
