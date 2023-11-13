@@ -3623,6 +3623,8 @@ def p_let_statement(s, pos, ctx):
         base_type = base_type,
         declarators = declarators,
         in_pxd = ctx.level in ("module_pxd", "c_class_pxd"),
+        doc = None,
+        api = ctx.api,
         overridable = ctx.overridable,
     )
 
