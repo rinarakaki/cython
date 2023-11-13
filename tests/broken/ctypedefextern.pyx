@@ -1,6 +1,6 @@
 extern from "ctypedefextern.h":
     type some_int = i32
-    type some_ptr = some_int*
+    ctypedef some_int *some_ptr
 
 fn void spam():
     let some_int i
