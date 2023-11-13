@@ -1165,9 +1165,9 @@ class CPtrTypeNode(CBaseTypeNode):
     child_attrs = ["base_type"]
 
     def analyse(self, env, could_be_name=False):
-        if self.base_type.is_pyobject:
-            error(self.pos, "Pointer base type cannot be a Python object")
         base_type = self.base_type.analyse(env)
+        if base_type.is_pyobject:
+            error(self.pos, "Pointer base type cannot be a Python object")
         return PyrexTypes.c_ptr_type(base_type)
 
 
