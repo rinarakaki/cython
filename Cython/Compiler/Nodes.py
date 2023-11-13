@@ -518,11 +518,16 @@ class CNameDeclaratorNode(CDeclaratorNode):
 
     def analyse(self, base_type, env, nonempty=0, visibility=None, in_pxd=False):
         if base_type is None:
+            assert self.default is not None
             if self.default is not None:
                 from .ExprNodes import TypecastNode
                 assert isinstance(self.default, TypecastNode)
                 self.default.analyse_types(env)
                 base_type = self.default.infer_type(env)
+                if base_type is None:
+                    print("!!!!! CNameDeclaratorNode.analyse !!!!!")
+                    base_type = self.default.base_type
+                    print(base_type)
                 if base_type is None:
                     print(self.default)
                     error(self.pos, "Cannot infer type from given expression: %s" % self.default)
@@ -539,7 +544,7 @@ class CNameDeclaratorNode(CDeclaratorNode):
                 self.name = base_type.declaration_code("", for_display=1, pyrex=1)
                 base_type = py_object_type
 
-        if base_type and base_type.is_fused and env.fused_to_specific:
+        if base_type.is_fused and env.fused_to_specific:
             try:
                 base_type = base_type.specialize(env.fused_to_specific)
             except CannotSpecialize:
@@ -1491,7 +1496,6 @@ class CVarDefNode(StatNode):
         visibility = self.visibility
 
         for declarator in self.declarators:
-
             if (len(self.declarators) > 1
                     and not isinstance(declarator, CNameDeclaratorNode)
                     and env.directives['warn.multiple_declarators']):
