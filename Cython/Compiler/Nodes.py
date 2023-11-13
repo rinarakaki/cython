@@ -519,6 +519,8 @@ class CNameDeclaratorNode(CDeclaratorNode):
     def analyse(self, base_type, env, nonempty=0, visibility=None, in_pxd=False):
         if base_type is None:
             if self.default is not None:
+                from .ExprNodes import TypecastNode
+                assert isinstance(self.default, TypecastNode)
                 self.default.analyse_types(env)
                 base_type = self.default.infer_type(env)
                 if base_type is None:
