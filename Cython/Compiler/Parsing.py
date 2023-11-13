@@ -3625,6 +3625,7 @@ def p_let_statement(s, pos, ctx):
         in_pxd = ctx.level in ("module_pxd", "c_class_pxd"),
         doc = None,
         api = ctx.api,
+        modifiers = [],
         overridable = ctx.overridable,
     )
 
