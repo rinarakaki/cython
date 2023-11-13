@@ -4,6 +4,6 @@ struct Bar:
 fn i32 add(i32 a, i32 b):
     return a + b
 
-cdef auto bar = Bar(add)
+cdef Bar bar = Bar(add)
 
 print(bar.sum(1, 2))
