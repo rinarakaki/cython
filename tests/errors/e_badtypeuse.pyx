@@ -4,7 +4,7 @@ struct Grail
 
 cdef extern object xobj # Python object cannot be extern
 cdef object aobj[42]    # array element cannot be Python object
-cdef object *pobj       # pointer base type cannot be Python object
+cdef object* pobj       # pointer base type cannot be Python object
 
 cdef i32 spam[] # incomplete variable type
 cdef Grail g     # incomplete variable type
