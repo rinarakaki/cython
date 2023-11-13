@@ -9,7 +9,7 @@ cdef class Swallow:
 
 fn f(Grail g):
     let i32 i = 0
-    let auto s = Swallow()
+    let Swallow s = Swallow()
     let object x = Grail()
     g = x
     x = g
