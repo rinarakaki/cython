@@ -3606,6 +3606,24 @@ def p_visibility(s, prev_visibility):
         s.next()
     return visibility
 
+def p_let_statement(s, pos, ctx):
+    base_type = p_c_base_type(s, templates = ctx.templates)
+    declarator = p_c_declarator(s, ctx, assignable = 1, nonempty = 1)
+    declarators = [declarator]
+    while s.sy == ',':
+        s.next()
+        if s.sy == 'NEWLINE':
+            break
+        declarator = p_c_declarator(s, ctx, assignable = 1, nonempty = 1)
+        declarators.append(declarator)
+    s.expect_newline("Syntax error in C variable declaration", ignore_semicolon=True)
+    return Nodes.CVarDefNode(pos,
+        visibility = ctx.visibility,
+        base_type = base_type,
+        declarators = declarators,
+        in_pxd = ctx.level in ("module_pxd", "c_class_pxd"),
+    )
+
 def p_c_modifiers(s):
     if s.sy == 'IDENT' and s.systring in ('inline',):
         modifier = s.systring
