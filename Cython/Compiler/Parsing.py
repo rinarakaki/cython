@@ -3608,7 +3608,7 @@ def p_visibility(s, prev_visibility):
 def p_let_statement(s, pos, ctx):
     # s.sy == "let"
     s.next()
-    base_type = p_c_base_type(s, templates = ctx.templates)
+    base_type = p_c_base_type(s, nonempty = 1, templates = ctx.templates)
     declarator = p_c_declarator(s, ctx, assignable = 1, nonempty = 1)
     declarators = [declarator]
     while s.sy == ',':
