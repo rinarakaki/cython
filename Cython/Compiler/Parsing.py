@@ -3104,10 +3104,14 @@ def p_c_simple_declarator(s, ctx, empty, is_type, cmethod_flag,
                           assignable, nonempty):
     pos = s.position()
     calling_convention = p_calling_convention(s)
-    if s.sy in ('*', '**'):
-        # scanner returns '**' as a single token
-        is_ptrptr = s.sy == '**'
-        s.next()
+    if s.sy in ("*", "**", "const"):
+        if s.sy = "*":
+            is_ptrptr = 0
+            s.next()
+        elif s.sy == "**":
+            # scanner returns '**' as a single token
+            is_ptrptr = 1
+            s.next()
 
         const_pos = s.position()
         is_const = s.sy == "const"
