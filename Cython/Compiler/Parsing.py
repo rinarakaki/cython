@@ -3385,8 +3385,7 @@ def p_cdef_statement(s, ctx):
         s.next()
         return p_c_func_or_var_declaration(s, pos, ctx)
     elif s.sy == "let":
-        s.next()
-        return p_c_func_or_var_declaration(s, pos, ctx)
+        return p_let_statement(s, pos, ctx)
     elif s.sy == "static":
         s.next()
         return p_c_func_or_var_declaration(s, pos, ctx)
