@@ -519,10 +519,10 @@ class PyrexScanner(Scanner):
             self.error(message)
         else:
             if self.sy == IDENT:
-                found = "'IDENT' ('%s')" % self.systring
+                found = self.systring
             else:
-                found = "'%s'" % self.sy
-            self.error("Expected '%s', found %s" % (what, found))
+                found = self.sy
+            self.error("Expected '%s', found '%s'" % (what, found))
 
     def expect_indent(self):
         self.expect('INDENT', "Expected an increase in indentation level")
