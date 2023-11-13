@@ -59,8 +59,8 @@ def acquire():
             array(shape=(10,10), itemsize=sizeof(i32), format='i')
     let object[u64, ndim=3, mode='fortran'] buf3d = \
             array(shape=(1, 2, 3), itemsize=sizeof(u64), format='L', mode='fortran')
-    let object[long double, ndim=3, mode='fortran'] bufld = \
-            array(shape=(1, 2, 3), itemsize=sizeof(long double), format='g', mode='fortran')
+    let object[f128, ndim=3, mode='fortran'] bufld = \
+            array(shape=(1, 2, 3), itemsize=sizeof(f128), format='g', mode='fortran')
 
 def full_or_strided():
     '''
@@ -218,10 +218,6 @@ class InheritFrom(v.array):
 
 def test_char_array_in_python_api(*shape):
     """
-    >>> import sys
-    >>> if sys.version_info[0] < 3:
-    ...     def bytes(b): return memoryview(b).tobytes()  # don't call str()
-
     >>> arr1d = test_char_array_in_python_api(10)
     >>> print(bytes(arr1d).decode('ascii'))
     xxxxxxxxxx
@@ -291,11 +287,7 @@ def test_is_Sequence():
     1
     True
     """
-    import sys
-    if sys.version_info < (3, 3):
-        from collections import Sequence
-    else:
-        from collections.abc import Sequence
+    from collections.abc import Sequence
 
     arr = array(shape=(5,), itemsize=sizeof(char), format='c', mode='c')
     for i in 0..arr.shape[0]:
@@ -303,6 +295,7 @@ def test_is_Sequence():
     print(arr.count(b'1'))  # test for presence of added collection method
     print(arr.index(b'1'))  # test for presence of added collection method
 
+    import sys
     if sys.version_info >= (3, 10):
         # test structural pattern match in Python
         # (because Cython hasn't implemented it yet, and because the details

@@ -80,22 +80,22 @@ extern from "Python.h":
         isize ob_refcnt
         PyTypeObject *ob_type
 
-    cdef PyTypeObject *Py_TYPE(object)
+    fn PyTypeObject *Py_TYPE(object)
 
     fn void* PyObject_Malloc(usize)
     fn void* PyObject_Realloc(void *, usize)
     fn void PyObject_Free(void *)
 
-    #####################################################################
+    # ###################################################################
     # 6.1 Object Protocol
-    #####################################################################
+    # ###################################################################
     fn i32 PyObject_Print(object o, FILE *fp, i32 flags) except -1
     # Print an object o, on file fp. Returns -1 on error. The flags
     # argument is used to enable certain printing options. The only
     # option currently supported is Py_PRINT_RAW; if given, the str()
     # of the object is written instead of the repr().
 
-    fn bint PyObject_HasAttrString(object o, const char *attr_name)
+    fn u2 PyObject_HasAttrString(object o, const char *attr_name)
     # Returns 1 if o has the attribute attr_name, and 0
     # otherwise. This is equivalent to the Python expression
     # "hasattr(o, attr_name)". This function always succeeds.
@@ -106,7 +106,7 @@ extern from "Python.h":
     # or NULL on failure. This is the equivalent of the Python
     # expression "o.attr_name".
 
-    fn bint PyObject_HasAttr(object o, object attr_name)
+    fn u2 PyObject_HasAttr(object o, object attr_name)
     # Returns 1 if o has the attribute attr_name, and 0
     # otherwise. This is equivalent to the Python expression
     # "hasattr(o, attr_name)". This function always succeeds.
@@ -164,7 +164,7 @@ extern from "Python.h":
     # opid. Returns the value of the comparison on success, or NULL on
     # failure.
 
-    fn bint PyObject_RichCompareBool(object o1, object o2, i32 opid) except -1
+    fn u2 PyObject_RichCompareBool(object o1, object o2, i32 opid) except -1
     # Compare the values of o1 and o2 using the operation specified by
     # opid, which must be one of Py_LT, Py_LE, Py_EQ, Py_NE, Py_GT, or
     # Py_GE, corresponding to <, <=, ==, !=, >, or >=
@@ -216,7 +216,7 @@ extern from "Python.h":
     # is the equivalent of the Python expression "unicode(o)". Called
     # by the unicode() built-in function.
 
-    fn bint PyObject_IsInstance(object inst, object cls) except -1
+    fn u2 PyObject_IsInstance(object inst, object cls) except -1
     # Returns 1 if inst is an instance of the class cls or a subclass
     # of cls, or 0 if not. On error, returns -1 and sets an
     # exception. If cls is a type object rather than a class object,
@@ -241,7 +241,7 @@ extern from "Python.h":
     # fashion for A -- the presence of the __bases__ attribute is
     # considered sufficient for this determination.
 
-    fn bint PyObject_IsSubclass(object derived, object cls) except -1
+    fn u2 PyObject_IsSubclass(object derived, object cls) except -1
     # Returns 1 if the class derived is identical to or derived from
     # the class cls, otherwise returns 0. In case of an error, returns
     # -1. If cls is a tuple, the check will be done against every
@@ -252,7 +252,7 @@ extern from "Python.h":
     # 2.1. Changed in version 2.3: Older versions of Python did not
     # support a tuple as the second argument.
 
-    fn bint PyCallable_Check(object o)
+    fn u2 PyCallable_Check(object o)
     # Determine if the object o is callable. Return 1 if the object is
     # callable and 0 otherwise. This function always succeeds.
 
@@ -297,7 +297,7 @@ extern from "Python.h":
     # "o.method(args)". Note that if you only pass object  args,
     # PyObject_CallMethodObjArgs is a faster alternative.
 
-    #object PyObject_CallFunctionObjArgs(object callable, ..., NULL)
+    # fn object PyObject_CallFunctionObjArgs(object callable, ..., NULL)
     fn object PyObject_CallFunctionObjArgs(object callable, ...)
     # Return value: New reference.
     # Call a callable Python object callable, with a variable number
@@ -305,7 +305,7 @@ extern from "Python.h":
     # number of parameters followed by NULL. Returns the result of the
     # call on success, or NULL on failure.
 
-    #PyObject* PyObject_CallMethodObjArgs(object o, object name, ..., NULL)
+    # fn PyObject* PyObject_CallMethodObjArgs(object o, object name, ..., NULL)
     fn object PyObject_CallMethodObjArgs(object o, object name, ...)
     # Return value: New reference.
     # Calls a method of the object o, where the name of the method is
@@ -315,17 +315,17 @@ extern from "Python.h":
     # NULL. Returns the result of the call on success, or NULL on
     # failure.
 
-    long PyObject_Hash(object o) except? -1
+    fn i64 PyObject_Hash(object o) except? -1
     # Compute and return the hash value of an object o. On failure,
     # return -1. This is the equivalent of the Python expression
     # "hash(o)".
 
-    fn bint PyObject_IsTrue(object o) except -1
+    fn u2 PyObject_IsTrue(object o) except -1
     # Returns 1 if the object o is considered to be true, and 0
     # otherwise. This is equivalent to the Python expression "not not
     # o". On failure, return -1.
 
-    fn bint PyObject_Not(object o) except -1
+    fn u2 PyObject_Not(object o) except -1
     # Returns 0 if the object o is considered to be true, and 1
     # otherwise. This is equivalent to the Python expression "not
     # o". On failure, return -1.
@@ -341,7 +341,7 @@ extern from "Python.h":
     # pointer of type PyTypeObject*, except when the incremented
     # reference count is needed.
 
-    fn bint PyObject_TypeCheck(object o, PyTypeObject *type)
+    fn u2 PyObject_TypeCheck(object o, PyTypeObject *type)
     # Return true if the object o is of type type or a subtype of
     # type. Both parameters must be non-NULL.
 
@@ -405,35 +405,35 @@ extern from "Python.h":
     # Added in Py2.6
 
     # Type flags (tp_flags of PyTypeObject)
-    long Py_TPFLAGS_HAVE_GETCHARBUFFER
-    long Py_TPFLAGS_HAVE_SEQUENCE_IN
-    long Py_TPFLAGS_HAVE_INPLACEOPS
-    long Py_TPFLAGS_CHECKTYPES
-    long Py_TPFLAGS_HAVE_RICHCOMPARE
-    long Py_TPFLAGS_HAVE_WEAKREFS
-    long Py_TPFLAGS_HAVE_ITER
-    long Py_TPFLAGS_HAVE_CLASS
-    long Py_TPFLAGS_HEAPTYPE
-    long Py_TPFLAGS_BASETYPE
-    long Py_TPFLAGS_READY
-    long Py_TPFLAGS_READYING
-    long Py_TPFLAGS_HAVE_GC
-    long Py_TPFLAGS_HAVE_STACKLESS_EXTENSION
-    long Py_TPFLAGS_HAVE_INDEX
-    long Py_TPFLAGS_HAVE_VERSION_TAG
-    long Py_TPFLAGS_VALID_VERSION_TAG
-    long Py_TPFLAGS_IS_ABSTRACT
-    long Py_TPFLAGS_HAVE_NEWBUFFER
-    long Py_TPFLAGS_INT_SUBCLASS
-    long Py_TPFLAGS_LONG_SUBCLASS
-    long Py_TPFLAGS_LIST_SUBCLASS
-    long Py_TPFLAGS_TUPLE_SUBCLASS
-    long Py_TPFLAGS_STRING_SUBCLASS
-    long Py_TPFLAGS_UNICODE_SUBCLASS
-    long Py_TPFLAGS_DICT_SUBCLASS
-    long Py_TPFLAGS_BASE_EXC_SUBCLASS
-    long Py_TPFLAGS_TYPE_SUBCLASS
-    long Py_TPFLAGS_DEFAULT_EXTERNAL
-    long Py_TPFLAGS_DEFAULT_CORE
-    long Py_TPFLAGS_DEFAULT
-    long Py_TPFLAGS_HAVE_FINALIZE
+    static i64 Py_TPFLAGS_HAVE_GETCHARBUFFER
+    static i64 Py_TPFLAGS_HAVE_SEQUENCE_IN
+    static i64 Py_TPFLAGS_HAVE_INPLACEOPS
+    static i64 Py_TPFLAGS_CHECKTYPES
+    static i64 Py_TPFLAGS_HAVE_RICHCOMPARE
+    static i64 Py_TPFLAGS_HAVE_WEAKREFS
+    static i64 Py_TPFLAGS_HAVE_ITER
+    static i64 Py_TPFLAGS_HAVE_CLASS
+    static i64 Py_TPFLAGS_HEAPTYPE
+    static i64 Py_TPFLAGS_BASETYPE
+    static i64 Py_TPFLAGS_READY
+    static i64 Py_TPFLAGS_READYING
+    static i64 Py_TPFLAGS_HAVE_GC
+    static i64 Py_TPFLAGS_HAVE_STACKLESS_EXTENSION
+    static i64 Py_TPFLAGS_HAVE_INDEX
+    static i64 Py_TPFLAGS_HAVE_VERSION_TAG
+    static i64 Py_TPFLAGS_VALID_VERSION_TAG
+    static i64 Py_TPFLAGS_IS_ABSTRACT
+    static i64 Py_TPFLAGS_HAVE_NEWBUFFER
+    static i64 Py_TPFLAGS_INT_SUBCLASS
+    static i64 Py_TPFLAGS_LONG_SUBCLASS
+    static i64 Py_TPFLAGS_LIST_SUBCLASS
+    static i64 Py_TPFLAGS_TUPLE_SUBCLASS
+    static i64 Py_TPFLAGS_STRING_SUBCLASS
+    static i64 Py_TPFLAGS_UNICODE_SUBCLASS
+    static i64 Py_TPFLAGS_DICT_SUBCLASS
+    static i64 Py_TPFLAGS_BASE_EXC_SUBCLASS
+    static i64 Py_TPFLAGS_TYPE_SUBCLASS
+    static i64 Py_TPFLAGS_DEFAULT_EXTERNAL
+    static i64 Py_TPFLAGS_DEFAULT_CORE
+    static i64 Py_TPFLAGS_DEFAULT
+    static i64 Py_TPFLAGS_HAVE_FINALIZE

@@ -2,7 +2,7 @@
 
 # the following are valid syntax constructs and should not produce errors
 
-ctypedef i32 x;
+type x = i32;
 
 fn no_semi():
     let i32 i

@@ -73,8 +73,8 @@ def test_global():
     double (double) noexcept nogil
     Python object
     """
-    print cython.typeof(sqrt)
-    print cython.typeof(global_csqrt)
+    print cython::typeof(sqrt)
+    print cython::typeof(global_csqrt)
 
 fn i128 rad(i128 x):
     let i128 rad = 1
@@ -87,7 +87,7 @@ fn i128 rad(i128 x):
             break
     return rad
 
-fn bint abc(i128 a, i128 b, i128 c) except -1:
+fn u2 abc(i128 a, i128 b, i128 c) except -1:
     if a + b != c:
         raise ValueError("Not a valid abc candidate: (%s, %s, %s)" % (a, b, c))
     return rad(a*b*c) < c
@@ -120,7 +120,7 @@ def return_abc():
     """
     return abc
 
-ctypedef f64 foo
+type foo = f64
 fn foo test_typedef_cfunc(foo x):
     return x
 

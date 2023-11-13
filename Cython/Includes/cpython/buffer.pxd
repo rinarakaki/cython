@@ -7,7 +7,7 @@ extern from "Python.h":
     cdef enum:
         PyBUF_SIMPLE,
         PyBUF_WRITABLE,
-        PyBUF_WRITEABLE, # backwards compatibility
+        PyBUF_WRITEABLE,  # backwards compatibility
         PyBUF_FORMAT,
         PyBUF_ND,
         PyBUF_STRIDES,
@@ -27,7 +27,7 @@ extern from "Python.h":
         PyBUF_WRITE,
         PyBUF_SHADOW
 
-    fn bint PyObject_CheckBuffer(object obj)
+    fn u2 PyObject_CheckBuffer(object obj)
     # Return 1 if obj supports the buffer interface otherwise 0.
 
     fn i32 PyObject_GetBuffer(object obj, Py_buffer *view, i32 flags) except -1
@@ -84,7 +84,7 @@ extern from "Python.h":
     fn i32 PyObject_CopyData(object dest, object src) except -1
     # Copy the data from the src buffer to the buffer of destination
 
-    fn bint PyBuffer_IsContiguous(Py_buffer *view, char fort)
+    fn u2 PyBuffer_IsContiguous(Py_buffer *view, char fort)
     # Return 1 if the memory defined by the view is C-style (fortran
     # is 'C') or Fortran-style (fortran is 'F') contiguous or either
     # one (fortran is 'A'). Return 0 otherwise.
@@ -99,7 +99,7 @@ extern from "Python.h":
     # given shape with the given number of bytes per element.
 
     fn i32 PyBuffer_FillInfo(Py_buffer *view, object exporter, void *buf,
-                            isize len, i32 readonly, i32 flags) except -1
+                             isize len, i32 readonly, i32 flags) except -1
     # Fill in a buffer-info structure, view, correctly for an exporter
     # that can only share a contiguous chunk of memory of “unsigned
     # bytes” of the given length. Return 0 on success and -1 (with

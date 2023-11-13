@@ -8,7 +8,7 @@ __doc__ = u"""
     'yelp'
 """
 
-ctypedef i128 foo
+type foo = i128
 
 def set_longlong(i128 ob, foo x, i64 y, val):
     let object tank = {}

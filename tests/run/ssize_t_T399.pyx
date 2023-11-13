@@ -17,20 +17,20 @@ True
 >>> test(SSIZE_T_MIN) == SSIZE_T_MIN
 True
 
->>> test(SSIZE_T_MAX+1) #doctest: +ELLIPSIS
+>>> test(SSIZE_T_MAX+1) # doctest: +ELLIPSIS
 Traceback (most recent call last):
     ...
 OverflowError: ...
->>> test(SSIZE_T_MIN-1) #doctest: +ELLIPSIS
+>>> test(SSIZE_T_MIN-1) # doctest: +ELLIPSIS
 Traceback (most recent call last):
     ...
 OverflowError: ...
 
->>> test(1<<128) #doctest: +ELLIPSIS
+>>> test(1<<128) # doctest: +ELLIPSIS
 Traceback (most recent call last):
     ...
 OverflowError: ...
->>> test(-(1<<128)) #doctest: +ELLIPSIS
+>>> test(-(1<<128)) # doctest: +ELLIPSIS
 Traceback (most recent call last):
     ...
 OverflowError: ...
@@ -42,16 +42,16 @@ True
 True
 >>> a.foo(5)
 5
->>> a.foo(1 << 180) #doctest: +ELLIPSIS
+>>> a.foo(1 << 180) # doctest: +ELLIPSIS
 Traceback (most recent call last):
     ...
 OverflowError: ...
 """
 
 extern from *:
-    ctypedef long ssize_t # XXX This should generate a warning !!!
-    ssize_t PY_SSIZE_T_MAX
-    ssize_t PY_SSIZE_T_MIN
+    type ssize_t = i64  # XXX This should generate a warning !!!
+    static ssize_t PY_SSIZE_T_MAX
+    static ssize_t PY_SSIZE_T_MIN
 
 SSIZE_T_MAX = PY_SSIZE_T_MAX
 SSIZE_T_MIN = PY_SSIZE_T_MIN

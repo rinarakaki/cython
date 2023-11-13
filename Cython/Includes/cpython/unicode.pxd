@@ -1,15 +1,15 @@
 extern from *:
-    ctypedef u8 Py_UCS1  # uint8_t
-    ctypedef u16 Py_UCS2  # uint16_t
+    type Py_UCS1 = u8  # uint8_t
+    type Py_UCS2 = u16  # uint16_t
 
     # Return true if the object o is a Unicode object or an instance
     # of a Unicode subtype. Changed in version 2.2: Allowed subtypes
     # to be accepted.
-    fn bint PyUnicode_Check(object o)
+    fn u2 PyUnicode_Check(object o)
 
     # Return true if the object o is a Unicode object, but not an
     # instance of a subtype. New in version 2.2.
-    fn bint PyUnicode_CheckExact(object o)
+    fn u2 PyUnicode_CheckExact(object o)
 
     # Return the size of the object. o has to be a PyUnicodeObject
     # (not checked).
@@ -30,10 +30,10 @@ extern from *:
     fn Py_UCS2 *PyUnicode_2BYTE_DATA(object o)
     fn Py_UCS4 *PyUnicode_4BYTE_DATA(object o)
 
-    int PyUnicode_WCHAR_KIND  # Deprecated since Python 3.10, removed in 3.12.
-    int PyUnicode_1BYTE_KIND
-    int PyUnicode_2BYTE_KIND
-    int PyUnicode_4BYTE_KIND
+    static i32 PyUnicode_WCHAR_KIND  # Deprecated since Python 3.10, removed in 3.12.
+    static i32 PyUnicode_1BYTE_KIND
+    static i32 PyUnicode_2BYTE_KIND
+    static i32 PyUnicode_4BYTE_KIND
     fn void PyUnicode_WRITE(i32 kind, void *data, isize index, Py_UCS4 value)
     fn Py_UCS4 PyUnicode_READ(i32 kind, void *data, isize index)
     fn Py_UCS4 PyUnicode_READ_CHAR(object o, isize index)
@@ -53,39 +53,39 @@ extern from *:
     # be a PyUnicodeObject (not checked).
     fn char* PyUnicode_AS_DATA(object o)
 
-    fn bint PyUnicode_IsIdentifier(object o)
+    fn u2 PyUnicode_IsIdentifier(object o)
 
     # Return 1 or 0 depending on whether ch is a whitespace character.
-    fn bint Py_UNICODE_ISSPACE(Py_UCS4 ch)
+    fn u2 Py_UNICODE_ISSPACE(Py_UCS4 ch)
 
     # Return 1 or 0 depending on whether ch is a lowercase character.
-    fn bint Py_UNICODE_ISLOWER(Py_UCS4 ch)
+    fn u2 Py_UNICODE_ISLOWER(Py_UCS4 ch)
 
     # Return 1 or 0 depending on whether ch is an uppercase character.
-    fn bint Py_UNICODE_ISUPPER(Py_UCS4 ch)
+    fn u2 Py_UNICODE_ISUPPER(Py_UCS4 ch)
 
     # Return 1 or 0 depending on whether ch is a titlecase character.
-    fn bint Py_UNICODE_ISTITLE(Py_UCS4 ch)
+    fn u2 Py_UNICODE_ISTITLE(Py_UCS4 ch)
 
     # Return 1 or 0 depending on whether ch is a linebreak character.
-    fn bint Py_UNICODE_ISLINEBREAK(Py_UCS4 ch)
+    fn u2 Py_UNICODE_ISLINEBREAK(Py_UCS4 ch)
 
     # Return 1 or 0 depending on whether ch is a decimal character.
-    fn bint Py_UNICODE_ISDECIMAL(Py_UCS4 ch)
+    fn u2 Py_UNICODE_ISDECIMAL(Py_UCS4 ch)
 
     # Return 1 or 0 depending on whether ch is a digit character.
-    fn bint Py_UNICODE_ISDIGIT(Py_UCS4 ch)
+    fn u2 Py_UNICODE_ISDIGIT(Py_UCS4 ch)
 
     # Return 1 or 0 depending on whether ch is a numeric character.
-    fn bint Py_UNICODE_ISNUMERIC(Py_UCS4 ch)
+    fn u2 Py_UNICODE_ISNUMERIC(Py_UCS4 ch)
 
     # Return 1 or 0 depending on whether ch is an alphabetic character.
-    fn bint Py_UNICODE_ISALPHA(Py_UCS4 ch)
+    fn u2 Py_UNICODE_ISALPHA(Py_UCS4 ch)
 
     # Return 1 or 0 depending on whether ch is an alphanumeric character.
-    fn bint Py_UNICODE_ISALNUM(Py_UCS4 ch)
+    fn u2 Py_UNICODE_ISALNUM(Py_UCS4 ch)
 
-    fn bint Py_UNICODE_ISPRINTABLE(Py_UCS4 ch)
+    fn u2 Py_UNICODE_ISPRINTABLE(Py_UCS4 ch)
 
     # Return the character ch converted to lower case.
     # Used to return a Py_UNICODE value before Py3.3.
@@ -179,7 +179,7 @@ extern from *:
     # following functions. Support is optimized if Python's own
     # Py_UNICODE type is identical to the system's wchar_t.
 
-    # ctypedef i32 wchar_t
+    # type wchar_t = i32
 
     # Create a Unicode object from the wchar_t buffer w of the given
     # size. Return NULL on failure.
@@ -205,7 +205,7 @@ extern from *:
     # strings. CRLF is considered to be one line break. If keepend is 0,
     # the Line break characters are not included in the resulting strings.
     # Return value: New reference.
-    fn list PyUnicode_Splitlines(object s, bint keepend)
+    fn list PyUnicode_Splitlines(object s, u2 keepend)
 
     # Translate a string by applying a character mapping table to it and
     # return the resulting Unicode object.
@@ -232,7 +232,7 @@ extern from *:
     # suffix match), 0 otherwise.
     # Return -1 if an error occurred.
     fn isize PyUnicode_Tailmatch(object str, object substr,
-                              isize start, isize end, i32 direction) except -1
+                                 isize start, isize end, i32 direction) except -1
 
     # Return the first position of substr in str[start:end] using the given
     # direction (direction == 1 means to do a forward search, direction == -1

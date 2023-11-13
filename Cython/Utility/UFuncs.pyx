@@ -1,10 +1,10 @@
 ##################### UFuncDefinition ######################
 
 extern from *:
-    ctypedef i32 npy_intp
+    type npy_intp = i32
     struct PyObject
     fn PyObject* __Pyx_NewRef(object)
-    {{inline_func_declaration}}
+    fn {{inline_func_declaration}}
 
 # variable names have to come from tempita to avoid duplication
 @cname("{{func_cname}}")

@@ -6,17 +6,17 @@ __doc__ = """
 # Make sure all of these happen in order.
 
 extern from "a.h":
-    cdef int a
+    static i32 a
 
 use b::b
 
 extern from "c.h":
-    cdef int c
+    static i32 c
 
 use indirect_d
 
 extern from "e.h":
-    cdef int e
+    static i32 e
 
 def test():
     print a, b, c, indirect_d.d, e

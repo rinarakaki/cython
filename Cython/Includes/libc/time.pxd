@@ -3,12 +3,12 @@
 use libc::stddef::wchar_t
 
 extern from "<time.h>" nogil:
-    ctypedef i64 clock_t
-    ctypedef i64 time_t
+    type clock_t = i64
+    type time_t = i64
 
     enum: CLOCKS_PER_SEC
     fn clock_t clock()             # CPU time
-    fn time_t  time(time_t *)      # wall clock time since Unix epoch
+    fn time_t time(time_t *)      # wall clock time since Unix epoch
 
     struct tm:
         i32  tm_sec
@@ -24,24 +24,24 @@ extern from "<time.h>" nogil:
         # char *tm_zone
         # long tm_gmtoff
 
-    i32     daylight            # global state
-    i64    timezone
-    char    *tzname[2]
-    void    tzset()
+    static i32 daylight            # global state
+    static i64 timezone
+    static char *tzname[2]
+    fn void tzset()
 
-    char    *asctime(const tm *)
-    char    *asctime_r(const tm *, char *)
-    char    *ctime(const time_t *)
-    char    *ctime_r(const time_t *, char *)
-    f64  difftime(time_t, time_t)
-    tm      *getdate(const char *)
-    tm      *gmtime(const time_t *)
-    tm      *gmtime_r(const time_t *, tm *)
-    tm      *localtime(const time_t *)
-    tm      *localtime_r(const time_t *, tm *)
-    time_t  mktime(tm *)
-    usize  strftime(char *, usize, const char *, const tm *)
-    usize  wcsftime(wchar_t *str, usize cnt, const wchar_t *fmt, tm *time)
+    fn char *asctime(const tm *)
+    fn char *asctime_r(const tm *, char *)
+    fn char *ctime(const time_t *)
+    fn char *ctime_r(const time_t *, char *)
+    fn f64 difftime(time_t, time_t)
+    fn tm *getdate(const char *)
+    fn tm *gmtime(const time_t *)
+    fn tm *gmtime_r(const time_t *, tm *)
+    fn tm *localtime(const time_t *)
+    fn tm *localtime_r(const time_t *, tm *)
+    fn time_t mktime(tm *)
+    fn usize strftime(char *, usize, const char *, const tm *)
+    fn usize wcsftime(wchar_t *str, usize cnt, const wchar_t *fmt, tm *time)
 
     # POSIX not stdC
-    char    *strptime(const char *, const char *, tm *)
+    fn char *strptime(const char *, const char *, tm *)

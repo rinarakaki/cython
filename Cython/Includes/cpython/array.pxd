@@ -129,26 +129,28 @@ extern from *:  # Hard-coded utility code hack.
         def __releasebuffer__(self, Py_buffer* info):
             PyObject_Free(info.shape)
 
-    array newarrayobject(PyTypeObject* type, isize size, arraydescr *descr)
+    fn array newarrayobject(PyTypeObject* type, isize size, arraydescr *descr)
 
     # fast resize/realloc
     # not suitable for small increments; reallocation 'to the point'
-    i32 resize(array self, isize n) except -1
+    fn i32 resize(array self, isize n) except -1
     # efficient for small increments (not in Py2.3-)
-    i32 resize_smart(array self, isize n) except -1
+    fn i32 resize_smart(array self, isize n) except -1
 
-fn inline array clone(array template, isize length, bint zero):
-    """ fast creation of a new array, given a template array.
+fn inline array clone(array template, isize length, u2 zero):
+    """
+    fast creation of a new array, given a template array.
     type will be same as template.
-    if zero is true, new array will be initialized with zeroes."""
-    cdef array op = newarrayobject(Py_TYPE(template), length, template.ob_descr)
+    if zero is true, new array will be initialized with zeroes.
+    """
+    let array op = newarrayobject(Py_TYPE(template), length, template.ob_descr)
     if zero and op is not None:
         memset(op.data.as_chars, 0, length * op.ob_descr.itemsize)
     return op
 
 fn inline array copy(array self):
     """ make a copy of an array. """
-    cdef array op = newarrayobject(Py_TYPE(self), Py_SIZE(self), self.ob_descr)
+    let array op = newarrayobject(Py_TYPE(self), Py_SIZE(self), self.ob_descr)
     memcpy(op.data.as_chars, self.data.as_chars, Py_SIZE(op) * op.ob_descr.itemsize)
     return op
 
@@ -156,8 +158,8 @@ fn inline i32 extend_buffer(array self, char* stuff, isize n) except -1:
     """ efficient appending of new stuff of same type
     (e.g. of same array type)
     n: number of elements (not number of bytes!) """
-    cdef isize itemsize = self.ob_descr.itemsize
-    cdef isize origsize = Py_SIZE(self)
+    let isize itemsize = self.ob_descr.itemsize
+    let isize origsize = Py_SIZE(self)
     resize_smart(self, origsize + n)
     memcpy(self.data.as_chars + origsize * itemsize, stuff, n * itemsize)
     return 0

@@ -7,8 +7,8 @@ __doc__ = """
 """
 
 extern from "external_defs.h":
-    ctypedef f32 DoubleTypedef
-    ctypedef f32 LongDoubleTypedef
+    type DoubleTypedef = f32
+    type LongDoubleTypedef = f32
 
 pub DoubleTypedef global_tdef
 pub f64 global_double

@@ -27,8 +27,8 @@ fn i32 f() except -1:
     sstring = repr(x)
     sustring = repr(x)
     setattr(x, y, z)
-    #i = typecheck(x, y)
-    #i = issubtype(x, y)
+    # i = typecheck(x, y)
+    # i = issubtype(x, y)
     x = abs
 
 fn not_called():

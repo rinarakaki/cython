@@ -27,16 +27,16 @@ def test_int24(Int24 i):
     >>> test_int24(INT24_MIN) == INT24_MIN
     True
 
-    >>> test_int24(INT24_MIN-1) #doctest: +ELLIPSIS
+    >>> test_int24(INT24_MIN-1) # doctest: +ELLIPSIS
     Traceback (most recent call last):
     ...
     OverflowError: ...
-    >>> test_int24(INT24_MAX+1) #doctest: +ELLIPSIS
+    >>> test_int24(INT24_MAX+1) # doctest: +ELLIPSIS
     Traceback (most recent call last):
     ...
     OverflowError: ...
 
-    >>> test_int24("123") #doctest: +ELLIPSIS
+    >>> test_int24("123") # doctest: +ELLIPSIS
     Traceback (most recent call last):
     ...
     TypeError: ...
@@ -62,16 +62,16 @@ def test_int56(Int56 i):
     >>> test_int56(INT56_MIN) == INT56_MIN
     True
 
-    >>> test_int56(INT56_MIN-1) #doctest: +ELLIPSIS
+    >>> test_int56(INT56_MIN-1) # doctest: +ELLIPSIS
     Traceback (most recent call last):
     ...
     OverflowError: ...
-    >>> test_int56(INT56_MAX+1) #doctest: +ELLIPSIS
+    >>> test_int56(INT56_MAX+1) # doctest: +ELLIPSIS
     Traceback (most recent call last):
     ...
     OverflowError: ...
 
-    >>> test_int56("123") #doctest: +ELLIPSIS
+    >>> test_int56("123") # doctest: +ELLIPSIS
     Traceback (most recent call last):
     ...
     TypeError: ...
@@ -97,16 +97,16 @@ def test_int88(Int88 i):
     >>> test_int88(INT88_MIN) == INT88_MIN
     True
 
-    >>> test_int88(INT88_MIN-1) #doctest: +ELLIPSIS
+    >>> test_int88(INT88_MIN-1) # doctest: +ELLIPSIS
     Traceback (most recent call last):
     ...
     OverflowError: ...
-    >>> test_int88(INT88_MAX+1) #doctest: +ELLIPSIS
+    >>> test_int88(INT88_MAX+1) # doctest: +ELLIPSIS
     Traceback (most recent call last):
     ...
     OverflowError: ...
 
-    >>> test_int88("123") #doctest: +ELLIPSIS
+    >>> test_int88("123") # doctest: +ELLIPSIS
     Traceback (most recent call last):
     ...
     TypeError: ...
@@ -132,16 +132,16 @@ def test_int512(Int512 i):
     >>> test_int512(INT512_MIN) == INT512_MIN
     True
 
-    >>> test_int512(INT512_MIN-1) #doctest: +ELLIPSIS
+    >>> test_int512(INT512_MIN-1) # doctest: +ELLIPSIS
     Traceback (most recent call last):
     ...
     OverflowError: ...
-    >>> test_int512(INT512_MAX+1) #doctest: +ELLIPSIS
+    >>> test_int512(INT512_MAX+1) # doctest: +ELLIPSIS
     Traceback (most recent call last):
     ...
     OverflowError: ...
 
-    >>> test_int512("123") #doctest: +ELLIPSIS
+    >>> test_int512("123") # doctest: +ELLIPSIS
     Traceback (most recent call last):
     ...
     TypeError: ...

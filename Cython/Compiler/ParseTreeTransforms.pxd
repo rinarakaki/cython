@@ -8,11 +8,11 @@ use super::Visitor::(
 )
 
 # Don't include mixins, only the main classes.
-#cdef class SkipDeclarations:
+# cdef class SkipDeclarations:
 
 cdef class NormalizeTree(CythonTransform):
-    cdef bint is_in_statlist
-    cdef bint is_in_expr
+    cdef u2 is_in_statlist
+    cdef u2 is_in_expr
     cpdef visit_StatNode(self, node, is_listcontainer=*)
 
 cdef class PostParse(ScopeTrackingTransform):
@@ -23,7 +23,7 @@ cdef class PostParse(ScopeTrackingTransform):
 
 # def eliminate_rhs_duplicates(list expr_list_list, list ref_node_sequence)
 # def sort_common_subsequences(list items)
-#[cython.locals(starred_targets=isize, lhs_size=isize, rhs_size=isize)]
+#[cython::locals(starred_targets=isize, lhs_size=isize, rhs_size=isize)]
 fn flatten_parallel_assignments(list input, list output)
 fn map_starred_assignment(list lhs_targets, list starred_assignments, list lhs_args, list rhs_args)
 
@@ -45,38 +45,38 @@ cdef class AlignFunctionDefinitions(CythonTransform):
     cdef set imported_names
     cdef object scope
 
-#[cython.final]
+#[cython::final]
 cdef class YieldNodeCollector(TreeVisitor):
     pub list yields
     pub list returns
     pub list finallys
     pub list excepts
-    pub bint has_return_value
-    pub bint has_yield
-    pub bint has_await
+    pub u2 has_return_value
+    pub u2 has_yield
+    pub u2 has_await
 
-#[cython.final]
+#[cython::final]
 cdef class MarkClosureVisitor(CythonTransform):
-    cdef bint needs_closure
+    cdef u2 needs_closure
 
-#[cython.final]
+#[cython::final]
 cdef class CreateClosureClasses(CythonTransform):
     cdef list path
-    cdef bint in_lambda
+    cdef u2 in_lambda
     cdef module_scope
     cdef generator_class
 
     fn create_class_from_scope(self, node, target_module_scope, inner_node=*)
     fn find_entries_used_in_closures(self, node)
 
-#cdef class InjectGilHandling(VisitorTransform, SkipDeclarations):
-#    cdef bint nogil
+# cdef class InjectGilHandling(VisitorTransform, SkipDeclarations):
+#     cdef u2 nogil
 
 cdef class GilCheck(VisitorTransform):
     cdef list env_stack
-    cdef bint nogil
-    cdef bint nogil_declarator_only
-    cdef bint current_gilstat_node_knows_gil_state
+    cdef u2 nogil
+    cdef u2 nogil_declarator_only
+    cdef u2 current_gilstat_node_knows_gil_state
 
 cdef class TransformBuiltinMethods(EnvTransform):
     fn visit_cython_attribute(self, node)

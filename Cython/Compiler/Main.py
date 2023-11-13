@@ -387,8 +387,8 @@ class Context(object):
                             "Formal grammar can only be used with compiled Cython with an available pgen.")
                     ConcreteSyntaxTree.p_module(source_filename)
         except UnicodeDecodeError as e:
-            #import traceback
-            #traceback.print_exc()
+            # import traceback
+            # traceback.print_exc()
             raise self._report_decode_error(source_desc, e)
 
         if Errors.get_errors_count() > num_errors:

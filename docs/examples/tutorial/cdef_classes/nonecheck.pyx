@@ -7,12 +7,12 @@ cdef class MyClass:
     pass
 
 # Turn off nonecheck locally for the function
-#[cython.nonecheck(false)]
+#[cython::nonecheck(false)]
 fn func():
     let MyClass obj = None
     try:
         # Turn nonecheck on again for a block
-        with cython.nonecheck(true):
+        with cython::nonecheck(true):
             print(obj.myfunc())  # Raises exception
     except AttributeError:
         pass

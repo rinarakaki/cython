@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 import sys
 
 from Cython.Debugger import Cygdb as cygdb

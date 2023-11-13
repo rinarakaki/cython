@@ -1,209 +1,209 @@
 extern from "<math.h>" nogil:
-    const f64 M_E
-    const f64 e "M_E"  # as in Python's math module
-    const f64 M_LOG2E
-    const f64 M_LOG10E
-    const f64 M_LN2
-    const f64 M_LN10
-    const f64 M_PI
-    const f64 pi "M_PI"  # as in Python's math module
-    const f64 M_PI_2
-    const f64 M_PI_4
-    const f64 M_1_PI
-    const f64 M_2_PI
-    const f64 M_2_SQRTPI
-    const f64 M_SQRT2
-    const f64 M_SQRT1_2
+    static const f64 M_E
+    static const f64 e "M_E"  # as in Python's math module
+    static const f64 M_LOG2E
+    static const f64 M_LOG10E
+    static const f64 M_LN2
+    static const f64 M_LN10
+    static const f64 M_PI
+    static const f64 pi "M_PI"  # as in Python's math module
+    static const f64 M_PI_2
+    static const f64 M_PI_4
+    static const f64 M_1_PI
+    static const f64 M_2_PI
+    static const f64 M_2_SQRTPI
+    static const f64 M_SQRT2
+    static const f64 M_SQRT1_2
 
     # C99 constants
-    const f32 INFINITY
-    const f32 NAN
+    static const f32 INFINITY
+    static const f32 NAN
     # note: not providing "nan" and "inf" aliases here as nan() is a function in C
-    const f64 HUGE_VAL
-    const f32 HUGE_VALF
-    const long double HUGE_VALL
+    static const f64 HUGE_VAL
+    static const f32 HUGE_VALF
+    static const f128 HUGE_VALL
 
     # All C99 functions in alphabetical order
     fn f64 acos(f64 x)
     fn f32 acosf(f32)
     fn f64 acosh(f64 x)
     fn f32 acoshf(f32)
-    fn long double acoshl(long double)
-    fn long double acosl(long double)
+    fn f128 acoshl(f128)
+    fn f128 acosl(f128)
     fn f64 asin(f64 x)
     fn f32 asinf(f32)
     fn f64 asinh(f64 x)
     fn f32 asinhf(f32)
-    fn long double asinhl(long double)
-    fn long double asinl(long double)
+    fn f128 asinhl(f128)
+    fn f128 asinl(f128)
     fn f64 atan(f64 x)
     fn f64 atan2(f64 y, f64 x)
     fn f32 atan2f(f32, f32)
-    fn long double atan2l(long double, long double)
+    fn f128 atan2l(f128, f128)
     fn f32 atanf(f32)
     fn f64 atanh(f64 x)
     fn f32 atanhf(f32)
-    fn long double atanhl(long double)
-    fn long double atanl(long double)
+    fn f128 atanhl(f128)
+    fn f128 atanl(f128)
     fn f64 cbrt(f64 x)
     fn f32 cbrtf(f32)
-    fn long double cbrtl(long double)
+    fn f128 cbrtl(f128)
     fn f64 ceil(f64 x)
     fn f32 ceilf(f32)
-    fn long double ceill(long double)
+    fn f128 ceill(f128)
     fn f64 copysign(f64, f64)
     fn f32 copysignf(f32, f32)
-    fn long double copysignl(long double, long double)
+    fn f128 copysignl(f128, f128)
     fn f64 cos(f64 x)
     fn f32 cosf(f32)
     fn f64 cosh(f64 x)
     fn f32 coshf(f32)
-    fn long double coshl(long double)
-    fn long double cosl(long double)
+    fn f128 coshl(f128)
+    fn f128 cosl(f128)
     fn f64 erf(f64)
     fn f64 erfc(f64)
     fn f32 erfcf(f32)
-    fn long double erfcl(long double)
+    fn f128 erfcl(f128)
     fn f32 erff(f32)
-    fn long double erfl(long double)
+    fn f128 erfl(f128)
     fn f64 exp(f64 x)
     fn f64 exp2(f64 x)
     fn f32 exp2f(f32)
-    fn long double exp2l(long double)
+    fn f128 exp2l(f128)
     fn f32 expf(f32)
-    fn long double expl(long double)
+    fn f128 expl(f128)
     fn f64 expm1(f64 x)
     fn f32 expm1f(f32)
-    fn long double expm1l(long double)
+    fn f128 expm1l(f128)
     fn f64 fabs(f64 x)
     fn f32 fabsf(f32)
-    fn long double fabsl(long double)
+    fn f128 fabsl(f128)
     fn f64 fdim(f64 x, f64 y)
     fn f32 fdimf(f32, f32)
-    fn long double fdiml(long double, long double)
+    fn f128 fdiml(f128, f128)
     fn f64 floor(f64 x)
     fn f32 floorf(f32)
-    fn long double floorl(long double)
+    fn f128 floorl(f128)
     fn f64 fma(f64 x, f64 y, f64 z)
     fn f32 fmaf(f32, f32, f32)
-    fn long double fmal(long double, long double, long double)
+    fn f128 fmal(f128, f128, f128)
     fn f64 fmax(f64 x, f64 y)
     fn f32 fmaxf(f32, f32)
-    fn long double fmaxl(long double, long double)
+    fn f128 fmaxl(f128, f128)
     fn f64 fmin(f64 x, f64 y)
     fn f32 fminf(f32, f32)
-    fn long double fminl(long double, long double)
+    fn f128 fminl(f128, f128)
     fn f64 fmod(f64 x, f64 y)
     fn f32 fmodf(f32, f32)
-    fn long double fmodl(long double, long double)
+    fn f128 fmodl(f128, f128)
     fn f64 frexp(f64 x, i32* exponent)
     fn f32 frexpf(f32, i32* exponent)
-    fn long double frexpl(long double, i32*)
+    fn f128 frexpl(f128, i32*)
     fn f64 hypot(f64 x, f64 y)
     fn f32 hypotf(f32, f32)
-    fn long double hypotl(long double, long double)
+    fn f128 hypotl(f128, f128)
     fn i32 ilogb(f64 x)
     fn i32 ilogbf(f32)
-    fn i32 ilogbl(long double)
+    fn i32 ilogbl(f128)
     fn f64 ldexp(f64 x, i32 exponent)
     fn f32 ldexpf(f32, i32 exponent)
-    fn long double ldexpl(long double, i32 exponent)
+    fn f128 ldexpl(f128, i32 exponent)
     fn f64 lgamma(f64 x)
     fn f32 lgammaf(f32)
-    fn long double lgammal(long double)
+    fn f128 lgammal(f128)
     fn i128 llrint(f64)
     fn i128 llrintf(f32)
-    fn i128 llrintl(long double)
+    fn i128 llrintl(f128)
     fn i128 llround(f64)
     fn i128 llroundf(f32)
-    fn i128 llroundl(long double)
+    fn i128 llroundl(f128)
     fn f64 log(f64 x)
     fn f64 log10(f64 x)
     fn f32 log10f(f32)
-    fn long double log10l(long double)
+    fn f128 log10l(f128)
     fn f64 log1p(f64 x)
     fn f32 log1pf(f32)
-    fn long double log1pl(long double)
+    fn f128 log1pl(f128)
     fn f64 log2(f64 x)
     fn f32 log2f(f32)
-    fn long double log2l(long double)
+    fn f128 log2l(f128)
     fn f64 logb(f64 x)
     fn f32 logbf(f32)
-    fn long double logbl(long double)
+    fn f128 logbl(f128)
     fn f32 logf(f32)
-    fn long double logl(long double)
+    fn f128 logl(f128)
     fn i64 lrint(f64)
     fn i64 lrintf(f32)
-    fn i64 lrintl(long double)
+    fn i64 lrintl(f128)
     fn i64 lround(f64)
     fn i64 lroundf(f32)
-    fn i64 lroundl(long double)
+    fn i64 lroundl(f128)
     fn f64 modf(f64 x, f64* iptr)
     fn f32 modff(f32, f32* iptr)
-    fn long double modfl(long double, long double* iptr)
+    fn f128 modfl(f128, f128* iptr)
     fn f64 nan(const char*)
     fn f32 nanf(const char*)
-    fn long double nanl(const char*)
+    fn f128 nanl(const char*)
     fn f64 nearbyint(f64 x)
     fn f32 nearbyintf(f32)
-    fn long double nearbyintl(long double)
+    fn f128 nearbyintl(f128)
     fn f64 nextafter(f64, f64)
     fn f32 nextafterf(f32, f32)
-    fn long double nextafterl(long double, long double)
-    fn f64 nexttoward(double, long double)
-    fn f32 nexttowardf(f32, long double)
-    fn long double nexttowardl(long double, long double)
+    fn f128 nextafterl(f128, f128)
+    fn f64 nexttoward(f64, f128)
+    fn f32 nexttowardf(f32, f128)
+    fn f128 nexttowardl(f128, f128)
     fn f64 pow(f64 x)
     fn f32 powf(f32, f32)
-    fn long double powl(long double, long double)
+    fn f128 powl(f128, f128)
     fn f64 remainder(f64 x, f64 y)
     fn f32 remainderf(f32, f32)
-    fn long double remainderl(long double, long double)
+    fn f128 remainderl(f128, f128)
     fn f64 remquo(f64 x, f64 y, i32* quot)
     fn f32 remquof(f32, f32, i32* quot)
-    fn long double remquol(long double, long double, i32* quot)
+    fn f128 remquol(f128, f128, i32* quot)
     fn f64 rint(f64 x)
     fn f32 rintf(f32)
-    fn long double rintl(long double)
+    fn f128 rintl(f128)
     fn f64 round(f64 x)
     fn f32 roundf(f32)
-    fn long double roundl(long double)
+    fn f128 roundl(f128)
     fn f64 scalbln(f64 x, i64 n)
-    fn f32 scalblnf(f32, long)
-    fn long double scalblnl(long double, i64)
+    fn f32 scalblnf(f32, i64)
+    fn f128 scalblnl(f128, i64)
     fn f64 scalbn(f64 x, i32 n)
     fn f32 scalbnf(f32, i32)
-    fn long double scalbnl(long double, i32)
+    fn f128 scalbnl(f128, i32)
     fn f64 sin(f64 x)
     fn f32 sinf(f32)
     fn f64 sinh(f64 x)
     fn f32 sinhf(f32)
-    fn long double sinhl(long double)
-    fn long double sinl(long double)
+    fn f128 sinhl(f128)
+    fn f128 sinl(f128)
     fn f64 sqrt(f64 x)
     fn f32 sqrtf(f32)
-    fn long double sqrtl(long double)
+    fn f128 sqrtl(f128)
     fn f64 tan(f64 x)
     fn f32 tanf(f32)
     fn f64 tanh(f64 x)
     fn f32 tanhf(f32)
-    fn long double tanhl(long double)
-    fn long double tanl(long double)
+    fn f128 tanhl(f128)
+    fn f128 tanl(f128)
     fn f64 tgamma(f64 x)
     fn f32 tgammaf(f32)
-    fn long double tgammal(long double)
+    fn f128 tgammal(f128)
     fn f64 trunc(f64 x)
     fn f32 truncf(f32)
-    fn long double truncl(long double)
+    fn f128 truncl(f128)
 
-    fn i32 isinf(long double)   # -1 / 0 / 1
-    fn bint isfinite(long double)
-    fn bint isnan(long double)
-    fn bint isnormal(long double)
-    fn bint signbit(long double)
-    fn i32 fpclassify(long double)
-    const i32 FP_NAN
-    const i32 FP_INFINITE
-    const i32 FP_ZERO
-    const i32 FP_SUBNORMAL
-    const i32 FP_NORMAL
+    fn i32 isinf(f128)   # -1 / 0 / 1
+    fn u2 isfinite(f128)
+    fn u2 isnan(f128)
+    fn u2 isnormal(f128)
+    fn u2 signbit(f128)
+    fn i32 fpclassify(f128)
+    static const i32 FP_NAN
+    static const i32 FP_INFINITE
+    static const i32 FP_ZERO
+    static const i32 FP_SUBNORMAL
+    static const i32 FP_NORMAL

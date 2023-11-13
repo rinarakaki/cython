@@ -8,8 +8,8 @@ extern from "<vector>" namespace "std":
         cppclass iterator:
             fn T operator*()
             fn iterator operator++()
-            fn bint operator==(iterator)
-            fn bint operator!=(iterator)
+            fn u2 operator==(iterator)
+            fn u2 operator!=(iterator)
         vector()
         fn void push_back(T&)
         fn T& operator[](usize)

@@ -36,15 +36,15 @@ def sub(string):
     """
     return subs(string)
 
-#cdef class subs(str):
+# cdef class subs(str):
 #    pass
 
-#def csub(string):
+# def csub(string):
 #    return csubs(string)
 
 
-#[cython.test_fail_if_path_exists("//SimpleCallNode")]
-#[cython.test_assert_path_exists("//PythonCapiCallNode")]
+#[cython::test_fail_if_path_exists("//SimpleCallNode")]
+#[cython::test_assert_path_exists("//PythonCapiCallNode")]
 def typed(str s):
     """
     >>> print(typed(None))
@@ -59,7 +59,7 @@ def typed(str s):
     return str(s)
 
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//SimpleCallNode",
     "//PythonCapiCallNode",
 )

@@ -86,7 +86,7 @@ def make_lexicon():
     escaped_newline = Str("\\\n")
     lineterm = Eol + Opt(Str("\n"))
 
-    comment = Str("#") + Opt(AnyBut("[\n") + Rep(AnyBut("\n")))
+    comment = Str("#") + Opt(spaces + Rep(AnyBut("\n")))
 
     return Lexicon([
         (name, Method('normalize_ident')),
@@ -152,8 +152,8 @@ def make_lexicon():
         ],
 
         # FIXME: Plex 1.9 needs different args here from Plex 1.1.4
-        #debug_flags = scanner_debug_flags,
-        #debug_file = scanner_dump_file
+        # debug_flags = scanner_debug_flags,
+        # debug_file = scanner_dump_file
         )
 
 

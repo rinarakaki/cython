@@ -9,8 +9,8 @@ cdef class A:
 a_as_obj = A
 
 
-#[cython.test_assert_path_exists('//SimpleCallNode//SimpleCallNode')]
-@cython.test_fail_if_path_exists('//SimpleCallNode//PythonCapiCallNode',
+#[cython::test_assert_path_exists('//SimpleCallNode//SimpleCallNode')]
+@cython::test_fail_if_path_exists('//SimpleCallNode//PythonCapiCallNode',
                                  '//PythonCapiCallNode//SimpleCallNode')
 def test_non_optimised():
     """
@@ -23,7 +23,7 @@ def test_non_optimised():
     return true
 
 
-@cython.test_assert_path_exists('//PythonCapiCallNode',
+@cython::test_assert_path_exists('//PythonCapiCallNode',
                                 '//PythonCapiCallNode//SimpleCallNode',
                                 '//PythonCapiFunctionNode[@cname = "PyType_Check"]',
                                 '//PythonCapiFunctionNode[@cname = "PyInt_Check"]',
@@ -36,7 +36,7 @@ def test_non_optimised():
                                 '//PythonCapiFunctionNode[@cname = "PySet_Check"]',
                                 '//PythonCapiFunctionNode[@cname = "PySlice_Check"]',
                                 '//PythonCapiFunctionNode[@cname = "PyComplex_Check"]')
-@cython.test_fail_if_path_exists('//SimpleCallNode//SimpleCallNode',
+@cython::test_fail_if_path_exists('//SimpleCallNode//SimpleCallNode',
                                  '//SimpleCallNode//PythonCapiCallNode')
 def test_optimised():
     """
@@ -110,8 +110,8 @@ def test_optimised():
     return true
 
 
-#[cython.test_assert_path_exists('//PythonCapiCallNode')]
-@cython.test_fail_if_path_exists('//SimpleCallNode//SimpleCallNode',
+#[cython::test_assert_path_exists('//PythonCapiCallNode')]
+@cython::test_fail_if_path_exists('//SimpleCallNode//SimpleCallNode',
                                  '//SimpleCallNode//PythonCapiCallNode',
                                  '//TupleNode//NameNode')
 def test_optimised_tuple():
@@ -145,8 +145,8 @@ cdef class C:
     pass
 
 
-#[cython.test_assert_path_exists('//PythonCapiCallNode')]
-@cython.test_fail_if_path_exists('//SimpleCallNode//SimpleCallNode',
+#[cython::test_assert_path_exists('//PythonCapiCallNode')]
+@cython::test_fail_if_path_exists('//SimpleCallNode//SimpleCallNode',
                                  '//SimpleCallNode//PythonCapiCallNode',
                                  '//TupleNode//NameNode')
 def test_custom_tuple(obj):

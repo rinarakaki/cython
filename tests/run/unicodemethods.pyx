@@ -2,7 +2,6 @@
 
 use cython
 
-import sys
 
 text = u'ab jd  sdflk as sa  sadas asdas fsdf '
 sep = u'  '
@@ -22,7 +21,7 @@ def print_all(l):
 
 # unicode.split(s, [sep, [maxsplit]])
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//PythonCapiCallNode")
 def split(unicode s):
     """
@@ -43,7 +42,7 @@ def split(unicode s):
     """
     return s.split()
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//PythonCapiCallNode")
 def split_sep(unicode s, sep):
     """
@@ -68,10 +67,10 @@ def split_sep(unicode s, sep):
     """
     return s.split(sep)
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//CoerceToPyTypeNode",
     "//CastNode", "//TypecastNode")
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//CoerceFromPyTypeNode",
     "//PythonCapiCallNode")
 def split_sep_max(unicode s, sep, max):
@@ -99,10 +98,10 @@ def split_sep_max(unicode s, sep, max):
     """
     return s.split(sep, max)
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//CoerceToPyTypeNode", "//CoerceFromPyTypeNode",
     "//CastNode", "//TypecastNode")
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//PythonCapiCallNode")
 def split_sep_max_int(unicode s, sep):
     """
@@ -123,7 +122,7 @@ def split_sep_max_int(unicode s, sep):
 
 # unicode.splitlines(s, [keepends])
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//PythonCapiCallNode")
 def splitlines(unicode s):
     """
@@ -141,7 +140,7 @@ def splitlines(unicode s):
     """
     return s.splitlines()
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//PythonCapiCallNode")
 def splitlines_keep(unicode s, keep):
     """
@@ -161,10 +160,10 @@ def splitlines_keep(unicode s, keep):
     """
     return s.splitlines(keep)
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//CoerceToPyTypeNode", "//CoerceFromPyTypeNode",
     "//CastNode", "//TypecastNode")
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//PythonCapiCallNode")
 def splitlines_keep_bint(unicode s):
     """
@@ -193,11 +192,11 @@ def splitlines_keep_bint(unicode s):
 
 pipe_sep = u'|'
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//CoerceToPyTypeNode", "//CoerceFromPyTypeNode",
     "//CastNode", "//TypecastNode",
     "//SimpleCallNode//AttributeNode[@is_py_attr = true]")
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//PythonCapiCallNode",
 )
 def join(unicode sep, l):
@@ -216,11 +215,11 @@ def join(unicode sep, l):
     return sep.join(l)
 
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//CoerceToPyTypeNode", "//CoerceFromPyTypeNode",
     "//CastNode", "//TypecastNode", "//NoneCheckNode",
     "//SimpleCallNode//AttributeNode[@is_py_attr = true]")
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//PythonCapiCallNode",
 )
 def join_sep(l):
@@ -237,16 +236,16 @@ def join_sep(l):
     ab|jd|sdflk|as|sa|sadas|asdas|fsdf
     """
     result = u'|'.join(l)
-    assert cython.typeof(result) == 'unicode object', cython.typeof(result)
+    assert cython::typeof(result) == 'unicode object', cython::typeof(result)
     return result
 
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//CoerceToPyTypeNode", "//CoerceFromPyTypeNode",
     "//CastNode", "//TypecastNode", "//NoneCheckNode",
     "//SimpleCallNode//AttributeNode[@is_py_attr = true]"
 )
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//PythonCapiCallNode",
     "//InlinedGeneratorExpressionNode"
 )
@@ -264,15 +263,15 @@ def join_sep_genexpr(l):
     <<ab |jd |sdflk |as |sa |sadas |asdas |fsdf >>
     """
     result = u'|'.join(s + u' ' for s in l)
-    assert cython.typeof(result) == 'unicode object', cython.typeof(result)
+    assert cython::typeof(result) == 'unicode object', cython::typeof(result)
     return result
 
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//CoerceToPyTypeNode", "//CoerceFromPyTypeNode",
     "//CastNode", "//TypecastNode",
 )
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//PythonCapiCallNode",
     "//InlinedGeneratorExpressionNode"
 )
@@ -289,11 +288,11 @@ def join_sep_genexpr_dictiter(dict d):
     0:ab|1:jd|2:sdflk|3:as|4:sa|5:sadas|6:asdas|7:fsdf
     """
     result = u' '.join('%s:%s' % (k, v) for k, v in d.iteritems())
-    assert cython.typeof(result) == 'unicode object', cython.typeof(result)
+    assert cython::typeof(result) == 'unicode object', cython::typeof(result)
     return result
 
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//PythonCapiCallNode",
 )
 def join_unbound(unicode sep, l):
@@ -315,11 +314,11 @@ def join_unbound(unicode sep, l):
 
 # unicode.startswith(s, prefix, [start, [end]])
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//CoerceToPyTypeNode",
     "//CoerceFromPyTypeNode",
     "//CastNode", "//TypecastNode")
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//PythonCapiCallNode")
 def startswith(unicode s, sub):
     """
@@ -343,10 +342,10 @@ def startswith(unicode s, sub):
     else:
         return false
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//CoerceToPyTypeNode",
     "//CastNode", "//TypecastNode")
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//CoerceFromPyTypeNode",
     "//PythonCapiCallNode")
 def startswith_start_end(unicode s, sub, start, end):
@@ -382,11 +381,11 @@ def startswith_start_end(unicode s, sub, start, end):
 
 # unicode.endswith(s, prefix, [start, [end]])
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//CoerceToPyTypeNode",
     "//CoerceFromPyTypeNode",
     "//CastNode", "//TypecastNode")
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//PythonCapiCallNode")
 def endswith(unicode s, sub):
     """
@@ -410,10 +409,10 @@ def endswith(unicode s, sub):
     else:
         return false
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//CoerceToPyTypeNode",
     "//CastNode", "//TypecastNode")
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//CoerceFromPyTypeNode",
     "//PythonCapiCallNode")
 def endswith_start_end(unicode s, sub, start, end):
@@ -455,9 +454,9 @@ def endswith_start_end(unicode s, sub, start, end):
 
 # unicode.__contains__(s, sub)
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//CoerceFromPyTypeNode", "//AttributeNode")
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//CoerceToPyTypeNode", "//PrimaryCmpNode")
 def in_test(unicode s, substring):
     """
@@ -491,7 +490,7 @@ def concat_any(unicode s, suffix):
     Traceback (most recent call last):
     TypeError: ...
     """
-    assert cython.typeof(s + suffix) == 'Python object', cython.typeof(s + suffix)
+    assert cython::typeof(s + suffix) == 'Python object', cython::typeof(s + suffix)
     return s + suffix
 
 
@@ -512,8 +511,8 @@ def concat(unicode s, str suffix):
     Traceback (most recent call last):
     TypeError: ...
     """
-    assert cython.typeof(s + object()) == 'Python object', cython.typeof(s + object())
-    assert cython.typeof(s + suffix) == 'unicode object', cython.typeof(s + suffix)
+    assert cython::typeof(s + object()) == 'Python object', cython::typeof(s + object())
+    assert cython::typeof(s + suffix) == 'unicode object', cython::typeof(s + suffix)
     return s + suffix
 
 
@@ -525,8 +524,8 @@ def concat_literal_str(str suffix):
     Traceback (most recent call last):
     TypeError: ...NoneType...
     """
-    assert cython.typeof(u'abc' + object()) == 'Python object', cython.typeof(u'abc' + object())
-    assert cython.typeof(u'abc' + suffix) == 'unicode object', cython.typeof(u'abc' + suffix)
+    assert cython::typeof(u'abc' + object()) == 'Python object', cython::typeof(u'abc' + object())
+    assert cython::typeof(u'abc' + suffix) == 'unicode object', cython::typeof(u'abc' + suffix)
     return u'abc' + suffix
 
 
@@ -538,7 +537,7 @@ def concat_literal_unicode(unicode suffix):
     Traceback (most recent call last):
     TypeError: ...NoneType...
     """
-    assert cython.typeof(u'abc' + suffix) == 'unicode object', cython.typeof(u'abc' + suffix)
+    assert cython::typeof(u'abc' + suffix) == 'unicode object', cython::typeof(u'abc' + suffix)
     return u'abc' + suffix
 
 
@@ -561,7 +560,7 @@ def mod_format(unicode s, values):
     >>> mod_format(None, RMod())
     123
     """
-    assert cython.typeof(s % values) == 'Python object', cython.typeof(s % values)
+    assert cython::typeof(s % values) == 'Python object', cython::typeof(s % values)
     return s % values
 
 
@@ -574,7 +573,7 @@ def mod_format_literal(values):
     >>> mod_format_literal(['sa']) == "abc['sa']def"  or  mod_format(format1, ['sa'])
     True
     """
-    assert cython.typeof(u'abc%sdef' % values) == 'unicode object', cython.typeof(u'abc%sdef' % values)
+    assert cython::typeof(u'abc%sdef' % values) == 'unicode object', cython::typeof(u'abc%sdef' % values)
     return u'abc%sdef' % values
 
 
@@ -586,16 +585,16 @@ def mod_format_tuple(*values):
     Traceback (most recent call last):
     TypeError: not enough arguments for format string
     """
-    assert cython.typeof(u'abc%sdef' % values) == 'unicode object', cython.typeof(u'abc%sdef' % values)
+    assert cython::typeof(u'abc%sdef' % values) == 'unicode object', cython::typeof(u'abc%sdef' % values)
     return u'abc%sdef' % values
 
 
 # unicode.find(s, sub, [start, [end]])
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//CoerceFromPyTypeNode",
     "//CastNode", "//TypecastNode")
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//CoerceToPyTypeNode",
     "//PythonCapiCallNode")
 def find(unicode s, substring):
@@ -611,9 +610,9 @@ def find(unicode s, substring):
     let isize pos = s.find(substring)
     return pos
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//CastNode", "//TypecastNode")
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//CoerceToPyTypeNode",
     "//PythonCapiCallNode")
 def find_start_end(unicode s, substring, start, end):
@@ -641,10 +640,10 @@ def find_start_end(unicode s, substring, start, end):
 
 # unicode.rfind(s, sub, [start, [end]])
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//CoerceFromPyTypeNode",
     "//CastNode", "//TypecastNode")
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//CoerceToPyTypeNode",
     "//PythonCapiCallNode")
 def rfind(unicode s, substring):
@@ -660,9 +659,9 @@ def rfind(unicode s, substring):
     let isize pos = s.rfind(substring)
     return pos
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//CastNode", "//TypecastNode")
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//CoerceToPyTypeNode",
     "//PythonCapiCallNode")
 def rfind_start_end(unicode s, substring, start, end):
@@ -690,10 +689,10 @@ def rfind_start_end(unicode s, substring, start, end):
 
 # unicode.count(s, sub, [start, [end]])
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//CoerceFromPyTypeNode",
     "//CastNode", "//TypecastNode")
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//CoerceToPyTypeNode",
     "//PythonCapiCallNode")
 def count(unicode s, substring):
@@ -709,9 +708,9 @@ def count(unicode s, substring):
     let isize pos = s.count(substring)
     return pos
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//CastNode", "//TypecastNode")
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//CoerceToPyTypeNode",
     "//PythonCapiCallNode")
 def count_start_end(unicode s, substring, start, end):
@@ -741,10 +740,10 @@ def count_start_end(unicode s, substring, start, end):
 
 # unicode.replace(s, sub, repl, [maxcount])
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//CoerceFromPyTypeNode",
     "//CastNode", "//TypecastNode")
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//PythonCapiCallNode")
 def replace(unicode s, substring, repl):
     """
@@ -758,9 +757,9 @@ def replace(unicode s, substring, repl):
     """
     return s.replace(substring, repl)
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//CastNode", "//TypecastNode")
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//CoerceFromPyTypeNode",
     "//PythonCapiCallNode")
 def replace_maxcount(unicode s, substring, repl, maxcount):
@@ -777,10 +776,10 @@ def replace_maxcount(unicode s, substring, repl, maxcount):
 
 # unicode * int
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//CoerceToPyTypeNode",
 )
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//MulNode[@is_sequence_mul = true]",
 )
 def multiply(unicode ustring, i32 mul):
@@ -815,10 +814,10 @@ def multiply(unicode ustring, i32 mul):
     """
     return ustring * mul
 
-#@cython.test_fail_if_path_exists(
+# @cython::test_fail_if_path_exists(
 #    "//CoerceToPyTypeNode",
 #    "//CastNode", "//TypecastNode")
-#@cython.test_assert_path_exists(
+# @cython::test_assert_path_exists(
 #    "//PythonCapiCallNode")
 def multiply_inplace(unicode ustring, i32 mul):
     """
@@ -853,10 +852,10 @@ def multiply_inplace(unicode ustring, i32 mul):
     ustring *= mul
     return ustring
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//CoerceToPyTypeNode",
 )
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//MulNode[@is_sequence_mul = true]",
 )
 def multiply_reversed(unicode ustring, i32 mul):
@@ -891,7 +890,7 @@ def multiply_reversed(unicode ustring, i32 mul):
     """
     return mul * ustring
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//CoerceToPyTypeNode",
 )
 def unicode__mul__(unicode ustring, i32 mul):

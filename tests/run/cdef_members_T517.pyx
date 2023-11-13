@@ -1,5 +1,5 @@
 # ticket: t517
-#cython: embedsignature=true
+# cython: embedsignature=true
 
 __doc__ = u"""
 >>> a = A()
@@ -28,15 +28,15 @@ __doc__ = u"""
 ((1+2j), (3+4j), (5+6j))
 
 >>> b = B()
->>> b.a0 #doctest: +ELLIPSIS
+>>> b.a0 # doctest: +ELLIPSIS
 Traceback (most recent call last):
 AttributeError: ...
 
->>> b.b0 #doctest: +ELLIPSIS
+>>> b.b0 # doctest: +ELLIPSIS
 Traceback (most recent call last):
 AttributeError: ...
 
->>> b.c0 #doctest: +ELLIPSIS
+>>> b.c0 # doctest: +ELLIPSIS
 Traceback (most recent call last):
 AttributeError: ...
 
@@ -57,8 +57,6 @@ True
 >>> b.a1 is not b.a2
 True
 
-TYPE_FIXES_REQUIRED:
-
 >>> try: b.b1 = 1
 ... except (TypeError, AttributeError): pass
 
@@ -75,10 +73,6 @@ TYPE_FIXES_REQUIRED:
 ... except (TypeError, AttributeError): pass
 """
 
-import sys
-if sys.version_info < (2, 5):
-    __doc__ = (__doc__.split('TYPE_FIXES_REQUIRED')[0] +
-               __doc__.split('TYPE_FIXES_REQUIRED')[1].replace('\nAttributeError: ...', '\nTypeError: ...'))
 
 cdef class A:
     pub i16 h
@@ -87,10 +81,10 @@ cdef class A:
     pub i128 q
     pub f32 f
     pub f64 d
-    pub long double g
-    pub float complex Zf
-    pub double complex Zd
-    pub long double complex Zg
+    pub f128 g
+    pub c64 Zf
+    pub c128 Zd
+    pub c256 Zg
 
     cdef readonly i16 ro_h
     cdef readonly i32 ro_i
@@ -98,10 +92,10 @@ cdef class A:
     cdef readonly i128 ro_q
     cdef readonly f32 ro_f
     cdef readonly f64 ro_d
-    cdef readonly long double ro_g
-    cdef readonly float complex ro_Zf
-    cdef readonly double complex ro_Zd
-    cdef readonly long double complex ro_Zg
+    cdef readonly f128 ro_g
+    cdef readonly c64 ro_Zf
+    cdef readonly c128 ro_Zd
+    cdef readonly c256 ro_Zg
 
     def __cinit__(self):
         self.ro_h = 7
