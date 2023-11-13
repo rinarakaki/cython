@@ -372,6 +372,7 @@ def p_typecast(s):
     base_type = p_c_base_type(s)
     is_memslice = isinstance(base_type, Nodes.MemoryViewSliceTypeNode)
     is_other_unnamed_type = isinstance(base_type, (
+        Nodes.CPtrTypeNode,
         Nodes.TemplatedTypeNode,
         Nodes.CConstOrVolatileTypeNode,
         Nodes.CTupleBaseTypeNode,
