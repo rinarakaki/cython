@@ -32,8 +32,8 @@ struct_a.b = &struct_b
 struct_b.a = &struct_a
 struct_b.b = &struct_b
 
-cdef auto class_a = ClassA()
-cdef auto class_b = ClassB()
+cdef ClassA class_a = ClassA()
+cdef ClassB class_b = ClassB()
 
 class_a.a = class_a
 class_a.b = class_b
