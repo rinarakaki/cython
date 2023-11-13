@@ -133,7 +133,7 @@ class DeclarationWriter(TreeVisitor):
     
     def visit_CPtrTypeNode(self, node):
         self.visit(node.base)
-        self.put('*')
+        self.put("*")
 
     def visit_CSimpleBaseTypeNode(self, node):
         # See Parsing.p_sign_and_longness
