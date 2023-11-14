@@ -813,6 +813,9 @@ def p_numeric_literal_suffix(s, pos):
             is_c_literal = False
         return dict(unsigned=unsigned, longness=longness, is_c_literal=is_c_literal)
     else:
+        if s.sy == "IDENT":
+            print("!!!!! p_numeric_literal_suffix !!!!!")
+            print(s.systring)
         return dict()
 
 def p_int_literal(s):
