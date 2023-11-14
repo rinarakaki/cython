@@ -37,7 +37,7 @@ def arrays():
     >>> arrays()
     19
     """
-    let char* buf = <char*>stdlib.malloc(10)
+    let auto buf = <char*>stdlib.malloc(10)
     let i32 i = 2
     let object j = 2
     buf[2] = 0
@@ -81,11 +81,11 @@ def smoketest():
     >>> smoketest()
     10
     """
-    let char* buf = <char*>stdlib.malloc(10)
+    let auto buf = <char*>stdlib.malloc(10)
     let A a = A()
     a.buf = buf
     a.buf[identity(1)] = 0
-    (a.buf + identity(4) - <i32>(2*get_2() - 1))[get_2() - 2*identity(1)] += 10
+    (a.buf + identity(4) - <i32>(2 * get_2() - 1))[get_2() - 2 * identity(1)] += 10
     print a.buf[1]
     stdlib.free(buf)
 

@@ -18,7 +18,6 @@ fn i32 cfuncptr(i32 a, i32 b):
 fn cfuncptr_type get_cfuncptr():
     return cfuncptr
 
-
 sideeffect = []
 fn side_effect(x):
     sideeffect.append(x)

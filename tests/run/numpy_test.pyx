@@ -831,7 +831,7 @@ def test_dispatch_memoryview_object():
     """
     let i32[:] m = np.arange(10, dtype=np.dtype('i'))
     let i32[:] m2 = m
-    let i32[:] m3 = <object> m
+    let i32[:] m3 = <object>m
     test_fused_memslice(m3)
 
 cdef fused ndim_t:
