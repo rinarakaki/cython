@@ -29,7 +29,7 @@ def valid_underscore_literals():
     '//IntNode',  # [./CSimpleBaseTypeNode[@name = "i128"]]
     '//IntNode',  # [./CSimpleBaseTypeNode[@name = "i64"]]
 )]
-#[cython::test_fail_if_path_exists('//IntNode[@longness = ""]')]
+#[cython::test_fail_if_path_exists('//IntNode[not(@base_type)]')]
 def c_longs():
     """
     >>> c_longs() == (1, 1, -1, 18446744073709551615)  or  c_longs()
@@ -45,7 +45,7 @@ def c_longs():
     '//IntNode',  # [./CSimpleBaseTypeNode[@name = "i128"]]
     '//IntNode',  # [./CSimpleBaseTypeNode[@name = "i64"]]
 )]
-#[cython::test_fail_if_path_exists('//IntNode[@longness = ""]')]
+#[cython::test_fail_if_path_exists('//IntNode[not(@base_type)]')]
 def negative_c_longs():
     """
     >>> negative_c_longs() == (-1, -9223285636854775809)  or  negative_c_longs()
