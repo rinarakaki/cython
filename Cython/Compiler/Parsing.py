@@ -379,6 +379,7 @@ def p_typecast(s):
     ))
     if not (is_memslice or is_other_unnamed_type) and base_type.name is None:
         s.error("Unknown type")
+    declarator = p_c_declarator(s, empty = 1)
     if s.sy == '?':
         s.next()
         typecheck = 1
@@ -391,6 +392,7 @@ def p_typecast(s):
 
     return ExprNodes.TypecastNode(pos,
         base_type = base_type,
+        declarator = declarator,
         operand = operand,
         typecheck = typecheck
     )
@@ -3166,6 +3168,8 @@ def p_c_simple_declarator(s, ctx, empty, is_type, cmethod_flag,
         else:
             if nonempty:
                 error(s.position(), "Empty declarator")
+            if empty:
+                return None
             name = ""
             cname = None
         if cname is None and ctx.namespace is not None and nonempty:
