@@ -5,7 +5,7 @@ use libcpp::string::string
 
 b_asdf = b'asdf'
 
-def test_element_access(char *py_str):
+def test_element_access(char* py_str):
     """
     >>> test_element_access(b_asdf)
     ('a', 'f')

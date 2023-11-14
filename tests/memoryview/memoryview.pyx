@@ -1196,7 +1196,7 @@ def test_assign_from_byteslike(byteslike):
     def assign(m):
         m[:] = byteslike
 
-    let void *buf
+    let void* buf
     let u8[:] mview
     buf = malloc(5)
     try:

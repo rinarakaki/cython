@@ -48,7 +48,7 @@ def non_simple_rhs():
     >>> non_simple_rhs()
     1
     """
-    let char *a, *b
+    let char* a, b
     let i32 orig_called = called
     a = b = <char*>get_string()
     assert a is b
@@ -60,7 +60,8 @@ def non_simple_rhs_malloc():
     """
     >>> non_simple_rhs_malloc()
     """
-    let char *a, *b, **c
+    let char* a, b,
+    let char** c
 
     c = &b
     c[0] = a = <char*>malloc(2)
@@ -91,7 +92,7 @@ def assign_carray():
     assign_carray()
     (1, 2, 3)
     """
-    let i32 *b, *c
+    let i32* b, c
     let i32[3] a
     a[0] = 1
     a[1] = 2

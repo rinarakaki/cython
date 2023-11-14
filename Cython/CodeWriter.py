@@ -130,6 +130,10 @@ class DeclarationWriter(TreeVisitor):
 
     def visit_CNameDeclaratorNode(self, node):
         self.put(node.name)
+    
+    def visit_CPtrTypeNode(self, node):
+        self.visit(node.base_type)
+        self.put("*")
 
     def visit_CSimpleBaseTypeNode(self, node):
         # See Parsing.p_sign_and_longness

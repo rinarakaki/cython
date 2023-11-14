@@ -33,8 +33,8 @@
     if
     a._d[2] += 0.66   # use as double array without extra casting
 
-    f32 *subview = vector._f + 10  # starting from 10th element
-    u16 *subview_buffer = vector._B + 4
+    f32* subview = vector._f + 10  # starting from 10th element
+    u16* subview_buffer = vector._B + 4
 
   Suitable as lightweight arrays intra Cython without speed penalty.
   Replacement for C stack/malloc arrays; no trouble with refcounting,
@@ -80,18 +80,18 @@ extern from *:  # Hard-coded utility code hack.
         f32* as_floats       # direct float pointer access to buffer
         f64* as_doubles      # double ...
         i32* as_ints
-        u32 *as_uints
-        u16 *as_uchars
-        signed char *as_schars
-        char *as_chars
-        u64 *as_ulongs
-        i64 *as_longs
-        u128 *as_ulonglongs
-        i128 *as_longlongs
-        i16 *as_shorts
-        u16 *as_ushorts
-        Py_UNICODE *as_pyunicodes
-        void *as_voidptr
+        u32* as_uints
+        u16* as_uchars
+        signed char* as_schars
+        char* as_chars
+        u64* as_ulongs
+        i64* as_longs
+        u128* as_ulonglongs
+        i128* as_longlongs
+        i16* as_shorts
+        u16* as_ushorts
+        Py_UNICODE* as_pyunicodes
+        void* as_voidptr
 
     ctypedef class array.array [object arrayobject]:
         cdef __cythonbufferdefaults__ = {'ndim' : 1, 'mode':'c'}

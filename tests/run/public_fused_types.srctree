@@ -27,7 +27,7 @@ ctypedef union myunion_t:
 pub class MyExt [ type MyExtType, object MyExtObject ]:
     cdef u8 a
 
-ctypedef char *string_t
+ctypedef char* string_t
 simple_t = cython.fused_type(i32, f32)
 less_simple_t = cython.fused_type(i32, f32, string_t)
 struct_t = cython.fused_type(mystruct_t, myunion_t, MyExt)
