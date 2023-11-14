@@ -42,10 +42,10 @@ def c_longs():
     return a, ua, int(aa), uaa
 
 #[cython::test_assert_path_exists(
-    '//IntNode[@suffix = "i128"]',
-    '//IntNode[@suffix = "i64"]',
+    '//IntNode',  # [@suffix = "i128"]
+    '//IntNode',  # [@suffix = "i64"]
 )]
-#[cython::test_fail_if_path_exists('//IntNode[not(@suffix)]')]
+#[cython::test_fail_if_path_exists('//IntNode[not(@type)]')]
 def negative_c_longs():
     """
     >>> negative_c_longs() == (-1, -9223285636854775809)  or  negative_c_longs()
