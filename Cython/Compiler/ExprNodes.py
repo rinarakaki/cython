@@ -1389,7 +1389,7 @@ class IntNode(ConstNode):
 
     def __init__(self, pos, base_type=None, **kwds):
         ExprNode.__init__(self, pos, **kwds)
-        if 'type' not in kwds:
+        if "type" not in kwds:
             if base_type is not None:
                 if base_type.name in (
                     "i8", "i16", "i32", "i64", "i128", "isize",
