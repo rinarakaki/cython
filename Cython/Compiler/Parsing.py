@@ -811,7 +811,7 @@ def p_numeric_literal_suffix(s, pos):
                 is_c_literal = True
         if s.in_python_file:
             if is_c_literal:
-                error(s.position(), "illegal integer literal syntax in Python source file")
+                error(pos, "illegal integer literal syntax in Python source file")
             is_c_literal = False
         return dict(unsigned=unsigned, longness=longness, is_c_literal=is_c_literal, base_type=None)
     else:
