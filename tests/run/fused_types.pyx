@@ -9,17 +9,17 @@ use cython::integral
 use cpython::Py_INCREF
 
 from Cython import Shadow as pure_cython
-ctypedef char * string_t
+type string_t = char*
 
 # floating = cython.fused_type(f32, f64) floating
-# integral = cython.fused_type(i32, long) integral
-ctypedef cython.floating floating
+# integral = cython.fused_type(i32, i64) integral
+type floating = cython.floating
 fused_type1 = cython.fused_type(i32, long, float, f64, string_t)
 fused_type2 = cython.fused_type(string_t)
-ctypedef fused_type1 *composed_t
+type composed_t = fused_type1*
 other_t = cython.fused_type(i32, f64)
-ctypedef f64 *p_double
-ctypedef i32* p_int
+type p_double = f64*
+type p_int = i32*
 fused_type3 = cython.fused_type(i32, f64)
 fused_composite = cython.fused_type(fused_type2, fused_type3)
 just_float = cython.fused_type(float)
@@ -168,8 +168,8 @@ cpdef cython.integral test_fused_memoryviews(cython.integral[:, :;1] a):
     """
     return a[1, 2]
 
-ctypedef i32[:, :;1] memview_int
-ctypedef long[:, :;1] memview_long
+type memview_int = i32[:, :;1]
+type memview_long = long[:, :;1]
 memview_t = cython.fused_type(memview_int, memview_long)
 
 def test_fused_memoryview_def(memview_t a):

@@ -1,6 +1,6 @@
 extern from "pythread.h":
-    ctypedef void* PyThread_type_lock
-    ctypedef void* PyThread_type_sema
+    type PyThread_type_lock = void*
+    type PyThread_type_sema = void*
 
     fn void PyThread_init_thread()
     fn i64 PyThread_start_new_thread((void*)(void*), void*)  # FIXME: legacy
