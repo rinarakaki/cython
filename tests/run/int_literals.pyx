@@ -26,8 +26,8 @@ def valid_underscore_literals():
 
 
 #[cython::test_assert_path_exists(
-    '//IntNode[@longness = "LL"]',
-    '//IntNode[@longness = "L"]',
+    '//IntNode[./CSimpleBaseTypeNode[@name = "i128"]]',
+    '//IntNode[./CSimpleBaseTypeNode[@name = "i64"]]',
 )]
 #[cython::test_fail_if_path_exists('//IntNode[@longness = ""]')]
 def c_longs():
@@ -35,15 +35,15 @@ def c_longs():
     >>> c_longs() == (1, 1, -1, 18446744073709551615)  or  c_longs()
     True
     """
-    let i64 a = 1L
-    let u64 ua = 1UL
-    let i128 aa = 0xFFFFFFFFFFFFFFFFLL
-    let u128 uaa = 0xFFFFFFFFFFFFFFFFULL
+    let i64 a = 1i64
+    let u64 ua = 1u64
+    let i128 aa = 0xFFFFFFFFFFFFFFFFi128
+    let u128 uaa = 0xFFFFFFFFFFFFFFFFu128
     return a, ua, int(aa), uaa
 
 #[cython::test_assert_path_exists(
-    '//IntNode[@longness = "LL"]',
-    '//IntNode[@longness = "L"]',
+    '//IntNode[./CSimpleBaseTypeNode[@name = "i128"]]',
+    '//IntNode[./CSimpleBaseTypeNode[@name = "i64"]]',
 )]
 #[cython::test_fail_if_path_exists('//IntNode[@longness = ""]')]
 def negative_c_longs():
@@ -51,8 +51,8 @@ def negative_c_longs():
     >>> negative_c_longs() == (-1, -9223285636854775809)  or  negative_c_longs()
     True
     """
-    let i64 a = -1L
-    let i128 aa = -9223285636854775809LL
+    let i64 a = -1i64
+    let i128 aa = -9223285636854775809i128
     return a, aa
 
 def py_longs():
@@ -62,7 +62,7 @@ def py_longs():
     ...     )  or  py_longs()
     True
     """
-    return 1, 1L, 100000000000000000000000000000000, -100000000000000000000000000000000
+    return 1, 1i64, 100000000000000000000000000000000, -100000000000000000000000000000000
 
 #[cython::test_fail_if_path_exists("//NumBinopNode", "//IntBinopNode")]
 #[cython::test_assert_path_exists("//ReturnStatNode/IntNode")]
@@ -115,11 +115,11 @@ def c_long_types():
     unsigned long long
     """
     print typeof(1)
-    print typeof(1L)
-    print typeof(1LL)
-    print typeof(1U)
-    print typeof(1UL)
-    print typeof(1ULL)
+    print typeof(1i64)
+    print typeof(1i128)
+    print typeof(1u32)
+    print typeof(1u64)
+    print typeof(1u128)
 
 # different ways to write an integer in Python
 

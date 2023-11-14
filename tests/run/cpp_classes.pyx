@@ -93,8 +93,8 @@ def test_overload_bint_int():
     let Rectangle *rect2 = new Rectangle(10, 20)
 
     try:
-        print rect1.method(<i32>2)
-        print rect2.method(<u2>true)
+        print rect1.method(2i32)
+        print rect2.method(1u2)
     finally:
         del rect1
         del rect2
@@ -142,7 +142,7 @@ def test_stack_allocation(i32 w, i32 h):
     let Rectangle rect
     rect.width = w
     rect.height = h
-    print rect.method(<i32>5)
+    print rect.method(5i32)
     return destructor_count
 
 def test_stack_allocation_in_struct():
