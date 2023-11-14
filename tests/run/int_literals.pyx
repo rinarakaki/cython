@@ -21,15 +21,15 @@ def valid_underscore_literals():
     assert 1_00_00.5 == 10000.5
     assert 1e1_0 == 1e10
     assert 0.1_4 == 0.14
-    assert 1_0 == 1_0L == 1_0LL == 1_0UL == 1_0ULL
-    assert typeof(1_0ULL) == "unsigned long long"
+    assert 1_0 == 1_0i64 == 1_0i128 == 1_0u64 == 1_0u128
+    assert typeof(1_0u128) == "unsigned long long"
 
 
 #[cython::test_assert_path_exists(
-    '//IntNode[./CSimpleBaseTypeNode[@name = "i128"]]',
-    '//IntNode[./CSimpleBaseTypeNode[@name = "i64"]]',
+    '//IntNode[@suffix = "i128"]',
+    '//IntNode[@suffix = "i64"]',
 )]
-#[cython::test_fail_if_path_exists('//IntNode[@longness = ""]')]
+#[cython::test_fail_if_path_exists('//IntNode[not(@suffix)]')]
 def c_longs():
     """
     >>> c_longs() == (1, 1, -1, 18446744073709551615)  or  c_longs()
@@ -42,10 +42,10 @@ def c_longs():
     return a, ua, int(aa), uaa
 
 #[cython::test_assert_path_exists(
-    '//IntNode[./CSimpleBaseTypeNode[@name = "i128"]]',
-    '//IntNode[./CSimpleBaseTypeNode[@name = "i64"]]',
+    '//IntNode[@suffix = "i128"]',
+    '//IntNode[@suffix = "i64"]',
 )]
-#[cython::test_fail_if_path_exists('//IntNode[@longness = ""]')]
+#[cython::test_fail_if_path_exists('//IntNode[not(@suffix)]')]
 def negative_c_longs():
     """
     >>> negative_c_longs() == (-1, -9223285636854775809)  or  negative_c_longs()
