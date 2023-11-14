@@ -337,7 +337,7 @@ def r#loop():
         pass
     assert typeof(c) == "double"
 
-    for d in range(0, 10L, 2):
+    for d in range(0, 10i64, 2):
         pass
     assert typeof(a) == "long"
 

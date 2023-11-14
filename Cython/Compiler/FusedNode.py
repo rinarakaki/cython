@@ -532,7 +532,7 @@ class FusedCFuncDefNode(StatListNode):
         decl_code.put_chunk(
             u"""
                 ctypedef struct {{memviewslice_cname}}:
-                    void *memview
+                    void* memview
 
                 fn void __PYX_XCLEAR_MEMVIEW({{memviewslice_cname}} *, i32 have_gil)
                 fn u2 __pyx_memoryview_check(object)

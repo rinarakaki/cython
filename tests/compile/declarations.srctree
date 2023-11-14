@@ -20,7 +20,7 @@ setup(
 extern from "declarations.h":
     pass
 
-cdef extern char *cp
+cdef extern char* cp
 cdef extern char *cpa[5]
 cdef extern int (*ifnpa[5])()
 cdef extern char *(*cpfnpa[5])()
@@ -28,7 +28,7 @@ cdef extern int (*ifnp)()
 cdef extern int (*iap)[5]
 
 extern fn i32 ifn()
-extern fn char *cpfn()
+extern fn char* cpfn()
 cdef extern i32 (*iapfn())[5]
 cdef extern char *(*cpapfn())[5]
 extern fn i32 fnargfn(i32 ())
@@ -38,11 +38,11 @@ cdef extern i32 iaa[][3]
 cdef extern i32 a(i32[][3], i32[][3][5])
 
 fn void f():
-    let void *p = NULL
+    let void* p = NULL
     global ifnp, cpa
     ifnp = <i32 (*)() noexcept>p
 
-fn char *g():
+fn char* g():
     pass
 
 f()

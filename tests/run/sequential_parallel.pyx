@@ -104,15 +104,15 @@ def test_propagation():
 #    cdef i32 start = -5
 #    cdef u32 stop = 5
 #    cdef i32 step = 1
-
+#
 #    cdef i32 steps_taken = 0
-#    cdef i32 *steps_takenp = &steps_taken
-
+#    cdef i32* steps_takenp = &steps_taken
+#
 #    for i in prange(start, stop, step, nogil=true):
 #        steps_taken += 1
 #        if steps_takenp[0] > 10:
 #            abort()
-
+#
 #    return steps_taken
 
 def test_reassign_start_stop_step():
@@ -242,7 +242,7 @@ def test_nan_init():
     """
     let i32 mybool = 0
     let i32 err = 0
-    let i32 *errp = &err
+    let i32* errp = &err
 
     let signed char a1 = 10
     let u8 a2 = 10
@@ -263,7 +263,7 @@ def test_nan_init():
     let f64 g = 10.0
     let f128 h = 10.0
 
-    let void *p = <void *> 10
+    let void* p = <void*> 10
 
     with nogil, cython.parallel.parallel():
         # First, trick the error checking to make it believe these variables
@@ -315,7 +315,7 @@ def test_nan_init():
         c1 = 16
 
 
-fn void nogil_print(char *s) noexcept with gil:
+fn void nogil_print(char* s) noexcept with gil:
     print s.decode('ascii')
 
 def test_else_clause():
@@ -358,7 +358,7 @@ def test_prange_continue():
     9 0
     """
     let i32 i
-    let i32 *p = <i32 *> calloc(10, sizeof(i32))
+    let i32* p = <i32*> calloc(10, sizeof(i32))
 
     if p == NULL:
         raise MemoryError

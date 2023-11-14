@@ -1369,11 +1369,12 @@ class CharNode(ConstNode):
 
 
 class IntNode(ConstNode):
-
+    # suffix       string or None
     # unsigned     "" or "U"
     # longness     "" or "L" or "LL"
     # is_c_literal   True/False/None   creator considers this a C integer literal
 
+    suffix = None
     unsigned = ""
     longness = ""
     is_c_literal = None  # unknown
@@ -1388,10 +1389,20 @@ class IntNode(ConstNode):
     def base_10_value(self):
         return str(Utils.str_to_number(self.value))
 
-    def __init__(self, pos, **kwds):
+    def __init__(self, pos, suffix=None, **kwds):
         ExprNode.__init__(self, pos, **kwds)
-        if 'type' not in kwds:
-            self.type = self.find_suitable_type_for_value()
+        if "type" not in kwds:
+            if suffix is not None:
+                self.suffix = suffix
+                if suffix in (
+                    "i8", "i16", "i32", "i64", "i128", "isize",
+                    "u2", "u8", "u16", "u32", "u64", "u128", "usize",
+                ):
+                    self.type = PyrexTypes.builtin_type(suffix)
+                else:
+                    error(pos, "invalid suffix: %s" % suffix)
+            else:
+                self.type = self.find_suitable_type_for_value()
 
     def find_suitable_type_for_value(self):
         if self.constant_result is constant_value_not_set:
@@ -1519,7 +1530,20 @@ class IntNode(ConstNode):
         return Utils.str_to_number(self.value)
 
 class FloatNode(ConstNode):
+    # suffix       string or None
+
+    suffix = None
     type = PyrexTypes.c_double_type
+
+    def __init__(self, pos, suffix=None, **kw):
+        self.pos = pos
+        if suffix is not None:
+            self.suffix = suffix
+            if suffix in ("f32", "f64", "f128"):
+                self.type = PyrexTypes.builtin_type(suffix)
+            else:
+                error(pos, "valid suffixes are `f32`, `f64 and `f128`, given %s" % suffix)
+        self.__dict__.update(kw)
 
     def calculate_constant_result(self):
         self.constant_result = float(self.value)

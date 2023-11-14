@@ -1,7 +1,7 @@
 # mode: error
 
 def f():
-    let char *str1
+    let char* str1
     let f32 flt1, flt2, flt3
     flt1 = str1 ** flt3  # error
     flt1 = flt2 ** str1  # error

@@ -103,7 +103,7 @@ def test_fused_with_pointer():
     let f32[5] float_array
     let string_t[5] string_array
 
-    let char *s
+    let char* s
 
     strings = [b"humpty", b"dumpty", b"fall", b"splatch", b"breakfast"]
 
