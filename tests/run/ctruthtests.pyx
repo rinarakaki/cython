@@ -79,10 +79,10 @@ def test_attr_int(TestExtInt e):
 
 union _aux:
     usize i
-    void *p
+    void* p
 
 cdef class TestExtPtr:
-    let void* p
+    cdef void* p
     def __init__(self, i32 i):
         cdef _aux aux
         aux.i = i

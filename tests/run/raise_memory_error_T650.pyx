@@ -3,7 +3,7 @@
 use cython
 
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     '//RaiseStatNode',
     '//RaiseStatNode[@builtin_exc_name = "MemoryError"]')
 def raise_me_type():
@@ -15,7 +15,7 @@ def raise_me_type():
     raise MemoryError
 
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     '//RaiseStatNode',
     '//RaiseStatNode[@builtin_exc_name = "MemoryError"]')
 def raise_me_instance():

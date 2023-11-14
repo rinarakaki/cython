@@ -17,8 +17,7 @@ use cython
 import sys
 
 
-if sys.version_info[0] > 2:
-    __doc__ = u"""
+__doc__ = u"""
     >>> f()()
     2
     >>> f().__name__
@@ -70,8 +69,6 @@ if sys.version_info[0] > 2:
     >>> NormalizeAttrPy().get()
     5
     """
-else:
-    __doc__ = ""
 
 global_ναμε1 = None
 cdef double global_ναμε2 = 1.2
@@ -184,11 +181,11 @@ cdef class Derived(Γναμε2):
 cdef Γναμε2 global_ναμε3 = Γναμε2()
 
 
-#[cython.always_allow_keywords(false)]  # METH_O signature
+#[cython::always_allow_keywords(false)]  # METH_O signature
 def metho_function_taking_fancy_argument(Γναμε2 αrγ):
     return αrγ
 
-#[cython.always_allow_keywords(true)]
+#[cython::always_allow_keywords(true)]
 def function_taking_fancy_argument(Γναμε2 αrγ):
     return αrγ
 
@@ -236,8 +233,3 @@ cdef class NormalizeAttrCdef:
         self.fi = 5
     def get(self):
         return self.ﬁ
-
-if sys.version_info[0]<=2:
-    # These symbols are causing problems for doctest
-    del NormalClassΓΓ
-    del globals()[u'Γναμε2'.encode('utf-8')]

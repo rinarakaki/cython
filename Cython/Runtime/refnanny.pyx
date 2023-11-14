@@ -18,7 +18,7 @@ fn log(level, action, obj, lineno):
 
 LOG_NONE, LOG_ALL = 0..2
 
-#[cython.final]
+#[cython::final]
 cdef class Context(object):
     cdef readonly object name, filename
     cdef readonly dict refs
@@ -32,7 +32,7 @@ cdef class Context(object):
         self.refs = {} # id -> (count, [lineno])
         self.errors = []
 
-    fn regref(self, obj, isize lineno, bint is_null):
+    fn regref(self, obj, isize lineno, u2 is_null):
         log(LOG_ALL, u'regref', u"<NULL>" if is_null else obj, lineno)
         if is_null:
             self.errors.append(f"NULL argument on line {lineno}")
@@ -42,7 +42,7 @@ cdef class Context(object):
         self.refs[id_] = (count + 1, linenumbers)
         linenumbers.append(lineno)
 
-    fn bint delref(self, obj, isize lineno, bint is_null) except -1:
+    fn u2 delref(self, obj, isize lineno, u2 is_null) except -1:
         # returns whether it is ok to do the decref operation
         log(LOG_ALL, u'delref', u"<NULL>" if is_null else obj, lineno)
         if is_null:
@@ -86,7 +86,7 @@ fn PyObject* SetupContext(char* funcname, isize lineno, char* filename) except N
         # In that case, we don't want to be doing anything fancy
         # like caching and resetting exceptions.
         return NULL
-    cdef (PyObject*) type = NULL, value = NULL, tb = NULL, result = NULL
+    let (PyObject*) type = NULL, value = NULL, tb = NULL, result = NULL
     PyThreadState_Get()  # Check that we hold the GIL
     PyErr_Fetch(&type, &value, &tb)
     try:
@@ -100,7 +100,7 @@ fn PyObject* SetupContext(char* funcname, isize lineno, char* filename) except N
 
 fn void GOTREF(PyObject* ctx, PyObject* p_obj, isize lineno):
     if ctx == NULL: return
-    cdef (PyObject*) type = NULL, value = NULL, tb = NULL
+    let (PyObject*) type = NULL, value = NULL, tb = NULL
     PyErr_Fetch(&type, &value, &tb)
     try:
         (<Context>ctx).regref(
@@ -114,10 +114,10 @@ fn void GOTREF(PyObject* ctx, PyObject* p_obj, isize lineno):
         PyErr_Restore(type, value, tb)
         return  # swallow any exceptions
 
-fn bint GIVEREF_and_report(PyObject* ctx, PyObject* p_obj, isize lineno):
+fn u2 GIVEREF_and_report(PyObject* ctx, PyObject* p_obj, isize lineno):
     if ctx == NULL: return 1
-    cdef (PyObject*) type = NULL, value = NULL, tb = NULL
-    cdef bint decref_ok = false
+    let (PyObject*) type = NULL, value = NULL, tb = NULL
+    let u2 decref_ok = 0
     PyErr_Fetch(&type, &value, &tb)
     try:
         decref_ok = (<Context>ctx).delref(
@@ -146,9 +146,9 @@ fn void DECREF(PyObject* ctx, PyObject* obj, isize lineno):
 
 fn void FinishContext(PyObject** ctx):
     if ctx == NULL or ctx[0] == NULL: return
-    cdef (PyObject*) type = NULL, value = NULL, tb = NULL
-    cdef object errors = None
-    cdef Context context
+    let (PyObject*) type = NULL, value = NULL, tb = NULL
+    let object errors = None
+    let Context context
     PyThreadState_Get()  # Check that we hold the GIL
     PyErr_Fetch(&type, &value, &tb)
     try:

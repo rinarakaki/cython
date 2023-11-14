@@ -1,15 +1,15 @@
 use super::object::PyObject
 
 extern from "Python.h":
-    ############################################################################
+    # ##########################################################################
     # Tuples
-    ############################################################################
+    # ##########################################################################
 
-    fn bint PyTuple_Check(object p)
+    fn u2 PyTuple_Check(object p)
     # Return true if p is a tuple object or an instance of a subtype
     # of the tuple type.
 
-    fn bint PyTuple_CheckExact(object p)
+    fn u2 PyTuple_CheckExact(object p)
     # Return true if p is a tuple object, but not an instance of a subtype of the tuple type.
 
     fn tuple PyTuple_New(isize len)
@@ -56,7 +56,7 @@ extern from "Python.h":
     #
     # WARNING: This function _steals_ a reference to o.
 
-    fn i32 _PyTuple_Resize(PyObject **p, isize newsize) except -1
+    fn i32 _PyTuple_Resize(PyObject** p, isize newsize) except -1
     # Can be used to resize a tuple. newsize will be the new length of
     # the tuple. Because tuples are supposed to be immutable, this
     # should only be used if there is only one reference to the

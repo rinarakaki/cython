@@ -153,7 +153,7 @@ def test_value_type_complex(x):
     >>> test_value_type_complex(2)
     (2+0j)
     """
-    let vector[double complex].value_type val = x
+    let vector[c128].value_type val = x
     return val
 
 def test_bool_vector_convert(o):
@@ -178,8 +178,8 @@ def test_bool_vector_get_set():
     v[1] = false
     assert <object>v == [True, False, True, True, True]
 
-ctypedef vector[cbool] vector_bool
-ctypedef vector[i32] vector_int
+type vector_bool = vector[cbool]
+type vector_int = vector[i32]
 
 def test_typedef_vector(L):
     """

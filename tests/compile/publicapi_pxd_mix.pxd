@@ -1,6 +1,6 @@
 # --
 
-ctypedef         i32 Int0
+type Int0 = i32
 ctypedef pub     i32 Int1
 ctypedef     api i32 Int2
 ctypedef pub api i32 Int3
@@ -50,7 +50,7 @@ pub  api class Bar3 [type PyBar3_Type, object PyBar3_Object]: pass
 # --
 
 extern from *:
-    void foo()
+    fn void foo()
 
 fn inline       void bar (): pass
 fn              void bar0()

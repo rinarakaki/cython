@@ -9,7 +9,7 @@ cdef class cclass:
         >>> cclass.test0()
         'type object'
         """
-        return cython.typeof(cls)
+        return cython::typeof(cls)
 
     @classmethod
     def test0_args(*args):
@@ -17,7 +17,7 @@ cdef class cclass:
         >>> cclass.test0_args(1, 2, 3)
         ('Python object', (1, 2, 3))
         """
-        return cython.typeof(args[0]), args[1:]
+        return cython::typeof(args[0]), args[1:]
 
     @classmethod
     def test1(cls, arg):
@@ -25,7 +25,7 @@ cdef class cclass:
         >>> cclass.test1(1)
         ('type object', 1)
         """
-        return cython.typeof(cls), arg
+        return cython::typeof(cls), arg
 
     @classmethod
     def test2(cls, arg1, arg2):
@@ -33,7 +33,7 @@ cdef class cclass:
         >>> cclass.test2(1, 2)
         ('type object', 1, 2)
         """
-        return cython.typeof(cls), arg1, arg2
+        return cython::typeof(cls), arg1, arg2
 
     @classmethod
     def test1_args(cls, *args):
@@ -41,7 +41,7 @@ cdef class cclass:
         >>> cclass.test1_args(1, 2, 3)
         ('type object', (1, 2, 3))
         """
-        return cython.typeof(cls), args
+        return cython::typeof(cls), args
 
     @classmethod
     def test2_args(cls, arg, *args):
@@ -49,7 +49,7 @@ cdef class cclass:
         >>> cclass.test2_args(1, 2, 3)
         ('type object', 1, (2, 3))
         """
-        return cython.typeof(cls), arg, args
+        return cython::typeof(cls), arg, args
 
     @classmethod
     def test0_args_kwargs(*args, **kwargs):
@@ -57,7 +57,7 @@ cdef class cclass:
         >>> cclass.test0_args_kwargs(1, 2, 3)
         ('Python object', (1, 2, 3), {})
         """
-        return cython.typeof(args[0]), args[1:], kwargs
+        return cython::typeof(args[0]), args[1:], kwargs
 
     @classmethod
     def test1_args_kwargs(cls, *args, **kwargs):
@@ -65,7 +65,7 @@ cdef class cclass:
         >>> cclass.test1_args_kwargs(1, 2, 3)
         ('type object', (1, 2, 3), {})
         """
-        return cython.typeof(cls), args, kwargs
+        return cython::typeof(cls), args, kwargs
 
     @classmethod
     def test2_args_kwargs(cls, arg, *args, **kwargs):
@@ -73,4 +73,4 @@ cdef class cclass:
         >>> cclass.test2_args_kwargs(1, 2, 3)
         ('type object', 1, (2, 3), {})
         """
-        return cython.typeof(cls), arg, args, kwargs
+        return cython::typeof(cls), arg, args, kwargs

@@ -4,7 +4,7 @@
 use cython
 
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//SetIterationNextNode",
 )
 def set_iter_comp(set s):
@@ -16,7 +16,7 @@ def set_iter_comp(set s):
     return [x for x in s]
 
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//SetIterationNextNode",
 )
 def set_iter_comp_typed(set s):
@@ -29,7 +29,7 @@ def set_iter_comp_typed(set s):
     return [x for x in s]
 
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//SetIterationNextNode",
 )
 def frozenset_iter_comp(frozenset s):
@@ -41,7 +41,7 @@ def frozenset_iter_comp(frozenset s):
     return [x for x in s]
 
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//SetIterationNextNode",
 )
 def set_iter_comp_frozenset(set s):
@@ -53,7 +53,7 @@ def set_iter_comp_frozenset(set s):
     return [x for x in frozenset(s)]
 
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//SetIterationNextNode",
 )
 def set_iter_modify(set s, i32 value):
@@ -74,10 +74,10 @@ def set_iter_modify(set s, i32 value):
     return s
 
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//SimpleCallNode//NameNode[@name = 'enumerate']",
 )
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//AddNode",
     "//SetIterationNextNode",
 )

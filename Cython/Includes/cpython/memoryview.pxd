@@ -1,7 +1,7 @@
 extern from "Python.h":
-    ###########################################################################
+    # #########################################################################
     # MemoryView Objects
-    ###########################################################################
+    # #########################################################################
     # A memoryview object exposes the C level buffer interface as a Python
     # object which can then be passed around like any other object
 
@@ -12,13 +12,13 @@ extern from "Python.h":
     # will be read/write, otherwise it may be either read-only or read/write at
     # the discretion of the exporter.
 
-    fn object PyMemoryView_FromMemory(char *mem, isize size, i32 flags)
+    fn object PyMemoryView_FromMemory(char* mem, isize size, i32 flags)
     # Return value: New reference.
     # Create a memoryview object using mem as the underlying buffer. flags can
     # be one of PyBUF_READ or PyBUF_WRITE.
     # New in version 3.3.
 
-    fn object PyMemoryView_FromBuffer(Py_buffer *view)
+    fn object PyMemoryView_FromBuffer(Py_buffer* view)
     # Return value: New reference.
     # Create a memoryview object wrapping the given buffer structure view. For
     # simple byte buffers, PyMemoryView_FromMemory() is the preferred function.
@@ -33,16 +33,16 @@ extern from "Python.h":
     # memory. Otherwise, a copy is made and the memoryview points to a new
     # bytes object.
 
-    fn bint PyMemoryView_Check(object obj)
+    fn u2 PyMemoryView_Check(object obj)
     # Return true if the object obj is a memoryview object. It is not currently
     # allowed to create subclasses of memoryview.
 
-    fn Py_buffer *PyMemoryView_GET_BUFFER(object mview)
+    fn Py_buffer* PyMemoryView_GET_BUFFER(object mview)
     # Return a pointer to the memoryview’s private copy of the exporter’s
     # buffer. mview must be a memoryview instance; this macro doesn’t check its
     # type, you must do it yourself or you will risk crashes.
 
-    fn Py_buffer *PyMemoryView_GET_BASE(object mview)
+    fn Py_buffer* PyMemoryView_GET_BASE(object mview)
     # Return either a pointer to the exporting object that the memoryview is
     # based on or NULL if the memoryview has been created by one of the
     # functions PyMemoryView_FromMemory() or PyMemoryView_FromBuffer(). mview

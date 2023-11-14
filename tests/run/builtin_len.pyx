@@ -8,7 +8,7 @@ bytes_str   = b'ab jd  sdflk as sa  sadas asdas fsdf '
 _frozenset = frozenset
 _set = set
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//CoerceToPyTypeNode",
     "//PythonCapiCallNode")
 def len_unicode(unicode s):
@@ -23,7 +23,7 @@ def len_unicode(unicode s):
     """
     return len(s)
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//CoerceToPyTypeNode",
     "//PythonCapiCallNode")
 def len_bytes(bytes s):
@@ -38,7 +38,7 @@ def len_bytes(bytes s):
     """
     return len(s)
 
-#@cython.test_assert_path_exists(
+# @cython::test_assert_path_exists(
 #    "//CoerceToPyTypeNode",
 #    "//PythonCapiCallNode")
 def len_str(str s):
@@ -53,7 +53,7 @@ def len_str(str s):
     """
     return len(s)
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//CoerceToPyTypeNode",
     "//PythonCapiCallNode")
 def len_list(list s):
@@ -69,7 +69,7 @@ def len_list(list s):
     """
     return len(s)
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//CoerceToPyTypeNode",
     "//PythonCapiCallNode")
 def len_tuple(tuple s):
@@ -85,7 +85,7 @@ def len_tuple(tuple s):
     """
     return len(s)
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//CoerceToPyTypeNode",
     "//PythonCapiCallNode")
 def len_dict(dict s):
@@ -101,7 +101,7 @@ def len_dict(dict s):
     """
     return len(s)
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//CoerceToPyTypeNode",
     "//PythonCapiCallNode")
 def len_set(set s):
@@ -117,7 +117,7 @@ def len_set(set s):
     """
     return len(s)
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//CoerceToPyTypeNode",
     "//PythonCapiCallNode")
 def len_frozenset(frozenset s):

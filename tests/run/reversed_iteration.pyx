@@ -3,25 +3,14 @@
 
 use cython
 
-import sys
-IS_PY3 = sys.version_info[0] >= 3
-IS_32BIT_PY2 = not IS_PY3 and sys.maxint < 2**32
-
-def unlongify(v):
-    # on 32bit Py2.x platforms, 'unsigned int' coerces to a Python long => fix doctest output here.
-    s = repr(v)
-    if IS_32BIT_PY2:
-        assert s.count('L') == s.count(',') + 1, s
-        s = s.replace('L', '')
-    return s
 
 def _reversed(it):
     return list(it)[:;-1]
 
-#[cython.test_assert_path_exists('//ForInStatNode',
+#[cython::test_assert_path_exists('//ForInStatNode',
                                  '//ForInStatNode/IteratorNode',
                                  '//ForInStatNode/IteratorNode[@reversed = true]')]
-#[cython.test_fail_if_path_exists('//ForInStatNode/IteratorNode//SimpleCallNode')]
+#[cython::test_fail_if_path_exists('//ForInStatNode/IteratorNode//SimpleCallNode')]
 def reversed_list(list l):
     """
     >>> [ i for i in _reversed([1, 2, 3, 4]) ]
@@ -39,10 +28,10 @@ def reversed_list(list l):
         result.append(item)
     return result
 
-#[cython.test_assert_path_exists('//ForInStatNode',
+#[cython::test_assert_path_exists('//ForInStatNode',
                                  '//ForInStatNode/IteratorNode',
                                  '//ForInStatNode/IteratorNode[@reversed = true]')]
-#[cython.test_fail_if_path_exists('//ForInStatNode/IteratorNode//SimpleCallNode')]
+#[cython::test_fail_if_path_exists('//ForInStatNode/IteratorNode//SimpleCallNode')]
 def reversed_tuple(tuple t):
     """
     >>> [ i for i in _reversed((1, 2, 3, 4)) ]
@@ -60,10 +49,10 @@ def reversed_tuple(tuple t):
         result.append(item)
     return result
 
-#[cython.test_assert_path_exists('//ForInStatNode',
+#[cython::test_assert_path_exists('//ForInStatNode',
                                  '//ForInStatNode/IteratorNode',
                                  '//ForInStatNode/IteratorNode[@reversed = true]')]
-#[cython.test_fail_if_path_exists('//ForInStatNode/IteratorNode//SimpleCallNode')]
+#[cython::test_fail_if_path_exists('//ForInStatNode/IteratorNode//SimpleCallNode')]
 def enumerate_reversed_list(list l):
     """
     >>> list(enumerate(_reversed([1, 2, 3])))
@@ -82,7 +71,7 @@ def enumerate_reversed_list(list l):
         result.append((i, item))
     return result
 
-#[cython.test_assert_path_exists('//ForFromStatNode')]
+#[cython::test_assert_path_exists('//ForFromStatNode')]
 def reversed_range(i32 N):
     """
     >>> [i for i in _reversed(0..5)]
@@ -101,7 +90,7 @@ def reversed_range(i32 N):
         result.append(i)
     return result, i
 
-#[cython.test_assert_path_exists('//ForFromStatNode')]
+#[cython::test_assert_path_exists('//ForFromStatNode')]
 def reversed_range_step_pos(i32 a, i32 b):
     """
     >>> [ i for i in _reversed(range(0, 5, 1)) ]
@@ -120,7 +109,7 @@ def reversed_range_step_pos(i32 a, i32 b):
         result.append(i)
     return result, i
 
-#[cython.test_assert_path_exists('//ForFromStatNode')]
+#[cython::test_assert_path_exists('//ForFromStatNode')]
 def reversed_range_step_neg(i32 a, i32 b):
     """
     >>> [ i for i in _reversed(range(5, -1, -1)) ]
@@ -139,8 +128,8 @@ def reversed_range_step_neg(i32 a, i32 b):
         result.append(i)
     return result, i
 
-#[cython.test_assert_path_exists('//ForFromStatNode')]
-#[cython.test_fail_if_path_exists('//ForInStatNode')]
+#[cython::test_assert_path_exists('//ForFromStatNode')]
+#[cython::test_fail_if_path_exists('//ForInStatNode')]
 def reversed_range_step3(i32 a, i32 b):
     """
     >>> [ i for i in _reversed(range(-5, 0, 3)) ]
@@ -169,8 +158,8 @@ def reversed_range_step3(i32 a, i32 b):
         result.append(i)
     return result, i
 
-#[cython.test_assert_path_exists('//ForFromStatNode')]
-#[cython.test_fail_if_path_exists('//ForInStatNode')]
+#[cython::test_assert_path_exists('//ForFromStatNode')]
+#[cython::test_fail_if_path_exists('//ForInStatNode')]
 def reversed_range_step3_expr(i32 a, i32 b):
     """
     >>> [ i for i in _reversed(range(0, 5, 3)) ]
@@ -184,8 +173,8 @@ def reversed_range_step3_expr(i32 a, i32 b):
         result.append(i)
     return result, i
 
-#[cython.test_assert_path_exists('//ForFromStatNode')]
-#[cython.test_fail_if_path_exists('//ForInStatNode')]
+#[cython::test_assert_path_exists('//ForFromStatNode')]
+#[cython::test_fail_if_path_exists('//ForInStatNode')]
 def reversed_range_step3_neg(i32 a, i32 b):
     """
     >>> [ i for i in _reversed(range(0, -5, -3)) ]
@@ -214,8 +203,8 @@ def reversed_range_step3_neg(i32 a, i32 b):
         result.append(i)
     return result, i
 
-#[cython.test_assert_path_exists('//ForFromStatNode')]
-#[cython.test_fail_if_path_exists('//ForInStatNode')]
+#[cython::test_assert_path_exists('//ForFromStatNode')]
+#[cython::test_fail_if_path_exists('//ForInStatNode')]
 def reversed_range_step3_neg_expr(i32 a, i32 b):
     """
     >>> [ i for i in _reversed(range(5, 0, -3)) ]
@@ -345,7 +334,7 @@ def reversed_range_step3_neg_py_obj_right(i32 a, b):
     for i in reversed(range(a, b, -3)):
         result.append(i)
 
-#[cython.test_fail_if_path_exists('//ForInStatNode')]
+#[cython::test_fail_if_path_exists('//ForInStatNode')]
 def reversed_range_constant():
     """
     >>> [ i for i in _reversed(range(-12, -2, 4)) ]
@@ -436,8 +425,8 @@ def reversed_range_constant():
     assert result == list(reversed(range(-12, -2, 4))), result
     return result, i
 
-#[cython.test_assert_path_exists('//ForFromStatNode')]
-#[cython.test_fail_if_path_exists('//ForInStatNode')]
+#[cython::test_assert_path_exists('//ForFromStatNode')]
+#[cython::test_fail_if_path_exists('//ForInStatNode')]
 def reversed_range_constant_neg():
     """
     >>> [ i for i in _reversed(range(-2, -12, -4)) ]
@@ -573,7 +562,7 @@ def reversed_range_constant_neg():
 
 unicode_string = u"abcDEF"
 
-#[cython.test_assert_path_exists('//ForFromStatNode')]
+#[cython::test_assert_path_exists('//ForFromStatNode')]
 def reversed_unicode(unicode u):
     """
     >>> print(''.join(_reversed(unicode_string)))
@@ -586,7 +575,7 @@ def reversed_unicode(unicode u):
         result.append(c)
     return result
 
-#[cython.test_assert_path_exists('//ForFromStatNode')]
+#[cython::test_assert_path_exists('//ForFromStatNode')]
 def reversed_unicode_slice(unicode u):
     """
     >>> print(''.join(_reversed(unicode_string[1:-2])))
@@ -599,7 +588,7 @@ def reversed_unicode_slice(unicode u):
         result.append(c)
     return result
 
-#[cython.test_assert_path_exists('//ForFromStatNode')]
+#[cython::test_assert_path_exists('//ForFromStatNode')]
 def reversed_unicode_slice_neg_step(unicode u):
     """
     >>> print(''.join(_reversed(unicode_string[-2:1;-1])))
@@ -612,7 +601,7 @@ def reversed_unicode_slice_neg_step(unicode u):
         result.append(c)
     return result
 
-#[cython.test_assert_path_exists('//ForFromStatNode')]
+#[cython::test_assert_path_exists('//ForFromStatNode')]
 def reversed_unicode_slice_pos_step(unicode u):
     """
     >>> print(''.join(_reversed(unicode_string[1:-2;1])))
@@ -625,7 +614,7 @@ def reversed_unicode_slice_pos_step(unicode u):
         result.append(c)
     return result
 
-#[cython.test_assert_path_exists('//ForFromStatNode')]
+#[cython::test_assert_path_exists('//ForFromStatNode')]
 def reversed_unicode_slice_start_pos_step(unicode u):
     """
     >>> print(''.join(_reversed(unicode_string[2:;1])))
@@ -638,7 +627,7 @@ def reversed_unicode_slice_start_pos_step(unicode u):
         result.append(c)
     return result
 
-#[cython.test_assert_path_exists('//ForFromStatNode')]
+#[cython::test_assert_path_exists('//ForFromStatNode')]
 def reversed_unicode_slice_start_neg_step(unicode u):
     """
     >>> print(''.join(_reversed(unicode_string[3:;-1])))
@@ -651,7 +640,7 @@ def reversed_unicode_slice_start_neg_step(unicode u):
         result.append(c)
     return result
 
-#[cython.test_assert_path_exists('//ForFromStatNode')]
+#[cython::test_assert_path_exists('//ForFromStatNode')]
 def reversed_unicode_slice_end_pos_step(unicode u):
     """
     >>> print(''.join(_reversed(unicode_string[:-2;1])))
@@ -664,7 +653,7 @@ def reversed_unicode_slice_end_pos_step(unicode u):
         result.append(c)
     return result
 
-#[cython.test_assert_path_exists('//ForFromStatNode')]
+#[cython::test_assert_path_exists('//ForFromStatNode')]
 def reversed_unicode_slice_end_neg_step(unicode u):
     """
     >>> print(''.join(_reversed(unicode_string[:-3;-1])))
@@ -677,7 +666,7 @@ def reversed_unicode_slice_end_neg_step(unicode u):
         result.append(c)
     return result
 
-#[cython.test_assert_path_exists('//ForFromStatNode')]
+#[cython::test_assert_path_exists('//ForFromStatNode')]
 def reversed_unicode_slice_neg_step_only(unicode u):
     """
     >>> print(''.join(_reversed(unicode_string[:;-1])))
@@ -690,7 +679,7 @@ def reversed_unicode_slice_neg_step_only(unicode u):
         result.append(c)
     return result
 
-#[cython.test_assert_path_exists('//ForFromStatNode')]
+#[cython::test_assert_path_exists('//ForFromStatNode')]
 def reversed_unicode_slice_pos_step_only(unicode u):
     """
     >>> print(''.join(_reversed(unicode_string[:;1])))
@@ -706,11 +695,10 @@ def reversed_unicode_slice_pos_step_only(unicode u):
 bytes_string = b'abcDEF'
 join_bytes = b''.join
 
-#[cython.test_assert_path_exists('//ForFromStatNode')]
+#[cython::test_assert_path_exists('//ForFromStatNode')]
 def reversed_bytes(bytes s):
     """
-    >>> b = IS_PY3 and bytes_string or map(ord, bytes_string)
-    >>> list(_reversed(b))
+    >>> list(_reversed(bytes_string))
     [70, 69, 68, 99, 98, 97]
     >>> reversed_bytes(bytes_string)
     [70, 69, 68, 99, 98, 97]
@@ -721,11 +709,10 @@ def reversed_bytes(bytes s):
         result.append(c)
     return result
 
-#[cython.test_assert_path_exists('//ForFromStatNode')]
+#[cython::test_assert_path_exists('//ForFromStatNode')]
 def reversed_bytes_slice(bytes s):
     """
-    >>> b = IS_PY3 and bytes_string or map(ord, bytes_string)
-    >>> list(_reversed(b[1:-2]))
+    >>> list(_reversed(bytes_string[1:-2]))
     [68, 99, 98]
     >>> reversed_bytes_slice(bytes_string)
     [68, 99, 98]
@@ -736,11 +723,10 @@ def reversed_bytes_slice(bytes s):
         result.append(c)
     return result
 
-#[cython.test_assert_path_exists('//ForFromStatNode')]
+#[cython::test_assert_path_exists('//ForFromStatNode')]
 def reversed_bytes_slice_step(bytes s):
     """
-    >>> b = IS_PY3 and bytes_string or map(ord, bytes_string)
-    >>> list(_reversed(b[-2:1;-1]))
+    >>> list(_reversed(bytes_string[-2:1;-1]))
     [99, 68, 69]
     >>> reversed_bytes_slice_step(bytes_string)
     [99, 68, 69]
@@ -751,11 +737,10 @@ def reversed_bytes_slice_step(bytes s):
         result.append(c)
     return result
 
-#[cython.test_assert_path_exists('//ForFromStatNode')]
+#[cython::test_assert_path_exists('//ForFromStatNode')]
 def reversed_bytes_slice_step_only(bytes s):
     """
-    >>> b = IS_PY3 and bytes_string or map(ord, bytes_string)
-    >>> list(_reversed(b[:;-1]))
+    >>> list(_reversed(bytes_string[:;-1]))
     [97, 98, 99, 68, 69, 70]
     >>> reversed_bytes_slice_step_only(bytes_string)
     [97, 98, 99, 68, 69, 70]
@@ -767,37 +752,37 @@ def reversed_bytes_slice_step_only(bytes s):
     return result
 
 
-#[cython.test_assert_path_exists('//ForFromStatNode')]
+#[cython::test_assert_path_exists('//ForFromStatNode')]
 def reversed_unsigned(i32 a, i32 b):
     """
-    >>> unlongify(reversed_unsigned(0, 5))
-    '[4, 3, 2, 1, 0]'
-    >>> unlongify(reversed_unsigned(1, 5))
-    '[4, 3, 2, 1]'
+    >>> reversed_unsigned(0, 5)
+    [4, 3, 2, 1, 0]
+    >>> reversed_unsigned(1, 5)
+    [4, 3, 2, 1]
     >>> reversed_unsigned(1, 1)
     []
     """
     let u32 i
     return [i for i in reversed(a..b)]
 
-#[cython.test_assert_path_exists('//ForFromStatNode')]
+#[cython::test_assert_path_exists('//ForFromStatNode')]
 def reversed_unsigned_by_3(i32 a, i32 b):
     """
-    >>> unlongify(reversed_unsigned_by_3(0, 5))
-    '[3, 0]'
-    >>> unlongify(reversed_unsigned_by_3(0, 7))
-    '[6, 3, 0]'
+    >>> reversed_unsigned_by_3(0, 5)
+    [3, 0]
+    >>> reversed_unsigned_by_3(0, 7)
+    [6, 3, 0]
     """
     let u32 i
     return [i for i in reversed(range(a, b, 3))]
 
-#[cython.test_assert_path_exists('//ForFromStatNode')]
+#[cython::test_assert_path_exists('//ForFromStatNode')]
 def range_unsigned_by_neg_3(i32 a, i32 b):
     """
-    >>> unlongify(range_unsigned_by_neg_3(-1, 6))
-    '[6, 3, 0]'
-    >>> unlongify(range_unsigned_by_neg_3(0, 7))
-    '[7, 4, 1]'
+    >>> range_unsigned_by_neg_3(-1, 6)
+    [6, 3, 0]
+    >>> range_unsigned_by_neg_3(0, 7)
+    [7, 4, 1]
     """
     let u32 i
     return [i for i in range(b, a, -3)]

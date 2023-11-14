@@ -68,7 +68,7 @@ def binop_voidptr(i32 x, i64 y, char* z):
     'void *'
     """
     result = &x and &y and z
-    return cython.typeof(result)
+    return cython::typeof(result)
 
 def cond_expr_voidptr(i32 x, i64 y, char* z):
     """
@@ -83,5 +83,5 @@ def cond_expr_voidptr(i32 x, i64 y, char* z):
     """
     result = &x if len(z) else &y
     assert sizeof(i64) >= sizeof(i32)
-    assert -1 == <i32>(-1L)
-    return cython.typeof(result), (<i32*>result)[0]
+    assert -1 == <i32>(-1i64)
+    return cython::typeof(result), (<i32*>result)[0]

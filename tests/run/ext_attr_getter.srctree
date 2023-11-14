@@ -191,7 +191,7 @@ extern from "foo.h":
             return PyFoo_GET2M(self)
 
         @property
-        fn inline i32 *vector(self):
+        fn inline i32* vector(self):
             return PyFoo_GetV(self)
 
         @property
@@ -200,10 +200,10 @@ extern from "foo.h":
             ret *= 2
             return ret
 
-    i32 PyFoo_GET0M(Foo);  # this is actually a macro !
-    i32 PyFoo_Get1F(Foo);
-    i32 PyFoo_GET2M(Foo);  # this is actually a macro !
-    i32 *PyFoo_GetV(Foo);
+    fn i32 PyFoo_GET0M(Foo);  # this is actually a macro !
+    fn i32 PyFoo_Get1F(Foo);
+    fn i32 PyFoo_GET2M(Foo);  # this is actually a macro !
+    fn i32* PyFoo_GetV(Foo);
 
 ######## getter1.pyx ########
 

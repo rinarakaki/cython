@@ -1,5 +1,5 @@
 extern from "foo.h":
-    ctypedef i128 big_t
+    type big_t = i128
     fn void spam(big_t b)
 
 spam(grail)

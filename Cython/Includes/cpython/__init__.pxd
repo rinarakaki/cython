@@ -1,4 +1,4 @@
-#####################################################################
+# ###################################################################
 #
 # These are the Cython pxd files for (most of) the Python/C API.
 #
@@ -22,7 +22,7 @@
 # always locally override this convention by putting something like
 #
 #     extern from "Python.h":
-#         PyObject* PyNumber_Add(PyObject *o1, PyObject *o2)
+#         fn PyObject* PyNumber_Add(PyObject* o1, PyObject* o2)
 #
 # in your .pyx file or into a cimported .pxd file.  You just have to
 # use the one from the right (pxd-)namespace then.
@@ -30,25 +30,25 @@
 # Cython automatically takes care of reference counting for anything
 # of type object.
 #
-## More precisely, I think the correct convention for
-## using the Python/C API from Cython is as follows.
-##
-## (1) Declare all input arguments as type "object".  This way no explicit
-##    <PyObject*> casting is needed, and moreover Cython doesn't generate
-##    any funny reference counting.
-## (2) Declare output as object if a new reference is returned.
-## (3) Declare output as PyObject* if a borrowed reference is returned.
-##
-## This way when you call objects, no cast is needed, and if the api
-## calls returns a new reference (which is about 95% of them), then
-## you can just assign to a variable of type object.  With borrowed
-## references if you do an explicit typecast to <object>, Cython generates an
-## INCREF and DECREF so you have to be careful.  However, you got a
-## borrowed reference in this case, so there's got to be another reference
-## to your object, so you're OK, as long as you relealize this
-## and use the result of an explicit cast to <object> as a borrowed
-## reference (and you can call Py_INCREF if you want to turn it
-## into another reference for some reason).
+# # More precisely, I think the correct convention for
+# # using the Python/C API from Cython is as follows.
+# #
+# # (1) Declare all input arguments as type "object".  This way no explicit
+# #    <PyObject*> casting is needed, and moreover Cython doesn't generate
+# #    any funny reference counting.
+# # (2) Declare output as object if a new reference is returned.
+# # (3) Declare output as PyObject* if a borrowed reference is returned.
+# #
+# # This way when you call objects, no cast is needed, and if the api
+# # calls returns a new reference (which is about 95% of them), then
+# # you can just assign to a variable of type object.  With borrowed
+# # references if you do an explicit typecast to <object>, Cython generates an
+# # INCREF and DECREF so you have to be careful.  However, you got a
+# # borrowed reference in this case, so there's got to be another reference
+# # to your object, so you're OK, as long as you relealize this
+# # and use the result of an explicit cast to <object> as a borrowed
+# # reference (and you can call Py_INCREF if you want to turn it
+# # into another reference for some reason).
 #
 # "The reference count is important because today's computers have
 # a finite (and often severely limited) memory size; it counts how
@@ -117,13 +117,13 @@
 # Now you should read http://docs.python.org/api/refcountDetails.html
 # just to be sure you understand what is going on.
 #
-#################################################################
+# ###############################################################
 
 
 
-#################################################################
+# ###############################################################
 # BIG FAT DEPRECATION WARNING
-#################################################################
+# ###############################################################
 # Do NOT cimport any names directly from the cpython package,
 # despite of the star-imports below.  They will be removed at
 # some point.
@@ -132,9 +132,9 @@
 # A direct cimport from the package will make your code depend on
 # all of the existing declarations. This may have side-effects
 # and reduces the portability of your code.
-#################################################################
+# ###############################################################
 # START OF DEPRECATED SECTION
-#################################################################
+# ###############################################################
 
 use cpython::version::*
 use cpython::ref::*
@@ -182,6 +182,6 @@ use cpython::pycapsule::*
 # Python >= 3.7
 use cpython::contextvars::*
 
-#################################################################
+# ###############################################################
 # END OF DEPRECATED SECTION
-#################################################################
+# ###############################################################

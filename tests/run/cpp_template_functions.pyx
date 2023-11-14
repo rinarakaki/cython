@@ -6,9 +6,9 @@ use libcpp::pair::pair
 use libcpp::vector::vector
 
 extern from "cpp_template_functions_helper.h":
-    let T no_arg[T]()
-    let T one_param[T](T)
-    let pair[T, U] two_params[T, U](T, U)
+    fn T no_arg[T]()
+    fn T one_param[T](T)
+    fn pair[T, U] two_params[T, U](T, U)
     cdef cppclass A[T]:
         pair[T, U] method[U](T, U)
         U part_method[U](pair[T, U])
@@ -17,11 +17,11 @@ extern from "cpp_template_functions_helper.h":
         T overloaded(pair[T, T])
         U overloaded[U](vector[U])
         X overloaded[X](char* s, vector[X])
-    let T nested_deduction[T](const T*)
-    pair[T, U] pair_arg[T, U](pair[T, U] a)
-    let T* pointer_param[T](T*)
+    fn T nested_deduction[T](const T*)
+    fn pair[T, U] pair_arg[T, U](pair[T, U] a)
+    fn T* pointer_param[T](T*)
     cdef cppclass double_pair(pair[f64, f64]):
-        double_pair(f64, f64)
+        fn double_pair(f64, f64)
 
 def test_no_arg():
     """
@@ -103,7 +103,7 @@ def test_inference(i32 k):
     27
     """
     res = one_param(&k)
-    assert cython.typeof(res) == 'i32 *', cython.typeof(res)
+    assert cython::typeof(res) == 'i32 *', cython::typeof(res)
     return res[0]
 
 def test_overload_GH1583():

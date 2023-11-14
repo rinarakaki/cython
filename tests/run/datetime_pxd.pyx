@@ -215,7 +215,7 @@ def test_timedelta_total_seconds():
     return total_seconds(td), pytd.total_seconds()
 
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//CoerceFromPyTypeNode",
     "//AttributeNode",
 )
@@ -255,16 +255,10 @@ def test_date_from_timestamp():
 
 def test_get_utc():
     """
-    >>> from datetime import datetime
     >>> test_get_utc()
-    True
     """
-    try:
-        get_utc()
-    except RuntimeError:
-        if sys.version_info >= (3, 7):
-            raise  # get_utc() is only supposed to raise on Python < 3.7
-    return true
+    # should not raise
+    get_utc()
 
 def test_datetime_from_timestamp():
     """

@@ -26,7 +26,7 @@ extern from "Python.h":
 include "../buffers/mockbuffers.pxi"
 
 #
-### Test for some coercions
+# ## Test for some coercions
 #
 def init_obj():
     return 3
@@ -216,7 +216,7 @@ def test_cdef_attribute():
 
     print ExtClass().mview
 
-#[cython.boundscheck(false)]
+#[cython::boundscheck(false)]
 def test_nogil_unbound_localerror():
     """
     >>> test_nogil_unbound_localerror()
@@ -295,7 +295,7 @@ def nested_packed_struct(NestedPackedStruct[:] mslice):
     d = buf[0]
     print d['a'], d['b'], d['sub']['a'], d['sub']['b'], d['c']
 
-def complex_dtype(long double complex[:] mslice):
+def complex_dtype(c256[:] mslice):
     """
     >>> complex_dtype(LongComplexMockBuffer(None, [(0, -1)]))
     -1j
@@ -303,7 +303,7 @@ def complex_dtype(long double complex[:] mslice):
     let object buf = mslice
     print buf[0]
 
-def complex_inplace(long double complex[:] mslice):
+def complex_inplace(c256[:] mslice):
     """
     >>> complex_inplace(LongComplexMockBuffer(None, [(0, -1)]))
     (1+1j)
@@ -426,18 +426,18 @@ def type_infer(f64[:, :] arg):
     double[:, :]
     """
     a = arg[0, 0]
-    print(cython.typeof(a))
+    print(cython::typeof(a))
     b = arg[0]
-    print(cython.typeof(b))
+    print(cython::typeof(b))
     c = arg[0, :]
-    print(cython.typeof(c))
+    print(cython::typeof(c))
     d = arg[:, :]
-    print(cython.typeof(d))
+    print(cython::typeof(d))
 
 #
 # Loop optimization
 #
-#[cython.test_fail_if_path_exists("//CoerceToPyTypeNode")]
+#[cython::test_fail_if_path_exists("//CoerceToPyTypeNode")]
 def memview_iter(f64[:, :] arg):
     """
     >>> memview_iter(DoubleMockBuffer("C", 0..6, (2, 3)))
@@ -565,22 +565,22 @@ def generic(i32[:;view.generic, :;view.generic] mslice1,
 #    released B
 #    """
 #    buf1, buf2 = mslice1, mslice2
-# 
+#
 #    print buf1[1, 1]
 #    print buf2[1, 1]
-# 
+#
 #    buf1[2, -1] = 10
 #    buf2[2, -1] = 11
-# 
+#
 #    print buf1[2, 2]
 #    print buf2[2, 2]
 
-ctypedef i32 td_cy_int
+type td_cy_int = i32
 extern from "bufaccess.h":
-    ctypedef td_cy_int td_h_short # Defined as short, but Cython doesn't know this!
-    ctypedef f32 td_h_double # Defined as double
-    ctypedef u32 td_h_ushort # Defined as unsigned short
-ctypedef td_h_short td_h_cy_short
+    type td_h_short = td_cy_int  # Defined as short, but Cython doesn't know this!
+    type td_h_double = f32  # Defined as double
+    type td_h_ushort = u32  # Defined as unsigned short
+type td_h_cy_short = td_h_short
 
 def printbuf_td_cy_int(td_cy_int[:] mslice, shape):
     """
@@ -665,8 +665,8 @@ def addref(*args):
 def decref(*args):
     for item in args: Py_DECREF(item)
 
-#[cython.binding(false)]
-#[cython.always_allow_keywords(false)]
+#[cython::binding(false)]
+#[cython::always_allow_keywords(false)]
 def get_refcount(x):
     return (<PyObject*>x).ob_refcnt
 
@@ -1072,7 +1072,7 @@ def test_dtype_object_scalar_assignment():
     (<object> m)[:] = SingleObject(3)
     assert m[0] == m[4] == m[-1] == 3
 
-def test_assignment_in_conditional_expression(bint left):
+def test_assignment_in_conditional_expression(u2 left):
     """
     >>> test_assignment_in_conditional_expression(true)
     1.0
@@ -1114,8 +1114,8 @@ def test_cpython_offbyone_issue_23349():
     # the following returns 'estingt' without the workaround
     return bytearray(v).decode('ascii')
 
-#[cython.test_fail_if_path_exists('//SimpleCallNode')]
-@cython.test_assert_path_exists(
+#[cython::test_fail_if_path_exists('//SimpleCallNode')]
+@cython::test_assert_path_exists(
     '//ReturnStatNode//TupleNode',
     '//ReturnStatNode//TupleNode//CondExprNode',
 )
@@ -1128,15 +1128,15 @@ def min_max_tree_restructuring():
     a = [1, 2, 3, 4, 5]
     let i8[:] aview = a
 
-    return max(<i8>1, aview[0]), min(<i8>5, aview[2])
+    return max(1i8, aview[0]), min(5i8, aview[2])
 
-@cython.test_fail_if_path_exists(
-    '//MemoryViewSliceNode',
+@cython::test_fail_if_path_exists(
+    "//MemoryViewSliceNode",
 )
-@cython.test_assert_path_exists(
-    '//MemoryViewIndexNode',
+@cython::test_assert_path_exists(
+    "//MemoryViewIndexNode",
 )
-##[cython.boundscheck(false)]  # reduce C code clutter
+# #[cython::boundscheck(false)]  # reduce C code clutter
 def optimised_index_of_slice(i32[:, :, :] arr, i32 x, i32 y, i32 z):
     """
     >>> arr = IntMockBuffer("A", list(0..(10 * 10 * 10)), shape=(10, 10, 10))
@@ -1196,7 +1196,7 @@ def test_assign_from_byteslike(byteslike):
     def assign(m):
         m[:] = byteslike
 
-    let void *buf
+    let void* buf
     let u8[:] mview
     buf = malloc(5)
     try:
@@ -1246,16 +1246,14 @@ def test_is_Sequence(f64[:] a):
     1
     True
     """
-    if sys.version_info < (3, 3):
-        from collections import Sequence
-    else:
-        from collections.abc import Sequence
+    from collections.abc import Sequence
 
     for i in 0..a.shape[0]:
         a[i] = i
     print(a.count(1.0))  # test for presence of added collection method
     print(a.index(1.0))  # test for presence of added collection method
 
+    import sys
     if sys.version_info >= (3, 10):
         # test structural pattern match in Python
         # (because Cython hasn't implemented it yet, and because the details
@@ -1272,7 +1270,7 @@ match arr:
 
     return isinstance(<object>a, Sequence)
 
-ctypedef i32 aliasT
+type aliasT = i32
 def test_assignment_typedef():
     """
     >>> test_assignment_typedef()
@@ -1301,5 +1299,5 @@ def test_untyped_index(i):
     return mview_arr[i]  # should generate a performance hint
 
 _PERFORMANCE_HINTS = """
-1301:21: Index should be typed for more efficient access
+1299:21: Index should be typed for more efficient access
 """

@@ -19,12 +19,12 @@ def len(arg):
 fn type(arg):
     return u'type' + arg
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     '//PyMethodCallNode/NameNode[@name="type" and @entry.is_cfunction=false]',
     '//SimpleCallNode/NameNode[@name="type" and @entry.is_cfunction=false]',
     '//SimpleCallNode/NameNode[@name="len" and @entry.is_cfunction=true]',
     )
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     '//SimpleCallNode/NameNode[@name="type"]',
     '//SimpleCallNode/NameNode[@name="type" and @entry.is_cfunction=true]',
     '//PyMethodCallNode/NameNode[@name="len"]',

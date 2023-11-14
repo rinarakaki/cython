@@ -13,7 +13,7 @@ extern from "Python.h":
     #    buffer. Using this enables the caller to avoid querying the base
     #    object for its length.
 
-    fn bint PyBuffer_Check(object p)
+    fn u2 PyBuffer_Check(object p)
     #    Return true if the argument has type PyBuffer_Type.
 
     fn object PyBuffer_FromObject(object base, isize offset, isize size)
@@ -37,7 +37,7 @@ extern from "Python.h":
     #    object does not export the writeable buffer protocol, then
     #    TypeError is raised.
 
-    fn object PyBuffer_FromMemory(void *ptr, isize size)
+    fn object PyBuffer_FromMemory(void* ptr, isize size)
     #    Return value: New reference.
     #
     #    Return a new read-only buffer object that reads from a specified
@@ -48,7 +48,7 @@ extern from "Python.h":
     #    Py_END_OF_BUFFER may not be passed for the size parameter;
     #    ValueError will be raised in that case.
 
-    fn object PyBuffer_FromReadWriteMemory(void *ptr, isize size)
+    fn object PyBuffer_FromReadWriteMemory(void* ptr, isize size)
     #    Return value: New reference.
     #
     #    Similar to PyBuffer_FromMemory(), but the returned buffer is

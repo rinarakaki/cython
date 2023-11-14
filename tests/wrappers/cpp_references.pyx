@@ -6,8 +6,8 @@ extern from "cpp_references_helper.h":
     fn i32& ref_func(i32&)
     fn i32& except_ref_func "ref_func" (i32&) except +
 
-    cdef i32 ref_var_value
-    cdef i32& ref_var
+    static i32 ref_var_value
+    static i32& ref_var
 
 def test_ref_func(i32 x):
     """
@@ -58,7 +58,7 @@ def test_ref_assign(i32 x):
     let f64 d = ref_func(x)
     return d
 
-#[cython.infer_types(true)]
+#[cython::infer_types(true)]
 def test_ref_inference(i32 x):
     """
     >>> test_ref_inference(23)
@@ -67,5 +67,5 @@ def test_ref_inference(i32 x):
     29
     """
     z = ref_func(x)
-    assert cython.typeof(z) == "int", cython.typeof(z)
+    assert cython::typeof(z) == "int", cython::typeof(z)
     return z

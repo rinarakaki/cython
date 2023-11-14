@@ -14,9 +14,9 @@ extern from "Python.h":
     #endif
     """
 
-    ############################################################################
+    # ##########################################################################
     # Context Variables Objects
-    ############################################################################
+    # ##########################################################################
 
     # PyContext
     # The C structure used to represent a `contextvars.Context` object.
@@ -27,24 +27,24 @@ extern from "Python.h":
     # PyContextToken
     # The C structure used to represent a `contextvars.Token` object.
 
-    # PyTypeObject PyContext_Type
+    # static PyTypeObject PyContext_Type
     # Type object representing the `contextvars.Context` type.
 
-    # PyTypeObject PyContextVar_Type
+    # static PyTypeObject PyContextVar_Type
     # Type object representing the `contextvars.ContextVar` type.
 
-    # PyTypeObject PyContextToken_Type
+    # static PyTypeObject PyContextToken_Type
     # Type object representing the `contextvars.Token` type.
 
-    fn bint PyContext_CheckExact(object obj)
+    fn u2 PyContext_CheckExact(object obj)
     # Return `true` if `obj` is of type `PyContext_Type`.
     # `obj` must not be NULL. This function always succeeds.
 
-    fn bint PyContextVar_CheckExact(object obj)
+    fn u2 PyContextVar_CheckExact(object obj)
     # Return `true` if `obj` is of type `PyContextVar_Type`.
     # `obj` must not be NULL. This function always succeeds.
 
-    fn bint PyContextToken_CheckExact(object obj)
+    fn u2 PyContextToken_CheckExact(object obj)
     # Return `true` if `obj` is of type `PyContextToken_Type`.
     # `obj` must not be NULL. This function always succeeds.
 
@@ -113,7 +113,7 @@ fn inline object get_value(var, default_value=None):
     or the default value of the context variable,
     or None if no such value or default was found.
     """
-    let PyObject *value = NULL
+    let PyObject* value = NULL
     PyContextVar_Get(var, NULL, &value)
     if value is NULL:
         # context variable does not have a default
@@ -130,7 +130,7 @@ fn inline object get_value_no_default(var, default_value=None):
 
     Ignores the default value of the context variable, if any.
     """
-    let PyObject *value = NULL
+    let PyObject* value = NULL
     PyContextVar_Get(var, <PyObject*>default_value, &value)
     # value of context variable or 'default_value'
     pyvalue = <object>value

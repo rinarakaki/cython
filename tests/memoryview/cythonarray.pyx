@@ -59,8 +59,8 @@ def acquire():
             array(shape=(10,10), itemsize=sizeof(i32), format='i')
     let object[u64, ndim=3, mode='fortran'] buf3d = \
             array(shape=(1, 2, 3), itemsize=sizeof(u64), format='L', mode='fortran')
-    let object[long double, ndim=3, mode='fortran'] bufld = \
-            array(shape=(1, 2, 3), itemsize=sizeof(long double), format='g', mode='fortran')
+    let object[f128, ndim=3, mode='fortran'] bufld = \
+            array(shape=(1, 2, 3), itemsize=sizeof(f128), format='g', mode='fortran')
 
 def full_or_strided():
     '''
@@ -115,10 +115,10 @@ def test_cython_array_index():
     print f_array[9, 8]
     print f_array[6, 1]
 
-fn i32 *getp(i32 dim1=10, i32 dim2=10, dim3=1) except NULL:
+fn i32* getp(i32 dim1=10, i32 dim2=10, dim3=1) except NULL:
     print "getp()"
 
-    let i32 *p = <i32 *>malloc(dim1 * dim2 * dim3 * sizeof(i32))
+    let i32* p = <i32*>malloc(dim1 * dim2 * dim3 * sizeof(i32))
 
     if p == NULL:
         raise MemoryError
@@ -128,7 +128,7 @@ fn i32 *getp(i32 dim1=10, i32 dim2=10, dim3=1) except NULL:
 
     return p
 
-fn void callback_free_data(void *p) noexcept:
+fn void callback_free_data(void* p) noexcept:
     print 'callback free data called'
     free(p)
 
@@ -149,7 +149,7 @@ def test_array_from_pointer():
     119
     callback free data called
     """
-    let i32 *p = getp()
+    let i32* p = getp()
     let array c_arr = <i32[:10, :10]> p
     c_arr.callback_free_data = callback_free_data
     print c_arr[6, 9]
@@ -181,7 +181,7 @@ def test_array_from_pointer_3d():
     3 3
     True True
     """
-    let i32 *p = getp(2, 2, 2)
+    let i32* p = getp(2, 2, 2)
     let array c_arr = <i32[:2, :2, :2;1]> p
     let array f_arr = <i32[:2;1, :2, :2]> p
 
@@ -218,10 +218,6 @@ class InheritFrom(v.array):
 
 def test_char_array_in_python_api(*shape):
     """
-    >>> import sys
-    >>> if sys.version_info[0] < 3:
-    ...     def bytes(b): return memoryview(b).tobytes()  # don't call str()
-
     >>> arr1d = test_char_array_in_python_api(10)
     >>> print(bytes(arr1d).decode('ascii'))
     xxxxxxxxxx
@@ -291,11 +287,7 @@ def test_is_Sequence():
     1
     True
     """
-    import sys
-    if sys.version_info < (3, 3):
-        from collections import Sequence
-    else:
-        from collections.abc import Sequence
+    from collections.abc import Sequence
 
     arr = array(shape=(5,), itemsize=sizeof(char), format='c', mode='c')
     for i in 0..arr.shape[0]:
@@ -303,6 +295,7 @@ def test_is_Sequence():
     print(arr.count(b'1'))  # test for presence of added collection method
     print(arr.index(b'1'))  # test for presence of added collection method
 
+    import sys
     if sys.version_info >= (3, 10):
         # test structural pattern match in Python
         # (because Cython hasn't implemented it yet, and because the details

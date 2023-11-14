@@ -1,9 +1,9 @@
-use cython::parallel::prange
 use cython
+use cython::parallel::prange
 use libc::math::sqrt
 
-#[cython.boundscheck(false)]
-#[cython.wraparound(false)]
+#[cython::boundscheck(false)]
+#[cython::wraparound(false)]
 def l2norm(f64[:] x):
     let f64 total = 0
     let usize i

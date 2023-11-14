@@ -1,9 +1,9 @@
 use super::object::PyObject
 
 extern from "Python.h":
-    #####################################################################
+    # ###################################################################
     # 3. Exception Handling
-    #####################################################################
+    # ###################################################################
 
     # The functions described in this chapter will let you handle and
     # raise Python exceptions. It is important to understand some of
@@ -52,13 +52,13 @@ extern from "Python.h":
     # of a class, in the case of a class exception, or it may be a
     # subclass of the expected exception.)
 
-    fn bint PyErr_ExceptionMatches(object exc)
+    fn u2 PyErr_ExceptionMatches(object exc)
     # Equivalent to "PyErr_GivenExceptionMatches(PyErr_Occurred(),
     # exc)". This should only be called when an exception is actually
     # set; a memory access violation will occur if no exception has
     # been raised.
 
-    fn bint PyErr_GivenExceptionMatches(object given, object exc)
+    fn u2 PyErr_GivenExceptionMatches(object given, object exc)
     # Return true if the given exception matches the exception in
     # exc. If exc is a class object, this also returns true when given
     # is an instance of a subclass. If exc is a tuple, all exceptions
@@ -107,7 +107,7 @@ extern from "Python.h":
     # error indicator temporarily; use PyErr_Fetch() to save the
     # current exception state.
 
-    fn void PyErr_SetString(object type, char *message)
+    fn void PyErr_SetString(object type, char* message)
     # This is the most common way to set the error indicator. The
     # first argument specifies the exception type; it is normally one
     # of the standard exceptions, e.g. PyExc_RuntimeError. You need
@@ -119,7 +119,7 @@ extern from "Python.h":
     # specify an arbitrary Python object for the ``value'' of the
     # exception.
 
-    fn PyObject* PyErr_Format(object exception, char *format, ...) except NULL
+    fn PyObject* PyErr_Format(object exception, char* format, ...) except NULL
     # Return value: Always NULL.
     # This function sets the error indicator and returns
     # NULL. exception should be a Python exception (class, not an
@@ -164,7 +164,7 @@ extern from "Python.h":
     # In the case of OSError exception, this is used to define
     # the filename attribute of the exception instance.
 
-    fn PyObject* PyErr_SetFromErrnoWithFilename(object type, char *filename) except NULL
+    fn PyObject* PyErr_SetFromErrnoWithFilename(object type, char* filename) except NULL
     # Return value: Always NULL.  Similar to PyErr_SetFromErrno(),
     # with the additional behavior that if filename is not NULL, it is
     # passed to the constructor of type as a third parameter. In the
@@ -189,13 +189,13 @@ extern from "Python.h":
     # specifying the exception type to be raised. Availability:
     # Windows. New in version 2.3.
 
-    fn PyObject* PyErr_SetFromWindowsErrWithFilename(i32 ierr, char *filename) except NULL
+    fn PyObject* PyErr_SetFromWindowsErrWithFilename(i32 ierr, char* filename) except NULL
     # Return value: Always NULL.  Similar to
     # PyErr_SetFromWindowsErr(), with the additional behavior that if
     # filename is not NULL, it is passed to the constructor of
     # WindowsError as a third parameter. Availability: Windows.
 
-    fn PyObject* PyErr_SetExcFromWindowsErrWithFilename(object type, i32 ierr, char *filename) except NULL
+    fn PyObject* PyErr_SetExcFromWindowsErrWithFilename(object type, i32 ierr, char* filename) except NULL
     # Return value: Always NULL.
     # Similar to PyErr_SetFromWindowsErrWithFilename(), with an
     # additional parameter specifying the exception type to be
@@ -207,7 +207,7 @@ extern from "Python.h":
     # (e.g. a Python/C API function) was invoked with an illegal
     # argument. It is mostly for internal use.
 
-    fn i32 PyErr_WarnEx(object category, char *message, i32 stacklevel) except -1
+    fn i32 PyErr_WarnEx(object category, char* message, i32 stacklevel) except -1
     # Issue a warning message. The category argument is a warning
     # category (see below) or NULL; the message argument is a message
     # string. stacklevel is a positive number giving a number of stack
@@ -216,7 +216,7 @@ extern from "Python.h":
     # function calling PyErr_WarnEx(), 2 is the function above that,
     # and so forth.
 
-    fn i32 PyErr_WarnExplicit(object category, char *message, char *filename, i32 lineno, char *module, object registry) except -1
+    fn i32 PyErr_WarnExplicit(object category, char* message, char* filename, i32 lineno, char* module, object registry) except -1
     # Issue a warning message with explicit control over all warning
     # attributes. This is a straightforward wrapper around the Python
     # function warnings.warn_explicit(), see there for more
@@ -242,7 +242,7 @@ extern from "Python.h":
 
     fn i32 PyErr_SetInterruptEx(i32 signum)
 
-    fn object PyErr_NewException(char *name, object base, object dict)
+    fn object PyErr_NewException(char* name, object base, object dict)
     # Return value: New reference.
     # This utility function creates and returns a new exception
     # object. The name argument must be the name of the new exception,
@@ -255,7 +255,7 @@ extern from "Python.h":
     # when an exception has been set but it is impossible for the
     # interpreter to actually raise the exception. It is used, for
     # example, when an exception occurs in an __del__() method.
-    #
+    # 
     # The function is called with a single argument obj that
     # identifies the context in which the unraisable exception
     # occurred. The repr of obj will be printed in the warning

@@ -257,7 +257,7 @@ class PostParse(ScopeTrackingTransform):
                 while isinstance(declbase, Nodes.CPtrDeclaratorNode):
                     declbase = declbase.base
                 if isinstance(declbase, Nodes.CNameDeclaratorNode):
-                    if declbase.default is not None:
+                    if node.base_type is not None and declbase.default is not None:
                         if self.scope_type in ('cclass', 'pyclass', 'struct'):
                             if isinstance(self.scope_node, Nodes.CClassDefNode):
                                 handler = self.specialattribute_handlers.get(decl.name)
@@ -780,7 +780,7 @@ class TrackNumpyAttributes(VisitorTransform, SkipDeclarations):
 class InterpretCompilerDirectives(CythonTransform):
     """
     After parsing, directives can be stored in a number of places:
-    - #cython-comments at the top of the file (stored in ModuleNode)
+    - # cython-comments at the top of the file (stored in ModuleNode)
     - Command-line arguments overriding these
     - @cython.directivename decorators
     - with cython.directivename: statements
@@ -954,9 +954,6 @@ class InterpretCompilerDirectives(CythonTransform):
                   directive[-1] not in self.valid_parallel_directives):
                 error(pos, "No such directive: %s" % full_name)
 
-            self.module_scope.use_utility_code(
-                UtilityCode.load_cached("InitThreads", "ModuleSetupCode.c"))
-
         return result
 
     def visit_CImportStatNode(self, node):
@@ -986,8 +983,6 @@ class InterpretCompilerDirectives(CythonTransform):
                     self.cython_module_names.add(u"cython")
                     self.parallel_directives[
                                     u"cython.parallel"] = module_name
-                self.module_scope.use_utility_code(
-                    UtilityCode.load_cached("InitThreads", "ModuleSetupCode.c"))
             elif node.as_name:
                 self.directive_names[node.as_name] = module_name[7:]
             else:
@@ -2264,9 +2259,9 @@ if VALUE is not None:
 
             pickle_func = TreeFragment(u"""
                 def __reduce_cython__(self):
-                    cdef tuple state
-                    cdef object _dict
-                    cdef bint use_setstate
+                    let tuple state
+                    let object _dict
+                    let u2 use_setstate
                     state = (%(members)s)
                     _dict = getattr(self, '__dict__', None)
                     if _dict is not None:
@@ -4024,7 +4019,7 @@ class DebugTransform(CythonTransform):
         # our treebuilder and debug output writer
         # (see Cython.Debugger.debug_output.CythonDebugWriter)
         self.tb = self.context.gdb_debug_outputwriter
-        #self.c_output_file = options.output_file
+        # self.c_output_file = options.output_file
         self.c_output_file = result.c_file
 
         # Closure support, basically treat nested functions as if the AST were

@@ -130,6 +130,10 @@ class DeclarationWriter(TreeVisitor):
 
     def visit_CNameDeclaratorNode(self, node):
         self.put(node.name)
+    
+    def visit_CPtrTypeNode(self, node):
+        self.visit(node.base_type)
+        self.put("*")
 
     def visit_CSimpleBaseTypeNode(self, node):
         # See Parsing.p_sign_and_longness
@@ -382,6 +386,10 @@ class StatementWriter(DeclarationWriter):
         if node.else_clause is not None:
             self.line("else:")
             self._visit_indented(node.else_clause)
+    
+    def visit_LoopStatNode(self, node):
+        self.line("loop:")
+        self._visit_indented(node.body)
 
     def visit_WhileStatNode(self, node):
         self.startline(u"while ")

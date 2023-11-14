@@ -5,7 +5,7 @@ use posix::types::(pid_t, sigset_t, uid_t)
 extern from "<signal.h>" nogil:
     union sigval:
         i32  sival_int
-        void *sival_ptr
+        void* sival_ptr
 
     struct sigevent:
         i32    sigev_notify

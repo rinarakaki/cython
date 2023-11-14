@@ -13,6 +13,6 @@ cdef foo_t value
 foo_init(value)
 foo_clear(value)
 
-cdef void *pointer = <void*> value
+cdef auto pointer = <void*>value
 foo_init(<foo_t>pointer)
 foo_clear(<foo_t>pointer)

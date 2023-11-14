@@ -1,4 +1,4 @@
-#cython: embedsignature=true, annotation_typing=false
+# cython: embedsignature=true, annotation_typing=false
 
 # signatures here are a little fragile - when they are
 # generated during the build process gives slightly
@@ -8,22 +8,17 @@
 
 import sys
 
-if sys.version_info >= (3, 4):
-    def funcdoc(f):
-        if not getattr(f, "__text_signature__", None):
-            return f.__doc__
-        doc = '%s%s' % (f.__name__, f.__text_signature__)
-        if f.__doc__:
-            if '\n' in f.__doc__:
-                # preceding line endings get stripped
-                doc = '%s\n\n%s' % (doc, f.__doc__)
-            else:
-                doc = '%s\n%s' % (doc, f.__doc__)
-        return doc
-
-else:
-    def funcdoc(f):
+def funcdoc(f):
+    if not getattr(f, "__text_signature__", None):
         return f.__doc__
+    doc = '%s%s' % (f.__name__, f.__text_signature__)
+    if f.__doc__:
+        if '\n' in f.__doc__:
+            # preceding line endings get stripped
+            doc = '%s\n\n%s' % (doc, f.__doc__)
+        else:
+            doc = '%s\n%s' % (doc, f.__doc__)
+    return doc
 
 
 # note the r, we use \n below
@@ -343,7 +338,7 @@ cpdef i32 f_i(i32 i):
 cpdef u32 f_ui(u32 i):
     return i
 
-cpdef bint f_bint(bint i):
+cpdef u2 f_bint(u2 i):
     return i
 
 cpdef i64 f_l(i64 l):
@@ -364,14 +359,14 @@ cpdef f32 f_f(f32 f):
 cpdef f64 f_d(f64 d):
     return d
 
-cpdef long double f_D(long double D):
+cpdef f128 f_D(f128 D):
     return D
 
-ctypedef i32 MyInt
+type MyInt = i32
 cpdef MyInt f_my_i(MyInt i):
     return i
 
-ctypedef float MyFloat
+type MyFloat = f32
 cpdef MyFloat f_my_f(MyFloat f):
     return f
 
