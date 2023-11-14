@@ -1369,7 +1369,6 @@ class CharNode(ConstNode):
 
 
 class IntNode(ConstNode):
-
     # unsigned     "" or "U"
     # longness     "" or "L" or "LL"
     # is_c_literal   True/False/None   creator considers this a C integer literal

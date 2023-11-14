@@ -746,11 +746,11 @@ def p_atom(s):
     elif sy == 'FLOAT':
         value = s.systring
         s.next()
-        return ExprNodes.FloatNode(pos, value = value)
+        return ExprNodes.FloatNode(pos, value = value, **p_numeric_literal_suffix(s))
     elif sy == 'IMAG':
         value = s.systring[:-1]
         s.next()
-        return ExprNodes.ImagNode(pos, value = value)
+        return ExprNodes.ImagNode(pos, value = value, **p_numeric_literal_suffix(s))
     elif sy == 'BEGIN_STRING':
         kind, bytes_value, unicode_value = p_cat_string_literal(s)
         if kind == 'c':
@@ -784,7 +784,7 @@ def p_atom(s):
 
 def p_numeric_literal_suffix(s):
     if s.systring in builtin_type_names:
-        type_node = Nodes.CSimpleBaseTypeNode(pos,
+        base_type = Nodes.CSimpleBaseTypeNode(pos,
             name = s.systring, module_path = [], is_builtin = 1, templates = None
         )
         s.next()
