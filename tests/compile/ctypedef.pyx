@@ -1,6 +1,6 @@
 # mode: compile
 
-ctypedef i32 *IntPtr
+type IntPtr = i32*
 type ULong = u64
 extern static IntPtr spam
 extern static ULong grail

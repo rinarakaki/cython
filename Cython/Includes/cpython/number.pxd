@@ -214,7 +214,7 @@ extern from "Python.h":
     # failure. The operation is done in-place when o1 supports
     # it. This is the equivalent of the Python statement "o1 |= o2".
 
-    fn i32 PyNumber_Coerce(PyObject **p1, PyObject **p2) except -1
+    fn i32 PyNumber_Coerce(PyObject** p1, PyObject** p2) except -1
     # This function takes the addresses of two variables of type
     # PyObject*. If the objects pointed to by *p1 and *p2 have the
     # same type, increment their reference count and return 0

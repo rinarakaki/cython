@@ -59,7 +59,7 @@ extern from "Python.h":
     # be hashable; if it isn't, TypeError will be raised. Return 0 on
     # success or -1 on failure.
 
-    fn i32 PyDict_SetItemString(object p, const char *key, object val) except -1
+    fn i32 PyDict_SetItemString(object p, const char* key, object val) except -1
     # Insert value into the dictionary p using key as a key. key
     # should be a char*. The key object is created using
     # PyString_FromString(key). Return 0 on success or -1 on failure.
@@ -69,7 +69,7 @@ extern from "Python.h":
     # hashable; if it isn't, TypeError is raised. Return 0 on success
     # or -1 on failure.
 
-    fn i32 PyDict_DelItemString(object p, const char *key) except -1
+    fn i32 PyDict_DelItemString(object p, const char* key) except -1
     # Remove the entry in dictionary p which has a key specified by
     # the string key. Return 0 on success or -1 on failure.
 
@@ -85,7 +85,7 @@ extern from "Python.h":
     # NULL with an exception set if an exception occurred. Return NULL
     # without an exception set if the key wasn’t present.
 
-    fn PyObject* PyDict_GetItemString(object p, const char *key)
+    fn PyObject* PyDict_GetItemString(object p, const char* key)
     # Return value: Borrowed reference.
     # This is the same as PyDict_GetItem(), but key is specified as a
     # char*, rather than a PyObject*.
@@ -120,7 +120,7 @@ extern from "Python.h":
     # Return the number of items in the dictionary. This is equivalent
     # to "len(p)" on a dictionary.
 
-    fn i32 PyDict_Next(object p, isize *ppos, PyObject* *pkey, PyObject* *pvalue)
+    fn i32 PyDict_Next(object p, isize* ppos, PyObject* *pkey, PyObject* *pvalue)
     # Iterate over all key-value pairs in the dictionary p. The int
     # referred to by ppos must be initialized to 0 prior to the first
     # call to this function to start the iteration; the function

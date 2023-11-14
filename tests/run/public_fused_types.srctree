@@ -15,8 +15,8 @@ setup(
 use cython
 
 extern from "header.h":
-    ctypedef i32 extern_int
-    ctypedef i64 extern_long
+    type extern_int = i32
+    type extern_long = i64
 
 struct mystruct_t:
     extern_int a
@@ -27,7 +27,7 @@ ctypedef union myunion_t:
 pub class MyExt [ type MyExtType, object MyExtObject ]:
     cdef u8 a
 
-ctypedef char *string_t
+type string_t = char*
 simple_t = cython.fused_type(i32, f32)
 less_simple_t = cython.fused_type(i32, f32, string_t)
 struct_t = cython.fused_type(mystruct_t, myunion_t, MyExt)

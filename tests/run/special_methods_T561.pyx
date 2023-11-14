@@ -996,7 +996,7 @@ cdef class ArgumentTypeConversions:
         return not bool(comparison)
 
     # force conversion of flags (int) to double
-    def __getbuffer__(self, Py_buffer *buffer, double flags):
+    def __getbuffer__(self, Py_buffer* buffer, double flags):
         raise RuntimeError("From __getbuffer__ with flags {}".format(flags))
 
 

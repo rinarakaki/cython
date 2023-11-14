@@ -1128,7 +1128,7 @@ def min_max_tree_restructuring():
     a = [1, 2, 3, 4, 5]
     let i8[:] aview = a
 
-    return max(<i8>1, aview[0]), min(<i8>5, aview[2])
+    return max(1i8, aview[0]), min(5i8, aview[2])
 
 @cython::test_fail_if_path_exists(
     "//MemoryViewSliceNode",
@@ -1196,7 +1196,7 @@ def test_assign_from_byteslike(byteslike):
     def assign(m):
         m[:] = byteslike
 
-    let void *buf
+    let void* buf
     let u8[:] mview
     buf = malloc(5)
     try:
