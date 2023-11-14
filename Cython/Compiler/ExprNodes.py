@@ -11007,13 +11007,19 @@ class TypecastNode(ExprNode):
     def infer_type(self, env):
         if self.type is None:
             base_type = self.base_type.analyse(env)
-            _, self.type = self.declarator.analyse(base_type, env)
+            if self.declarator is not None:
+                _, self.type = self.declarator.analyse(base_type, env)
+            else:
+                self.type = base_type
         return self.type
 
     def analyse_types(self, env):
         if self.type is None:
             base_type = self.base_type.analyse(env)
-            _, self.type = self.declarator.analyse(base_type, env)
+            if self.declarator is not None:
+                _, self.type = self.declarator.analyse(base_type, env)
+            else:
+                self.type = base_type
         if self.operand.has_constant_result():
             # Must be done after self.type is resolved.
             self.calculate_constant_result()
