@@ -30,8 +30,8 @@ def const_charptrs():
     obj = my_ust
     assert obj == b'XYZ', obj
 
-ctypedef char mychar
-ctypedef u8 myuchar
+type mychar = char
+type myuchar = u8
 
 def const_char_arrays():
     """

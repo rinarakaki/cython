@@ -27,7 +27,7 @@ fn object m():
         q()
         i = 42   # allowed with type inference
         obj = None
-        17L  # allowed
+        17i64  # allowed
         <object>7j
         help
         xxx = `"Hello"`

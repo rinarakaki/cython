@@ -2,7 +2,7 @@
 
 def f():
     let i32 int1, int2
-    let char *ptr
+    let char* ptr
     int1 = int2 | ptr # error
 
 _ERRORS = u"""

@@ -2,12 +2,12 @@
 # tag: struct, union, enum, cdefextern
 
 extern from "cheese.h":
-    ctypedef i32 camembert
+    type camembert = i32
 
     struct roquefort:
         i32 x
 
-    static char *swiss
+    static char* swiss
 
     fn void cheddar()
 

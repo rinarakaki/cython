@@ -532,7 +532,7 @@ class FusedCFuncDefNode(StatListNode):
         decl_code.put_chunk(
             u"""
                 ctypedef struct {{memviewslice_cname}}:
-                    void *memview
+                    void* memview
 
                 fn void __PYX_XCLEAR_MEMVIEW({{memviewslice_cname}} *, i32 have_gil)
                 fn u2 __pyx_memoryview_check(object)
@@ -586,7 +586,7 @@ class FusedCFuncDefNode(StatListNode):
                                             dtype_type=self._dtype_type(dtype))
                     pyx_code.local_variable_declarations.put_chunk(
                         u"""
-                            cdef u2 {{dtype_name}}_is_signed
+                            let u2 {{dtype_name}}_is_signed
                             {{dtype_name}}_is_signed = not (<{{dtype_type}}> -1 > 0)
                         """)
 
@@ -687,10 +687,10 @@ class FusedCFuncDefNode(StatListNode):
         decl_code = Code.PyxCodeWriter(context=context)
         decl_code.put_chunk(
             u"""
-                cdef extern from *:
-                    void __pyx_PyErr_Clear "PyErr_Clear" ()
-                    type __Pyx_ImportNumPyArrayTypeIfAvailable()
-                    int __Pyx_Is_Little_Endian()
+                extern from *:
+                    fn void __pyx_PyErr_Clear "PyErr_Clear" ()
+                    fn type __Pyx_ImportNumPyArrayTypeIfAvailable()
+                    fn i32 __Pyx_Is_Little_Endian()
             """)
         decl_code.indent()
 
@@ -700,15 +700,15 @@ class FusedCFuncDefNode(StatListNode):
                     # FIXME: use a typed signature - currently fails badly because
                     #        default arguments inherit the types we specify here!
 
-                    cdef list search_list
-                    cdef dict sigindex_node
+                    let list search_list
+                    let dict sigindex_node
 
                     dest_sig = [None] * {{n_fused}}
 
                     if kwargs is not None and not kwargs:
                         kwargs = None
 
-                    cdef isize i
+                    let isize i
 
                     # instance check body
             """)

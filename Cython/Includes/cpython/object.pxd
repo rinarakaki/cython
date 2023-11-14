@@ -95,12 +95,12 @@ extern from "Python.h":
     # option currently supported is Py_PRINT_RAW; if given, the str()
     # of the object is written instead of the repr().
 
-    fn u2 PyObject_HasAttrString(object o, const char *attr_name)
+    fn u2 PyObject_HasAttrString(object o, const char* attr_name)
     # Returns 1 if o has the attribute attr_name, and 0
     # otherwise. This is equivalent to the Python expression
     # "hasattr(o, attr_name)". This function always succeeds.
 
-    fn object PyObject_GetAttrString(object o, const char *attr_name)
+    fn object PyObject_GetAttrString(object o, const char* attr_name)
     # Return value: New reference.  Retrieve an attribute named
     # attr_name from object o. Returns the attribute value on success,
     # or NULL on failure. This is the equivalent of the Python
@@ -119,7 +119,7 @@ extern from "Python.h":
 
     fn object PyObject_GenericGetAttr(object o, object attr_name)
 
-    fn i32 PyObject_SetAttrString(object o, const char *attr_name, object v) except -1
+    fn i32 PyObject_SetAttrString(object o, const char* attr_name, object v) except -1
     # Set the value of the attribute named attr_name, for object o, to
     # the value v. Returns -1 on failure. This is the equivalent of
     # the Python statement "o.attr_name = v".
@@ -131,7 +131,7 @@ extern from "Python.h":
 
     fn i32 PyObject_GenericSetAttr(object o, object attr_name, object v) except -1
 
-    fn i32 PyObject_DelAttrString(object o, const char *attr_name) except -1
+    fn i32 PyObject_DelAttrString(object o, const char* attr_name) except -1
     # Delete attribute named attr_name, for object o. Returns -1 on
     # failure. This is the equivalent of the Python statement: "del
     # o.attr_name".
@@ -141,13 +141,13 @@ extern from "Python.h":
     # failure. This is the equivalent of the Python statement "del
     # o.attr_name".
 
-    fn object PyObject_GenericGetDict(object o, void *context)
+    fn object PyObject_GenericGetDict(object o, void* context)
     # Return value: New reference.
     # A generic implementation for the getter of a __dict__ descriptor. It
     # creates the dictionary if necessary.
     # New in version 3.3.
 
-    fn i32 PyObject_GenericSetDict(object o, object value, void *context) except -1
+    fn i32 PyObject_GenericSetDict(object o, object value, void* context) except -1
     # A generic implementation for the setter of a __dict__ descriptor. This
     # implementation does not allow the dictionary to be deleted.
     # New in version 3.3.
@@ -172,7 +172,7 @@ extern from "Python.h":
     # otherwise. This is the equivalent of the Python expression "o1
     # op o2", where op is the operator corresponding to opid.
 
-    fn i32 PyObject_Cmp(object o1, object o2, i32 *result) except -1
+    fn i32 PyObject_Cmp(object o1, object o2, i32* result) except -1
     # Compare the values of o1 and o2 using a routine provided by o1,
     # if one exists, otherwise with a routine provided by o2. The
     # result of the comparison is returned in result. Returns -1 on
@@ -275,7 +275,7 @@ extern from "Python.h":
     # on failure. This is the equivalent of the Python expression
     # "apply(callable_object, args)" or "callable_object(*args)".
 
-    fn object PyObject_CallFunction(object callable, char *format, ...)
+    fn object PyObject_CallFunction(object callable, char* format, ...)
     # Return value: New reference.
     # Call a callable Python object callable, with a variable number
     # of C arguments. The C arguments are described using a
@@ -286,7 +286,7 @@ extern from "Python.h":
     # "callable(*args)". Note that if you only pass object  args,
     # PyObject_CallFunctionObjArgs is a faster alternative.
 
-    fn object PyObject_CallMethod(object o, char *method, char *format, ...)
+    fn object PyObject_CallMethod(object o, char* method, char* format, ...)
     # Return value: New reference.
     # Call the method named method of object o with a variable number
     # of C arguments. The C arguments are described by a

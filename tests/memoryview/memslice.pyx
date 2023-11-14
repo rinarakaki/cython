@@ -961,12 +961,12 @@ def inplace_operators(i32[:] buf):
 # Test three layers of typedefs going through a h file for plain int, and
 # simply a header file typedef for floats and unsigned.
 
-ctypedef i32 td_cy_int
+type td_cy_int = i32
 extern from "bufaccess.h":
-    ctypedef td_cy_int td_h_short # Defined as short, but Cython doesn't know this!
-    ctypedef f32 td_h_double # Defined as double
-    ctypedef u32 td_h_ushort # Defined as unsigned short
-ctypedef td_h_short td_h_cy_short
+    type td_h_short = td_cy_int  # Defined as short, but Cython doesn't know this!
+    type td_h_double = f32  # Defined as double
+    type td_h_ushort = u32  # Defined as unsigned short
+type td_h_cy_short = td_h_short
 
 @testcase
 def printbuf_td_cy_int(td_cy_int[:] buf, shape):
@@ -1145,7 +1145,7 @@ def check_object_nulled_1d(object[:] buf, i32 idx, obj):
     True
     """
     let ObjectMockBuffer omb = buf.base
-    let PyObject **data = <PyObject**>(omb.buffer)
+    let PyObject** data = <PyObject**>(omb.buffer)
     Py_CLEAR(data[idx])
     res = buf[idx]  # takes None
     buf[idx] = obj
@@ -1165,7 +1165,7 @@ def check_object_nulled_2d(object[:, :;1] buf, i32 idx1, i32 idx2, obj):
     True
     """
     let ObjectMockBuffer omb = buf.base
-    let PyObject **data = <PyObject**>(omb.buffer)
+    let PyObject** data = <PyObject**>(omb.buffer)
     Py_CLEAR(data[idx1 + 2*idx2])
     res = buf[idx1, idx2]  # takes None
     buf[idx1, idx2] = obj
@@ -1587,7 +1587,7 @@ cdef class TestIndexSlicingDirectIndirectDims(object):
 
         self.format = b"i"
 
-    def __getbuffer__(self, Py_buffer *info, i32 flags):
+    def __getbuffer__(self, Py_buffer* info, i32 flags):
         info.buf = <void *> self.myarray
         info.len = 5 * 5 * 5
         info.ndim = 3

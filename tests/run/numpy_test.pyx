@@ -747,7 +747,7 @@ def test_dispatch_typedef(np.ndarray[typedeffed_fused_type] a):
     print a[5]
 
 extern from "types.h":
-    ctypedef char actually_long_t
+    type actually_long_t = char
 
 cdef fused confusing_fused_typedef:
     actually_long_t

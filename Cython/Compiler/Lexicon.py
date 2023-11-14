@@ -56,8 +56,6 @@ def make_lexicon():
                 underscore_digits(Str('0'))  # 0_0_0_0... is allowed as a decimal literal
                 | Rep1(digit)  # FIXME: remove these Py2 style decimal/octal literals (PY_VERSION_HEX < 3)
                 )
-    intsuffix = (Opt(Any("Uu")) + Opt(Any("Ll")) + Opt(Any("Ll"))) | (Opt(Any("Ll")) + Opt(Any("Ll")) + Opt(Any("Uu")))
-    intliteral = intconst + intsuffix
     fltconst = (decimal_fract + Opt(exponent)) | (decimal + exponent)
     imagconst = (intconst | fltconst) + Any("jJ")
 
@@ -90,7 +88,7 @@ def make_lexicon():
 
     return Lexicon([
         (name, Method('normalize_ident')),
-        (intliteral, Method('strip_underscores', symbol='INT')),
+        (intconst, Method('strip_underscores', symbol='INT')),
         (fltconst, Method('strip_underscores', symbol='FLOAT')),
         (imagconst, Method('strip_underscores', symbol='IMAG')),
         (ellipsis | punct | diphthong, TEXT),

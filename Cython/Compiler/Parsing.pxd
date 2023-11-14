@@ -64,6 +64,7 @@ fn make_slice_nodes(pos, subscripts)
 cpdef make_slice_node(pos, start, stop = *, step = *)
 fn p_atom(PyrexScanner s)
 
+fn dict p_numeric_literal_suffix(PyrexScanner s, pos)
 #[cython::locals(value=unicode)]
 fn p_int_literal(PyrexScanner s)
 
@@ -193,8 +194,10 @@ fn p_c_struct_or_union_definition(PyrexScanner s, pos, ctx)
 fn p_fused_definition(PyrexScanner s, pos, ctx)
 fn p_struct_enum(PyrexScanner s, pos, ctx)
 fn p_visibility(PyrexScanner s, prev_visibility)
+fn p_let_statement(PyrexScanner s, pos, ctx)
 fn p_c_modifiers(PyrexScanner s)
 fn p_c_func_or_var_declaration(PyrexScanner s, pos, ctx)
+fn p_type_statement(PyrexScanner s, ctx)
 fn p_ctypedef_statement(PyrexScanner s, ctx)
 fn p_decorators(PyrexScanner s)
 fn _reject_cdef_modifier_in_py(PyrexScanner s, name)

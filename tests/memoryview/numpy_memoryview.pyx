@@ -241,14 +241,14 @@ def test_copy_and_contig_attributes(a):
     assert m.is_c_contig() and m.copy().is_c_contig()
     assert m.copy_fortran().is_f_contig() and not m.is_f_contig()
 
-ctypedef i32 td_cy_int
+type td_cy_int = i32
 extern from "bufaccess.h":
     ctypedef td_cy_int td_h_short  # Defined as short, but Cython doesn't know this!
     ctypedef f32 td_h_double  # Defined as double
     ctypedef u32 td_h_ushort  # Defined as unsigned short
 ctypedef td_h_short td_h_cy_short
 
-fn void dealloc_callback(void *data) noexcept:
+fn void dealloc_callback(void* data) noexcept:
     print "deallocating..."
 
 def build_numarray(array array):
@@ -576,7 +576,7 @@ def test_struct_attributes():
 #
 # Test for NULL strides (C contiguous buffers)
 #
-fn getbuffer(Buffer self, Py_buffer *info):
+fn getbuffer(Buffer self, Py_buffer* info):
     info.buf = &self.m[0, 0]
     info.len = 10 * 20
     info.ndim = 2
@@ -602,11 +602,11 @@ cdef class Buffer(object):
         self._shape[0] = 10
         self._shape[1] = 20
 
-    def __getbuffer__(self, Py_buffer *info, i32 flags):
+    def __getbuffer__(self, Py_buffer* info, i32 flags):
         getbuffer(self, info)
 
 cdef class SuboffsetsNoStridesBuffer(Buffer):
-    def __getbuffer__(self, Py_buffer *info, i32 flags):
+    def __getbuffer__(self, Py_buffer* info, i32 flags):
         getbuffer(self, info)
         info.suboffsets = self._shape
 

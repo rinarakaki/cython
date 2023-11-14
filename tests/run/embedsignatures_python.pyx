@@ -139,9 +139,9 @@ p3: Foo
 
 """
 
-ctypedef i128 LongLong
-ctypedef signed long long LongLongSigned
-ctypedef u128 LongLongUnsigned
+type LongLong = i128
+type LongLongSigned = signed long long
+type LongLongUnsigned = u128
 
 cdef class Bar:
 

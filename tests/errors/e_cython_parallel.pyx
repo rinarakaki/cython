@@ -21,7 +21,7 @@ with nogil, cython.parallel.parallel():
 with cython.parallel.parallel():
     print "hello world!"
 
-cdef i32 *x = NULL
+cdef i32* x = NULL
 
 with nogil, cython.parallel.parallel():
     for j in prange(10):

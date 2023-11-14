@@ -337,7 +337,7 @@ def r#loop():
         pass
     assert typeof(c) == "double"
 
-    for d in range(0, 10L, 2):
+    for d in range(0, 10i64, 2):
         pass
     assert typeof(a) == "long"
 
@@ -721,7 +721,7 @@ enum MyEnum:
     X = 1
     Y = 2
 
-ctypedef long my_long
+type my_long = long
 def test_int_typedef_inference():
     """
     >>> test_int_typedef_inference()

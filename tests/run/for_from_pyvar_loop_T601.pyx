@@ -27,7 +27,7 @@ def for_in_plain_ulong():
 
 extern from *:
     """typedef u64 Ulong;"""
-    ctypedef u64 Ulong
+    type Ulong = u64
 
 fn Ulong size():
     return 3

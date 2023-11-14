@@ -237,7 +237,7 @@ test_conjugate_nogil(0) # use it
 #     let c128 I = 1j
 #     return ((x * I).conjugate(), (y * I).conjugate(), (z * I).conjugate(), (w * I).conjugate())
 
-ctypedef f64 mydouble
+type mydouble = f64
 def test_coerce_typedef_multiply(mydouble x, c128 z):
     """
     >>> test_coerce_typedef_multiply(3, 1 + 1j)
@@ -245,7 +245,7 @@ def test_coerce_typedef_multiply(mydouble x, c128 z):
     """
     return x * z
 
-ctypedef i32 myint
+type myint = i32
 def test_coerce_typedef_multiply_int(myint x, c128 z):
     """
     >>> test_coerce_typedef_multiply_int(3, 1 + 1j)

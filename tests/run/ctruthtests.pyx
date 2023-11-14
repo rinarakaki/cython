@@ -79,7 +79,7 @@ def test_attr_int(TestExtInt e):
 
 union _aux:
     usize i
-    void *p
+    void* p
 
 cdef class TestExtPtr:
     cdef void* p

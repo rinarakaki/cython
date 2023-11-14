@@ -1,6 +1,6 @@
 extern from "pythread.h":
-    ctypedef void *PyThread_type_lock
-    ctypedef void *PyThread_type_sema
+    ctypedef void* PyThread_type_lock
+    ctypedef void* PyThread_type_sema
 
     fn void PyThread_init_thread()
     fn i64 PyThread_start_new_thread(void (*)(void *), void *)  # FIXME: legacy
@@ -41,10 +41,10 @@ extern from "pythread.h":
     # Thread Specific Storage (TSS) API in CPython 3.7+ (also backported)
     # struct Py_tss_t: pass   # Cython built-in type
     static Py_tss_t Py_tss_NEEDS_INIT        # Not normally useful: Cython auto-initialises declared "Py_tss_t" variables.
-    fn Py_tss_t * PyThread_tss_alloc()
+    fn Py_tss_t* PyThread_tss_alloc()
     fn void PyThread_tss_free(Py_tss_t *key)
     fn i32 PyThread_tss_is_created(Py_tss_t *key)
     fn i32 PyThread_tss_create(Py_tss_t *key)
     fn void PyThread_tss_delete(Py_tss_t *key)
-    fn i32 PyThread_tss_set(Py_tss_t *key, void *value)
-    fn void * PyThread_tss_get(Py_tss_t *key)
+    fn i32 PyThread_tss_set(Py_tss_t* key, void* value)
+    fn void * PyThread_tss_get(Py_tss_t* key)

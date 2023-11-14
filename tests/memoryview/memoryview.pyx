@@ -575,12 +575,12 @@ def generic(i32[:;view.generic, :;view.generic] mslice1,
 #    print buf1[2, 2]
 #    print buf2[2, 2]
 
-ctypedef i32 td_cy_int
+type td_cy_int = i32
 extern from "bufaccess.h":
-    ctypedef td_cy_int td_h_short # Defined as short, but Cython doesn't know this!
-    ctypedef f32 td_h_double # Defined as double
-    ctypedef u32 td_h_ushort # Defined as unsigned short
-ctypedef td_h_short td_h_cy_short
+    type td_h_short = td_cy_int  # Defined as short, but Cython doesn't know this!
+    type td_h_double = f32  # Defined as double
+    type td_h_ushort = u32  # Defined as unsigned short
+type td_h_cy_short = td_h_short
 
 def printbuf_td_cy_int(td_cy_int[:] mslice, shape):
     """
@@ -1128,7 +1128,7 @@ def min_max_tree_restructuring():
     a = [1, 2, 3, 4, 5]
     let i8[:] aview = a
 
-    return max(<i8>1, aview[0]), min(<i8>5, aview[2])
+    return max(1i8, aview[0]), min(5i8, aview[2])
 
 @cython::test_fail_if_path_exists(
     "//MemoryViewSliceNode",
@@ -1196,7 +1196,7 @@ def test_assign_from_byteslike(byteslike):
     def assign(m):
         m[:] = byteslike
 
-    let void *buf
+    let void* buf
     let u8[:] mview
     buf = malloc(5)
     try:
@@ -1270,7 +1270,7 @@ match arr:
 
     return isinstance(<object>a, Sequence)
 
-ctypedef i32 aliasT
+type aliasT = i32
 def test_assignment_typedef():
     """
     >>> test_assignment_typedef()
