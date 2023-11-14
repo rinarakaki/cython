@@ -10,7 +10,7 @@ def int_literals():
 
 
 _ERRORS = """
-7:11: illegal integer literal syntax in Python source file
-8:11: illegal integer literal syntax in Python source file
-9:11: illegal integer literal syntax in Python source file
+7:8: illegal integer literal syntax in Python source file
+8:8: illegal integer literal syntax in Python source file
+9:8: illegal integer literal syntax in Python source file
 """
