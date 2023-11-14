@@ -7,7 +7,7 @@
 
 use cpython::mem
 
-fn short _assert_calloc(short* s, i32 n) except -1 with gil:
+fn i16 _assert_calloc(i16* s, i32 n) except -1 with gil:
     """Assert array ``s`` of length ``n`` is zero and return 3."""
     assert not s[0] and not s[n - 1]
     s[0] += 1
@@ -21,7 +21,7 @@ def test_pycalloc():
     >>> test_pycalloc()
     3
     """
-    let i16* s = <short*> mem.PyMem_Calloc(10, sizeof(i16))
+    let auto s = <i16*> mem.PyMem_Calloc(10, sizeof(i16))
     if not s:
         raise MemoryError()
     try:
@@ -39,21 +39,21 @@ def test_pymalloc_raw():
     let char* m
     let char* m2 = NULL
     with nogil:
-        s = <short*> mem.PyMem_RawCalloc(10, sizeof(i16))
+        s = <i16*>i16mem.PyMem_RawCalloc(10, sizeof(i16))
         if not s:
             raise MemoryError()
         try:
             i = _assert_calloc(s, 10)
         finally:
             mem.PyMem_RawFree(s)
-        m = <char*> mem.PyMem_RawMalloc(20)
+        m = <char*>mem.PyMem_RawMalloc(20)
         if not m:
             raise MemoryError()
         try:
             m[0] = 1
             m[1] = 2
             m[2] = i
-            m2 = <char*> mem.PyMem_RawRealloc(m, 10)
+            m2 = <char*>mem.PyMem_RawRealloc(m, 10)
             if m2:
                 m = m2
             retval = m[2]

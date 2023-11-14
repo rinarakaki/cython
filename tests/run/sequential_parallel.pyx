@@ -263,7 +263,7 @@ def test_nan_init():
     let f64 g = 10.0
     let f128 h = 10.0
 
-    let void* p = <void*> 10
+    let auto p = <void*> 10
 
     with nogil, cython.parallel.parallel():
         # First, trick the error checking to make it believe these variables
@@ -358,7 +358,7 @@ def test_prange_continue():
     9 0
     """
     let i32 i
-    let i32* p = <i32*> calloc(10, sizeof(i32))
+    let auto p = <i32*>calloc(10, sizeof(i32))
 
     if p == NULL:
         raise MemoryError
@@ -836,7 +836,7 @@ def test_prange_call_exception_checked_function():
     """
 
     let i32 N = 10000
-    let i32* buf = <i32*>malloc(sizeof(i32)*N)
+    let auto buf = <i32*>malloc(sizeof(i32)*N)
     if buf == NULL:
         raise MemoryError
     try:

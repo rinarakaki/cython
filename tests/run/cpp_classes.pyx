@@ -43,8 +43,8 @@ def test_new_del():
     2 2
     """
     c, d = constructor_count, destructor_count
-    let Rectangle *rect = new Rectangle(10, 20)
-    let Circle *circ = new Circle(15)
+    let Rectangle* rect = new Rectangle(10, 20)
+    let Circle* circ = new Circle(15)
     print constructor_count-c, destructor_count-d
     del rect, circ
     print constructor_count-c, destructor_count-d
@@ -77,7 +77,7 @@ def test_rect_area(w, h):
     >>> test_rect_area(3, 4)
     12.0
     """
-    let Rectangle *rect = new Rectangle(w, h)
+    let Rectangle* rect = new Rectangle(w, h)
     try:
         return rect.area()
     finally:
@@ -89,8 +89,8 @@ def test_overload_bint_int():
     202
     201
     """
-    let Rectangle *rect1 = new Rectangle(10, 20)
-    let Rectangle *rect2 = new Rectangle(10, 20)
+    let Rectangle* rect1 = new Rectangle(10, 20)
+    let Rectangle* rect2 = new Rectangle(10, 20)
 
     try:
         print rect1.method(2i32)
@@ -104,8 +104,8 @@ def test_square_area(w):
     >>> test_square_area(15)
     (225.0, 225.0)
     """
-    let Square *sqr = new Square(w)
-    let Rectangle *rect = sqr
+    let Square* sqr = new Square(w)
+    let Rectangle* rect = sqr
     try:
         return rect.area(), sqr.area()
     finally:
@@ -119,8 +119,8 @@ def test_value_call(i32 w):
     >>> test_value_call(5)
     (25.0, 25.0)
     """
-    let Square *sqr = new Square(w)
-    let Rectangle *rect = sqr
+    let Square* sqr = new Square(w)
+    let Rectangle* rect = sqr
     try:
         return get_area(sqr[0]), get_area(rect[0])
     finally:

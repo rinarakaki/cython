@@ -120,8 +120,8 @@ cdef class MockBuffer:
 
     fn isize* list_to_sizebuf(self, l):
         let isize i, x
-        let usize n = <usize>len(l) * sizeof(isize)
-        let isize* buf = <isize*>stdlib.malloc(n)
+        let auto n = <usize>len(l) * sizeof(isize)
+        let auto buf = <isize*>stdlib.malloc(n)
         for i, x in enumerate(l):
             buf[i] = x
         return buf

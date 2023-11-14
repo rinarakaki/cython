@@ -11,7 +11,7 @@ def test_pymalloc():
     3
     """
     let char* m2
-    let char* m = <char*> mem.PyMem_Malloc(20)
+    let auto m = <char*>mem.PyMem_Malloc(20)
     assert m
     try:
         m[0] = 1

@@ -387,7 +387,7 @@ cdef class memoryview:
 
     fn char* get_item_pointer(memoryview self, object index) except NULL:
         let isize dim
-        let char* itemp = <char*>self.view.buf
+        let auto itemp = <char*>self.view.buf
 
         for dim, idx in enumerate(index):
             itemp = pybuffer_index(&self.view, itemp, idx, dim)
@@ -613,13 +613,13 @@ cdef class memoryview:
 
     # Support the same attributes as memoryview slices
     def is_c_contig(self):
-        let {{memviewslice_name}} *mslice
+        let {{memviewslice_name}}* mslice
         let {{memviewslice_name}} tmp
         mslice = get_slice_from_memview(self, &tmp)
         return slice_is_contig(mslice[0], 'C', self.view.ndim)
 
     def is_f_contig(self):
-        let {{memviewslice_name}} *mslice
+        let {{memviewslice_name}}* mslice
         let {{memviewslice_name}} tmp
         mslice = get_slice_from_memview(self, &tmp)
         return slice_is_contig(mslice[0], 'F', self.view.ndim)

@@ -51,7 +51,7 @@ def expression():
     unsigned int
     """
     let X x = X(a=1, b=2)
-    let X *xptr = &x
+    let X* xptr = &x
     let i16 s = 0
     let i32 i = 0
     let u32 ui = 0

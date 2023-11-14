@@ -118,7 +118,7 @@ def test_cython_array_index():
 fn i32* getp(i32 dim1=10, i32 dim2=10, dim3=1) except NULL:
     print "getp()"
 
-    let i32* p = <i32*>malloc(dim1 * dim2 * dim3 * sizeof(i32))
+    let auto p = <i32*>malloc(dim1 * dim2 * dim3 * sizeof(i32))
 
     if p == NULL:
         raise MemoryError
