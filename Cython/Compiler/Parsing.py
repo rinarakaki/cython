@@ -3461,6 +3461,7 @@ def p_c_enum_definition(s, pos, ctx):
             pos,
             name="int",
             module_path = [],
+            is_builtin = 1,
             is_basic_c_type = 1,
             signed = 1,
             complex = 0,
