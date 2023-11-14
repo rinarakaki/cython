@@ -2,11 +2,11 @@
 # cython: language_level=2
 
 def int_literals():
-    a = 1i64  # ok
-    b = 10000000000000i64  # ok
-    c = 1u64
-    d = 10000000000000u64
-    e = 10000000000000i128
+    a = 1L  # ok
+    b = 10000000000000L  # ok
+    c = 1UL
+    d = 10000000000000UL
+    e = 10000000000000LL
 
 
 _ERRORS = """
