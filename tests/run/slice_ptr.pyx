@@ -39,8 +39,8 @@ def void_ptr_slice(py_x, L, i32 a, i32 b):
     >>> void_ptr_slice(9, L, 3, 7)
     """
     # I'm using the fact that small Python ints are cached.
-    let void **L_c = NULL
-    let void *x = <void*>py_x
+    let void** L_c = NULL
+    let void* x = <void*>py_x
     try:
         L_c = <void**>malloc(<u64> len(L) * sizeof(void*))
         for i, a in enumerate(L):

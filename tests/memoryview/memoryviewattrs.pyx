@@ -257,7 +257,7 @@ def two_dee():
     else:
         assert false, "UnboundLocalError not raised for uninitialised memory view"
 
-    let i64 *arr_data
+    let i64* arr_data
     arr_data = <i64*>arr.data
 
     mv1 = arr
@@ -296,7 +296,7 @@ def fort_two_dee():
     let i64[:;1, :] mv1, mv2, mv4
     let i64[:, :;1] mv3
 
-    let i64 *arr_data
+    let i64* arr_data
     arr_data = <i64*>arr.data
 
     mv1 = arr

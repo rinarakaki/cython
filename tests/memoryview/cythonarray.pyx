@@ -115,10 +115,10 @@ def test_cython_array_index():
     print f_array[9, 8]
     print f_array[6, 1]
 
-fn i32 *getp(i32 dim1=10, i32 dim2=10, dim3=1) except NULL:
+fn i32* getp(i32 dim1=10, i32 dim2=10, dim3=1) except NULL:
     print "getp()"
 
-    let i32 *p = <i32 *>malloc(dim1 * dim2 * dim3 * sizeof(i32))
+    let i32* p = <i32*>malloc(dim1 * dim2 * dim3 * sizeof(i32))
 
     if p == NULL:
         raise MemoryError
@@ -128,7 +128,7 @@ fn i32 *getp(i32 dim1=10, i32 dim2=10, dim3=1) except NULL:
 
     return p
 
-fn void callback_free_data(void *p) noexcept:
+fn void callback_free_data(void* p) noexcept:
     print 'callback free data called'
     free(p)
 
@@ -149,7 +149,7 @@ def test_array_from_pointer():
     119
     callback free data called
     """
-    let i32 *p = getp()
+    let i32* p = getp()
     let array c_arr = <i32[:10, :10]> p
     c_arr.callback_free_data = callback_free_data
     print c_arr[6, 9]
@@ -181,7 +181,7 @@ def test_array_from_pointer_3d():
     3 3
     True True
     """
-    let i32 *p = getp(2, 2, 2)
+    let i32* p = getp(2, 2, 2)
     let array c_arr = <i32[:2, :2, :2;1]> p
     let array f_arr = <i32[:2;1, :2, :2]> p
 
