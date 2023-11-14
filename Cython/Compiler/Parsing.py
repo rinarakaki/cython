@@ -3064,7 +3064,7 @@ def p_c_declarator(s, ctx = Ctx(), empty = 0, is_type = 0, cmethod_flag = 0,
     else:
         result = p_c_simple_declarator(s, ctx, empty, is_type, cmethod_flag,
                                        assignable, nonempty)
-    if not calling_convention_allowed and result.calling_convention and s.sy != '(':
+    if not calling_convention_allowed and result is not None and result.calling_convention and s.sy != '(':
         error(s.position(), "%s on something that is not a function"
             % result.calling_convention)
     while s.sy in ('[', '('):
