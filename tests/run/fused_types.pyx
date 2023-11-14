@@ -14,7 +14,7 @@ type string_t = char*
 # floating = cython.fused_type(f32, f64) floating
 # integral = cython.fused_type(i32, i64) integral
 type floating = cython.floating
-fused_type1 = cython.fused_type(i32, i64, f32, f64, string_t)
+fused_type1 = cython.fused_type(i32, long, float, f64, string_t)
 fused_type2 = cython.fused_type(string_t)
 type composed_t = fused_type1*
 other_t = cython.fused_type(i32, f64)
@@ -29,7 +29,7 @@ def test_pure():
     >>> test_pure()
     10
     """
-    mytype = pure_cython.typedef(pure_cython.fused_type(i32, i64, complex))
+    mytype = pure_cython.typedef(pure_cython.fused_type(int, long, complex))
     print(mytype(10))
 
 
