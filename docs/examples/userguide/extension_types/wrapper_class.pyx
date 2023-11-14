@@ -49,7 +49,7 @@ cdef class WrapperClass:
     fn WrapperClass new_struct():
         """Factory function to create WrapperClass objects with
         newly allocated my_c_struct"""
-        let my_c_struct *_ptr = <my_c_struct *>malloc(sizeof(my_c_struct))
+        let auto _ptr = <my_c_struct *>malloc(sizeof(my_c_struct))
 
         if _ptr is NULL:
             raise MemoryError

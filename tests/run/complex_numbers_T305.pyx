@@ -206,7 +206,7 @@ def test_conjugate_double(c128 z):
     """
     return z.conjugate()
 
-ctypedef c128 cdouble
+type cdouble = c128
 def test_conjugate_typedef(cdouble z):
     """
     >>> test_conjugate_typedef(2 + 3j)
@@ -220,10 +220,10 @@ fn cdouble test_conjugate_nogil(cdouble z) nogil:
 test_conjugate_nogil(0) # use it
 
 # extern from "complex_numbers_T305.h":
-#     ctypedef f64 double_really_float "myfloat"
-#     ctypedef f32 float_really_double "mydouble"
-#     ctypedef f32 real_float "myfloat"
-#     ctypedef f64 real_double "mydouble"
+#     type double_really_float "myfloat" = f64
+#     type float_really_double "mydouble" = f32
+#     type real_float "myfloat" = f32
+#     type real_double "mydouble" = f64
 
 # def test_conjugate_nosizeassumptions(double_really_float x,
 #                                      float_really_double y,
