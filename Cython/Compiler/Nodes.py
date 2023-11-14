@@ -1081,7 +1081,7 @@ class CSimpleBaseTypeNode(CBaseTypeNode):
         # print "CSimpleBaseTypeNode.analyse: is_self_arg =", self.is_self_arg #
         type = None
         if self.is_builtin:
-            type = PyrexTypes.simple_c_type(self.signed, self.longness, self.name)
+            type = PyrexTypes.builtin_type(self.name, self.signed, self.longness)
             if not type:
                 error(self.pos, "Unrecognised type modifier combination: (%s, %s, %s)" % (self.signed, self.longness, self.name))
         elif self.name == "object" and not self.module_path:

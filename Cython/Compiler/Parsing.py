@@ -785,11 +785,9 @@ def p_atom(s):
 
 def p_numeric_literal_suffix(s, pos):
     if s.systring in builtin_type_names:
-        base_type = Nodes.CSimpleBaseTypeNode(pos,
-            name = s.systring, module_path = [], is_builtin = 1, templates = None
-        )
+        suffix = s.systring
         s.next()
-        return dict(unsigned="", longness="", is_c_literal=None, base_type=base_type)
+        return dict(suffix=suffix)
     elif s.systring.upper() in ("L", "LL", "U", "UL", "ULL"):
         value = s.systring.upper()
         s.next()
@@ -814,9 +812,9 @@ def p_numeric_literal_suffix(s, pos):
             if is_c_literal:
                 error(pos, "illegal integer literal syntax in Python source file")
             is_c_literal = False
-        return dict(unsigned=unsigned, longness=longness, is_c_literal=is_c_literal, base_type=None)
+        return dict(unsigned=unsigned, longness=longness, is_c_literal=is_c_literal)
     else:
-        return dict(unsigned="", longness="", is_c_literal=None, base_type=None)
+        return dict()
 
 def p_int_literal(s):
     pos = s.position()
