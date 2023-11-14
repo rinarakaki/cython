@@ -572,8 +572,11 @@ class CPtrDeclaratorNode(CDeclaratorNode):
     def analyse(self, base_type, env, nonempty=0, visibility=None, in_pxd=False):
         if base_type.is_pyobject:
             error(self.pos, "Pointer base type cannot be a Python object")
-        ptr_type = PyrexTypes.c_ptr_type(base_type)
-        return self.base.analyse(ptr_type, env, nonempty=nonempty, visibility=visibility, in_pxd=in_pxd)
+        type = PyrexTypes.c_ptr_type(base_type)
+        if self.base is not None:
+            return self.base.analyse(type, env, nonempty=nonempty, visibility=visibility, in_pxd=in_pxd)
+        else:
+            return self, type
 
 
 class _CReferenceDeclaratorBaseNode(CDeclaratorNode):
