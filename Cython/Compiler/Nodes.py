@@ -1090,8 +1090,8 @@ class CSimpleBaseTypeNode(CBaseTypeNode):
             if self.is_self_arg and env.is_c_class_scope:
                 # print "CSimpleBaseTypeNode.analyse: defaulting to parent type" #
                 type = env.parent_type
-            ## elif self.is_type_arg and env.is_c_class_scope:
-            ##     type = Builtin.type_type
+            # elif self.is_type_arg and env.is_c_class_scope:
+            #     type = Builtin.type_type
             else:
                 type = py_object_type
         else:
