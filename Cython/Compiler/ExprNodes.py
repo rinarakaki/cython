@@ -1369,7 +1369,6 @@ class CharNode(ConstNode):
 
 
 class IntNode(ConstNode):
-
     # unsigned     "" or "U"
     # longness     "" or "L" or "LL"
     # is_c_literal   True/False/None   creator considers this a C integer literal
@@ -1388,10 +1387,19 @@ class IntNode(ConstNode):
     def base_10_value(self):
         return str(Utils.str_to_number(self.value))
 
-    def __init__(self, pos, **kwds):
+    def __init__(self, pos, base_type=None, **kwds):
         ExprNode.__init__(self, pos, **kwds)
         if 'type' not in kwds:
-            self.type = self.find_suitable_type_for_value()
+            if base_type is not None:
+                if base_type.name in (
+                    "i8", "i16", "i32", "i64", "i128", "isize",
+                    "u2", "u8", "u16", "u32", "u64", "u128", "usize",
+                ):
+                    self.type = base_type.analyse(None)
+                else:
+                    error(pos, "invalid suffix: %s" % base_type.name)
+            else:
+                self.type = self.find_suitable_type_for_value()
 
     def find_suitable_type_for_value(self):
         if self.constant_result is constant_value_not_set:
@@ -1520,6 +1528,15 @@ class IntNode(ConstNode):
 
 class FloatNode(ConstNode):
     type = PyrexTypes.c_double_type
+
+    def __init__(self, pos, base_type=None, **kw):
+        self.pos = pos
+        if base_type is not None:
+            if base_type.name in ("f32", "f64", "f128"):
+                self.type = base_type.analyse(None)
+            else:
+                error(pos, "valid suffixes are `f32`, `f64 and `f128`, given %s" % base_type.name)
+        self.__dict__.update(kw)
 
     def calculate_constant_result(self):
         self.constant_result = float(self.value)

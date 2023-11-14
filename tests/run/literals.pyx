@@ -14,8 +14,8 @@ def foo():
     a3 = 0xDEF
     an3 = -0xDEF
     assert a3 == -an3
-    a4 = 1234567890L
-    an4 = -1234567890L
+    a4 = 1234567890i64
+    an4 = -1234567890i64
     assert a4 == -an4
     a5 = 0o123
     an5 = -0o123
