@@ -19,7 +19,7 @@ fused_type2 = cython.fused_type(string_t)
 ctypedef fused_type1 *composed_t
 other_t = cython.fused_type(i32, f64)
 ctypedef f64 *p_double
-ctypedef i32 *p_int
+ctypedef i32* p_int
 fused_type3 = cython.fused_type(i32, f64)
 fused_composite = cython.fused_type(fused_type2, fused_type3)
 just_float = cython.fused_type(float)
@@ -103,7 +103,7 @@ def test_fused_with_pointer():
     let f32[5] float_array
     let string_t[5] string_array
 
-    let char *s
+    let char* s
 
     strings = [b"humpty", b"dumpty", b"fall", b"splatch", b"breakfast"]
 

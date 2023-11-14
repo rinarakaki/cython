@@ -43,8 +43,8 @@ extern from "Python.h":
     # non-NULL pointer if possible, as if PyMem_Calloc(1, 1) had been
     # called instead.
 
-    fn void* PyMem_RawRealloc(void *p, usize n) nogil
-    fn void* PyMem_Realloc(void *p, usize n)
+    fn void* PyMem_RawRealloc(void* p, usize n) nogil
+    fn void* PyMem_Realloc(void* p, usize n)
     # Resizes the memory block pointed to by p to n bytes. The
     # contents will be unchanged to the minimum of the old and the new
     # sizes. If p is NULL, the call is equivalent to PyMem_Malloc(n);
@@ -53,8 +53,8 @@ extern from "Python.h":
     # NULL, it must have been returned by a previous call to
     # PyMem_Malloc(), PyMem_Realloc(), or PyMem_Calloc().
 
-    fn void PyMem_RawFree(void *p) nogil
-    fn void PyMem_Free(void *p)
+    fn void PyMem_RawFree(void* p) nogil
+    fn void PyMem_Free(void* p)
     # Frees the memory block pointed to by p, which must have been
     # returned by a previous call to PyMem_Malloc(), PyMem_Realloc(), or
     # PyMem_Calloc(). Otherwise, or if PyMem_Free(p) has been called
@@ -69,11 +69,11 @@ extern from "Python.h":
     # of memory. Returns a pointer cast to TYPE*. The memory will not
     # have been initialized in any way.
 
-    # TYPE* PyMem_Resize(void *p, TYPE, usize n)
+    # TYPE* PyMem_Resize(void* p, TYPE, usize n)
     # Same as PyMem_Realloc(), but the memory block is resized to (n *
     # sizeof(TYPE)) bytes. Returns a pointer cast to TYPE*.
 
-    fn void PyMem_Del(void *p)
+    fn void PyMem_Del(void* p)
     # Same as PyMem_Free().
 
     # In addition, the following macro sets are provided for calling
@@ -114,5 +114,5 @@ extern from "Python.h":
 
     fn void* PyObject_Malloc(usize size)
     fn void* PyObject_Calloc(usize nelem, usize elsize)
-    fn void* PyObject_Realloc(void *ptr, usize new_size)
-    fn void PyObject_Free(void *ptr)
+    fn void* PyObject_Realloc(void* ptr, usize new_size)
+    fn void PyObject_Free(void* ptr)

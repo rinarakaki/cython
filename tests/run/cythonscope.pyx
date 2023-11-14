@@ -13,7 +13,7 @@ extern from *:
         i32 value
 
     # Type pointer
-    static PyObject *TestClassType "__pyx_TestClass_type"
+    static PyObject* TestClassType "__pyx_TestClass_type"
 
     # This is a cdef function
     fn __pyx_TestClass_New(i32)

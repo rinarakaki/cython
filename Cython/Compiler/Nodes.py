@@ -930,7 +930,7 @@ class CArgDeclNode(Node):
         # The parser may misinterpret names as types. We fix that here.
         if isinstance(self.declarator, CNameDeclaratorNode) and self.declarator.name == '':
             if nonempty:
-                if self.base_type.is_basic_c_type:
+                if self.base_type.is_builtin:
                     # char, short, long called "int"
                     type = self.base_type.analyse(env, could_be_name=True)
                     arg_name = type.empty_declaration_code()
@@ -938,7 +938,7 @@ class CArgDeclNode(Node):
                     arg_name = self.base_type.name
                 self.declarator.name = EncodedString(arg_name)
                 self.base_type.name = None
-                self.base_type.is_basic_c_type = False
+                self.base_type.is_builtin = False
             could_be_name = True
         else:
             could_be_name = False
@@ -1059,9 +1059,10 @@ class CAnalysedBaseTypeNode(Node):
 class CSimpleBaseTypeNode(CBaseTypeNode):
     # name             string
     # module_path      [string]     Qualifying name components
+    # is_builtin       boolean
     # is_basic_c_type  boolean
-    # signed           boolean
-    # longness         integer
+    # signed           boolean or None
+    # longness         integer or None
     # complex          boolean
     # is_self_arg      boolean      Is self argument of C method
     # # is_type_arg      boolean      Is type argument of class method
@@ -1069,7 +1070,10 @@ class CSimpleBaseTypeNode(CBaseTypeNode):
     child_attrs = []
     arg_name = None   # in case the argument name was interpreted as a type
     module_path = []
-    is_basic_c_type = False
+    is_builtin = 0
+    is_basic_c_type = 0
+    signed = None
+    longness = None
     complex = False
     is_self_arg = False
 
@@ -1077,8 +1081,8 @@ class CSimpleBaseTypeNode(CBaseTypeNode):
         # Return type descriptor.
         # print "CSimpleBaseTypeNode.analyse: is_self_arg =", self.is_self_arg #
         type = None
-        if self.is_basic_c_type:
-            type = PyrexTypes.simple_c_type(self.signed, self.longness, self.name)
+        if self.is_builtin:
+            type = PyrexTypes.builtin_type(self.name, self.signed, self.longness)
             if not type:
                 error(self.pos, "Unrecognised type modifier combination: (%s, %s, %s)" % (self.signed, self.longness, self.name))
         elif self.name == "object" and not self.module_path:
@@ -1087,8 +1091,8 @@ class CSimpleBaseTypeNode(CBaseTypeNode):
             if self.is_self_arg and env.is_c_class_scope:
                 # print "CSimpleBaseTypeNode.analyse: defaulting to parent type" #
                 type = env.parent_type
-            ## elif self.is_type_arg and env.is_c_class_scope:
-            ##     type = Builtin.type_type
+            # elif self.is_type_arg and env.is_c_class_scope:
+            #     type = Builtin.type_type
             else:
                 type = py_object_type
         else:
@@ -1158,6 +1162,19 @@ class CSimpleBaseTypeNode(CBaseTypeNode):
         if not type:
             type = PyrexTypes.error_type
         return type
+
+
+class CPtrTypeNode(CBaseTypeNode):
+    # base_type     CBaseTypeNode
+
+    child_attrs = ["base_type"]
+
+    def analyse(self, env, could_be_name=False):
+        base_type = self.base_type.analyse(env)
+        if base_type.is_pyobject:
+            error(self.pos, "Pointer base type cannot be a Python object")
+        return PyrexTypes.c_ptr_type(base_type)
+
 
 class MemoryViewSliceTypeNode(CBaseTypeNode):
 

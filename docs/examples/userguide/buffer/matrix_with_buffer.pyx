@@ -16,7 +16,7 @@ cdef class Matrix:
         """Adds a row, initially zero-filled."""
         self.v.resize(self.v.size() + self.ncols)
 
-    def __getbuffer__(self, Py_buffer *buffer, i32 flags):
+    def __getbuffer__(self, Py_buffer* buffer, i32 flags):
         let isize itemsize = sizeof(self.v[0])
 
         self.shape[0] = self.v.size() // self.ncols
@@ -42,5 +42,5 @@ cdef class Matrix:
         buffer.strides = self.strides
         buffer.suboffsets = NULL                # for pointer arrays only
 
-    def __releasebuffer__(self, Py_buffer *buffer):
+    def __releasebuffer__(self, Py_buffer* buffer):
         pass

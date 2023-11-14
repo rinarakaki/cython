@@ -19,7 +19,7 @@ def redirect_stderr(func, *args, **kwargs):
     func(*args, **kwargs)
     sys.stderr = stderr
 
-fn void puts(char *string) with gil:
+fn void puts(char* string) with gil:
     """
     We need this for doctest, used from nogil sections.
     """
@@ -304,7 +304,7 @@ def test_nogil_void_funcs_with_nogil():
         void_nogil_nested_gil()
 
 
-fn PyObject *nogil_propagate_exception() except NULL nogil:
+fn PyObject* nogil_propagate_exception() except NULL nogil:
     with nogil:
         with gil:
             raise Exception("This exception propagates!")

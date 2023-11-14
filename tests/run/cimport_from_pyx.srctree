@@ -47,7 +47,7 @@ enum Benum:
 struct Bstruct:
     i32 value
 
-ctypedef i32 *Btypedef
+ctypedef i32* Btypedef
 
 cdef class Bclass:
     cdef i64 value

@@ -53,9 +53,9 @@ class TestCodeWriter(CythonTest):
                         pass
                     cdef public void (x = 34, y = 54, z):
                         pass
-                    cdef f(int *x, void *y, Value *z):
+                    cdef f(int* x, void* y, Value* z):
                         pass
-                    cdef f(int **x, void **y, Value **z):
+                    cdef f(int** x, void** y, Value** z):
                         pass
                     cdef inline f(int &x, Value &z):
                         pass

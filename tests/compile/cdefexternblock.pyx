@@ -7,7 +7,7 @@ extern from "cheese.h":
     struct roquefort:
         i32 x
 
-    static char *swiss
+    static char* swiss
 
     fn void cheddar()
 
