@@ -2721,6 +2721,7 @@ def p_c_complex_base_type(s, templates = None):
 
 
 def p_c_simple_base_type(s, nonempty, templates=None):
+    is_builtin = 1
     is_basic = 0
     signed = 1
     longness = 0
@@ -2754,16 +2755,18 @@ def p_c_simple_base_type(s, nonempty, templates=None):
         error(pos, "Expected an identifier, found '%s'" % s.sy)
     if looking_at_base_type(s):
         # print "p_c_simple_base_type: looking_at_base_type at", s.position()
-        is_basic = 1
         if s.sy == 'IDENT' and s.systring in builtin_type_names:
+            is_builtin = 1
             signed, longness = None, None
             name = s.systring
             s.next()
         elif s.sy == 'IDENT' and s.systring in special_basic_c_types:
+            is_basic = 1
             signed, longness = special_basic_c_types[s.systring]
             name = s.systring
             s.next()
         else:
+            is_basic = 1
             signed, longness = p_sign_and_longness(s)
             if s.sy == 'IDENT' and s.systring in basic_c_type_names:
                 name = s.systring
@@ -2771,6 +2774,7 @@ def p_c_simple_base_type(s, nonempty, templates=None):
             else:
                 name = 'int'  # long [int], short [int], long [int] complex, etc.
         if s.sy == 'IDENT' and s.systring == 'complex':
+            is_basic = 1
             complex = 1
             s.next()
     elif looking_at_dotted_name(s):
@@ -2803,6 +2807,7 @@ def p_c_simple_base_type(s, nonempty, templates=None):
 
     type_node = Nodes.CSimpleBaseTypeNode(pos,
         name = name, module_path = module_path,
+        is_builtin = is_builtin,                           
         is_basic_c_type = is_basic, signed = signed,
         complex = complex, longness = longness,
         templates = templates)
