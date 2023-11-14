@@ -131,7 +131,7 @@ cdef mystruct_t (*f)(mystruct_t, i32)
 f = add_simple
 assert f(mystruct, 5).a == 10
 
-f = <mystruct_t (*)(mystruct_t, i32)> add_simple
+f = <(mystruct_t*)(mystruct_t, i32)> add_simple
 assert f(mystruct, 5).a == 10
 
 f = add_simple[mystruct_t, i32]
@@ -157,7 +157,7 @@ func = obj.method
 result = func(obj, a, b)
 assert result == 15.0, result
 
-func = <f64 (*)(TestFusedExtMethods, i64, f64)> obj.method
+func = <(f64*)(TestFusedExtMethods, i64, f64)> obj.method
 assert func(obj, x, y) == 11.0
 
 func = obj.method[i64, f64]
