@@ -1,5 +1,5 @@
-### COPIED FROM CPython 3.12 alpha (July 2022)
-### Original part after ############
+# ## COPIED FROM CPython 3.12 alpha (July 2022)
+# ## Original part after ############
 # cython: language_level=3
 
 # new code
@@ -17,7 +17,7 @@ def disable(func):
     pass
 
 
-############## SLIGHTLY MODIFIED ORIGINAL CODE
+# ############# SLIGHTLY MODIFIED ORIGINAL CODE
 import array
 import collections
 import enum
@@ -87,7 +87,7 @@ class TestTracing(unittest.TestCase):
 
 
 # FIXME - remove all the "return"s added to cause code to be dropped
-############## ORIGINAL PART FROM CPYTHON
+# ############# ORIGINAL PART FROM CPYTHON
 
 
 class TestInheritance(unittest.TestCase):
