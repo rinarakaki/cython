@@ -3644,9 +3644,6 @@ def p_let_statement(s, pos, ctx):
     s.next()
     base_type = p_c_base_type(s, nonempty = 1, templates = ctx.templates)
     declarator = p_c_declarator(s, ctx, assignable = 1, nonempty = 1)
-    if base_type is None:
-        print("!!!!! p_let_statement !!!!!")
-        print(declarator)
     declarators = [declarator]
     while s.sy == ',':
         s.next()
