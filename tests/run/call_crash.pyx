@@ -4,7 +4,7 @@ cdef class A:
     9
     """
 
-    cdef i32 (*func_ptr)(i32)
+    cdef (i32*)(i32) func_ptr
 
     def __init__(self):
         self.func_ptr = &func

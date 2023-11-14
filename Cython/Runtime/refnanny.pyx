@@ -169,12 +169,12 @@ fn void FinishContext(PyObject** ctx):
         return  # swallow any exceptions
 
 struct RefNannyAPIStruct:
-    void (*INCREF)(PyObject*, PyObject*, isize)
-    void (*DECREF)(PyObject*, PyObject*, isize)
-    void (*GOTREF)(PyObject*, PyObject*, isize)
-    void (*GIVEREF)(PyObject*, PyObject*, isize)
+    (void*)(PyObject*, PyObject*, isize) INCREF
+    (void*)(PyObject*, PyObject*, isize) DECREF
+    (void*)(PyObject*, PyObject*, isize) GOTREF
+    (void*)(PyObject*, PyObject*, isize) GIVEREF
     PyObject* (*SetupContext)(char*, isize, char*) except NULL
-    void (*FinishContext)(PyObject**)
+    (void*)(PyObject**) FinishContext
 
 cdef RefNannyAPIStruct api
 api.INCREF = INCREF

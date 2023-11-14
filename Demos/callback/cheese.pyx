@@ -3,7 +3,7 @@
 #
 
 extern from "cheesefinder.h":
-    ctypedef void (*cheesefunc)(char* name, void* user_data)
+    ctypedef (void*)(char* name, void* user_data) cheesefunc
     fn void find_cheeses(cheesefunc user_func, void* user_data)
 
 def find(f):

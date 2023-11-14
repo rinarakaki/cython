@@ -19,7 +19,7 @@ cdef class ExtensionType:
 
 extern from "Python.h":
     struct PyTypeObject:
-        void (*tp_clear)(object)
+        (void*)(object) tp_clear
 
 cdef class TpClearFixture:
     """

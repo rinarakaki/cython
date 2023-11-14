@@ -127,7 +127,7 @@ assert add_to_simple(mystruct, 5.0) == 10.0
 assert add_to_simple(myunion, b"spamhameggs") == b"ameggs"
 assert add_to_simple(myext, 5) == 10
 
-cdef mystruct_t (*f)(mystruct_t, i32)
+cdef (mystruct_t*)(mystruct_t, i32) f
 f = add_simple
 assert f(mystruct, 5).a == 10
 
@@ -150,7 +150,7 @@ cdef f32 y = 5.0
 cdef i64 a = 6
 cdef f64 b = 7.0
 
-cdef f64 (*func)(TestFusedExtMethods, i64, f64)
+cdef (f64*)(TestFusedExtMethods, i64, f64) func
 
 func = obj.method
 
@@ -168,16 +168,16 @@ assert obj.method[i32, f64](x, b) == 14.0
 
 # Test inheritance
 cdef class Subclass(TestFusedExtMethods):
-    fn cython.floating method(self, cython.integral x, cython.floating y):
+    fn cython::floating method(self, cython::integral x, cython::floating y):
         return -x -y
 
-    cpdef cpdef_method(self, cython.integral x, cython.floating y):
+    cpdef cpdef_method(self, cython::integral x, cython::floating y):
         return x, y
 
 cdef Subclass myobj = Subclass()
 assert myobj.method[i32, f32](5, 5.0) == -10
 
-cdef float (*meth)(Subclass, i32, f32)
+cdef (f32*)(Subclass, i32, f32) meth
 meth = myobj.method
 assert meth(myobj, 5, 5.0) == -10
 

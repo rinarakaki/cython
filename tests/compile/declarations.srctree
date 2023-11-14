@@ -24,7 +24,7 @@ cdef extern char* cp
 cdef extern char *cpa[5]
 cdef extern int (*ifnpa[5])()
 cdef extern char *(*cpfnpa[5])()
-cdef extern int (*ifnp)()
+cdef extern (i32*)() ifnp
 cdef extern int (*iap)[5]
 
 extern fn i32 ifn()

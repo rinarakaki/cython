@@ -948,7 +948,7 @@ cdef class _memoryviewslice(memoryview):
     # We need this only to print it's class' name
     cdef object from_object
 
-    cdef object (*to_object_func)(char*)
+    cdef (object*)(char*) to_object_func
     cdef i32 (*to_dtype_func)(char*, object) except 0
 
     def __dealloc__(self):
@@ -988,14 +988,14 @@ except:
 
 @cname('__pyx_memoryview_fromslice')
 fn memoryview_fromslice({{memviewslice_name}} memviewslice,
-                          i32 ndim,
-                          object (*to_object_func)(char*),
-                          i32 (*to_dtype_func)(char*, object) except 0,
-                          u2 dtype_is_object):
+                        i32 ndim,
+                        (object*)(char*) to_object_func,
+                        i32 (*to_dtype_func)(char*, object) except 0,
+                        u2 dtype_is_object):
 
     let _memoryviewslice result
 
-    if <PyObject *>memviewslice.memview == Py_None:
+    if <PyObject*>memviewslice.memview == Py_None:
         return None
 
     # assert 0 < ndim <= memviewslice.memview.view.ndim, (
@@ -1010,9 +1010,9 @@ fn memoryview_fromslice({{memviewslice_name}} memviewslice,
     result.typeinfo = memviewslice.memview.typeinfo
 
     result.view = memviewslice.memview.view
-    result.view.buf = <void *> memviewslice.data
+    result.view.buf = <void*> memviewslice.data
     result.view.ndim = ndim
-    (<__pyx_buffer *> &result.view).obj = Py_None
+    (<__pyx_buffer*>&result.view).obj = Py_None
     Py_INCREF(Py_None)
 
     if (<memoryview>memviewslice.memview).flags & PyBUF_WRITABLE:
@@ -1040,8 +1040,8 @@ fn memoryview_fromslice({{memviewslice_name}} memviewslice,
     return result
 
 @cname('__pyx_memoryview_get_slice_from_memoryview')
-fn {{memviewslice_name}} *get_slice_from_memview(memoryview memview,
-                                                   {{memviewslice_name}} *mslice) except NULL:
+fn {{memviewslice_name}}* get_slice_from_memview(memoryview memview,
+                                                 {{memviewslice_name}}* mslice) except NULL:
     let _memoryviewslice obj
     if isinstance(memview, _memoryviewslice):
         obj = memview
@@ -1051,9 +1051,9 @@ fn {{memviewslice_name}} *get_slice_from_memview(memoryview memview,
         return mslice
 
 @cname('__pyx_memoryview_slice_copy')
-fn void slice_copy(memoryview memview, {{memviewslice_name}} *dst) noexcept:
+fn void slice_copy(memoryview memview, {{memviewslice_name}}* dst) noexcept:
     let i32 dim
-    let (isize*) shape, strides, suboffsets
+    let isize* shape, strides, suboffsets
 
     shape = memview.view.shape
     strides = memview.view.strides
@@ -1079,7 +1079,7 @@ fn memoryview_copy_from_slice(memoryview memview, {{memviewslice_name}} *memview
     """
     Create a new memoryview object from a given memoryview object and slice.
     """
-    let object (*to_object_func)(char*)
+    let (object*)(char*) to_object_func
     let i32 (*to_dtype_func)(char*, object) except 0
 
     if isinstance(memview, _memoryviewslice):

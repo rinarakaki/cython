@@ -124,7 +124,7 @@ def test_func_ptr(f64 x):
     2.25
     """
     try:
-        w = new Wrap[f64 (*)(f64)](&f)
+        w = new Wrap[(f64*)(f64)](&f)
         return w.get()(x)
     finally:
         del w

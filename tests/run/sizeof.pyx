@@ -15,4 +15,4 @@ def f():
     i = sizeof(Spam)
     i = sizeof(Spam*)
     i = sizeof(Spam[5])
-    i = sizeof(Spam (*)())
+    i = sizeof((Spam*)())
