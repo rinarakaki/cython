@@ -721,7 +721,7 @@ enum MyEnum:
     X = 1
     Y = 2
 
-ctypedef long my_long
+type my_long = long
 def test_int_typedef_inference():
     """
     >>> test_int_typedef_inference()

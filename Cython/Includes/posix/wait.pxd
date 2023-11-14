@@ -20,7 +20,7 @@ extern from "<sys/wait.h>" nogil:
     fn i32 WSTOPSIG(i32 status)
     fn i32 WTERMSIG(i32 status)
 
-    ctypedef i32 idtype_t
+    type idtype_t = i32
     enum: P_ALL             # idtype_t values
     enum: P_PID
     enum: P_PGID

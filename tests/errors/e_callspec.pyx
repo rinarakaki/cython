@@ -2,7 +2,7 @@
 
 use cython
 
-ctypedef i32 USERTYPE
+type USERTYPE = i32
 
 # Functions
 

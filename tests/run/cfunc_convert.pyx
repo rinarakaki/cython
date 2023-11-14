@@ -120,7 +120,7 @@ def return_abc():
     """
     return abc
 
-ctypedef f64 foo
+type foo = f64
 fn foo test_typedef_cfunc(foo x):
     return x
 

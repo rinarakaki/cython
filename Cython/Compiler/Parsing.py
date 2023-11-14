@@ -2460,7 +2460,11 @@ def p_statement(s, ctx, first_statement = 0):
         s.level = ctx.level
         decorators = p_attributes(s)
 
-    if s.sy == 'ctypedef':
+    if not s.in_python_file and s.systring == "type" and s.peek()[0] == "IDENT":
+        if ctx.level not in ("module", "module_pxd"):
+            s.error("type statement not allowed here")
+        return p_type_statement(s, ctx)
+    elif s.sy == 'ctypedef':
         if ctx.level not in ('module', 'module_pxd'):
             s.error("ctypedef statement not allowed here")
         # if ctx.api:
@@ -2963,15 +2967,7 @@ def looking_at_base_type(s):
     return s.sy == 'IDENT' and s.systring in base_type_start_words
 
 def looking_at_dotted_name(s):
-    if s.sy == 'IDENT':
-        name = s.systring
-        name_pos = s.position()
-        s.next()
-        result = s.sy in (".", "::")
-        s.put_back(u'IDENT', name, name_pos)
-        return result
-    else:
-        return 0
+    return s.sy == "IDENT" and s.peek()[0] in (".", "::")
 
 
 builtin_type_names = cython.declare(frozenset, frozenset((
@@ -3402,8 +3398,7 @@ def p_cdef_statement(s, ctx):
         s.next()
         return p_c_func_or_var_declaration(s, pos, ctx)
     elif s.sy == "let":
-        s.next()
-        return p_c_func_or_var_declaration(s, pos, ctx)
+        return p_let_statement(s, pos, ctx)
     elif s.sy == "static":
         s.next()
         return p_c_func_or_var_declaration(s, pos, ctx)
@@ -3623,6 +3618,30 @@ def p_visibility(s, prev_visibility):
         s.next()
     return visibility
 
+def p_let_statement(s, pos, ctx):
+    # s.sy == "let"
+    s.next()
+    base_type = p_c_base_type(s, nonempty = 1, templates = ctx.templates)
+    declarator = p_c_declarator(s, ctx, assignable = 1, nonempty = 1)
+    declarators = [declarator]
+    while s.sy == ',':
+        s.next()
+        if s.sy == 'NEWLINE':
+            break
+        declarator = p_c_declarator(s, ctx, assignable = 1, nonempty = 1)
+        declarators.append(declarator)
+    s.expect_newline("Syntax error in C variable declaration", ignore_semicolon=True)
+    return Nodes.CVarDefNode(pos,
+        visibility = ctx.visibility,
+        base_type = base_type,
+        declarators = declarators,
+        in_pxd = ctx.level in ("module_pxd", "c_class_pxd"),
+        doc = None,
+        api = ctx.api,
+        modifiers = [],
+        overridable = ctx.overridable,
+    )
+
 def p_c_modifiers(s):
     if s.sy == 'IDENT' and s.systring in ('inline',):
         modifier = s.systring
@@ -3693,6 +3712,26 @@ def p_c_func_or_var_declaration(s, pos, ctx):
             modifiers = modifiers,
             overridable = ctx.overridable)
     return result
+
+def p_type_statement(s, ctx):
+    # s.systring == "type"
+    pos = s.position()
+    s.next()
+    visibility = p_visibility(s, ctx.visibility)
+    api = p_api(s)
+    ctx = ctx(typedef_flag=1, visibility=visibility)
+    declarator = p_c_declarator(s, ctx, is_type=1, assignable=0)
+    s.expect("=")
+    base_type = p_c_base_type(s)
+    s.expect_newline("Syntax error in type statement", ignore_semicolon=True)
+    return Nodes.CTypeDefNode(
+        pos,
+        base_type=base_type,
+        declarator=declarator,
+        visibility=visibility,
+        api=api,
+        in_pxd=ctx.level == "module_pxd"
+    )
 
 def p_ctypedef_statement(s, ctx):
     # s.sy == 'ctypedef'
@@ -3940,7 +3979,7 @@ def p_c_class_options(s):
         if s.systring == 'object':
             s.next()
             objstruct_name = p_ident(s)
-        elif s.systring == 'type':
+        elif s.systring == "type":
             s.next()
             typeobj_name = p_ident(s)
         elif s.systring == 'check_size':

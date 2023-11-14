@@ -182,7 +182,7 @@ extern from "<unistd.h>" nogil:
     enum: STDOUT_FILENO	 # 1
     enum: STDERR_FILENO	 # 2
 
-    ctypedef u32 useconds_t
+    type useconds_t = u32
 
     fn i32         access(const char *, i32)
     fn u32         alarm(u32)

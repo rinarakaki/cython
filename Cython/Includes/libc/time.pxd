@@ -3,8 +3,8 @@
 use libc::stddef::wchar_t
 
 extern from "<time.h>" nogil:
-    ctypedef i64 clock_t
-    ctypedef i64 time_t
+    type clock_t = i64
+    type time_t = i64
 
     enum: CLOCKS_PER_SEC
     fn clock_t clock()             # CPU time
