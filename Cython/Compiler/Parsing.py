@@ -2728,7 +2728,7 @@ def p_c_complex_base_type(s, templates = None):
 
 
 def p_c_simple_base_type(s, nonempty, templates=None):
-    is_builtin = 1
+    is_builtin = 0
     is_basic = 0
     signed = 1
     longness = 0
