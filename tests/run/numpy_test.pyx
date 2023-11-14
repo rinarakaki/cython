@@ -731,7 +731,7 @@ def test_dispatch_non_clashing_declarations_repeating_types(np.ndarray[cython.fl
     """
     print a1[1], a2[2], a3[3], a4[4]
 
-ctypedef np.int32_t typedeffed_type
+type typedeffed_type = np::int32_t
 
 cdef fused typedeffed_fused_type:
     typedeffed_type
@@ -831,7 +831,7 @@ def test_dispatch_memoryview_object():
     """
     let i32[:] m = np.arange(10, dtype=np.dtype('i'))
     let i32[:] m2 = m
-    let i32[:] m3 = <object> m
+    let i32[:] m3 = <object>m
     test_fused_memslice(m3)
 
 cdef fused ndim_t:

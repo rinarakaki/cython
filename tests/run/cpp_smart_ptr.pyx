@@ -14,7 +14,7 @@ extern from "cpp_smart_ptr_helper.h":
     cdef cppclass RaiseOnConstruct:
         pass
 
-ctypedef const CountAllocDealloc const_CountAllocDealloc
+type const_CountAllocDealloc = const CountAllocDealloc
 
 def test_unique_ptr():
     """

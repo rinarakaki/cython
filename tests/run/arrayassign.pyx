@@ -367,7 +367,7 @@ def assign_slice_from_shorter_array():
 cdef enum:
     Size = 2
 
-ctypedef i32[Size] int_array_dyn
+type int_array_dyn = i32[Size]
 
 
 def assign_ptr_to_unknown_csize():

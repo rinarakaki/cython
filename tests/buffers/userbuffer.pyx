@@ -56,11 +56,11 @@ cdef class _memoryview:
     cdef PyBuffer view
 
     def __cinit__(self, obj):
-        let Py_buffer* view = <Py_buffer*>&self.view
+        let auto view = <Py_buffer*>&self.view
         PyObject_GetBuffer(obj, view, PyBUF_SIMPLE)
 
     def __dealloc__(self):
-        let Py_buffer* view = <Py_buffer*>&self.view
+        let auto view = <Py_buffer*>&self.view
         PyBuffer_Release(view )
         
     def __getbuffer__(self, Py_buffer* view, i32 flags):
@@ -68,5 +68,5 @@ cdef class _memoryview:
                           self.view.buf, self.view.len,
                           self.view.readonly, flags)
     def tolist(self):
-        let i8* b = <i8*> self.view.buf
+        let auto b = <i8*>self.view.buf
         return [b[i] for i in 0..self.view.len]

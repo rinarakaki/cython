@@ -1,6 +1,6 @@
 extern from "Python.h":
     type PY_LONG_LONG = i128
-    ctypedef u128 uPY_LONG_LONG "unsigned PY_LONG_LONG"
+    type uPY_LONG_LONG "unsigned PY_LONG_LONG" = u128
 
     # ##########################################################################
     # 7.2.3 Long Integer Objects
