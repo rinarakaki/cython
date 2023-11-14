@@ -784,27 +784,6 @@ def p_atom(s):
     else:
         s.error("Expected an identifier or literal, found '%s'" % s.sy)
 
-# exponent: ('e' | 'E') ['+'|'-'] decimal
-# decimal_fract: decimal '.' [decimal] | '.' decimal
-# fltconst: (decimal_fract [exponent]) | (decimal exponent)
-# imagconst: (intconst | fltconst) ['j'|'J']
-
-def p_exponent(s):
-    if s.systring in ("e", "E"):
-        value = s.systring
-        s.next()
-        if s.sy in ("+", "-"):
-            value += s.sy
-            s.next()
-        if s.sy == "DECIMAL":
-            value += s.systring
-            s.next()
-        else:
-            s.expect("DECIMAL")
-        return value
-    else:
-        return ""
-
 def p_numeric_literal_suffix(s):
     if s.systring in builtin_type_names:
         s.next()
@@ -837,52 +816,10 @@ def p_numeric_literal_suffix(s):
     else:
         return dict(unsigned="", longness="", is_c_literal=None, suffix=None)
 
-def p_numeric_literal(s):
-    # s.sy in ("DECIMAL", ".")
-    pos = s.position()
-    if s.sy == "DECIMAL":
-        value = s.systring
-        s.next()
-    else:  # s.sy == "."
-        value = s.sy
-
-    if s.sy == ".":
-        s.next()
-        if s.sy == "DECIMAL":
-            value += s.systring
-            s.next()
-        value += p_exponent(s)
-        if s.systring not in ("j", "J"):
-            return ExprNodes.FloatNode(
-                pos,
-                value = value,
-                **p_numeric_literal_suffix(s),
-            )
-    elif s.systring in ("e", "E"):
-        value += p_exponent(s)
-        if s.systring not in ("j", "J"):
-            return ExprNodes.FloatNode(
-                pos,
-                value = value,
-                **p_numeric_literal_suffix(s),
-            )
-    else:
-        if s.systring not in ("j", "J"):
-            suffix = p_numeric_literal_suffix(s)
-            return ExprNodes.IntNode(pos,
-                value = value,
-                unsigned = suffix["unsigned"],
-                longness = suffix["longness"],
-            )
-    s.next()
-    return ExprNodes.ImagNode(pos, value = value)
-        
 def p_int_literal(s):
     pos = s.position()
     value = s.systring
     s.next()
-    print("!!!!!!!!!! [p_int_literal] !!!!!!!!!!")
-    print(value)
     if s.systring not in ("j", "J"):
         return ExprNodes.IntNode(pos,
             value = value,
