@@ -133,7 +133,12 @@ class DeclarationWriter(TreeVisitor):
 
     def visit_CSimpleBaseTypeNode(self, node):
         # See Parsing.p_sign_and_longness
-        if node.is_basic_c_type:
+        if node.is_builtin:
+            if node.name.startswith("i"):
+                self.put("int%s_t" % node.name[1:])
+            elif node.name.startswith("u"):
+                self.put("uint%s_t" % node.name[1:])
+        elif node.is_basic_c_type:
             self.put(("unsigned ", "", "signed ")[node.signed])
             if node.longness < 0:
                 self.put("short " * -node.longness)
