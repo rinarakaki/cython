@@ -394,7 +394,8 @@ def p_typecast(s):
         base_type = base_type,
         declarator = declarator,
         operand = operand,
-        typecheck = typecheck)
+        typecheck = typecheck
+    )
 
 def p_sizeof(s):
     # s.sy == ident "sizeof"
@@ -2679,6 +2680,10 @@ def p_positional_and_keyword_args(s, end_sy_set, templates = None):
     return positional_args, keyword_args
 
 def p_c_base_type(s, nonempty=False, templates=None):
+    if s.sy == "auto":
+        s.next()
+        return None
+
     pos = s.position()
     # Handle const/volatile
     is_const = is_volatile = 0
@@ -2723,7 +2728,6 @@ def p_calling_convention(s):
         return result
     else:
         return ""
-
 
 calling_convention_words = cython.declare(frozenset, frozenset((
     "__stdcall", "__cdecl", "__fastcall")))
@@ -3059,8 +3063,8 @@ def p_c_declarator(s, ctx = Ctx(), empty = 0, is_type = 0, cmethod_flag = 0,
             s.expect(')')
     else:
         result = p_c_simple_declarator(s, ctx, empty, is_type, cmethod_flag,
-                                       assignable, mutable, nonempty)
-    if not calling_convention_allowed and result.calling_convention and s.sy != '(':
+                                       assignable, nonempty)
+    if not calling_convention_allowed and result is not None and result.calling_convention and s.sy != '(':
         error(s.position(), "%s on something that is not a function"
             % result.calling_convention)
     while s.sy in ('[', '('):
@@ -3164,6 +3168,8 @@ def p_c_simple_declarator(s, ctx, empty, is_type, cmethod_flag,
         else:
             if nonempty:
                 error(s.position(), "Empty declarator")
+            if empty:
+                return None
             name = ""
             cname = None
         if cname is None and ctx.namespace is not None and nonempty:

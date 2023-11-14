@@ -1,5 +1,5 @@
 extern from "someheader.h":
-    ctypedef const char specialChar
+    type specialChar = const char
 
     fn i32 process_string(const char* s)
     

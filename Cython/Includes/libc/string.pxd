@@ -2,10 +2,10 @@
 
 extern from *:
     # deprecated backwards compatibility declarations
-    ctypedef const char const_char "const char"
-    ctypedef const signed char const_schar "const signed char"
-    ctypedef const u8 const_uchar "const unsigned char"
-    ctypedef const void const_void "const void"
+    type const_char "const char" = const char
+    type const_schar "const signed char" = const signed char
+    type const_uchar "const unsigned char" = const u8
+    type const_void "const void" = const void
 
 extern from "<string.h>" nogil:
     fn void* memcpy(void* pto, const void* pfrom, usize size)

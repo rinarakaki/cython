@@ -60,7 +60,7 @@ def test():
 
 ######## py_pkg/py_b.pxd ########
 
-ctypedef i32 py_b_int
+type py_b_int = i32
 
 ######## py_pkg/py_sub/__init__.py ########
 
@@ -69,11 +69,11 @@ ctypedef i32 py_b_int
 use super::super::py_b
 use super::py_d
 
-ctypedef i32 py_c_int
+type py_c_int = i32
 
 ######## py_pkg/py_sub/py_d.pxd ########
 
-ctypedef i32 py_d_int
+type py_d_int = i32
 
 ######## pkg/__init__.py ########
 
@@ -161,7 +161,7 @@ def test():
 
 ######## pkg/sub/tdef.pxd ########
 
-ctypedef i32 myint
+type myint = i32
 
 ######## pkg/sub/reimport.pxd ########
 

@@ -1,5 +1,5 @@
 
-ctypedef char* LPSTR
+type LPSTR = char*
 
 def typedef_delegation():
     """

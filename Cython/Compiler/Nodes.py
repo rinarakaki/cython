@@ -518,6 +518,17 @@ class CNameDeclaratorNode(CDeclaratorNode):
         return self.name
 
     def analyse(self, base_type, env, nonempty=0, visibility=None, in_pxd=False):
+        if base_type is None:
+            if self.default is not None:
+                self.default.analyse_types(env)
+                base_type = self.default.infer_type(env)
+                if base_type is None:
+                    base_type = self.default.base_type
+                if base_type is None:
+                    error(self.pos, "Cannot infer type from given expression: %s" % self.default)
+            else:
+                error(self.pos, "'auto' keyword cannot be used without initialiser")
+
         if nonempty and self.name == '':
             # May have mistaken the name for the type.
             if base_type.is_ptr or base_type.is_array or base_type.is_buffer:
@@ -554,8 +565,11 @@ class CPtrDeclaratorNode(CDeclaratorNode):
     def analyse(self, base_type, env, nonempty=0, visibility=None, in_pxd=False):
         if base_type.is_pyobject:
             error(self.pos, "Pointer base type cannot be a Python object")
-        ptr_type = PyrexTypes.c_ptr_type(base_type)
-        return self.base.analyse(ptr_type, env, nonempty=nonempty, visibility=visibility, in_pxd=in_pxd)
+        type = PyrexTypes.c_ptr_type(base_type)
+        if self.base is not None:
+            return self.base.analyse(type, env, nonempty=nonempty, visibility=visibility, in_pxd=in_pxd)
+        else:
+            return self, type
 
 
 class _CReferenceDeclaratorBaseNode(CDeclaratorNode):
@@ -626,8 +640,11 @@ class CArrayDeclaratorNode(CDeclaratorNode):
             error(self.pos, "Array element cannot be a Python object")
         if base_type.is_cfunction:
             error(self.pos, "Array element cannot be a function")
-        array_type = PyrexTypes.c_array_type(base_type, size)
-        return self.base.analyse(array_type, env, nonempty=nonempty, visibility=visibility, in_pxd=in_pxd)
+        type = PyrexTypes.c_array_type(base_type, size)
+        if self.base is not None:
+            return self.base.analyse(type, env, nonempty=nonempty, visibility=visibility, in_pxd=in_pxd)
+        else:
+            return self, type
 
 
 class CFuncDeclaratorNode(CDeclaratorNode):
@@ -1363,8 +1380,11 @@ class CComplexBaseTypeNode(CBaseTypeNode):
     child_attrs = ["base_type", "declarator"]
 
     def analyse(self, env, could_be_name=False):
-        base = self.base_type.analyse(env, could_be_name)
-        _, type = self.declarator.analyse(base, env)
+        base_type = self.base_type.analyse(env, could_be_name)
+        if self.declarator is not None:
+            _, type = self.declarator.analyse(base_type, env)
+        else:
+            type = base_type
         return type
 
 
@@ -1481,23 +1501,23 @@ class CVarDefNode(StatNode):
             for template_param in templates:
                 env.declare_type(template_param.name, template_param, self.pos)
 
-        base_type = self.base_type.analyse(env)
 
+        base_type = None
         # Check for declaration modifiers, e.g. "typing.Optional[...]" or "dataclasses.InitVar[...]"
         modifiers = None
-        if self.base_type.is_templated_type_node:
-            modifiers = self.base_type.analyse_pytyping_modifiers(env)
-
-        if base_type.is_fused and not self.in_pxd and (env.is_c_class_scope or
-                                                       env.is_module_scope):
-            error(self.pos, "Fused types not allowed here")
-            return error_type
+        if self.base_type is not None:
+            base_type = self.base_type.analyse(env)
+            if self.base_type.is_templated_type_node:
+                modifiers = self.base_type.analyse_pytyping_modifiers(env)
+            if base_type.is_fused and not self.in_pxd and (env.is_c_class_scope or
+                                                           env.is_module_scope):
+                error(self.pos, "Fused types not allowed here")
+                return error_type
 
         self.entry = None
         visibility = self.visibility
 
         for declarator in self.declarators:
-
             if (len(self.declarators) > 1
                     and not isinstance(declarator, CNameDeclaratorNode)
                     and env.directives['warn.multiple_declarators']):

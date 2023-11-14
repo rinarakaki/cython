@@ -15,8 +15,7 @@ extern from "Python.h":
 #        i32 ob_size            # not in Py3k
         u32* ob_digit
 
-def test(temp = long(0)):
-    let _longobject *l
-    l = <_longobject *>temp
+fn test(temp = long(0)):
+    let auto l = <_longobject *>temp
     # print sizeof(l.ob_size)    # not in Py3k
     print sizeof(l.ob_digit[0])
