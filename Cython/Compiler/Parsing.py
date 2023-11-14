@@ -2692,7 +2692,7 @@ def p_c_base_type(s, nonempty=False, templates=None):
             is_volatile = 1
             s.next()
 
-    if s.sy == '(':
+    if s.sy == "(":
         base_type = p_c_complex_base_type(s, templates = templates)
     else:
         base_type = p_c_simple_base_type(s, nonempty=nonempty, templates=templates)
@@ -2730,26 +2730,22 @@ calling_convention_words = cython.declare(frozenset, frozenset((
 
 
 def p_c_complex_base_type(s, templates = None):
-    # s.sy == '('
+    # s.sy == "("
     pos = s.position()
     s.next()
     base_type = p_c_base_type(s, templates=templates)
-    declarator = p_c_declarator(s, empty=True)
-    type_node = Nodes.CComplexBaseTypeNode(
-        pos, base_type=base_type, declarator=declarator)
-    if s.sy == ',':
+    type_node = Nodes.CComplexBaseTypeNode(pos, base_type=base_type)
+    if s.sy == ",":
         components = [type_node]
-        while s.sy == ',':
+        while s.sy == ",":
             s.next()
-            if s.sy == ')':
+            if s.sy == ")":
                 break
             base_type = p_c_base_type(s, templates=templates)
-            declarator = p_c_declarator(s, empty=True)
-            components.append(Nodes.CComplexBaseTypeNode(
-                pos, base_type=base_type, declarator=declarator))
+            components.append(Nodes.CComplexBaseTypeNode(pos, base_type=base_type))
         type_node = Nodes.CTupleBaseTypeNode(pos, components = components)
 
-    s.expect(')')
+    s.expect(")")
     if s.sy == '[':
         if is_memoryviewslice_access(s):
             type_node = p_memoryviewslice_access(s, type_node)
@@ -2767,7 +2763,7 @@ def p_c_simple_base_type(s, nonempty, templates=None):
     module_path = []
     pos = s.position()
 
-    if s.sy != 'IDENT':
+    if s.sy != "IDENT":
         error(pos, "Expected an identifier, found '%s'" % s.sy)
     if looking_at_base_type(s):
         is_builtin = 1

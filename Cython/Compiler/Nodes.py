@@ -1362,8 +1362,11 @@ class CComplexBaseTypeNode(CBaseTypeNode):
     child_attrs = ["base_type", "declarator"]
 
     def analyse(self, env, could_be_name=False):
-        base = self.base_type.analyse(env, could_be_name)
-        _, type = self.declarator.analyse(base, env)
+        base_type = self.base_type.analyse(env, could_be_name)
+        if self.declarator is not None:
+            _, type = self.declarator.analyse(base_type, env)
+        else:
+            type = base_type
         return type
 
 
