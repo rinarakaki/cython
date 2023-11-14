@@ -1109,8 +1109,8 @@ class CSimpleBaseTypeNode(CBaseTypeNode):
             if self.is_self_arg and env.is_c_class_scope:
                 # print "CSimpleBaseTypeNode.analyse: defaulting to parent type" #
                 type = env.parent_type
-            ## elif self.is_type_arg and env.is_c_class_scope:
-            ##     type = Builtin.type_type
+            # elif self.is_type_arg and env.is_c_class_scope:
+            #     type = Builtin.type_type
             else:
                 type = py_object_type
         else:
@@ -1180,6 +1180,19 @@ class CSimpleBaseTypeNode(CBaseTypeNode):
         if not type:
             type = PyrexTypes.error_type
         return type
+
+
+class CPtrTypeNode(CBaseTypeNode):
+    # base_type     CBaseTypeNode
+
+    child_attrs = ["base_type"]
+
+    def analyse(self, env, could_be_name=False):
+        base_type = self.base_type.analyse(env)
+        if base_type.is_pyobject:
+            error(self.pos, "Pointer base type cannot be a Python object")
+        return PyrexTypes.c_ptr_type(base_type)
+
 
 class MemoryViewSliceTypeNode(CBaseTypeNode):
 

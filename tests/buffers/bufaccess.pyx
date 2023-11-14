@@ -1021,7 +1021,7 @@ def check_object_nulled_1d(MockBuffer[object, ndim=1] buf, i32 idx, obj):
     >>> get_refcount(a) == rc1
     True
     """
-    let PyObject **data = <PyObject **>buf.buffer
+    let PyObject** data = <PyObject**>buf.buffer
     Py_CLEAR(data[idx])
     res = buf[idx]  # takes None
     buf[idx] = obj
@@ -1040,7 +1040,7 @@ def check_object_nulled_2d(MockBuffer[object, ndim=2] buf, i32 idx1, i32 idx2, o
     >>> get_refcount(a) == rc1
     True
     """
-    let PyObject **data = <PyObject **>buf.buffer
+    let PyObject** data = <PyObject**>buf.buffer
     Py_CLEAR(data[idx1 + 2*idx2])
     res = buf[idx1, idx2]  # takes None
     buf[idx1, idx2] = obj

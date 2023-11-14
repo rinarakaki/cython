@@ -18,10 +18,10 @@ cdef class Matrix:
             raise ValueError("can't add row while being viewed")
         self.v.resize(self.v.size() + self.ncols)
 
-    def __getbuffer__(self, Py_buffer *buffer, i32 flags):
+    def __getbuffer__(self, Py_buffer* buffer, i32 flags):
         # ... as before
 
         self.view_count += 1
 
-    def __releasebuffer__(self, Py_buffer *buffer):
+    def __releasebuffer__(self, Py_buffer* buffer):
         self.view_count -= 1

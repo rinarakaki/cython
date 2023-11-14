@@ -44,7 +44,7 @@ cdef class UserBuffer2:
 
 extern from *:
     struct PyBuffer"Py_buffer":
-        void *buf
+        void* buf
         isize len
         u2 readonly
 
@@ -61,12 +61,12 @@ cdef class _memoryview:
 
     def __dealloc__(self):
         let auto view = <Py_buffer*>&self.view
-        PyBuffer_Release(view)
+        PyBuffer_Release(view )
         
-    def __getbuffer__(self, Py_buffer *view, i32 flags):
+    def __getbuffer__(self, Py_buffer* view, i32 flags):
         PyBuffer_FillInfo(view, self,
                           self.view.buf, self.view.len,
                           self.view.readonly, flags)
     def tolist(self):
-        let auto b = <i8 *>self.view.buf
+        let auto b = <i8*>self.view.buf
         return [b[i] for i in 0..self.view.len]
