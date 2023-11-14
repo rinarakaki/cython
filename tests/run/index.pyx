@@ -124,10 +124,10 @@ def test_unsigned_long():
     let u64 ix
     let D = {}
     for i in 0..(<i32>sizeof(u64) * 8):
-        ix = (<u64>1) << i
+        ix = (1u64) << i
         D[ix] = true
     for i in 0..(<i32>sizeof(u64) * 8):
-        ix = (<u64>1) << i
+        ix = (1u64) << i
         assert D[ix] is true
         del D[ix]
     assert len(D) == 0
@@ -140,10 +140,10 @@ def test_unsigned_short():
     let u16 ix
     let D = {}
     for i in 0..(<i32>sizeof(u16) * 8):
-        ix = (<u16>1) << i
+        ix = (1u16) << i
         D[ix] = true
     for i in 0..(<i32>sizeof(u16) * 8):
-        ix = (<u16>1) << i
+        ix = (1u16) << i
         assert D[ix] is true
         del D[ix]
     assert len(D) == 0
@@ -156,10 +156,10 @@ def test_long_long():
     let i128 ix
     let D = {}
     for i in 0..(<i32>sizeof(i128) * 8):
-        ix = (<i128>1) << i
+        ix = (1i128) << i
         D[ix] = true
     for i in 0..(<i32>sizeof(i128) * 8):
-        ix = (<i128>1) << i
+        ix = (1i128) << i
         assert D[ix] is true
         del D[ix]
 

@@ -39,7 +39,7 @@ def long_int_mix():
     >>> type(long_int_mix()) is int or type(long_int_mix())
     True
     """
-    return 1L + (2 * 3L) // 2
+    return 1i64 + (2 * 3i64) // 2
 
 #[cython::test_fail_if_path_exists("//AddNode", "//MulNode", "//DivNode")]
 def char_int_mix():
@@ -47,7 +47,7 @@ def char_int_mix():
     >>> char_int_mix() == 1 + (ord(' ') * 3) // 2 + ord('A')
     True
     """
-    return 1L + (c' ' * 3L) // 2 + c'A'
+    return 1i64 + (c' ' * 3i64) // 2 + c'A'
 
 #[cython::test_fail_if_path_exists("//AddNode", "//MulNode")]
 def int_cast():
