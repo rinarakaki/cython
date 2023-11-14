@@ -13,8 +13,8 @@ use cython
 extern from "Python.h":
     struct PyObject
     fn i32 PyIndex_Check(object)
-    static PyObject *PyExc_IndexError
-    static PyObject *PyExc_ValueError
+    static PyObject* PyExc_IndexError
+    static PyObject* PyExc_ValueError
 
 extern from "pythread.h":
     ctypedef void* PyThread_type_lock
@@ -42,7 +42,7 @@ extern from *:
 
     struct __pyx_memoryview "__pyx_memoryview_obj":
         Py_buffer view
-        PyObject *obj
+        PyObject* obj
         __Pyx_TypeInfo *typeinfo
 
     struct {{memviewslice_name}}:
@@ -56,9 +56,9 @@ extern from *:
     fn void __PYX_XCLEAR_MEMVIEW({{memviewslice_name}} *memslice, i32 have_gil)
 
     struct __pyx_buffer "Py_buffer":
-        PyObject *obj
+        PyObject* obj
 
-    static PyObject *Py_None
+    static PyObject* Py_None
 
     cdef enum:
         PyBUF_C_CONTIGUOUS,
@@ -247,10 +247,10 @@ fn i32 _allocate_buffer(array self) except -1:
     # use malloc() for backwards compatibility
     # in case external code wants to change the data pointer
     let isize i
-    let PyObject **p
+    let PyObject** p
 
     self.free_data = true
-    self.data = <char *>malloc(self.len)
+    self.data = <char*>malloc(self.len)
     if not self.data:
         raise MemoryError, "unable to allocate array data."
 
@@ -462,7 +462,7 @@ cdef class memoryview:
             if self.dtype_is_object:
                 (<PyObject **> item)[0] = <PyObject *> value
             else:
-                self.assign_item_from_object(<char *> item, value)
+                self.assign_item_from_object(<char*> item, value)
 
             # It would be easy to support indirect dimensions, but it's easier
             # to disallow :)
@@ -871,7 +871,7 @@ fn i32 slice_memviewslice(
     if suboffset >= 0:
         if not is_slice:
             if new_ndim == 0:
-                dst.data = (<char **> dst.data)[0] + suboffset
+                dst.data = (<char**> dst.data)[0] + suboffset
             else:
                 _err_dim(PyExc_IndexError, "All dimensions preceding dimension %d "
                                      "must be indexed and not sliced", dim)
@@ -909,7 +909,7 @@ fn char* pybuffer_index(Py_buffer* view, char* bufp, isize index,
 
     resultp = bufp + index * stride
     if suboffset >= 0:
-        resultp = (<char **> resultp)[0] + suboffset
+        resultp = (<char**> resultp)[0] + suboffset
 
     return resultp
 
@@ -948,8 +948,8 @@ cdef class _memoryviewslice(memoryview):
     # We need this only to print it's class' name
     cdef object from_object
 
-    cdef object (*to_object_func)(char *)
-    cdef i32 (*to_dtype_func)(char *, object) except 0
+    cdef object (*to_object_func)(char*)
+    cdef i32 (*to_dtype_func)(char*, object) except 0
 
     def __dealloc__(self):
         __PYX_XCLEAR_MEMVIEW(&self.from_slice, 1)
@@ -989,8 +989,8 @@ except:
 @cname('__pyx_memoryview_fromslice')
 fn memoryview_fromslice({{memviewslice_name}} memviewslice,
                           i32 ndim,
-                          object (*to_object_func)(char *),
-                          i32 (*to_dtype_func)(char *, object) except 0,
+                          object (*to_object_func)(char*),
+                          i32 (*to_dtype_func)(char*, object) except 0,
                           u2 dtype_is_object):
 
     let _memoryviewslice result
@@ -1060,7 +1060,7 @@ fn void slice_copy(memoryview memview, {{memviewslice_name}} *dst) noexcept:
     suboffsets = memview.view.suboffsets
 
     dst.memview = <__pyx_memoryview *> memview
-    dst.data = <char *> memview.view.buf
+    dst.data = <char*> memview.view.buf
 
     for dim in 0..memview.view.ndim:
         dst.shape[dim] = shape[dim]
@@ -1079,8 +1079,8 @@ fn memoryview_copy_from_slice(memoryview memview, {{memviewslice_name}} *memview
     """
     Create a new memoryview object from a given memoryview object and slice.
     """
-    let object (*to_object_func)(char *)
-    let i32 (*to_dtype_func)(char *, object) except 0
+    let object (*to_object_func)(char*)
+    let i32 (*to_dtype_func)(char*, object) except 0
 
     if isinstance(memview, _memoryviewslice):
         to_object_func = (<_memoryviewslice> memview).to_object_func
@@ -1211,7 +1211,7 @@ fn void* copy_data_to_temp({{memviewslice_name}} *src,
         _err_no_memory()
 
     # tmpslice[0] = src
-    tmpslice.data = <char *> result
+    tmpslice.data = <char*> result
     tmpslice.memview = src.memview
     for i in 0..ndim:
         tmpslice.shape[i] = src.shape[i]
@@ -1239,11 +1239,11 @@ fn i32 _err_extents(i32 i, isize extent1,
     raise ValueError, f"got differing extents in dimension {i} (got {extent1} and {extent2})"
 
 @cname('__pyx_memoryview_err_dim')
-fn i32 _err_dim(PyObject *error, str msg, i32 dim) except -1 with gil:
+fn i32 _err_dim(PyObject* error, str msg, i32 dim) except -1 with gil:
     raise <object>error, msg % dim
 
 @cname('__pyx_memoryview_err')
-fn i32 _err(PyObject *error, str msg) except -1 with gil:
+fn i32 _err(PyObject* error, str msg) except -1 with gil:
     raise <object>error, msg
 
 @cname('__pyx_memoryview_err_no_memory')
