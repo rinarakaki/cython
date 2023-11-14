@@ -212,10 +212,10 @@ def test_specializations():
     f = test_specialize
     assert f(1.1, somedouble_p, otherdouble_p, someint_p) == 10.6
 
-    f = <object (*)(f64, f64 *, f64 *, i32 *)> test_specialize
+    f = <(object*)(f64, f64*, f64*, i32*)> test_specialize
     assert f(1.1, somedouble_p, otherdouble_p, someint_p) == 10.6
 
-    assert (<object (*)(f64, f64 *, f64 *, i32 *)>
+    assert (<(object*)(f64, f64*, f64*, i32*)>
             test_specialize)(1.1, somedouble_p, otherdouble_p, someint_p) == 10.6
 
     f = test_specialize[f64, i32]
