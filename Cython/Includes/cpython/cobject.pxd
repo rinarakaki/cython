@@ -11,13 +11,13 @@ extern from "Python.h":
     fn i32 PyCObject_Check(object p)
     #     Return true if its argument is a PyCObject.
 
-    fn object PyCObject_FromVoidPtr(void* cobj, void (*destr)(void *))
+    fn object PyCObject_FromVoidPtr(void* cobj, (void*)(void*) destr)
     #     Return value: New reference.
     #
     #     Create a PyCObject from the void * cobj. The destr function will
     #     be called when the object is reclaimed, unless it is NULL.
 
-    fn object PyCObject_FromVoidPtrAndDesc(void* cobj, void* desc, void (*destr)(void *, void *))
+    fn object PyCObject_FromVoidPtrAndDesc(void* cobj, void* desc, (void*)(void*, void*) destr)
     #     Return value: New reference.
     #
     #     Create a PyCObject from the void * cobj. The destr function will

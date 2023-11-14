@@ -4,37 +4,37 @@ cimport cpython.type
 extern from "Python.h":
     struct PyObject  # forward declaration
 
-    ctypedef object (*newfunc)(cpython.type.type, PyObject*, PyObject*)  # (type, args|NULL, kwargs|NULL)
+    ctypedef (object*)(cpython.type.type, PyObject*, PyObject*) newfunc  # (type, args|NULL, kwargs|NULL)
 
-    ctypedef object (*unaryfunc)(object)
-    ctypedef object (*binaryfunc)(object, object)
-    ctypedef object (*ternaryfunc)(object, object, object)
+    ctypedef (object*)(object) unaryfunc
+    ctypedef (object*)(object, object)  binaryfunc
+    ctypedef (object*)(object, object, object) ternaryfunc
     ctypedef i32 (*inquiry)(object) except -1
     ctypedef isize (*lenfunc)(object) except -1
-    ctypedef object (*ssizeargfunc)(object, isize)
-    ctypedef object (*ssizessizeargfunc)(object, isize, isize)
+    ctypedef (object*)(object, isize) ssizeargfunc
+    ctypedef (object*)(object, isize, isize) ssizessizeargfunc
     ctypedef i32 (*ssizeobjargproc)(object, isize, object) except -1
     ctypedef i32 (*ssizessizeobjargproc)(object, isize, isize, object) except -1
     ctypedef i32 (*objobjargproc)(object, object, object) except -1
     ctypedef i32 (*objobjproc)(object, object) except -1
 
     ctypedef Py_hash_t (*hashfunc)(object) except -1
-    ctypedef object (*reprfunc)(object)
+    ctypedef (object*)(object) reprfunc
 
     ctypedef i32 (*cmpfunc)(object, object) except -2
-    ctypedef object (*richcmpfunc)(object, object, i32)
+    ctypedef (object*)(object, object, i32) richcmpfunc
 
     # The following functions use 'PyObject*' as first argument instead of 'object' to prevent
     # accidental reference counting when calling them during a garbage collection run.
-    ctypedef void (*destructor)(PyObject*)
+    ctypedef (void*)(PyObject*) destructor
     ctypedef i32 (*visitproc)(PyObject*, void *) except -1
     ctypedef i32 (*traverseproc)(PyObject*, visitproc, void*) except -1
-    ctypedef void (*freefunc)(void*)
+    ctypedef (void*)(void*) freefunc
 
-    ctypedef object (*descrgetfunc)(object, object, object)
+    ctypedef (object*)(object, object, object) descrgetfunc
     ctypedef i32 (*descrsetfunc)(object, object, object) except -1
 
-    ctypedef object (*PyCFunction)(object, object)
+    ctypedef (object*)(object, object) PyCFunction
 
     struct PyMethodDef:
         const char* ml_name
