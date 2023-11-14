@@ -2813,11 +2813,10 @@ def p_c_simple_base_type(s, nonempty, templates=None):
                 name = None
 
     type_node = Nodes.CSimpleBaseTypeNode(pos,
-        name = name, module_path = module_path,
-        is_builtin = is_builtin,                           
-        is_basic_c_type = is_basic, signed = signed,
-        complex = complex, longness = longness,
-        templates = templates)
+        name = name, module_path = module_path, is_builtin = is_builtin,                           
+        is_basic_c_type = is_basic, signed = signed, longness = longness,
+        complex = complex, templates = templates
+    )
 
     #    declarations here.
     if s.sy == '[':
