@@ -65,6 +65,8 @@ cpdef make_slice_node(pos, start, stop = *, step = *)
 fn p_atom(PyrexScanner s)
 fn p_atom_string(PyrexScanner s)
 fn p_atom_ident_constants(PyrexScanner s, u2 bools_are_pybool = *)
+
+fn dict p_numeric_literal_suffix(PyrexScanner s, pos)
 #[cython::locals(value=unicode)]
 fn p_int_literal(PyrexScanner s)
 fn p_name(PyrexScanner s, name)

@@ -373,6 +373,7 @@ def p_typecast(s):
     base_type = p_c_base_type(s)
     is_memslice = isinstance(base_type, Nodes.MemoryViewSliceTypeNode)
     is_other_unnamed_type = isinstance(base_type, (
+        Nodes.CPtrTypeNode,
         Nodes.TemplatedTypeNode,
         Nodes.CConstOrVolatileTypeNode,
         Nodes.CTupleBaseTypeNode,
@@ -747,11 +748,11 @@ def p_atom(s):
     elif sy == 'FLOAT':
         value = s.systring
         s.next()
-        return ExprNodes.FloatNode(pos, value = value)
+        return ExprNodes.FloatNode(pos, value = value, **p_numeric_literal_suffix(s, pos))
     elif sy == 'IMAG':
         value = s.systring[:-1]
         s.next()
-        return ExprNodes.ImagNode(pos, value = value)
+        return ExprNodes.ImagNode(pos, value = value, **p_numeric_literal_suffix(s, pos))
     elif sy == 'BEGIN_STRING':
         return p_atom_string(s)
     elif sy == 'IDENT':
@@ -762,7 +763,6 @@ def p_atom(s):
         return result
     else:
         s.error("Expected an identifier or literal, found '%s'" % s.sy)
-
 
 def p_atom_string(s):
     pos = s.position()
@@ -779,7 +779,6 @@ def p_atom_string(s):
         return ExprNodes.StringNode(pos, value=bytes_value, unicode_value=unicode_value)
     else:
         s.error("invalid string kind '%s'" % kind)
-
 
 def p_atom_ident_constants(s, bools_are_pybool=False):
     """
@@ -805,38 +804,47 @@ def p_atom_ident_constants(s, bools_are_pybool=False):
         s.next()
     return result
 
+def p_numeric_literal_suffix(s, pos):
+    if s.systring in builtin_type_names:
+        suffix = s.systring
+        s.next()
+        return dict(suffix=suffix)
+    elif s.systring.upper() in ("L", "LL", "U", "UL", "ULL"):
+        value = s.systring.upper()
+        s.next()
+        unsigned = ""
+        longness = ""
+        while len(value) > 0:
+            if value[-1] == "L":
+                longness += "L"
+            else:
+                unsigned += "U"
+            value = value[:-1]
+        # '3L' is ambiguous in Py2 but not in Py3.  '3U' and '3LL' are
+        # illegal in Py2 Python files.  All suffixes are illegal in Py3
+        # Python files.
+        is_c_literal = None
+        if unsigned:
+            is_c_literal = True
+        elif longness:
+            if longness == 'LL' or s.context.language_level >= 3:
+                is_c_literal = True
+        if s.in_python_file:
+            if is_c_literal:
+                error(pos, "illegal integer literal syntax in Python source file")
+            is_c_literal = False
+        return dict(unsigned=unsigned, longness=longness, is_c_literal=is_c_literal)
+    else:
+        return dict()
 
 def p_int_literal(s):
     pos = s.position()
     value = s.systring
     s.next()
-    unsigned = ""
-    longness = ""
-    while value[-1] in u"UuLl":
-        if value[-1] in u"Ll":
-            longness += "L"
-        else:
-            unsigned += "U"
-        value = value[:-1]
-    # '3L' is ambiguous in Py2 but not in Py3.  '3U' and '3LL' are
-    # illegal in Py2 Python files.  All suffixes are illegal in Py3
-    # Python files.
-    is_c_literal = None
-    if unsigned:
-        is_c_literal = True
-    elif longness:
-        if longness == 'LL' or s.context.language_level >= 3:
-            is_c_literal = True
-    if s.in_python_file:
-        if is_c_literal:
-            error(pos, "illegal integer literal syntax in Python source file")
-        is_c_literal = False
     return ExprNodes.IntNode(pos,
-                             is_c_literal = is_c_literal,
-                             value = value,
-                             unsigned = unsigned,
-                             longness = longness)
-
+        value = value,
+        **p_numeric_literal_suffix(s, pos)
+    )
 
 def p_name(s, name):
     pos = s.position()
@@ -2697,10 +2705,42 @@ def p_positional_and_keyword_args(s, end_sy_set, templates = None):
     return positional_args, keyword_args
 
 def p_c_base_type(s, nonempty=False, templates=None):
+    pos = s.position()
+    # Handle const/volatile
+    is_const = is_volatile = 0
+    while s.sy == "const" or s.systring == "volatile":
+        if s.sy == "const":
+            if is_const: error(pos, "Duplicate 'const'")
+            is_const = 1
+            s.next()
+        elif s.systring == 'volatile':
+            if is_volatile: error(pos, "Duplicate 'volatile'")
+            is_volatile = 1
+            s.next()
+
     if s.sy == '(':
-        return p_c_complex_base_type(s, templates = templates)
+        base_type = p_c_complex_base_type(s, templates = templates)
     else:
-        return p_c_simple_base_type(s, nonempty=nonempty, templates=templates)
+        base_type = p_c_simple_base_type(s, nonempty=nonempty, templates=templates)
+    
+    if is_const or is_volatile:
+        if isinstance(base_type, Nodes.MemoryViewSliceTypeNode):
+            # reverse order to avoid having to write "(const int)[:]"
+            base_type.base_type_node = Nodes.CConstOrVolatileTypeNode(pos,
+                base_type=base_type.base_type_node, is_const=is_const, is_volatile=is_volatile)
+        else:
+            base_type = Nodes.CConstOrVolatileTypeNode(pos,
+                base_type=base_type, is_const=is_const, is_volatile=is_volatile)
+    
+    if s.sy in ("*", "**"):
+        # scanner returns "**" as a single token
+        is_ptrptr = s.sy == "**"
+        s.next()
+        if is_ptrptr:
+            base_type = Nodes.CPtrTypeNode(pos, base_type=base_type)
+        base_type = Nodes.CPtrTypeNode(pos, base_type=base_type)
+    
+    return base_type
 
 def p_calling_convention(s):
     if s.sy == 'IDENT' and s.systring in calling_convention_words:
@@ -2745,6 +2785,7 @@ def p_c_complex_base_type(s, templates = None):
 
 
 def p_c_simple_base_type(s, nonempty, templates=None):
+    is_builtin = 0
     is_basic = 0
     signed = 1
     longness = 0
@@ -2752,42 +2793,22 @@ def p_c_simple_base_type(s, nonempty, templates=None):
     module_path = []
     pos = s.position()
 
-    # Handle const/volatile
-    is_const = is_volatile = 0
-    while s.sy in ("const", "IDENT"):
-        if s.sy == "const":
-            if is_const: error(pos, "Duplicate 'const'")
-            is_const = 1
-        elif s.systring == 'volatile':
-            if is_volatile: error(pos, "Duplicate 'volatile'")
-            is_volatile = 1
-        else:
-            break
-        s.next()
-    if is_const or is_volatile:
-        base_type = p_c_base_type(s, nonempty=nonempty, templates=templates)
-        if isinstance(base_type, Nodes.MemoryViewSliceTypeNode):
-            # reverse order to avoid having to write "(const int)[:]"
-            base_type.base_type_node = Nodes.CConstOrVolatileTypeNode(pos,
-                base_type=base_type.base_type_node, is_const=is_const, is_volatile=is_volatile)
-            return base_type
-        return Nodes.CConstOrVolatileTypeNode(pos,
-            base_type=base_type, is_const=is_const, is_volatile=is_volatile)
-
     if s.sy != 'IDENT':
         error(pos, "Expected an identifier, found '%s'" % s.sy)
     if looking_at_base_type(s):
+        is_builtin = 1
         # print "p_c_simple_base_type: looking_at_base_type at", s.position()
-        is_basic = 1
         if s.sy == 'IDENT' and s.systring in builtin_type_names:
             signed, longness = None, None
             name = s.systring
             s.next()
         elif s.sy == 'IDENT' and s.systring in special_basic_c_types:
+            is_basic = 1
             signed, longness = special_basic_c_types[s.systring]
             name = s.systring
             s.next()
         else:
+            is_basic = 1
             signed, longness = p_sign_and_longness(s)
             if s.sy == 'IDENT' and s.systring in basic_c_type_names:
                 name = s.systring
@@ -2795,6 +2816,7 @@ def p_c_simple_base_type(s, nonempty, templates=None):
             else:
                 name = 'int'  # long [int], short [int], long [int] complex, etc.
         if s.sy == 'IDENT' and s.systring == 'complex':
+            is_basic = 1
             complex = 1
             s.next()
     elif looking_at_dotted_name(s):
@@ -2826,10 +2848,10 @@ def p_c_simple_base_type(s, nonempty, templates=None):
                 name = None
 
     type_node = Nodes.CSimpleBaseTypeNode(pos,
-        name = name, module_path = module_path,
-        is_basic_c_type = is_basic, signed = signed,
-        complex = complex, longness = longness,
-        templates = templates)
+        name = name, module_path = module_path, is_builtin = is_builtin,                           
+        is_basic_c_type = is_basic, signed = signed, longness = longness,
+        complex = complex, templates = templates
+    )
 
     #    declarations here.
     if s.sy == '[':
@@ -3123,10 +3145,16 @@ def p_c_simple_declarator(s, ctx, empty, is_type, cmethod_flag,
                           assignable, nonempty):
     pos = s.position()
     calling_convention = p_calling_convention(s)
-    if s.sy in ('*', '**'):
-        # scanner returns '**' as a single token
-        is_ptrptr = s.sy == '**'
-        s.next()
+    if s.sy in ("*", "**", "const"):
+        if s.sy == "*":
+            is_ptrptr = 0
+            s.next()
+        elif s.sy == "**":
+            # scanner returns '**' as a single token
+            is_ptrptr = 1
+            s.next()
+        else:
+            is_ptrptr = 0
 
         const_pos = s.position()
         is_const = s.sy == "const"
@@ -3474,7 +3502,8 @@ def p_c_enum_definition(s, pos, ctx):
             pos,
             name="int",
             module_path = [],
-            is_basic_c_type = True,
+            is_builtin = 1,
+            is_basic_c_type = 1,
             signed = 1,
             complex = 0,
             longness = 0

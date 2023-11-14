@@ -13,7 +13,7 @@ extern from "Python.h":
         i32 ob_refcnt
         PyTypeObject *ob_type
 #        i32 ob_size            # not in Py3k
-        u32 *ob_digit
+        u32* ob_digit
 
 def test(temp = long(0)):
     let _longobject *l

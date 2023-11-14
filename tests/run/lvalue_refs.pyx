@@ -6,8 +6,8 @@ __doc__ = u"""
    >>> test_lvalue_ref_assignment()
 """
 
-ctypedef double*  dp
-ctypedef double** dpp
+type dp = f64* 
+type dpp = f64**
 
 fn void foo(vector[dpp] &bar, vector[vector[dp]] &baz) nogil:
     bar[0] = &baz[0][0]
@@ -15,7 +15,7 @@ fn void foo(vector[dpp] &bar, vector[vector[dp]] &baz) nogil:
 def test_lvalue_ref_assignment():
     let vector[dpp]        bar
     let vector[vector[dp]] baz
-    let vector[double]     data = [0.0]
+    let vector[f64]        data = [0.0]
     let dp                 bongle = &data[0]
 
     bar.resize(1)
@@ -37,7 +37,7 @@ def test_assign_to_basic_ref():
     >>> test_assign_to_basic_ref()
     123
     """
-    let i32 x=0
+    let i32 x = 0
     assign_to_basic_reference(x)
     print x
 

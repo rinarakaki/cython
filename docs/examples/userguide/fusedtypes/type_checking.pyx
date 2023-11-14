@@ -23,6 +23,6 @@ fn cython.integral myfunc(cython.integral i, bunch_of_types s):
         print("s is a string!")
     return i * 2
 
-myfunc(<i32>5, b'm')  # will print "i is an int" and "s is a string"
-myfunc(<i64>5, 3)    # will print "i is a long"
-myfunc(<i16>5, 3)   # will print "i is a short"
+myfunc(5i32, b'm')  # will print "i is an int" and "s is a string"
+myfunc(5i64, 3)    # will print "i is a long"
+myfunc(5i16, 3)   # will print "i is a short"

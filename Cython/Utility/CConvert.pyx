@@ -5,8 +5,8 @@ extern from *:
         char* tp_name
     fn PyTypeObject *Py_TYPE(obj)
     fn u2 PyMapping_Check(obj)
-    fn object PyErr_Format(exc, const char *format, ...)
-    fn i32 __Pyx_RaiseUnexpectedTypeError(const char *expected, object obj) except 0
+    fn object PyErr_Format(exc, const char* format, ...)
+    fn i32 __Pyx_RaiseUnexpectedTypeError(const char* expected, object obj) except 0
 
 @cname("{{funcname}}")
 fn {{struct_type}} {{funcname}}(obj) except *:
@@ -31,8 +31,8 @@ extern from *:
         char* tp_name
     fn PyTypeObject *Py_TYPE(obj)
     fn u2 PyMapping_Check(obj)
-    fn object PyErr_Format(exc, const char *format, ...)
-    fn i32 __Pyx_RaiseUnexpectedTypeError(const char *expected, object obj) except 0
+    fn object PyErr_Format(exc, const char* format, ...)
+    fn i32 __Pyx_RaiseUnexpectedTypeError(const char* expected, object obj) except 0
 
 @cname("{{funcname}}")
 fn {{struct_type}} {{funcname}}(obj) except *:
@@ -73,7 +73,7 @@ fn object {{cname}}({{return_type.ctype}} (*f)({{ ', '.join(arg.type_cname for a
 #################### carray.from_py ####################
 
 extern from *:
-    fn object PyErr_Format(exc, const char *format, ...)
+    fn object PyErr_Format(exc, const char* format, ...)
 
 @cname("{{cname}}")
 fn i32 {{cname}}(object o, {{base_type}} *v, isize length) except -1:
