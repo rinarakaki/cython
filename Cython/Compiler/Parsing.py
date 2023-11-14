@@ -783,6 +783,7 @@ def p_atom(s):
         s.error("Expected an identifier or literal, found '%s'" % s.sy)
 
 def p_numeric_literal_suffix(s):
+    pos = s.position()
     if s.systring in builtin_type_names:
         base_type = Nodes.CSimpleBaseTypeNode(pos,
             name = s.systring, module_path = [], is_builtin = 1, templates = None
