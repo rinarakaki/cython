@@ -4,4 +4,4 @@
 extern from *:
     cdef cppclass Foo[T]:
         pass
-    ctypedef Foo[int] IntFoo
+    type IntFoo = Foo[i32]
