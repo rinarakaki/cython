@@ -12,7 +12,7 @@ fn void f(i32 x) nogil:
     y = 42
 
 fn void h(object x) nogil:
-    let void* p = <void*>None
+    let auto p = <void*>None
     g2(x)
     g2(<object>p)
     p = <void *>x
