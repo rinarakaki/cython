@@ -106,7 +106,7 @@ cdef class InheritsFromNotADataclass(NotADataclass):
 struct S:
     i32 a
 
-ctypedef S* S_ptr
+type S_ptr = S*
 
 fn S_ptr malloc_a_struct():
     return <S_ptr>malloc(sizeof(S))

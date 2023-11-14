@@ -731,7 +731,7 @@ def test_dispatch_non_clashing_declarations_repeating_types(np.ndarray[cython.fl
     """
     print a1[1], a2[2], a3[3], a4[4]
 
-ctypedef np.int32_t typedeffed_type
+type typedeffed_type = np::int32_t
 
 cdef fused typedeffed_fused_type:
     typedeffed_type

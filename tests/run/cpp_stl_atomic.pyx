@@ -25,7 +25,7 @@ def int_test(i32 x):
     finally:
         del atom
 
-ctypedef atomic[int32_t] atomint32_t
+type atomint32_t = atomic[int32_t]
 
 def typedef_test(i32 x):
     """
