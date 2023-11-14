@@ -647,8 +647,11 @@ class CArrayDeclaratorNode(CDeclaratorNode):
             error(self.pos, "Array element cannot be a Python object")
         if base_type.is_cfunction:
             error(self.pos, "Array element cannot be a function")
-        array_type = PyrexTypes.c_array_type(base_type, size)
-        return self.base.analyse(array_type, env, nonempty=nonempty, visibility=visibility, in_pxd=in_pxd)
+        type = PyrexTypes.c_array_type(base_type, size)
+        if self.base is not None:
+            return self.base.analyse(type, env, nonempty=nonempty, visibility=visibility, in_pxd=in_pxd)
+        else:
+            return self, type
 
 
 class CFuncDeclaratorNode(CDeclaratorNode):
