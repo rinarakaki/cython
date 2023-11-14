@@ -11408,8 +11408,11 @@ class SizeofTypeNode(SizeofNode):
                 return node
         if self.arg_type is None:
             base_type = self.base_type.analyse(env)
-            _, arg_type = self.declarator.analyse(base_type, env)
-            self.arg_type = arg_type
+            if self.declarator is not None:
+                _, type = self.declarator.analyse(base_type, env)
+            else:
+                type = base_type
+            self.arg_type = type
         self.check_type()
         return self
 
