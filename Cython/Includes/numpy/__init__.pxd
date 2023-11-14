@@ -394,17 +394,17 @@ extern from "numpy/arrayobject.h":
     fn npy_intp PyArray_DIM(ndarray, usize) nogil
     fn npy_intp PyArray_STRIDE(ndarray, usize) nogil
 
-    fn PyObject *PyArray_BASE(ndarray) nogil  # returns borrowed reference!
-    fn PyArray_Descr *PyArray_DESCR(ndarray) nogil  # returns borrowed reference to dtype!
-    fn PyArray_Descr *PyArray_DTYPE(ndarray) nogil  # returns borrowed reference to dtype! NP 1.7+ alias for descr.
+    fn PyObject* PyArray_BASE(ndarray) nogil  # returns borrowed reference!
+    fn PyArray_Descr* PyArray_DESCR(ndarray) nogil  # returns borrowed reference to dtype!
+    fn PyArray_Descr* PyArray_DTYPE(ndarray) nogil  # returns borrowed reference to dtype! NP 1.7+ alias for descr.
     fn i32 PyArray_FLAGS(ndarray) nogil
     fn void PyArray_CLEARFLAGS(ndarray, i32 flags) nogil  # Added in NumPy 1.7
     fn void PyArray_ENABLEFLAGS(ndarray, i32 flags) nogil  # Added in NumPy 1.7
     fn npy_intp PyArray_ITEMSIZE(ndarray) nogil
     fn i32 PyArray_TYPE(ndarray arr) nogil
 
-    fn object PyArray_GETITEM(ndarray arr, void *itemptr)
-    fn i32 PyArray_SETITEM(ndarray arr, void *itemptr, object obj)
+    fn object PyArray_GETITEM(ndarray arr, void* itemptr)
+    fn i32 PyArray_SETITEM(ndarray arr, void* itemptr, object obj)
 
     fn u2 PyTypeNum_ISBOOL(i32) nogil
     fn u2 PyTypeNum_ISUNSIGNED(i32) nogil
@@ -750,12 +750,12 @@ type float64_t = npy_float64
 # type float80_t = npy_float80
 # type float128_t = npy_float128
 
-ctypedef c64 complex64_t
-ctypedef c128 complex128_t
+type complex64_t = c64
+type complex128_t = c128
 
-ctypedef npy_longlong   longlong_t
+type longlong_t = npy_longlong  
 
-ctypedef npy_ulonglong  ulonglong_t
+type ulonglong_t = npy_ulonglong 
 
 type intp_t = npy_intp
 type uintp_t = npy_uintp
@@ -865,16 +865,16 @@ extern from "numpy/ufuncobject.h":
         cdef:
             i32 nin, nout, nargs
             i32 identity
-            PyUFuncGenericFunction *functions
-            void **data
+            PyUFuncGenericFunction* functions
+            void** data
             i32 ntypes
             i32 check_return
-            char *name
-            char *types
-            char *doc
-            void *ptr
-            PyObject *obj
-            PyObject *userloops
+            char* name
+            char* types
+            char* doc
+            void* ptr
+            PyObject* obj
+            PyObject* userloops
 
     cdef enum:
         PyUFunc_Zero

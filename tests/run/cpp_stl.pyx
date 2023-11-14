@@ -35,7 +35,7 @@ def test_vector(L):
         print v.at(i)
     del v
 
-ctypedef i32 my_int
+type my_int = i32
 def test_vector_typedef(L):
     """
     >>> test_vector_typedef([1, 2, 3])

@@ -121,7 +121,7 @@ def test_ptr_literal_list_slice_all():
     >>> test_ptr_literal_list_slice_all()
     (1, 2, 3, 4, 5)
     """
-    let i32 *a = [6, 5, 4, 3, 2]
+    let i32* a = [6, 5, 4, 3, 2]
     a[:] = [1, 2, 3, 4, 5]
     return (a[0], a[1], a[2], a[3], a[4])
 
@@ -130,7 +130,7 @@ def test_ptr_literal_list_slice_start():
     >>> test_ptr_literal_list_slice_start()
     (1, 2, 3, 4, 5)
     """
-    let i32 *a = [6, 5, 4, 3, 2, 1]
+    let i32* a = [6, 5, 4, 3, 2, 1]
     a[1:] = [1, 2, 3, 4, 5]
     return (a[1], a[2], a[3], a[4], a[5])
 
@@ -139,7 +139,7 @@ def test_ptr_literal_list_slice_end():
     >>> test_ptr_literal_list_slice_end()
     (1, 2, 3, 4, 5)
     """
-    let i32 *a = [6, 5, 4, 3, 2, 1]
+    let i32* a = [6, 5, 4, 3, 2, 1]
     a[:5] = [1, 2, 3, 4, 5]
     return (a[0], a[1], a[2], a[3], a[4])
 
@@ -215,7 +215,7 @@ def test_multiple_from_slice():
     >>> test_multiple_from_slice()
     (5, 4, 3)
     """
-    let i32 *a = [6, 5, 4, 3, 2, 1]
+    let i32* a = [6, 5, 4, 3, 2, 1]
     x, y, z = a[1:4]
     return x, y, z
 
@@ -225,7 +225,7 @@ def test_slice_from_multiple():
     >>> test_slice_from_multiple()
     (6, -1, -2, -3, 2, 1)
     """
-    let i32 *a = [6, 5, 4, 3, 2, 1]
+    let i32* a = [6, 5, 4, 3, 2, 1]
     a[1:4] = -1, -2, -3
     return a[0], a[1], a[2], a[3], a[4], a[5]
 
@@ -253,7 +253,7 @@ def assign_all_from_pointer():
     >>> assign_all_from_pointer()
     (1, 2, 3, 4, 5)
     """
-    let i32 *v = [1, 2, 3, 4, 5]
+    let i32* v = [1, 2, 3, 4, 5]
     let i32[5] a
     a = v
     return (a[0], a[1], a[2], a[3], a[4])
@@ -264,7 +264,7 @@ def assign_full_from_pointer():
     >>> assign_full_from_pointer()
     (1, 2, 3, 4, 5)
     """
-    let i32 *v = [1, 2, 3, 4, 5]
+    let i32* v = [1, 2, 3, 4, 5]
     let i32[5] a
     a[:] = v
     return (a[0], a[1], a[2], a[3], a[4])
@@ -275,7 +275,7 @@ def assign_slice_end_from_pointer():
     >>> assign_slice_end_from_pointer()
     (1, 2, 3, 4, 123)
     """
-    let i32 *v = [1, 2, 3, 4, 5]
+    let i32* v = [1, 2, 3, 4, 5]
     let i32[5] a
     a[4] = 123
     a[:4] = v
@@ -287,7 +287,7 @@ def assign_slice_start_from_pointer():
     >>> assign_slice_start_from_pointer()
     (123, 234, 1, 2, 3)
     """
-    let i32 *v = [1, 2, 3, 4, 5]
+    let i32* v = [1, 2, 3, 4, 5]
     let i32[5] a
     a[0] = 123
     a[1] = 234
@@ -300,7 +300,7 @@ def assign_slice_start_end_from_pointer():
     >>> assign_slice_start_end_from_pointer()
     (123, 234, 1, 2, 345)
     """
-    let i32 *v = [1, 2, 3, 4, 5]
+    let i32* v = [1, 2, 3, 4, 5]
     let i32[5] a
     a[0] = 123
     a[1] = 234
@@ -316,7 +316,7 @@ def assign_slice_start_end_from_sliced_pointer():
     >>> assign_slice_start_end_from_sliced_pointer()
     (123, 234, 3, 4, 345)
     """
-    let i32 *v = [1, 2, 3, 4, 5]
+    let i32* v = [1, 2, 3, 4, 5]
     let i32[5] a
     a[0] = 123
     a[1] = 234
@@ -367,7 +367,7 @@ def assign_slice_from_shorter_array():
 cdef enum:
     Size = 2
 
-ctypedef i32[Size] int_array_dyn
+type int_array_dyn = i32[Size]
 
 
 def assign_ptr_to_unknown_csize():

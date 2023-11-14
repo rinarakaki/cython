@@ -2,7 +2,7 @@
 
 def f():
     let i32 int2
-    let char *ptr1, *ptr2, *ptr3
+    let char* ptr1, ptr2, ptr3
     ptr1 = int2 - ptr3  # error
     ptr1 = ptr2 - ptr3  # error
 

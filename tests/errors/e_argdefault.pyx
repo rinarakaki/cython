@@ -1,6 +1,6 @@
 # mode: error
 
-fn spam(i32 i, char *s = "blarg", f32 f):  # can't have default value
+fn spam(i32 i, char* s = "blarg", f32 f):  # can't have default value
     pass
 
 def swallow(x, y = 42, z): # non-default after default

@@ -5300,7 +5300,7 @@ def widest_cpp_type(type1, type2):
         return None
 
 
-def simple_c_type(signed, longness, name):
+def builtin_type(name, signed=None, longness=None):
     # Find type descriptor for simple type given name and modifiers.
     # Returns None if arguments don't make sense.
     return modifiers_and_name_to_type.get((signed, longness, name))
@@ -5316,7 +5316,7 @@ def parse_basic_type(name):
     if base:
         return CPtrType(base)
     #
-    basic_type = simple_c_type(None, None, name) or simple_c_type(1, 0, name)
+    basic_type = builtin_type(name) or builtin_type(name, 1, 0)
     if basic_type:
         return basic_type
     #
@@ -5351,7 +5351,7 @@ def parse_basic_type(name):
             longness += 1
         if longness != 0 and not name:
             name = 'int'
-    return simple_c_type(signed, longness, name)
+    return builtin_type(name, signed, longness)
 
 
 def _construct_type_from_base(cls, base_type, *args):

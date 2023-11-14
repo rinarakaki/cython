@@ -1145,7 +1145,7 @@ def check_object_nulled_1d(object[:] buf, i32 idx, obj):
     True
     """
     let ObjectMockBuffer omb = buf.base
-    let PyObject **data = <PyObject**>(omb.buffer)
+    let auto data = <PyObject**>(omb.buffer)
     Py_CLEAR(data[idx])
     res = buf[idx]  # takes None
     buf[idx] = obj
@@ -1165,7 +1165,7 @@ def check_object_nulled_2d(object[:, :;1] buf, i32 idx1, i32 idx2, obj):
     True
     """
     let ObjectMockBuffer omb = buf.base
-    let PyObject **data = <PyObject**>(omb.buffer)
+    let auto data = <PyObject**>(omb.buffer)
     Py_CLEAR(data[idx1 + 2*idx2])
     res = buf[idx1, idx2]  # takes None
     buf[idx1, idx2] = obj
@@ -1587,7 +1587,7 @@ cdef class TestIndexSlicingDirectIndirectDims(object):
 
         self.format = b"i"
 
-    def __getbuffer__(self, Py_buffer *info, i32 flags):
+    def __getbuffer__(self, Py_buffer* info, i32 flags):
         info.buf = <void *> self.myarray
         info.len = 5 * 5 * 5
         info.ndim = 3

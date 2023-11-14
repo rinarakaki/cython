@@ -4,7 +4,7 @@ struct Grail
 
 cdef extern object xobj # Python object cannot be extern
 cdef object aobj[42]    # array element cannot be Python object
-cdef object *pobj       # pointer base type cannot be Python object
+cdef object* pobj       # pointer base type cannot be Python object
 
 cdef i32 spam[] # incomplete variable type
 cdef Grail g     # incomplete variable type
@@ -28,7 +28,7 @@ ptr = None             # This should not produce another error
 _ERRORS = u"""
 5:19: Python object cannot be declared extern
 6:16: Array element cannot be a Python object
-7:12: Pointer base type cannot be a Python object
+7:5: Pointer base type cannot be a Python object
 9:13: Variable type 'int []' is incomplete
 10:11: Variable type 'Grail' is incomplete
 11:10: Variable type 'void' is incomplete
