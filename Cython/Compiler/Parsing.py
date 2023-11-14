@@ -2761,9 +2761,9 @@ def p_c_simple_base_type(s, nonempty, templates=None):
     if s.sy != 'IDENT':
         error(pos, "Expected an identifier, found '%s'" % s.sy)
     if looking_at_base_type(s):
+        is_builtin = 1
         # print "p_c_simple_base_type: looking_at_base_type at", s.position()
         if s.sy == 'IDENT' and s.systring in builtin_type_names:
-            is_builtin = 1
             signed, longness = None, None
             name = s.systring
             s.next()
