@@ -1,7 +1,7 @@
-'''
+"""
 PYTHON -m Cython.Build.Cythonize -i pkg -j1
 PYTHON package_test.py
-'''
+"""
 
 ######## package_test.py ########
 
@@ -22,6 +22,7 @@ TEST = 'pkg.test'
 ######## pkg/sub/__init__.py ########
 
 ######## pkg/sub/test.py ########
+
 # cython: language_level=3
 
 TEST = 'pkg.sub.test'
