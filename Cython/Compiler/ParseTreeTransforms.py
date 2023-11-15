@@ -2608,21 +2608,8 @@ if VALUE is not None:
         return node
 
     def visit_LetStatNode(self, node):
-        stats = [node]
-        newdecls = []
-        for decl in node.declarators:
-            declbase = decl
-            while isinstance(declbase, Nodes.CPtrDeclaratorNode):
-                declbase = declbase.base
-            if isinstance(declbase, Nodes.CNameDeclaratorNode):
-                if node.base_type is not None and declbase.default is not None:
-                    stats.append(Nodes.SingleAssignmentNode(node.pos,
-                        lhs=ExprNodes.NameNode(node.pos, name=declbase.name),
-                        rhs=declbase.default, first=1))
-                    declbase.default = None
-            newdecls.append(decl)
-        node.declarators = newdecls
-        return stats
+        # to ensure all CNameDeclaratorNodes are visited.
+        self.visitchildren(node)
 
     def visit_CVarDefNode(self, node):
         # to ensure all CNameDeclaratorNodes are visited.
