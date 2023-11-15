@@ -10,11 +10,11 @@ public:
             bytes[i] = 0;
     }
     Integral(const Integral &I) {
-      for (uint32_t i = 0; i < N; i++)
-        bytes[i] = I.bytes[i];
+        for (uint32_t i = 0; i < N; i++)
+            bytes[i] = I.bytes[i];
     }
     Integral(long long value) {
-      resize_signed_int((uint8_t*)&value, sizeof(value), bytes, N);
+        resize_signed_int((uint8_t*)&value, sizeof(value), bytes, N);
     }
 
     operator long long() const {

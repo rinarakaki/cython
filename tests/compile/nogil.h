@@ -1,8 +1,8 @@
 extern DL_EXPORT(void) e1(void);
 extern DL_EXPORT(int32_t*) e2(void);
 
-void e1(void) {return;}
-int32_t* e2(void) {return 0;}
+void e1(void) { return; }
+int32_t* e2(void) { return 0; }
 
 extern DL_EXPORT(PyObject *) g(PyObject*);
 extern DL_EXPORT(void) g2(PyObject*);

@@ -21,7 +21,7 @@ class Foo {
 public:
     int32_t bar(int32_t fire) {
         if (fire) {
-        throw 1;
+            throw 1;
         }
         return 0;
     }
