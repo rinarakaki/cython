@@ -6,7 +6,6 @@ PYTHON -c "from toppkg.subpkg import a; assert a.MODULE == 'subpkg.a'"
 
 ######## setup.py ########
 
-
 from Cython.Build import cythonize
 from distutils.core import setup
 
