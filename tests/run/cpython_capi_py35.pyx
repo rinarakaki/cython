@@ -21,13 +21,13 @@ def test_pycalloc():
     >>> test_pycalloc()
     3
     """
-    let auto s = <i16*> mem.PyMem_Calloc(10, sizeof(i16))
+    let auto s = <i16*>mem::PyMem_Calloc(10, sizeof(i16))
     if not s:
         raise MemoryError()
     try:
         return _assert_calloc(s, 10)
     finally:
-        mem.PyMem_Free(s)
+        mem::PyMem_Free(s)
 
 def test_pymalloc_raw():
     """
@@ -36,28 +36,28 @@ def test_pymalloc_raw():
     """
     let i16 i
     let i16* s
-    let char* m
-    let char* m2 = NULL
+    let i8* m
+    let i8* m2 = NULL
     with nogil:
-        s = <i16*>i16mem.PyMem_RawCalloc(10, sizeof(i16))
+        s = <i16*>mem::PyMem_RawCalloc(10, sizeof(i16))
         if not s:
             raise MemoryError()
         try:
             i = _assert_calloc(s, 10)
         finally:
-            mem.PyMem_RawFree(s)
-        m = <char*>mem.PyMem_RawMalloc(20)
+            mem::PyMem_RawFree(s)
+        m = <i8*>mem::PyMem_RawMalloc(20)
         if not m:
             raise MemoryError()
         try:
             m[0] = 1
             m[1] = 2
             m[2] = i
-            m2 = <char*>mem.PyMem_RawRealloc(m, 10)
+            m2 = <i8*>mem::PyMem_RawRealloc(m, 10)
             if m2:
                 m = m2
             retval = m[2]
         finally:
-            mem.PyMem_RawFree(m)
+            mem::PyMem_RawFree(m)
     assert m2
     return retval

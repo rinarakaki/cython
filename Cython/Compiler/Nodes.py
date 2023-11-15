@@ -1253,7 +1253,7 @@ class TemplatedTypeNode(CBaseTypeNode):
     #  After parsing:
     #  positional_args  [ExprNode]        List of positional arguments
     #  keyword_args     DictNode          Keyword arguments
-    #  base_type   CBaseTypeNode
+    #  base_type        CBaseTypeNode
 
     #  After analysis:
     #  type             PyrexTypes.BufferType or PyrexTypes.CppClassType  ...containing the right options
