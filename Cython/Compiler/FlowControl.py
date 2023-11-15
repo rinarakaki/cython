@@ -830,6 +830,15 @@ class ControlFlowAnalysis(CythonTransform):
 
     def visit_AssignmentNode(self, node):
         raise InternalError("Unhandled assignment node %s" % type(node))
+    
+    def visit_CVarDefNode(self, node):
+        for declarator in node.declarators:
+            if declarator.default is not None:
+                lhs = ExprNodes.NameNode(node.pos, name=declarator.name)
+                rhs = declarator.default
+                self._visit(rhs)
+                self.mark_assignment(lhs, rhs)
+        return node
 
     def visit_SingleAssignmentNode(self, node):
         self._visit(node.rhs)
