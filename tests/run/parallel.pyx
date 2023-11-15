@@ -15,8 +15,8 @@ def test_parallel():
     """
     >>> test_parallel()
     """
-    let i32 maxthreads = openmp.omp_get_max_threads()
-    let auto buf = <i32*>malloc(sizeof(i32) * maxthreads)
+    let auto max_threads = openmp::omp_get_max_threads()
+    let auto buf = <i32*>malloc(sizeof(i32) * max_threads)
 
     if buf == NULL:
         raise MemoryError
@@ -27,7 +27,7 @@ def test_parallel():
         # See https://github.com/cython/cython/issues/3594
         buf[forward(cython.parallel.threadid())] = forward(threadid())
 
-    for i in 0..maxthreads:
+    for i in 0..max_threads:
         assert buf[i] == i
 
     free(buf)
@@ -117,17 +117,17 @@ def test_parallel_call_exception_checked_function():
     """
     test_parallel_call_exception_checked_function()
     """
-    let i32 maxthreads = openmp.omp_get_max_threads()
-    let auto buf = <i32*>malloc(sizeof(i32) * maxthreads)
+    let auto max_threads = openmp::omp_get_max_threads()
+    let auto buf = <i32*>malloc(sizeof(i32) * max_threads)
 
     if buf == NULL:
         raise MemoryError
 
     try:
         # Note we *don't* release the GIL here
-        parallel_call_exception_checked_function_impl(buf, maxthreads)
+        parallel_call_exception_checked_function_impl(buf, max_threads)
 
-        for i in 0..maxthreads:
+        for i in 0..max_threads:
             assert buf[i] == i
     finally:
         free(buf)
