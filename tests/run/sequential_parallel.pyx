@@ -263,7 +263,7 @@ def test_nan_init():
     let f64 g = 10.0
     let f128 h = 10.0
 
-    let auto p = <void*> 10
+    let auto p = <void*>10
 
     with nogil, cython.parallel.parallel():
         # First, trick the error checking to make it believe these variables
@@ -281,7 +281,7 @@ def test_nan_init():
             d1 == 10 or d2 == 10 or
             e1 == 10 or e2 == 10 or
             f == 10.0 or g == 10.0 or h == 10.0 or
-            p == <void *> 10 or miss1 == 10 or miss2 == 10
+            p == <void*>10 or miss1 == 10 or miss2 == 10
             or typedef1 == 10):
             errp[0] = 1
 
@@ -302,7 +302,7 @@ def test_nan_init():
             d1 == 10 or d2 == 10 or
             e1 == 10 or e2 == 10 or
             f == 10.0 or g == 10.0 or h == 10.0 or
-            p == <void *> 10 or miss1 == 10 or miss2 == 10
+            p == <void*>10 or miss1 == 10 or miss2 == 10
             or typedef1 == 10):
             errp[0] = 1
 
@@ -397,7 +397,7 @@ def test_nested_break_continue():
 
     print i, j, result1, result2
 
-    with nogil, cython.parallel.parallel(num_threads=2):
+    with nogil, cython::parallel::parallel(num_threads=2):
         for i in prange(10, schedule='static'):
             if i == 8:
                 break
@@ -836,7 +836,7 @@ def test_prange_call_exception_checked_function():
     """
 
     let i32 N = 10000
-    let auto buf = <i32*>malloc(sizeof(i32)*N)
+    let auto buf = <i32*>malloc(sizeof(i32) * N)
     if buf == NULL:
         raise MemoryError
     try:
