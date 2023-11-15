@@ -407,12 +407,12 @@ class NameReference(object):
 class ControlFlowState(list):
     # Keeps track of Node's entry assignments
     #
-    # cf_is_null        [boolean] It is uninitialized
+    # uninitialised     [boolean] It is uninitialized
     # cf_maybe_null     [boolean] May be uninitialized
     # is_single         [boolean] Has only one assignment at this point
 
     cf_maybe_null = False
-    cf_is_null = False
+    uninitialised = False
     is_single = False
 
     def __init__(self, state):
@@ -420,7 +420,7 @@ class ControlFlowState(list):
             state.discard(Uninitialized)
             self.cf_maybe_null = True
             if not state:
-                self.cf_is_null = True
+                self.uninitialised = True
         elif Unknown in state:
             state.discard(Unknown)
             self.cf_maybe_null = True
@@ -576,13 +576,13 @@ def check_definitions(flow, compiler_directives):
         if Uninitialized in node.cf_state:
             node.cf_maybe_null = True
             if len(node.cf_state) == 1:
-                node.cf_is_null = True
+                node.uninitialised = True
             else:
-                node.cf_is_null = False
+                node.uninitialised = False
         elif Unknown in node.cf_state:
             node.cf_maybe_null = True
         else:
-            node.cf_is_null = False
+            node.uninitialised = False
             node.cf_maybe_null = False
 
     # Find uninitialized references and cf-hints
@@ -591,11 +591,11 @@ def check_definitions(flow, compiler_directives):
             node.cf_maybe_null = True
             if (not entry.from_closure and len(node.cf_state) == 1
                     and entry.name not in entry.scope.scope_predefined_names):
-                node.cf_is_null = True
+                node.uninitialised = True
             if (node.allow_null or entry.from_closure
                     or entry.is_pyclass_attr or entry.type.is_error):
                 pass  # Can be uninitialized here
-            elif node.cf_is_null and not entry.in_closure:
+            elif node.uninitialised and not entry.in_closure:
                 if entry.error_on_uninitialized or (
                         Options.error_on_uninitialized and (
                         entry.type.is_pyobject or entry.type.is_unspecified)):
@@ -622,7 +622,7 @@ def check_definitions(flow, compiler_directives):
             #       inner function, etc.
             node.cf_maybe_null = True
         else:
-            node.cf_is_null = False
+            node.uninitialised = False
             node.cf_maybe_null = False
 
     # Unused result
@@ -673,7 +673,7 @@ class AssignmentCollector(TreeVisitor):
     def visit_CVarDefNode(self, node):
         for declarator in node.declarators:
             if declarator.default is not None:
-                lhs = ExprNodes.NameNode(node.pos, name=declarator.name)
+                lhs = ExprNodes.NameNode(node.pos, name=declarator.name, uninitialised=0)
                 rhs = declarator.default
                 self.assignments.append((lhs, rhs))
 
@@ -834,7 +834,7 @@ class ControlFlowAnalysis(CythonTransform):
     def visit_CVarDefNode(self, node):
         for declarator in node.declarators:
             if declarator.default is not None:
-                lhs = ExprNodes.NameNode(node.pos, name=declarator.name)
+                lhs = ExprNodes.NameNode(node.pos, name=declarator.name, uninitialised=0)
                 rhs = declarator.default
                 self._visit(rhs)
                 self.mark_assignment(lhs, rhs)
