@@ -432,7 +432,8 @@ def acquire_release_cycle(obj):
 
     gc.collect()
 
-cdef packed struct StructArray:
+#[repr(packed)]
+struct StructArray:
     i32 a[4]
     signed char b[5]
 

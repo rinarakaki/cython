@@ -1880,7 +1880,8 @@ struct ArrayStruct:
     i32 ints[10]
     char chars[3]
 
-cdef packed struct PackedArrayStruct:
+#[repr(packed)]
+struct PackedArrayStruct:
     i32 ints[10]
     char chars[3]
 

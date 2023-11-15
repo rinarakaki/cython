@@ -57,7 +57,8 @@ doubleview[0] = 6.0
 
 ######## types.pxi ########
 
-ctypedef packed struct Baz:
+#[repr(packed)]
+struct Baz:
     f64 d
 
 struct Bar:

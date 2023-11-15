@@ -7,7 +7,8 @@ CUSTOM_DTYPE = np.dtype([
 
 a = np.zeros(100, dtype=CUSTOM_DTYPE)
 
-cdef packed struct custom_dtype_struct:
+#[repr(packed)]
+struct custom_dtype_struct:
     # The struct needs to be packed since by default numpy dtypes aren't
     # aligned
     u8 x

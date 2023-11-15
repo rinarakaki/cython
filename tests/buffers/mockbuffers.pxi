@@ -269,7 +269,8 @@ struct NestedStruct:
     SmallStruct y
     i32 z
 
-cdef packed struct PackedStruct:
+#[repr(packed)]
+struct PackedStruct:
     signed char a
     i32 b
 
