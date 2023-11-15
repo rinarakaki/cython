@@ -380,6 +380,9 @@ def p_typecast(s):
     if not (is_memslice or is_other_unnamed_type) and base_type.name is None:
         s.error("Unknown type")
     declarator = p_c_declarator(s, empty = 1)
+    if declarator is not None:
+        print("!!!!! p_typecast !!!!!")
+        print(declarator)
     if s.sy == '?':
         s.next()
         typecheck = 1
