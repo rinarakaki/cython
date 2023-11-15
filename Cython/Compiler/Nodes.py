@@ -1512,7 +1512,8 @@ class LetStatNode(StatNode):
         # from . import ExprNodes
 
         for declarator in self.declarators:
-            self.default = declarator.default.analyse_types(env)
+            if declarator.default is not None:
+                declarator.default = declarator.default.analyse_types(env)
 
             # unrolled_assignment = self.unroll_rhs(env)
             # if unrolled_assignment:
