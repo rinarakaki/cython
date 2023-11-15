@@ -2589,10 +2589,7 @@ def p_statement_list(s, ctx, first_statement = 0):
         stat = p_statement(s, ctx, first_statement = first_statement)
         if isinstance(stat, Nodes.PassStatNode):
             continue
-        if isinstance(stat, list):
-            stats.extend(stat)
-        else:
-            stats.append(stat)
+        stats.append(stat)
         first_statement = False
     if not stats:
         return Nodes.PassStatNode(pos)
