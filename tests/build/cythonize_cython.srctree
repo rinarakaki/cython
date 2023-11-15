@@ -23,7 +23,6 @@ for test_case in ["notcython.pyx", "my_module/cython.pyx", "cythontest/helper.py
 
 ######## cython_tests.py ########
 
-
 from Cython.Compiler.Main import main as cython
 import sys
 
@@ -45,7 +44,6 @@ for test_case in ["notcython.pyx", "my_module/cython.pyx", "cythontest/helper.py
         assert False, "ValueError raised - cython "+test_case+" should work"
     else:
         pass
-
 
 ######## cython.pyx ########
 ######## my_module/__init__.py ########
