@@ -164,7 +164,7 @@ def call():
     global global_mv
     passmvs(global_mv, global_obj)
     global_mv = array((3, 3), itemsize=sizeof(f32), format='f')
-    let f32[:;1] getmvs = returnmvs()
+    let auto getmvs = returnmvs()
     returnmvs()
     let object obj = returnobj()
     cdg()
