@@ -83,7 +83,7 @@ class MarkParallelAssignments(EnvTransform):
         self.visitchildren(node)
         return node
 
-    def visit_CVarDefNode(self, node):
+    def visit_LetStatNode(self, node):
         for declarator in node.declarators:
             if declarator.default is not None:
                 lhs = ExprNodes.NameNode(node.pos, name=declarator.name)
