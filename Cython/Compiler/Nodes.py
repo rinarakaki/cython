@@ -1474,8 +1474,6 @@ class LetStatNode(StatNode):
     child_attrs = ["base_type", "declarators"]
 
     def analyse_declarations(self, env, dest_scope=None):
-        if self.directive_locals is None:
-            self.directive_locals = {}
         if not dest_scope:
             dest_scope = env
         self.dest_scope = dest_scope
@@ -1508,8 +1506,6 @@ class LetStatNode(StatNode):
                 error(declarator.pos, "C++ references cannot be declared; use a pointer instead")
             if type.is_rvalue_reference:
                 error(declarator.pos, "C++ rvalue-references cannot be declared")
-            if self.directive_locals:
-                error(self.pos, "Decorators can only be followed by functions")
             self.entry = dest_scope.declare_var(name, type, declarator.pos, cname=cname, is_cdef=True)
 
 
