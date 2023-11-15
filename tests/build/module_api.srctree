@@ -131,9 +131,9 @@ extern from "inita.h":
      pass
 extern from "a.h":
      fn void inita() except *
-     ctypedef f32 flt
-     i32 int2, int4
-     flt flt2, flt4
+     type flt = f32
+     static i32 int2, int4
+     static flt flt2, flt4
 
 inita()
 
