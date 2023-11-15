@@ -1471,11 +1471,7 @@ class LetStatNode(StatNode):
     #  base_type     CBaseTypeNode
     #  declarators   [CDeclaratorNode]
 
-    #  directive_locals { string : NameNode } locals defined by cython.locals(...)
-
     child_attrs = ["base_type", "declarators"]
-
-    directive_locals = None
 
     def analyse_declarations(self, env, dest_scope=None):
         if self.directive_locals is None:
