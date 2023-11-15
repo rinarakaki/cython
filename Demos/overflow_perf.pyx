@@ -171,7 +171,7 @@ def most_orthogonal_overflow_fold(C_INT[:, :;1] vectors):
     let C_INT n = vectors.shape[0]
     let C_INT* a
     let C_INT* b
-    let f64 min_dot = 2 # actual max is 1
+    let f64 min_dot = 2  # actual max is 1
     for i in 0..n:
         for j in 0..i:
             a = &vectors[i, 0]

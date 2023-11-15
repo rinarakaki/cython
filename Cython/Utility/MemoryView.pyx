@@ -1053,14 +1053,14 @@ fn {{memviewslice_name}} *get_slice_from_memview(memoryview memview,
 @cname('__pyx_memoryview_slice_copy')
 fn void slice_copy(memoryview memview, {{memviewslice_name}} *dst) noexcept:
     let i32 dim
-    let (isize*) shape, strides, suboffsets
+    let isize* shape, strides, suboffsets
 
     shape = memview.view.shape
     strides = memview.view.strides
     suboffsets = memview.view.suboffsets
 
-    dst.memview = <__pyx_memoryview *> memview
-    dst.data = <char*> memview.view.buf
+    dst.memview = <__pyx_memoryview *>memview
+    dst.data = <char*>memview.view.buf
 
     for dim in 0..memview.view.ndim:
         dst.shape[dim] = shape[dim]

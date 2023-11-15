@@ -94,7 +94,7 @@ cdef class MockBuffer:
         let auto buf = <char*>stdlib.malloc(n)
         if buf == NULL:
             raise MemoryError
-        let char* it = buf
+        let auto it = buf
         for value in data:
             self.write(it, value)
             it += self.itemsize
