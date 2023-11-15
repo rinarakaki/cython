@@ -1432,7 +1432,7 @@ class IntNode(ConstNode):
         return suitable_type
 
     def coerce_to(self, dst_type, env):
-        if self.type is dst_type:
+        if self.type is not None and (dst_type is None or self.type is dst_type):
             return self
         elif dst_type.is_float:
             if self.has_constant_result():
