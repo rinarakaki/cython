@@ -34,7 +34,7 @@ def test():
 #ifndef B_H
 #define B_H
 
-int bar();
+int32_t bar();
 
 #endif
 
@@ -42,4 +42,4 @@ int bar();
 
 #include "a.h"
 
-int bar() { return foo(); }
+int32_t bar() { return foo(); }

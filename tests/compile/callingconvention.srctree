@@ -15,6 +15,7 @@ setup(
 )
 
 ######## callingconvention.pyx ########
+
 # mode: compile
 
 extern from "callingconvention.h":
@@ -35,7 +36,6 @@ p2 = f2
 p3 = f3
 p4 = f4
 
-
 ######## callingconvention.h ########
 
 #define DLL_EXPORT
@@ -53,25 +53,25 @@ p4 = f4
 #ifdef __cplusplus
 extern "C" {
 #endif
-extern DL_IMPORT(int) f1(void);
-extern DL_IMPORT(int) __cdecl f2(void);
-extern DL_IMPORT(int) __stdcall f3(void);
-extern DL_IMPORT(int) __fastcall f4(void);
-extern DL_IMPORT(int) (*p1)(void);
-extern DL_IMPORT(int) (__cdecl *p2)(void);
-extern DL_IMPORT(int) (__stdcall *p3)(void);
-extern DL_IMPORT(int) (__fastcall *p4)(void);
+extern DL_IMPORT(int32_t) f1(void);
+extern DL_IMPORT(int32_t) __cdecl f2(void);
+extern DL_IMPORT(int32_t) __stdcall f3(void);
+extern DL_IMPORT(int32_t) __fastcall f4(void);
+extern DL_IMPORT(int32_t) (*p1)(void);
+extern DL_IMPORT(int32_t) (__cdecl *p2)(void);
+extern DL_IMPORT(int32_t) (__stdcall *p3)(void);
+extern DL_IMPORT(int32_t) (__fastcall *p4)(void);
 #ifdef __cplusplus
 }
 #endif
 
 ######## external_callingconvention.c ########
+
 #include <Python.h>
 
 #ifndef DL_EXPORT
     #define DL_EXPORT(t) t
 #endif
-
 
 #if !defined(WIN32) && !defined(MS_WINDOWS)
     #ifndef __stdcall
@@ -85,11 +85,11 @@ extern DL_IMPORT(int) (__fastcall *p4)(void);
     #endif
 #endif
 
-DL_EXPORT(int) f1(void) {return 0;}
-DL_EXPORT(int) __cdecl f2(void) {return 0;}
-DL_EXPORT(int) __stdcall f3(void) {return 0;}
-DL_EXPORT(int) __fastcall f4(void) {return 0;}
-DL_EXPORT(int) (*p1)(void);
-DL_EXPORT(int) (__cdecl *p2)(void);
-DL_EXPORT(int) (__stdcall *p3)(void);
-DL_EXPORT(int) (__fastcall *p4)(void);
+DL_EXPORT(int32_t) f1(void) { return 0; }
+DL_EXPORT(int32_t) __cdecl f2(void) { return 0; }
+DL_EXPORT(int32_t) __stdcall f3(void) { return 0; }
+DL_EXPORT(int32_t) __fastcall f4(void) { return 0; }
+DL_EXPORT(int32_t) (*p1)(void);
+DL_EXPORT(int32_t) (__cdecl *p2)(void);
+DL_EXPORT(int32_t) (__stdcall *p3)(void);
+DL_EXPORT(int32_t) (__fastcall *p4)(void);

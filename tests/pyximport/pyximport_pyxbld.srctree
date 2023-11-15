@@ -27,11 +27,11 @@ def make_ext(modname, pyxfilename):
 ######## mymodule.pyx ########
 
 extern from "myheader.h":
-    int test_value
+    static i32 test_value
 
 header_value = test_value
 test_string = "TEST"
 
 ######## headers/myheader.h ########
 
-static int test_value = 5;
+static int32_t test_value = 5;

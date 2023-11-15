@@ -12,7 +12,7 @@ import sys
 sys.path.append(realpath('site-packages'))
 
 setup(
-  ext_modules = cythonize("*.pyx"),
+    ext_modules = cythonize("*.pyx"),
 )
 
 ######## site-packages/b/__init__.py ########
@@ -20,11 +20,11 @@ setup(
 ######## site-packages/b/other.pxd ########
 
 extern from "foo.c":
-    int foo(int)
+    fn i32 foo(i32)
 
 ######## site-packages/b/foo.c ########
 
-static int foo(int a)
+static int32_t foo(int32_t a)
 {
     return a * a;
 }

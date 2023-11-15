@@ -18,19 +18,19 @@ fn i32 bar() except *
 
 extern from "bar_impl.c":
     struct mystruct:
-        int (*func_ptr)(int param) nogil
+        fn i32 (*func_ptr)(i32 param) nogil
 
 ######## foo.pyx ########
 
 extern from "bar_impl.c":
-    int bar() except *
+    fn i32 bar() except *
 
 ######## bar_impl.c ########
 
-static int bar() { return -1; }
+static int32_t bar() { return -1; }
 
 typedef struct mystruct {
-  int (*func_ptr)(int param);
+    int32_t (*func_ptr)(int32_t param);
 } mystruct_t;
 
 ######## a.pyx ########

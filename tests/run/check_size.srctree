@@ -68,7 +68,7 @@ extern "C" {
 
 typedef struct {
     PyObject_HEAD
-    int f9;
+    int32_t f9;
 } FooStructSmall;
 
 #ifdef __cplusplus

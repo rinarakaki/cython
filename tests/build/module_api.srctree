@@ -101,26 +101,26 @@ flt1 = flt2 = flt3 = 5
 
 void inita(void)
 {
-   PyObject *sys_modules = NULL;
-   PyObject *mod = NULL;
-   sys_modules = PyImport_GetModuleDict();
-   if (!sys_modules) return;
-   mod = PyInit_a();
-   if (!mod) return;
+    PyObject *sys_modules = NULL;
+    PyObject *mod = NULL;
+    sys_modules = PyImport_GetModuleDict();
+    if (!sys_modules) return;
+    mod = PyInit_a();
+    if (!mod) return;
 #if !CYTHON_COMPILING_IN_PYPY || PYPY_VERSION_NUM >= 0x07030800
-   /* FIXME: this is incomplete and users shouldn't have to do this in the first place... */
-   if (!PyModule_Check(mod)) {
-      /* In PEP 489 multi-phase init, PyInit_a returns PyModuleDef */
-      PyModuleDef *mdef = (PyModuleDef*)mod;
-      PyObject *modname = PyUnicode_FromString("a");
-      if (!modname) return;
-      mod = PyModule_NewObject(modname);
-      Py_DECREF(modname);
-      if (!mod) return;
-      PyModule_ExecDef(mod, mdef);
-   }
+    /* FIXME: this is incomplete and users shouldn't have to do this in the first place... */
+    if (!PyModule_Check(mod)) {
+        /* In PEP 489 multi-phase init, PyInit_a returns PyModuleDef */
+        PyModuleDef *mdef = (PyModuleDef*)mod;
+        PyObject *modname = PyUnicode_FromString("a");
+        if (!modname) return;
+        mod = PyModule_NewObject(modname);
+        Py_DECREF(modname);
+        if (!mod) return;
+        PyModule_ExecDef(mod, mdef);
+    }
 #endif
-   PyDict_SetItemString(sys_modules, (char*)"a", mod);
+    PyDict_SetItemString(sys_modules, (char*)"a", mod);
 }
 
 ######## d.pyx ########
@@ -131,9 +131,9 @@ extern from "inita.h":
      pass
 extern from "a.h":
      fn void inita() except *
-     ctypedef f32 flt
-     i32 int2, int4
-     flt flt2, flt4
+     static f32 flt
+     static i32 int2, int4
+     static flt flt2, flt4
 
 inita()
 

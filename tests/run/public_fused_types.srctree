@@ -62,8 +62,8 @@ cpdef public_cpdef(cython.integral x, cython.floating y, object_t z)
 
 ######## header.h ########
 
-typedef int extern_int;
-typedef long extern_long;
+typedef int32_t extern_int;
+typedef int64_t extern_long;
 
 ######## a.pyx ########
 

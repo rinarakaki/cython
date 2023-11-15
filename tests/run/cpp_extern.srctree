@@ -88,7 +88,7 @@ size_t size_vector2() {
 
 ######## include_from_c_and_cpp.pyx ########
 
-pub i8 get_char():
+pub fn i8 get_char():
     return 42
 
 extern from "include_from_c_and_cpp_header.h":
@@ -101,14 +101,14 @@ def test():
 
 ######## include_from_c_and_cpp_header.h ########
 
-int get_int1();
-int get_int2();
+int32_t get_int1();
+int32_t get_int2();
 
 ######## include_from_c.c ########
 
 #include "include_from_c_and_cpp.h"
 
-int get_int1() { return (int)get_char(); }
+int32_t get_int1() { return (int32_t)get_char(); }
 
 ######## include_from_cpp.cpp ########
 
@@ -116,13 +116,13 @@ extern "C" {
 #include "include_from_c_and_cpp.h"
 }
 
-extern "C" int get_int2() { return (int)get_char(); }
+extern "C" int32_t get_int2() { return (int32_t)get_char(); }
 
 ######## cdefines.pyx ########
 
 # distutils: language = c++
 
-pub i8 get_char():
+pub fn i8 get_char():
     return 42
 
 extern from "cdefines_header.h":
@@ -141,8 +141,8 @@ def test():
   #define cdefines_EXTERN_C
 #endif
 
-cdefines_EXTERN_C int get_int1();
-int get_int2();
+cdefines_EXTERN_C int32_t get_int1();
+int32_t get_int2();
 
 ######## cdefines_clean.c ########
 
@@ -150,13 +150,13 @@ int get_int2();
 #define CYTHON_EXTERN_C
 #include "cdefines.h"
 
-int get_int1() { return (int)get_char(); }
+int32_t get_int1() { return (int32_t)get_char(); }
 
 ######## cdefines_plain.cpp ########
 
 #include "cdefines.h"
 
-int get_int2() { return (int)get_char(); }
+int32_t get_int2() { return (int32_t)get_char(); }
 
 ######## cdefines.py ##########
 

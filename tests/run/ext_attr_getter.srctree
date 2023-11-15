@@ -63,10 +63,10 @@ extern "C" {
 
 typedef struct {
     PyObject_HEAD
-    int f0;
-    int f1;
-    int f2;
-    int v[10];
+    int32_t f0;
+    int32_t f1;
+    int32_t f2;
+    int32_t v[10];
 } FooStructNominal;
 
 typedef struct {
@@ -78,22 +78,22 @@ typedef struct {
 #define PyFoo_GET1M(a) (((FooStructNominal*)a)->f1)
 #define PyFoo_GET2M(a) (((FooStructNominal*)a)->f2)
 
-int PyFoo_Get0F(FooStructOpaque *f)
+int32_t PyFoo_Get0F(FooStructOpaque *f)
 {
     return PyFoo_GET0M(f);
 }
 
-int PyFoo_Get1F(FooStructOpaque *f)
+int32_t PyFoo_Get1F(FooStructOpaque *f)
 {
     return PyFoo_GET1M(f);
 }
 
-int PyFoo_Get2F(FooStructOpaque *f)
+int32_t PyFoo_Get2F(FooStructOpaque *f)
 {
     return PyFoo_GET2M(f);
 }
 
-int *PyFoo_GetV(FooStructOpaque *f)
+int32_t *PyFoo_GetV(FooStructOpaque *f)
 {
     return ((FooStructNominal*)f)->v;
 }

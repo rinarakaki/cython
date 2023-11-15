@@ -100,15 +100,15 @@ extern DL_IMPORT(int) a(int[][3], int[][3][5]);
 
 DL_EXPORT(char) *cp;
 DL_EXPORT(char) *cpa[5];
-DL_EXPORT(int) (*ifnpa[5])(void);
+DL_EXPORT(int32_t) (*ifnpa[5])(void);
 DL_EXPORT(char) *(*cpfnpa[5])(void);
-DL_EXPORT(int) (*ifnp)(void);
-DL_EXPORT(int) (*iap)[5];
+DL_EXPORT(int32_t) (*ifnp)(void);
+DL_EXPORT(int32_t) (*iap)[5];
 
-DL_EXPORT(int) ifn(void) {return 0;}
-DL_EXPORT(char) *cpfn(void) {return 0;}
-DL_EXPORT(int) fnargfn(int f(void)) {return 0;}
+DL_EXPORT(int32_t) ifn(void) { return 0; }
+DL_EXPORT(char) *cpfn(void) { return 0; }
+DL_EXPORT(int32_t) fnargfn(int32_t f(void)) { return 0; }
 
-DL_EXPORT(int) ia[1];
-DL_EXPORT(int) iaa[1][3];
-DL_EXPORT(int) a(int a[][3], int b[][3][5]) {return 0;}
+DL_EXPORT(int32_t) ia[1];
+DL_EXPORT(int32_t) iaa[1][3];
+DL_EXPORT(int32_t) a(int32_t a[][3], int32_t b[][3][5]) { return 0; }

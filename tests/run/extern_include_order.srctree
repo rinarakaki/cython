@@ -40,7 +40,7 @@ fn my_int use_square(x):
 
 ######## a_early.h ########
 
-typedef int my_int;
+typedef int32_t my_int;
 
 ######## a_late.h ########
 
