@@ -1465,6 +1465,58 @@ class CConstOrVolatileTypeNode(CBaseTypeNode):
         return PyrexTypes.c_const_or_volatile_type(base, self.is_const, self.is_volatile)
 
 
+class LetStatNode(StatNode):
+    #  Local variable binding.
+    #
+    #  base_type     CBaseTypeNode
+    #  declarators   [CDeclaratorNode]
+
+    #  directive_locals { string : NameNode } locals defined by cython.locals(...)
+
+    child_attrs = ["base_type", "declarators"]
+
+    directive_locals = None
+
+    def analyse_declarations(self, env, dest_scope=None):
+        if self.directive_locals is None:
+            self.directive_locals = {}
+        if not dest_scope:
+            dest_scope = env
+        self.dest_scope = dest_scope
+
+        base_type = None
+        if self.base_type is not None:
+            base_type = self.base_type.analyse(env)
+
+        self.entry = None
+
+        for declarator in self.declarators:
+            if (len(self.declarators) > 1
+                    and not isinstance(declarator, CNameDeclaratorNode)
+                    and env.directives['warn.multiple_declarators']):
+                warning(
+                    declarator.pos,
+                    "Non-trivial type declarators in shared declaration (e.g. mix of pointers and values). "
+                    "Each pointer declaration should be on its own line.", 1)
+
+            name_declarator, type = declarator.analyse(base_type, env)
+            if not type.is_complete():
+                if not type.is_memoryviewslice:
+                    error(declarator.pos, "Variable type '%s' is incomplete" % type)
+            name = name_declarator.name
+            cname = name_declarator.cname
+            if name == "":
+                error(declarator.pos, "Missing name in declaration.")
+                return
+            if type.is_reference:
+                error(declarator.pos, "C++ references cannot be declared; use a pointer instead")
+            if type.is_rvalue_reference:
+                error(declarator.pos, "C++ rvalue-references cannot be declared")
+            if self.directive_locals:
+                error(self.pos, "Decorators can only be followed by functions")
+            self.entry = dest_scope.declare_var(name, type, declarator.pos, cname=cname, is_cdef=True)
+
+
 class CVarDefNode(StatNode):
     #  C variable definition or forward/extern function declaration.
     #

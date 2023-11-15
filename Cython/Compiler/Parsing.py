@@ -3659,16 +3659,7 @@ def p_let_statement(s, pos, ctx):
         declarator = p_c_declarator(s, ctx, assignable = 1, nonempty = 1)
         declarators.append(declarator)
     s.expect_newline("Syntax error in C variable declaration", ignore_semicolon=True)
-    return Nodes.CVarDefNode(pos,
-        visibility = ctx.visibility,
-        base_type = base_type,
-        declarators = declarators,
-        in_pxd = ctx.level in ("module_pxd", "c_class_pxd"),
-        doc = None,
-        api = ctx.api,
-        modifiers = [],
-        overridable = ctx.overridable,
-    )
+    return Nodes.LetStatNode(pos, base_type = base_type, declarators = declarators)
 
 def p_c_modifiers(s):
     if s.sy == 'IDENT' and s.systring in ('inline',):
