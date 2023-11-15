@@ -2,7 +2,7 @@ struct Tomato {
 	PyObject_HEAD
 };
 
-struct Bicycle{
+struct Bicycle {
 	PyObject_HEAD
 };
 

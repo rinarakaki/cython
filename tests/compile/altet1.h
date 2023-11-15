@@ -1,2 +1,2 @@
-typedef int blarg;
+typedef int32_t blarg;
 

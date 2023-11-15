@@ -1,15 +1,13 @@
 #define UN_OP(op) const char* operator op () { return "unary "#op; }
-#define POST_UN_OP(op) const char* operator op (int x) { x++; return "post "#op; }
-#define BIN_OP(op) const char* operator op (int x) { x++; return "binary "#op; }
-#define NONMEMBER_BIN_OP(op) const char* operator op (int x, const TestOps&) { x++; return "nonmember binary "#op; }
+#define POST_UN_OP(op) const char* operator op (int32_t x) { x++; return "post "#op; }
+#define BIN_OP(op) const char* operator op (int32_t x) { x++; return "binary "#op; }
+#define NONMEMBER_BIN_OP(op) const char* operator op (int32_t x, const TestOps&) { x++; return "nonmember binary "#op; }
 #define NONMEMBER_BIN_OP2(op) const char* operator op (double x, const TestOps&) { x++; return "nonmember binary2 "#op; }
 
 #define COMMA ,
 
 class TestOps {
-
 public:
-
     UN_OP(-);
     UN_OP(+);
     UN_OP(*);
@@ -79,15 +77,14 @@ NONMEMBER_BIN_OP2(COMMA)
 
 /* RefTestOps */
 
-#define REF_UN_OP(op) int& operator op () { return value; }
-#define REF_POST_UN_OP(op) int& operator op (int x) { x++; return value; }
-#define REF_BIN_OP(op) int& operator op (int x) { x++; return value; }
+#define REF_UN_OP(op) int32_t& operator op () { return value; }
+#define REF_POST_UN_OP(op) int32_t& operator op (int32_t x) { x++; return value; }
+#define REF_BIN_OP(op) int32_t& operator op (int32_t x) { x++; return value; }
 
 class RefTestOps {
-    int value;
+    int32_t value;
 
 public:
-
     RefTestOps() { value = 0; }
 
     REF_UN_OP(-);
@@ -127,14 +124,13 @@ public:
     REF_BIN_OP(());
 };
 
-
 /* TruthClass */
 
 class TruthClass {
 public:
-  TruthClass() : value(false) {}
-  TruthClass(bool value) : value(value) {}
-  virtual ~TruthClass() {};
-  operator bool() { return value; }
-  bool value;
+    TruthClass() : value(false) {}
+    TruthClass(bool value) : value(value) {}
+    virtual ~TruthClass() {};
+    operator bool() { return value; }
+    bool value;
 };

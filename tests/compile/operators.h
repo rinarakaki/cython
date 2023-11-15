@@ -4,9 +4,9 @@
 class Operators
 {
 public:
-    int value;
+    int32_t value;
     Operators() { }
-    Operators(int value) { this->value = value; }
+    Operators(int32_t value) { this->value = value; }
     virtual ~Operators() { }
     Operators operator+(Operators f) { return Operators(this->value + f.value); }
     Operators operator-(Operators f) { return Operators(this->value - f.value); }
@@ -18,9 +18,9 @@ public:
     bool operator!=(Operators f) { return this->value != f.value; }
     bool operator>(Operators f) { return this->value > f.value; }
     bool operator>=(Operators f) { return this->value >= f.value; }
-    Operators operator>>(int v) { return Operators(this->value >> v); }
-    Operators operator<<(int v) { return Operators(this->value << v); }
-    Operators operator%(int v) { return Operators(this->value % v); }
+    Operators operator>>(int32_t v) { return Operators(this->value >> v); }
+    Operators operator<<(int32_t v) { return Operators(this->value << v); }
+    Operators operator%(int32_t v) { return Operators(this->value % v); }
 };
 
 #endif

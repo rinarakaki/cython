@@ -9,9 +9,9 @@
 typedef struct {
     __pyx_CoroutineObject coro;
     PyObject *ag_finalizer;
-    int ag_hooks_inited;
-    int ag_closed;
-    int ag_running_async;
+    int32_t ag_hooks_inited;
+    int32_t ag_closed;
+    int32_t ag_running_async;
 } __pyx_PyAsyncGenObject;
 
 static PyTypeObject *__pyx__PyAsyncGenWrappedValueType = 0;
@@ -47,7 +47,7 @@ static __pyx_CoroutineObject *__Pyx_AsyncGen_New(
     return __Pyx__Coroutine_NewInit((__pyx_CoroutineObject*)gen, body, code, closure, name, qualname, module_name);
 }
 
-static int __pyx_AsyncGen_init(PyObject *module);
+static int32_t __pyx_AsyncGen_init(PyObject *module);
 static void __Pyx_PyAsyncGen_Fini(void);
 
 //////////////////// AsyncGenerator.cleanup ////////////////////
@@ -128,16 +128,16 @@ typedef struct {
 // __anext__ call.
 
 static __pyx__PyAsyncGenWrappedValue *__Pyx_ag_value_freelist[_PyAsyncGen_MAXFREELIST];
-static int __Pyx_ag_value_freelist_free = 0;
+static int32_t __Pyx_ag_value_freelist_free = 0;
 
 static __pyx_PyAsyncGenASend *__Pyx_ag_asend_freelist[_PyAsyncGen_MAXFREELIST];
-static int __Pyx_ag_asend_freelist_free = 0;
+static int32_t __Pyx_ag_asend_freelist_free = 0;
 
 #define __pyx__PyAsyncGenWrappedValue_CheckExact(o) \
                     __Pyx_IS_TYPE(o, __pyx__PyAsyncGenWrappedValueType)
 
 
-static int
+static int32_t
 __Pyx_async_gen_traverse(__pyx_PyAsyncGenObject *gen, visitproc visit, void *arg)
 {
     Py_VISIT(gen->ag_finalizer);
@@ -154,7 +154,7 @@ __Pyx_async_gen_repr(__pyx_CoroutineObject *o)
 }
 
 
-static int
+static int32_t
 __Pyx_async_gen_init_hooks(__pyx_PyAsyncGenObject *o)
 {
 #if !CYTHON_COMPILING_IN_PYPY
@@ -430,10 +430,10 @@ static PyTypeObject __pyx_AsyncGenType_type = {
 #endif  /* CYTHON_USE_TYPE_SPECS */
 
 
-static int
+static int32_t
 __Pyx_PyAsyncGen_ClearFreeLists(void)
 {
-    int ret = __Pyx_ag_value_freelist_free + __Pyx_ag_asend_freelist_free;
+    int32_t ret = __Pyx_ag_value_freelist_free + __Pyx_ag_asend_freelist_free;
 
     while (__Pyx_ag_value_freelist_free) {
         __pyx__PyAsyncGenWrappedValue *o;
@@ -504,7 +504,7 @@ __Pyx_async_gen_asend_dealloc(__pyx_PyAsyncGenASend *o)
     }
 }
 
-static int
+static int32_t
 __Pyx_async_gen_asend_traverse(__pyx_PyAsyncGenASend *o, visitproc visit, void *arg)
 {
     Py_VISIT(o->ags_gen);
@@ -743,7 +743,7 @@ __Pyx_async_gen_wrapped_val_dealloc(__pyx__PyAsyncGenWrappedValue *o)
 }
 
 
-static int
+static int32_t
 __Pyx_async_gen_wrapped_val_traverse(__pyx__PyAsyncGenWrappedValue *o,
                                      visitproc visit, void *arg)
 {
@@ -873,7 +873,7 @@ __Pyx_async_gen_athrow_dealloc(__pyx_PyAsyncGenAThrow *o)
 }
 
 
-static int
+static int32_t
 __Pyx_async_gen_athrow_traverse(__pyx_PyAsyncGenAThrow *o, visitproc visit, void *arg)
 {
     Py_VISIT(o->agt_gen);
@@ -1191,7 +1191,7 @@ __Pyx_async_gen_athrow_new(__pyx_PyAsyncGenObject *gen, PyObject *args)
 
 /* ---------- global type sharing ------------ */
 
-static int __pyx_AsyncGen_init(PyObject *module) {
+static int32_t __pyx_AsyncGen_init(PyObject *module) {
 #if CYTHON_USE_TYPE_SPECS
     __pyx_AsyncGenType = __Pyx_FetchCommonTypeFromSpec(module, &__pyx_AsyncGenType_spec, NULL);
 #else

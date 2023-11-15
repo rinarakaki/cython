@@ -18,10 +18,10 @@ typedef struct {
 } __Pyx_LocalBuf_ND;
 
 /////////////// BufferIndexError.proto ///////////////
-static void __Pyx_RaiseBufferIndexError(int axis); /*proto*/
+static void __Pyx_RaiseBufferIndexError(int32_t axis); /*proto*/
 
 /////////////// BufferIndexError ///////////////
-static void __Pyx_RaiseBufferIndexError(int axis) {
+static void __Pyx_RaiseBufferIndexError(int32_t axis) {
   PyErr_Format(PyExc_IndexError,
      "Out of bounds on buffer access (axis %d)", axis);
 }
@@ -29,10 +29,10 @@ static void __Pyx_RaiseBufferIndexError(int axis) {
 /////////////// BufferIndexErrorNogil.proto ///////////////
 //@requires: BufferIndexError
 
-static void __Pyx_RaiseBufferIndexErrorNogil(int axis); /*proto*/
+static void __Pyx_RaiseBufferIndexErrorNogil(int32_t axis); /*proto*/
 
 /////////////// BufferIndexErrorNogil ///////////////
-static void __Pyx_RaiseBufferIndexErrorNogil(int axis) {
+static void __Pyx_RaiseBufferIndexErrorNogil(int32_t axis) {
     #ifdef WITH_THREAD
     PyGILState_STATE gilstate = PyGILState_Ensure();
     #endif
@@ -64,7 +64,7 @@ typedef struct {
   struct __Pyx_StructField_* fields;
   size_t size;     /* sizeof(type) */
   size_t arraysize[8]; /* length of array in each dimension */
-  int ndim;
+  int32_t ndim;
   char typegroup; /* _R_eal, _C_omplex, Signed _I_nt, _U_nsigned int, _S_truct, _P_ointer, _O_bject, c_H_ar */
   char is_unsigned;
   int flags;

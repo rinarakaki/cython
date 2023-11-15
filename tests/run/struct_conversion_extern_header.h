@@ -1,5 +1,5 @@
 struct my_date_t {
-    int year;
-    int month;
-    int day;
+    int32_t year;
+    int32_t month;
+    int32_t day;
 };

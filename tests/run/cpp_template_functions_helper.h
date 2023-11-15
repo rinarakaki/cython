@@ -15,34 +15,34 @@ std::pair<T, U> two_params(T a, U b) {
 
 template <typename T>
 class A {
-    public:
-        template <typename U>
-        std::pair<T, U> method(T a, U b) {
-            return std::pair<T, U>(a, b);
-        }
-        template <typename U>
-        U part_method(std::pair<T, U> p) {
-            return p.second;
-        }
-        template <typename U>
-        U part_method_ref(const std::pair<T, U>& p) {
-            return p.second;
-        }
+public:
+    template <typename U>
+    std::pair<T, U> method(T a, U b) {
+        return std::pair<T, U>(a, b);
+    }
+    template <typename U>
+    U part_method(std::pair<T, U> p) {
+        return p.second;
+    }
+    template <typename U>
+    U part_method_ref(const std::pair<T, U>& p) {
+        return p.second;
+    }
 
-        int overloaded(double d) {
-            return (int) d;
-        }
-        T overloaded(std::pair<T, T> p) {
-            return p.first;
-        }
-        template <typename U>
-        U overloaded(std::vector<U> v) {
-            return v[0];
-        }
-        template <typename U>
-        U overloaded(char* c, std::vector<U> v) {
-            return v[0];
-        }
+    int overloaded(double d) {
+        return (int32_t)d;
+    }
+    T overloaded(std::pair<T, T> p) {
+        return p.first;
+    }
+    template <typename U>
+    U overloaded(std::vector<U> v) {
+        return v[0];
+    }
+    template <typename U>
+    U overloaded(char* c, std::vector<U> v) {
+        return v[0];
+    }
 };
 
 template <typename T>
@@ -61,6 +61,6 @@ T* pointer_param(T* param) {
 }
 
 class double_pair : public std::pair<double, double> {
-  public:
+public:
     double_pair(double x, double y) : std::pair<double, double>(x, y) { };
 };

@@ -2,9 +2,8 @@
 #define SHAPES_H
 
 namespace shapes {
-
-    int constructor_count = 0;
-    int destructor_count = 0;
+    int32_t constructor_count = 0;
+    int32_t destructor_count = 0;
 
     class Shape
     {
@@ -18,17 +17,17 @@ namespace shapes {
     {
     public:
     	Rectangle() { }
-        Rectangle(int width, int height)
+        Rectangle(int32_t width, int32_t height)
         {
             this->width = width;
             this->height = height;
         }
 
         float area() const { return width * height; }
-        int width;
-        int height;
+        int32_t width;
+        int32_t height;
 
-        int method(int arg) {
+        int32_t method(int32_t arg) {
             return width * height + arg;
         }
 
@@ -37,21 +36,21 @@ namespace shapes {
     class Square : public Rectangle
     {
     public:
-        Square(int side) : Rectangle(side, side) { this->side = side; }
-        int side;
+        Square(int32_t side) : Rectangle(side, side) { this->side = side; }
+        int32_t side;
     };
     
     class Ellipse : public Shape {
     public:
-        Ellipse(int a, int b) { this->a = a; this->b = b; }
+        Ellipse(int32_t a, int32_t b) { this->a = a; this->b = b; }
         float area() const { return 3.1415926535897931f * a * b; }
-        int a, b;
+        int32_t a, b;
     };
     
     class Circle : public Ellipse {
     public:
-        Circle(int radius) : Ellipse(radius, radius) { this->radius = radius; }
-        int radius;
+        Circle(int32_t radius) : Ellipse(radius, radius) { this->radius = radius; }
+        int32_t radius;
     };
 
     class Empty : public Shape {
@@ -63,7 +62,6 @@ namespace shapes {
     public:
         float area() const { return 0; }
     };
-
 }
 
 #endif

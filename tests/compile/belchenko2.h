@@ -1,1 +1,1 @@
-void c_func(unsigned char pixel);
+void c_func(uint8_t pixel);

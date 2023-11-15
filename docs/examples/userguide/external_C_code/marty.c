@@ -3,7 +3,7 @@
 
 Vehicle car;
 
-int main(int argc, char *argv[]) {
+int32_t main(int32_t argc, char *argv[]) {
 	Py_Initialize();
 	import_delorean();
 	car.speed = atoi(argv[1]);

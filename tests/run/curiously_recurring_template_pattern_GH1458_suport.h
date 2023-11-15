@@ -15,7 +15,6 @@ protected:
     T x_;
 };
 
-
 template<typename T>
 class Square : public Base<T, Square<T> > {
 public:
@@ -23,7 +22,6 @@ public:
 
     T calculate() { return this->x_ * this->x_; }
 };
-
 
 template<typename T>
 class Cube : public Base<T, Cube<T> > {

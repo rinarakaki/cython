@@ -1,7 +1,7 @@
 typedef struct {
-    int field1;
-    int field2;
-    int newly_added_field;
+    int32_t field1;
+    int32_t field2;
+    int32_t newly_added_field;
 } StructType;
 
 static StructType global_struct;

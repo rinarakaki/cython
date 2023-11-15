@@ -4,7 +4,6 @@ void voidfunc(void);
 
 double doublefunc (double a, double b, double c);
 
-
 class DoubleKeeper
 {
     double number;

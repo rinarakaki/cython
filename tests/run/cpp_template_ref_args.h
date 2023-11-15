@@ -11,7 +11,7 @@ struct Bar {
 
 template <typename T>
 struct Foo {
-    int bar_value(const Bar<int> & bar) { return bar.value; }
+    int32_t bar_value(const Bar<int32_t> & bar) { return bar.value; }
 };
 
 #endif

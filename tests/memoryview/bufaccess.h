@@ -1,5 +1,5 @@
 /* See bufaccess.pyx */
 
-typedef short td_h_short;
+typedef int16_t td_h_short;
 typedef double td_h_double;
-typedef unsigned short td_h_ushort;
+typedef uint16_t td_h_ushort;

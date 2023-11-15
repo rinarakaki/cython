@@ -2,10 +2,10 @@
 
 class HasIterableAttribute {
 public:
-    std::vector<int> vec;
+    std::vector<int32_t> vec;
     HasIterableAttribute() {
-        for (int i = 1; i<=3; i++)
+        for (int32_t i = 1; i<=3; i++)
             vec.push_back(i);
     }
-    HasIterableAttribute(std::vector<int> vec) : vec(vec) {}
+    HasIterableAttribute(std::vector<int32_t> vec) : vec(vec) {}
 };

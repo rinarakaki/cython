@@ -23,10 +23,10 @@
 // below.  That's defined later because the appropriate get and set
 // functions aren't visible yet.
 typedef struct arraydescr {
-    int typecode;
-    int itemsize;
+    int32_t typecode;
+    int32_t itemsize;
     PyObject * (*getitem)(struct arrayobject *, Py_ssize_t);
-    int (*setitem)(struct arrayobject *, Py_ssize_t, PyObject *);
+    int32_t (*setitem)(struct arrayobject *, Py_ssize_t, PyObject *);
     char *formats;
 } arraydescr;
 
@@ -38,24 +38,24 @@ struct arrayobject {
         char *ob_item;
         float *as_floats;
         double *as_doubles;
-        int *as_ints;
-        unsigned int *as_uints;
-        unsigned char *as_uchars;
+        int32_t *as_ints;
+        uint32_t *as_uints;
+        uint8_t *as_uchars;
         signed char *as_schars;
         char *as_chars;
-        unsigned long *as_ulongs;
-        long *as_longs;
+        uint64_t *as_ulongs;
+        int64_t *as_longs;
         unsigned long long *as_ulonglongs;
         long long *as_longlongs;
-        short *as_shorts;
-        unsigned short *as_ushorts;
+        int16_t *as_shorts;
+        uint16_t *as_ushorts;
         Py_UNICODE *as_pyunicodes;
         void *as_voidptr;
     } data;
     Py_ssize_t allocated;
     struct arraydescr *ob_descr;
     PyObject *weakreflist; /* List of weak references */
-    int ob_exports;  /* Number of exported buffers */
+    int32_t ob_exports;  /* Number of exported buffers */
 };
 
 #ifndef NO_NEWARRAY_INLINE
@@ -116,7 +116,7 @@ static CYTHON_INLINE int resize(arrayobject *self, Py_ssize_t n) {
 }
 
 // suitable for small increments; over allocation 50% ;
-static CYTHON_INLINE int resize_smart(arrayobject *self, Py_ssize_t n) {
+static CYTHON_INLINE int32_t resize_smart(arrayobject *self, Py_ssize_t n) {
     void *items = (void*) self->data.ob_item;
     Py_ssize_t newsize;
     if (n < self->allocated && n*4 > self->allocated) {

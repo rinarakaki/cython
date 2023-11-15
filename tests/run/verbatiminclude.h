@@ -1,6 +1,6 @@
-static long cube(long x)
+static int64_t cube(int64_t x)
 {
     return x * x * x;
 }
 
-#define long broken_long
+#define int64_t broken_long

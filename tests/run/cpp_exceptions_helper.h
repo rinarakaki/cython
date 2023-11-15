@@ -3,14 +3,14 @@
 #include <new>
 #include <stdexcept>
 
-int raise_int(int fire) {
+int32_t raise_int(int32_t fire) {
     if (fire) {
         throw 1;
     }
     return 0;
 }
 
-int raise_index(int fire) {
+int32_t raise_index(int32_t fire) {
     if (fire) {
         throw std::out_of_range("c++ error");
     }
@@ -18,13 +18,13 @@ int raise_index(int fire) {
 }
 
 class Foo {
- public:
-  int bar(int fire) {
-    if (fire) {
-      throw 1;
+public:
+    int32_t bar(int32_t fire) {
+        if (fire) {
+        throw 1;
+        }
+        return 0;
     }
-    return 0;
-  }
 };
 
 void raise_domain_error() {
@@ -63,7 +63,7 @@ void raise_underflow() {
     throw std::underflow_error("underflow_error");
 }
 
-PyObject *raise_or_throw(int py) {
+PyObject *raise_or_throw(int32_t py) {
     if (!py) {
         throw std::runtime_error("oopsie");
     }
@@ -71,7 +71,7 @@ PyObject *raise_or_throw(int py) {
     return NULL;
 }
 
-int raise_or_throw_int(int py) {
+int32_t raise_or_throw_int(int32_t py) {
     if (!py) {
         throw std::runtime_error("oopsie");
     }

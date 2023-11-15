@@ -1,8 +1,8 @@
 class Holder {
 public:
-    int value;
+    int32_t value;
     Holder() : value(-1) { }
-    Holder(int value) : value(value) { }
+    Holder(int32_t value) : value(value) { }
 };
 
 Holder v1(1);

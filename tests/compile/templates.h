@@ -6,7 +6,7 @@ class TemplateTest1
 {
 public:
     T value;
-    int t;
+    int32_t t;
     TemplateTest1() { }
     T getValue() { return value; }
 };

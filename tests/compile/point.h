@@ -2,12 +2,11 @@
 #define POINT_H
 
 namespace geometry {
-
     struct Point
     {
         double x;
         double y;
-        int color;
+        int32_t color;
     };
 }
 

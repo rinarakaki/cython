@@ -1,4 +1,4 @@
 typedef struct {
-    int x;
+    int32_t x;
 } MyStruct;
 
