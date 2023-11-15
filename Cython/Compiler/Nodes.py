@@ -1466,7 +1466,7 @@ class CConstOrVolatileTypeNode(CBaseTypeNode):
 
 
 class LetStatNode(StatNode):
-    #  Local variable binding.
+    #  Local variable bindings.
     #
     #  base_type     CBaseTypeNode
     #  declarators   [CDeclaratorNode]
