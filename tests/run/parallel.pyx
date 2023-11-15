@@ -45,7 +45,7 @@ def test_num_threads():
     get_num_threads called
     3
     """
-    let i32 dyn = openmp.omp_get_dynamic()
+    let auto dyn = openmp::omp_get_dynamic()
     let i32 num_threads
     let i32* p = &num_threads
 
