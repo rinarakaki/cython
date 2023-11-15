@@ -150,7 +150,7 @@ fn inline array clone(array template, isize length, u2 zero):
 
 fn inline array copy(array self):
     """ make a copy of an array. """
-    let array op = newarrayobject(Py_TYPE(self), Py_SIZE(self), self.ob_descr)
+    let auto op = newarrayobject(Py_TYPE(self), Py_SIZE(self), self.ob_descr)
     memcpy(op.data.as_chars, self.data.as_chars, Py_SIZE(op) * op.ob_descr.itemsize)
     return op
 
