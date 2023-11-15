@@ -3,7 +3,6 @@ PYTHON -c "import a"
 
 ######## setup.py ########
 
-
 # TODO: Better interface...
 from Cython.Build.Dependencies import cythonize
 
