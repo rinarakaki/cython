@@ -670,7 +670,7 @@ class AssignmentCollector(TreeVisitor):
     def visit_Node(self):
         self._visitchildren(self, None, None)
     
-    def visit_CVarDefNode(self, node):
+    def visit_LetStatNode(self, node):
         for declarator in node.declarators:
             if declarator.default is not None:
                 lhs = ExprNodes.NameNode(node.pos, name=declarator.name, uninitialised=0)
@@ -831,7 +831,7 @@ class ControlFlowAnalysis(CythonTransform):
     def visit_AssignmentNode(self, node):
         raise InternalError("Unhandled assignment node %s" % type(node))
     
-    def visit_CVarDefNode(self, node):
+    def visit_LetStatNode(self, node):
         for declarator in node.declarators:
             if declarator.default is not None:
                 lhs = ExprNodes.NameNode(node.pos, name=declarator.name, uninitialised=0)
