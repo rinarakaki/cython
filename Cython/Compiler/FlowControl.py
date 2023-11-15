@@ -669,6 +669,13 @@ class AssignmentCollector(TreeVisitor):
 
     def visit_Node(self):
         self._visitchildren(self, None, None)
+    
+    def visit_CVarDefNode(self, node):
+        for declarator in node.declarators:
+            if declarator.default is not None:
+                lhs = ExprNodes.NameNode(node.pos, name=declarator.name)
+                rhs = declarator.default
+                self.assignments.append((lhs, rhs))
 
     def visit_SingleAssignmentNode(self, node):
         self.assignments.append((node.lhs, node.rhs))
