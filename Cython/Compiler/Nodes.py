@@ -1465,7 +1465,7 @@ class CConstOrVolatileTypeNode(CBaseTypeNode):
         return PyrexTypes.c_const_or_volatile_type(base, self.is_const, self.is_volatile)
 
 
-class LetStatNode(StatNode):
+class LetStatNode(AssignmentNode):
     #  Local variable bindings.
     #
     #  base_type     CBaseTypeNode
