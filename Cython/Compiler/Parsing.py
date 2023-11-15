@@ -2705,11 +2705,13 @@ def p_c_base_type(s, nonempty=False, templates=None):
     if is_const or is_volatile:
         if isinstance(base_type, Nodes.MemoryViewSliceTypeNode):
             # reverse order to avoid having to write "(const int)[:]"
-            base_type.base_type_node = Nodes.CConstOrVolatileTypeNode(pos,
-                base_type=base_type.base_type_node, is_const=is_const, is_volatile=is_volatile)
+            base_type.base_type = Nodes.CConstOrVolatileTypeNode(pos,
+                base_type=base_type.base_type, is_const=is_const, is_volatile=is_volatile
+            )
         else:
             base_type = Nodes.CConstOrVolatileTypeNode(pos,
-                base_type=base_type, is_const=is_const, is_volatile=is_volatile)
+                base_type=base_type, is_const=is_const, is_volatile=is_volatile
+            )
     
     if s.sy in ("*", "**"):
         # scanner returns "**" as a single token
@@ -2832,7 +2834,7 @@ def p_c_simple_base_type(s, nonempty, templates=None):
     )
 
     #    declarations here.
-    if s.sy == '[':
+    if s.sy == "[":
         if is_memoryviewslice_access(s):
             type_node = p_memoryviewslice_access(s, type_node)
         else:
@@ -2845,7 +2847,7 @@ def p_c_simple_base_type(s, nonempty, templates=None):
 
     return type_node
 
-def p_buffer_or_template(s, base_type_node, templates):
+def p_buffer_or_template(s, base_type, templates):
     # s.sy == '['
     pos = s.position()
     s.next()
@@ -2857,7 +2859,7 @@ def p_buffer_or_template(s, base_type_node, templates):
     s.expect(']')
 
     if s.sy == '[':
-        base_type_node = p_buffer_or_template(s, base_type_node, templates)
+        base_type = p_buffer_or_template(s, base_type, templates)
 
     keyword_dict = ExprNodes.DictNode(pos,
         key_value_pairs = [
@@ -2865,31 +2867,32 @@ def p_buffer_or_template(s, base_type_node, templates):
             for key, value in keyword_args
         ])
     result = Nodes.TemplatedTypeNode(pos,
+        base_type = base_type,
         positional_args = positional_args,
         keyword_args = keyword_dict,
-        base_type_node = base_type_node)
+    )
     return result
 
-def p_bracketed_base_type(s, base_type_node, nonempty, empty):
+def p_bracketed_base_type(s, base_type, nonempty, empty):
     # s.sy == '['
     if empty and not nonempty:
         # sizeof-like thing.  Only anonymous C arrays allowed (int[SIZE]).
-        return base_type_node
+        return base_type
     elif not empty and nonempty:
         # declaration of either memoryview slice or buffer.
         if is_memoryviewslice_access(s):
-            return p_memoryviewslice_access(s, base_type_node)
+            return p_memoryviewslice_access(s, base_type)
         else:
-            return p_buffer_or_template(s, base_type_node, None)
-            # return p_buffer_access(s, base_type_node)
+            return p_buffer_or_template(s, base_type, None)
+            # return p_buffer_access(s, base_type)
     elif not empty and not nonempty:
         # only anonymous C arrays and memoryview slice arrays here.  We
         # disallow buffer declarations for now, due to ambiguity with anonymous
         # C arrays.
         if is_memoryviewslice_access(s):
-            return p_memoryviewslice_access(s, base_type_node)
+            return p_memoryviewslice_access(s, base_type)
         else:
-            return base_type_node
+            return base_type
 
 def is_memoryviewslice_access(s):
     # s.sy == '['
@@ -2898,22 +2901,22 @@ def is_memoryviewslice_access(s):
     # not have an unnested colon in the first entry; the memoryview slice will.
     saved = [(s.sy, s.systring, s.position())]
     s.next()
-    retval = False
+    retval = 0
     if s.systring == ':':
-        retval = True
+        retval = 1
     elif s.sy == 'INT':
         saved.append((s.sy, s.systring, s.position()))
         s.next()
         if s.sy == ':':
-            retval = True
+            retval = 1
 
     for sv in reversed(saved):
         s.put_back(*sv)
 
     return retval
 
-def p_memoryviewslice_access(s, base_type_node):
-    # s.sy == '['
+def p_memoryviewslice_access(s, base_type):
+    # s.sy == "["
     pos = s.position()
     s.next()
     subscripts, _ = p_subscript_list(s)
@@ -2921,11 +2924,9 @@ def p_memoryviewslice_access(s, base_type_node):
     for subscript in subscripts:
         if len(subscript) < 2:
             s.error("An axis specification in memoryview declaration does not have a ':'.")
-    s.expect(']')
+    s.expect("]")
     indexes = make_slice_nodes(pos, subscripts)
-    result = Nodes.MemoryViewSliceTypeNode(pos,
-            base_type_node = base_type_node,
-            axes = indexes)
+    result = Nodes.MemoryViewSliceTypeNode(pos, base_type = base_type, axes = indexes)
     return result
 
 def looking_at_name(s):
