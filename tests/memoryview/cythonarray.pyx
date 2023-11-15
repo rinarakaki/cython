@@ -181,9 +181,9 @@ def test_array_from_pointer_3d():
     3 3
     True True
     """
-    let i32* p = getp(2, 2, 2)
-    let array c_arr = <i32[:2, :2, :2;1]> p
-    let array f_arr = <i32[:2;1, :2, :2]> p
+    let auto p = getp(2, 2, 2)
+    let array c_arr = <i32[:2, :2, :2;1]>p
+    let array f_arr = <i32[:2;1, :2, :2]>p
 
     let i32[:, :, :;1] m1 = c_arr
     let i32[:;1, :, :] m2 = f_arr
@@ -202,7 +202,7 @@ def test_cyarray_from_carray():
         for j in 0..8:
             a[i][j] = i * 8 + j
 
-    let i32[:, :] mslice = <i32[:, :]> a
+    let auto mslice = <i32[:, :]>a
     print mslice[0, 0], mslice[1, 0], mslice[2, 5]
 
     mslice = a
