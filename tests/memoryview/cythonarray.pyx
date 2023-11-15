@@ -149,28 +149,28 @@ def test_array_from_pointer():
     119
     callback free data called
     """
-    let i32* p = getp()
-    let array c_arr = <i32[:10, :10]> p
+    let auto p = getp()
+    let array c_arr = <i32[:10, :10]>p
     c_arr.callback_free_data = callback_free_data
     print c_arr[6, 9]
     print c_arr.mode
 
-    c_arr = (<i32[:10;1, :10]> getp())
+    c_arr = (<i32[:10;1, :10]>getp())
     print c_arr.mode
     c_arr.callback_free_data = free
 
-    c_arr = <i32[:10, :10]> getp()
+    c_arr = <i32[:10, :10]>getp()
     c_arr.callback_free_data = free
     let i32[:, :;1] mslice = c_arr
     print mslice[5, 6]
 
-    c_arr = <i32[:12, :10]> getp(12, 10)
+    c_arr = <i32[:12, :10]>getp(12, 10)
     c_arr.callback_free_data = free
     print c_arr[5, 6]
 
     let i32 m = 12
     let i32 n = 10
-    c_arr = <i32[:m, :n]> getp(m, n)
+    c_arr = <i32[:m, :n]>getp(m, n)
     c_arr.callback_free_data = callback_free_data
     print c_arr[m - 1, n - 1]
 
