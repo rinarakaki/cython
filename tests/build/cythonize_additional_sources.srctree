@@ -23,10 +23,10 @@ def test():
 
 ######## alib.c ########
 
-i32 c_function(i32 x) {
+int32_t c_function(int32_t x) {
     return x + 1;
 }
 
 ######## alib.h ########
 
-i32 c_function(i32 x);
+int32_t c_function(int32_t x);
