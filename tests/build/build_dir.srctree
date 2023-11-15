@@ -17,7 +17,6 @@ else:
 
 ######## setup.py ########
 
-
 # TODO: Better interface...
 from Cython.Build.Dependencies import cythonize
 
