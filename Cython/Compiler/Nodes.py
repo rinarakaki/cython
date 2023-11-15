@@ -1465,7 +1465,7 @@ class CConstOrVolatileTypeNode(CBaseTypeNode):
         return PyrexTypes.c_const_or_volatile_type(base, self.is_const, self.is_volatile)
 
 
-class LetStatNode(AssignmentNode):
+class LetStatNode(StatNode):
     #  Local variable bindings.
     #
     #  base_type     CBaseTypeNode
@@ -1508,6 +1508,61 @@ class LetStatNode(AssignmentNode):
                 error(declarator.pos, "C++ rvalue-references cannot be declared")
             self.entry = dest_scope.declare_var(name, type, declarator.pos, cname=cname, is_cdef=True)
 
+    def analyse_types(self, env, use_temp=0):
+        # from . import ExprNodes
+
+        for declarator in self.declarators:
+            self.default = declarator.default.analyse_types(env)
+
+            # unrolled_assignment = self.unroll_rhs(env)
+            # if unrolled_assignment:
+            #     return unrolled_assignment
+
+            # self.lhs = self.lhs.analyse_target_types(env)
+            # self.lhs.gil_assignment_check(env)
+            # unrolled_assignment = self.unroll_lhs(env)
+            # if unrolled_assignment:
+            #     return unrolled_assignment
+
+            # if isinstance(self.lhs, ExprNodes.MemoryViewIndexNode):
+            #     self.lhs.analyse_broadcast_operation(self.rhs)
+            #     self.lhs = self.lhs.analyse_as_memview_scalar_assignment(self.rhs)
+            # elif self.lhs.type.is_array:
+            #     if not isinstance(self.lhs, ExprNodes.SliceIndexNode):
+            #         # cannot assign to C array, only to its full slice
+            #         lhs = ExprNodes.SliceIndexNode(self.lhs.pos, base=self.lhs, start=None, stop=None)
+            #         self.lhs = lhs.analyse_target_types(env)
+
+            # if self.lhs.type.is_cpp_class:
+            #     op = env.lookup_operator_for_types(self.pos, '=', [self.lhs.type, self.rhs.type])
+            #     if op:
+            #         rhs = self.rhs
+            #         self.is_overloaded_assignment = True
+            #         self.exception_check = op.type.exception_check
+            #         self.exception_value = op.type.exception_value
+            #         if self.exception_check == '+' and self.exception_value is None:
+            #             env.use_utility_code(UtilityCode.load_cached("CppExceptionConversion", "CppSupport.cpp"))
+            #     else:
+            #         rhs = self.rhs.coerce_to(self.lhs.type, env)
+            # else:
+            #     rhs = self.rhs.coerce_to(self.lhs.type, env)
+
+            # if use_temp or rhs.is_attribute or (
+            #         not rhs.is_name and not rhs.is_literal and
+            #         rhs.type.is_pyobject):
+            #     # things like (cdef) attribute access are not safe (traverses pointers)
+            #     rhs = rhs.coerce_to_temp(env)
+            # elif rhs.type.is_pyobject:
+            #     rhs = rhs.coerce_to_simple(env)
+            # self.rhs = rhs
+            return self
+
+    def analyse_expressions(self, env):
+        node = self.analyse_types(env)
+        if isinstance(node, AssignmentNode) and not isinstance(node, ParallelAssignmentNode):
+            if node.rhs.type.is_ptr and node.rhs.is_ephemeral():
+                error(self.pos, "Storing unsafe C derivative of temporary Python reference")
+        return node
 
 class CVarDefNode(StatNode):
     #  C variable definition or forward/extern function declaration.
