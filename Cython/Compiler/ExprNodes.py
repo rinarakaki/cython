@@ -11168,7 +11168,7 @@ class CythonArrayNode(ExprNode):
 
 
     operand             ExprNode                 the thing we're casting
-    base_type_node      MemoryViewSliceTypeNode  the cast expression node
+    base_type      MemoryViewSliceTypeNode  the cast expression node
     """
 
     subexprs = ['operand', 'shapes']
@@ -11187,8 +11187,8 @@ class CythonArrayNode(ExprNode):
         if self.array_dtype:
             array_dtype = self.array_dtype
         else:
-            array_dtype = self.base_type_node.base_type_node.analyse(env)
-        axes = self.base_type_node.axes
+            array_dtype = self.base_type.base_type.analyse(env)
+        axes = self.base_type.axes
 
         self.type = error_type
         self.shapes = []
@@ -11366,8 +11366,8 @@ class CythonArrayNode(ExprNode):
         axes[-1].step = IntNode(pos, value="1", is_c_literal=True)
 
         memslicenode = Nodes.MemoryViewSliceTypeNode(pos, axes=axes,
-                                                     base_type_node=base_type)
-        result = CythonArrayNode(pos, base_type_node=memslicenode,
+                                                     base_type=base_type)
+        result = CythonArrayNode(pos, base_type=memslicenode,
                                  operand=src_node, array_dtype=base_type)
         result = result.analyse_types(env)
         return result

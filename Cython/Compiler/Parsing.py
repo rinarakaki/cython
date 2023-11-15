@@ -388,7 +388,7 @@ def p_typecast(s):
     s.expect(">")
     operand = p_factor(s)
     if is_memslice:
-        return ExprNodes.CythonArrayNode(pos, base_type_node=base_type, operand=operand)
+        return ExprNodes.CythonArrayNode(pos, base_type=base_type, operand=operand)
 
     return ExprNodes.TypecastNode(pos,
         base_type = base_type,
