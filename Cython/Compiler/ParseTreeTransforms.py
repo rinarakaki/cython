@@ -2610,7 +2610,22 @@ if VALUE is not None:
     def visit_CVarDefNode(self, node):
         # to ensure all CNameDeclaratorNodes are visited.
         self.visitchildren(node)
-        return None
+        stats = [node]
+        newdecls = []
+        for decl in node.declarators:
+            declbase = decl
+            while isinstance(declbase, Nodes.CPtrDeclaratorNode):
+                declbase = declbase.base
+            if isinstance(declbase, Nodes.CNameDeclaratorNode):
+                if node.base_type is not None and declbase.default is not None:
+                    first_assignment = self.scope_type != 'module'
+                    stats.append(Nodes.SingleAssignmentNode(node.pos,
+                        lhs=ExprNodes.NameNode(node.pos, name=declbase.name),
+                        rhs=declbase.default, first=first_assignment))
+                    declbase.default = None
+            newdecls.append(decl)
+        node.declarators = newdecls
+        return stats
 
     def visit_CnameDecoratorNode(self, node):
         child_node = self.visitchild(node, 'node')
