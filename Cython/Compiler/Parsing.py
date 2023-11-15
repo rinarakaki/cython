@@ -2589,7 +2589,10 @@ def p_statement_list(s, ctx, first_statement = 0):
         stat = p_statement(s, ctx, first_statement = first_statement)
         if isinstance(stat, Nodes.PassStatNode):
             continue
-        stats.append(stat)
+        if isinstance(stat, list):
+            stats.extend(stat)
+        else:
+            stats.append(stat)
         first_statement = False
     if not stats:
         return Nodes.PassStatNode(pos)
@@ -3656,16 +3659,27 @@ def p_let_statement(s, pos, ctx):
         declarator = p_c_declarator(s, ctx, assignable = 1, nonempty = 1)
         declarators.append(declarator)
     s.expect_newline("Syntax error in C variable declaration", ignore_semicolon=True)
-    return Nodes.CVarDefNode(pos,
-        visibility = ctx.visibility,
-        base_type = base_type,
-        declarators = declarators,
-        in_pxd = ctx.level in ("module_pxd", "c_class_pxd"),
-        doc = None,
-        api = ctx.api,
-        modifiers = [],
-        overridable = ctx.overridable,
-    )
+    results = []
+    for declarator in declarators:
+        if declarator.default is not None:
+            results.append(Nodes.SingleAssignmentNode(
+                pos,
+                lhs=ExprNodes.NameNode(pos, name=declarator.name),
+                rhs=declarator.default,
+                first=ctx.level not in ("module", "module_pxd"),
+            ))
+        else:
+            results.append(Nodes.CVarDefNode(pos,
+                visibility = ctx.visibility,
+                base_type = base_type,
+                declarators = declarators,
+                in_pxd = ctx.level in ("module_pxd", "c_class_pxd"),
+                doc = None,
+                api = ctx.api,
+                modifiers = [],
+                overridable = ctx.overridable,
+            ))
+    return results
 
 def p_c_modifiers(s):
     if s.sy == 'IDENT' and s.systring in ('inline',):
