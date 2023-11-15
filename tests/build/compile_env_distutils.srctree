@@ -8,14 +8,15 @@ from Cython.Distutils.extension import Extension
 from Cython.Distutils.old_build_ext import old_build_ext
 
 setup(
-  cmdclass = {'build_ext': old_build_ext},
-  ext_modules = [Extension(
-    "a", ["a.pyx"],
-    pyrex_compile_time_env = {'TEST': True},
-  )],
+    cmdclass = {'build_ext': old_build_ext},
+    ext_modules = [Extension(
+        "a", ["a.pyx"],
+        pyrex_compile_time_env = {'TEST': True},
+    )],
 )
 
 ######## a.pyx ########
+
 def compile_env_test():
     IF TEST:
         return 0
