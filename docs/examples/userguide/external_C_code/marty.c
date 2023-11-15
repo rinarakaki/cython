@@ -4,11 +4,11 @@
 Vehicle car;
 
 int32_t main(int32_t argc, char *argv[]) {
-	Py_Initialize();
-	import_delorean();
-	car.speed = atoi(argv[1]);
-	car.power = atof(argv[2]);
-	activate(&car);
-	/* Error handling left out - call PyErr_Occurred() to test for Python exceptions. */
-	Py_Finalize();
+    Py_Initialize();
+    import_delorean();
+    car.speed = atoi(argv[1]);
+    car.power = atof(argv[2]);
+    activate(&car);
+    /* Error handling left out - call PyErr_Occurred() to test for Python exceptions. */
+    Py_Finalize();
 }

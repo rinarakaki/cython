@@ -16,7 +16,7 @@ namespace shapes {
     class Rectangle : public Shape
     {
     public:
-    	Rectangle() { }
+        Rectangle() { }
         Rectangle(int32_t width, int32_t height)
         {
             this->width = width;

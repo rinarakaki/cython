@@ -1,8 +1,8 @@
 #if !defined(__cplusplus)
 #if (defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 199901L)) \
-  || defined(__GNUC__)						 \
-  || defined(__INTEL_COMPILER)					 \
-  || defined(__IBMC__)						 \
+  || defined(__GNUC__)             \
+  || defined(__INTEL_COMPILER)           \
+  || defined(__IBMC__)             \
 
 #include <complex.h>
 #if !defined(_Complex_I)

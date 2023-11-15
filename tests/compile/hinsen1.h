@@ -1,3 +1,3 @@
 typedef struct {
-	PyObject_HEAD
+    PyObject_HEAD
 } PySpamObject;

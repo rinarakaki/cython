@@ -1,8 +1,8 @@
 struct Tomato {
-	PyObject_HEAD
+    PyObject_HEAD
 };
 
 struct Bicycle {
-	PyObject_HEAD
+    PyObject_HEAD
 };
 
