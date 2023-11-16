@@ -41,6 +41,9 @@ class SkipDeclarations(object):
     def visit_CTypeDefNode(self, node):
         return node
 
+    def visit_LetStatNode(self, node):
+        return node
+
     def visit_CVarDefNode(self, node):
         return node
 
@@ -243,6 +246,25 @@ class PostParse(ScopeTrackingTransform):
         self.scope_node.buffer_defaults_node = decl.default
         self.scope_node.buffer_defaults_pos = decl.pos
 
+    def visit_LetStatNode(self, node):
+        self.visitchildren(node)
+        stats = [node]
+        declarators = []
+        for declarator in node.declarators:
+            base = declarator
+            while isinstance(base, Nodes.CPtrDeclaratorNode):
+                base = base.base
+            if isinstance(base, Nodes.CNameDeclaratorNode):
+                if base.default is not None:
+                    stat = Nodes.SingleAssignmentNode(node.pos,
+                        lhs=ExprNodes.NameNode(node.pos, name=base.name),
+                        rhs=base.default, first=1
+                    )
+                    stats.append(stat)
+            declarators.append(declarator)
+        node.declarators = declarators
+        return stats
+
     def visit_CVarDefNode(self, node):
         # This assumes only plain names and pointers are assignable on
         # declaration. Also, it makes use of the fact that a cdef decl
@@ -257,7 +279,7 @@ class PostParse(ScopeTrackingTransform):
                 while isinstance(declbase, Nodes.CPtrDeclaratorNode):
                     declbase = declbase.base
                 if isinstance(declbase, Nodes.CNameDeclaratorNode):
-                    if node.base_type is not None and declbase.default is not None:
+                    if declbase.default is not None:
                         if self.scope_type in ('cclass', 'pyclass', 'struct'):
                             if isinstance(self.scope_node, Nodes.CClassDefNode):
                                 handler = self.specialattribute_handlers.get(decl.name)
@@ -2606,6 +2628,11 @@ if VALUE is not None:
                 error(node.pos, "cdef variable '%s' declared after it is used" % node.name)
         self.visitchildren(node)
         return node
+    
+    def visit_LetStatNode(self, node):
+        # to ensure all CNameDeclaratorNodes are visited.
+        self.visitchildren(node)
+        return None
 
     def visit_CVarDefNode(self, node):
         # to ensure all CNameDeclaratorNodes are visited.
