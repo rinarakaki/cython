@@ -549,8 +549,10 @@ class CNameDeclaratorNode(CDeclaratorNode):
         
         if not self.mutable:
             if base_type.is_pyobject:
-                error(self.pos, "Const base type cannot be a Python object")
-            base_type = PyrexTypes.c_const_type(base_type)
+                self.mutable = 1
+                # error(self.pos, "Const base type cannot be a Python object")
+            else:
+                base_type = PyrexTypes.c_const_type(base_type)
 
         self.type = base_type
         return self, base_type

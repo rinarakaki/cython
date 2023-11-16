@@ -2280,7 +2280,7 @@ if VALUE is not None:
 
             pickle_func = TreeFragment("""
                 def __reduce_cython__(self):
-                    let tuple state
+                    let tuple mut state
                     let object _dict
                     let u2 use_setstate
                     state = (%(members)s)
