@@ -2004,22 +2004,22 @@ def p_assert_statement(s):
 statement_terminators = cython.declare(frozenset, frozenset((
     ';', 'NEWLINE', 'EOF')))
 
-def p_if_statement(s, ctx):
+def p_if_statement(s):
     # s.sy == 'if'
     pos = s.position()
     s.next()
-    if_clauses = [p_if_clause(s, ctx)]
+    if_clauses = [p_if_clause(s)]
     while s.sy == 'elif':
         s.next()
-        if_clauses.append(p_if_clause(s, ctx))
+        if_clauses.append(p_if_clause(s))
     else_clause = p_else_clause(s)
     return Nodes.IfStatNode(pos,
         if_clauses = if_clauses, else_clause = else_clause)
 
-def p_if_clause(s, ctx):
+def p_if_clause(s):
     pos = s.position()
     test = p_namedexpr_test(s)
-    body = p_suite(s, ctx)
+    body = p_suite(s)
     return Nodes.IfClauseNode(pos,
         condition = test, body = body)
 
@@ -2550,7 +2550,7 @@ def p_statement(s, ctx, first_statement = 0):
                     return node
                 s.error("Executable statement not allowed here")
             if s.sy == 'if':
-                return p_if_statement(s, ctx)
+                return p_if_statement(s)
             elif s.sy == "loop":
                 return p_loop_statement(s)
             elif s.sy == 'while':
@@ -3039,7 +3039,7 @@ def p_opt_cname(s):
     return cname
 
 def p_c_declarator(s, ctx = Ctx(), empty = 0, is_type = 0, cmethod_flag = 0,
-                   assignable = 0, mutable = 0, nonempty = 0,
+                   assignable = 0, nonempty = 0,
                    calling_convention_allowed = 0):
     # If empty is true, the declarator must be empty. If nonempty is true,
     # the declarator must be nonempty. Otherwise we don't care.
