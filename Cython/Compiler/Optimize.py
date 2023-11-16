@@ -2091,7 +2091,7 @@ class InlineDefNodeCalls(Visitor.NodeRefCleanupMixin, Visitor.EnvTransform):
     def get_constant_value_node(self, name_node):
         if name_node.cf_state is None:
             return None
-        if name_node.cf_state.cf_is_null:
+        if name_node.cf_state.uninitialised:
             return None
         entry = self.current_env().lookup(name_node.name)
         if not entry or (not entry.cf_assignments
