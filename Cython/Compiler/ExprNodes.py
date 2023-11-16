@@ -2252,8 +2252,8 @@ class NameNode(AtomicExprNode):
             if is_assignment_expression:
                 self.entry = env.declare_assignment_expression_target(self.name, type, self.pos)
             else:
-                error(self.pos, "Undeclared variable")
-                # self.entry = env.declare_var(self.name, type, self.pos)
+                # error(self.pos, "Undeclared variable")
+                self.entry = env.declare_var(self.name, type, self.pos, mutable=1)
         if self.entry.is_declared_generic:
             self.result_ctype = py_object_type
         if self.entry.as_module:

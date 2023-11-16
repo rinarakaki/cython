@@ -172,7 +172,7 @@ class Entry:
 
     inline_func_in_pxd = False
     borrowed = 0
-    initialised = False
+    initialised = 0
     init = ""
     mutable = 0
     annotation = None

@@ -61,7 +61,7 @@ cdef class Context(object):
 
     fn end(self):
         if self.refs:
-            msg = u"References leaked:"
+            let mut msg = "References leaked:"
             for count, linenos in self.refs.itervalues():
                 msg += f"\n  ({count}) acquired on lines: {u', '.join([f'{x}' for x in linenos])}"
             self.errors.append(msg)
