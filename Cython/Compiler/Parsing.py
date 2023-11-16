@@ -3119,7 +3119,7 @@ def p_c_simple_declarator(s, ctx, empty, is_type, cmethod_flag,
                           assignable, nonempty):
     pos = s.position()
     calling_convention = p_calling_convention(s)
-    if s.sy in ("*", "**", "const", "mut"):
+    if s.sy in ("*", "**"):
         if s.sy == "*":
             is_ptrptr = 0
             s.next()
