@@ -65,4 +65,4 @@ use super::super::bb::ULong
 
 ######## other/pkg/bb.pxd ########
 
-ctypedef unsigned long ULong
+type ULong = u64

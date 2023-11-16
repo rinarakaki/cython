@@ -16,7 +16,7 @@ fn void eggs_c(Spam s):
     s.c = c
 
 fn void eggs_p(Spam s):
-    let f32 *p
+    let f32* p
     p = s.p[0]
     s.p[0] = p
 

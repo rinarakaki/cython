@@ -15,7 +15,7 @@ use cython::view
 include "../testsupport/cythonarrayutil.pxi"
 include "../buffers/mockbuffers.pxi"
 
-ctypedef np.int32_t dtype_t
+type dtype_t = np::int32_t
 
 IS_PYPY = hasattr(sys, 'pypy_version_info')
 NUMPY_VERSION = tuple(int(v) for v in np.__version__.split('.')[:2])
@@ -241,14 +241,14 @@ def test_copy_and_contig_attributes(a):
     assert m.is_c_contig() and m.copy().is_c_contig()
     assert m.copy_fortran().is_f_contig() and not m.is_f_contig()
 
-ctypedef i32 td_cy_int
+type td_cy_int = i32
 extern from "bufaccess.h":
-    ctypedef td_cy_int td_h_short  # Defined as short, but Cython doesn't know this!
-    ctypedef f32 td_h_double  # Defined as double
-    ctypedef u32 td_h_ushort  # Defined as unsigned short
-ctypedef td_h_short td_h_cy_short
+    type td_h_short = td_cy_int  # Defined as short, but Cython doesn't know this!
+    type td_h_double = f32  # Defined as double
+    type td_h_ushort = u32  # Defined as unsigned short
+type td_h_cy_short = td_h_short
 
-fn void dealloc_callback(void *data) noexcept:
+fn void dealloc_callback(void* data) noexcept:
     print "deallocating..."
 
 def build_numarray(array array):
@@ -316,11 +316,11 @@ def test_coerce_to_numpy():
 
     let f32[20] floats
     let f64[20] doubles
-    let long double[20] longdoubles
+    let f128[20] longdoubles
 
-    let float complex[20] floatcomplex
-    let double complex[20] doublecomplex
-    let long double complex[20] longdoublecomplex
+    let c64[20] floatcomplex
+    let c128[20] doublecomplex
+    let c256[20] longdoublecomplex
 
     let td_h_short[20] h_shorts
     let td_h_double[20] h_doubles
@@ -386,11 +386,11 @@ def test_coerce_to_numpy():
 
     index(<f32[:4, :5]> <f32 *> floats)
     index(<f64[:4, :5]> <f64 *> doubles)
-    index(<long double[:4, :5]> <long double *> longdoubles)
+    index(<f128[:4, :5]> <f128 *> longdoubles)
 
-    index(<float complex[:4, :5]> <float complex *> floatcomplex)
-    index(<double complex[:4, :5]> <double complex *> doublecomplex)
-    index(<long double complex[:4, :5]> <long double complex *> longdoublecomplex)
+    index(<c64[:4, :5]> <c64 *> floatcomplex)
+    index(<c128[:4, :5]> <c128 *> doublecomplex)
+    index(<c256[:4, :5]> <c256 *> longdoublecomplex)
 
     index(<td_h_short[:4, :5]> <td_h_short *> h_shorts)
     index(<td_h_double[:4, :5]> <td_h_double *> h_doubles)
@@ -576,7 +576,7 @@ def test_struct_attributes():
 #
 # Test for NULL strides (C contiguous buffers)
 #
-fn getbuffer(Buffer self, Py_buffer *info):
+fn getbuffer(Buffer self, Py_buffer* info):
     info.buf = &self.m[0, 0]
     info.len = 10 * 20
     info.ndim = 2
@@ -602,11 +602,11 @@ cdef class Buffer(object):
         self._shape[0] = 10
         self._shape[1] = 20
 
-    def __getbuffer__(self, Py_buffer *info, i32 flags):
+    def __getbuffer__(self, Py_buffer* info, i32 flags):
         getbuffer(self, info)
 
 cdef class SuboffsetsNoStridesBuffer(Buffer):
-    def __getbuffer__(self, Py_buffer *info, i32 flags):
+    def __getbuffer__(self, Py_buffer* info, i32 flags):
         getbuffer(self, info)
         info.suboffsets = self._shape
 
@@ -679,8 +679,8 @@ def test_refcount_GH507():
     let np.npy_long[:, :] b = a_view[1:2, :].T
 
 
-#[cython.boundscheck(false)]
-#[cython.wraparound(false)]
+#[cython::boundscheck(false)]
+#[cython::wraparound(false)]
 def test_boundscheck_and_wraparound(f64[:, :] x):
     """
     >>> import numpy as np

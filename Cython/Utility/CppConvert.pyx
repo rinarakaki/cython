@@ -11,7 +11,7 @@ extern from *:
 @cname("{{cname}}")
 fn string {{cname}}(object o) except *:
     let isize length = 0
-    let const char* data = __Pyx_PyObject_AsStringAndSize(o, &length)
+    let auto data = __Pyx_PyObject_AsStringAndSize(o, &length)
     return string(data, length)
 
 #################### string.to_py ####################
@@ -238,7 +238,7 @@ extern from *:
 
 @cname("{{cname}}")
 fn std_complex[X] {{cname}}(object o) except *:
-    cdef double complex z = o
+    cdef c128 z = o
     return std_complex[X](<X>z.real, <X>z.imag)
 
 #################### complex.to_py ####################
@@ -250,7 +250,7 @@ extern from *:
 
 @cname("{{cname}}")
 fn object {{cname}}(const std_complex[X]& z):
-    let double complex tmp
+    let c128 tmp
     tmp.real = <f64>z.real()
     tmp.imag = <f64>z.imag()
     return tmp

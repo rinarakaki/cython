@@ -166,12 +166,12 @@ extern from "datetime.h":
     struct PyDateTime_Time:
         u8 fold
         char hastzinfo
-        PyObject *tzinfo
+        PyObject* tzinfo
 
     struct PyDateTime_DateTime:
         u8 fold
         char hastzinfo
-        PyObject *tzinfo
+        PyObject* tzinfo
 
     struct PyDateTime_Delta:
         i32 days
@@ -201,10 +201,10 @@ extern from "datetime.h":
         # Instead, we use datetime.h's macros here that we can backport in C.
 
         # Python 3.7+ constructors
-        object (*TimeZone_FromTimeZone)(object offset, PyObject *name)
+        object (*TimeZone_FromTimeZone)(object offset, PyObject* name)
 
         # Python 3.7+ singletons
-        PyObject *TimeZone_UTC
+        PyObject* TimeZone_UTC
 
         # Python 3.6+ PEP 495 constructors
         datetime (*DateTime_FromDateAndTimeAndFold)(i32, i32, i32, i32, i32, i32, i32, object, i32, PyTypeObject*)

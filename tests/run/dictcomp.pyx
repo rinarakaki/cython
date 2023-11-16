@@ -15,7 +15,7 @@ def dictcomp():
     assert x == 'abc' # do not leak!
     return result
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//InlinedGeneratorExpressionNode",
     "//DictComprehensionAppendNode")
 def genexpr():

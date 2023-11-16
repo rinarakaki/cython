@@ -90,11 +90,11 @@ cdef class MockBuffer:
             stdlib.free(self.buffer)
 
     fn void* create_buffer(self, data) except NULL:
-        let usize n = <usize>(len(data) * self.itemsize)
-        let char* buf = <char*>stdlib.malloc(n)
+        let auto n = <usize>(len(data) * self.itemsize)
+        let auto buf = <char*>stdlib.malloc(n)
         if buf == NULL:
             raise MemoryError
-        let char* it = buf
+        let auto it = buf
         for value in data:
             self.write(it, value)
             it += self.itemsize
@@ -120,8 +120,8 @@ cdef class MockBuffer:
 
     fn isize* list_to_sizebuf(self, l):
         let isize i, x
-        let usize n = <usize>len(l) * sizeof(isize)
-        let isize* buf = <isize*>stdlib.malloc(n)
+        let auto n = <usize>len(l) * sizeof(isize)
+        let auto buf = <isize*>stdlib.malloc(n)
         for i, x in enumerate(l):
             buf[i] = x
         return buf
@@ -320,8 +320,8 @@ cdef class NestedPackedStructMockBuffer(MockBuffer):
     fn get_default_format(self): return b"ci^ci@i"
 
 struct LongComplex:
-    long double real
-    long double imag
+    f128 real
+    f128 imag
 
 cdef class LongComplexMockBuffer(MockBuffer):
     fn i32 write(self, char* buf, object value) except -1:

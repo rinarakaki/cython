@@ -12,8 +12,8 @@ cdef class VerboseGetItem(object):
 
 use cython
 
-#[cython.test_assert_path_exists("//SimpleCallNode")]
-#[cython.test_fail_if_path_exists("//ForInStatNode")]
+#[cython::test_assert_path_exists("//SimpleCallNode")]
+#[cython::test_fail_if_path_exists("//ForInStatNode")]
 def all_item(x):
     """
     >>> all_item([1, 1, 1, 1, 1])
@@ -56,11 +56,11 @@ def all_item(x):
     return all(x)
 
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//ForInStatNode",
     "//InlinedGeneratorExpressionNode"
 )
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//SimpleCallNode",
     "//YieldExprNode"
 )
@@ -90,11 +90,11 @@ def all_in_simple_gen(seq):
     return all(x for x in seq)
 
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//ForInStatNode",
     "//InlinedGeneratorExpressionNode"
 )
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//SimpleCallNode",
     "//YieldExprNode"
 )
@@ -127,11 +127,11 @@ def all_in_simple_gen_scope(seq):
     return result
 
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//ForInStatNode",
     "//InlinedGeneratorExpressionNode"
 )
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//SimpleCallNode",
     "//YieldExprNode"
 )
@@ -169,11 +169,11 @@ lower_ustring = mixed_ustring.lower()
 upper_ustring = mixed_ustring.upper()
 
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     '//PythonCapiCallNode',
     '//ForFromStatNode'
 )
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     '//SimpleCallNode',
     '//ForInStatNode'
 )
@@ -189,12 +189,12 @@ def all_lower_case_characters(unicode ustring):
     return all(uchar.islower() for uchar in ustring)
 
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//ForInStatNode",
     "//InlinedGeneratorExpressionNode",
     "//InlinedGeneratorExpressionNode//IfStatNode"
 )
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//SimpleCallNode",
     "//YieldExprNode",
 #    "//IfStatNode//CoerceToBooleanNode"
@@ -226,12 +226,12 @@ def all_in_typed_gen(seq):
     return all(x for x in seq)
 
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     "//ForInStatNode",
     "//InlinedGeneratorExpressionNode",
     "//InlinedGeneratorExpressionNode//IfStatNode"
 )
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//SimpleCallNode",
     "//YieldExprNode",
 #    "//IfStatNode//CoerceToBooleanNode"

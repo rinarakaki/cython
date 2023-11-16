@@ -36,7 +36,7 @@ def simple_parallel_int_mix_recursive():
     ai, [bi, ci] = al, [bl, cl] = xo, yo = ao, [bo, co] = c = d = [1, [2, 3]]
     return ao, bo, co, xo, yo, ai, bi, ci, al, bl, cl, c, d
 
-cdef int called = 0
+cdef i32 called = 0
 
 fn char* get_string():
     global called
@@ -48,7 +48,7 @@ def non_simple_rhs():
     >>> non_simple_rhs()
     1
     """
-    let char *a, *b
+    let char* a, b
     let i32 orig_called = called
     a = b = <char*>get_string()
     assert a is b
@@ -60,7 +60,8 @@ def non_simple_rhs_malloc():
     """
     >>> non_simple_rhs_malloc()
     """
-    let char *a, *b, **c
+    let char* a, b,
+    let char** c
 
     c = &b
     c[0] = a = <char*>malloc(2)
@@ -82,7 +83,7 @@ def non_simple_rhs_malloc():
     assert x[0] == c'X'
     assert x[1] == c'\0'
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     '//CascadedAssignmentNode',
     '//CascadedAssignmentNode//CoerceToTempNode',
     '//CascadedAssignmentNode//CoerceToTempNode[@type.is_ptr]')
@@ -91,7 +92,7 @@ def assign_carray():
     assign_carray()
     (1, 2, 3)
     """
-    let i32 *b, *c
+    let i32* b, c
     let i32[3] a
     a[0] = 1
     a[1] = 2

@@ -41,7 +41,7 @@ def k(obj1, obj2, obj3, obj4, obj5):
     obj1 = [17, 42, 88]
     return obj1
 
-#[cython.test_fail_if_path_exists("//SimpleCallNode")]
+#[cython::test_fail_if_path_exists("//SimpleCallNode")]
 def test_list_call(ob):
     """
     >>> def f():
@@ -80,7 +80,7 @@ def test_list_reverse():
     return l1
 
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     '//SimpleCallNode//AttributeNode[@entry.cname = "__Pyx_PyList_Append"]',
 )
 def test_list_append():
@@ -94,7 +94,7 @@ def test_list_append():
     return l1
 
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     '//SimpleCallNode//NameNode[@entry.cname = "__Pyx_PyList_Append"]',
 )
 def test_list_append_unbound():
@@ -108,7 +108,7 @@ def test_list_append_unbound():
     return l1
 
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     '//SimpleCallNode//NameNode[@entry.cname = "__Pyx_PyList_Append"]',
 )
 def test_list_append_unbound_assigned():
@@ -173,7 +173,7 @@ def test_list_pop_all():
     return false
 
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     '//PythonCapiCallNode//PythonCapiFunctionNode[@cname = "__Pyx_ListComp_Append"]',
     '//PythonCapiCallNode//PythonCapiFunctionNode[@cname = "__Pyx_PyList_Append"]',
 )
@@ -201,7 +201,7 @@ def test_list_extend(seq=None, x=4):
     return l
 
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     '//PythonCapiCallNode//PythonCapiFunctionNode[@cname = "__Pyx_ListComp_Append"]',
     '//PythonCapiCallNode//PythonCapiFunctionNode[@cname = "__Pyx_PyList_Append"]',
 )
@@ -234,7 +234,7 @@ def test_list_extend_unbound(seq=None, x=4):
         list.extend(l, seq)
     return l
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     '//PythonCapiCallNode//PythonCapiFunctionNode[@cname = "__Pyx_ListComp_Append"]',
     '//PythonCapiCallNode//PythonCapiFunctionNode[@cname = "__Pyx_PyList_Append"]',
 )

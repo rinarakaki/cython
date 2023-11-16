@@ -11,7 +11,7 @@ fn assert_Py_UNICODE_equal(const Py_UNICODE* u1, const Py_UNICODE* u2):
         i += 1
     assert u1[i] == u2[i], f"Mismatch at position {i}: {<i64>u1[i]} != {<i64>u2[i]} ({u1!r} != {u2!r})"
 
-ctypedef Py_UNICODE* LPWSTR
+type LPWSTR = Py_UNICODE*
 
 cdef unicode uobj = u'unicode\u1234'
 cdef unicode uobj1 = u'u'

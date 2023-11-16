@@ -90,7 +90,7 @@ cdef class InheritsFromDataclass(BasicDataclass):
     def __post_init__(self):
         print "In __post_init__"
 
-#[cython.dataclasses.dataclass]
+#[cython::dataclasses.dataclass]
 cdef class InheritsFromNotADataclass(NotADataclass):
     """
     >>> sorted(list(InheritsFromNotADataclass.__dataclass_fields__.keys()))
@@ -106,7 +106,7 @@ cdef class InheritsFromNotADataclass(NotADataclass):
 struct S:
     i32 a
 
-ctypedef S* S_ptr
+type S_ptr = S*
 
 fn S_ptr malloc_a_struct():
     return <S_ptr>malloc(sizeof(S))

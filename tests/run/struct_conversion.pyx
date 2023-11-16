@@ -3,7 +3,7 @@ struct Point:
     f64 y
     i32 colour
 
-def test_constructor(x, y, i32 colour):
+fn Point test_constructor(x, y, i32 colour):
     """
     >>> sorted(test_constructor(1, 2, 255).items())
     [('colour', 255), ('x', 1.0), ('y', 2.0)]
@@ -13,7 +13,7 @@ def test_constructor(x, y, i32 colour):
     let Point p = Point(x, y, colour)
     return p
 
-def return_constructor(x, y, i32 colour):
+fn Point return_constructor(x, y, i32 colour):
     """
     >>> sorted(return_constructor(1, 2, 255).items())
     [('colour', 255), ('x', 1.0), ('y', 2.0)]
@@ -22,7 +22,7 @@ def return_constructor(x, y, i32 colour):
     """
     return Point(x, y, colour)
 
-def test_constructor_kwds(x, y, colour):
+fn Point test_constructor_kwds(x, y, colour):
     """
     >>> sorted(test_constructor_kwds(1.25, 2.5, 128).items())
     [('colour', 128), ('x', 1.25), ('y', 2.5)]
@@ -33,7 +33,7 @@ def test_constructor_kwds(x, y, colour):
     let Point p = Point(x=x, y=y, colour=colour)
     return p
 
-def return_constructor_kwds(f64 x, y, colour):
+fn Point return_constructor_kwds(f64 x, y, colour):
     """
     >>> sorted(return_constructor_kwds(1.25, 2.5, 128).items())
     [('colour', 128), ('x', 1.25), ('y', 2.5)]
@@ -43,7 +43,7 @@ def return_constructor_kwds(f64 x, y, colour):
     """
     return Point(x=x, y=y, colour=colour)
 
-def test_dict_construction(x, y, colour):
+fn Point test_dict_construction(x, y, colour):
     """
     >>> sorted(test_dict_construction(4, 5, 64).items())
     [('colour', 64), ('x', 4.0), ('y', 5.0)]
@@ -53,7 +53,7 @@ def test_dict_construction(x, y, colour):
     let Point p = {'colour': colour, 'x': x, 'y': y}
     return p
 
-def test_list_construction(x, y, colour):
+fn Point test_list_construction(x, y, colour):
     """
     >>> sorted(test_list_construction(4, 5, 64).items())
     [('colour', 64), ('x', 4.0), ('y', 5.0)]
@@ -117,7 +117,7 @@ struct MyStruct:
     char c
     i32 i
     f32 f
-    char *s
+    char* s
 
 bhello = b"hello"  # must hold a C reference in PyPy
 

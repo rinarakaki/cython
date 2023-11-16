@@ -64,7 +64,8 @@ fn make_slice_nodes(pos, subscripts)
 cpdef make_slice_node(pos, start, stop = *, step = *)
 fn p_atom(PyrexScanner s)
 
-#[cython.locals(value=unicode)]
+fn dict p_numeric_literal_suffix(PyrexScanner s, pos)
+#[cython::locals(value=unicode)]
 fn p_int_literal(PyrexScanner s)
 
 fn p_name(PyrexScanner s, name)
@@ -73,16 +74,16 @@ fn p_cat_string_literal(PyrexScanner s)
 fn p_opt_string_literal(PyrexScanner s, required_type=*)
 fn u2 check_for_non_ascii_characters(unicode string)
 
-#[cython.locals(systr=unicode, is_python3_source=u2, is_raw=u2)]
+#[cython::locals(systr=unicode, is_python3_source=u2, is_raw=u2)]
 fn p_string_literal(PyrexScanner s, kind_override=*)
 
 fn _append_escape_sequence(kind, builder, unicode escape_sequence, PyrexScanner s)
 fn tuple _f_string_error_pos(pos, string, isize i)
 
-#[cython.locals(i=isize, size=isize, c=Py_UCS4, next_start=isize)]
+#[cython::locals(i=isize, size=isize, c=Py_UCS4, next_start=isize)]
 fn list p_f_string(PyrexScanner s, unicode_value, pos, u2 is_raw)
 
-#[cython.locals(i=isize, size=isize, c=Py_UCS4, quote_char=Py_UCS4, NO_CHAR=Py_UCS4)]
+#[cython::locals(i=isize, size=isize, c=Py_UCS4, quote_char=Py_UCS4, NO_CHAR=Py_UCS4)]
 fn tuple p_f_string_expr(PyrexScanner s, unicode_value, pos, isize starting_index, u2 is_raw)
 
 fn p_list_maker(PyrexScanner s)
@@ -158,10 +159,10 @@ cpdef p_c_base_type(PyrexScanner s, u2 nonempty = *, templates = *)
 fn p_calling_convention(PyrexScanner s)
 fn p_c_complex_base_type(PyrexScanner s, templates = *)
 fn p_c_simple_base_type(PyrexScanner s, u2 nonempty, templates = *)
-fn p_buffer_or_template(PyrexScanner s, base_type_node, templates)
-fn p_bracketed_base_type(PyrexScanner s, base_type_node, nonempty, empty)
+fn p_buffer_or_template(PyrexScanner s, base_type, templates)
+fn p_bracketed_base_type(PyrexScanner s, base_type, nonempty, empty)
 fn is_memoryviewslice_access(PyrexScanner s)
-fn p_memoryviewslice_access(PyrexScanner s, base_type_node)
+fn p_memoryviewslice_access(PyrexScanner s, base_type)
 fn u2 looking_at_name(PyrexScanner s) except -2
 fn object looking_at_expr(PyrexScanner s)# except -2
 fn u2 looking_at_base_type(PyrexScanner s) except -2
@@ -193,9 +194,11 @@ fn p_c_enum_item(PyrexScanner s, ctx, list items)
 fn p_c_struct_or_union_definition(PyrexScanner s, pos, ctx)
 fn p_fused_definition(PyrexScanner s, pos, ctx)
 fn p_struct_enum(PyrexScanner s, pos, ctx)
+fn p_let_statement(PyrexScanner s, pos, ctx)
 fn p_visibility(PyrexScanner s, prev_visibility)
 fn p_c_modifiers(PyrexScanner s)
 fn p_c_func_or_var_declaration(PyrexScanner s, pos, ctx)
+fn p_type_statement(PyrexScanner s, ctx)
 fn p_ctypedef_statement(PyrexScanner s, ctx)
 fn p_decorators(PyrexScanner s)
 fn _reject_cdef_modifier_in_py(PyrexScanner s, name)

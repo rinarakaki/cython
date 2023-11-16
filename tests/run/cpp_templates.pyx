@@ -137,7 +137,7 @@ def test_typeof(f64 x):
     2.25
     """
     try:
-        w = new Wrap[cython.typeof(&f)](&f)
+        w = new Wrap[cython::typeof(&f)](&f)
         return w.get()(x)
     finally:
         del w

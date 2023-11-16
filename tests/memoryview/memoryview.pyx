@@ -39,11 +39,11 @@ fn object returnobj():
     let obj = object()
     return obj
 
-fn float[:;1] returnmvs_inner():
+fn f32[:;1] returnmvs_inner():
     return array((10,), itemsize=sizeof(f32), format='f')
 
 fn f32[:;1] returnmvs():
-    let f32[:;1] mvs = returnmvs_inner()
+    let auto mvs = returnmvs_inner()
     return mvs
 
 def f():
@@ -164,7 +164,7 @@ def call():
     global global_mv
     passmvs(global_mv, global_obj)
     global_mv = array((3, 3), itemsize=sizeof(f32), format='f')
-    let f32[:;1] getmvs = returnmvs()
+    let auto getmvs = returnmvs()
     returnmvs()
     let object obj = returnobj()
     cdg()
@@ -216,7 +216,7 @@ def test_cdef_attribute():
 
     print ExtClass().mview
 
-#[cython.boundscheck(false)]
+#[cython::boundscheck(false)]
 def test_nogil_unbound_localerror():
     """
     >>> test_nogil_unbound_localerror()
@@ -295,7 +295,7 @@ def nested_packed_struct(NestedPackedStruct[:] mslice):
     d = buf[0]
     print d['a'], d['b'], d['sub']['a'], d['sub']['b'], d['c']
 
-def complex_dtype(long double complex[:] mslice):
+def complex_dtype(c256[:] mslice):
     """
     >>> complex_dtype(LongComplexMockBuffer(None, [(0, -1)]))
     -1j
@@ -303,7 +303,7 @@ def complex_dtype(long double complex[:] mslice):
     let object buf = mslice
     print buf[0]
 
-def complex_inplace(long double complex[:] mslice):
+def complex_inplace(c256[:] mslice):
     """
     >>> complex_inplace(LongComplexMockBuffer(None, [(0, -1)]))
     (1+1j)
@@ -426,18 +426,18 @@ def type_infer(f64[:, :] arg):
     double[:, :]
     """
     a = arg[0, 0]
-    print(cython.typeof(a))
+    print(cython::typeof(a))
     b = arg[0]
-    print(cython.typeof(b))
+    print(cython::typeof(b))
     c = arg[0, :]
-    print(cython.typeof(c))
+    print(cython::typeof(c))
     d = arg[:, :]
-    print(cython.typeof(d))
+    print(cython::typeof(d))
 
 #
 # Loop optimization
 #
-#[cython.test_fail_if_path_exists("//CoerceToPyTypeNode")]
+#[cython::test_fail_if_path_exists("//CoerceToPyTypeNode")]
 def memview_iter(f64[:, :] arg):
     """
     >>> memview_iter(DoubleMockBuffer("C", 0..6, (2, 3)))
@@ -575,12 +575,12 @@ def generic(i32[:;view.generic, :;view.generic] mslice1,
 #    print buf1[2, 2]
 #    print buf2[2, 2]
 
-ctypedef i32 td_cy_int
+type td_cy_int = i32
 extern from "bufaccess.h":
-    ctypedef td_cy_int td_h_short # Defined as short, but Cython doesn't know this!
-    ctypedef f32 td_h_double # Defined as double
-    ctypedef u32 td_h_ushort # Defined as unsigned short
-ctypedef td_h_short td_h_cy_short
+    type td_h_short = td_cy_int  # Defined as short, but Cython doesn't know this!
+    type td_h_double = f32  # Defined as double
+    type td_h_ushort = u32  # Defined as unsigned short
+type td_h_cy_short = td_h_short
 
 def printbuf_td_cy_int(td_cy_int[:] mslice, shape):
     """
@@ -665,8 +665,8 @@ def addref(*args):
 def decref(*args):
     for item in args: Py_DECREF(item)
 
-#[cython.binding(false)]
-#[cython.always_allow_keywords(false)]
+#[cython::binding(false)]
+#[cython::always_allow_keywords(false)]
 def get_refcount(x):
     return (<PyObject*>x).ob_refcnt
 
@@ -1114,8 +1114,8 @@ def test_cpython_offbyone_issue_23349():
     # the following returns 'estingt' without the workaround
     return bytearray(v).decode('ascii')
 
-#[cython.test_fail_if_path_exists('//SimpleCallNode')]
-@cython.test_assert_path_exists(
+#[cython::test_fail_if_path_exists('//SimpleCallNode')]
+@cython::test_assert_path_exists(
     '//ReturnStatNode//TupleNode',
     '//ReturnStatNode//TupleNode//CondExprNode',
 )
@@ -1128,15 +1128,15 @@ def min_max_tree_restructuring():
     a = [1, 2, 3, 4, 5]
     let i8[:] aview = a
 
-    return max(<i8>1, aview[0]), min(<i8>5, aview[2])
+    return max(1i8, aview[0]), min(5i8, aview[2])
 
-@cython.test_fail_if_path_exists(
-    '//MemoryViewSliceNode',
+@cython::test_fail_if_path_exists(
+    "//MemoryViewSliceNode",
 )
-@cython.test_assert_path_exists(
-    '//MemoryViewIndexNode',
+@cython::test_assert_path_exists(
+    "//MemoryViewIndexNode",
 )
-# #[cython.boundscheck(false)]  # reduce C code clutter
+# #[cython::boundscheck(false)]  # reduce C code clutter
 def optimised_index_of_slice(i32[:, :, :] arr, i32 x, i32 y, i32 z):
     """
     >>> arr = IntMockBuffer("A", list(0..(10 * 10 * 10)), shape=(10, 10, 10))
@@ -1196,7 +1196,7 @@ def test_assign_from_byteslike(byteslike):
     def assign(m):
         m[:] = byteslike
 
-    let void *buf
+    let void* buf
     let u8[:] mview
     buf = malloc(5)
     try:
@@ -1270,7 +1270,7 @@ match arr:
 
     return isinstance(<object>a, Sequence)
 
-ctypedef i32 aliasT
+type aliasT = i32
 def test_assignment_typedef():
     """
     >>> test_assignment_typedef()

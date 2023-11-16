@@ -49,7 +49,7 @@ OverflowError: ...
 """
 
 extern from *:
-    ctypedef long ssize_t # XXX This should generate a warning !!!
+    type ssize_t = i64  # XXX This should generate a warning !!!
     static ssize_t PY_SSIZE_T_MAX
     static ssize_t PY_SSIZE_T_MIN
 

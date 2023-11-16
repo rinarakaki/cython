@@ -71,7 +71,7 @@ def test_string_call(a, b):
     """
     return add_strings(a, b)
 
-def test_c_string_convert(char *c_string):
+def test_c_string_convert(char* c_string):
     """
     >>> decode(test_c_string_convert("abc".encode('ascii')))
     'abc'
@@ -167,7 +167,7 @@ def test_repeated_double_vector(a, b, i32 n):
     let vector[f64] v = [a, b] * n
     return v
 
-ctypedef i32 my_int
+type my_int = i32
 
 def test_typedef_vector(o):
     """

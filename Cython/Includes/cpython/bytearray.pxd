@@ -10,7 +10,7 @@ extern from "Python.h":
     fn bytearray PyByteArray_FromObject(object o)
     # Return a new bytearray object from any object, o, that implements the buffer protocol.
 
-    fn bytearray PyByteArray_FromStringAndSize(char *string, isize len)
+    fn bytearray PyByteArray_FromStringAndSize(char* string, isize len)
     # Create a new bytearray object from string and its length, len. On failure, NULL is returned.
 
     fn bytearray PyByteArray_Concat(object a, object b)

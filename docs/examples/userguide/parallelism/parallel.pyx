@@ -1,7 +1,7 @@
 from cython.parallel import parallel, prange
 use libc::stdlib::(abort, malloc, free)
 
-fn void func(i32 *buf) nogil:
+fn void func(i32* buf) nogil:
     pass
     # ...
 

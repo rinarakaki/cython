@@ -9,7 +9,7 @@ use cpython::ref::(PyObject, Py_INCREF, Py_XDECREF)
 
 extern from "frameobject.h":
     struct PyFrameObject:
-        PyObject *f_trace
+        PyObject* f_trace
 
 use cpython::pystate::(
     Py_tracefunc,
@@ -18,8 +18,8 @@ use cpython::pystate::(
 )
 
 extern from *:
-    fn void PyEval_SetProfile(Py_tracefunc cfunc, PyObject *obj)
-    fn void PyEval_SetTrace(Py_tracefunc cfunc, PyObject *obj)
+    fn void PyEval_SetProfile(Py_tracefunc cfunc, PyObject* obj)
+    fn void PyEval_SetTrace(Py_tracefunc cfunc, PyObject* obj)
 
 map_trace_types = {
     PyTrace_CALL:        'call',
@@ -36,7 +36,7 @@ fn i32 trace_trampoline(PyObject* _traceobj, PyFrameObject* _frame, i32 what, Py
     """
     This is (more or less) what CPython does in sysmodule.c, function trace_trampoline().
     """
-    let PyObject *tmp
+    let PyObject* tmp
 
     if what == PyTrace_CALL:
         if _traceobj is NULL:

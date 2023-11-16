@@ -15,7 +15,7 @@ except ImportError:
     def next(it):
         return it.next()
 
-# @cython.test_assert_path_exists(
+# @cython::test_assert_path_exists(
 #     "//ParallelWithBlockNode//ParallelRangeNode[@schedule = 'dynamic']",
 #     "//GILStatNode[@state = 'nogil]//ParallelRangeNode")
 def test_prange():
@@ -104,15 +104,15 @@ def test_propagation():
 #    cdef i32 start = -5
 #    cdef u32 stop = 5
 #    cdef i32 step = 1
-
+#
 #    cdef i32 steps_taken = 0
-#    cdef i32 *steps_takenp = &steps_taken
-
+#    cdef i32* steps_takenp = &steps_taken
+#
 #    for i in prange(start, stop, step, nogil=true):
 #        steps_taken += 1
 #        if steps_takenp[0] > 10:
 #            abort()
-
+#
 #    return steps_taken
 
 def test_reassign_start_stop_step():
@@ -231,10 +231,10 @@ def test_pure_mode():
         print pure_parallel.threadid()
 
 extern from "types.h":
-    ctypedef i16 actually_long_t
-    ctypedef i64 actually_short_t
+    type actually_long_t = i16
+    type actually_short_t = i64
 
-ctypedef i32 myint_t
+type myint_t = i32
 
 def test_nan_init():
     """
@@ -242,7 +242,7 @@ def test_nan_init():
     """
     let i32 mybool = 0
     let i32 err = 0
-    let i32 *errp = &err
+    let i32* errp = &err
 
     let signed char a1 = 10
     let u8 a2 = 10
@@ -261,9 +261,9 @@ def test_nan_init():
 
     let f32 f = 10.0
     let f64 g = 10.0
-    let long double h = 10.0
+    let f128 h = 10.0
 
-    let void *p = <void *> 10
+    let auto p = <void*>10
 
     with nogil, cython.parallel.parallel():
         # First, trick the error checking to make it believe these variables
@@ -281,7 +281,7 @@ def test_nan_init():
             d1 == 10 or d2 == 10 or
             e1 == 10 or e2 == 10 or
             f == 10.0 or g == 10.0 or h == 10.0 or
-            p == <void *> 10 or miss1 == 10 or miss2 == 10
+            p == <void*>10 or miss1 == 10 or miss2 == 10
             or typedef1 == 10):
             errp[0] = 1
 
@@ -302,7 +302,7 @@ def test_nan_init():
             d1 == 10 or d2 == 10 or
             e1 == 10 or e2 == 10 or
             f == 10.0 or g == 10.0 or h == 10.0 or
-            p == <void *> 10 or miss1 == 10 or miss2 == 10
+            p == <void*>10 or miss1 == 10 or miss2 == 10
             or typedef1 == 10):
             errp[0] = 1
 
@@ -315,7 +315,7 @@ def test_nan_init():
         c1 = 16
 
 
-fn void nogil_print(char *s) noexcept with gil:
+fn void nogil_print(char* s) noexcept with gil:
     print s.decode('ascii')
 
 def test_else_clause():
@@ -358,7 +358,7 @@ def test_prange_continue():
     9 0
     """
     let i32 i
-    let i32 *p = <i32 *> calloc(10, sizeof(i32))
+    let auto p = <i32*>calloc(10, sizeof(i32))
 
     if p == NULL:
         raise MemoryError
@@ -397,7 +397,7 @@ def test_nested_break_continue():
 
     print i, j, result1, result2
 
-    with nogil, cython.parallel.parallel(num_threads=2):
+    with nogil, cython::parallel::parallel(num_threads=2):
         for i in prange(10, schedule='static'):
             if i == 8:
                 break
@@ -836,7 +836,7 @@ def test_prange_call_exception_checked_function():
     """
 
     let i32 N = 10000
-    let i32* buf = <i32*>malloc(sizeof(i32)*N)
+    let auto buf = <i32*>malloc(sizeof(i32) * N)
     if buf == NULL:
         raise MemoryError
     try:
