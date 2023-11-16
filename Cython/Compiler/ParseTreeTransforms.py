@@ -257,7 +257,7 @@ class PostParse(ScopeTrackingTransform):
                 while isinstance(declbase, Nodes.CPtrDeclaratorNode):
                     declbase = declbase.base
                 if isinstance(declbase, Nodes.CNameDeclaratorNode):
-                    if node.base_type is not None and declbase.default is not None:
+                    if declbase.default is not None:
                         if self.scope_type in ('cclass', 'pyclass', 'struct'):
                             if isinstance(self.scope_node, Nodes.CClassDefNode):
                                 handler = self.specialattribute_handlers.get(decl.name)
@@ -271,7 +271,6 @@ class PostParse(ScopeTrackingTransform):
                         stats.append(Nodes.SingleAssignmentNode(node.pos,
                             lhs=ExprNodes.NameNode(node.pos, name=declbase.name),
                             rhs=declbase.default, first=first_assignment))
-                        declbase.default = None
                 newdecls.append(decl)
             node.declarators = newdecls
             return stats
