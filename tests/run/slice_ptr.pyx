@@ -14,7 +14,7 @@ def double_ptr_slice(x, L, i32 a, i32 b):
     >>> double_ptr_slice(EqualsEvens(), L, 0, 10)
     >>> double_ptr_slice(EqualsEvens(), L, 1, 10)
     """
-    let f64 *L_c = NULL
+    let f64* L_c = NULL
     try:
         L_c = <f64*>malloc(<u64> len(L) * sizeof(f64))
         for i, a in enumerate(L):
