@@ -1145,7 +1145,7 @@ def check_object_nulled_1d(object[:] buf, i32 idx, obj):
     True
     """
     let ObjectMockBuffer omb = buf.base
-    let PyObject** data = <PyObject**>(omb.buffer)
+    let auto data = <PyObject**>(omb.buffer)
     Py_CLEAR(data[idx])
     res = buf[idx]  # takes None
     buf[idx] = obj
@@ -1165,7 +1165,7 @@ def check_object_nulled_2d(object[:, :;1] buf, i32 idx1, i32 idx2, obj):
     True
     """
     let ObjectMockBuffer omb = buf.base
-    let PyObject** data = <PyObject**>(omb.buffer)
+    let auto data = <PyObject**>(omb.buffer)
     Py_CLEAR(data[idx1 + 2*idx2])
     res = buf[idx1, idx2]  # takes None
     buf[idx1, idx2] = obj
@@ -2537,7 +2537,7 @@ def test_const_buffer(const i32[:] a):
     5
     released A
     """
-    let const i32[:] c = a
+    let auto c = a
     print(a[0])
     print(c[-1])
 
