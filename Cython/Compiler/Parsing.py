@@ -3144,7 +3144,7 @@ def p_c_simple_declarator(s, ctx, empty, is_type, cmethod_flag,
                               assignable=assignable, nonempty=nonempty)
         result = node_class(pos, base=base)
     else:
-        if s.in_python_file or ctx.level in ("c_class", "c_class_pxd", "cpp_class"):
+        if s.in_python_file or not ctx.cdef_flag or ctx.level in ("c_class", "c_class_pxd", "cpp_class"):
             mutable = 1
         else:
             if s.sy == "mut":
