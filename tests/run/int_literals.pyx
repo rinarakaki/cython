@@ -35,10 +35,10 @@ def c_longs():
     >>> c_longs() == (1, 1, -1, 18446744073709551615)  or  c_longs()
     True
     """
-    let i64 a = 1i64
-    let u64 ua = 1u64
-    let i128 aa = 0xFFFFFFFFFFFFFFFFi128
-    let u128 uaa = 0xFFFFFFFFFFFFFFFFu128
+    let auto a = 1i64
+    let auto ua = 1u64
+    let auto aa = 0xFFFFFFFFFFFFFFFFi128
+    let auto uaa = 0xFFFFFFFFFFFFFFFFu128
     return a, ua, int(aa), uaa
 
 #[cython::test_assert_path_exists(
@@ -51,8 +51,8 @@ def negative_c_longs():
     >>> negative_c_longs() == (-1, -9223285636854775809)  or  negative_c_longs()
     True
     """
-    let i64 a = -1i64
-    let i128 aa = -9223285636854775809i128
+    let auto a = -1i64
+    let auto aa = -9223285636854775809i128
     return a, aa
 
 def py_longs():

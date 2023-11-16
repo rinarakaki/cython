@@ -118,7 +118,7 @@ def test_cython_array_index():
 fn i32* getp(i32 dim1=10, i32 dim2=10, dim3=1) except NULL:
     print "getp()"
 
-    let i32* p = <i32*>malloc(dim1 * dim2 * dim3 * sizeof(i32))
+    let auto p = <i32*>malloc(dim1 * dim2 * dim3 * sizeof(i32))
 
     if p == NULL:
         raise MemoryError
@@ -149,28 +149,28 @@ def test_array_from_pointer():
     119
     callback free data called
     """
-    let i32* p = getp()
-    let array c_arr = <i32[:10, :10]> p
+    let auto p = getp()
+    let array c_arr = <i32[:10, :10]>p
     c_arr.callback_free_data = callback_free_data
     print c_arr[6, 9]
     print c_arr.mode
 
-    c_arr = (<i32[:10;1, :10]> getp())
+    c_arr = (<i32[:10;1, :10]>getp())
     print c_arr.mode
     c_arr.callback_free_data = free
 
-    c_arr = <i32[:10, :10]> getp()
+    c_arr = <i32[:10, :10]>getp()
     c_arr.callback_free_data = free
     let i32[:, :;1] mslice = c_arr
     print mslice[5, 6]
 
-    c_arr = <i32[:12, :10]> getp(12, 10)
+    c_arr = <i32[:12, :10]>getp(12, 10)
     c_arr.callback_free_data = free
     print c_arr[5, 6]
 
     let i32 m = 12
     let i32 n = 10
-    c_arr = <i32[:m, :n]> getp(m, n)
+    c_arr = <i32[:m, :n]>getp(m, n)
     c_arr.callback_free_data = callback_free_data
     print c_arr[m - 1, n - 1]
 
@@ -181,9 +181,9 @@ def test_array_from_pointer_3d():
     3 3
     True True
     """
-    let i32* p = getp(2, 2, 2)
-    let array c_arr = <i32[:2, :2, :2;1]> p
-    let array f_arr = <i32[:2;1, :2, :2]> p
+    let auto p = getp(2, 2, 2)
+    let array c_arr = <i32[:2, :2, :2;1]>p
+    let array f_arr = <i32[:2;1, :2, :2]>p
 
     let i32[:, :, :;1] m1 = c_arr
     let i32[:;1, :, :] m2 = f_arr
@@ -202,7 +202,7 @@ def test_cyarray_from_carray():
         for j in 0..8:
             a[i][j] = i * 8 + j
 
-    let i32[:, :] mslice = <i32[:, :]> a
+    let auto mslice = <i32[:, :]>a
     print mslice[0, 0], mslice[1, 0], mslice[2, 5]
 
     mslice = a
