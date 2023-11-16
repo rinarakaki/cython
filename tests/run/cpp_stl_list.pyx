@@ -109,7 +109,7 @@ def item_ptr_test(L, i32 x):
     [100, 1, 2, 3, 4, 5, 6, 7, 8, 9]
     """
     let cpp_list[i32] l = L
-    let i32* li_ptr = &l.front()
+    let &i32 li_ptr = &l.front()
     li_ptr[0] = x
     return to_pylist(l)
 
