@@ -3144,13 +3144,16 @@ def p_c_simple_declarator(s, ctx, empty, is_type, cmethod_flag,
                               assignable=assignable, nonempty=nonempty)
         result = node_class(pos, base=base)
     else:
-        if s.in_python_file or s.sy == "mut":
+        if s.in_python_file:
             mutable = 1
-            s.next()
         else:
-            mutable = 0
-            if s.sy == "const":
+            if s.sy == "mut":
+                mutable = 1
                 s.next()
+            else:
+                mutable = 0
+                if s.sy == "const":
+                    s.next()
 
         rhs = None
         if s.sy == 'IDENT':
