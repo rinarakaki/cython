@@ -2683,10 +2683,6 @@ def p_positional_and_keyword_args(s, end_sy_set, templates = None):
     return positional_args, keyword_args
 
 def p_c_base_type(s, nonempty=False, templates=None):
-    if s.sy == "auto":
-        s.next()
-        return None
-
     pos = s.position()
     # Handle const/volatile
     is_const = is_volatile = 0
@@ -3629,6 +3625,25 @@ def p_struct_enum(s, pos, ctx):
     else:
         return p_c_struct_or_union_definition(s, pos, ctx)
 
+def p_let_statement(s, pos, ctx):
+    # s.sy == "let"
+    s.next()
+    if s.sy == "auto":
+        s.next()
+        base_type = None
+    else:
+        base_type = p_c_base_type(s, nonempty = 1, templates = ctx.templates)
+    declarator = p_c_declarator(s, ctx, assignable = 1, nonempty = 1)
+    declarators = [declarator]
+    while s.sy == ',':
+        s.next()
+        if s.sy == 'NEWLINE':
+            break
+        declarator = p_c_declarator(s, ctx, assignable = 1, nonempty = 1)
+        declarators.append(declarator)
+    s.expect_newline("Syntax error in C variable declaration", ignore_semicolon=True)
+    return Nodes.LetStatNode(pos, base_type = base_type, declarators = declarators)
+
 def p_visibility(s, prev_visibility):
     pos = s.position()
     visibility = prev_visibility
@@ -3642,21 +3657,6 @@ def p_visibility(s, prev_visibility):
                 % (prev_visibility, visibility), fatal=False)
         s.next()
     return visibility
-
-def p_let_statement(s, pos, ctx):
-    # s.sy == "let"
-    s.next()
-    base_type = p_c_base_type(s, nonempty = 1, templates = ctx.templates)
-    declarator = p_c_declarator(s, ctx, assignable = 1, nonempty = 1)
-    declarators = [declarator]
-    while s.sy == ',':
-        s.next()
-        if s.sy == 'NEWLINE':
-            break
-        declarator = p_c_declarator(s, ctx, assignable = 1, nonempty = 1)
-        declarators.append(declarator)
-    s.expect_newline("Syntax error in C variable declaration", ignore_semicolon=True)
-    return Nodes.LetStatNode(pos, base_type = base_type, declarators = declarators)
 
 def p_c_modifiers(s):
     if s.sy == 'IDENT' and s.systring in ('inline',):

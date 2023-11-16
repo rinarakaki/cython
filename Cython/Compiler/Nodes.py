@@ -3734,7 +3734,7 @@ class DefNodeWrapper(FuncDefNode):
             entry.xdecref_cleanup = 1
             for ass in entry.cf_assignments:
                 if not ass.is_arg and ass.lhs.is_name:
-                    ass.lhs.cf_maybe_null = True
+                    ass.lhs.maybe_uninitialised = True
 
     def signature_has_nongeneric_args(self):
         argcount = len(self.args)
