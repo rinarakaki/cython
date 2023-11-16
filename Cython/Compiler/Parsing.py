@@ -3130,20 +3130,9 @@ def p_c_simple_declarator(s, ctx, empty, is_type, cmethod_flag,
         else:
             is_ptrptr = 0
 
-        const_pos = s.position()
-        if s.sy == "mut":
-            mutable = 1
-            s.next()
-        else:
-            mutable = 0
-            if s.sy == "const":
-                s.next()
-
         base = p_c_declarator(s, ctx, empty=empty, is_type=is_type,
                               cmethod_flag=cmethod_flag,
                               assignable=assignable, nonempty=nonempty)
-        if not mutable:
-            base = Nodes.CConstDeclaratorNode(const_pos, base=base)
         if is_ptrptr:
             base = Nodes.CPtrDeclaratorNode(pos, base=base)
         result = Nodes.CPtrDeclaratorNode(pos, base=base)
@@ -3155,6 +3144,13 @@ def p_c_simple_declarator(s, ctx, empty, is_type, cmethod_flag,
                               assignable=assignable, nonempty=nonempty)
         result = node_class(pos, base=base)
     else:
+        if s.sy == "mut":
+            mutable = 1
+            s.next()
+        else:
+            mutable = 0
+            if s.sy == "const":
+                s.next()
         rhs = None
         if s.sy == 'IDENT':
             name = s.systring
@@ -3202,7 +3198,7 @@ def p_c_simple_declarator(s, ctx, empty, is_type, cmethod_flag,
                             fatal=False)
                 name = name + ' ' + op
                 s.next()
-        result = Nodes.CNameDeclaratorNode(pos, name=name, cname=cname, default=rhs)
+        result = Nodes.CNameDeclaratorNode(pos, name=name, cname=cname, mutable=mutable, default=rhs)
     result.calling_convention = calling_convention
     return result
 

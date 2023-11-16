@@ -511,6 +511,7 @@ class CNameDeclaratorNode(CDeclaratorNode):
 
     child_attrs = ["default"]
 
+    mutable = 0
     default = None
 
     def declared_name(self):
@@ -545,6 +546,11 @@ class CNameDeclaratorNode(CDeclaratorNode):
                 error(self.pos,
                       "'%s' cannot be specialized since its type is not a fused argument to this function" %
                       self.name)
+        
+        if not self.mutable:
+            if base_type.is_pyobject:
+                error(self.pos, "Const base type cannot be a Python object")
+            base_type = PyrexTypes.c_const_type(base_type)
 
         self.type = base_type
         return self, base_type
@@ -868,19 +874,6 @@ class CFuncDeclaratorNode(CDeclaratorNode):
         op_args_struct.used = 1
 
         func_type.op_arg_struct = PyrexTypes.c_ptr_type(op_args_struct.type)
-
-
-class CConstDeclaratorNode(CDeclaratorNode):
-    # base     CDeclaratorNode
-
-    child_attrs = ["base"]
-
-    def analyse(self, base_type, env, nonempty=0, visibility=None, in_pxd=False):
-        if base_type.is_pyobject:
-            error(self.pos,
-                  "Const base type cannot be a Python object")
-        const = PyrexTypes.c_const_type(base_type)
-        return self.base.analyse(const, env, nonempty=nonempty, visibility=visibility, in_pxd=in_pxd)
 
 
 class CArgDeclNode(Node):
