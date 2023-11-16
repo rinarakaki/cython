@@ -1999,13 +1999,13 @@ class NewExprNode(AtomicExprNode):
 class NameNode(AtomicExprNode):
     #  Reference to a local or global variable name.
     #
-    #  name            string    Python name of the variable
-    #  entry           Entry     Symbol table entry
-    #  type_entry      Entry     For extension type names, the original type entry
-    #  uninitialised      boolean   Is uninitialized before this node
+    #  name                  string    Python name of the variable
+    #  entry                 Entry     Symbol table entry
+    #  type_entry            Entry     For extension type names, the original type entry
+    #  uninitialised         boolean   Is uninitialized before this node
     #  maybe_uninitialised   boolean   Maybe uninitialized before this node
-    #  allow_null      boolean   Don't raise UnboundLocalError
-    #  nogil           boolean   Whether it is used in a nogil context
+    #  allow_null            boolean   Don't raise UnboundLocalError
+    #  nogil                 boolean   Whether it is used in a nogil context
 
     is_name = True
     is_cython_module = False
