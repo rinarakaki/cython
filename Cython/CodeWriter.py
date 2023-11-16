@@ -160,6 +160,13 @@ class DeclarationWriter(TreeVisitor):
         self.put(u'[')
         self.comma_separated_list(node.positional_args + node.keyword_args.key_value_pairs)
         self.put(u']')
+    
+    def visit_LetStatNode(self, node):
+        self.startline("let ")
+        self.visit(node.base_type)
+        self.put(" ")
+        self.comma_separated_list(node.declarators, output_rhs=True)
+        self.endline()
 
     def visit_CVarDefNode(self, node):
         self.startline(u"cdef ")

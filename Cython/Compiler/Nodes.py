@@ -1459,6 +1459,15 @@ class CConstOrVolatileTypeNode(CBaseTypeNode):
         return PyrexTypes.c_const_or_volatile_type(base, self.is_const, self.is_volatile)
 
 
+class LetStatNode(StatNode):
+    #  Local variable bindings.
+    #
+    #  base_type     CBaseTypeNode
+    #  declarators   [CDeclaratorNode]
+
+    child_attrs = ["base_type", "declarators"]
+
+
 class CVarDefNode(StatNode):
     #  C variable definition or forward/extern function declaration.
     #
