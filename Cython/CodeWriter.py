@@ -156,7 +156,7 @@ class DeclarationWriter(TreeVisitor):
         self.put(node.name)
 
     def visit_TemplatedTypeNode(self, node):
-        self.visit(node.base_type_node)
+        self.visit(node.base_type)
         self.put(u'[')
         self.comma_separated_list(node.positional_args + node.keyword_args.key_value_pairs)
         self.put(u']')

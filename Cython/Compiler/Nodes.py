@@ -1195,11 +1195,11 @@ class CPtrTypeNode(CBaseTypeNode):
 class MemoryViewSliceTypeNode(CBaseTypeNode):
 
     name = 'memoryview'
-    child_attrs = ['base_type_node', 'axes']
+    child_attrs = ['base_type', 'axes']
 
     def analyse(self, env, could_be_name=False):
 
-        base_type = self.base_type_node.analyse(env)
+        base_type = self.base_type.analyse(env)
         if base_type.is_error: return base_type
 
         from . import MemoryView
@@ -1251,12 +1251,12 @@ class TemplatedTypeNode(CBaseTypeNode):
     #  After parsing:
     #  positional_args  [ExprNode]        List of positional arguments
     #  keyword_args     DictNode          Keyword arguments
-    #  base_type_node   CBaseTypeNode
+    #  base_type   CBaseTypeNode
 
     #  After analysis:
     #  type             PyrexTypes.BufferType or PyrexTypes.CppClassType  ...containing the right options
 
-    child_attrs = ["base_type_node", "positional_args",
+    child_attrs = ["base_type", "positional_args",
                    "keyword_args", "dtype_node"]
 
     is_templated_type_node = True
@@ -1294,7 +1294,7 @@ class TemplatedTypeNode(CBaseTypeNode):
 
     def analyse(self, env, could_be_name=False, base_type=None):
         if base_type is None:
-            base_type = self.base_type_node.analyse(env)
+            base_type = self.base_type.analyse(env)
         if base_type.is_error: return base_type
 
         if ((base_type.is_cpp_class and base_type.is_template_type()) or
@@ -1363,8 +1363,8 @@ class TemplatedTypeNode(CBaseTypeNode):
         # TODO: somehow bring this together with IndexNode.analyse_pytyping_modifiers()
         modifiers = []
         modifier_node = self
-        while modifier_node.is_templated_type_node and modifier_node.base_type_node and len(modifier_node.positional_args) == 1:
-            modifier_type = self.base_type_node.analyse_as_type(env)
+        while modifier_node.is_templated_type_node and modifier_node.base_type and len(modifier_node.positional_args) == 1:
+            modifier_type = self.base_type.analyse_as_type(env)
             if modifier_type.python_type_constructor_name and modifier_type.modifier_name:
                 modifiers.append(modifier_type.modifier_name)
             modifier_node = modifier_node.positional_args[0]

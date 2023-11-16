@@ -925,7 +925,7 @@ class ExprNode(Node):
 
     def generate_gotref(self, code, handle_null=False,
                         maybe_null_extra_check=True):
-        if not (handle_null and self.cf_is_null):
+        if not (handle_null and self.uninitialised):
             if (handle_null and self.cf_maybe_null
                     and maybe_null_extra_check):
                 self.generate_xgotref(code)
@@ -1190,7 +1190,7 @@ class ExprNode(Node):
         """Instantiate this node class from another node, properly
         copying over all attributes that one would forget otherwise.
         """
-        attributes = "cf_state cf_maybe_null cf_is_null constant_result".split()
+        attributes = "cf_state cf_maybe_null uninitialised constant_result".split()
         for attr_name in attributes:
             if attr_name in kwargs:
                 continue
@@ -2002,7 +2002,7 @@ class NameNode(AtomicExprNode):
     #  name            string    Python name of the variable
     #  entry           Entry     Symbol table entry
     #  type_entry      Entry     For extension type names, the original type entry
-    #  cf_is_null      boolean   Is uninitialized before this node
+    #  uninitialised      boolean   Is uninitialized before this node
     #  cf_maybe_null   boolean   Maybe uninitialized before this node
     #  allow_null      boolean   Don't raise UnboundLocalError
     #  nogil           boolean   Whether it is used in a nogil context
@@ -2015,7 +2015,7 @@ class NameNode(AtomicExprNode):
     entry = None
     type_entry = None
     cf_maybe_null = True
-    cf_is_null = False
+    uninitialised = False
     allow_null = False
     nogil = False
     inferred_type = None
@@ -2465,7 +2465,7 @@ class NameNode(AtomicExprNode):
                 namespace = Naming.builtins_cname
             else:  # entry.is_pyglobal
                 namespace = entry.scope.namespace_cname
-            if not self.cf_is_null:
+            if not self.uninitialised:
                 code.putln(
                     '%s = PyObject_GetItem(%s, %s);' % (
                         self.result(),
@@ -2479,7 +2479,7 @@ class NameNode(AtomicExprNode):
                 '__Pyx_GetModuleGlobalName(%s, %s);' % (
                     self.result(),
                     interned_cname))
-            if not self.cf_is_null:
+            if not self.uninitialised:
                 code.putln("}")
             code.putln(code.error_goto_if_null(self.result(), self.pos))
             self.generate_gotref(code)
@@ -2524,7 +2524,7 @@ class NameNode(AtomicExprNode):
         elif entry.is_local or entry.in_closure or entry.from_closure or entry.type.is_memoryviewslice:
             # Raise UnboundLocalError for objects and memoryviewslices
             raise_unbound = (
-                (self.cf_maybe_null or self.cf_is_null) and not self.allow_null)
+                (self.cf_maybe_null or self.uninitialised) and not self.allow_null)
 
             memslice_check = entry.type.is_memoryviewslice and self.initialized_check
             optional_cpp_check = entry.is_cpp_optional and self.initialized_check
@@ -2616,7 +2616,7 @@ class NameNode(AtomicExprNode):
                     if entry.is_cglobal:
                         self.generate_decref_set(code, rhs.result_as(self.ctype()))
                     else:
-                        if not self.cf_is_null:
+                        if not self.uninitialised:
                             if self.cf_maybe_null:
                                 self.generate_xdecref_set(code, rhs.result_as(self.ctype()))
                             else:
@@ -2667,7 +2667,7 @@ class NameNode(AtomicExprNode):
             rhs=rhs,
             code=code,
             have_gil=not self.in_nogil_context,
-            first_assignment=self.cf_is_null)
+            first_assignment=self.uninitialised)
 
     def generate_acquire_buffer(self, rhs, code):
         # rhstmp is only used in case the rhs is a complicated expression leading to
@@ -2723,7 +2723,7 @@ class NameNode(AtomicExprNode):
             else:
                 code.put_error_if_neg(self.pos, del_code)
         elif self.entry.type.is_pyobject or self.entry.type.is_memoryviewslice:
-            if not self.cf_is_null:
+            if not self.uninitialised:
                 if self.cf_maybe_null and not ignore_nonexisting:
                     code.put_error_if_unbound(self.pos, self.entry)
 
@@ -11168,7 +11168,7 @@ class CythonArrayNode(ExprNode):
 
 
     operand             ExprNode                 the thing we're casting
-    base_type_node      MemoryViewSliceTypeNode  the cast expression node
+    base_type      MemoryViewSliceTypeNode  the cast expression node
     """
 
     subexprs = ['operand', 'shapes']
@@ -11187,8 +11187,8 @@ class CythonArrayNode(ExprNode):
         if self.array_dtype:
             array_dtype = self.array_dtype
         else:
-            array_dtype = self.base_type_node.base_type_node.analyse(env)
-        axes = self.base_type_node.axes
+            array_dtype = self.base_type.base_type.analyse(env)
+        axes = self.base_type.axes
 
         self.type = error_type
         self.shapes = []
@@ -11366,8 +11366,8 @@ class CythonArrayNode(ExprNode):
         axes[-1].step = IntNode(pos, value="1", is_c_literal=True)
 
         memslicenode = Nodes.MemoryViewSliceTypeNode(pos, axes=axes,
-                                                     base_type_node=base_type)
-        result = CythonArrayNode(pos, base_type_node=memslicenode,
+                                                     base_type=base_type)
+        result = CythonArrayNode(pos, base_type=memslicenode,
                                  operand=src_node, array_dtype=base_type)
         result = result.analyse_types(env)
         return result
