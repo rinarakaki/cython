@@ -387,7 +387,7 @@ cdef class memoryview:
 
     fn char* get_item_pointer(memoryview self, object index) except NULL:
         let isize dim
-        let char* itemp = <char*>self.view.buf
+        let auto itemp = <char*>self.view.buf
 
         for dim, idx in enumerate(index):
             itemp = pybuffer_index(&self.view, itemp, idx, dim)
@@ -436,8 +436,8 @@ cdef class memoryview:
     fn setitem_slice_assignment(self, dst, src):
         let {{memviewslice_name}} dst_slice
         let {{memviewslice_name}} src_slice
-        let {{memviewslice_name}} msrc = get_slice_from_memview(src, &src_slice)[0]
-        let {{memviewslice_name}} mdst = get_slice_from_memview(dst, &dst_slice)[0]
+        let auto msrc = get_slice_from_memview(src, &src_slice)[0]
+        let auto mdst = get_slice_from_memview(dst, &dst_slice)[0]
 
         memoryview_copy_contents(msrc, mdst, src.ndim, dst.ndim, self.dtype_is_object)
 
@@ -474,7 +474,7 @@ cdef class memoryview:
             PyMem_Free(tmp)
 
     fn setitem_indexed(self, index, value):
-        let char* itemp = self.get_item_pointer(index)
+        let auto itemp = self.get_item_pointer(index)
         self.assign_item_from_object(itemp, value)
 
     fn convert_item_to_object(self, char* itemp):
@@ -613,13 +613,13 @@ cdef class memoryview:
 
     # Support the same attributes as memoryview slices
     def is_c_contig(self):
-        let {{memviewslice_name}} *mslice
+        let {{memviewslice_name}}* mslice
         let {{memviewslice_name}} tmp
         mslice = get_slice_from_memview(self, &tmp)
         return slice_is_contig(mslice[0], 'C', self.view.ndim)
 
     def is_f_contig(self):
-        let {{memviewslice_name}} *mslice
+        let {{memviewslice_name}}* mslice
         let {{memviewslice_name}} tmp
         mslice = get_slice_from_memview(self, &tmp)
         return slice_is_contig(mslice[0], 'F', self.view.ndim)
@@ -917,7 +917,7 @@ fn char* pybuffer_index(Py_buffer* view, char* bufp, isize index,
 # ## Transposing a memoryviewslice
 #
 @cname('__pyx_memslice_transpose')
-fn i32 transpose_memslice({{memviewslice_name}} *memslice) except -1 nogil:
+fn i32 transpose_memslice({{memviewslice_name}}* memslice) except -1 nogil:
     let i32 ndim = memslice.memview.view.ndim
 
     let isize* shape = memslice.shape
@@ -1059,8 +1059,8 @@ fn void slice_copy(memoryview memview, {{memviewslice_name}}* dst) noexcept:
     strides = memview.view.strides
     suboffsets = memview.view.suboffsets
 
-    dst.memview = <__pyx_memoryview *> memview
-    dst.data = <char*> memview.view.buf
+    dst.memview = <__pyx_memoryview *>memview
+    dst.data = <char*>memview.view.buf
 
     for dim in 0..memview.view.ndim:
         dst.shape[dim] = shape[dim]
@@ -1161,7 +1161,7 @@ fn void copy_strided_to_strided({{memviewslice_name}} *src,
                              src.shape, dst.shape, ndim, itemsize)
 
 @cname('__pyx_memoryview_slice_get_size')
-fn isize slice_get_size({{memviewslice_name}} *src, i32 ndim) noexcept nogil:
+fn isize slice_get_size({{memviewslice_name}}* src, i32 ndim) noexcept nogil:
     "Return the size of the memory occupied by the slice in number of bytes"
     let isize shape, size = src.memview.view.itemsize
 
@@ -1263,7 +1263,7 @@ fn i32 memoryview_copy_contents({{memviewslice_name}} src,
     let void* tmpdata = NULL
     let usize itemsize = src.memview.view.itemsize
     let i32 i
-    let char order = get_best_order(&src, src_ndim)
+    let auto order = get_best_order(&src, src_ndim)
     let u2 broadcasting = false
     let u2 direct_copy = false
     let {{memviewslice_name}} tmp
@@ -1324,7 +1324,7 @@ fn i32 memoryview_copy_contents({{memviewslice_name}} src,
     return 0
 
 @cname('__pyx_memoryview_broadcast_leading')
-fn void broadcast_leading({{memviewslice_name}} *mslice,
+fn void broadcast_leading({{memviewslice_name}}* mslice,
                           i32 ndim,
                           i32 ndim_other) noexcept nogil:
     let i32 i

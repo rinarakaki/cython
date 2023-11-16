@@ -2,7 +2,6 @@
 #   Parse tree nodes
 #
 
-from __future__ import absolute_import
 
 import cython
 
@@ -50,7 +49,7 @@ def relative_position(pos):
 def embed_position(pos, docstring):
     if not Options.embed_pos_in_docstring:
         return docstring
-    pos_line = u'File: %s (starting at line %s)' % relative_position(pos)
+    pos_line = 'File: %s (starting at line %s)' % relative_position(pos)
     if docstring is None:
         # unicode string
         return EncodedString(pos_line)
@@ -68,7 +67,7 @@ def embed_position(pos, docstring):
         # reuse the string encoding of the original docstring
         doc = EncodedString(pos_line)
     else:
-        doc = EncodedString(pos_line + u'\n' + docstring)
+        doc = EncodedString(pos_line + '\n' + docstring)
     doc.encoding = encoding
     return doc
 
@@ -109,7 +108,7 @@ class VerboseCodeWriter(type):
         for mname, m in attrs.items():
             if isinstance(m, FunctionType):
                 attrs[mname] = write_func_call(m, CCodeWriter)
-        return super(VerboseCodeWriter, cls).__new__(cls, name, bases, attrs)
+        return super().__new__(cls, name, bases, attrs)
 
 
 class CheckAnalysers(type):
@@ -135,7 +134,7 @@ class CheckAnalysers(type):
         for mname, m in attrs.items():
             if isinstance(m, FunctionType) and mname in cls.methods:
                 attrs[mname] = check(mname, m)
-        return super(CheckAnalysers, cls).__new__(cls, name, bases, attrs)
+        return super().__new__(cls, name, bases, attrs)
 
 
 def _with_metaclass(cls):
@@ -146,7 +145,7 @@ def _with_metaclass(cls):
 
 
 @_with_metaclass
-class Node(object):
+class Node:
     #  pos         (string, int, int)   Source file position
     #  is_name     boolean              Is a NameNode
     #  is_literal  boolean              Is a ConstNode
@@ -310,7 +309,7 @@ class Node(object):
         """Debug helper method that returns the source code context of this node as a string.
         """
         if not self.pos:
-            return u''
+            return ''
         source_desc, line, col = self.pos
         contents = source_desc.get_lines(encoding='ASCII', error_handling='ignore')
         # line numbers start at 1
@@ -318,10 +317,10 @@ class Node(object):
         current = lines[-1]
         if mark_column:
             current = current[:col] + marker + current[col:]
-        lines[-1] = current.rstrip() + u'             # <<<<<<<<<<<<<<\n'
+        lines[-1] = current.rstrip() + '             # <<<<<<<<<<<<<<\n'
         lines += contents[line:line+2]
-        return u'"%s":%d:%d\n%s\n' % (
-            source_desc.get_escaped_description(), line, col, u''.join(lines))
+        return '"%s":%d:%d\n%s\n' % (
+            source_desc.get_escaped_description(), line, col, ''.join(lines))
 
 
 class CompilerDirectivesNode(Node):
@@ -367,7 +366,7 @@ class CompilerDirectivesNode(Node):
         code.globalstate.directives = old
 
 
-class BlockNode(object):
+class BlockNode:
     #  Mixin class for nodes representing a declaration block.
 
     def generate_cached_builtins_decls(self, env, code):
@@ -1195,11 +1194,11 @@ class CPtrTypeNode(CBaseTypeNode):
 class MemoryViewSliceTypeNode(CBaseTypeNode):
 
     name = 'memoryview'
-    child_attrs = ['base_type_node', 'axes']
+    child_attrs = ['base_type', 'axes']
 
     def analyse(self, env, could_be_name=False):
 
-        base_type = self.base_type_node.analyse(env)
+        base_type = self.base_type.analyse(env)
         if base_type.is_error: return base_type
 
         from . import MemoryView
@@ -1251,12 +1250,12 @@ class TemplatedTypeNode(CBaseTypeNode):
     #  After parsing:
     #  positional_args  [ExprNode]        List of positional arguments
     #  keyword_args     DictNode          Keyword arguments
-    #  base_type_node   CBaseTypeNode
+    #  base_type        CBaseTypeNode
 
     #  After analysis:
     #  type             PyrexTypes.BufferType or PyrexTypes.CppClassType  ...containing the right options
 
-    child_attrs = ["base_type_node", "positional_args",
+    child_attrs = ["base_type", "positional_args",
                    "keyword_args", "dtype_node"]
 
     is_templated_type_node = True
@@ -1294,7 +1293,7 @@ class TemplatedTypeNode(CBaseTypeNode):
 
     def analyse(self, env, could_be_name=False, base_type=None):
         if base_type is None:
-            base_type = self.base_type_node.analyse(env)
+            base_type = self.base_type.analyse(env)
         if base_type.is_error: return base_type
 
         if ((base_type.is_cpp_class and base_type.is_template_type()) or
@@ -1322,8 +1321,8 @@ class TemplatedTypeNode(CBaseTypeNode):
 
             if sys.version_info[0] < 3:
                 # Py 2.x enforces byte strings as keyword arguments ...
-                options = dict([(name.encode('ASCII'), value)
-                                for name, value in options.items()])
+                options = {name.encode('ASCII'): value
+                           for name, value in options.items()}
 
             self.type = PyrexTypes.BufferType(base_type, **options)
             if has_np_pythran(env) and is_pythran_buffer(self.type):
@@ -1363,8 +1362,8 @@ class TemplatedTypeNode(CBaseTypeNode):
         # TODO: somehow bring this together with IndexNode.analyse_pytyping_modifiers()
         modifiers = []
         modifier_node = self
-        while modifier_node.is_templated_type_node and modifier_node.base_type_node and len(modifier_node.positional_args) == 1:
-            modifier_type = self.base_type_node.analyse_as_type(env)
+        while modifier_node.is_templated_type_node and modifier_node.base_type and len(modifier_node.positional_args) == 1:
+            modifier_type = self.base_type.analyse_as_type(env)
             if modifier_type.python_type_constructor_name and modifier_type.modifier_name:
                 modifiers.append(modifier_type.modifier_name)
             modifier_node = modifier_node.positional_args[0]
@@ -1602,6 +1601,50 @@ class CConstOrVolatileTypeNode(CBaseTypeNode):
         return PyrexTypes.c_const_or_volatile_type(base, self.is_const, self.is_volatile)
 
 
+class LetStatNode(StatNode):
+    #  Local variable bindings.
+    #
+    #  base_type     CBaseTypeNode
+    #  declarators   [CDeclaratorNode]
+
+    child_attrs = ["base_type", "declarators"]
+
+    def analyse_declarations(self, env, dest_scope=None):
+        if not dest_scope:
+            dest_scope = env
+        self.dest_scope = dest_scope
+
+        base_type = None
+        if self.base_type is not None:
+            base_type = self.base_type.analyse(env)
+
+        self.entry = None
+
+        for declarator in self.declarators:
+            if (len(self.declarators) > 1
+                    and not isinstance(declarator, CNameDeclaratorNode)
+                    and env.directives['warn.multiple_declarators']):
+                warning(
+                    declarator.pos,
+                    "Non-trivial type declarators in shared declaration (e.g. mix of pointers and values). "
+                    "Each pointer declaration should be on its own line.", 1)
+
+            name_declarator, type = declarator.analyse(base_type, env)
+            if not type.is_complete():
+                if not type.is_memoryviewslice:
+                    error(declarator.pos, "Variable type '%s' is incomplete" % type)
+            name = name_declarator.name
+            cname = name_declarator.cname
+            if name == "":
+                error(declarator.pos, "Missing name in declaration.")
+                return
+            if type.is_reference:
+                error(declarator.pos, "C++ references cannot be declared; use a pointer instead")
+            if type.is_rvalue_reference:
+                error(declarator.pos, "C++ rvalue-references cannot be declared")
+            self.entry = dest_scope.declare_var(name, type, declarator.pos, cname=cname, is_cdef=True)
+
+
 class CVarDefNode(StatNode):
     #  C variable definition or forward/extern function declaration.
     #
@@ -1819,11 +1862,9 @@ class CppClassNode(CStructOrUnionDefNode, BlockNode):
                 if isinstance(attr, CFuncDefNode):
                     yield attr
                 elif isinstance(attr, CompilerDirectivesNode):
-                    for sub_attr in func_attributes(attr.body.stats):
-                        yield sub_attr
+                    yield from func_attributes(attr.body.stats)
                 elif isinstance(attr, CppClassNode) and attr.attributes is not None:
-                    for sub_attr in func_attributes(attr.attributes):
-                        yield sub_attr
+                    yield from func_attributes(attr.attributes)
         if self.attributes is not None:
             if self.in_pxd and not env.in_cinclude:
                 self.entry.defined_in_pxd = 1
@@ -3128,7 +3169,7 @@ class CFuncDefNode(FuncDefNode):
         if code.globalstate.directives['linetrace']:
             code.mark_pos(self.pos)
             code.putln("")  # generate line tracing code
-        super(CFuncDefNode, self).generate_execution_code(code)
+        super().generate_execution_code(code)
         if self.py_func_stat:
             self.py_func_stat.generate_execution_code(code)
 
@@ -3827,7 +3868,7 @@ class DefNodeWrapper(FuncDefNode):
             entry.xdecref_cleanup = 1
             for ass in entry.cf_assignments:
                 if not ass.is_arg and ass.lhs.is_name:
-                    ass.lhs.cf_maybe_null = True
+                    ass.lhs.maybe_uninitialised = True
 
     def signature_has_nongeneric_args(self):
         argcount = len(self.args)
@@ -4843,10 +4884,10 @@ class GeneratorDefNode(DefNode):
     def __init__(self, pos, **kwargs):
         # XXX: don't actually needs a body
         kwargs['body'] = StatListNode(pos, stats=[], is_terminator=True)
-        super(GeneratorDefNode, self).__init__(pos, **kwargs)
+        super().__init__(pos, **kwargs)
 
     def analyse_declarations(self, env):
-        super(GeneratorDefNode, self).analyse_declarations(env)
+        super().analyse_declarations(env)
         self.gbody.local_scope = self.local_scope
         self.gbody.analyse_declarations(env)
 
@@ -4877,7 +4918,7 @@ class GeneratorDefNode(DefNode):
     def generate_function_definitions(self, env, code):
         env.use_utility_code(UtilityCode.load_cached(self.gen_type_name, "Coroutine.c"))
         self.gbody.generate_function_header(code, proto=True)
-        super(GeneratorDefNode, self).generate_function_definitions(env, code)
+        super().generate_function_definitions(env, code)
         self.gbody.generate_function_definitions(env, code)
 
 
@@ -4906,7 +4947,7 @@ class GeneratorBodyDefNode(DefNode):
     inlined_comprehension_type = None  # container type for inlined comprehensions
 
     def __init__(self, pos=None, name=None, body=None, is_async_gen_body=False):
-        super(GeneratorBodyDefNode, self).__init__(
+        super().__init__(
             pos=pos, body=body, name=name, is_async_gen_body=is_async_gen_body,
             doc=None, args=[], star_arg=None, starstar_arg=None)
 
@@ -6152,7 +6193,7 @@ class ExprStatNode(StatNode):
         expr = self.expr
         if isinstance(expr, ExprNodes.GeneralCallNode):
             func = expr.function.as_cython_attribute()
-            if func == u'declare':
+            if func == 'declare':
                 args, kwds = expr.explicit_args_kwds()
                 if len(args):
                     error(expr.pos, "Variable names must be specified.")
@@ -6949,7 +6990,7 @@ class IndirectionNode(StatListNode):
     """
 
     def __init__(self, stats):
-        super(IndirectionNode, self).__init__(stats[0].pos, stats=stats)
+        super().__init__(stats[0].pos, stats=stats)
 
 
 class BreakStatNode(StatNode):
@@ -7482,7 +7523,7 @@ class SwitchStatNode(StatNode):
             self.else_clause.annotate(code)
 
 
-class LoopNode(object):
+class LoopNode:
     pass
 
 
@@ -8929,7 +8970,7 @@ class GILStatNode(NogilTryFinallyStatNode):
         if self.condition is not None:
             self.condition.analyse_declarations(env)
 
-        return super(GILStatNode, self).analyse_declarations(env)
+        return super().analyse_declarations(env)
 
     def analyse_expressions(self, env):
         env.use_utility_code(
@@ -9354,7 +9395,7 @@ class ParallelStatNode(StatNode, ParallelNode):
     critical_section_counter = 0
 
     def __init__(self, pos, **kwargs):
-        super(ParallelStatNode, self).__init__(pos, **kwargs)
+        super().__init__(pos, **kwargs)
 
         # All assignments in this scope
         self.assignments = kwargs.get('assignments') or {}
@@ -10026,7 +10067,7 @@ class ParallelWithBlockNode(ParallelStatNode):
     num_threads = None
 
     def analyse_declarations(self, env):
-        super(ParallelWithBlockNode, self).analyse_declarations(env)
+        super().analyse_declarations(env)
         if self.args:
             error(self.pos, "cython.parallel.parallel() does not take "
                             "positional arguments")
@@ -10093,12 +10134,12 @@ class ParallelRangeNode(ParallelStatNode):
     valid_keyword_arguments = ['schedule', 'nogil', 'num_threads', 'chunksize']
 
     def __init__(self, pos, **kwds):
-        super(ParallelRangeNode, self).__init__(pos, **kwds)
+        super().__init__(pos, **kwds)
         # Pretend to be a ForInStatNode for control flow analysis
         self.iterator = PassStatNode(pos)
 
     def analyse_declarations(self, env):
-        super(ParallelRangeNode, self).analyse_declarations(env)
+        super().analyse_declarations(env)
         self.target.analyse_target_declaration(env)
         if self.else_clause is not None:
             self.else_clause.analyse_declarations(env)
@@ -10172,7 +10213,7 @@ class ParallelRangeNode(ParallelStatNode):
         if target_entry:
             self.assignments[self.target.entry] = self.target.pos, None
 
-        node = super(ParallelRangeNode, self).analyse_expressions(env)
+        node = super().analyse_expressions(env)
 
         if node.chunksize:
             if not node.schedule:
