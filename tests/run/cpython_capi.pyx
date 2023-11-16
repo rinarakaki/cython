@@ -10,14 +10,14 @@ def test_pymalloc():
     >>> test_pymalloc()
     3
     """
-    let char* m2
-    let auto m = <i8*>mem::PyMem_Malloc(20)
+    let &i8 m2
+    let auto m = <&i8>mem::PyMem_Malloc(20)
     assert m
     try:
         m[0] = 1
         m[1] = 2
         m[2] = 3
-        m2 = <i8*>mem::PyMem_Realloc(m, 10)
+        m2 = <&i8>mem::PyMem_Realloc(m, 10)
         assert m2
         m = m2
         return m[2]

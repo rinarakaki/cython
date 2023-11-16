@@ -88,7 +88,7 @@ extern from *:  # Hard-coded utility code hack.
         i64* as_longs
         u128* as_ulonglongs
         i128* as_longlongs
-        i16* as_shorts
+        &i16 as_shorts
         u16* as_ushorts
         Py_UNICODE* as_pyunicodes
         void* as_voidptr

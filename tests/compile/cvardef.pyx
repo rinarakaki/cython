@@ -12,7 +12,7 @@ def f():
     let u16 an_unsigned_short
     let u32 an_unsigned_int
     let u64 an_unsigned_long
-    let i8* a_char_ptr, another_char_ptr
+    let &i8 a_char_ptr, another_char_ptr
     let i8** a_char_ptr_ptr
     let i8*** a_char_ptr_ptr_ptr
     let i8[10] a_sized_char_array
