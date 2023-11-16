@@ -1,5 +1,5 @@
 union Food:
-    char* spam
+    &char spam
     f32* eggs
 
 fn main():

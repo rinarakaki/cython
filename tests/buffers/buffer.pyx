@@ -33,7 +33,7 @@ s = b"abcdefg"
 cdef class TestBuffer:
     def __getbuffer__(self, Py_buffer* buffer, i32 flags):
         print u"__getbuffer__ called"
-        buffer.buf = <char*>s
+        buffer.buf = <&char>s
         buffer.obj = self
         buffer.len = len(s)
         buffer.readonly = 0

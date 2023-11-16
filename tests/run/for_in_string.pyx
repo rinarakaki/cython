@@ -115,7 +115,7 @@ def for_char_in_enumerate_bytes(bytes s):
 #
 # #[cython::test_assert_path_exists("//ForFromStatNode")]
 # #[cython::test_fail_if_path_exists("//ForInStatNode")]
-# def for_pyvar_in_char_ptr(char* c_string):
+# def for_pyvar_in_char_ptr(&char c_string):
 #     """
 #     >>> for_pyvar_in_char_ptr( (bytes_abc+bytes_ABC) * 2 )
 #     [True, True, True, False, False, False, True, True, True, False]
@@ -130,7 +130,7 @@ def for_char_in_enumerate_bytes(bytes s):
 
 #[cython::test_assert_path_exists("//ForFromStatNode")]
 #[cython::test_fail_if_path_exists("//ForInStatNode")]
-def for_char_in_char_ptr(char* c_string):
+def for_char_in_char_ptr(&char c_string):
     """
     >>> for_char_in_char_ptr( (bytes_abc+bytes_ABC) * 2 )
     [True, True, True, False, False, False, True, True, True, False]

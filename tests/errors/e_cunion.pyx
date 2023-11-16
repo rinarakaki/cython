@@ -1,9 +1,9 @@
 # mode: error
 
 union AllCharptr:
-    char* s1
-    char* s2
-    char* s3
+    &char s1
+    &char s2
+    &char s3
 
 def convert_ok():
     let AllCharptr u
@@ -11,8 +11,8 @@ def convert_ok():
     return u
 
 union IllegalMix:
-    char* s1
-    char* s2
+    &char s1
+    &char s2
     i32 i
 
 def convert_nok():

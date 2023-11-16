@@ -12,7 +12,7 @@ extern from "Python.h":
     # will be read/write, otherwise it may be either read-only or read/write at
     # the discretion of the exporter.
 
-    fn object PyMemoryView_FromMemory(char* mem, isize size, i32 flags)
+    fn object PyMemoryView_FromMemory(&char mem, isize size, i32 flags)
     # Return value: New reference.
     # Create a memoryview object using mem as the underlying buffer. flags can
     # be one of PyBUF_READ or PyBUF_WRITE.

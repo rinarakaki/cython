@@ -7,41 +7,41 @@ extern from *:
     """
     #include <utility>
 
-    const char* f(int& x) {
+    const &char f(int& x) {
         (void) x;
         return "lvalue-ref";
     }
 
-    const char* f(int&& x) {
+    const &char f(int&& x) {
         (void) x;
         return "rvalue-ref";
     }
 
     template <typename T>
-    const char* foo(T&& x)
+    const &char foo(T&& x)
     {
         return f(std::forward<T>(x));
     }
     """
-    const char* foo[T](T&& x)
+    const &char foo[T](T&& x)
 
 extern from *:
     """
     #include <utility>
 
     template <typename T1>
-    const char* bar(T1 x, T1 y) {
+    const &char bar(T1 x, T1 y) {
         return "first";
     }
 
     template <typename T1, typename T2>
-    const char* bar(T1&& x, T2 y, T2 z) {
+    const &char bar(T1&& x, T2 y, T2 z) {
         return "second";
     }
 
     """
-    const char* bar[T1](T1 x, T1 y)
-    const char* bar[T1, T2](T1&& x, T2 y, T2 z)
+    const &char bar[T1](T1 x, T1 y)
+    const &char bar[T1, T2](T1&& x, T2 y, T2 z)
 
 def test_forwarding_ref():
     """

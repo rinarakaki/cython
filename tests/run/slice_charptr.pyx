@@ -8,5 +8,5 @@ def do_slice(s, int i, int j):
     >>> do_slice(b'abcdef', 0, 5)
     (b'abcde', b'abcdef', b'', b'abcdef', b'abcdef', b'', b'abcdef')
     """
-    let char* ss = s
+    let &char ss = s
     return ss[i:j], ss[i:], ss[:i], ss[:], ss[i:None], ss[None:i], ss[None:None]

@@ -38,7 +38,7 @@ def test_charptr_coercion(x):
     >>> print(test_charptr_coercion(false))
     def
     """
-    let char* s = b'abc' if x else b'def'
+    let &char s = b'abc' if x else b'def'
     return s.decode('ascii')
 
 def test_syntax():

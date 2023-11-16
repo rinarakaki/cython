@@ -315,7 +315,7 @@ def test_nan_init():
         c1 = 16
 
 
-fn void nogil_print(char* s) noexcept with gil:
+fn void nogil_print(&char s) noexcept with gil:
     print s.decode('ascii')
 
 def test_else_clause():

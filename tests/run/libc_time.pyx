@@ -23,8 +23,8 @@ def test_mktime():
     """
     let tm t, gmt
     let time_t tt
-    let char* ct
-    let char* tz
+    let &char ct
+    let &char tz
 
     tz = getenv("TZ")
     setenv("TZ", "UTC", 1)

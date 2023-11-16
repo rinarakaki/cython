@@ -6,32 +6,32 @@ extern from *:
     struct Foo
     {
 
-      static const char* bar(int x, int y) {
+      static const &char bar(int x, int y) {
         return "second";
       }
 
-      static const char* bar(int x) {
+      static const &char bar(int x) {
         return "first";
       }
 
-      const char* baz(int x, int y) {
+      const &char baz(int x, int y) {
         return "second";
       }
 
-      const char* baz(int x) {
+      const &char baz(int x) {
         return "first";
       }
     };
     """
     cppclass Foo:
         @staticmethod
-        const char* bar(i32 x)
+        const &char bar(i32 x)
 
         @staticmethod
-        const char* bar(i32 x, i32 y)
+        const &char bar(i32 x, i32 y)
 
-        const char* baz(i32 x)
-        const char* baz(i32 x, i32 y)
+        const &char baz(i32 x)
+        const &char baz(i32 x, i32 y)
 
 def test_normal_method_overload():
     """

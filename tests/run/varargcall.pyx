@@ -1,4 +1,4 @@
-fn grail(const char* blarg, ...):
+fn grail(&char blarg, ...):
     pass
 
 def swallow():

@@ -3,7 +3,7 @@ use check_fused_types_pxd
 
 import math
 
-type string_t = char*
+type string_t = &char
 
 fused_t = cython.fused_type(i32, i64, f32, string_t)
 other_t = cython.fused_type(i32, i64)

@@ -1,6 +1,6 @@
 # mode: compile
 
-fn char* f():
+fn &char f():
     raise Exception
 
 f()

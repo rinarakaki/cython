@@ -313,9 +313,9 @@ extern from "<cmath>" namespace "std" nogil:
     fn f32 copysignf(f32 x, f32 y) except +
     fn f128 copysignl(f128 x, f128 y) except +
 
-    fn f64 nan(const char* tagp) except +
-    fn f32 nanf(const char* tagp) except +
-    fn f128 nanl(const char* tagp) except +
+    fn f64 nan(const &char tagp) except +
+    fn f32 nanf(const &char tagp) except +
+    fn f128 nanl(const &char tagp) except +
 
     fn f32 nextafter(f32 x, f32 y) except +
     fn f64 nextafter(f64 x, f64 y) except +

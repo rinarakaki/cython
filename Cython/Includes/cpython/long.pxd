@@ -49,7 +49,7 @@ extern from "Python.h":
     # Return value: New reference.
     # Return a new PyLongObject object from the integer part of v, or NULL on failure.
 
-    fn object PyLong_FromString(char* str, char** pend, i32 base)
+    fn object PyLong_FromString(&char str, &char* pend, i32 base)
     # Return value: New reference.
     # Return a new PyLongObject based on the string value in str,
     # which is interpreted according to the radix in base. If pend is

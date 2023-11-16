@@ -2,8 +2,8 @@
 
 cdef volatile i32 x = 1
 
-cdef const volatile char* greeting1 = "hello world"
-cdef volatile const char* greeting2 = "goodbye"
+cdef const volatile &char greeting1 = "hello world"
+cdef volatile const &char greeting2 = "goodbye"
 
 extern from "stdlib.h":
     fn volatile void* malloc(usize)
