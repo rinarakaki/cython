@@ -11,7 +11,7 @@ extern from *:
 @cname("{{cname}}")
 fn string {{cname}}(object o) except *:
     let isize length = 0
-    let const char* data = __Pyx_PyObject_AsStringAndSize(o, &length)
+    let auto data = __Pyx_PyObject_AsStringAndSize(o, &length)
     return string(data, length)
 
 #################### string.to_py ####################

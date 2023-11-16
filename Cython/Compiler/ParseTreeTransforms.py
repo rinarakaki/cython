@@ -2633,10 +2633,13 @@ if VALUE is not None:
         self.visitchildren(node)
         return None
 
+    def visit_LetStatNode(self, node):
+        # to ensure all CNameDeclaratorNodes are visited.
+        self.visitchildren(node)
+
     def visit_CVarDefNode(self, node):
         # to ensure all CNameDeclaratorNodes are visited.
         self.visitchildren(node)
-        return None
 
     def visit_CnameDecoratorNode(self, node):
         child_node = self.visitchild(node, 'node')

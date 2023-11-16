@@ -267,7 +267,7 @@ def struct_ptr_iter():
     for i in 0..5:
         my_structs[i].i = i
     let MyStruct value
-    let MyStruct *ptr
+    let MyStruct* ptr
     return ([ value.i for value in my_structs[:5] ],
             [ ptr.i for ptr in my_structs[:5] ],
             [ inferred.i for inferred in my_structs[:5] ])

@@ -2702,10 +2702,12 @@ def p_c_base_type(s, nonempty=False, templates=None):
         if isinstance(base_type, Nodes.MemoryViewSliceTypeNode):
             # reverse order to avoid having to write "(const int)[:]"
             base_type.base_type = Nodes.CConstOrVolatileTypeNode(pos,
-                base_type=base_type.base_type, is_const=is_const, is_volatile=is_volatile)
+                base_type=base_type.base_type, is_const=is_const, is_volatile=is_volatile
+            )
         else:
             base_type = Nodes.CConstOrVolatileTypeNode(pos,
-                base_type=base_type, is_const=is_const, is_volatile=is_volatile)
+                base_type=base_type, is_const=is_const, is_volatile=is_volatile
+            )
     
     if s.sy in ("*", "**"):
         # scanner returns "**" as a single token
@@ -2861,9 +2863,10 @@ def p_buffer_or_template(s, base_type, templates):
             for key, value in keyword_args
         ])
     result = Nodes.TemplatedTypeNode(pos,
+        base_type = base_type,
         positional_args = positional_args,
         keyword_args = keyword_dict,
-        base_type = base_type)
+    )
     return result
 
 def p_bracketed_base_type(s, base_type, nonempty, empty):
@@ -2894,14 +2897,14 @@ def is_memoryviewslice_access(s):
     # not have an unnested colon in the first entry; the memoryview slice will.
     saved = [(s.sy, s.systring, s.position())]
     s.next()
-    retval = False
+    retval = 0
     if s.systring == ':':
-        retval = True
+        retval = 1
     elif s.sy == 'INT':
         saved.append((s.sy, s.systring, s.position()))
         s.next()
         if s.sy == ':':
-            retval = True
+            retval = 1
 
     for sv in reversed(saved):
         s.put_back(*sv)
@@ -2909,7 +2912,7 @@ def is_memoryviewslice_access(s):
     return retval
 
 def p_memoryviewslice_access(s, base_type):
-    # s.sy == '['
+    # s.sy == "["
     pos = s.position()
     s.next()
     subscripts, _ = p_subscript_list(s)
@@ -2917,11 +2920,9 @@ def p_memoryviewslice_access(s, base_type):
     for subscript in subscripts:
         if len(subscript) < 2:
             s.error("An axis specification in memoryview declaration does not have a ':'.")
-    s.expect(']')
+    s.expect("]")
     indexes = make_slice_nodes(pos, subscripts)
-    result = Nodes.MemoryViewSliceTypeNode(pos,
-            base_type = base_type,
-            axes = indexes)
+    result = Nodes.MemoryViewSliceTypeNode(pos, base_type = base_type, axes = indexes)
     return result
 
 def looking_at_name(s):

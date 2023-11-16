@@ -38,7 +38,7 @@ def go_c_enumerate():
     True
     True
     """
-    let i32 i,k
+    let i32 i, k
     for i, k in enumerate(0..4):
         print i == k
 

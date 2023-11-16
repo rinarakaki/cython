@@ -347,8 +347,8 @@ def test_typeid_op():
     """
     let TruthClass* test_1 = new TruthClass()
     let TruthSubClass* test_2 = new TruthSubClass()
-    let TruthClass* test_3 = <TruthClass*> test_2
-    let TruthClass* test_4 = <TruthClass*> 0
+    let auto test_3 = <TruthClass*>test_2
+    let auto test_4 = <TruthClass*>0
 
     assert typeid(TruthClass).name()
     assert typeid(test_1).name()
