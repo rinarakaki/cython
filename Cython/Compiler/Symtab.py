@@ -175,7 +175,7 @@ class Entry(object):
     borrowed = 0
     initialised = False
     init = ""
-    mutable = False
+    mutable = 0
     annotation = None
     pep563_annotation = None
     visibility = 'private'
@@ -766,7 +766,7 @@ class Scope(object):
         return self.outer_scope.declare_tuple_type(pos, components)
 
     def declare_var(self, name, type, pos,
-                    cname=None, visibility='private', mutable=False,
+                    cname=None, visibility='private', mutable=0,
                     api=False, in_pxd=False, is_cdef=False, pytyping_modifiers=None):
         # Add an entry for a variable.
         if not cname:
@@ -1544,7 +1544,7 @@ class ModuleScope(Scope):
         return entry
 
     def declare_var(self, name, type, pos,
-                    cname=None, visibility='private', mutable=False,
+                    cname=None, visibility='private', mutable=0,
                     api=False, in_pxd=False, is_cdef=False, pytyping_modifiers=None):
         # Add an entry for a global variable. If it is a Python
         # object type, and not declared with cdef, it will live
@@ -1930,7 +1930,7 @@ class LocalScope(Scope):
         return entry
 
     def declare_var(self, name, type, pos,
-                    cname=None, visibility='private', mutable=False,
+                    cname=None, visibility='private', mutable=0,
                     api=False, in_pxd=False, is_cdef=False, pytyping_modifiers=None):
         name = self.mangle_class_private_name(name)
         # Add an entry for a local variable.
@@ -2036,7 +2036,7 @@ class ComprehensionScope(Scope):
         return '%s%s' % (self.genexp_prefix, self.parent_scope.mangle(prefix, name))
 
     def declare_var(self, name, type, pos,
-                    cname=None, visibility='private', mutable=False,
+                    cname=None, visibility='private', mutable=0,
                     api=False, in_pxd=False, is_cdef=True, pytyping_modifiers=None):
         if type is unspecified_type:
             # if the outer scope defines a type for this variable, inherit it
@@ -2126,7 +2126,7 @@ class StructOrUnionScope(Scope):
         Scope.__init__(self, name, outer_scope=None, parent_scope=None)
 
     def declare_var(self, name, type, pos,
-                    cname=None, visibility='private', mutable=False,
+                    cname=None, visibility='private', mutable=0,
                     api=False, in_pxd=False, is_cdef=False, pytyping_modifiers=None,
                     allow_pyobject=False, allow_memoryview=False, allow_refcounted=False):
         # Add an entry for an attribute.
@@ -2214,7 +2214,7 @@ class PyClassScope(ClassScope):
     is_py_class_scope = 1
 
     def declare_var(self, name, type, pos,
-                    cname=None, visibility='private', mutable=False,
+                    cname=None, visibility='private', mutable=0,
                     api=False, in_pxd=False, is_cdef=False, pytyping_modifiers=None):
         name = self.mangle_class_private_name(name)
         if type is unspecified_type:
@@ -2371,7 +2371,7 @@ class CClassScope(ClassScope):
         return have_entries, (py_attrs, py_buffers, memoryview_slices)
 
     def declare_var(self, name, type, pos,
-                    cname=None, visibility='private', mutable=False,
+                    cname=None, visibility='private', mutable=0,
                     api=False, in_pxd=False, is_cdef=False, pytyping_modifiers=None):
         name = self.mangle_class_private_name(name)
 
@@ -2687,7 +2687,7 @@ class CppClassScope(Scope):
                 template_entry.is_type = 1
 
     def declare_var(self, name, type, pos,
-                    cname=None, visibility='extern', mutable=False,
+                    cname=None, visibility='extern', mutable=0,
                     api=False, in_pxd=False, is_cdef=False, defining=False, pytyping_modifiers=None):
         # Add an entry for an attribute.
         if not cname:
@@ -2822,7 +2822,7 @@ class CppScopedEnumScope(Scope):
         Scope.__init__(self, name, outer_scope, None)
 
     def declare_var(self, name, type, pos,
-                    cname=None, visibility='extern', mutable=False, pytyping_modifiers=None):
+                    cname=None, visibility='extern', mutable=0, pytyping_modifiers=None):
         # Add an entry for an attribute.
         if not cname:
             cname = name
