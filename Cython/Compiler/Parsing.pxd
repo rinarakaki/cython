@@ -170,12 +170,12 @@ fn u2 looking_at_dotted_name(PyrexScanner s) except -2
 fn p_sign_and_longness(PyrexScanner s)
 fn p_opt_cname(PyrexScanner s)
 cpdef p_c_declarator(PyrexScanner s, ctx = *, u2 empty = *, u2 is_type = *, u2 cmethod_flag = *,
-                     u2 assignable = *, u2 mutable = *, u2 nonempty = *,
+                     u2 assignable = *, u2 nonempty = *,
                      u2 calling_convention_allowed = *)
 fn p_c_array_declarator(PyrexScanner s, base)
 fn p_c_func_declarator(PyrexScanner s, pos, ctx, base, u2 cmethod_flag)
 fn p_c_simple_declarator(PyrexScanner s, ctx, u2 empty, u2 is_type, u2 cmethod_flag,
-                         u2 assignable, u2 mutable, u2 nonempty)
+                         u2 assignable, u2 nonempty)
 fn p_nogil(PyrexScanner s)
 fn p_with_gil(PyrexScanner s)
 fn p_exception_value_clause(PyrexScanner s, u2 is_extern)

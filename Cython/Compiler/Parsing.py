@@ -3116,10 +3116,10 @@ supported_overloaded_operators = cython.declare(frozenset, frozenset((
 )))
 
 def p_c_simple_declarator(s, ctx, empty, is_type, cmethod_flag,
-                          assignable, mutable, nonempty):
+                          assignable, nonempty):
     pos = s.position()
     calling_convention = p_calling_convention(s)
-    if s.sy in ("*", "**", "const"):
+    if s.sy in ("*", "**", "const", "mut"):
         if s.sy == "*":
             is_ptrptr = 0
             s.next()
@@ -3131,14 +3131,18 @@ def p_c_simple_declarator(s, ctx, empty, is_type, cmethod_flag,
             is_ptrptr = 0
 
         const_pos = s.position()
-        is_const = s.sy == "const"
-        if is_const:
+        if s.sy == "mut":
+            mutable = 1
             s.next()
+        else:
+            mutable = 0
+            if s.sy == "const":
+                s.next()
 
         base = p_c_declarator(s, ctx, empty=empty, is_type=is_type,
                               cmethod_flag=cmethod_flag,
                               assignable=assignable, nonempty=nonempty)
-        if is_const:
+        if not mutable:
             base = Nodes.CConstDeclaratorNode(const_pos, base=base)
         if is_ptrptr:
             base = Nodes.CPtrDeclaratorNode(pos, base=base)
@@ -3656,10 +3660,7 @@ def p_visibility(s, prev_visibility):
     return visibility
 
 def p_c_modifiers(s):
-    if s.sy == "mut":
-        s.next()
-        return ["mut"] + p_c_modifiers(s)
-    elif s.sy == 'IDENT' and s.systring in ('inline',):
+    if s.sy == 'IDENT' and s.systring in ('inline',):
         modifier = s.systring
         s.next()
         return [modifier] + p_c_modifiers(s)
@@ -3668,13 +3669,9 @@ def p_c_modifiers(s):
 def p_c_func_or_var_declaration(s, pos, ctx):
     cmethod_flag = ctx.level in ('c_class', 'c_class_pxd')
     modifiers = p_c_modifiers(s)
-    mutable = 0
-    if "mut" in modifiers:
-        mutable = 1
-        modifiers.remove("mut")
     base_type = p_c_base_type(s, nonempty = 1, templates = ctx.templates)
     declarator = p_c_declarator(s, ctx(modifiers=modifiers), cmethod_flag = cmethod_flag,
-                                assignable = 1, mutable = mutable, nonempty = 1)
+                                assignable = 1, nonempty = 1)
     declarator.overridable = ctx.overridable
     if s.sy == "const" and ctx.level == 'cpp_class':
         s.next()
@@ -3714,7 +3711,7 @@ def p_c_func_or_var_declaration(s, pos, ctx):
             if s.sy == 'NEWLINE':
                 break
             declarator = p_c_declarator(s, ctx, cmethod_flag = cmethod_flag,
-                                        assignable = 1, mutable = mutable, nonempty = 1)
+                                        assignable = 1, nonempty = 1)
             declarators.append(declarator)
         doc_line = s.start_line + 1
         s.expect_newline("Syntax error in C variable declaration", ignore_semicolon=True)
@@ -3724,7 +3721,6 @@ def p_c_func_or_var_declaration(s, pos, ctx):
             doc = None
         result = Nodes.CVarDefNode(pos,
             visibility = ctx.visibility,
-            mutable = mutable,
             base_type = base_type,
             declarators = declarators,
             in_pxd = ctx.level in ('module_pxd', 'c_class_pxd'),

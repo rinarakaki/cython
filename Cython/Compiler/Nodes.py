@@ -1508,7 +1508,6 @@ class CVarDefNode(StatNode):
     #  C variable definition or forward/extern function declaration.
     #
     #  visibility    'private' or 'public' or 'extern'
-    #  mutable       boolean
     #  base_type     CBaseTypeNode
     #  declarators   [CDeclaratorNode]
     #  in_pxd        boolean
@@ -1614,7 +1613,7 @@ class CVarDefNode(StatNode):
                     error(self.pos, "Decorators can only be followed by functions")
                 self.entry = dest_scope.declare_var(
                     name, type, declarator.pos,
-                    cname=cname, visibility=visibility, mutable=self.mutable, in_pxd=self.in_pxd,
+                    cname=cname, visibility=visibility, mutable=declarator.mutable, in_pxd=self.in_pxd,
                     api=self.api, is_cdef=True, pytyping_modifiers=modifiers)
                 if Options.docstrings:
                     self.entry.doc = embed_position(self.pos, self.doc)
