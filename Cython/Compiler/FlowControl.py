@@ -408,22 +408,22 @@ class ControlFlowState(list):
     # Keeps track of Node's entry assignments
     #
     # uninitialised        [boolean] It is uninitialized
-    # cf_maybe_null     [boolean] May be uninitialized
-    # is_single         [boolean] Has only one assignment at this point
+    # maybe_uninitialised  [boolean] May be uninitialized
+    # is_single            [boolean] Has only one assignment at this point
 
-    cf_maybe_null = False
+    maybe_uninitialised = False
     uninitialised = False
     is_single = False
 
     def __init__(self, state):
         if Uninitialized in state:
             state.discard(Uninitialized)
-            self.cf_maybe_null = True
+            self.maybe_uninitialised = True
             if not state:
                 self.uninitialised = True
         elif Unknown in state:
             state.discard(Unknown)
-            self.cf_maybe_null = True
+            self.maybe_uninitialised = True
         else:
             if len(state) == 1:
                 self.is_single = True
@@ -574,21 +574,21 @@ def check_definitions(flow, compiler_directives):
     # assignment hints
     for node in assmt_nodes:
         if Uninitialized in node.cf_state:
-            node.cf_maybe_null = True
+            node.maybe_uninitialised = True
             if len(node.cf_state) == 1:
                 node.uninitialised = True
             else:
                 node.uninitialised = False
         elif Unknown in node.cf_state:
-            node.cf_maybe_null = True
+            node.maybe_uninitialised = True
         else:
             node.uninitialised = False
-            node.cf_maybe_null = False
+            node.maybe_uninitialised = False
 
     # Find uninitialized references and cf-hints
     for node, entry in references.items():
         if Uninitialized in node.cf_state:
-            node.cf_maybe_null = True
+            node.maybe_uninitialised = True
             if (not entry.from_closure and len(node.cf_state) == 1
                     and entry.name not in entry.scope.scope_predefined_names):
                 node.uninitialised = True
@@ -620,10 +620,10 @@ def check_definitions(flow, compiler_directives):
             #       are being called before a variable is being set, and when
             #       a variable is known to be set before even defining the
             #       inner function, etc.
-            node.cf_maybe_null = True
+            node.maybe_uninitialised = True
         else:
             node.uninitialised = False
-            node.cf_maybe_null = False
+            node.maybe_uninitialised = False
 
     # Unused result
     for assmt in assignments:
