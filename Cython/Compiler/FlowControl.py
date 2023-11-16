@@ -669,13 +669,6 @@ class AssignmentCollector(TreeVisitor):
 
     def visit_Node(self):
         self._visitchildren(self, None, None)
-    
-    def visit_LetStatNode(self, node):
-        for declarator in node.declarators:
-            if declarator.default is not None:
-                lhs = ExprNodes.NameNode(node.pos, name=declarator.name, uninitialised=0)
-                rhs = declarator.default
-                self.assignments.append((lhs, rhs))
 
     def visit_SingleAssignmentNode(self, node):
         self.assignments.append((node.lhs, node.rhs))
@@ -830,15 +823,6 @@ class ControlFlowAnalysis(CythonTransform):
 
     def visit_AssignmentNode(self, node):
         raise InternalError("Unhandled assignment node %s" % type(node))
-    
-    def visit_LetStatNode(self, node):
-        for declarator in node.declarators:
-            if declarator.default is not None:
-                lhs = ExprNodes.NameNode(node.pos, name=declarator.name, uninitialised=0)
-                rhs = declarator.default
-                self._visit(rhs)
-                self.mark_assignment(lhs, rhs)
-        return node
 
     def visit_SingleAssignmentNode(self, node):
         self._visit(node.rhs)
