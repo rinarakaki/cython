@@ -58,8 +58,8 @@ class TestBufferOptions(CythonTest):
             assert isinstance(vardef, CVarDefNode)  # use normal assert as this is to validate the test code
             buftype = vardef.base_type
             self.assertTrue(isinstance(buftype, TemplatedTypeNode))
-            self.assertTrue(isinstance(buftype.base_type_node, CSimpleBaseTypeNode))
-            self.assertEqual(u"object", buftype.base_type_node.name)
+            self.assertTrue(isinstance(buftype.base_type, CSimpleBaseTypeNode))
+            self.assertEqual(u"object", buftype.base_type.name)
             return buftype
         else:
             self.assertTrue(len(root.stats[0].body.stats) == 0)

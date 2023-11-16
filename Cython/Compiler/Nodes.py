@@ -1196,11 +1196,11 @@ class CPtrTypeNode(CBaseTypeNode):
 class MemoryViewSliceTypeNode(CBaseTypeNode):
 
     name = 'memoryview'
-    child_attrs = ['base_type_node', 'axes']
+    child_attrs = ['base_type', 'axes']
 
     def analyse(self, env, could_be_name=False):
 
-        base_type = self.base_type_node.analyse(env)
+        base_type = self.base_type.analyse(env)
         if base_type.is_error: return base_type
 
         from . import MemoryView
@@ -1252,12 +1252,12 @@ class TemplatedTypeNode(CBaseTypeNode):
     #  After parsing:
     #  positional_args  [ExprNode]        List of positional arguments
     #  keyword_args     DictNode          Keyword arguments
-    #  base_type_node   CBaseTypeNode
+    #  base_type   CBaseTypeNode
 
     #  After analysis:
     #  type             PyrexTypes.BufferType or PyrexTypes.CppClassType  ...containing the right options
 
-    child_attrs = ["base_type_node", "positional_args",
+    child_attrs = ["base_type", "positional_args",
                    "keyword_args", "dtype_node"]
 
     is_templated_type_node = True
@@ -1295,7 +1295,7 @@ class TemplatedTypeNode(CBaseTypeNode):
 
     def analyse(self, env, could_be_name=False, base_type=None):
         if base_type is None:
-            base_type = self.base_type_node.analyse(env)
+            base_type = self.base_type.analyse(env)
         if base_type.is_error: return base_type
 
         if ((base_type.is_cpp_class and base_type.is_template_type()) or
@@ -1364,8 +1364,8 @@ class TemplatedTypeNode(CBaseTypeNode):
         # TODO: somehow bring this together with IndexNode.analyse_pytyping_modifiers()
         modifiers = []
         modifier_node = self
-        while modifier_node.is_templated_type_node and modifier_node.base_type_node and len(modifier_node.positional_args) == 1:
-            modifier_type = self.base_type_node.analyse_as_type(env)
+        while modifier_node.is_templated_type_node and modifier_node.base_type and len(modifier_node.positional_args) == 1:
+            modifier_type = self.base_type.analyse_as_type(env)
             if modifier_type.python_type_constructor_name and modifier_type.modifier_name:
                 modifiers.append(modifier_type.modifier_name)
             modifier_node = modifier_node.positional_args[0]
@@ -1458,6 +1458,50 @@ class CConstOrVolatileTypeNode(CBaseTypeNode):
             error(self.pos,
                   "Const/volatile base type cannot be a Python object")
         return PyrexTypes.c_const_or_volatile_type(base, self.is_const, self.is_volatile)
+
+
+class LetStatNode(StatNode):
+    #  Local variable bindings.
+    #
+    #  base_type     CBaseTypeNode
+    #  declarators   [CDeclaratorNode]
+
+    child_attrs = ["base_type", "declarators"]
+
+    def analyse_declarations(self, env, dest_scope=None):
+        if not dest_scope:
+            dest_scope = env
+        self.dest_scope = dest_scope
+
+        base_type = None
+        if self.base_type is not None:
+            base_type = self.base_type.analyse(env)
+
+        self.entry = None
+
+        for declarator in self.declarators:
+            if (len(self.declarators) > 1
+                    and not isinstance(declarator, CNameDeclaratorNode)
+                    and env.directives['warn.multiple_declarators']):
+                warning(
+                    declarator.pos,
+                    "Non-trivial type declarators in shared declaration (e.g. mix of pointers and values). "
+                    "Each pointer declaration should be on its own line.", 1)
+
+            name_declarator, type = declarator.analyse(base_type, env)
+            if not type.is_complete():
+                if not type.is_memoryviewslice:
+                    error(declarator.pos, "Variable type '%s' is incomplete" % type)
+            name = name_declarator.name
+            cname = name_declarator.cname
+            if name == "":
+                error(declarator.pos, "Missing name in declaration.")
+                return
+            if type.is_reference:
+                error(declarator.pos, "C++ references cannot be declared; use a pointer instead")
+            if type.is_rvalue_reference:
+                error(declarator.pos, "C++ rvalue-references cannot be declared")
+            self.entry = dest_scope.declare_var(name, type, declarator.pos, cname=cname, is_cdef=True)
 
 
 class CVarDefNode(StatNode):
@@ -3686,7 +3730,7 @@ class DefNodeWrapper(FuncDefNode):
             entry.xdecref_cleanup = 1
             for ass in entry.cf_assignments:
                 if not ass.is_arg and ass.lhs.is_name:
-                    ass.lhs.cf_maybe_null = True
+                    ass.lhs.maybe_uninitialised = True
 
     def signature_has_nongeneric_args(self):
         argcount = len(self.args)
