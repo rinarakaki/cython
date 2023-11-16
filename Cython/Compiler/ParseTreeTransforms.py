@@ -2257,7 +2257,7 @@ if VALUE is not None:
                         raise __pyx_PickleError, "Incompatible checksums (0x%%x vs %(checksums)s = (%(members)s))" %% __pyx_checksum
                     __pyx_result = %(class_name)s.__new__(__pyx_type)
                     if __pyx_state is not None:
-                        %(unpickle_func_name)s__set_state(<%(class_name)s> __pyx_result, __pyx_state)
+                        %(unpickle_func_name)s__set_state(<%(class_name)s>__pyx_result, __pyx_state)
                     return __pyx_result
 
                 fn %(unpickle_func_name)s__set_state(%(class_name)s mut __pyx_result, tuple mut __pyx_state):

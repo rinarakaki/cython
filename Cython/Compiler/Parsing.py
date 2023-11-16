@@ -2972,7 +2972,7 @@ def looking_at_expr(s):
 
 def looking_at_base_type(s):
     # print "looking_at_base_type?", s.sy, s.systring, s.position()
-    return s.sy == 'IDENT' and s.systring in base_type_start_words
+    return s.sy == "IDENT" and s.systring in base_type_start_words
 
 def looking_at_dotted_name(s):
     return s.sy == "IDENT" and s.peek()[0] in (".", "::")
@@ -3156,7 +3156,7 @@ def p_c_simple_declarator(s, ctx, empty, is_type, cmethod_flag,
                     s.next()
 
         rhs = None
-        if s.sy == 'IDENT':
+        if s.sy == "IDENT":
             name = s.systring
             if empty:
                 error(s.position(), "Declarator should be empty")
@@ -3634,12 +3634,15 @@ def p_let_statement(s, pos, ctx):
         base_type = p_c_base_type(s, nonempty = 1, templates = ctx.templates)
     declarator = p_c_declarator(s, ctx, assignable = 1, nonempty = 1)
     declarators = [declarator]
-    while s.sy == ',':
+    while s.sy == ",":
         s.next()
         if s.sy == 'NEWLINE':
             break
         declarator = p_c_declarator(s, ctx, assignable = 1, nonempty = 1)
         declarators.append(declarator)
+    if s.sy != "NEWLINE":
+        print("!!!!! p_let_statement !!!!!")
+        print(base_type, declarator, s, pos)
     s.expect_newline("Syntax error in C variable declaration", ignore_semicolon=True)
     return Nodes.LetStatNode(pos, base_type = base_type, declarators = declarators)
 
