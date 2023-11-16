@@ -13,7 +13,7 @@ from distutils.core import setup
 
 setup(
     ext_modules = cythonize("**/*.pyx"),
-    )
+)
 
 ######## subtest.pyx ########
 
@@ -44,7 +44,7 @@ extern from *:
         return PyLong_FromLong(r);
     }
     """
-    object run_in_subinterpreter(const &char code)
+    object run_in_subinterpreter(&char code)
 
 
 MAIN_HAS_IMPORTED = False

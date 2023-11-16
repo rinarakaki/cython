@@ -82,8 +82,8 @@ extern from *:  # Hard-coded utility code hack.
         i32* as_ints
         u32* as_uints
         u16* as_uchars
-        signed &char as_schars
-        &char as_chars
+        signed char* as_schars
+        &i8 as_chars
         u64* as_ulongs
         i64* as_longs
         u128* as_ulonglongs
