@@ -163,7 +163,10 @@ class DeclarationWriter(TreeVisitor):
     
     def visit_LetStatNode(self, node):
         self.startline("let ")
-        self.visit(node.base_type)
+        if node.base_type is None:
+            self.put("auto")
+        else:
+            self.visit(node.base_type)
         self.put(" ")
         self.comma_separated_list(node.declarators, output_rhs=True)
         self.endline()
