@@ -517,7 +517,6 @@ class CNameDeclaratorNode(CDeclaratorNode):
         return self.name
 
     def analyse(self, base_type, env, nonempty=0, visibility=None, in_pxd=False):
-        base_type_was_none = base_type is None
         if base_type is None:
             if self.default is not None:
                 self.default.analyse_types(env)
@@ -527,12 +526,7 @@ class CNameDeclaratorNode(CDeclaratorNode):
                 if base_type is None:
                     error(self.pos, "Cannot infer type from given expression: %s" % self.default)
             else:
-                print("!!!!! CNameDeclaratorNode.analyse !!!!!")
-                print(self)
                 error(self.pos, "'auto' keyword cannot be used without initialiser")
-        if base_type_was_none and self.name in ("data", "op"):
-            print("!!!!! CNameDeclaratorNode.analyse !!!!!")
-            print(self, base_type)
 
         if nonempty and self.name == '':
             # May have mistaken the name for the type.
