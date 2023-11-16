@@ -7,7 +7,7 @@
 
 use cpython::mem
 
-fn i16 _assert_calloc(&i16 s, i32 n) except -1 with gil:
+fn i16 _assert_calloc(&mut i16 s, i32 n) except -1 with gil:
     """Assert array ``s`` of length ``n`` is zero and return 3."""
     assert not s[0] and not s[n - 1]
     s[0] += 1

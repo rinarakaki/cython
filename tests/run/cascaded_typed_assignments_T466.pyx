@@ -92,13 +92,13 @@ def assign_carray():
     assign_carray()
     (1, 2, 3)
     """
-    let i32* b, c
+    let &i32 b, c
     let i32[3] a
     a[0] = 1
     a[1] = 2
     a[2] = 3
 
-    b = c = a+1
+    b = c = a + 1
     assert b[0] == 2
     assert c[1] == 3
     return a[0], b[0], c[1]

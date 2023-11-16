@@ -1,13 +1,13 @@
 use cython
 
-cdef char* c_string = b'abcdefg'
-cdef void* void_ptr = c_string
+cdef &char c_string = b'abcdefg'
+cdef &void void_ptr = c_string
 
 cdef i32 i = 42
-cdef i32* int_ptr = &i
+cdef &i32 int_ptr = &i
 
 cdef f32 x = 42.2
-cdef f32* float_ptr = &x
+cdef &f32 float_ptr = &x
 
 def compare():
     """

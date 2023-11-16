@@ -80,7 +80,7 @@ def pointer_cmp():
     False
     True
     """
-    let i32* a = NULL
+    let &i32 a = NULL
     let f64* b = NULL
     let f64** c = NULL
     print a is NULL

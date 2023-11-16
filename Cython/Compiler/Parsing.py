@@ -2711,7 +2711,7 @@ def p_c_base_type(s, nonempty=False, templates=None):
                 base_type=base_type, is_const=1, is_volatile=0
             )
         base_type = Nodes.CPtrTypeNode(pos, base_type=base_type)
-    elif s.sy == '(':
+    elif s.sy == "(":
         base_type = p_c_complex_base_type(s, templates = templates)
     else:
         base_type = p_c_simple_base_type(s, nonempty=nonempty, templates=templates)
