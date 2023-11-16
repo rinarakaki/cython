@@ -2767,7 +2767,7 @@ def p_c_simple_base_type(s, nonempty, templates=None):
     module_path = []
     pos = s.position()
 
-    if s.sy != 'IDENT':
+    if s.sy != "IDENT":
         error(pos, "Expected an identifier, found '%s'" % s.sy)
     if looking_at_base_type(s):
         is_builtin = 1
@@ -2805,7 +2805,7 @@ def p_c_simple_base_type(s, nonempty, templates=None):
         name = s.systring
         name_pos = s.position()
         s.next()
-        if nonempty and s.sy not in ("const", "IDENT"):
+        if nonempty and s.sy not in ("const", "mut", "IDENT"):
             # Make sure this is not a declaration of a variable or function.
             if s.sy == '(':
                 old_pos = s.position()
