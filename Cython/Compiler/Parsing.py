@@ -2692,8 +2692,16 @@ def p_c_base_type(s, nonempty=False, templates=None):
             if is_volatile: error(pos, "Duplicate 'volatile'")
             is_volatile = 1
             s.next()
-
-    if s.sy == '(':
+    
+    if s.sy == "&" or s.systring == "r" and s.peek()[0] == "&":
+        if s.sy == "&":
+            s.next()
+        else:
+            s.next()
+            s.next()
+        base_type = p_c_base_type(s, nonempty=nonempty, templates=templates)
+        base_type = Nodes.CPtrTypeNode(pos, base_type=base_type)
+    elif s.sy == '(':
         base_type = p_c_complex_base_type(s, templates = templates)
     else:
         base_type = p_c_simple_base_type(s, nonempty=nonempty, templates=templates)
