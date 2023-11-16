@@ -505,9 +505,9 @@ class CDeclaratorNode(Node):
 
 
 class CNameDeclaratorNode(CDeclaratorNode):
-    #  mutable     boolean
     #  name        string             The Cython name being declared
     #  cname       string or None     C name, if specified
+    #  mutable     boolean            Is mutable variable
     #  default     ExprNode or None   the value assigned on declaration
 
     child_attrs = ["default"]
