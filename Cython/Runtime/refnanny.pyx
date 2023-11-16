@@ -117,7 +117,7 @@ fn void GOTREF(PyObject* ctx, PyObject* p_obj, isize lineno):
 fn u2 GIVEREF_and_report(PyObject* ctx, PyObject* p_obj, isize lineno):
     if ctx == NULL: return 1
     let (PyObject*) type = NULL, value = NULL, tb = NULL
-    let mut u2 decref_ok = 0
+    let u2 mut decref_ok = 0
     PyErr_Fetch(&type, &value, &tb)
     try:
         decref_ok = (<Context>ctx).delref(
@@ -147,8 +147,8 @@ fn void DECREF(PyObject* ctx, PyObject* obj, isize lineno):
 fn void FinishContext(PyObject** ctx):
     if ctx == NULL or ctx[0] == NULL: return
     let (PyObject*) type = NULL, value = NULL, tb = NULL
-    let mut object errors = None
-    let mut Context context
+    let object mut errors = None
+    let Context mut context
     PyThreadState_Get()  # Check that we hold the GIL
     PyErr_Fetch(&type, &value, &tb)
     try:
