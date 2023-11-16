@@ -293,6 +293,7 @@ class PostParse(ScopeTrackingTransform):
                         stats.append(Nodes.SingleAssignmentNode(node.pos,
                             lhs=ExprNodes.NameNode(node.pos, name=declbase.name),
                             rhs=declbase.default, first=first_assignment))
+                        declbase.default = None
                 newdecls.append(decl)
             node.declarators = newdecls
             return stats

@@ -2832,7 +2832,7 @@ def p_c_simple_base_type(s, nonempty, templates=None):
     )
 
     #    declarations here.
-    if s.sy == '[':
+    if s.sy == "[":
         if is_memoryviewslice_access(s):
             type_node = p_memoryviewslice_access(s, type_node)
         else:
@@ -3625,20 +3625,6 @@ def p_struct_enum(s, pos, ctx):
     else:
         return p_c_struct_or_union_definition(s, pos, ctx)
 
-def p_visibility(s, prev_visibility):
-    pos = s.position()
-    visibility = prev_visibility
-    if s.sy in ("pub", "extern") or s.sy == 'IDENT' and s.systring in ("public", "readonly"):
-        if s.sy == "pub":
-            visibility = "public"
-        else:
-            visibility = s.systring
-        if prev_visibility != 'private' and visibility != prev_visibility:
-            s.error("Conflicting visibility options '%s' and '%s'"
-                % (prev_visibility, visibility), fatal=False)
-        s.next()
-    return visibility
-
 def p_let_statement(s, pos, ctx):
     # s.sy == "let"
     s.next()
@@ -3652,16 +3638,21 @@ def p_let_statement(s, pos, ctx):
         declarator = p_c_declarator(s, ctx, assignable = 1, nonempty = 1)
         declarators.append(declarator)
     s.expect_newline("Syntax error in C variable declaration", ignore_semicolon=True)
-    return Nodes.CVarDefNode(pos,
-        visibility = ctx.visibility,
-        base_type = base_type,
-        declarators = declarators,
-        in_pxd = ctx.level in ("module_pxd", "c_class_pxd"),
-        doc = None,
-        api = ctx.api,
-        modifiers = [],
-        overridable = ctx.overridable,
-    )
+    return Nodes.LetStatNode(pos, base_type = base_type, declarators = declarators)
+
+def p_visibility(s, prev_visibility):
+    pos = s.position()
+    visibility = prev_visibility
+    if s.sy in ("pub", "extern") or s.sy == 'IDENT' and s.systring in ("public", "readonly"):
+        if s.sy == "pub":
+            visibility = "public"
+        else:
+            visibility = s.systring
+        if prev_visibility != 'private' and visibility != prev_visibility:
+            s.error("Conflicting visibility options '%s' and '%s'"
+                % (prev_visibility, visibility), fatal=False)
+        s.next()
+    return visibility
 
 def p_c_modifiers(s):
     if s.sy == 'IDENT' and s.systring in ('inline',):
