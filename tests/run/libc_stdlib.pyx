@@ -11,10 +11,10 @@ def libc_int_abs(i32 x):
     """
     return c_int_abs(x)
 
-fn i32 gt(r&void v1, r&void v2) noexcept nogil:
-    return ((<r&mut i32>v1)[0] - (<r&mut i32>v2)[0])
+fn i32 gt(&void v1, &void v2) noexcept nogil:
+    return ((<&mut i32>v1)[0] - (<&mut i32>v2)[0])
 
-fn i32 lt(r&void v1, r&void v2) noexcept nogil:
+fn i32 lt(&void v1, &void v2) noexcept nogil:
     return - gt(v1, v2)
 
 def qsort(values, direction='lt'):

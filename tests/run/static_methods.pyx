@@ -10,11 +10,11 @@ cdef class A:
         return 'def', x
 
     @staticmethod
-    fn static_cdef(r&i32 x):
+    fn static_cdef(&i32 x):
         return 'cdef', x[0]
 
     @staticmethod
-    fn static_cdef2(r&i32 x, r&i32 y):
+    fn static_cdef2(&i32 x, &i32 y):
         return 'cdef2', x[0] + y[0]
 
     @staticmethod

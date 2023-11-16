@@ -6,7 +6,7 @@ def simple_values(obj1, obj2, obj3, obj4):
     """
     let i32 bool1, bool2
     let f32 bool3, bool4
-    let r&i8 ptr1, ptr2, ptr0
+    let &i8 ptr1, ptr2, ptr0
     let f32 f
     bool1 = 1
     bool2 = 0

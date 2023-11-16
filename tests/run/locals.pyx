@@ -89,7 +89,7 @@ def locals_ctype():
     >>> locals_ctype()
     False
     """
-    let r&i32 p = NULL
+    let &i32 p = NULL
     return 'p' in locals()
 
 def locals_ctype_inferred():
@@ -97,7 +97,7 @@ def locals_ctype_inferred():
     >>> locals_ctype_inferred()
     False
     """
-    let r&i32 p = NULL
+    let &i32 p = NULL
     b = p
     return 'b' in locals()
 
