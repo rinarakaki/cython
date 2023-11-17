@@ -1,7 +1,7 @@
 # mode: run
 
 
-cdef cfunc1(char* s):
+fn cfunc1(&char s):
     return s.decode('ASCII')
 
 fn cfunc3(i32 x, char* s, object y):
