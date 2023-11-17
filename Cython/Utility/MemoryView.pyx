@@ -79,7 +79,7 @@ extern from *:
     type __pyx_atomic_int_type = i32
     fn {{memviewslice_name}} slice_copy_contig "__pyx_memoryview_copy_new_contig"(
         __Pyx_memviewslice *from_mvs,
-        char* mode, i32 ndim,
+        &char mode, i32 ndim,
         usize sizeof_dtype, i32 contig_flag,
         u2 dtype_is_object) except * nogil
     fn u2 slice_is_contig "__pyx_memviewslice_is_contig"(
@@ -89,9 +89,9 @@ extern from *:
                                                 i32 ndim, usize itemsize) nogil
 
 extern from "<stdlib.h>":
-    fn void* malloc(usize) nogil
-    fn void free(void *) nogil
-    fn void* memcpy(void* dest, void* src, usize n) nogil
+    fn &void malloc(usize) nogil
+    fn void free(&void) nogil
+    fn &void memcpy(&mut void dest, &void src, usize n) nogil
 
 # the sequence abstract base class
 cdef object __pyx_collections_abc_Sequence "__pyx_collections_abc_Sequence"
@@ -178,7 +178,7 @@ cdef class array:
             _allocate_buffer(self)
 
     @cname('getbuffer')
-    def __getbuffer__(self, Py_buffer* info, i32 flags):
+    def __getbuffer__(self, &mut Py_buffer info, i32 flags):
         let i32 bufmode = -1
         if flags & (PyBUF_C_CONTIGUOUS | PyBUF_F_CONTIGUOUS | PyBUF_ANY_CONTIGUOUS):
             if self.mode == u"c":
