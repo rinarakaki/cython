@@ -13,12 +13,12 @@ def f():
     let u32 an_unsigned_int
     let u64 an_unsigned_long
     let &i8 a_char_ptr, another_char_ptr
-    let i8** a_char_ptr_ptr
-    let i8*** a_char_ptr_ptr_ptr
+    let &&i8 a_char_ptr_ptr
+    let &&&i8 a_char_ptr_ptr_ptr
     let i8[10] a_sized_char_array
     let i8[10][20] a_2d_char_array
-    let i8 *a_2d_char_ptr_array[10][20]
-    let i8 **a_2d_char_ptr_ptr_array[10][20]
+    let &i8[10][20] a_2d_char_ptr_array
+    let &&i8[10][20] a_2d_char_ptr_ptr_array
     let i32 (*a_0arg_function)()
     let i32 (*a_1arg_function)(i32 i)
     let i32 (*a_2arg_function)(i32 i, i32 j)
