@@ -85,52 +85,51 @@ extern from "cpp_operators_helper.h" nogil:
     const_char* operator>>(float,const TestOps&) except +
 
     cdef cppclass RefTestOps:
+        &mut i32 operator+() except +
+        &mut i32 operator-() except +
+        &mut i32 operator*() except +
+        &mut i32 operator~() except +
+        &mut i32 operator!() except +
 
-        i32& operator+() except +
-        i32& operator-() except +
-        i32& operator*() except +
-        i32& operator~() except +
-        i32& operator!() except +
+        &mut i32 operator++() except +
+        &mut i32 operator--() except +
+        &mut i32 operator++(i32) except +
+        &mut i32 operator--(i32) except +
 
-        i32& operator++() except +
-        i32& operator--() except +
-        i32& operator++(i32) except +
-        i32& operator--(i32) except +
-
-        i32& operator+(i32) except +
-        i32& operator+(i32,const TestOps&) except +
-        i32& operator-(i32) except +
-        i32& operator-(i32,const TestOps&) except +
-        i32& operator*(i32) except +
+        &mut i32 operator+(i32) except +
+        &mut i32 operator+(i32, const TestOps&) except +
+        &mut i32 operator-(i32) except +
+        &mut i32 operator-(i32, const TestOps&) except +
+        &mut i32 operator*(i32) except +
         # deliberately omitted operator* to test case where only defined outside class
-        i32& operator/(i32) except +
-        i32& operator/(i32,const TestOps&) except +
-        i32& operator%(i32) except +
-        i32& operator%(i32,const TestOps&) except +
+        &mut i32 operator/(i32) except +
+        &mut i32 operator/(i32, const TestOps&) except +
+        &mut i32 operator%(i32) except +
+        &mut i32 operator%(i32, const TestOps&) except +
 
-        i32& operator|(i32) except +
-        i32& operator|(i32,const TestOps&) except +
-        i32& operator&(i32) except +
-        i32& operator&(i32,const TestOps&) except +
-        i32& operator^(i32) except +
-        i32& operator^(i32,const TestOps&) except +
-        i32& operator,(i32) except +
-        i32& operator,(i32,const TestOps&) except +
+        &mut i32 operator|(i32) except +
+        &mut i32 operator|(i32, const TestOps&) except +
+        &mut i32 operator&(i32) except +
+        &mut i32 operator&(i32, const TestOps&) except +
+        &mut i32 operator^(i32) except +
+        &mut i32 operator^(i32, const TestOps&) except +
+        &mut i32 operator,(i32) except +
+        &mut i32 operator,(i32, const TestOps&) except +
 
-        i32& operator<<(i32) except +
-        i32& operator<<(i32,const TestOps&) except +
-        i32& operator>>(i32) except +
-        i32& operator>>(i32,const TestOps&) except +
+        &mut i32 operator<<(i32) except +
+        &mut i32 operator<<(i32, const TestOps&) except +
+        &mut i32 operator>>(i32) except +
+        &mut i32 operator>>(i32, const TestOps&) except +
 
-        i32& operator==(i32) except +
-        i32& operator!=(i32) except +
-        i32& operator>=(i32) except +
-        i32& operator<=(i32) except +
-        i32& operator>(i32) except +
-        i32& operator<(i32) except +
+        &mut i32 operator==(i32) except +
+        &mut i32 operator!=(i32) except +
+        &mut i32 operator>=(i32) except +
+        &mut i32 operator<=(i32) except +
+        &mut i32 operator>(i32) except +
+        &mut i32 operator<(i32) except +
 
-        i32& operator[](i32) except +
-        i32& operator()(i32) except +
+        &mut i32 operator[](i32) except +
+        &mut i32 operator()(i32) except +
 
     cdef cppclass TruthClass:
         TruthClass()
