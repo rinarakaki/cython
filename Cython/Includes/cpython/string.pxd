@@ -29,13 +29,12 @@ extern from "Python.h":
     . checked.
     fn object PyString_FromString(char* v)
 
+    _ Return value: New reference.
+    _ Return a new string object with the value v and length len on
+    _ success, and NULL on failure. If v is NULL, the contents of the
+    _ string are uninitialized.
     fn object PyString_FromStringAndSize(char* v, isize len)
-    # Return value: New reference.
-    # Return a new string object with the value v and length len on
-    # success, and NULL on failure. If v is NULL, the contents of the
-    # string are uninitialized.
 
-    fn object PyString_FromFormat(char* format, ...)
     # Return value: New reference.
     # Take a C printf()-style format string and a variable number of
     # arguments, calculate the size of the resulting Python string and
@@ -55,6 +54,7 @@ extern from "Python.h":
     # %i     int     Exactly equivalent to printf("%i").
     # %x     int     Exactly equivalent to printf("%x").
     # %s     char*     A null-terminated C character array.
+    fn object PyString_FromFormat(char* format, ...)
 
     # %p     void*     The hex representation of a C pointer.
     #    Mostly equivalent to printf("%p") except that it is guaranteed to
