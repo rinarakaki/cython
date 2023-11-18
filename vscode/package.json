@@ -1,0 +1,72 @@
+{
+    "name": "mlir-lang",
+    "displayName": "mlir-lang",
+    "description": "Cython language support for Visual Studio Code",
+    "private": true,
+    "version": "0.0.1",
+    "releaseTag": null,
+    "publisher": "mlir-lang",
+    "repository": {
+        "url": "https://github.com/rnarkk/cython.git",
+        "type": "git"
+    },
+    "license": "MIT OR Apache-2.0",
+    "keywords": [
+        "cython"
+    ],
+    "categories": [
+        "Formatters",
+        "Programming Languages"
+    ],
+    "capabilities": {
+        "untrustedWorkspaces": {
+            "supported": false,
+            "description": "cython invokes binaries set up by its configuration as well as the Rust toolchain's binaries. A malicious actor could exploit this to run arbitrary code on your machine."
+        }
+    },
+    "engines": {
+        "vscode": "^1.84.1"
+    },
+    "enabledApiProposals": [],
+    "scripts": {
+        "package": "vsce package -o mlir-lang.vsix"
+    },
+    "dependencies": {
+        "vscode-languageclient": "^9.0.0"
+    },
+    "devDependencies": {
+        "@types/node": "^20.9.1",
+        "@types/vscode": "^1.84.1",
+        "@typescript-eslint/eslint-plugin": "^6.0.0",
+        "@typescript-eslint/parser": "^6.0.0",
+        "@vscode/vsce": "^2.22.0",
+        "typescript": "^5.2.0"
+    },
+    "contributes": {
+        "languages": [
+            {
+                "id": "cython",
+                "extensions": [".pyx", ".pxd", ".pxi"],
+                "aliases": ["Cython"],
+                "configuration": "language-configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "cython",
+                "scopeName": "source.cython",
+                "path": "cython.tmLanguage.json"
+            }
+        ],
+        "semanticTokenScopes": [
+            {
+                "language": "cython",
+                "scopes": {
+                    "keyword": [
+                        "keyword.other.cython"
+                    ]
+                }
+            }
+        ]
+    }
+}

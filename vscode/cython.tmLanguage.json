@@ -1,0 +1,17 @@
+{
+    "scopeName": "source.cython",
+    "patterns": [
+        { "include": "#keywords" }
+    ],
+    "repository": {
+        "keywords": {
+            "patterns": [
+                {
+					"comment": "other keywords",
+					"name": "keyword.other.cython",
+					"match": "\\b(use|pub|extern|fn|let|enum|struct|union|const|static|loop|auto|as|from)\\b"
+				}
+            ]
+        }
+    }
+}
