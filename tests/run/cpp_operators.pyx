@@ -70,66 +70,66 @@ extern from "cpp_operators_helper.h" nogil:
     # Defining the operator outside the class does work
     # but doesn't help when importing from pxd files
     # (they don't get imported)
-    const_char* operator+(float,const TestOps&) except +
+    const_char* operator+(float, const TestOps&) except +
     # deliberately omitted operator- to test case where only defined in class
-    const_char* operator*(float,const TestOps&) except +
-    const_char* operator/(float,const TestOps&) except +
-    const_char* operator%(float,const TestOps&) except +
+    const_char* operator*(float, const TestOps&) except +
+    const_char* operator/(float, const TestOps&) except +
+    const_char* operator%(float, const TestOps&) except +
 
-    const_char* operator|(float,const TestOps&) except +
-    const_char* operator&(float,const TestOps&) except +
-    const_char* operator^(float,const TestOps&) except +
-    const_char* operator,(float,const TestOps&) except +
+    const_char* operator|(float, const TestOps&) except +
+    const_char* operator&(float, const TestOps&) except +
+    const_char* operator^(float, const TestOps&) except +
+    const_char* operator,(float, const TestOps&) except +
 
     const_char* operator<<(float,const TestOps&) except +
     const_char* operator>>(float,const TestOps&) except +
 
     cdef cppclass RefTestOps:
-        &mut i32 operator+() except +
-        &mut i32 operator-() except +
-        &mut i32 operator*() except +
-        &mut i32 operator~() except +
-        &mut i32 operator!() except +
+        fn &mut i32 operator+() except +
+        fn &mut i32 operator-() except +
+        fn &mut i32 operator*() except +
+        fn &mut i32 operator~() except +
+        fn &mut i32 operator!() except +
 
-        &mut i32 operator++() except +
-        &mut i32 operator--() except +
-        &mut i32 operator++(i32) except +
-        &mut i32 operator--(i32) except +
+        fn &mut i32 operator++() except +
+        fn &mut i32 operator--() except +
+        fn &mut i32 operator++(i32) except +
+        fn &mut i32 operator--(i32) except +
 
-        &mut i32 operator+(i32) except +
-        &mut i32 operator+(i32, const TestOps&) except +
-        &mut i32 operator-(i32) except +
-        &mut i32 operator-(i32, const TestOps&) except +
-        &mut i32 operator*(i32) except +
+        fn &mut i32 operator+(i32) except +
+        fn &mut i32 operator+(i32, const TestOps&) except +
+        fn &mut i32 operator-(i32) except +
+        fn &mut i32 operator-(i32, const TestOps&) except +
+        fn &mut i32 operator*(i32) except +
         # deliberately omitted operator* to test case where only defined outside class
-        &mut i32 operator/(i32) except +
-        &mut i32 operator/(i32, const TestOps&) except +
-        &mut i32 operator%(i32) except +
-        &mut i32 operator%(i32, const TestOps&) except +
+        fn &mut i32 operator/(i32) except +
+        fn &mut i32 operator/(i32, const TestOps&) except +
+        fn &mut i32 operator%(i32) except +
+        fn &mut i32 operator%(i32, const TestOps&) except +
 
-        &mut i32 operator|(i32) except +
-        &mut i32 operator|(i32, const TestOps&) except +
-        &mut i32 operator&(i32) except +
-        &mut i32 operator&(i32, const TestOps&) except +
-        &mut i32 operator^(i32) except +
-        &mut i32 operator^(i32, const TestOps&) except +
-        &mut i32 operator,(i32) except +
-        &mut i32 operator,(i32, const TestOps&) except +
+        fn &mut i32 operator|(i32) except +
+        fn &mut i32 operator|(i32, const TestOps&) except +
+        fn &mut i32 operator&(i32) except +
+        fn &mut i32 operator&(i32, const TestOps&) except +
+        fn &mut i32 operator^(i32) except +
+        fn &mut i32 operator^(i32, const TestOps&) except +
+        fn &mut i32 operator,(i32) except +
+        fn &mut i32 operator,(i32, const TestOps&) except +
 
-        &mut i32 operator<<(i32) except +
-        &mut i32 operator<<(i32, const TestOps&) except +
-        &mut i32 operator>>(i32) except +
-        &mut i32 operator>>(i32, const TestOps&) except +
+        fn &mut i32 operator<<(i32) except +
+        fn &mut i32 operator<<(i32, const TestOps&) except +
+        fn &mut i32 operator>>(i32) except +
+        fn &mut i32 operator>>(i32, const TestOps&) except +
 
-        &mut i32 operator==(i32) except +
-        &mut i32 operator!=(i32) except +
-        &mut i32 operator>=(i32) except +
-        &mut i32 operator<=(i32) except +
-        &mut i32 operator>(i32) except +
-        &mut i32 operator<(i32) except +
+        fn &mut i32 operator==(i32) except +
+        fn &mut i32 operator!=(i32) except +
+        fn &mut i32 operator>=(i32) except +
+        fn &mut i32 operator<=(i32) except +
+        fn &mut i32 operator>(i32) except +
+        fn &mut i32 operator<(i32) except +
 
-        &mut i32 operator[](i32) except +
-        &mut i32 operator()(i32) except +
+        fn &mut i32 operator[](i32) except +
+        fn &mut i32 operator()(i32) except +
 
     cdef cppclass TruthClass:
         TruthClass()
