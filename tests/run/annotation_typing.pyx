@@ -380,13 +380,13 @@ _WARNINGS = """
 35:66: PEP-484 recommends 'typing.Optional[...]' for arguments that can be None.
 61:44: Found C type name 'long' in a Python annotation. Did you mean to use 'cython.long'?
 61:44: Unknown type declaration 'long' in annotation, ignoring
-61:68: PEP-484 recommends 'typing.Optional[...]' for arguments that can be None.
+61:70: PEP-484 recommends 'typing.Optional[...]' for arguments that can be None.
 88:42: Found C type name 'long' in a Python annotation. Did you mean to use 'cython.long'?
 88:42: Unknown type declaration 'long' in annotation, ignoring
 88:68: PEP-484 recommends 'typing.Optional[...]' for arguments that can be None.
-149:30: Tuples cannot be declared as simple tuples of types. Use 'tuple[type1, type2, ...]'.
-149:59: Tuples cannot be declared as simple tuples of types. Use 'tuple[type1, type2, ...]'.
-155:13: Tuples cannot be declared as simple tuples of types. Use 'tuple[type1, type2, ...]'.
+146:30: Tuples cannot be declared as simple tuples of types. Use 'tuple[type1, type2, ...]'.
+146:59: Tuples cannot be declared as simple tuples of types. Use 'tuple[type1, type2, ...]'.
+151:13: Tuples cannot be declared as simple tuples of types. Use 'tuple[type1, type2, ...]'.
 290:44: Unknown type declaration in annotation, ignoring
 318:15: Annotation ignored since class-level attributes must be Python objects. Were you trying to set up an instance attribute?
 # DUPLICATE:
