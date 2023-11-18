@@ -182,7 +182,7 @@ def test_composed_types():
     """
     let c128 a = 0.5 + 0.6j, b = 0.4 -0.2j, result
     let i32 c = 7, d = 8
-    let &i32 cp = &c, dp = &d
+    let r&i32 cp = &c, dp = &d
     let string_t e = "spam", f = "eggs"
 
     result = composed(a, b)

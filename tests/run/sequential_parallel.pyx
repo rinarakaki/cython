@@ -242,7 +242,7 @@ def test_nan_init():
     """
     let i32 mybool = 0
     let i32 err = 0
-    let &i32 errp = &err
+    let r&i32 errp = &err
 
     let i8 a1 = 10
     let u8 a2 = 10
@@ -358,7 +358,7 @@ def test_prange_continue():
     9 0
     """
     let i32 i
-    let auto p = <&i32>calloc(10, sizeof(i32))
+    let auto p = <r&i32>calloc(10, sizeof(i32))
 
     if p == NULL:
         raise MemoryError
@@ -738,7 +738,7 @@ def test_pointer_temps(f64 x):
     4.0
     """
     let isize i
-    let &f64 f
+    let r&f64 f
     let f64[:] arr = array(format="d", shape=(10,), itemsize=sizeof(f64))
     arr[0] = 4.0
     arr[1] = 3.0

@@ -26,7 +26,7 @@ def simple():
     let i32 i = 0
     let i64 l = 0
     let i128 ll = 0
-    let &i32 iptr = &i
+    let r&i32 iptr = &i
     let i32** iptrptr = &iptr
     let A a = None
     let B b = None

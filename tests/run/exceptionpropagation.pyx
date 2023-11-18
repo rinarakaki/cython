@@ -78,7 +78,7 @@ def test_noexcept():
     """
     cdef_noexcept_function_that_raises()
 
-fn &i32 cdef_ptr_func(&i32 input, i32 failure_mode):
+fn r&i32 cdef_ptr_func(r&i32 input, i32 failure_mode):
     # should have except NULL? by default
     # failure mode is 0, 1, or 2
     if failure_mode == 0:

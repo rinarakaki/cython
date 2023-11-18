@@ -92,7 +92,7 @@ def assign_carray():
     assign_carray()
     (1, 2, 3)
     """
-    let &i32 b, c
+    let r&i32 b, c
     let i32[3] a
     a[0] = 1
     a[1] = 2

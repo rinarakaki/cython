@@ -83,12 +83,12 @@ extern from *:  # Hard-coded utility code hack.
         u32* as_uints
         u16* as_uchars
         signed char* as_schars
-        &i8 as_chars
+        r&i8 as_chars
         u64* as_ulongs
         i64* as_longs
         u128* as_ulonglongs
         i128* as_longlongs
-        &i16 as_shorts
+        r&i16 as_shorts
         u16* as_ushorts
         Py_UNICODE* as_pyunicodes
         void* as_voidptr
