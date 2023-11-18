@@ -375,9 +375,9 @@ _WARNINGS = """
 14:77: Dicts should no longer be used as type annotations. Use 'cython.int' etc. directly.
 14:85: Python type declaration in signature annotation does not refer to a Python type
 14:85: Strings should no longer be used for type declarations. Use 'cython.int' etc. directly.
-36:40: Found C type name 'long' in a Python annotation. Did you mean to use 'cython.long'?
-36:40: Unknown type declaration 'long' in annotation, ignoring
-36:66: PEP-484 recommends 'typing.Optional[...]' for arguments that can be None.
+35:40: Found C type name 'long' in a Python annotation. Did you mean to use 'cython.long'?
+35:40: Unknown type declaration 'long' in annotation, ignoring
+35:66: PEP-484 recommends 'typing.Optional[...]' for arguments that can be None.
 63:44: Found C type name 'long' in a Python annotation. Did you mean to use 'cython.long'?
 63:44: Unknown type declaration 'long' in annotation, ignoring
 63:70: PEP-484 recommends 'typing.Optional[...]' for arguments that can be None.

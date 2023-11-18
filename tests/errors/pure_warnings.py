@@ -59,8 +59,8 @@ _WARNINGS = """
 954:29: Ambiguous exception value, same as default return value: 0
 995:46: Ambiguous exception value, same as default return value: 0
 995:46: Ambiguous exception value, same as default return value: 0
-1085:29: Ambiguous exception value, same as default return value: 0
-1085:29: Ambiguous exception value, same as default return value: 0
+1085:28: Ambiguous exception value, same as default return value: 0
+1085:28: Ambiguous exception value, same as default return value: 0
 """
 
 _ERRORS = """
