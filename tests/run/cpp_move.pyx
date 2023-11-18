@@ -10,10 +10,10 @@ extern from *:
     """
     #include <string>
 
-    template<typename T> const &char move_helper(T&) { return "lvalue-ref"; }
-    template<typename T> const &char move_helper(T&&) { return "rvalue-ref"; }
+    template<typename T> const char* move_helper(T&) { return "lvalue-ref"; }
+    template<typename T> const char* move_helper(T&&) { return "rvalue-ref"; }
     """
-    static const &char move_helper[T](T)
+    static &char move_helper[T](T)
 
 def test_move_assignment():
     """
