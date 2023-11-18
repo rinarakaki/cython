@@ -2681,7 +2681,21 @@ def p_c_base_type(s, nonempty=False, templates=None):
             is_volatile = 1
             s.next()
 
-    if s.sy == '(':
+    if s.sy == "&" or s.systring == "r" and s.peek()[0] == "&":
+        if s.sy == "&":
+            s.next()
+            raw = 0
+        else:
+            s.next()
+            s.next()
+            raw = 1
+
+        base_type = p_c_base_type(s, nonempty=nonempty, templates=templates)
+        if raw:
+            base_type = Nodes.CPtrTypeNode(pos, base_type=base_type)
+        else:
+            base_type = Nodes.CRefTypeNode(pos, base_type=base_type)
+    elif s.sy == "(":
         base_type = p_c_complex_base_type(s, templates = templates)
     else:
         base_type = p_c_simple_base_type(s, nonempty=nonempty, templates=templates)
