@@ -3,17 +3,17 @@
 # tag: py_unicode_strings
 
 # ok:
-cdef &char c1   =  "abc"
+cdef r&char c1   =  "abc"
 cdef str s1     =  "abc"
 
 cdef unicode u1 = u"abc"
 cdef Py_UNICODE* cu1 = u1
 
 cdef bytes b1 = b"abc"
-cdef &char c2 = b"abc"
+cdef r&char c2 = b"abc"
 
 cdef bytes b2 = c1
-cdef &char c3 = b1
+cdef r&char c3 = b1
 
 cdef basestring bs1  =  "abc"
 cdef basestring bs2  = u"abc"
@@ -33,9 +33,9 @@ u1 = bs1
 s1 = bs1
 
 # errors:
-cdef &char c_f1   = u"\N{SNOWMAN}"  # not bytes compatible
-cdef &char c_f2   = u1
-cdef &char c_f3   = s1
+cdef r&char c_f1   = u"\N{SNOWMAN}"  # not bytes compatible
+cdef r&char c_f2   = u1
+cdef r&char c_f3   = s1
 
 cdef Py_UNICODE* cu_f1 = c1
 cdef Py_UNICODE* cu_f2 = b1
@@ -98,7 +98,7 @@ _ERRORS = u"""
 56:20: str objects do not support coercion to unicode, use a unicode string literal instead (u'')
 57:20: Cannot convert 'bytes' object to unicode implicitly, decoding required
 58:20: Cannot convert 'bytes' object to unicode implicitly, decoding required
-59:20: Cannot convert '&char' to unicode implicitly, decoding required
+59:20: Cannot convert 'r&char' to unicode implicitly, decoding required
 
 61:24: Cannot convert 'bytes' object to basestring implicitly. This is not portable to Py3.
 62:24: Cannot convert 'bytes' object to basestring implicitly. This is not portable to Py3.
@@ -109,6 +109,6 @@ _ERRORS = u"""
 
 72:11: default encoding required for conversion from 'char *' to 'str object'
 73:13: default encoding required for conversion from 'char *' to 'str object'
-74:15: Cannot convert '&char' to unicode implicitly, decoding required
+74:15: Cannot convert 'r&char' to unicode implicitly, decoding required
 75:17: default encoding required for conversion from 'char *' to 'unicode object'
 """

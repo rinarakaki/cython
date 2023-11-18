@@ -14,8 +14,8 @@ def test_ptr2():
     >>> test_ptr2()
     2
     """
-    let &char p1 = NULL
-    let &char p2 = NULL
+    let r&char p1 = NULL
+    let r&char p2 = NULL
     p1 += 1
 
     if p1 and p2:

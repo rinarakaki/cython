@@ -28,5 +28,5 @@ def test_float_parsing(bstring):
     ... except ValueError: pass
     ... else: print("NOT RAISED!")
     """
-    let &char s = bstring
+    let r&char s = bstring
     return float(s)

@@ -5,15 +5,15 @@ use libc::string::const_char
 
 extern from "<locale.h>" nogil:
     struct lconv:
-        &char decimal_point
-        &char thousands_sep
-        &char grouping
-        &char mon_decimal_point
-        &char mon_thousands_sep
-        &char mon_grouping
-        &char positive_sign
-        &char negative_sign
-        &char currency_symbol
+        r&char decimal_point
+        r&char thousands_sep
+        r&char grouping
+        r&char mon_decimal_point
+        r&char mon_thousands_sep
+        r&char mon_grouping
+        r&char positive_sign
+        r&char negative_sign
+        r&char currency_symbol
         char frac_digits
         char p_cs_precedes
         char n_cs_precedes
@@ -21,7 +21,7 @@ extern from "<locale.h>" nogil:
         char n_sep_by_space
         char p_sign_posn
         char n_sign_posn
-        &char int_curr_symbol
+        r&char int_curr_symbol
         char int_frac_digits
         char int_p_cs_precedes
         char int_n_cs_precedes
@@ -38,7 +38,7 @@ extern from "<locale.h>" nogil:
     enum: LC_TIME
 
     # 7.11.1 Locale control
-    fn &char setlocale(i32 category, &char locale)
+    fn r&char setlocale(i32 category, r&char locale)
 
     # 7.11.2 Numeric formatting convention inquiry
     fn lconv *localeconv()

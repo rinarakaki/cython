@@ -10,11 +10,11 @@ extern from "Python.h":
     # done, to make sure that it is always first in the list of search
     # functions.
 
-    fn i32 PyCodec_KnownEncoding(&char encoding)
+    fn i32 PyCodec_KnownEncoding(r&char encoding)
     # Return 1 or 0 depending on whether there is a registered codec for the
     # given encoding. This function always succeeds.
 
-    fn object PyCodec_Encode(object o, &char encoding, &char errors)
+    fn object PyCodec_Encode(object o, r&char encoding, r&char errors)
     # Return value: New reference.
     # Generic codec based encoding API.
 
@@ -23,7 +23,7 @@ extern from "Python.h":
     # to use the default method defined for the codec. Raises a LookupError
     # if no encoder can be found.
 
-    fn object PyCodec_Decode(object o, &char encoding, &char errors)
+    fn object PyCodec_Decode(object o, r&char encoding, r&char errors)
     # Return value: New reference.
     # Generic codec based decoding API.
 
@@ -40,34 +40,34 @@ extern from "Python.h":
     # this mechanism effectively case-insensitive. If no codec is found, a
     # KeyError is set and NULL returned.
 
-    fn object PyCodec_Encoder(&char encoding)
+    fn object PyCodec_Encoder(r&char encoding)
     # Return value: New reference.
     # Get an encoder function for the given encoding.
 
-    fn object PyCodec_Decoder(&char encoding)
+    fn object PyCodec_Decoder(r&char encoding)
     # Return value: New reference.
     # Get a decoder function for the given encoding.
 
-    fn object PyCodec_IncrementalEncoder(&char encoding, &char errors)
+    fn object PyCodec_IncrementalEncoder(r&char encoding, r&char errors)
     # Return value: New reference.
     # Get an IncrementalEncoder object for the given encoding.
 
-    fn object PyCodec_IncrementalDecoder(&char encoding, &char errors)
+    fn object PyCodec_IncrementalDecoder(r&char encoding, r&char errors)
     # Return value: New reference.
     # Get an IncrementalDecoder object for the given encoding.
 
-    fn object PyCodec_StreamReader(&char encoding, object stream, &char errors)
+    fn object PyCodec_StreamReader(r&char encoding, object stream, r&char errors)
     # Return value: New reference.
     # Get a StreamReader factory function for the given encoding.
 
-    fn object PyCodec_StreamWriter(&char encoding, object stream, &char errors)
+    fn object PyCodec_StreamWriter(r&char encoding, object stream, r&char errors)
     # Return value: New reference.
     # Get a StreamWriter factory function for the given encoding.
 
 
     # Registry API for Unicode encoding error handlers
 
-    fn i32 PyCodec_RegisterError(&char name, object error) except? -1
+    fn i32 PyCodec_RegisterError(r&char name, object error) except? -1
     # Register the error handling callback function error under the given
     # name. This callback function will be called by a codec when it
     # encounters unencodable characters/undecodable bytes and name is
@@ -86,7 +86,7 @@ extern from "Python.h":
 
     # Return 0 on success, -1 on error.
 
-    fn object PyCodec_LookupError(&char name)
+    fn object PyCodec_LookupError(r&char name)
     # Return value: New reference.
     # Lookup the error handling callback function registered under name. As a
     # special case NULL can be passed, in which case the error handling

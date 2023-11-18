@@ -12,23 +12,23 @@ extern from "<stdio.h>" nogil:
 
     enum: FOPEN_MAX
     enum: FILENAME_MAX
-    fn FILE* fopen(&char filename, const char  *opentype)
-    fn FILE* freopen(&char filename, &char opentype, FILE* stream)
-    fn FILE* fdopen(i32 fdescriptor, &char opentype)
+    fn FILE* fopen(r&char filename, const char  *opentype)
+    fn FILE* freopen(r&char filename, r&char opentype, FILE* stream)
+    fn FILE* fdopen(i32 fdescriptor, r&char opentype)
     fn i32 fclose(FILE* stream)
-    fn i32 remove(&char filename)
-    fn i32 rename(&char oldname, &char newname)
+    fn i32 remove(r&char filename)
+    fn i32 rename(r&char oldname, r&char newname)
     fn FILE* tmpfile ()
 
-    fn i32 remove(&char pathname)
-    fn i32 rename(&char oldpath, &char newpath)
+    fn i32 remove(r&char pathname)
+    fn i32 rename(r&char oldpath, r&char newpath)
 
     enum: _IOFBF
     enum: _IOLBF
     enum: _IONBF
-    fn i32 setvbuf(FILE* stream, &char buf, i32 mode, usize size)
+    fn i32 setvbuf(FILE* stream, r&char buf, i32 mode, usize size)
     enum: BUFSIZ
-    fn void setbuf(FILE* stream, &char buf)
+    fn void setbuf(FILE* stream, r&char buf)
 
     fn usize fread(void* data, usize size, usize count, FILE* stream)
     fn usize fwrite(const void* data, usize size, usize count, FILE* stream)
@@ -51,28 +51,28 @@ extern from "<stdio.h>" nogil:
     fn i32 fgetpos(FILE* stream, fpos_t* position)
     fn i32 fsetpos(FILE* stream, const fpos_t* position)
 
-    fn i32 scanf(&char template, ...)
-    fn i32 sscanf(&char s, &char template, ...)
-    fn i32 fscanf(FILE* stream, &char template, ...)
+    fn i32 scanf(r&char template, ...)
+    fn i32 sscanf(r&char s, r&char template, ...)
+    fn i32 fscanf(FILE* stream, r&char template, ...)
 
-    fn i32 printf(&char template, ...)
-    fn i32 sprintf(&char s, &char template, ...)
-    fn i32 snprintf(&char s, usize size, &char template, ...)
-    fn i32 fprintf(FILE* stream, &char template, ...)
+    fn i32 printf(r&char template, ...)
+    fn i32 sprintf(r&char s, r&char template, ...)
+    fn i32 snprintf(r&char s, usize size, r&char template, ...)
+    fn i32 fprintf(FILE* stream, r&char template, ...)
 
-    fn void perror(&char message)
+    fn void perror(r&char message)
 
-    fn &char gets(&char s)
-    fn &char fgets(&char s, i32 count, FILE* stream)
+    fn r&char gets(r&char s)
+    fn r&char fgets(r&char s, i32 count, FILE* stream)
     fn i32 getchar()
     fn i32 fgetc(FILE* stream)
     fn i32 getc(FILE* stream)
     fn i32 ungetc(i32 c, FILE* stream)
 
-    fn i32 puts(&char s)
-    fn i32 fputs(&char s, FILE* stream)
+    fn i32 puts(r&char s)
+    fn i32 fputs(r&char s, FILE* stream)
     fn i32 putchar(i32 c)
     fn i32 fputc(i32 c, FILE* stream)
     fn i32 putc(i32 c, FILE* stream)
 
-    fn usize getline(&char* lineptr, usize *n, FILE* stream)
+    fn usize getline(r&char* lineptr, usize *n, FILE* stream)

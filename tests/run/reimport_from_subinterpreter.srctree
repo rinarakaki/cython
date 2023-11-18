@@ -44,7 +44,7 @@ extern from *:
         return PyLong_FromLong(r);
     }
     """
-    object run_in_subinterpreter(&char code)
+    object run_in_subinterpreter(r&char code)
 
 
 MAIN_HAS_IMPORTED = False

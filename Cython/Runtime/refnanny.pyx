@@ -80,7 +80,7 @@ fn void report_unraisable(filename, isize lineno, object e=None):
 # exception has been fetched, in case we are called from
 # exception-handling code.
 
-fn PyObject* SetupContext(&char funcname, isize lineno, &char filename) except NULL:
+fn PyObject* SetupContext(r&char funcname, isize lineno, r&char filename) except NULL:
     if Context is None:
         # Context may be None during finalize phase.
         # In that case, we don't want to be doing anything fancy
@@ -173,7 +173,7 @@ struct RefNannyAPIStruct:
     void (*DECREF)(PyObject*, PyObject*, isize)
     void (*GOTREF)(PyObject*, PyObject*, isize)
     void (*GIVEREF)(PyObject*, PyObject*, isize)
-    PyObject* (*SetupContext)(&char, isize, &char) except NULL
+    PyObject* (*SetupContext)(r&char, isize, r&char) except NULL
     void (*FinishContext)(PyObject**)
 
 cdef RefNannyAPIStruct api

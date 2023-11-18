@@ -25,4 +25,4 @@ extern from "math.h":
 
 extern from "string.h":
     # signature must be exact in C++, disagrees with C
-    cpdef &char strchr(&char haystack, i32 needle);
+    cpdef r&char strchr(r&char haystack, i32 needle);

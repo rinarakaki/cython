@@ -122,8 +122,8 @@ extern from "<string>" namespace "std" nogil:
         fn string(const string& s) except +
         fn string(const string& s, usize pos) except +
         fn string(const string& s, usize pos, usize len) except +
-        fn string(&char s) except +
-        fn string(&char s, usizen) except +
+        fn string(r&char s) except +
+        fn string(r&char s, usizen) except +
         fn string(usize n, char c) except +
         fn string(iterator first, iterator last) except +
 
@@ -140,8 +140,8 @@ extern from "<string>" namespace "std" nogil:
         const_reverse_iterator const_rend "rend"()
         const_reverse_iterator crend()
 
-        &char c_str()
-        &char data()
+        r&char c_str()
+        r&char data()
         fn usize size()
         fn usize max_size()
         fn usize length()
@@ -169,14 +169,14 @@ extern from "<string>" namespace "std" nogil:
         fn i32 compare(const string& s)
         fn i32 compare(usize pos, usize len, const string& s) except +
         fn i32 compare(usize pos, usize len, const string& s, usize subpos, usize sublen) except +
-        fn i32 compare(&char s) except +
-        fn i32 compare(usize pos, usize len, &char s) except +
-        fn i32 compare(usize pos, usize len, &char s , usize n) except +
+        fn i32 compare(r&char s) except +
+        fn i32 compare(usize pos, usize len, r&char s) except +
+        fn i32 compare(usize pos, usize len, r&char s , usize n) except +
 
         fn string& append(const string& s) except +
         fn string& append(const string& s, usize subpos, usize sublen) except +
-        fn string& append(&char s) except +
-        fn string& append(&char s, usize n) except +
+        fn string& append(r&char s) except +
+        fn string& append(r&char s, usize n) except +
         fn string& append(usize n, char c) except +
 
         fn void push_back(char c) except +
@@ -184,66 +184,66 @@ extern from "<string>" namespace "std" nogil:
 
         fn string& assign(const string& s) except +
         fn string& assign(const string& s, usize subpos, usize sublen) except +
-        fn string& assign(&char s, usize n) except +
-        fn string& assign(&char s) except +
+        fn string& assign(r&char s, usize n) except +
+        fn string& assign(r&char s) except +
         fn string& assign(usize n, char c) except +
 
         fn string& insert(usize pos, const string& s, usize subpos, usize sublen) except +
         fn string& insert(usize pos, const string& s) except +
-        fn string& insert(usize pos, &char s, usize n) except +
-        fn string& insert(usize pos, &char s) except +
+        fn string& insert(usize pos, r&char s, usize n) except +
+        fn string& insert(usize pos, r&char s) except +
         fn string& insert(usize pos, usize n, char c) except +
         fn void insert(iterator p, usize n, char c) except +
         iterator insert(iterator p, char c) except +
 
-        fn usize copy(&char s, usize len, usize pos) except +
-        fn usize copy(&char s, usize len) except +
+        fn usize copy(r&char s, usize len, usize pos) except +
+        fn usize copy(r&char s, usize len) except +
 
         fn usize find(const string& s, usize pos)
         fn usize find(const string& s)
-        fn usize find(&char s, usize pos, usize n)
-        fn usize find(&char s, usize pos)
-        fn usize find(&char s)
+        fn usize find(r&char s, usize pos, usize n)
+        fn usize find(r&char s, usize pos)
+        fn usize find(r&char s)
         fn usize find(char c, usize pos)
         fn usize find(char c)
 
         fn usize rfind(const string&, usize pos)
         fn usize rfind(const string&)
-        fn usize rfind(&char s, usize pos, usize n)
-        fn usize rfind(&char s, usize pos)
-        fn usize rfind(&char s)
+        fn usize rfind(r&char s, usize pos, usize n)
+        fn usize rfind(r&char s, usize pos)
+        fn usize rfind(r&char s)
         fn usize rfind(char c, usize pos)
         fn usize rfind(char c)
 
         fn usize find_first_of(const string&, usize pos)
         fn usize find_first_of(const string&)
-        fn usize find_first_of(&char s, usize pos, usize n)
-        fn usize find_first_of(&char s, usize pos)
-        fn usize find_first_of(&char s)
+        fn usize find_first_of(r&char s, usize pos, usize n)
+        fn usize find_first_of(r&char s, usize pos)
+        fn usize find_first_of(r&char s)
         fn usize find_first_of(char c, usize pos)
         fn usize find_first_of(char c)
 
         fn usize find_first_not_of(const string& s, usize pos)
         fn usize find_first_not_of(const string& s)
-        fn usize find_first_not_of(&char s, usize pos, usize n)
-        fn usize find_first_not_of(&char s, usize pos)
-        fn usize find_first_not_of(&char)
+        fn usize find_first_not_of(r&char s, usize pos, usize n)
+        fn usize find_first_not_of(r&char s, usize pos)
+        fn usize find_first_not_of(r&char)
         fn usize find_first_not_of(char c, usize pos)
         fn usize find_first_not_of(char c)
 
         fn usize find_last_of(const string& s, usize pos)
         fn usize find_last_of(const string& s)
-        fn usize find_last_of(&char s, usize pos, usize n)
-        fn usize find_last_of(&char s, usize pos)
-        fn usize find_last_of(&char s)
+        fn usize find_last_of(r&char s, usize pos, usize n)
+        fn usize find_last_of(r&char s, usize pos)
+        fn usize find_last_of(r&char s)
         fn usize find_last_of(char c, usize pos)
         fn usize find_last_of(char c)
 
         fn usize find_last_not_of(const string& s, usize pos)
         fn usize find_last_not_of(const string& s)
-        fn usize find_last_not_of(&char s, usize pos, usize n)
-        fn usize find_last_not_of(&char s, usize pos)
-        fn usize find_last_not_of(&char s)
+        fn usize find_last_not_of(r&char s, usize pos, usize n)
+        fn usize find_last_not_of(r&char s, usize pos)
+        fn usize find_last_not_of(r&char s)
         fn usize find_last_not_of(char c, usize pos)
         fn usize find_last_not_of(char c)
 
@@ -253,37 +253,37 @@ extern from "<string>" namespace "std" nogil:
 
         # C++20
         fn u2 starts_with(char c) except +
-        fn u2 starts_with(&char s)
+        fn u2 starts_with(r&char s)
         fn u2 ends_with(char c) except +
-        fn u2 ends_with(&char s)
+        fn u2 ends_with(r&char s)
         # C++23
         fn u2 contains(char c) except +
-        fn u2 contains(&char s)
+        fn u2 contains(r&char s)
 
         # string& operator= (const string&)
-        # string& operator= (&char)
+        # string& operator= (r&char)
         # string& operator= (char)
 
         fn string operator+ (const string&) except +
-        fn string operator+ (&char) except +
+        fn string operator+ (r&char) except +
 
         fn u2 operator==(const string&)
-        fn u2 operator==(&char)
+        fn u2 operator==(r&char)
 
         fn u2 operator!= (const string&)
-        fn u2 operator!= (&char)
+        fn u2 operator!= (r&char)
 
         fn u2 operator< (const string&)
-        fn u2 operator< (&char)
+        fn u2 operator< (r&char)
 
         fn u2 operator> (const string&)
-        fn u2 operator> (&char)
+        fn u2 operator> (r&char)
 
         fn u2 operator<= (const string&)
-        fn u2 operator<= (&char)
+        fn u2 operator<= (r&char)
 
         fn u2 operator>= (const string&)
-        fn u2 operator>= (&char)
+        fn u2 operator>= (r&char)
 
 
     fn string to_string(i32 val) except +

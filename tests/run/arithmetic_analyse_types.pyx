@@ -5,11 +5,11 @@ use cython::typeof
 
 extern from "arithmetic_analyse_types_helper.h":
     struct short_return:
-        &char msg
+        r&char msg
     struct int_return:
-        &char msg
+        r&char msg
     struct longlong_return:
-        &char msg
+        r&char msg
     fn short_return f(i16)
     fn int_return f(i32)
     fn longlong_return f(i128)

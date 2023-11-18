@@ -28,7 +28,7 @@ def pointer_test():
     0
     """
     let i32 int1, int2, int3
-    let &char ptr1, ptr2, ptr3
+    let r&char ptr1, ptr2, ptr3
     int2 = 2
     int3 = 3
     ptr2 = "test"

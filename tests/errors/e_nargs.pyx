@@ -1,7 +1,7 @@
 # mode: error
 
-cdef extern grail(&char s, i32 i)
-cdef extern spam(&char s, i32 i,...)
+cdef extern grail(r&char s, i32 i)
+cdef extern spam(r&char s, i32 i,...)
 
 fn f():
     grail()  # too few args

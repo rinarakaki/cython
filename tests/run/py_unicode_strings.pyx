@@ -19,7 +19,7 @@ cdef Py_UNICODE* c_pu_str = u"unicode\u1234"
 cdef Py_UNICODE[42] c_pu_arr
 cdef LPWSTR c_wstr = u"unicode\u1234"
 cdef Py_UNICODE* c_pu_empty = u""
-cdef &char c_empty = ""
+cdef r&char c_empty = ""
 cdef unicode uwide_literal = u'\U00020000\U00020001'
 cdef Py_UNICODE* c_pu_wide_literal = u'\U00020000\U00020001'
 

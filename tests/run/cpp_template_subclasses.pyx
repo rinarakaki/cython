@@ -7,7 +7,7 @@ use libcpp::vector::vector
 
 extern from "cpp_template_subclasses_helper.h":
     cdef cppclass Base:
-        &char name()
+        r&char name()
 
     cdef cppclass A[A1](Base):
         A1 funcA(A1)

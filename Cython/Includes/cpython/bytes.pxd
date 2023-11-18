@@ -23,19 +23,19 @@ extern from "Python.h":
     fn u2 PyBytes_CheckExact(object o)
     # Return true if the object o is a string object, but not an instance of a subtype of the string type.
 
-    fn bytes PyBytes_FromString(&char v)
+    fn bytes PyBytes_FromString(r&char v)
     # Return value: New reference.
     # Return a new string object with the value v on success, and NULL
     # on failure. The parameter v must not be NULL; it will not be
     # checked.
 
-    fn bytes PyBytes_FromStringAndSize(&char v, isize len)
+    fn bytes PyBytes_FromStringAndSize(r&char v, isize len)
     # Return value: New reference.
     # Return a new string object with the value v and length len on
     # success, and NULL on failure. If v is NULL, the contents of the
     # string are uninitialized.
 
-    fn bytes PyBytes_FromFormat(&char format, ...)
+    fn bytes PyBytes_FromFormat(r&char format, ...)
     # Return value: New reference.
     # Take a C printf()-style format string and a variable number of
     # arguments, calculate the size of the resulting Python string and
@@ -54,7 +54,7 @@ extern from "Python.h":
     # %zu     size_t     Exactly equivalent to printf("%zu").
     # %i     int     Exactly equivalent to printf("%i").
     # %x     int     Exactly equivalent to printf("%x").
-    # %s     &char     A null-terminated C character array.
+    # %s     r&char     A null-terminated C character array.
 
     # %p     void*     The hex representation of a C pointer.
     #    Mostly equivalent to printf("%p") except that it is guaranteed to
@@ -64,7 +64,7 @@ extern from "Python.h":
     # format string to be copied as-is to the result string, and any
     # extra arguments discarded.
 
-    fn bytes PyBytes_FromFormatV(&char format, va_list vargs)
+    fn bytes PyBytes_FromFormatV(r&char format, va_list vargs)
     # Return value: New reference.
     # Identical to PyBytes_FromFormat() except that it takes exactly two arguments.
 
@@ -78,7 +78,7 @@ extern from "Python.h":
     fn isize PyBytes_GET_SIZE(object string)
     # Macro form of PyBytes_Size() but without error checking.
 
-    fn &char PyBytes_AsString(object string) except NULL
+    fn r&char PyBytes_AsString(object string) except NULL
     # Return a NUL-terminated representation of the contents of
     # string. The pointer refers to the internal buffer of string, not
     # a copy. The data must not be modified in any way, unless the
@@ -88,12 +88,12 @@ extern from "Python.h":
     # and operates on that. If string is not a string object at all,
     # PyBytes_AsString() returns NULL and raises TypeError.
 
-    fn &char PyBytes_AS_STRING(object string)
+    fn r&char PyBytes_AS_STRING(object string)
     # Macro form of PyBytes_AsString() but without error
     # checking. Only string objects are supported; no Unicode objects
     # should be passed.
 
-    fn i32 PyBytes_AsStringAndSize(object obj, &char* buffer, isize* length) except -1
+    fn i32 PyBytes_AsStringAndSize(object obj, r&char* buffer, isize* length) except -1
     # Return a NULL-terminated representation of the contents of the
     # object obj through the output variables buffer and length.
     #
@@ -156,14 +156,14 @@ extern from "Python.h":
     # reference-count-neutral; you own the object after the call if
     # and only if you owned it before the call.)
 
-    fn bytes PyBytes_InternFromString(&char v)
+    fn bytes PyBytes_InternFromString(r&char v)
     # Return value: New reference.
     # A combination of PyBytes_FromString() and
     # PyBytes_InternInPlace(), returning either a new string object
     # that has been interned, or a new (``owned'') reference to an
     # earlier interned string object with the same value.
 
-    fn object PyBytes_Decode(&char s, isize size, &char encoding, &char errors)
+    fn object PyBytes_Decode(r&char s, isize size, r&char encoding, r&char errors)
     #  Return value: New reference.
     # Create an object by decoding size bytes of the encoded buffer s
     # using the codec registered for encoding. encoding and errors
@@ -172,7 +172,7 @@ extern from "Python.h":
     # using the Python codec registry. Return NULL if an exception was
     # raised by the codec.
 
-    fn object PyBytes_AsDecodedObject(object str, &char encoding, &char errors)
+    fn object PyBytes_AsDecodedObject(object str, r&char encoding, r&char errors)
     # Return value: New reference.
     # Decode a string object by passing it to the codec registered for
     # encoding and return the result as Python object. encoding and
@@ -181,7 +181,7 @@ extern from "Python.h":
     # using the Python codec registry. Return NULL if an exception was
     # raised by the codec.
 
-    fn object PyBytes_Encode(&char s, isize size, &char encoding, &char errors)
+    fn object PyBytes_Encode(r&char s, isize size, r&char encoding, r&char errors)
     # Return value: New reference.
     # Encode the char buffer of the given size by passing it to the
     # codec registered for encoding and return a Python
@@ -190,7 +190,7 @@ extern from "Python.h":
     # codec to be used is looked up using the Python codec
     # registry. Return NULL if an exception was raised by the codec.
 
-    fn object PyBytes_AsEncodedObject(object str, &char encoding, &char errors)
+    fn object PyBytes_AsEncodedObject(object str, r&char encoding, r&char errors)
     # Return value: New reference.
     # Encode a string object using the codec registered for encoding
     # and return the result as Python object. encoding and errors have

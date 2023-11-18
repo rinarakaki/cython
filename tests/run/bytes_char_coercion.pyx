@@ -159,7 +159,7 @@ def inplace_ops_use_arithmetic():
     >>> print(inplace_ops_use_arithmetic().decode('ascii'))
     bc
     """
-    let &char s = 'abc'
+    let r&char s = 'abc'
     let object x = 1
     s += 1
     s += 2*x

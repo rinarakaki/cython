@@ -11,7 +11,7 @@ extern from "node.h":
     fn node* CHILD(node* n, i32 ix)
     fn node* RCHILD(node* n, i32 ix)
     fn short TYPE(node* n)
-    fn &char STR(node* n)
+    fn r&char STR(node* n)
 
 extern from "parsetok.h":
     struct perrdetail:

@@ -1,6 +1,6 @@
 # mode: error
 
-fn &char spam() except -1:
+fn r&char spam() except -1:
     pass
 
 _ERRORS = u"""

@@ -1,7 +1,7 @@
 use cython
 
-cdef &char s = b"abcdefg"
-cdef &char cs = b"abcdefg"
+cdef r&char s = b"abcdefg"
+cdef r&char cs = b"abcdefg"
 cdef u8* us = b"abcdefg"
 cdef const u8* cus = b"abcdefg"
 cdef bytes pystr =  b"abcdefg"

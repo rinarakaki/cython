@@ -16,7 +16,7 @@ extern from "cpp_template_functions_helper.h":
         i32 overloaded(f64 x)
         T overloaded(pair[T, T])
         U overloaded[U](vector[U])
-        X overloaded[X](&char s, vector[X])
+        X overloaded[X](r&char s, vector[X])
     fn T nested_deduction[T](const T*)
     fn pair[T, U] pair_arg[T, U](pair[T, U] a)
     fn T* pointer_param[T](T*)

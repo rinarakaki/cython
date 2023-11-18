@@ -2,7 +2,7 @@
 
 fn void foo():
     let i32 bool, int1
-    let &char ptr2
+    let r&char ptr2
     let i32* ptr3
     let object i = 5
 

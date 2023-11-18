@@ -1,6 +1,6 @@
 use cython
 
-cdef &char c_string = b'abcdefg'
+cdef r&char c_string = b'abcdefg'
 cdef &void void_ptr = c_string
 
 cdef i32 i = 42
@@ -62,7 +62,7 @@ def bool_binop_truth(i32 x):
     if c_string and x or not (void_ptr or int_ptr and float_ptr) or x:
         print true
 
-def binop_voidptr(i32 x, i64 y, &char z):
+def binop_voidptr(i32 x, i64 y, r&char z):
     """
     >>> binop_voidptr(1, 3, b'abc')
     'void *'
@@ -70,7 +70,7 @@ def binop_voidptr(i32 x, i64 y, &char z):
     result = &x and &y and z
     return cython::typeof(result)
 
-def cond_expr_voidptr(i32 x, i64 y, &char z):
+def cond_expr_voidptr(i32 x, i64 y, r&char z):
     """
     >>> cond_expr_voidptr(0, -1, b'abc')
     ('void *', 0)

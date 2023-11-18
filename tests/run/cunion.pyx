@@ -45,9 +45,9 @@ def test_p():
     eggs_p(spam)
 
 union AllCharptr:
-    &char s1
-    &char s2
-    &char s3
+    r&char s1
+    r&char s2
+    r&char s3
 
 def test_charptr_to_py():
     """
