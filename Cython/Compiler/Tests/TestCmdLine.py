@@ -1,12 +1,9 @@
 import os
 import sys
 import re
+from io import StringIO
 from unittest import TestCase
 from unittest.mock import patch, Mock
-try:
-    from StringIO import StringIO
-except ImportError:
-    from io import StringIO  # doesn't accept 'str' in Py2
 
 from .. import Options
 from ..CmdLine import parse_command_line
@@ -245,7 +242,7 @@ class CmdLineParserTest(TestCase):
             '--3str',
             'source.pyx'
         ])
-        self.assertEqual(options.language_level, '3str')
+        self.assertEqual(options.language_level, '3')
         self.check_default_global_options()
         self.check_default_options(options, ['language_level'])
 
