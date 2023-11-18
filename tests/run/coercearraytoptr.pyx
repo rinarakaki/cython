@@ -1,7 +1,7 @@
 cdef char* cstring = "abcdefg"
 
 fn void spam(char* target):
-    let char* s = cstring
+    let auto s = cstring
     while s[0]:
         target[0] = s[0]
         s += 1
