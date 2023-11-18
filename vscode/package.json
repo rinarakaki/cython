@@ -1,11 +1,11 @@
 {
-    "name": "mlir-lang",
-    "displayName": "mlir-lang",
+    "name": "cython",
+    "displayName": "cython",
     "description": "Cython language support for Visual Studio Code",
     "private": true,
     "version": "0.0.1",
     "releaseTag": null,
-    "publisher": "mlir-lang",
+    "publisher": "rnarkk",
     "repository": {
         "url": "https://github.com/rnarkk/cython.git",
         "type": "git"
@@ -29,7 +29,7 @@
     },
     "enabledApiProposals": [],
     "scripts": {
-        "package": "vsce package -o mlir-lang.vsix"
+        "package": "vsce package -o cython.vsix"
     },
     "dependencies": {
         "vscode-languageclient": "^9.0.0"
