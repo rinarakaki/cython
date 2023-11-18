@@ -5,8 +5,8 @@ use cython
 
 #[cython::dataclasses.dataclass]
 cdef class C:
-    a: i32
-    # b: i64  # only available in language_level=2, not worth testing
+    a: int
+    # b: long  # only available in language_level=2, not worth testing
     c: isize
     d: f32
     e: f64
