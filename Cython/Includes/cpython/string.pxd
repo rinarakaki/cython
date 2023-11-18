@@ -23,11 +23,11 @@ extern from "Python.h":
     . Return true if the object o is a string object, but not an instance of a subtype of the string type.
     fn u2 PyString_CheckExact(object o)
 
+    . Return value: New reference.
+    . Return a new string object with the value v on success, and NULL
+    . on failure. The parameter v must not be NULL; it will not be
+    . checked.
     fn object PyString_FromString(char* v)
-    # Return value: New reference.
-    # Return a new string object with the value v on success, and NULL
-    # on failure. The parameter v must not be NULL; it will not be
-    # checked.
 
     fn object PyString_FromStringAndSize(char* v, isize len)
     # Return value: New reference.
