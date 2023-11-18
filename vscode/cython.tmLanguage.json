@@ -1,10 +1,25 @@
 {
     "scopeName": "source.cython",
     "patterns": [
+		{ "include": "#comments" },
         { "include": "#keywords" },
 		{ "include": "#lvariables" }
     ],
     "repository": {
+		"comments": {
+			"patterns": [
+				{
+					"comment": "documentation comments",
+					"name": "comment.line.documentation.rust",
+					"match": "^\\s*\\. .*"
+				},
+				{
+					"comment": "line comments",
+					"name": "comment.line.double-slash.rust",
+					"match": "\\s*# .*"
+				}
+			]
+		},
         "keywords": {
             "patterns": [
                 {
