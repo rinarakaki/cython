@@ -4,7 +4,7 @@
 cdef bytes c_s = b"abc"
 s = b"abc"
 
-cdef &char cptr
+cdef &mut char cptr
 
 # constant => ok
 cptr = b"xyz"
