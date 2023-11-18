@@ -2681,14 +2681,20 @@ def p_c_base_type(s, nonempty=False, templates=None):
             is_volatile = 1
             s.next()
 
-    if s.sy == "&" or s.systring == "r" and s.peek()[0] == "&":
-        if s.sy == "&":
-            s.next()
-            raw = 0
-        else:
-            s.next()
+    if s.sy in ("&", "&&") or s.systring == "r" and s.peek()[0] in ("&", "&&"):
+        if s.systring == "r":
             s.next()
             raw = 1
+        else:
+            raw = 0
+
+        if s.sy == "&":
+            s.next()
+            refref = 0
+        else:  # s.sy == "&&":
+            s.next()
+            refref = 1
+
         if s.sy == "mut":
             mutable = 1
             s.next()
@@ -2700,6 +2706,8 @@ def p_c_base_type(s, nonempty=False, templates=None):
             base_type = Nodes.CConstOrVolatileTypeNode(pos,
                 base_type=base_type, is_const=1, is_volatile=0
             )
+        if refref:
+            base_type = Nodes.CRefTypeNode(pos, base_type=base_type)
         if raw:
             base_type = Nodes.CPtrTypeNode(pos, base_type=base_type)
         else:
