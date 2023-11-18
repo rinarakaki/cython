@@ -369,26 +369,26 @@ def int_alias(a: cython.i32, b: cy_i):
 
 
 _WARNINGS = """
-15:32: Strings should no longer be used for type declarations. Use 'cython.int' etc. directly.
-15:47: Dicts should no longer be used as type annotations. Use 'cython.int' etc. directly.
-15:56: Strings should no longer be used for type declarations. Use 'cython.int' etc. directly.
-15:77: Dicts should no longer be used as type annotations. Use 'cython.int' etc. directly.
-15:85: Python type declaration in signature annotation does not refer to a Python type
-15:85: Strings should no longer be used for type declarations. Use 'cython.int' etc. directly.
-37:40: Found C type name 'long' in a Python annotation. Did you mean to use 'cython.long'?
-37:40: Unknown type declaration 'long' in annotation, ignoring
-37:66: PEP-484 recommends 'typing.Optional[...]' for arguments that can be None.
-64:44: Found C type name 'long' in a Python annotation. Did you mean to use 'cython.long'?
-64:44: Unknown type declaration 'long' in annotation, ignoring
-64:70: PEP-484 recommends 'typing.Optional[...]' for arguments that can be None.
-91:44: Found C type name 'long' in a Python annotation. Did you mean to use 'cython.long'?
-91:44: Unknown type declaration 'long' in annotation, ignoring
-91:70: PEP-484 recommends 'typing.Optional[...]' for arguments that can be None.
-153:30: Tuples cannot be declared as simple tuples of types. Use 'tuple[type1, type2, ...]'.
-153:59: Tuples cannot be declared as simple tuples of types. Use 'tuple[type1, type2, ...]'.
-158:13: Tuples cannot be declared as simple tuples of types. Use 'tuple[type1, type2, ...]'.
-293:44: Unknown type declaration in annotation, ignoring
-321:15: Annotation ignored since class-level attributes must be Python objects. Were you trying to set up an instance attribute?
+14:32: Strings should no longer be used for type declarations. Use 'cython.int' etc. directly.
+14:47: Dicts should no longer be used as type annotations. Use 'cython.int' etc. directly.
+14:56: Strings should no longer be used for type declarations. Use 'cython.int' etc. directly.
+14:77: Dicts should no longer be used as type annotations. Use 'cython.int' etc. directly.
+14:85: Python type declaration in signature annotation does not refer to a Python type
+14:85: Strings should no longer be used for type declarations. Use 'cython.int' etc. directly.
+35:40: Found C type name 'long' in a Python annotation. Did you mean to use 'cython.long'?
+35:40: Unknown type declaration 'long' in annotation, ignoring
+35:66: PEP-484 recommends 'typing.Optional[...]' for arguments that can be None.
+63:44: Found C type name 'long' in a Python annotation. Did you mean to use 'cython.long'?
+63:44: Unknown type declaration 'long' in annotation, ignoring
+63:70: PEP-484 recommends 'typing.Optional[...]' for arguments that can be None.
+90:44: Found C type name 'long' in a Python annotation. Did you mean to use 'cython.long'?
+90:44: Unknown type declaration 'long' in annotation, ignoring
+90:70: PEP-484 recommends 'typing.Optional[...]' for arguments that can be None.
+151:30: Tuples cannot be declared as simple tuples of types. Use 'tuple[type1, type2, ...]'.
+151:59: Tuples cannot be declared as simple tuples of types. Use 'tuple[type1, type2, ...]'.
+157:13: Tuples cannot be declared as simple tuples of types. Use 'tuple[type1, type2, ...]'.
+292:44: Unknown type declaration in annotation, ignoring
+320:15: Annotation ignored since class-level attributes must be Python objects. Were you trying to set up an instance attribute?
 # DUPLICATE:
 64:44: Found C type name 'long' in a Python annotation. Did you mean to use 'cython.long'?
 64:44: Unknown type declaration 'long' in annotation, ignoring
