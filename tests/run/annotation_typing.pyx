@@ -380,7 +380,7 @@ _WARNINGS = """
 35:66: PEP-484 recommends 'typing.Optional[...]' for arguments that can be None.
 61:44: Found C type name 'long' in a Python annotation. Did you mean to use 'cython.long'?
 61:44: Unknown type declaration 'long' in annotation, ignoring
-61:68: PEP-484 recommends 'typing.Optional[...]' for arguments that can be None.
+61:70: PEP-484 recommends 'typing.Optional[...]' for arguments that can be None.
 88:42: Found C type name 'long' in a Python annotation. Did you mean to use 'cython.long'?
 88:42: Unknown type declaration 'long' in annotation, ignoring
 88:68: PEP-484 recommends 'typing.Optional[...]' for arguments that can be None.
