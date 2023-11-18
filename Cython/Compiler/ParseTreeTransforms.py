@@ -1,6 +1,3 @@
-# cython: language_level=3str
-
-
 import cython
 cython.declare(PyrexTypes=object, Naming=object, ExprNodes=object, Nodes=object,
                Options=object, UtilNodes=object, LetNode=object,
@@ -24,7 +21,7 @@ from .Visitor import VisitorTransform, TreeVisitor
 from .Visitor import CythonTransform, EnvTransform, ScopeTrackingTransform
 from .UtilNodes import LetNode, LetRefNode
 from .TreeFragment import TreeFragment
-from .StringEncoding import EncodedString, _unicode
+from .StringEncoding import EncodedString
 from .Errors import error, warning, CompileError, InternalError
 from .Code import UtilityCode
 
@@ -875,7 +872,7 @@ class InterpretCompilerDirectives(CythonTransform):
         self.parallel_directives = {}
         directives = copy.deepcopy(Options.get_directive_defaults())
         for key, value in compilation_directive_defaults.items():
-            directives[_unicode(key)] = copy.deepcopy(value)
+            directives[str(key)] = copy.deepcopy(value)
         self.directives = directives
 
     def check_directive_scope(self, pos, directive, scope):
@@ -2002,8 +1999,7 @@ class CnameDirectivesTransform(CythonTransform, SkipDeclarations):
                     raise AssertionError(
                             "cname decorator takes exactly one argument")
 
-                if not (args[0].is_literal and
-                        args[0].type == Builtin.str_type):
+                if not (args[0].is_literal and args[0].type is Builtin.unicode_type):
                     raise AssertionError(
                             "argument to cname decorator must be a string literal")
 

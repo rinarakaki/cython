@@ -7,11 +7,7 @@ import copy
 import hashlib
 import re
 
-try:
-    reduce
-except NameError:
-    from functools import reduce
-from functools import partial
+from functools import partial, reduce
 from itertools import product
 
 from Cython.Utils import cached_function
@@ -1492,8 +1488,7 @@ class BuiltinObjectType(PyObjectType):
         elif type_name == 'frozenset':
             type_check = 'PyFrozenSet_Check'
         elif type_name == 'int':
-            # For backwards compatibility of (Py3) 'x: int' annotations in Py2, we also allow 'long' there.
-            type_check = '__Pyx_Py3Int_Check'
+            type_check = 'PyLong_Check'
         elif type_name == "memoryview":
             # captialize doesn't catch the 'V'
             type_check = "PyMemoryView_Check"
