@@ -378,24 +378,24 @@ _WARNINGS = """
 35:40: Found C type name 'long' in a Python annotation. Did you mean to use 'cython.long'?
 35:40: Unknown type declaration 'long' in annotation, ignoring
 35:66: PEP-484 recommends 'typing.Optional[...]' for arguments that can be None.
-63:44: Found C type name 'long' in a Python annotation. Did you mean to use 'cython.long'?
-63:44: Unknown type declaration 'long' in annotation, ignoring
-63:70: PEP-484 recommends 'typing.Optional[...]' for arguments that can be None.
-90:44: Found C type name 'long' in a Python annotation. Did you mean to use 'cython.long'?
-90:44: Unknown type declaration 'long' in annotation, ignoring
-90:70: PEP-484 recommends 'typing.Optional[...]' for arguments that can be None.
-151:30: Tuples cannot be declared as simple tuples of types. Use 'tuple[type1, type2, ...]'.
-151:59: Tuples cannot be declared as simple tuples of types. Use 'tuple[type1, type2, ...]'.
-157:13: Tuples cannot be declared as simple tuples of types. Use 'tuple[type1, type2, ...]'.
-292:44: Unknown type declaration in annotation, ignoring
-320:15: Annotation ignored since class-level attributes must be Python objects. Were you trying to set up an instance attribute?
+61:44: Found C type name 'long' in a Python annotation. Did you mean to use 'cython.long'?
+61:44: Unknown type declaration 'long' in annotation, ignoring
+61:70: PEP-484 recommends 'typing.Optional[...]' for arguments that can be None.
+88:42: Found C type name 'long' in a Python annotation. Did you mean to use 'cython.long'?
+88:42: Unknown type declaration 'long' in annotation, ignoring
+88:70: PEP-484 recommends 'typing.Optional[...]' for arguments that can be None.
+149:30: Tuples cannot be declared as simple tuples of types. Use 'tuple[type1, type2, ...]'.
+149:59: Tuples cannot be declared as simple tuples of types. Use 'tuple[type1, type2, ...]'.
+155:13: Tuples cannot be declared as simple tuples of types. Use 'tuple[type1, type2, ...]'.
+290:44: Unknown type declaration in annotation, ignoring
+318:15: Annotation ignored since class-level attributes must be Python objects. Were you trying to set up an instance attribute?
 # DUPLICATE:
-64:44: Found C type name 'long' in a Python annotation. Did you mean to use 'cython.long'?
-64:44: Unknown type declaration 'long' in annotation, ignoring
+61:44: Found C type name 'long' in a Python annotation. Did you mean to use 'cython.long'?
+61:44: Unknown type declaration 'long' in annotation, ignoring
 # BUG:
-64:6: 'pytypes_cpdef' redeclared
-165:0: 'struct_io' redeclared
-200:0: 'struct_convert' redeclared
-219:0: 'exception_default' redeclared
-250:0: 'exception_default_uint' redeclared
+61:6: 'pytypes_cpdef' redeclared
+163:0: 'struct_io' redeclared
+198:0: 'struct_convert' redeclared
+217:0: 'exception_default' redeclared
+248:0: 'exception_default_uint' redeclared
 """
