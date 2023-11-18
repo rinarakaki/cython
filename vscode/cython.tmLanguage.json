@@ -1,0 +1,47 @@
+{
+    "scopeName": "source.cython",
+    "patterns": [
+        { "include": "#comments" },
+        { "include": "#keywords" },
+        { "include": "#lvariables" }
+    ],
+    "repository": {
+        "comments": {
+            "patterns": [
+                {
+                    "comment": "documentation comments",
+                    "name": "comment.line.documentation.rust",
+                    "match": "^\\s*\\. .*"
+                },
+                {
+                    "comment": "line comments",
+                    "name": "comment.line.double-slash.rust",
+                    "match": "\\s*# .*"
+                }
+            ]
+        },
+        "keywords": {
+            "patterns": [
+                {
+                    "comment": "other keywords",
+                    "name": "keyword.other.cython",
+                    "match": "\\b(use|pub|extern|fn|let|enum|struct|union|const|static|loop|auto|as|from|return)\\b"
+                }
+            ]
+        },
+        "lvariables": {
+            "patterns": [
+                {
+                    "comment": "self",
+                    "name": "variable.language.self.cython",
+                    "match": "\\b[Ss]elf\\b"
+                },
+                {
+                    "comment": "super",
+                    "name": "variable.language.super.cython",
+                    "match": "\\bsuper\\b"
+                }
+            ]
+        }
+    }
+}
