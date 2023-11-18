@@ -34,14 +34,14 @@ extern from "<time.h>" nogil:
     fn &char ctime(const time_t*)
     fn &char ctime_r(const time_t*, &char)
     fn f64 difftime(time_t, time_t)
-    fn tm* getdate(const &char)
+    fn tm* getdate(&char)
     fn tm* gmtime(const time_t*)
     fn tm* gmtime_r(const time_t*, tm*)
     fn tm* localtime(const time_t*)
     fn tm* localtime_r(const time_t*, tm*)
     fn time_t mktime(tm*)
-    fn usize strftime(&char, usize, const &char, const tm*)
+    fn usize strftime(&char, usize, &char, const tm*)
     fn usize wcsftime(wchar_t* str, usize cnt, const wchar_t* fmt, tm* time)
 
     # POSIX not stdC
-    fn &char strptime(const &char, const &char, tm*)
+    fn &char strptime(&char, &char, tm*)

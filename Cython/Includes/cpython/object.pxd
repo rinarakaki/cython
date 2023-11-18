@@ -37,14 +37,14 @@ extern from "Python.h":
     ctypedef object (*PyCFunction)(object, object)
 
     struct PyMethodDef:
-        const &char ml_name
+        &char ml_name
         PyCFunction ml_meth
         i32 ml_flags
-        const &char ml_doc
+        &char ml_doc
 
     struct PyTypeObject:
-        const &char tp_name
-        const &char tp_doc
+        &char tp_name
+        &char tp_doc
         isize tp_basicsize
         isize tp_itemsize
         isize tp_dictoffset
@@ -95,12 +95,12 @@ extern from "Python.h":
     # option currently supported is Py_PRINT_RAW; if given, the str()
     # of the object is written instead of the repr().
 
-    fn u2 PyObject_HasAttrString(object o, const &char attr_name)
+    fn u2 PyObject_HasAttrString(object o, &char attr_name)
     # Returns 1 if o has the attribute attr_name, and 0
     # otherwise. This is equivalent to the Python expression
     # "hasattr(o, attr_name)". This function always succeeds.
 
-    fn object PyObject_GetAttrString(object o, const &char attr_name)
+    fn object PyObject_GetAttrString(object o, &char attr_name)
     # Return value: New reference.  Retrieve an attribute named
     # attr_name from object o. Returns the attribute value on success,
     # or NULL on failure. This is the equivalent of the Python
@@ -119,7 +119,7 @@ extern from "Python.h":
 
     fn object PyObject_GenericGetAttr(object o, object attr_name)
 
-    fn i32 PyObject_SetAttrString(object o, const &char attr_name, object v) except -1
+    fn i32 PyObject_SetAttrString(object o, &char attr_name, object v) except -1
     # Set the value of the attribute named attr_name, for object o, to
     # the value v. Returns -1 on failure. This is the equivalent of
     # the Python statement "o.attr_name = v".
@@ -131,7 +131,7 @@ extern from "Python.h":
 
     fn i32 PyObject_GenericSetAttr(object o, object attr_name, object v) except -1
 
-    fn i32 PyObject_DelAttrString(object o, const &char attr_name) except -1
+    fn i32 PyObject_DelAttrString(object o, &char attr_name) except -1
     # Delete attribute named attr_name, for object o. Returns -1 on
     # failure. This is the equivalent of the Python statement: "del
     # o.attr_name".

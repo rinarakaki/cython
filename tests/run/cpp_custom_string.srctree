@@ -23,8 +23,8 @@ setup(
 class MyString {
   public:
     MyString() { }
-    MyString(const &char data, size_t size) : value_(data, size) { }
-    const &char data() const { return value_.data(); }
+    MyString(const char* data, size_t size) : value_(data, size) { }
+    const char* data() const { return value_.data(); }
     const size_t size() const { return value_.size(); }
   private:
     std::string value_;
@@ -33,7 +33,7 @@ class MyString {
 class MyString2 : public MyString {
   public:
     MyString2() : MyString() { }
-    MyString2(const &char data, size_t size) : MyString(data, size) { }
+    MyString2(const char* data, size_t size) : MyString(data, size) { }
 };
 
 typedef MyString MyTypedefString;

@@ -127,15 +127,15 @@ extern from *:
 
     # Similar to PyUnicode_FromUnicode(), but u points to UTF-8 encoded
     # bytes
-    fn unicode PyUnicode_FromStringAndSize(const &char u, isize size)
+    fn unicode PyUnicode_FromStringAndSize(&char u, isize size)
 
     # Similar to PyUnicode_FromUnicode(), but u points to null-terminated
     # UTF-8 encoded bytes.  The size is determined with strlen().
-    fn unicode PyUnicode_FromString(const &char u)
+    fn unicode PyUnicode_FromString(&char u)
 
     fn unicode PyUnicode_New(isize size, Py_UCS4 maxchar)
     fn unicode PyUnicode_FromKindAndData(i32 kind, const void* buffer, isize size)
-    fn unicode PyUnicode_FromFormat(const &char format, ...)
+    fn unicode PyUnicode_FromFormat(&char format, ...)
     fn isize PyUnicode_GetLength(object unicode) except -1
     fn isize PyUnicode_CopyCharacters(object to, isize to_start, object from_, isize from_start, isize how_many) except -1
     fn isize PyUnicode_Fill(object unicode, isize start, isize length, Py_UCS4 fill_char) except -1
@@ -220,7 +220,7 @@ extern from *:
     # errors has the usual meaning for codecs. It may be NULL which indicates
     # to use the default error handling.
     # Return value: New reference.
-    fn unicode PyUnicode_Translate(object str, object table, const &char errors)
+    fn unicode PyUnicode_Translate(object str, object table, &char errors)
 
     # Join a sequence of strings using the given separator and return the
     # resulting Unicode string.
@@ -267,7 +267,7 @@ extern from *:
     # equal, and greater than, respectively. It is best to pass only ASCII-encoded
     # strings, but the function interprets the input string as ISO-8859-1 if it
     # contains non-ASCII characters.
-    fn i32 PyUnicode_CompareWithASCIIString(object uni, const &char string)
+    fn i32 PyUnicode_CompareWithASCIIString(object uni, &char string)
 
     # Rich compare two unicode strings and return one of the following:
     #
@@ -308,7 +308,7 @@ extern from *:
     # returning either a new unicode string object that has been interned, or
     # a new ("owned") reference to an earlier interned string object with the
     # same value.
-    fn unicode PyUnicode_InternFromString(const &char v)
+    fn unicode PyUnicode_InternFromString(&char v)
 
 # Codecs
 
@@ -370,7 +370,7 @@ extern from *:
     # This caches the UTF-8 representation of the string in the Unicode
     # object, and subsequent calls will return a pointer to the same buffer.
     # The caller is not responsible for deallocating the buffer
-    fn const &char PyUnicode_AsUTF8AndSize(object unicode, isize* size)
+    fn &char PyUnicode_AsUTF8AndSize(object unicode, isize* size)
 
 # These are the UTF-16 codec APIs:
 
@@ -593,7 +593,7 @@ extern from *:
     # codec. Use CP_ACP code page to get the MBCS encoder.
     #
     # New in version 3.3.
-    fn bytes PyUnicode_EncodeCodePage(i32 code_page, object unicode, const &char errors)
+    fn bytes PyUnicode_EncodeCodePage(i32 code_page, object unicode, &char errors)
 
 # Py_UCS4 helpers (new in CPython 3.3)
 

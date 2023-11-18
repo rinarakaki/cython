@@ -6,7 +6,7 @@ extern from *:
     cdef cppclass string "{{type}}":
         string() except +
         string(&char c_str, usize size) except +
-    fn const &char __Pyx_PyObject_AsStringAndSize(object, isize*) except NULL
+    fn &char __Pyx_PyObject_AsStringAndSize(object, isize*) except NULL
 
 @cname("{{cname}}")
 fn string {{cname}}(object o) except *:
@@ -25,7 +25,7 @@ extern from *:
 
 {{for py_type in ['PyObject', 'PyUnicode', 'PyStr', 'PyBytes', 'PyByteArray']}}
 extern from *:
-    fn object __Pyx_{{py_type}}_FromStringAndSize(const &char, usize)
+    fn object __Pyx_{{py_type}}_FromStringAndSize(&char, usize)
 
 @cname("{{cname.replace("PyObject", py_type, 1)}}")
 fn inline object {{cname.replace("PyObject", py_type, 1)}}(const string& s):
