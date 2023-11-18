@@ -2689,8 +2689,17 @@ def p_c_base_type(s, nonempty=False, templates=None):
             s.next()
             s.next()
             raw = 1
+        if s.sy == "mut":
+            mutable = 1
+            s.next()
+        else:
+            mutable = 0
 
         base_type = p_c_base_type(s, nonempty=nonempty, templates=templates)
+        if not mutable:
+            base_type = Nodes.CConstOrVolatileTypeNode(pos,
+                base_type=base_type, is_const=1, is_volatile=0
+            )
         if raw:
             base_type = Nodes.CPtrTypeNode(pos, base_type=base_type)
         else:
