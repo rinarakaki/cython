@@ -15,7 +15,7 @@ def const_charptrs():
     >>> const_charptrs()
     """
     let object obj
-    let const_&char  st  = b'XYZ'
+    let const_char*  st  = b'XYZ'
     let const_u&char ust = <u8*>b'XYZ' # needs cast to unsigned
 
     assert typeof(st) == "const_char *", typeof(st)

@@ -19,70 +19,70 @@ fn iout(i32 s, result_type=None):
 
 extern from "cpp_operators_helper.h" nogil:
     cdef cppclass TestOps:
-        const_&char operator+() except +
-        const_&char operator-() except +
-        const_&char operator*() except +
-        const_&char operator~() except +
-        const_&char operator!() except +
+        const_char* operator+() except +
+        const_char* operator-() except +
+        const_char* operator*() except +
+        const_char* operator~() except +
+        const_char* operator!() except +
 
         # FIXME: using 'except +' here leads to wrong calls ???
-        const_&char operator++()
-        const_&char operator--()
-        const_&char operator++(i32)
-        const_&char operator--(i32)
+        const_char* operator++()
+        const_char* operator--()
+        const_char* operator++(i32)
+        const_char* operator--(i32)
 
-        const_&char operator+(i32) except +
-        const_&char operator+(i32,const TestOps&) except +
-        const_&char operator-(i32) except +
-        const_&char operator-(i32,const TestOps&) except +
-        const_&char operator*(i32) except +
+        const_char* operator+(i32) except +
+        const_char* operator+(i32,const TestOps&) except +
+        const_char* operator-(i32) except +
+        const_char* operator-(i32,const TestOps&) except +
+        const_char* operator*(i32) except +
         # deliberately omitted operator* to test case where only defined outside class
-        const_&char operator/(i32) except +
-        const_&char operator/(i32,const TestOps&) except +
-        const_&char operator%(i32) except +
-        const_&char operator%(i32,const TestOps&) except +
+        const_char* operator/(i32) except +
+        const_char* operator/(i32,const TestOps&) except +
+        const_char* operator%(i32) except +
+        const_char* operator%(i32,const TestOps&) except +
 
-        const_&char operator|(i32) except +
-        const_&char operator|(i32,const TestOps&) except +
-        const_&char operator&(i32) except +
-        const_&char operator&(i32,const TestOps&) except +
-        const_&char operator^(i32) except +
-        const_&char operator^(i32,const TestOps&) except +
-        const_&char operator,(i32) except +
-        const_&char operator,(i32,const TestOps&) except +
+        const_char* operator|(i32) except +
+        const_char* operator|(i32,const TestOps&) except +
+        const_char* operator&(i32) except +
+        const_char* operator&(i32,const TestOps&) except +
+        const_char* operator^(i32) except +
+        const_char* operator^(i32,const TestOps&) except +
+        const_char* operator,(i32) except +
+        const_char* operator,(i32,const TestOps&) except +
 
-        const_&char operator<<(i32) except +
-        const_&char operator<<(i32,const TestOps&) except +
-        const_&char operator>>(i32) except +
-        const_&char operator>>(i32,const TestOps&) except +
+        const_char* operator<<(i32) except +
+        const_char* operator<<(i32,const TestOps&) except +
+        const_char* operator>>(i32) except +
+        const_char* operator>>(i32,const TestOps&) except +
 
         # FIXME: using 'except +' here leads to invalid C++ code ???
-        const_&char operator==(i32)
-        const_&char operator!=(i32)
-        const_&char operator>=(i32)
-        const_&char operator<=(i32)
-        const_&char operator>(i32)
-        const_&char operator<(i32)
+        const_char* operator==(i32)
+        const_char* operator!=(i32)
+        const_char* operator>=(i32)
+        const_char* operator<=(i32)
+        const_char* operator>(i32)
+        const_char* operator<(i32)
 
-        const_&char operator[](i32) except +
-        const_&char operator()(i32) except +
+        const_char* operator[](i32) except +
+        const_char* operator()(i32) except +
 
     # Defining the operator outside the class does work
     # but doesn't help when importing from pxd files
     # (they don't get imported)
-    const_&char operator+(float,const TestOps&) except +
+    const_char* operator+(float,const TestOps&) except +
     # deliberately omitted operator- to test case where only defined in class
-    const_&char operator*(float,const TestOps&) except +
-    const_&char operator/(float,const TestOps&) except +
-    const_&char operator%(float,const TestOps&) except +
+    const_char* operator*(float,const TestOps&) except +
+    const_char* operator/(float,const TestOps&) except +
+    const_char* operator%(float,const TestOps&) except +
 
-    const_&char operator|(float,const TestOps&) except +
-    const_&char operator&(float,const TestOps&) except +
-    const_&char operator^(float,const TestOps&) except +
-    const_&char operator,(float,const TestOps&) except +
+    const_char* operator|(float,const TestOps&) except +
+    const_char* operator&(float,const TestOps&) except +
+    const_char* operator^(float,const TestOps&) except +
+    const_char* operator,(float,const TestOps&) except +
 
-    const_&char operator<<(float,const TestOps&) except +
-    const_&char operator>>(float,const TestOps&) except +
+    const_char* operator<<(float,const TestOps&) except +
+    const_char* operator>>(float,const TestOps&) except +
 
     cdef cppclass RefTestOps:
 
