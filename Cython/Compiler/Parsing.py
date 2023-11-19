@@ -668,7 +668,7 @@ def p_struct_parse_fields(s):
                     s.error("Expected an identifier before '='",
                             pos=arg.pos)
                 encoded_name = s.context.intern_ustring(arg.name)
-                ident = ExprNodes.IdentifierStringNode(arg.pos, value=encoded_name)
+                ident = ExprNodes.IdentNode(arg.pos, name=encoded_name)
                 expr = p_test(s)
                 fields.append(ExprNodes.ExprFieldNode(arg.pos, ident=ident, expr=expr))
             else:

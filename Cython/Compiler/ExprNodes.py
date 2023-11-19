@@ -1889,6 +1889,12 @@ class IdentifierStringNode(StringNode):
     is_identifier = True
 
 
+class IdentNode(StringNode):
+    # A special str value that represents an identifier (bytes in Py2,
+    # unicode in Py3).
+    is_identifier = True
+
+
 class ImagNode(AtomicExprNode):
     #  Imaginary number literal
     #
@@ -5915,7 +5921,7 @@ class StructExprNode(ExprNode):
 class ExprFieldNode(ExprNode):
     #  Represents a single field in a StructExprNode
     #
-    #  ident       IdentifierStringNode
+    #  ident       IdentNode
     #  expr        ExprNode
     subexprs = ["ident", "expr"]
 
