@@ -108,7 +108,11 @@ def test_pointers(i32 n, f64 x):
     True
     """
     let with_pointers a = [true, {'n': n}, NULL]
-    let with_pointers b = with_pointers(false, {'x': x}, NULL)
+    let with_pointers b = with_pointers {
+        is_integral = false,
+        data = {'x': x},
+        ptr = NULL
+    }
     print a.data.n
     print b.data.x
     print a.ptr == b.ptr == NULL
@@ -178,7 +182,7 @@ def test_struct_to_obj_cnames():
     >>> test_struct_to_obj_cnames()
     {'x': 2}
     """
-    return OverriddenCname(2)
+    return OverriddenCname { x = 2 }
 
 struct ArrayFieldStruct:
     i32 arr[4]

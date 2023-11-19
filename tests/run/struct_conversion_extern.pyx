@@ -14,7 +14,7 @@ def test_extern_struct():
     >>> test_extern_struct()
     [('day', 24), ('month', 6), ('year', 2000)]
     """
-    let my_date_t day = my_date_t(year=2000, month=6, day=24)
+    let auto day = my_date_t { year = 2000, month = 6, day = 24 }
     let object d = day
     assert type(d) is dict
     assert d == day
