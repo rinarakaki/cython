@@ -478,13 +478,13 @@ extern from "numpy/arrayobject.h":
     fn u2 PyArray_CheckExact(object)
 
     # Cannot be supported due to out arg:
-    # u2 PyArray_HasArrayInterfaceType(object, dtype, object, object&)
+    # u2 PyArray_HasArrayInterfaceType(object, dtype, object, &mut object)
     # u2 PyArray_HasArrayInterface(op, out)
 
 
     fn u2 PyArray_IsZeroDim(object)
     # Cannot be supported due to ## ## in macro:
-    # u2 PyArray_IsScalar(object, verbatim work)
+    # fn u2 PyArray_IsScalar(object, verbatim work)
     fn u2 PyArray_CheckScalar(object)
     fn u2 PyArray_IsPythonNumber(object)
     fn u2 PyArray_IsPythonScalar(object)

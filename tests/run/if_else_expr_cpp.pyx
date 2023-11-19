@@ -9,8 +9,8 @@ extern from "if_else_expr_cpp_helper.h":
 
     cdef Holder v1
     cdef Holder v2
-    fn Holder& get_v1()
-    fn Holder& get_v2()
+    fn &mut Holder get_v1()
+    fn &mut Holder get_v2()
 
 fn reset() :
     v1.value = 1

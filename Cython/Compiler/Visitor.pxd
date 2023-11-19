@@ -1,5 +1,3 @@
-# cython: language_level=3str
-
 use cython
 
 cdef class TreeVisitor:

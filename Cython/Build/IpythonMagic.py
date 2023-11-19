@@ -54,7 +54,6 @@ import distutils.log
 import textwrap
 
 IO_ENCODING = sys.getfilesystemencoding()
-IS_PY2 = sys.version_info[0] < 3
 
 import hashlib
 from distutils.core import Distribution, Extension
@@ -89,14 +88,6 @@ PGO_CONFIG = {
     }
 }
 PGO_CONFIG['mingw32'] = PGO_CONFIG['gcc']
-
-
-if IS_PY2:
-    def encode_fs(name):
-        return name if isinstance(name, bytes) else name.encode(IO_ENCODING)
-else:
-    def encode_fs(name):
-        return name
 
 
 @magics_class
@@ -421,7 +412,6 @@ class CythonMagics(Magics):
 
     def _cythonize(self, module_name, code, lib_dir, args, quiet=True):
         pyx_file = os.path.join(lib_dir, module_name + '.pyx')
-        pyx_file = encode_fs(pyx_file)
 
         c_include_dirs = args.include
         c_src_files = list(map(str, args.src))
@@ -540,25 +530,40 @@ class CythonMagics(Magics):
         build_extension = _build_ext(dist)
         build_extension.finalize_options()
         if temp_dir:
-            temp_dir = encode_fs(temp_dir)
             build_extension.build_temp = temp_dir
         if lib_dir:
-            lib_dir = encode_fs(lib_dir)
             build_extension.build_lib = lib_dir
         if extension is not None:
             build_extension.extensions = [extension]
         return build_extension
 
     @staticmethod
-    def clean_annotated_html(html):
+    def clean_annotated_html(html, include_style=True):
         """Clean up the annotated HTML source.
 
         Strips the link to the generated C or C++ file, which we do not
         present to the user.
+
+        Returns an HTML snippet (no <html>, <head>, or <body>),
+        containing only the style tag(s) and _contents_ of the body,
+        appropriate for embedding multiple times in cell output.
         """
+        # extract CSS and body, rather than full HTML document
+        chunks = []
+        if include_style:
+            styles = re.findall("<style.*</style>", html, re.MULTILINE | re.DOTALL)
+            chunks.extend(styles)
+        # extract body
+        body = re.search(
+            r"<body[^>]*>(.+)</body>", html, re.MULTILINE | re.DOTALL
+        ).group(1)
+
+        # exclude link to generated file
         r = re.compile('<p>Raw output: <a href="(.*)">(.*)</a>')
-        html = '\n'.join(l for l in html.splitlines() if not r.match(l))
-        return html
+        for line in body.splitlines():
+            if not r.match(line):
+                chunks.append(line)
+        return "\n".join(chunks)
 
 __doc__ = __doc__.format(
     # rST doesn't see the -+ flag as part of an option list, so we

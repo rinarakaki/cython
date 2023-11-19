@@ -29,7 +29,7 @@ from .Code import UtilityCode, TempitaUtilityCode
 from . import StringEncoding
 from . import Naming
 from . import Nodes
-from .Nodes import Node, utility_code_for_imports, SingleAssignmentNode
+from .Nodes import Node, SingleAssignmentNode
 from . import PyrexTypes
 from .PyrexTypes import py_object_type, typecast, error_type, \
     unspecified_type
@@ -37,7 +37,7 @@ from . import TypeSlots
 from .Builtin import (
     list_type, tuple_type, set_type, dict_type, type_type,
     unicode_type, str_type, bytes_type, bytearray_type, basestring_type,
-    slice_type, long_type, sequence_types as builtin_sequence_types, memoryview_type,
+    slice_type, sequence_types as builtin_sequence_types, memoryview_type,
 )
 from . import Builtin
 from . import Symtab
@@ -53,23 +53,7 @@ from .Pythran import (to_pythran, is_pythran_supported_type, is_pythran_supporte
      pythran_is_numpy_func_supported, pythran_get_func_include_file, pythran_functor)
 from .PyrexTypes import PythranExpr
 
-try:
-    from __builtin__ import basestring
-except ImportError:
-    # Python 3
-    basestring = str
-    any_string_type = (bytes, str)
-else:
-    # Python 2
-    any_string_type = (bytes, unicode)
-
-
-if sys.version_info[0] >= 3:
-    IS_PYTHON3 = True
-    _py_int_types = int
-else:
-    IS_PYTHON3 = False
-    _py_int_types = (int, long)
+any_string_type = (bytes, str)
 
 
 class NotConstant:
@@ -156,7 +140,7 @@ def check_negative_indices(*nodes):
     """
     for node in nodes:
         if node is None or (
-                not isinstance(node.constant_result, _py_int_types) and
+                not isinstance(node.constant_result, int) and
                 not isinstance(node.constant_result, float)):
             continue
         if node.constant_result < 0:
@@ -1573,7 +1557,7 @@ class FloatNode(ConstNode):
 
     def get_constant_c_result_code(self):
         strval = self.value
-        assert isinstance(strval, basestring)
+        assert isinstance(strval, str)
         cmpval = repr(float(strval))
         if cmpval == 'nan':
             return "(Py_HUGE_VAL * 0)"
@@ -1601,13 +1585,6 @@ def _analyse_name_as_type(name, pos, env):
     global_entry = global_scope.lookup(name)
     if global_entry and global_entry.is_type:
         type = global_entry.type
-        if (not env.in_c_type_context
-                and type is Builtin.int_type
-                and global_scope.context.language_level == 2):
-            # While we still support Python2 this needs to be downgraded
-            # to a generic Python object to include both int and long.
-            # With language_level > 3, we keep the type but also accept 'long' in Py2.
-            type = py_object_type
         if type and (type.is_pyobject or env.in_c_type_context):
             return type
         ctype = ctype or type
@@ -1765,13 +1742,23 @@ class UnicodeNode(ConstNode):
             int_value = ord(self.value)
             return IntNode(self.pos, type=dst_type, value=str(int_value),
                            constant_result=int_value)
+        elif dst_type.is_pyunicode_ptr:
+            return UnicodeNode(self.pos, value=self.value, type=dst_type)
         elif not dst_type.is_pyobject:
-            if dst_type.is_string and self.bytes_value is not None:
-                # special case: '-3' enforced unicode literal used in a
-                # C char* context
-                return BytesNode(self.pos, value=self.bytes_value).coerce_to(dst_type, env)
-            if dst_type.is_pyunicode_ptr:
-                return UnicodeNode(self.pos, value=self.value, type=dst_type)
+            if dst_type.is_string or dst_type.is_cpp_string or dst_type.is_int:
+                # Allow using '-3' enforced unicode literals in a C char/char* context.
+                if self.bytes_value is not None:
+                    return BytesNode(self.pos, value=self.bytes_value).coerce_to(dst_type, env)
+                if env.directives['c_string_encoding']:
+                    try:
+                        byte_string = self.value.encode(env.directives['c_string_encoding'])
+                    except (UnicodeEncodeError, LookupError):
+                        pass
+                    else:
+                        return BytesNode(self.pos, value=byte_string).coerce_to(dst_type, env)
+                if self.value.isascii():
+                    return BytesNode(self.pos, value=StringEncoding.BytesLiteral(self.value.encode('ascii'))
+                                     ).coerce_to(dst_type, env)
             error(self.pos,
                   "Unicode literals do not support coercion to C types other "
                   "than Py_UNICODE/Py_UCS4 (for characters) or Py_UNICODE* "
@@ -1782,9 +1769,6 @@ class UnicodeNode(ConstNode):
 
     def can_coerce_to_char_literal(self):
         return len(self.value) == 1
-            # or (len(self.value) == 2
-            #     and (0xD800 <= self.value[0] <= 0xDBFF)
-            #     and (0xDC00 <= self.value[1] <= 0xDFFF))
 
     def coerce_to_boolean(self, env):
         bool_value = bool(self.value)
@@ -1894,16 +1878,18 @@ class StringNode(PyConstNode):
     def compile_time_value(self, env):
         if self.value.is_unicode:
             return self.value
-        if not IS_PYTHON3:
-            # use plain str/bytes object in Py2
-            return self.value.byteencode()
-        # in Py3, always return a Unicode string
         if self.unicode_value is not None:
             return self.unicode_value
         return self.value.decode('iso8859-1')
 
 
 class IdentifierStringNode(StringNode):
+    # A special str value that represents an identifier (bytes in Py2,
+    # unicode in Py3).
+    is_identifier = True
+
+
+class IdentNode(StringNode):
     # A special str value that represents an identifier (bytes in Py2,
     # unicode in Py3).
     is_identifier = True
@@ -2183,17 +2169,8 @@ class NameNode(AtomicExprNode):
         if entry and entry.is_type:
             # Infer equivalent C types instead of Python types when possible.
             type = entry.type
-            if not env.in_c_type_context and type is Builtin.long_type:
-                # Try to give a helpful warning when users write plain C type names.
-                warning(self.pos, "Found Python 2.x type 'long' in a Python annotation. Did you mean to use 'cython.long'?")
-                type = py_object_type
-            elif type.is_pyobject and type.equivalent_type:
+            if type.is_pyobject and type.equivalent_type:
                 type = type.equivalent_type
-            elif type is Builtin.int_type and env.global_scope().context.language_level == 2:
-                # While we still support Python 2 this must be a plain object
-                # so that it can be either int or long.  With language_level=3(str),
-                # we pick up the type but accept both int and long in Py2.
-                type = py_object_type
             return type
         if self.name == 'object':
             # This is normally parsed as "simple C type", but not if we don't parse C types.
@@ -2201,7 +2178,7 @@ class NameNode(AtomicExprNode):
 
         # Try to give a helpful warning when users write plain C type names.
         if not env.in_c_type_context and PyrexTypes.parse_basic_type(self.name):
-            warning(self.pos, "Found C type '%s' in a Python annotation. Did you mean to use 'cython.%s'?" % (self.name, self.name))
+            warning(self.pos, "Found C type name '%s' in a Python annotation. Did you mean to use 'cython.%s'?" % (self.name, self.name))
 
         return None
 
@@ -2857,11 +2834,6 @@ class ImportNode(ExprNode):
                 self.name_list.py_result() if self.name_list else '0',
                 self.level)
 
-        if self.level <= 0 and module_name in utility_code_for_imports:
-            helper_func, code_name, code_file = utility_code_for_imports[module_name]
-            code.globalstate.use_utility_code(UtilityCode.load_cached(code_name, code_file))
-            import_code = '%s(%s)' % (helper_func, import_code)
-
         code.putln("%s = %s; %s" % (
             self.result(),
             import_code,
@@ -3112,7 +3084,7 @@ class IteratorNode(ScopedExprNode):
             if self.sequence.mult_factor is None:
                 final_size = item_count
                 size_is_safe = True
-            elif isinstance(self.sequence.mult_factor.constant_result, _py_int_types):
+            elif isinstance(self.sequence.mult_factor.constant_result, int):
                 final_size = item_count * self.sequence.mult_factor.constant_result
                 size_is_safe = True
 
@@ -4516,7 +4488,7 @@ class IndexNode(_IndexingBaseNode):
             wraparound = (
                 bool(code.globalstate.directives['wraparound']) and
                 self.original_index_type.signed and
-                not (isinstance(self.index.constant_result, _py_int_types)
+                not (isinstance(self.index.constant_result, int)
                      and self.index.constant_result >= 0))
             boundscheck = bool(code.globalstate.directives['boundscheck'])
             return ", %s, %d, %s, %d, %d, %d" % (
@@ -5716,7 +5688,7 @@ class SliceIndexNode(ExprNode):
                         start = '%s + %d' % (self.base.type.size, start)
                     else:
                         start += total_length
-                if isinstance(slice_size, _py_int_types):
+                if isinstance(slice_size, int):
                     slice_size -= start
                 else:
                     slice_size = '%s - (%s)' % (slice_size, start)
@@ -5731,7 +5703,7 @@ class SliceIndexNode(ExprNode):
         except ValueError:
             int_target_size = None
         else:
-            compile_time_check = isinstance(slice_size, _py_int_types)
+            compile_time_check = isinstance(slice_size, int)
 
         if compile_time_check and slice_size < 0:
             if int_target_size > 0:
@@ -5905,6 +5877,77 @@ class SliceIntNode(SliceNode):
                 a.arg.result()
 
 
+class StructExprNode(ExprNode):
+    #  Struct expression
+    #
+    #  path     NameNode | AttributeNode
+    #  fields  [ExprFieldNode]
+
+    subexprs = ["fields"]
+
+    def infer_type(self, env):
+        return self.path.analyse_as_type(env)
+    
+    def explicit_args_kwds(self):
+        return self.fields, None
+
+    def analyse_types(self, env):
+        type = self.path.analyse_as_type(env)
+        if type is not None and type.is_struct_or_union:
+            self.type = type
+            return self
+        else:
+            error(self.pos, "Not a struct or union type")
+    
+    def coerce_to(self, dst_type, env):
+        return self
+    
+    def generate_result_code(self, code):
+        code.putln("{ ")
+        for field in self.fields:
+            code.putln(".%s = %s, " % (
+                field.ident.name,
+                field.expr.generate_result_code(code)
+            ))
+        code.putln("};")
+    
+    def calculate_result_code(self):
+        return "{ %s };" % (
+            ", ".join([".%s = %s" % (
+                field.ident.name,
+                field.expr.calculate_result_code()
+            ) for field in self.fields])
+        )
+
+
+class ExprFieldNode(ExprNode):
+    #  Represents a single field in a StructExprNode
+    #
+    #  ident       IdentNode
+    #  expr        ExprNode
+    subexprs = ["ident", "expr"]
+
+    def calculate_constant_result(self):
+        self.constant_result = (
+            self.ident.constant_result, self.expr.constant_result)
+
+    def analyse_types(self, env):
+        # self.ident = self.ident.analyse_types(env)
+        self.expr = self.expr.analyse_types(env)
+        return self
+    
+    def generate_result_code(self, code):
+        self.expr.generate_result_code(code)
+
+    def generate_evaluation_code(self, code):
+        # self.ident.generate_evaluation_code(code)
+        self.expr.generate_evaluation_code(code)
+
+    def generate_disposal_code(self, code):
+        # self.ident.generate_disposal_code(code)
+        self.expr.generate_disposal_code(code)
+
+
 class CallNode(ExprNode):
 
     # allow overriding the default 'may_be_none' behaviour
@@ -6040,6 +6083,7 @@ class CallNode(ExprNode):
             self.gil_error()
 
     gil_message = "Calling gil-requiring function"
+
 
 
 class SimpleCallNode(CallNode):
@@ -8081,7 +8125,7 @@ class SequenceNode(ExprNode):
             mult_factor = self.mult_factor
             if mult_factor.type.is_int:
                 c_mult = mult_factor.result()
-                if (isinstance(mult_factor.constant_result, _py_int_types) and
+                if (isinstance(mult_factor.constant_result, int) and
                         mult_factor.constant_result > 0):
                     size_factor = ' * %s' % mult_factor.constant_result
                 elif mult_factor.type.signed:
@@ -8523,7 +8567,7 @@ class TupleNode(SequenceNode):
             return node
         if not node.mult_factor or (
                 node.mult_factor.is_literal and
-                isinstance(node.mult_factor.constant_result, _py_int_types)):
+                isinstance(node.mult_factor.constant_result, int)):
             node.is_temp = False
             node.is_literal = True
         else:
@@ -8677,7 +8721,7 @@ class ListNode(SequenceNode):
         elif (dst_type.is_array or dst_type.is_ptr) and dst_type.base_type is not PyrexTypes.c_void_type:
             array_length = len(self.args)
             if self.mult_factor:
-                if isinstance(self.mult_factor.constant_result, _py_int_types):
+                if isinstance(self.mult_factor.constant_result, int):
                     if self.mult_factor.constant_result <= 0:
                         error(self.pos, "Cannot coerce non-positively multiplied list to '%s'" % dst_type)
                     else:
@@ -10638,7 +10682,7 @@ class UnopNode(ExprNode):
         return self.infer_unop_type(env, operand_type)
 
     def infer_unop_type(self, env, operand_type):
-        if operand_type.is_pyobject:
+        if operand_type.is_pyobject and not operand_type.is_builtin_type:
             return py_object_type
         else:
             return operand_type
@@ -12110,10 +12154,10 @@ class MulNode(NumBinopNode):
     def calculate_is_sequence_mul(self):
         type1 = self.operand1.type
         type2 = self.operand2.type
-        if type1 is long_type or type1.is_int:
+        if type1 is Builtin.int_type or type1.is_int:
             # normalise to (X * int)
             type1, type2 = type2, type1
-        if type2 is long_type or type2.is_int:
+        if type2 is Builtin.int_type or type2.is_int:
             if type1.is_string or type1.is_ctuple:
                 return True
             if self.is_builtin_seqmul_type(type1):
@@ -12187,7 +12231,7 @@ class DivNode(NumBinopNode):
         func = compile_time_binary_operators[self.operator]
         if self.operator == '/' and self.truedivision is None:
             # => true div for floats, floor div for integers
-            if isinstance(op1, _py_int_types) and isinstance(op2, _py_int_types):
+            if isinstance(op1, int) and isinstance(op2, int):
                 func = compile_time_binary_operators['//']
         return func
 
@@ -12520,7 +12564,7 @@ class PowNode(NumBinopNode):
             c_result_type = super().compute_c_result_type(type1, type2)
             if not self.operand2.has_constant_result():
                 needs_widening = (
-                    isinstance(self.operand2.constant_result, _py_int_types) and self.operand2.constant_result < 0
+                    isinstance(self.operand2.constant_result, int) and self.operand2.constant_result < 0
                 )
         elif op1_is_definitely_positive or type2_is_int:  # cpow==False
             # if type2 is an integer then we can't end up going from real to complex
@@ -12531,7 +12575,7 @@ class PowNode(NumBinopNode):
                     self.type_was_inferred = True
             else:
                 needs_widening = (
-                    isinstance(self.operand2.constant_result, _py_int_types) and self.operand2.constant_result < 0
+                    isinstance(self.operand2.constant_result, int) and self.operand2.constant_result < 0
                 )
         elif self.c_types_okay(type1, type2):
             # Allowable result types are double or complex double.
@@ -12558,7 +12602,7 @@ class PowNode(NumBinopNode):
     def py_operation_function(self, code):
         if (self.type.is_pyobject and
                 self.operand1.constant_result == 2 and
-                isinstance(self.operand1.constant_result, _py_int_types) and
+                isinstance(self.operand1.constant_result, int) and
                 self.operand2.type is py_object_type):
             code.globalstate.use_utility_code(UtilityCode.load_cached('PyNumberPow2', 'Optimize.c'))
             if self.inplace:
@@ -14175,6 +14219,13 @@ class CoerceFromPyTypeNode(CoercionNode):
             if self.arg.is_name and self.arg.entry and self.arg.entry.is_pyglobal:
                 warning(arg.pos,
                         "Obtaining '%s' from externally modifiable global Python value" % result_type,
+                        level=1)
+            if self.type.is_pyunicode_ptr:
+                warning(arg.pos,
+                        "Py_UNICODE* has been removed in Python 3.12. This conversion to a "
+                        "Py_UNICODE* will no longer compile in the latest Python versions. "
+                        "Use Python C API functions like PyUnicode_AsWideCharString if you "
+                        "need to obtain a wchar_t* on Windows (and free the string manually after use).",
                         level=1)
 
     def analyse_types(self, env):

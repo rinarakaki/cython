@@ -1,5 +1,3 @@
-# cython: language_level=3str
-# cython: auto_pickle=False
 #
 #   Code output module
 #
@@ -31,11 +29,6 @@ from .. import Utils
 from .Scanning import SourceDescriptor
 from ..StringIOTree import StringIOTree
 
-try:
-    from __builtin__ import basestring
-except ImportError:
-    from builtins import str as basestring
-
 
 non_portable_builtins_map = {
     # builtins that have different names in different Python versions
@@ -50,7 +43,7 @@ ctypedef_builtins_map = {
     # types of builtins in "ctypedef class" statements which we don't
     # import either because the names conflict with C types or because
     # the type simply is not exposed.
-    'py_int'             : '&PyInt_Type',
+    'py_int'             : '&PyLong_Type',
     'py_long'            : '&PyLong_Type',
     'py_float'           : '&PyFloat_Type',
     'wrapper_descriptor' : '&PyWrapperDescr_Type',
@@ -295,7 +288,7 @@ class UtilityCodeBase:
         if ext in ('.pyx', '.py', '.pxd', '.pxi'):
             comment = '#'
             strip_comments = partial(re.compile(r'^\s*#(?!\s*cython\s*:).*').sub, '')
-            rstrip = StringEncoding._unicode.rstrip
+            rstrip = str.rstrip
         else:
             comment = '/'
             strip_comments = partial(re.compile(r'^\s*//.*|/\*[^*]*\*/').sub, '')
@@ -610,7 +603,7 @@ class UtilityCode(UtilityCodeBase):
         if self.init:
             writer = output['init_globals']
             writer.putln("/* %s.init */" % self.name)
-            if isinstance(self.init, basestring):
+            if isinstance(self.init, str):
                 writer.put(self.format_code(self.init))
             else:
                 self.init(writer, output.module_pos)
@@ -621,7 +614,7 @@ class UtilityCode(UtilityCodeBase):
         if self.cleanup and Options.generate_cleanup_code:
             writer = output['cleanup_globals']
             writer.putln("/* %s.cleanup */" % self.name)
-            if isinstance(self.cleanup, basestring):
+            if isinstance(self.cleanup, str):
                 writer.put_or_include(
                     self.format_code(self.cleanup),
                     '%s_cleanup' % self.name)
@@ -2386,13 +2379,11 @@ class CCodeWriter:
         self.globalstate.use_utility_code(
             UtilityCode.load_cached("ForceInitThreads", "ModuleSetupCode.c"))
         self.use_fast_gil_utility_code()
-        self.putln("#ifdef WITH_THREAD")
         if not variable:
             variable = '__pyx_gilstate_save'
             if declare_gilstate:
                 self.put("PyGILState_STATE ")
         self.putln("%s = __Pyx_PyGILState_Ensure();" % variable)
-        self.putln("#endif")
 
     def put_release_ensured_gil(self, variable=None):
         """
@@ -2401,9 +2392,7 @@ class CCodeWriter:
         self.use_fast_gil_utility_code()
         if not variable:
             variable = '__pyx_gilstate_save'
-        self.putln("#ifdef WITH_THREAD")
         self.putln("__Pyx_PyGILState_Release(%s);" % variable)
-        self.putln("#endif")
 
     def put_acquire_gil(self, variable=None, unknown_gil_state=True):
         """
@@ -2411,7 +2400,6 @@ class CCodeWriter:
         by a previous `put_release_gil`
         """
         self.use_fast_gil_utility_code()
-        self.putln("#ifdef WITH_THREAD")
         self.putln("__Pyx_FastGIL_Forget();")
         if variable:
             self.putln('_save = %s;' % variable)
@@ -2420,12 +2408,10 @@ class CCodeWriter:
         self.putln("Py_BLOCK_THREADS")
         if unknown_gil_state:
             self.putln("}")
-        self.putln("#endif")
 
     def put_release_gil(self, variable=None, unknown_gil_state=True):
         "Release the GIL, corresponds to `put_acquire_gil`."
         self.use_fast_gil_utility_code()
-        self.putln("#ifdef WITH_THREAD")
         self.putln("PyThreadState *_save;")
         self.putln("_save = NULL;")
         if unknown_gil_state:
@@ -2438,12 +2424,9 @@ class CCodeWriter:
         if variable:
             self.putln('%s = _save;' % variable)
         self.putln("__Pyx_FastGIL_Remember();")
-        self.putln("#endif")
 
     def declare_gilstate(self):
-        self.putln("#ifdef WITH_THREAD")
         self.putln("PyGILState_STATE __pyx_gilstate_save;")
-        self.putln("#endif")
 
     # error handling
 
