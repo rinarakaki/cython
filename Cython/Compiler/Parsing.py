@@ -2701,7 +2701,7 @@ def p_c_base_type(s, nonempty=False, templates=None):
         else:
             mutable = 0
 
-        base_type = p_c_base_type(s, nonempty=0, templates=templates)
+        base_type = p_c_base_type(s, nonempty=nonempty, templates=templates)
         if not mutable:
             base_type = Nodes.CConstOrVolatileTypeNode(pos,
                 base_type=base_type, is_const=1, is_volatile=0
