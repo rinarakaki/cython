@@ -78,7 +78,7 @@ extern from "<map>" namespace "std" nogil:
             u2 operator!=(const_reverse_iterator)
 
         map() except +
-        fn map(&mut map) except +
+        map(map&) except +
         # map(&mut key_compare)
         fn &mut U operator[](const T&)
         # fn &mut map operator=(&mut map)
