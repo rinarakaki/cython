@@ -138,7 +138,7 @@ extern from "<unordered_map>" namespace "std" nogil:
             fn u2 operator!=(const_iterator)
 
         unordered_multimap() except +
-        unordered_multimap(&unordered_multimap) except +
+        unordered_multimap(const unordered_multimap&) except +
         # fn unordered_multimap(&mut key_compare)
         # fn &mut unordered_map operator=(&mut unordered_multimap)
         fn u2 operator==(&unordered_multimap, &unordered_multimap)

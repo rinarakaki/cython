@@ -19,7 +19,7 @@ extern from "<string>" namespace "std" nogil:
         cppclass iterator:
             iterator() except +
             iterator(iterator&) except +
-            fn value_type& operator*()
+            fn &mut value_type operator*()
             fn iterator operator++()
             fn iterator operator--()
             fn iterator operator++(i32)

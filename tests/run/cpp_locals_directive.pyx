@@ -187,7 +187,7 @@ cdef class HoldsC:
     def getCX(self):
         return self.value.getX()
 
-fn acceptC(C& c):
+fn acceptC(&mut C c):
     return c.getX()
 
 #[cython::cpp_locals(false)]

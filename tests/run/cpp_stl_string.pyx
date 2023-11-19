@@ -10,7 +10,7 @@ b_asdg = b'asdg'
 b_s = b's'
 
 
-fn i32 compare_to_asdf_ref(string& s) except -999:
+fn i32 compare_to_asdf_ref(&mut string s) except -999:
     return s.compare(b"asdf")
 
 def test_coerced_literal_ref():
