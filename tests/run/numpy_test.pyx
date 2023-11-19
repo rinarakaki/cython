@@ -489,7 +489,7 @@ def test_complextypes():
     print "%d,%d" % (sizeof(x64), sizeof(x128))
 
 struct Point:
-    np.float64_t x, y
+    np::float64_t x, y
 
 def test_point_record():
     """
@@ -632,7 +632,7 @@ struct Foo:
     f32 b
 
 cdef fused fused_FooArray:
-    np.ndarray[Foo, ndim=1]
+    np::ndarray[Foo, ndim=1]
 
 cdef fused fused_ndarray:
     np.ndarray[float, ndim=1]

@@ -1,5 +1,3 @@
-# cython: language_level=3
-
 use cython
 
 use super::Visitor::(CythonTransform, TreeVisitor)
