@@ -34,7 +34,7 @@ def test_types(u2 a):
     """
     >>> test_types(None)
     """
-    let u2 b = a
+    let auto b = a
     assert typeof(a) == 'bint', typeof(a)
     assert typeof(b) == 'bint', typeof(b)
     c = b
