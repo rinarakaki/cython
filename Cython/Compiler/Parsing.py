@@ -476,7 +476,7 @@ def p_power(s):
         while s.sy in ("(", "[", "."):
             n1 = p_trailer(s, n1)
     else:
-        while s.sy in ("(", "[", ".", "::"):
+        while s.sy in ("(", "[", "{", ".", "::"):
             n1 = p_trailer(s, n1)
     if await_pos:
         n1 = ExprNodes.AwaitExprNode(await_pos, arg=n1)
@@ -503,6 +503,8 @@ def p_trailer(s, node1):
         return p_call(s, node1)
     elif s.sy == '[':
         return p_index(s, node1)
+    elif s.sy == "{":
+        return p_struct(s, node1)
     else:  # s.sy in (".", "::")
         s.next()
         name = p_ident(s)
@@ -648,6 +650,40 @@ def p_index(s, base):
             base = base, index = index)
     s.expect(']')
     return result
+
+def p_struct_parse_fields(s):
+    # s.sy == "{"
+    pos = s.position()
+    s.next()
+    fields = []
+    while s.sy != "}":
+        if s.sy == '**':
+            s.next()
+            fields.append(p_test(s))
+        else:
+            arg = p_namedexpr_test(s)
+            encoded_name = s.context.intern_ustring(arg.name)
+            ident = ExprNodes.IdentNode(arg.pos, name=encoded_name)
+            if s.sy == "=":
+                s.next()
+                if not arg.is_name:
+                    s.error("Expected an identifier before '='", pos=arg.pos)
+                expr = p_test(s)
+            else:
+                expr = p_name(s, arg.name)
+            fields.append(ExprNodes.ExprFieldNode(arg.pos, ident=ident, expr=expr))
+        if s.sy != ",":
+            break
+        s.next()
+
+    s.expect("}")
+    return fields
+
+def p_struct(s, path):
+    # s.sy == "{"
+    pos = s.position()
+    fields = p_struct_parse_fields(s)
+    return ExprNodes.StructExprNode(pos, path = path, fields = fields)
 
 def p_subscript_list(s):
     is_single_value = True
@@ -2680,14 +2716,16 @@ def p_c_base_type(s, nonempty=False, templates=None):
             if is_volatile: error(pos, "Duplicate 'volatile'")
             is_volatile = 1
             s.next()
-    
+
     if s.sy == "&" or s.systring == "r" and s.peek()[0] == "&":
-        if s.sy == "&":
+        if s.systring == "r":
             s.next()
+            s.next()
+            raw = 1
         else:
             s.next()
-            s.next()
-        
+            raw = 0
+
         if s.sy == "mut":
             mutable = 1
             s.next()
@@ -2698,7 +2736,14 @@ def p_c_base_type(s, nonempty=False, templates=None):
             base_type = Nodes.CConstOrVolatileTypeNode(pos,
                 base_type=base_type, is_const=1, is_volatile=0
             )
-        base_type = Nodes.CPtrTypeNode(pos, base_type=base_type)
+        if raw:
+            base_type = Nodes.CPtrTypeNode(pos, base_type=base_type)
+        else:
+            base_type = Nodes.CRefTypeNode(pos, base_type=base_type)
+    elif s.sy == "&&":
+        s.next()
+        base_type = p_c_base_type(s, nonempty=nonempty, templates=templates)
+        base_type = Nodes.CRvalueRefTypeNode(pos, base_type=base_type)
     elif s.sy == "(":
         base_type = p_c_complex_base_type(s, templates = templates)
     else:
@@ -2775,7 +2820,7 @@ def p_c_simple_base_type(s, nonempty, templates=None):
     module_path = []
     pos = s.position()
 
-    if s.sy != 'IDENT':
+    if s.sy != "IDENT":
         error(pos, "Expected an identifier, found '%s'" % s.sy)
     if looking_at_base_type(s):
         is_builtin = 1
@@ -3159,7 +3204,7 @@ def p_c_simple_declarator(s, ctx, empty, is_type, cmethod_flag,
         result = node_class(pos, base=base)
     else:
         rhs = None
-        if s.sy == 'IDENT':
+        if s.sy == "IDENT":
             name = s.systring
             if empty:
                 error(s.position(), "Declarator should be empty")

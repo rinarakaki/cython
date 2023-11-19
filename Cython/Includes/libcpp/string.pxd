@@ -19,231 +19,231 @@ extern from "<string>" namespace "std" nogil:
         cppclass iterator:
             iterator() except +
             iterator(iterator&) except +
-            value_type& operator*()
-            iterator operator++()
-            iterator operator--()
-            iterator operator++(i32)
-            iterator operator--(i32)
-            iterator operator+(size_type)
-            iterator operator-(size_type)
-            difference_type operator-(iterator)
-            difference_type operator-(const_iterator)
-            u2 operator==(iterator)
-            u2 operator==(const_iterator)
-            u2 operator!=(iterator)
-            u2 operator!=(const_iterator)
-            u2 operator<(iterator)
-            u2 operator<(const_iterator)
-            u2 operator>(iterator)
-            u2 operator>(const_iterator)
-            u2 operator<=(iterator)
-            u2 operator<=(const_iterator)
-            u2 operator>=(iterator)
-            u2 operator>=(const_iterator)
+            fn &mut value_type operator*()
+            fn iterator operator++()
+            fn iterator operator--()
+            fn iterator operator++(i32)
+            fn iterator operator--(i32)
+            fn iterator operator+(size_type)
+            fn iterator operator-(size_type)
+            fn difference_type operator-(iterator)
+            fn difference_type operator-(const_iterator)
+            fn u2 operator==(iterator)
+            fn u2 operator==(const_iterator)
+            fn u2 operator!=(iterator)
+            fn u2 operator!=(const_iterator)
+            fn u2 operator<(iterator)
+            fn u2 operator<(const_iterator)
+            fn u2 operator>(iterator)
+            fn u2 operator>(const_iterator)
+            fn u2 operator<=(iterator)
+            fn u2 operator<=(const_iterator)
+            fn u2 operator>=(iterator)
+            fn u2 operator>=(const_iterator)
         cppclass const_iterator:
             const_iterator() except +
             const_iterator(iterator&) except +
             const_iterator(const_iterator&) except +
-            operator=(iterator&) except +
-            const value_type& operator*()
-            const_iterator operator++()
-            const_iterator operator--()
-            const_iterator operator++(i32)
-            const_iterator operator--(i32)
-            const_iterator operator+(size_type)
-            const_iterator operator-(size_type)
-            difference_type operator-(iterator)
-            difference_type operator-(const_iterator)
-            u2 operator==(iterator)
-            u2 operator==(const_iterator)
-            u2 operator!=(iterator)
-            u2 operator!=(const_iterator)
-            u2 operator<(iterator)
-            u2 operator<(const_iterator)
-            u2 operator>(iterator)
-            u2 operator>(const_iterator)
-            u2 operator<=(iterator)
-            u2 operator<=(const_iterator)
-            u2 operator>=(iterator)
-            u2 operator>=(const_iterator)
+            fn operator=(&mut iterator) except +
+            fn &value_type operator*()
+            fn const_iterator operator++()
+            fn const_iterator operator--()
+            fn const_iterator operator++(i32)
+            fn const_iterator operator--(i32)
+            fn const_iterator operator+(size_type)
+            fn const_iterator operator-(size_type)
+            fn difference_type operator-(iterator)
+            fn difference_type operator-(const_iterator)
+            fn u2 operator==(iterator)
+            fn u2 operator==(const_iterator)
+            fn u2 operator!=(iterator)
+            fn u2 operator!=(const_iterator)
+            fn u2 operator<(iterator)
+            fn u2 operator<(const_iterator)
+            fn u2 operator>(iterator)
+            fn u2 operator>(const_iterator)
+            fn u2 operator<=(iterator)
+            fn u2 operator<=(const_iterator)
+            fn u2 operator>=(iterator)
+            fn u2 operator>=(const_iterator)
 
         cppclass const_reverse_iterator
         cppclass reverse_iterator:
             reverse_iterator() except +
             reverse_iterator(reverse_iterator&) except +
-            value_type& operator*()
-            reverse_iterator operator++()
-            reverse_iterator operator--()
-            reverse_iterator operator++(i32)
-            reverse_iterator operator--(i32)
-            reverse_iterator operator+(size_type)
-            reverse_iterator operator-(size_type)
-            difference_type operator-(iterator)
-            difference_type operator-(const_iterator)
-            u2 operator==(reverse_iterator)
-            u2 operator==(const_reverse_iterator)
-            u2 operator!=(reverse_iterator)
-            u2 operator!=(const_reverse_iterator)
-            u2 operator<(reverse_iterator)
-            u2 operator<(const_reverse_iterator)
-            u2 operator>(reverse_iterator)
-            u2 operator>(const_reverse_iterator)
-            u2 operator<=(reverse_iterator)
-            u2 operator<=(const_reverse_iterator)
-            u2 operator>=(reverse_iterator)
-            u2 operator>=(const_reverse_iterator)
+            fn &mut value_type operator*()
+            fn reverse_iterator operator++()
+            fn reverse_iterator operator--()
+            fn reverse_iterator operator++(i32)
+            fn reverse_iterator operator--(i32)
+            fn reverse_iterator operator+(size_type)
+            fn reverse_iterator operator-(size_type)
+            fn difference_type operator-(iterator)
+            fn difference_type operator-(const_iterator)
+            fn u2 operator==(reverse_iterator)
+            fn u2 operator==(const_reverse_iterator)
+            fn u2 operator!=(reverse_iterator)
+            fn u2 operator!=(const_reverse_iterator)
+            fn u2 operator<(reverse_iterator)
+            fn u2 operator<(const_reverse_iterator)
+            fn u2 operator>(reverse_iterator)
+            fn u2 operator>(const_reverse_iterator)
+            fn u2 operator<=(reverse_iterator)
+            fn u2 operator<=(const_reverse_iterator)
+            fn u2 operator>=(reverse_iterator)
+            fn u2 operator>=(const_reverse_iterator)
         cppclass const_reverse_iterator:
             const_reverse_iterator() except +
             const_reverse_iterator(reverse_iterator&) except +
-            operator=(reverse_iterator&) except +
-            const value_type& operator*()
-            const_reverse_iterator operator++()
-            const_reverse_iterator operator--()
-            const_reverse_iterator operator++(i32)
-            const_reverse_iterator operator--(i32)
-            const_reverse_iterator operator+(size_type)
-            const_reverse_iterator operator-(size_type)
-            difference_type operator-(iterator)
-            difference_type operator-(const_iterator)
-            u2 operator==(reverse_iterator)
-            u2 operator==(const_reverse_iterator)
-            u2 operator!=(reverse_iterator)
-            u2 operator!=(const_reverse_iterator)
-            u2 operator<(reverse_iterator)
-            u2 operator<(const_reverse_iterator)
-            u2 operator>(reverse_iterator)
-            u2 operator>(const_reverse_iterator)
-            u2 operator<=(reverse_iterator)
-            u2 operator<=(const_reverse_iterator)
-            u2 operator>=(reverse_iterator)
-            u2 operator>=(const_reverse_iterator)
+            fn operator=(&mut reverse_iterator) except +
+            fn &value_type operator*()
+            fn const_reverse_iterator operator++()
+            fn const_reverse_iterator operator--()
+            fn const_reverse_iterator operator++(i32)
+            fn const_reverse_iterator operator--(i32)
+            fn const_reverse_iterator operator+(size_type)
+            fn const_reverse_iterator operator-(size_type)
+            fn difference_type operator-(iterator)
+            fn difference_type operator-(const_iterator)
+            fn u2 operator==(reverse_iterator)
+            fn u2 operator==(const_reverse_iterator)
+            fn u2 operator!=(reverse_iterator)
+            fn u2 operator!=(const_reverse_iterator)
+            fn u2 operator<(reverse_iterator)
+            fn u2 operator<(const_reverse_iterator)
+            fn u2 operator>(reverse_iterator)
+            fn u2 operator>(const_reverse_iterator)
+            fn u2 operator<=(reverse_iterator)
+            fn u2 operator<=(const_reverse_iterator)
+            fn u2 operator>=(reverse_iterator)
+            fn u2 operator>=(const_reverse_iterator)
 
-        fn string() except +
-        fn string(const string& s) except +
-        fn string(const string& s, usize pos) except +
-        fn string(const string& s, usize pos, usize len) except +
-        fn string(r&char s) except +
-        fn string(r&char s, usizen) except +
-        fn string(usize n, char c) except +
-        fn string(iterator first, iterator last) except +
+        string() except +
+        string(string& s) except +
+        string(string& s, usize pos) except +
+        string(string& s, usize pos, usize len) except +
+        string(const char* s) except +
+        string(const char* s, usizen) except +
+        string(usize n, char c) except +
+        string(iterator first, iterator last) except +
 
-        iterator begin()
-        const_iterator const_begin "begin"()
-        const_iterator cbegin()
-        iterator end()
-        const_iterator const_end "end"()
-        const_iterator cend()
-        reverse_iterator rbegin()
-        const_reverse_iterator const_rbegin "rbegin"()
-        const_reverse_iterator crbegin()
-        reverse_iterator rend()
-        const_reverse_iterator const_rend "rend"()
-        const_reverse_iterator crend()
+        fn iterator begin()
+        fn const_iterator const_begin "begin"()
+        fn const_iterator cbegin()
+        fn iterator end()
+        fn const_iterator const_end "end"()
+        fn const_iterator cend()
+        fn reverse_iterator rbegin()
+        fn const_reverse_iterator const_rbegin "rbegin"()
+        fn const_reverse_iterator crbegin()
+        fn reverse_iterator rend()
+        fn const_reverse_iterator const_rend "rend"()
+        fn const_reverse_iterator crend()
 
-        r&char c_str()
-        r&char data()
+        fn const char* c_str()
+        fn const char* data()
         fn usize size()
         fn usize max_size()
         fn usize length()
         fn void resize(usize) except +
         fn void resize(usize, char) except +
         fn void shrink_to_fit() except +
-        fn void swap(string& other)
+        fn void swap(&mut string other)
         fn usize capacity()
         fn void reserve(usize) except +
         fn void clear()
         fn u2 empty()
 
-        iterator erase(iterator first, iterator last)
-        iterator erase(iterator p)
-        iterator erase(const_iterator first, const_iterator last)
-        iterator erase(const_iterator p)
-        fn string& erase(usize pos, usize len) except +
-        fn string& erase(usize) except +
-        fn string& erase() except +
+        fn iterator erase(iterator first, iterator last)
+        fn iterator erase(iterator p)
+        fn iterator erase(const_iterator first, const_iterator last)
+        fn iterator erase(const_iterator p)
+        fn &mut string erase(usize pos, usize len) except +
+        fn &mut string erase(usize) except +
+        fn &mut string erase() except +
 
-        fn char& at(usize pos) except +
-        fn char& operator[](usize pos)
-        fn char& front()
-        fn char& back()
-        fn i32 compare(const string& s)
-        fn i32 compare(usize pos, usize len, const string& s) except +
-        fn i32 compare(usize pos, usize len, const string& s, usize subpos, usize sublen) except +
-        fn i32 compare(r&char s) except +
-        fn i32 compare(usize pos, usize len, r&char s) except +
-        fn i32 compare(usize pos, usize len, r&char s , usize n) except +
+        fn &mut char at(usize pos) except +
+        fn &mut char operator[](usize pos)
+        fn &mut char front()
+        fn &mut char back()
+        fn i32 compare(&string s)
+        fn i32 compare(usize pos, usize len, &string s) except +
+        fn i32 compare(usize pos, usize len, &string s, usize subpos, usize sublen) except +
+        fn i32 compare(const char* s) except +
+        fn i32 compare(usize pos, usize len, const char* s) except +
+        fn i32 compare(usize pos, usize len, const char* s , usize n) except +
 
-        fn string& append(const string& s) except +
-        fn string& append(const string& s, usize subpos, usize sublen) except +
-        fn string& append(r&char s) except +
-        fn string& append(r&char s, usize n) except +
-        fn string& append(usize n, char c) except +
+        fn &mut string append(&string s) except +
+        fn &mut string append(&string s, usize subpos, usize sublen) except +
+        fn &mut string append(const char* s) except +
+        fn &mut string append(const char* s, usize n) except +
+        fn &mut string append(usize n, char c) except +
 
         fn void push_back(char c) except +
         fn void pop_back()
 
-        fn string& assign(const string& s) except +
-        fn string& assign(const string& s, usize subpos, usize sublen) except +
-        fn string& assign(r&char s, usize n) except +
-        fn string& assign(r&char s) except +
-        fn string& assign(usize n, char c) except +
+        fn &mut string assign(&string s) except +
+        fn &mut string assign(&string s, usize subpos, usize sublen) except +
+        fn &mut string assign(const char* s, usize n) except +
+        fn &mut string assign(const char* s) except +
+        fn &mut string assign(usize n, char c) except +
 
-        fn string& insert(usize pos, const string& s, usize subpos, usize sublen) except +
-        fn string& insert(usize pos, const string& s) except +
-        fn string& insert(usize pos, r&char s, usize n) except +
-        fn string& insert(usize pos, r&char s) except +
-        fn string& insert(usize pos, usize n, char c) except +
+        fn &mut string insert(usize pos, &string s, usize subpos, usize sublen) except +
+        fn &mut string insert(usize pos, &string s) except +
+        fn &mut string insert(usize pos, const char* s, usize n) except +
+        fn &mut string insert(usize pos, const char* s) except +
+        fn &mut string insert(usize pos, usize n, char c) except +
         fn void insert(iterator p, usize n, char c) except +
-        iterator insert(iterator p, char c) except +
+        fn iterator insert(iterator p, char c) except +
 
         fn usize copy(r&char s, usize len, usize pos) except +
         fn usize copy(r&char s, usize len) except +
 
-        fn usize find(const string& s, usize pos)
-        fn usize find(const string& s)
-        fn usize find(r&char s, usize pos, usize n)
-        fn usize find(r&char s, usize pos)
-        fn usize find(r&char s)
+        fn usize find(&string s, usize pos)
+        fn usize find(&string s)
+        fn usize find(const char* s, usize pos, usize n)
+        fn usize find(const char* s, usize pos)
+        fn usize find(const char* s)
         fn usize find(char c, usize pos)
         fn usize find(char c)
 
-        fn usize rfind(const string&, usize pos)
-        fn usize rfind(const string&)
-        fn usize rfind(r&char s, usize pos, usize n)
-        fn usize rfind(r&char s, usize pos)
-        fn usize rfind(r&char s)
+        fn usize rfind(&string, usize pos)
+        fn usize rfind(&string)
+        fn usize rfind(const char* s, usize pos, usize n)
+        fn usize rfind(const char* s, usize pos)
+        fn usize rfind(const char* s)
         fn usize rfind(char c, usize pos)
         fn usize rfind(char c)
 
-        fn usize find_first_of(const string&, usize pos)
-        fn usize find_first_of(const string&)
-        fn usize find_first_of(r&char s, usize pos, usize n)
-        fn usize find_first_of(r&char s, usize pos)
-        fn usize find_first_of(r&char s)
+        fn usize find_first_of(&string, usize pos)
+        fn usize find_first_of(&string)
+        fn usize find_first_of(const char* s, usize pos, usize n)
+        fn usize find_first_of(const char* s, usize pos)
+        fn usize find_first_of(const char* s)
         fn usize find_first_of(char c, usize pos)
         fn usize find_first_of(char c)
 
-        fn usize find_first_not_of(const string& s, usize pos)
-        fn usize find_first_not_of(const string& s)
-        fn usize find_first_not_of(r&char s, usize pos, usize n)
-        fn usize find_first_not_of(r&char s, usize pos)
-        fn usize find_first_not_of(r&char)
+        fn usize find_first_not_of(&string s, usize pos)
+        fn usize find_first_not_of(&string s)
+        fn usize find_first_not_of(const char* s, usize pos, usize n)
+        fn usize find_first_not_of(const char* s, usize pos)
+        fn usize find_first_not_of(const char*)
         fn usize find_first_not_of(char c, usize pos)
         fn usize find_first_not_of(char c)
 
-        fn usize find_last_of(const string& s, usize pos)
-        fn usize find_last_of(const string& s)
-        fn usize find_last_of(r&char s, usize pos, usize n)
-        fn usize find_last_of(r&char s, usize pos)
-        fn usize find_last_of(r&char s)
+        fn usize find_last_of(&string s, usize pos)
+        fn usize find_last_of(&string s)
+        fn usize find_last_of(const char* s, usize pos, usize n)
+        fn usize find_last_of(const char* s, usize pos)
+        fn usize find_last_of(const char* s)
         fn usize find_last_of(char c, usize pos)
         fn usize find_last_of(char c)
 
-        fn usize find_last_not_of(const string& s, usize pos)
-        fn usize find_last_not_of(const string& s)
-        fn usize find_last_not_of(r&char s, usize pos, usize n)
-        fn usize find_last_not_of(r&char s, usize pos)
-        fn usize find_last_not_of(r&char s)
+        fn usize find_last_not_of(&string s, usize pos)
+        fn usize find_last_not_of(&string s)
+        fn usize find_last_not_of(const char* s, usize pos, usize n)
+        fn usize find_last_not_of(const char* s, usize pos)
+        fn usize find_last_not_of(const char* s)
         fn usize find_last_not_of(char c, usize pos)
         fn usize find_last_not_of(char c)
 
@@ -260,30 +260,30 @@ extern from "<string>" namespace "std" nogil:
         fn u2 contains(char c) except +
         fn u2 contains(r&char s)
 
-        # string& operator= (const string&)
-        # string& operator= (r&char)
-        # string& operator= (char)
+        # fn &mut string operator=(&string)
+        # fn &mut string operator=(const char*)
+        # fn &mut string operator=(char)
 
-        fn string operator+ (const string&) except +
-        fn string operator+ (r&char) except +
+        fn string operator+(&string) except +
+        fn string operator+(const char*) except +
 
-        fn u2 operator==(const string&)
-        fn u2 operator==(r&char)
+        fn u2 operator==(&string)
+        fn u2 operator==(const char*)
 
-        fn u2 operator!= (const string&)
-        fn u2 operator!= (r&char)
+        fn u2 operator!=(&string)
+        fn u2 operator!=(const char*)
 
-        fn u2 operator< (const string&)
-        fn u2 operator< (r&char)
+        fn u2 operator<(&string)
+        fn u2 operator<(const char*)
 
-        fn u2 operator> (const string&)
-        fn u2 operator> (r&char)
+        fn u2 operator>(&string)
+        fn u2 operator>(const char*)
 
-        fn u2 operator<= (const string&)
-        fn u2 operator<= (r&char)
+        fn u2 operator<=(&string)
+        fn u2 operator<=(const char*)
 
-        fn u2 operator>= (const string&)
-        fn u2 operator>= (r&char)
+        fn u2 operator>=(&string)
+        fn u2 operator>=(const char*)
 
 
     fn string to_string(i32 val) except +
@@ -298,26 +298,26 @@ extern from "<string>" namespace "std" nogil:
     fn string to_string(double val) except +
     fn string to_string(f128 val) except +
 
-    fn i32 stoi(const string& s, usize* idx, i32 base) except +
-    fn i32 stoi(const string& s, usize* idx) except +
-    fn i32 stoi(const string& s) except +
-    fn i64 stol(const string& s, usize* idx, i32 base) except +
-    fn i64 stol(const string& s, usize* idx) except +
-    fn i64 stol(const string& s) except +
-    fn i128 stoll(const string& s, usize* idx, i32 base) except +
-    fn i128 stoll(const string& s, usize* idx) except +
-    fn i128 stoll(const string& s) except +
+    fn i32 stoi(&string s, usize* idx, i32 base) except +
+    fn i32 stoi(&string s, usize* idx) except +
+    fn i32 stoi(&string s) except +
+    fn i64 stol(&string s, usize* idx, i32 base) except +
+    fn i64 stol(&string s, usize* idx) except +
+    fn i64 stol(&string s) except +
+    fn i128 stoll(&string s, usize* idx, i32 base) except +
+    fn i128 stoll(&string s, usize* idx) except +
+    fn i128 stoll(&string s) except +
 
-    fn u64 stoul(const string& s, usize* idx, i32 base) except +
-    fn u64 stoul(const string& s, usize* idx) except +
-    fn u64 stoul(const string& s) except +
-    fn u128 stoull(const string& s, usize* idx, i32 base) except +
-    fn u128 stoull(const string& s, usize* idx) except +
-    fn u128 stoull(const string& s) except +
+    fn u64 stoul(&string s, usize* idx, i32 base) except +
+    fn u64 stoul(&string s, usize* idx) except +
+    fn u64 stoul(&string s) except +
+    fn u128 stoull(&string s, usize* idx, i32 base) except +
+    fn u128 stoull(&string s, usize* idx) except +
+    fn u128 stoull(&string s) except +
 
-    fn f32 stof(const string& s, usize* idx) except +
-    fn f32 stof(const string& s) except +
-    fn f64 stod(const string& s, usize* idx) except +
-    fn f64 stod(const string& s) except +
-    fn f128 stold(const string& s, usize* idx) except +
-    fn f128 stold(const string& s) except +
+    fn f32 stof(&string s, usize* idx) except +
+    fn f32 stof(&string s) except +
+    fn f64 stod(&string s, usize* idx) except +
+    fn f64 stod(&string s) except +
+    fn f128 stold(&string s, usize* idx) except +
+    fn f128 stold(&string s) except +

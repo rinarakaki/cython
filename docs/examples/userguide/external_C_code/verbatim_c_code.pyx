@@ -7,4 +7,4 @@ extern from *:
     """
     fn i64 square(i64 x)
 
-    fn void assign(i64& x, i64 y)
+    fn void assign(&mut i64 x, i64 y)

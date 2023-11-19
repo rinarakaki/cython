@@ -30,7 +30,7 @@ def simple():
     let i32** iptrptr = &iptr
     let A a = None
     let B b = None
-    let X x = X(a=1, b=2)
+    let auto x = X { a = 1, b = 2 }
     print typeof(i)
     print typeof(l)
     print typeof(ll)
@@ -50,8 +50,8 @@ def expression():
     int
     unsigned int
     """
-    let X x = X(a=1, b=2)
-    let &X xptr = &x
+    let auto x = X { a = 1, b = 2 }
+    let r&X xptr = &x
     let i16 s = 0
     let i32 i = 0
     let u32 ui = 0
