@@ -188,5 +188,5 @@ def test_array_field_init():
     >>> test_array_field_init()
     [1, 2, 3, 4]
     """
-    let auto s = ArrayFieldStruct([1, 2, 3, 4])
+    let auto s = ArrayFieldStruct { arr = [1, 2, 3, 4] }
     print(s.arr);
