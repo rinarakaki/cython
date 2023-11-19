@@ -1185,6 +1185,29 @@ class CPtrTypeNode(CBaseTypeNode):
         return PyrexTypes.c_ptr_type(base_type)
 
 
+class CRefTypeNode(CBaseTypeNode):
+    # base_type     CBaseTypeNode
+
+    child_attrs = ["base_type"]
+
+    def analyse(self, env, could_be_name=False):
+        base_type = self.base_type.analyse(env)
+        if base_type.is_pyobject:
+            error(self.pos, "Reference base type cannot be a Python object")
+        return PyrexTypes.c_ref_type(base_type)
+
+class CRvalueRefTypeNode(CBaseTypeNode):
+    # base_type     CBaseTypeNode
+
+    child_attrs = ["base_type"]
+
+    def analyse(self, env, could_be_name=False):
+        base_type = self.base_type.analyse(env)
+        if base_type.is_pyobject:
+            error(self.pos, "Rvalue-reference base type cannot be a Python object")
+        return PyrexTypes.cpp_rvalue_ref_type(base_type)
+
+
 class MemoryViewSliceTypeNode(CBaseTypeNode):
 
     name = 'memoryview'
@@ -8905,13 +8928,6 @@ utility_code_for_cimports = {
     'cpython.array'         : lambda : UtilityCode.load_cached("ArrayAPI", "arrayarray.h"),
     'cpython.array.array'   : lambda : UtilityCode.load_cached("ArrayAPI", "arrayarray.h"),
     'cython.view'           : cython_view_utility_code,
-}
-
-utility_code_for_imports = {
-    # utility code used when special modules are imported.
-    # TODO: Consider a generic user-level mechanism for importing
-    'asyncio': ("__Pyx_patch_asyncio", "PatchAsyncIO", "Coroutine.c"),
-    'inspect': ("__Pyx_patch_inspect", "PatchInspect", "Coroutine.c"),
 }
 
 def cimport_numpy_check(node, code):

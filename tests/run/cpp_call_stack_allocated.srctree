@@ -15,36 +15,36 @@ setup(ext_modules=cythonize('*.pyx', language='c++'))
 
 class wint {
 public:
-  long long val;
-  wint() { val = 0; }
-  wint(long long val) { this->val = val; }
-  long long &operator()() { return this->val; }
-  long long operator()(long long i) { return this->val + i; }
-  long long operator()(long long i, long long j) { return this->val + i + j; }
+    long long val;
+    wint() { val = 0; }
+    wint(long long val) { this->val = val; }
+    long long &operator()() { return this->val; }
+    long long operator()(long long i) { return this->val + i; }
+    long long operator()(long long i, long long j) { return this->val + i + j; }
 };
 
 ######## call.pxd ########
 
 extern from "call.cpp" nogil:
     cppclass wint:
-        long long val
+        i128 val
         wint()
-        wint(long long val)
-        long long& operator()()
-        long long operator()(long long i)
-        long long operator()(long long i, long long j)
+        wint(i128 val)
+        fn &mut i128 operator()()
+        fn i128 operator()(i128 i)
+        fn i128 operator()(i128 i, i128 j)
 
 ######## call_stack_allocated.pyx ########
 
 use call::wint
 
 def test():
-    cdef wint a = wint(4)
-    cdef long long b = 3
+    let wint a = wint(4)
+    let i128 b = 3
     b = a()
     assert b == 4
-    b = a(1ll)
+    b = a(1i128)
     assert b == 5
-    b = a(1ll, 1ll)
+    b = a(1i128, 1i128)
     assert b == 6
 

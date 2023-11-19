@@ -3,11 +3,11 @@
 use cython
 
 extern from "cpp_references_helper.h":
-    fn i32& ref_func(i32&)
-    fn i32& except_ref_func "ref_func" (i32&) except +
+    fn &mut i32 ref_func(&mut i32)
+    fn &mut i32 except_ref_func "ref_func"(&mut i32) except +
 
     static i32 ref_var_value
-    static i32& ref_var
+    static &mut i32 ref_var
 
 def test_ref_func(i32 x):
     """

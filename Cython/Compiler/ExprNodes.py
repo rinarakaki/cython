@@ -29,7 +29,7 @@ from .Code import UtilityCode, TempitaUtilityCode
 from . import StringEncoding
 from . import Naming
 from . import Nodes
-from .Nodes import Node, utility_code_for_imports, SingleAssignmentNode
+from .Nodes import Node, SingleAssignmentNode
 from . import PyrexTypes
 from .PyrexTypes import py_object_type, typecast, error_type, \
     unspecified_type
@@ -1889,6 +1889,12 @@ class IdentifierStringNode(StringNode):
     is_identifier = True
 
 
+class IdentNode(StringNode):
+    # A special str value that represents an identifier (bytes in Py2,
+    # unicode in Py3).
+    is_identifier = True
+
+
 class ImagNode(AtomicExprNode):
     #  Imaginary number literal
     #
@@ -2827,11 +2833,6 @@ class ImportNode(ExprNode):
                 self.module_name.py_result(),
                 self.name_list.py_result() if self.name_list else '0',
                 self.level)
-
-        if self.level <= 0 and module_name in utility_code_for_imports:
-            helper_func, code_name, code_file = utility_code_for_imports[module_name]
-            code.globalstate.use_utility_code(UtilityCode.load_cached(code_name, code_file))
-            import_code = '%s(%s)' % (helper_func, import_code)
 
         code.putln("%s = %s; %s" % (
             self.result(),
@@ -5876,6 +5877,77 @@ class SliceIntNode(SliceNode):
                 a.arg.result()
 
 
+class StructExprNode(ExprNode):
+    #  Struct expression
+    #
+    #  path     NameNode | AttributeNode
+    #  fields  [ExprFieldNode]
+
+    subexprs = ["fields"]
+
+    def infer_type(self, env):
+        return self.path.analyse_as_type(env)
+    
+    def explicit_args_kwds(self):
+        return self.fields, None
+
+    def analyse_types(self, env):
+        type = self.path.analyse_as_type(env)
+        if type is not None and type.is_struct_or_union:
+            self.type = type
+            return self
+        else:
+            error(self.pos, "Not a struct or union type")
+    
+    def coerce_to(self, dst_type, env):
+        return self
+    
+    def generate_result_code(self, code):
+        code.putln("{ ")
+        for field in self.fields:
+            code.putln(".%s = %s, " % (
+                field.ident.name,
+                field.expr.generate_result_code(code)
+            ))
+        code.putln("};")
+    
+    def calculate_result_code(self):
+        return "{ %s };" % (
+            ", ".join([".%s = %s" % (
+                field.ident.name,
+                field.expr.calculate_result_code()
+            ) for field in self.fields])
+        )
+
+
+class ExprFieldNode(ExprNode):
+    #  Represents a single field in a StructExprNode
+    #
+    #  ident       IdentNode
+    #  expr        ExprNode
+    subexprs = ["ident", "expr"]
+
+    def calculate_constant_result(self):
+        self.constant_result = (
+            self.ident.constant_result, self.expr.constant_result)
+
+    def analyse_types(self, env):
+        # self.ident = self.ident.analyse_types(env)
+        self.expr = self.expr.analyse_types(env)
+        return self
+    
+    def generate_result_code(self, code):
+        self.expr.generate_result_code(code)
+
+    def generate_evaluation_code(self, code):
+        # self.ident.generate_evaluation_code(code)
+        self.expr.generate_evaluation_code(code)
+
+    def generate_disposal_code(self, code):
+        # self.ident.generate_disposal_code(code)
+        self.expr.generate_disposal_code(code)
+
+
 class CallNode(ExprNode):
 
     # allow overriding the default 'may_be_none' behaviour
@@ -6011,6 +6083,7 @@ class CallNode(ExprNode):
             self.gil_error()
 
     gil_message = "Calling gil-requiring function"
+
 
 
 class SimpleCallNode(CallNode):
