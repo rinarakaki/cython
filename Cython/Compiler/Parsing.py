@@ -476,7 +476,7 @@ def p_power(s):
         while s.sy in ("(", "[", "."):
             n1 = p_trailer(s, n1)
     else:
-        while s.sy in ("(", "[", ".", "::"):
+        while s.sy in ("(", "[", "{", ".", "::"):
             n1 = p_trailer(s, n1)
     if await_pos:
         n1 = ExprNodes.AwaitExprNode(await_pos, arg=n1)
@@ -503,6 +503,8 @@ def p_trailer(s, node1):
         return p_call(s, node1)
     elif s.sy == '[':
         return p_index(s, node1)
+    elif s.sy == "{":
+        return p_struct(s, node1)
     else:  # s.sy in (".", "::")
         s.next()
         name = p_ident(s)
@@ -648,6 +650,41 @@ def p_index(s, base):
             base = base, index = index)
     s.expect(']')
     return result
+
+def p_struct_parse_fields(s):
+    # s.sy == "{"
+    pos = s.position()
+    s.next()
+    fields = []
+    while s.sy != "}":
+        if s.sy == '**':
+            s.next()
+            fields.append(p_test(s))
+        else:
+            arg = p_namedexpr_test(s)
+            if s.sy == "=":
+                s.next()
+                if not arg.is_name:
+                    s.error("Expected an identifier before '='",
+                            pos=arg.pos)
+                encoded_name = s.context.intern_ustring(arg.name)
+                ident = ExprNodes.IdentNode(arg.pos, name=encoded_name)
+                expr = p_test(s)
+                fields.append(ExprNodes.ExprFieldNode(arg.pos, ident=ident, expr=expr))
+            else:
+                fields.append(ExprNodes.ExprFieldNode(arg.pos, ident=arg.name, expr=arg))
+        if s.sy != ",":
+            break
+        s.next()
+
+    s.expect("}")
+    return fields
+
+def p_struct(s, path):
+    # s.sy == "{"
+    pos = s.position()
+    fields = p_struct_parse_fields(s)
+    return ExprNodes.StructExprNode(pos, path = path, fields = fields)
 
 def p_subscript_list(s):
     is_single_value = True
