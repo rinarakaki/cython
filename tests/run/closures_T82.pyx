@@ -37,11 +37,11 @@ def local_x(i32 arg_x):
     4 2 1
     15
     """
-    let i32 local_x = arg_x
+    let auto local_x = arg_x
     def y(arg_y):
         y = arg_y
         def z(i64 arg_z):
-            let i64 z = arg_z
+            let auto z = arg_z
             print z, y, local_x
             return 8 + z + y + local_x
         return z

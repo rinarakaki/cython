@@ -1,6 +1,4 @@
-# cython: language_level=3
-
-# We declare all of these here to type the first argument.
+# We declare all of these parser functions here to type the first argument as PyrexScanner.
 
 from __future__ import absolute_import
 
@@ -161,10 +159,10 @@ cpdef p_c_base_type(PyrexScanner s, u2 nonempty = *, templates = *)
 fn p_calling_convention(PyrexScanner s)
 fn p_c_complex_base_type(PyrexScanner s, templates = *)
 fn p_c_simple_base_type(PyrexScanner s, u2 nonempty, templates = *)
-fn p_buffer_or_template(PyrexScanner s, base_type_node, templates)
-fn p_bracketed_base_type(PyrexScanner s, base_type_node, nonempty, empty)
+fn p_buffer_or_template(PyrexScanner s, base_type, templates)
+fn p_bracketed_base_type(PyrexScanner s, base_type, nonempty, empty)
 fn is_memoryviewslice_access(PyrexScanner s)
-fn p_memoryviewslice_access(PyrexScanner s, base_type_node)
+fn p_memoryviewslice_access(PyrexScanner s, base_type)
 fn u2 looking_at_name(PyrexScanner s) except -2
 fn object looking_at_expr(PyrexScanner s)# except -2
 fn u2 looking_at_base_type(PyrexScanner s) except -2
@@ -195,8 +193,8 @@ fn p_c_enum_item(PyrexScanner s, ctx, list items)
 fn p_c_struct_or_union_definition(PyrexScanner s, pos, ctx)
 fn p_fused_definition(PyrexScanner s, pos, ctx)
 fn p_struct_enum(PyrexScanner s, pos, ctx)
-fn p_visibility(PyrexScanner s, prev_visibility)
 fn p_let_statement(PyrexScanner s, pos, ctx)
+fn p_visibility(PyrexScanner s, prev_visibility)
 fn p_c_modifiers(PyrexScanner s)
 fn p_c_func_or_var_declaration(PyrexScanner s, pos, ctx)
 fn p_type_statement(PyrexScanner s, ctx)
