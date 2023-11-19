@@ -667,9 +667,7 @@ def p_struct_parse_fields(s):
             if s.sy == "=":
                 s.next()
                 if not arg.is_name:
-                    s.error("Expected an identifier before '='",
-                            pos=arg.pos)
-                
+                    s.error("Expected an identifier before '='", pos=arg.pos)
                 expr = p_test(s)
             else:
                 expr = p_name(s, arg.name)
