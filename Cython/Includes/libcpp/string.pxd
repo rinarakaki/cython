@@ -18,8 +18,8 @@ extern from "<string>" namespace "std" nogil:
         cppclass const_iterator
         cppclass iterator:
             iterator() except +
-            fn iterator(&mut iterator) except +
-            fn &mut value_type operator*()
+            iterator(iterator&) except +
+            value_type& operator*()
             iterator operator++()
             iterator operator--()
             iterator operator++(i32)
@@ -42,8 +42,8 @@ extern from "<string>" namespace "std" nogil:
             u2 operator>=(const_iterator)
         cppclass const_iterator:
             const_iterator() except +
-            fn const_iterator(&mut iterator) except +
-            fn const_iterator(&mut const_iterator) except +
+            const_iterator(iterator&) except +
+            const_iterator(const_iterator&) except +
             fn operator=(&mut iterator) except +
             const value_type& operator*()
             const_iterator operator++()
@@ -70,7 +70,7 @@ extern from "<string>" namespace "std" nogil:
         cppclass const_reverse_iterator
         cppclass reverse_iterator:
             reverse_iterator() except +
-            fn reverse_iterator(&mut reverse_iterator) except +
+            reverse_iterator(reverse_iterator&) except +
             fn &mut value_type operator*()
             reverse_iterator operator++()
             reverse_iterator operator--()
@@ -94,7 +94,7 @@ extern from "<string>" namespace "std" nogil:
             u2 operator>=(const_reverse_iterator)
         cppclass const_reverse_iterator:
             const_reverse_iterator() except +
-            fn const_reverse_iterator(&mut reverse_iterator) except +
+            const_reverse_iterator(reverse_iterator&) except +
             fn operator=(&mut reverse_iterator) except +
             const value_type& operator*()
             const_reverse_iterator operator++()
@@ -118,14 +118,14 @@ extern from "<string>" namespace "std" nogil:
             u2 operator>=(reverse_iterator)
             u2 operator>=(const_reverse_iterator)
 
-        fn string() except +
-        fn string(const string& s) except +
-        fn string(const string& s, usize pos) except +
-        fn string(const string& s, usize pos, usize len) except +
-        fn string(const char* s) except +
-        fn string(const char* s, usizen) except +
-        fn string(usize n, char c) except +
-        fn string(iterator first, iterator last) except +
+        string() except +
+        string(const string& s) except +
+        string(const string& s, usize pos) except +
+        string(const string& s, usize pos, usize len) except +
+        string(const char* s) except +
+        string(const char* s, usizen) except +
+        string(usize n, char c) except +
+        string(iterator first, iterator last) except +
 
         iterator begin()
         const_iterator const_begin "begin"()
