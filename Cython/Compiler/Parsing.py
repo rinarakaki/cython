@@ -662,20 +662,18 @@ def p_struct_parse_fields(s):
             fields.append(p_test(s))
         else:
             arg = p_namedexpr_test(s)
+            encoded_name = s.context.intern_ustring(arg.name)
+            ident = ExprNodes.IdentNode(arg.pos, name=encoded_name)
             if s.sy == "=":
                 s.next()
                 if not arg.is_name:
                     s.error("Expected an identifier before '='",
                             pos=arg.pos)
-                encoded_name = s.context.intern_ustring(arg.name)
-                ident = ExprNodes.IdentNode(arg.pos, name=encoded_name)
+                
                 expr = p_test(s)
-                fields.append(ExprNodes.ExprFieldNode(arg.pos, ident=ident, expr=expr))
             else:
-                encoded_name = s.context.intern_ustring(arg.name)
-                ident = ExprNodes.IdentNode(arg.pos, name=encoded_name)
                 expr = p_name(s, arg.name)
-                fields.append(ExprNodes.ExprFieldNode(arg.pos, ident=ident, expr=expr))
+            fields.append(ExprNodes.ExprFieldNode(arg.pos, ident=ident, expr=expr))
         if s.sy != ",":
             break
         s.next()
