@@ -2681,7 +2681,7 @@ def p_c_base_type(s, nonempty=False, templates=None):
             is_volatile = 1
             s.next()
 
-    if s.sy in ("&", "&&") or s.systring == "r" and s.peek()[0] in ("&", "&&"):
+    if s.sy in ("&", "&&") or s.systring == "r" and s.peek()[0] == "&":
         if s.systring == "r":
             s.next()
             raw = 1
@@ -2707,7 +2707,7 @@ def p_c_base_type(s, nonempty=False, templates=None):
                 base_type=base_type, is_const=1, is_volatile=0
             )
         if refref:
-            base_type = Nodes.CRefTypeNode(pos, base_type=base_type)
+            base_type = Nodes.CRvalueRefTypeNode(pos, base_type=base_type)
         if raw:
             base_type = Nodes.CPtrTypeNode(pos, base_type=base_type)
         else:
