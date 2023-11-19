@@ -45,7 +45,7 @@ extern from "<unordered_map>" namespace "std" nogil:
             fn u2 operator!=(const_iterator)
 
         unordered_map() except +
-        fn unordered_map(&mut unordered_map) except +
+        unordered_map(unordered_map&) except +
         # fn unordered_map(&mut key_compare)
         fn &mut U operator[](const T&)
         # fn &mut unordered_map operator=(&mut unordered_map)
