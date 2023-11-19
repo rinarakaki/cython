@@ -13,7 +13,7 @@ extern from "<vector>" namespace "std" nogil:
         cppclass iterator:
             iterator() except +
             iterator(iterator&) except +
-            T& operator*()
+            fn &mut T operator*()
             iterator operator++()
             iterator operator--()
             iterator operator++(i32)
@@ -38,7 +38,7 @@ extern from "<vector>" namespace "std" nogil:
             const_iterator() except +
             const_iterator(iterator&) except +
             const_iterator(const_iterator&) except +
-            operator=(iterator&) except +
+            fn operator=(&mut iterator) except +
             const T& operator*()
             const_iterator operator++()
             const_iterator operator--()
@@ -65,7 +65,7 @@ extern from "<vector>" namespace "std" nogil:
         cppclass reverse_iterator:
             reverse_iterator() except +
             reverse_iterator(reverse_iterator&) except +
-            T& operator*()
+            fn &mut T operator*()
             reverse_iterator operator++()
             reverse_iterator operator--()
             reverse_iterator operator++(i32)
@@ -89,7 +89,7 @@ extern from "<vector>" namespace "std" nogil:
         cppclass const_reverse_iterator:
             const_reverse_iterator() except +
             const_reverse_iterator(reverse_iterator&) except +
-            operator=(reverse_iterator&) except +
+            fn operator=(&mut reverse_iterator) except +
             const T& operator*()
             const_reverse_iterator operator++()
             const_reverse_iterator operator--()
@@ -117,18 +117,18 @@ extern from "<vector>" namespace "std" nogil:
         vector(size_type) except +
         vector(size_type, T&) except +
         # vector[InputIt](InputIt, InputIt)
-        T& operator[](size_type)
-        # vector& operator=(vector&)
-        u2 operator==(vector&, vector&)
-        u2 operator!=(vector&, vector&)
-        u2 operator<(vector&, vector&)
-        u2 operator>(vector&, vector&)
-        u2 operator<=(vector&, vector&)
-        u2 operator>=(vector&, vector&)
-        void assign(size_type, const T&)
-        void assign[InputIt](InputIt, InputIt) except +
-        T& at(size_type) except +
-        T& back()
+        fn &mut T operator[](size_type)
+        # fn &mut vector operator=(&mut vector)
+        fn u2 operator==(&mut vector, &mut vector)
+        fn u2 operator!=(&mut vector, &mut vector)
+        fn u2 operator<(&mut vector, &mut vector)
+        fn u2 operator>(&mut vector, &mut vector)
+        fn u2 operator<=(&mut vector, &mut vector)
+        fn u2 operator>=(&mut vector, &mut vector)
+        fn void assign(size_type, const T&)
+        fn void assign[InputIt](InputIt, InputIt) except +
+        fn &mut T at(size_type) except +
+        fn &mut T back()
         iterator begin()
         const_iterator const_begin "begin"()
         const_iterator cbegin()
@@ -140,13 +140,13 @@ extern from "<vector>" namespace "std" nogil:
         const_iterator cend()
         iterator erase(iterator)
         iterator erase(iterator, iterator)
-        T& front()
-        iterator insert(iterator, const T&) except +
-        iterator insert(iterator, size_type, const T&) except +
+        fn &mut T front()
+        fn iterator insert(iterator, const T&) except +
+        fn iterator insert(iterator, size_type, const T&) except +
         iterator insert[InputIt](iterator, InputIt, InputIt) except +
         size_type max_size()
         void pop_back()
-        void push_back(T&) except +
+        fn void push_back(&mut T) except +
         reverse_iterator rbegin()
         const_reverse_iterator const_rbegin "rbegin"()
         const_reverse_iterator crbegin()
@@ -155,13 +155,13 @@ extern from "<vector>" namespace "std" nogil:
         const_reverse_iterator crend()
         void reserve(size_type) except +
         void resize(size_type) except +
-        void resize(size_type, T&) except +
+        fn void resize(size_type, &mut T) except +
         size_type size()
-        void swap(vector&)
+        fn void swap(&mut vector)
 
         # C++11 methods
-        T* data()
-        const T* const_data "data"()
-        void shrink_to_fit() except +
-        iterator emplace(const_iterator, ...) except +
-        T& emplace_back(...) except +
+        fn T* data()
+        fn const T* const_data "data"()
+        fn void shrink_to_fit() except +
+        fn iterator emplace(const_iterator, ...) except +
+        fn &mut T emplace_back(...) except +

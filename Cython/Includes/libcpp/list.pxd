@@ -13,7 +13,7 @@ extern from "<list>" namespace "std" nogil:
         cppclass iterator:
             iterator() except +
             iterator(iterator&) except +
-            value_type& operator*()
+            fn &mut value_type operator*()
             iterator operator++()
             iterator operator--()
             iterator operator++(i32)
@@ -26,8 +26,8 @@ extern from "<list>" namespace "std" nogil:
             const_iterator() except +
             const_iterator(iterator&) except +
             const_iterator(const_iterator&) except +
-            operator=(iterator&) except +
-            const value_type& operator*()
+            fn operator=(&mut iterator) except +
+            fn const value_type& operator*()
             const_iterator operator++()
             const_iterator operator--()
             const_iterator operator++(i32)
@@ -40,8 +40,8 @@ extern from "<list>" namespace "std" nogil:
         cppclass const_reverse_iterator
         cppclass reverse_iterator:
             reverse_iterator() except +
-            reverse_iterator(reverse_iterator&) except +
-            value_type& operator*()
+            reverse_iterator(&mut reverse_iterator) except +
+            &mut value_type operator*()
             reverse_iterator operator++()
             reverse_iterator operator--()
             reverse_iterator operator++(i32)
@@ -53,7 +53,7 @@ extern from "<list>" namespace "std" nogil:
         cppclass const_reverse_iterator:
             const_reverse_iterator() except +
             const_reverse_iterator(reverse_iterator&) except +
-            operator=(reverse_iterator&) except +
+            operator=(&mut reverse_iterator) except +
             const value_type& operator*()
             const_reverse_iterator operator++()
             const_reverse_iterator operator--()
@@ -67,15 +67,15 @@ extern from "<list>" namespace "std" nogil:
         list() except +
         list(list&) except +
         list(usize, T&) except +
-        # list operator=(list&)
-        u2 operator==(list&, list&)
-        u2 operator!=(list&, list&)
-        u2 operator<(list&, list&)
-        u2 operator>(list&, list&)
-        u2 operator<=(list&, list&)
-        u2 operator>=(list&, list&)
-        void assign(usize, T&) except +
-        T& back()
+        # list operator=(&mut list)
+        fn u2 operator==(&mut list, &mut list)
+        fn u2 operator!=(&mut list, &mut list)
+        fn u2 operator<(&mut list, &mut list)
+        fn u2 operator>(&mut list, &mut list)
+        fn u2 operator<=(&mut list, &mut list)
+        fn u2 operator>=(&mut list, &mut list)
+        fn void assign(usize, &mut T) except +
+        fn &mut T back()
         iterator begin()
         const_iterator const_begin "begin"()
         const_iterator cbegin()
@@ -86,32 +86,32 @@ extern from "<list>" namespace "std" nogil:
         const_iterator cend()
         iterator erase(iterator)
         iterator erase(iterator, iterator)
-        T& front()
-        iterator insert(iterator, T&)
-        void insert(iterator, usize, T&)
+        fn &mut T front()
+        fn iterator insert(iterator, &mut T)
+        fn void insert(iterator, usize, &mut T)
         usize max_size()
-        void merge(list&) except +
-        # void merge(list&, BinPred)
+        void merge(&mut list) except +
+        # void merge(&mut list, BinPred)
         void pop_back()
         void pop_front()
-        void push_back(T&) except +
-        void push_front(T&) except +
+        fn void push_back(&mut T) except +
+        fn void push_front(&mut T) except +
         reverse_iterator rbegin()
         const_reverse_iterator const_rbegin "rbegin"()
         const_reverse_iterator crbegin()
-        void remove(T&) except +
+        fn void remove(&mut T) except +
         # void remove_if(UnPred)
         reverse_iterator rend()
         const_reverse_iterator const_rend "rend"()
         const_reverse_iterator crend()
-        void resize(usize, T&) except +
+        fn void resize(usize, &mut T) except +
         void reverse()
         usize size()
         void sort() except +
         # void sort(BinPred)
-        void splice(iterator, list&)
-        void splice(iterator, list&, iterator)
-        void splice(iterator, list&, iterator, iterator)
-        void swap(list&)
-        void unique()
+        fn void splice(iterator, &mut list)
+        fn void splice(iterator, &mut list, iterator)
+        fn void splice(iterator, &mut list, iterator, iterator)
+        fn void swap(&mut list)
+        fn void unique()
         # void unique(BinPred)

@@ -1,6 +1,6 @@
 extern from "<bit>" namespace "std" nogil:
     # bit_cast (gcc >= 11.0, clang >= 14.0)
-    fn To bit_cast[To, From](From&)
+    fn To bit_cast[To, From](&mut From)
 
     # byteswap (C++23)
     # cdef T byteswap[T](T)

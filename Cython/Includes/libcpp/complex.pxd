@@ -8,27 +8,27 @@ extern from "<complex>" namespace "std" nogil:
         # How to make the converting constructor, i.e. convert complex[f64]
         # to complex[f32]?
 
-        complex[T] operator+(complex[T]&)
-        complex[T] operator-(complex[T]&)
-        complex[T] operator+(complex[T]&, complex[T]&)
-        complex[T] operator+(complex[T]&, T&)
-        complex[T] operator+(T&, complex[T]&)
-        complex[T] operator-(complex[T]&, complex[T]&)
-        complex[T] operator-(complex[T]&, T&)
-        complex[T] operator-(T&, complex[T]&)
-        complex[T] operator*(complex[T]&, complex[T]&)
-        complex[T] operator*(complex[T]&, T&)
-        complex[T] operator*(T&, complex[T]&)
-        complex[T] operator/(complex[T]&, complex[T]&)
-        complex[T] operator/(complex[T]&, T&)
-        complex[T] operator/(T&, complex[T]&)
+        fn complex[T] operator+(complex[T]&)
+        fn complex[T] operator-(complex[T]&)
+        fn complex[T] operator+(complex[T]&, complex[T]&)
+        fn complex[T] operator+(complex[T]&, &mut T)
+        fn complex[T] operator+(&mut T, complex[T]&)
+        fn complex[T] operator-(complex[T]&, complex[T]&)
+        fn complex[T] operator-(complex[T]&, &mut T)
+        fn complex[T] operator-(&mut T, complex[T]&)
+        fn complex[T] operator*(complex[T]&, complex[T]&)
+        fn complex[T] operator*(complex[T]&, &mut T)
+        fn complex[T] operator*(&mut T, complex[T]&)
+        fn complex[T] operator/(complex[T]&, complex[T]&)
+        fn complex[T] operator/(complex[T]&, &mut T)
+        fn complex[T] operator/(&mut T, complex[T]&)
 
-        u2 operator==(complex[T]&, complex[T]&)
-        u2 operator==(complex[T]&, T&)
-        u2 operator==(T&, complex[T]&)
-        u2 operator!=(complex[T]&, complex[T]&)
-        u2 operator!=(complex[T]&, T&)
-        u2 operator!=(T&, complex[T]&)
+        fn u2 operator==(complex[T]&, complex[T]&)
+        fn u2 operator==(complex[T]&, &mut T)
+        fn u2 operator==(&mut T, complex[T]&)
+        fn u2 operator!=(complex[T]&, complex[T]&)
+        fn u2 operator!=(complex[T]&, &mut T)
+        fn u2 operator!=(&mut T, complex[T]&)
 
         # Access real part
         T real()
@@ -71,16 +71,16 @@ extern from "<complex>" namespace "std" nogil:
     fn complex[f64] proj(f64)
     fn complex[f32] proj(f32)
 
-    fn complex[T] polar[T](T&, T&)
-    fn complex[T] ploar[T](T&)
+    fn complex[T] polar[T](&mut T, &mut T)
+    fn complex[T] ploar[T](&mut T)
 
     fn complex[T] exp[T](complex[T]&)
     fn complex[T] log[T](complex[T]&)
     fn complex[T] log10[T](complex[T]&)
 
     fn complex[T] pow[T](complex[T]&, complex[T]&)
-    fn complex[T] pow[T](complex[T]&, T&)
-    fn complex[T] pow[T](T&, complex[T]&)
+    fn complex[T] pow[T](complex[T]&, &mut T)
+    fn complex[T] pow[T](&mut T, complex[T]&)
     # There are some promotion versions too
 
     fn complex[T] sqrt[T](complex[T]&)
