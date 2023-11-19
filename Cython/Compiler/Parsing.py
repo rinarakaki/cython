@@ -2706,6 +2706,7 @@ def p_c_base_type(s, nonempty=False, templates=None):
         else:
             base_type = Nodes.CRefTypeNode(pos, base_type=base_type)
     elif s.sy == "&&":
+        s.next()
         base_type = p_c_base_type(s, nonempty=nonempty, templates=templates)
         base_type = Nodes.CRvalueRefTypeNode(pos, base_type=base_type)
     elif s.sy == "(":
