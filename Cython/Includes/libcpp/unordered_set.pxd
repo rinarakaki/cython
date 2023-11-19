@@ -13,7 +13,7 @@ extern from "<unordered_set>" namespace "std" nogil:
         cppclass const_iterator
         cppclass iterator:
             iterator() except +
-            fn iterator(&mut iterator) except +
+            iterator(iterator&) except +
             fn &mut value_type operator*()
             iterator operator++()
             iterator operator--()
@@ -24,8 +24,8 @@ extern from "<unordered_set>" namespace "std" nogil:
             fn u2 operator!=(iterator)
             fn u2 operator!=(const_iterator)
         cppclass const_iterator:
-            fn const_iterator() except +
-            fn const_iterator(&mut iterator) except +
+            const_iterator() except +
+            const_iterator(iterator&) except +
             operator=(&mut iterator) except +
             fn const value_type& operator*()
             fn const_iterator operator++()
