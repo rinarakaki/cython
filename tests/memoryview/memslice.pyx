@@ -2538,7 +2538,7 @@ def test_const_buffer(const i32[:] a):
     5
     released A
     """
-    let const i32[:] c = a
+    let auto c = a
     print(a[0])
     print(c[-1])
 

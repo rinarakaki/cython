@@ -13,7 +13,7 @@ struct Grail
 
 fn void eggs(Spam s):
     let i32 j
-    let Grail *gp
+    let Grail* gp
     j = s.k  # error - undef attribute
     j = s.p  # type error
     s.p = j  # type error
