@@ -2681,7 +2681,35 @@ def p_c_base_type(s, nonempty=False, templates=None):
             is_volatile = 1
             s.next()
 
-    if s.sy == '(':
+    if s.sy == "&" or s.systring == "r" and s.peek()[0] == "&":
+        if s.systring == "r":
+            s.next()
+            s.next()
+            raw = 1
+        else:
+            s.next()
+            raw = 0
+
+        if s.sy == "mut":
+            mutable = 1
+            s.next()
+        else:
+            mutable = 0
+
+        base_type = p_c_base_type(s, nonempty=nonempty, templates=templates)
+        if not mutable:
+            base_type = Nodes.CConstOrVolatileTypeNode(pos,
+                base_type=base_type, is_const=1, is_volatile=0
+            )
+        if raw:
+            base_type = Nodes.CPtrTypeNode(pos, base_type=base_type)
+        else:
+            base_type = Nodes.CRefTypeNode(pos, base_type=base_type)
+    elif s.sy == "&&":
+        s.next()
+        base_type = p_c_base_type(s, nonempty=nonempty, templates=templates)
+        base_type = Nodes.CRvalueRefTypeNode(pos, base_type=base_type)
+    elif s.sy == "(":
         base_type = p_c_complex_base_type(s, templates = templates)
     else:
         base_type = p_c_simple_base_type(s, nonempty=nonempty, templates=templates)
@@ -2757,7 +2785,7 @@ def p_c_simple_base_type(s, nonempty, templates=None):
     module_path = []
     pos = s.position()
 
-    if s.sy != 'IDENT':
+    if s.sy != "IDENT":
         error(pos, "Expected an identifier, found '%s'" % s.sy)
     if looking_at_base_type(s):
         is_builtin = 1
@@ -3141,7 +3169,7 @@ def p_c_simple_declarator(s, ctx, empty, is_type, cmethod_flag,
         result = node_class(pos, base=base)
     else:
         rhs = None
-        if s.sy == 'IDENT':
+        if s.sy == "IDENT":
             name = s.systring
             if empty:
                 error(s.position(), "Declarator should be empty")
