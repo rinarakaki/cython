@@ -15,7 +15,7 @@ def use_new():
 
 def use_del():
     let A a = A()
-    let A *p = &a
+    let A* p = &a
     del p
 
 _ERRORS = """

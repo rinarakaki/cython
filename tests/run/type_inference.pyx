@@ -176,13 +176,15 @@ def unary_operators():
     let some_class obj
     assert typeof(~obj) == "Python object", typeof(~obj)
     a = int(1)
-    assert typeof(a) == "Python object", typeof(a)
+    assert typeof(a) == "int object", typeof(a)
     b = not int(3)
     assert typeof(b) == "bint", typeof(b)
     c = +int(3)
-    assert typeof(c) == "Python object", typeof(c)
+    assert typeof(c) == "int object", typeof(c)
     d = -int(5)
-    assert typeof(d) == "Python object", typeof(d)
+    assert typeof(d) == "int object", typeof(d)
+    e = ~int(5)
+    assert typeof(e) == "int object", typeof(e)
 
 
 def builtin_type_operations():
@@ -337,7 +339,7 @@ def r#loop():
         pass
     assert typeof(c) == "double"
 
-    for d in range(0, 10L, 2):
+    for d in range(0, 10i64, 2):
         pass
     assert typeof(a) == "long"
 
@@ -556,7 +558,7 @@ def ptr_types():
     ptr = b
     assert typeof(ptr) == "int *", typeof(ptr)
 
-def const_types(const f64 x, f64 y, f64& z):
+def const_types(const f64 x, f64 y, &f64 z):
     """
     >>> const_types(1, 1, 1)
     """
@@ -721,7 +723,7 @@ enum MyEnum:
     X = 1
     Y = 2
 
-ctypedef long my_long
+type my_long = long
 def test_int_typedef_inference():
     """
     >>> test_int_typedef_inference()

@@ -1,5 +1,5 @@
 extern from "Python.h":
-    ctypedef u128 PY_LONG_LONG
+    type PY_LONG_LONG = u128
 
     # ##########################################################################
     # Integer Objects
@@ -16,7 +16,7 @@ extern from "Python.h":
     # Return true if o is of type PyInt_Type, but not a subtype of
     # PyInt_Type.
 
-    fn object PyInt_FromString(char *str, char **pend, i32 base)
+    fn object PyInt_FromString(char* str, char** pend, i32 base)
     # Return value: New reference.
     # Return a new PyIntObject or PyLongObject based on the string
     # value in str, which is interpreted according to the radix in

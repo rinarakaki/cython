@@ -113,7 +113,7 @@ fn inline object get_value(var, default_value=None):
     or the default value of the context variable,
     or None if no such value or default was found.
     """
-    let PyObject *value = NULL
+    let PyObject* value = NULL
     PyContextVar_Get(var, NULL, &value)
     if value is NULL:
         # context variable does not have a default
@@ -130,7 +130,7 @@ fn inline object get_value_no_default(var, default_value=None):
 
     Ignores the default value of the context variable, if any.
     """
-    let PyObject *value = NULL
+    let PyObject* value = NULL
     PyContextVar_Get(var, <PyObject*>default_value, &value)
     # value of context variable or 'default_value'
     pyvalue = <object>value

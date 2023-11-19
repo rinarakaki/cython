@@ -1,11 +1,6 @@
 import sys
 import os
 
-try:
-    from __builtin__ import basestring
-except ImportError:
-    basestring = str
-
 # Always inherit from the "build_ext" in distutils since setuptools already imports
 # it from Cython if available, and does the proper distutils fallback otherwise.
 # https://github.com/pypa/setuptools/blob/9f1822ee910df3df930a98ab99f66d18bb70659b/setuptools/command/build_ext.py#L16
@@ -24,7 +19,8 @@ if _build_ext is None:
     from distutils.command.build_ext import build_ext as _build_ext
 
 
-class build_ext(_build_ext, object):
+class build_ext(_build_ext):
+
     user_options = _build_ext.user_options + [
         ('cython-cplus', None,
              "generate C++ source files"),
@@ -52,7 +48,7 @@ class build_ext(_build_ext, object):
     ]
 
     def initialize_options(self):
-        super(build_ext, self).initialize_options()
+        super().initialize_options()
         self.cython_cplus = 0
         self.cython_create_listing = 0
         self.cython_line_directives = 0
@@ -64,7 +60,7 @@ class build_ext(_build_ext, object):
         self.cython_compile_time_env = None
 
     def finalize_options(self):
-        super(build_ext, self).finalize_options()
+        super().finalize_options()
         if self.cython_include_dirs is None:
             self.cython_include_dirs = []
         elif isinstance(self.cython_include_dirs, str):
@@ -124,4 +120,7 @@ class build_ext(_build_ext, object):
         )[0]
 
         ext.sources = new_ext.sources
-        super(build_ext, self).build_extension(ext)
+        super().build_extension(ext)
+
+# backward compatibility
+new_build_ext = build_ext

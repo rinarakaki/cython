@@ -206,7 +206,7 @@ def test_conjugate_double(c128 z):
     """
     return z.conjugate()
 
-ctypedef c128 cdouble
+type cdouble = c128
 def test_conjugate_typedef(cdouble z):
     """
     >>> test_conjugate_typedef(2 + 3j)
@@ -220,10 +220,10 @@ fn cdouble test_conjugate_nogil(cdouble z) nogil:
 test_conjugate_nogil(0) # use it
 
 # extern from "complex_numbers_T305.h":
-#     ctypedef f64 double_really_float "myfloat"
-#     ctypedef f32 float_really_double "mydouble"
-#     ctypedef f32 real_float "myfloat"
-#     ctypedef f64 real_double "mydouble"
+#     type double_really_float "myfloat" = f64
+#     type float_really_double "mydouble" = f32
+#     type real_float "myfloat" = f32
+#     type real_double "mydouble" = f64
 
 # def test_conjugate_nosizeassumptions(double_really_float x,
 #                                      float_really_double y,
@@ -237,7 +237,7 @@ test_conjugate_nogil(0) # use it
 #     let c128 I = 1j
 #     return ((x * I).conjugate(), (y * I).conjugate(), (z * I).conjugate(), (w * I).conjugate())
 
-ctypedef f64 mydouble
+type mydouble = f64
 def test_coerce_typedef_multiply(mydouble x, c128 z):
     """
     >>> test_coerce_typedef_multiply(3, 1 + 1j)
@@ -245,7 +245,7 @@ def test_coerce_typedef_multiply(mydouble x, c128 z):
     """
     return x * z
 
-ctypedef i32 myint
+type myint = i32
 def test_coerce_typedef_multiply_int(myint x, c128 z):
     """
     >>> test_coerce_typedef_multiply_int(3, 1 + 1j)

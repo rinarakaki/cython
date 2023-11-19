@@ -11,40 +11,40 @@ extern from "cpp_operator_exc_handling_helper.hpp" nogil:
         wrapped_int()
         wrapped_int(i128 val)
         wrapped_int(i128 v1, i128 v2) except +
-        wrapped_int operator+(wrapped_int &other) except +ValueError
-        wrapped_int operator+() except +RuntimeError
-        wrapped_int operator-(wrapped_int &other) except +
-        wrapped_int operator-() except +
-        wrapped_int operator*(wrapped_int &other) except +OverflowError
-        wrapped_int operator/(wrapped_int &other) except +
-        wrapped_int operator%(wrapped_int &other) except +
-        i128 operator^(wrapped_int &other) except +
-        i128 operator&(wrapped_int &other) except +
-        i128 operator|(wrapped_int &other) except +
-        wrapped_int operator~() except +
-        i128 operator&() except +
-        i128 operator==(wrapped_int &other) except +
-        i128 operator!=(wrapped_int &other) except +
-        i128 operator<(wrapped_int &other) except +
-        i128 operator<=(wrapped_int &other) except +
-        i128 operator>(wrapped_int &other) except +
-        i128 operator>=(wrapped_int &other) except +
-        wrapped_int operator<<(i128 shift) except +
-        wrapped_int operator>>(i128 shift) except +
-        wrapped_int &operator++() except +
-        wrapped_int &operator--() except +
-        wrapped_int operator++(i32) except +
-        wrapped_int operator--(i32) except +
-        wrapped_int operator!() except +
-        bool operator bool() except +
-        wrapped_int &operator[](i128 &index) except +IndexError
-        i128 &operator()() except +AttributeError
-        wrapped_int &operator=(const wrapped_int &other) except +ArithmeticError
-        wrapped_int &operator=(const i128 &vao) except +
+        fn wrapped_int operator+(wrapped_int &other) except +ValueError
+        fn wrapped_int operator+() except +RuntimeError
+        fn wrapped_int operator-(wrapped_int &other) except +
+        fn wrapped_int operator-() except +
+        fn wrapped_int operator*(wrapped_int &other) except +OverflowError
+        fn wrapped_int operator/(wrapped_int &other) except +
+        fn wrapped_int operator%(wrapped_int &other) except +
+        fn i128 operator^(wrapped_int &other) except +
+        fn i128 operator&(wrapped_int &other) except +
+        fn i128 operator|(wrapped_int &other) except +
+        fn wrapped_int operator~() except +
+        fn i128 operator&() except +
+        fn i128 operator==(wrapped_int &other) except +
+        fn i128 operator!=(wrapped_int &other) except +
+        fn i128 operator<(wrapped_int &other) except +
+        fn i128 operator<=(wrapped_int &other) except +
+        fn i128 operator>(wrapped_int &other) except +
+        fn i128 operator>=(wrapped_int &other) except +
+        fn wrapped_int operator<<(i128 shift) except +
+        fn wrapped_int operator>>(i128 shift) except +
+        fn &mut wrapped_int operator++() except +
+        fn &mut wrapped_int operator--() except +
+        fn wrapped_int operator++(i32) except +
+        fn wrapped_int operator--(i32) except +
+        fn wrapped_int operator!() except +
+        fn bool operator bool() except +
+        fn &mut wrapped_int operator[](&i128 index) except +IndexError
+        fn &mut i128 operator()() except +AttributeError
+        fn &mut wrapped_int operator=(&wrapped_int other) except +ArithmeticError
+        fn &mut wrapped_int operator=(&i128 vao) except +
 
     cdef cppclass second_call_is_different:
         second_call_is_different()
-        bool operator<(const second_call_is_different&) except +
+        fn bool operator<(&second_call_is_different) except +
 
 
 def assert_raised(f, *args, **kwargs):

@@ -44,7 +44,6 @@ if PY_VERSION_HEX >= 0x030B0000:
 __Pyx_globals['{{item}}'] = {{name}}.{{item}}
 {{endfor}}
 
-
 #################### CppScopedEnumType ####################
 
 #@requires: EnumBase
@@ -59,7 +58,6 @@ __Pyx_globals["{{name}}"] = __Pyx_EnumBase('{{name}}', [
 {{if enum_doc is not None}}
 __Pyx_globals["{{name}}"].__doc__ = {{ repr(enum_doc) }}
 {{endif}}
-
 
 #################### EnumTypeToPy ####################
 

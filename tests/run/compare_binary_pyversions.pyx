@@ -11,7 +11,7 @@ def test_get_runtime_version():
     >>> test_get_runtime_version()
     True
     """
-    let u64 rt_version = get_runtime_version()
+    let auto rt_version = get_runtime_version()
     return PY_VERSION_HEX & ~0xFF == rt_version or  (hex(PY_VERSION_HEX), hex(rt_version))
 
 def iter_hex_versions():

@@ -18,10 +18,10 @@ def cast_cast_cast(arg):
     42
     """
     let object x
-    let void *p = <void *>arg
+    let auto p = <void*>arg
     let i32 i
     x = <object>p
-    p = <void *>x
+    p = <void*>x
     x = (<object>p).foo
     i = (<C>p).i
     (<C>p).i = i

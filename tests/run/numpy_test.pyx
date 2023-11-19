@@ -489,7 +489,7 @@ def test_complextypes():
     print "%d,%d" % (sizeof(x64), sizeof(x128))
 
 struct Point:
-    np.float64_t x, y
+    np::float64_t x, y
 
 def test_point_record():
     """
@@ -632,7 +632,7 @@ struct Foo:
     f32 b
 
 cdef fused fused_FooArray:
-    np.ndarray[Foo, ndim=1]
+    np::ndarray[Foo, ndim=1]
 
 cdef fused fused_ndarray:
     np.ndarray[float, ndim=1]
@@ -731,7 +731,7 @@ def test_dispatch_non_clashing_declarations_repeating_types(np.ndarray[cython.fl
     """
     print a1[1], a2[2], a3[3], a4[4]
 
-ctypedef np.int32_t typedeffed_type
+type typedeffed_type = np::int32_t
 
 cdef fused typedeffed_fused_type:
     typedeffed_type
@@ -747,7 +747,7 @@ def test_dispatch_typedef(np.ndarray[typedeffed_fused_type] a):
     print a[5]
 
 extern from "types.h":
-    ctypedef char actually_long_t
+    type actually_long_t = char
 
 cdef fused confusing_fused_typedef:
     actually_long_t
@@ -831,7 +831,7 @@ def test_dispatch_memoryview_object():
     """
     let i32[:] m = np.arange(10, dtype=np.dtype('i'))
     let i32[:] m2 = m
-    let i32[:] m3 = <object> m
+    let i32[:] m3 = <object>m
     test_fused_memslice(m3)
 
 cdef fused ndim_t:

@@ -5,8 +5,8 @@ def complex_double_cast(f64 x, c128 z):
     >>> complex_double_cast(1, 4-3j)
     ((1+0j), (4-3j))
     """
-    let c128 xx = <c128>x
-    let c128 zz = <c128>z
+    let auto xx = <c128>x
+    let auto zz = <c128>z
     xx = x
     return xx, zz
 
@@ -15,8 +15,8 @@ def complex_double_int_cast(i32 x, int complex z):
     >>> complex_double_int_cast(2, 2 + 3j)
     ((2+0j), (3+3j))
     """
-    let c128 xx = <c128>x
-    let c128 zz = <c128>(z + 1)
+    let auto xx = <c128>x
+    let auto zz = <c128>(z + 1)
     return xx, zz
 
 def complex_int_double_cast(f64 x, c128 z):
@@ -24,8 +24,8 @@ def complex_int_double_cast(f64 x, c128 z):
     >>> complex_int_double_cast(2.5, 2.5 + 3.5j)
     ((2+0j), (2+3j))
     """
-    let int complex xx = <int complex>x
-    let int complex zz = <int complex>z
+    let auto xx = <int complex>x
+    let auto zz = <int complex>z
     return xx, zz
 
 cdef i32 side_effect_counter = 0
@@ -45,5 +45,5 @@ def test_side_effect(int complex z):
     side effect 2 (3-4j)
     (3-4j)
     """
-    let int complex zz = <int complex>side_effect(z)
+    let auto zz = <int complex>side_effect(z)
     return zz

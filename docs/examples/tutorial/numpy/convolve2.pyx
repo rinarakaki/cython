@@ -26,7 +26,7 @@ DTYPE = np.int64
 # "ctypedef" assigns a corresponding compile-time type to DTYPE_t. For
 # every type in the numpy module there's a corresponding compile-time
 # type with a _t-suffix.
-ctypedef cnp.int64_t DTYPE_t
+type DTYPE_t = cnp.int64_t
 
 # "def" can type its arguments but not have a return type. The type of the
 # arguments for a "def" function is checked at run-time when entering the

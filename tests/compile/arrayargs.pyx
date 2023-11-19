@@ -3,7 +3,7 @@
 extern from *:
     fn void foo(i32[])
 
-    ctypedef i32 MyInt
+    type MyInt = i32
     fn void foo(MyInt[])
 
     struct MyStruct:

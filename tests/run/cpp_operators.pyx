@@ -19,124 +19,123 @@ fn iout(i32 s, result_type=None):
 
 extern from "cpp_operators_helper.h" nogil:
     cdef cppclass TestOps:
-        const_char* operator+() except +
-        const_char* operator-() except +
-        const_char* operator*() except +
-        const_char* operator~() except +
-        const_char* operator!() except +
+        fn const_char* operator+() except +
+        fn const_char* operator-() except +
+        fn const_char* operator*() except +
+        fn const_char* operator~() except +
+        fn const_char* operator!() except +
 
         # FIXME: using 'except +' here leads to wrong calls ???
-        const_char* operator++()
-        const_char* operator--()
-        const_char* operator++(i32)
-        const_char* operator--(i32)
+        fn const_char* operator++()
+        fn const_char* operator--()
+        fn const_char* operator++(i32)
+        fn const_char* operator--(i32)
 
-        const_char* operator+(i32) except +
-        const_char* operator+(i32,const TestOps&) except +
-        const_char* operator-(i32) except +
-        const_char* operator-(i32,const TestOps&) except +
-        const_char* operator*(i32) except +
+        fn const_char* operator+(i32) except +
+        fn const_char* operator+(i32, &TestOps) except +
+        fn const_char* operator-(i32) except +
+        fn const_char* operator-(i32, &TestOps) except +
+        fn const_char* operator*(i32) except +
         # deliberately omitted operator* to test case where only defined outside class
-        const_char* operator/(i32) except +
-        const_char* operator/(i32,const TestOps&) except +
-        const_char* operator%(i32) except +
-        const_char* operator%(i32,const TestOps&) except +
+        fn const_char* operator/(i32) except +
+        fn const_char* operator/(i32, &TestOps) except +
+        fn const_char* operator%(i32) except +
+        fn const_char* operator%(i32, &TestOps) except +
 
-        const_char* operator|(i32) except +
-        const_char* operator|(i32,const TestOps&) except +
-        const_char* operator&(i32) except +
-        const_char* operator&(i32,const TestOps&) except +
-        const_char* operator^(i32) except +
-        const_char* operator^(i32,const TestOps&) except +
-        const_char* operator,(i32) except +
-        const_char* operator,(i32,const TestOps&) except +
+        fn const_char* operator|(i32) except +
+        fn const_char* operator|(i32, &TestOps) except +
+        fn const_char* operator&(i32) except +
+        fn const_char* operator&(i32, &TestOps) except +
+        fn const_char* operator^(i32) except +
+        fn const_char* operator^(i32, &TestOps) except +
+        fn const_char* operator,(i32) except +
+        fn const_char* operator,(i32, &TestOps) except +
 
-        const_char* operator<<(i32) except +
-        const_char* operator<<(i32,const TestOps&) except +
-        const_char* operator>>(i32) except +
-        const_char* operator>>(i32,const TestOps&) except +
+        fn const_char* operator<<(i32) except +
+        fn const_char* operator<<(i32, &TestOps) except +
+        fn const_char* operator>>(i32) except +
+        fn const_char* operator>>(i32, &TestOps) except +
 
         # FIXME: using 'except +' here leads to invalid C++ code ???
-        const_char* operator==(i32)
-        const_char* operator!=(i32)
-        const_char* operator>=(i32)
-        const_char* operator<=(i32)
-        const_char* operator>(i32)
-        const_char* operator<(i32)
+        fn const_char* operator==(i32)
+        fn const_char* operator!=(i32)
+        fn const_char* operator>=(i32)
+        fn const_char* operator<=(i32)
+        fn const_char* operator>(i32)
+        fn const_char* operator<(i32)
 
-        const_char* operator[](i32) except +
-        const_char* operator()(i32) except +
+        fn const_char* operator[](i32) except +
+        fn const_char* operator()(i32) except +
 
     # Defining the operator outside the class does work
     # but doesn't help when importing from pxd files
     # (they don't get imported)
-    const_char* operator+(float,const TestOps&) except +
+    fn const_char* operator+(f32, &TestOps) except +
     # deliberately omitted operator- to test case where only defined in class
-    const_char* operator*(float,const TestOps&) except +
-    const_char* operator/(float,const TestOps&) except +
-    const_char* operator%(float,const TestOps&) except +
+    fn const_char* operator*(f32, &TestOps) except +
+    fn const_char* operator/(f32, &TestOps) except +
+    fn const_char* operator%(f32, &TestOps) except +
 
-    const_char* operator|(float,const TestOps&) except +
-    const_char* operator&(float,const TestOps&) except +
-    const_char* operator^(float,const TestOps&) except +
-    const_char* operator,(float,const TestOps&) except +
+    fn const_char* operator|(f32, &TestOps) except +
+    fn const_char* operator&(f32, &TestOps) except +
+    fn const_char* operator^(f32, &TestOps) except +
+    fn const_char* operator,(f32, &TestOps) except +
 
-    const_char* operator<<(float,const TestOps&) except +
-    const_char* operator>>(float,const TestOps&) except +
+    fn const_char* operator<<(f32,&TestOps) except +
+    fn const_char* operator>>(f32,&TestOps) except +
 
     cdef cppclass RefTestOps:
+        fn &mut i32 operator+() except +
+        fn &mut i32 operator-() except +
+        fn &mut i32 operator*() except +
+        fn &mut i32 operator~() except +
+        fn &mut i32 operator!() except +
 
-        i32& operator+() except +
-        i32& operator-() except +
-        i32& operator*() except +
-        i32& operator~() except +
-        i32& operator!() except +
+        fn &mut i32 operator++() except +
+        fn &mut i32 operator--() except +
+        fn &mut i32 operator++(i32) except +
+        fn &mut i32 operator--(i32) except +
 
-        i32& operator++() except +
-        i32& operator--() except +
-        i32& operator++(i32) except +
-        i32& operator--(i32) except +
-
-        i32& operator+(i32) except +
-        i32& operator+(i32,const TestOps&) except +
-        i32& operator-(i32) except +
-        i32& operator-(i32,const TestOps&) except +
-        i32& operator*(i32) except +
+        fn &mut i32 operator+(i32) except +
+        fn &mut i32 operator+(i32, &TestOps) except +
+        fn &mut i32 operator-(i32) except +
+        fn &mut i32 operator-(i32, &TestOps) except +
+        fn &mut i32 operator*(i32) except +
         # deliberately omitted operator* to test case where only defined outside class
-        i32& operator/(i32) except +
-        i32& operator/(i32,const TestOps&) except +
-        i32& operator%(i32) except +
-        i32& operator%(i32,const TestOps&) except +
+        fn &mut i32 operator/(i32) except +
+        fn &mut i32 operator/(i32, &TestOps) except +
+        fn &mut i32 operator%(i32) except +
+        fn &mut i32 operator%(i32, &TestOps) except +
 
-        i32& operator|(i32) except +
-        i32& operator|(i32,const TestOps&) except +
-        i32& operator&(i32) except +
-        i32& operator&(i32,const TestOps&) except +
-        i32& operator^(i32) except +
-        i32& operator^(i32,const TestOps&) except +
-        i32& operator,(i32) except +
-        i32& operator,(i32,const TestOps&) except +
+        fn &mut i32 operator|(i32) except +
+        fn &mut i32 operator|(i32, &TestOps) except +
+        fn &mut i32 operator&(i32) except +
+        fn &mut i32 operator&(i32, &TestOps) except +
+        fn &mut i32 operator^(i32) except +
+        fn &mut i32 operator^(i32, &TestOps) except +
+        fn &mut i32 operator,(i32) except +
+        fn &mut i32 operator,(i32, &TestOps) except +
 
-        i32& operator<<(i32) except +
-        i32& operator<<(i32,const TestOps&) except +
-        i32& operator>>(i32) except +
-        i32& operator>>(i32,const TestOps&) except +
+        fn &mut i32 operator<<(i32) except +
+        fn &mut i32 operator<<(i32, &TestOps) except +
+        fn &mut i32 operator>>(i32) except +
+        fn &mut i32 operator>>(i32, &TestOps) except +
 
-        i32& operator==(i32) except +
-        i32& operator!=(i32) except +
-        i32& operator>=(i32) except +
-        i32& operator<=(i32) except +
-        i32& operator>(i32) except +
-        i32& operator<(i32) except +
+        fn &mut i32 operator==(i32) except +
+        fn &mut i32 operator!=(i32) except +
+        fn &mut i32 operator>=(i32) except +
+        fn &mut i32 operator<=(i32) except +
+        fn &mut i32 operator>(i32) except +
+        fn &mut i32 operator<(i32) except +
 
-        i32& operator[](i32) except +
-        i32& operator()(i32) except +
+        fn &mut i32 operator[](i32) except +
+        fn &mut i32 operator()(i32) except +
 
     cdef cppclass TruthClass:
         TruthClass()
         TruthClass(bool)
-        bool operator bool()
-        bool value
+        fn bool operator bool()
+        fn bool value
 
 
 cdef cppclass TruthSubClass(TruthClass):
@@ -339,7 +338,7 @@ def test_bool_cond():
     assert (TruthClass(true) and TruthClass(false)).value == false
     assert (TruthClass(true) and TruthClass(true)).value == true
 
-ctypedef i32* int_ptr
+type int_ptr = i32*
 
 def test_typeid_op():
     """
@@ -347,8 +346,8 @@ def test_typeid_op():
     """
     let TruthClass* test_1 = new TruthClass()
     let TruthSubClass* test_2 = new TruthSubClass()
-    let TruthClass* test_3 = <TruthClass*> test_2
-    let TruthClass* test_4 = <TruthClass*> 0
+    let auto test_3 = <TruthClass*>test_2
+    let auto test_4 = <TruthClass*>0
 
     assert typeid(TruthClass).name()
     assert typeid(test_1).name()

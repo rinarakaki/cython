@@ -7,20 +7,20 @@ extern from "<functional>" namespace "std" nogil:
         function(function&) except +
         function(void*) except +
 
-        function operator=(T*)
-        function operator=(function&)
-        function operator=(void*)
-        function operator=[U](U)
+        fn function operator=(T*)
+        fn function operator=(&mut function)
+        fn function operator=(void*)
+        fn function operator=[U](U)
 
-        bool operator bool()
+        fn bool operator bool()
 
     # Comparisons
     cdef cppclass greater[T=*]:
         # https://github.com/cython/cython/issues/3193
         greater() except +
-        bool operator()(const T& lhs, const T& rhs) except +
+        fn bool operator()(&T lhs, &T rhs) except +
 
     cdef cppclass reference_wrapper[T]:
         reference_wrapper()
         reference_wrapper(T)
-        T& get() const
+        fn &mut T get() const

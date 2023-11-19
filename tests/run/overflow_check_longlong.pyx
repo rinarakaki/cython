@@ -1,5 +1,5 @@
 # cython: overflowcheck.fold = false
 
-ctypedef i128 INT
+type INT = i128
 
 include "overflow_check.pxi"

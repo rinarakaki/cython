@@ -115,7 +115,8 @@ def compile_cython_modules(profile=False, coverage=False, compile_minimal=False,
     extensions.sort(key=lambda ext: os.path.getsize(ext.sources[0]), reverse=True)
 
     get_directive_defaults().update(
-        language_level=2,
+        language_level=3,
+        auto_pickle=False,
         binding=False,
         always_allow_keywords=False,
         autotestdict=False,
@@ -170,7 +171,78 @@ def run_build():
     if compile_cython_itself:
         compile_cython_modules(cython_profile, cython_coverage, cython_compile_minimal, cython_compile_more, cython_with_refnanny)
 
-    setup(**setup_args)
+    from Cython import __version__ as version
+    setup(
+        name='Cython',
+        version=version,
+        url='https://cython.org/',
+        author='Robert Bradshaw, Stefan Behnel, Dag Seljebotn, Greg Ewing, et al.',
+        author_email='cython-devel@python.org',
+        description="The Cython compiler for writing C extensions in the Python language.",
+        long_description=textwrap.dedent("""\
+        The Cython language makes writing C extensions for the Python language as
+        easy as Python itself.  Cython is a source code translator based on Pyrex_,
+        but supports more cutting edge functionality and optimizations.
+
+        The Cython language is a superset of the Python language (almost all Python
+        code is also valid Cython code), but Cython additionally supports optional
+        static typing to natively call C functions, operate with C++ classes and
+        declare fast C types on variables and class attributes.  This allows the
+        compiler to generate very efficient C code from Cython code.
+
+        This makes Cython the ideal language for writing glue code for external
+        C/C++ libraries, and for fast C modules that speed up the execution of
+        Python code.
+        
+        The newest Cython release can always be downloaded from https://cython.org/. 
+        Unpack the tarball or zip file, enter the directory, and then run::
+        
+            pip install .
+            
+        Note that for one-time builds, e.g. for CI/testing, on platforms that are not
+        covered by one of the wheel packages provided on PyPI *and* the pure Python wheel
+        that we provide is not used, it is substantially faster than a full source build
+        to install an uncompiled (slower) version of Cython with::
+
+            NO_CYTHON_COMPILE=true pip install .
+
+        .. _Pyrex: https://www.cosc.canterbury.ac.nz/greg.ewing/python/Pyrex/
+        """),
+        license='Apache-2.0',
+        classifiers=[
+            dev_status(version),
+            "Intended Audience :: Developers",
+            "License :: OSI Approved :: Apache Software License",
+            "Operating System :: OS Independent",
+            "Programming Language :: Python",
+            "Programming Language :: Python :: 3",
+            "Programming Language :: Python :: 3.7",
+            "Programming Language :: Python :: 3.8",
+            "Programming Language :: Python :: 3.9",
+            "Programming Language :: Python :: 3.10",
+            "Programming Language :: Python :: 3.11",
+            "Programming Language :: Python :: 3.12",
+            "Programming Language :: Python :: Implementation :: CPython",
+            "Programming Language :: Python :: Implementation :: PyPy",
+            "Programming Language :: C",
+            "Programming Language :: Cython",
+            "Topic :: Software Development :: Code Generators",
+            "Topic :: Software Development :: Compilers",
+            "Topic :: Software Development :: Libraries :: Python Modules"
+        ],
+        project_urls={
+            "Documentation": "https://cython.readthedocs.io/",
+            "Donate": "https://cython.readthedocs.io/en/latest/src/donating.html",
+            "Source Code": "https://github.com/cython/cython",
+            "Bug Tracker": "https://github.com/cython/cython/issues",
+            "User Group": "https://groups.google.com/g/cython-users",
+        },
+
+        scripts=scripts,
+        packages=packages,
+        py_modules=["cython"],
+        **setup_args
+    )
 
 
 if __name__ == '__main__':
