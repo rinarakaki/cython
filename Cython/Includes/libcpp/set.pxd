@@ -13,8 +13,8 @@ extern from "<set>" namespace "std" nogil:
         cppclass const_iterator
         cppclass iterator:
             iterator() except +
-            iterator(iterator&) except +
-            value_type& operator*()
+            fn iterator(&mut iterator) except +
+            fn &mut value_type operator*()
             iterator operator++()
             iterator operator--()
             iterator operator++(i32)
@@ -25,9 +25,9 @@ extern from "<set>" namespace "std" nogil:
             u2 operator!=(const_iterator)
         cppclass const_iterator:
             const_iterator() except +
-            const_iterator(iterator&) except +
-            const_iterator(const_iterator&) except +
-            operator=(iterator&) except +
+            fn const_iterator(&mut iterator) except +
+            fn const_iterator(&mut const_iterator) except +
+            fn operator=(&mut iterator) except +
             const value_type& operator*()
             const_iterator operator++()
             const_iterator operator--()
@@ -41,8 +41,8 @@ extern from "<set>" namespace "std" nogil:
         cppclass const_reverse_iterator
         cppclass reverse_iterator:
             reverse_iterator() except +
-            reverse_iterator(reverse_iterator&) except +
-            value_type& operator*()
+            fn reverse_iterator(&mut reverse_iterator) except +
+            fn &mut value_type operator*()
             reverse_iterator operator++()
             reverse_iterator operator--()
             reverse_iterator operator++(i32)
@@ -53,8 +53,8 @@ extern from "<set>" namespace "std" nogil:
             u2 operator!=(const_reverse_iterator)
         cppclass const_reverse_iterator:
             const_reverse_iterator() except +
-            const_reverse_iterator(reverse_iterator&) except +
-            operator=(reverse_iterator&) except +
+            fn const_reverse_iterator(&mut reverse_iterator) except +
+            fn operator=(&mut reverse_iterator) except +
             const value_type& operator*()
             const_reverse_iterator operator++()
             const_reverse_iterator operator--()
@@ -66,15 +66,15 @@ extern from "<set>" namespace "std" nogil:
             u2 operator!=(const_reverse_iterator)
 
         set() except +
-        set(set&) except +
-        # set(key_compare&)
-        # set& operator=(set&)
-        u2 operator==(set&, set&)
-        u2 operator!=(set&, set&)
-        u2 operator<(set&, set&)
-        u2 operator>(set&, set&)
-        u2 operator<=(set&, set&)
-        u2 operator>=(set&, set&)
+        fn set(&mut set) except +
+        # fn set(&mut key_compare)
+        # fn &mut set operator=(&mut set)
+        fn u2 operator==(&mut set, &mut set)
+        fn u2 operator!=(&mut set, &mut set)
+        fn u2 operator<(&mut set, &mut set)
+        fn u2 operator>(&mut set, &mut set)
+        fn u2 operator<=(&mut set, &mut set)
+        fn u2 operator>=(&mut set, &mut set)
         iterator begin()
         const_iterator const_begin "begin"()
         const_iterator cbegin()
@@ -108,7 +108,7 @@ extern from "<set>" namespace "std" nogil:
         const_reverse_iterator const_rend "rend"()
         const_reverse_iterator crend()
         usize size()
-        void swap(set&)
+        fn void swap(&mut set)
         iterator upper_bound(const T&)
         const_iterator const_upper_bound "upper_bound"(const T&)
         # value_compare value_comp()
@@ -127,8 +127,8 @@ extern from "<set>" namespace "std" nogil:
         cppclass const_iterator
         cppclass iterator:
             iterator() except +
-            iterator(iterator&) except +
-            value_type& operator*()
+            fn iterator(&mut iterator) except +
+            fn &mut value_type operator*()
             iterator operator++()
             iterator operator--()
             iterator operator++(i32)
@@ -139,9 +139,9 @@ extern from "<set>" namespace "std" nogil:
             u2 operator!=(const_iterator)
         cppclass const_iterator:
             const_iterator() except +
-            const_iterator(iterator&) except +
-            const_iterator(const_iterator&) except +
-            operator=(iterator&) except +
+            fn const_iterator(&mut iterator) except +
+            fn const_iterator(&mut const_iterator) except +
+            fn operator=(&mut iterator) except +
             const value_type& operator*()
             const_iterator operator++()
             const_iterator operator--()
@@ -155,8 +155,8 @@ extern from "<set>" namespace "std" nogil:
         cppclass const_reverse_iterator
         cppclass reverse_iterator:
             reverse_iterator() except +
-            reverse_iterator(reverse_iterator&) except +
-            value_type& operator*()
+            fn reverse_iterator(&mut reverse_iterator) except +
+            fn &mut value_type operator*()
             reverse_iterator operator++()
             reverse_iterator operator--()
             reverse_iterator operator++(i32)
@@ -167,8 +167,8 @@ extern from "<set>" namespace "std" nogil:
             u2 operator!=(const_reverse_iterator)
         cppclass const_reverse_iterator:
             const_reverse_iterator() except +
-            const_reverse_iterator(reverse_iterator&) except +
-            operator=(reverse_iterator&) except +
+            fn const_reverse_iterator(&mut reverse_iterator) except +
+            fn operator=(&mut reverse_iterator) except +
             const value_type& operator*()
             const_reverse_iterator operator++()
             const_reverse_iterator operator--()
@@ -180,15 +180,15 @@ extern from "<set>" namespace "std" nogil:
             u2 operator!=(const_reverse_iterator)
 
         multiset() except +
-        multiset(multiset&) except +
-        # multiset(key_compare&)
-        # multiset& operator=(multiset&)
-        u2 operator==(multiset&, multiset&)
-        u2 operator!=(multiset&, multiset&)
-        u2 operator<(multiset&, multiset&)
-        u2 operator>(multiset&, multiset&)
-        u2 operator<=(multiset&, multiset&)
-        u2 operator>=(multiset&, multiset&)
+        fn multiset(&mut multiset) except +
+        # fn multiset(&mut key_compare)
+        # fn &mut multiset operator=(&mut multiset)
+        fn u2 operator==(&mut multiset, &mut multiset)
+        fn u2 operator!=(&mut multiset, &mut multiset)
+        fn u2 operator<(&mut multiset, &mut multiset)
+        fn u2 operator>(&mut multiset, &mut multiset)
+        fn u2 operator<=(&mut multiset, &mut multiset)
+        fn u2 operator>=(&mut multiset, &mut multiset)
         iterator begin()
         const_iterator const_begin "begin"()
         const_iterator cbegin()
@@ -221,7 +221,7 @@ extern from "<set>" namespace "std" nogil:
         const_reverse_iterator const_rend "rend"()
         const_reverse_iterator crend()
         usize size()
-        void swap(multiset&)
+        fn void swap(&mut multiset)
         iterator upper_bound(const T&)
         const_iterator const_upper_bound "upper_bound"(const T&)
         # C++20

@@ -29,11 +29,11 @@ extern from "<memory>" namespace "std" nogil:
         void reset()
         void reset(nullptr_t)
         void reset(T*)
-        void swap(unique_ptr&)
+        fn void swap(&mut unique_ptr)
 
         # Observers
         T* get()
-        T& operator*()
+        fn &mut T operator*()
         # T* operator->() # Not Supported
         bool operator bool()
         bool operator!()
@@ -64,11 +64,11 @@ extern from "<memory>" namespace "std" nogil:
         # Modifiers
         void reset()
         void reset(T*)
-        void swap(shared_ptr&)
+        fn void swap(&mut shared_ptr)
 
         # Observers
         T* get()
-        T& operator*()
+        fn &mut T operator*()
         # T* operator->() # Not Supported
         long use_count()
         bool unique()
@@ -94,7 +94,7 @@ extern from "<memory>" namespace "std" nogil:
 
         # Modifiers
         void reset()
-        void swap(weak_ptr&)
+        fn void swap(&mut weak_ptr)
 
         # Observers
         long use_count()

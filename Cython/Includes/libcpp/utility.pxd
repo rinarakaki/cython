@@ -5,14 +5,14 @@ extern from "<utility>" namespace "std" nogil:
         T first
         U second
         fn pair() except +
-        fn pair(pair&) except +
-        fn pair(T&, U&) except +
-        fn u2 operator==(pair&, pair&)
-        fn u2 operator!=(pair&, pair&)
-        fn u2 operator<(pair&, pair&)
-        fn u2 operator>(pair&, pair&)
-        fn u2 operator<=(pair&, pair&)
-        fn u2 operator>=(pair&, pair&)
+        fn pair(&mut pair) except +
+        fn pair(&mut T, &mut U) except +
+        fn u2 operator==(&mut pair, &mut pair)
+        fn u2 operator!=(&mut pair, &mut pair)
+        fn u2 operator<(&mut pair, &mut pair)
+        fn u2 operator>(&mut pair, &mut pair)
+        fn u2 operator<=(&mut pair, &mut pair)
+        fn u2 operator>=(&mut pair, &mut pair)
 
 extern from * namespace "cython_std" nogil:
     """

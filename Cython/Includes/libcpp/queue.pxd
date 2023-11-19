@@ -1,25 +1,25 @@
 extern from "<queue>" namespace "std" nogil:
     cdef cppclass queue[T]:
         queue() except +
-        queue(queue&) except +
-        # queue(Container&)
-        T& back()
+        fn queue(&mut queue) except +
+        # queue(&mut Container)
+        fn &mut T back()
         u2 empty()
-        T& front()
+        fn &mut T front()
         void pop()
-        void push(T&)
+        fn void push(&mut T)
         usize size()
         # C++11 methods
-        void swap(queue&)
+        fn void swap(&mut queue)
 
     cdef cppclass priority_queue[T]:
         priority_queue() except +
-        priority_queue(priority_queue&) except +
-        # priority_queue(Container&)
+        fn priority_queue(&mut priority_queue) except +
+        # priority_queue(&mut Container)
         u2 empty()
         void pop()
-        void push(T&)
+        fn void push(&mut T)
         usize size()
-        T& top()
+        fn &mut T top()
         # C++11 methods
-        void swap(priority_queue&)
+        fn void swap(&mut priority_queue)

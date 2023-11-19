@@ -18,8 +18,8 @@ extern from "<string>" namespace "std" nogil:
         cppclass const_iterator
         cppclass iterator:
             iterator() except +
-            iterator(iterator&) except +
-            value_type& operator*()
+            fn iterator(&mut iterator) except +
+            fn &mut value_type operator*()
             iterator operator++()
             iterator operator--()
             iterator operator++(i32)
@@ -42,9 +42,9 @@ extern from "<string>" namespace "std" nogil:
             u2 operator>=(const_iterator)
         cppclass const_iterator:
             const_iterator() except +
-            const_iterator(iterator&) except +
-            const_iterator(const_iterator&) except +
-            operator=(iterator&) except +
+            fn const_iterator(&mut iterator) except +
+            fn const_iterator(&mut const_iterator) except +
+            fn operator=(&mut iterator) except +
             const value_type& operator*()
             const_iterator operator++()
             const_iterator operator--()
@@ -70,8 +70,8 @@ extern from "<string>" namespace "std" nogil:
         cppclass const_reverse_iterator
         cppclass reverse_iterator:
             reverse_iterator() except +
-            reverse_iterator(reverse_iterator&) except +
-            value_type& operator*()
+            fn reverse_iterator(&mut reverse_iterator) except +
+            fn &mut value_type operator*()
             reverse_iterator operator++()
             reverse_iterator operator--()
             reverse_iterator operator++(i32)
@@ -94,8 +94,8 @@ extern from "<string>" namespace "std" nogil:
             u2 operator>=(const_reverse_iterator)
         cppclass const_reverse_iterator:
             const_reverse_iterator() except +
-            const_reverse_iterator(reverse_iterator&) except +
-            operator=(reverse_iterator&) except +
+            fn const_reverse_iterator(&mut reverse_iterator) except +
+            fn operator=(&mut reverse_iterator) except +
             const value_type& operator*()
             const_reverse_iterator operator++()
             const_reverse_iterator operator--()
@@ -148,7 +148,7 @@ extern from "<string>" namespace "std" nogil:
         fn void resize(usize) except +
         fn void resize(usize, char) except +
         fn void shrink_to_fit() except +
-        fn void swap(string& other)
+        fn void swap(&mut string other)
         fn usize capacity()
         fn void reserve(usize) except +
         fn void clear()
@@ -158,14 +158,14 @@ extern from "<string>" namespace "std" nogil:
         iterator erase(iterator p)
         iterator erase(const_iterator first, const_iterator last)
         iterator erase(const_iterator p)
-        fn string& erase(usize pos, usize len) except +
-        fn string& erase(usize) except +
-        fn string& erase() except +
+        fn &mut string erase(usize pos, usize len) except +
+        fn &mut string erase(usize) except +
+        fn &mut string erase() except +
 
-        fn char& at(usize pos) except +
-        fn char& operator[](usize pos)
-        fn char& front()
-        fn char& back()
+        fn &mut char at(usize pos) except +
+        fn &mut char operator[](usize pos)
+        fn &mut char front()
+        fn &mut char back()
         fn i32 compare(const string& s)
         fn i32 compare(usize pos, usize len, const string& s) except +
         fn i32 compare(usize pos, usize len, const string& s, usize subpos, usize sublen) except +
@@ -173,26 +173,26 @@ extern from "<string>" namespace "std" nogil:
         fn i32 compare(usize pos, usize len, const char* s) except +
         fn i32 compare(usize pos, usize len, const char* s , usize n) except +
 
-        fn string& append(const string& s) except +
-        fn string& append(const string& s, usize subpos, usize sublen) except +
-        fn string& append(const char* s) except +
-        fn string& append(const char* s, usize n) except +
-        fn string& append(usize n, char c) except +
+        fn &mut string append(const string& s) except +
+        fn &mut string append(const string& s, usize subpos, usize sublen) except +
+        fn &mut string append(const char* s) except +
+        fn &mut string append(const char* s, usize n) except +
+        fn &mut string append(usize n, char c) except +
 
         fn void push_back(char c) except +
         fn void pop_back()
 
-        fn string& assign(const string& s) except +
-        fn string& assign(const string& s, usize subpos, usize sublen) except +
-        fn string& assign(const char* s, usize n) except +
-        fn string& assign(const char* s) except +
-        fn string& assign(usize n, char c) except +
+        fn &mut string assign(const string& s) except +
+        fn &mut string assign(const string& s, usize subpos, usize sublen) except +
+        fn &mut string assign(const char* s, usize n) except +
+        fn &mut string assign(const char* s) except +
+        fn &mut string assign(usize n, char c) except +
 
-        fn string& insert(usize pos, const string& s, usize subpos, usize sublen) except +
-        fn string& insert(usize pos, const string& s) except +
-        fn string& insert(usize pos, const char* s, usize n) except +
-        fn string& insert(usize pos, const char* s) except +
-        fn string& insert(usize pos, usize n, char c) except +
+        fn &mut string insert(usize pos, const string& s, usize subpos, usize sublen) except +
+        fn &mut string insert(usize pos, const string& s) except +
+        fn &mut string insert(usize pos, const char* s, usize n) except +
+        fn &mut string insert(usize pos, const char* s) except +
+        fn &mut string insert(usize pos, usize n, char c) except +
         fn void insert(iterator p, usize n, char c) except +
         iterator insert(iterator p, char c) except +
 
@@ -260,30 +260,30 @@ extern from "<string>" namespace "std" nogil:
         fn u2 contains(char c) except +
         fn u2 contains(const char* s)
 
-        # string& operator= (const string&)
-        # string& operator= (const char*)
-        # string& operator= (char)
+        # fn &mut string operator=(const string&)
+        # fn &mut string operator=(const char*)
+        # fn &mut string operator=(char)
 
-        fn string operator+ (const string&) except +
-        fn string operator+ (const char*) except +
+        fn string operator+(const string&) except +
+        fn string operator+(const char*) except +
 
         fn u2 operator==(const string&)
         fn u2 operator==(const char*)
 
-        fn u2 operator!= (const string&)
-        fn u2 operator!= (const char*)
+        fn u2 operator!=(const string&)
+        fn u2 operator!=(const char*)
 
-        fn u2 operator< (const string&)
-        fn u2 operator< (const char*)
+        fn u2 operator<(const string&)
+        fn u2 operator<(const char*)
 
-        fn u2 operator> (const string&)
-        fn u2 operator> (const char*)
+        fn u2 operator>(const string&)
+        fn u2 operator>(const char*)
 
-        fn u2 operator<= (const string&)
-        fn u2 operator<= (const char*)
+        fn u2 operator<=(const string&)
+        fn u2 operator<=(const char*)
 
-        fn u2 operator>= (const string&)
-        fn u2 operator>= (const char*)
+        fn u2 operator>=(const string&)
+        fn u2 operator>=(const char*)
 
 
     fn string to_string(i32 val) except +

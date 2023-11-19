@@ -10,25 +10,25 @@ extern from "<optional>" namespace "std" nogil:
         ctypedef T value_type
         optional()
         optional(nullopt_t)
-        optional(optional&) except +
-        optional(T&) except +
+        fn optional(&mut optional) except +
+        fn optional(&mut T) except +
         bool has_value()
-        T& value()
-        T& value_or[U](U& default_value)
-        void swap(optional&)
+        fn &mut T value()
+        fn &mut T value_or[U](&mut U default_value)
+        fn void swap(&mut optional)
         void reset()
-        T& emplace(...)
-        T& operator*()
+        fn &mut T emplace(...)
+        fn &mut T operator*()
         # T* operator->() # Not Supported
-        optional& operator=(optional&)
-        optional& operator=[U](U&)
+        fn &mut optional operator=(&mut optional)
+        fn &mut optional operator=[U](&mut U)
         bool operator bool()
         bool operator!()
-        bool operator==[U](optional&, U&)
-        bool operator!=[U](optional&, U&)
-        bool operator<[U](optional&, U&)
-        bool operator>[U](optional&, U&)
-        bool operator<=[U](optional&, U&)
-        bool operator>=[U](optional&, U&)
+        fn bool operator==[U](&mut optional, &mut U)
+        fn bool operator!=[U](&mut optional, &mut U)
+        fn bool operator<[U](&mut optional, &mut U)
+        fn bool operator>[U](&mut optional, &mut U)
+        fn bool operator<=[U](&mut optional, &mut U)
+        fn bool operator>=[U](&mut optional, &mut U)
 
     optional[T] make_optional[T](...) except +

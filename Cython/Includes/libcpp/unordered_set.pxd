@@ -13,8 +13,8 @@ extern from "<unordered_set>" namespace "std" nogil:
         cppclass const_iterator
         cppclass iterator:
             iterator() except +
-            iterator(iterator&) except +
-            value_type& operator*()
+            fn iterator(&mut iterator) except +
+            fn &mut value_type operator*()
             iterator operator++()
             iterator operator--()
             iterator operator++(i32)
@@ -25,8 +25,8 @@ extern from "<unordered_set>" namespace "std" nogil:
             fn u2 operator!=(const_iterator)
         cppclass const_iterator:
             fn const_iterator() except +
-            fn const_iterator(iterator&) except +
-            operator=(iterator&) except +
+            fn const_iterator(&mut iterator) except +
+            operator=(&mut iterator) except +
             fn const value_type& operator*()
             fn const_iterator operator++()
             fn const_iterator operator--()
@@ -38,10 +38,10 @@ extern from "<unordered_set>" namespace "std" nogil:
             fn u2 operator!=(const_iterator)
 
         unordered_set() except +
-        unordered_set(unordered_set&) except +
-        # unordered_set& operator=(unordered_set&)
-        fn u2 operator==(unordered_set&, unordered_set&)
-        fn u2 operator!=(unordered_set&, unordered_set&)
+        fn unordered_set(&mut unordered_set) except +
+        # fn &mut unordered_set operator=(&mut unordered_set)
+        fn u2 operator==(&mut unordered_set, &mut unordered_set)
+        fn u2 operator!=(&mut unordered_set, &mut unordered_set)
         iterator begin()
         fn const_iterator const_begin "begin"()
         fn const_iterator cbegin()
@@ -64,7 +64,7 @@ extern from "<unordered_set>" namespace "std" nogil:
         fn void insert[InputIt](InputIt, InputIt) except +
         fn usize max_size()
         fn usize size()
-        fn void swap(unordered_set&)
+        fn void swap(&mut unordered_set)
         # value_compare value_comp()
         fn void max_load_factor(float)
         fn float max_load_factor()
@@ -90,8 +90,8 @@ extern from "<unordered_set>" namespace "std" nogil:
         cppclass const_iterator
         cppclass iterator:
             iterator() except +
-            iterator(iterator&) except +
-            value_type& operator*()
+            fn iterator(&mut iterator) except +
+            fn &mut value_type operator*()
             iterator operator++()
             iterator operator++(i32)
             fn u2 operator==(iterator)
@@ -100,8 +100,8 @@ extern from "<unordered_set>" namespace "std" nogil:
             fn u2 operator!=(const_iterator)
         cppclass const_iterator:
             fn const_iterator() except +
-            fn const_iterator(iterator&) except +
-            operator=(iterator&) except +
+            fn const_iterator(&mut iterator) except +
+            fn operator=(&mut iterator) except +
             fn const value_type& operator*()
             fn const_iterator operator++()
             fn const_iterator operator++(i32)
@@ -111,10 +111,10 @@ extern from "<unordered_set>" namespace "std" nogil:
             fn u2 operator!=(const_iterator)
 
         unordered_multiset() except +
-        unordered_multiset(unordered_multiset&) except +
-        # unordered_multiset& operator=(unordered_multiset&)
-        fn u2 operator==(unordered_multiset&, unordered_multiset&)
-        fn u2 operator!=(unordered_multiset&, unordered_multiset&)
+        fn unordered_multiset(&mut unordered_multiset) except +
+        # fn &mut unordered_multiset operator=(&mut unordered_multiset)
+        fn u2 operator==(&mut unordered_multiset, &mut unordered_multiset)
+        fn u2 operator!=(&mut unordered_multiset, &mut unordered_multiset)
         iterator begin()
         fn const_iterator const_begin "begin"()
         fn const_iterator cbegin()
@@ -137,7 +137,7 @@ extern from "<unordered_set>" namespace "std" nogil:
         fn void insert[InputIt](InputIt, InputIt) except +
         fn usize max_size()
         fn usize size()
-        fn void swap(unordered_multiset&)
+        fn void swap(&mut unordered_multiset)
         # value_compare value_comp()
         fn void max_load_factor(float)
         fn float max_load_factor()

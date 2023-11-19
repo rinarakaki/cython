@@ -16,8 +16,8 @@ extern from "<unordered_map>" namespace "std" nogil:
         cppclass iterator
         cppclass iterator:
             iterator() except +
-            iterator(iterator&) except +
-            # correct would be value_type& but this does not work
+            fn iterator(&mut iterator) except +
+            # correct would be &mut value_type but this does not work
             # well with cython's code gen
             pair[T, U]& operator*()
             iterator operator++()
@@ -30,8 +30,8 @@ extern from "<unordered_map>" namespace "std" nogil:
             fn u2 operator!=(const_iterator)
         cppclass const_iterator:
             fn const_iterator() except +
-            fn const_iterator(iterator&) except +
-            operator=(iterator&) except +
+            fn const_iterator(&mut iterator) except +
+            fn operator=(&mut iterator) except +
             # correct would be const value_type& but this does not work
             # well with cython's code gen
             fn const pair[T, U]& operator*()
@@ -45,17 +45,17 @@ extern from "<unordered_map>" namespace "std" nogil:
             fn u2 operator!=(const_iterator)
 
         unordered_map() except +
-        unordered_map(unordered_map&) except +
-        # unordered_map(key_compare&)
-        U& operator[](const T&)
-        # unordered_map& operator=(unordered_map&)
-        fn u2 operator==(unordered_map&, unordered_map&)
-        fn u2 operator!=(unordered_map&, unordered_map&)
-        fn u2 operator<(unordered_map&, unordered_map&)
-        fn u2 operator>(unordered_map&, unordered_map&)
-        fn u2 operator<=(unordered_map&, unordered_map&)
-        fn u2 operator>=(unordered_map&, unordered_map&)
-        U& at(const T&) except +
+        fn unordered_map(&mut unordered_map) except +
+        # fn unordered_map(&mut key_compare)
+        fn &mut U operator[](const T&)
+        # fn &mut unordered_map operator=(&mut unordered_map)
+        fn u2 operator==(&mut unordered_map, &mut unordered_map)
+        fn u2 operator!=(&mut unordered_map, &mut unordered_map)
+        fn u2 operator<(&mut unordered_map, &mut unordered_map)
+        fn u2 operator>(&mut unordered_map, &mut unordered_map)
+        fn u2 operator<=(&mut unordered_map, &mut unordered_map)
+        fn u2 operator>=(&mut unordered_map, &mut unordered_map)
+        fn &mut U at(const T&) except +
         fn const U& const_at "at"(const T&) except +
         iterator begin()
         fn const_iterator const_begin "begin"()
@@ -82,7 +82,7 @@ extern from "<unordered_map>" namespace "std" nogil:
         fn const_iterator const_lower_bound "lower_bound"(const T&)
         fn usize max_size()
         fn usize size()
-        fn void swap(unordered_map&)
+        fn void swap(&mut unordered_map)
         iterator upper_bound(const T&)
         fn const_iterator const_upper_bound "upper_bound"(const T&)
         # value_compare value_comp()
@@ -113,8 +113,8 @@ extern from "<unordered_map>" namespace "std" nogil:
         cppclass const_iterator
         cppclass iterator:
             iterator() except +
-            iterator(iterator&) except +
-            # correct would be value_type& but this does not work
+            fn iterator(&mut iterator) except +
+            # correct would be &mut value_type but this does not work
             # well with cython's code gen
             pair[T, U]& operator*()
             iterator operator++()
@@ -125,8 +125,8 @@ extern from "<unordered_map>" namespace "std" nogil:
             fn u2 operator!=(const_iterator)
         cppclass const_iterator:
             fn const_iterator() except +
-            fn const_iterator(iterator&) except +
-            operator=(iterator&) except +
+            fn const_iterator(&mut iterator) except +
+            fn operator=(&mut iterator) except +
             # correct would be const value_type& but this does not work
             # well with cython's code gen
             fn const pair[T, U]& operator*()
@@ -139,8 +139,8 @@ extern from "<unordered_map>" namespace "std" nogil:
 
         unordered_multimap() except +
         unordered_multimap(const unordered_multimap&) except +
-        # unordered_multimap(key_compare&)
-        # unordered_map& operator=(unordered_multimap&)
+        # fn unordered_multimap(&mut key_compare)
+        # fn &mut unordered_map operator=(&mut unordered_multimap)
         fn u2 operator==(const unordered_multimap&, const unordered_multimap&)
         fn u2 operator!=(const unordered_multimap&, const unordered_multimap&)
         fn u2 operator<(const unordered_multimap&, const unordered_multimap&)
@@ -176,7 +176,7 @@ extern from "<unordered_map>" namespace "std" nogil:
         fn const_iterator const_lower_bound "lower_bound"(const T&)
         fn usize max_size()
         fn usize size()
-        fn void swap(unordered_multimap&)
+        fn void swap(&mut unordered_multimap)
         iterator upper_bound(const T&)
         fn const_iterator const_upper_bound "upper_bound"(const T&)
         # value_compare value_comp()
