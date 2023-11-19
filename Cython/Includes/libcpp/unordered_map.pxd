@@ -16,10 +16,10 @@ extern from "<unordered_map>" namespace "std" nogil:
         cppclass iterator
         cppclass iterator:
             iterator() except +
-            fn iterator(&mut iterator) except +
+            iterator(iterator&) except +
             # correct would be &mut value_type but this does not work
             # well with cython's code gen
-            pair[T, U]& operator*()
+            fn pair[T, U]& operator*()
             iterator operator++()
             iterator operator--()
             iterator operator++(i32)
@@ -29,8 +29,8 @@ extern from "<unordered_map>" namespace "std" nogil:
             fn u2 operator!=(iterator)
             fn u2 operator!=(const_iterator)
         cppclass const_iterator:
-            fn const_iterator() except +
-            fn const_iterator(&mut iterator) except +
+            const_iterator() except +
+            const_iterator(iterator&) except +
             fn operator=(&mut iterator) except +
             # correct would be const value_type& but this does not work
             # well with cython's code gen
@@ -113,10 +113,10 @@ extern from "<unordered_map>" namespace "std" nogil:
         cppclass const_iterator
         cppclass iterator:
             iterator() except +
-            fn iterator(&mut iterator) except +
+            iterator(iterator&) except +
             # correct would be &mut value_type but this does not work
             # well with cython's code gen
-            pair[T, U]& operator*()
+            fn pair[T, U]& operator*()
             iterator operator++()
             iterator operator++(i32)
             fn u2 operator==(iterator)
@@ -124,8 +124,8 @@ extern from "<unordered_map>" namespace "std" nogil:
             fn u2 operator!=(iterator)
             fn u2 operator!=(const_iterator)
         cppclass const_iterator:
-            fn const_iterator() except +
-            fn const_iterator(&mut iterator) except +
+            const_iterator() except +
+            const_iterator(iterator&) except +
             fn operator=(&mut iterator) except +
             # correct would be const value_type& but this does not work
             # well with cython's code gen
