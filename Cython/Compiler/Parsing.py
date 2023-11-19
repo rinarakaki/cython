@@ -3348,12 +3348,7 @@ def p_c_arg_decl(s, ctx, in_pyfunc, cmethod_flag = 0, nonempty = 0,
             is_self_arg = cmethod_flag, templates = None)
     else:
         base_type = p_c_base_type(s, nonempty=nonempty)
-    if isinstance(base_type, Nodes.CRefTypeNode):
-        print("!!!!! p_c_arg_decl !!!!!")
-        print(base_type)
     declarator = p_c_declarator(s, ctx, nonempty = nonempty)
-    if isinstance(base_type, Nodes.CRefTypeNode):
-        print(declarator)
     if s.sy in ('not', 'or') and not s.in_python_file:
         kind = s.sy
         s.next()
