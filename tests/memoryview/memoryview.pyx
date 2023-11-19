@@ -39,11 +39,11 @@ fn object returnobj():
     let obj = object()
     return obj
 
-fn float[:;1] returnmvs_inner():
+fn f32[:;1] returnmvs_inner():
     return array((10,), itemsize=sizeof(f32), format='f')
 
 fn f32[:;1] returnmvs():
-    let f32[:;1] mvs = returnmvs_inner()
+    let auto mvs = returnmvs_inner()
     return mvs
 
 def f():
@@ -164,7 +164,7 @@ def call():
     global global_mv
     passmvs(global_mv, global_obj)
     global_mv = array((3, 3), itemsize=sizeof(f32), format='f')
-    let f32[:;1] getmvs = returnmvs()
+    let auto getmvs = returnmvs()
     returnmvs()
     let object obj = returnobj()
     cdg()

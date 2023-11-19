@@ -77,7 +77,7 @@ extern from *:
 
 @cname("{{cname}}")
 fn i32 {{cname}}(object o, {{base_type}} *v, isize length) except -1:
-    let isize i = length
+    let auto i = length
     try:
         i = len(o)
     except (TypeError, OverflowError):
