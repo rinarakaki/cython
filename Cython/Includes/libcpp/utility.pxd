@@ -4,9 +4,9 @@ extern from "<utility>" namespace "std" nogil:
         ctypedef U second_type
         T first
         U second
-        fn pair() except +
-        fn pair(&mut pair) except +
-        fn pair(&mut T, &mut U) except +
+        pair() except +
+        pair(pair&) except +
+        pair(T&, U&) except +
         fn u2 operator==(&mut pair, &mut pair)
         fn u2 operator!=(&mut pair, &mut pair)
         fn u2 operator<(&mut pair, &mut pair)
