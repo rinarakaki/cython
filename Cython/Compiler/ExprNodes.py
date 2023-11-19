@@ -5912,7 +5912,7 @@ class StructExprNode(ExprNode):
         for field in self.fields:
             code.putln(".%s = %s, " % (
                 field.ident.name,
-                field.expr.generate_result_code()
+                field.expr.generate_result_code(code)
             ))
             field.generate_result_code(code)
         code.putln("};")
