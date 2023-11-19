@@ -20,7 +20,7 @@ extern from "<map>" namespace "std" nogil:
             iterator(iterator&) except +
             # correct would be &mut value_type but this does not work
             # well with cython's code gen
-            fn pair[T, U]& operator*()
+            fn &mut pair[T, U] operator*()
             fn iterator operator++()
             fn iterator operator--()
             fn iterator operator++(i32)
@@ -36,7 +36,7 @@ extern from "<map>" namespace "std" nogil:
             fn operator=(&mut iterator) except +
             # correct would be &value_type but this does not work
             # well with cython's code gen
-            fn const pair[T, U]& operator*()
+            fn &pair[T, U] operator*()
             fn const_iterator operator++()
             fn const_iterator operator--()
             fn const_iterator operator++(i32)
@@ -52,7 +52,7 @@ extern from "<map>" namespace "std" nogil:
             reverse_iterator(reverse_iterator&) except +
             # correct would be &mut value_type but this does not work
             # well with cython's code gen
-            fn pair[T, U]& operator*()
+            fn &mut pair[T, U] operator*()
             fn reverse_iterator operator++()
             fn reverse_iterator operator--()
             fn reverse_iterator operator++(i32)
@@ -67,7 +67,7 @@ extern from "<map>" namespace "std" nogil:
             fn operator=(&mut reverse_iterator) except +
             # correct would be &value_type but this does not work
             # well with cython's code gen
-            fn const pair[T, U]& operator*()
+            fn &pair[T, U] operator*()
             fn const_reverse_iterator operator++()
             fn const_reverse_iterator operator--()
             fn const_reverse_iterator operator++(i32)
@@ -107,8 +107,8 @@ extern from "<map>" namespace "std" nogil:
         fn usize erase(&T)
         fn iterator find(&T)
         fn const_iterator const_find "find" (&T)
-        fn pair[iterator, u2] insert(const pair[T, U]&) except +
-        fn iterator insert(const_iterator, const pair[T, U]&) except +
+        fn pair[iterator, u2] insert(&pair[T, U]) except +
+        fn iterator insert(const_iterator, &pair[T, U]) except +
         fn void insert[InputIt](InputIt, InputIt) except +
         # fn key_compare key_comp()
         fn iterator lower_bound(&T)
@@ -147,7 +147,7 @@ extern from "<map>" namespace "std" nogil:
             iterator(iterator&) except +
             # correct would be &mut value_type but this does not work
             # well with cython's code gen
-            fn pair[T, U]& operator*()
+            fn &mut pair[T, U] operator*()
             fn iterator operator++()
             fn iterator operator--()
             fn iterator operator++(i32)
@@ -163,7 +163,7 @@ extern from "<map>" namespace "std" nogil:
             fn operator=(&mut iterator) except +
             # correct would be &value_type but this does not work
             # well with cython's code gen
-            fn const pair[T, U]& operator*()
+            fn &pair[T, U] operator*()
             fn const_iterator operator++()
             fn const_iterator operator--()
             fn const_iterator operator++(i32)
@@ -179,7 +179,7 @@ extern from "<map>" namespace "std" nogil:
             reverse_iterator(reverse_iterator&) except +
             # correct would be &mut value_type but this does not work
             # well with cython's code gen
-            fn pair[T, U]& operator*()
+            fn &mut pair[T, U] operator*()
             fn reverse_iterator operator++()
             fn reverse_iterator operator--()
             fn reverse_iterator operator++(i32)
@@ -194,7 +194,7 @@ extern from "<map>" namespace "std" nogil:
             fn operator=(&mut reverse_iterator) except +
             # correct would be &value_type but this does not work
             # well with cython's code gen
-            fn const pair[T, U]& operator*()
+            fn &pair[T, U] operator*()
             fn const_reverse_iterator operator++()
             fn const_reverse_iterator operator--()
             fn const_reverse_iterator operator++(i32)
@@ -231,8 +231,8 @@ extern from "<map>" namespace "std" nogil:
         fn usize erase(&T)
         fn iterator find(&T)
         fn const_iterator const_find "find"(&T)
-        fn iterator insert(const pair[T, U]&) except +
-        fn iterator insert(const_iterator, const pair[T, U]&) except +
+        fn iterator insert(&pair[T, U]) except +
+        fn iterator insert(const_iterator, &pair[T, U]) except +
         fn void insert[InputIt](InputIt, InputIt) except +
         # fn key_compare key_comp()
         fn iterator lower_bound(&T)
