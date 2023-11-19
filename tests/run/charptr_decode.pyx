@@ -7,7 +7,7 @@ extern from *:
 # ##########################################################
 # tests for char* slicing
 
-cdef &char cstring = "abcABCqtp"
+cdef const char* cstring = "abcABCqtp"
 
 #[cython::test_assert_path_exists("//PythonCapiCallNode")]
 #[cython::test_fail_if_path_exists("//AttributeNode")]
@@ -28,7 +28,7 @@ def slice_charptr_decode_platform_encoding():
     ('a', 'abc', 'abcABCqtp')
     """
     let bytes s = u'abcABCqtp'.encode()
-    let &char cstr = s
+    let char* cstr = s
     return (cstr[:1].decode(),
             cstr[:3].decode(),
             cstr[:9].decode())
@@ -40,8 +40,8 @@ def slice_charptr_decode_unknown_encoding():
     >>> print(str(slice_charptr_decode_unknown_encoding()).replace("u'", "'"))
     ('abcABCqtp', 'abcABCqtp', 'abc', 'abcABCqt')
     """
-    let &char enc = 'UTF-8'
-    let &char error_handling = 'strict'
+    let const char* enc = 'UTF-8'
+    let const char* error_handling = 'strict'
     return (cstring.decode(enc),
             cstring.decode(enc, error_handling),
             cstring[:3].decode(enc),

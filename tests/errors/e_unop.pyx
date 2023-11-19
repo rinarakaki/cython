@@ -2,7 +2,7 @@
 
 def f():
     let i32 int1
-    let &char str2
+    let char* str2
     int1 = -str2  # error
     int1 = ~str2  # error
 

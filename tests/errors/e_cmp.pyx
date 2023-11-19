@@ -2,8 +2,8 @@
 
 fn void foo():
     let i32 bool, int1
-    let &char ptr2
-    let &i32 ptr3
+    let char* ptr2
+    let i32* ptr3
     let object i = 5
 
     bool = i == ptr2  # evaluated in Python space

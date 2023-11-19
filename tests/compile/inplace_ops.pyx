@@ -2,7 +2,7 @@
 
 def test():
     let object a = 1, b = 2
-    let &mut char p = 'abc'
+    let char* p = 'abc'
     a += b
     a -= b
     a *= b
