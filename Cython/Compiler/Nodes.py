@@ -1193,7 +1193,7 @@ class CRefTypeNode(CBaseTypeNode):
     def analyse(self, env, could_be_name=False):
         base_type = self.base_type.analyse(env)
         if base_type.is_pyobject:
-            error(self.pos, "Pointer base type cannot be a Python object")
+            error(self.pos, "Reference base type cannot be a Python object")
         return PyrexTypes.c_ref_type(base_type)
 
 
