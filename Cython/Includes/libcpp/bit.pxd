@@ -3,7 +3,7 @@ extern from "<bit>" namespace "std" nogil:
     fn To bit_cast[To, From](&mut From)
 
     # byteswap (C++23)
-    # cdef T byteswap[T](T)
+    # fn T byteswap[T](T)
 
     # integral powers of 2 (gcc >= 10.0, clang >= 12.0)
     fn u2 has_single_bit[T](T)

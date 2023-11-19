@@ -14,14 +14,14 @@ extern from "<deque>" namespace "std" nogil:
             iterator() except +
             iterator(iterator&) except +
             fn &mut value_type operator*()
-            iterator operator++()
-            iterator operator--()
-            iterator operator++(i32)
-            iterator operator--(i32)
-            iterator operator+(size_type)
-            iterator operator-(size_type)
-            difference_type operator-(iterator)
-            difference_type operator-(const_iterator)
+            fn iterator operator++()
+            fn iterator operator--()
+            fn iterator operator++(i32)
+            fn iterator operator--(i32)
+            fn iterator operator+(size_type)
+            fn iterator operator-(size_type)
+            fn difference_type operator-(iterator)
+            fn difference_type operator-(const_iterator)
             fn u2 operator==(iterator)
             fn u2 operator==(const_iterator)
             fn u2 operator!=(iterator)
@@ -39,15 +39,15 @@ extern from "<deque>" namespace "std" nogil:
             const_iterator(iterator&) except +
             const_iterator(const_iterator&) except +
             fn operator=(&mut iterator) except +
-            const value_type& operator*()
-            const_iterator operator++()
-            const_iterator operator--()
-            const_iterator operator++(i32)
-            const_iterator operator--(i32)
-            const_iterator operator+(size_type)
-            const_iterator operator-(size_type)
-            difference_type operator-(iterator)
-            difference_type operator-(const_iterator)
+            fn &value_type operator*()
+            fn const_iterator operator++()
+            fn const_iterator operator--()
+            fn const_iterator operator++(i32)
+            fn const_iterator operator--(i32)
+            fn const_iterator operator+(size_type)
+            fn const_iterator operator-(size_type)
+            fn difference_type operator-(iterator)
+            fn difference_type operator-(const_iterator)
             fn u2 operator==(iterator)
             fn u2 operator==(const_iterator)
             fn u2 operator!=(iterator)
@@ -66,14 +66,14 @@ extern from "<deque>" namespace "std" nogil:
             reverse_iterator() except +
             reverse_iterator(reverse_iterator&) except +
             fn &mut value_type operator*()
-            reverse_iterator operator++()
-            reverse_iterator operator--()
-            reverse_iterator operator++(i32)
-            reverse_iterator operator--(i32)
-            reverse_iterator operator+(size_type)
-            reverse_iterator operator-(size_type)
-            difference_type operator-(iterator)
-            difference_type operator-(const_iterator)
+            fn reverse_iterator operator++()
+            fn reverse_iterator operator--()
+            fn reverse_iterator operator++(i32)
+            fn reverse_iterator operator--(i32)
+            fn reverse_iterator operator+(size_type)
+            fn reverse_iterator operator-(size_type)
+            fn difference_type operator-(iterator)
+            fn difference_type operator-(const_iterator)
             fn u2 operator==(reverse_iterator)
             fn u2 operator==(const_reverse_iterator)
             fn u2 operator!=(reverse_iterator)
@@ -90,15 +90,15 @@ extern from "<deque>" namespace "std" nogil:
             const_reverse_iterator() except +
             const_reverse_iterator(reverse_iterator&) except +
             fn operator=(&mut reverse_iterator) except +
-            const value_type& operator*()
-            const_reverse_iterator operator++()
-            const_reverse_iterator operator--()
-            const_reverse_iterator operator++(i32)
-            const_reverse_iterator operator--(i32)
-            const_reverse_iterator operator+(size_type)
-            const_reverse_iterator operator-(size_type)
-            difference_type operator-(iterator)
-            difference_type operator-(const_iterator)
+            fn &value_type operator*()
+            fn const_reverse_iterator operator++()
+            fn const_reverse_iterator operator--()
+            fn const_reverse_iterator operator++(i32)
+            fn const_reverse_iterator operator--(i32)
+            fn const_reverse_iterator operator+(size_type)
+            fn const_reverse_iterator operator-(size_type)
+            fn difference_type operator-(iterator)
+            fn difference_type operator-(const_iterator)
             fn u2 operator==(reverse_iterator)
             fn u2 operator==(const_reverse_iterator)
             fn u2 operator!=(reverse_iterator)
@@ -118,46 +118,46 @@ extern from "<deque>" namespace "std" nogil:
         deque(usize, T&) except +
         # deque[InputIt](InputIt, InputIt)
         fn &mut T operator[](usize)
-        # &mut deque operator=(&mut deque)
+        # fn &mut deque operator=(&mut deque)
         fn u2 operator==(&mut deque, &mut deque)
         fn u2 operator!=(&mut deque, &mut deque)
         fn u2 operator<(&mut deque, &mut deque)
         fn u2 operator>(&mut deque, &mut deque)
         fn u2 operator<=(&mut deque, &mut deque)
         fn u2 operator>=(&mut deque, &mut deque)
-        void assign(usize, &mut T) except +
-        void assign[InputIt](InputIt, InputIt) except +
+        fn void assign(usize, &mut T) except +
+        fn void assign[InputIt](InputIt, InputIt) except +
         fn &mut T at(usize) except +
         fn &mut T back()
-        iterator begin()
-        const_iterator const_begin "begin"()
-        const_iterator cbegin()
-        void clear()
+        fn iterator begin()
+        fn const_iterator const_begin "begin"()
+        fn const_iterator cbegin()
+        fn void clear()
         fn u2 empty()
-        iterator end()
-        const_iterator const_end "end"()
-        const_iterator cend()
-        iterator erase(iterator) except +
-        iterator erase(iterator, iterator) except +
+        fn iterator end()
+        fn const_iterator const_end "end"()
+        fn const_iterator cend()
+        fn iterator erase(iterator) except +
+        fn iterator erase(iterator, iterator) except +
         fn &mut T front()
         fn iterator insert(iterator, &mut T) except +
         fn void insert(iterator, usize, &mut T) except +
-        void insert[InputIt](iterator, InputIt, InputIt) except +
-        usize max_size()
-        void pop_back()
-        void pop_front()
+        fn void insert[InputIt](iterator, InputIt, InputIt) except +
+        fn usize max_size()
+        fn void pop_back()
+        fn void pop_front()
         fn void push_back(&mut T) except +
         fn void push_front(&mut T) except +
-        reverse_iterator rbegin()
-        # const_reverse_iterator rbegin()
-        const_reverse_iterator crbegin()
-        reverse_iterator rend()
-        # const_reverse_iterator rend()
-        const_reverse_iterator crend()
-        void resize(usize) except +
+        fn reverse_iterator rbegin()
+        # fn const_reverse_iterator rbegin()
+        fn const_reverse_iterator crbegin()
+        fn reverse_iterator rend()
+        # fn const_reverse_iterator rend()
+        fn const_reverse_iterator crend()
+        fn void resize(usize) except +
         fn void resize(usize, &mut T) except +
-        usize size()
+        fn usize size()
         fn void swap(&mut deque)
 
         # C++11 methods
-        void shrink_to_fit() except +
+        fn void shrink_to_fit() except +
