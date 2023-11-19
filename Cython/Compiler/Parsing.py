@@ -2701,7 +2701,7 @@ def p_c_base_type(s, nonempty=False, templates=None):
         else:
             mutable = 0
 
-        base_type = p_c_base_type(s, nonempty=nonempty, templates=templates)
+        base_type = p_c_base_type(s, nonempty=0, templates=templates)
         if not mutable:
             base_type = Nodes.CConstOrVolatileTypeNode(pos,
                 base_type=base_type, is_const=1, is_volatile=0
@@ -2788,7 +2788,7 @@ def p_c_simple_base_type(s, nonempty, templates=None):
     module_path = []
     pos = s.position()
 
-    if s.sy != 'IDENT':
+    if s.sy != "IDENT":
         error(pos, "Expected an identifier, found '%s'" % s.sy)
     if looking_at_base_type(s):
         is_builtin = 1
