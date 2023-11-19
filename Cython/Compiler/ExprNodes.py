@@ -5914,7 +5914,6 @@ class StructExprNode(ExprNode):
                 field.ident.name,
                 field.expr.generate_result_code(code)
             ))
-            field.generate_result_code(code)
         code.putln("};")
 
 
@@ -5933,6 +5932,9 @@ class ExprFieldNode(ExprNode):
         # self.ident = self.ident.analyse_types(env)
         self.expr = self.expr.analyse_types(env)
         return self
+    
+    def generate_result_code(self, code):
+        self.expr.generate_result_code(code)
 
     def generate_evaluation_code(self, code):
         # self.ident.generate_evaluation_code(code)
