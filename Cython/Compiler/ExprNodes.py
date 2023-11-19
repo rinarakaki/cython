@@ -5918,7 +5918,7 @@ class StructExprNode(ExprNode):
     
     def calculate_result_code(self):
         return "{ %s };" % (
-            ",".join([".%s = %s, " % (
+            ", ".join([".%s = %s" % (
                 field.ident.name,
                 field.expr.calculate_result_code(code)
             ) for field in self.fields]))
