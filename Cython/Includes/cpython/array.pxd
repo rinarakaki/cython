@@ -143,14 +143,14 @@ fn inline array clone(array template, isize length, u2 zero):
     type will be same as template.
     if zero is true, new array will be initialized with zeroes.
     """
-    let array op = newarrayobject(Py_TYPE(template), length, template.ob_descr)
+    let auto op = newarrayobject(Py_TYPE(template), length, template.ob_descr)
     if zero and op is not None:
         memset(op.data.as_chars, 0, length * op.ob_descr.itemsize)
     return op
 
 fn inline array copy(array self):
     """ make a copy of an array. """
-    let array op = newarrayobject(Py_TYPE(self), Py_SIZE(self), self.ob_descr)
+    let auto op = newarrayobject(Py_TYPE(self), Py_SIZE(self), self.ob_descr)
     memcpy(op.data.as_chars, self.data.as_chars, Py_SIZE(op) * op.ob_descr.itemsize)
     return op
 
@@ -159,7 +159,7 @@ fn inline i32 extend_buffer(array self, char* stuff, isize n) except -1:
     (e.g. of same array type)
     n: number of elements (not number of bytes!) """
     let isize itemsize = self.ob_descr.itemsize
-    let isize origsize = Py_SIZE(self)
+    let auto origsize = Py_SIZE(self)
     resize_smart(self, origsize + n)
     memcpy(self.data.as_chars + origsize * itemsize, stuff, n * itemsize)
     return 0
