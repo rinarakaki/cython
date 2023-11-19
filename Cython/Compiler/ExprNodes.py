@@ -5920,8 +5920,8 @@ class StructExprNode(ExprNode):
         return "{ %s };" % (
             ", ".join([".%s = %s" % (
                 field.ident.name,
-                field.expr.calculate_result_code(code)
-            ) for field in self.fields]))
+                field.expr.calculate_result_code()
+            ) for field in self.fields])
         )
 
 
