@@ -10,8 +10,8 @@ extern from "<optional>" namespace "std" nogil:
         ctypedef T value_type
         optional()
         optional(nullopt_t)
-        fn optional(&mut optional) except +
-        fn optional(&mut T) except +
+        optional(optional&) except +
+        optional(T&) except +
         bool has_value()
         fn &mut T value()
         fn &mut T value_or[U](&mut U default_value)
