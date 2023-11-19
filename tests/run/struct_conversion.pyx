@@ -110,7 +110,7 @@ def test_pointers(i32 n, f64 x):
     let with_pointers a = [true, {'n': n}, NULL]
     let with_pointers b = with_pointers {
         is_integral = false,
-        data = {'x': x},
+        data = int_or_float { x },
         ptr = NULL
     }
     print a.data.n
@@ -172,7 +172,7 @@ struct OverriddenCname:
 
 def test_obj_to_struct_cnames(OverriddenCname s):
     """
-    >>> test_obj_to_struct_cnames({ 'x': 1 })
+    >>> test_obj_to_struct_cnames(OverriddenCname { x = 1 })
     1
     """
     print(s.x)
