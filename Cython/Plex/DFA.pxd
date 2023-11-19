@@ -1,5 +1,3 @@
-# cython: auto_pickle=false
-
 use cython
 
 use super::Machines

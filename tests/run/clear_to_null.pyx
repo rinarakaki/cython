@@ -46,7 +46,7 @@ cdef class TpClearFixture:
         self.extension_type = ExtensionType()
 
     def call_tp_clear(self):
-        cdef PyTypeObject *pto = Py_TYPE(self)
+        let PyTypeObject *pto = Py_TYPE(self)
         pto.tp_clear(self)
 
     def check_any_object_status(self):

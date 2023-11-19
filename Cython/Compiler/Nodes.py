@@ -5,14 +5,14 @@
 
 import cython
 
-cython.declare(sys=object, os=object, copy=object,
+cython.declare(os=object, copy=object, chain=object,
                Builtin=object, error=object, warning=object, Naming=object, PyrexTypes=object,
                py_object_type=object, ModuleScope=object, LocalScope=object, ClosureScope=object,
                StructOrUnionScope=object, PyClassScope=object,
                CppClassScope=object, UtilityCode=object, EncodedString=object,
-               error_type=object, _py_int_types=object)
+               error_type=object)
 
-import sys, copy
+import copy
 from itertools import chain
 
 from . import Builtin
@@ -31,12 +31,6 @@ from . import Options
 from . import DebugFlags
 from .Pythran import has_np_pythran, pythran_type, is_pythran_buffer
 from ..Utils import add_metaclass, str_to_number
-
-
-if sys.version_info[0] >= 3:
-    _py_int_types = int
-else:
-    _py_int_types = (int, long)
 
 
 IMPLICIT_CLASSMETHODS = {"__init_subclass__", "__class_getitem__"}
@@ -1191,6 +1185,29 @@ class CPtrTypeNode(CBaseTypeNode):
         return PyrexTypes.c_ptr_type(base_type)
 
 
+class CRefTypeNode(CBaseTypeNode):
+    # base_type     CBaseTypeNode
+
+    child_attrs = ["base_type"]
+
+    def analyse(self, env, could_be_name=False):
+        base_type = self.base_type.analyse(env)
+        if base_type.is_pyobject:
+            error(self.pos, "Reference base type cannot be a Python object")
+        return PyrexTypes.c_ref_type(base_type)
+
+class CRvalueRefTypeNode(CBaseTypeNode):
+    # base_type     CBaseTypeNode
+
+    child_attrs = ["base_type"]
+
+    def analyse(self, env, could_be_name=False):
+        base_type = self.base_type.analyse(env)
+        if base_type.is_pyobject:
+            error(self.pos, "Rvalue-reference base type cannot be a Python object")
+        return PyrexTypes.cpp_rvalue_ref_type(base_type)
+
+
 class MemoryViewSliceTypeNode(CBaseTypeNode):
 
     name = 'memoryview'
@@ -1318,11 +1335,6 @@ class TemplatedTypeNode(CBaseTypeNode):
                 self.positional_args,
                 self.keyword_args,
                 base_type.buffer_defaults)
-
-            if sys.version_info[0] < 3:
-                # Py 2.x enforces byte strings as keyword arguments ...
-                options = {name.encode('ASCII'): value
-                           for name, value in options.items()}
 
             self.type = PyrexTypes.BufferType(base_type, **options)
             if has_np_pythran(env) and is_pythran_buffer(self.type):
@@ -6456,7 +6468,7 @@ class SingleAssignmentNode(AssignmentNode):
                     if node.type.is_array and node.type.size:
                         stop_node = ExprNodes.IntNode(
                             self.pos, value=str(node.type.size),
-                            constant_result=(node.type.size if isinstance(node.type.size, _py_int_types)
+                            constant_result=(node.type.size if isinstance(node.type.size, int)
                                              else ExprNodes.constant_value_not_set))
                     else:
                         error(self.pos, "C array iteration requires known end index")
@@ -6482,7 +6494,7 @@ class SingleAssignmentNode(AssignmentNode):
 
             elif node.type.is_array:
                 slice_size = node.type.size
-                if not isinstance(slice_size, _py_int_types):
+                if not isinstance(slice_size, int):
                     return  # might still work when coercing to Python
             else:
                 return
@@ -9059,13 +9071,6 @@ utility_code_for_cimports = {
     'cpython.array'         : lambda : UtilityCode.load_cached("ArrayAPI", "arrayarray.h"),
     'cpython.array.array'   : lambda : UtilityCode.load_cached("ArrayAPI", "arrayarray.h"),
     'cython.view'           : cython_view_utility_code,
-}
-
-utility_code_for_imports = {
-    # utility code used when special modules are imported.
-    # TODO: Consider a generic user-level mechanism for importing
-    'asyncio': ("__Pyx_patch_asyncio", "PatchAsyncIO", "Coroutine.c"),
-    'inspect': ("__Pyx_patch_inspect", "PatchInspect", "Coroutine.c"),
 }
 
 def cimport_numpy_check(node, code):
