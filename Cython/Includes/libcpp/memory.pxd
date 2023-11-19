@@ -34,7 +34,7 @@ extern from "<memory>" namespace "std" nogil:
         # Observers
         fn T* get()
         fn &mut T operator*()
-        # T* operator->() # Not Supported
+        # fn T* operator->() # Not Supported
         fn bool operator bool()
         fn bool operator!()
 
@@ -45,7 +45,7 @@ extern from "<memory>" namespace "std" nogil:
         fn bool operator<=(&unique_ptr)
         fn bool operator>=(&unique_ptr)
 
-        fn fn bool operator==(nullptr_t)
+        fn bool operator==(nullptr_t)
         fn bool operator!=(nullptr_t)
 
     # Forward Declaration not working ("Compiler crash in AnalyseDeclarationsTransform")

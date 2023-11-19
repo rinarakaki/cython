@@ -27,7 +27,7 @@ extern from "<list>" namespace "std" nogil:
             const_iterator(iterator&) except +
             const_iterator(const_iterator&) except +
             fn operator=(&mut iterator) except +
-            fn const value_type& operator*()
+            fn &value_type operator*()
             fn const_iterator operator++()
             fn const_iterator operator--()
             fn const_iterator operator++(i32)
@@ -54,7 +54,7 @@ extern from "<list>" namespace "std" nogil:
             const_reverse_iterator() except +
             const_reverse_iterator(reverse_iterator&) except +
             fn operator=(&mut reverse_iterator) except +
-            fn const value_type& operator*()
+            fn &value_type operator*()
             fn const_reverse_iterator operator++()
             fn const_reverse_iterator operator--()
             fn const_reverse_iterator operator++(i32)
