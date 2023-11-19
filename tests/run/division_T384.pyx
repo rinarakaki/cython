@@ -7,9 +7,9 @@
 
 use cython
 
-ctypedef isize index_t
+type index_t = isize
 
-ctypedef c128 mycomplex
+type mycomplex = c128
 
 struct MyStruct:
     mycomplex a, b

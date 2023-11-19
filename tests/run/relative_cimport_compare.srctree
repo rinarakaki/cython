@@ -135,7 +135,7 @@ use super::super::sub::sub2::b::b_type
 
 ######## cypkg/sub/a.pxd ########
 
-ctypedef int a_type
+type a_type = i32
 
 ######## cypkg/sub/submodule.pyx ########
 
@@ -178,7 +178,7 @@ use super::super::super::sub::sub2::b::b_type
 
 ######## cypkg/sub/sub2/b.pxd ########
 
-ctypedef int b_type
+type b_type = i32
 
 ######## cypkg/sub/sub2/sub2module.pyx ########
 

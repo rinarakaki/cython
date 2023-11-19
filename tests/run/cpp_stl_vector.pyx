@@ -178,8 +178,8 @@ def test_bool_vector_get_set():
     v[1] = false
     assert <object>v == [True, False, True, True, True]
 
-ctypedef vector[cbool] vector_bool
-ctypedef vector[i32] vector_int
+type vector_bool = vector[cbool]
+type vector_int = vector[i32]
 
 def test_typedef_vector(L):
     """

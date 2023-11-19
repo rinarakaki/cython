@@ -11,9 +11,9 @@ extern from "<vector>" namespace "std":
             fn u2 operator==(iterator)
             fn u2 operator!=(iterator)
         vector()
-        fn void push_back(T&)
-        fn T& operator[](usize)
-        fn T& at(usize)
+        fn void push_back(&mut T)
+        fn &mut T operator[](usize)
+        fn &mut T at(usize)
         fn iterator begin()
         fn iterator end()
 

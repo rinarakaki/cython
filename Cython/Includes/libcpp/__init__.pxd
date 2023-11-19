@@ -1,4 +1,4 @@
 extern from *:
-    ctypedef u2 bool
-    ctypedef void* nullptr_t
+    type bool = u2
+    type nullptr_t = void*
     static nullptr_t nullptr

@@ -8,9 +8,9 @@ extern from "<vector>" namespace "std":
             fn u2 operator==(iterator)
             fn u2 operator!=(iterator)
         vector()
-        fn void push_back(T&)
-        fn T& operator[](i32)
-        fn T& at(i32)
+        fn void push_back(&mut T)
+        fn &mut T operator[](i32)
+        fn &mut T at(i32)
         fn iterator begin()
         fn iterator end()
 

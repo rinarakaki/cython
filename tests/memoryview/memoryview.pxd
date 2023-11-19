@@ -1,4 +1,4 @@
-ctypedef f32 ext_dtype
+type ext_dtype = f32
 
 extern from "bufaccess.h":
-    ctypedef f32 td_h_double
+    type td_h_double = f32

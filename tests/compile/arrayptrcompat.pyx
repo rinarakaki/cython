@@ -4,8 +4,8 @@ enum E:
     Z
 
 fn void f():
-    let i32 *p
-    let void *v
+    let i32* p
+    let void* v
     let i32[5] a
     let i32 i = 0
     let E e = E::Z

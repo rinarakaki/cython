@@ -22,7 +22,7 @@
 # always locally override this convention by putting something like
 #
 #     extern from "Python.h":
-#         PyObject* PyNumber_Add(PyObject *o1, PyObject *o2)
+#         fn PyObject* PyNumber_Add(PyObject* o1, PyObject* o2)
 #
 # in your .pyx file or into a cimported .pxd file.  You just have to
 # use the one from the right (pxd-)namespace then.

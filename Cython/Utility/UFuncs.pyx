@@ -1,14 +1,14 @@
 ##################### UFuncDefinition ######################
 
 extern from *:
-    ctypedef i32 npy_intp
+    type npy_intp = i32
     struct PyObject
     fn PyObject* __Pyx_NewRef(object)
     fn {{inline_func_declaration}}
 
 # variable names have to come from tempita to avoid duplication
 @cname("{{func_cname}}")
-fn void {{func_cname}}(char **args, const npy_intp *dimensions, const npy_intp* steps, void* data) except * {{"nogil" if will_be_called_without_gil else ""}}:
+fn void {{func_cname}}(char** args, const npy_intp* dimensions, const npy_intp* steps, void* data) except * {{"nogil" if will_be_called_without_gil else ""}}:
     let npy_intp i
     let npy_intp n = dimensions[0]
     {{for idx, tp in enumerate(in_types)}}

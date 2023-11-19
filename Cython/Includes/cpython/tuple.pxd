@@ -56,7 +56,7 @@ extern from "Python.h":
     #
     # WARNING: This function _steals_ a reference to o.
 
-    fn i32 _PyTuple_Resize(PyObject **p, isize newsize) except -1
+    fn i32 _PyTuple_Resize(PyObject** p, isize newsize) except -1
     # Can be used to resize a tuple. newsize will be the new length of
     # the tuple. Because tuples are supposed to be immutable, this
     # should only be used if there is only one reference to the

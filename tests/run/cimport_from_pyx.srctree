@@ -19,8 +19,8 @@ use b::(Bclass, Bfunc, Bstruct, Benum, Benum_value, Btypedef, Py_EQ, Py_NE,
         DecoratedClass, cfuncOutside)
 cdef Bclass b = Bclass(5)
 assert Bfunc(&b.value) == b.value
-assert b.anotherValue == 6, b.anotherValue
-assert b.asStruct().value == b.value
+assert b.another_value == 6, b.another_value
+assert b.as_struct().value == b.value
 cdef Btypedef b_type = &b.value
 cdef Benum b_enum = Benum_value
 cdef i32 tmp = Py_EQ
@@ -47,18 +47,21 @@ enum Benum:
 struct Bstruct:
     i32 value
 
-ctypedef i32 *Btypedef
+type Btypedef = i32*
 
 cdef class Bclass:
     cdef i64 value
-    anotherValue: cython.double
+    another_value: cython.double
+
     def __init__(self, value):
         self.value = value
-        self.anotherValue = value + 1
-    fn Bstruct asStruct(self):
-        return Bstruct(value=self.value)
-    fn f64 getOtherValue(self):
-        return self.anotherValue
+        self.another_value = value + 1
+
+    fn Bstruct as_struct(self):
+        return Bstruct { value = self.value }
+
+    fn f64 get_other_value(self):
+        return self.another_value
 
 fn i64 Bfunc(Btypedef x):
     return x[0]

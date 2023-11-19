@@ -15,7 +15,7 @@ enum Blarg "c_blarg":
 
 fn f64 spam "c_spam" (i32 i, f32 f):
     let f64 d "c_d"
-    let Foo *p
+    let Foo* p
     global b
     if i:
         d = spam(a, f)
@@ -26,5 +26,5 @@ fn f64 spam "c_spam" (i32 i, f32 f):
     p.i = <i32>Blarg::X
     p.i = <i32>Blarg::Y
 
-fn inline f64 spam2 "c_spam2" (i32 i, f32 f):
+fn inline f64 spam2 "c_spam2"(i32 i, f32 f):
     return spam(i, f)

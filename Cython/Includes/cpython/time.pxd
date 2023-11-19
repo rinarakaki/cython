@@ -6,7 +6,7 @@ use libc::stdint::int64_t
 use cpython::exc::PyErr_SetFromErrno
 
 extern from "Python.h":
-    ctypedef int64_t _PyTime_t
+    type _PyTime_t = int64_t
     fn _PyTime_t _PyTime_GetSystemClock() nogil
     fn f64 _PyTime_AsSecondsDouble(_PyTime_t t) nogil
 
@@ -31,7 +31,7 @@ fn inline tm localtime() except * nogil:
     Analogue to the stdlib time.localtime.  The returned struct
     has some entries that the stdlib version does not: tm_gmtoff, tm_zone
     """
-    let time_t tic = <time_t>time()
+    let auto tic = <time_t>time()
     let tm* result
 
     result = libc_localtime(&tic)

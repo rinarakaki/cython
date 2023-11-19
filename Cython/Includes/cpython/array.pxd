@@ -33,8 +33,8 @@
     if
     a._d[2] += 0.66   # use as double array without extra casting
 
-    f32 *subview = vector._f + 10  # starting from 10th element
-    u16 *subview_buffer = vector._B + 4
+    f32* subview = vector._f + 10  # starting from 10th element
+    u16* subview_buffer = vector._B + 4
 
   Suitable as lightweight arrays intra Cython without speed penalty.
   Replacement for C stack/malloc arrays; no trouble with refcounting,
@@ -80,18 +80,18 @@ extern from *:  # Hard-coded utility code hack.
         f32* as_floats       # direct float pointer access to buffer
         f64* as_doubles      # double ...
         i32* as_ints
-        u32 *as_uints
-        u16 *as_uchars
-        signed char *as_schars
-        char *as_chars
-        u64 *as_ulongs
-        i64 *as_longs
-        u128 *as_ulonglongs
-        i128 *as_longlongs
-        i16 *as_shorts
-        u16 *as_ushorts
-        Py_UNICODE *as_pyunicodes
-        void *as_voidptr
+        u32* as_uints
+        u16* as_uchars
+        signed char* as_schars
+        char* as_chars
+        u64* as_ulongs
+        i64* as_longs
+        u128* as_ulonglongs
+        i128* as_longlongs
+        i16* as_shorts
+        u16* as_ushorts
+        Py_UNICODE* as_pyunicodes
+        void* as_voidptr
 
     ctypedef class array.array [object arrayobject]:
         cdef __cythonbufferdefaults__ = {'ndim' : 1, 'mode':'c'}
@@ -143,14 +143,14 @@ fn inline array clone(array template, isize length, u2 zero):
     type will be same as template.
     if zero is true, new array will be initialized with zeroes.
     """
-    let array op = newarrayobject(Py_TYPE(template), length, template.ob_descr)
+    let auto op = newarrayobject(Py_TYPE(template), length, template.ob_descr)
     if zero and op is not None:
         memset(op.data.as_chars, 0, length * op.ob_descr.itemsize)
     return op
 
 fn inline array copy(array self):
     """ make a copy of an array. """
-    let array op = newarrayobject(Py_TYPE(self), Py_SIZE(self), self.ob_descr)
+    let auto op = newarrayobject(Py_TYPE(self), Py_SIZE(self), self.ob_descr)
     memcpy(op.data.as_chars, self.data.as_chars, Py_SIZE(op) * op.ob_descr.itemsize)
     return op
 
@@ -159,7 +159,7 @@ fn inline i32 extend_buffer(array self, char* stuff, isize n) except -1:
     (e.g. of same array type)
     n: number of elements (not number of bytes!) """
     let isize itemsize = self.ob_descr.itemsize
-    let isize origsize = Py_SIZE(self)
+    let auto origsize = Py_SIZE(self)
     resize_smart(self, origsize + n)
     memcpy(self.data.as_chars + origsize * itemsize, stuff, n * itemsize)
     return 0
