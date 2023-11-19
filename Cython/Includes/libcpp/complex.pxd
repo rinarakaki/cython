@@ -31,12 +31,12 @@ extern from "<complex>" namespace "std" nogil:
         fn u2 operator!=(&mut T, complex[T]&)
 
         # Access real part
-        T real()
-        void real(T)
+        fn T real()
+        fn void real(T)
 
         # Access imaginary part
-        T imag()
-        void imag(T)
+        fn T imag()
+        fn void imag(T)
 
     # Return real part
     fn T real[T](complex[T]&)

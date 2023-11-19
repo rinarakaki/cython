@@ -15,10 +15,10 @@ extern from "<unordered_set>" namespace "std" nogil:
             iterator() except +
             iterator(iterator&) except +
             fn &mut value_type operator*()
-            iterator operator++()
-            iterator operator--()
-            iterator operator++(i32)
-            iterator operator--(i32)
+            fn iterator operator++()
+            fn iterator operator--()
+            fn iterator operator++(i32)
+            fn iterator operator--(i32)
             fn u2 operator==(iterator)
             fn u2 operator==(const_iterator)
             fn u2 operator!=(iterator)
@@ -26,8 +26,8 @@ extern from "<unordered_set>" namespace "std" nogil:
         cppclass const_iterator:
             const_iterator() except +
             const_iterator(iterator&) except +
-            operator=(&mut iterator) except +
-            fn const value_type& operator*()
+            fn operator=(&mut iterator) except +
+            fn &value_type operator*()
             fn const_iterator operator++()
             fn const_iterator operator--()
             fn const_iterator operator++(i32)
@@ -46,26 +46,26 @@ extern from "<unordered_set>" namespace "std" nogil:
         fn const_iterator const_begin "begin"()
         fn const_iterator cbegin()
         fn void clear()
-        fn usize count(const T&)
+        fn usize count(&T)
         fn u2 empty()
         fn iterator end()
         fn const_iterator const_end "end"()
         fn const_iterator cend()
-        fn pair[iterator, iterator] equal_range(const T&)
-        fn pair[const_iterator, const_iterator] const_equal_range "equal_range"(const T&)
+        fn pair[iterator, iterator] equal_range(&T)
+        fn pair[const_iterator, const_iterator] const_equal_range "equal_range"(&T)
         fn iterator erase(iterator)
         fn iterator const_erase "erase"(const_iterator)
         fn iterator erase(const_iterator, const_iterator)
-        fn usize erase(const T&)
-        fn iterator find(const T&)
-        fn const_iterator const_find "find"(const T&)
-        fn pair[iterator, u2] insert(const T&) except +
-        fn iterator insert(const_iterator, const T&) except +
+        fn usize erase(&T)
+        fn iterator find(&T)
+        fn const_iterator const_find "find"(&T)
+        fn pair[iterator, u2] insert(&T) except +
+        fn iterator insert(const_iterator, &T) except +
         fn void insert[InputIt](InputIt, InputIt) except +
         fn usize max_size()
         fn usize size()
         fn void swap(&mut unordered_set)
-        # value_compare value_comp()
+        # fn value_compare value_comp()
         fn void max_load_factor(float)
         fn float max_load_factor()
         fn float load_factor()
@@ -74,9 +74,9 @@ extern from "<unordered_set>" namespace "std" nogil:
         fn usize bucket_count()
         fn usize max_bucket_count()
         fn usize bucket_size(usize)
-        fn usize bucket(const T&)
+        fn usize bucket(&T)
         # C++20
-        fn u2 contains(const T&)
+        fn u2 contains(&T)
 
     cdef cppclass unordered_multiset[T,HASH=*,PRED=*,ALLOCATOR=*]:
         ctypedef T value_type
@@ -92,8 +92,8 @@ extern from "<unordered_set>" namespace "std" nogil:
             iterator() except +
             iterator(iterator&) except +
             fn &mut value_type operator*()
-            iterator operator++()
-            iterator operator++(i32)
+            fn iterator operator++()
+            fn iterator operator++(i32)
             fn u2 operator==(iterator)
             fn u2 operator==(const_iterator)
             fn u2 operator!=(iterator)
@@ -102,7 +102,7 @@ extern from "<unordered_set>" namespace "std" nogil:
             const_iterator() except +
             const_iterator(iterator&) except +
             fn operator=(&mut iterator) except +
-            fn const value_type& operator*()
+            fn &value_type operator*()
             fn const_iterator operator++()
             fn const_iterator operator++(i32)
             fn u2 operator==(iterator)
@@ -119,21 +119,21 @@ extern from "<unordered_set>" namespace "std" nogil:
         fn const_iterator const_begin "begin"()
         fn const_iterator cbegin()
         fn void clear()
-        fn usize count(const T&)
+        fn usize count(&T)
         fn u2 empty()
         fn iterator end()
         fn const_iterator const_end "end"()
         fn const_iterator cend()
-        fn pair[iterator, iterator] equal_range(const T&)
-        fn pair[const_iterator, const_iterator] const_equal_range "equal_range"(const T&)
+        fn pair[iterator, iterator] equal_range(&T)
+        fn pair[const_iterator, const_iterator] const_equal_range "equal_range"(&T)
         fn iterator erase(iterator)
         fn iterator const_erase "erase"(const_iterator)
         fn iterator erase(const_iterator, const_iterator)
-        fn usize erase(const T&)
-        fn iterator find(const T&)
-        fn const_iterator const_find "find"(const T&)
-        fn iterator insert(const T&) except +
-        fn iterator insert(const_iterator, const T&) except +
+        fn usize erase(&T)
+        fn iterator find(&T)
+        fn const_iterator const_find "find"(&T)
+        fn iterator insert(&T) except +
+        fn iterator insert(const_iterator, &T) except +
         fn void insert[InputIt](InputIt, InputIt) except +
         fn usize max_size()
         fn usize size()
@@ -147,6 +147,6 @@ extern from "<unordered_set>" namespace "std" nogil:
         fn usize bucket_count()
         fn usize max_bucket_count()
         fn usize bucket_size(usize)
-        fn usize bucket(const T&)
+        fn usize bucket(&T)
         # C++20
-        fn u2 contains(const T&)
+        fn u2 contains(&T)
