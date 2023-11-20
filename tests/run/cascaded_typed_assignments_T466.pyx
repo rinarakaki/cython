@@ -61,7 +61,7 @@ def non_simple_rhs_malloc():
     >>> non_simple_rhs_malloc()
     """
     let r&char a, b,
-    let r&char* c
+    let char** c
 
     c = &b
     c[0] = a = <r&char>malloc(2)
