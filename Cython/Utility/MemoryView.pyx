@@ -945,7 +945,7 @@ cdef class _memoryviewslice(memoryview):
     # We need this only to print it's class' name
     cdef object from_object
 
-    cdef (object*)(char*) to_object_func
+    cdef object(char*) to_object_func
     cdef i32 (*to_dtype_func)(char*, object) except 0
 
     def __dealloc__(self):
@@ -986,7 +986,7 @@ except:
 @cname('__pyx_memoryview_fromslice')
 fn memoryview_fromslice({{memviewslice_name}} memviewslice,
                         i32 ndim,
-                        (object*)(char*) to_object_func,
+                        object(r&mut char) to_object_func,
                         i32 (*to_dtype_func)(char*, object) except 0,
                         u2 dtype_is_object):
 
@@ -1007,7 +1007,7 @@ fn memoryview_fromslice({{memviewslice_name}} memviewslice,
     result.typeinfo = memviewslice.memview.typeinfo
 
     result.view = memviewslice.memview.view
-    result.view.buf = <void*> memviewslice.data
+    result.view.buf = <void*>memviewslice.data
     result.view.ndim = ndim
     (<__pyx_buffer*>&result.view).obj = Py_None
     Py_INCREF(Py_None)
@@ -1076,12 +1076,12 @@ fn memoryview_copy_from_slice(memoryview memview, {{memviewslice_name}} *memview
     """
     Create a new memoryview object from a given memoryview object and slice.
     """
-    let (object*)(char*) to_object_func
+    let object(r&mut char) to_object_func
     let i32 (*to_dtype_func)(char*, object) except 0
 
     if isinstance(memview, _memoryviewslice):
-        to_object_func = (<_memoryviewslice> memview).to_object_func
-        to_dtype_func = (<_memoryviewslice> memview).to_dtype_func
+        to_object_func = (<_memoryviewslice>memview).to_object_func
+        to_dtype_func = (<_memoryviewslice>memview).to_dtype_func
     else:
         to_object_func = NULL
         to_dtype_func = NULL
