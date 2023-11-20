@@ -26,21 +26,7 @@
                     "comment": "other keywords",
                     "name": "keyword.other.cython",
                     "match": "\\b(use|pub|extern|fn|let|enum|struct|union|const|static|loop|auto|as|from|return)\\b"
-                },
-				{
-					"comment": "borrow references, raw pointers",
-					"name": "keyword.operator.borrow.and.cython",
-					"match": "(&|r&)(?![&=])"
-				},
-                {
-					"comment": "dereference asterisk",
-					"match": "(\\*)(?=\\w+)",
-					"captures": {
-						"1": {
-							"name": "keyword.operator.dereference.cython"
-						}
-					}
-				}
+                }
             ]
         },
         "lvariables": {
