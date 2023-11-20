@@ -17,7 +17,7 @@ extern from "Python.h":
     #     Create a PyCObject from the void * cobj. The destr function will
     #     be called when the object is reclaimed, unless it is NULL.
 
-    fn object PyCObject_FromVoidPtrAndDesc(void* cobj, void* desc, (void*)(void*, void*) destr)
+    fn object PyCObject_FromVoidPtrAndDesc(void* cobj, void* desc, r&void(r&mut void, r&mut void) destr)
     #     Return value: New reference.
     #
     #     Create a PyCObject from the void * cobj. The destr function will
