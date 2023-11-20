@@ -19,7 +19,7 @@ extern from "Python.h":
     fn isize PyByteArray_Size(object bytearray)
     # Return the size of bytearray after checking for a NULL pointer.
 
-    fn r&char PyByteArray_AsString(object bytearray)
+    fn r&mut char PyByteArray_AsString(object bytearray)
     # Return the contents of bytearray as a char array after checking for a NULL pointer.
     # The returned array always has an extra null byte appended.
 
