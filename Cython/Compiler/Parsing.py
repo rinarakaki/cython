@@ -2760,6 +2760,10 @@ def p_c_base_type(s, nonempty=False, templates=None):
             base_type = Nodes.CConstOrVolatileTypeNode(pos,
                 base_type=base_type, is_const=is_const, is_volatile=is_volatile
             )
+
+    elif s.sy == "(":
+        args = p_c_complex_base_type(s, templates = templates)
+        base_type = Nodes.CFuncPtrTypeNode(pos, args=args)
     
     if s.sy in ("*", "**"):
         # scanner returns "**" as a single token
