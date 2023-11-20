@@ -19,7 +19,7 @@ def redirect_stderr(func, *args, **kwargs):
     func(*args, **kwargs)
     sys.stderr = stderr
 
-fn void puts(r&char string) with gil:
+fn void puts(r&mut char string) with gil:
     """
     We need this for doctest, used from nogil sections.
     """
