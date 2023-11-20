@@ -906,7 +906,7 @@ fn r&char pybuffer_index(Py_buffer* view, r&char bufp, isize index,
 
     resultp = bufp + index * stride
     if suboffset >= 0:
-        resultp = (<r&char*> resultp)[0] + suboffset
+        resultp = (<char**> resultp)[0] + suboffset
 
     return resultp
 
