@@ -27,8 +27,8 @@ extern from "Python.h":
 
     # _Py_PyAtExit is for the atexit module, Py_AtExit is for low-level
     # exit functions.
-    fn void _Py_PyAtExit((void*)(object) func, object)
-    fn i32 Py_AtExit((void*)() func)
+    fn void _Py_PyAtExit(void(object) func, object)
+    fn i32 Py_AtExit(void() func)
 
     fn void Py_Exit(i32)
 
@@ -57,7 +57,7 @@ extern from "Python.h":
     fn const char* _Py_gitidentifier()
     fn const char* _Py_gitversion()
 
-    ctypedef (void*)(i32) PyOS_sighandler_t
+    type PyOS_sighandler_t = void(i32)
     fn PyOS_sighandler_t PyOS_getsig(i32)
     fn PyOS_sighandler_t PyOS_setsig(i32, PyOS_sighandler_t)
 

@@ -25,7 +25,7 @@ extern from "Python.h":
     # The type of the trace function registered using PyEval_SetProfile() and
     # PyEval_SetTrace().
     # Py_tracefunc return -1 when raising an exception, or 0 for success.
-    ctypedef (i32*)(PyObject*, PyFrameObject*, i32, PyObject*) Py_tracefunc
+    type Py_tracefunc = i32(r&mut PyObject, r&mut PyFrameObject, i32, r&mut PyObject)
 
     # The following values are used for 'what' for tracefunc functions
     enum:
