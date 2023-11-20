@@ -43,7 +43,7 @@ extern from "<stdlib.h>" nogil:
     # 7.20.5 Searching and sorting utilities
     fn void* bsearch(const void* key, const void* array,
                      usize count, usize size,
-                    (i3*)(const void *, const void*) compare)
+                     i32(const void *, const void*) compare)
     fn void qsort(void* array, usize count, usize size,
                   (i32*)(const void*, const void*) compare)
 
