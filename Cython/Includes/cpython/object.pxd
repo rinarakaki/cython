@@ -21,7 +21,7 @@ extern from "Python.h":
     type hashfunc = Py_hash_t(object) except -1
     type reprfunc = object(object)
 
-    type cmpfunc i32(object, object) except -2
+    type cmpfunc = i32(object, object) except -2
     type richcmpfunc = object(object, object, i32)
 
     # The following functions use 'PyObject*' as first argument instead of 'object' to prevent
