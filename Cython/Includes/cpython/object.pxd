@@ -29,7 +29,7 @@ extern from "Python.h":
     type destructor = void(PyObject*)
     ctypedef i32 (*visitproc)(PyObject*, void *) except -1
     ctypedef i32 (*traverseproc)(PyObject*, visitproc, void*) except -1
-    ctypedef (void*)(void*) freefunc
+    type freefunc = void(void*)
 
     ctypedef (object*)(object, object, object) descrgetfunc
     ctypedef i32 (*descrsetfunc)(object, object, object) except -1
