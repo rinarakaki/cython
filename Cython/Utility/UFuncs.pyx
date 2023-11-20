@@ -8,7 +8,7 @@ extern from *:
 
 # variable names have to come from tempita to avoid duplication
 @cname("{{func_cname}}")
-fn void {{func_cname}}(r&char* args, const npy_intp* dimensions, const npy_intp* steps, void* data) except * {{"nogil" if will_be_called_without_gil else ""}}:
+fn void {{func_cname}}(char** args, const npy_intp* dimensions, const npy_intp* steps, void* data) except * {{"nogil" if will_be_called_without_gil else ""}}:
     let npy_intp i
     let npy_intp n = dimensions[0]
     {{for idx, tp in enumerate(in_types)}}
