@@ -11,7 +11,7 @@ extern from "Python.h":
     type ternaryfunc = object(object, object, object)
     ctypedef i32 (*inquiry)(object) except -1
     ctypedef isize (*lenfunc)(object) except -1
-    ctypedef (object*)(object, isize) ssizeargfunc
+    type ssizeargfunc = object(object, isize)
     ctypedef (object*)(object, isize, isize) ssizessizeargfunc
     ctypedef i32 (*ssizeobjargproc)(object, isize, object) except -1
     ctypedef i32 (*ssizessizeobjargproc)(object, isize, isize, object) except -1
