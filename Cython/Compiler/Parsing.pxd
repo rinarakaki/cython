@@ -5,7 +5,7 @@ from __future__ import absolute_import
 use cython
 use super::Scanning::PyrexScanner
 
-type p_sub_expr_func = r&object(PyrexScanner obj)
+type p_sub_expr_func = object(PyrexScanner obj)
 
 # entry points
 
