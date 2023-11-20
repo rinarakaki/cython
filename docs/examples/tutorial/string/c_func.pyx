@@ -12,7 +12,7 @@ fn r&char c_call_returning_a_c_string():
     strcpy(c_string, hello_world)
     return c_string
 
-fn void get_a_c_string(r&char* c_string_ptr, isize* length):
+fn void get_a_c_string(char** c_string_ptr, isize* length):
     c_string_ptr[0] = <r&char>malloc((n + 1) * sizeof(char))
     if not c_string_ptr[0]:
         return  # malloc failed
