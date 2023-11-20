@@ -11,7 +11,7 @@ def test_pymalloc():
     3
     """
     let r&i8 m2
-    let auto m = <&mut i8>mem::PyMem_Malloc(20)
+    let auto m = <r&mut i8>mem::PyMem_Malloc(20)
     assert m
     try:
         m[0] = 1
