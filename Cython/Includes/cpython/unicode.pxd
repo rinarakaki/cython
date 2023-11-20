@@ -1,4 +1,5 @@
-from libc.stddef cimport wchar_t
+use cpython::object::PyObject
+use libc::stddef::wchar_t
 
 extern from *:
     type Py_UCS1 = u8  # uint8_t
@@ -12,6 +13,30 @@ extern from *:
     # Return true if the object o is a Unicode object, but not an
     # instance of a subtype. New in version 2.2.
     fn u2 PyUnicode_CheckExact(object o)
+
+    # Similar to PyUnicode_FromUnicode(), but u points to UTF-8 encoded
+    # bytes
+    fn r&mut PyObject PyUnicode_FromStringAndSize(r&char u, isize size)
+
+    # Similar to PyUnicode_FromUnicode(), but u points to null-terminated
+    # UTF-8 encoded bytes.  The size is determined with strlen().
+    fn r&mut PyObject PyUnicode_FromString(r&char u)
+
+    fn r&mut PyObject PyUnicode_Substring(r&mut PyObject str, isize start, isize end)
+
+    fn r&mut Py_UCS4 PyUnicode_AsUCS4(r&mut PyObject unicode, r&mut Py_UCS4 buffer, isize buflen, i32 copy_null) except NULL
+
+    fn r&mut Py_UCS4 PyUnicode_AsUCS4Copy(r&mut PyObject unicode) except NULL
+
+    fn isize PyUnicode_GetLength(r&mut PyObject unicode) except -1
+
+    fn Py_UCS4 PyUnicode_ReadChar(r&mut PyObject unicode, isize index) except -1
+
+    # Write a character to the string. The string must have been created through
+    # PyUnicode_New, must not be shared, and must not have been hashed yet.
+    #
+    # Return 0 on success, -1 on error.
+    fn i32 PyUnicode_WriteChar(r&mut PyObject unicode, isize index, Py_UCS4 character) except -1
 
     # Return the size of the object. o has to be a PyUnicodeObject
     # (not checked).
@@ -127,25 +152,11 @@ extern from *:
     # when u is NULL.
     fn unicode PyUnicode_FromUnicode(Py_UNICODE *u, isize size)
 
-    # Similar to PyUnicode_FromUnicode(), but u points to UTF-8 encoded
-    # bytes
-    fn unicode PyUnicode_FromStringAndSize(const char* u, isize size)
-
-    # Similar to PyUnicode_FromUnicode(), but u points to null-terminated
-    # UTF-8 encoded bytes.  The size is determined with strlen().
-    fn unicode PyUnicode_FromString(const char* u)
-
     fn unicode PyUnicode_New(isize size, Py_UCS4 maxchar)
     fn unicode PyUnicode_FromKindAndData(i32 kind, const void* buffer, isize size)
     fn unicode PyUnicode_FromFormat(const char* format, ...)
-    fn isize PyUnicode_GetLength(object unicode) except -1
     fn isize PyUnicode_CopyCharacters(object to, isize to_start, object from_, isize from_start, isize how_many) except -1
     fn isize PyUnicode_Fill(object unicode, isize start, isize length, Py_UCS4 fill_char) except -1
-    fn i32 PyUnicode_WriteChar(object unicode, isize index, Py_UCS4 character) except -1
-    fn Py_UCS4 PyUnicode_ReadChar(object unicode, isize index) except -1
-    fn unicode PyUnicode_Substring(object str, isize start, isize end)
-    fn Py_UCS4* PyUnicode_AsUCS4(object u, Py_UCS4* buffer, isize buflen, int copy_null) except NULL
-    fn Py_UCS4* PyUnicode_AsUCS4Copy(object u) except NULL
 
     # Create a Unicode Object from the given Unicode code point ordinal.
     #
