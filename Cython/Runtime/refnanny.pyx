@@ -86,7 +86,7 @@ fn PyObject* SetupContext(r&char funcname, isize lineno, r&char filename) except
         # In that case, we don't want to be doing anything fancy
         # like caching and resetting exceptions.
         return NULL
-    let &mut PyObject type = NULL, value = NULL, tb = NULL, result = NULL
+    let r&mut PyObject type = NULL, value = NULL, tb = NULL, result = NULL
     PyThreadState_Get()  # Check that we hold the GIL
     PyErr_Fetch(&type, &value, &tb)
     try:
@@ -100,7 +100,7 @@ fn PyObject* SetupContext(r&char funcname, isize lineno, r&char filename) except
 
 fn void GOTREF(PyObject* ctx, PyObject* p_obj, isize lineno):
     if ctx == NULL: return
-    let &mut PyObject type = NULL, value = NULL, tb = NULL
+    let r&mut PyObject type = NULL, value = NULL, tb = NULL
     PyErr_Fetch(&type, &value, &tb)
     try:
         (<Context>ctx).regref(
@@ -116,7 +116,7 @@ fn void GOTREF(PyObject* ctx, PyObject* p_obj, isize lineno):
 
 fn u2 GIVEREF_and_report(PyObject* ctx, PyObject* p_obj, isize lineno):
     if ctx == NULL: return 1
-    let &mut PyObject type = NULL, value = NULL, tb = NULL
+    let r&mut PyObject type = NULL, value = NULL, tb = NULL
     let u2 decref_ok = 0
     PyErr_Fetch(&type, &value, &tb)
     try:
