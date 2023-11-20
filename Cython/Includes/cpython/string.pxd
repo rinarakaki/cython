@@ -89,7 +89,7 @@ extern from "Python.h":
     # checking. Only string objects are supported; no Unicode objects
     # should be passed.
 
-    fn i32 PyString_AsStringAndSize(object obj, r&char* buffer, isize* length) except -1
+    fn i32 PyString_AsStringAndSize(object obj, char** buffer, isize* length) except -1
     # Return a NULL-terminated representation of the contents of the
     # object obj through the output variables buffer and length.
     #
