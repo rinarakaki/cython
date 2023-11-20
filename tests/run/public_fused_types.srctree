@@ -31,7 +31,7 @@ type string_t = char*
 simple_t = cython.fused_type(i32, f32)
 less_simple_t = cython.fused_type(i32, f32, string_t)
 struct_t = cython.fused_type(mystruct_t, myunion_t, MyExt)
-builtin_t = cython.fused_type(str, unicode, bytes)
+builtin_t = cython.fused_type(str, bytes)
 
 ctypedef fused fusedbunch:
     i32

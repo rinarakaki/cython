@@ -36,7 +36,7 @@ def simple_parallel_int_mix_recursive():
     ai, [bi, ci] = al, [bl, cl] = xo, yo = ao, [bo, co] = c = d = [1, [2, 3]]
     return ao, bo, co, xo, yo, ai, bi, ci, al, bl, cl, c, d
 
-cdef int called = 0
+cdef i32 called = 0
 
 fn char* get_string():
     global called

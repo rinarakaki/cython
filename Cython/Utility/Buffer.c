@@ -33,13 +33,9 @@ static void __Pyx_RaiseBufferIndexErrorNogil(int32_t axis); /*proto*/
 
 /////////////// BufferIndexErrorNogil ///////////////
 static void __Pyx_RaiseBufferIndexErrorNogil(int32_t axis) {
-    #ifdef WITH_THREAD
     PyGILState_STATE gilstate = PyGILState_Ensure();
-    #endif
     __Pyx_RaiseBufferIndexError(axis);
-    #ifdef WITH_THREAD
     PyGILState_Release(gilstate);
-    #endif
 }
 
 /////////////// BufferFallbackError.proto ///////////////
