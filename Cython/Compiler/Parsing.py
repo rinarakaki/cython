@@ -2774,8 +2774,12 @@ def p_c_base_type(s, nonempty=False, templates=None):
 
     elif s.sy == "(":
         args = p_c_complex_base_type(s, templates = templates)
+        exception_value, exception_check, exc_clause = p_exception_value_clause(s, 1)
         base_type = Nodes.CFuncPtrTypeNode(pos,
-            base_type=base_type, args=args, exception_value=None, exception_check=None,
+            base_type=base_type,
+            args=args,
+            exception_value=exception_value,
+            exception_check=exception_check,
         )
     
     if s.sy in ("*", "**"):
