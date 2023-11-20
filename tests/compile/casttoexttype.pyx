@@ -6,8 +6,8 @@ cdef extern class external.Spam:
 fn void foo(object x):
     pass
 
-fn void blarg(&void y, object z):
+fn void blarg(r&void y, object z):
     foo(<Spam>y)
     foo(<Spam>z)
 
-blarg(<&void>None, None)
+blarg(<r&void>None, None)
