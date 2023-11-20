@@ -12,21 +12,21 @@ extern from "Python.h":
     ctypedef i32 (*inquiry)(object) except -1
     ctypedef isize (*lenfunc)(object) except -1
     type ssizeargfunc = object(object, isize)
-    ctypedef (object*)(object, isize, isize) ssizessizeargfunc
+    type ssizessizeargfunc = object(object, isize, isize)
     ctypedef i32 (*ssizeobjargproc)(object, isize, object) except -1
     ctypedef i32 (*ssizessizeobjargproc)(object, isize, isize, object) except -1
     ctypedef i32 (*objobjargproc)(object, object, object) except -1
     ctypedef i32 (*objobjproc)(object, object) except -1
 
     ctypedef Py_hash_t (*hashfunc)(object) except -1
-    ctypedef (object*)(object) reprfunc
+    type reprfunc = object(object)
 
     ctypedef i32 (*cmpfunc)(object, object) except -2
-    ctypedef (object*)(object, object, i32) richcmpfunc
+    type richcmpfunc = object(object, object, i32)
 
     # The following functions use 'PyObject*' as first argument instead of 'object' to prevent
     # accidental reference counting when calling them during a garbage collection run.
-    ctypedef (void*)(PyObject*) destructor
+    type destructor = void(PyObject*)
     ctypedef i32 (*visitproc)(PyObject*, void *) except -1
     ctypedef i32 (*traverseproc)(PyObject*, visitproc, void*) except -1
     ctypedef (void*)(void*) freefunc
