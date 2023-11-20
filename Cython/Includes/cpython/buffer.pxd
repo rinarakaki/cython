@@ -1,5 +1,8 @@
 # Please see the Python header files (object.h/abstract.h) for docs
 
+use super::object::PyObject
+
+
 extern from "Python.h":
     cdef enum:
         PyBUF_MAX_NDIM
