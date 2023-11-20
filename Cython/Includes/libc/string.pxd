@@ -46,4 +46,4 @@ extern from "<string.h>" nogil:
     fn char * strpbrk(r&char string, r&char stopset)
 
     fn r&char strtok(r&char newstring, r&char delimiters)
-    fn r&char strsep(r&char* string_ptr, r&char delimiter)
+    fn r&char strsep(char** string_ptr, r&char delimiter)
