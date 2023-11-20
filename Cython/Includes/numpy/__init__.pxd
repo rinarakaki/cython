@@ -191,7 +191,7 @@ extern from "numpy/arrayobject.h":
 
     static npy_intp NPY_MAX_ELSIZE
 
-    ctypedef (void*)(void*, void*, npy_intp, void*, void*) PyArray_VectorUnaryFunc
+    type PyArray_VectorUnaryFunc = void(void*, void*, npy_intp, void*, void*)
 
     struct PyArray_ArrayDescr:
         # shape is a tuple, but Cython doesn't support "tuple shape"
@@ -858,8 +858,7 @@ extern from "numpy/arrayscalars.h":
 #
 
 extern from "numpy/ufuncobject.h":
-
-    ctypedef (void*)(char**, npy_intp*, npy_intp*, void*) PyUFuncGenericFunction
+    type PyUFuncGenericFunction = void(char**, npy_intp*, npy_intp*, void*)
 
     ctypedef class numpy.ufunc [object PyUFuncObject, check_size ignore]:
         cdef:

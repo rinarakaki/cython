@@ -3,11 +3,11 @@
 #
 
 extern from "cheesefinder.h":
-    ctypedef (void*)(char* name, void* user_data) cheesefunc
-    fn void find_cheeses(cheesefunc user_func, void* user_data)
+    type cheesefunc = void(r&mut char name, r&mut void user_data)
+    fn void find_cheeses(cheesefunc user_func, r&mut void user_data)
 
 def find(f):
     find_cheeses(callback, <void*>f)
 
-fn void callback(char* name, void* f):
-    (<object>f)(name.decode('utf-8'))
+fn void callback(r&mut char name, r&mut void f):
+    (<object>f)(name.decode("utf-8"))
