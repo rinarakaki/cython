@@ -1,3 +1,5 @@
+use super::object::PyObject
+
 extern from "Python.h":
     struct Py_complex:
         f64 imag
@@ -33,19 +35,19 @@ extern from "Python.h":
     fn u2 PyComplex_CheckExact(object p)
     # Return true if its argument is a PyComplexObject, but not a subtype of PyComplexObject.
 
-    fn object PyComplex_FromCComplex(Py_complex v)
-    # Return value: New reference.
-    # Create a new Python complex number object from a C Py_complex value.
-
-    fn object PyComplex_FromDoubles(f64 real, f64 imag)
+    fn r&mut PyObject PyComplex_FromDoubles(f64 real, f64 imag)
     # Return value: New reference.
     # Return a new PyComplexObject object from real and imag.
 
-    fn f64 PyComplex_RealAsDouble(object op) except? -1
+    fn f64 PyComplex_RealAsDouble(r&mut PyObject op) except? -1
     # Return the real part of op as a C f64.
 
-    fn f64 PyComplex_ImagAsDouble(object op) except? -1
+    fn f64 PyComplex_ImagAsDouble(r&mut PyObject op) except? -1
     # Return the imaginary part of op as a C double.
+
+    fn r&mut PyObject PyComplex_FromCComplex(Py_complex v)
+    # Return value: New reference.
+    # Create a new Python complex number object from a C Py_complex value.
 
     fn Py_complex PyComplex_AsCComplex(object op)
     # Return the Py_complex value of the complex number op.
