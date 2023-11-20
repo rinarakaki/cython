@@ -152,7 +152,7 @@ extern from "Python.h":
     # implementation does not allow the dictionary to be deleted.
     # New in version 3.3.
 
-    fn i32 Py_LT, Py_LE, Py_EQ, Py_NE, Py_GT, Py_GE
+    static i32 Py_LT, Py_LE, Py_EQ, Py_NE, Py_GT, Py_GE
 
     fn object PyObject_RichCompare(object o1, object o2, i32 opid)
     # Return value: New reference.
