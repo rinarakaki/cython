@@ -421,7 +421,7 @@ def unpack_dict_literal():
     >>> d == dict(a=1, b=2, c=4, d=5) or d
     True
     """
-    return {**{'a': 1, 'b': 2, **{'c': 4, 'd': 5}}}
+    return {..{'a': 1, 'b': 2, ..{'c': 4, 'd': 5}}}
 
 #[cython::test_fail_if_path_exists(
     "//DictNode//DictNode",
@@ -432,7 +432,7 @@ def unpack_dict_literal_empty():
     >>> unpack_dict_literal_empty()
     {}
     """
-    return {**{**{}, **{}}, **{}, **{**{**{}}}}
+    return {..{..{}, ..{}}, ..{}, ..{..{..{}}}}
 
 def unpack_dict_simple(it):
     """
@@ -468,7 +468,7 @@ def unpack_dict_simple(it):
     >>> d == dict(a=1, b=2) or d
     True
     """
-    return {**it}
+    return {..it}
 
 #[cython::test_assert_path_exists('//MergedDictNode')]
 #[cython::test_fail_if_path_exists(
@@ -528,7 +528,7 @@ def unpack_dict_from_iterable(it):
     >>> d == dict(a=2, b=5, c=3) or d
     True
     """
-    return {'a': 2, 'b': 3, **it, 'a': 1, **{**it, **it}, **it, 'a': 4, 'b': 5, **it, **it}
+    return {'a': 2, 'b': 3, ..it, 'a': 1, ..{..it, ..it}, ..it, 'a': 4, 'b': 5, ..it, ..it}
 
 def unpack_dict_keep_originals(a, b, c):
     """
@@ -544,7 +544,7 @@ def unpack_dict_keep_originals(a, b, c):
     >>> c == {2: 3, 4: 5} or c
     True
     """
-    return {**a, **b, 2: 4, **c}
+    return {..a, ..b, 2: 4, ..c}
 
 #[cython::test_assert_path_exists(
     '//MergedDictNode',
@@ -553,7 +553,7 @@ def unpack_dict_keep_originals(a, b, c):
 )]
 def unpack_in_call(f):
     """
-    >>> def f(a=1, test=2, **kwargs):
+    >>> def f(a=1, test=2, ..kwargs):
     ...     return a, test, sorted(kwargs.items())
     >>> wrapped = unpack_in_call(f)
     >>> wrapped(1)
@@ -566,6 +566,6 @@ def unpack_in_call(f):
     Traceback (most recent call last):
     TypeError: function() got multiple values for keyword argument 'more'
     """
-    def wrapper(*args, **kwargs):
-        return f(*args, more=2, **{**kwargs, 'test': 1})
+    def wrapper(*args, ..kwargs):
+        return f(*args, more=2, ..{..kwargs, 'test': 1})
     return wrapper
