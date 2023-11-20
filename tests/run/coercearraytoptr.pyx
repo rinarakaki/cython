@@ -1,6 +1,6 @@
 cdef r&char cstring = "abcdefg"
 
-fn void spam(&mut char target):
+fn void spam(r&mut char target):
     let r&char s = cstring
     while s[0]:
         target[0] = s[0]
