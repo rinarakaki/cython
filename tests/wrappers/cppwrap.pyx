@@ -2,9 +2,12 @@
 
 use cppwrap_lib
 
-cdef class DoubleKeeper:
+struct DoubleKeeper:
+    r&mut cppwrap_lib::DoubleKeeper keeper
+
+impl DoubleKeeper:
     """
-    >>> d = DoubleKeeper(1.0)
+    >>> d = DoubleKeeper::new(1.0)
     >>> d.get_number() == 1.0
     True
     >>> d.get_number() == 2.0
@@ -15,22 +18,22 @@ cdef class DoubleKeeper:
     >>> d.transmogrify(3.0) == 6.0
     True
     """
-    cdef cppwrap_lib.DoubleKeeper* keeper
-
-    def __cinit__(self, f64 number):
-        self.keeper = new cppwrap_lib.DoubleKeeper(number)
-
+    
     def __dealloc__(self):
         del self.keeper
+    
+    fn DoubleKeeper new(f64 number):
+        return DoubleKeeper { keeper = new cppwrap_lib.DoubleKeeper(number) }
 
-    def set_number(self, f64 number):
+    fn set_number(self, f64 number):
         self.keeper.set_number(number)
 
-    def get_number(self):
+    fn get_number(self):
         return self.keeper.get_number()
 
-    def transmogrify(self, f64 value):
+    fn transmogrify(self, f64 value):
         return self.keeper.transmogrify(value)
+
 
 def voidfunc():
     """
