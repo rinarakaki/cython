@@ -6,9 +6,9 @@ extern from "Python.h":
 
     type newfunc = object(cpython.type.type, PyObject*, PyObject*)  # (type, args|NULL, kwargs|NULL)
 
-    ctypedef (object*)(object) unaryfunc
-    ctypedef (object*)(object, object)  binaryfunc
-    ctypedef (object*)(object, object, object) ternaryfunc
+    type unaryfunc = object(object)
+    type binaryfunc = object(object, object)
+    type ternaryfunc = object(object, object, object)
     ctypedef i32 (*inquiry)(object) except -1
     ctypedef isize (*lenfunc)(object) except -1
     ctypedef (object*)(object, isize) ssizeargfunc
