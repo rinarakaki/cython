@@ -372,7 +372,7 @@ def p_typecast(s):
         Nodes.CPtrTypeNode,
         Nodes.TemplatedTypeNode,
         Nodes.CConstOrVolatileTypeNode,
-        Nodes.CTupleBaseTypeNode,
+        Nodes.CTupleTypeNode,
     ))
     if not (is_memslice or is_other_unnamed_type) and base_type.name is None:
         s.error("Unknown type")
@@ -2746,7 +2746,18 @@ def p_c_base_type(s, nonempty=False, templates=None):
         base_type = p_c_base_type(s, nonempty=nonempty, templates=templates)
         base_type = Nodes.CRvalueRefTypeNode(pos, base_type=base_type)
     elif s.sy == "(":
-        base_type = p_c_complex_base_type(s, templates = templates)
+        pos = s.position()
+        s.next()
+        base_type = p_c_base_type(s, templates=templates)
+        if s.sy == ",":
+            base_types = [base_type]
+            while s.sy == ",":
+                s.next()
+                if s.sy == ")":
+                    break
+                base_type = p_c_base_type(s, templates=templates)
+            base_type = Nodes.CTupleTypeNode(pos, base_types = base_types)
+        s.expect(")")
     else:
         base_type = p_c_simple_base_type(s, nonempty=nonempty, templates=templates)
     
@@ -2792,16 +2803,24 @@ def p_c_complex_base_type(s, templates = None):
     pos = s.position()
     s.next()
     base_type = p_c_base_type(s, templates=templates)
-    type_node = Nodes.CComplexBaseTypeNode(pos, base_type=base_type)
+    ident = None
+    if s.sy == "IDENT":
+        ident = s.systring
+        s.next()
+    type_node = Nodes.CComplexBaseTypeNode(pos, base_type=base_type, ident=ident)
     if s.sy == ",":
-        components = [type_node]
+        base_types = [type_node]
         while s.sy == ",":
             s.next()
             if s.sy == ")":
                 break
             base_type = p_c_base_type(s, templates=templates)
-            components.append(Nodes.CComplexBaseTypeNode(pos, base_type=base_type))
-        type_node = Nodes.CTupleBaseTypeNode(pos, components = components)
+            ident = None
+            if s.sy == "IDENT":
+                ident = s.systring
+                s.next()
+            base_types.append(Nodes.CComplexBaseTypeNode(pos, base_type=base_type, ident=ident))
+        type_node = Nodes.CTupleTypeNode(pos, base_types = base_types)
 
     s.expect(")")
     if s.sy == '[':

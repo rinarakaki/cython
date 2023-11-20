@@ -1385,40 +1385,35 @@ class TemplatedTypeNode(CBaseTypeNode):
 
 class CComplexBaseTypeNode(CBaseTypeNode):
     # base_type   CBaseTypeNode
-    # declarator  CDeclaratorNode
+    # ident       string
 
-    child_attrs = ["base_type", "declarator"]
-
-    def analyse(self, env, could_be_name=False):
-        base_type = self.base_type.analyse(env, could_be_name)
-        if self.declarator is not None:
-            _, type = self.declarator.analyse(base_type, env)
-        else:
-            type = base_type
-        return type
-
-
-class CTupleBaseTypeNode(CBaseTypeNode):
-    # components [CBaseTypeNode]
-
-    child_attrs = ["components"]
+    child_attrs = ["base_type", "ident"]
 
     def analyse(self, env, could_be_name=False):
-        component_types = []
-        for c in self.components:
-            type = c.analyse(env)
+        return self.base_type.analyse(env, could_be_name)
+
+
+class CTupleTypeNode(CBaseTypeNode):
+    # base_types [CBaseTypeNode]
+
+    child_attrs = ["base_types"]
+
+    def analyse(self, env, could_be_name=False):
+        base_types = []
+        for base_type in self.base_types:
+            type = base_type.analyse(env)
             if type.is_pyobject:
-                error(c.pos, "Tuple types can't (yet) contain Python objects.")
+                error(base_type.pos, "Tuple types can't (yet) contain Python objects.")
                 return error_type
-            component_types.append(type)
-        entry = env.declare_tuple_type(self.pos, component_types)
+            base_types.append(type)
+        entry = env.declare_tuple_type(self.pos, base_types)
         entry.used = True
         return entry.type
 
 
 class CFuncPtrTypeNode(CBaseTypeNode):
     # base_type        CBaseTypeNode
-    # args             [CComplexBaseTypeNode] or CTupleBaseTypeNode
+    # args             [CComplexBaseTypeNode] or CTupleTypeNode
     # templates        [TemplatePlaceholderType]
     # has_varargs      boolean
     # exception_value  ConstNode or NameNode    NameNode when the name of a c++ exception conversion function
