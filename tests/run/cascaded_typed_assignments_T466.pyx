@@ -60,7 +60,7 @@ def non_simple_rhs_malloc():
     """
     >>> non_simple_rhs_malloc()
     """
-    let r&char a, b,
+    let r&mut char a, b,
     let char** c
 
     c = &b
