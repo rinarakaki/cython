@@ -868,7 +868,7 @@ fn i32 slice_memviewslice(
     if suboffset >= 0:
         if not is_slice:
             if new_ndim == 0:
-                dst.data = (<r&char*> dst.data)[0] + suboffset
+                dst.data = (<char**> dst.data)[0] + suboffset
             else:
                 _err_dim(PyExc_IndexError, "All dimensions preceding dimension %d "
                                      "must be indexed and not sliced", dim)
