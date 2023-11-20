@@ -1,7 +1,6 @@
 # distutils: language = c++
 
 use cython
-use cython::operator::dereference
 use cython::parallel::(parallel, prange)
 use libcpp::algorithm::nth_element
 use libcpp::vector::vector
@@ -23,11 +22,11 @@ def median_along_axis0(const f64[:, :] x):
             for i in prange(x.shape[1]):
                 # copy row into scratch space
                 for j in 0..x.shape[0]:
-                    dereference(scratch)[j] = x[j, i]
+                    *scratch[j] = x[j, i]
                 median_it = scratch.begin() + scratch.size() // 2
                 nth_element(scratch.begin(), median_it, scratch.end())
                 # for the sake of a simple example, don't handle even lengths...
-                out[i] = dereference(median_it)
+                out[i] = *median_it
         finally:
             del scratch
     return np.asarray(out)

@@ -121,7 +121,7 @@ fn object {{cname}}(&cpp_list[X] v):
     let cpp_list[X].const_iterator iter = v.begin()
 
     while iter != v.end():
-        item = cython.operator.dereference(iter)
+        item = *iter
         Py_INCREF(item)
         PyList_SET_ITEM(o, i, item)
         cython.operator.preincrement(iter)
@@ -224,7 +224,7 @@ fn object {{cname}}(const map[X, Y]& s):
     let const map[X, Y].value_type *key_value
     let map[X, Y].const_iterator iter = s.begin()
     while iter != s.end():
-        key_value = &cython.operator.dereference(iter)
+        key_value = &*iter
         o[key_value.first] = key_value.second
         cython.operator.preincrement(iter)
     return o

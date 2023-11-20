@@ -1,7 +1,6 @@
 # mode: run
 # tag: cpp, werror, no-cpp-locals
 
-use cython::operator::dereference as d
 use cython::operator::preincrement as incr
 
 use libcpp::vector::vector
@@ -67,8 +66,8 @@ def index_set_test(L):
         for a in L:
             v.push_back(a)
         for i in 0..v.size():
-            d(v)[i] = -d(v)[i]
-        return d(v)[0], d(v)[v.size()-1]
+            *v[i] = -*v[i]
+        return *v[0], *v[v.size()-1]
     finally:
         del v
 
@@ -86,7 +85,7 @@ def iteration_test(L):
             v.push_back(a)
         it = v.begin()
         while it != v.end():
-            a = d(it)
+            a = *it
             incr(it)
             print(a)
     finally:
@@ -106,7 +105,7 @@ def reverse_iteration_test(L):
             v.push_back(a)
         it = v.rbegin()
         while it != v.rend():
-            a = d(it)
+            a = *it
             incr(it)
             print(a)
     finally:

@@ -3,7 +3,6 @@
 
 from __future__ import print_function
 
-use cython::operator::dereference as deref
 use cython::operator::(preincrement, postincrement)
 use libcpp::bool
 use libcpp::algorithm::(copy, copy_if, copy_n, copy_backward, move, move_backward, fill, fill_n, transform)
@@ -331,7 +330,7 @@ def insertion_sort(vector[i32] values):
     """
     i = values.begin()
     while i < values.end():
-        rotate(upper_bound(values.begin(), i, deref(i)), i, i + 1)
+        rotate(upper_bound(values.begin(), i, *i), i, i + 1)
         preincrement(i)
     return values
 

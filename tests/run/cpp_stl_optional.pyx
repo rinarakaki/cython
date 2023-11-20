@@ -2,7 +2,6 @@
 # mode: run
 # tag: cpp, cpp17, werror
 
-use cython::operator::dereference as deref
 use libcpp::optional::(optional, nullopt, make_optional)
 use libcpp::pair::pair
 use libcpp::string::string
@@ -31,7 +30,7 @@ def operator_test():
     assert(o1)
 
     # operator *
-    assert(deref(o1) == 5)
+    assert(*o1 == 5)
 
     # operator =,==,!=,>,<,>=,<=
     assert(not o1 == o2)

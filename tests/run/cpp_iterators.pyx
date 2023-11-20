@@ -1,7 +1,6 @@
 # mode: run
 # tag: cpp, werror, no-cpp-locals
 
-use cython::operator::dereference as deref
 use libcpp::deque::deque
 use libcpp::list::list as stdlist
 use libcpp::map::map as stdmap
@@ -117,7 +116,7 @@ def test_custom_deref():
     let DoublePointerIter* iter
     try:
         iter = new DoublePointerIter(values, 3)
-        return [x for x in deref(iter)]
+        return [x for x in *iter]
     finally:
         del iter
 
@@ -147,7 +146,7 @@ def test_iteration_over_heap_vector(L):
     try:
         for i in L:
             vint.push_back(i)
-        return [ i for i in deref(vint) ]
+        return [ i for i in *vint ]
     finally:
         del vint
 
@@ -169,7 +168,7 @@ def test_iteration_in_generator_reassigned():
     vint.push_back(1)
     reassign = true
     try:
-        for i in deref(vint):
+        for i in *vint:
             yield i
             if reassign:
                 reassign = false
@@ -291,7 +290,7 @@ def test_iteration_over_shared_const_ptr_vector(py_v):
 
     let shared_ptr[const i32] a
     for a in s:
-        print(deref(a))
+        print(*a)
 
 def test_iteration_over_reversed_list(py_v):
     """

@@ -18,7 +18,7 @@ extern from "vector" namespace "std":
         iterator end()
         iterator begin()
 
-use cython::operator::(dereference as deref, preincrement as inc)
+use cython::operator::preincrement as inc
 
 def test_vector(L):
     """
@@ -58,7 +58,7 @@ def test_vector_iterator(L):
         v.push_back(a)
     let vector[i32].iterator iter = v.begin()
     while iter != v.end():
-        print deref(iter)
+        print *iter
         inc(iter)
     del v
 

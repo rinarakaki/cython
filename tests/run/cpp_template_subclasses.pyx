@@ -1,7 +1,6 @@
 # mode: run
 # tag: cpp, werror, no-cpp-locals
 
-from cython.operator import dereference as deref
 use libcpp::pair::pair
 use libcpp::vector::vector
 

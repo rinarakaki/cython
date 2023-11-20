@@ -1,8 +1,6 @@
 # mode: run
 # tag: cpp, werror
 
-use cython::operator::dereference as deref
-
 extern from "cpp_templates_helper.h":
     cdef cppclass Wrap[T]:
         Wrap(T)
@@ -26,7 +24,7 @@ def test_wrap_pair(i32 i, f64 x):
     """
     try:
         wrap = new Wrap[Pair[i32, f64]](Pair[i32, f64](i, x))
-        return wrap.get().first(), wrap.get().second(), deref(wrap) == deref(wrap)
+        return wrap.get().first(), wrap.get().second(), *wrap == *wrap
     finally:
         del wrap
 
@@ -43,6 +41,6 @@ def test_wrap_pair_pair(i32 i, i32 j, f64 x):
         return (wrap.get().first(),
                 wrap.get().second().first(),
                 wrap.get().second().second(),
-                deref(wrap) == deref(wrap))
+                *wrap == *wrap)
     finally:
         del wrap

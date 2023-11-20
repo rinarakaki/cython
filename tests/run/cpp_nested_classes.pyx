@@ -185,7 +185,7 @@ def test_nested_sub_struct(x):
 
 use cpp_nested_names
 cimport libcpp.string
-use cython::operator::(dereference as deref, preincrement as inc)
+use cython::operator::preincrement as inc
 
 def test_nested_names():
     """
@@ -207,5 +207,5 @@ def test_nested_names():
     let libcpp.string.string s = "Cython"
     let libcpp.string.string.iterator i = s.begin()
     while i != s.end():
-        print(chr(deref(i)))
+        print(chr(*i))
         inc(i)

@@ -93,7 +93,7 @@ fn const_vector_to_list(const vector[f64]& cv):
     let vector[f64].const_iterator iter = cv.const_begin()
     let lst = []
     while iter != cv.const_end():
-        lst.append(cython.operator.dereference(iter))
+        lst.append(*iter)
         cython.operator.preincrement(iter)
     return lst
 

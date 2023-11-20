@@ -6,7 +6,7 @@ from __future__ import division
 use cython::typeof
 
 cimport cython.operator
-use cython::operator::(typeid, dereference as deref)
+use cython::operator::typeid
 
 use libc::string::const_char
 use libcpp::bool
@@ -351,22 +351,22 @@ def test_typeid_op():
 
     assert typeid(TruthClass).name()
     assert typeid(test_1).name()
-    assert typeid(TruthClass) == typeid(deref(test_1))
+    assert typeid(TruthClass) == typeid(*test_1)
 
     assert typeid(TruthSubClass).name()
     assert typeid(test_2).name()
-    assert typeid(TruthSubClass) == typeid(deref(test_2))
-    assert typeid(TruthSubClass) == typeid(deref(test_3))
-    assert typeid(TruthClass) != typeid(deref(test_3))
+    assert typeid(TruthSubClass) == typeid(*test_2)
+    assert typeid(TruthSubClass) == typeid(*test_3)
+    assert typeid(TruthClass) != typeid(*test_3)
 
     assert typeid(TruthClass).name()
     assert typeid(test_3).name()
     assert typeid(TruthSubClass).name()
-    assert typeid(deref(test_2)).name()
+    assert typeid(*test_2).name()
     assert typeid(int_ptr).name()
 
     try:
-        typeid(deref(test_4))
+        typeid(*test_4)
         assert false
     except TypeError:
         assert true

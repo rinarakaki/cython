@@ -1,7 +1,6 @@
 # tag: cpp
 
 use cython
-from cython.operator import dereference as deref
 
 extern from "cpp_templates_helper.h":
     cdef cppclass Wrap[T, AltType=*, UndeclarableAltType=*]:
@@ -59,7 +58,7 @@ def test_double(f64 x, f64 y):
         a = new Wrap[f64](x)
         b = new Wrap[f64](-1)
         b.set(y)
-        return a.get(), b.get(), deref(a) == deref(b)
+        return a.get(), b.get(), *a == *b
     finally:
         del a, b
 
@@ -96,7 +95,7 @@ def test_pair(i32 i, f64 x):
     """
     try:
         pair = new Pair[i32, f64](i, x)
-        return pair.first(), pair.second(), deref(pair) == deref(pair), deref(pair) != deref(pair)
+        return pair.first(), pair.second(), *pair == *pair, *pair != *pair
     finally:
         del pair
 

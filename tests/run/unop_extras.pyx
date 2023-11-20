@@ -1,6 +1,4 @@
 cimport cython.operator
-use cython::operator::dereference
-use cython::operator::dereference as deref
 
 def test_deref(i32 x):
     """
@@ -10,7 +8,7 @@ def test_deref(i32 x):
     (5, 5, 5)
     """
     let i32* x_ptr = &x
-    return cython.operator.dereference(x_ptr), dereference(x_ptr), deref(x_ptr)
+    return *x_ptr
 
 def increment_decrement(i32 x):
     """

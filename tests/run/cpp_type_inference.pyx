@@ -19,7 +19,6 @@ extern from "shapes.h" namespace "shapes":
 
 use cython::typeof
 
-use cython::operator::dereference as d
 use cython::operator::preincrement as incr
 use libcpp::vector::vector
 
@@ -35,7 +34,7 @@ def test_reversed_vector_iteration(L):
 
     it = v.rbegin()
     while it != v.rend():
-        a = d(it)
+        a = *it
         incr(it)
         print('%s: %s' % (typeof(a), a))
     print(typeof(a))
