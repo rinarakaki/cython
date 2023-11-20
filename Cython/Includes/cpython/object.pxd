@@ -31,10 +31,10 @@ extern from "Python.h":
     ctypedef i32 (*traverseproc)(PyObject*, visitproc, void*) except -1
     type freefunc = void(void*)
 
-    ctypedef (object*)(object, object, object) descrgetfunc
+    type descrgetfunc = object(object, object, object)
     ctypedef i32 (*descrsetfunc)(object, object, object) except -1
 
-    ctypedef (object*)(object, object) PyCFunction
+    type PyCFunction = object(object, object)
 
     struct PyMethodDef:
         const char* ml_name
