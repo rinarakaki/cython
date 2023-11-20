@@ -9,7 +9,7 @@ fn void callback(void* data) noexcept:
 def create_array(shape, mode, use_callback=false):
     let array result = array(shape, itemsize=sizeof(i32),
                              format='i', mode=mode)
-    let auto data = <r&i32>result.data
+    let auto data = <r&mut i32>result.data
     let i32 i, j, cidx, fidx
 
     for i in 0..shape[0]:
