@@ -200,7 +200,7 @@ def test_specializations():
     double pointer
     double pointer
     """
-    let (object*)(f64, f64*, f64*, i32*) f
+    let object(f64, r&f64, r&f64, i32*) f
 
     let f64 somedouble = 2.2
     let f64 otherdouble = 3.3
@@ -213,10 +213,10 @@ def test_specializations():
     f = test_specialize
     assert f(1.1, somedouble_p, otherdouble_p, someint_p) == 10.6
 
-    f = <(object*)(f64, f64*, f64*, i32*)> test_specialize
+    f = <object(f64, f64*, f64*, i32*)>test_specialize
     assert f(1.1, somedouble_p, otherdouble_p, someint_p) == 10.6
 
-    assert (<(object*)(f64, f64*, f64*, i32*)>
+    assert (<object(f64, f64*, f64*, i32*)>
             test_specialize)(1.1, somedouble_p, otherdouble_p, someint_p) == 10.6
 
     f = test_specialize[f64, i32]

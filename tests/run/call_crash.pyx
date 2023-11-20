@@ -4,13 +4,13 @@ cdef class A:
     9
     """
 
-    cdef (i32*)(i32) func_ptr
+    cdef i32(i32) func_ptr
 
     def __init__(self):
         self.func_ptr = &func
 
     fn i32 do_it(self, i32 s):
-        cdef int r = first_call(self).func_ptr(s) # the temp for first_call(self) not properly freed
+        let i32 r = first_call(self).func_ptr(s)  # the temp for first_call(self) not properly freed
         return r
 
     def test(self, s):
