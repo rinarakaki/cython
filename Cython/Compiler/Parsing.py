@@ -2763,7 +2763,7 @@ def p_c_base_type(s, nonempty=False, templates=None):
 
     elif s.sy == "(":
         args = p_c_complex_base_type(s, templates = templates)
-        base_type = Nodes.CFuncPtrTypeNode(pos, args=args)
+        base_type = Nodes.CFuncPtrTypeNode(pos, base_type=base_type, args=args)
     
     if s.sy in ("*", "**"):
         # scanner returns "**" as a single token
