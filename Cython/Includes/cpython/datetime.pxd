@@ -188,27 +188,27 @@ extern from "datetime.h":
         PyTypeObject* TZInfoType
 
         # constructors
-        (date*)(i32, i32, i32, PyTypeObject*) Date_FromDate
-        (datetime*)(i32, i32, i32, i32, i32, i32, i32, object, PyTypeObject*) DateTime_FromDateAndTime
-        (time*)(i32, i32, i32, i32, object, PyTypeObject*) Time_FromTime
-        (timedelta*)(i32, i32, i32, i32, PyTypeObject*) Delta_FromDelta
+        r&date(i32, i32, i32, PyTypeObject*) Date_FromDate
+        r&datetime(i32, i32, i32, i32, i32, i32, i32, object, PyTypeObject*) DateTime_FromDateAndTime
+        r&time(i32, i32, i32, i32, object, PyTypeObject*) Time_FromTime
+        r&timedelta(i32, i32, i32, i32, PyTypeObject*) Delta_FromDelta
 
         # constructors for the DB API
-        (datetime*)(PyObject*, object, PyObject*) DateTime_FromTimestamp
-        (date*)(PyObject*, object) Date_FromTimestamp
+        r&datetime(PyObject*, object, PyObject*) DateTime_FromTimestamp
+        r&date(PyObject*, object) Date_FromTimestamp
 
         # We cannot use the following because they do not compile in older Python versions.
         # Instead, we use datetime.h's macros here that we can backport in C.
 
         # Python 3.7+ constructors
-        (object*)(object offset, PyObject* name) TimeZone_FromTimeZone
+        r&object(object offset, PyObject* name) TimeZone_FromTimeZone
 
         # Python 3.7+ singletons
         PyObject* TimeZone_UTC
 
         # Python 3.6+ PEP 495 constructors
-        (datetime*)(i32, i32, i32, i32, i32, i32, i32, object, i32, PyTypeObject*) DateTime_FromDateAndTimeAndFold
-        (time*)(i32, i32, i32 ,i32, object, i32, PyTypeObject*) Time_FromTimeAndFold
+        r&datetime(i32, i32, i32, i32, i32, i32, i32, object, i32, PyTypeObject*) DateTime_FromDateAndTimeAndFold
+        r&time(i32, i32, i32 ,i32, object, i32, PyTypeObject*) Time_FromTimeAndFold
 
     # Check type of the object.
     fn u2 PyDate_Check(object op)
