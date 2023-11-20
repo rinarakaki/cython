@@ -13,7 +13,7 @@ extern from "Python.h":
     # Output not more than size bytes to str according to the format
     # string format and the variable argument list va. Unix man page vsnprintf(2).
 
-    fn f64 PyOS_string_to_double(r&char s, r&char* endptr, PyObject* overflow_exception) except? -1.0
+    fn f64 PyOS_string_to_double(r&char s, char** endptr, r&PyObject overflow_exception) except? -1.0
     # Convert a string s to a double, raising a Python exception on failure. The set of
     # accepted strings corresponds to the set of strings accepted by Python’s float()
     # constructor, except that s must not have leading or trailing whitespace.
