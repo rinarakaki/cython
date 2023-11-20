@@ -11,7 +11,7 @@ extern from "Python.h":
     fn i32 PyCObject_Check(object p)
     #     Return true if its argument is a PyCObject.
 
-    fn object PyCObject_FromVoidPtr(void* cobj, (void*)(void*) destr)
+    fn object PyCObject_FromVoidPtr(void* cobj, r&mut void(r&mut void) destr)
     #     Return value: New reference.
     #
     #     Create a PyCObject from the void * cobj. The destr function will
