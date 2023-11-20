@@ -51,12 +51,14 @@ def test_cdef_class_cython_utility():
     TestClass(20)
     TestClass(50)
     """
-    let auto obj = TestClass_New(7)
-    let auto objstruct = <__pyx_TestClass_obj*>obj
+    cdef __pyx_TestClass_obj *objstruct
+
+    obj =  TestClass_New(7)
+    objstruct = <__pyx_TestClass_obj *> obj
     print objstruct.value
 
-    let auto obj = __pyx_TestClass_New(14)
-    let auto objstruct = <__pyx_TestClass_obj*>obj
+    obj =  __pyx_TestClass_New(14)
+    objstruct = <__pyx_TestClass_obj *>obj
     print objstruct.value
 
     print (<object>TestClassType)(20)

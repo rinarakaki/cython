@@ -3,8 +3,8 @@ extern from "pythread.h":
     type PyThread_type_sema = void*
 
     fn void PyThread_init_thread()
-    fn i64 PyThread_start_new_thread((void*)(void*), void*)  # FIXME: legacy
-    # fn u64 PyThread_start_new_thread((void*)(void*), void*)  # returned 'long' before Py3.7
+    fn i64 PyThread_start_new_thread(void(r&mut void), r&mut void)  # FIXME: legacy
+    # fn u64 PyThread_start_new_thread(void(r&mut void*), r&mut void)  # returned 'long' before Py3.7
     fn void PyThread_exit_thread()
     fn i64 PyThread_get_thread_ident()  # FIXME: legacy
     # u64 PyThread_get_thread_ident()  # returned 'long' before Py3.7
