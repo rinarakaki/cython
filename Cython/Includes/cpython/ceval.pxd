@@ -11,13 +11,13 @@ extern from "Python.h":
                                         PyObject *const *defs, i32 defc,
                                         r&mut PyObject kwdefs, r&mut PyObject closure);
 
-    fn r&mut PyObject PyEval_GetBuiltins(void);
-    fn r&mut PyObject PyEval_GetGlobals(void);
-    fn r&mut PyObject PyEval_GetLocals(void);
-    fn r&mut PyFrameObject PyEval_GetFrame(void);
+    fn r&mut PyObject PyEval_GetBuiltins();
+    fn r&mut PyObject PyEval_GetGlobals();
+    fn r&mut PyObject PyEval_GetLocals();
+    fn r&mut PyFrameObject PyEval_GetFrame();
     
     fn i32 Py_AddPendingCall(i32 (*func)(void *), r&mut void arg);
-    fn i32 Py_MakePendingCalls(void);
+    fn i32 Py_MakePendingCalls();
     
     # fn void PyEval_InitThreads()
     # Initialize and acquire the global interpreter lock.
