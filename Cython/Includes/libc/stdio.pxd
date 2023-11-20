@@ -75,4 +75,4 @@ extern from "<stdio.h>" nogil:
     fn i32 fputc(i32 c, FILE* stream)
     fn i32 putc(i32 c, FILE* stream)
 
-    fn usize getline(r&char* lineptr, usize *n, FILE* stream)
+    fn usize getline(char** lineptr, usize *n, FILE* stream)
