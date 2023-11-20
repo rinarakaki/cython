@@ -1,4 +1,5 @@
 use super::object::PyObject
+use super::pystate::PyFrameObject
 
 extern from "Python.h":
     fn r&mut PyObject PyEval_EvalCode(r&mut PyObject, r&mut PyObject, r&mut PyObject);
