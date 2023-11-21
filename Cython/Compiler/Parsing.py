@@ -1428,10 +1428,10 @@ def p_dict_or_set_maker(s):
     target_type = 0
     last_was_simple_item = False
     while True:
-        if s.in_python_file and s.sy in ('*', '**') or not s.in_python_file and s.sy in ('*', ".."):
+        if s.in_python_file and s.sy in ('*', '**') or not s.in_python_file and s.sy in ('...', ".."):
             # merged set/dict literal
             if target_type == 0:
-                target_type = 1 if s.sy == '*' else 2  # 'stars'
+                target_type = 1 if s.sy in ("*", "...") else 2  # 'stars'
             elif target_type != len(s.sy):
                 s.error("unexpected %sitem found in %s literal" % (
                     s.sy, 'set' if target_type == 1 else 'dict'))
