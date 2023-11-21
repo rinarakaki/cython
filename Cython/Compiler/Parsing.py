@@ -530,13 +530,13 @@ def p_call_parse_args(s, allow_genexp=True):
     starstar_seen = False
     last_was_tuple_unpack = False
     while s.sy != ')':
-        if s.sy == '*':
+        if s.in_python_file and s.sy == "*" or not s.in_python_file and s.sy == "...":
             if starstar_seen:
                 s.error("Non-keyword arg following keyword arg", pos=s.position())
             s.next()
             positional_args.append(p_test(s))
             last_was_tuple_unpack = True
-        elif s.is_python_file and s.sy == "**" or not s.is_python_file and s.sy == "..":
+        elif s.in_python_file and s.sy == "**" or not s.in_python_file and s.sy == "..":
             s.next()
             keyword_args.append(p_test(s))
             starstar_seen = True
