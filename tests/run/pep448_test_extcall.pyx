@@ -49,10 +49,10 @@ except ImportError:
 def e(a, b):
     print(a, b)
 
-def f(*a, ..k):
+def f(*a, **k):
     print(a, sortdict(k))
 
-def g(x, *y, ..z):
+def g(x, *y, **z):
     print(x, y, sortdict(z))
 
 def h(j=1, a=2, h=3):
@@ -108,19 +108,19 @@ def call_f_kwargs():
     (1, 2) {'a': 3}
     """
 
-    f(1, 2, 3, ..{'a':4, 'b':5})
-    f(1, 2, 3, *[4, 5], ..{'a':6, 'b':7})
-    f(1, 2, 3, x=4, y=5, *(6, 7), ..{'a':8, 'b': 9})
-    f(1, 2, 3, *[4, 5], ..{'c': 8}, ..{'a':6, 'b':7})
-    f(1, 2, 3, *(4, 5), x=6, y=7, ..{'a':8, 'b': 9})
+    f(1, 2, 3, **{'a':4, 'b':5})
+    f(1, 2, 3, *[4, 5], **{'a':6, 'b':7})
+    f(1, 2, 3, x=4, y=5, *(6, 7), **{'a':8, 'b': 9})
+    f(1, 2, 3, *[4, 5], **{'c': 8}, **{'a':6, 'b':7})
+    f(1, 2, 3, *(4, 5), x=6, y=7, **{'a':8, 'b': 9})
 
-    f(1, 2, 3, ..UserDict(a=4, b=5))
-    f(1, 2, 3, *(4, 5), ..UserDict(a=6, b=7))
-    f(1, 2, 3, x=4, y=5, *(6, 7), ..UserDict(a=8, b=9))
-    f(1, 2, 3, *(4, 5), x=6, y=7, ..UserDict(a=8, b=9))
+    f(1, 2, 3, **UserDict(a=4, b=5))
+    f(1, 2, 3, *(4, 5), **UserDict(a=6, b=7))
+    f(1, 2, 3, x=4, y=5, *(6, 7), **UserDict(a=8, b=9))
+    f(1, 2, 3, *(4, 5), x=6, y=7, **UserDict(a=8, b=9))
 
     f(1, *[] or () and {}, *() and [], *{} or [] and (), *{} and [] or (), 2,
-      ..{} and {} or {}, ..{} or {} and {}, ..{} and {}, a=3)
+      **{} and {} or {}, **{} or {} and {}, **{} and {}, a=3)
 
 
 # Examples with invalid arguments (TypeErrors). We're also testing the function
@@ -135,7 +135,7 @@ def errors_f1():
         ...
     TypeError: ...got multiple values for keyword argument 'a'
     """
-    f(1, 2, ..{'a': -1, 'b': 5}, ..{'a': 4, 'c': 6})
+    f(1, 2, **{'a': -1, 'b': 5}, **{'a': 4, 'c': 6})
 
 
 def errors_f2():
@@ -145,7 +145,7 @@ def errors_f2():
         ...
     TypeError: ...multiple values for keyword argument 'a'
     """
-    f(1, 2, ..{'a': -1, 'b': 5}, a=4, c=6)
+    f(1, 2, **{'a': -1, 'b': 5}, a=4, c=6)
 
 
 def errors_e1():
@@ -199,7 +199,7 @@ def errors_g3():
 
     # TypeError: g() missing 1 required positional argument: 'x'
     """
-    g(*(), ..{})
+    g(*(), **{})
 
 
 def call_g_positional():
@@ -287,7 +287,7 @@ def call_kwargs_unmodified1():
     """
     d = {'a': 1, 'b': 2, 'c': 3}
     d2 = d.copy()
-    g(1, d=4, ..d)
+    g(1, d=4, **d)
     return d == d2
 
 
@@ -298,12 +298,12 @@ def call_kwargs_unmodified2():
     >>> call_kwargs_unmodified2()
     {}
     """
-    def saboteur(..kw):
+    def saboteur(**kw):
         kw['x'] = 'm'
         return kw
 
     d = {}
-    kw = saboteur(a=1, ..d)
+    kw = saboteur(a=1, **d)
     return d
 
 
@@ -314,7 +314,7 @@ def errors_args_kwargs_overlap():
       ...
     TypeError: ...got multiple values for... argument 'x'
     """
-    g(1, 2, 3, ..{'x': 4, 'y': 5})
+    g(1, 2, 3, **{'x': 4, 'y': 5})
 
 
 def errors_non_string_kwarg():
@@ -323,7 +323,7 @@ def errors_non_string_kwarg():
     Traceback (most recent call last):
     TypeError: ...keywords must be strings...
     """
-    f(..{1: 2})
+    f(**{1: 2})
 
 
 def errors_unexpected_kwarg():
@@ -333,7 +333,7 @@ def errors_unexpected_kwarg():
       ...
     TypeError: h() got an unexpected keyword argument 'e'
     """
-    h(..{'e': 2})
+    h(**{'e': 2})
 
 
 def errors_call_nonseq():
@@ -369,7 +369,7 @@ def errors_call_nonmapping_kwargs():
     ... except TypeError: pass
     ... else: print("FAILED!")
     """
-    h(..h)
+    h(**h)
 
 
 def errors_call_builtin_nonmapping_kwargs():
@@ -378,7 +378,7 @@ def errors_call_builtin_nonmapping_kwargs():
     ... except TypeError: pass
     ... else: print("FAILED!")
     """
-    dir(..h)
+    dir(**h)
 
 
 def errors_call_none_nonmapping_kwargs():
@@ -387,7 +387,7 @@ def errors_call_none_nonmapping_kwargs():
     ... except TypeError: pass
     ... else: print("FAILED!")
     """
-    None(..h)
+    None(**h)
 
 
 '''  # compile time error in Cython
@@ -398,13 +398,13 @@ def errors_call_builtin_duplicate_kwarg():
       ...
     TypeError: ...got multiple values for keyword argument 'b'
     """
-    dir(b=1, ..{'b': 1})
+    dir(b=1, **{'b': 1})
 '''
 
 
 # Another helper function
 
-def f2(*a, ..b):
+def f2(*a, **b):
     return a, b
 
 
@@ -414,10 +414,10 @@ def call_many_kwargs():
     (3, 512, True)
     """
     d = {}
-    for i in 0..512:
+    for i in 0**512:
         key = 'k%d' % i
         d[key] = i
-    a, b = f2(1, *(2, 3), ..d)
+    a, b = f2(1, *(2, 3), **d)
     return len(a), len(b), b == d
 
 
@@ -449,7 +449,7 @@ def call_builtin_empty_dict():
     >>> call_builtin_empty_dict()
     """
     silence = id(1, *{})
-    silence = id(1, ..{})
+    silence = id(1, **{})
 
 
 def call_builtin_nonempty_dict():
@@ -459,7 +459,7 @@ def call_builtin_nonempty_dict():
       ...
     TypeError: id() ... keyword argument...
     """
-    return id(1, ..{'foo': 1})
+    return id(1, **{'foo': 1})
 
 
 ''' Cython: currently just passes empty kwargs into f() while CPython keeps the content
@@ -485,7 +485,7 @@ def call_kwargs_modified_while_building():
     x = {Name("a"):1, Name("b"):2}
     def f(a, b):
         print(a, b)
-    f(..x)
+    f(**x)
 '''
 
 

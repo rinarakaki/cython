@@ -34,7 +34,7 @@ def grail(x, y, z, *a):
     """
     return (x, y, z, a)
 
-def swallow(x, y, z, ..k):
+def swallow(x, y, z, **k):
     """
     >>> swallow(1, 2, 3)
     (1, 2, 3, ())
@@ -49,7 +49,7 @@ def swallow(x, y, z, ..k):
     """
     return (x, y, z, sorteditems(k))
 
-def creosote(x, y, z, *a, ..k):
+def creosote(x, y, z, *a, **k):
     """
     >>> creosote(1, 2, 3)
     (1, 2, 3, (), ())
@@ -82,7 +82,7 @@ def onlyt(*a):
     """
     return a
 
-def onlyk(..k):
+def onlyk(**k):
     """
     >>> onlyk(a=1)
     (('a', 1),)
@@ -100,7 +100,7 @@ def onlyk(..k):
     """
     return sorteditems(k)
 
-def tk(*a, ..k):
+def tk(*a, **k):
     """
     >>> tk(a=1)
     (('a', 1),)
@@ -122,11 +122,11 @@ def t_kwonly(*a, k):
     """
     return a
 
-def test_no_copy_args(func, ..kw):
+def test_no_copy_args(func, **kw):
     """
-    func is a function such that func(*args, ..kw) returns args.
+    func is a function such that func(*args, **kw) returns args.
     We test that no copy is made of the args tuple.
     This tests both the caller side and the callee side.
     """
     args = (1, 2, 3)
-    return func(*args, ..kw) is args
+    return func(*args, **kw) is args
