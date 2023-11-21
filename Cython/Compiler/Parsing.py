@@ -351,11 +351,16 @@ def _p_factor(s):
         s.next()
         return ExprNodes.unop_node(pos, op, p_factor(s))
     elif not s.in_python_file:
-        if sy == '&':
+        if sy == "&":
             pos = s.position()
             s.next()
-            arg = p_factor(s)
-            return ExprNodes.AmpersandNode(pos, operand = arg)
+            operand = p_factor(s)
+            return ExprNodes.AmpersandNode(pos, operand = operand)
+        if sy == "*":
+            pos = s.position()
+            s.next()
+            operand = p_factor(s)
+            return ExprNodes.DereferenceNode(pos, operand = operand)
         elif sy == "<":
             return p_typecast(s)
         elif sy == 'IDENT' and s.systring == "sizeof":
