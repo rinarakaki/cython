@@ -1,2 +1,2 @@
-def f(a, *p, ..n):
+def f(a, *p, **n):
     pass

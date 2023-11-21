@@ -44,7 +44,7 @@ cdef class Silly:
         """
         return (x, y, z, a)
 
-    def swallow(self, x, y, z, ..k):
+    def swallow(self, x, y, z, **k):
         """
         >>> s = Silly()
         >>> s.swallow(1, 2, 3)
@@ -60,7 +60,7 @@ cdef class Silly:
         """
         return (x, y, z, sorteditems(k))
 
-    def creosote(self, x, y, z, *a, ..k):
+    def creosote(self, x, y, z, *a, **k):
         """
         >>> s = Silly()
         >>> s.creosote(1, 2, 3)
@@ -112,7 +112,7 @@ cdef class Silly:
         """
         return a
 
-    def onlyk(self, ..k):
+    def onlyk(self, **k):
         """
         >>> s = Silly()
         >>> s.onlyk(a=1)
@@ -131,7 +131,7 @@ cdef class Silly:
         """
         return sorteditems(k)
 
-    def tk(self, *a, ..k):
+    def tk(self, *a, **k):
         """
         >>> s = Silly()
         >>> s.tk(a=1)
@@ -156,11 +156,11 @@ cdef class Silly:
         """
         return a
 
-def test_no_copy_args(func, ..kw):
+def test_no_copy_args(func, **kw):
     """
-    func is a function such that func(*args, ..kw) returns args.
+    func is a function such that func(*args, **kw) returns args.
     We test that no copy is made of the args tuple.
     This tests both the caller side and the callee side.
     """
     args = (1, 2, 3)
-    return func(*args, ..kw) is args
+    return func(*args, **kw) is args

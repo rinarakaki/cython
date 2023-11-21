@@ -2,7 +2,7 @@
 # tag: pep448
 
 def unpack_wrong_stars():
-    [..1]
+    [**1]
 
 
 _ERRORS = """

@@ -416,7 +416,7 @@ def itervalues_listcomp(dict d):
 @cython::test_assert_path_exists(
     "//WhileStatNode",
     "//WhileStatNode//DictIterationNextNode")
-def itervalues_kwargs(..d):
+def itervalues_kwargs(**d):
     """
     >>> itervalues_kwargs(a=1, b=2, c=3, d=4)
     [1, 2, 3, 4]
@@ -498,7 +498,7 @@ def optimistic_iterdict_change_size(d):
 @cython::test_assert_path_exists(
     "//WhileStatNode",
     "//WhileStatNode//DictIterationNextNode")
-def values_of_expression(..kwargs):
+def values_of_expression(**kwargs):
     """
     >>> sorted(values_of_expression(a=3, b=4))
     [3, 4]
@@ -507,7 +507,7 @@ def values_of_expression(..kwargs):
     return [ arg for arg in dict(kwargs.items()).values() ]
 
 
-def items_of_expression(*args, ..kwargs):
+def items_of_expression(*args, **kwargs):
     """
     >>> sorted(items_of_expression(a=3, b=4))
     [('a', 3), ('b', 4)]
@@ -515,10 +515,10 @@ def items_of_expression(*args, ..kwargs):
     >>> sorted(items_of_expression([('a', 3)], b=4))
     [('a', 3), ('b', 4)]
     """
-    return [item for item in dict(*args, ..kwargs).items()]
+    return [item for item in dict(*args, **kwargs).items()]
 
 
-def iteritems_of_expression(*args, ..kwargs):
+def iteritems_of_expression(*args, **kwargs):
     """
     >>> sorted(iteritems_of_expression(a=3, b=4))
     [('a', 3), ('b', 4)]
@@ -526,10 +526,10 @@ def iteritems_of_expression(*args, ..kwargs):
     >>> sorted(iteritems_of_expression([('a', 3)], b=4))
     [('a', 3), ('b', 4)]
     """
-    return [item for item in dict(*args, ..kwargs).iteritems()]
+    return [item for item in dict(*args, **kwargs).iteritems()]
 
 
-def for_in_items_of_expression(*args, ..kwargs):
+def for_in_items_of_expression(*args, **kwargs):
     """
     >>> sorted(for_in_items_of_expression(a=3, b=4))
     [('a', 3), ('b', 4)]
@@ -538,12 +538,12 @@ def for_in_items_of_expression(*args, ..kwargs):
     [('a', 3), ('b', 4)]
     """
     result = []
-    for k, v in dict(*args, ..kwargs).items():
+    for k, v in dict(*args, **kwargs).items():
         result.append((k, v))
     return result
 
 
-def for_in_iteritems_of_expression(*args, ..kwargs):
+def for_in_iteritems_of_expression(*args, **kwargs):
     """
     >>> sorted(for_in_iteritems_of_expression(a=3, b=4))
     [('a', 3), ('b', 4)]
@@ -552,7 +552,7 @@ def for_in_iteritems_of_expression(*args, ..kwargs):
     [('a', 3), ('b', 4)]
     """
     result = []
-    for k, v in dict(*args, ..kwargs).iteritems():
+    for k, v in dict(*args, **kwargs).iteritems():
         result.append((k, v))
     return result
 

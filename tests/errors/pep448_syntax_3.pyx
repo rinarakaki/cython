@@ -2,7 +2,7 @@
 # tag: pep448
 
 def unpack_mix_in_set():
-    {*1, ..2}
+    {*1, **2}
 
 
 _ERRORS = """
