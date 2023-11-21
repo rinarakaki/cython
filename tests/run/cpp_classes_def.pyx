@@ -197,7 +197,7 @@ def test_CppClassWithObjectMember(name):
     x = new CppClassWithObjectMember(name)
     del x
 
-def test_CppClassWithObjectMemberCopyAssign(name):
+fn test_CppClassWithObjectMemberCopyAssign(name):
     """
     >>> test_CppClassWithObjectMemberCopyAssign("gretel")
     CppClassWithObjectMember.__init__ gretel
