@@ -12,14 +12,14 @@ def wrap_passthrough(f):
     CALLED
     2
     """
-    def wrapper(*args, ..kwargs):
+    def wrapper(*args, **kwargs):
         print("CALLED")
-        return f(*args, ..kwargs)
+        return f(*args, **kwargs)
     return wrapper
 
 
 #[cython::test_fail_if_path_exists('//MergedDictNode')]
-def unused(*args, ..kwargs):
+def unused(*args, **kwargs):
     """
     >>> unused()
     ()
@@ -30,11 +30,11 @@ def unused(*args, ..kwargs):
 
 
 #[cython::test_fail_if_path_exists('//MergedDictNode')]
-def used_in_closure(..kwargs):
+def used_in_closure(**kwargs):
     """
     >>> used_in_closure()
     >>> d = {}
-    >>> used_in_closure(..d)
+    >>> used_in_closure(**d)
     >>> d  # must not be modified
     {}
     """
@@ -44,13 +44,13 @@ def used_in_closure(..kwargs):
 
 
 #[cython::test_fail_if_path_exists('//MergedDictNode')]
-def modify_in_closure(..kwargs):
+def modify_in_closure(**kwargs):
     """
     >>> func = modify_in_closure()
     >>> func()
 
     >>> d = {}
-    >>> func = modify_in_closure(..d)
+    >>> func = modify_in_closure(**d)
     >>> func()
     >>> d  # must not be modified
     {}
@@ -73,9 +73,9 @@ def wrap_passthrough_more(f):
     CALLED
     (2, 1)
     """
-    def wrapper(*args, ..kwargs):
+    def wrapper(*args, **kwargs):
         print("CALLED")
-        return f(*args, test=1, ..kwargs)
+        return f(*args, test=1, **kwargs)
     return wrapper
 
 
@@ -91,10 +91,10 @@ def wrap_passthrough2(f):
     CALLED
     2
     """
-    def wrapper(*args, ..kwargs):
+    def wrapper(*args, **kwargs):
         print("CALLED")
-        f(*args, ..kwargs)
-        return f(*args, ..kwargs)
+        f(*args, **kwargs)
+        return f(*args, **kwargs)
     return wrapper
 
 
@@ -115,10 +115,10 @@ def wrap_modify(f):
     CALLED
     (2, 1)
     """
-    def wrapper(*args, ..kwargs):
+    def wrapper(*args, **kwargs):
         print("CALLED")
         kwargs['test'] = 1
-        return f(*args, ..kwargs)
+        return f(*args, **kwargs)
     return wrapper
 
 
@@ -139,7 +139,7 @@ def wrap_modify_mix(f):
     CALLED
     (2, 1)
 
-    >>> def py_modify(..kwargs):
+    >>> def py_modify(**kwargs):
     ...     print(sorted(kwargs.items()))
     ...     kwargs['new'] = len(kwargs)
     ...     return kwargs
@@ -151,11 +151,11 @@ def wrap_modify_mix(f):
     [('a', 1), ('test', 1)]
     [('a', 1), ('new', 2), ('test', 1)]
     """
-    def wrapper(*args, ..kwargs):
+    def wrapper(*args, **kwargs):
         print("CALLED")
-        f(*args, ..kwargs)
+        f(*args, **kwargs)
         kwargs['test'] = 1
-        return f(*args, ..kwargs)
+        return f(*args, **kwargs)
     return wrapper
 
 
@@ -180,9 +180,9 @@ def wrap_modify_func(f):
         kw['test'] = 1
         return kw
 
-    def wrapper(*args, ..kwargs):
+    def wrapper(*args, **kwargs):
         print("CALLED")
-        return f(*args, ..modify(kwargs))
+        return f(*args, **modify(kwargs))
     return wrapper
 
 
@@ -192,11 +192,11 @@ def modify_in_function():
     {'foo': 'bar'}
     {'foo': 'bar'}
     """
-    def inner(..kwds):
+    def inner(**kwds):
         kwds['foo'] = 'modified'
     d = {'foo': 'bar'}
     print(d)
-    inner(..d)
+    inner(**d)
     print(d)
 
 
@@ -221,10 +221,10 @@ def wrap_modify_func_mix(f):
         kw['test'] = 1
         return kw
 
-    def wrapper(*args, ..kwargs):
+    def wrapper(*args, **kwargs):
         print("CALLED")
-        f(*args, ..kwargs)
-        return f(*args, ..modify(kwargs))
+        f(*args, **kwargs)
+        return f(*args, **modify(kwargs))
     return wrapper
 
 
@@ -244,19 +244,19 @@ def wrap_reassign(f):
     CALLED
     (1, 1)
     """
-    def wrapper(*args, ..kwargs):
+    def wrapper(*args, **kwargs):
         print("CALLED")
         kwargs = {'test': 1}
-        return f(*args, ..kwargs)
+        return f(*args, **kwargs)
     return wrapper
 
 
 # #[cython::test_fail_if_path_exists('//MergedDictNode')]
-def kwargs_metaclass(..kwargs):
+def kwargs_metaclass(**kwargs):
     """
     >>> K = kwargs_metaclass()
     >>> K = kwargs_metaclass(metaclass=type)
     """
-    class K(..kwargs):
+    class K(**kwargs):
         pass
     return K
