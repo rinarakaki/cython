@@ -22,7 +22,7 @@ use cython::typeof
 use cython::operator::preincrement as incr
 use libcpp::vector::vector
 
-def test_reversed_vector_iteration(L):
+fn test_reversed_vector_iteration(L):
     """
     >>> test_reversed_vector_iteration([1, 2, 3])
     int: 3

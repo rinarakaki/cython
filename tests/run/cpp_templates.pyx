@@ -145,8 +145,8 @@ def test_cast_template_pointer():
     """
     >>> test_cast_template_pointer()
     """
-    let SubClass[i32, f32] *sub = new SubClass[i32, f32]()
-    let SuperClass[i32, f32] *sup
+    let r&mut SubClass[i32, f32] sub = new SubClass[i32, f32]()
+    let r&mut SuperClass[i32, f32] sup
 
     sup = sub
     sup = <SubClass[i32, f32] *> sub
@@ -160,7 +160,7 @@ def test_static(x):
     """
     return Div[i32].half(x), Div[f64].half(x)
 
-def test_pure_syntax(i32 i):
+fn test_pure_syntax(i32 i):
     """
     >>> test_ptr(3)
     3
