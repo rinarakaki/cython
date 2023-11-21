@@ -3917,7 +3917,7 @@ def p_varargslist(s, terminator=')', annotated=1):
                 nonempty_declarators = 1, kw_only = 1, annotated = annotated))
         elif s.sy != terminator:
             s.error("Syntax error in Python function argument list")
-    if s.sy == "..":
+    if s.sy == "**":
         s.next()
         starstar_arg = p_py_arg_decl(s, annotated=annotated)
     if s.sy == ',':
