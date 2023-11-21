@@ -106,7 +106,7 @@ def mismatch_ints(vector[i32] values1, vector[i32] values2):
     result = mismatch(values1.begin(), values1.end(), values2.begin())
     if result.first == values1.end():
         return
-    return deref(result.first), deref(result.second)
+    return *result.first, *result.second
 
 def is_int_in(vector[i32] values, i32 target):
     """

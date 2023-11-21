@@ -108,7 +108,7 @@ def test_ptr(i32 i):
     """
     try:
         w = new Wrap[i32*](&i)
-        return deref(w.get())
+        return *w.get()
     finally:
         del w
 
@@ -169,6 +169,6 @@ def test_pure_syntax(i32 i):
     """
     try:
         w = new Wrap[cython.pointer(i32)](&i)
-        return deref(w.get())
+        return *w.get()
     finally:
         del w

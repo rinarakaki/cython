@@ -66,7 +66,7 @@ def test_deque_iterator_addition(py_v):
         dint.push_back(i)
     let deque[i32].iterator first = dint.begin()
 
-    return deref(first+2)
+    return *(first+2)
 
 def test_vector_iterator_addition(py_v):
     """
@@ -76,7 +76,7 @@ def test_vector_iterator_addition(py_v):
     let vector[i32] vint = py_v
     let vector[i32].iterator first = vint.begin()
 
-    return deref(first+2)
+    return *(first+2)
 
 def test_ptrs():
     """

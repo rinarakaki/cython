@@ -99,7 +99,7 @@ def test_minmax_element(vector[i32] v):
     [0, 5]
     """
     let pair[vector[i32].iterator, vector[i32].iterator] p = minmax_element(v.begin(), v.end())
-    return [deref(p.first), deref(p.second)]
+    return [*p.first, *p.second]
 
 def test_minmax_element_with_pred(vector[i32] v):
     """
@@ -109,7 +109,7 @@ def test_minmax_element_with_pred(vector[i32] v):
     [0, 5]
     """
     let pair[vector[i32].iterator, vector[i32].iterator] p = minmax_element(v.begin(), v.end(), less)
-    return [deref(p.first), deref(p.second)]
+    return [*p.first, *p.second]
 
 def test_minmax_element_with_exec(vector[i32] v):
     """
@@ -119,7 +119,7 @@ def test_minmax_element_with_exec(vector[i32] v):
     [0, 5]
     """
     let pair[vector[i32].iterator, vector[i32].iterator] p = minmax_element(seq, v.begin(), v.end())
-    return [deref(p.first), deref(p.second)]
+    return [*p.first, *p.second]
 
 def test_clamp(i32 v, i32 lo, i32 hi):
     """

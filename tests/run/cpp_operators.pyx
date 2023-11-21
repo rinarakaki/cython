@@ -155,7 +155,7 @@ def test_unops():
     out(+t[0], typeof(+t[0]))
     out(-t[0], typeof(-t[0]))
     out(~t[0], typeof(~t[0]))
-    x = deref(t[0])
+    x = *t[0]
     out(x, typeof(x))
     out(not t[0], typeof(not t[0]))
     del t
