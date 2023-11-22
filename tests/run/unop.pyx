@@ -5,7 +5,7 @@ def f(obj1, obj2, obj3):
     """
     let i32 bool1, bool2
     let i32 int1, int2
-    let char* str1
+    let r&char str1
 
     int2 = obj3
     str1 = NULL

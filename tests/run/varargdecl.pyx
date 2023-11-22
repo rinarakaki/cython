@@ -1,4 +1,4 @@
-fn grail(char* blarg, ...):
+fn grail(r&char blarg, ...):
     pass
 
 def test():

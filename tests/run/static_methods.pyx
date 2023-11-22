@@ -7,16 +7,16 @@ cdef class A:
         >>> A().static_def(2)
         ('def', 2)
         """
-        return 'def', x
+        return "def", x
 
-    fn static_cdef(i32* x):
-        return 'cdef', x[0]
+    fn static_cdef(r&i32 x):
+        return "cdef", x[0]
 
-    fn static_cdef2(i32* x, int* y):
-        return 'cdef2', x[0] + y[0]
+    fn static_cdef2(r&i32 x, r&i32 y):
+        return "cdef2", x[0] + y[0]
 
     fn static_cdef_untyped(a, b):
-        return 'cdef_utyped', a, b
+        return "cdef_utyped", a, b
 
 #     cpdef static_cpdef(i32 x):
 #         """
@@ -44,7 +44,7 @@ fn call_static_cdef(i32 x):
     >>> call_static_cdef(2)
     ('cdef', 2)
     """
-    let i32* x_ptr = &x
+    let r&i32 x_ptr = &x
     return A::static_cdef(x_ptr)
 
 fn call_static_cdef2(i32 x, i32 y):
@@ -89,7 +89,7 @@ def call_static_pxd_cdef(i32 x):
     >>> call_static_pxd_cdef(2)
     ('pxd_cdef', 2)
     """
-    let i32* x_ptr = &x
+    let r&i32 x_ptr = &x
     return FromPxd::static_cdef(x_ptr)
 
 def call_static_pxd_cdef_with_implicit_object(i32 x):

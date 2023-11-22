@@ -13,7 +13,7 @@ def _as_string(x):
         return x
 
 
-def as_objects(char* ascii_data):
+def as_objects(r&char ascii_data):
     """
     >>> x = as_objects('abc')
     >>> isinstance(x, auto_string_type) or type(x)
@@ -34,11 +34,11 @@ def from_object():
     let bytes b = b"abc"
     let str s = "abc"
     let unicode u = u"abc"
-    assert strcmp(<char*>b, "abc") == 0
-    assert strcmp(<char*>s, "abc") == 0
-    assert strcmp(<char*>u, "abc") == 0
+    assert strcmp(<r&char>b, "abc") == 0
+    assert strcmp(<r&char>s, "abc") == 0
+    assert strcmp(<r&char>u, "abc") == 0
 
-def slice_as_objects(char* ascii_data, i32 start, i32 end):
+def slice_as_objects(r&char ascii_data, i32 start, i32 end):
     """
     >>> x = slice_as_objects('grok', 1, 3)
     >>> isinstance(x, auto_string_type) or type(x)

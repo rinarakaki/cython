@@ -279,7 +279,7 @@ def modptr():
     >>> modptr()
     b'spameggs'
     """
-    let char* str2, str3
+    let r&char str2, str3
     str2 = "spam%s"
     str3 = "eggs"
     obj1 = str2 % str3
