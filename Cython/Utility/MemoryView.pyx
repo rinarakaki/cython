@@ -432,8 +432,8 @@ cdef class memoryview:
     fn setitem_slice_assignment(self, dst, src):
         let {{memviewslice_name}} dst_slice
         let {{memviewslice_name}} src_slice
-        let r&mut i8 msrc = get_slice_from_memview(src, &src_slice)[0]
-        let r&mut i8 mdst = get_slice_from_memview(dst, &dst_slice)[0]
+        let auto i8 msrc = get_slice_from_memview(src, &src_slice)[0]
+        let auto i8 mdst = get_slice_from_memview(dst, &dst_slice)[0]
 
         memoryview_copy_contents(msrc, mdst, src.ndim, dst.ndim, self.dtype_is_object)
 
