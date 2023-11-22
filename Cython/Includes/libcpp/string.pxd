@@ -196,8 +196,8 @@ extern from "<string>" namespace "std" nogil:
         fn void insert(iterator p, usize n, char c) except +
         fn iterator insert(iterator p, char c) except +
 
-        fn usize copy(char* s, usize len, usize pos) except +
-        fn usize copy(char* s, usize len) except +
+        fn usize copy(r&char s, usize len, usize pos) except +
+        fn usize copy(r&char s, usize len) except +
 
         fn usize find(&string s, usize pos)
         fn usize find(&string s)
@@ -253,12 +253,12 @@ extern from "<string>" namespace "std" nogil:
 
         # C++20
         fn u2 starts_with(char c) except +
-        fn u2 starts_with(const char* s)
+        fn u2 starts_with(r&char s)
         fn u2 ends_with(char c) except +
-        fn u2 ends_with(const char* s)
+        fn u2 ends_with(r&char s)
         # C++23
         fn u2 contains(char c) except +
-        fn u2 contains(const char* s)
+        fn u2 contains(r&char s)
 
         # fn &mut string operator=(&string)
         # fn &mut string operator=(const char*)

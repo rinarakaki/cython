@@ -23,13 +23,13 @@ extern from "Python.h":
     fn u2 PyBytes_CheckExact(object o)
     # Return true if the object o is a string object, but not an instance of a subtype of the string type.
 
-    fn r&mut PyObject PyBytes_FromStringAndSize(r&char, isize)
+    fn r&mut PyObject PyBytes_FromStringAndSize(r&i8, isize)
     # Return value: New reference.
     # Return a new string object with the value v and length len on
     # success, and NULL on failure. If v is NULL, the contents of the
     # string are uninitialized.
 
-    fn r&mut PyObject PyBytes_FromString(r&char)
+    fn r&mut PyObject PyBytes_FromString(r&i8)
     # Return value: New reference.
     # Return a new string object with the value v on success, and NULL
     # on failure. The parameter v must not be NULL; it will not be
@@ -39,11 +39,11 @@ extern from "Python.h":
     # Return value: New reference.
     # Return the bytes representation of object o that implements the buffer protocol.
 
-    fn r&mut PyObject PyBytes_FromFormatV(r&char, va_list)
+    fn r&mut PyObject PyBytes_FromFormatV(r&i8, va_list)
     # Return value: New reference.
     # Identical to PyBytes_FromFormat() except that it takes exactly two arguments.
 
-    fn r&mut PyObject PyBytes_FromFormat(r&char, ...)
+    fn r&mut PyObject PyBytes_FromFormat(r&i8, ...)
     # Return value: New reference.
     # Take a C printf()-style format string and a variable number of
     # arguments, calculate the size of the resulting Python string and
@@ -56,10 +56,10 @@ extern from "Python.h":
     # %c     int     A single character, represented as an C int.
     # %d     int     Exactly equivalent to printf("%d").
     # %u     unsigned int     Exactly equivalent to printf("%u").
-    # %ld     long     Exactly equivalent to printf("%ld").
-    # %lu     unsigned long     Exactly equivalent to printf("%lu").
-    # %zd     isize     Exactly equivalent to printf("%zd").
-    # %zu     size_t     Exactly equivalent to printf("%zu").
+    # %ld    long     Exactly equivalent to printf("%ld").
+    # %lu    unsigned long     Exactly equivalent to printf("%lu").
+    # %zd    isize     Exactly equivalent to printf("%zd").
+    # %zu    size_t     Exactly equivalent to printf("%zu").
     # %i     int     Exactly equivalent to printf("%i").
     # %x     int     Exactly equivalent to printf("%x").
     # %s     char*     A null-terminated C character array.
@@ -75,7 +75,7 @@ extern from "Python.h":
     fn isize PyBytes_Size(r&mut PyObject) except -1
     # Return the length of the string in string object string.
 
-    fn r&mut char PyBytes_AsString(r&mut PyObject) except NULL
+    fn r&mut i8 PyBytes_AsString(r&mut PyObject) except NULL
     # Return a NUL-terminated representation of the contents of
     # string. The pointer refers to the internal buffer of string, not
     # a copy. The data must not be modified in any way, unless the
@@ -101,7 +101,7 @@ extern from "Python.h":
     # newpart appended to string. This version decrements the
     # reference count of newpart.
 
-    fn r&mut PyObject PyBytes_Decode(r&char, isize, r&char, r&char)
+    fn r&mut PyObject PyBytes_Decode(r&i8, isize, r&i8, r&i8)
     #  Return value: New reference.
     # Create an object by decoding size bytes of the encoded buffer s
     # using the codec registered for encoding. encoding and errors
@@ -110,7 +110,7 @@ extern from "Python.h":
     # using the Python codec registry. Return NULL if an exception was
     # raised by the codec.
 
-    fn i32 PyBytes_AsStringAndSize(r&mut PyObject, char**, r&isize) except -1
+    fn i32 PyBytes_AsStringAndSize(r&mut PyObject, i8**, r&isize) except -1
     # Return a NULL-terminated representation of the contents of the
     # object obj through the output variables buffer and length.
     #
@@ -131,7 +131,7 @@ extern from "Python.h":
     fn isize PyBytes_GET_SIZE(object string)
     # Macro form of PyBytes_Size() but without error checking.
 
-    fn char* PyBytes_AS_STRING(object string)
+    fn r&mut i8 PyBytes_AS_STRING(object string)
     # Macro form of PyBytes_AsString() but without error
     # checking. Only string objects are supported; no Unicode objects
     # should be passed.
@@ -168,14 +168,14 @@ extern from "Python.h":
     # reference-count-neutral; you own the object after the call if
     # and only if you owned it before the call.)
 
-    fn bytes PyBytes_InternFromString(char* v)
+    fn bytes PyBytes_InternFromString(r&i8 v)
     # Return value: New reference.
     # A combination of PyBytes_FromString() and
     # PyBytes_InternInPlace(), returning either a new string object
     # that has been interned, or a new (``owned'') reference to an
     # earlier interned string object with the same value.
 
-    fn object PyBytes_AsDecodedObject(object str, char* encoding, char* errors)
+    fn object PyBytes_AsDecodedObject(object str, r&mut i8 encoding, r&mut i8 errors)
     # Return value: New reference.
     # Decode a string object by passing it to the codec registered for
     # encoding and return the result as Python object. encoding and
@@ -184,7 +184,7 @@ extern from "Python.h":
     # using the Python codec registry. Return NULL if an exception was
     # raised by the codec.
 
-    fn object PyBytes_Encode(char* s, isize size, char* encoding, char* errors)
+    fn object PyBytes_Encode(r&char s, isize size, r&mut i8 encoding, r&mut i8 errors)
     # Return value: New reference.
     # Encode the char buffer of the given size by passing it to the
     # codec registered for encoding and return a Python
@@ -193,7 +193,7 @@ extern from "Python.h":
     # codec to be used is looked up using the Python codec
     # registry. Return NULL if an exception was raised by the codec.
 
-    fn object PyBytes_AsEncodedObject(object str, char* encoding, char* errors)
+    fn object PyBytes_AsEncodedObject(object str, r&mut i8 encoding, r&mut i8 errors)
     # Return value: New reference.
     # Encode a string object using the codec registered for encoding
     # and return the result as Python object. encoding and errors have
