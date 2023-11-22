@@ -1,9 +1,9 @@
 # mode: error
 
 union AllCharptr:
-    r&i8 s1
-    r&i8 s2
-    r&i8 s3
+    r&mut i8 s1
+    r&mut i8 s2
+    r&mut i8 s3
 
 def convert_ok():
     let AllCharptr u

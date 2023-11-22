@@ -18,7 +18,7 @@ cdef class Grail:
         pass
 
 _ERRORS = u"""
-3:7: Non-default argument follows default argument
+3:12: Non-default argument follows default argument
 3:38: Non-default argument following default argument
 6:23: Non-default argument following default argument
 11:19: This argument cannot have a default value
