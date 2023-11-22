@@ -4,7 +4,7 @@ struct Spam:
     i32 i
     char c
     f32 *p[42]
-    Grail *g
+    r&Grail g
 
 struct Grail:
     Spam *s

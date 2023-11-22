@@ -8,7 +8,7 @@ PYTHON -c "import test"
 
 extern from "test.h":
     struct c_Test "Test":
-        const char* get_string() except +RuntimeError
+        r&char get_string() except +RuntimeError
 
 cdef class Test:
     cdef c_Test *thisptr
@@ -17,7 +17,7 @@ cdef class Test:
 
 ######## test.h ########
 
-static const char* astring = "123";
+static r&char astring = "123";
 class Test {
 public:
     const char* get_string(void) { return astring; }

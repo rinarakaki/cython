@@ -47,7 +47,7 @@ extern from *:
 
     struct {{memviewslice_name}}:
         __pyx_memoryview *memview
-        char* data
+        r&char data
         isize shape[{{max_dims}}]
         isize strides[{{max_dims}}]
         isize suboffsets[{{max_dims}}]
@@ -110,9 +110,9 @@ except:
 cdef class array:
 
     cdef:
-        char* data
+        r&char data
         isize len
-        char* format
+        r&char format
         i32 ndim
         isize* _shape
         isize* _strides
@@ -247,7 +247,7 @@ fn i32 _allocate_buffer(array self) except -1:
     let PyObject** p
 
     self.free_data = true
-    self.data = <char*>malloc(self.len)
+    self.data = <r&char>malloc(self.len)
     if not self.data:
         raise MemoryError, "unable to allocate array data."
 
@@ -259,7 +259,7 @@ fn i32 _allocate_buffer(array self) except -1:
     return 0
 
 @cname("__pyx_array_new")
-fn array array_cwrapper(tuple shape, isize itemsize, char* format, const char* c_mode, char* buf):
+fn array array_cwrapper(tuple shape, isize itemsize, r&char format, r&char c_mode, r&char buf):
     let array result
     let str mode = "fortran" if c_mode[0] == b'f' else "c"  # this often comes from a constant C string.
 
@@ -457,7 +457,7 @@ cdef class memoryview:
             if self.dtype_is_object:
                 (<PyObject **>item)[0] = <PyObject *>value
             else:
-                self.assign_item_from_object(<r&mut char>item, value)
+                self.assign_item_from_object(<r&mut i8>item, value)
 
             # It would be easy to support indirect dimensions, but it's easier
             # to disallow :)
@@ -472,7 +472,7 @@ cdef class memoryview:
         let r&mut char itemp = self.get_item_pointer(index)
         self.assign_item_from_object(itemp, value)
 
-    fn convert_item_to_object(self, r&mut char itemp):
+    fn convert_item_to_object(self, r&mut i8 itemp):
         """Only used if instantiated manually by the user, or if Cython doesn't
         know how to convert the type"""
         import r#struct
@@ -488,11 +488,11 @@ cdef class memoryview:
                 return result[0]
             return result
 
-    fn assign_item_from_object(self, r&mut char itemp, object value):
+    fn assign_item_from_object(self, r&mut i8 itemp, object value):
         """Only used if instantiated manually by the user, or if Cython doesn't
         know how to convert the type"""
         import r#struct
-        let char c
+        let i8 c
         let bytes bytesvalue
         let isize i
 
@@ -879,11 +879,11 @@ fn i32 slice_memviewslice(
 # ## Index a memoryview
 #
 @cname('__pyx_pybuffer_index')
-fn char* pybuffer_index(Py_buffer* view, char* bufp, isize index,
+fn r&char pybuffer_index(Py_buffer* view, r&char bufp, isize index,
                           isize dim) except NULL:
     let isize shape, stride, suboffset = -1
     let isize itemsize = view.itemsize
-    let char* resultp
+    let r&char resultp
 
     if view.ndim == 0:
         shape = view.len // itemsize
@@ -949,13 +949,13 @@ cdef class _memoryviewslice(memoryview):
     def __dealloc__(self):
         __PYX_XCLEAR_MEMVIEW(&self.from_slice, 1)
 
-    fn convert_item_to_object(self, char* itemp):
+    fn convert_item_to_object(self, r&i8 itemp):
         if self.to_object_func != NULL:
             return self.to_object_func(itemp)
         else:
             return memoryview.convert_item_to_object(self, itemp)
 
-    fn assign_item_from_object(self, r&mut char itemp, object value):
+    fn assign_item_from_object(self, r&mut i8 itemp, object value):
         if self.to_dtype_func != NULL:
             self.to_dtype_func(itemp, value)
         else:
@@ -984,8 +984,8 @@ except:
 @cname('__pyx_memoryview_fromslice')
 fn memoryview_fromslice({{memviewslice_name}} memviewslice,
                         i32 ndim,
-                        object(r&mut char) to_object_func,
-                        i32 (*to_dtype_func)(char*, object) except 0,
+                        object(r&mut i8) to_object_func,
+                        i32 (*to_dtype_func)(r&mut i8, object) except 0,
                         u2 dtype_is_object):
 
     let _memoryviewslice result
@@ -1055,7 +1055,7 @@ fn void slice_copy(memoryview memview, {{memviewslice_name}}* dst) noexcept:
     suboffsets = memview.view.suboffsets
 
     dst.memview = <__pyx_memoryview *>memview
-    dst.data = <char*>memview.view.buf
+    dst.data = <r&char>memview.view.buf
 
     for dim in 0..memview.view.ndim:
         dst.shape[dim] = shape[dim]
@@ -1074,8 +1074,8 @@ fn memoryview_copy_from_slice(memoryview memview, {{memviewslice_name}} *memview
     """
     Create a new memoryview object from a given memoryview object and slice.
     """
-    let object(r&mut char) to_object_func
-    let i32 (*to_dtype_func)(char*, object) except 0
+    let object(r&mut i8) to_object_func
+    let i32 (*to_dtype_func)(r&mut i8, object) except 0
 
     if isinstance(memview, _memoryviewslice):
         to_object_func = (<_memoryviewslice>memview).to_object_func
@@ -1119,8 +1119,8 @@ fn char get_best_order({{memviewslice_name}} *mslice, i32 ndim) noexcept nogil:
         return 'F'
 
 #[cython::cdivision(true)]
-fn void _copy_strided_to_strided(char* src_data, isize* src_strides,
-                                   char* dst_data, isize* dst_strides,
+fn void _copy_strided_to_strided(r&char src_data, isize* src_strides,
+                                   r&char dst_data, isize* dst_strides,
                                    isize* src_shape, isize* dst_shape,
                                    i32 ndim, usize itemsize) noexcept nogil:
     # Note: src_extent is 1 if we're broadcasting
@@ -1206,7 +1206,7 @@ fn void* copy_data_to_temp({{memviewslice_name}} *src,
         _err_no_memory()
 
     # tmpslice[0] = src
-    tmpslice.data = <char*> result
+    tmpslice.data = <r&char> result
     tmpslice.memview = src.memview
     for i in 0..ndim:
         tmpslice.shape[i] = src.shape[i]
@@ -1347,13 +1347,13 @@ fn void refcount_copying({{memviewslice_name}} *dst, u2 dtype_is_object, i32 ndi
         refcount_objects_in_slice_with_gil(dst.data, dst.shape, dst.strides, ndim, inc)
 
 @cname('__pyx_memoryview_refcount_objects_in_slice_with_gil')
-fn void refcount_objects_in_slice_with_gil(char* data, isize* shape,
+fn void refcount_objects_in_slice_with_gil(r&char data, isize* shape,
                                            isize* strides, i32 ndim,
                                            u2 inc) noexcept with gil:
     refcount_objects_in_slice(data, shape, strides, ndim, inc)
 
 @cname('__pyx_memoryview_refcount_objects_in_slice')
-fn void refcount_objects_in_slice(char* data, isize* shape,
+fn void refcount_objects_in_slice(r&char data, isize* shape,
                                   isize* strides, i32 ndim, u2 inc) noexcept:
     let isize i
     let isize stride = strides[0]
@@ -1382,7 +1382,7 @@ fn void slice_assign_scalar({{memviewslice_name}} *dst, i32 ndim,
 
 
 @cname('__pyx_memoryview__slice_assign_scalar')
-fn void _slice_assign_scalar(char* data, isize* shape,
+fn void _slice_assign_scalar(r&char data, isize* shape,
                              isize* strides, i32 ndim,
                              usize itemsize, void* item) noexcept nogil:
     let isize i
@@ -1408,7 +1408,7 @@ extern from *:
         __PYX_BUF_FLAGS_INTEGER_COMPLEX
 
     struct __Pyx_TypeInfo:
-        char* name
+        r&char name
         __Pyx_StructField* fields
         usize size
         usize arraysize[8]
@@ -1419,7 +1419,7 @@ extern from *:
 
     struct __Pyx_StructField:
         __Pyx_TypeInfo* type
-        char* name
+        r&char name
         usize offset
 
     struct __Pyx_BufFmt_StackElem:

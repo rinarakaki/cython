@@ -1,4 +1,4 @@
-cdef char* cstring = "abcdefg"
+cdef r&char cstring = "abcdefg"
 
 fn void spam(r&mut i8 target):
     let auto s = cstring

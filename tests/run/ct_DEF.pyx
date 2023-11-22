@@ -116,7 +116,7 @@ def s():
     >>> s()
     b'spam'
     """
-    let char* s = BYTES
+    let r&char s = BYTES
     return s
 
 def type_of_bytes():

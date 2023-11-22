@@ -66,7 +66,7 @@ def test_clear(a):
     return s
 
 
-def test_assign(char* a):
+def test_assign(r&char a):
     """
     >>> test_assign(b_asdf) == 'ggg'
     True

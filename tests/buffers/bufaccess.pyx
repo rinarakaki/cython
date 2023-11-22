@@ -771,7 +771,7 @@ def mixed_get(object[i32] buf, i32 unsafe_idx, i32 safe_idx):
 #     uc[0] = <i32>3.14
 #     print uc[0]
 #
-#     cdef char* ch = b"asfd"
+#     cdef r&char ch = b"asfd"
 #     cdef object[object] objbuf
 #     objbuf[3] = ch
 

@@ -6,7 +6,7 @@ extern from "Python.h":
     # ###################################################################
     # 5.3 Importing Modules
     # ###################################################################
-    fn object PyImport_ImportModule(const char* name)
+    fn object PyImport_ImportModule(r&char name)
     # Return value: New reference.
     # This is a simplified interface to PyImport_ImportModuleEx()
     # below, leaving the globals and locals arguments set to
@@ -20,7 +20,7 @@ extern from "Python.h":
     # loaded.) Return a new reference to the imported module, or NULL
     # with an exception set on failure.
 
-    fn object PyImport_ImportModuleEx(const char* name, object globals, object locals, object fromlist)
+    fn object PyImport_ImportModuleEx(r&char name, object globals, object locals, object fromlist)
     # Return value: New reference.
 
     # Import a module. This is best described by referring to the
@@ -35,7 +35,7 @@ extern from "Python.h":
     # unless a non-empty fromlist was given. Changed in version 2.4:
     # failing imports remove incomplete module objects.
 
-    fn object PyImport_ImportModuleLevel(char* name, object globals, object locals, object fromlist, i32 level)
+    fn object PyImport_ImportModuleLevel(r&char name, object globals, object locals, object fromlist, i32 level)
     # Return value: New reference.
 
     # Import a module. This is best described by referring to the
@@ -64,7 +64,7 @@ extern from "Python.h":
     # the reloaded module, or NULL with an exception set on failure
     # (the module still exists in this case).
 
-    fn PyObject* PyImport_AddModule(const char* name) except NULL
+    fn PyObject* PyImport_AddModule(r&char name) except NULL
     # Return value: Borrowed reference.
     # Return the module object corresponding to a module name. The
     # name argument may be of the form package.module. First check the
@@ -77,7 +77,7 @@ extern from "Python.h":
     # implied by a dotted name for name are not created if not already
     # present.
 
-    fn object PyImport_ExecCodeModule(char* name, object co)
+    fn object PyImport_ExecCodeModule(r&char name, object co)
     # Return value: New reference.
     # Given a module name (possibly of the form package.module) and a
     # code object read from a Python bytecode file or obtained from
@@ -108,7 +108,7 @@ extern from "Python.h":
     # (a.k.a. sys.modules). Note that this is a per-interpreter
     # variable.
 
-    fn i32 PyImport_ImportFrozenModule(char* name) except -1
+    fn i32 PyImport_ImportFrozenModule(r&char name) except -1
     # Load a frozen module named name. Return 1 for success, 0 if the
     # module is not found, and -1 with an exception set if the
     # initialization failed. To access the imported module on a
@@ -148,7 +148,7 @@ extern from "Python.h":
     # attributes are filled in (all but __name__ are set to None); the caller
     # is responsible for providing a __file__ attribute.
 
-    fn object PyModule_New(const char* name)
+    fn object PyModule_New(r&char name)
     # Return value: New reference.
     # Return a new module object with the __name__ attribute set to
     # name. Only the module's __doc__ and __name__ attributes are
@@ -167,7 +167,7 @@ extern from "Python.h":
     # Return module’s __name__ value. If the module does not provide one, or if
     # it is not a string, SystemError is raised and NULL is returned.
 
-    fn char* PyModule_GetName(object module) except NULL
+    fn r&char PyModule_GetName(object module) except NULL
     # Similar to PyModule_GetNameObject() but return the name encoded
     # to 'utf-8'.
 
@@ -182,23 +182,23 @@ extern from "Python.h":
     # string, raise SystemError and return NULL; otherwise return a reference
     # to a Unicode object.
 
-    fn char* PyModule_GetFilename(object module) except NULL
+    fn r&char PyModule_GetFilename(object module) except NULL
     # Similar to PyModule_GetFilenameObject() but return the filename encoded
     # to ‘utf-8’.
 
-    fn i32 PyModule_AddObject(object module, const char* name, object value) except -1
+    fn i32 PyModule_AddObject(object module, r&char name, object value) except -1
     # Add an object to module as name. This is a convenience function
     # which can be used from the module's initialization function.
     # Return -1 on error, 0 on success.
     #
     # WARNING: This _steals_ a reference to value.
 
-    fn i32 PyModule_AddIntConstant(object module, const char* name, i64 value) except -1
+    fn i32 PyModule_AddIntConstant(object module, r&char name, i64 value) except -1
     # Add an integer constant to module as name. This convenience
     # function can be used from the module's initialization
     # function. Return -1 on error, 0 on success.
 
-    fn i32 PyModule_AddStringConstant(object module, const char* name, const char* value) except -1
+    fn i32 PyModule_AddStringConstant(object module, r&char name, r&char value) except -1
     # Add a string constant to module as name. This convenience
     # function can be used from the module's initialization
     # function. The string value must be null-terminated. Return -1 on
