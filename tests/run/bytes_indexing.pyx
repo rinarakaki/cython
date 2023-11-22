@@ -35,7 +35,7 @@ def index_literal_char_cast(i32 i):
     Traceback (most recent call last):
     IndexError: string index out of range
     """
-    return <char>(b"12345"[i])
+    return <i8>(b"12345"[i])
 
 #[cython::test_assert_path_exists("//PythonCapiCallNode")]
 #[cython::test_fail_if_path_exists("//IndexNode",
@@ -54,7 +54,7 @@ def index_nonliteral_char_cast(i32 i):
     Traceback (most recent call last):
     IndexError: string index out of range
     """
-    return <char>(b12345[i])
+    return <i8>(b12345[i])
 
 #[cython::test_assert_path_exists("//PythonCapiCallNode")]
 #[cython::test_fail_if_path_exists("//IndexNode",
@@ -111,7 +111,7 @@ def index_literal_char_coerce(i32 i):
     Traceback (most recent call last):
     IndexError: string index out of range
     """
-    let char result = b"12345"[i]
+    let i8 result = b"12345"[i]
     return result
 
 #[cython::test_assert_path_exists("//PythonCapiCallNode")]
@@ -131,7 +131,7 @@ def index_nonliteral_char_coerce(i32 i):
     Traceback (most recent call last):
     IndexError: string index out of range
     """
-    let char result = b12345[i]
+    let i8 result = b12345[i]
     return result
 
 #[cython::test_assert_path_exists("//PythonCapiCallNode")]
@@ -149,7 +149,7 @@ def index_literal_char_coerce_no_check(i32 i):
     >>> index_literal_char_coerce_no_check(4) == ord('5')
     True
     """
-    let char result = b"12345"[i]
+    let i8 result = b"12345"[i]
     return result
 
 #[cython::test_assert_path_exists("//PythonCapiCallNode")]
@@ -167,5 +167,5 @@ def index_nonliteral_char_coerce_no_check(i32 i):
     >>> index_nonliteral_char_coerce_no_check(4) == ord('5')
     True
     """
-    let char result = b12345[i]
+    let i8 result = b12345[i]
     return result

@@ -11,15 +11,15 @@ extern from "node.h":
     fn node* CHILD(node* n, i32 ix)
     fn node* RCHILD(node* n, i32 ix)
     fn short TYPE(node* n)
-    fn r&char STR(node* n)
+    fn r&i8 STR(node* n)
 
 extern from "parsetok.h":
     struct perrdetail:
         pass
     fn void PyParser_SetError(perrdetail *err) except *
     fn node * PyParser_ParseStringFlagsFilenameEx(
-        const char * s,
-        const char * filename,
+        r&i8 s,
+        r&i8 filename,
         grammar * g,
         i32 start,
         perrdetail * err_ret,

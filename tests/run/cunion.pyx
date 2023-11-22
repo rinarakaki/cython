@@ -1,6 +1,6 @@
 union Spam:
     i32 i
-    char c
+    i8 c
     f32 *p[42]
 
 cdef Spam spam, ham
@@ -11,7 +11,7 @@ fn void eggs_i(Spam s):
     s.i = j
 
 fn void eggs_c(Spam s):
-    let char c
+    let i8 c
     c = s.c
     s.c = c
 

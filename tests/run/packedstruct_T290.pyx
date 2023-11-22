@@ -6,12 +6,12 @@
 """
 
 cdef packed struct MyCdefStruct:
-    char a
-    double b
+    i8 a
+    f64 b
 
 ctypedef packed struct MyCTypeDefStruct:
-    char a
-    double b
+    i8 a
+    f64 b
 
 def f():
     return (sizeof(MyCdefStruct), sizeof(MyCTypeDefStruct))

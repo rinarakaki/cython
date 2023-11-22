@@ -2,7 +2,7 @@ use libc::stdlib::free
 use c_func::c_call_returning_a_c_string
 
 cdef bytes py_string
-cdef r&char c_string = c_call_returning_a_c_string()
+cdef r&i8 c_string = c_call_returning_a_c_string()
 try:
     py_string = c_string
 finally:

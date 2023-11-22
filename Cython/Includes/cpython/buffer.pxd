@@ -58,17 +58,17 @@ extern from "Python.h":
     fn void* PyBuffer_GetPointer(Py_buffer* view, isize* indices)
     # ??
 
-    fn isize PyBuffer_SizeFromFormat(char *) # actually const char
+    fn isize PyBuffer_SizeFromFormat(i8 *)  # actually const i8
     # Return the implied ~Py_buffer.itemsize from the struct-stype
     # ~Py_buffer.format
 
-    fn i32 PyBuffer_ToContiguous(void* buf, Py_buffer* view, isize len, char fort)
+    fn i32 PyBuffer_ToContiguous(void* buf, Py_buffer* view, isize len, i8 fort)
     # ??
 
-    fn i32 PyBuffer_FromContiguous(Py_buffer* view, void* buf, isize len, char fort)
+    fn i32 PyBuffer_FromContiguous(Py_buffer* view, void* buf, isize len, i8 fort)
     # ??
 
-    fn i32 PyObject_CopyToObject(object obj, void* buf, isize len, char fortran) except -1
+    fn i32 PyObject_CopyToObject(object obj, void* buf, isize len, i8 fortran) except -1
     # Copy len bytes of data pointed to by the contiguous chunk of
     # memory pointed to by buf into the buffer exported by obj. The
     # buffer must of course be writable. Return 0 on success and
@@ -84,7 +84,7 @@ extern from "Python.h":
     fn i32 PyObject_CopyData(object dest, object src) except -1
     # Copy the data from the src buffer to the buffer of destination
 
-    fn u2 PyBuffer_IsContiguous(Py_buffer* view, char fort)
+    fn u2 PyBuffer_IsContiguous(Py_buffer* view, i8 fort)
     # Return 1 if the memory defined by the view is C-style (fortran
     # is 'C') or Fortran-style (fortran is 'F') contiguous or either
     # one (fortran is 'A'). Return 0 otherwise.
@@ -93,7 +93,7 @@ extern from "Python.h":
                                            isize* shape,
                                            isize* strides,
                                            isize itemsize,
-                                           char fort)
+                                           i8 fort)
     # Fill the strides array with byte-strides of a contiguous
     # (Fortran-style if fort is 'F' or C-style otherwise) array of the
     # given shape with the given number of bytes per element.

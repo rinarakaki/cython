@@ -5,7 +5,7 @@
 
 use cython
 
-cpdef bytearray coerce_to_charptr(r&char b):
+cpdef bytearray coerce_to_charptr(r&i8 b):
     """
     >>> b = bytearray(b'abc')
     >>> coerced = coerce_to_charptr(b)
@@ -24,10 +24,10 @@ def coerce_to_charptrs(bytearray b):
     """
     let r&i8 cs = b
     let r&u8 ucs = b
-    let r&signed char scs = b
+    let r&i8 scs = b
     return b == <bytearray>cs == <bytearray>ucs == <bytearray>scs
 
-cpdef bytearray coerce_charptr_slice(r&char b):
+cpdef bytearray coerce_charptr_slice(r&i8 b):
     """
     >>> b = bytearray(b'abc')
     >>> coerced = coerce_charptr_slice(b)

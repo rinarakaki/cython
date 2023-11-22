@@ -13,7 +13,7 @@ __doc__ = u"""
 
 u = "test"
 
-cdef r&char s = "bytes test"
+cdef r&i8 s = "bytes test"
 b = s
 
 raw = r'abc\xf8\t\u00f8\U000000f8'
