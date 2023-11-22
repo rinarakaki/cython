@@ -2756,6 +2756,7 @@ def p_c_base_type(s, nonempty=False, templates=None):
                 if s.sy == ")":
                     break
                 base_type = p_c_base_type(s, templates=templates)
+                base_types.append(base_type)
             base_type = Nodes.CTupleTypeNode(pos, base_types = base_types)
         s.expect(")")
     else:
