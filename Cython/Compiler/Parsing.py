@@ -499,17 +499,26 @@ def p_new_expr(s):
 
 def p_trailer(s, node1):
     pos = s.position()
-    if s.sy == '(':
+    if s.sy == "(":
         return p_call(s, node1)
     elif s.sy == '[':
         return p_index(s, node1)
     elif s.sy == "{":
         return p_struct(s, node1)
-    else:  # s.sy in (".", "::")
+    elif s.sy == "::":
         s.next()
         name = p_ident(s)
-        return ExprNodes.AttributeNode(pos,
+        expr = ExprNodes.AttributeNode(pos,
             obj=node1, attribute=name)
+        if s.sy == "(":
+            return p_call(s, expr, method_call=0)
+    else:  # s.sy == "."
+        s.next()
+        name = p_ident(s)
+        expr = ExprNodes.AttributeNode(pos,
+            obj=node1, attribute=name)
+        if s.sy == "(":
+            return p_call(s, expr, method_call=1)
 
 
 # arglist:  argument (',' argument)* [',']
@@ -614,13 +623,13 @@ def p_call_build_packed_args(pos, positional_args, keyword_args):
     return arg_tuple, keyword_dict
 
 
-def p_call(s, function):
+def p_call(s, function, method_call=0):
     # s.sy == '('
     pos = s.position()
     positional_args, keyword_args = p_call_parse_args(s)
 
     if not keyword_args and len(positional_args) == 1 and isinstance(positional_args[0], list):
-        return ExprNodes.SimpleCallNode(pos, function=function, args=positional_args[0])
+        return ExprNodes.SimpleCallNode(pos, function=function, args=positional_args[0], method_call=method_call)
     else:
         arg_tuple, keyword_dict = p_call_build_packed_args(pos, positional_args, keyword_args)
         return ExprNodes.GeneralCallNode(
