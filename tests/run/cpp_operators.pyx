@@ -137,12 +137,10 @@ extern from "cpp_operators_helper.h" nogil:
         fn bool operator bool()
         fn bool value
 
-
 cdef cppclass TruthSubClass(TruthClass):
     pass
 
-
-def test_unops():
+fn test_unops():
     """
     >>> test_unops()
     unary + [const_char *]
