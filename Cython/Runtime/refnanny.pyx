@@ -173,7 +173,7 @@ struct RefNannyAPIStruct:
     void(r&mut PyObject, r&mut PyObject, isize) DECREF
     void(r&mut PyObject, r&mut PyObject, isize) GOTREF
     void(r&mut PyObject, r&mut PyObject, isize) GIVEREF
-    (r&mut PyObject)(char*, isize, char*) except NULL SetupContext
+    (r&mut PyObject)(r&mut i8, isize, r&mut i8) except NULL SetupContext
     void(PyObject**) FinishContext
 
 cdef RefNannyAPIStruct api
