@@ -13,7 +13,7 @@ import cython
 
 extern from "shapes.h" namespace "shapes":
     cdef cppclass Shape:
-        float area() const
+        const fn f32 area()
 
 cdef cppclass RegularPolygon(Shape):
     f32 radius # major
@@ -21,8 +21,8 @@ cdef cppclass RegularPolygon(Shape):
     __init__(i32 n, float radius):
         this.n = n
         this.radius = radius
-    fn f32 area() noexcept const:
-        cdef f64 theta = pi / this.n
+    const fn f32 area() noexcept:
+        let f64 theta = pi / this.n
         return this.radius * this.radius * sin(theta) * cos(theta) * this.n
     fn void do_with() except *:
         # only a compile test - the file doesn't actually have to exist
