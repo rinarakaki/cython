@@ -17,8 +17,8 @@ def f():
     let r&r&r&i8 a_char_ptr_ptr_ptr
     let i8[10] a_sized_char_array
     let i8[10][20] a_2d_char_array
-    let r&i8[10][20] a_2d_char_ptr_array
-    let r&r&i8[10][20] a_2d_char_ptr_ptr_array
+    let r&mut i8[10][20] a_2d_char_ptr_array
+    let r&mut r&mut i8[10][20] a_2d_char_ptr_ptr_array
     let i32 (*a_0arg_function)()
     let i32 (*a_1arg_function)(i32 i)
     let i32 (*a_2arg_function)(i32 i, i32 j)
