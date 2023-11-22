@@ -36,7 +36,7 @@ def test_pymalloc_raw():
     """
     let i16 i
     let r&i16 s
-    let r&i8 m
+    let r&mut i8 m
     let r&i8 m2 = NULL
     with nogil:
         s = <r&i16>mem::PyMem_RawCalloc(10, sizeof(i16))
