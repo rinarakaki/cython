@@ -263,7 +263,7 @@ def test_nan_init():
     let f64 g = 10.0
     let f128 h = 10.0
 
-    let auto p = <&void>10
+    let auto p = <r&void>10
 
     with nogil, cython.parallel.parallel():
         # First, trick the error checking to make it believe these variables
@@ -315,8 +315,8 @@ def test_nan_init():
         c1 = 16
 
 
-fn void nogil_print(r&char s) noexcept with gil:
-    print s.decode('ascii')
+fn void nogil_print(r&i8 s) noexcept with gil:
+    print s.decode("ascii")
 
 def test_else_clause():
     """
