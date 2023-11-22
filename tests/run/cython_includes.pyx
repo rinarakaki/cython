@@ -56,16 +56,14 @@ cimport cpython.unicode
 cimport cpython.version
 cimport cpython.weakref
 
-
 def libc_cimports():
     """
     >>> libc_cimports()
     hello
     """
-    let char[10] buf
+    let i8[10] buf
     sprintf(buf, "%s", b'hello')
     print (<object>buf).decode('ASCII')
-
 
 def cpython_cimports():
     """
@@ -83,4 +81,3 @@ def cpython_cimports():
     print PyType_Check2([])
     print PyType_Check3(list)
     print PyType_Check3([])
-

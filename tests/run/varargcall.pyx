@@ -1,4 +1,4 @@
-fn grail(r&char blarg, ...):
+fn grail(r&i8 blarg, ...):
     pass
 
 def swallow():

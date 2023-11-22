@@ -383,7 +383,7 @@ def loop_over_charptr():
     >>> print( loop_over_charptr() )
     char
     """
-    let r&char char_ptr_string = 'abcdefg'
+    let r&i8 char_ptr_string = 'abcdefg'
     for c in char_ptr_string:
         pass
     return typeof(c)

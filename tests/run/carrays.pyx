@@ -10,7 +10,7 @@ def test1():
     x[1][1] = 4
     return f(x)[1]
 
-fn i32* f(i32 x[2][2]):
+fn r&mut i32 f(i32[2][2] x):
     return x[0]
 
 def assign_index_in_loop():
@@ -35,7 +35,7 @@ def test2():
     0
     """
     let i32[5] a1
-    let i32 a2[2+3]
+    let i32[2+3] a2
     return sizeof(a1) - sizeof(a2)
 
 cdef enum:
@@ -47,8 +47,8 @@ def test3():
     >>> test3()
     (2, 3)
     """
-    let i32 a[MySizeA]
-    let i32 b[MySizeB]
+    let i32[MySizeA] a
+    let i32[MySizeB] b
     return sizeof(a) / sizeof(i32), sizeof(b) / sizeof(i32)
 
 use libc::limits
@@ -58,5 +58,5 @@ def test_cimported_attribute():
     >>> test_cimported_attribute()
     True
     """
-    let char a[limits::CHAR_MAX]
+    let i8 a[limits::CHAR_MAX]
     return sizeof(a) >= 127

@@ -20,7 +20,7 @@ cptr = s + b"cba"
 
 # indexing => error (but not clear enough to make it a compiler error)
 cptr = s[0]
-cdef r&char x = <r&char>s[0]
+cdef r&i8 x = <r&i8>s[0]
 
 # slicing => error
 cptr = s[:2]

@@ -5,11 +5,11 @@ extern from "Python.h":
     type wrapperfunc_kwds = object(self, args, void* wrapped, kwds)
 
     struct wrapperbase:
-        r&char name
+        r&i8 name
         i32 offset
         void* function
         wrapperfunc wrapper
-        r&char doc
+        r&i8 doc
         i32 flags
         PyObject* name_strobj
 

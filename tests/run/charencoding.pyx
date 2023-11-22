@@ -11,7 +11,7 @@ __doc__ = u"""
 """
 
 def test_assign():
-    let char[17] s
+    let i8[17] s
 
     s[ 0] = c'\x10'
     s[ 1] = c'\x21'
@@ -35,7 +35,7 @@ def test_assign():
     return s
 
 def test_array():
-    let r&char s = [
+    let r&i8 s = [
         c'\x10',
         c'\x21',
         c'\x32',

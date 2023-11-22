@@ -187,7 +187,7 @@ def test_extend_buffer():
     let i64[2] s
     s[0] = 389
     s[1] = 5077
-    array.extend_buffer(ca, <r&char> &s, 2)
+    array.extend_buffer(ca, <r&i8> &s, 2)
 
     assert ca.data.as_ulongs[3] == 5077
     assert len(ca) == 4

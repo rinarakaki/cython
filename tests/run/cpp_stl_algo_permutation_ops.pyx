@@ -10,7 +10,7 @@ use libcpp::vector::vector
 fn bool compare(i32 a, i32 b):
     return a == b
 
-fn bool less_than(char a, char b):
+fn bool less_than(i8 a, i8 b):
     return a < b
 
 def test_is_permutation(vector[i32] v1, vector[i32] v2):
@@ -55,8 +55,8 @@ def test_next_permutation(s_in, s_perm):
     >>> test_next_permutation("aba", "bab")
     False
     """
-    let string ss = <r&char>s_in
-    let string expected = <r&char>s_perm
+    let string ss = <r&i8>s_in
+    let string expected = <r&i8>s_perm
     next_permutation(ss.begin(), ss.end())
     return ss == expected
 
@@ -69,8 +69,8 @@ def test_next_permutation_with_bin_pred(s_in, s_perm):
     >>> test_next_permutation_with_bin_pred("aba", "bab")
     False
     """
-    let string ss = <r&char>s_in
-    let string expected = <r&char>s_perm
+    let string ss = <r&i8>s_in
+    let string expected = <r&i8>s_perm
     next_permutation(ss.begin(), ss.end(), less_than)
     return ss == expected
 
@@ -83,8 +83,8 @@ def test_prev_permutation(s_in, s_perm):
     >>> test_prev_permutation("aba", "bab")
     False
     """
-    let string ss = <r&char>s_in
-    let string expected = <r&char>s_perm
+    let string ss = <r&i8>s_in
+    let string expected = <r&i8>s_perm
     prev_permutation(ss.begin(), ss.end())
     return ss == expected
 
@@ -97,7 +97,7 @@ def test_prev_permutation_with_bin_pred(s_in, s_perm):
     >>> test_prev_permutation_with_bin_pred("aba", "bab")
     False
     """
-    let string ss = <r&char>s_in
-    let string expected = <r&char>s_perm
+    let string ss = <r&i8>s_in
+    let string expected = <r&i8>s_perm
     prev_permutation(ss.begin(), ss.end(), less_than)
     return ss == expected

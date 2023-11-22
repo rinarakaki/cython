@@ -1,4 +1,4 @@
-cdef r&char cstring = "abcdefg"
+cdef r&i8 cstring = "abcdefg"
 
 fn void spam(r&mut i8 target):
     let auto s = cstring
@@ -9,14 +9,14 @@ fn void spam(r&mut i8 target):
     target[0] = c'\0'
 
 struct Grail:
-    char silly[42]
+    i8[42] silly
 
 def eggs():
     """
     >>> print(str(eggs()).replace("b'", "'"))
     ('abcdefg', 'abcdefg')
     """
-    let char[42] silly
+    let i8[42] silly
     let Grail grail
     spam(silly)
     spam(grail.silly)

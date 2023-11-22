@@ -80,7 +80,7 @@ fn void report_unraisable(filename, isize lineno, object e=None):
 # exception has been fetched, in case we are called from
 # exception-handling code.
 
-fn PyObject* SetupContext(r&char funcname, isize lineno, r&char filename) except NULL:
+fn PyObject* SetupContext(r&i8 funcname, isize lineno, r&i8 filename) except NULL:
     if Context is None:
         # Context may be None during finalize phase.
         # In that case, we don't want to be doing anything fancy

@@ -7,7 +7,7 @@ extern from "<string>" namespace "std::string" nogil:
 
 extern from "<string>" namespace "std" nogil:
     cdef cppclass string:
-        ctypedef char value_type
+        ctypedef i8 value_type
 
         # these should really be allocator_type.size_type and
         # allocator_type.difference_type to be true to the C++ definition
@@ -122,9 +122,9 @@ extern from "<string>" namespace "std" nogil:
         string(string& s) except +
         string(string& s, usize pos) except +
         string(string& s, usize pos, usize len) except +
-        string(const char* s) except +
-        string(const char* s, usizen) except +
-        string(usize n, char c) except +
+        string(r&i8 s) except +
+        string(r&i8 s, usizen) except +
+        string(usize n, i8 c) except +
         string(iterator first, iterator last) except +
 
         fn iterator begin()
@@ -140,13 +140,13 @@ extern from "<string>" namespace "std" nogil:
         fn const_reverse_iterator const_rend "rend"()
         fn const_reverse_iterator crend()
 
-        fn const char* c_str()
-        fn const char* data()
+        fn r&i8 c_str()
+        fn r&i8 data()
         fn usize size()
         fn usize max_size()
         fn usize length()
         fn void resize(usize) except +
-        fn void resize(usize, char) except +
+        fn void resize(usize, i8) except +
         fn void shrink_to_fit() except +
         fn void swap(&mut string other)
         fn usize capacity()
@@ -162,128 +162,128 @@ extern from "<string>" namespace "std" nogil:
         fn &mut string erase(usize) except +
         fn &mut string erase() except +
 
-        fn &mut char at(usize pos) except +
-        fn &mut char operator[](usize pos)
-        fn &mut char front()
-        fn &mut char back()
+        fn &mut i8 at(usize pos) except +
+        fn &mut i8 operator[](usize pos)
+        fn &mut i8 front()
+        fn &mut i8 back()
         fn i32 compare(&string s)
         fn i32 compare(usize pos, usize len, &string s) except +
         fn i32 compare(usize pos, usize len, &string s, usize subpos, usize sublen) except +
-        fn i32 compare(const char* s) except +
-        fn i32 compare(usize pos, usize len, const char* s) except +
-        fn i32 compare(usize pos, usize len, const char* s , usize n) except +
+        fn i32 compare(r&i8 s) except +
+        fn i32 compare(usize pos, usize len, r&i8 s) except +
+        fn i32 compare(usize pos, usize len, r&i8 s , usize n) except +
 
         fn &mut string append(&string s) except +
         fn &mut string append(&string s, usize subpos, usize sublen) except +
-        fn &mut string append(const char* s) except +
-        fn &mut string append(const char* s, usize n) except +
-        fn &mut string append(usize n, char c) except +
+        fn &mut string append(r&i8 s) except +
+        fn &mut string append(r&i8 s, usize n) except +
+        fn &mut string append(usize n, i8 c) except +
 
-        fn void push_back(char c) except +
+        fn void push_back(i8 c) except +
         fn void pop_back()
 
         fn &mut string assign(&string s) except +
         fn &mut string assign(&string s, usize subpos, usize sublen) except +
-        fn &mut string assign(const char* s, usize n) except +
-        fn &mut string assign(const char* s) except +
-        fn &mut string assign(usize n, char c) except +
+        fn &mut string assign(r&i8 s, usize n) except +
+        fn &mut string assign(r&i8 s) except +
+        fn &mut string assign(usize n, i8 c) except +
 
         fn &mut string insert(usize pos, &string s, usize subpos, usize sublen) except +
         fn &mut string insert(usize pos, &string s) except +
-        fn &mut string insert(usize pos, const char* s, usize n) except +
-        fn &mut string insert(usize pos, const char* s) except +
-        fn &mut string insert(usize pos, usize n, char c) except +
-        fn void insert(iterator p, usize n, char c) except +
-        fn iterator insert(iterator p, char c) except +
+        fn &mut string insert(usize pos, r&i8 s, usize n) except +
+        fn &mut string insert(usize pos, r&i8 s) except +
+        fn &mut string insert(usize pos, usize n, i8 c) except +
+        fn void insert(iterator p, usize n, i8 c) except +
+        fn iterator insert(iterator p, i8 c) except +
 
-        fn usize copy(r&char s, usize len, usize pos) except +
-        fn usize copy(r&char s, usize len) except +
+        fn usize copy(r&i8 s, usize len, usize pos) except +
+        fn usize copy(r&i8 s, usize len) except +
 
         fn usize find(&string s, usize pos)
         fn usize find(&string s)
-        fn usize find(const char* s, usize pos, usize n)
-        fn usize find(const char* s, usize pos)
-        fn usize find(const char* s)
-        fn usize find(char c, usize pos)
-        fn usize find(char c)
+        fn usize find(r&i8 s, usize pos, usize n)
+        fn usize find(r&i8 s, usize pos)
+        fn usize find(r&i8 s)
+        fn usize find(i8 c, usize pos)
+        fn usize find(i8 c)
 
         fn usize rfind(&string, usize pos)
         fn usize rfind(&string)
-        fn usize rfind(const char* s, usize pos, usize n)
-        fn usize rfind(const char* s, usize pos)
-        fn usize rfind(const char* s)
-        fn usize rfind(char c, usize pos)
-        fn usize rfind(char c)
+        fn usize rfind(r&i8 s, usize pos, usize n)
+        fn usize rfind(r&i8 s, usize pos)
+        fn usize rfind(r&i8 s)
+        fn usize rfind(i8 c, usize pos)
+        fn usize rfind(i8 c)
 
         fn usize find_first_of(&string, usize pos)
         fn usize find_first_of(&string)
-        fn usize find_first_of(const char* s, usize pos, usize n)
-        fn usize find_first_of(const char* s, usize pos)
-        fn usize find_first_of(const char* s)
-        fn usize find_first_of(char c, usize pos)
-        fn usize find_first_of(char c)
+        fn usize find_first_of(r&i8 s, usize pos, usize n)
+        fn usize find_first_of(r&i8 s, usize pos)
+        fn usize find_first_of(r&i8 s)
+        fn usize find_first_of(i8 c, usize pos)
+        fn usize find_first_of(i8 c)
 
         fn usize find_first_not_of(&string s, usize pos)
         fn usize find_first_not_of(&string s)
-        fn usize find_first_not_of(const char* s, usize pos, usize n)
-        fn usize find_first_not_of(const char* s, usize pos)
-        fn usize find_first_not_of(const char*)
-        fn usize find_first_not_of(char c, usize pos)
-        fn usize find_first_not_of(char c)
+        fn usize find_first_not_of(r&i8 s, usize pos, usize n)
+        fn usize find_first_not_of(r&i8 s, usize pos)
+        fn usize find_first_not_of(r&i8)
+        fn usize find_first_not_of(i8 c, usize pos)
+        fn usize find_first_not_of(i8 c)
 
         fn usize find_last_of(&string s, usize pos)
         fn usize find_last_of(&string s)
-        fn usize find_last_of(const char* s, usize pos, usize n)
-        fn usize find_last_of(const char* s, usize pos)
-        fn usize find_last_of(const char* s)
-        fn usize find_last_of(char c, usize pos)
-        fn usize find_last_of(char c)
+        fn usize find_last_of(r&i8 s, usize pos, usize n)
+        fn usize find_last_of(r&i8 s, usize pos)
+        fn usize find_last_of(r&i8 s)
+        fn usize find_last_of(i8 c, usize pos)
+        fn usize find_last_of(i8 c)
 
         fn usize find_last_not_of(&string s, usize pos)
         fn usize find_last_not_of(&string s)
-        fn usize find_last_not_of(const char* s, usize pos, usize n)
-        fn usize find_last_not_of(const char* s, usize pos)
-        fn usize find_last_not_of(const char* s)
-        fn usize find_last_not_of(char c, usize pos)
-        fn usize find_last_not_of(char c)
+        fn usize find_last_not_of(r&i8 s, usize pos, usize n)
+        fn usize find_last_not_of(r&i8 s, usize pos)
+        fn usize find_last_not_of(r&i8 s)
+        fn usize find_last_not_of(i8 c, usize pos)
+        fn usize find_last_not_of(i8 c)
 
         fn string substr(usize pos, usize len) except +
         fn string substr(usize pos) except +
         fn string substr()
 
         # C++20
-        fn u2 starts_with(char c) except +
-        fn u2 starts_with(r&char s)
-        fn u2 ends_with(char c) except +
-        fn u2 ends_with(r&char s)
+        fn u2 starts_with(i8 c) except +
+        fn u2 starts_with(r&i8 s)
+        fn u2 ends_with(i8 c) except +
+        fn u2 ends_with(r&i8 s)
         # C++23
-        fn u2 contains(char c) except +
-        fn u2 contains(r&char s)
+        fn u2 contains(i8 c) except +
+        fn u2 contains(r&i8 s)
 
         # fn &mut string operator=(&string)
-        # fn &mut string operator=(const char*)
-        # fn &mut string operator=(char)
+        # fn &mut string operator=(r&i8)
+        # fn &mut string operator=(i8)
 
         fn string operator+(&string) except +
-        fn string operator+(const char*) except +
+        fn string operator+(r&i8) except +
 
         fn u2 operator==(&string)
-        fn u2 operator==(const char*)
+        fn u2 operator==(r&i8)
 
         fn u2 operator!=(&string)
-        fn u2 operator!=(const char*)
+        fn u2 operator!=(r&i8)
 
         fn u2 operator<(&string)
-        fn u2 operator<(const char*)
+        fn u2 operator<(r&i8)
 
         fn u2 operator>(&string)
-        fn u2 operator>(const char*)
+        fn u2 operator>(r&i8)
 
         fn u2 operator<=(&string)
-        fn u2 operator<=(const char*)
+        fn u2 operator<=(r&i8)
 
         fn u2 operator>=(&string)
-        fn u2 operator>=(const char*)
+        fn u2 operator>=(r&i8)
 
 
     fn string to_string(i32 val) except +

@@ -56,7 +56,7 @@ extern from "Python.h":
     # On error, sets the appropriate exception (EOFError, ValueError or
     # TypeError) and returns NULL.
 
-    fn object PyMarshal_ReadObjectFromString(r&char data, isize len)
+    fn object PyMarshal_ReadObjectFromString(r&i8 data, isize len)
     # Return value: New reference.
     # Return a Python object from the data stream in a byte buffer containing
     # len bytes pointed to by data.
