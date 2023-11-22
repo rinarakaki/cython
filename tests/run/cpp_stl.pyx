@@ -58,7 +58,7 @@ fn test_vector_iterator(L):
         v.push_back(a)
     let vector[i32].iterator iter = v.begin()
     while iter != v.end():
-        print *iter
+        print(*iter)
         inc(iter)
     del v
 
