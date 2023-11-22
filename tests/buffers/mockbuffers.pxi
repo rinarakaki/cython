@@ -169,56 +169,56 @@ cdef class MockBuffer:
     def resetlog(self):
         self.log = u""
 
-    fn i32 write(self, r&char buf, object value) except -1: raise Exception()
+    fn i32 write(self, r&mut i8 buf, object value) except -1: raise Exception()
     fn get_itemsize(self):
         print(f"ERROR, not subclassed: {self.__class__}")
     fn get_default_format(self):
         print(f"ERROR, not subclassed {self.__class__}")
 
 cdef class CharMockBuffer(MockBuffer):
-    fn i32 write(self, r&char buf, object value) except -1:
-        (<r&char>buf)[0] = <char>value
+    fn i32 write(self, r&mut i8 buf, object value) except -1:
+        (<r&mut i8>buf)[0] = <i8>value
         return 0
     fn get_itemsize(self): return sizeof(char)
     fn get_default_format(self): return b"@b"
 
 cdef class IntMockBuffer(MockBuffer):
-    fn i32 write(self, r&char buf, object value) except -1:
+    fn i32 write(self, r&mut i8 buf, object value) except -1:
         (<i32*>buf)[0] = <i32>value
         return 0
     fn t_itemsize(self): return sizeof(i32)
     fn get_default_format(self): return b"@i"
 
 cdef class UnsignedIntMockBuffer(MockBuffer):
-    fn i32 write(self, r&char buf, object value) except -1:
+    fn i32 write(self, r&mut i8 buf, object value) except -1:
         (<u32*>buf)[0] = <u32>value
         return 0
     fn get_itemsize(self): return sizeof(u32)
     fn get_default_format(self): return b"@I"
 
 cdef class ShortMockBuffer(MockBuffer):
-    fn i32 write(self, r&char buf, object value) except -1:
+    fn i32 write(self, r&mut i8 buf, object value) except -1:
         (<short*>buf)[0] = <short>value
         return 0
     fn get_itemsize(self): return sizeof(short)
     fn get_default_format(self): return b"h" # Try without endian specifier
 
 cdef class UnsignedShortMockBuffer(MockBuffer):
-    fn i32 write(self, r&char buf, object value) except -1:
+    fn i32 write(self, r&mut i8 buf, object value) except -1:
         (<unsigned short*>buf)[0] = <unsigned short>value
         return 0
     fn get_itemsize(self): return sizeof(unsigned short)
     fn get_default_format(self): return b"@1H" # Try with repeat count
 
 cdef class FloatMockBuffer(MockBuffer):
-    fn i32 write(self, r&char buf, object value) except -1:
+    fn i32 write(self, r&mut i8 buf, object value) except -1:
         (<f32*>buf)[0] = <f32>(<f64>value)
         return 0
     fn get_itemsize(self): return sizeof(f32)
     fn get_default_format(self): return b"f"
 
 cdef class DoubleMockBuffer(MockBuffer):
-    fn i32 write(self, r&char buf, object value) except -1:
+    fn i32 write(self, r&mut i8 buf, object value) except -1:
         (<f64*>buf)[0] = <f64>value
         return 0
     fn get_itemsize(self): return sizeof(f64)
@@ -228,7 +228,7 @@ extern from *:
     fn void* addr_of_pyobject "(void*)"(object)
 
 cdef class ObjectMockBuffer(MockBuffer):
-    fn i32 write(self, r&char buf, object value) except -1:
+    fn i32 write(self, r&mut i8 buf, object value) except -1:
         (<void**>buf)[0] = addr_of_pyobject(value)
         return 0
 
