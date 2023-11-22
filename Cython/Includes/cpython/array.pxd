@@ -121,7 +121,7 @@ extern from *:  # Hard-coded utility code hack.
             info.shape[0] = item_count      # constant regardless of resizing
             info.strides = &info.itemsize
 
-            info.format = <r&char>(info.shape + 1)
+            info.format = <r&i8>(info.shape + 1)
             info.format[0] = self.ob_descr.typecode
             info.format[1] = 0
             info.obj = self
@@ -154,7 +154,7 @@ fn inline array copy(array self):
     memcpy(op.data.as_chars, self.data.as_chars, Py_SIZE(op) * op.ob_descr.itemsize)
     return op
 
-fn inline i32 extend_buffer(array self, r&char stuff, isize n) except -1:
+fn inline i32 extend_buffer(array self, r&i8 stuff, isize n) except -1:
     """ efficient appending of new stuff of same type
     (e.g. of same array type)
     n: number of elements (not number of bytes!) """

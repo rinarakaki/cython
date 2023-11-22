@@ -6,7 +6,7 @@ ctypedef struct Foo:
     i32 i
 
 ctypedef struct Blarg:
-    char c
+    i8 c
 
 struct Blarg
 

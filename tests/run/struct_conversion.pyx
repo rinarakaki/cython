@@ -118,10 +118,10 @@ def test_pointers(i32 n, f64 x):
     print a.ptr == b.ptr == NULL
 
 struct MyStruct:
-    char c
+    i8 c
     i32 i
     f32 f
-    r&char s
+    r&i8 s
 
 bhello = b"hello"  # must hold a C reference in PyPy
 

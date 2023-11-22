@@ -165,12 +165,12 @@ extern from "datetime.h":
 
     struct PyDateTime_Time:
         u8 fold
-        char hastzinfo
+        i8 hastzinfo
         PyObject* tzinfo
 
     struct PyDateTime_DateTime:
         u8 fold
-        char hastzinfo
+        i8 hastzinfo
         PyObject* tzinfo
 
     struct PyDateTime_Delta:

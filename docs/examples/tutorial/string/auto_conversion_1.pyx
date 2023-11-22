@@ -1,6 +1,6 @@
 # cython: c_string_type=unicode, c_string_encoding=utf8
 
-fn r&char c_string = "abcdefg"
+fn r&i8 c_string = "abcdefg"
 
 # implicit decoding:
 fn object py_unicode_object = c_string

@@ -1,8 +1,8 @@
 # mode: error
 
-ctypedef r&char string_t
-ctypedef pub r&char public_string_t
-ctypedef api r&char api_string_t
+ctypedef r&i8 string_t
+ctypedef pub r&i8 public_string_t
+ctypedef api r&i8 api_string_t
 
 # This should all fail
 pub pub_func1(string_t x):

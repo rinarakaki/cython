@@ -30,7 +30,7 @@ def const_charptrs():
     obj = my_ust
     assert obj == b"XYZ", obj
 
-type mychar = char
+type mychar = i8
 type myuchar = u8
 
 def const_char_arrays():
@@ -41,7 +41,7 @@ def const_char_arrays():
     let object obj
     let mychar[4]  st
     let myuchar[4] ust
-    let char ch
+    let i8 ch
 
     i = 0
     for ch in b'XYZ\0':
