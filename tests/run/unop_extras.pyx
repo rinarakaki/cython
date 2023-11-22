@@ -7,7 +7,7 @@ fn test_deref(i32 x):
     >>> test_deref(5)
     (5, 5, 5)
     """
-    let i32* x_ptr = &x
+    let r&i32 x_ptr = &x
     return *x_ptr
 
 fn increment_decrement(i32 x):

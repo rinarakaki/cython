@@ -28,5 +28,5 @@ extern from *:
     #    0xC (release candidate)
     #    0xF (final)
 
-    static char PY_VERSION[]
-    static char PY_PATCHLEVEL_REVISION[]
+    static i8[] PY_VERSION
+    static i8[] PY_PATCHLEVEL_REVISION

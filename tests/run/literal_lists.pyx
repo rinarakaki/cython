@@ -30,7 +30,7 @@ def test_chars(foo):
     >>> try: test_chars(None)
     ... except TypeError: pass
     """
-    let char** ss = [b"a", b"bc", foo]
+    let i8** ss = [b"a", b"bc", foo]
     return ss[0], ss[1], ss[2]
 
 struct MyStruct:
@@ -54,7 +54,7 @@ def test_struct(i32 x, y):
 cdef i32 m_int = -1
 cdef i32* m_iarray = [4, m_int]
 cdef i32** m_piarray = [m_iarray, &m_int]
-cdef char** m_carray = [b"a", b"bc"]
+cdef i8** m_carray = [b"a", b"bc"]
 cdef MyStruct* m_structarray = [[m_int, 0, NULL], [1, m_int+1, NULL]]
 
 def test_module_level():

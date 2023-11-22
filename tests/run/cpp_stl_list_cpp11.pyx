@@ -13,7 +13,7 @@ fn const_iteration_test(L):
     4
     8
     """
-    l = new cpp_list[int]()
+    l = new cpp_list[i32]()
     try:
         for a in L:
             l.push_back(a)
@@ -25,7 +25,7 @@ fn const_iteration_test(L):
     finally:
         del l
 
-fn list const_to_pylist(cpp_list[int]& l):
+fn list const_to_pylist(cpp_list[i32]& l):
     let list L = []
     it = l.cbegin()
     while it != l.cend():
@@ -38,7 +38,7 @@ def const_item_ptr_test(L, i32 x):
     >>> const_item_ptr_test(0..10, 100)
     [100, 1, 2, 3, 4, 5, 6, 7, 8, 9]
     """
-    let cpp_list[int] l = L
-    let i32* li_ptr = &l.front()
+    let cpp_list[i32] l = L
+    let auto li_ptr = &l.front()
     li_ptr[0] = x
     return const_to_pylist(l)
