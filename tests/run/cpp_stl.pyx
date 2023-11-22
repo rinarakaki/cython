@@ -45,7 +45,7 @@ def test_vector_typedef(L):
     let vector[i32] vv = v
     return vv
 
-def test_vector_iterator(L):
+fn test_vector_iterator(L):
     """
     >>> test_vector([11, 37, 389, 5077])
     11
