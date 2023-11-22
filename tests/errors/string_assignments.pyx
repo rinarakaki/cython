@@ -98,7 +98,7 @@ _ERRORS = u"""
 56:20: str objects do not support coercion to unicode, use a unicode string literal instead (u'')
 57:20: Cannot convert 'bytes' object to unicode implicitly, decoding required
 58:20: Cannot convert 'bytes' object to unicode implicitly, decoding required
-59:20: Cannot convert 'r&char' to unicode implicitly, decoding required
+59:20: Cannot convert 'char*' to unicode implicitly, decoding required
 
 61:24: Cannot convert 'bytes' object to basestring implicitly. This is not portable to Py3.
 62:24: Cannot convert 'bytes' object to basestring implicitly. This is not portable to Py3.
