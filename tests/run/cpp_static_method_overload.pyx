@@ -25,7 +25,6 @@ extern from *:
     """
     cppclass Foo:
         fn r&char bar(i32 x)
-
         fn r&char bar(i32 x, i32 y)
 
         fn r&char baz(self, i32 x)
