@@ -101,7 +101,7 @@ extern from "Python.h":
     # appropriate contents. This is equivalent to the Python
     # expression "tuple(o)".
 
-    fn object PySequence_Fast(object o, char* m)
+    fn object PySequence_Fast(object o, r&char m)
     # Return value: New reference.
     # Returns the sequence o as a tuple, unless it is already a tuple
     # or list, in which case o is returned. Use

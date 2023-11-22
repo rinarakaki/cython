@@ -71,7 +71,7 @@ def test_string_call(a, b):
     """
     return add_strings(a, b)
 
-def test_c_string_convert(char* c_string):
+def test_c_string_convert(r&char c_string):
     """
     >>> decode(test_c_string_convert("abc".encode('ascii')))
     'abc'

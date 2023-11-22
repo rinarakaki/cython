@@ -7,7 +7,7 @@ __doc__ = u"""
 """
 
 extern from "string.h":
-    fn void memcpy(char* d, char* s, i32 n)
+    fn void memcpy(r&char d, r&char s, i32 n)
 
 use cpython::PyUnicode_DecodeUTF8
 

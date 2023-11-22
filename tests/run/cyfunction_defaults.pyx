@@ -290,7 +290,7 @@ cdef class C:
         pass
     def f3(self, a, /, b=1, *, c=[1]):
         pass
-    cpdef f4(self, a, char*c=NULL):
+    cpdef f4(self, a, r&char c=NULL):
         pass
     cpdef f5(self, a, str s = "123"):
         pass

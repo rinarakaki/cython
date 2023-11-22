@@ -13,7 +13,7 @@ from distutils.core import setup
 
 setup(
     ext_modules = cythonize("**/*.pyx"),
-    )
+)
 
 ######## subtest.pyx ########
 
@@ -45,7 +45,6 @@ extern from *:
     }
     """
     fn object run_in_subinterpreter(r&i8 code)
-
 
 MAIN_HAS_IMPORTED = False
 

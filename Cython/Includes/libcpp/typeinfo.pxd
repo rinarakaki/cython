@@ -2,7 +2,7 @@ use libcpp::bool
 
 extern from "<typeinfo>" namespace "std" nogil:
     cdef cppclass type_info:
-        fn const char* name()
+        fn r&char name()
         fn i32 before(&type_info)
         fn bool operator==(&type_info)
         fn bool operator!=(&type_info)
