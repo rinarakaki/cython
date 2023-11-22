@@ -11,7 +11,7 @@ cdef class Machine:
     cdef readonly dict initial_states
     cdef readonly isize next_state_number
 
-    cpdef new_state(self)
+#    cpdef new_state(self)
 #    cpdef new_initial_state(self, name)
 
 #[cython::final]
