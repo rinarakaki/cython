@@ -358,7 +358,7 @@ def test_prange_continue():
     9 0
     """
     let i32 i
-    let auto p = <r&i32>calloc(10, sizeof(i32))
+    let auto p = <r&mut i32>calloc(10, sizeof(i32))
 
     if p == NULL:
         raise MemoryError
