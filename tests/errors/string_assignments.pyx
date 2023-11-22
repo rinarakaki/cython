@@ -109,6 +109,6 @@ _ERRORS = u"""
 
 72:11: default encoding required for conversion from 'char *' to 'str object'
 73:13: default encoding required for conversion from 'char *' to 'str object'
-74:15: Cannot convert 'r&char' to unicode implicitly, decoding required
+74:15: Cannot convert 'char*' to unicode implicitly, decoding required
 75:17: default encoding required for conversion from 'char *' to 'unicode object'
 """
