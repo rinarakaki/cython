@@ -1,9 +1,9 @@
 use cython
 
 # ##########################################################
-# tests for r&char slicing
+# tests for r&i8 slicing
 
-cdef r&char cstring = "abcABCqtp"
+cdef r&i8 cstring = "abcABCqtp"
 
 def slice_charptr_end():
     """
@@ -12,7 +12,7 @@ def slice_charptr_end():
     """
     return cstring[:1], cstring[:3], cstring[:9]
 
-# BROKEN: this test assumes that the result of a r&char iteration
+# BROKEN: this test assumes that the result of a r&i8 iteration
 # becomes a bytes object, which is not the case when applying
 # carray iteration.  Contradiction.
 #
@@ -113,7 +113,7 @@ fn return4(): return 4
 fn return5(): return 5
 fn return9(): return 9
 
-# BROKEN: this test assumes that the result of a r&char iteration
+# BROKEN: this test assumes that the result of a r&i8 iteration
 # becomes a bytes object, which is not the case when applying
 # carray iteration.  Contradiction.
 #

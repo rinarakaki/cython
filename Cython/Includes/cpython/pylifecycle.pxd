@@ -14,7 +14,7 @@ extern from "Python.h":
 
     # Only used by applications that embed the interpreter and need to
     # override the standard encoding determination mechanism
-    fn i32 Py_SetStandardStreamEncoding(r&char encoding, r&char errors)
+    fn i32 Py_SetStandardStreamEncoding(r&i8 encoding, r&i8 errors)
 
     fn void Py_Initialize()
     fn void Py_InitializeEx(i32)
@@ -35,7 +35,7 @@ extern from "Python.h":
     # Restore signals that the interpreter has called SIG_IGN on to SIG_DFL.
     fn void _Py_RestoreSignals()
 
-    fn i32 Py_FdIsInteractive(FILE*, r&char)
+    fn i32 Py_FdIsInteractive(FILE*, r&i8)
 
     # Bootstrap __main__ (defined in Modules/main.c)
     fn i32 Py_Main(i32 argc, wchar_t** argv)
@@ -49,13 +49,13 @@ extern from "Python.h":
     fn i32 _Py_CheckPython3()
 
     # In their own files
-    fn r&char Py_GetVersion()
-    fn r&char Py_GetPlatform()
-    fn r&char Py_GetCopyright()
-    fn r&char Py_GetCompiler()
-    fn r&char Py_GetBuildInfo()
-    fn r&char _Py_gitidentifier()
-    fn r&char _Py_gitversion()
+    fn r&i8 Py_GetVersion()
+    fn r&i8 Py_GetPlatform()
+    fn r&i8 Py_GetCopyright()
+    fn r&i8 Py_GetCompiler()
+    fn r&i8 Py_GetBuildInfo()
+    fn r&i8 _Py_gitidentifier()
+    fn r&i8 _Py_gitversion()
 
     ctypedef void (*PyOS_sighandler_t)(i32)
     fn PyOS_sighandler_t PyOS_getsig(i32)

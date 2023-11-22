@@ -1,7 +1,7 @@
 # ticket: t99
 
 cdef char c = 'c'
-cdef r&char s = 'abcdef'
+cdef r&i8 s = 'abcdef'
 
 def global_c_and_s():
     """
@@ -20,7 +20,7 @@ def local_c_and_s():
     bcdefg
     """
     let char c = 'b'
-    let r&char s = 'bcdefg'
+    let r&i8 s = 'bcdefg'
     pys = s
     print c
     print (pys.decode(u'ASCII'))

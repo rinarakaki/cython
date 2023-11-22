@@ -389,7 +389,7 @@ cpdef f_defexpr4(i32 x = (Ext.CONST1 + FLAG1) * Ext.CONST2):
 cpdef f_defexpr5(i32 x = 2+2):
     pass
 
-cpdef (r&char) f_charptr_null(r&char s=NULL):
+cpdef (r&i8) f_charptr_null(r&i8 s=NULL):
     return s or b'abc'
 
 # no signatures for lambda functions

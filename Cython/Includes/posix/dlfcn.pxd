@@ -2,9 +2,9 @@
 # https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/dlfcn.h.html
 
 extern from "<dlfcn.h>" nogil:
-    fn void* dlopen(r&char, i32)
-    fn r&char dlerror()
-    fn void* dlsym(void*, r&char)
+    fn void* dlopen(r&i8, i32)
+    fn r&i8 dlerror()
+    fn void* dlsym(void*, r&i8)
     fn i32 dlclose(void*)
 
     enum:

@@ -1,6 +1,6 @@
 # mode: error
 
-def eggs(i32 x not None, r&char y not None):
+def eggs(i32 x not None, r&i8 y not None):
     pass
 
 _ERRORS = u"""

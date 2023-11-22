@@ -4,7 +4,7 @@ extern from "numeric.h":
         char type
 
     ctypedef class Numeric.ArrayType [object PyArrayObject]:
-        cdef r&char data
+        cdef r&i8 data
         cdef i32 nd
         cdef i32* dimensions, strides
         cdef object base

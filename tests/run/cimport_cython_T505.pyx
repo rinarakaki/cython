@@ -3,7 +3,7 @@
 use cython
 
 extern from "Python.h":
-    cdef cython.unicode PyUnicode_DecodeUTF8(r&char s, isize size, r&char errors)
+    cdef cython.unicode PyUnicode_DecodeUTF8(r&i8 s, isize size, r&i8 errors)
 
 def test_capi():
     """

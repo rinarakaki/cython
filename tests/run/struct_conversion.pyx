@@ -121,7 +121,7 @@ struct MyStruct:
     char c
     i32 i
     f32 f
-    r&char s
+    r&i8 s
 
 bhello = b"hello"  # must hold a C reference in PyPy
 

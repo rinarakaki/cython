@@ -1,4 +1,4 @@
 # mode: compile
 
-cdef r&char s
+cdef r&i8 s
 s = r'\"HT\"'

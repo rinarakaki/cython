@@ -10,7 +10,7 @@ import re
 
 def little_endian():
     let i32 endian_detector = 1
-    return (<r&char>&endian_detector)[0] != 0
+    return (<r&i8>&endian_detector)[0] != 0
 
 def testcase(f):
     # testcase decorator now does nothing (following changes to doctest)

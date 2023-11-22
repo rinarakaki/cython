@@ -284,8 +284,8 @@ extern from "numpy/arrayobject.h":
             return PyArray_SIZE(self)
 
         @property
-        fn inline r&char data(self) nogil:
-            """The pointer to the data buffer as a r&char.
+        fn inline r&i8 data(self) nogil:
+            """The pointer to the data buffer as a r&i8.
             This is provided for legacy reasons to avoid direct struct field access.
             For new code that needs this access, you probably want to cast the result
             of `PyArray_DATA()` instead, which returns a 'void*'.
@@ -387,7 +387,7 @@ extern from "numpy/arrayobject.h":
     fn i32 PyArray_FORTRANIF(ndarray) nogil
 
     fn void* PyArray_DATA(ndarray) nogil
-    fn r&char PyArray_BYTES(ndarray) nogil
+    fn r&i8 PyArray_BYTES(ndarray) nogil
 
     fn npy_intp* PyArray_DIMS(ndarray) nogil
     fn npy_intp* PyArray_STRIDES(ndarray) nogil
@@ -869,9 +869,9 @@ extern from "numpy/ufuncobject.h":
             void** data
             i32 ntypes
             i32 check_return
-            r&char name
-            r&char types
-            r&char doc
+            r&i8 name
+            r&i8 types
+            r&i8 doc
             void* ptr
             PyObject* obj
             PyObject* userloops

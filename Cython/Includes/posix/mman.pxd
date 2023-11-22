@@ -55,8 +55,8 @@ extern from "<sys/mman.h>" nogil:
     enum: MCL_ONFAULT
     fn i32 mlock2(const void* addr, usize len, i32 flags)
 
-    fn i32 shm_open(r&char name, i32 oflag, mode_t mode)
-    fn i32 shm_unlink(r&char name)
+    fn i32 shm_open(r&i8 name, i32 oflag, mode_t mode)
+    fn i32 shm_unlink(r&i8 name)
 
     # often available
     enum: MADV_NORMAL               # pre-POSIX advice flags; should translate 1-1 to POSIX_*
@@ -92,7 +92,7 @@ extern from "<sys/mman.h>" nogil:
     enum: POSIX_TYPED_MEM_ALLOCATE
     enum: POSIX_TYPED_MEM_ALLOCATE_CONTIG
     enum: POSIX_TYPED_MEM_MAP_ALLOCATABLE
-    fn i32 posix_typed_mem_open(r&char name, i32 oflag, i32 oflag)
+    fn i32 posix_typed_mem_open(r&i8 name, i32 oflag, i32 oflag)
     fn i32 posix_mem_offset(const void* addr, usize Len, off_t* off,
                             usize* contig_len, i32* fildes)
 

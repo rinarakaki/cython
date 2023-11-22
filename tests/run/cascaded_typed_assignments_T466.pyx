@@ -38,7 +38,7 @@ def simple_parallel_int_mix_recursive():
 
 cdef i32 called = 0
 
-fn r&char get_string():
+fn r&i8 get_string():
     global called
     called += 1
     return "abcdefg"
@@ -48,9 +48,9 @@ def non_simple_rhs():
     >>> non_simple_rhs()
     1
     """
-    let r&char a, b
+    let r&i8 a, b
     let i32 orig_called = called
-    a = b = <r&char>get_string()
+    a = b = <r&i8>get_string()
     assert a is b
     return called - orig_called
 
@@ -64,7 +64,7 @@ def non_simple_rhs_malloc():
     let char** c
 
     c = &b
-    c[0] = a = <r&char>malloc(2)
+    c[0] = a = <r&i8>malloc(2)
     a[0] = c'X'
     b[1] = c'\0'
 

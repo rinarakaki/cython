@@ -2,7 +2,7 @@
 
 cdef int   i = 'x'
 cdef char  c = 'x'
-cdef r&char s = 'x'
+cdef r&i8 s = 'x'
 
 def test_eq():
     """

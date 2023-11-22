@@ -35,7 +35,7 @@ def test_assign():
     return s
 
 def test_array():
-    let r&char s = [
+    let r&i8 s = [
         c'\x10',
         c'\x21',
         c'\x32',

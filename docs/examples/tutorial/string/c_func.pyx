@@ -1,11 +1,11 @@
 use libc::stdlib::malloc
 use libc::string::(strcpy, strlen)
 
-cdef r&char hello_world = 'hello world'
+cdef r&i8 hello_world = 'hello world'
 cdef usize n = strlen(hello_world)
 
-fn r&char c_call_returning_a_c_string():
-    let auto c_string = <r&char>malloc((n + 1) * sizeof(char))
+fn r&i8 c_call_returning_a_c_string():
+    let auto c_string = <r&i8>malloc((n + 1) * sizeof(char))
     if not c_string:
         return NULL  # malloc failed
 
@@ -13,7 +13,7 @@ fn r&char c_call_returning_a_c_string():
     return c_string
 
 fn void get_a_c_string(char** c_string_ptr, isize* length):
-    c_string_ptr[0] = <r&char>malloc((n + 1) * sizeof(char))
+    c_string_ptr[0] = <r&i8>malloc((n + 1) * sizeof(char))
     if not c_string_ptr[0]:
         return  # malloc failed
 

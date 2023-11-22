@@ -1,6 +1,6 @@
 extern from "someheader.h":
     type specialChar = const char
 
-    fn i32 process_string(r&char s)
+    fn i32 process_string(r&i8 s)
     
     fn const u8* look_up_cached_string(const u8* key)

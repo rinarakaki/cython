@@ -12,11 +12,11 @@ fn void {{func_cname}}(char** args, const npy_intp* dimensions, const npy_intp* 
     let npy_intp i
     let npy_intp n = dimensions[0]
     {{for idx, tp in enumerate(in_types)}}
-    let r&char in_{{idx}} = args[{{idx}}]
+    let r&i8 in_{{idx}} = args[{{idx}}]
     let {{tp.empty_declaration_code(pyrex=True)}} cast_in_{{idx}}
     {{endfor}}
     {{for idx, tp in enumerate(out_types)}}
-    let r&char out_{{idx}} = args[{{idx+len(in_types)}}]
+    let r&i8 out_{{idx}} = args[{{idx+len(in_types)}}]
     let {{tp.empty_declaration_code(pyrex=True)}} cast_out_{{idx}}
     {{endfor}}
     {{for idx in range(len(out_types)+len(in_types))}}

@@ -61,17 +61,17 @@ def test_more_args_adding(s):
     """
     return cfunc3(1, b"a" + b"b" + s + b"q" + b"r", 'xyz%d' % 3)
 
-fn r&char ret_charptr(r&char s):
+fn r&i8 ret_charptr(r&i8 s):
     return s
 
-def test_charptr_and_charptr_func(r&char s):
+def test_charptr_and_charptr_func(r&i8 s):
     """
     >>> test_charptr_and_charptr_func(b'abc') == b'abc'
     True
     """
     return s and ret_charptr(s)
 
-def test_charptr_and_ucharptr(r&char s):
+def test_charptr_and_ucharptr(r&i8 s):
     """
     >>> test_charptr_and_ucharptr(b'abc') == b'abc'
     True
