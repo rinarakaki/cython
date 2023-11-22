@@ -1442,6 +1442,7 @@ class CFuncPtrTypeNode(CBaseTypeNode):
             func_type_args.append(
                 PyrexTypes.CFuncTypeArg("", type, arg_node.pos))
 
+        base_type = self.base_type.analyse(env)
         exc_val = None
         exc_check = 0
         if self.exception_check == '+':
@@ -1449,13 +1450,13 @@ class CFuncPtrTypeNode(CBaseTypeNode):
             env.add_include_file('new')         # for std::bad_alloc
             env.add_include_file('stdexcept')
             env.add_include_file('typeinfo')    # for std::bad_cast
-        elif self.base_type.is_pyobject and self.exception_check:
+        elif base_type.is_pyobject and self.exception_check:
             # Functions in pure Python mode default to always check return values for exceptions
             # (equivalent to the "except*" declaration). In this case, the exception clause
             # is silently ignored for functions returning a Python object.
             self.exception_check = False
 
-        if (self.base_type.is_pyobject
+        if (base_type.is_pyobject
                 and (self.exception_value or self.exception_check)
                 and self.exception_check != '+'):
             error(self.pos, "Exception clause not allowed for function returning Python object")
@@ -1475,7 +1476,7 @@ class CFuncPtrTypeNode(CBaseTypeNode):
                     if not env.is_c_class_scope and not isinstance(self.base, CPtrDeclaratorNode):
                         from .ExprNodes import ConstNode
                         self.exception_value = ConstNode(
-                            self.pos, value=self.exception_value, type=self.base_type)
+                            self.pos, value=self.exception_value, type=base_type)
             if self.exception_value:
                 if self.exception_check == '+':
                     self.exception_value = self.exception_value.analyse_const_expression(env)
@@ -1492,18 +1493,18 @@ class CFuncPtrTypeNode(CBaseTypeNode):
                     exc_val = self.exception_value
                 else:
                     self.exception_value = self.exception_value.analyse_types(env).coerce_to(
-                        self.base_type, env).analyse_const_expression(env)
+                        base_type, env).analyse_const_expression(env)
                     exc_val = self.exception_value.get_constant_c_result_code()
                     if exc_val is None:
                         error(self.exception_value.pos, "Exception value must be constant")
-                    if not self.base_type.assignable_from(self.exception_value.type):
+                    if not base_type.assignable_from(self.exception_value.type):
                         error(self.exception_value.pos,
                               "Exception value incompatible with function return type")
                     if (self.visibility != 'extern'
-                            and (self.base_type.is_int or self.base_type.is_float)
+                            and (base_type.is_int or base_type.is_float)
                             and self.exception_value.has_constant_result()):
                         try:
-                            type_default_value = float(self.base_type.default_value)
+                            type_default_value = float(base_type.default_value)
                         except ValueError:
                             pass
                         else:
@@ -1511,13 +1512,13 @@ class CFuncPtrTypeNode(CBaseTypeNode):
                                 warning(self.pos, "Ambiguous exception value, same as default return value: %r" %
                                         self.exception_value.constant_result)
             exc_check = self.exception_check
-        if self.base_type.is_cfunction:
+        if base_type.is_cfunction:
             error(self.pos, "Function cannot return a function")
         func_type = PyrexTypes.CFuncType(
-            self.base_type, func_type_args, self.has_varargs,
+            base_type, func_type_args, self.has_varargs,
             optional_arg_count=self.optional_arg_count,
             exception_value=exc_val, exception_check=exc_check,
-            calling_convention=self.base_type.calling_convention,
+            calling_convention=base_type.calling_convention,
             nogil=self.nogil, with_gil=self.with_gil, is_overridable=self.overridable,
             is_const_method=self.is_const_method,
             templates=self.templates
