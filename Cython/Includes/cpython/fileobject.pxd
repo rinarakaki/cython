@@ -16,8 +16,8 @@ extern from "Python.h":
     # File Objects
     # #########################################################################
 
-    fn object PyFile_FromFd(i32 fd, const char* name, const char* mode, i32 buffering,
-                            const char* encoding, const char* errors, const char* newline, i32 closefd)
+    fn object PyFile_FromFd(i32 fd, r&i8 name, r&i8 mode, i32 buffering,
+                            r&i8 encoding, r&i8 errors, r&i8 newline, i32 closefd)
     # Return value: New reference.
     # Create a Python file object from the file descriptor of an already
     # opened file fd. The arguments name, encoding, errors and newline can be
@@ -49,7 +49,7 @@ extern from "Python.h":
     # the repr(). Return 0 on success or -1 on failure; the appropriate
     # exception will be set.
 
-    fn i32 PyFile_WriteString(const char* s, object p) except? -1
+    fn i32 PyFile_WriteString(r&i8 s, object p) except? -1
     # Write string s to file object p. Return 0 on success or -1 on failure;
     # the appropriate exception will be set.
 

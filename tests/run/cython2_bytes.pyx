@@ -3,7 +3,7 @@
 
 b = b'abcüöä \x12'
 
-cdef char* cs = 'abcüöä \x12'
+cdef r&i8 cs = 'abcüöä \x12'
 
 def compare_cs():
     """

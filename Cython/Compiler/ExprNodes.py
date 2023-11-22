@@ -13,8 +13,7 @@ cython.declare(error=object, warning=object, warn_once=object, InternalError=obj
                Builtin=object, Symtab=object, Utils=object, find_coercion_error=object,
                debug_disposal_code=object, debug_temp_alloc=object, debug_coercion=object,
                bytearray_type=object, slice_type=object, memoryview_type=object,
-               builtin_sequence_types=object, _py_int_types=object,
-               IS_PYTHON3=cython.bint)
+               builtin_sequence_types=object)
 
 import re
 import sys
@@ -1121,12 +1120,9 @@ class ExprNode(Node):
             error(self.pos, "Type '%s' not acceptable as a boolean" % type)
             return self
 
-    def coerce_to_integer(self, env):
-        # If not already some C integer type, coerce to longint.
-        if self.type.is_int:
-            return self
-        else:
-            return self.coerce_to(PyrexTypes.c_long_type, env)
+    def coerce_to_index(self, env):
+        # If not already some C integer type, coerce to Py_ssize_t.
+        return self if self.type.is_int else self.coerce_to(PyrexTypes.c_py_ssize_t_type, env)
 
     def coerce_to_temp(self, env):
         #  Ensure that the result is in a temporary.
@@ -1884,6 +1880,12 @@ class StringNode(PyConstNode):
 
 
 class IdentifierStringNode(StringNode):
+    # A special str value that represents an identifier (bytes in Py2,
+    # unicode in Py3).
+    is_identifier = True
+
+
+class IdentNode(StringNode):
     # A special str value that represents an identifier (bytes in Py2,
     # unicode in Py3).
     is_identifier = True
@@ -3662,7 +3664,13 @@ class JoinedStrNode(ExprNode):
             code.putln("%s += %s;" % (ulength_var, ulength))
 
             node.generate_giveref(code)
+            code.putln('#if CYTHON_ASSUME_SAFE_MACROS')
             code.putln('PyTuple_SET_ITEM(%s, %s, %s);' % (list_var, i, node.py_result()))
+            code.putln('#else')
+            code.put_error_if_neg(
+                self.pos,
+                'PyTuple_SetItem(%s, %s, %s)' % (list_var, i, node.py_result()))
+            code.putln('#endif')
             node.generate_post_assignment_code(code)
             node.free_temps(code)
 
@@ -5851,11 +5859,11 @@ class SliceIntNode(SliceNode):
         self.step = self.step.analyse_types(env)
 
         if not self.start.is_none:
-            self.start = self.start.coerce_to_integer(env)
+            self.start = self.start.coerce_to_index(env)
         if not self.stop.is_none:
-            self.stop = self.stop.coerce_to_integer(env)
+            self.stop = self.stop.coerce_to_index(env)
         if not self.step.is_none:
-            self.step = self.step.coerce_to_integer(env)
+            self.step = self.step.coerce_to_index(env)
 
         if self.start.is_literal and self.stop.is_literal and self.step.is_literal:
             self.is_literal = True
@@ -5869,6 +5877,77 @@ class SliceIntNode(SliceNode):
         for a in self.start,self.stop,self.step:
             if isinstance(a, CloneNode):
                 a.arg.result()
+
+
+class StructExprNode(ExprNode):
+    #  Struct expression
+    #
+    #  path     NameNode | AttributeNode
+    #  fields  [ExprFieldNode]
+
+    subexprs = ["fields"]
+
+    def infer_type(self, env):
+        return self.path.analyse_as_type(env)
+    
+    def explicit_args_kwds(self):
+        return self.fields, None
+
+    def analyse_types(self, env):
+        type = self.path.analyse_as_type(env)
+        if type is not None and type.is_struct_or_union:
+            self.type = type
+            return self
+        else:
+            error(self.pos, "Not a struct or union type")
+    
+    def coerce_to(self, dst_type, env):
+        return self
+    
+    def generate_result_code(self, code):
+        code.putln("{ ")
+        for field in self.fields:
+            code.putln(".%s = %s, " % (
+                field.ident.name,
+                field.expr.generate_result_code(code)
+            ))
+        code.putln("};")
+    
+    def calculate_result_code(self):
+        return "{ %s };" % (
+            ", ".join([".%s = %s" % (
+                field.ident.name,
+                field.expr.calculate_result_code()
+            ) for field in self.fields])
+        )
+
+
+class ExprFieldNode(ExprNode):
+    #  Represents a single field in a StructExprNode
+    #
+    #  ident       IdentNode
+    #  expr        ExprNode
+    subexprs = ["ident", "expr"]
+
+    def calculate_constant_result(self):
+        self.constant_result = (
+            self.ident.constant_result, self.expr.constant_result)
+
+    def analyse_types(self, env):
+        # self.ident = self.ident.analyse_types(env)
+        self.expr = self.expr.analyse_types(env)
+        return self
+    
+    def generate_result_code(self, code):
+        self.expr.generate_result_code(code)
+
+    def generate_evaluation_code(self, code):
+        # self.ident.generate_evaluation_code(code)
+        self.expr.generate_evaluation_code(code)
+
+    def generate_disposal_code(self, code):
+        # self.ident.generate_disposal_code(code)
+        self.expr.generate_disposal_code(code)
 
 
 class CallNode(ExprNode):
@@ -6006,6 +6085,7 @@ class CallNode(ExprNode):
             self.gil_error()
 
     gil_message = "Calling gil-requiring function"
+
 
 
 class SimpleCallNode(CallNode):
@@ -8238,7 +8318,7 @@ class SequenceNode(ExprNode):
         # in non-CPython, use the PySequence protocol (which can fail)
         if not use_loop:
             for i, item in enumerate(self.unpacked_items):
-                code.putln("%s = PySequence_ITEM(sequence, %d); %s" % (
+                code.putln("%s = __Pyx_PySequence_ITEM(sequence, %d); %s" % (
                     item.result(), i,
                     code.error_goto_if_null(item.result(), self.pos)))
                 code.put_gotref(item.result(), item.type)
@@ -8249,7 +8329,7 @@ class SequenceNode(ExprNode):
                 len(self.unpacked_items),
                 ','.join(['&%s' % item.result() for item in self.unpacked_items])))
             code.putln("for (i=0; i < %s; i++) {" % len(self.unpacked_items))
-            code.putln("PyObject* item = PySequence_ITEM(sequence, i); %s" % (
+            code.putln("PyObject* item = __Pyx_PySequence_ITEM(sequence, i); %s" % (
                 code.error_goto_if_null('item', self.pos)))
             code.put_gotref('item', py_object_type)
             code.putln("*(temps[i]) = item;")
@@ -8406,7 +8486,7 @@ class SequenceNode(ExprNode):
                 # resize the list the hard way
                 code.putln("((PyVarObject*)%s)->ob_size--;" % target_list)
                 code.putln('#else')
-                code.putln("%s = PySequence_ITEM(%s, %s-%d); " % (
+                code.putln("%s = __Pyx_PySequence_ITEM(%s, %s-%d); " % (
                     item.py_result(), target_list, length_temp, i+1))
                 code.putln('#endif')
                 item.generate_gotref(code)
@@ -11868,6 +11948,12 @@ class NumBinopNode(BinopNode):
         else:
             return None
 
+    def infer_builtin_types_operation(self, type1, type2):
+        if type1.is_builtin_type:
+            return PyrexTypes.result_type_of_builtin_operation(type1, type2)
+        else:
+            return PyrexTypes.result_type_of_builtin_operation(type2, type1)
+
     def may_be_none(self):
         if self.type and self.type.is_builtin_type:
             # if we know the result type, we know the operation, so it can't be None
@@ -11989,7 +12075,7 @@ class AddNode(NumBinopNode):
         if type1 in string_types and type2 in string_types:
             return string_types[max(string_types.index(type1),
                                     string_types.index(type2))]
-        return None
+        return super().infer_builtin_types_operation(type1, type2)
 
     def compute_c_result_type(self, type1, type2):
         # print "AddNode.compute_c_result_type:", type1, self.operator, type2 #
@@ -12065,6 +12151,10 @@ class MulNode(NumBinopNode):
                 return self.analyse_sequence_mul(env, operand1, operand2)
             elif operand2.is_sequence_constructor and operand2.mult_factor is None:
                 return self.analyse_sequence_mul(env, operand2, operand1)
+            elif operand1.type in builtin_sequence_types:
+                self.operand2 = operand2.coerce_to_index(env)
+            elif operand2.type in builtin_sequence_types:
+                self.operand1 = operand1.coerce_to_index(env)
 
         self.analyse_operation(env)
         return self
@@ -12089,7 +12179,7 @@ class MulNode(NumBinopNode):
     def analyse_sequence_mul(self, env, seq, mult):
         assert seq.mult_factor is None
         seq = seq.coerce_to_pyobject(env)
-        seq.mult_factor = mult
+        seq.mult_factor = mult.coerce_to_index(env)
         return seq.analyse_types(env)
 
     def coerce_operands_to_pyobjects(self, env):
@@ -12126,7 +12216,7 @@ class MulNode(NumBinopNode):
             return type2
         if type2.is_int:
             return type1
-        return None
+        return super().infer_builtin_types_operation(type1, type2)
 
 
 class MatMultNode(NumBinopNode):
@@ -12134,6 +12224,10 @@ class MatMultNode(NumBinopNode):
 
     def is_py_operation_types(self, type1, type2):
         return True
+
+    def infer_builtin_types_operation(self, type1, type2):
+        # We really don't know anything about this operation.
+        return None
 
     def generate_evaluation_code(self, code):
         code.globalstate.use_utility_code(UtilityCode.load_cached("MatrixMultiply", "ObjectHandling.c"))
@@ -12161,16 +12255,13 @@ class DivNode(NumBinopNode):
         op1 = self.operand1.constant_result
         op2 = self.operand2.constant_result
         func = self.find_compile_time_binary_operator(op1, op2)
-        self.constant_result = func(
-            self.operand1.constant_result,
-            self.operand2.constant_result)
+        self.constant_result = func(op1, op2)
 
     def compile_time_value(self, denv):
         operand1 = self.operand1.compile_time_value(denv)
         operand2 = self.operand2.compile_time_value(denv)
+        func = self.find_compile_time_binary_operator(operand1, operand2)
         try:
-            func = self.find_compile_time_binary_operator(
-                operand1, operand2)
             return func(operand1, operand2)
         except Exception as e:
             self.compile_time_value_error(e)
@@ -12186,6 +12277,20 @@ class DivNode(NumBinopNode):
         return self.result_type(
             self.operand1.infer_type(env),
             self.operand2.infer_type(env), env)
+
+    def infer_builtin_types_operation(self, type1, type2):
+        result_type = super().infer_builtin_types_operation(type1, type2)
+        if result_type is not None and self.operator == '/':
+            if self.truedivision or self.ctruedivision:
+                # Result of truedivision is not an integer
+                if result_type is Builtin.int_type:
+                    return PyrexTypes.c_double_type
+                elif result_type.is_int:
+                    return PyrexTypes.widest_numeric_type(PyrexTypes.c_double_type, result_type)
+            elif result_type is Builtin.int_type or result_type.is_int:
+                # Cannot infer 'int' since the result might be a 'float' in Python 3
+                result_type = None
+        return result_type
 
     def analyse_operation(self, env):
         self._check_truedivision(env)
@@ -12358,7 +12463,7 @@ class ModNode(DivNode):
                 return None   # RHS might implement '% operator differently in Py3
             else:
                 return basestring_type  # either str or unicode, can't tell
-        return None
+        return super().infer_builtin_types_operation(type1, type2)
 
     def zero_division_message(self):
         if self.type.is_int:
@@ -12443,6 +12548,10 @@ class PowNode(NumBinopNode):
     def analyse_types(self, env):
         self._check_cpow(env)
         return super().analyse_types(env)
+
+    def infer_builtin_types_operation(self, type1, type2):
+        # TODO
+        return None
 
     def analyse_c_operation(self, env):
         NumBinopNode.analyse_c_operation(self, env)
@@ -12885,21 +12994,21 @@ class CondExprNode(ExprNode):
             self.type_error()
         return self
 
-    def coerce_to_integer(self, env):
+    def coerce_to_index(self, env):
         if not self.true_val.type.is_int:
-            self.true_val = self.true_val.coerce_to_integer(env)
+            self.true_val = self.true_val.coerce_to_index(env)
         if not self.false_val.type.is_int:
-            self.false_val = self.false_val.coerce_to_integer(env)
+            self.false_val = self.false_val.coerce_to_index(env)
         self.result_ctype = None
         out = self.analyse_result_type(env)
         if not out.type.is_int:
             # fall back to ordinary coercion since we haven't ended as the correct type
             if out is self:
-                out = super(CondExprNode, out).coerce_to_integer(env)
+                out = super(CondExprNode, out).coerce_to_index(env)
             else:
                 # I believe `analyse_result_type` always returns a CondExprNode but
                 # handle the opposite case just in case
-                out = out.coerce_to_integer(env)
+                out = out.coerce_to_index(env)
         return out
 
     def coerce_to(self, dst_type, env):
@@ -14061,12 +14170,8 @@ class CoerceToPyTypeNode(CoercionNode):
         else:
             return CoerceToBooleanNode(self, env)
 
-    def coerce_to_integer(self, env):
-        # If not already some C integer type, coerce to longint.
-        if self.arg.type.is_int:
-            return self.arg
-        else:
-            return self.arg.coerce_to(PyrexTypes.c_long_type, env)
+    def coerce_to_index(self, env):
+        return self.arg.coerce_to_index(env)
 
     def analyse_types(self, env):
         # The arg is always already analysed

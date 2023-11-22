@@ -10,7 +10,7 @@ import re
 
 def little_endian():
     let i32 endian_detector = 1
-    return (<char*>&endian_detector)[0] != 0
+    return (<r&i8>&endian_detector)[0] != 0
 
 def testcase(f):
     # testcase decorator now does nothing (following changes to doctest)
@@ -489,7 +489,7 @@ def test_complextypes():
     print "%d,%d" % (sizeof(x64), sizeof(x128))
 
 struct Point:
-    np.float64_t x, y
+    np::float64_t x, y
 
 def test_point_record():
     """
@@ -632,7 +632,7 @@ struct Foo:
     f32 b
 
 cdef fused fused_FooArray:
-    np.ndarray[Foo, ndim=1]
+    np::ndarray[Foo, ndim=1]
 
 cdef fused fused_ndarray:
     np.ndarray[float, ndim=1]
@@ -747,7 +747,7 @@ def test_dispatch_typedef(np.ndarray[typedeffed_fused_type] a):
     print a[5]
 
 extern from "types.h":
-    type actually_long_t = char
+    type actually_long_t = i8
 
 cdef fused confusing_fused_typedef:
     actually_long_t
@@ -755,7 +755,7 @@ cdef fused confusing_fused_typedef:
     u64
     c128
     u8
-    signed char
+    i8
 
 def test_dispatch_external_typedef(np.ndarray[confusing_fused_typedef] a):
     """

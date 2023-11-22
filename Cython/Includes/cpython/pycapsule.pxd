@@ -18,7 +18,7 @@ extern from "Python.h":
     fn u2 PyCapsule_CheckExact(object o)
     # Return true if its argument is a PyCapsule.
 
-    fn object PyCapsule_New(void* pointer, const char* name,
+    fn object PyCapsule_New(void* pointer, r&i8 name,
                             PyCapsule_Destructor destructor)
     # Return value: New reference.
     #
@@ -40,7 +40,7 @@ extern from "Python.h":
     # enable other modules to import the capsule using
     # PyCapsule_Import().
 
-    fn void* PyCapsule_GetPointer(object capsule, const char* name) except? NULL
+    fn void* PyCapsule_GetPointer(object capsule, r&i8 name) except? NULL
     # Retrieve the pointer stored in the capsule. On failure, set an
     # exception and return NULL.
     #
@@ -57,7 +57,7 @@ extern from "Python.h":
     # a NULL return code somewhat ambiguous; use PyCapsule_IsValid()
     # or PyErr_Occurred() to disambiguate.
 
-    fn const char* PyCapsule_GetName(object capsule) except? NULL
+    fn r&i8 PyCapsule_GetName(object capsule) except? NULL
     # Return the current name stored in the capsule. On failure, set
     # an exception and return NULL.
     #
@@ -73,7 +73,7 @@ extern from "Python.h":
     # NULL return code somewhat ambiguous; use PyCapsule_IsValid() or
     # PyErr_Occurred() to disambiguate.
 
-    fn u2 PyCapsule_IsValid(object capsule, const char* name)
+    fn u2 PyCapsule_IsValid(object capsule, r&i8 name)
     # Determines whether or not capsule is a valid capsule. A valid
     # capsule is non-NULL, passes PyCapsule_CheckExact(), has a
     # non-NULL pointer stored in it, and its internal name matches the
@@ -100,7 +100,7 @@ extern from "Python.h":
     # Return 0 on success. Return nonzero and set an exception on
     # failure.
 
-    fn i32 PyCapsule_SetName(object capsule, const char* name) except -1
+    fn i32 PyCapsule_SetName(object capsule, r&i8 name) except -1
     # Set the name inside capsule to name. If non-NULL, the name must
     # outlive the capsule. If the previous name stored in the capsule
     # was not NULL, no attempt is made to free it.
@@ -112,7 +112,7 @@ extern from "Python.h":
     # Set the context pointer inside capsule to context.  Return 0 on
     # success. Return nonzero and set an exception on failure.
 
-    fn void* PyCapsule_Import(const char* name, i32 no_block) except? NULL
+    fn void* PyCapsule_Import(r&i8 name, i32 no_block) except? NULL
     # Import a pointer to a C object from a capsule attribute in a
     # module. The name parameter should specify the full name to the
     # attribute, as in module.attribute. The name stored in the

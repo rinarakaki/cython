@@ -10,7 +10,7 @@ fn Point test_constructor(x, y, i32 colour):
     >>> try: test_constructor(1,None,255)
     ... except TypeError: pass
     """
-    let Point p = Point(x, y, colour)
+    let auto p = Point { x, y, colour }
     return p
 
 fn Point return_constructor(x, y, i32 colour):
@@ -20,7 +20,7 @@ fn Point return_constructor(x, y, i32 colour):
     >>> try: return_constructor(1, None, 255)
     ... except TypeError: pass
     """
-    return Point(x, y, colour)
+    return Point { x, y, colour }
 
 fn Point test_constructor_kwds(x, y, colour):
     """
@@ -30,7 +30,7 @@ fn Point test_constructor_kwds(x, y, colour):
     Traceback (most recent call last):
     TypeError:... int...
     """
-    let Point p = Point(x=x, y=y, colour=colour)
+    let auto p = Point { x = x, y = y, colour = colour }
     return p
 
 fn Point return_constructor_kwds(f64 x, y, colour):
@@ -41,7 +41,7 @@ fn Point return_constructor_kwds(f64 x, y, colour):
     Traceback (most recent call last):
     TypeError:... int...
     """
-    return Point(x=x, y=y, colour=colour)
+    return Point { x = x, y = y, colour = colour }
 
 fn Point test_dict_construction(x, y, colour):
     """
@@ -108,16 +108,20 @@ def test_pointers(i32 n, f64 x):
     True
     """
     let with_pointers a = [true, {'n': n}, NULL]
-    let with_pointers b = with_pointers(false, {'x': x}, NULL)
+    let with_pointers b = with_pointers {
+        is_integral = false,
+        data = int_or_float { x },
+        ptr = NULL
+    }
     print a.data.n
     print b.data.x
     print a.ptr == b.ptr == NULL
 
 struct MyStruct:
-    char c
+    i8 c
     i32 i
     f32 f
-    char* s
+    r&i8 s
 
 bhello = b"hello"  # must hold a C reference in PyPy
 
@@ -168,7 +172,7 @@ struct OverriddenCname:
 
 def test_obj_to_struct_cnames(OverriddenCname s):
     """
-    >>> test_obj_to_struct_cnames({ 'x': 1 })
+    >>> test_obj_to_struct_cnames(OverriddenCname { x = 1 })
     1
     """
     print(s.x)
@@ -178,7 +182,7 @@ def test_struct_to_obj_cnames():
     >>> test_struct_to_obj_cnames()
     {'x': 2}
     """
-    return OverriddenCname(2)
+    return OverriddenCname { x = 2 }
 
 struct ArrayFieldStruct:
     i32 arr[4]
