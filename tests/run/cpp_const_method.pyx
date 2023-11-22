@@ -6,11 +6,14 @@ use libcpp::vector::vector
 
 cdef cppclass Wrapper[T]:
     T value
-    __init__(T &value):
+
+    def __init__(T &value):
         this.value = value
+
     fn void set(T &value):
         this.value = value
-    fn T get() const:
+
+    const fn T get():
         return this.value
 
 def test_const_get(i32 x):
@@ -18,13 +21,13 @@ def test_const_get(i32 x):
     >>> test_const_get(10)
     10
     """
-    let const Wrapper[int] *wrapper = new Wrapper[int](x)
+    let const Wrapper[i32] *wrapper = new Wrapper[i32](x)
     try:
         return const_get(wrapper[0])
     finally:
         del wrapper
 
-fn i32 const_get(const Wrapper[int] wrapper):
+fn i32 const_get(const Wrapper[i32] wrapper):
     return wrapper.get()
 
 def test_const_ref_get(i32 x):
@@ -32,13 +35,13 @@ def test_const_ref_get(i32 x):
     >>> test_const_ref_get(100)
     100
     """
-    let const Wrapper[int] *wrapper = new Wrapper[int](x)
+    let const Wrapper[i32] *wrapper = new Wrapper[i32](x)
     try:
         return const_ref_get(wrapper[0])
     finally:
         del wrapper
 
-fn i32 const_ref_get(const Wrapper[int] &wrapper):
+fn i32 const_ref_get(const Wrapper[i32] &wrapper):
     return wrapper.get()
 
 def test_const_pointer_get(i32 x):
@@ -46,29 +49,29 @@ def test_const_pointer_get(i32 x):
     >>> test_const_pointer_get(1000)
     1000
     """
-    let Wrapper[int] *wrapper = new Wrapper[int](x)
-    let const Wrapper[int] *const_wrapper = wrapper
+    let Wrapper[i32] *wrapper = new Wrapper[i32](x)
+    let const Wrapper[i32] *const_wrapper = wrapper
     try:
         return const_wrapper.get()
     finally:
         del wrapper
 
-# TODO: parse vector[Wrapper[int]*]
-ctypedef Wrapper[int] wrapInt
+# TODO: parse vector[Wrapper[i32]*]
+ctypedef Wrapper[i32] wrapInt
 
 def test_vector_members(py_a, py_b):
     """
     >>> test_vector_members([1, 2, 3], [4,5, 6])
     ([1, 2, 3], 4)
     """
-    let Wrapper[int] *value
-    let const Wrapper[int] *const_value
-    let vector[const Wrapper[int]*] a
+    let Wrapper[i32] *value
+    let const Wrapper[i32] *const_value
+    let vector[const Wrapper[i32]*] a
     let vector[wrapInt*] b
     for x in py_a:
-        a.push_back(new Wrapper[int](x))
+        a.push_back(new Wrapper[i32](x))
     for x in py_b:
-        b.push_back(new Wrapper[int](x))
+        b.push_back(new Wrapper[i32](x))
     try:
         return vector_members(a, b)
     finally:
@@ -77,7 +80,7 @@ def test_vector_members(py_a, py_b):
         for value in b:
             del value
 
-fn vector_members(vector[const Wrapper[int]*] a, const vector[wrapInt*] b):
+fn vector_members(vector[const Wrapper[i32]*] a, const vector[wrapInt*] b):
     # TODO: Cython-level error.
     # b[0].set(100)
 
