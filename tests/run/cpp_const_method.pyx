@@ -7,7 +7,7 @@ use libcpp::vector::vector
 cdef cppclass Wrapper[T]:
     T value
 
-    def __init__(T &value):
+    __init__(T &value):
         this.value = value
 
     fn void set(T &value):

@@ -64,7 +64,7 @@ cdef cppclass BaseClass:
 cdef cppclass SubClass(BaseClass):
     bool override
 
-    def __init__(bool override):
+    __init__(bool override):
         this.n = 1
         this.override = override
 
@@ -103,12 +103,13 @@ def test_Static(x):
     return WithStatic.square(x)
 
 cdef cppclass InitDealloc:
-    def __init__():
+    __init__():
         try:
             print "Init"
         finally:
             return  # swallow any exceptions
-    def __dealloc__():
+
+    __dealloc__():
         try:
             print "Dealloc"
         finally:
@@ -186,13 +187,13 @@ cdef class NoisyAlloc(object):
 cdef cppclass CppClassWithObjectMember:
     NoisyAlloc o
 
-    def __init__(name):
+    __init__(name):
         try:
             print "CppClassWithObjectMember.__init__", name
             this.o = NoisyAlloc(name)
         except:
             pass  # Suppress unraisable exception warning.
-    def __dealloc__():
+    __dealloc__():
         try:
             print "CppClassWithObjectMember.__dealloc__", this.o.name
         except:
@@ -253,7 +254,7 @@ def test_PublicCppClassWithObjectMember():
 cdef cppclass UncopyableConstructorArgument:
     unique_ptr[vector[i32]] member
 
-    def __init__(unique_ptr[vector[i32]] arg):
+    __init__(unique_ptr[vector[i32]] arg):
         this.member.reset(arg.release())
 
 def test_uncopyable_constructor_argument():
