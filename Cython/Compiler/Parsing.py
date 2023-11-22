@@ -2817,7 +2817,8 @@ def p_c_complex_base_type(s, templates = None):
         else:
             ident = None
         base_types.append(Nodes.CComplexBaseTypeNode(pos, base_type=base_type, ident=ident))
-        s.next()
+        if s.sy == ",":
+            s.next()
 
     s.expect(")")
     return base_types
