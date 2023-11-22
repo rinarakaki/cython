@@ -79,11 +79,11 @@ extern from *:
     type __pyx_atomic_int_type = i32
     fn {{memviewslice_name}} slice_copy_contig "__pyx_memoryview_copy_new_contig"(
         r&mut __Pyx_memviewslice from_mvs,
-        r&mut char mode, i32 ndim,
+        r&mut i8 mode, i32 ndim,
         usize sizeof_dtype, i32 contig_flag,
         u2 dtype_is_object) except * nogil
     fn u2 slice_is_contig "__pyx_memviewslice_is_contig"(
-        {{memviewslice_name}} mvs, char order, i32 ndim) nogil
+        {{memviewslice_name}} mvs, i8 order, i32 ndim) nogil
     fn u2 slices_overlap "__pyx_slices_overlap"({{memviewslice_name}} *slice1,
                                                 {{memviewslice_name}} *slice2,
                                                 i32 ndim, usize itemsize) nogil
@@ -156,7 +156,7 @@ cdef class array:
                 raise ValueError, f"Invalid shape in axis {idx}: {dim}."
             self._shape[idx] = dim
 
-        let char order
+        let i8 order
         if mode == 'c':
             order = b'C'
             self.mode = u'c'
@@ -432,8 +432,8 @@ cdef class memoryview:
     fn setitem_slice_assignment(self, dst, src):
         let {{memviewslice_name}} dst_slice
         let {{memviewslice_name}} src_slice
-        let auto i8 msrc = get_slice_from_memview(src, &src_slice)[0]
-        let auto i8 mdst = get_slice_from_memview(dst, &dst_slice)[0]
+        let auto msrc = get_slice_from_memview(src, &src_slice)[0]
+        let auto mdst = get_slice_from_memview(dst, &dst_slice)[0]
 
         memoryview_copy_contents(msrc, mdst, src.ndim, dst.ndim, self.dtype_is_object)
 
@@ -505,7 +505,7 @@ cdef class memoryview:
             itemp[i] = c
 
     @cname('getbuffer')
-    def __getbuffer__(self, r&mut Py_buffer info, i32 flags):
+    def __getbuffer__(self, Py_buffer* info, i32 flags):
         if flags & PyBUF_WRITABLE and self.view.readonly:
             raise ValueError, "Cannot create writable memory view from read-only memoryview"
 
