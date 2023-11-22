@@ -28,8 +28,8 @@ extern from *:
 
         fn r&char bar(i32 x, i32 y)
 
-        fn r&char baz(i32 x)
-        fn r&char baz(i32 x, i32 y)
+        fn r&char baz(self, i32 x)
+        fn r&char baz(self, i32 x, i32 y)
 
 fn test_normal_method_overload():
     """
