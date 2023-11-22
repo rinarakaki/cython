@@ -25,7 +25,7 @@
                 {
                     "comment": "other keywords",
                     "name": "keyword.other.cython",
-                    "match": "\\b(?<!r#)(use|pub|extern|fn|let|enum|struct|union|const|static|loop|auto|as|from|return|impl|trait|while|if|for)\\b"
+                    "match": "\\b(?<!r#)(use|pub|extern|fn|let|enum|struct|union|const|static|loop|auto|type|as|from|return|impl|trait|while|if|for)\\b"
                 },
 				{
 					"comment": "borrow references, raw pointers",
