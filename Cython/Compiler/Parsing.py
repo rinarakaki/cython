@@ -512,6 +512,8 @@ def p_trailer(s, node1):
             obj=node1, attribute=name)
         if s.sy == "(":
             return p_call(s, expr, method_call=0)
+        else:
+            return expr
     else:  # s.sy == "."
         s.next()
         name = p_ident(s)
@@ -519,6 +521,8 @@ def p_trailer(s, node1):
             obj=node1, attribute=name)
         if s.sy == "(":
             return p_call(s, expr, method_call=1)
+        else:
+            return expr
 
 
 # arglist:  argument (',' argument)* [',']
