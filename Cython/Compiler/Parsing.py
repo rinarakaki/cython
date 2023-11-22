@@ -2803,39 +2803,23 @@ def p_calling_convention(s):
 calling_convention_words = cython.declare(frozenset, frozenset((
     "__stdcall", "__cdecl", "__fastcall")))
 
-
 def p_c_complex_base_type(s, templates = None):
     # s.sy == "("
     pos = s.position()
     s.next()
-    base_type = p_c_base_type(s, templates=templates)
-    ident = None
-    if s.sy == "IDENT":
-        ident = s.systring
-        s.next()
-    type_node = Nodes.CComplexBaseTypeNode(pos, base_type=base_type, ident=ident)
-    if s.sy == ",":
-        base_types = [type_node]
-        while s.sy == ",":
+    base_types = []
+    while s.sy not in (")",):
+        base_type = p_c_base_type(s, templates=templates)
+        if s.sy == "IDENT":
+            ident = s.systring
             s.next()
-            if s.sy == ")":
-                break
-            base_type = p_c_base_type(s, templates=templates)
+        else:
             ident = None
-            if s.sy == "IDENT":
-                ident = s.systring
-                s.next()
-            base_types.append(Nodes.CComplexBaseTypeNode(pos, base_type=base_type, ident=ident))
-        type_node = Nodes.CTupleTypeNode(pos, base_types = base_types)
+        base_types.append(Nodes.CComplexBaseTypeNode(pos, base_type=base_type, ident=ident))
+        s.next()
 
     s.expect(")")
-    if s.sy == '[':
-        if is_memoryviewslice_access(s):
-            type_node = p_memoryviewslice_access(s, type_node)
-        else:
-            type_node = p_buffer_or_template(s, type_node, templates)
-    return type_node
-
+    return base_types
 
 def p_c_simple_base_type(s, nonempty, templates=None):
     is_builtin = 0
