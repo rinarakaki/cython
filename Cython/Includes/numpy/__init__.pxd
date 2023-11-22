@@ -559,8 +559,8 @@ extern from "numpy/arrayobject.h":
     fn void PyArray_SetStringFunction(object, i32)
     fn dtype PyArray_DescrFromType(i32)
     fn object PyArray_TypeObjectFromType(i32)
-    fn char * PyArray_Zero(ndarray)
-    fn char * PyArray_One(ndarray)
+    fn r&mut i8 PyArray_Zero(ndarray)
+    fn r&mut i8 PyArray_One(ndarray)
     # fn object PyArray_CastToType(ndarray, dtype, i32)
     fn i32 PyArray_CastTo(ndarray, ndarray)
     fn i32 PyArray_CastAnyTo(ndarray, ndarray)
@@ -580,12 +580,12 @@ extern from "numpy/arrayobject.h":
     fn object PyArray_ScalarFromObject(object)
     # fn PyArray_VectorUnaryFunc * PyArray_GetCastFunc(dtype, i32)
     fn object PyArray_FromDims(i32, i32 *, i32)
-    # fn object PyArray_FromDimsAndDataAndDescr(i32, i32 *, dtype, char *)
+    # fn object PyArray_FromDimsAndDataAndDescr(i32, i32 *, dtype, r&mut i8)
     # fn object PyArray_FromAny(object, dtype, i32, i32, i32, object)
     fn object PyArray_EnsureArray(object)
     fn object PyArray_EnsureAnyArray(object)
-    # fn object PyArray_FromFile(stdio.FILE *, dtype, npy_intp, char *)
-    # fn object PyArray_FromString(char *, npy_intp, dtype, npy_intp, char *)
+    # fn object PyArray_FromFile(stdio.FILE *, dtype, npy_intp, r&mut i8)
+    # fn object PyArray_FromString(r&mut i8, npy_intp, dtype, npy_intp, r&mut i8)
     # fn object PyArray_FromBuffer(object, dtype, npy_intp, npy_intp)
     # fn object PyArray_FromIter(object, dtype, npy_intp)
     fn object PyArray_Return(ndarray)
@@ -600,7 +600,7 @@ extern from "numpy/arrayobject.h":
     fn object PyArray_NewCopy(ndarray, NPY_ORDER)
     fn object PyArray_ToList(ndarray)
     fn object PyArray_ToString(ndarray, NPY_ORDER)
-    fn i32 PyArray_ToFile(ndarray, stdio.FILE *, char *, char *)
+    fn i32 PyArray_ToFile(ndarray, stdio.FILE *, r&mut i8, r&mut i8)
     fn i32 PyArray_Dump(object, object, i32)
     fn object PyArray_Dumps(object, i32)
     fn i32 PyArray_ValidType(i32)
@@ -633,8 +633,8 @@ extern from "numpy/arrayobject.h":
     # fn i32 PyArray_CompareUCS4(npy_ucs4 *, npy_ucs4 *, register usize)
     fn i32 PyArray_RemoveSmallest(broadcast)
     fn i32 PyArray_ElementStrides(object)
-    fn void PyArray_Item_INCREF(char *, dtype)
-    fn void PyArray_Item_XDECREF(char *, dtype)
+    fn void PyArray_Item_INCREF(r&mut i8, dtype)
+    fn void PyArray_Item_XDECREF(r&mut i8, dtype)
     fn object PyArray_FieldNames(object)
     fn object PyArray_Transpose(ndarray, PyArray_Dims *)
     fn object PyArray_TakeFrom(ndarray, object, i32, ndarray, NPY_CLIPMODE)
@@ -693,7 +693,7 @@ extern from "numpy/arrayobject.h":
     # fn i32 PyArray_BufferConverter(object, chunk)
     fn i32 PyArray_AxisConverter(object, i32 *)
     fn i32 PyArray_BoolConverter(object, npy_bool *)
-    fn i32 PyArray_ByteorderConverter(object, char *)
+    fn i32 PyArray_ByteorderConverter(object, r&mut i8)
     fn i32 PyArray_OrderConverter(object, NPY_ORDER *)
     fn u8 PyArray_EquivTypes(dtype, dtype)
     # fn object PyArray_Zeros(i32, npy_intp *, dtype, i32)
@@ -710,7 +710,7 @@ extern from "numpy/arrayobject.h":
     fn i32 PyArray_RegisterCanCast(dtype, i32, NPY_SCALARKIND)
     # fn void PyArray_InitArrFuncs(PyArray_ArrFuncs *)
     fn object PyArray_IntTupleFromIntp(i32, npy_intp *)
-    fn i32 PyArray_TypeNumFromName(char *)
+    fn i32 PyArray_TypeNumFromName(r&mut i8)
     fn i32 PyArray_ClipmodeConverter(object, NPY_CLIPMODE *)
     # fn i32 PyArray_OutputConverter(object, ndarray*)
     fn object PyArray_BroadcastToShape(object, npy_intp *, i32)
@@ -721,7 +721,7 @@ extern from "numpy/arrayobject.h":
     fn i32 PyArray_SearchsideConverter(object, void *)
     fn object PyArray_CheckAxis(ndarray, i32 *, i32)
     fn npy_intp PyArray_OverflowMultiplyList(npy_intp *, i32)
-    fn i32 PyArray_CompareString(char *, char *, usize)
+    fn i32 PyArray_CompareString(r&mut i8, r&mut i8, usize)
     fn i32 PyArray_SetBaseObject(ndarray, base)  # NOTE: steals a reference to base! Use "set_array_base()" instead.
 
 
@@ -902,7 +902,7 @@ extern from "numpy/ufuncobject.h":
         UFUNC_ERR_DEFAULT2
 
     fn object PyUFunc_FromFuncAndData(PyUFuncGenericFunction *,
-          void **, char *, i32, i32, i32, i32, char *, char *, i32)
+          void **, r&mut i8, i32, i32, i32, i32, r&mut i8, r&mut i8, i32)
     fn i32 PyUFunc_RegisterLoopForType(ufunc, i32,
                                     PyUFuncGenericFunction, i32 *, void *)
     fn i32 PyUFunc_GenericFunction \
@@ -950,7 +950,7 @@ extern from "numpy/ufuncobject.h":
     fn void PyUFunc_On_Om \
          (char **, npy_intp *, npy_intp *, void *)
     fn i32 PyUFunc_GetPyValues \
-        (char *, i32 *, i32 *, PyObject **)
+        (r&mut i8, i32 *, i32 *, PyObject **)
     fn i32 PyUFunc_checkfperr \
            (i32, PyObject *, i32 *)
     fn void PyUFunc_clearfperr()
@@ -960,8 +960,8 @@ extern from "numpy/ufuncobject.h":
     fn i32 PyUFunc_ReplaceLoopBySignature \
         (ufunc, PyUFuncGenericFunction, i32 *, PyUFuncGenericFunction *)
     fn object PyUFunc_FromFuncAndDataAndSignature \
-             (PyUFuncGenericFunction *, void **, char *, i32, i32, i32,
-              i32, char *, char *, i32, char *)
+             (PyUFuncGenericFunction *, void **, r&mut i8, i32, i32, i32,
+              i32, r&mut i8, r&mut i8, i32, r&mut i8)
 
     fn i32 _import_umath() except -1
 

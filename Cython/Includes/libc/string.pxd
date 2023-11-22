@@ -43,7 +43,7 @@ extern from "<string.h>" nogil:
 
     fn usize strcspn(r&i8 string, r&i8 stopset)
     fn usize strspn(r&i8 string, r&i8 set)
-    fn char * strpbrk(r&i8 string, r&i8 stopset)
+    fn r&mut i8 strpbrk(r&i8 string, r&i8 stopset)
 
     fn r&i8 strtok(r&i8 newstring, r&i8 delimiters)
     fn r&i8 strsep(char** string_ptr, r&i8 delimiter)
