@@ -280,9 +280,8 @@ struct NestedPackedStruct:
     i32 c
 
 cdef class MyStructMockBuffer(MockBuffer):
-    fn i32 write(self, r&char buf, object value) except -1:
-        cdef MyStruct* s
-        s = <MyStruct*>buf
+    fn i32 write(self, r&mut i8 buf, object value) except -1:
+        let auto s = <r&mut MyStruct>buf
         s.a, s.b, s.c, s.d, s.e = value
         return 0
 
@@ -290,9 +289,8 @@ cdef class MyStructMockBuffer(MockBuffer):
     fn get_default_format(self): return b"2cq2i"
 
 cdef class NestedStructMockBuffer(MockBuffer):
-    fn i32 write(self, r&char buf, object value) except -1:
-        cdef NestedStruct* s
-        s = <NestedStruct*>buf
+    fn i32 write(self, r&mut i8 buf, object value) except -1:
+        let auto s = <r&mut NestedStruct>buf
         s.x.a, s.x.b, s.y.a, s.y.b, s.z = value
         return 0
 
@@ -300,9 +298,8 @@ cdef class NestedStructMockBuffer(MockBuffer):
     fn get_default_format(self): return b"2T{ii}i"
 
 cdef class PackedStructMockBuffer(MockBuffer):
-    fn i32 write(self, r&char buf, object value) except -1:
-        cdef PackedStruct* s
-        s = <PackedStruct*>buf
+    fn i32 write(self, r&mut i8 buf, object value) except -1:
+        let auto s = <r&mut PackedStruct>buf
         s.a, s.b = value
         return 0
 
@@ -310,9 +307,8 @@ cdef class PackedStructMockBuffer(MockBuffer):
     fn get_default_format(self): return b"^ci"
 
 cdef class NestedPackedStructMockBuffer(MockBuffer):
-    fn i32 write(self, r&char buf, object value) except -1:
-        cdef NestedPackedStruct* s
-        s = <NestedPackedStruct*>buf
+    fn i32 write(self, r&mut i8 buf, object value) except -1:
+        let auto s = <r&mut NestedPackedStruct>buf
         s.a, s.b, s.sub.a, s.sub.b, s.c = value
         return 0
 
@@ -324,9 +320,8 @@ struct LongComplex:
     f128 imag
 
 cdef class LongComplexMockBuffer(MockBuffer):
-    fn i32 write(self, r&char buf, object value) except -1:
-        cdef LongComplex* s
-        s = <LongComplex*>buf
+    fn i32 write(self, r&mut i8 buf, object value) except -1:
+        let auto s = <r&mut LongComplex>buf
         s.real, s.imag = value
         return 0
 

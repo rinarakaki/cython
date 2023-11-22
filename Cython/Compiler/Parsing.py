@@ -3485,7 +3485,7 @@ def p_cdef_extern_block(s, pos, ctx):
         s.next()
     else:
         include_file = p_string_literal(s, 'u')[2]
-    ctx = ctx(cdef_flag = 1, visibility = 'extern')
+    ctx = ctx(cdef_flag = 1, typedef_flag = 1, visibility = 'extern')
     if s.systring == "namespace":
         s.next()
         ctx.namespace = p_string_literal(s, 'u')[2]
