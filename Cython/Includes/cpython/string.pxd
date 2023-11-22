@@ -177,7 +177,7 @@ extern from "Python.h":
     # using the Python codec registry. Return NULL if an exception was
     # raised by the codec.
 
-    fn object PyString_Encode(r&char s, isize size, r&char encoding, r&char errors)
+    fn object PyString_Encode(r&mut i8 s, isize size, r&i8 encoding, r&i8 errors)
     # Return value: New reference.
     # Encode the char buffer of the given size by passing it to the
     # codec registered for encoding and return a Python
