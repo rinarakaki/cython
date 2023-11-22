@@ -1,10 +1,10 @@
 # mode: run
 
 
-cdef cfunc1(char* s):
-    return s.decode('ASCII')
+fn object cfunc1(r&mut i8 s):
+    return s.decode("ascii")
 
-fn cfunc3(i32 x, char* s, object y):
+fn object cfunc3(i32 x, r&mut i8 s, object y):
     return cfunc1(s)
 
 def test_one_arg_indexing(s):
@@ -61,19 +61,19 @@ def test_more_args_adding(s):
     """
     return cfunc3(1, b"a" + b"b" + s + b"q" + b"r", 'xyz%d' % 3)
 
-fn char* ret_charptr(char* s):
+fn r&i8 ret_charptr(r&i8 s):
     return s
 
-def test_charptr_and_charptr_func(char* s):
+fn u2 test_charptr_and_charptr_func(r&i8 s):
     """
     >>> test_charptr_and_charptr_func(b'abc') == b'abc'
     True
     """
     return s and ret_charptr(s)
 
-def test_charptr_and_ucharptr(char* s):
+fn u2 test_charptr_and_ucharptr(r&i8 s):
     """
     >>> test_charptr_and_ucharptr(b'abc') == b'abc'
     True
     """
-    return s and <u8*>s
+    return s and <r&mut u8>s

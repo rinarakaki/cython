@@ -17,10 +17,10 @@ else:
     other_endian = '<'
 
 struct align_of_float_helper:
-    char ch
+    i8 ch
     f32 d
 struct align_of_int_helper:
-    char ch
+    i8 ch
     i32 i
 float_align = sizeof(align_of_float_helper) - sizeof(f32)
 int_align = sizeof(align_of_int_helper) - sizeof(i32)
@@ -102,22 +102,22 @@ struct ComplexFloat:
     f32 imag
 
 struct Char3Int:
-    char a
+    i8 a
     i32 b
     i32 c
     i32 d
 
 struct LongString:
-    char[90198] c
+    i8[90198] c
 
 struct CharIntCFloat:
-    char a
+    i8 a
     i32 b
     ComplexFloat c
     f32 d
 
 struct UnpackedStruct1:
-    char a
+    i8 a
     i32 b
     ComplexFloat c
     f32 c2
@@ -129,15 +129,15 @@ struct UnpackedStruct2:
 
 struct UnpackedStruct3:
     CharIntCFloat a
-    char b
+    i8 b
     i32 c, d, e
 
 struct UnpackedStruct4:
-    char a
+    i8 a
     i32 b
     ComplexFloat c
     f32 c2
-    char d
+    i8 d
     i32 e, f, g
 
 def char3int(fmt):
@@ -264,27 +264,27 @@ def mixed_complex_struct():
         sizeof(MixedComplex))
 
 cdef packed struct PackedSubStruct:
-    char x
+    i8 x
     i32 y
 
 struct UnpackedSubStruct:
-    char x
+    i8 x
     i32 y
 
 cdef packed struct PackedStruct:
-    char a
+    i8 a
     i32 b
     PackedSubStruct sub
 
 struct PartiallyPackedStruct:
-    char a
+    i8 a
     i32 b
     PackedSubStruct sub
 
 cdef packed struct PartiallyPackedStruct2:
-    char a
+    i8 a
     UnpackedSubStruct sub
-    char b
+    i8 b
     i32 c
 
 def packed_struct(fmt):
@@ -366,8 +366,8 @@ def partially_packed_struct_2(fmt):
 cdef packed struct PackedStructWithCharArrays:
     f32 a
     i32 b
-    char[5] c
-    char[3] d
+    i8[5] c
+    i8[3] d
 
 def packed_struct_with_strings(fmt):
     """

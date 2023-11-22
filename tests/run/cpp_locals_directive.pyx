@@ -41,7 +41,7 @@ extern from *:
     cdef cppclass C:
         C(i32)
         C(i32, cppbool)
-        fn i32 get_x() const
+        const fn i32 get_x()
     fn C make_C(i32) except +  # needs a temp to receive
 
 # this function just makes sure the output from the destructor can be captured by doctest

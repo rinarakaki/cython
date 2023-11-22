@@ -80,13 +80,13 @@ fn void report_unraisable(filename, isize lineno, object e=None):
 # exception has been fetched, in case we are called from
 # exception-handling code.
 
-fn PyObject* SetupContext(char* funcname, isize lineno, char* filename) except NULL:
+fn PyObject* SetupContext(r&i8 funcname, isize lineno, r&i8 filename) except NULL:
     if Context is None:
         # Context may be None during finalize phase.
         # In that case, we don't want to be doing anything fancy
         # like caching and resetting exceptions.
         return NULL
-    let (PyObject*) type = NULL, value = NULL, tb = NULL, result = NULL
+    let r&mut PyObject type = NULL, value = NULL, tb = NULL, result = NULL
     PyThreadState_Get()  # Check that we hold the GIL
     PyErr_Fetch(&type, &value, &tb)
     try:
@@ -100,7 +100,7 @@ fn PyObject* SetupContext(char* funcname, isize lineno, char* filename) except N
 
 fn void GOTREF(PyObject* ctx, PyObject* p_obj, isize lineno):
     if ctx == NULL: return
-    let (PyObject*) type = NULL, value = NULL, tb = NULL
+    let r&mut PyObject type = NULL, value = NULL, tb = NULL
     PyErr_Fetch(&type, &value, &tb)
     try:
         (<Context>ctx).regref(
@@ -116,7 +116,7 @@ fn void GOTREF(PyObject* ctx, PyObject* p_obj, isize lineno):
 
 fn u2 GIVEREF_and_report(PyObject* ctx, PyObject* p_obj, isize lineno):
     if ctx == NULL: return 1
-    let (PyObject*) type = NULL, value = NULL, tb = NULL
+    let r&mut PyObject type = NULL, value = NULL, tb = NULL
     let u2 mut decref_ok = 0
     PyErr_Fetch(&type, &value, &tb)
     try:
@@ -146,7 +146,7 @@ fn void DECREF(PyObject* ctx, PyObject* obj, isize lineno):
 
 fn void FinishContext(PyObject** ctx):
     if ctx == NULL or ctx[0] == NULL: return
-    let (PyObject*) type = NULL, value = NULL, tb = NULL
+    let PyObject* type = NULL, value = NULL, tb = NULL
     let object mut errors = None
     let Context mut context
     PyThreadState_Get()  # Check that we hold the GIL
@@ -173,7 +173,7 @@ struct RefNannyAPIStruct:
     void (*DECREF)(PyObject*, PyObject*, isize)
     void (*GOTREF)(PyObject*, PyObject*, isize)
     void (*GIVEREF)(PyObject*, PyObject*, isize)
-    PyObject* (*SetupContext)(char*, isize, char*) except NULL
+    PyObject* (*SetupContext)(r&i8, isize, r&i8) except NULL
     void (*FinishContext)(PyObject**)
 
 cdef RefNannyAPIStruct api
