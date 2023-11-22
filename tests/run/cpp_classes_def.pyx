@@ -18,7 +18,8 @@ extern from "shapes.h" namespace "shapes":
 cdef cppclass RegularPolygon(Shape):
     f32 radius # major
     i32 n
-    def __init__(i32 n, f32 radius):
+
+    __init__(i32 n, f32 radius):
         this.n = n
         this.radius = radius
 
