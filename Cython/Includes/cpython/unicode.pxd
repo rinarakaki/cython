@@ -369,7 +369,7 @@ extern from *:
     # will not be treated as an error. Those bytes will not be decoded
     # and the number of bytes that have been decoded will be stored in
     # consumed. New in version 2.4.
-    fn unicode PyUnicode_DecodeUTF8Stateful(r&char s, isize size, r&char errors, isize* consumed)
+    fn unicode PyUnicode_DecodeUTF8Stateful(r&mut i8 s, isize size, r&i8 errors, isize* consumed)
 
     # Encode the Py_UNICODE buffer of the given size using UTF-8 and
     # return a Python string object. Return NULL if an exception was
