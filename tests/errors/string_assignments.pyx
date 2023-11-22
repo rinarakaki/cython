@@ -3,17 +3,17 @@
 # tag: py_unicode_strings
 
 # ok:
-cdef r&char c1   =  "abc"
+cdef r&mut i8 c1   =  "abc"
 cdef str s1     =  "abc"
 
 cdef unicode u1 = u"abc"
 cdef Py_UNICODE* cu1 = u1
 
 cdef bytes b1 = b"abc"
-cdef r&char c2 = b"abc"
+cdef r&mut i8 c2 = b"abc"
 
 cdef bytes b2 = c1
-cdef r&char c3 = b1
+cdef r&mut i8 c3 = b1
 
 cdef basestring bs1  =  "abc"
 cdef basestring bs2  = u"abc"
