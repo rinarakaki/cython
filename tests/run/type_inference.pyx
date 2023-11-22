@@ -11,7 +11,7 @@ assert typeof(1 / 2) in ('long', 'double')
 IS_LANGUAGE_LEVEL_3 = typeof(1 / 2) == 'double'
 str_type = "unicode object" if IS_LANGUAGE_LEVEL_3 else "str object"
 
-##################################################
+# #################################################
 # type inference tests in 'full' mode (infer_types=True)
 
 cdef class MyType:
