@@ -4,7 +4,7 @@ cimport cpython.type
 extern from "Python.h":
     struct PyObject  # forward declaration
 
-    type newfunc = object(cpython::type::type, PyObject*, PyObject*)  # (type, args|NULL, kwargs|NULL)
+    type newfunc = object(cpython::type::type, r&mut PyObject, &mut PyObject)  # (type, args|NULL, kwargs|NULL)
 
     type unaryfunc = object(object)
     type binaryfunc = object(object, object)
