@@ -12,7 +12,7 @@ cdef class Machine:
     cdef readonly isize next_state_number
 
     cpdef new_state(self)
-#    cpdef new_initial_state(self, name)
+    cpdef new_initial_state(self, name)
 
 #[cython::final]
 cdef class Node:
