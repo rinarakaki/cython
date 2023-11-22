@@ -168,12 +168,14 @@ fn void FinishContext(PyObject** ctx):
         PyErr_Restore(type, value, tb)
         return  # swallow any exceptions
 
+type SetupContextType = (r&mut PyObject)(r&mut i8, isize, r&mut i8) except NULL
+
 struct RefNannyAPIStruct:
     void(r&mut PyObject, r&mut PyObject, isize) INCREF
     void(r&mut PyObject, r&mut PyObject, isize) DECREF
     void(r&mut PyObject, r&mut PyObject, isize) GOTREF
     void(r&mut PyObject, r&mut PyObject, isize) GIVEREF
-    (r&mut PyObject)(r&mut i8, isize, r&mut i8) except NULL SetupContext
+    SetupContextType SetupContext
     void(PyObject**) FinishContext
 
 cdef RefNannyAPIStruct api
