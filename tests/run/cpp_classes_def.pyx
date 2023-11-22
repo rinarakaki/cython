@@ -161,7 +161,7 @@ def test_templates(long value):
     del base
 
 cdef cppclass Simple:
-    
+    pass
 
 def test_default_init_no_gil():
     with nogil:
