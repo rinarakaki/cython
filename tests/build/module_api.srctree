@@ -120,7 +120,7 @@ void inita(void)
       PyModule_ExecDef(mod, mdef);
    }
 #endif
-   PyDict_SetItemString(sys_modules, (r&i8)"a", mod);
+   PyDict_SetItemString(sys_modules, (char*)"a", mod);
 }
 
 ######## d.pyx ########

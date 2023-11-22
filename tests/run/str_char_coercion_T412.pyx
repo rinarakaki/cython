@@ -1,7 +1,7 @@
 # ticket: t412
 
-cdef int   i = 'x'
-cdef char  c = 'x'
+cdef i32  i = 'x'
+cdef i8   c = 'x'
 cdef r&i8 s = 'x'
 
 def test_eq():

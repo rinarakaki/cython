@@ -12,7 +12,7 @@ extern from "<stdio.h>" nogil:
 
     enum: FOPEN_MAX
     enum: FILENAME_MAX
-    fn FILE* fopen(r&i8 filename, const char  *opentype)
+    fn FILE* fopen(r&i8 filename, r&i8 opentype)
     fn FILE* freopen(r&i8 filename, r&i8 opentype, FILE* stream)
     fn FILE* fdopen(i32 fdescriptor, r&i8 opentype)
     fn i32 fclose(FILE* stream)
@@ -32,7 +32,7 @@ extern from "<stdio.h>" nogil:
 
     fn usize fread(void* data, usize size, usize count, FILE* stream)
     fn usize fwrite(const void* data, usize size, usize count, FILE* stream)
-    fn i32   fflush(FILE* stream)
+    fn i32 fflush(FILE* stream)
 
     enum: EOF
     fn void clearerr(FILE* stream)
@@ -75,4 +75,4 @@ extern from "<stdio.h>" nogil:
     fn i32 fputc(i32 c, FILE* stream)
     fn i32 putc(i32 c, FILE* stream)
 
-    fn usize getline(char** lineptr, usize *n, FILE* stream)
+    fn usize getline(i8** lineptr, usize *n, FILE* stream)

@@ -11,13 +11,13 @@ extern from "<stdlib.h>" nogil:
     fn i64 atol(r&i8 string)
     fn i128 atoll(r&i8 string)
     fn f64 atof(r&i8 string)
-    fn i64 strtol(r&i8 string, char** tailptr, i32 base)
-    fn u64 strtoul(r&i8 string, char** tailptr, i32 base)
-    fn i128 strtoll(r&i8 string, char** tailptr, i32 base)
-    fn u128 strtoull(r&i8 string, char** tailptr, i32 base)
-    fn f32 strtof(r&i8 string, char** tailptr)
-    fn f64 strtod(r&i8 string, char** tailptr)
-    fn f128 strtold(r&i8 string, char** tailptr)
+    fn i64 strtol(r&i8 string, i8** tailptr, i32 base)
+    fn u64 strtoul(r&i8 string, i8** tailptr, i32 base)
+    fn i128 strtoll(r&i8 string, i8** tailptr, i32 base)
+    fn u128 strtoull(r&i8 string, i8** tailptr, i32 base)
+    fn f32 strtof(r&i8 string, i8** tailptr)
+    fn f64 strtod(r&i8 string, i8** tailptr)
+    fn f128 strtold(r&i8 string, i8** tailptr)
 
     # 7.20.2 Pseudo-random sequence generation functions
     enum: RAND_MAX

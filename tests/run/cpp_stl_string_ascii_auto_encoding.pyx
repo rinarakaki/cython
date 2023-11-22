@@ -10,7 +10,6 @@ s_asdf = 'asdf'
 u_asdf = u'asdf'
 u_s = u's'
 
-
 def test_conversion(py_obj):
     """
     >>> test_conversion(b_asdf) == u_asdf or test_conversion(b_asdf)
@@ -24,7 +23,6 @@ def test_conversion(py_obj):
     let string s = py_obj
     assert <usize>len(py_obj) == s.length(), '%d != %d' % (len(py_obj), s.length())
     return s
-
 
 def test_empty(py_obj):
     """
@@ -40,7 +38,6 @@ def test_empty(py_obj):
     let string a = py_obj
     return a.empty()
 
-
 def test_push_back(a):
     """
     >>> test_push_back(b_asdf) == u_asdf + u_s
@@ -49,9 +46,8 @@ def test_push_back(a):
     True
     """
     let string s = a
-    s.push_back(<char>ord('s'))
+    s.push_back(<i8>ord('s'))
     return s
-
 
 def test_clear(a):
     """
@@ -64,16 +60,14 @@ def test_clear(a):
     s.clear()
     return s
 
-
-def test_assign(r&i8 a):
+fn test_assign(r&i8 a):
     """
     >>> test_assign(b_asdf) == 'ggg'
     True
     """
     let string s = string(a)
-    s.assign(<char *>"ggg")
+    s.assign(<r&mut i8>"ggg")
     return s.c_str()
-
 
 def test_bytes_cast(a):
     """
@@ -98,7 +92,6 @@ def test_bytes_cast(a):
     assert s.length() == <usize>len(a), "%d != %d" % (s.length(), len(a))
     return <bytes>s
 
-
 def test_bytearray_cast(a):
     """
     >>> b = test_bytearray_cast(b'abc')
@@ -122,7 +115,6 @@ def test_bytearray_cast(a):
     assert s.length() == <usize>len(a), "%d != %d" % (s.length(), len(a))
     return <bytearray>s
 
-
 def test_unicode_cast(a):
     """
     >>> u = test_unicode_cast(b'abc')
@@ -135,7 +127,6 @@ def test_unicode_cast(a):
     assert s.length() == <usize>len(a), "%d != %d" % (s.length(), len(a))
     return <unicode>s
 
-
 def test_str_cast(a):
     """
     >>> s = test_str_cast(b'abc')
@@ -147,7 +138,6 @@ def test_str_cast(a):
     let string s = a
     assert s.length() == <usize>len(a), "%d != %d" % (s.length(), len(a))
     return <str>s
-
 
 def test_vector_of_strings(*strings):
     """

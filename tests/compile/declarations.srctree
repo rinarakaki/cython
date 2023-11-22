@@ -20,17 +20,17 @@ setup(
 extern from "declarations.h":
     pass
 
-cdef extern r&i8 cp
-cdef extern char *cpa[5]
+extern static r&i8 cp
+cdef extern i8 *cpa[5]
 cdef extern int (*ifnpa[5])()
-cdef extern char *(*cpfnpa[5])()
+cdef extern i8 *(*cpfnpa[5])()
 cdef extern int (*ifnp)()
 cdef extern int (*iap)[5]
 
 extern fn i32 ifn()
 extern fn r&i8 cpfn()
 cdef extern i32 (*iapfn())[5]
-cdef extern char *(*cpapfn())[5]
+cdef extern i8 *(*cpapfn())[5]
 extern fn i32 fnargfn(i32 ())
 
 cdef extern i32 ia[]
@@ -47,7 +47,6 @@ fn r&i8 g():
 
 f()
 g()
-
 
 ######## declarations.h ########
 

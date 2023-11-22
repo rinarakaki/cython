@@ -18,8 +18,8 @@ extern from "parsetok.h":
         pass
     fn void PyParser_SetError(perrdetail *err) except *
     fn node * PyParser_ParseStringFlagsFilenameEx(
-        const char * s,
-        const char * filename,
+        r&i8 s,
+        r&i8 filename,
         grammar * g,
         i32 start,
         perrdetail * err_ret,

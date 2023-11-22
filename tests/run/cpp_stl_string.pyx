@@ -89,8 +89,8 @@ def test_empty():
     >>> test_empty()
     (True, False)
     """
-    let string a = string(<char *>b"")
-    let string b = string(<char *>b"aa")
+    let string a = string(<r&mut i8>b"")
+    let string b = string(<r&mut i8>b"aa")
     return a.empty(), b.empty()
 
 def test_push_back(r&i8 a):
@@ -158,7 +158,7 @@ def test_clear():
     >>> test_clear() == ''.encode('ASCII')
     True
     """
-    let string s = string(<char *>"asdf")
+    let string s = string(<r&mut i8>"asdf")
     s.clear()
     return s.c_str()
 
@@ -180,7 +180,7 @@ def test_assign(r&i8 a):
     True
     """
     let string s = string(a)
-    s.assign(<char *>"ggg")
+    s.assign(<r&mut i8>"ggg")
     return s.c_str()
 
 
@@ -341,7 +341,7 @@ def test_equals_operator(r&i8 a, r&i8 b):
     """
     let string s = string(a)
     let string t = string(b)
-    return t == s, t != <char *>"asdf"
+    return t == s, t != <r&mut i8>"asdf"
 
 def test_less_than(r&i8 a, r&i8 b):
     """

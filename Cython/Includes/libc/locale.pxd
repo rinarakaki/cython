@@ -14,21 +14,21 @@ extern from "<locale.h>" nogil:
         r&i8 positive_sign
         r&i8 negative_sign
         r&i8 currency_symbol
-        char frac_digits
-        char p_cs_precedes
-        char n_cs_precedes
-        char p_sep_by_space
-        char n_sep_by_space
-        char p_sign_posn
-        char n_sign_posn
+        i8 frac_digits
+        i8 p_cs_precedes
+        i8 n_cs_precedes
+        i8 p_sep_by_space
+        i8 n_sep_by_space
+        i8 p_sign_posn
+        i8 n_sign_posn
         r&i8 int_curr_symbol
-        char int_frac_digits
-        char int_p_cs_precedes
-        char int_n_cs_precedes
-        char int_p_sep_by_space
-        char int_n_sep_by_space
-        char int_p_sign_posn
-        char int_n_sign_posn
+        i8 int_frac_digits
+        i8 int_p_cs_precedes
+        i8 int_n_cs_precedes
+        i8 int_p_sep_by_space
+        i8 int_n_sep_by_space
+        i8 int_p_sign_posn
+        i8 int_n_sign_posn
 
     enum: LC_ALL
     enum: LC_COLLATE

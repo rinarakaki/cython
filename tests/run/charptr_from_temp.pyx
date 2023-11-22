@@ -64,16 +64,16 @@ def test_more_args_adding(s):
 fn r&i8 ret_charptr(r&i8 s):
     return s
 
-def test_charptr_and_charptr_func(r&i8 s):
+fn u2 test_charptr_and_charptr_func(r&i8 s):
     """
     >>> test_charptr_and_charptr_func(b'abc') == b'abc'
     True
     """
     return s and ret_charptr(s)
 
-def test_charptr_and_ucharptr(r&i8 s):
+fn u2 test_charptr_and_ucharptr(r&i8 s):
     """
     >>> test_charptr_and_ucharptr(b'abc') == b'abc'
     True
     """
-    return s and <u8*>s
+    return s and <r&mut u8>s

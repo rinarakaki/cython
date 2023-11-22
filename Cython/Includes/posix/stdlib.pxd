@@ -5,7 +5,7 @@ extern from "<stdlib.h>" nogil:
     fn void _Exit(i32)
     fn f64 drand48()
     fn f64 erand48(u16 *)
-    fn i32 getsubopt(char**, r&i8 const *, char**)
+    fn i32 getsubopt(i8**, r&i8 const *, i8**)
     fn void lcong48(u16 *)
     fn i64 lrand()
     fn r&i8 mkdtemp(r&i8)
