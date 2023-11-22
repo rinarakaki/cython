@@ -4350,9 +4350,8 @@ def p_cpp_class_attribute(s, ctx):
             return p_cpp_class_definition(s, s.position(), ctx)
         else:
             return p_struct_enum(s, s.position(), ctx)
-    elif s.sy == "fn":
-        s.next()
-        node = p_c_func_or_var_declaration(s, s.position(), ctx)
+    elif s.sy == "fn" or s.sy == "const" and s.peek()[0] == "fn":
+        node = p_fn_statement(s, s.position(), ctx)
         if decorators is not None:
             tup = Nodes.CFuncDefNode, Nodes.CVarDefNode, Nodes.CClassDefNode
             if ctx.allow_struct_enum_decorator:
