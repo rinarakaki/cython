@@ -78,20 +78,20 @@ extern from *:
 extern from *:
     type __pyx_atomic_int_type = i32
     fn {{memviewslice_name}} slice_copy_contig "__pyx_memoryview_copy_new_contig"(
-        __Pyx_memviewslice *from_mvs,
-        char* mode, i32 ndim,
+        r&mut __Pyx_memviewslice from_mvs,
+        r&mut i8 mode, i32 ndim,
         usize sizeof_dtype, i32 contig_flag,
         u2 dtype_is_object) except * nogil
     fn u2 slice_is_contig "__pyx_memviewslice_is_contig"(
-        {{memviewslice_name}} mvs, char order, i32 ndim) nogil
+        {{memviewslice_name}} mvs, i8 order, i32 ndim) nogil
     fn u2 slices_overlap "__pyx_slices_overlap"({{memviewslice_name}} *slice1,
                                                 {{memviewslice_name}} *slice2,
                                                 i32 ndim, usize itemsize) nogil
 
 extern from "<stdlib.h>":
-    fn void* malloc(usize) nogil
-    fn void free(void *) nogil
-    fn void* memcpy(void* dest, void* src, usize n) nogil
+    fn r&mut void malloc(usize) nogil
+    fn void free(r&mut void) nogil
+    fn r&mut void memcpy(r&mut void dest, r&mut void src, usize n) nogil
 
 # the sequence abstract base class
 cdef object __pyx_collections_abc_Sequence "__pyx_collections_abc_Sequence"
@@ -156,7 +156,7 @@ cdef class array:
                 raise ValueError, f"Invalid shape in axis {idx}: {dim}."
             self._shape[idx] = dim
 
-        let char order
+        let i8 order
         if mode == 'c':
             order = b'C'
             self.mode = u'c'
@@ -175,7 +175,7 @@ cdef class array:
             _allocate_buffer(self)
 
     @cname('getbuffer')
-    def __getbuffer__(self, Py_buffer* info, i32 flags):
+    def __getbuffer__(self, r&mut Py_buffer info, i32 flags):
         let i32 bufmode = -1
         if flags & (PyBUF_C_CONTIGUOUS | PyBUF_F_CONTIGUOUS | PyBUF_ANY_CONTIGUOUS):
             if self.mode == u"c":
@@ -323,7 +323,6 @@ cdef PyThread_type_lock[{{THREAD_LOCKS_PREALLOCATED}}] __pyx_memoryview_thread_l
 
 @cname('__pyx_memoryview')
 cdef class memoryview:
-
     cdef object obj
     cdef object _size
     cdef object _array_interface
@@ -382,9 +381,9 @@ cdef class memoryview:
             else:
                 PyThread_free_lock(self.lock)
 
-    fn char* get_item_pointer(memoryview self, object index) except NULL:
+    fn r&mut i8 get_item_pointer(memoryview self, object index) except NULL:
         let isize dim
-        let auto itemp = <char*>self.view.buf
+        let auto itemp = <r&mut i8>self.view.buf
 
         for dim, idx in enumerate(index):
             itemp = pybuffer_index(&self.view, itemp, idx, dim)
@@ -398,7 +397,7 @@ cdef class memoryview:
 
         have_slices, indices = _unellipsify(index, self.view.ndim)
 
-        let char* itemp
+        let r&mut i8 itemp
         if have_slices:
             return memview_slice(self, indices)
         else:
@@ -440,12 +439,11 @@ cdef class memoryview:
 
     fn setitem_slice_assign_scalar(self, memoryview dst, value):
         let i32 array[128]
-        let void* tmp = NULL
-        let void* item
+        let r&mut void tmp = NULL
+        let r&mut void item
 
-        let {{memviewslice_name}} *dst_slice
         let {{memviewslice_name}} tmp_slice
-        dst_slice = get_slice_from_memview(dst, &tmp_slice)
+        let auto dst_slice = get_slice_from_memview(dst, &tmp_slice)
 
         if <usize>self.view.itemsize > sizeof(array):
             tmp = PyMem_Malloc(self.view.itemsize)
@@ -457,9 +455,9 @@ cdef class memoryview:
 
         try:
             if self.dtype_is_object:
-                (<PyObject **> item)[0] = <PyObject *> value
+                (<PyObject **>item)[0] = <PyObject *>value
             else:
-                self.assign_item_from_object(<char*> item, value)
+                self.assign_item_from_object(<r&mut char>item, value)
 
             # It would be easy to support indirect dimensions, but it's easier
             # to disallow :)
@@ -471,10 +469,10 @@ cdef class memoryview:
             PyMem_Free(tmp)
 
     fn setitem_indexed(self, index, value):
-        let auto itemp = self.get_item_pointer(index)
+        let r&mut char itemp = self.get_item_pointer(index)
         self.assign_item_from_object(itemp, value)
 
-    fn convert_item_to_object(self, char* itemp):
+    fn convert_item_to_object(self, r&mut char itemp):
         """Only used if instantiated manually by the user, or if Cython doesn't
         know how to convert the type"""
         import r#struct
@@ -490,7 +488,7 @@ cdef class memoryview:
                 return result[0]
             return result
 
-    fn assign_item_from_object(self, char* itemp, object value):
+    fn assign_item_from_object(self, r&mut char itemp, object value):
         """Only used if instantiated manually by the user, or if Cython doesn't
         know how to convert the type"""
         import r#struct
@@ -957,7 +955,7 @@ cdef class _memoryviewslice(memoryview):
         else:
             return memoryview.convert_item_to_object(self, itemp)
 
-    fn assign_item_from_object(self, char* itemp, object value):
+    fn assign_item_from_object(self, r&mut char itemp, object value):
         if self.to_dtype_func != NULL:
             self.to_dtype_func(itemp, value)
         else:
@@ -1037,8 +1035,8 @@ fn memoryview_fromslice({{memviewslice_name}} memviewslice,
     return result
 
 @cname('__pyx_memoryview_get_slice_from_memoryview')
-fn {{memviewslice_name}}* get_slice_from_memview(memoryview memview,
-                                                 {{memviewslice_name}} *mslice) except NULL:
+fn r&mut {{memviewslice_name}} get_slice_from_memview(memoryview memview,
+                                                      r&mut {{memviewslice_name}} mslice) except NULL:
     let _memoryviewslice obj
     if isinstance(memview, _memoryviewslice):
         obj = memview
@@ -1439,8 +1437,8 @@ extern from *:
 
 
 @cname('__pyx_format_from_typeinfo')
-fn bytes format_from_typeinfo(__Pyx_TypeInfo *type):
-    let __Pyx_StructField *field
+fn bytes format_from_typeinfo(r&mut __Pyx_TypeInfo type):
+    let r&mut __Pyx_StructField field
     let __pyx_typeinfo_string fmt
     let bytes part, result
     let isize i

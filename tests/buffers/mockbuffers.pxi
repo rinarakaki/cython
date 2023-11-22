@@ -281,8 +281,7 @@ struct NestedPackedStruct:
 
 cdef class MyStructMockBuffer(MockBuffer):
     fn i32 write(self, char* buf, object value) except -1:
-        cdef MyStruct* s
-        s = <MyStruct*>buf
+        let auto s = <MyStruct*>buf
         s.a, s.b, s.c, s.d, s.e = value
         return 0
 
@@ -291,8 +290,7 @@ cdef class MyStructMockBuffer(MockBuffer):
 
 cdef class NestedStructMockBuffer(MockBuffer):
     fn i32 write(self, char* buf, object value) except -1:
-        cdef NestedStruct* s
-        s = <NestedStruct*>buf
+        let auto s = <NestedStruct*>buf
         s.x.a, s.x.b, s.y.a, s.y.b, s.z = value
         return 0
 
@@ -301,8 +299,7 @@ cdef class NestedStructMockBuffer(MockBuffer):
 
 cdef class PackedStructMockBuffer(MockBuffer):
     fn i32 write(self, char* buf, object value) except -1:
-        cdef PackedStruct* s
-        s = <PackedStruct*>buf
+        let auto s = <PackedStruct*>buf
         s.a, s.b = value
         return 0
 
@@ -311,8 +308,7 @@ cdef class PackedStructMockBuffer(MockBuffer):
 
 cdef class NestedPackedStructMockBuffer(MockBuffer):
     fn i32 write(self, char* buf, object value) except -1:
-        cdef NestedPackedStruct* s
-        s = <NestedPackedStruct*>buf
+        let auto s = <NestedPackedStruct*>buf
         s.a, s.b, s.sub.a, s.sub.b, s.c = value
         return 0
 
@@ -325,8 +321,7 @@ struct LongComplex:
 
 cdef class LongComplexMockBuffer(MockBuffer):
     fn i32 write(self, char* buf, object value) except -1:
-        cdef LongComplex* s
-        s = <LongComplex*>buf
+        let auto s = <LongComplex*>buf
         s.real, s.imag = value
         return 0
 

@@ -751,35 +751,35 @@ class TestCase(unittest.TestCase):
                 self.assertEqual(cls(1, 2), cls(1, 2))
                 self.assertNotEqual(cls(1, 0), cls(0, 0))
                 self.assertNotEqual(cls(1, 0), cls(1, 1))
-                for idx, fn in enumerate([lambda a, b: a < b, lambda a, b: a <= b, lambda a, b: a > b, lambda a, b: a >= b]):
+                for (idx, r#fn) in enumerate([lambda a, b: a < b, lambda a, b: a <= b, lambda a, b: a > b, lambda a, b: a >= b]):
                     with self.subTest(idx=idx):
                         with self.assertRaises(TypeError):
-                            fn(cls(0, 0), cls(0, 0))
+                            r#fn(cls(0, 0), cls(0, 0))
         C = C_TestCase_test_simple_compare
-        for idx, fn in enumerate([lambda a, b: a == b, lambda a, b: a <= b, lambda a, b: a >= b]):
+        for (idx, r#fn) in enumerate([lambda a, b: a == b, lambda a, b: a <= b, lambda a, b: a >= b]):
             with self.subTest(idx=idx):
-                self.assertTrue(fn(C(0, 0), C(0, 0)))
-        for idx, fn in enumerate([lambda a, b: a < b, lambda a, b: a <= b, lambda a, b: a != b]):
+                self.assertTrue(r#fn(C(0, 0), C(0, 0)))
+        for (idx, r#fn) in enumerate([lambda a, b: a < b, lambda a, b: a <= b, lambda a, b: a != b]):
             with self.subTest(idx=idx):
-                self.assertTrue(fn(C(0, 0), C(0, 1)))
-                self.assertTrue(fn(C(0, 1), C(1, 0)))
-                self.assertTrue(fn(C(1, 0), C(1, 1)))
-        for idx, fn in enumerate([lambda a, b: a > b, lambda a, b: a >= b, lambda a, b: a != b]):
+                self.assertTrue(r#fn(C(0, 0), C(0, 1)))
+                self.assertTrue(r#fn(C(0, 1), C(1, 0)))
+                self.assertTrue(r#fn(C(1, 0), C(1, 1)))
+        for (idx, r#fn) in enumerate([lambda a, b: a > b, lambda a, b: a >= b, lambda a, b: a != b]):
             with self.subTest(idx=idx):
-                self.assertTrue(fn(C(0, 1), C(0, 0)))
-                self.assertTrue(fn(C(1, 0), C(0, 1)))
-                self.assertTrue(fn(C(1, 1), C(1, 0)))
+                self.assertTrue(r#fn(C(0, 1), C(0, 0)))
+                self.assertTrue(r#fn(C(1, 0), C(0, 1)))
+                self.assertTrue(r#fn(C(1, 1), C(1, 0)))
 
     def test_compare_subclasses(self):
         B = B_TestCase_test_compare_subclasses
         C = C_TestCase_test_compare_subclasses
-        for idx, (fn, expected) in enumerate([(lambda a, b: a == b, False), (lambda a, b: a != b, True)]):
+        for idx, (r#fn, expected) in enumerate([(lambda a, b: a == b, False), (lambda a, b: a != b, True)]):
             with self.subTest(idx=idx):
-                self.assertEqual(fn(B(0), C(0)), expected)
-        for idx, fn in enumerate([lambda a, b: a < b, lambda a, b: a <= b, lambda a, b: a > b, lambda a, b: a >= b]):
+                self.assertEqual(r#fn(B(0), C(0)), expected)
+        for (idx, r#fn) in enumerate([lambda a, b: a < b, lambda a, b: a <= b, lambda a, b: a > b, lambda a, b: a >= b]):
             with self.subTest(idx=idx):
                 with self.assertRaises(TypeError):
-                    fn(B(0), C(0))
+                    r#fn(B(0), C(0))
 
     def test_field_no_default(self):
         C = C_TestCase_test_field_no_default
