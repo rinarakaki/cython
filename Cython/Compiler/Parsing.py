@@ -2494,7 +2494,7 @@ def p_statement(s, ctx, first_statement = 0):
         # if ctx.api:
         #    error(s.position(), "'api' not allowed with 'ctypedef'")
         return p_ctypedef_statement(s, ctx)
-    elif s.sy in ("const", "DEF") and ctx.visibility != "extern":
+    elif s.sy in ("const", "DEF") and s.peek()[0] == "IDENT" and ctx.visibility != "extern":
         # We used to dep-warn about this but removed the warning again since
         # we don't have a good answer yet for all use cases.
         # warning(s.position(),
@@ -2530,7 +2530,7 @@ def p_statement(s, ctx, first_statement = 0):
         cdef_flag = 1
         overridable = 1
         s.next()
-    elif s.sy in ("pub", "fn", "let", "enum", "struct", "union", "extern", "static"):
+    elif s.sy in ("pub", "fn", "let", "enum", "struct", "union", "extern", "static", "const"):
         cdef_flag = 1
     if cdef_flag:
         if ctx.level not in ('module', 'module_pxd', 'function', 'c_class', 'c_class_pxd'):
@@ -3479,9 +3479,8 @@ def p_cdef_statement(s, ctx):
         return p_struct_enum(s, pos, ctx)
     elif s.sy == 'IDENT' and s.systring == 'fused':
         return p_fused_definition(s, pos, ctx)
-    elif s.sy == "fn":
-        s.next()
-        return p_c_func_or_var_declaration(s, pos, ctx)
+    elif s.sy == "fn" or s.sy == "const" and s.peek()[0] == "fn":
+        return p_fn_statement(s, pos, ctx)
     elif s.sy == "let":
         return p_let_statement(s, pos, ctx)
     elif s.sy == "static":
@@ -3729,6 +3728,67 @@ def p_c_modifiers(s):
         s.next()
         return [modifier] + p_c_modifiers(s)
     return []
+
+def p_fn_statement(s, pos, ctx):
+    # s.sy == "fn" or s.sy == "const" and s.peek()[0] == "fn"
+    cmethod_flag = ctx.level in ("c_class", "c_class_pxd")
+    if s.sy == "const":
+        s.next()
+        s.next()
+        is_const_method = 1
+    else:
+        s.next()
+        is_const_method = 0
+    modifiers = p_c_modifiers(s)
+    base_type = p_c_base_type(s, nonempty = 1, templates = ctx.templates)
+    declarator = p_c_declarator(s, ctx(modifiers=modifiers), cmethod_flag = cmethod_flag,
+                                assignable = 1, nonempty = 1)
+    declarator.overridable = ctx.overridable
+    if s.sy == ":":
+        if ctx.level not in ("module", "c_class", "module_pxd", "c_class_pxd", "cpp_class") and not ctx.templates:
+            s.error("C function definition not allowed here")
+        doc, suite = p_suite_with_docstring(s, Ctx(level="function"))
+        result = Nodes.CFuncDefNode(pos,
+            visibility = ctx.visibility,
+            base_type = base_type,
+            declarator = declarator,
+            body = suite,
+            doc = doc,
+            modifiers = modifiers,
+            api = ctx.api,
+            overridable = ctx.overridable,
+            is_const_method = is_const_method
+        )
+    else:
+        # if api:
+        #    s.error("'api' not allowed with variable declaration")
+        if is_const_method:
+            declarator.is_const_method = is_const_method
+        declarators = [declarator]
+        while s.sy == ',':
+            s.next()
+            if s.sy == 'NEWLINE':
+                break
+            declarator = p_c_declarator(s, ctx, cmethod_flag = cmethod_flag,
+                                        assignable = 1, nonempty = 1)
+            declarators.append(declarator)
+        doc_line = s.start_line + 1
+        s.expect_newline("Syntax error in C variable declaration", ignore_semicolon=True)
+        if ctx.level in ("c_class", "c_class_pxd") and s.start_line == doc_line:
+            doc = p_doc_string(s)
+        else:
+            doc = None
+        result = Nodes.CVarDefNode(pos,
+            visibility = ctx.visibility,
+            base_type = base_type,
+            declarators = declarators,
+            in_pxd = ctx.level in ("module_pxd", "c_class_pxd"),
+            doc = doc,
+            api = ctx.api,
+            modifiers = modifiers,
+            overridable = ctx.overridable
+        )
+    return result
 
 def p_c_func_or_var_declaration(s, pos, ctx):
     cmethod_flag = ctx.level in ('c_class', 'c_class_pxd')
@@ -4325,9 +4385,8 @@ def p_cpp_class_attribute(s, ctx):
             return p_cpp_class_definition(s, s.position(), ctx)
         else:
             return p_struct_enum(s, s.position(), ctx)
-    elif s.sy == "fn":
-        s.next()
-        node = p_c_func_or_var_declaration(s, s.position(), ctx)
+    elif s.sy == "fn" or s.sy == "const" and s.peek()[0] == "fn":
+        node = p_fn_statement(s, s.position(), ctx)
         if decorators is not None:
             tup = Nodes.CFuncDefNode, Nodes.CVarDefNode, Nodes.CClassDefNode
             if ctx.allow_struct_enum_decorator:
