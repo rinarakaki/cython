@@ -72,14 +72,14 @@ extern from "Python.h":
     # as the current context for the current thread.
     # Returns 0 on success, and -1 on error.
 
-    fn object PyContextVar_New(const char* name, PyObject* default_value)
+    fn object PyContextVar_New(r&i8 name, PyObject* default_value)
     # Return value: New reference.
     # Create a new ContextVar object. The `name` parameter is used
     # for introspection and debug purposes. The `default_value` parameter
     # may optionally specify the default value for the context variable.
     # If an error has occurred, this function returns NULL.
 
-    fn object PyContextVar_New_with_default "PyContextVar_New" (const char* name, object default_value)
+    fn object PyContextVar_New_with_default "PyContextVar_New" (r&i8 name, object default_value)
     # A different declaration of PyContextVar_New that requires a default value
     # to be passed on call.
 

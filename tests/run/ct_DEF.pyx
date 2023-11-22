@@ -42,7 +42,7 @@ def c():
     >>> c()
     120
     """
-    let char c = CHAR
+    let i8 c = CHAR
     return c
 
 def i0():
@@ -116,7 +116,7 @@ def s():
     >>> s()
     b'spam'
     """
-    let char* s = BYTES
+    let r&i8 s = BYTES
     return s
 
 def type_of_bytes():

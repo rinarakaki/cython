@@ -28,5 +28,5 @@ def test_float_parsing(bstring):
     ... except ValueError: pass
     ... else: print("NOT RAISED!")
     """
-    cdef char* s = bstring
+    let r&i8 s = bstring
     return float(s)
