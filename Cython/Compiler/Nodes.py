@@ -2713,7 +2713,7 @@ class CFuncDefNode(FuncDefNode):
                 base_type = PyrexTypes.error_type
         else:
             base_type = self.base_type.analyse(env)
-        self.is_static_method = 'staticmethod' in env.directives and not env.lookup_here('staticmethod')
+        self.is_static_method = 1
         # The 2 here is because we need both function and argument names.
         if isinstance(self.declarator, CFuncDeclaratorNode):
             name_declarator, typ = self.declarator.analyse(
