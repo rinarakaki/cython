@@ -1,10 +1,10 @@
 # mode: run
 
 
-fn cfunc1(char* s):
-    return s.decode('ASCII')
+fn object cfunc1(r&mut i8 s):
+    return s.decode("ascii")
 
-fn cfunc3(i32 x, char* s, object y):
+fn object cfunc3(i32 x, r&mut i8 s, object y):
     return cfunc1(s)
 
 def test_one_arg_indexing(s):

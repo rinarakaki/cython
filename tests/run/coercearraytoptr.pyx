@@ -1,6 +1,6 @@
-cdef char* cstring = "abcdefg"
+cdef r&mut i8 cstring = "abcdefg"
 
-fn void spam(char* target):
+fn void spam(r&mut i8 target):
     let auto s = cstring
     while s[0]:
         target[0] = s[0]

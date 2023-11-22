@@ -23,7 +23,7 @@ extern from *:
         return f(std::forward<T>(x));
     }
     """
-    fn const char* foo[T](T&& x)
+    fn r&i8 foo[T](T&& x)
 
 extern from *:
     """
@@ -40,8 +40,8 @@ extern from *:
     }
 
     """
-    fn const char* bar[T1](T1 x, T1 y)
-    fn const char* bar[T1, T2](T1&& x, T2 y, T2 z)
+    fn r&i8 bar[T1](T1 x, T1 y)
+    fn r&i8 bar[T1, T2](T1&& x, T2 y, T2 z)
 
 def test_forwarding_ref():
     """

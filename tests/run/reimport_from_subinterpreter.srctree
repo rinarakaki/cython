@@ -44,7 +44,7 @@ extern from *:
         return PyLong_FromLong(r);
     }
     """
-    fn object run_in_subinterpreter(const char* code)
+    fn object run_in_subinterpreter(r&i8 code)
 
 
 MAIN_HAS_IMPORTED = False
