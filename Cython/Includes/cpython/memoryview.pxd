@@ -25,7 +25,7 @@ extern from "Python.h":
 
     fn object PyMemoryView_GetContiguous(object obj,
                                          i32 buffertype,
-                                         char order)
+                                         i8 order)
     # Return value: New reference.
     # Create a memoryview object to a contiguous chunk of memory (in either ‘C’
     # or ‘F’ortran order) from an object that defines the buffer interface. If

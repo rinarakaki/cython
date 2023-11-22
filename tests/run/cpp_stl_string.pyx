@@ -99,7 +99,7 @@ def test_push_back(r&i8 a):
     True
     """
     let string s = string(a)
-    s.push_back(<char>ord('s'))
+    s.push_back(<i8>ord('s'))
     return s.c_str()
 
 def test_pop_back(r&i8 a):
@@ -127,7 +127,7 @@ def test_copy(r&i8 a):
     True
     """
     let string t = string(a)
-    let char[6] buffer
+    let i8[6] buffer
     let usize length = t.copy(buffer, 4, 1)
     buffer[length] = c'\0'
     return buffer

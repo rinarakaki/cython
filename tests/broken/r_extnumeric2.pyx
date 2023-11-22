@@ -1,7 +1,7 @@
 extern from "numeric.h":
     struct PyArray_Descr:
         i32 type_num, elsize
-        char type
+        i8 type
 
     ctypedef class Numeric.ArrayType [object PyArrayObject]:
         cdef r&i8 data

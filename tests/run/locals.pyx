@@ -117,7 +117,7 @@ def pass_on_locals(f):
     f(l=locals(), a=1)
 
 
-def buffers_in_locals(object[char, ndim=1] a):
+def buffers_in_locals(object[i8, ndim=1] a):
     """
     >>> sorted(buffers_in_locals(b'abcdefg'))
     ['a', 'b']

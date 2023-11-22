@@ -47,7 +47,7 @@ def test_push_back(a):
     True
     """
     let string s = a
-    s.push_back(<char>ord('s'))
+    s.push_back(<i8>ord('s'))
     return s
 
 def test_clear(a):

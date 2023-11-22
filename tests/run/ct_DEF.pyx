@@ -42,7 +42,7 @@ def c():
     >>> c()
     120
     """
-    let char c = CHAR
+    let i8 c = CHAR
     return c
 
 def i0():

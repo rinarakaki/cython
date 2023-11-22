@@ -316,7 +316,7 @@ def f_sd(str s='spam'):
 cpdef str cf_sd(str s='spam'):
     return s
 
-cpdef char f_c(char c):
+cpdef i8 f_c(i8 c):
     return c
 
 cpdef u8 f_uc(u8 c):

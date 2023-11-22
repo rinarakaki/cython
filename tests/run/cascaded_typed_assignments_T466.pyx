@@ -60,8 +60,8 @@ def non_simple_rhs_malloc():
     """
     >>> non_simple_rhs_malloc()
     """
-    let r&mut char a, b,
-    let char** c
+    let r&mut i8 a, b,
+    let i8** c
 
     c = &b
     c[0] = a = <r&i8>malloc(2)
@@ -70,7 +70,7 @@ def non_simple_rhs_malloc():
 
     # copy from different pointers to make sure they all point to the
     # same memory
-    let char[2] x
+    let i8[2] x
     x[0] = b[0]
     x[1] = a[1]
 

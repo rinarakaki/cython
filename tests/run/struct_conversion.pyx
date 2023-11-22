@@ -118,7 +118,7 @@ def test_pointers(i32 n, f64 x):
     print a.ptr == b.ptr == NULL
 
 struct MyStruct:
-    char c
+    i8 c
     i32 i
     f32 f
     r&i8 s

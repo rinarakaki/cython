@@ -31,7 +31,7 @@ cdef class Foo:
     def m02(self, u32 a: i32): return a
     def m03(self: Self, u32 a: i32) -> float: return a
     def m04(self, r&i8 a): return a
-    def m05(self, const char a[]): return a
+    def m05(self, const i8 a[]): return a
     def m06(self, r&i8 a: bytes) -> bytes: return a
 
     @classmethod

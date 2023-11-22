@@ -469,7 +469,7 @@ cdef class memoryview:
             PyMem_Free(tmp)
 
     fn setitem_indexed(self, index, value):
-        let r&mut char itemp = self.get_item_pointer(index)
+        let r&mut i8 itemp = self.get_item_pointer(index)
         self.assign_item_from_object(itemp, value)
 
     fn convert_item_to_object(self, r&mut i8 itemp):
@@ -866,7 +866,7 @@ fn i32 slice_memviewslice(
     if suboffset >= 0:
         if not is_slice:
             if new_ndim == 0:
-                dst.data = (<char**> dst.data)[0] + suboffset
+                dst.data = (<i8**> dst.data)[0] + suboffset
             else:
                 _err_dim(PyExc_IndexError, "All dimensions preceding dimension %d "
                                      "must be indexed and not sliced", dim)
@@ -904,7 +904,7 @@ fn r&i8 pybuffer_index(Py_buffer* view, r&i8 bufp, isize index,
 
     resultp = bufp + index * stride
     if suboffset >= 0:
-        resultp = (<char**> resultp)[0] + suboffset
+        resultp = (<i8**> resultp)[0] + suboffset
 
     return resultp
 
@@ -1095,7 +1095,7 @@ fn isize abs_isize(isize arg) noexcept nogil:
     return -arg if arg < 0 else arg
 
 @cname('__pyx_get_best_slice_order')
-fn char get_best_order({{memviewslice_name}} *mslice, i32 ndim) noexcept nogil:
+fn i8 get_best_order({{memviewslice_name}} *mslice, i32 ndim) noexcept nogil:
     """
     Figure out the best memory access order for a given slice.
     """
@@ -1168,7 +1168,7 @@ fn isize slice_get_size({{memviewslice_name}}* src, i32 ndim) noexcept nogil:
 @cname('__pyx_fill_contig_strides_array')
 fn isize fill_contig_strides_array(
                 isize* shape, isize* strides, isize stride,
-                i32 ndim, char order) noexcept nogil:
+                i32 ndim, i8 order) noexcept nogil:
     """
     Fill the strides array for a slice with C or F contiguous strides.
     This is like PyBuffer_FillContiguousStrides, but compatible with py < 2.6
@@ -1189,7 +1189,7 @@ fn isize fill_contig_strides_array(
 @cname('__pyx_memoryview_copy_data_to_temp')
 fn void* copy_data_to_temp({{memviewslice_name}} *src,
                              {{memviewslice_name}} *tmpslice,
-                             char order,
+                             i8 order,
                              i32 ndim) except NULL nogil:
     """
     Copy a direct slice to temporary contiguous memory. The caller should free
@@ -1411,10 +1411,10 @@ extern from *:
         r&i8 name
         __Pyx_StructField* fields
         usize size
-        usize arraysize[8]
+        usize[8] arraysize
         i32 ndim
-        char typegroup
-        char is_unsigned
+        i8 typegroup
+        i8 is_unsigned
         i32 flags
 
     struct __Pyx_StructField:
@@ -1431,7 +1431,7 @@ extern from *:
         __Pyx_BufFmt_StackElem* head
 
     struct __pyx_typeinfo_string:
-        char string[3]
+        i8[3] string
 
     fn __pyx_typeinfo_string __Pyx_TypeInfoToFormat(__Pyx_TypeInfo *)
 

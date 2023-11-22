@@ -206,15 +206,15 @@ extern from "numpy/arrayobject.h":
         # Use PyDataType_* macros when possible, however there are no macros
         # for accessing some of the fields, so some are defined.
         cdef PyTypeObject* typeobj
-        cdef char kind
-        cdef char type
+        cdef i8 kind
+        cdef i8 type
         # Numpy sometimes mutates this without warning (e.g. it'll
         # sometimes change "|" to "<" in shared dtype objects on
         # little-endian machines). If this matters to you, use
         # PyArray_IsNativeByteOrder(dtype.byteorder) instead of
         # directly accessing this field.
-        cdef char byteorder
-        cdef char flags
+        cdef i8 byteorder
+        cdef i8 flags
         cdef i32 type_num
         cdef i32 itemsize "elsize"
         cdef i32 alignment
@@ -454,8 +454,8 @@ extern from "numpy/arrayobject.h":
     fn u2 PyArray_ISVARIABLE(ndarray) nogil
 
     fn u2 PyArray_SAFEALIGNEDCOPY(ndarray) nogil
-    fn u2 PyArray_ISNBO(char) nogil              # works on ndarray.byteorder
-    fn u2 PyArray_IsNativeByteOrder(char) nogil  # works on ndarray.byteorder
+    fn u2 PyArray_ISNBO(i8) nogil              # works on ndarray.byteorder
+    fn u2 PyArray_IsNativeByteOrder(i8) nogil  # works on ndarray.byteorder
     fn u2 PyArray_ISNOTSWAPPED(ndarray) nogil
     fn u2 PyArray_ISBYTESWAPPED(ndarray) nogil
 
@@ -619,7 +619,7 @@ extern from "numpy/arrayobject.h":
     fn void PyArray_FillObjectArray(ndarray, object)
     fn i32 PyArray_FillWithScalar(ndarray, object)
     fn npy_bool PyArray_CheckStrides(i32, i32, npy_intp, npy_intp, npy_intp *, npy_intp *)
-    fn dtype PyArray_DescrNewByteorder(dtype, char)
+    fn dtype PyArray_DescrNewByteorder(dtype, i8)
     fn object PyArray_IterAllButAxis(object, i32 *)
     # fn object PyArray_CheckFromAny(object, dtype, i32, i32, i32, object)
     # fn object PyArray_FromArray(ndarray, dtype, i32)
@@ -676,8 +676,8 @@ extern from "numpy/arrayobject.h":
     fn void * PyArray_GetPtr(ndarray, npy_intp*)
     fn i32 PyArray_CompareLists(npy_intp *, npy_intp *, i32)
     # fn i32 PyArray_AsCArray(object*, void *, npy_intp *, i32, dtype)
-    # fn i32 PyArray_As1D(object*, char **, i32 *, i32)
-    # fn i32 PyArray_As2D(object*, char ***, i32 *, i32 *, i32)
+    # fn i32 PyArray_As1D(object*, i8**, i32 *, i32)
+    # fn i32 PyArray_As2D(object*, i8***, i32 *, i32 *, i32)
     fn i32 PyArray_Free(object, void *)
     # fn i32 PyArray_Converter(object, object*)
     fn i32 PyArray_IntpFromSequence(object, npy_intp *, i32)
@@ -859,7 +859,7 @@ extern from "numpy/arrayscalars.h":
 
 extern from "numpy/ufuncobject.h":
 
-    ctypedef void (*PyUFuncGenericFunction) (char **, npy_intp *, npy_intp *, void *)
+    ctypedef void (*PyUFuncGenericFunction) (i8**, npy_intp *, npy_intp *, void *)
 
     ctypedef class numpy.ufunc [object PyUFuncObject, check_size ignore]:
         cdef:
@@ -908,47 +908,47 @@ extern from "numpy/ufuncobject.h":
     fn i32 PyUFunc_GenericFunction \
         (ufunc, PyObject *, PyObject *, PyArrayObject **)
     fn void PyUFunc_f_f_As_d_d \
-         (char **, npy_intp *, npy_intp *, void *)
+         (i8**, npy_intp *, npy_intp *, void *)
     fn void PyUFunc_d_d \
-         (char **, npy_intp *, npy_intp *, void *)
+         (i8**, npy_intp *, npy_intp *, void *)
     fn void PyUFunc_f_f \
-         (char **, npy_intp *, npy_intp *, void *)
+         (i8**, npy_intp *, npy_intp *, void *)
     fn void PyUFunc_g_g \
-         (char **, npy_intp *, npy_intp *, void *)
+         (i8**, npy_intp *, npy_intp *, void *)
     fn void PyUFunc_F_F_As_D_D \
-         (char **, npy_intp *, npy_intp *, void *)
+         (i8**, npy_intp *, npy_intp *, void *)
     fn void PyUFunc_F_F \
-         (char **, npy_intp *, npy_intp *, void *)
+         (i8**, npy_intp *, npy_intp *, void *)
     fn void PyUFunc_D_D \
-         (char **, npy_intp *, npy_intp *, void *)
+         (i8**, npy_intp *, npy_intp *, void *)
     fn void PyUFunc_G_G \
-         (char **, npy_intp *, npy_intp *, void *)
+         (i8**, npy_intp *, npy_intp *, void *)
     fn void PyUFunc_O_O \
-         (char **, npy_intp *, npy_intp *, void *)
+         (i8**, npy_intp *, npy_intp *, void *)
     fn void PyUFunc_ff_f_As_dd_d \
-         (char **, npy_intp *, npy_intp *, void *)
+         (i8**, npy_intp *, npy_intp *, void *)
     fn void PyUFunc_ff_f \
-         (char **, npy_intp *, npy_intp *, void *)
+         (i8**, npy_intp *, npy_intp *, void *)
     fn void PyUFunc_dd_d \
-         (char **, npy_intp *, npy_intp *, void *)
+         (i8**, npy_intp *, npy_intp *, void *)
     fn void PyUFunc_gg_g \
-         (char **, npy_intp *, npy_intp *, void *)
+         (i8**, npy_intp *, npy_intp *, void *)
     fn void PyUFunc_FF_F_As_DD_D \
-         (char **, npy_intp *, npy_intp *, void *)
+         (i8**, npy_intp *, npy_intp *, void *)
     fn void PyUFunc_DD_D \
-         (char **, npy_intp *, npy_intp *, void *)
+         (i8**, npy_intp *, npy_intp *, void *)
     fn void PyUFunc_FF_F \
-         (char **, npy_intp *, npy_intp *, void *)
+         (i8**, npy_intp *, npy_intp *, void *)
     fn void PyUFunc_GG_G \
-         (char **, npy_intp *, npy_intp *, void *)
+         (i8**, npy_intp *, npy_intp *, void *)
     fn void PyUFunc_OO_O \
-         (char **, npy_intp *, npy_intp *, void *)
+         (i8**, npy_intp *, npy_intp *, void *)
     fn void PyUFunc_O_O_method \
-         (char **, npy_intp *, npy_intp *, void *)
+         (i8**, npy_intp *, npy_intp *, void *)
     fn void PyUFunc_OO_O_method \
-         (char **, npy_intp *, npy_intp *, void *)
+         (i8**, npy_intp *, npy_intp *, void *)
     fn void PyUFunc_On_Om \
-         (char **, npy_intp *, npy_intp *, void *)
+         (i8**, npy_intp *, npy_intp *, void *)
     fn i32 PyUFunc_GetPyValues \
         (r&mut i8, i32 *, i32 *, PyObject **)
     fn i32 PyUFunc_checkfperr \

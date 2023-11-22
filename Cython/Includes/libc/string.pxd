@@ -2,7 +2,7 @@
 
 extern from *:
     # deprecated backwards compatibility declarations
-    type const_char "const char" = const char
+    type const_char "const char" = const i8
     type const_schar "const signed char" = const signed char
     type const_uchar "const unsigned char" = const u8
     type const_void "const void" = const void
@@ -46,4 +46,4 @@ extern from "<string.h>" nogil:
     fn r&mut i8 strpbrk(r&i8 string, r&i8 stopset)
 
     fn r&i8 strtok(r&i8 newstring, r&i8 delimiters)
-    fn r&i8 strsep(char** string_ptr, r&i8 delimiter)
+    fn r&i8 strsep(i8** string_ptr, r&i8 delimiter)

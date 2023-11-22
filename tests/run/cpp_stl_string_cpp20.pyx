@@ -17,7 +17,7 @@ def test_string_starts_with_char(bytes py_str):
     >>> test_string_starts_with_char(b'F')
     False
     """
-    let char c = py_str[0]
+    let i8 c = py_str[0]
     let string s = b"ABCDEF"
     return s.starts_with(c)
 
@@ -43,7 +43,7 @@ def test_string_ends_with_char(bytes py_str):
     >>> test_string_ends_with_char(b'A')
     False
     """
-    let char c = py_str[0]
+    let i8 c = py_str[0]
     let string s = b"ABCDEF"
     return s.ends_with(c)
 
