@@ -21,27 +21,27 @@ extern from "<time.h>" nogil:
         i32  tm_yday
         i32  tm_isdst
         # GNU specific extensions
-        # r&char tm_zone
+        # r&i8 tm_zone
         # long tm_gmtoff
 
     static i32 daylight            # global state
     static i64 timezone
-    static r&char tzname[2]
+    static r&i8 tzname[2]
     fn void tzset()
 
-    fn r&char asctime(const tm*)
-    fn r&char asctime_r(const tm*, r&char)
-    fn r&char ctime(const time_t*)
-    fn r&char ctime_r(const time_t*, r&char)
+    fn r&i8 asctime(const tm*)
+    fn r&i8 asctime_r(const tm*, r&i8)
+    fn r&i8 ctime(const time_t*)
+    fn r&i8 ctime_r(const time_t*, r&i8)
     fn f64 difftime(time_t, time_t)
-    fn tm* getdate(r&char)
+    fn tm* getdate(r&i8)
     fn tm* gmtime(const time_t*)
     fn tm* gmtime_r(const time_t*, tm*)
     fn tm* localtime(const time_t*)
     fn tm* localtime_r(const time_t*, tm*)
     fn time_t mktime(tm*)
-    fn usize strftime(r&char, usize, r&char, const tm*)
+    fn usize strftime(r&i8, usize, r&i8, const tm*)
     fn usize wcsftime(wchar_t* str, usize cnt, const wchar_t* fmt, tm* time)
 
     # POSIX not stdC
-    fn r&char strptime(r&char, r&char, tm*)
+    fn r&i8 strptime(r&i8, r&i8, tm*)

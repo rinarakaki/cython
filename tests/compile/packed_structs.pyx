@@ -2,7 +2,7 @@
 
 extern from *:
     cdef packed struct MyStruct:
-        char a
+        i8 a
 
 pub packed struct PublicStruct:
     i32 a

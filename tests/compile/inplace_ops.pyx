@@ -2,7 +2,7 @@
 
 def test():
     let object a = 1, b = 2
-    let r&char p = 'abc'
+    let r&i8 p = 'abc'
     a += b
     a -= b
     a *= b

@@ -9,7 +9,7 @@ use cython::integral
 use cpython::Py_INCREF
 
 from Cython import Shadow as pure_cython
-type string_t = r&char
+type string_t = r&i8
 
 # floating = cython.fused_type(f32, f64) floating
 # integral = cython.fused_type(i32, i64) integral
@@ -104,7 +104,7 @@ def test_fused_with_pointer():
     let f32[5] float_array
     let string_t[5] string_array
 
-    let r&char s
+    let r&i8 s
 
     strings = [b"humpty", b"dumpty", b"fall", b"splatch", b"breakfast"]
 

@@ -3,26 +3,28 @@ def test_get_char_neg():
     >>> test_get_char_neg()
     0
     """
-    let char key = -1
-    if <char>-1 < 0:
+    let i8 key = -1
+    if <i8>-1 < 0:
         d = {-1:0}
     else:
         d = {255:0}
     return d[key]
+
 def test_get_char_zero():
     """
     >>> test_get_char_zero()
     1
     """
-    let char key = 0
+    let i8 key = 0
     d = {0:1}
     return d[key]
+
 def test_get_char_pos():
     """
     >>> test_get_char_pos()
     2
     """
-    let char key = 1
+    let i8 key = 1
     d = {1:2}
     return d[key]
 
@@ -158,7 +160,7 @@ def test_del_char():
     Traceback (most recent call last):
     KeyError: 0
     """
-    let char key = 0
+    let i8 key = 0
     d = {0:1}
     del d[key]
     return d[key]

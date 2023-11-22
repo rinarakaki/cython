@@ -5,7 +5,7 @@ use super::typeinfo::type_info
 extern from "<typeindex>" namespace "std" nogil:
     cdef cppclass type_index:
         type_index(const type_info &)
-        fn r&char name()
+        fn r&i8 name()
         fn usize hash_code()
         fn bool operator==(const type_index &)
         fn bool operator!=(const type_index &)

@@ -3,7 +3,7 @@
 def f(x, y):
     x = y
 
-fn void g(i32 i, f32 f, r&char p):
+fn void g(i32 i, f32 f, r&i8 p):
     f = i
 
 

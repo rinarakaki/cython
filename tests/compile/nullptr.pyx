@@ -1,6 +1,6 @@
 # mode: compile
 
-cdef r&char p1
+cdef r&i8 p1
 cdef i32* p2
 cdef i32 x
 

@@ -5,7 +5,7 @@
 extern from *:
     cdef cppclass string "{{type}}":
         string() except +
-        string(char* c_str, usize size) except +
+        string(i8* c_str, usize size) except +
     fn r&i8 __Pyx_PyObject_AsStringAndSize(object, r&mut isize) except NULL
 
 @cname("{{cname}}")
