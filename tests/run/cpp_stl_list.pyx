@@ -38,7 +38,7 @@ def pylist_test(L):
     finally:
         del l
 
-def iteration_test(L):
+fn iteration_test(L):
     """
     >>> iteration_test([1, 2, 4, 8])
     1
@@ -58,7 +58,7 @@ def iteration_test(L):
     finally:
         del l
 
-def reverse_iteration_test(L):
+fn reverse_iteration_test(L):
     """
     >>> reverse_iteration_test([1, 2, 4, 8])
     8
