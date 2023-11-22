@@ -1,8 +1,5 @@
 # mode: run
 
-import sys
-IS_PY2 = sys.version_info[0] < 3
-
 import cython
 from cython import sizeof
 
@@ -92,18 +89,18 @@ def test_boundscheck(x):
         return x[2]
 
 
-## CURRENTLY BROKEN - FIXME!!
-## Is this test make sense? Implicit conversion in pure Python??
-
-## @cython.locals(x=cython.int)
-## @cython.locals(y=cython.bint)
-## def test_locals(x):
-##     """
-##     >>> test_locals(5)
-##     True
-##     """
-##     y = x
-##     return y
+# CURRENTLY BROKEN - FIXME!!
+# Is this test make sense? Implicit conversion in pure Python??
+#
+# @cython.locals(x=cython.int)
+# @cython.locals(y=cython.bint)
+# def test_locals(x):
+#     """
+#     >>> test_locals(5)
+#     True
+#     """
+#     y = x
+#     return y
 
 
 def test_with_nogil(nogil, should_raise=False):
@@ -153,11 +150,8 @@ def test_struct(n, x):
     a = cython.declare(MyStruct3)
     a[0] = MyStruct(is_integral=True, data=MyUnion(n=n))
     a[1] = MyStruct(is_integral=False, data={'x': x})
-    if sys.version_info >= (3, 6):
-        # dict is ordered => struct creation via keyword arguments above was deterministic!
-        a[2] = MyStruct(False, MyUnion(x=x))
-    else:
-        a[2] = MyStruct(is_integral=False, data=MyUnion(x=x))
+    # dict is ordered => struct creation via keyword arguments above was deterministic!
+    a[2] = MyStruct(False, MyUnion(x=x))
     return a[0].data.n, a[1].data.x, a[2].is_integral
 
 import cython as cy
@@ -177,7 +171,7 @@ def test_imports():
 
     return a == d, compiled == my_compiled
 
-## CURRENTLY BROKEN - FIXME!!
+# # CURRENTLY BROKEN - FIXME!!
 
 # MyStruct3 = typedef(MyStruct[3])
 # MyStruct4 = my_typedef(MyStruct[4])
@@ -217,10 +211,10 @@ def test_declare_c_types(n):
     f01 = cython.declare(cython.double, n)
     f02 = cython.declare(cython.longdouble, n)
     #
-    #z00 = cython.declare(cython.complex, n+1j)
-    #z01 = cython.declare(cython.floatcomplex, n+1j)
-    #z02 = cython.declare(cython.doublecomplex, n+1j)
-    #z03 = cython.declare(cython.longdoublecomplex, n+1j)
+    # z00 = cython.declare(cython.complex, n+1j)
+    # z01 = cython.declare(cython.floatcomplex, n+1j)
+    # z02 = cython.declare(cython.doublecomplex, n+1j)
+    # z03 = cython.declare(cython.longdoublecomplex, n+1j)
 
 
 @cython.ccall
@@ -471,7 +465,7 @@ class CClass(object):
 class TestUnboundMethod:
     """
     >>> C = TestUnboundMethod
-    >>> IS_PY2 or (C.meth is C.__dict__["meth"])
+    >>> C.meth is C.__dict__["meth"]
     True
     """
     def meth(self): pass
@@ -556,7 +550,7 @@ def empty_declare():
     r3.x = 12.3
     assert r3.x == 12.3
 
-    #It generates a correct C code, but raises an exception when interpreted
+    # It generates a correct C code, but raises an exception when interpreted
     if cython.compiled:
         r4[0].is_integral = True
         assert r4[0].is_integral == True

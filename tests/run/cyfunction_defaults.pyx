@@ -3,12 +3,11 @@
 # tag: cyfunction, closures
 
 use cython
-import sys
+
 
 def get_defaults(func):
-    if sys.version_info >= (2, 6, 0):
-        return func.__defaults__
-    return func.func_defaults
+    return func.__defaults__
+
 
 def test_defaults_none():
     """
@@ -230,7 +229,7 @@ def test_memoryview_bytes(const u8[:] b=b'xyz'):
         return None
     return b[0]
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     '//NameNode[@entry.in_closure = true]',
     '//NameNode[@entry.from_closure = true]')
 def test_func_default_inlined():
@@ -249,7 +248,7 @@ def test_func_default_inlined():
         return arg
     return func
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     '//NameNode[@entry.in_closure = true]',
     '//NameNode[@entry.from_closure = true]')
 def test_func_default_scope():
@@ -291,7 +290,7 @@ cdef class C:
         pass
     def f3(self, a, /, b=1, *, c=[1]):
         pass
-    cpdef f4(self, a, char*c=NULL):
+    cpdef f4(self, a, r&char c=NULL):
         pass
     cpdef f5(self, a, str s = "123"):
         pass

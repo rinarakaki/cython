@@ -5,12 +5,12 @@
 
 def run_async(coro, ignore_type=false):
     if not ignore_type:
-        #assert coro.__class__ is types.GeneratorType
+        # assert coro.__class__ is types.GeneratorType
         assert coro.__class__.__name__ in ('coroutine', 'GeneratorWrapper'), coro.__class__.__name__
 
     buffer = []
     result = None
-    while True:
+    loop:
         try:
             buffer.append(coro.send(None))
         except StopIteration as ex:
@@ -25,7 +25,7 @@ def run_async__await__(coro):
     buffer = []
     result = None
     i = 0
-    while True:
+    loop:
         try:
             if i % 2:
                 buffer.append(next(aw))
@@ -142,11 +142,11 @@ def yield_from_cyobject():
     async def simple_nonit():
         return 10
 
-    #[cython.iterable_coroutine]
+    #[cython::iterable_coroutine]
     async def simple_it():
         return 10
 
-    #[cython.iterable_coroutine]
+    #[cython::iterable_coroutine]
     async def awaiting(awaitable):
         return await awaitable
 

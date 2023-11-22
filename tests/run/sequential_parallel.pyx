@@ -15,9 +15,9 @@ except ImportError:
     def next(it):
         return it.next()
 
-#@cython.test_assert_path_exists(
-#    "//ParallelWithBlockNode//ParallelRangeNode[@schedule = 'dynamic']",
-#    "//GILStatNode[@state = 'nogil]//ParallelRangeNode")
+# @cython::test_assert_path_exists(
+#     "//ParallelWithBlockNode//ParallelRangeNode[@schedule = 'dynamic']",
+#     "//GILStatNode[@state = 'nogil]//ParallelRangeNode")
 def test_prange():
     """
     >>> test_prange()
@@ -95,7 +95,7 @@ def test_propagation():
     return i, j, x, y, sum1, sum2
 
 # DISABLED, not allowed in OpenMP 3.0 (fails on Windows)
-#def test_unsigned_operands():
+# def test_unsigned_operands():
 #    """
 #    >>> test_unsigned_operands()
 #    10
@@ -106,7 +106,7 @@ def test_propagation():
 #    cdef i32 step = 1
 #
 #    cdef i32 steps_taken = 0
-#    cdef i32 *steps_takenp = &steps_taken
+#    cdef i32* steps_takenp = &steps_taken
 #
 #    for i in prange(start, stop, step, nogil=true):
 #        steps_taken += 1
@@ -231,10 +231,10 @@ def test_pure_mode():
         print pure_parallel.threadid()
 
 extern from "types.h":
-    ctypedef i16 actually_long_t
-    ctypedef i64 actually_short_t
+    type actually_long_t = i16
+    type actually_short_t = i64
 
-ctypedef i32 myint_t
+type myint_t = i32
 
 def test_nan_init():
     """
@@ -242,9 +242,9 @@ def test_nan_init():
     """
     let i32 mybool = 0
     let i32 err = 0
-    let i32 *errp = &err
+    let r&mut i32 errp = &err
 
-    let signed char a1 = 10
+    let i8 a1 = 10
     let u8 a2 = 10
     let i16 b1 = 10
     let u16 b2 = 10
@@ -261,9 +261,9 @@ def test_nan_init():
 
     let f32 f = 10.0
     let f64 g = 10.0
-    let long double h = 10.0
+    let f128 h = 10.0
 
-    let void *p = <void *> 10
+    let auto p = <r&void>10
 
     with nogil, cython.parallel.parallel():
         # First, trick the error checking to make it believe these variables
@@ -281,7 +281,7 @@ def test_nan_init():
             d1 == 10 or d2 == 10 or
             e1 == 10 or e2 == 10 or
             f == 10.0 or g == 10.0 or h == 10.0 or
-            p == <void *> 10 or miss1 == 10 or miss2 == 10
+            p == <void*>10 or miss1 == 10 or miss2 == 10
             or typedef1 == 10):
             errp[0] = 1
 
@@ -302,7 +302,7 @@ def test_nan_init():
             d1 == 10 or d2 == 10 or
             e1 == 10 or e2 == 10 or
             f == 10.0 or g == 10.0 or h == 10.0 or
-            p == <void *> 10 or miss1 == 10 or miss2 == 10
+            p == <void*>10 or miss1 == 10 or miss2 == 10
             or typedef1 == 10):
             errp[0] = 1
 
@@ -315,8 +315,8 @@ def test_nan_init():
         c1 = 16
 
 
-fn void nogil_print(char *s) noexcept with gil:
-    print s.decode('ascii')
+fn void nogil_print(r&i8 s) noexcept with gil:
+    print s.decode("ascii")
 
 def test_else_clause():
     """
@@ -358,7 +358,7 @@ def test_prange_continue():
     9 0
     """
     let i32 i
-    let i32 *p = <i32 *> calloc(10, sizeof(i32))
+    let auto p = <r&mut i32>calloc(10, sizeof(i32))
 
     if p == NULL:
         raise MemoryError
@@ -397,7 +397,7 @@ def test_nested_break_continue():
 
     print i, j, result1, result2
 
-    with nogil, cython.parallel.parallel(num_threads=2):
+    with nogil, cython::parallel::parallel(num_threads=2):
         for i in prange(10, schedule='static'):
             if i == 8:
                 break
@@ -632,7 +632,6 @@ def test_parallel_with_gil_continue_unnested():
         with gil:
             if i % 2:
                 continue
-
         sum += i
 
     print sum
@@ -739,7 +738,7 @@ def test_pointer_temps(f64 x):
     4.0
     """
     let isize i
-    let f64* f
+    let r&f64 f
     let f64[:] arr = array(format="d", shape=(10,), itemsize=sizeof(f64))
     arr[0] = 4.0
     arr[1] = 3.0
@@ -780,9 +779,9 @@ extern from *:
         return 1.0;
     }
     """
-    void address_of_temp(...) nogil
-    void address_of_temp2(...) nogil
-    double get_value() except -1.0 nogil  # will generate a temp for exception checking
+    fn void address_of_temp(...) nogil
+    fn void address_of_temp2(...) nogil
+    fn f64 get_value() except -1.0 nogil  # will generate a temp for exception checking
 
 def test_inner_private():
     """
@@ -836,7 +835,7 @@ def test_prange_call_exception_checked_function():
     """
 
     let i32 N = 10000
-    let i32* buf = <i32*>malloc(sizeof(i32)*N)
+    let auto buf = <i32*>malloc(sizeof(i32) * N)
     if buf == NULL:
         raise MemoryError
     try:

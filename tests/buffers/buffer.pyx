@@ -1,11 +1,7 @@
 __doc__ = u"""
 >>> b1 = TestBuffer()
 >>> b2 = TestBufferRelease()
-"""
 
-import sys
-if sys.version_info[0] >= 3:
-    __doc__ += u"""
 >>> ms = memoryview(s)
 >>> ms.tobytes()
 b'abcdefg'
@@ -37,7 +33,7 @@ s = b"abcdefg"
 cdef class TestBuffer:
     def __getbuffer__(self, Py_buffer* buffer, i32 flags):
         print u"__getbuffer__ called"
-        buffer.buf = <char*>s
+        buffer.buf = <r&char>s
         buffer.obj = self
         buffer.len = len(s)
         buffer.readonly = 0

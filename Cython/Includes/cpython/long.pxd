@@ -1,10 +1,10 @@
 extern from "Python.h":
-    ctypedef i128 PY_LONG_LONG
-    ctypedef u128 uPY_LONG_LONG "unsigned PY_LONG_LONG"
+    type PY_LONG_LONG = i128
+    type uPY_LONG_LONG "unsigned PY_LONG_LONG" = u128
 
-    ############################################################################
+    # ##########################################################################
     # 7.2.3 Long Integer Objects
-    ############################################################################
+    # ##########################################################################
 
     # PyLongObject
     #
@@ -15,10 +15,10 @@ extern from "Python.h":
     # This instance of PyTypeObject represents the Python long integer
     # type. This is the same object as long and types.LongType.
 
-    fn bint PyLong_Check(object p)
+    fn u2 PyLong_Check(object p)
     # Return true if its argument is a PyLongObject or a subtype of PyLongObject.
 
-    fn bint PyLong_CheckExact(object p)
+    fn u2 PyLong_CheckExact(object p)
     # Return true if its argument is a PyLongObject, but not a subtype of PyLongObject.
 
     fn object PyLong_FromLong(i64 v)
@@ -49,7 +49,7 @@ extern from "Python.h":
     # Return value: New reference.
     # Return a new PyLongObject object from the integer part of v, or NULL on failure.
 
-    fn object PyLong_FromString(char *str, char **pend, i32 base)
+    fn object PyLong_FromString(r&char str, char** pend, i32 base)
     # Return value: New reference.
     # Return a new PyLongObject based on the string value in str,
     # which is interpreted according to the radix in base. If pend is
@@ -77,7 +77,7 @@ extern from "Python.h":
     # PyUnicode_EncodeDecimal() and then converted using PyLong_FromString().
     # New in version 3.3.
 
-    fn object PyLong_FromVoidPtr(void *p)
+    fn object PyLong_FromVoidPtr(void* p)
     # Return value: New reference.
     # Create a Python integer or long integer from the pointer p. The
     # pointer value can be retrieved from the resulting value using
@@ -88,7 +88,7 @@ extern from "Python.h":
     # Return a C long representation of the contents of pylong. If
     # pylong is greater than LONG_MAX, an OverflowError is raised.
 
-    fn i64 PyLong_AsLongAndOverflow(object pylong, i32 *overflow) except? -1
+    fn i64 PyLong_AsLongAndOverflow(object pylong, i32* overflow) except? -1
     # Return a C long representation of the contents of pylong. If pylong is
     # greater than LONG_MAX or less than LONG_MIN, set *overflow to 1 or -1,
     # respectively, and return -1; otherwise, set *overflow to 0. If any other
@@ -96,7 +96,7 @@ extern from "Python.h":
     # be returned and *overflow will be 0.
     # New in version 2.7.
 
-    PY_LONG_LONG PyLong_AsLongLongAndOverflow(object pylong, i32 *overflow) except? -1
+    fn PY_LONG_LONG PyLong_AsLongLongAndOverflow(object pylong, i32* overflow) except? -1
     # Return a C long long representation of the contents of pylong. If pylong
     # is greater than PY_LLONG_MAX or less than PY_LLONG_MIN, set *overflow to
     # 1 or -1, respectively, and return -1; otherwise, set *overflow to 0. If
@@ -114,13 +114,13 @@ extern from "Python.h":
     # pylong. If pylong is greater than ULONG_MAX, an OverflowError is
     # raised.
 
-    PY_LONG_LONG PyLong_AsLongLong(object pylong) except? -1
+    fn PY_LONG_LONG PyLong_AsLongLong(object pylong) except? -1
     # Return a C long long from a Python long integer. If pylong
     # cannot be represented as a long long, an OverflowError will be
     # raised.
 
-    uPY_LONG_LONG PyLong_AsUnsignedLongLong(object pylong) except? -1
-    #unsigned PY_LONG_LONG PyLong_AsUnsignedLongLong(object pylong)
+    fn uPY_LONG_LONG PyLong_AsUnsignedLongLong(object pylong) except? -1
+    # unsigned PY_LONG_LONG PyLong_AsUnsignedLongLong(object pylong)
     # Return a C unsigned long long from a Python long integer. If
     # pylong cannot be represented as an unsigned long long, an
     # OverflowError will be raised if the value is positive, or a
@@ -131,7 +131,7 @@ extern from "Python.h":
     # checking for overflow.
 
     fn uPY_LONG_LONG PyLong_AsUnsignedLongLongMask(object io) except? -1
-    #unsigned PY_LONG_LONG PyLong_AsUnsignedLongLongMask(object io)
+    # unsigned PY_LONG_LONG PyLong_AsUnsignedLongLongMask(object io)
     # Return a C unsigned long long from a Python long integer,
     # without checking for overflow.
 

@@ -13,7 +13,7 @@ from distutils.core import setup
 
 setup(
     ext_modules = cythonize("**/*.pyx"),
-    )
+)
 
 ######## subtest.pyx ########
 
@@ -44,8 +44,7 @@ extern from *:
         return PyLong_FromLong(r);
     }
     """
-    object run_in_subinterpreter(const char *code)
-
+    fn object run_in_subinterpreter(r&i8 code)
 
 MAIN_HAS_IMPORTED = False
 
@@ -65,14 +64,11 @@ def run_sub():
     assert 0 == run_in_subinterpreter(pre + b'import package')
     assert 0 == run_in_subinterpreter(pre + b'import package')
 
-    import sys
     result = run_in_subinterpreter(pre + b'import package.subtest')
     if not MAIN_HAS_IMPORTED:
         assert result == 0, result  # imports only in subinterpreters are ok
-    elif sys.version_info >= (3, 5):
-        assert result == -1, result  # re-import in a different subinterpreter fails in Py3.5+ (with PEP-489)
     else:
-        assert result == 0, result  # re-import in a different subinterpreter reuses the module in Py<3.5
+        assert result == -1, result  # re-import in a different subinterpreter fails in Py3.5+ (with PEP-489)
 
 
 ######## package/__init__.py ########

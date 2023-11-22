@@ -1,5 +1,5 @@
 extern from "ctypedefextern.h":
-    ctypedef i32 some_int
+    type some_int = i32
     ctypedef some_int *some_ptr
 
 fn void spam():

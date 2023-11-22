@@ -1,8 +1,6 @@
 # mode: run
 # tag: datetime
 
-import sys
-
 use cpython::datetime::import_datetime
 use cpython::datetime::(time_new, date_new, datetime_new, timedelta_new)
 use cpython::datetime::(datetime, time)
@@ -31,7 +29,7 @@ def test_datetime(i32 year, i32 month, i32 day, i32 hour,
     '''
     >>> test_datetime(2012, 12, 31, 12, 30, 59, 12345, 0)
     (True, True, True, True, True, True, True, True, True)
-    >>> test_datetime(2012, 12, 11, 12, 30, 59, 3322, 1 if sys.version_info >= (3, 7) else 0)
+    >>> test_datetime(2012, 12, 11, 12, 30, 59, 3322, 1)
     (True, True, True, True, True, True, True, True, True)
     '''
     o = datetime_new(
@@ -51,7 +49,7 @@ def test_time(i32 hour, i32 minute, i32 second, i32 microsecond, i32 fold):
     '''
     >>> test_time(12, 30, 59, 12345, 0)
     (True, True, True, True, True, True)
-    >>> test_time(12, 30, 43, 5432, 1 if sys.version_info >= (3, 7) else 0)
+    >>> test_time(12, 30, 43, 5432, 1)
     (True, True, True, True, True, True)
     '''
     o = time_new(hour, minute, second, microsecond, None, fold)

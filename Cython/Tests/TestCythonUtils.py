@@ -1,9 +1,6 @@
 import sys
 import unittest
-try:
-    from StringIO import StringIO
-except ImportError:
-    from io import StringIO  # doesn't accept 'str' in Py2
+from io import StringIO
 
 from Cython.Utils import (
     _CACHE_NAME_PATTERN, _build_cache_name, _find_cache_attributes,
@@ -15,7 +12,7 @@ METHOD_NAME = "cached_next"
 CACHE_NAME = _build_cache_name(METHOD_NAME)
 NAMES = CACHE_NAME, METHOD_NAME
 
-class Cached(object):
+class Cached:
     @cached_method
     def cached_next(self, x):
         return next(x)
@@ -28,7 +25,7 @@ class TestCythonUtils(unittest.TestCase):
         self.assertEqual('0x001D00F0', build_hex_version('0.29'))
         self.assertEqual('0x040000F0', build_hex_version('4.0'))
 
-    ############################## Cached Methods ##############################
+    # ############################ Cached Methods ##############################
 
     def test_cache_method_name(self):
         method_name = "foo"
@@ -61,7 +58,7 @@ class TestCythonUtils(unittest.TestCase):
 
     def test_cached_method(self):
         obj = Cached()
-        value = iter(range(3))  # iter for Py2
+        value = iter(range(3))
         cache = {(value,): 0}
 
         # cache args
@@ -76,7 +73,7 @@ class TestCythonUtils(unittest.TestCase):
 
     def test_clear_method_caches(self):
         obj = Cached()
-        value = iter(range(3))  # iter for Py2
+        value = iter(range(3))
         cache = {(value,): 1}
 
         obj.cached_next(value)  # cache args

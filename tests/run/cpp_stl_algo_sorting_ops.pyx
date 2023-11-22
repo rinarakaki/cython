@@ -125,7 +125,7 @@ extern from *:
         int age
         string name
 
-fn bool Employee_greater(const Employee& lhs, const Employee& rhs):
+fn bool Employee_greater(&Employee lhs, &Employee rhs):
     return lhs.age > rhs.age
 
 def test_stable_sort():

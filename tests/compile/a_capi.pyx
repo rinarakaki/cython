@@ -22,7 +22,7 @@ cdef api list o_api = C()
 cdef api f32 f(Foo *x):
     pass
 
-pub void g(Blarg *x):
+pub fn void g(Blarg *x):
     pass
 
 pub api void h(Zax *x):

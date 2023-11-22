@@ -1,6 +1,6 @@
 extern from "someheader.h":
-    ctypedef const char specialChar
+    type specialChar = const char
 
-    fn i32 process_string(const char* s)
+    fn i32 process_string(r&char s)
     
     const fn u8* look_up_cached_string(const u8* key)

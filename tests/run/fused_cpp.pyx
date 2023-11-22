@@ -11,12 +11,12 @@ def test_cpp_specialization(cython.floating element):
     >>> import cython
     >>> test_cpp_specialization[cython.float](10.0)
     vector[float] * float 10.0
-    >>> test_cpp_specialization[cython.f64](10.0)
+    >>> test_cpp_specialization[cython::f64](10.0)
     vector[double] * double 10.0
     """
     let vector[cython.floating] *v = new vector[cython.floating]()
     v.push_back(element)
-    print cython.typeof(v), cython.typeof(element), v.at(0)
+    print cython::typeof(v), cython::typeof(element), v.at(0)
 
 cdef fused C:
    i32
@@ -34,7 +34,7 @@ def typeid_call(C x):
 
 use cython
 
-def typeid_call2(cython.integral x):
+def typeid_call2(cython::integral x):
     """
     For GH issue 3203
     >>> typeid_call2[i32](1)
@@ -43,8 +43,8 @@ def typeid_call2(cython.integral x):
     let const type_info* a = &typeid(cython.integral)
     return a[0] == tidint[0]
 
-fn fused_ref(cython.integral& x):
-    return x*2
+fn cython::integral fused_ref(&mut cython::integral x):
+    return x * 2
 
 def test_fused_ref(i32 x):
     """
@@ -58,7 +58,7 @@ ctypedef fused nested_fused:
 
 fn vec_of_fused(nested_fused v):
     x = v[0]
-    return cython.typeof(x)
+    return cython::typeof(x)
 
 def test_nested_fused():
     """
@@ -76,7 +76,7 @@ ctypedef fused nested_fused2:
 
 fn map_of_fused(nested_fused2 m):
     for pair in m:
-        return cython.typeof(pair.first), cython.typeof(pair.second)
+        return cython::typeof(pair.first), cython::typeof(pair.second)
 
 def test_nested_fused2():
     """

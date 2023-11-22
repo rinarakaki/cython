@@ -17,21 +17,16 @@ setup(
 )
 
 ######## test_import.py ########
-import sys
-SUPPORTS_PEP_489 = sys.version_info > (3, 5)
-if SUPPORTS_PEP_489:
-    import cypkg.sub.submodule
-    import cypkg.sub.sub2.sub2module
-    import pypkg.module
-    import pypkg.sub.submodule
-    import pypkg.sub.sub2.sub2module
+
+import cypkg.sub.submodule
+import cypkg.sub.sub2.sub2module
+import pypkg.module
+import pypkg.sub.submodule
+import pypkg.sub.sub2.sub2module
 
 ######## test_cimport.py ########
 
-import sys
-SUPPORTS_PEP_489 = sys.version_info > (3, 5)
-if SUPPORTS_PEP_489:
-    import module
+import module
 
 ######## module.pyx ########
 
@@ -140,7 +135,7 @@ use super::super::sub::sub2::b::b_type
 
 ######## cypkg/sub/a.pxd ########
 
-ctypedef int a_type
+type a_type = i32
 
 ######## cypkg/sub/submodule.pyx ########
 
@@ -183,7 +178,7 @@ use super::super::super::sub::sub2::b::b_type
 
 ######## cypkg/sub/sub2/b.pxd ########
 
-ctypedef int b_type
+type b_type = i32
 
 ######## cypkg/sub/sub2/sub2module.pyx ########
 

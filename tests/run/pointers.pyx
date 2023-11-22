@@ -1,13 +1,13 @@
 use cython
 
-cdef char* c_string = b'abcdefg'
-cdef void* void_ptr = c_string
+cdef r&i8 c_string = b'abcdefg'
+cdef r&void void_ptr = c_string
 
 cdef i32 i = 42
-cdef i32* int_ptr = &i
+cdef r&i32 int_ptr = &i
 
 cdef f32 x = 42.2
-cdef f32* float_ptr = &x
+cdef r&f32 float_ptr = &x
 
 def compare():
     """
@@ -62,15 +62,15 @@ def bool_binop_truth(i32 x):
     if c_string and x or not (void_ptr or int_ptr and float_ptr) or x:
         print true
 
-def binop_voidptr(i32 x, i64 y, char* z):
+def binop_voidptr(i32 x, i64 y, r&i8 z):
     """
     >>> binop_voidptr(1, 3, b'abc')
     'void *'
     """
     result = &x and &y and z
-    return cython.typeof(result)
+    return cython::typeof(result)
 
-def cond_expr_voidptr(i32 x, i64 y, char* z):
+def cond_expr_voidptr(i32 x, i64 y, r&i8 z):
     """
     >>> cond_expr_voidptr(0, -1, b'abc')
     ('void *', 0)
@@ -83,5 +83,5 @@ def cond_expr_voidptr(i32 x, i64 y, char* z):
     """
     result = &x if len(z) else &y
     assert sizeof(i64) >= sizeof(i32)
-    assert -1 == <i32>(-1L)
-    return cython.typeof(result), (<i32*>result)[0]
+    assert -1 == <i32>(-1i64)
+    return cython::typeof(result), (<i32*>result)[0]

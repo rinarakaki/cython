@@ -11,7 +11,7 @@ def tss_create_delete():
     (True, False)
     """
     let Py_tss_t tss_key
-    let bint after_create, after_delete
+    let u2 after_create, after_delete
     if PyThread_tss_create(&tss_key) != 0:
         raise MemoryError()
     after_create = PyThread_tss_is_created(&tss_key) != 0
@@ -25,9 +25,8 @@ def tss_alloc_free():
     >>> tss_alloc_free()
     False
     """
-    let Py_tss_t *ptr_key
-    let bint after_alloc, after_free
-    ptr_key = PyThread_tss_alloc()
+    let auto ptr_key = PyThread_tss_alloc()
+    let u2 after_alloc, after_free
     if ptr_key == NULL:
         raise MemoryError()
     after_alloc = PyThread_tss_is_created(ptr_key) != 0
@@ -39,9 +38,8 @@ def tss_alloc_create_delete_free():
     >>> tss_alloc_create_delete_free()
     (False, True, False)
     """
-    let Py_tss_t *ptr_key
-    let bint after_alloc, after_free
-    ptr_key = PyThread_tss_alloc()
+    let auto ptr_key = PyThread_tss_alloc()
+    let u2 after_alloc, after_free
     if ptr_key == NULL:
         raise MemoryError()
     after_alloc = PyThread_tss_is_created(ptr_key) != 0

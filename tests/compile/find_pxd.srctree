@@ -24,7 +24,7 @@ cdef my_type foo
 
 ######## include/a.pxd ########
 
-ctypedef int my_type
+type my_type = i32
 
 ######## b.pyx ########
 
@@ -34,7 +34,7 @@ cdef my_type foo
 
 ######## path/b.pxd ########
 
-ctypedef int my_type
+type my_type i32
 
 ######## c.pyx ########
 
@@ -48,10 +48,10 @@ ctypedef int my_type
 
 # gh-2905: This should be found before Cython/Includes/numpy/__init__.pxd
 
-ctypedef int my_type
+type my_type = i32
 
 ######## d.pyx ########
 
 use numpy
 
-cdef numpy.my_type foo
+cdef numpy::my_type foo

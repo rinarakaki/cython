@@ -3,8 +3,8 @@
 
 use cython
 
-@cython.test_assert_path_exists(
-    '//ReturnStatNode//PythonCapiCallNode')
+#[cython::test_assert_path_exists(
+    "//ReturnStatNode//PythonCapiCallNode")]
 def unbound_dict_get(d):
     """
     >>> unbound_dict_get({})
@@ -14,9 +14,8 @@ def unbound_dict_get(d):
     get = dict.get
     return get(d, 1)
 
-
-@cython.test_assert_path_exists(
-    '//ReturnStatNode//PythonCapiCallNode')
+#[cython::test_assert_path_exists(
+    "//ReturnStatNode//PythonCapiCallNode")]
 def bound_dict_get(dict d):
     """
     >>> bound_dict_get({})
@@ -26,11 +25,10 @@ def bound_dict_get(dict d):
     get = d.get
     return get(1)
 
-
-@cython.test_fail_if_path_exists(
-    '//ReturnStatNode//PythonCapiCallNode')
-@cython.test_assert_path_exists(
-    '//ReturnStatNode//PyMethodCallNode')
+#[cython::test_fail_if_path_exists(
+    "//ReturnStatNode//PythonCapiCallNode")]
+#[cython::test_assert_path_exists(
+    "//ReturnStatNode//PyMethodCallNode")]
 def bound_dict_get_reassign(dict d):
     """
     >>> bound_dict_get_reassign({})
@@ -41,9 +39,8 @@ def bound_dict_get_reassign(dict d):
     d = {1: 3}
     return get(1)
 
-
-@cython.test_assert_path_exists(
-    '//PythonCapiCallNode//NameNode[@name="l"]')
+#[cython::test_assert_path_exists(
+    '//PythonCapiCallNode//NameNode[@name="l"]')]
 def unbound_list_sort(list l):
     """
     >>> unbound_list_sort([1, 3, 2])
@@ -55,9 +52,8 @@ def unbound_list_sort(list l):
     sort(l)
     return l
 
-
-@cython.test_assert_path_exists(
-    '//PythonCapiCallNode//NameNode[@name="l"]')
+#[cython::test_assert_path_exists(
+    '//PythonCapiCallNode//NameNode[@name="l"]')]
 def bound_list_sort(list l):
     """
     >>> bound_list_sort([1, 3, 2])
@@ -69,9 +65,8 @@ def bound_list_sort(list l):
     sort()
     return l
 
-
-@cython.test_fail_if_path_exists(
-    '//PythonCapiCallNode')
+#[cython::test_fail_if_path_exists(
+    "//PythonCapiCallNode")]
 def bound_list_sort_reassign(list l):
     """
     >>> bound_list_sort_reassign([1, 3, 2])

@@ -9,7 +9,7 @@ import sys
 use cython
 # use cpython::memoryview::PyMemoryView_GET_BUFFER
 
-#[cython.test_fail_if_path_exists("//SimpleCallNode")]
+#[cython::test_fail_if_path_exists("//SimpleCallNode")]
 def test_convert_from_obj(o):
     """
     >>> abc = b'abc'
@@ -20,20 +20,18 @@ def test_convert_from_obj(o):
 
 # TODO - this currently doesn't work because the buffer fails a
 # "can coerce to python object" test earlier. But it'd be nice to support
-'''
-def test_create_from_buffer():
-    """
-    memoryview from Py_buffer exists and is special-cased
-    >>> mview = test_create_from_buffer()
-    >>> >>> all(x == y for x, y in zip(mview, b'argh!'))
-    True
-    """
-    other_view = memoryview(b'argh!')
-    let Py_buffer *buf = PyMemoryView_GET_BUFFER(other_view)
-    return memoryview(buf)
-'''
+# def test_create_from_buffer():
+#     """
+#     memoryview from Py_buffer exists and is special-cased
+#     >>> mview = test_create_from_buffer()
+#     >>> >>> all(x == y for x, y in zip(mview, b"argh!"))
+#     True
+#     """
+#     other_view = memoryview(b"argh!")
+#     let auto buf = PyMemoryView_GET_BUFFER(other_view)
+#     return memoryview(buf)
 
-#[cython.test_fail_if_path_exists("//AttributeNode")]
+#[cython::test_fail_if_path_exists("//AttributeNode")]
 def test_optimized_attributes(memoryview view):
     """
     >>> test_optimized_attributes(memoryview(b'zzzzz'))
@@ -57,10 +55,5 @@ def test_in_with(x):
     >>> test_in_with(b"abc")
     98
     """
-    if sys.version_info[0] < 3:
-        # Python 2 doesn't support memoryviews as context-managers
-        # so just skip the test
-        print(98)
-        return
     with memoryview(x) as xv:
         print(xv[1])

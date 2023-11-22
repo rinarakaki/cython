@@ -49,9 +49,6 @@ jobs:
         env: [{}]
 
         include:
-          # Temporary - Allow failure on Python 3.12+ jobs (https://github.com/cython/cython/issues/5470)
-          - python-version: "3.12"
-            allowed_failure: true
           - python-version: "3.13-dev"
             allowed_failure: true
 
@@ -64,13 +61,12 @@ jobs:
             backend: "c,cpp"
             env: { LIMITED_API: "--limited-api", EXCLUDE: "--no-file" }
             extra_hash: "-limited_api"
-          - os: ubuntu-20.04
+          - os: ubuntu-latest
             python-version: "3.13-dev"
             allowed_failure: true
             backend: "c,cpp"
             env: { LIMITED_API: "--limited-api", EXCLUDE: "--no-file" }
             extra_hash: "-limited_api"
-
 
     # This defaults to 360 minutes (6h) which is way too long and if a test gets stuck, it can block other pipelines.
     # From testing, the runs tend to take ~20 minutes for ubuntu / macos and ~40 for windows,
@@ -81,7 +77,6 @@ jobs:
     env:
       BACKEND: ${{ matrix.backend }}
       PYTHON_VERSION: ${{ matrix.python-version }}
-      MACOSX_DEPLOYMENT_TARGET: 10.15
       LLVM_VERSION: 15
       USE_CCACHE: 1
       CCACHE_SLOPPINESS: "pch_defines,time_macros"

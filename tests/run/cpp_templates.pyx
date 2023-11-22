@@ -8,20 +8,20 @@ extern from "cpp_templates_helper.h":
         Wrap(T)
         void set(T)
         T get()
-        bint operator==(Wrap[T])
+        u2 operator==(Wrap[T])
 
         AltType get_alt_type()
         void set_alt_type(AltType)
 
         UndeclarableAltType create()
-        bint accept(UndeclarableAltType)
+        u2 accept(UndeclarableAltType)
 
     cdef cppclass Pair[T1,T2]:
         Pair(T1,T2)
         T1 first()
         T2 second()
-        bint operator==(Pair[T1,T2])
-        bint operator!=(Pair[T1,T2])
+        u2 operator==(Pair[T1,T2])
+        u2 operator!=(Pair[T1,T2])
 
     cdef cppclass SuperClass[T1, T2]:
         pass
@@ -137,7 +137,7 @@ def test_typeof(f64 x):
     2.25
     """
     try:
-        w = new Wrap[cython.typeof(&f)](&f)
+        w = new Wrap[cython::typeof(&f)](&f)
         return w.get()(x)
     finally:
         del w

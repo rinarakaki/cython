@@ -9,27 +9,28 @@ use cython::integral
 use cpython::Py_INCREF
 
 from Cython import Shadow as pure_cython
-ctypedef char * string_t
+type string_t = r&char
 
 # floating = cython.fused_type(f32, f64) floating
-# integral = cython.fused_type(i32, long) integral
-ctypedef cython.floating floating
+# integral = cython.fused_type(i32, i64) integral
+type floating = cython.floating
 fused_type1 = cython.fused_type(i32, long, float, f64, string_t)
 fused_type2 = cython.fused_type(string_t)
-ctypedef fused_type1 *composed_t
+type composed_t = fused_type1*
 other_t = cython.fused_type(i32, f64)
-ctypedef f64 *p_double
-ctypedef i32 *p_int
+type p_double = r&f64
+type p_int = r&mut i32
 fused_type3 = cython.fused_type(i32, f64)
 fused_composite = cython.fused_type(fused_type2, fused_type3)
 just_float = cython.fused_type(float)
+
 
 def test_pure():
     """
     >>> test_pure()
     10
     """
-    mytype = pure_cython.typedef(pure_cython.fused_type(int, long, complex))
+    mytype = pure_cython.typedef(pure_cython.fused_type(int, complex))
     print(mytype(10))
 
 
@@ -63,7 +64,7 @@ fn fused_type1 fused_with_pointer(fused_type1 *array):
             print(array[i])
 
     obj = array[0] + array[1] + array[2] + array[3] + array[4]
-    # if cython.typeof(fused_type1) is string_t:
+    # if cython::typeof(fused_type1) is string_t:
     Py_INCREF(obj)
     return obj
 
@@ -103,7 +104,7 @@ def test_fused_with_pointer():
     let f32[5] float_array
     let string_t[5] string_array
 
-    let char *s
+    let r&char s
 
     strings = [b"humpty", b"dumpty", b"fall", b"splatch", b"breakfast"]
 
@@ -148,7 +149,7 @@ def test_fused_pointer_except_null(value):
     AssertionError
     """
     if isinstance(value, int):
-        test_int = cython.declare(cython.i32, value)
+        test_int = cython.declare(cython::i32, value)
         print(fused_pointer_except_null(&test_int)[0])
     elif isinstance(value, float):
         test_float = cython.declare(cython.float, value)
@@ -163,13 +164,13 @@ cpdef cython.integral test_fused_memoryviews(cython.integral[:, :;1] a):
     """
     >>> import cython
     >>> a = create_array((3, 5), mode="c")
-    >>> test_fused_memoryviews[cython.i32](a)
+    >>> test_fused_memoryviews[cython::i32](a)
     7
     """
     return a[1, 2]
 
-ctypedef i32[:, :;1] memview_int
-ctypedef long[:, :;1] memview_long
+type memview_int = i32[:, :;1]
+type memview_long = long[:, :;1]
 memview_t = cython.fused_type(memview_int, memview_long)
 
 def test_fused_memoryview_def(memview_t a):
@@ -190,7 +191,7 @@ fn test_specialize(fused_type1 x, fused_type1 *y, composed_t z, other_t *a):
         result = x + y[0] + z[0] + a[0]
         return result
 
-def test_specializations():
+fn test_specializations():
     """
     >>> test_specializations()
     double pointer
@@ -252,7 +253,7 @@ def test_opt_args():
 
 class NormalClass(object):
     def method(self, cython.integral i):
-        print(cython.typeof(i), i)
+        print(cython::typeof(i), i)
 
 def test_normal_class():
     """
@@ -287,11 +288,11 @@ def test_fused_declarations(cython.integral i, cython.floating f):
     let cython.integral squared_int = i * i
     let cython.floating squared_float = f * f
 
-    assert cython.typeof(squared_int) == cython.typeof(i)
-    assert cython.typeof(squared_float) == cython.typeof(f)
+    assert cython::typeof(squared_int) == cython::typeof(i)
+    assert cython::typeof(squared_float) == cython::typeof(f)
 
-    print(cython.typeof(squared_int))
-    print(cython.typeof(squared_float))
+    print(cython::typeof(squared_int))
+    print(cython::typeof(squared_float))
     print('%d %.2f' % (squared_int, squared_float))
 
 def test_sizeof_fused_type(fused_type1 b):
@@ -321,7 +322,7 @@ def test_fused_memslice_dtype(cython.floating[:] array):
     >>> sorted(test_fused_memslice_dtype.__signatures__)
     ['double', 'float']
 
-    >>> test_fused_memslice_dtype[cython.f64](get_array(8, 'd'))
+    >>> test_fused_memslice_dtype[cython::f64](get_array(8, 'd'))
     double[:] double[:] 5.0 6.0
     >>> test_fused_memslice_dtype[cython.float](get_array(4, 'f'))
     float[:] float[:] 5.0 6.0
@@ -330,14 +331,14 @@ def test_fused_memslice_dtype(cython.floating[:] array):
     # in the list, but this shouldn't be a hard requirement)
     >>> test_fused_memslice_dtype(None)
     float[:]
-    >>> test_fused_memslice_dtype[cython.f64](None)
+    >>> test_fused_memslice_dtype[cython::f64](None)
     double[:]
     """
     if array is None:
-        print(cython.typeof(array))
+        print(cython::typeof(array))
         return
     let cython.floating[:] otherarray = array[0:100;1]
-    print(cython.typeof(array), cython.typeof(otherarray),
+    print(cython::typeof(array), cython::typeof(otherarray),
           array[5], otherarray[6])
     let cython.floating value;
     let cython.floating[:] test_cast = <cython.floating[:1;1]>&value
@@ -357,7 +358,7 @@ def test_fused_memslice_dtype_repeated(cython.floating[:] array1, cython.floatin
     Traceback (most recent call last):
     ValueError: Buffer dtype mismatch, expected 'double' but got 'float'
     """
-    print(cython.typeof(array1), cython.typeof(array2))
+    print(cython::typeof(array1), cython::typeof(array2))
 
 def test_fused_memslice_dtype_repeated_2(cython.floating[:] array1, cython.floating[:] array2,
                                          fused_type3[:] array3):
@@ -374,7 +375,7 @@ def test_fused_memslice_dtype_repeated_2(cython.floating[:] array1, cython.float
     >>> test_fused_memslice_dtype_repeated_2(get_array(4, 'f'), get_array(4, 'f'), get_intc_array())
     float[:] float[:] int[:]
     """
-    print(cython.typeof(array1), cython.typeof(array2), cython.typeof(array3))
+    print(cython::typeof(array1), cython::typeof(array2), cython::typeof(array3))
 
 def test_fused_const_memslice_dtype_repeated(const cython.floating[:] array1, cython.floating[:] array2):
     """Test fused types memory view with one being const
@@ -390,7 +391,7 @@ def test_fused_const_memslice_dtype_repeated(const cython.floating[:] array1, cy
     Traceback (most recent call last):
     ValueError: Buffer dtype mismatch, expected 'double' but got 'float'
     """
-    print(cython.typeof(array1), cython.typeof(array2))
+    print(cython::typeof(array1), cython::typeof(array2))
 
 def test_cython_numeric(cython.numeric arg):
     """
@@ -400,7 +401,7 @@ def test_cython_numeric(cython.numeric arg):
     >>> test_cython_numeric(10.0 + 1j)
     double complex (10+1j)
     """
-    print(cython.typeof(arg), arg)
+    print(cython::typeof(arg), arg)
 
 
 cdef fused int_t:
@@ -409,19 +410,19 @@ cdef fused int_t:
 def test_pylong(int_t i):
     """
     >>> import cython
-    >>> try:    long = long # Python 2
-    ... except: long = int  # Python 3
+    >>> try:    long = long  # Python 2
+    ... except: long = int   # Python 3
 
     >>> test_pylong[int](int(0))
     int
-    >>> test_pylong[cython.i32](int(0))
+    >>> test_pylong[cython::i32](int(0))
     int
     >>> test_pylong(int(0))
     int
 
     >>> test_pylong[int](long(0))
     int
-    >>> test_pylong[cython.i32](long(0))
+    >>> test_pylong[cython::i32](long(0))
     int
     >>> test_pylong(long(0))
     int
@@ -430,31 +431,31 @@ def test_pylong(int_t i):
     Traceback (most recent call last):
     KeyError: ...
     """
-    print(cython.typeof(i))
+    print(cython::typeof(i))
 
 cdef fused ints_t:
     i32
     i64
 
 fn _test_index_fused_args(cython.floating f, ints_t i):
-    print(cython.typeof(f), cython.typeof(i))
+    print(cython::typeof(f), cython::typeof(i))
 
 def test_index_fused_args(cython.floating f, ints_t i):
     """
     >>> import cython
-    >>> test_index_fused_args[cython.f64, cython.i32](2.0, 3)
+    >>> test_index_fused_args[cython::f64, cython::i32](2.0, 3)
     double int
     """
     _test_index_fused_args[cython.floating, ints_t](f, i)
 
 fn _test_index_const_fused_args(const cython.floating f, const ints_t i):
-    print((cython.typeof(f), cython.typeof(i)))
+    print((cython::typeof(f), cython::typeof(i)))
 
 def test_index_const_fused_args(const cython.floating f, const ints_t i):
     """Test indexing function implementation with const fused type args
 
     >>> import cython
-    >>> test_index_const_fused_args[cython.f64, cython.i32](2.0, 3)
+    >>> test_index_const_fused_args[cython::f64, cython::i32](2.0, 3)
     ('const double', 'const int')
     """
     _test_index_const_fused_args[cython.floating, ints_t](f, i)
@@ -476,9 +477,9 @@ def test_composite(fused_composite x):
 fn cdef_func_const_fused_arg(const cython.floating val,
                              const fused_type1 * ptr_to_const,
                              const (cython.floating *) const_ptr):
-    print((val, cython.typeof(val)))
-    print((ptr_to_const[0], cython.typeof(ptr_to_const[0])))
-    print((const_ptr[0], cython.typeof(const_ptr[0])))
+    print((val, cython::typeof(val)))
+    print((ptr_to_const[0], cython::typeof(ptr_to_const[0])))
+    print((const_ptr[0], cython::typeof(const_ptr[0])))
 
     ptr_to_const = NULL  # pointer is not const, value is const
     const_ptr[0] = 0.0  # pointer is const, value is not const
@@ -525,7 +526,7 @@ def test_fused_in_check():
     print(in_check_2[f32, f64](1.0, 2.0))
     print(in_check_3[f32](1.0))
 
-### see GH3642 - presence of cdef inside "unrelated" caused a type to be incorrectly inferred
+# see GH3642 - presence of cdef inside "unrelated" caused a type to be incorrectly inferred
 fn unrelated(cython.floating x):
     let cython.floating t = 1
     return t

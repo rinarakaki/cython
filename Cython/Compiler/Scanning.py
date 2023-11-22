@@ -1,9 +1,8 @@
-# cython: infer_types=True, language_level=3, auto_pickle=False
+# cython: infer_types=True
 #
 #   Cython Scanner
 #
 
-from __future__ import absolute_import
 
 import cython
 cython.declare(make_lexicon=object, lexicon=object,
@@ -37,7 +36,7 @@ def get_lexicon():
     return lexicon
 
 
-#------------------------------------------------------------------
+# ------------------------------------------------------------------
 
 common_reserved_words = [
     "global", "nonlocal", "def", "class", "print", "del", "pass", "break",
@@ -48,15 +47,15 @@ common_reserved_words = [
 ]
 py_reserved_words = common_reserved_words + ["from"]
 pyx_reserved_words = common_reserved_words + [
-    "use", "pub", "extern", "fn", "let", "enum", "struct", "union",
+    "use", "pub", "extern", "fn", "let", "enum", "struct", "union", "const", "static", "loop", "auto", "mut",
     "include", "ctypedef", "cdef", "cpdef",
     "cimport", "DEF", "IF", "ELIF", "ELSE"
 ]
 
 
-#------------------------------------------------------------------
+# ------------------------------------------------------------------
 
-class CompileTimeScope(object):
+class CompileTimeScope:
 
     def __init__(self, outer=None):
         self.entries = {}
@@ -90,10 +89,7 @@ def initial_compile_time_env():
     names = ('UNAME_SYSNAME', 'UNAME_NODENAME', 'UNAME_RELEASE', 'UNAME_VERSION', 'UNAME_MACHINE')
     for name, value in zip(names, platform.uname()):
         benv.declare(name, value)
-    try:
-        import __builtin__ as builtins
-    except ImportError:
-        import builtins
+    import builtins
 
     names = (
         'False', 'True',
@@ -103,7 +99,7 @@ def initial_compile_time_env():
         'list', 'map', 'max', 'min', 'oct', 'ord', 'pow', 'range',
         'repr', 'reversed', 'round', 'set', 'slice', 'sorted', 'str',
         'sum', 'tuple', 'zip',
-        ### defined below in a platform independent way
+        # ## defined below in a platform independent way
         # 'long', 'unicode', 'reduce', 'xrange'
     )
 
@@ -125,9 +121,9 @@ def initial_compile_time_env():
     return denv
 
 
-#------------------------------------------------------------------
+# ------------------------------------------------------------------
 
-class SourceDescriptor(object):
+class SourceDescriptor:
     """
     A SourceDescriptor should be considered immutable.
     """
@@ -263,7 +259,7 @@ class StringSourceDescriptor(SourceDescriptor):
     """
     def __init__(self, name, code):
         self.name = name
-        #self.set_file_type_from_name(name)
+        # self.set_file_type_from_name(name)
         self.codelines = [x + "\n" for x in code.split("\n")]
         self._cmp_name = name
 
@@ -295,7 +291,7 @@ class StringSourceDescriptor(SourceDescriptor):
         return "<StringSourceDescriptor:%s>" % self.name
 
 
-#------------------------------------------------------------------
+# ------------------------------------------------------------------
 
 class PyrexScanner(Scanner):
     #  context            Context  Compilation context
@@ -404,15 +400,15 @@ class PyrexScanner(Scanner):
     def indentation_action(self, text):
         self.begin('')
         # Indentation within brackets should be ignored.
-        #if self.bracket_nesting_level > 0:
+        # if self.bracket_nesting_level > 0:
         #    return
         # Check that tabs and spaces are being used consistently.
         if text:
             c = text[0]
-            #print "Scanner.indentation_action: indent with", repr(c) ###
+            # print "Scanner.indentation_action: indent with", repr(c) #
             if self.indentation_char is None:
                 self.indentation_char = c
-                #print "Scanner.indentation_action: setting indent_char to", repr(c)
+                # print "Scanner.indentation_action: setting indent_char to", repr(c)
             else:
                 if self.indentation_char != c:
                     self.error_at_scanpos("Mixed use of tabs and spaces")
@@ -421,19 +417,19 @@ class PyrexScanner(Scanner):
         # Figure out how many indents/dedents to do
         current_level = self.current_level()
         new_level = len(text)
-        #print "Changing indent level from", current_level, "to", new_level ###
+        # print "Changing indent level from", current_level, "to", new_level #
         if new_level == current_level:
             return
         elif new_level > current_level:
-            #print "...pushing level", new_level ###
+            # print "...pushing level", new_level #
             self.indentation_stack.append(new_level)
             self.produce('INDENT', '')
         else:
             while new_level < self.current_level():
-                #print "...popping level", self.indentation_stack[-1] ###
+                # print "...popping level", self.indentation_stack[-1] #
                 self.indentation_stack.pop()
                 self.produce('DEDENT', '')
-            #print "...current level now", self.current_level() ###
+            # print "...current level now", self.current_level() #
             if new_level != self.current_level():
                 self.error_at_scanpos("Inconsistent indentation")
 
@@ -451,9 +447,9 @@ class PyrexScanner(Scanner):
             return  # just a marker, error() always raises
         if sy == IDENT:
             if systring in self.keywords:
-                if systring == u'print' and print_function in self.context.future_directives:
+                if systring == 'print' and print_function in self.context.future_directives:
                     self.keywords.pop('print', None)
-                elif systring == u'exec' and self.context.language_level >= 3:
+                elif systring == 'exec' and self.context.language_level >= 3:
                     self.keywords.pop('exec', None)
                 else:
                     sy = self.keywords[systring]  # intern
@@ -487,7 +483,6 @@ class PyrexScanner(Scanner):
         self.sy = sy
         self.systring = systring
         self.last_token_position_tuple = pos
-
 
     def error(self, message, pos=None, fatal=True):
         if pos is None:

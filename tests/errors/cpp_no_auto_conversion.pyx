@@ -9,11 +9,11 @@ extern from "no_such_file.cpp" nogil:
         i128 val
         wrapped_int()
         wrapped_int(i128 val)
-        wrapped_int& operator=(const wrapped_int &other)
-        wrapped_int& operator=(const i128 other)
+        fn &mut wrapped_int operator=(&wrapped_int other)
+        fn &mut wrapped_int operator=(const i128 other)
 
-    i128 constructor_overload(const wrapped_int& x)
-    i128 constructor_overload(const wrapped_int x)
+    fn i128 constructor_overload(&wrapped_int x)
+    fn i128 constructor_overload(const wrapped_int x)
 
 cdef i128 e = constructor_overload(17)
  

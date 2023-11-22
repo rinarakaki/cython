@@ -2,7 +2,6 @@
 #   Module parse tree node
 #
 
-from __future__ import absolute_import
 
 import cython
 cython.declare(Naming=object, Options=object, PyrexTypes=object, TypeSlots=object,
@@ -192,9 +191,9 @@ class ModuleNode(Nodes.Node, Nodes.BlockNode):
         if not Options.docstrings:
             env.doc = self.doc = None
         elif Options.embed_pos_in_docstring:
-            env.doc = EncodedString(u'File: %s (starting at line %s)' % Nodes.relative_position(self.pos))
+            env.doc = EncodedString('File: %s (starting at line %s)' % Nodes.relative_position(self.pos))
             if self.doc is not None:
-                env.doc = EncodedString(env.doc + u'\n' + self.doc)
+                env.doc = EncodedString(env.doc + '\n' + self.doc)
                 env.doc.encoding = self.doc.encoding
         else:
             env.doc = self.doc
@@ -561,10 +560,7 @@ class ModuleNode(Nodes.Node, Nodes.BlockNode):
 
         coverage_xml_filename = Options.annotate_coverage_xml or options.annotate_coverage_xml
         if coverage_xml_filename and os.path.exists(coverage_xml_filename):
-            try:
-                import xml.etree.cElementTree as ET
-            except ImportError:
-                import xml.etree.ElementTree as ET
+            import xml.etree.ElementTree as ET
             coverage_xml = ET.parse(coverage_xml_filename).getroot()
             for el in coverage_xml.iter():
                 el.tail = None  # save some memory
@@ -957,11 +953,11 @@ class ModuleNode(Nodes.Node, Nodes.BlockNode):
 
     def generate_type_header_code(self, type_entries, code):
         # Generate definitions of structs/unions/enums/typedefs/objstructs.
-        #self.generate_gcc33_hack(env, code) # Is this still needed?
+        # self.generate_gcc33_hack(env, code) # Is this still needed?
         # Forward declarations
         for entry in type_entries:
             if not entry.in_cinclude:
-                #print "generate_type_header_code:", entry.name, repr(entry.type) ###
+                # print "generate_type_header_code:", entry.name, repr(entry.type) #
                 type = entry.type
                 if type.is_typedef:  # Must test this first!
                     pass
@@ -974,7 +970,7 @@ class ModuleNode(Nodes.Node, Nodes.BlockNode):
         # Actual declarations
         for entry in type_entries:
             if not entry.in_cinclude:
-                #print "generate_type_header_code:", entry.name, repr(entry.type) ###
+                # print "generate_type_header_code:", entry.name, repr(entry.type) #
                 type = entry.type
                 if type.is_typedef:  # Must test this first!
                     self.generate_typedef(entry, code)
@@ -1223,8 +1219,8 @@ class ModuleNode(Nodes.Node, Nodes.BlockNode):
                     PyrexTypes.public_decl("PyTypeObject", "DL_EXPORT"),
                     name))
             # ??? Do we really need the rest of this? ???
-            #else:
-            #    code.putln("static PyTypeObject %s;" % name)
+            # else:
+            #     code.putln("static PyTypeObject %s;" % name)
 
     def generate_exttype_vtable_struct(self, entry, code):
         if not entry.used:
@@ -1433,8 +1429,8 @@ class ModuleNode(Nodes.Node, Nodes.BlockNode):
     def generate_typeobj_definitions(self, env, code):
         full_module_name = env.qualified_name
         for entry in env.c_class_entries:
-            #print "generate_typeobj_definitions:", entry.name
-            #print "...visibility =", entry.visibility
+            # print "generate_typeobj_definitions:", entry.name
+            # print "...visibility =", entry.visibility
             if entry.visibility != 'extern':
                 type = entry.type
                 scope = type.scope
@@ -1605,7 +1601,7 @@ class ModuleNode(Nodes.Node, Nodes.BlockNode):
             code.putln("#endif")
         if need_self_cast:
             code.putln("p = %s;" % type.cast_code("o"))
-        #if need_self_cast:
+        # if need_self_cast:
         #    self.generate_self_cast(scope, code)
 
         # from this point on, ensure DECREF(o) on failure
@@ -1983,7 +1979,7 @@ class ModuleNode(Nodes.Node, Nodes.BlockNode):
                 code.putln("Py_CLEAR(p->%s);" % entry.cname)
 
         for entry in py_buffers:
-            # Note: shouldn't this call __Pyx_ReleaseBuffer ??
+            # Note: shouldn't this call PyBuffer_Release ??
             code.putln("Py_CLEAR(p->%s.obj);" % entry.cname)
 
         if cclass_entry.cname == '__pyx_memoryviewslice':
@@ -2003,8 +1999,14 @@ class ModuleNode(Nodes.Node, Nodes.BlockNode):
             "PyObject *r;")
         code.putln(
             "PyObject *x = PyInt_FromSsize_t(i); if(!x) return 0;")
+        # Note that PyType_GetSlot only works on heap-types before 3.10, so not using type slots
+        # and defining cdef classes as non-heap types is probably impossible
+        code.putln("#if CYTHON_USE_TYPE_SLOTS || (!CYTHON_USE_TYPE_SPECS && __PYX_LIMITED_VERSION_HEX < 0x030A0000)")
         code.putln(
             "r = Py_TYPE(o)->tp_as_mapping->mp_subscript(o, x);")
+        code.putln("#else")
+        code.putln("r = ((binaryfunc)PyType_GetSlot(Py_TYPE(o), Py_mp_subscript))(o, x);")
+        code.putln("#endif")
         code.putln(
             "Py_DECREF(x);")
         code.putln(
@@ -2272,7 +2274,7 @@ class ModuleNode(Nodes.Node, Nodes.BlockNode):
             code.putln("case Py_NE: {")
             code.putln("PyObject *ret;")
             # Python itself does not do this optimisation, it seems...
-            #code.putln("if (o1 == o2) return __Pyx_NewRef(Py_False);")
+            # code.putln("if (o1 == o2) return __Pyx_NewRef(Py_False);")
             code.putln("ret = %s(o1, o2);" % comp_entry['__eq__'].func_cname)
             code.putln("if (likely(ret && ret != Py_NotImplemented)) {")
             code.putln("int b = __Pyx_PyObject_IsTrue(ret);")
@@ -2477,13 +2479,13 @@ class ModuleNode(Nodes.Node, Nodes.BlockNode):
             "if (!i) i = Py_None;")
         code.putln(
             "if (!c) c = Py_None;")
-        #code.put_incref("i", py_object_type)
-        #code.put_incref("c", py_object_type)
+        # code.put_incref("i", py_object_type)
+        # code.put_incref("c", py_object_type)
         code.putln(
             "r = %s(o, i, c);" % (
                 user_get_entry.func_cname))
-        #code.put_decref("i", py_object_type)
-        #code.put_decref("c", py_object_type)
+        # code.put_decref("i", py_object_type)
+        # code.put_decref("c", py_object_type)
         code.putln(
             "return r;")
         code.putln(
@@ -2637,7 +2639,7 @@ class ModuleNode(Nodes.Node, Nodes.BlockNode):
             header = "DL_EXPORT(PyTypeObject) %s = {"
         else:
             header = "static PyTypeObject %s = {"
-        #code.putln(header % scope.parent_type.typeobj_cname)
+        # code.putln(header % scope.parent_type.typeobj_cname)
         code.putln(header % type.typeobj_cname)
         code.putln(
             "PyVarObject_HEAD_INIT(0, 0)")
@@ -2712,7 +2714,7 @@ class ModuleNode(Nodes.Node, Nodes.BlockNode):
                 else:
                     doc_code = "0"
                 code.putln(
-                    '{(char *)%s, %s, %s, (char *)%s, 0},' % (
+                    '{%s, %s, %s, %s, 0},' % (
                         entry.name.as_c_string_literal(),
                         entry.getter_cname or "0",
                         entry.setter_cname or "0",
@@ -3101,12 +3103,6 @@ class ModuleNode(Nodes.Node, Nodes.BlockNode):
         if env.directives['np_pythran']:
             code.put_error_if_neg(self.pos, "_import_array()")
 
-        code.putln("/*--- Threads initialization code ---*/")
-        code.putln("#if defined(WITH_THREAD) && PY_VERSION_HEX < 0x030700F0 "
-                   "&& defined(__PYX_FORCE_INIT_THREADS) && __PYX_FORCE_INIT_THREADS")
-        code.putln("PyEval_InitThreads();")
-        code.putln("#endif")
-
         code.putln("/*--- Initialize various global constants etc. ---*/")
         code.put_error_if_neg(self.pos, "__Pyx_InitConstants()")
         code.putln("stringtab_initialized = 1;")
@@ -3165,10 +3161,6 @@ class ModuleNode(Nodes.Node, Nodes.BlockNode):
         code.putln("/*--- Execution code ---*/")
         code.mark_pos(None)
 
-        code.putln("#if defined(__Pyx_Generator_USED) || defined(__Pyx_Coroutine_USED)")
-        code.put_error_if_neg(self.pos, "__Pyx_patch_abc()")
-        code.putln("#endif")
-
         if profile or linetrace:
             code.put_trace_call(header3, self.pos, nogil=not code.funcstate.gil_owned)
             code.funcstate.can_trace = True
@@ -3205,7 +3197,7 @@ class ModuleNode(Nodes.Node, Nodes.BlockNode):
         # for cleanup, atexit code, etc., so leaking is better than crashing.
         # At least clearing the module dict here might be a good idea, but could still break
         # user code in atexit or other global registries.
-        ##code.put_decref_clear(env.module_dict_cname, py_object_type, nanny=False)
+        # code.put_decref_clear(env.module_dict_cname, py_object_type, nanny=False)
         code.putln('}')
         code.putln("#if !CYTHON_USE_MODULE_STATE")
         code.put_decref_clear(env.module_cname, py_object_type, nanny=False, clear_before_decref=True)
@@ -3257,7 +3249,7 @@ class ModuleNode(Nodes.Node, Nodes.BlockNode):
         function_code = orig_code.insertion_point()
         function_code.putln("")
 
-        class ModInitSubfunction(object):
+        class ModInitSubfunction:
             def __init__(self, code_type):
                 cname = '_'.join(code_type.lower().split())
                 assert re.match("^[a-z0-9_]+$", cname)
@@ -3474,7 +3466,7 @@ class ModuleNode(Nodes.Node, Nodes.BlockNode):
             name.encode("ascii")
             return None  # workaround is not needed
         except UnicodeEncodeError:
-            return "PyInitU" + (u"_"+name).encode('punycode').replace(b'-', b'_').decode('ascii')
+            return "PyInitU" + ("_"+name).encode('punycode').replace(b'-', b'_').decode('ascii')
 
     def mod_init_func_cname(self, prefix, env):
         # from PEP483
@@ -3622,7 +3614,7 @@ class ModuleNode(Nodes.Node, Nodes.BlockNode):
                 Naming.builtins_cname,
                 code.error_goto_if_null(Naming.builtins_cname, self.pos)))
         code.putln(
-            '%s = __Pyx_PyImport_AddModuleRef((const char *) "cython_runtime"); %s' % (
+            '%s = __Pyx_PyImport_AddModuleRef("cython_runtime"); %s' % (
                 Naming.cython_runtime_cname,
                 code.error_goto_if_null(Naming.cython_runtime_cname, self.pos)))
         code.putln(
@@ -3705,7 +3697,7 @@ class ModuleNode(Nodes.Node, Nodes.BlockNode):
     def generate_type_import_code_for_module(self, module, env, code):
         # Generate type import code for all exported extension types in
         # an imported module.
-        #if module.c_class_entries:
+        # if module.c_class_entries:
         with ModuleImportGenerator(code) as import_generator:
             for entry in module.c_class_entries:
                 if entry.defined_in_pxd:
@@ -3937,7 +3929,7 @@ class ModuleNode(Nodes.Node, Nodes.BlockNode):
                             meth_entry.func_cname))
 
 
-class ModuleImportGenerator(object):
+class ModuleImportGenerator:
     """
     Helper to generate module import while importing external types.
     This is used to avoid excessive re-imports of external modules when multiple types are looked up.
@@ -4004,11 +3996,11 @@ def generate_cfunction_declaration(entry, env, code, definition):
             modifiers,
             header))
 
-#------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------
 #
 #  Runtime support code
 #
-#------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------
 
 refnanny_utility_code = UtilityCode.load("Refnanny", "ModuleSetupCode.c")
 

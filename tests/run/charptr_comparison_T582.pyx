@@ -2,12 +2,12 @@
 
 use cython
 
-################################################################################
-## plain char*
+# ##############################################################################
+# # plain r&char
 
-#[cython.test_assert_path_exists('//SingleAssignmentNode')]
-##[cython.test_fail_if_path_exists('//SingleAssignmentNode//CoerceFromPyTypeNode')]
-def charptr_equals_literal(char* s):
+#[cython::test_assert_path_exists('//SingleAssignmentNode')]
+# #[cython::test_fail_if_path_exists('//SingleAssignmentNode//CoerceFromPyTypeNode')]
+def charptr_equals_literal(r&char s):
     """
     >>> charptr_equals_literal('abc'.encode('ASCII'))
     True
@@ -18,10 +18,10 @@ def charptr_equals_literal(char* s):
     >>> charptr_equals_literal('bcx'.encode('ASCII'))
     False
     """
-    let bint result = (s == b"abc")
+    let u2 result = (s == b"abc")
     return result
 
-def charptr_gt_literal(char* s):
+def charptr_gt_literal(r&char s):
     """
     >>> charptr_gt_literal('abc'.encode('ASCII'))
     False
@@ -32,10 +32,10 @@ def charptr_gt_literal(char* s):
     >>> charptr_gt_literal('bcx'.encode('ASCII'))
     True
     """
-    let bint result = (s > b"abc")
+    let u2 result = (s > b"abc")
     return result
 
-def charptr_lt_literal(char* s):
+def charptr_lt_literal(r&char s):
     """
     >>> charptr_lt_literal('abc'.encode('ASCII'))
     False
@@ -46,10 +46,10 @@ def charptr_lt_literal(char* s):
     >>> charptr_lt_literal('bcx'.encode('ASCII'))
     False
     """
-    let bint result = (s < b"abc")
+    let u2 result = (s < b"abc")
     return result
 
-def charptr_ge_literal(char* s):
+def charptr_ge_literal(r&char s):
     """
     >>> charptr_ge_literal('abc'.encode('ASCII'))
     True
@@ -60,10 +60,10 @@ def charptr_ge_literal(char* s):
     >>> charptr_ge_literal('bcx'.encode('ASCII'))
     True
     """
-    let bint result = (s >= b"abc")
+    let u2 result = (s >= b"abc")
     return result
 
-def charptr_le_literal(char* s):
+def charptr_le_literal(r&char s):
     """
     >>> charptr_le_literal('abc'.encode('ASCII'))
     True
@@ -74,17 +74,17 @@ def charptr_le_literal(char* s):
     >>> charptr_le_literal('bcx'.encode('ASCII'))
     False
     """
-    let bint result = (s <= b"abc")
+    let u2 result = (s <= b"abc")
     return result
 
 
-################################################################################
-## slices
+# ##############################################################################
+# # slices
 
-#[cython.test_assert_path_exists('//SingleAssignmentNode')]
-#FIXME: optimise me!
-##[cython.test_fail_if_path_exists('//SingleAssignmentNode//CoerceFromPyTypeNode')]
-def slice_equals_literal(char* s):
+#[cython::test_assert_path_exists('//SingleAssignmentNode')]
+# FIXME: optimise me!
+# #[cython::test_fail_if_path_exists('//SingleAssignmentNode//CoerceFromPyTypeNode')]
+def slice_equals_literal(r&char s):
     """
     >>> slice_equals_literal('abc'.encode('ASCII'))
     True
@@ -95,10 +95,10 @@ def slice_equals_literal(char* s):
     >>> slice_equals_literal('bcx'.encode('ASCII'))
     False
     """
-    let bint result = (s[:3] == b"abc")
+    let u2 result = (s[:3] == b"abc")
     return result
 
-def slice_gt_literal(char* s):
+def slice_gt_literal(r&char s):
     """
     >>> slice_gt_literal('abc'.encode('ASCII'))
     False
@@ -109,10 +109,10 @@ def slice_gt_literal(char* s):
     >>> slice_gt_literal('bcx'.encode('ASCII'))
     True
     """
-    let bint result = (s[:3] > b"abc")
+    let u2 result = (s[:3] > b"abc")
     return result
 
-def slice_lt_literal(char* s):
+def slice_lt_literal(r&char s):
     """
     >>> slice_lt_literal('abc'.encode('ASCII'))
     False
@@ -123,10 +123,10 @@ def slice_lt_literal(char* s):
     >>> slice_lt_literal('bcx'.encode('ASCII'))
     False
     """
-    let bint result = (s[:3] < b"abc")
+    let u2 result = (s[:3] < b"abc")
     return result
 
-def slice_ge_literal(char* s):
+def slice_ge_literal(r&char s):
     """
     >>> slice_ge_literal('abc'.encode('ASCII'))
     True
@@ -137,10 +137,10 @@ def slice_ge_literal(char* s):
     >>> slice_ge_literal('bcx'.encode('ASCII'))
     True
     """
-    let bint result = (s[:3] >= b"abc")
+    let u2 result = (s[:3] >= b"abc")
     return result
 
-def slice_le_literal(char* s):
+def slice_le_literal(r&char s):
     """
     >>> slice_le_literal('abc'.encode('ASCII'))
     True
@@ -151,5 +151,5 @@ def slice_le_literal(char* s):
     >>> slice_le_literal('bcx'.encode('ASCII'))
     False
     """
-    let bint result = (s[:3] <= b"abc")
+    let u2 result = (s[:3] <= b"abc")
     return result

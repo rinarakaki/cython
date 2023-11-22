@@ -60,7 +60,7 @@ __doc__ = u"""
     ... except:
     ...    pass
 
-    >>> sorted(callees(s, 'test_profile'))  #doctest: +NORMALIZE_WHITESPACE
+    >>> sorted(callees(s, 'test_profile'))  # doctest: +NORMALIZE_WHITESPACE
     ['f_cdef', 'f_cpdef', 'f_cpdef (wrapper)', 'f_def',
      'f_inline', 'f_inline_prof',
      'f_raise',
@@ -168,28 +168,28 @@ cpdef long f_cpdef(i64 a):
 fn inline i64 f_inline(i64 a):
     return a
 
-#[cython.profile(true)]
+#[cython::profile(true)]
 fn inline i64 f_inline_prof(i64 a):
     return a
 
-#[cython.profile(false)]
+#[cython::profile(false)]
 fn i32 f_noprof(i64 a):
     return a
 
 fn i64 f_raise(long) except -2:
     raise RuntimeError
 
-#[cython.profile(false)]
+#[cython::profile(false)]
 fn i32 withgil_noprof(i64 a) with gil:
     return (a)
-#[cython.profile(true)]
+#[cython::profile(true)]
 fn i32 withgil_prof(i64 a) with gil:
     return (a)
 
-#[cython.profile(false)]
+#[cython::profile(false)]
 fn i32 nogil_noprof(i64 a) nogil:
     return a
-#[cython.profile(true)]
+#[cython::profile(true)]
 fn i32 nogil_prof(i64 a) nogil:
     return a
 

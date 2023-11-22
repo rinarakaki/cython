@@ -16,13 +16,7 @@ def deque_methods(v):
     """
     d = deque([1, 3, 4])
     assert list(d) == [1, 3, 4]
-    if sys.version_info >= (3, 5):
-        d.insert(1, v)
-    else:
-        # deque has no 2-args methods in older Python versions
-        d.rotate(-1)
-        d.appendleft(2)
-        d.rotate(1)
+    d.insert(1, v)
     assert list(d) == [1, 2, 3, 4]
     d.rotate(len(d) // 2)
     assert list(d) == [3, 4, 1, 2]
@@ -95,14 +89,14 @@ def assert_fastcall(meth):
     if has_fastcall(getattr) and not has_fastcall(meth):
         raise AssertionError(f"{meth} does not use METH_FASTCALL")
 
-#[cython.binding(false)]
+#[cython::binding(false)]
 def fastcall_function(**kw):
     """
     >>> assert_fastcall(fastcall_function)
     """
     return kw
 
-#[cython.binding(true)]
+#[cython::binding(true)]
 def fastcall_cyfunction(**kw):
     """
     >>> assert_fastcall(fastcall_cyfunction)
@@ -110,7 +104,7 @@ def fastcall_cyfunction(**kw):
     return kw
 
 cdef class Dummy:
-    #[cython.binding(false)]
+    #[cython::binding(false)]
     def fastcall_method(self, x, *args, **kw):
         """
         >>> assert_fastcall(Dummy().fastcall_method)
@@ -118,7 +112,7 @@ cdef class Dummy:
         return tuple(args) + tuple(kw)
 
 cdef class CyDummy:
-    #[cython.binding(true)]
+    #[cython::binding(true)]
     def fastcall_method(self, x, *args, **kw):
         """
         >>> assert_fastcall(CyDummy.fastcall_method)

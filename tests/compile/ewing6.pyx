@@ -21,4 +21,4 @@ cdef class E:
 fn void f(D d, E e):
     d.m(e)
 
-f(D(),E())
+f(D(), E())

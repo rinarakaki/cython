@@ -19,7 +19,7 @@ def redirect_stderr(func, *args, **kwargs):
     func(*args, **kwargs)
     sys.stderr = stderr
 
-fn void puts(char *string) with gil:
+fn void puts(r&mut char string) with gil:
     """
     We need this for doctest, used from nogil sections.
     """
@@ -149,46 +149,46 @@ def test_restore_exception():
             finally:
                 raise Exception("Override the raised exception")
 
-### DISABLED: this cannot work with flow control analysis
-##
-## def test_declared_variables():
-##     """
-##     >>> test_declared_variables()
-##     None
-##     None
-##     ['s', 'p', 'a', 'm']
-##     ['s', 'p', 'a', 'm']
-##     """
-##     cdef object somevar
-##
-##     print somevar
-##
-##     with nogil:
-##         with gil:
-##             print somevar
-##             somevar = list("spam")
-##             print somevar
-##
-##     print somevar
+# DISABLED: this cannot work with flow control analysis
+#
+# def test_declared_variables():
+#     """
+#     >>> test_declared_variables()
+#     None
+#     None
+#     ['s', 'p', 'a', 'm']
+#     ['s', 'p', 'a', 'm']
+#     """
+#     cdef object somevar
+#
+#     print somevar
+#
+#     with nogil:
+#         with gil:
+#             print somevar
+#             somevar = list("spam")
+#             print somevar
+#
+#     print somevar
 
-### DISABLED: this cannot work with flow control analysis
-##
-## def test_undeclared_variables():
-##     """
-##     >>> test_undeclared_variables()
-##     None
-##     None
-##     ['s', 'p', 'a', 'm']
-##     ['s', 'p', 'a', 'm']
-##     """
-##     print somevar
-##     with nogil:
-##         with gil:
-##             print somevar
-##             somevar = list("spam")
-##             print somevar
-##
-##     print somevar
+# DISABLED: this cannot work with flow control analysis
+#
+# def test_undeclared_variables():
+#     """
+#     >>> test_undeclared_variables()
+#     None
+#     None
+#     ['s', 'p', 'a', 'm']
+#     ['s', 'p', 'a', 'm']
+#     """
+#     print somevar
+#     with nogil:
+#         with gil:
+#             print somevar
+#             somevar = list("spam")
+#             print somevar
+#
+#     print somevar
 
 def test_loops_and_boxing():
     """
@@ -212,7 +212,7 @@ def test_loops_and_boxing():
 cdef class SomeExtClass(object):
     cdef int some_attribute
 
-#[cython.infer_types(true)]
+#[cython::infer_types(true)]
 def test_infer_types():
     """
     >>> test_infer_types()
@@ -304,7 +304,7 @@ def test_nogil_void_funcs_with_nogil():
         void_nogil_nested_gil()
 
 
-fn PyObject *nogil_propagate_exception() except NULL nogil:
+fn PyObject* nogil_propagate_exception() except NULL nogil:
     with nogil:
         with gil:
             raise Exception("This exception propagates!")

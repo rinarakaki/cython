@@ -4,6 +4,6 @@
 use ctuple_cimport
 
 # Verify same tuple defined in multiple pxd not redeclared
-ctypedef (i32, f64) int_double
+type int_double = (i32, f64)
 
-ctuple_cimport.get_a_ctuple()
+ctuple_cimport::get_a_ctuple()

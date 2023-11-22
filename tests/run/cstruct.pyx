@@ -4,7 +4,7 @@ struct Spam:
     i32 i
     char c
     f32 *p[42]
-    Grail *g
+    r&Grail g
 
 struct Grail:
     Spam *s
@@ -22,12 +22,12 @@ fn void eggs_c(Spam s):
     s.c = c
 
 fn void eggs_p(Spam s):
-    let f32 *p
+    let f32* p
     p = s.p[0]
     s.p[0] = p
 
 fn void eggs_g(Spam s):
-    let f32 *p
+    let f32* p
     p = s.p[0]
     s.p[0] = p
 

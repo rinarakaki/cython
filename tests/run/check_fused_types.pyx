@@ -3,7 +3,7 @@ use check_fused_types_pxd
 
 import math
 
-ctypedef char *string_t
+type string_t = r&char
 
 fused_t = cython.fused_type(i32, i64, f32, string_t)
 other_t = cython.fused_type(i32, i64)
@@ -11,10 +11,10 @@ base_t = cython.fused_type(i16, i32)
 
 # complex_t = cython.fused_type(cython.floatcomplex, cython.doublecomplex)
 cdef fused complex_t:
-    float complex
-    double complex
+    c64
+    c128
 
-ctypedef base_t **base_t_p_p
+type base_t_p_p = base_t**
 
 # ctypedef cython.fused_type(char, base_t_p_p, fused_t, complex_t) composed_t
 cdef fused composed_t:
@@ -23,8 +23,8 @@ cdef fused composed_t:
     f32
     string_t
     cython.pp_int
-    float complex
-    double complex
+    c64
+    c128
     int complex
     long complex
 
@@ -180,9 +180,9 @@ def test_composed_types():
     spam eggs
     spam
     """
-    let double complex a = 0.5 + 0.6j, b = 0.4 -0.2j, result
+    let c128 a = 0.5 + 0.6j, b = 0.4 -0.2j, result
     let i32 c = 7, d = 8
-    let i32 *cp = &c, *dp = &d
+    let r&i32 cp = &c, dp = &d
     let string_t e = "spam", f = "eggs"
 
     result = composed(a, b)

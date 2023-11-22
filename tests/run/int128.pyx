@@ -1,8 +1,8 @@
 # mode: run
 
 extern from *:
-    ctypedef i128 int128_t "__int128_t"
-    ctypedef u128 uint128_t "__uint128_t"
+    type int128_t "__int128_t" = i128
+    type uint128_t "__uint128_t" = u128
 
 def bigint(x):
     print(str(x).rstrip('L'))

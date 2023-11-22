@@ -16,7 +16,7 @@ fn void eggs_c(Spam s):
     s.c = c
 
 fn void eggs_p(Spam s):
-    let f32 *p
+    let f32* p
     p = s.p[0]
     s.p[0] = p
 
@@ -45,9 +45,9 @@ def test_p():
     eggs_p(spam)
 
 union AllCharptr:
-    char* s1
-    char* s2
-    char* s3
+    r&mut i8 s1
+    r&mut i8 s2
+    r&mut i8 s3
 
 def test_charptr_to_py():
     """

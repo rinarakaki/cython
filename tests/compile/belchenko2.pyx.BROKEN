@@ -1,5 +1,5 @@
-cdef extern from "belchenko2.h":
-    void c_func(u8 pixel)
+extern from "belchenko2.h":
+    fn void c_func(u8 pixel)
 
 def f(u8 pixel):
     c_func(pixel)

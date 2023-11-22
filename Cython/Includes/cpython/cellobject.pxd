@@ -2,11 +2,11 @@ use super::object::PyObject
 
 extern from "Python.h":
 
-    ############################################################################
+    # ##########################################################################
     # Cell Objects
-    ############################################################################
+    # ##########################################################################
 
-    fn bint PyCell_Check(object ob)
+    fn u2 PyCell_Check(object ob)
     # Return true if ob is a cell object; ob must not be NULL.
 
     fn object PyCell_New(PyObject* ob)

@@ -1,11 +1,11 @@
 use libc::stdio::FILE
 
 extern from "Python.h":
-    ###########################################################################
+    # #########################################################################
     # Data marshalling support
-    ###########################################################################
+    # #########################################################################
 
-    const i32 Py_MARSHAL_VERSION
+    static const i32 Py_MARSHAL_VERSION
 
     fn void PyMarshal_WriteLongToFile(i64 value, FILE *file, i32 version)
     # Marshal a long integer, value, to file. This will only write the
@@ -56,7 +56,7 @@ extern from "Python.h":
     # On error, sets the appropriate exception (EOFError, ValueError or
     # TypeError) and returns NULL.
 
-    fn object PyMarshal_ReadObjectFromString(const char *data, isize len)
+    fn object PyMarshal_ReadObjectFromString(r&char data, isize len)
     # Return value: New reference.
     # Return a Python object from the data stream in a byte buffer containing
     # len bytes pointed to by data.

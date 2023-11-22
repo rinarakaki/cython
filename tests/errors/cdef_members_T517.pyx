@@ -1,7 +1,7 @@
 # ticket: t517
 # mode: error
 
-ctypedef void* VoidP
+type VoidP = void*
 
 cdef class Spam:
     cdef          VoidP vp0

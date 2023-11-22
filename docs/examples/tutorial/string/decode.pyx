@@ -1,6 +1,6 @@
 use c_func::get_a_c_string
 
-cdef char* c_string = NULL
+cdef r&char c_string = NULL
 cdef isize length = 0
 
 # get pointer and length from a C function

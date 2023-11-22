@@ -5,25 +5,25 @@ use libcpp::vector::vector
 
 extern from "shapes.h" namespace "shapes":
     cdef cppclass Shape:
-        float area()
+        fn f32 area()
 
     cdef cppclass Ellipse(Shape):
         Ellipse(i32 a, i32 b) except + nogil
 
     cdef cppclass Circle(Ellipse):
-        int radius
+        i32 radius
         Circle(i32 r) except +
 
     cdef cppclass Rectangle(Shape):
-        int width
-        int height
+        i32 width
+        i32 height
         Rectangle() except +
         Rectangle(i32 h, i32 w) except +
-        i32 method(i32 x)
-        i32 method(bint b)
+        fn i32 method(i32 x)
+        fn i32 method(u2 b)
 
     cdef cppclass Square(Rectangle):
-        int side
+        i32 side
         Square(i32 s) except +
 
     cdef cppclass Empty(Shape):
@@ -42,9 +42,9 @@ def test_new_del():
     2 0
     2 2
     """
-    c,d = constructor_count, destructor_count
-    let Rectangle *rect = new Rectangle(10, 20)
-    let Circle *circ = new Circle(15)
+    c, d = constructor_count, destructor_count
+    let Rectangle* rect = new Rectangle(10, 20)
+    let Circle* circ = new Circle(15)
     print constructor_count-c, destructor_count-d
     del rect, circ
     print constructor_count-c, destructor_count-d
@@ -77,7 +77,7 @@ def test_rect_area(w, h):
     >>> test_rect_area(3, 4)
     12.0
     """
-    let Rectangle *rect = new Rectangle(w, h)
+    let Rectangle* rect = new Rectangle(w, h)
     try:
         return rect.area()
     finally:
@@ -89,12 +89,12 @@ def test_overload_bint_int():
     202
     201
     """
-    let Rectangle *rect1 = new Rectangle(10, 20)
-    let Rectangle *rect2 = new Rectangle(10, 20)
+    let Rectangle* rect1 = new Rectangle(10, 20)
+    let Rectangle* rect2 = new Rectangle(10, 20)
 
     try:
-        print rect1.method(<i32>2)
-        print rect2.method(<bint>true)
+        print rect1.method(2i32)
+        print rect2.method(1u2)
     finally:
         del rect1
         del rect2
@@ -104,8 +104,8 @@ def test_square_area(w):
     >>> test_square_area(15)
     (225.0, 225.0)
     """
-    let Square *sqr = new Square(w)
-    let Rectangle *rect = sqr
+    let Square* sqr = new Square(w)
+    let Rectangle* rect = sqr
     try:
         return rect.area(), sqr.area()
     finally:
@@ -119,8 +119,8 @@ def test_value_call(i32 w):
     >>> test_value_call(5)
     (25.0, 25.0)
     """
-    let Square *sqr = new Square(w)
-    let Rectangle *rect = sqr
+    let Square* sqr = new Square(w)
+    let Rectangle* rect = sqr
     try:
         return get_area(sqr[0]), get_area(rect[0])
     finally:
@@ -142,7 +142,7 @@ def test_stack_allocation(i32 w, i32 h):
     let Rectangle rect
     rect.width = w
     rect.height = h
-    print rect.method(<i32>5)
+    print rect.method(5i32)
     return destructor_count
 
 def test_stack_allocation_in_struct():
@@ -200,7 +200,7 @@ def test_class_in_struct_member():
     start_constructor_count = constructor_count
     start_destructor_count = destructor_count
     e = EmptyViaStructHolder()
-    #assert constructor_count - start_constructor_count == 1, \
+    # assert constructor_count - start_constructor_count == 1, \
     #       constructor_count - start_constructor_count
     del e
     assert destructor_count - start_destructor_count == 1, \

@@ -39,7 +39,7 @@ def constant_long():
     >>> constant_long() == 2 ** 36
     True
     """
-    result = (<object>2L) ** 36
+    result = (<object>2i64) ** 36
     return result
 
 def small_int_pow(i64 s):
@@ -51,7 +51,7 @@ def small_int_pow(i64 s):
     """
     return s**0, s**1, s**2, s**3, s**4
 
-#[cython.cpow(true)]
+#[cython::cpow(true)]
 def int_pow_cpow(i16 a, i16 b):
     """
     >>> int_pow_cpow(7, 2)
@@ -63,7 +63,7 @@ def int_pow_cpow(i16 a, i16 b):
     """
     return a**b
 
-#[cython.cpow(false)]
+#[cython::cpow(false)]
 def int_pow(i16 a, i16 b):
     """
     >>> int_pow(7, 2)
@@ -134,9 +134,9 @@ def optimised_pow2(n):
     Traceback (most recent call last):
     TypeError: ...operand... **...
     """
-    if isinstance(n, (int, long)) and 0 <= n < 1000:
+    if isinstance(n, int) and 0 <= n < 1000:
         assert isinstance(2.0 ** n, float), 'float %s' % n
-        assert isinstance(2 ** n, (int, long)), 'int %s' % n
+        assert isinstance(2 ** n, int), 'int %s' % n
     return 2 ** n
 
 def optimised_pow2_inplace(n):

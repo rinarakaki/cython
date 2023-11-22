@@ -6,7 +6,7 @@ fn i32 exceptmaybeminus2(i32 bad) except ?-2:
     else:
         return 0
 
-def fail_exceptmaybeminus2(bad):
+fn fail_exceptmaybeminus2(bad):
     let i32 (*fptr_a)(i32) except -2
     let i32 (*fptr_b)(i32) except -1
     let i32 (*fptr_c)(i32) except ?-1
@@ -22,7 +22,7 @@ extern from *:
         i32 (*func_ptr)(i32 param) nogil
         void (*func_ptr_void)(i32 param) nogil
 
-def fail_exceptstar(bad):
+fn fail_exceptstar(bad):
     let i32 (*fptr_a)(i32) noexcept
     let i32 (*fptr_b)(i32) except -1
     let i32 (*fptr_c)(i32) except ?-1
@@ -36,7 +36,7 @@ fn i32 cb(i32 param) nogil:
 fn void cb_void(i32 param) except * nogil:
     return
 
-def fail_struct_pointer():
+fn fail_struct_pointer():
     let mystruct ms = mystruct(&cb, &cb_void)
 
 

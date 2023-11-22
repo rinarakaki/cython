@@ -2,16 +2,12 @@
 #   Symbol Table
 #
 
-from __future__ import absolute_import
 
 import re
 import copy
 import operator
 
-try:
-    import __builtin__ as builtins
-except ImportError:  # Py3
-    import builtins
+import builtins
 
 from ..Utils import try_finally_contextmanager
 from .Errors import warning, error, InternalError
@@ -67,7 +63,7 @@ def punycodify_name(cname, mangle_with=None):
 
 
 
-class BufferAux(object):
+class BufferAux:
     writable_needed = False
 
     def __init__(self, buflocal_nd_var, rcbuf_var):
@@ -78,7 +74,7 @@ class BufferAux(object):
         return "<BufferAux %r>" % self.__dict__
 
 
-class Entry(object):
+class Entry:
     # A symbol table entry in a Scope or ModuleNamespace.
     #
     # name             string     Python name of entity
@@ -327,7 +323,7 @@ class InnerEntry(Entry):
         return self.defining_entry.all_entries()
 
 
-class Scope(object):
+class Scope:
     # name              string             Unqualified name
     # outer_scope       Scope or None      Enclosing scope
     # entries           {string : Entry}   Python name to entry, non-types
@@ -442,7 +438,7 @@ class Scope(object):
                      'cfunc_entries',
                      'c_class_entries'):
             self_entries = getattr(self, attr)
-            names = set(e.name for e in self_entries)
+            names = {e.name for e in self_entries}
             for entry in getattr(other, attr):
                 if (entry.used or merge_unused) and entry.name not in names:
                     self_entries.append(entry)
@@ -464,7 +460,7 @@ class Scope(object):
         # user-defined name in this scope.
         prefix = "%s%s_" % (Naming.pyrex_prefix, name)
         return self.mangle(prefix)
-        #return self.parent_scope.mangle(prefix, self.name)
+        # return self.parent_scope.mangle(prefix, self.name)
 
     def mangle_class_private_name(self, name):
         if self.parent_scope:
@@ -498,8 +494,7 @@ class Scope(object):
     def iter_local_scopes(self):
         yield self
         if self.subscopes:
-            for scope in sorted(self.subscopes, key=operator.attrgetter('scope_prefix')):
-                yield scope
+            yield from sorted(self.subscopes, key=operator.attrgetter('scope_prefix'))
 
     @try_finally_contextmanager
     def new_c_type_context(self, in_c_type_context=None):
@@ -833,8 +828,8 @@ class Scope(object):
 
     def declare_lambda_function(self, lambda_name, pos):
         # Add an entry for an anonymous Python function.
-        func_cname = self.mangle(Naming.lambda_func_prefix + u'funcdef_', lambda_name)
-        pymethdef_cname = self.mangle(Naming.lambda_func_prefix + u'methdef_', lambda_name)
+        func_cname = self.mangle(Naming.lambda_func_prefix + 'funcdef_', lambda_name)
+        pymethdef_cname = self.mangle(Naming.lambda_func_prefix + 'methdef_', lambda_name)
         qualified_name = self.qualify_name(lambda_name)
 
         entry = self.declare(None, func_cname, py_object_type, pos, 'private')
@@ -905,7 +900,7 @@ class Scope(object):
                         entry.type = type
                 elif not in_pxd and entry.defined_in_pxd and type.compatible_signature_with(entry.type):
                     # TODO: check that this was done by a signature optimisation and not a user error.
-                    #warning(pos, "Function signature does not match previous declaration", 1)
+                    # warning(pos, "Function signature does not match previous declaration", 1)
                     entry.type = type
                 else:
                     error(pos, "Function signature does not match previous declaration")
@@ -1192,6 +1187,9 @@ class BuiltinScope(Scope):
                 str_is_str = language_level in (None, 2)
             if not str_is_str:
                 name = 'unicode'
+        if name == 'long' and language_level == 2:
+            # Keep recognising 'long' in legacy Py2 code but map it to 'int'.
+            name = 'int'
         return Scope.lookup(self, name)
 
     def declare_builtin(self, name, pos):
@@ -1264,7 +1262,7 @@ const_counter = 1  # As a temporary solution for compiling code in pxds
 class ModuleScope(Scope):
     # module_name          string             Python name of the module
     # module_cname         string             C name of Python module object
-    # #module_dict_cname   string             C name of module dict object
+    # # module_dict_cname   string             C name of module dict object
     # method_table_cname   string             C name of method table
     # doc                  string             Module doc string
     # doc_cname            string             C name of module doc string
@@ -1564,13 +1562,13 @@ class ModuleScope(Scope):
 
         entry = self.lookup_here(name)
         if entry and entry.defined_in_pxd:
-            #if visibility != 'private' and visibility != entry.visibility:
+            # if visibility != 'private' and visibility != entry.visibility:
             #    warning(pos, "Variable '%s' previously declared as '%s'" % (name, entry.visibility), 1)
             if not entry.type.same_as(type):
                 if visibility == 'extern' and entry.visibility == 'extern':
                     warning(pos, "Variable '%s' type does not match previous declaration" % name, 1)
                     entry.type = type
-                #else:
+                # else:
                 #    error(pos, "Variable '%s' type does not match previous declaration" % name)
             if entry.visibility != "private":
                 mangled_cname = self.mangle(Naming.var_prefix, name)
@@ -1768,7 +1766,7 @@ class ModuleScope(Scope):
         #  slot names for it.
         type = entry.type
         if type.base_type and type.base_type.vtabslot_cname:
-            #print "...allocating vtabslot_cname because base type has one" ###
+            # print "...allocating vtabslot_cname because base type has one" #
             type.vtabslot_cname = "%s.%s" % (
                 Naming.obj_base_cname, type.base_type.vtabslot_cname)
         elif type.scope and type.scope.cfunc_entries:
@@ -1785,10 +1783,10 @@ class ModuleScope(Scope):
                     # builtin base type defines all methods => no vtable needed
                     return
                 base_type = base_type.base_type
-            #print "...allocating vtabslot_cname because there are C methods" ###
+            # print "...allocating vtabslot_cname because there are C methods" #
             type.vtabslot_cname = Naming.vtabslot_cname
         if type.vtabslot_cname:
-            #print "...allocating other vtable related cnames" ###
+            # print "...allocating other vtable related cnames" #
             type.vtabstruct_cname = self.mangle(Naming.vtabstruct_prefix, entry.name)
             type.vtabptr_cname = self.mangle(Naming.vtabptr_prefix, entry.name)
 
@@ -1818,8 +1816,8 @@ class ModuleScope(Scope):
         # Generate typeobj_cname
         if visibility != 'extern' and not type.typeobj_cname:
             type.typeobj_cname = self.mangle(Naming.typeobj_prefix, name)
-        ## Generate typeptr_cname
-        #type.typeptr_cname = self.mangle(Naming.typeptr_prefix, name)
+        # # Generate typeptr_cname
+        # type.typeptr_cname = self.mangle(Naming.typeptr_prefix, name)
         # Check C methods defined
         if type.scope:
             for method_entry in type.scope.cfunc_entries:
@@ -1828,7 +1826,7 @@ class ModuleScope(Scope):
                         method_entry.name)
         # Allocate vtable name if necessary
         if type.vtabslot_cname:
-            #print "ModuleScope.check_c_classes: allocating vtable cname for", self ###
+            # print "ModuleScope.check_c_classes: allocating vtable cname for", self #
             type.vtable_cname = self.mangle(Naming.vtable_prefix, entry.name)
 
     def check_c_classes(self):
@@ -1920,7 +1918,7 @@ class LocalScope(Scope):
         if type.is_pyobject:
             entry.init = "0"
         entry.is_arg = 1
-        #entry.borrowed = 1 # Not using borrowed arg refs for now
+        # entry.borrowed = 1 # Not using borrowed arg refs for now
         self.arg_entries.append(entry)
         return entry
 
@@ -2253,8 +2251,8 @@ class CClassScope(ClassScope):
     #  Namespace of an extension type.
     #
     #  parent_type           PyExtensionType
-    #  #typeobj_cname        string or None
-    #  #objstruct_cname      string
+    #  # typeobj_cname        string or None
+    #  # objstruct_cname      string
     #  method_table_cname    string
     #  getset_table_cname    string
     #  has_pyobject_attrs    boolean  Any PyObject attributes?
@@ -2513,7 +2511,7 @@ class CClassScope(ClassScope):
             else:
                 if defining and entry.func_cname:
                     error(pos, "'%s' already defined" % name)
-                #print "CClassScope.declare_cfunction: checking signature" ###
+                # print "CClassScope.declare_cfunction: checking signature" #
                 if entry.is_final_cmethod and entry.is_inherited:
                     error(pos, "Overriding final methods is not allowed")
                 elif type.same_c_signature_as(entry.type, as_cmethod = 1) and type.nogil == entry.type.nogil:
@@ -2545,7 +2543,7 @@ class CClassScope(ClassScope):
         entry.utility_code = utility_code
         type.entry = entry
 
-        if u'inline' in modifiers:
+        if 'inline' in modifiers:
             entry.is_inline_cmethod = True
 
         if self.parent_type.is_final_type or entry.is_inline_cmethod or self.directives.get('final'):
@@ -2758,10 +2756,10 @@ class CppClassScope(Scope):
         # inherited type, with cnames modified appropriately
         # to work with this type.
         for base_entry in base_scope.inherited_var_entries + base_scope.var_entries:
-            #constructor/destructor is not inherited
+            # constructor/destructor is not inherited
             if base_entry.name in ("<init>", "<del>"):
                 continue
-            #print base_entry.name, self.entries
+            # print base_entry.name, self.entries
             if base_entry.name in self.entries:
                 base_entry.name    # FIXME: is there anything to do in this case?
             entry = self.declare(base_entry.name, base_entry.cname,

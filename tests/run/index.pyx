@@ -5,14 +5,8 @@ __doc__ = u"""
     TypeError: 'int' object ...
 """
 
-cdef isize maxsize
-
 import sys
-if sys.version_info < (2, 5):
-    __doc__ = __doc__.replace(u"'int' object ...", u'unsubscriptable object')
-    maxsize = min(sys.maxint, 2**31-1)
-else:
-    maxsize = getattr(sys, 'maxsize', getattr(sys, 'maxint', None))
+cdef isize maxsize = sys.maxsize
 
 py_maxsize = maxsize
 
@@ -130,10 +124,10 @@ def test_unsigned_long():
     let u64 ix
     let D = {}
     for i in 0..(<i32>sizeof(u64) * 8):
-        ix = (<u64>1) << i
+        ix = (1u64) << i
         D[ix] = true
     for i in 0..(<i32>sizeof(u64) * 8):
-        ix = (<u64>1) << i
+        ix = (1u64) << i
         assert D[ix] is true
         del D[ix]
     assert len(D) == 0
@@ -146,10 +140,10 @@ def test_unsigned_short():
     let u16 ix
     let D = {}
     for i in 0..(<i32>sizeof(u16) * 8):
-        ix = (<u16>1) << i
+        ix = (1u16) << i
         D[ix] = true
     for i in 0..(<i32>sizeof(u16) * 8):
-        ix = (<u16>1) << i
+        ix = (1u16) << i
         assert D[ix] is true
         del D[ix]
     assert len(D) == 0
@@ -162,10 +156,10 @@ def test_long_long():
     let i128 ix
     let D = {}
     for i in 0..(<i32>sizeof(i128) * 8):
-        ix = (<i128>1) << i
+        ix = (1i128) << i
         D[ix] = true
     for i in 0..(<i32>sizeof(i128) * 8):
-        ix = (<i128>1) << i
+        ix = (1i128) << i
         assert D[ix] is true
         del D[ix]
 
@@ -219,7 +213,7 @@ def test_ulong_long():
         else: assert False, "deleting large index failed to raise IndexError"
 
 
-#[cython.boundscheck(false)]
+#[cython::boundscheck(false)]
 def test_boundscheck_unsigned(list L, tuple t, object o, u64 ix):
     """
     >>> test_boundscheck_unsigned([1, 2, 4], (1, 2, 4), [1, 2, 4], 2)
@@ -231,7 +225,7 @@ def test_boundscheck_unsigned(list L, tuple t, object o, u64 ix):
     """
     return L[ix], t[ix], o[ix]
 
-#[cython.boundscheck(false)]
+#[cython::boundscheck(false)]
 def test_boundscheck_signed(list L, tuple t, object o, long ix):
     """
     >>> test_boundscheck_signed([1, 2, 4], (1, 2, 4), [1, 2, 4], 2)
@@ -243,7 +237,7 @@ def test_boundscheck_signed(list L, tuple t, object o, long ix):
     """
     return L[ix], t[ix], o[ix]
 
-#[cython.wraparound(false)]
+#[cython::wraparound(false)]
 def test_wraparound_signed(list L, tuple t, object o, long ix):
     """
     >>> test_wraparound_signed([1, 2, 4], (1, 2, 4), [1, 2, 4], 2)
@@ -295,15 +289,15 @@ def test_large_indexing(obj):
     >>> nmaxsize == -py_maxsize
     True
 
-    #>>> p2maxsize == py_maxsize*2
-    #True
-    #>>> n2maxsize == -py_maxsize*2
-    #True
+    # >>> p2maxsize == py_maxsize*2
+    # True
+    # >>> n2maxsize == -py_maxsize*2
+    # True
     """
     return (
         obj[0], obj[1], obj[-1],
         obj[maxsize], obj[-maxsize],
-        #obj[maxsize*2], obj[-maxsize*2]     # FIXME!
+        # obj[maxsize*2], obj[-maxsize*2]     # FIXME!
     )
 
 def del_large_index(obj, isize index):

@@ -2,8 +2,8 @@
 # mode: compile
 # tag: warnings
 
-ctypedef u8 npy_uint8
-ctypedef u16 npy_uint16
+type npy_uint8 = u8
+type npy_uint16 = u16
 
 
 ctypedef fused dtype_t:
@@ -27,10 +27,10 @@ _WARNINGS = """
 36:10: 'cpdef_cname_method' redeclared
 
 # from MemoryView.pyx
-957:29: Ambiguous exception value, same as default return value: 0
-957:29: Ambiguous exception value, same as default return value: 0
-998:46: Ambiguous exception value, same as default return value: 0
-998:46: Ambiguous exception value, same as default return value: 0
-1088:28: Ambiguous exception value, same as default return value: 0
-1088:28: Ambiguous exception value, same as default return value: 0
+952:29: Ambiguous exception value, same as default return value: 0
+952:29: Ambiguous exception value, same as default return value: 0
+993:46: Ambiguous exception value, same as default return value: 0
+993:46: Ambiguous exception value, same as default return value: 0
+1083:28: Ambiguous exception value, same as default return value: 0
+1083:28: Ambiguous exception value, same as default return value: 0
 """

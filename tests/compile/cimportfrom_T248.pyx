@@ -16,4 +16,4 @@ use declandimpl::(Sandwich
 
                    Tomato)
 
-cdef extern Foo yummy
+extern static Foo yummy

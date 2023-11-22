@@ -4,14 +4,7 @@
 from __future__ import print_function
 
 use cython
-import sys
 
-if sys.version_info[0] > 2:
-    # The <object> path doesn't work in Py2
-    __doc__ = """
-    >>> pow_double_double(-4, 0.5, 1e-15)
-    soft double complex complex
-    """
 
 def pow_double_double(f64 a, f64 b, delta):
     """
@@ -19,14 +12,16 @@ def pow_double_double(f64 a, f64 b, delta):
     soft double complex float
     >>> pow_double_double(4, 0.5, 1e-15)
     soft double complex float
+    >>> pow_double_double(-4, 0.5, 1e-15)
+    soft double complex complex
     """
     c = a**b
     # print out the Cython type, and the coerced type
-    print(cython.typeof(c), type(c).__name__)
+    print(cython::typeof(c), type(c).__name__)
     object_c = (<object>a)**(<object>b)
     assert abs((c/object_c) - 1) < delta
 
-#[cython.cpow(true)]
+#[cython::cpow(true)]
 def pow_double_double_cpow(f64 a, f64 b, delta=None):
     """
     >>> pow_double_double_cpow(2, 2, 1e-15)
@@ -40,7 +35,7 @@ def pow_double_double_cpow(f64 a, f64 b, delta=None):
     """
     c = a**b
     # print out the Cython type, and the coerced type
-    print(cython.typeof(c), type(c).__name__)
+    print(cython::typeof(c), type(c).__name__)
     if delta is not None:
         object_c = (<object>a)**(<object>b)
         assert abs((c/object_c) - 1) < delta
@@ -80,11 +75,11 @@ def pow_double_int(f64 a, i32 b):
     c3 = a**-2.0
     c4 = a**5
     c5 = a**-5
-    print(cython.typeof(c1))
-    print(cython.typeof(c2))
-    print(cython.typeof(c3))
-    print(cython.typeof(c4))
-    print(cython.typeof(c5))
+    print(cython::typeof(c1))
+    print(cython::typeof(c2))
+    print(cython::typeof(c3))
+    print(cython::typeof(c4))
+    print(cython::typeof(c5))
 
 def soft_complex_coerced_to_double(f64 a, f64 b):
     """
@@ -96,7 +91,7 @@ def soft_complex_coerced_to_double(f64 a, f64 b):
     TypeError: Cannot convert 'complex' with non-zero imaginary component to 'double' (this most likely comes from the '**' operator; use 'cython.cpow(True)' to return 'nan' instead of a complex number).
     """
     c = a**b
-    assert cython.typeof(c) == "soft double complex"
+    assert cython::typeof(c) == "soft double complex"
     let f64 d = c  # will raise if complex
     return d
 
@@ -112,8 +107,8 @@ def soft_complex_coerced_to_complex(f64 a, f64 b):
     """
     # This is always fine, but just check it works
     c = a**b
-    assert cython.typeof(c) == "soft double complex"
-    let double complex d = c
+    assert cython::typeof(c) == "soft double complex"
+    let c128 d = c
     return d
 
 def soft_complex_type_inference_1(f64 a, f64 b, pick):
@@ -128,7 +123,7 @@ def soft_complex_type_inference_1(f64 a, f64 b, pick):
         c = a**2
     else:
         c = a**b
-    print(cython.typeof(c), c)
+    print(cython::typeof(c), c)
 
 def soft_complex_type_inference_2(f64 a, f64 b, expected):
     """
@@ -140,7 +135,7 @@ def soft_complex_type_inference_2(f64 a, f64 b, expected):
     # double and soft complex should infer to soft-complex
     c = a**b
     c -= 1
-    print(cython.typeof(c))
+    print(cython::typeof(c))
     delta = abs(c/expected - 1)
     assert delta < 1e-15, delta
 
@@ -152,9 +147,9 @@ def pow_int_int(i32 a, i32 b):
     double 0.25
     """
     c = a**b
-    print(cython.typeof(c), c)
+    print(cython::typeof(c), c)
 
-#[cython.cpow(true)]
+#[cython::cpow(true)]
 def pow_int_int_cpow(i32 a, i32 b):
     """
     >>> pow_int_int_cpow(2, 2)
@@ -163,7 +158,7 @@ def pow_int_int_cpow(i32 a, i32 b):
     int 0
     """
     c = a**b
-    print(cython.typeof(c), c)
+    print(cython::typeof(c), c)
 
 fn cfunc_taking_int(i32 x):
     return x
@@ -189,10 +184,10 @@ def pow_int_int_non_negative(i32 a, u32 b):
     """
     c1 = a**b
     c2 = a**5
-    print(cython.typeof(c1))
-    print(cython.typeof(c2))
+    print(cython::typeof(c1))
+    print(cython::typeof(c2))
 
-ctypedef double f64
+type mydouble = f64
 
 def pythagoras_with_typedef(f64 a, f64 b):
     # see https://github.com/cython/cython/issues/5203
@@ -202,11 +197,11 @@ def pythagoras_with_typedef(f64 a, f64 b):
     >>> pyresult - 0.001 < rc < pyresult + 0.001  or  (rc, pyresult)
     True
     """
-    let f64 result = a * a + b * b
+    let mydouble result = a * a + b * b
     result = 1.0 / result ** 0.5
     return result
 
-#[cython.cpow(false)]
+#[cython::cpow(false)]
 def power_coercion_in_nogil_1(f64 a, f64 b):
     """
     >>> power_coercion_in_nogil_1(2.0, 2.0)
@@ -253,8 +248,8 @@ def power_coercion_in_nogil_3(f64 a, f64 b, f64 c):
 
 
 _WARNINGS = """
-63:17: Treating '**' as if 'cython.cpow(True)' since it is directly assigned to a a non-complex C numeric type. This is likely to be fragile and we recommend setting 'cython.cpow' explicitly.
-64:32: Treating '**' as if 'cython.cpow(True)' since it is directly assigned to a a non-complex C numeric type. This is likely to be fragile and we recommend setting 'cython.cpow' explicitly.
-179:17: Treating '**' as if 'cython.cpow(True)' since it is directly assigned to a an integer C numeric type. This is likely to be fragile and we recommend setting 'cython.cpow' explicitly.
-180:29: Treating '**' as if 'cython.cpow(True)' since it is directly assigned to a an integer C numeric type. This is likely to be fragile and we recommend setting 'cython.cpow' explicitly.
+58:17: Treating '**' as if 'cython.cpow(True)' since it is directly assigned to a a non-complex C numeric type. This is likely to be fragile and we recommend setting 'cython.cpow' explicitly.
+59:32: Treating '**' as if 'cython.cpow(True)' since it is directly assigned to a a non-complex C numeric type. This is likely to be fragile and we recommend setting 'cython.cpow' explicitly.
+174:17: Treating '**' as if 'cython.cpow(True)' since it is directly assigned to a an integer C numeric type. This is likely to be fragile and we recommend setting 'cython.cpow' explicitly.
+175:29: Treating '**' as if 'cython.cpow(True)' since it is directly assigned to a an integer C numeric type. This is likely to be fragile and we recommend setting 'cython.cpow' explicitly.
 """

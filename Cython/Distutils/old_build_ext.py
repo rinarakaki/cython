@@ -17,12 +17,6 @@ from distutils.command import build_ext as _build_ext
 from distutils import sysconfig
 
 
-try:
-    from __builtin__ import basestring
-except ImportError:
-    basestring = str
-
-
 # FIXME: the below does not work as intended since importing 'Cython.Distutils' already
 #        imports this module through 'Cython/Distutils/build_ext.py', so the condition is
 #        always false and never prints the warning.
@@ -52,7 +46,7 @@ extension_name_re = _build_ext.extension_name_re
 
 show_compilers = _build_ext.show_compilers
 
-class Optimization(object):
+class Optimization:
     def __init__(self):
         self.flags = (
             'OPT',
@@ -173,7 +167,7 @@ class old_build_ext(_build_ext.build_ext):
         _build_ext.build_ext.finalize_options(self)
         if self.cython_include_dirs is None:
             self.cython_include_dirs = []
-        elif isinstance(self.cython_include_dirs, basestring):
+        elif isinstance(self.cython_include_dirs, str):
             self.cython_include_dirs = \
                 self.cython_include_dirs.split(os.pathsep)
         if self.cython_directives is None:
@@ -213,14 +207,14 @@ class old_build_ext(_build_ext.build_ext):
         # use what was parsed from the command-line or the configuration file.
         # cplus will also be set to true is extension.language is equal to
         # 'C++' or 'c++'.
-        #try:
+        # try:
         #    create_listing = self.cython_create_listing or \
         #                        extension.cython_create_listing
         #    cplus = self.cython_cplus or \
         #                extension.cython_cplus or \
         #                (extension.language != None and \
         #                    extension.language.lower() == 'c++')
-        #except AttributeError:
+        # except AttributeError:
         #    create_listing = self.cython_create_listing
         #    cplus = self.cython_cplus or \
         #                (extension.language != None and \

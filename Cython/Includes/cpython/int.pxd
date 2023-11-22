@@ -1,22 +1,22 @@
 extern from "Python.h":
-    ctypedef u128 PY_LONG_LONG
+    type PY_LONG_LONG = u128
 
-    ############################################################################
+    # ##########################################################################
     # Integer Objects
-    ############################################################################
+    # ##########################################################################
     # PyTypeObject PyInt_Type
     # This instance of PyTypeObject represents the Python plain
     # integer type. This is the same object as int and types.IntType.
 
-    fn bint PyInt_Check(object  o)
+    fn u2 PyInt_Check(object  o)
     # Return true if o is of type PyInt_Type or a subtype of
     # PyInt_Type.
 
-    fn bint PyInt_CheckExact(object  o)
+    fn u2 PyInt_CheckExact(object  o)
     # Return true if o is of type PyInt_Type, but not a subtype of
     # PyInt_Type.
 
-    fn object PyInt_FromString(char *str, char **pend, i32 base)
+    fn object PyInt_FromString(r&char str, char** pend, i32 base)
     # Return value: New reference.
     # Return a new PyIntObject or PyLongObject based on the string
     # value in str, which is interpreted according to the radix in

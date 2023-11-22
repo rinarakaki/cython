@@ -1,5 +1,3 @@
-# cython: language_level=3str
-
 use cython
 
 cdef class TreeVisitor:
@@ -43,19 +41,19 @@ cdef class EnvTransform(CythonTransform):
     pub list env_stack
 
 cdef class MethodDispatcherTransform(EnvTransform):
-    #[cython.final]
+    #[cython::final]
     fn _visit_binop_node(self, node)
 
-    #[cython.final]
-    fn _find_handler(self, match_name, bint has_kwargs)
+    #[cython::final]
+    fn _find_handler(self, match_name, u2 has_kwargs)
 
-    #[cython.final]
+    #[cython::final]
     fn _delegate_to_assigned_value(self, node, function, arg_list, kwargs)
 
-    #[cython.final]
+    #[cython::final]
     fn _dispatch_to_handler(self, node, function, arg_list, kwargs)
 
-    #[cython.final]
+    #[cython::final]
     fn _dispatch_to_method_handler(self, attr_name, self_arg,
                                    is_unbound_method, type_name,
                                    node, function, arg_list, kwargs)
@@ -66,4 +64,4 @@ cdef class RecursiveNodeReplacer(VisitorTransform):
 
 cdef class NodeFinder(TreeVisitor):
     cdef node
-    pub bint found
+    pub u2 found

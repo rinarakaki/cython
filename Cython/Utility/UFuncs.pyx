@@ -1,26 +1,26 @@
 ##################### UFuncDefinition ######################
 
 extern from *:
-    ctypedef i32 npy_intp
+    type npy_intp = i32
     struct PyObject
     fn PyObject* __Pyx_NewRef(object)
-    {{inline_func_declaration}}
+    fn {{inline_func_declaration}}
 
 # variable names have to come from tempita to avoid duplication
 @cname("{{func_cname}}")
-fn void {{func_cname}}(char **args, const npy_intp *dimensions, const npy_intp* steps, void* data) except * {{"nogil" if will_be_called_without_gil else ""}}:
-    cdef npy_intp i
-    cdef npy_intp n = dimensions[0]
+fn void {{func_cname}}(char** args, const npy_intp* dimensions, const npy_intp* steps, void* data) except * {{"nogil" if will_be_called_without_gil else ""}}:
+    let npy_intp i
+    let npy_intp n = dimensions[0]
     {{for idx, tp in enumerate(in_types)}}
-    cdef char* in_{{idx}} = args[{{idx}}]
-    cdef {{tp.empty_declaration_code(pyrex=True)}} cast_in_{{idx}}
+    let r&char in_{{idx}} = args[{{idx}}]
+    let {{tp.empty_declaration_code(pyrex=True)}} cast_in_{{idx}}
     {{endfor}}
     {{for idx, tp in enumerate(out_types)}}
-    cdef char* out_{{idx}} = args[{{idx+len(in_types)}}]
-    cdef {{tp.empty_declaration_code(pyrex=True)}} cast_out_{{idx}}
+    let r&char out_{{idx}} = args[{{idx+len(in_types)}}]
+    let {{tp.empty_declaration_code(pyrex=True)}} cast_out_{{idx}}
     {{endfor}}
     {{for idx in range(len(out_types)+len(in_types))}}
-    cdef npy_intp step_{{idx}} = steps[{{idx}}]
+    let npy_intp step_{{idx}} = steps[{{idx}}]
     {{endfor}}
 
     {{"with gil" if (not nogil and will_be_called_without_gil) else "if True"}}:

@@ -66,7 +66,7 @@ def test_clear(a):
     return s
 
 
-def test_assign(char *a):
+def test_assign(r&char a):
     """
     >>> test_assign(b_asdf) == 'ggg'
     True
@@ -148,3 +148,24 @@ def test_str_cast(a):
     let string s = a
     assert s.length() == <usize>len(a), "%d != %d" % (s.length(), len(a))
     return <str>s
+
+
+def test_float_parsing(bstring):
+    """
+    >>> test_float_parsing(b'0.5')
+    0.5
+    >>> test_float_parsing(b'   0.5 ')
+    0.5
+    >>> test_float_parsing("೬".encode())
+    6.0
+    >>> test_float_parsing(" ೬     ".encode())
+    6.0
+    >>> try: test_float_parsing(b'xxx')
+    ... except ValueError: pass
+    ... else: print("NOT RAISED!")
+    >>> try: test_float_parsing(b'')
+    ... except ValueError: pass
+    ... else: print("NOT RAISED!")
+    """
+    cdef string s = bstring
+    return float(s)
