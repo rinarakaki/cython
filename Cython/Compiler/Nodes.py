@@ -1604,8 +1604,7 @@ class CVarDefNode(StatNode):
             if type.is_rvalue_reference and self.visibility != 'extern':
                 error(declarator.pos, "C++ rvalue-references cannot be declared")
             if type.is_cfunction:
-                if 'staticmethod' in env.directives:
-                    type.is_static_method = True
+                type.is_static_method = 1
                 self.entry = dest_scope.declare_cfunction(
                     name, type, declarator.pos,
                     cname=cname, visibility=self.visibility, in_pxd=self.in_pxd,
