@@ -2804,9 +2804,9 @@ class CFuncDefNode(FuncDefNode):
     def declare_cpdef_wrapper(self, env):
         if not self.overridable:
             return
-        if self.is_static_method:
-            # TODO(robertwb): Finish this up, perhaps via more function refactoring.
-            error(self.pos, "static cpdef methods not yet supported")
+        # if self.is_static_method:
+        #     # TODO(robertwb): Finish this up, perhaps via more function refactoring.
+        #     error(self.pos, "static cpdef methods not yet supported")
 
         name = self.entry.name
         py_func_body = self.call_self_node(is_module_scope=env.is_module_scope)
