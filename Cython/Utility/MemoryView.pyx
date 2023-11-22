@@ -1035,8 +1035,8 @@ fn memoryview_fromslice({{memviewslice_name}} memviewslice,
     return result
 
 @cname('__pyx_memoryview_get_slice_from_memoryview')
-fn r&{{memviewslice_name}} get_slice_from_memview(memoryview memview,
-                                                 {{memviewslice_name}} *mslice) except NULL:
+fn r&mut {{memviewslice_name}} get_slice_from_memview(memoryview memview,
+                                                      r&mut {{memviewslice_name}} mslice) except NULL:
     let _memoryviewslice obj
     if isinstance(memview, _memoryviewslice):
         obj = memview
