@@ -6215,11 +6215,6 @@ class SimpleCallNode(CallNode):
             return
 
         if func_type.is_cfunction and func_type.is_static_method:
-            if self.self and self.self.type.is_extension_type:
-                # To support this we'd need to pass self to determine whether
-                # it was overloaded in Python space (possibly via a Cython
-                # superclass turning a cdef method into a cpdef one).
-                error(self.pos, "Cannot call a static method on an instance variable.")
             args = self.args
         elif self.self:
             args = [self.self] + self.args
