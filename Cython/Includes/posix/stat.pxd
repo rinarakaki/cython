@@ -33,24 +33,24 @@ extern from "<sys/stat.h>" nogil:
 
 # POSIX prescribes including both <sys/stat.h> and <unistd.h> for these
 extern from "<unistd.h>" nogil:
-    fn i32 chmod(const char *, mode_t)
+    fn i32 chmod(r&i8, mode_t)
     fn i32 fchmod(i32, mode_t)
-    fn i32 fchmodat(i32, const char *, mode_t, i32 flags)
+    fn i32 fchmodat(i32, r&i8, mode_t, i32 flags)
 
-    fn i32 stat(const char *, struct_stat *)
-    fn i32 lstat(const char *, struct_stat *)
+    fn i32 stat(r&i8, struct_stat *)
+    fn i32 lstat(r&i8, struct_stat *)
     fn i32 fstat(i32, struct_stat *)
-    fn i32 fstatat(i32, const char *, struct_stat *, i32 flags)
+    fn i32 fstatat(i32, r&i8, struct_stat *, i32 flags)
 
-    fn i32 mkdir(const char *, mode_t)
-    fn i32 mkdirat(i32, const char *, mode_t)
-    fn i32 mkfifo(const char *, mode_t)
-    fn i32 mkfifoat(i32, const char *, mode_t)
-    fn i32 mknod(const char *, mode_t, dev_t)
-    fn i32 mknodat(i32, const char *, mode_t, dev_t)
+    fn i32 mkdir(r&i8, mode_t)
+    fn i32 mkdirat(i32, r&i8, mode_t)
+    fn i32 mkfifo(r&i8, mode_t)
+    fn i32 mkfifoat(i32, r&i8, mode_t)
+    fn i32 mknod(r&i8, mode_t, dev_t)
+    fn i32 mknodat(i32, r&i8, mode_t, dev_t)
 
     fn i32 futimens(i32, const timespec *)
-    fn i32 utimensat(i32, const char *, const timespec *, i32 flags)
+    fn i32 utimensat(i32, r&i8, const timespec *, i32 flags)
 
     # Macros for st_mode
     fn mode_t S_ISREG(mode_t)

@@ -53,7 +53,7 @@ extern from *:
 
     # Return a pointer to the internal buffer of the object. o has to
     # be a PyUnicodeObject (not checked).
-    fn char* PyUnicode_AS_DATA(object o)
+    fn r&i8 PyUnicode_AS_DATA(object o)
 
     fn u2 PyUnicode_IsIdentifier(object o)
 
@@ -129,15 +129,15 @@ extern from *:
 
     # Similar to PyUnicode_FromUnicode(), but u points to UTF-8 encoded
     # bytes
-    fn unicode PyUnicode_FromStringAndSize(const char* u, isize size)
+    fn unicode PyUnicode_FromStringAndSize(r&i8 u, isize size)
 
     # Similar to PyUnicode_FromUnicode(), but u points to null-terminated
     # UTF-8 encoded bytes.  The size is determined with strlen().
-    fn unicode PyUnicode_FromString(const char* u)
+    fn unicode PyUnicode_FromString(r&i8 u)
 
     fn unicode PyUnicode_New(isize size, Py_UCS4 maxchar)
     fn unicode PyUnicode_FromKindAndData(i32 kind, const void* buffer, isize size)
-    fn unicode PyUnicode_FromFormat(const char* format, ...)
+    fn unicode PyUnicode_FromFormat(r&i8 format, ...)
     fn isize PyUnicode_GetLength(object unicode) except -1
     fn isize PyUnicode_CopyCharacters(object to, isize to_start, object from_, isize from_start, isize how_many) except -1
     fn isize PyUnicode_Fill(object unicode, isize start, isize length, Py_UCS4 fill_char) except -1
@@ -169,7 +169,7 @@ extern from *:
     # the default values (see the next section for details).
     # All other objects, including Unicode objects, cause a TypeError
     # to be set.
-    fn object PyUnicode_FromEncodedObject(object o, char* encoding, char* errors)
+    fn object PyUnicode_FromEncodedObject(object o, r&i8 encoding, r&i8 errors)
 
     # Shortcut for PyUnicode_FromEncodedObject(obj, NULL, "strict")
     # which is used throughout the interpreter whenever coercion to
@@ -242,7 +242,7 @@ extern from *:
     # errors has the usual meaning for codecs. It may be NULL which indicates
     # to use the default error handling.
     # Return value: New reference.
-    fn unicode PyUnicode_Translate(object str, object table, const char* errors)
+    fn unicode PyUnicode_Translate(object str, object table, r&i8 errors)
 
     # Join a sequence of strings using the given separator and return the
     # resulting Unicode string.
@@ -289,7 +289,7 @@ extern from *:
     # equal, and greater than, respectively. It is best to pass only ASCII-encoded
     # strings, but the function interprets the input string as ISO-8859-1 if it
     # contains non-ASCII characters.
-    fn i32 PyUnicode_CompareWithASCIIString(object uni, const char* string)
+    fn i32 PyUnicode_CompareWithASCIIString(object uni, r&i8 string)
 
     # Rich compare two unicode strings and return one of the following:
     #
@@ -330,7 +330,7 @@ extern from *:
     # returning either a new unicode string object that has been interned, or
     # a new ("owned") reference to an earlier interned string object with the
     # same value.
-    fn unicode PyUnicode_InternFromString(const char* v)
+    fn unicode PyUnicode_InternFromString(r&i8 v)
 
 # Codecs
 
@@ -340,7 +340,7 @@ extern from *:
     # function. The codec to be used is looked up using the Python
     # codec registry. Return NULL if an exception was raised by the
     # codec.
-    fn object PyUnicode_Decode(char* s, isize size, char* encoding, char* errors)
+    fn object PyUnicode_Decode(r&i8 s, isize size, r&i8 encoding, r&i8 errors)
 
     # Encode the Py_UNICODE buffer of the given size and return a
     # Python string object. encoding and errors have the same meaning
@@ -348,33 +348,33 @@ extern from *:
     # method. The codec to be used is looked up using the Python codec
     # registry. Return NULL if an exception was raised by the codec.
     fn object PyUnicode_Encode(Py_UNICODE* s, isize size,
-                               char* encoding, char* errors)
+                               r&i8 encoding, r&i8 errors)
 
     # Encode a Unicode object and return the result as Python string
     # object. encoding and errors have the same meaning as the
     # parameters of the same name in the Unicode encode() method. The
     # codec to be used is looked up using the Python codec
     # registry. Return NULL if an exception was raised by the codec.
-    fn object PyUnicode_AsEncodedString(object unicode, char* encoding, char* errors)
+    fn object PyUnicode_AsEncodedString(object unicode, r&i8 encoding, r&i8 errors)
 
 # These are the UTF-8 codec APIs:
 
     # Create a Unicode object by decoding size bytes of the UTF-8
     # encoded string s. Return NULL if an exception was raised by the
     # codec.
-    fn unicode PyUnicode_DecodeUTF8(char* s, isize size, char* errors)
+    fn unicode PyUnicode_DecodeUTF8(r&i8 s, isize size, r&i8 errors)
 
     # If consumed is NULL, behave like PyUnicode_DecodeUTF8(). If
     # consumed is not NULL, trailing incomplete UTF-8 byte sequences
     # will not be treated as an error. Those bytes will not be decoded
     # and the number of bytes that have been decoded will be stored in
     # consumed. New in version 2.4.
-    fn unicode PyUnicode_DecodeUTF8Stateful(char* s, isize size, char* errors, isize* consumed)
+    fn unicode PyUnicode_DecodeUTF8Stateful(r&mut i8 s, isize size, r&i8 errors, isize* consumed)
 
     # Encode the Py_UNICODE buffer of the given size using UTF-8 and
     # return a Python string object. Return NULL if an exception was
     # raised by the codec.
-    fn bytes PyUnicode_EncodeUTF8(Py_UNICODE *s, isize size, char* errors)
+    fn bytes PyUnicode_EncodeUTF8(Py_UNICODE *s, isize size, r&i8 errors)
 
     # Encode a Unicode objects using UTF-8 and return the result as Python bytes object. Error handling is ``strict''. Return NULL if an exception was raised by the codec.
     fn bytes PyUnicode_AsUTF8String(object unicode)
@@ -392,7 +392,7 @@ extern from *:
     # This caches the UTF-8 representation of the string in the Unicode
     # object, and subsequent calls will return a pointer to the same buffer.
     # The caller is not responsible for deallocating the buffer
-    fn const char* PyUnicode_AsUTF8AndSize(object unicode, isize* size)
+    fn r&i8 PyUnicode_AsUTF8AndSize(object unicode, isize* size)
 
 # These are the UTF-16 codec APIs:
 
@@ -414,7 +414,7 @@ extern from *:
     # order at the.
     #
     # If byteorder is NULL, the codec starts in native order mode.
-    fn unicode PyUnicode_DecodeUTF16(char* s, isize size, char* errors, i32* byteorder)
+    fn unicode PyUnicode_DecodeUTF16(r&i8 s, isize size, r&i8 errors, i32* byteorder)
 
     # If consumed is NULL, behave like PyUnicode_DecodeUTF16(). If
     # consumed is not NULL, PyUnicode_DecodeUTF16Stateful() will not
@@ -422,7 +422,7 @@ extern from *:
     # number of bytes or a split surrogate pair) as an error. Those
     # bytes will not be decoded and the number of bytes that have been
     # decoded will be stored in consumed. New in version 2.4.
-    fn unicode PyUnicode_DecodeUTF16Stateful(char* s, isize size, char* errors, i32* byteorder, isize* consumed)
+    fn unicode PyUnicode_DecodeUTF16Stateful(r&i8 s, isize size, r&i8 errors, i32* byteorder, isize* consumed)
 
     # Return a Python string object holding the UTF-16 encoded value
     # of the Unicode data in s. If byteorder is not 0, output is
@@ -439,7 +439,7 @@ extern from *:
     # If Py_UNICODE_WIDE is defined, a single Py_UNICODE value may get
     # represented as a surrogate pair. If it is not defined, each
     # Py_UNICODE values is interpreted as an UCS-2 character.
-    fn bytes PyUnicode_EncodeUTF16(Py_UNICODE* s, isize size, char* errors, i32 byteorder)
+    fn bytes PyUnicode_EncodeUTF16(Py_UNICODE* s, isize size, r&i8 errors, i32 byteorder)
 
     # Return a Python string using the UTF-16 encoding in native byte
     # order. The string always starts with a BOM mark. Error handling
@@ -452,7 +452,7 @@ extern from *:
     # Create a Unicode object by decoding size bytes of the
     # Unicode-Escape encoded string s. Return NULL if an exception was
     # raised by the codec.
-    fn object PyUnicode_DecodeUnicodeEscape(char* s, isize size, char* errors)
+    fn object PyUnicode_DecodeUnicodeEscape(r&i8 s, isize size, r&i8 errors)
 
     # Encode the Py_UNICODE buffer of the given size using
     # Unicode-Escape and return a Python string object. Return NULL if
@@ -469,12 +469,12 @@ extern from *:
     # Create a Unicode object by decoding size bytes of the
     # Raw-Unicode-Escape encoded string s. Return NULL if an exception
     # was raised by the codec.
-    fn object PyUnicode_DecodeRawUnicodeEscape(char* s, isize size, char* errors)
+    fn object PyUnicode_DecodeRawUnicodeEscape(r&i8 s, isize size, r&i8 errors)
 
     # Encode the Py_UNICODE buffer of the given size using
     # Raw-Unicode-Escape and return a Python string object. Return
     # NULL if an exception was raised by the codec.
-    fn object PyUnicode_EncodeRawUnicodeEscape(Py_UNICODE* s, isize size, char* errors)
+    fn object PyUnicode_EncodeRawUnicodeEscape(Py_UNICODE* s, isize size, r&i8 errors)
 
     # Encode a Unicode objects using Raw-Unicode-Escape and return the
     # result as Python string object. Error handling is
@@ -486,12 +486,12 @@ extern from *:
     # Create a Unicode object by decoding size bytes of the Latin-1
     # encoded string s. Return NULL if an exception was raised by the
     # codec.
-    fn unicode PyUnicode_DecodeLatin1(char* s, isize size, char* errors)
+    fn unicode PyUnicode_DecodeLatin1(r&i8 s, isize size, r&i8 errors)
 
     # Encode the Py_UNICODE buffer of the given size using Latin-1 and
     # return a Python bytes object. Return NULL if an exception was
     # raised by the codec.
-    fn bytes PyUnicode_EncodeLatin1(Py_UNICODE* s, isize size, char* errors)
+    fn bytes PyUnicode_EncodeLatin1(Py_UNICODE* s, isize size, r&i8 errors)
 
     # Encode a Unicode objects using Latin-1 and return the result as
     # Python bytes object. Error handling is ``strict''. Return NULL
@@ -504,12 +504,12 @@ extern from *:
     # Create a Unicode object by decoding size bytes of the ASCII
     # encoded string s. Return NULL if an exception was raised by the
     # codec.
-    fn unicode PyUnicode_DecodeASCII(char* s, isize size, char* errors)
+    fn unicode PyUnicode_DecodeASCII(r&i8 s, isize size, r&i8 errors)
 
     # Encode the Py_UNICODE buffer of the given size using ASCII and
     # return a Python bytes object. Return NULL if an exception was
     # raised by the codec.
-    fn bytes PyUnicode_EncodeASCII(Py_UNICODE* s, isize size, char* errors)
+    fn bytes PyUnicode_EncodeASCII(Py_UNICODE* s, isize size, r&i8 errors)
 
     # Encode a Unicode objects using ASCII and return the result as
     # Python bytes object. Error handling is ``strict''. Return NULL
@@ -550,14 +550,14 @@ extern from *:
     # values greater that the length of the string and U+FFFE
     # "characters" are treated as "undefined mapping". Changed in
     # version 2.4: Allowed unicode string as mapping argument.
-    fn object PyUnicode_DecodeCharmap(char* s, isize size, object mapping, char* errors)
+    fn object PyUnicode_DecodeCharmap(r&i8 s, isize size, object mapping, r&i8 errors)
 
     # Encode the Py_UNICODE buffer of the given size using the given
     # mapping object and return a Python string object. Return NULL if
     # an exception was raised by the codec.
     #
     # Deprecated since version 3.3, will be removed in version 4.0.
-    fn object PyUnicode_EncodeCharmap(Py_UNICODE* s, isize size, object mapping, char* errors)
+    fn object PyUnicode_EncodeCharmap(Py_UNICODE* s, isize size, object mapping, r&i8 errors)
 
     # Encode a Unicode objects using the given mapping object and
     # return the result as Python string object. Error handling is
@@ -580,7 +580,7 @@ extern from *:
     #
     # Deprecated since version 3.3, will be removed in version 4.0.
     fn object PyUnicode_TranslateCharmap(Py_UNICODE* s, isize size,
-                                         object table, char* errors)
+                                         object table, r&i8 errors)
 
 # These are the MBCS codec APIs. They are currently only available on
 # Windows and use the Win32 MBCS converters to implement the
@@ -591,19 +591,19 @@ extern from *:
     # Create a Unicode object by decoding size bytes of the MBCS
     # encoded string s. Return NULL if an exception was raised by the
     # codec.
-    fn unicode PyUnicode_DecodeMBCS(char* s, isize size, char* errors)
+    fn unicode PyUnicode_DecodeMBCS(r&i8 s, isize size, r&i8 errors)
 
     # If consumed is NULL, behave like PyUnicode_DecodeMBCS(). If
     # consumed is not NULL, PyUnicode_DecodeMBCSStateful() will not
     # decode trailing lead byte and the number of bytes that have been
     # decoded will be stored in consumed. New in version 2.5.
     # NOTE: Python 2.x uses 'int' values for 'size' and 'consumed' (changed in 3.0)
-    fn unicode PyUnicode_DecodeMBCSStateful(char* s, isize size, char* errors, isize* consumed)
+    fn unicode PyUnicode_DecodeMBCSStateful(r&i8 s, isize size, r&i8 errors, isize* consumed)
 
     # Encode the Py_UNICODE buffer of the given size using MBCS and
     # return a Python string object. Return NULL if an exception was
     # raised by the codec.
-    fn bytes PyUnicode_EncodeMBCS(Py_UNICODE* s, isize size, char* errors)
+    fn bytes PyUnicode_EncodeMBCS(Py_UNICODE* s, isize size, r&i8 errors)
 
     # Encode a Unicode objects using MBCS and return the result as
     # Python string object. Error handling is ``strict''. Return NULL
@@ -615,7 +615,7 @@ extern from *:
     # codec. Use CP_ACP code page to get the MBCS encoder.
     #
     # New in version 3.3.
-    fn bytes PyUnicode_EncodeCodePage(i32 code_page, object unicode, const char* errors)
+    fn bytes PyUnicode_EncodeCodePage(i32 code_page, object unicode, r&i8 errors)
 
 # Py_UCS4 helpers (new in CPython 3.3)
 

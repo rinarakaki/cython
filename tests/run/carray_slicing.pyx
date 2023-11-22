@@ -1,9 +1,9 @@
 use cython
 
 # ##########################################################
-# tests for char* slicing
+# tests for r&i8 slicing
 
-cdef char* cstring = "abcABCqtp"
+cdef r&i8 cstring = "abcABCqtp"
 
 def slice_charptr_end():
     """
@@ -12,7 +12,7 @@ def slice_charptr_end():
     """
     return cstring[:1], cstring[:3], cstring[:9]
 
-# BROKEN: this test assumes that the result of a char* iteration
+# BROKEN: this test assumes that the result of a r&i8 iteration
 # becomes a bytes object, which is not the case when applying
 # carray iteration.  Contradiction.
 #
@@ -41,7 +41,7 @@ def slice_charptr_for_loop_c():
     ['b', 'c', 'A', 'B']
     ['B', 'C', 'q', 't', 'p']
     """
-    let char c
+    let i8 c
     print [ chr(c) for c in cstring[:3] ]
     print [ chr(c) for c in cstring[None:3] ]
     print [ chr(c) for c in cstring[1:5] ]
@@ -80,7 +80,7 @@ def slice_charptr_for_loop_c_step():
     pq ['p', 'q']
     """
     let object ustring = cstring.decode('ASCII')
-    let char c
+    let i8 c
     print ustring[3:;-1],     [ chr(c) for c in cstring[3:;-1] ]
     print ustring[3:None;-1], [ chr(c) for c in cstring[3:None;-1] ]
     print ustring[1:5;2],     [ chr(c) for c in cstring[1:5;2] ]
@@ -101,7 +101,7 @@ def slice_charptr_for_loop_c_dynamic_bounds():
     ['b', 'c', 'A', 'B']
     ['B', 'C', 'q', 't', 'p']
     """
-    let char c
+    let i8 c
     print [ chr(c) for c in cstring[0:return3()] ]
     print [ chr(c) for c in cstring[None:return3()] ]
     print [ chr(c) for c in cstring[return1():return5()] ]
@@ -113,7 +113,7 @@ fn return4(): return 4
 fn return5(): return 5
 fn return9(): return 9
 
-# BROKEN: this test assumes that the result of a char* iteration
+# BROKEN: this test assumes that the result of a r&i8 iteration
 # becomes a bytes object, which is not the case when applying
 # carray iteration.  Contradiction.
 #
@@ -142,11 +142,11 @@ def slice_charptr_for_loop_c_enumerate():
     [(0, 98), (1, 99), (2, 65), (3, 66)]
     [(0, 66), (1, 67), (2, 113), (3, 116), (4, 112)]
     """
-    let i32 c,i
-    print [ (i,c) for i,c in enumerate(cstring[:3]) ]
-    print [ (i,c) for i,c in enumerate(cstring[None:3]) ]
-    print [ (i,c) for i,c in enumerate(cstring[1:5]) ]
-    print [ (i,c) for i,c in enumerate(cstring[4:9]) ]
+    let i32 c, i
+    print [ (i, c) for i,c in enumerate(cstring[:3]) ]
+    print [ (i, c) for i,c in enumerate(cstring[None:3]) ]
+    print [ (i, c) for i,c in enumerate(cstring[1:5]) ]
+    print [ (i, c) for i,c in enumerate(cstring[4:9]) ]
 
 # ##########################################################
 # tests for int* slicing
@@ -173,7 +173,7 @@ def slice_intarray_for_loop_c():
     print [ i for i in cints[4:6] ]
 
 #[cython::test_assert_path_exists("//ForFromStatNode",
-                                 "//ForFromStatNode//IndexNode")]
+                                  "//ForFromStatNode//IndexNode")]
 #[cython::test_fail_if_path_exists("//ForInStatNode")]
 def iter_intarray_for_loop_c():
     """
@@ -184,7 +184,7 @@ def iter_intarray_for_loop_c():
     print [ i for i in cints ]
 
 #[cython::test_assert_path_exists("//ForFromStatNode",
-                                 "//ForFromStatNode//IndexNode")]
+                                  "//ForFromStatNode//IndexNode")]
 #[cython::test_fail_if_path_exists("//ForInStatNode")]
 def slice_intptr_for_loop_c():
     """

@@ -37,7 +37,7 @@ def arrays():
     >>> arrays()
     19
     """
-    let auto buf = <char*>stdlib.malloc(10)
+    let auto buf = <r&mut i8>stdlib::malloc(10)
     let i32 i = 2
     let object j = 2
     buf[2] = 0
@@ -48,9 +48,9 @@ def arrays():
     stdlib.free(buf)
 
 cdef class A:
-    let attr
-    let i32 attr2
-    let char* buf
+    cdef attr
+    cdef i32 attr2
+    cdef r&mut i8 buf
     def __init__(self):
         self.attr = 3
         self.attr2 = 3
@@ -81,7 +81,7 @@ def smoketest():
     >>> smoketest()
     10
     """
-    let auto buf = <char*>stdlib.malloc(10)
+    let auto buf = <r&mut i8>stdlib::malloc(10)
     let A a = A()
     a.buf = buf
     a.buf[identity(1)] = 0

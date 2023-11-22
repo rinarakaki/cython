@@ -9,7 +9,7 @@ use cython::integral
 use cpython::Py_INCREF
 
 from Cython import Shadow as pure_cython
-type string_t = char*
+type string_t = r&i8
 
 # floating = cython.fused_type(f32, f64) floating
 # integral = cython.fused_type(i32, i64) integral
@@ -18,8 +18,8 @@ fused_type1 = cython.fused_type(i32, long, float, f64, string_t)
 fused_type2 = cython.fused_type(string_t)
 type composed_t = fused_type1*
 other_t = cython.fused_type(i32, f64)
-type p_double = f64*
-type p_int = i32*
+type p_double = r&f64
+type p_int = r&mut i32
 fused_type3 = cython.fused_type(i32, f64)
 fused_composite = cython.fused_type(fused_type2, fused_type3)
 just_float = cython.fused_type(float)
@@ -104,7 +104,7 @@ def test_fused_with_pointer():
     let f32[5] float_array
     let string_t[5] string_array
 
-    let char* s
+    let r&i8 s
 
     strings = [b"humpty", b"dumpty", b"fall", b"splatch", b"breakfast"]
 
@@ -191,7 +191,7 @@ fn test_specialize(fused_type1 x, fused_type1 *y, composed_t z, other_t *a):
         result = x + y[0] + z[0] + a[0]
         return result
 
-def test_specializations():
+fn test_specializations():
     """
     >>> test_specializations()
     double pointer
