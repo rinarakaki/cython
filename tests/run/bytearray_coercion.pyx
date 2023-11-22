@@ -22,10 +22,10 @@ def coerce_to_charptrs(bytearray b):
     >>> coerce_to_charptrs(b)
     True
     """
-    let r&char cs = b
-    let u8* ucs = b
-    let signed r&char scs = b
-    return b == <bytearray>cs == <bytearray> ucs == <bytearray>scs
+    let r&i8 cs = b
+    let r&u8 ucs = b
+    let r&signed char scs = b
+    return b == <bytearray>cs == <bytearray>ucs == <bytearray>scs
 
 cpdef bytearray coerce_charptr_slice(r&char b):
     """
