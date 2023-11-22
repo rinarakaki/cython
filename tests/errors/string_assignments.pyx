@@ -75,9 +75,9 @@ print <unicode>c1
 print <unicode>c1[1:2]
 
 _ERRORS = u"""
-36:18: Unicode literals do not support coercion to C types other than Py_UNICODE/Py_UCS4 (for characters) or Py_UNICODE* (for strings).
-37:18: Unicode objects only support coercion to Py_UNICODE*.
-38:18: 'str' objects do not support coercion to C types (use 'bytes'?).
+36:19: Unicode literals do not support coercion to C types other than Py_UNICODE/Py_UCS4 (for characters) or Py_UNICODE* (for strings).
+37:19: Unicode objects only support coercion to Py_UNICODE*.
+38:19: 'str' objects do not support coercion to C types (use 'bytes'?).
 
 40:25: Cannot assign type 'char *' to 'Py_UNICODE *'
 41:25: Cannot convert 'bytes' object to Py_UNICODE*, use 'unicode'.

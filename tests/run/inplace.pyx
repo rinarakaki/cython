@@ -50,7 +50,7 @@ def arrays():
 cdef class A:
     cdef attr
     cdef i32 attr2
-    cdef r&i8 buf
+    cdef r&mut i8 buf
     def __init__(self):
         self.attr = 3
         self.attr2 = 3

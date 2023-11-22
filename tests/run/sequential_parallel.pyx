@@ -242,7 +242,7 @@ def test_nan_init():
     """
     let i32 mybool = 0
     let i32 err = 0
-    let r&i32 errp = &err
+    let r&mut i32 errp = &err
 
     let i8 a1 = 10
     let u8 a2 = 10
