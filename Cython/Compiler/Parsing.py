@@ -3715,13 +3715,15 @@ def p_c_modifiers(s):
 def p_fn_statement(s, pos, ctx):
     # s.sy == "fn" or s.sy == "const" and s.peek()[0] == "fn"
     cmethod_flag = ctx.level in ("c_class", "c_class_pxd")
+    is_static_method = is_const_function = 0
     if s.sy == "const":
         s.next()
+        is_const_function = 1
+    elif s.sy == "static":
         s.next()
-        is_const_method = 1
-    else:
-        s.next()
-        is_const_method = 0
+        is_static_method = 1
+    s.next()
+
     modifiers = p_c_modifiers(s)
     base_type = p_c_base_type(s, nonempty = 1, templates = ctx.templates)
     declarator = p_c_declarator(s, ctx(modifiers=modifiers), cmethod_flag = cmethod_flag,
@@ -3740,13 +3742,14 @@ def p_fn_statement(s, pos, ctx):
             modifiers = modifiers,
             api = ctx.api,
             overridable = ctx.overridable,
-            is_const_method = is_const_method
+            is_static_method = is_static_method,
+            is_const_method = is_const_function
         )
     else:
         # if api:
         #    s.error("'api' not allowed with variable declaration")
-        if is_const_method:
-            declarator.is_const_method = is_const_method
+        if is_const_function:
+            declarator.is_const_method = is_const_function
         declarators = [declarator]
         while s.sy == ',':
             s.next()
@@ -3769,7 +3772,8 @@ def p_fn_statement(s, pos, ctx):
             doc = doc,
             api = ctx.api,
             modifiers = modifiers,
-            overridable = ctx.overridable
+            overridable = ctx.overridable,
+            is_static_method = is_static_method,
         )
     return result
 
@@ -4320,7 +4324,7 @@ def p_cpp_class_definition(s, pos,  ctx):
         body_ctx.templates = template_names
         while s.sy != 'DEDENT':
             if s.sy != 'pass':
-                attributes.append(p_cpp_class_attribute(s, body_ctx))
+                attributes.append(p_associated_item(s, body_ctx))
             else:
                 s.next()
                 s.expect_newline("Expected a newline")
@@ -4337,6 +4341,25 @@ def p_cpp_class_definition(s, pos,  ctx):
         attributes = attributes,
         templates = templates)
 
+def p_associated_item(s, ctx):
+    attributes = []
+    if s.sy == "#" and s.peek()[0] in ("!", "["):
+        s.level = ctx.level
+        attributes = p_attributes(s)
+    item = None
+    if s.systring == "type" and s.peek()[0] == "IDENT":
+        item = p_type_statement(s, ctx)
+    elif s.sy == "const" and s.peek()[0] != "fn":
+        item = p_c_func_or_var_declaration(s, s.position(), ctx)
+    elif s.sy == "fn" or s.sy in ("static", "const") and s.peek()[0] == "fn":
+        item = p_fn_statement(s, s.position(), ctx)
+
+    if item is not None:
+        item.decorators = attributes
+        return item
+    else:
+        return p_cpp_class_attribute(s, ctx)
+
 def p_cpp_class_attribute(s, ctx):
     decorators = None
     if s.sy == '@':
@@ -4350,16 +4373,6 @@ def p_cpp_class_attribute(s, ctx):
             return p_cpp_class_definition(s, s.position(), ctx)
         else:
             return p_struct_enum(s, s.position(), ctx)
-    elif s.sy == "fn" or s.sy == "const" and s.peek()[0] == "fn":
-        node = p_fn_statement(s, s.position(), ctx)
-        if decorators is not None:
-            tup = Nodes.CFuncDefNode, Nodes.CVarDefNode, Nodes.CClassDefNode
-            if ctx.allow_struct_enum_decorator:
-                tup += Nodes.CStructOrUnionDefNode, Nodes.CEnumDefNode
-            if not isinstance(node, tup):
-                s.error("Decorators can only be followed by functions or classes")
-            node.decorators = decorators
-        return node
     else:
         node = p_c_func_or_var_declaration(s, s.position(), ctx)
         if decorators is not None:

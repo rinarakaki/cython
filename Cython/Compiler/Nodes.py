@@ -1532,6 +1532,7 @@ class CVarDefNode(StatNode):
 
     decorators = None
     directive_locals = None
+    is_static_method = 0
 
     def analyse_declarations(self, env, dest_scope=None):
         if self.directive_locals is None:
@@ -1605,8 +1606,8 @@ class CVarDefNode(StatNode):
             if type.is_rvalue_reference and self.visibility != 'extern':
                 error(declarator.pos, "C++ rvalue-references cannot be declared")
             if type.is_cfunction:
-                if 'staticmethod' in env.directives:
-                    type.is_static_method = True
+                if self.is_static_method or 'staticmethod' in env.directives:
+                    type.is_static_method = 1
                 self.entry = dest_scope.declare_cfunction(
                     name, type, declarator.pos,
                     cname=cname, visibility=self.visibility, in_pxd=self.in_pxd,
@@ -2690,6 +2691,7 @@ class CFuncDefNode(FuncDefNode):
     override = None
     template_declaration = None
     is_const_method = False
+    is_static_method = 0
     py_func_stat = None
 
     def unqualified_name(self):
@@ -2715,7 +2717,7 @@ class CFuncDefNode(FuncDefNode):
                 base_type = PyrexTypes.error_type
         else:
             base_type = self.base_type.analyse(env)
-        self.is_static_method = 'staticmethod' in env.directives and not env.lookup_here('staticmethod')
+        self.is_static_method = self.is_static_method or 'staticmethod' in env.directives and not env.lookup_here('staticmethod')
         # The 2 here is because we need both function and argument names.
         if isinstance(self.declarator, CFuncDeclaratorNode):
             name_declarator, typ = self.declarator.analyse(
