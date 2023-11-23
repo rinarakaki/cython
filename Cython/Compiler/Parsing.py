@@ -2486,6 +2486,16 @@ def p_item(s, ctx, attributes):
         if ctx.level not in ("module", "module_pxd"):
             s.error("type statement not allowed here")
         item = p_type_alias_item(s, ctx)
+    elif s.sy == "enum":
+        if ctx.level not in ("module", "module_pxd"):
+            error(pos, "C enum definition not allowed here")
+        item = p_enum_item(s, pos, ctx)
+    elif s.sy in ("struct", "union") or s.systring == "packed":
+        if ctx.level not in ("module", "module_pxd"):
+            error(pos, "C struct/union definition not allowed here")
+        if ctx.overridable:
+            error(pos, "C struct/union cannot be declared cpdef")
+        item = p_struct_or_union_item(s, pos, ctx)
 
     if item is not None:
         item.decorators = attributes
@@ -3468,13 +3478,6 @@ def p_cdef_statement(s, ctx):
         return p_c_class_definition(s, pos, ctx)
     elif s.sy == 'IDENT' and s.systring == 'cppclass':
         return p_cpp_class_definition(s, pos, ctx)
-    elif s.sy in struct_enum_union or s.sy == 'IDENT' and s.systring == "packed":
-        if ctx.level not in ('module', 'module_pxd'):
-            error(pos, "C struct/union/enum definition not allowed here")
-        if ctx.overridable:
-            if s.systring != 'enum':
-                error(pos, "C struct/union cannot be declared cpdef")
-        return p_struct_enum(s, pos, ctx)
     elif s.sy == 'IDENT' and s.systring == 'fused':
         return p_fused_definition(s, pos, ctx)
     elif s.sy == "fn" or s.sy == "const" and s.peek()[0] == "fn":
@@ -3603,7 +3606,7 @@ def p_variant(s, ctx, items):
     items.append(Nodes.CEnumDefItemNode(pos,
         name = name, cname = cname, value = value))
 
-def p_c_struct_or_union_item(s, pos, ctx):
+def p_struct_or_union_item(s, pos, ctx):
     packed = False
     if s.systring == 'packed':
         packed = True
@@ -3685,7 +3688,7 @@ def p_struct_enum(s, pos, ctx):
     if s.systring == 'enum':
         return p_enum_item(s, pos, ctx)
     else:
-        return p_c_struct_or_union_item(s, pos, ctx)
+        return p_struct_or_union_item(s, pos, ctx)
 
 def p_let_statement(s, pos, ctx):
     # s.sy == "let"
