@@ -6216,13 +6216,10 @@ class SimpleCallNode(CallNode):
             self.type = error_type
             return
 
-        if self.self:
+        if self.method_call:
             args = [self.self] + self.args
         else:
-            if self.method_call:
-                args = [self.self] + self.args
-            else:
-                args = self.args
+            args = self.args
 
         if func_type.is_cpp_class:
             overloaded_entry = self.function.type.scope.lookup("operator()")
