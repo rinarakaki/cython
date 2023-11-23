@@ -1922,13 +1922,11 @@ def p_from_import_statement(s, first_statement = 0):
                 name_list = import_list),
             items = items)
 
-
 def p_imported_name(s):
     pos = s.position()
     name = p_ident(s)
     as_name = p_as_name(s)
     return (pos, name, as_name)
-
 
 def p_path(s, as_allowed):
     pos = s.position()
@@ -1947,9 +1945,9 @@ def p_path(s, as_allowed):
         elif s.sy == "(":
             s.next()
             idents.append(p_imported_name(s))
-            while s.sy == ',':
+            while s.sy == ",":
                 s.next()
-                if s.sy == ')':
+                if s.sy == ")":
                     break
                 idents.append(p_imported_name(s))
             s.expect(")")
@@ -2471,6 +2469,7 @@ def p_use_item(s):
                 is_absolute=is_absolute,
             )
         stats.append(stat)
+    s.expect_newline("Expected a newline", ignore_semicolon=True)
     return Nodes.StatListNode(pos, stats=stats)
 
 def p_attributes(s):
