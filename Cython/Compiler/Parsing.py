@@ -2501,7 +2501,6 @@ def p_visibility(s, prev_visibility):
 def p_item(s, ctx):
     s.level = ctx.level
     attributes = p_attributes(s)
-    ctx.visibility = p_visibility(s, ctx.visibility)
 
     item = None
     if s.sy == "use":
@@ -2546,6 +2545,7 @@ def p_statement(s, ctx, first_statement = 0):
             pos = s.position()
             return p_let_statement(s, pos, ctx)
 
+        ctx.visibility = p_visibility(s, ctx.visibility)
         item = p_item(s, ctx)
         if item is not None:
             return item
