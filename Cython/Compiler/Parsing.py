@@ -4091,7 +4091,20 @@ def p_c_class_definition(s, pos,  ctx):
             body_level = 'c_class_pxd'
         else:
             body_level = 'c_class'
-        doc, body = p_suite_with_docstring(s, Ctx(level=body_level))
+        s.next()
+        s.expect('NEWLINE')
+        s.expect_indent()
+        doc = p_doc_string(s)
+        items = []
+        body_ctx = Ctx(level=body_level)
+        while s.sy != "DEDENT":
+            if s.sy != "pass":
+                items.append(p_associated_item(s, body_ctx))
+            else:
+                s.next()
+                s.expect_newline("Expected a newline")
+        s.expect_dedent()
+        body = items
     else:
         s.expect_newline("Syntax error in C class definition")
         doc = None
@@ -4353,18 +4366,18 @@ def p_cpp_class_definition(s, pos,  ctx):
         # The goal of this is consistency: we can make docstrings inside cppclass methods,
         # so why not on the cppclass itself ?
         p_doc_string(s)
-        attributes = []
+        items = []
         body_ctx = Ctx(visibility = ctx.visibility, level='cpp_class', nogil=nogil or ctx.nogil)
         body_ctx.templates = template_names
         while s.sy != 'DEDENT':
             if s.sy != 'pass':
-                attributes.append(p_associated_item(s, body_ctx))
+                items.append(p_associated_item(s, body_ctx))
             else:
                 s.next()
                 s.expect_newline("Expected a newline")
         s.expect_dedent()
     else:
-        attributes = None
+        items = None
         s.expect_newline("Syntax error in C++ class definition")
     return Nodes.CppClassNode(pos,
         name = class_name,
@@ -4372,7 +4385,7 @@ def p_cpp_class_definition(s, pos,  ctx):
         base_classes = base_classes,
         visibility = ctx.visibility,
         in_pxd = ctx.level == 'module_pxd',
-        attributes = attributes,
+        attributes = items,
         templates = templates)
 
 def p_associated_item(s, ctx):
@@ -4385,6 +4398,8 @@ def p_associated_item(s, ctx):
         item = p_c_func_or_var_declaration(s, s.position(), ctx)
     elif s.sy == "fn" or s.sy in ("static", "const") and s.peek()[0] == "fn":
         item = p_fn_item(s, s.position(), ctx)
+    elif s.sy == "pub":
+        item = p_c_func_or_var_declaration(s, s.position(), ctx)
 
     if item is not None:
         item.decorators = attributes
