@@ -2572,10 +2572,13 @@ def p_statement(s, ctx, first_statement = 0):
             pos = s.position()
             return p_let_statement(s, pos, ctx)
 
-        ctx.visibility = p_visibility(s, ctx.visibility)
-        item = p_item(s, ctx)
-        if item is not None:
-            return item
+        if s.sy == "pub" and s.peek()[0] == "IDENT":
+            pass
+        else:
+            ctx.visibility = p_visibility(s, ctx.visibility)
+            item = p_item(s, ctx)
+            if item is not None:
+                return item
 
     cdef_flag = ctx.cdef_flag
     decorators = []
@@ -4113,7 +4116,7 @@ def p_c_class_definition(s, pos,  ctx):
             body_level = 'c_class_pxd'
         else:
             body_level = 'c_class'
-        doc, body = p_suite_with_docstring(s, Ctx(level=body_level, cdef_flag=1))
+        doc, body = p_suite_with_docstring(s, Ctx(level=body_level))
     else:
         s.expect_newline("Syntax error in C class definition")
         doc = None
