@@ -3748,8 +3748,8 @@ def p_fn_statement(s, pos, ctx):
     else:
         # if api:
         #    s.error("'api' not allowed with variable declaration")
-        if is_const_method:
-            declarator.is_const_method = is_const_method
+        if is_const_function:
+            declarator.is_const_method = is_const_function
         declarators = [declarator]
         while s.sy == ',':
             s.next()
