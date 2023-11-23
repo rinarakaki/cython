@@ -3919,7 +3919,7 @@ def p_type_alias_item(s, ctx):
     pos = s.position()
     s.next()
     api = p_api(s)
-    ctx = ctx(typedef_flag=1, visibility=ctx.visibility)
+    ctx = ctx(typedef_flag=1)
     declarator = p_c_declarator(s, ctx, is_type=1, assignable=0)
     s.expect("=")
     base_type = p_c_base_type(s)
@@ -4424,7 +4424,9 @@ def p_associated_item(s, ctx):
         item = p_c_func_or_var_declaration(s, s.position(), ctx)
     elif s.sy == "fn" or s.sy in ("static", "const") and s.peek()[0] == "fn":
         item = p_fn_item(s, s.position(), ctx)
-    elif s.sy == "pub":
+    elif s.sy in ("pub", "cdef"):
+        if s.sy == "cdef":
+            s.next()
         item = p_c_func_or_var_declaration(s, s.position(), ctx)
 
     if item is not None:
