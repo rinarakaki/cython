@@ -2600,7 +2600,7 @@ def p_statement(s, ctx, first_statement = 0):
         if ctx.level not in ('module', 'module_pxd', 'function', 'c_class', 'c_class_pxd'):
             s.error('cdef statement not allowed here')
         s.level = ctx.level
-        node = p_cdef_statement(s, ctx(overridable=overridable, visibility=ctx.visibility))
+        node = p_cdef_statement(s, ctx(overridable=overridable))
         if len(decorators) > 0:
             tup = (Nodes.CFuncDefNode, Nodes.CVarDefNode, Nodes.CClassDefNode)
             if ctx.allow_struct_enum_decorator:
@@ -3490,6 +3490,7 @@ def p_api(s):
 
 def p_cdef_statement(s, ctx):
     pos = s.position()
+    ctx.visibility = p_visibility(s, ctx.visibility)
     ctx.api = ctx.api or p_api(s)
     if ctx.api:
         if ctx.visibility not in ("private", "public"):
