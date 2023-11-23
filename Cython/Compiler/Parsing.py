@@ -2548,6 +2548,7 @@ def p_item(s, ctx):
 def p_statement(s, ctx, first_statement = 0):
     cdef_flag = ctx.cdef_flag
 
+    overridable = 0
     if s.sy == "cpdef":
         cdef_flag = 1
         overridable = 1
@@ -2559,7 +2560,7 @@ def p_statement(s, ctx, first_statement = 0):
             return p_let_statement(s, pos, ctx)
 
         s.level = ctx.level
-        ctx = Ctx(voverridable=overridable, isibility=p_visibility(s, ctx.visibility))
+        ctx = ctx(voverridable=overridable, isibility=p_visibility(s, ctx.visibility))
         item = p_item(s, ctx)
         if item is not None:
             return item
