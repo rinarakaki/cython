@@ -4034,7 +4034,6 @@ def p_py_arg_decl(s, annotated = 1):
         annotation = p_annotation(s)
     return Nodes.PyArgDeclNode(pos, name = name, annotation = annotation)
 
-
 def p_class_statement(s, decorators):
     # s.sy == 'class'
     pos = s.position()
@@ -4056,7 +4055,6 @@ def p_class_statement(s, decorators):
         keyword_args=keyword_dict,
         doc=doc, body=body, decorators=decorators,
         force_py3_semantics=s.context.language_level >= 3)
-
 
 def p_c_class_definition(s, pos,  ctx):
     # s.sy == 'class'
@@ -4087,20 +4085,22 @@ def p_c_class_definition(s, pos,  ctx):
         bases = ExprNodes.TupleNode(pos, args=[])
 
     if s.sy == '[':
-        if ctx.visibility not in ("pub", "public", "extern") and not ctx.api:
+        if ctx.visibility not in ("public", "extern") and not ctx.api:
             error(s.position(), "Name options only allowed for 'public', 'api', or 'extern' C class")
         objstruct_name, typeobj_name, check_size = p_c_class_options(s)
-    if s.sy == ':':
+    if s.sy == ":":
         if ctx.level == 'module_pxd':
             body_level = 'c_class_pxd'
         else:
             body_level = 'c_class'
         s.next()
-        s.expect('NEWLINE')
+        s.expect("NEWLINE")
         s.expect_indent()
         doc = p_doc_string(s)
         items = []
         body_ctx = Ctx(level=body_level)
+        print("!!!!! p_c_class_definition !!!!!")
+        print(module_path, class_name)
         while s.sy != "DEDENT":
             if s.sy != "pass":
                 items.append(p_associated_item(s, body_ctx))
@@ -4402,7 +4402,7 @@ def p_associated_item(s, ctx):
         item = p_c_func_or_var_declaration(s, s.position(), ctx)
     elif s.sy == "fn" or s.sy in ("static", "const") and s.peek()[0] == "fn":
         item = p_fn_item(s, s.position(), ctx)
-    elif s.sy in ("pub", "cdef"):
+    elif s.sy in ("pub", "cdef", "IDENT"):
         if s.sy == "cdef":
             s.next()
         item = p_c_func_or_var_declaration(s, s.position(), ctx)
