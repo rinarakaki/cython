@@ -2560,7 +2560,7 @@ def p_statement(s, ctx, first_statement = 0):
             return p_let_statement(s, pos, ctx)
 
         s.level = ctx.level
-        ctx = ctx(voverridable=overridable, isibility=p_visibility(s, ctx.visibility))
+        ctx = ctx(voverridable=overridable, visibility=p_visibility(s, ctx.visibility))
         item = p_item(s, ctx)
         if item is not None:
             return item
