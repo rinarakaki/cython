@@ -3815,7 +3815,8 @@ def p_fn_item(s, pos, ctx):
             doc = doc,
             api = ctx.api,
             modifiers = modifiers,
-            overridable = ctx.overridable
+            overridable = ctx.overridable,
+            is_static_method = is_static_method,
         )
     return result
 
