@@ -6216,6 +6216,8 @@ class SimpleCallNode(CallNode):
             self.type = error_type
             return
 
+        print("!!!!! analyse_c_function_call !!!!!")
+        print(self)
         if func_type.is_cfunction:
             if self.method_call:
                 args = [self.self] + self.args
