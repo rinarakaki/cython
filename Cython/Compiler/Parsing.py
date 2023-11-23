@@ -4093,24 +4093,27 @@ def p_c_class_definition(s, pos,  ctx):
             error(s.position(), "Name options only allowed for 'public', 'api', or 'extern' C class")
         objstruct_name, typeobj_name, check_size = p_c_class_options(s)
     if s.sy == ":":
-        if ctx.level == 'module_pxd':
-            body_level = 'c_class_pxd'
-        else:
-            body_level = 'c_class'
         s.next()
-        s.expect("NEWLINE")
-        s.expect_indent()
-        doc = p_doc_string(s)
-        items = []
-        body_ctx = Ctx(level=body_level)
-        while s.sy != "DEDENT":
-            if s.sy != "pass":
-                items.append(p_associated_item(s, body_ctx))
+        if s.sy == "pass":
+            body = p_pass_statement(s)
+        else:
+            s.expect("NEWLINE")
+            s.expect_indent()
+            if ctx.level == 'module_pxd':
+                body_level = 'c_class_pxd'
             else:
-                s.next()
-                s.expect_newline("Expected a newline")
-        s.expect_dedent()
-        body = Nodes.StatListNode(pos, stats = items)
+                body_level = 'c_class'
+            doc = p_doc_string(s)            
+            items = []
+            body_ctx = Ctx(level=body_level)
+            while s.sy != "DEDENT":
+                if s.sy != "pass":
+                    items.append(p_associated_item(s, body_ctx))
+                else:
+                    s.next()
+                    s.expect_newline("Expected a newline")
+            s.expect_dedent()
+            body = Nodes.StatListNode(pos, stats = items)
     else:
         s.expect_newline("Syntax error in C class definition")
         doc = None
