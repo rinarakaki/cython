@@ -1811,7 +1811,7 @@ def p_raise_statement(s):
         return Nodes.ReraiseStatNode(pos)
 
 
-def p_use_statement(s):
+def p_use_item(s):
     # s.sy == "use"
     pos = s.position()
     s.next()
@@ -2378,8 +2378,6 @@ def p_simple_statement(s, first_statement = 0):
         node = p_return_statement(s)
     elif s.sy == 'raise':
         node = p_raise_statement(s)
-    elif s.sy == "use":
-        node = p_use_statement(s)
     elif s.sy in ("import", "cimport"):
         node = p_import_statement(s)
     elif s.sy == "from" or not s.in_python_file and s.systring == "from":
@@ -2482,7 +2480,9 @@ def p_item(s, ctx, attributes):
     pos = s.position()
 
     item = None
-    if not s.in_python_file and s.systring == "type" and s.peek()[0] == "IDENT":
+    if s.sy == "use":
+        item = p_use_item(s)
+    elif not s.in_python_file and s.systring == "type" and s.peek()[0] == "IDENT":
         if ctx.level not in ("module", "module_pxd"):
             s.error("type statement not allowed here")
         item = p_type_alias_item(s, ctx)
