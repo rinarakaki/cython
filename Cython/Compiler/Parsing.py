@@ -2539,6 +2539,8 @@ def p_item(s, ctx):
     return item
 
 def p_statement(s, ctx, first_statement = 0):
+    cdef_flag = ctx.cdef_flag
+
     if not s.in_python_file:
         s.level = ctx.level
 
@@ -2547,14 +2549,13 @@ def p_statement(s, ctx, first_statement = 0):
             return p_let_statement(s, pos, ctx)
 
         if s.sy == "pub" and s.peek()[0] == "IDENT":
-            pass
+            cdef_flag = 1
         else:
             ctx.visibility = p_visibility(s, ctx.visibility)
             item = p_item(s, ctx)
             if item is not None:
                 return item
 
-    cdef_flag = ctx.cdef_flag
     decorators = []
 
     if s.sy == 'ctypedef':
