@@ -3,29 +3,29 @@
 
 from functools import wraps
 
-@wraps
+#[wraps]
 fn cant_be_decoratored():
     pass
 
-@wraps
+#[wraps]
 cpdef also_cant_be_decorated():
     pass
 
 cdef class C:
-    @wraps
+    #[wraps]
     fn still_cant_be_decorated(self):
         pass
 
-    @property
+    #[property]
     fn property_only_works_for_extern_classes(self):
         pass
 
-    @wraps
+    #[wraps]
     cpdef also_still_cant_be_decorated(self):
         pass
 
-    @wraps
-    @wraps
+    #[wraps]
+    #[wraps]
     fn two_is_just_as_bad_as_one(self):
         pass
 
