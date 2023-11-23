@@ -3622,17 +3622,17 @@ def p_enum_item(s, pos, ctx):
 
 def p_c_enum_line(s, ctx, items):
     if s.sy != 'pass':
-        p_c_enum_item(s, ctx, items)
+        p_variant(s, ctx, items)
         while s.sy == ',':
             s.next()
             if s.sy in ('NEWLINE', 'EOF'):
                 break
-            p_c_enum_item(s, ctx, items)
+            p_variant(s, ctx, items)
     else:
         s.next()
     s.expect_newline("Syntax error in enum item list")
 
-def p_c_enum_item(s, ctx, items):
+def p_variant(s, ctx, items):
     pos = s.position()
     name = p_ident(s)
     cname = p_opt_cname(s)
