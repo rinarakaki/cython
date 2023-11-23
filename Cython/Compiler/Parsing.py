@@ -4342,7 +4342,7 @@ def p_cpp_class_definition(s, pos,  ctx):
 
 def p_associated_item(s, ctx):
     attributes = []
-    if s.sy == "#" and s.peek()[0] == ("!", "["):
+    if s.sy == "#" and s.peek()[0] in ("!", "["):
         s.level = ctx.level
         attributes = p_attributes(s)
     item = None
