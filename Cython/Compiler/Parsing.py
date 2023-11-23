@@ -2473,37 +2473,71 @@ def p_use_item(s):
         stats.append(stat)
     return Nodes.StatListNode(pos, stats=stats)
 
+def p_attributes(s):
+    attributes = []
+    while s.sy == "#" and s.peek()[0] in ("!", "["):
+        pos = s.position()
+        s.next()
+        s.next()
+        attribute = p_namedexpr_test(s)
+        attributes.append(Nodes.DecoratorNode(pos, decorator=attribute))
+        s.expect("]")
+        s.expect_newline("Expected a newline after attribute")
+    return attributes
+
+def p_visibility(s, prev_visibility):
+    pos = s.position()
+    visibility = prev_visibility
+    if s.sy in ("pub", "extern") or s.sy == 'IDENT' and s.systring in ("public", "readonly"):
+        if s.sy == "pub":
+            visibility = "public"
+        else:
+            visibility = s.systring
+        if prev_visibility != 'private' and visibility != prev_visibility:
+            s.error("Conflicting visibility options '%s' and '%s'"
+                % (prev_visibility, visibility), fatal=False)
+        s.next()
+    return visibility
+
 def p_item(s, ctx):
     s.level = ctx.level
     attributes = p_attributes(s)
+    ctx.visibility = p_visibility(s, ctx.visibility)
 
+    item = None
     if s.sy == "use":
-        node = p_use_item(s)
+        item = p_use_item(s)
     elif s.sy == "static":
         s.next()
-        return p_c_func_or_var_declaration(s, pos, ctx)
+        item = p_c_func_or_var_declaration(s, pos, ctx)
     elif s.sy == "const" and s.peek()[0] == "IDENT":
         if ctx.visibility != "extern":
             s.error("const statement not allowed here")
-        return p_const_item(s)
+        item = p_const_item(s)
     elif s.sy == "fn" or s.sy in ("const", "extern") and s.peek()[0] == "fn":
-        return p_fn_item(s, pos, ctx)
+        item = p_fn_item(s, pos, ctx)
     elif ctx.visibility == "extern" and s.systring == "from":
-        return p_extern_item(s, pos, ctx)
+        item = p_extern_item(s, pos, ctx)
     elif s.systring == "type" and s.peek()[0] == "IDENT":
         if ctx.level not in ("module", "module_pxd"):
             s.error("type statement not allowed here")
-        return p_type_alias_item(s, ctx)
+        item = p_type_alias_item(s, ctx)
     elif s.sy == "enum":
         if ctx.level not in ("module", "module_pxd"):
             error(pos, "C enum definition not allowed here")
-        return p_enum_item(s, pos, ctx)
+        item = p_enum_item(s, pos, ctx)
     elif s.sy in ("struct", "union"):
         if ctx.level not in ("module", "module_pxd"):
             error(pos, "C struct/union definition not allowed here")
         if ctx.overridable:
             error(pos, "C struct/union cannot be declared cpdef")
-        return p_struct_or_union_item(s, pos, ctx)
+        item = p_struct_or_union_item(s, pos, ctx)
+    
+    if item is not None:
+        item.decorators = attributes
+        item.visibility = ctx.visibility
+            
+    return item
 
 def p_statement(s, ctx, first_statement = 0):
     if not s.in_python_file:
@@ -3718,20 +3752,6 @@ def p_let_statement(s, pos, ctx):
     s.expect_newline("Syntax error in C variable declaration", ignore_semicolon=True)
     return Nodes.LetStatNode(pos, base_type = base_type, declarators = declarators)
 
-def p_visibility(s, prev_visibility):
-    pos = s.position()
-    visibility = prev_visibility
-    if s.sy in ("pub", "extern") or s.sy == 'IDENT' and s.systring in ("public", "readonly"):
-        if s.sy == "pub":
-            visibility = "public"
-        else:
-            visibility = s.systring
-        if prev_visibility != 'private' and visibility != prev_visibility:
-            s.error("Conflicting visibility options '%s' and '%s'"
-                % (prev_visibility, visibility), fatal=False)
-        s.next()
-    return visibility
-
 def p_c_modifiers(s):
     if s.sy == 'IDENT' and s.systring in ('inline',):
         modifier = s.systring
@@ -3911,18 +3931,6 @@ def p_ctypedef_statement(s, ctx):
             declarator = declarator,
             visibility = visibility, api = api,
             in_pxd = ctx.level == 'module_pxd')
-
-def p_attributes(s):
-    attributes = []
-    while s.sy == "#" and s.peek()[0] in ("!", "["):
-        pos = s.position()
-        s.next()
-        s.next()
-        attribute = p_namedexpr_test(s)
-        attributes.append(Nodes.DecoratorNode(pos, decorator=attribute))
-        s.expect("]")
-        s.expect_newline("Expected a newline after attribute")
-    return attributes
 
 def p_decorators(s):
     decorators = []
