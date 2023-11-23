@@ -141,7 +141,6 @@ class TreeVisitor:
             getattr(last_node, 'pos', None), self.__class__.__name__,
             '\n'.join(trace), e, stacktrace)
 
-    @cython.final
     def find_handler(self, obj):
         # to resolve, try entire hierarchy
         cls = type(obj)
@@ -162,7 +161,6 @@ class TreeVisitor:
         # generic def entry point for calls from Python subclasses
         return self._visit(obj)
 
-    @cython.final
     def _visit(self, obj):
         # fast cdef entry point for calls from Cython subclasses
         try:
@@ -181,7 +179,6 @@ class TreeVisitor:
                 raise
             self._raise_compiler_error(obj, e)
 
-    @cython.final
     def _visitchild(self, child, parent, attrname, idx):
         # fast cdef entry point for calls from Cython subclasses
         self.access_path.append((parent, attrname, idx))
@@ -193,7 +190,6 @@ class TreeVisitor:
         # generic def entry point for calls from Python subclasses
         return self._visitchildren(parent, attrs, exclude)
 
-    @cython.final
     @cython.locals(idx=cython.isize)
     def _visitchildren(self, parent, attrs, exclude):
         # fast cdef entry point for calls from Cython subclasses
@@ -246,7 +242,6 @@ class VisitorTransform(TreeVisitor):
         # generic def entry point for calls from Python subclasses
         return self._process_children(parent, attrs, exclude)
 
-    @cython.final
     def _process_children(self, parent, attrs=None, exclude=None):
         # fast cdef entry point for calls from Cython subclasses
         result = self._visitchildren(parent, attrs, exclude)
@@ -256,7 +251,6 @@ class VisitorTransform(TreeVisitor):
             setattr(parent, attr, newnode)
         return result
 
-    @cython.final
     def _flatten_list(self, orig_list):
         # Flatten the list one level and remove any None
         newlist = []
