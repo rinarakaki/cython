@@ -2542,15 +2542,15 @@ def p_statement(s, ctx, first_statement = 0):
     cdef_flag = ctx.cdef_flag
 
     if not s.in_python_file:
-        s.level = ctx.level
-
         if s.sy == "let":
+            s.level = ctx.level
             pos = s.position()
             return p_let_statement(s, pos, ctx)
 
         if s.sy == "pub" and s.peek()[0] == "IDENT":
             cdef_flag = 1
         else:
+            s.level = ctx.level
             ctx.visibility = p_visibility(s, ctx.visibility)
             item = p_item(s, ctx)
             if item is not None:
