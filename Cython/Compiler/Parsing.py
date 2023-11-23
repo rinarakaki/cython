@@ -3715,13 +3715,15 @@ def p_c_modifiers(s):
 def p_fn_statement(s, pos, ctx):
     # s.sy == "fn" or s.sy == "const" and s.peek()[0] == "fn"
     cmethod_flag = ctx.level in ("c_class", "c_class_pxd")
+    is_static_function = is_const_function = 0
     if s.sy == "const":
         s.next()
+        is_const_function = 1
+    elif s.sy == "static":
         s.next()
-        is_const_method = 1
-    else:
-        s.next()
-        is_const_method = 0
+        is_static_function = 1
+    s.next()
+
     modifiers = p_c_modifiers(s)
     base_type = p_c_base_type(s, nonempty = 1, templates = ctx.templates)
     declarator = p_c_declarator(s, ctx(modifiers=modifiers), cmethod_flag = cmethod_flag,
@@ -3740,7 +3742,8 @@ def p_fn_statement(s, pos, ctx):
             modifiers = modifiers,
             api = ctx.api,
             overridable = ctx.overridable,
-            is_const_method = is_const_method
+            is_static_function = is_static_function,
+            is_const_method = is_const_function
         )
     else:
         # if api:
@@ -4342,7 +4345,7 @@ def p_associated_item(s, ctx):
         return p_type_statement(s, ctx)
     elif s.sy == "const" and s.peek()[0] == "IDENT":
         return p_const_statement(s)
-    elif s.sy == "fn" or s.sy == "const" and s.peek()[0] == "fn":
+    elif s.sy == "fn" or s.sy in ("static", "const") and s.peek()[0] == "fn":
         return p_fn_statement(s, s.position(), ctx)
     else:
         return p_cpp_class_attribute(s, ctx)
