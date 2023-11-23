@@ -4393,6 +4393,12 @@ def p_cpp_class_definition(s, pos,  ctx):
 def p_associated_item(s, ctx):
     s.level = ctx.level
     attributes = p_attributes(s)
+    decorators = []
+    if s.sy == "@":
+        if ctx.level not in ('module', 'class', 'c_class', 'function', 'property', 'module_pxd', 'c_class_pxd', 'other'):
+            s.error('decorator not allowed here')
+        s.level = ctx.level
+        decorators += p_decorators(s)
     item = None
     if s.systring == "type" and s.peek()[0] == "IDENT":
         item = p_type_alias_item(s, ctx)
@@ -4414,7 +4420,7 @@ def p_associated_item(s, ctx):
         if "pxd" in ctx.level and ctx.level != "c_class_pxd":
             s.error('def statement not allowed here')
         s.level = ctx.level
-        return p_def_statement(s, attributes)
+        return p_def_statement(s, decorators)
 
     if item is not None:
         print("!!!!! p_associated_item !!!!!")
