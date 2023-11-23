@@ -3715,13 +3715,13 @@ def p_c_modifiers(s):
 def p_fn_statement(s, pos, ctx):
     # s.sy == "fn" or s.sy == "const" and s.peek()[0] == "fn"
     cmethod_flag = ctx.level in ("c_class", "c_class_pxd")
-    is_static_function = is_const_function = 0
+    is_static_method = is_const_function = 0
     if s.sy == "const":
         s.next()
         is_const_function = 1
     elif s.sy == "static":
         s.next()
-        is_static_function = 1
+        is_static_method = 1
     s.next()
 
     modifiers = p_c_modifiers(s)
@@ -3742,7 +3742,7 @@ def p_fn_statement(s, pos, ctx):
             modifiers = modifiers,
             api = ctx.api,
             overridable = ctx.overridable,
-            is_static_function = is_static_function,
+            is_static_method = is_static_method,
             is_const_method = is_const_function
         )
     else:
