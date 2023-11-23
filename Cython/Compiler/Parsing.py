@@ -2549,8 +2549,6 @@ def p_statement(s, ctx, first_statement = 0):
 
         item = p_item(s, ctx)
         if item is not None:
-            if len(attributes) > 0:
-                item.decorators = attributes
             return item
 
     cdef_flag = ctx.cdef_flag
