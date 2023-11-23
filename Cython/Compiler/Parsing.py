@@ -4341,12 +4341,20 @@ def p_cpp_class_definition(s, pos,  ctx):
         templates = templates)
 
 def p_associated_item(s, ctx):
+    attributes = []
+    if s.sy == "#" and s.peek()[0] == ("!", "["):
+        s.level = ctx.level
+        attributes = p_attributes(s)
+    item = None
     if s.systring == "type" and s.peek()[0] == "IDENT":
-        return p_type_statement(s, ctx)
+        item = p_type_statement(s, ctx)
     elif s.sy == "const" and s.peek()[0] != "fn":
-        return p_c_func_or_var_declaration(s, s.position(), ctx)
+        item = p_c_func_or_var_declaration(s, s.position(), ctx)
     elif s.sy == "fn" or s.sy in ("static", "const") and s.peek()[0] == "fn":
-        return p_fn_statement(s, s.position(), ctx)
+        item = p_fn_statement(s, s.position(), ctx)
+
+    if item is not None:
+        item.decorators = attributes
     else:
         return p_cpp_class_attribute(s, ctx)
 
