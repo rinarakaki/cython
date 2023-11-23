@@ -2547,18 +2547,20 @@ def p_mod_item(s, ctx):
     ctx = ctx(cdef_flag = 1, level = "module")
     if s.sy == ":":
         # Use "docstring" as verbatim string to include
-        verbatim_include, body = p_suite_with_docstring(s, ctx, True)
+        doc, body = p_suite_with_docstring(s, ctx, True)
     else:
         mod_path = s.context.find_include_file(name, pos)
         s.included_files.append(name)
         with Utils.open_source_file(mod_path) as f:
             source_desc = FileSourceDescriptor(mod_path)
             s2 = PyrexScanner(f, source_desc, s, source_encoding=f.encoding, parse_comments=s.parse_comments)
-            verbatim_include, body = p_suite_with_docstring(s2, ctx)
+            doc, body = p_suite_with_docstring(s2, ctx)
 
-    return Nodes.ModStatNode(pos,
-        verbatim_include = verbatim_include,
+    return ModuleNode(pos,
+        doc = doc,
         body = body,
+        full_module_name = name,
+        directive_comments = directive_comments
     )
 
 def p_statement(s, ctx, first_statement = 0):

@@ -432,42 +432,6 @@ class StatNode(Node):
             self.__class__.__name__)
 
 
-class ModStatNode(StatNode):
-    #  verbatim_include   string or None
-    #  body               StatListNode or None
-
-    child_attrs = ["body"]
-
-    def analyse_declarations(self, env):
-        old_cinclude_flag = env.in_cinclude
-        env.in_cinclude = 1
-        self.body.analyse_declarations(env)
-        env.in_cinclude = old_cinclude_flag
-
-        if self.include_file or self.verbatim_include:
-            # Determine whether include should be late
-            stats = self.body.stats
-            if not env.directives['preliminary_late_includes_cy28']:
-                late = False
-            elif not stats:
-                # Special case: empty 'cdef extern' blocks are early
-                late = False
-            else:
-                late = all(isinstance(node, CVarDefNode) for node in stats)
-            env.add_include_file(self.include_file, self.verbatim_include, late)
-
-    def analyse_expressions(self, env):
-        # Allow C properties, inline methods, etc. also in external types.
-        self.body = self.body.analyse_expressions(env)
-        return self
-
-    def generate_function_definitions(self, env, code):
-        self.body.generate_function_definitions(env, code)
-
-    def generate_execution_code(self, code):
-        pass
-
-
 class CDefExternNode(StatNode):
     #  include_file       string or None
     #  verbatim_include   string or None
