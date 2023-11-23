@@ -2594,13 +2594,13 @@ def p_statement(s, ctx, first_statement = 0):
         s.next()
     elif s.sy == 'cpdef':
         cdef_flag = 1
-        ctx.overridable = overridable
+        overridable = 1
         s.next()
     if cdef_flag:
         if ctx.level not in ('module', 'module_pxd', 'function', 'c_class', 'c_class_pxd'):
             s.error('cdef statement not allowed here')
         s.level = ctx.level
-        node = p_cdef_statement(s, ctx)
+        node = p_cdef_statement(s, ctx(overridable=overridable))
         if len(decorators) > 0:
             tup = (Nodes.CFuncDefNode, Nodes.CVarDefNode, Nodes.CClassDefNode)
             if ctx.allow_struct_enum_decorator:
