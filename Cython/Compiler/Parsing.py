@@ -4113,7 +4113,7 @@ def p_c_class_definition(s, pos,  ctx):
             body_level = 'c_class_pxd'
         else:
             body_level = 'c_class'
-        doc, body = p_suite_with_docstring(s, Ctx(level=body_level))
+        doc, body = p_suite_with_docstring(s, Ctx(level=body_level, cdef_flag=1))
     else:
         s.expect_newline("Syntax error in C class definition")
         doc = None
