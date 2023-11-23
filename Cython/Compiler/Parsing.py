@@ -2548,6 +2548,10 @@ def p_item(s, ctx):
 def p_statement(s, ctx, first_statement = 0):
     cdef_flag = ctx.cdef_flag
 
+    elif s.sy == "cpdef":
+        cdef_flag = 1
+        overridable = 1
+        s.next()
     if not s.in_python_file:
         if s.sy == "let":
             s.level = ctx.level
@@ -2555,7 +2559,7 @@ def p_statement(s, ctx, first_statement = 0):
             return p_let_statement(s, pos, ctx)
 
         s.level = ctx.level
-        ctx = Ctx(visibility=p_visibility(s, ctx.visibility))
+        ctx = Ctx(voverridable=overridable, isibility=p_visibility(s, ctx.visibility))
         item = p_item(s, ctx)
         if item is not None:
             return item
