@@ -4100,7 +4100,7 @@ def p_c_class_definition(s, pos,  ctx):
         items = []
         body_ctx = Ctx(level=body_level)
         print("!!!!! p_c_class_definition !!!!!")
-        print(module_path, class_name)
+        print(module_path, str(class_name))
         while s.sy != "DEDENT":
             if s.sy != "pass":
                 items.append(p_associated_item(s, body_ctx))
@@ -4396,6 +4396,8 @@ def p_associated_item(s, ctx):
     s.level = ctx.level
     attributes = p_attributes(s)
     item = None
+    print("!!!!! p_associated_item !!!!!")
+    print(s.sy, s.systring)
     if s.systring == "type" and s.peek()[0] == "IDENT":
         item = p_type_alias_item(s, ctx)
     elif s.sy == "const" and s.peek()[0] != "fn":
