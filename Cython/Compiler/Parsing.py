@@ -2542,19 +2542,16 @@ def p_item(s, ctx):
     return item
 
 def p_mod_item(s, pos, ctx):
-    include_file = None
     s.next()  # s.sy == "mod"
     include_file = s.systring
-    ctx = ctx(cdef_flag = 1, visibility = 'extern')
+    ctx = ctx(cdef_flag = 1)
 
     # Use "docstring" as verbatim string to include
     verbatim_include, body = p_suite_with_docstring(s, ctx, True)
 
-    return Nodes.CDefExternNode(pos,
-        include_file = include_file,
+    return Nodes.ModStatNode(pos,
         verbatim_include = verbatim_include,
         body = body,
-        namespace = ctx.namespace
     )
 
 def p_statement(s, ctx, first_statement = 0):
