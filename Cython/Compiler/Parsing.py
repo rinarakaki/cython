@@ -1837,6 +1837,7 @@ def p_use_item(s):
                 is_absolute=is_absolute,
             )
         stats.append(stat)
+    s.expect_newline("Expected a newline", ignore_semicolon=True)
     return Nodes.StatListNode(pos, stats=stats)
 
 
