@@ -3889,7 +3889,7 @@ def p_type_alias_item(s, ctx):
     pos = s.position()
     s.next()
     api = p_api(s)
-    ctx = ctx(typedef_flag=1, visibility=visibility)
+    ctx = ctx(typedef_flag=1, visibility=ctx.visibility)
     declarator = p_c_declarator(s, ctx, is_type=1, assignable=0)
     s.expect("=")
     base_type = p_c_base_type(s)
