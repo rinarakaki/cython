@@ -2533,6 +2533,13 @@ def p_item(s, ctx):
         if ctx.overridable:
             error(pos, "C struct/union cannot be declared cpdef")
         item = p_struct_or_union_item(s, pos, ctx)
+    elif s.sy == "cdef" and s.peek()[0] == "class":
+        if ctx.level not in ('module', 'module_pxd'):
+            error(pos, "Extension type definition not allowed here")
+        if ctx.overridable:
+            error(pos, "Extension types cannot be declared cpdef")
+        s.next()
+        return p_c_class_definition(s, pos, ctx)
     
     if item is not None:
         item.decorators = attributes
@@ -2573,14 +2580,11 @@ def p_statement(s, ctx, first_statement = 0):
             pos = s.position()
             return p_let_statement(s, pos, ctx)
 
-        if s.sy == "pub" and s.peek()[0] == "IDENT":
-            cdef_flag = 1
-        else:
-            s.level = ctx.level
-            ctx.visibility = p_visibility(s, ctx.visibility)
-            item = p_item(s, ctx)
-            if item is not None:
-                return item
+        s.level = ctx.level
+        ctx.visibility = p_visibility(s, ctx.visibility)
+        item = p_item(s, ctx)
+        if item is not None:
+            return item
 
     decorators = []
 
@@ -4056,7 +4060,6 @@ def p_py_arg_decl(s, annotated = 1):
         annotation = p_annotation(s)
     return Nodes.PyArgDeclNode(pos, name = name, annotation = annotation)
 
-
 def p_class_statement(s, decorators):
     # s.sy == 'class'
     pos = s.position()
@@ -4078,7 +4081,6 @@ def p_class_statement(s, decorators):
         keyword_args=keyword_dict,
         doc=doc, body=body, decorators=decorators,
         force_py3_semantics=s.context.language_level >= 3)
-
 
 def p_c_class_definition(s, pos,  ctx):
     # s.sy == 'class'
@@ -4109,16 +4111,16 @@ def p_c_class_definition(s, pos,  ctx):
         bases = ExprNodes.TupleNode(pos, args=[])
 
     if s.sy == '[':
-        if ctx.visibility not in ("pub", "public", "extern") and not ctx.api:
+        if ctx.visibility not in ("public", "extern") and not ctx.api:
             error(s.position(), "Name options only allowed for 'public', 'api', or 'extern' C class")
         objstruct_name, typeobj_name, check_size = p_c_class_options(s)
-    if s.sy == ':':
+    if s.sy == ":":
         if ctx.level == 'module_pxd':
             body_level = 'c_class_pxd'
         else:
             body_level = 'c_class'
         s.next()
-        s.expect('NEWLINE')
+        s.expect("NEWLINE")
         s.expect_indent()
         doc = p_doc_string(s)
         items = []
@@ -4424,13 +4426,22 @@ def p_associated_item(s, ctx):
         item = p_c_func_or_var_declaration(s, s.position(), ctx)
     elif s.sy == "fn" or s.sy in ("static", "const") and s.peek()[0] == "fn":
         item = p_fn_item(s, s.position(), ctx)
-    elif s.sy in ("pub", "cdef"):
+    elif s.sy in ("pub", "cdef", "IDENT"):
         if s.sy == "cdef":
             s.next()
+        ctx.visibility = p_visibility(s, ctx.visibility)
         item = p_c_func_or_var_declaration(s, s.position(), ctx)
+    elif s.sy == "def":
+        # def statements aren't allowed in pxd files, except
+        # as part of a cdef class
+        if "pxd" in ctx.level and ctx.level != "c_class_pxd":
+            s.error('def statement not allowed here')
+        s.level = ctx.level
+        return p_def_statement(s, attributes)
 
     if item is not None:
-        item.decorators = attributes
+        if len(attributes) > 0:
+            item.decorators = attributes
         return item
     else:
         return p_cpp_class_attribute(s, ctx)
