@@ -1532,6 +1532,7 @@ class CVarDefNode(StatNode):
 
     decorators = None
     directive_locals = None
+    is_static_method = 0
 
     def analyse_declarations(self, env, dest_scope=None):
         if self.directive_locals is None:
