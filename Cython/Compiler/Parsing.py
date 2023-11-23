@@ -4403,6 +4403,7 @@ def p_associated_item(s, ctx):
     elif s.sy in ("pub", "cdef", "IDENT"):
         if s.sy == "cdef":
             s.next()
+        ctx.visibility = p_visibility(s, ctx.visibility)
         item = p_c_func_or_var_declaration(s, s.position(), ctx)
     elif s.sy == "def":
         # def statements aren't allowed in pxd files, except
