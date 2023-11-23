@@ -4100,7 +4100,7 @@ def p_c_class_definition(s, pos,  ctx):
         items = []
         body_ctx = Ctx(level=body_level)
         print("!!!!! p_c_class_definition !!!!!")
-        print(module_path, str(class_name))
+        print(module_path, class_name)
         while s.sy != "DEDENT":
             if s.sy != "pass":
                 items.append(p_associated_item(s, body_ctx))

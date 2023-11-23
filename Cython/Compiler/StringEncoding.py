@@ -103,6 +103,9 @@ class EncodedString(str):
     # otherwise
     encoding = None
 
+    def __repr__(self):
+        return self.as_utf8_string()
+
     def __deepcopy__(self, memo):
         return self
 
