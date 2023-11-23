@@ -4320,7 +4320,7 @@ def p_cpp_class_definition(s, pos,  ctx):
         body_ctx.templates = template_names
         while s.sy != 'DEDENT':
             if s.sy != 'pass':
-                attributes.append(p_associated_item_statement(s, body_ctx))
+                attributes.append(p_associated_item(s, body_ctx))
             else:
                 s.next()
                 s.expect_newline("Expected a newline")
@@ -4337,7 +4337,7 @@ def p_cpp_class_definition(s, pos,  ctx):
         attributes = attributes,
         templates = templates)
 
-def p_associated_item_statement(s, ctx):
+def p_associated_item(s, ctx):
     if s.systring == "type" and s.peek()[0] == "IDENT":
         return p_type_statement(s, ctx)
     elif s.sy == "const" and s.peek()[0] == "IDENT":
