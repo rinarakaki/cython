@@ -4386,6 +4386,7 @@ def p_associated_item(s, ctx):
 
     if item is not None:
         item.decorators = attributes
+        return item
     else:
         return p_cpp_class_attribute(s, ctx)
 
