@@ -2484,7 +2484,7 @@ def p_attributes(s):
         s.expect_newline("Expected a newline after attribute")
     return attributes
 
-def p_visibility(s, prev_visibility):
+def p_visibility(s, prev_visibility="private"):
     pos = s.position()
     visibility = prev_visibility
     if s.sy in ("pub", "extern") or s.sy == 'IDENT' and s.systring in ("public", "readonly"):
@@ -4406,7 +4406,7 @@ def p_associated_item(s, ctx):
         elif s.sy == "cpdef":
             s.next()
             ctx.overridable = 1
-        ctx.visibility = p_visibility(s, "private")
+        ctx.visibility = p_visibility(s)
         item = p_c_func_or_var_declaration(s, s.position(), ctx)
     elif s.sy == "def":
         # def statements aren't allowed in pxd files, except
