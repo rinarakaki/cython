@@ -2516,7 +2516,7 @@ def p_item(s, ctx):
     elif s.sy == "fn" or s.sy in ("const", "extern") and s.peek()[0] == "fn":
         item = p_fn_item(s, pos, ctx)
     elif s.sy == "mod":
-        item = p_mod_item(s, pos, ctx)
+        item = p_mod_item(s, ctx)
     elif ctx.visibility == "extern" and s.systring == "from":
         item = p_extern_item(s, pos, ctx)
     elif s.systring == "type" and s.peek()[0] == "IDENT":
@@ -2540,13 +2540,21 @@ def p_item(s, ctx):
             
     return item
 
-def p_mod_item(s, pos, ctx):
+def p_mod_item(s, ctx):
+    pos = s.position()
     s.next()  # s.sy == "mod"
-    include_file = s.systring
-    ctx = ctx(cdef_flag = 1)
-
-    # Use "docstring" as verbatim string to include
-    verbatim_include, body = p_suite_with_docstring(s, ctx, True)
+    name = p_ident(s)
+    ctx = ctx(cdef_flag = 1, level = "module")
+    if s.sy == ":":
+        # Use "docstring" as verbatim string to include
+        verbatim_include, body = p_suite_with_docstring(s, ctx, True)
+    else:
+        mod_path = s.context.find_include_file(name, pos)
+        s.included_files.append(name)
+        with Utils.open_source_file(mod_path) as f:
+            source_desc = FileSourceDescriptor(mod_path)
+            s2 = PyrexScanner(f, source_desc, s, source_encoding=f.encoding, parse_comments=s.parse_comments)
+            verbatim_include, body = p_suite_with_docstring(s2, ctx)
 
     return Nodes.ModStatNode(pos,
         verbatim_include = verbatim_include,
