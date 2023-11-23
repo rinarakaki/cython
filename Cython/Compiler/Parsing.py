@@ -3887,7 +3887,6 @@ def p_type_alias_item(s, ctx):
     # s.systring == "type"
     pos = s.position()
     s.next()
-    visibility = p_visibility(s, ctx.visibility)
     api = p_api(s)
     ctx = ctx(typedef_flag=1, visibility=visibility)
     declarator = p_c_declarator(s, ctx, is_type=1, assignable=0)
@@ -3898,7 +3897,7 @@ def p_type_alias_item(s, ctx):
         pos,
         base_type=base_type,
         declarator=declarator,
-        visibility=visibility,
+        visibility=ctx.visibility,
         api=api,
         in_pxd=ctx.level == "module_pxd"
     )
