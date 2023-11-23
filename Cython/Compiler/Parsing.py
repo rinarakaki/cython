@@ -2474,10 +2474,8 @@ def p_use_item(s):
     return Nodes.StatListNode(pos, stats=stats)
 
 def p_item(s, ctx):
-    attributes = []
-    if s.sy == "#" and s.peek()[0] == ("!", "["):
-        s.level = ctx.level
-        attributes = p_attributes(s)
+    s.level = ctx.level
+    attributes = p_attributes(s)
 
     if s.sy == "use":
         node = p_use_item(s)
@@ -3916,7 +3914,7 @@ def p_ctypedef_statement(s, ctx):
 
 def p_attributes(s):
     attributes = []
-    while s.sy == "#" and s.peek()[0] == "[":
+    while s.sy == "#" and s.peek()[0] in ("!", "["):
         pos = s.position()
         s.next()
         s.next()
@@ -4370,10 +4368,8 @@ def p_cpp_class_definition(s, pos,  ctx):
         templates = templates)
 
 def p_associated_item(s, ctx):
-    attributes = []
-    if s.sy == "#" and s.peek()[0] == ("!", "["):
-        s.level = ctx.level
-        attributes = p_attributes(s)
+    s.level = ctx.level
+    attributes = p_attributes(s)
     item = None
     if s.systring == "type" and s.peek()[0] == "IDENT":
         item = p_type_alias_item(s, ctx)
