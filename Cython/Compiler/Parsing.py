@@ -2557,6 +2557,7 @@ def p_mod_item(s, ctx):
             doc, body = p_suite_with_docstring(s2, ctx)
 
     return ModuleNode(pos,
+        visibility = ctx.visibility,
         doc = doc,
         body = body,
         full_module_name = name,
