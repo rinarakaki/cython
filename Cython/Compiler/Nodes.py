@@ -2690,6 +2690,7 @@ class CFuncDefNode(FuncDefNode):
     override = None
     template_declaration = None
     is_const_method = False
+    is_static_method = 0
     py_func_stat = None
 
     def unqualified_name(self):
