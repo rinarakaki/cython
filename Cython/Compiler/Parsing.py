@@ -637,7 +637,7 @@ def p_call(s, function, method_call=0):
     else:
         arg_tuple, keyword_dict = p_call_build_packed_args(pos, positional_args, keyword_args)
         return ExprNodes.GeneralCallNode(
-            pos, function=function, positional_args=arg_tuple, keyword_args=keyword_dict)
+            pos, function=function, positional_args=arg_tuple, keyword_args=keyword_dict, method_call=method_call)
 
 
 # lambdef: 'lambda' [varargslist] ':' test
