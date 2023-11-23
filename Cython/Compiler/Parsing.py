@@ -4132,7 +4132,7 @@ def p_c_class_definition(s, pos,  ctx):
                 s.next()
                 s.expect_newline("Expected a newline")
         s.expect_dedent()
-        body = items
+        body = Nodes.StatListNode(pos, stats = items)
     else:
         s.expect_newline("Syntax error in C class definition")
         doc = None
