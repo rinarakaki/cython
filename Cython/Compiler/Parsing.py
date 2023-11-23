@@ -2500,6 +2500,7 @@ def p_visibility(s, prev_visibility):
 
 def p_item(s, ctx):
     s.level = ctx.level
+    pos = s.position()
     attributes = p_attributes(s)
 
     item = None
