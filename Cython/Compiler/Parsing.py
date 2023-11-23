@@ -3492,7 +3492,7 @@ def p_cdef_statement(s, ctx):
     pos = s.position()
     ctx.api = ctx.api or p_api(s)
     if ctx.api:
-        if ctx.visibility not in ("private", "pub", "public"):
+        if ctx.visibility not in ("private", "public"):
             error(pos, "Cannot combine 'api' with '%s'" % ctx.visibility)
     if ctx.visibility == "extern" and s.systring == "from":
         return p_extern_item(s, pos, ctx)
