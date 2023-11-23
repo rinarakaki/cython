@@ -4343,8 +4343,8 @@ def p_cpp_class_definition(s, pos,  ctx):
 def p_associated_item(s, ctx):
     if s.systring == "type" and s.peek()[0] == "IDENT":
         return p_type_statement(s, ctx)
-    elif s.sy == "const" and s.peek()[0] == "IDENT":
-        return p_const_statement(s)
+    elif s.sy == "const" and s.peek()[0] != "fn":
+        return p_c_func_or_var_declaration(s, s.position(), ctx)
     elif s.sy == "fn" or s.sy in ("static", "const") and s.peek()[0] == "fn":
         return p_fn_statement(s, s.position(), ctx)
     else:
