@@ -1,7 +1,7 @@
 # --
 
-type Int0 = i32
-ctypedef pub     i32 Int1
+type     Int0 = i32
+pub type Int1 = i32
 ctypedef     api i32 Int2
 ctypedef pub api i32 Int3
 
@@ -10,7 +10,7 @@ ctypedef pub     enum EnumA1: EA1
 ctypedef     api enum EnumA2: EA2
 ctypedef pub api enum EnumA3: EA3
 
-enum EnumB0: EB0 = 0
+enum     EnumB0: EB0 = 0
 pub enum EnumB1: EB1 = 1
 cdef api enum EnumB2: EB2 = 2
 pub  api enum EnumB3: EB3 = 3
@@ -52,17 +52,17 @@ pub  api class Bar3 [type PyBar3_Type, object PyBar3_Object]: pass
 extern from *:
     fn void foo()
 
-fn inline       void bar (): pass
-fn              void bar0()
-pub             void bar1()
-cdef        api void bar2()
-pub         api void bar3()
+fn inline     void bar (): pass
+fn            void bar0()
+pub fn        void bar1()
+cdef      api void bar2()
+pub       api void bar3()
 
-fn inline       void* spam (object o) except NULL: return NULL
-fn              void* spam0(object o) except NULL
-pub             void* spam1(object o) except NULL
-cdef        api void* spam2(object o) except NULL nogil
-pub         api void* spam3(object o) except NULL with gil
+fn inline     void* spam (object o) except NULL: return NULL
+fn            void* spam0(object o) except NULL
+pub fn        void* spam1(object o) except NULL
+cdef      api void* spam2(object o) except NULL nogil
+pub       api void* spam3(object o) except NULL with gil
 
 # --
 
