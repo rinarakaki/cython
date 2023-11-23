@@ -2474,7 +2474,11 @@ def p_use_item(s):
     return Nodes.StatListNode(pos, stats=stats)
 
 def p_item(s, ctx):
-    # 
+    attributes = []
+    if s.sy == "#" and s.peek()[0] == ("!", "["):
+        s.level = ctx.level
+        attributes = p_attributes(s)
+
     if s.sy == "use":
         node = p_use_item(s)
     elif s.sy == "static":
@@ -2504,11 +2508,6 @@ def p_item(s, ctx):
         return p_struct_or_union_item(s, pos, ctx)
 
 def p_statement(s, ctx, first_statement = 0):
-    attributes = []
-    if s.sy == "#" and s.peek()[0] == ("!", "["):
-        s.level = ctx.level
-        attributes = p_attributes(s)
-
     if not s.in_python_file:
         s.level = ctx.level
 
@@ -4373,8 +4372,8 @@ def p_cpp_class_definition(s, pos,  ctx):
 def p_associated_item(s, ctx):
     if s.systring == "type" and s.peek()[0] == "IDENT":
         return p_type_alias_item(s, ctx)
-    elif s.sy == "const" and s.peek()[0] == "IDENT":
-        return p_const_item(s)
+    elif s.sy == "const" and s.peek()[0] != "fn":
+        return p_c_func_or_var_declaration(s, s.position(), ctx)
     elif s.sy == "fn" or s.sy in ("static", "const") and s.peek()[0] == "fn":
         return p_fn_item(s, s.position(), ctx)
     else:
