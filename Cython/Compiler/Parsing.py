@@ -2503,7 +2503,6 @@ def p_item(s, ctx, attributes):
 
     return item
 
-
 def p_statement(s, ctx, first_statement = 0):
     cdef_flag = ctx.cdef_flag
     s.level = ctx.level
