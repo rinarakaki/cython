@@ -2548,7 +2548,7 @@ def p_item(s, ctx):
 def p_statement(s, ctx, first_statement = 0):
     cdef_flag = ctx.cdef_flag
 
-    elif s.sy == "cpdef":
+    if s.sy == "cpdef":
         cdef_flag = 1
         overridable = 1
         s.next()
