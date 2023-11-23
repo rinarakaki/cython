@@ -4408,9 +4408,17 @@ def p_associated_item(s, ctx):
         if s.sy == "cdef":
             s.next()
         item = p_c_func_or_var_declaration(s, s.position(), ctx)
+    elif s.sy == "def":
+        # def statements aren't allowed in pxd files, except
+        # as part of a cdef class
+        if "pxd" in ctx.level and ctx.level != "c_class_pxd":
+            s.error('def statement not allowed here')
+        s.level = ctx.level
+        return p_def_statement(s, attributes)
 
     if item is not None:
-        item.decorators = attributes
+        if len(attributes) > 0:
+            item.decorators = attributes
         return item
     else:
         return p_cpp_class_attribute(s, ctx)
