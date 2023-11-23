@@ -2555,7 +2555,8 @@ def p_statement(s, ctx, first_statement = 0):
             return p_let_statement(s, pos, ctx)
 
         s.level = ctx.level
-        ctx.visibility = p_visibility(s, ctx.visibility)
+        if s.sy == "pub":
+            ctx = ctx(visibility=p_visibility(s, ctx.visibility))
         item = p_item(s, ctx)
         if item is not None:
             return item
