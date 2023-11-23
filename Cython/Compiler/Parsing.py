@@ -2477,21 +2477,33 @@ def p_IF_statement(s, ctx):
     s.compile_time_eval = saved_eval
     return result
 
-def p_item(s, ctx):
+def p_item(s, ctx, attributes):
+    s.level = ctx.level
+    pos = s.position()
+
+    item = None
+    if not s.in_python_file and s.systring == "type" and s.peek()[0] == "IDENT":
+        if ctx.level not in ("module", "module_pxd"):
+            s.error("type statement not allowed here")
+        item = p_type_alias_item(s, ctx)
+
+    if item is not None:
+        item.decorators = attributes
+        item.visibility = ctx.visibility
+
+    return item
 
 
 def p_statement(s, ctx, first_statement = 0):
     cdef_flag = ctx.cdef_flag
-    decorators = []
-    if s.sy == "#" and s.peek()[0] == "[":
-        s.level = ctx.level
-        decorators = p_attributes(s)
+    s.level = ctx.level
+    decorators = p_attributes(s)
 
-    if not s.in_python_file and s.systring == "type" and s.peek()[0] == "IDENT":
-        if ctx.level not in ("module", "module_pxd"):
-            s.error("type statement not allowed here")
-        return p_type_alias_item(s, ctx)
-    elif s.sy == 'ctypedef':
+    item = p_item(s, ctx, decorators)
+    if item is not None:
+        return item
+
+    if s.sy == 'ctypedef':
         if ctx.level not in ('module', 'module_pxd'):
             s.error("ctypedef statement not allowed here")
         # if ctx.api:
