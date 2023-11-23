@@ -4142,7 +4142,7 @@ def p_c_class_definition(s, pos,  ctx):
             error(pos, "Module name required for 'extern' C class")
         if typeobj_name:
             error(pos, "Type object name specification not allowed for 'extern' C class")
-    elif ctx.visibility in ("pub", "public"):
+    elif ctx.visibility == "public":
         if not objstruct_name:
             error(pos, "Object struct name specification required for 'public' C class")
         if not typeobj_name:
@@ -4426,9 +4426,12 @@ def p_associated_item(s, ctx):
         item = p_c_func_or_var_declaration(s, s.position(), ctx)
     elif s.sy == "fn" or s.sy in ("static", "const") and s.peek()[0] == "fn":
         item = p_fn_item(s, s.position(), ctx)
-    elif s.sy in ("pub", "cdef", "IDENT"):
+    elif s.sy in ("pub", "cdef", "cpdef", "IDENT"):
         if s.sy == "cdef":
             s.next()
+        elif s.sy == "cpdef":
+            s.next()
+            ctx.overridable = 1
         ctx.visibility = p_visibility(s, ctx.visibility)
         item = p_c_func_or_var_declaration(s, s.position(), ctx)
     elif s.sy == "def":
