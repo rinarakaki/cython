@@ -4423,8 +4423,6 @@ def p_associated_item(s, ctx):
         return p_def_statement(s, decorators)
 
     if item is not None:
-        print("!!!!! p_associated_item !!!!!")
-        print(attributes)
         if len(attributes) > 0:
             item.decorators = attributes
         return item
