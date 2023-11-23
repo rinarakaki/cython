@@ -4397,7 +4397,7 @@ def p_associated_item(s, ctx):
     attributes = p_attributes(s)
     item = None
     print("!!!!! p_associated_item !!!!!")
-    print(s.sy, s.systring)
+    print(s.position(), s.sy, s.systring, s.peek())
     if s.systring == "type" and s.peek()[0] == "IDENT":
         item = p_type_alias_item(s, ctx)
     elif s.sy == "const" and s.peek()[0] != "fn":
