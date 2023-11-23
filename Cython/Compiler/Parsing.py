@@ -4320,7 +4320,7 @@ def p_cpp_class_definition(s, pos,  ctx):
         body_ctx.templates = template_names
         while s.sy != 'DEDENT':
             if s.sy != 'pass':
-                attributes.append(p_cpp_class_attribute(s, body_ctx))
+                attributes.append(p_associated_item_statement(s, body_ctx))
             else:
                 s.next()
                 s.expect_newline("Expected a newline")
@@ -4337,6 +4337,16 @@ def p_cpp_class_definition(s, pos,  ctx):
         attributes = attributes,
         templates = templates)
 
+def p_associated_item_statement(s, ctx):
+    if s.systring == "type" and s.peek()[0] == "IDENT":
+        return p_type_statement(s, ctx)
+    elif s.sy == "const" and s.peek()[0] == "IDENT":
+        return p_const_statement(s)
+    elif s.sy == "fn" or s.sy == "const" and s.peek()[0] == "fn":
+        return p_fn_statement(s, s.position(), ctx)
+    else:
+        return p_cpp_class_attribute(s, ctx)
+
 def p_cpp_class_attribute(s, ctx):
     decorators = None
     if s.sy == '@':
@@ -4350,16 +4360,6 @@ def p_cpp_class_attribute(s, ctx):
             return p_cpp_class_definition(s, s.position(), ctx)
         else:
             return p_struct_enum(s, s.position(), ctx)
-    elif s.sy == "fn" or s.sy == "const" and s.peek()[0] == "fn":
-        node = p_fn_statement(s, s.position(), ctx)
-        if decorators is not None:
-            tup = Nodes.CFuncDefNode, Nodes.CVarDefNode, Nodes.CClassDefNode
-            if ctx.allow_struct_enum_decorator:
-                tup += Nodes.CStructOrUnionDefNode, Nodes.CEnumDefNode
-            if not isinstance(node, tup):
-                s.error("Decorators can only be followed by functions or classes")
-            node.decorators = decorators
-        return node
     else:
         node = p_c_func_or_var_declaration(s, s.position(), ctx)
         if decorators is not None:
