@@ -188,7 +188,7 @@ fn p_c_arg_decl(PyrexScanner s, ctx, in_pyfunc, u2 cmethod_flag = *, u2 nonempty
 fn p_api(PyrexScanner s)
 fn p_cdef_statement(PyrexScanner s, ctx)
 fn p_cdef_block(PyrexScanner s, ctx)
-fn p_cdef_extern_block(PyrexScanner s, pos, ctx)
+fn p_extern_item(PyrexScanner s, pos, ctx)
 fn p_enum_item(PyrexScanner s, pos, ctx)
 fn p_c_enum_line(PyrexScanner s, ctx, list items)
 fn p_c_enum_item(PyrexScanner s, ctx, list items)

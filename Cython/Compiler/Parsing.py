@@ -1811,7 +1811,7 @@ def p_raise_statement(s):
         return Nodes.ReraiseStatNode(pos)
 
 def p_import_statement(s):
-    # s.sy in ("import", "use", "cimport")
+    # s.sy in ("import", "cimport")
     pos = s.position()
     kind = s.sy
     s.next()
@@ -1822,7 +1822,7 @@ def p_import_statement(s):
     stats = []
     is_absolute = Future.absolute_import in s.context.future_directives
     for pos, target_name, dotted_name, as_name in items:
-        if kind in ("use", "cimport"):
+        if kind == "cimport":
             stat = Nodes.CImportStatNode(
                 pos,
                 module_name=dotted_name,
@@ -2474,7 +2474,7 @@ def p_use_item(s):
     return Nodes.StatListNode(pos, stats=stats)
 
 def p_item(s, ctx):
-    # not s.in_python_file
+    # 
     if s.sy == "use":
         node = p_use_item(s)
     elif s.sy == "static":
@@ -2483,41 +2483,47 @@ def p_item(s, ctx):
     elif s.sy == "const" and s.peek()[0] == "IDENT":
         if ctx.visibility != "extern":
             s.error("const statement not allowed here")
-        # We used to dep-warn about this but removed the warning again since
-        # we don't have a good answer yet for all use cases.
-        # warning(s.position(),
-        #         "The 'DEF' statement is deprecated and will be removed in a future Cython version. "
-        #         "Consider using global variables, constants, and in-place literals instead. "
-        #         "See https://github.com/cython/cython/issues/4310", level=1)
         return p_const_item(s)
-    elif s.sy == "fn" or s.sy == "const" and s.peek()[0] == "fn":
+    elif s.sy == "fn" or s.sy in ("const", "extern") and s.peek()[0] == "fn":
         return p_fn_item(s, pos, ctx)
+    elif ctx.visibility == "extern" and s.systring == "from":
+        return p_extern_item(s, pos, ctx)
     elif s.systring == "type" and s.peek()[0] == "IDENT":
         if ctx.level not in ("module", "module_pxd"):
             s.error("type statement not allowed here")
         return p_type_alias_item(s, ctx)
     elif s.sy == "enum":
         if ctx.level not in ("module", "module_pxd"):
-            error(pos, "C struct/union/enum definition not allowed here")
+            error(pos, "C enum definition not allowed here")
         return p_enum_item(s, pos, ctx)
     elif s.sy in ("struct", "union"):
         if ctx.level not in ("module", "module_pxd"):
-            error(pos, "C struct/union/enum definition not allowed here")
+            error(pos, "C struct/union definition not allowed here")
         if ctx.overridable:
             error(pos, "C struct/union cannot be declared cpdef")
         return p_struct_or_union_item(s, pos, ctx)
 
 def p_statement(s, ctx, first_statement = 0):
-    cdef_flag = ctx.cdef_flag
-    decorators = []
-    if s.sy == "#" and s.peek()[0] == "[":
+    attributes = []
+    if s.sy == "#" and s.peek()[0] == ("!", "["):
         s.level = ctx.level
-        decorators = p_attributes(s)
+        attributes = p_attributes(s)
 
     if not s.in_python_file:
+        s.level = ctx.level
+
+        if s.sy == "let":
+            pos = s.position()
+            return p_let_statement(s, pos, ctx)
+
         item = p_item(s, ctx)
         if item is not None:
+            if len(attributes) > 0:
+                item.decorators = attributes
             return item
+
+    cdef_flag = ctx.cdef_flag
+    decorators = []
 
     if s.sy == 'ctypedef':
         if ctx.level not in ('module', 'module_pxd'):
@@ -2561,8 +2567,6 @@ def p_statement(s, ctx, first_statement = 0):
         cdef_flag = 1
         overridable = 1
         s.next()
-    elif s.sy in ("pub", "fn", "let", "enum", "struct", "union", "extern", "static", "const"):
-        cdef_flag = 1
     if cdef_flag:
         if ctx.level not in ('module', 'module_pxd', 'function', 'c_class', 'c_class_pxd'):
             s.error('cdef statement not allowed here')
@@ -3463,10 +3467,10 @@ def p_cdef_statement(s, ctx):
         if ctx.visibility not in ("private", "pub", "public"):
             error(pos, "Cannot combine 'api' with '%s'" % ctx.visibility)
     if ctx.visibility == "extern" and s.systring == "from":
-        return p_cdef_extern_block(s, pos, ctx)
+        return p_extern_item(s, pos, ctx)
     elif s.sy == 'import':
         s.next()
-        return p_cdef_extern_block(s, pos, ctx)
+        return p_extern_item(s, pos, ctx)
     elif p_nogil(s):
         ctx.nogil = 1
         if ctx.overridable:
@@ -3494,14 +3498,14 @@ def p_cdef_statement(s, ctx):
     elif s.sy == 'IDENT' and s.systring == 'fused':
         return p_fused_definition(s, pos, ctx)
     elif s.sy == "let":
-        return p_let_statement(s, pos, ctx)
+        
     else:
         return p_c_func_or_var_declaration(s, pos, ctx)
 
 def p_cdef_block(s, ctx):
     return p_suite(s, ctx(cdef_flag = 1))
 
-def p_cdef_extern_block(s, pos, ctx):
+def p_extern_item(s, pos, ctx):
     if ctx.overridable:
         error(pos, "cdef extern blocks cannot be declared cpdef")
     include_file = None
