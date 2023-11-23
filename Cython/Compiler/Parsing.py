@@ -3513,10 +3513,9 @@ def p_api(s):
 
 def p_cdef_statement(s, ctx):
     pos = s.position()
-    ctx.visibility = p_visibility(s, ctx.visibility)
     ctx.api = ctx.api or p_api(s)
     if ctx.api:
-        if ctx.visibility not in ("private", "pub", "public"):
+        if ctx.visibility not in ("private", "public"):
             error(pos, "Cannot combine 'api' with '%s'" % ctx.visibility)
     if ctx.visibility == "extern" and s.systring == "from":
         return p_extern_item(s, pos, ctx)
@@ -3911,7 +3910,6 @@ def p_type_alias_item(s, ctx):
     # s.systring == "type"
     pos = s.position()
     s.next()
-    visibility = p_visibility(s, ctx.visibility)
     api = p_api(s)
     ctx = ctx(typedef_flag=1, visibility=visibility)
     declarator = p_c_declarator(s, ctx, is_type=1, assignable=0)
@@ -3922,7 +3920,7 @@ def p_type_alias_item(s, ctx):
         pos,
         base_type=base_type,
         declarator=declarator,
-        visibility=visibility,
+        visibility=ctx.visibility,
         api=api,
         in_pxd=ctx.level == "module_pxd"
     )
