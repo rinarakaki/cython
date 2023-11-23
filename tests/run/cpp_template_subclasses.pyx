@@ -115,15 +115,15 @@ def testE(x, y):
     finally:
         del e
 
-pub pair[i32, f64] public_return_pair(a, b) except *:
-  return pair[i32, f64](a, b)
+pub fn pair[i32, f64] public_return_pair(a, b) except *:
+    return pair[i32, f64](a, b)
 
 def test_GH1599(a, b):
-  """
-  >>> test_GH1599(1, 2)
-  (1, 2.0)
-  """
-  return public_return_pair(a, b)
+    """
+    >>> test_GH1599(1, 2)
+    (1, 2.0)
+    """
+    return public_return_pair(a, b)
 
 
 # Related to GH Issue #1852.

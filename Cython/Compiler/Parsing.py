@@ -3513,6 +3513,7 @@ def p_api(s):
 
 def p_cdef_statement(s, ctx):
     pos = s.position()
+    ctx.visibility = p_visibility(s, ctx.visibility)
     ctx.api = ctx.api or p_api(s)
     if ctx.api:
         if ctx.visibility not in ("private", "public"):
@@ -3911,7 +3912,7 @@ def p_type_alias_item(s, ctx):
     pos = s.position()
     s.next()
     api = p_api(s)
-    ctx = ctx(typedef_flag=1, visibility=visibility)
+    ctx = ctx(typedef_flag=1, visibility=ctx.visibility)
     declarator = p_c_declarator(s, ctx, is_type=1, assignable=0)
     s.expect("=")
     base_type = p_c_base_type(s)

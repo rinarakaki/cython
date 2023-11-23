@@ -1,14 +1,14 @@
 # mode: compile
 # --
 
-type Int0 = i32
-ctypedef pub i32 Int1
+type     Int0 = i32
+pub type Int1 = i32
 
 ctypedef     enum EnumA0: EA0
 ctypedef pub enum EnumA1: EA1
 
-cdef enum EnumB0: EB0=0
-pub  enum EnumB1: EB1=1
+enum     EnumB0: EB0 = 0
+pub enum EnumB1: EB1 = 1
 
 cdef Int0   i0  = 0
 cdef EnumA0 ea0 = EA0
@@ -52,11 +52,11 @@ pub Bar1 b1 = None
 
 # --
 
-cdef void bar0(): pass
-pub  void bar1(): pass
+fn     void bar0(): pass
+pub fn void bar1(): pass
 
-cdef void* spam0(object o) except NULL: return NULL
-pub  void* spam1(object o) except NULL: return NULL
+fn     void* spam0(object o) except NULL: return NULL
+pub fn void* spam1(object o) except NULL: return NULL
 
 bar0()
 bar1()

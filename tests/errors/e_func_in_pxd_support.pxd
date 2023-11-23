@@ -1,7 +1,7 @@
 fn foo():
     return 1
 
-pub inline foo2():
+pub fn inline foo2():
     return 1
 
 cdef api inline foo3():
