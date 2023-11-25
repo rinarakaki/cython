@@ -2526,6 +2526,7 @@ def p_statement(s, ctx, first_statement = 0):
         visibility_token = s.sy
         visibility_pos = s.position()
     ctx = ctx(overridable=overridable, visibility=p_visibility(s, ctx.visibility))
+    api_token = None
     if s.sy == "api":
         api_token = s.sy
         api_pos = s.position()
