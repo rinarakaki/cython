@@ -2549,7 +2549,9 @@ def p_statement(s, ctx, first_statement = 0):
         item_ctx = ctx(overridable=overridable, visibility=p_visibility(s, ctx.visibility))
         if s.systring == "api" and s.peek()[0] in ("static", "fn", "type", "enum", "struct", "class"):
             item_ctx.api = p_api(s)
-        return p_item(s, item_ctx, attributes)
+        item = p_item(s, item_ctx, attributes)
+        if item is not None:
+            return item
     
     decorators = attributes
 
