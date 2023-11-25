@@ -47,7 +47,6 @@ extern from "<stdio.h>" nogil:
     fn i64 ftell(FILE* stream)
 
     struct fpos_t
-    type const_fpos_t "const fpos_t" = const fpos_t
     fn i32 fgetpos(FILE* stream, fpos_t* position)
     fn i32 fsetpos(FILE* stream, const fpos_t* position)
 
