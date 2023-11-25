@@ -2514,7 +2514,6 @@ def p_item(s, ctx, attributes):
             error(pos, "Extension type definition not allowed here")
         if ctx.overridable:
             error(pos, "Extension types cannot be declared cpdef")
-        pos = s.position()
         return p_c_class_definition(s, pos, ctx)
 
     if item is not None:
@@ -2541,7 +2540,7 @@ def p_statement(s, ctx, first_statement = 0):
     if not s.in_python_file and (
         (s.sy != "IDENT" or s.systring == "type" or s.systring == "api" and s.peek()[0] in ("static", "fn", "type", "enum", "struct", "class"))
         and
-        (s.sy != "cdef" or s.peek()[0] == ("extern", "enum", "struct", "union", "class"))
+        (s.sy != "cdef" or s.peek()[0] in ("extern", "enum", "struct", "union", "class"))
         and
         (s.sy not in ("pub", "readonly") or s.peek()[0] != "IDENT" or s.peek()[1] in ("packed", "api"))
     ):
