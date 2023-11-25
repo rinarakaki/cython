@@ -2512,10 +2512,16 @@ def p_statement(s, ctx, first_statement = 0):
     overridable = 0
     decorators = p_attributes(s)
 
+    visibility_token = None
+    if s.sy in ("pub",):
+        visibility_token = s.sy
     ctx = ctx(overridable=overridable, visibility=p_visibility(s, ctx.visibility))
     item = p_item(s, ctx, decorators)
     if item is not None:
         return item
+    else:
+        if visibility_token is not None:
+            s.put_back(visibility_token, s.systring, s.position()) 
 
     if s.sy == 'ctypedef':
         if ctx.level not in ('module', 'module_pxd'):
@@ -2559,7 +2565,7 @@ def p_statement(s, ctx, first_statement = 0):
         cdef_flag = 1
         overridable = 1
         s.next()
-    elif s.sy in ("pub", "fn", "let", "enum", "struct", "union", "extern", "static", "const"):
+    elif s.sy in ("pub", "fn", "let", "static", "const"):
         cdef_flag = 1
     if cdef_flag:
         if ctx.level not in ('module', 'module_pxd', 'function', 'c_class', 'c_class_pxd'):
