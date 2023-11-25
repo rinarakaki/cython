@@ -5,7 +5,7 @@ cdef class A:
         print("A")
 
 cdef class B(A):
-    cpdef foo(self):
+    cpdef fn foo(self):
         print("B")
 
 class C(B):  # NOTE: not cdef class

@@ -6,7 +6,7 @@ import sys, io
 
 cy = __import__("cython")
 
-cpdef func1(self, cython.integral x):
+cpdef fn func1(self, cython.integral x):
     print(f"{self},", end=' ')
     if cython.integral is int:
         print('x is int', x, cython::typeof(x))
@@ -21,7 +21,7 @@ class A(object):
         return "A"
 
 cdef class B:
-    cpdef int meth(self, cython.integral x):
+    cpdef fn int meth(self, cython.integral x):
         print(f"{self},", end=' ')
         if cython.integral is int:
             print('x is int', x, cython::typeof(x))

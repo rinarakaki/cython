@@ -8,7 +8,7 @@ fn cant_be_decoratored():
     pass
 
 @wraps
-cpdef also_cant_be_decorated():
+cpdef fn also_cant_be_decorated():
     pass
 
 cdef class C:
@@ -21,7 +21,7 @@ cdef class C:
         pass
 
     @wraps
-    cpdef also_still_cant_be_decorated(self):
+    cpdef fn also_still_cant_be_decorated(self):
         pass
 
     @wraps

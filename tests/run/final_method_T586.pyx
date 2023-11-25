@@ -17,7 +17,7 @@ cdef class FinalType(object):
 
     #[cython::test_assert_path_exists("//CFuncDefNode[@entry.is_final_cmethod=true]")]
     #[cython::test_fail_if_path_exists("//CFuncDefNode//OverrideCheckNode")]
-    cpdef cpdef_method(self):
+    cpdef fn cpdef_method(self):
         pass
 
     #[cython::test_assert_path_exists("//AttributeNode[@entry.is_final_cmethod=true]")]
