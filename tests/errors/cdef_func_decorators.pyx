@@ -16,7 +16,7 @@ cdef class C:
     fn still_cant_be_decorated(self):
         pass
 
-    @property
+    #[property]
     fn property_only_works_for_extern_classes(self):
         pass
 
