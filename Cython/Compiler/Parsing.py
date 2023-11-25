@@ -2527,7 +2527,7 @@ def p_statement(s, ctx, first_statement = 0):
     s.level = ctx.level
     overridable = 0
 
-    if not s.in_python_file and s.sy == "let":
+    if s.sy == "let":
         return p_let_statement(s, ctx(overridable=0))
 
     attributes = p_attributes(s)
@@ -2537,7 +2537,7 @@ def p_statement(s, ctx, first_statement = 0):
         overridable = 1
         s.next()
 
-    if not s.in_python_file and (
+    if (
         (s.sy != "IDENT" or s.systring == "type" or s.systring == "api" and s.peek()[0] in ("static", "fn", "type", "enum", "struct", "class"))
         and
         (s.sy != "cdef" or s.peek()[0] in ("extern", "enum", "struct", "union", "class"))
