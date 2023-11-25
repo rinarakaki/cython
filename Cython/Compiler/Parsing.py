@@ -2577,8 +2577,6 @@ def p_statement(s, ctx, first_statement = 0):
         # empty cdef block
         return p_pass_statement(s, with_newline=1)
 
-    overridable = 0
-
     if s.sy == "cdef":
         cdef_flag = 1
         s.next()
