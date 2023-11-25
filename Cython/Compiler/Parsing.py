@@ -2546,10 +2546,11 @@ def p_statement(s, ctx, first_statement = 0):
     ):
         if s.sy == "cdef":
             s.next()
+        api = p_api(s)
         item_ctx = ctx(
             overridable=overridable,
             visibility=p_visibility(s, ctx.visibility),
-            api=ctx.api or p_api(s)
+            api=ctx.api or api
         )
         item = p_item(s, item_ctx, attributes)
         if item is not None:
