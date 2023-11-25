@@ -2486,6 +2486,10 @@ def p_item(s, ctx, attributes):
     elif s.sy == "static":
         s.next()
         item = p_c_func_or_var_declaration(s, pos, ctx)
+    elif s.sy == "const" and s.peek()[0] == "IDENT":
+        if ctx.visibility == "extern":
+            s.error("const statement not allowed here")
+        item = p_const_item(s)
     elif s.sy == "fn" or s.sy in ("const", "extern") and s.peek()[0] == "fn":
         item = p_fn_item(s, pos, ctx)
     elif ctx.visibility == "extern" and s.systring == "from":
@@ -2585,7 +2589,7 @@ def p_statement(s, ctx, first_statement = 0):
 
     overridable = 0
 
-    if s.sy in ("pub", "let", "const"):
+    if s.sy in ("pub", "let"):
         cdef_flag = 1
     if cdef_flag:
         if ctx.level not in ('module', 'module_pxd', 'function', 'c_class', 'c_class_pxd'):
@@ -4069,7 +4073,7 @@ def p_class_statement(s, decorators):
 
 
 def p_c_class_definition(s, pos,  ctx):
-    # s.sy == 'class'
+    # s.sy == "class"
     s.next()
     module_path = []
     class_name = p_ident(s)
