@@ -2485,16 +2485,16 @@ def p_item(s, ctx, attributes):
         item = p_use_item(s)
     elif s.sy == "static":
         s.next()
-        item = p_c_func_or_var_declaration(s, pos, ctx)
+        item = p_static_item(s, ctx)
     elif s.sy == "const" and s.peek()[0] == "IDENT":
         if ctx.visibility == "extern":
             s.error("const statement not allowed here")
         item = p_const_item(s)
-    elif s.sy == "fn" or s.sy in ("const", "extern") and s.peek()[0] == "fn":
+    elif s.sy == "fn" or s.sy == "const" and s.peek()[0] == "fn":
         item = p_fn_item(s, pos, ctx)
     elif ctx.visibility == "extern" and s.systring == "from":
         item = p_extern_item(s, pos, ctx)
-    elif not s.in_python_file and s.systring == "type" and s.peek()[0] == "IDENT":
+    elif s.systring == "type" and s.peek()[0] == "IDENT":
         if ctx.level not in ("module", "module_pxd"):
             s.error("type statement not allowed here")
         item = p_type_alias_item(s, ctx)
@@ -2508,7 +2508,7 @@ def p_item(s, ctx, attributes):
         if ctx.overridable:
             error(pos, "C struct/union cannot be declared cpdef")
         item = p_struct_or_union_item(s, pos, ctx)
-    elif s.sy == "class" or s.sy == "cdef" and s.peek()[0] == "class":
+    elif (ctx.visibility in ("pub", "extern") or ctx.api) and s.sy == "class" or s.sy == "cdef" and s.peek()[0] == "class":
         if ctx.level not in ("module", "module_pxd"):
             error(pos, "Extension type definition not allowed here")
         if ctx.overridable:
@@ -2554,7 +2554,7 @@ def p_statement(s, ctx, first_statement = 0):
         # if ctx.api:
         #    error(s.position(), "'api' not allowed with 'ctypedef'")
         return p_ctypedef_statement(s, ctx)
-    elif s.sy in ("const", "DEF") and s.peek()[0] == "IDENT" and ctx.visibility != "extern":
+    elif s.sy == "DEF":
         # We used to dep-warn about this but removed the warning again since
         # we don't have a good answer yet for all use cases.
         # warning(s.position(),
@@ -3732,14 +3732,38 @@ def p_let_statement(s, pos, ctx):
         base_type = p_c_base_type(s, nonempty = 1, templates = ctx.templates)
     declarator = p_c_declarator(s, ctx, assignable = 1, nonempty = 1)
     declarators = [declarator]
-    while s.sy == ',':
+    while s.sy == ",":
         s.next()
-        if s.sy == 'NEWLINE':
+        if s.sy == "NEWLINE":
             break
         declarator = p_c_declarator(s, ctx, assignable = 1, nonempty = 1)
         declarators.append(declarator)
     s.expect_newline("Syntax error in let statement", ignore_semicolon=True)
     return Nodes.LetStatNode(pos, base_type = base_type, declarators = declarators)
+
+def p_static_item(s, ctx):
+    pos = s.position()
+    base_type = p_c_base_type(s, nonempty = 1, templates = ctx.templates)
+    declarator = p_c_declarator(s, ctx, assignable = 1, nonempty = 1)
+    declarators = [declarator]
+    while s.sy == ",":
+        s.next()
+        if s.sy == "NEWLINE":
+            break
+        declarator = p_c_declarator(s, ctx, assignable = 1, nonempty = 1)
+        declarators.append(declarator)
+    s.expect_newline("Syntax error in static item", ignore_semicolon=True)
+    result = Nodes.CVarDefNode(pos,
+        visibility = ctx.visibility,
+        base_type = base_type,
+        declarators = declarators,
+        in_pxd = ctx.level == "module_pxd",
+        doc = None,
+        api = 0,
+        modifiers = [],
+        overridable = 0
+    )
+    return result
 
 def p_visibility(s, prev_visibility):
     pos = s.position()
