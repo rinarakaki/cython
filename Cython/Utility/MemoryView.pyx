@@ -60,7 +60,7 @@ extern from *:
 
     static PyObject* Py_None
 
-    cdef enum:
+    enum:
         PyBUF_C_CONTIGUOUS,
         PyBUF_F_CONTIGUOUS,
         PyBUF_ANY_CONTIGUOUS
@@ -1402,7 +1402,7 @@ fn void _slice_assign_scalar(r&i8 data, isize* shape,
 extern from *:
     struct __Pyx_StructField
 
-    cdef enum:
+    enum:
         __PYX_BUF_FLAGS_PACKED_STRUCT
         __PYX_BUF_FLAGS_INTEGER_COMPLEX
 

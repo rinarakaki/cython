@@ -370,7 +370,7 @@ type MyFloat = f32
 cpdef fn MyFloat f_my_f(MyFloat f):
     return f
 
-cdef enum:
+enum:
     FLAG1
     FLAG2
 

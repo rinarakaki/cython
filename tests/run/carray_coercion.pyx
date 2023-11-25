@@ -211,7 +211,7 @@ def to_int_array_array(x):
 
 '''
 # FIXME: this isn't currently allowed
-cdef enum:
+enum:
     SizeA = 2
     SizeB = 3
 

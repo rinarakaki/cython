@@ -186,7 +186,7 @@ extern from "numpy/arrayobject.h":
 
         NPY_ARRAY_UPDATE_ALL
 
-    cdef enum:
+    enum:
         NPY_MAXDIMS
 
     static npy_intp NPY_MAX_ELSIZE
@@ -876,7 +876,7 @@ extern from "numpy/ufuncobject.h":
             PyObject* obj
             PyObject* userloops
 
-    cdef enum:
+    enum:
         PyUFunc_Zero
         PyUFunc_One
         PyUFunc_None
