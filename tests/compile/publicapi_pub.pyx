@@ -42,13 +42,13 @@ ctypedef     class Foo0: pass
 ctypedef pub class Foo1 [type PyFoo1_Type, object PyFoo1_Object]: pass
 
 cdef class Bar0: pass
-pub  class Bar1 [type PyBar1_Type, object PyBar1_Object]: pass
+pub class  Bar1 [type PyBar1_Type, object PyBar1_Object]: pass
 
 static Foo0 f0 = None
 static Bar0 b0 = None
 
-pub Foo1 f1 = None
-pub Bar1 b1 = None
+pub static Foo1 f1 = None
+pub static Bar1 b1 = None
 
 # --
 
