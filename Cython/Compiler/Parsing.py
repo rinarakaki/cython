@@ -2438,7 +2438,8 @@ def p_compile_time_expr(s):
 def p_const_item(s):
     pos = s.position()
     denv = s.compile_time_env
-    s.next()  # 'DEF'
+    s.next()  # "const"
+    base_type = p_c_base_type(s)
     name = p_ident(s)
     s.expect('=')
     expr = p_compile_time_expr(s)
