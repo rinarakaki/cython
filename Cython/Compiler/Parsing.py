@@ -2513,7 +2513,8 @@ def p_item(s, ctx, attributes):
             error(pos, "Extension type definition not allowed here")
         if ctx.overridable:
             error(pos, "Extension types cannot be declared cpdef")
-        s.next()  # "cdef"
+        if s.sy == "cdef":
+            s.next()
         pos = s.position()
         return p_c_class_definition(s, pos, ctx)
 
@@ -3482,9 +3483,7 @@ def p_cdef_statement(s, ctx):
     if ctx.api:
         if ctx.visibility not in ("private", "public"):
             error(pos, "Cannot combine 'api' with '%s'" % ctx.visibility)
-    if ctx.visibility == "extern" and s.systring == "from":
-        return p_extern_item(s, pos, ctx)
-    elif s.sy == 'import':
+    if s.sy == 'import':
         s.next()
         return p_extern_item(s, pos, ctx)
     elif p_nogil(s):
@@ -3506,13 +3505,8 @@ def p_cdef_statement(s, ctx):
         return p_cpp_class_definition(s, pos, ctx)
     elif s.sy == 'IDENT' and s.systring == 'fused':
         return p_fused_definition(s, pos, ctx)
-    elif s.sy == "fn" or s.sy == "const" and s.peek()[0] == "fn":
-        return p_fn_item(s, pos, ctx)
     elif s.sy == "let":
         return p_let_statement(s, pos, ctx)
-    elif s.sy == "static":
-        s.next()
-        return p_c_func_or_var_declaration(s, pos, ctx)
     else:
         return p_c_func_or_var_declaration(s, pos, ctx)
 
