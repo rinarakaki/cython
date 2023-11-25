@@ -66,15 +66,15 @@ def if_elif_raise_else_raise(x):
     else:
         raise TypeError()
 
-@cython::test_assert_path_exists(
+#[cython::test_assert_path_exists(
     "//IfClauseNode",
     "//IfClauseNode[@branch_hint = 'unlikely']",
     "//IfClauseNode[@branch_hint = 'unlikely']//GILStatNode",
-)
-@cython::test_fail_if_path_exists(
+)]
+#[cython::test_fail_if_path_exists(
     "//IfClauseNode[@branch_hint = 'likely']",
     "//IfClauseNode[not(@branch_hint)]",
-)
+)]
 cpdef fn i32 nogil_if_raise(i32 x) except -1 nogil:
     if x:
         raise TypeError()
