@@ -4,7 +4,7 @@
 use dataclass_w1_othermod::SomeBase
 use cython::dataclasses::dataclass
 
-@dataclass
+#[dataclass]
 cdef class DC(SomeBase):
     a: str = ""
 
