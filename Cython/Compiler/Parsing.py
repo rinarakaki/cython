@@ -3495,12 +3495,6 @@ def p_cdef_statement(s, ctx):
         if ctx.overridable:
             error(pos, "cdef blocks cannot be declared cpdef")
         return p_cdef_block(s, ctx)
-    elif s.sy == 'class':
-        if ctx.level not in ('module', 'module_pxd'):
-            error(pos, "Extension type definition not allowed here")
-        if ctx.overridable:
-            error(pos, "Extension types cannot be declared cpdef")
-        return p_c_class_definition(s, pos, ctx)
     elif s.sy == 'IDENT' and s.systring == 'cppclass':
         return p_cpp_class_definition(s, pos, ctx)
     elif s.sy == 'IDENT' and s.systring == 'fused':

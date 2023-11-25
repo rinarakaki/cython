@@ -29,8 +29,8 @@ _WARNINGS = """
 # from MemoryView.pyx
 951:29: Ambiguous exception value, same as default return value: 0
 951:29: Ambiguous exception value, same as default return value: 0
-993:46: Ambiguous exception value, same as default return value: 0
-993:46: Ambiguous exception value, same as default return value: 0
+992:46: Ambiguous exception value, same as default return value: 0
+992:46: Ambiguous exception value, same as default return value: 0
 1083:28: Ambiguous exception value, same as default return value: 0
 1083:28: Ambiguous exception value, same as default return value: 0
 """
