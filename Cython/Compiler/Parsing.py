@@ -2527,7 +2527,7 @@ def p_statement(s, ctx, first_statement = 0):
     s.level = ctx.level
 
     if not s.in_python_file and s.sy == "let":
-        return p_let_statement(s, ctx)
+        return p_let_statement(s, ctx())
 
     attributes = p_attributes(s)
 
