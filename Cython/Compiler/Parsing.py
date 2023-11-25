@@ -2532,7 +2532,7 @@ def p_statement(s, ctx, first_statement = 0):
     if not s.in_python_file and s.sy == "let":
         return p_let_statement(s, ctx)
 
-    decorators = p_attributes(s)
+    attributes = p_attributes(s)
 
     overridable = 0
     if s.sy == "cpdef":
@@ -2550,9 +2550,11 @@ def p_statement(s, ctx, first_statement = 0):
         item_ctx = ctx(overridable=overridable, visibility=p_visibility(s, ctx.visibility))
         if s.systring == "api" and s.peek()[0] in ("static", "fn", "type", "enum", "struct", "class"):
             item_ctx.api = p_api(s)
-        item = p_item(s, item_ctx, decorators)
+        item = p_item(s, item_ctx, attributes)
         if item is not None:
             return item
+    
+    decorators = attributes
 
     if s.sy == 'ctypedef':
         if ctx.level not in ('module', 'module_pxd'):
