@@ -26,19 +26,19 @@ static NoSuchType* ptr
 ptr = None             # This should not produce another error
 
 _ERRORS = u"""
-5:19: Python object cannot be declared extern
-6:16: Array element cannot be a Python object
-7:5: Pointer base type cannot be a Python object
-9:13: Variable type 'int []' is incomplete
-10:11: Variable type 'Grail' is incomplete
-11:10: Variable type 'void' is incomplete
-13:15: Array element type 'int []' is incomplete
-14:14: Array element type 'Grail' is incomplete
-15:16: Array element type 'void' is incomplete
+5:21: Python object cannot be declared extern
+6:18: Array element cannot be a Python object
+7:7: Pointer base type cannot be a Python object
+9:15: Variable type 'int []' is incomplete
+10:13: Variable type 'Grail' is incomplete
+11:12: Variable type 'void' is incomplete
+13:17: Array element type 'int []' is incomplete
+14:16: Array element type 'Grail' is incomplete
+15:18: Array element type 'void' is incomplete
 18:12: Variable type 'int []' is incomplete
 # 19:1: Function argument cannot be void
 21:5: Use spam() rather than spam(void) to declare a function with no arguments.
 20:5: Argument type 'Grail' is incomplete
 21:5: Invalid use of 'void'
-25:5: 'NoSuchType' is not a type identifier
+25:7: 'NoSuchType' is not a type identifier
 """
