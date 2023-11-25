@@ -2533,24 +2533,20 @@ def p_statement(s, ctx, first_statement = 0):
         overridable = 1
         s.next()
 
-    visibility_token = None
-    if s.sy in ("pub", "extern"):
-        visibility_token = s.sy
-        visibility_pos = s.position()
-    ctx = ctx(overridable=overridable, visibility=p_visibility(s, ctx.visibility))
-    api_token = None
-    if s.systring == "api" and s.peek()[0] in ("static", "fn", "type", "enum", "struct", "class"):
-        api_token = s.systring
-        api_pos = s.position()
-        ctx.api = p_api(s)
-    item = p_item(s, ctx, decorators)
-    if item is not None:
-        return item
-    else:
-        if api_token is not None:
-            s.put_back(api_token, api_token, api_pos)
-        if visibility_token is not None:
-            s.put_back(visibility_token, visibility_token, visibility_pos)
+    if not s.in_python_file:
+        visibility_token = None
+        if s.sy in ("pub", "extern"):
+            visibility_token = s.sy
+            visibility_pos = s.position()
+        ctx = ctx(overridable=overridable, visibility=p_visibility(s, ctx.visibility))
+        if s.systring == "api" and s.peek()[0] in ("static", "fn", "type", "enum", "struct", "class"):
+            ctx.api = p_api(s)
+        item = p_item(s, ctx, decorators)
+        if item is not None:
+            return item
+        else:
+            if visibility_token is not None:
+                s.put_back(visibility_token, visibility_token, visibility_pos)
 
     if s.sy == 'ctypedef':
         if ctx.level not in ('module', 'module_pxd'):
