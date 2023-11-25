@@ -244,25 +244,25 @@ extern from "numpy/arrayobject.h":
         # NOTE: no field declarations since direct access is deprecated since NumPy 1.7
         # Instead, we use properties that map to the corresponding C-API functions.
 
-        @property
+        #[property]
         fn inline PyObject* base(self) nogil:
             """Returns a borrowed reference to the object owning the data/memory.
             """
             return PyArray_BASE(self)
 
-        @property
+        #[property]
         fn inline dtype descr(self):
             """Returns an owned reference to the dtype of the array.
             """
             return <dtype>PyArray_DESCR(self)
 
-        @property
+        #[property]
         fn inline i32 ndim(self) nogil:
             """Returns the number of dimensions in the array.
             """
             return PyArray_NDIM(self)
 
-        @property
+        #[property]
         fn inline npy_intp *shape(self) nogil:
             """Returns a pointer to the dimensions/shape of the array.
             The number of elements matches the number of dimensions of the array (ndim).
@@ -270,20 +270,20 @@ extern from "numpy/arrayobject.h":
             """
             return PyArray_DIMS(self)
 
-        @property
+        #[property]
         fn inline npy_intp *strides(self) nogil:
             """Returns a pointer to the strides of the array.
             The number of elements matches the number of dimensions of the array (ndim).
             """
             return PyArray_STRIDES(self)
 
-        @property
+        #[property]
         fn inline npy_intp size(self) nogil:
             """Returns the total size (in number of elements) of the array.
             """
             return PyArray_SIZE(self)
 
-        @property
+        #[property]
         fn inline r&i8 data(self) nogil:
             """The pointer to the data buffer as a r&i8.
             This is provided for legacy reasons to avoid direct struct field access.
