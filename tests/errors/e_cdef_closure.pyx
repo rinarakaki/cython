@@ -5,5 +5,5 @@ cpdef fn cpdef_yield():
         pass
 
 _ERRORS = u"""
-3:9: closures inside cpdef functions not yet supported
+3:6: closures inside cpdef functions not yet supported
 """

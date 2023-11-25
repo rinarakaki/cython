@@ -3,7 +3,7 @@
 cdef inline func() -> int:
     pass
 
-cpdef fn inline func() -> int:
+cpdef inline func() -> int:
     pass
 
 
