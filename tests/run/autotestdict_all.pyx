@@ -46,7 +46,7 @@ def doc_without_test():
 def nodocstring():
     pass
 
-cpdef mycpdeffunc():
+cpdef fn mycpdeffunc():
     """>>> add_log("cpdef")"""
 
 

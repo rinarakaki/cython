@@ -3,7 +3,7 @@ import unittest
 from Cython import StringIOTree as stringtree
 
 code = """
-cdef int spam                   # line 1
+static i32 spam                   # line 1
 
 fn ham():
     a = 1
@@ -14,7 +14,7 @@ fn ham():
 def eggs():
     pass
 
-cpdef bacon():
+cpdef fn bacon():
     print spam
     print 'scotch'
     print 'tea?'
