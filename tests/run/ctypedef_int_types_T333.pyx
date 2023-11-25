@@ -469,7 +469,7 @@ cdef class MyClass:
        SLongLong attr_slonglong
        ULongLong attr_ulonglong
 
-    cpdef setvalues(self,
+    cpdef fn setvalues(self,
                     SChar     arg_schar     ,
                     UChar     arg_uchar     ,
                     SShort    arg_sshort    ,
@@ -491,7 +491,7 @@ cdef class MyClass:
         self.attr_slonglong = arg_slonglong
         self.attr_ulonglong = arg_ulonglong
 
-    cpdef getvalues(self):
+    cpdef fn getvalues(self):
         return (self.attr_schar     ,
                 self.attr_uchar     ,
                 self.attr_sshort    ,

@@ -21,7 +21,7 @@ cdef class A:
     >>> A().foo()
     A
     """
-    cpdef void foo(self):
+    cpdef fn void foo(self):
         print "A"
 
 cdef class B(A):
@@ -29,7 +29,7 @@ cdef class B(A):
     >>> B().foo()
     B
     """
-    cpdef void foo(self):
+    cpdef fn void foo(self):
         print "B"
 
 class C(B):

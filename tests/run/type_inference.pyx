@@ -713,7 +713,7 @@ def with_statement():
 
 #[cython::final]
 cdef class TypedContextManager(object):
-    cpdef double __enter__(self):
+    cpdef fn double __enter__(self):
         return 2.0
     def __exit__(self, *args):
         return 0
@@ -806,9 +806,9 @@ cdef class WithMethods:
     let i32 offset
     def __init__(self, offset):
         self.offset = offset
-    cpdef i32 one_arg(self, i32 x):
+    cpdef fn i32 one_arg(self, i32 x):
         return x + self.offset
-    cpdef i32 default_arg(self, i32 x, i32 y=0):
+    cpdef fn i32 default_arg(self, i32 x, i32 y=0):
         return x + y + self.offset
 
 def test_bound_methods():

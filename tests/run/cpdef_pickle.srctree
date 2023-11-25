@@ -13,7 +13,7 @@ cdef class WithoutC:
         return "Hello, World"
 
 cdef class WithCPDef:
-    cpdef str hello(self):
+    cpdef fn str hello(self):
         return "Hello, World"
 
 cdef class WithCDefWrapper:
@@ -31,7 +31,7 @@ cdef class WithoutCPDef:
     pass
 
 cdef class WithCPDef:
-    cpdef str hello(self)
+    cpdef fn str hello(self)
 
 cdef class WithCDefWrapper:
     pass

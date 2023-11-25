@@ -198,7 +198,7 @@ fn i32 nogil_prof(i64 a) nogil:
 cdef class A(object):
     def m_def(self, i64 a):
         return a
-    cpdef m_cpdef(self, i64 a):
+    cpdef fn m_cpdef(self, i64 a):
         return a
     fn m_cdef(self, i64 a):
         return a

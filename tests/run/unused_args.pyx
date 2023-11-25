@@ -36,10 +36,10 @@ cdef class Unused:
     >>> o = Unused()
     """
 
-    cpdef cp_unused_simple(self, a, b, c):
+    cpdef fn cp_unused_simple(self, a, b, c):
         return c
 
-    cpdef cp_unused_optional(self, a, b, c=1, d=2):
+    cpdef fn cp_unused_optional(self, a, b, c=1, d=2):
         return b + d
 
 def def_unused(a, b, c):

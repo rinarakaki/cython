@@ -96,7 +96,7 @@ cdef class A:
         """
         return self.Ƒ()
 cdef class B:
-    cpdef Ƒ(self):
+    cpdef fn Ƒ(self):
         pass
 cdef class C:
     def Ƒ(self):
@@ -168,10 +168,10 @@ cdef class Γναμε2:
         """docstring"""
         pass
 
-    cpdef boring_cpdef(self):
+    cpdef fn boring_cpdef(self):
         """docstring"""
         return 2
-    cpdef εxciting_cpdef(self):
+    cpdef fn εxciting_cpdef(self):
         """docstring"""
         return 2
 

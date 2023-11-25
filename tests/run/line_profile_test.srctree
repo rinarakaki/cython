@@ -150,7 +150,7 @@ cdef class CClass:
         y = self.cmethod(c + a)
         return y * 4
 
-    cpdef cp_pymethod(self, r):
+    cpdef fn cp_pymethod(self, r):
         for i in range(10):
             a = r + 1
         z = self.c_pymethod(a) + self.cmethod(r)

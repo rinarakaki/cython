@@ -390,7 +390,7 @@ cdef class CBaseClass(object):
     def normalmethod(self, cython.integral arg1, arg2, arg3):
         print self, cython::typeof(arg1), arg1, arg2, arg3
 
-    cpdef cpdefmethod(self, cython.integral arg1):
+    cpdef fn cpdefmethod(self, cython.integral arg1):
         print self, cython::typeof(arg1), arg1
 
     def __repr__(self):

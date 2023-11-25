@@ -22,7 +22,7 @@ class PyClass99(object):
 
 
 cdef class CyClass:
-    cpdef cpmethod(self, x, y=1, z=PyClass):
+    cpdef fn cpmethod(self, x, y=1, z=PyClass):
         """
         >>> obj = CyClass()
         >>> obj.cpmethod(0)
@@ -40,7 +40,7 @@ cdef class CyClass:
     y_value = 3
     p_class = PyClass
 
-    cpdef cpmethod2(self, x, y=y_value, z=p_class):
+    cpdef fn cpmethod2(self, x, y=y_value, z=p_class):
         """
         >>> obj = CyClass()
         >>> obj.cpmethod2(0)
