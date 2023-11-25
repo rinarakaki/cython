@@ -2522,7 +2522,7 @@ def p_statement(s, ctx, first_statement = 0):
         s.next()
 
     visibility_token = None
-    if s.sy in ("pub",):
+    if s.sy in ("pub", "extern"):
         visibility_token = s.sy
     ctx = ctx(overridable=overridable, visibility=p_visibility(s, ctx.visibility))
     ctx.api = ctx.api or p_api(s)
