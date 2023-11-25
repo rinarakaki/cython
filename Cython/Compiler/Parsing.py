@@ -2483,6 +2483,9 @@ def p_item(s, ctx, attributes):
     item = None
     if s.sy == "use":
         item = p_use_item(s)
+    elif s.sy == "static":
+        s.next()
+        item = p_c_func_or_var_declaration(s, pos, ctx)
     elif s.sy == "fn" or s.sy in ("const", "extern") and s.peek()[0] == "fn":
         item = p_fn_item(s, pos, ctx)
     elif ctx.visibility == "extern" and s.systring == "from":
@@ -2582,8 +2585,8 @@ def p_statement(s, ctx, first_statement = 0):
         return p_pass_statement(s, with_newline=1)
 
     overridable = 0
-    
-    if s.sy in ("pub", "let", "static", "const"):
+
+    if s.sy in ("pub", "let", "const"):
         cdef_flag = 1
     if cdef_flag:
         if ctx.level not in ('module', 'module_pxd', 'function', 'c_class', 'c_class_pxd'):
