@@ -2509,7 +2509,7 @@ def p_item(s, ctx, attributes):
         if ctx.overridable:
             error(pos, "C struct/union cannot be declared cpdef")
         item = p_struct_or_union_item(s, pos, ctx)
-    elif (ctx.visibility in ("public", "extern") or ctx.api) and s.sy == "class":
+    elif s.sy == "class":
         if ctx.level not in ("module", "module_pxd"):
             error(pos, "Extension type definition not allowed here")
         if ctx.overridable:
@@ -2549,9 +2549,7 @@ def p_statement(s, ctx, first_statement = 0):
         item_ctx = ctx(overridable=overridable, visibility=p_visibility(s, ctx.visibility))
         if s.systring == "api" and s.peek()[0] in ("static", "fn", "type", "enum", "struct", "class"):
             item_ctx.api = p_api(s)
-        item = p_item(s, item_ctx, attributes)
-        if item is not None:
-            return item
+        return p_item(s, item_ctx, attributes)
     
     decorators = attributes
 
