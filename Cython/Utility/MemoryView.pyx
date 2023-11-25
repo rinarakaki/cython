@@ -106,7 +106,7 @@ except:
 #
 
 #[cython::collection_type("sequence")]
-@cname("__pyx_array")
+#[cname("__pyx_array")]
 cdef class array:
 
     cdef:
@@ -239,7 +239,7 @@ cdef class array:
     except:
         pass
 
-@cname("__pyx_array_allocate_buffer")
+#[cname("__pyx_array_allocate_buffer")]
 fn i32 _allocate_buffer(array self) except -1:
     # use malloc() for backwards compatibility
     # in case external code wants to change the data pointer
@@ -258,7 +258,7 @@ fn i32 _allocate_buffer(array self) except -1:
             Py_INCREF(Py_None)
     return 0
 
-@cname("__pyx_array_new")
+#[cname("__pyx_array_new")]
 fn array array_cwrapper(tuple shape, isize itemsize, r&i8 format, r&i8 c_mode, r&i8 buf):
     let array result
     let str mode = "fortran" if c_mode[0] == b'f' else "c"  # this often comes from a constant C string.
@@ -504,7 +504,7 @@ cdef class memoryview:
         for i, c in enumerate(bytesvalue):
             itemp[i] = c
 
-    @cname('getbuffer')
+    @cname("getbuffer")
     def __getbuffer__(self, Py_buffer* info, i32 flags):
         if flags & PyBUF_WRITABLE and self.view.readonly:
             raise ValueError, "Cannot create writable memory view from read-only memoryview"
