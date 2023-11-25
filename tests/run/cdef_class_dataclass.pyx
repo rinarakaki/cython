@@ -31,7 +31,7 @@ cdef class NotADataclass:
     def __hash__(self):
         return 1
 
-@dataclass(unsafe_hash=true)
+#[dataclass(unsafe_hash=true)]
 cdef class BasicDataclass:
     """
     >>> sorted(list(BasicDataclass.__dataclass_fields__.keys()))
@@ -76,7 +76,7 @@ cdef class BasicDataclass:
     c: object = field(default=0)
     d: list = dataclasses.field(default_factory=list)
 
-@dataclasses.dataclass
+#[dataclasses.dataclass]
 cdef class InheritsFromDataclass(BasicDataclass):
     """
     >>> sorted(list(InheritsFromDataclass.__dataclass_fields__.keys()))
@@ -111,7 +111,7 @@ type S_ptr = S*
 fn S_ptr malloc_a_struct():
     return <S_ptr>malloc(sizeof(S))
 
-@dataclass
+#[dataclass]
 cdef class ContainsNonPyFields:
     """
     >>> ContainsNonPyFields()  # doctest: +ELLIPSIS
@@ -133,7 +133,7 @@ cdef class ContainsNonPyFields:
     def __dealloc__(self):
         free(self.mystruct_ptr)
 
-@dataclass
+#[dataclass]
 cdef class InitClassVars:
     """
     Private (i.e. defined with "cdef") members deliberately don't appear
@@ -179,7 +179,7 @@ cdef class InitClassVars:
         self.d2 = d2
         print "In __post_init__"
 
-@dataclass
+#[dataclass]
 cdef class TestVisibility:
     """
     >>> inst = TestVisibility()
@@ -212,7 +212,7 @@ cdef class TestVisibility:
     pub object d
     d = object()
 
-@dataclass(frozen=true)
+#[dataclass(frozen=true)]
 cdef class TestFrozen:
     """
     >>> inst = TestFrozen(a=5)
@@ -227,7 +227,7 @@ cdef class TestFrozen:
 def get_dataclass_initvar():
     return py_dataclasses.InitVar
 
-@dataclass(kw_only=True)
+#[dataclass](kw_only=True)
 cdef class TestKwOnly:
     """
     >>> inst = TestKwOnly(a=3, b=2)

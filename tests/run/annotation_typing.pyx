@@ -193,7 +193,7 @@ def call_struct_io(s : MyStruct) -> MyStruct:
     "//CFuncDefNode[@return_type.is_struct_or_union = true]",
 )]
 #[cython::ccall]
-def struct_convert(d) -> MyStruct:
+fn struct_convert(d) -> MyStruct:
     """
     >>> d = struct_convert(dict(x=1, y=2, data=3))
     >>> sorted(d.items())
@@ -211,7 +211,7 @@ def struct_convert(d) -> MyStruct:
     "//CFuncDefNode[@return_type.is_int = true]",
 )]
 #[cython::ccall]
-def exception_default(raise_exc : cython.u2 = false) -> cython.i32:
+fn exception_default(raise_exc : cython.u2 = false) -> cython.i32:
     """
     >>> exception_default(raise_exc=false)
     10

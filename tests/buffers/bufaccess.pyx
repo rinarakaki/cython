@@ -714,8 +714,8 @@ def safe_get(object[i32] buf, i32 idx):
 
 #[cython::boundscheck(false)]  # outer decorators should take precedence
 #[cython::boundscheck(true)]
-@testcase
-def unsafe_get(object[i32] buf, i32 idx):
+#[testcase]
+fn unsafe_get(object[i32] buf, i32 idx):
     """
     Access outside of the area the buffer publishes.
     >>> A = IntMockBuffer(None, 0..10, shape=(3,), offset=5)
@@ -729,8 +729,8 @@ def unsafe_get(object[i32] buf, i32 idx):
     return buf[idx]
 
 #[cython::boundscheck(false)]
-@testcase
-def unsafe_get_nonegative(object[i32, negative_indices=false] buf, i32 idx):
+#[testcase]
+fn unsafe_get_nonegative(object[i32, negative_indices=false] buf, i32 idx):
     """
     Also inspect the C source to see that it is optimal...
 
@@ -740,8 +740,8 @@ def unsafe_get_nonegative(object[i32, negative_indices=false] buf, i32 idx):
     """
     return buf[idx]
 
-@testcase
-def mixed_get(object[i32] buf, i32 unsafe_idx, i32 safe_idx):
+#[testcase]
+fn mixed_get(object[i32] buf, i32 unsafe_idx, i32 safe_idx):
     """
     >>> A = IntMockBuffer(None, 0..10, shape=(3,), offset=5)
     >>> mixed_get(A, -4, 0)
