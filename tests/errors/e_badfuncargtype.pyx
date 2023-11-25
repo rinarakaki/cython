@@ -9,6 +9,6 @@ fn i32 tomato(Spam s):                # incomplete type
 
 _ERRORS = u"""
 5:19: Use spam() rather than spam(void) to declare a function with no arguments.
-6:29: Use spam() rather than spam(void) to declare a function with no arguments.
+6:27: Use spam() rather than spam(void) to declare a function with no arguments.
 7:14: Argument type 'Spam' is incomplete
 """
