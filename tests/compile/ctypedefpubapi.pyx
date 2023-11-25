@@ -7,6 +7,6 @@ cdef api:
     ctypedef pub class Bar [type PyBar_Type, object PyBarObject]:
         pass
 
-pub api:
+cdef pub api:
     ctypedef class Baz [type PyBaz_Type, object PyBazObject]:
         pass

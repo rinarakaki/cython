@@ -2523,14 +2523,13 @@ def p_item(s, ctx, attributes):
 
 def p_statement(s, ctx, first_statement = 0):
     cdef_flag = ctx.cdef_flag
-    s.level = ctx.level
-    overridable = 0
 
     if s.sy == "let":
         return p_let_statement(s, ctx(overridable=0))
 
     attributes = p_attributes(s)
 
+    overridable = 0
     if s.sy == "cpdef":
         cdef_flag = 1
         overridable = 1

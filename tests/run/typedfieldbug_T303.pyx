@@ -10,8 +10,8 @@ extern from "external_defs.h":
     type DoubleTypedef = f32
     type LongDoubleTypedef = f32
 
-pub DoubleTypedef global_tdef
-pub f64 global_double
+pub static DoubleTypedef global_tdef
+pub static f64 global_double
 
 cdef class MyClass:
     cdef readonly:

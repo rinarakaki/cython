@@ -58,8 +58,8 @@ static f32 flt0 = 1, flt1 = 1, flt2 = 1
 api static i32 int3 = 1
 api static flt flt3 = 1
 
-pub i32 int4 = 1
-pub flt flt4 = 1
+pub static i32 int4 = 1
+pub static flt flt4 = 1
 
 def get_int():
     return (int0, int1, int2, int3, int4)
@@ -88,7 +88,7 @@ flt0 = flt1 = flt2 = 7
 
 extern from "a_api.h":
     fn i32 import_a() except -1
-    ctypedef f32 flt
+    type flt = f32
     static i32 int1, int2, int3
     static flt flt1, flt2, flt3
 
@@ -131,9 +131,9 @@ extern from "inita.h":
      pass
 extern from "a.h":
      fn void inita() except *
-     ctypedef f32 flt
-     i32 int2, int4
-     flt flt2, flt4
+     type flt = f32
+     static i32 int2, int4
+     static flt flt2, flt4
 
 inita()
 
