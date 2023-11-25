@@ -2483,6 +2483,8 @@ def p_item(s, ctx, attributes):
     item = None
     if s.sy == "use":
         item = p_use_item(s)
+    elif s.sy == "fn" or s.sy in ("const", "extern") and s.peek()[0] == "fn":
+        item = p_fn_item(s, pos, ctx)
     elif ctx.visibility == "extern" and s.systring == "from":
         item = p_extern_item(s, pos, ctx)
     elif not s.in_python_file and s.systring == "type" and s.peek()[0] == "IDENT":
@@ -2565,7 +2567,7 @@ def p_statement(s, ctx, first_statement = 0):
         cdef_flag = 1
         overridable = 1
         s.next()
-    elif s.sy in ("pub", "fn", "let", "static", "const"):
+    elif s.sy in ("pub", "let", "static", "const"):
         cdef_flag = 1
     if cdef_flag:
         if ctx.level not in ('module', 'module_pxd', 'function', 'c_class', 'c_class_pxd'):
