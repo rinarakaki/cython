@@ -22,7 +22,7 @@ cdef class TestClass(object):
     fn cdef_method(self, i32 value):
         print('Hello from cdef_method', value)
 
-    cpdef cpdef_method(self, i32 value):
+    cpdef fn cpdef_method(self, i32 value):
         print('Hello from cpdef_method', value)
 
     def def_method(self, i32 value):
@@ -33,7 +33,7 @@ cdef class TestClass(object):
         print("Hello from cdef_cname_method", value)
 
     @cname('cpdef_cname')
-    cpdef cpdef_cname_method(self, i32 value):
+    cpdef fn cpdef_cname_method(self, i32 value):
         print("Hello from cpdef_cname_method", value)
 
     @cname('def_cname')
