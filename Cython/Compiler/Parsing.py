@@ -2483,6 +2483,8 @@ def p_item(s, ctx, attributes):
     item = None
     if s.sy == "use":
         item = p_use_item(s)
+    elif ctx.visibility == "extern" and s.systring == "from":
+        item = p_extern_item(s, pos, ctx)
     elif not s.in_python_file and s.systring == "type" and s.peek()[0] == "IDENT":
         if ctx.level not in ("module", "module_pxd"):
             s.error("type statement not allowed here")
