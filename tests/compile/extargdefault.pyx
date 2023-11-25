@@ -1,6 +1,6 @@
 # mode: compile
 
-cdef extern class somewhere.Swallow:
+extern class somewhere.Swallow:
     pass
 
 cdef Swallow swallow

@@ -1,8 +1,8 @@
 # mode: error
 
-cdef extern void fa[5]()
-cdef extern i32 af()[5]
-cdef extern i32 ff()()
+extern static void fa[5]()
+extern static i32 af()[5]
+extern static i32 ff()()
 
 fn void f():
     let void* p

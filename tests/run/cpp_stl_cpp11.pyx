@@ -33,7 +33,7 @@ def test_vector_functionality():
     """
     let vector[i32] int_vector = vector[i32]()
     let i32* data
-    let const i32* const_data
+    let r&i32 const_data
     int_vector.push_back(77)
     data = int_vector.data()
     const_data = int_vector.const_data()
@@ -100,8 +100,8 @@ def test_map_functionality():
     >>> test_map_functionality()
     'pass'
     """
-    let map[i32, const void*] int_map
-    let const void* data
+    let map[i32, r&void] int_map
+    let r&void data
     int_map[77] = NULL
     data = int_map.const_at(77)
     return "pass"
@@ -159,7 +159,7 @@ def test_unordered_map_functionality():
     let pair[unordered_map[i32, i32].iterator, u2] pair_iter  = int_map.insert(pair_insert)
     let unordered_map[i32, i32] int_map2
     let unordered_map[i32, i32*] intptr_map
-    let const i32* intptr
+    let r&i32 intptr
     let unordered_map[vector[i32], i32, IntVectorHash] int_vector_map
     let vector[i32] intvec
     assert int_map[1] == 2
