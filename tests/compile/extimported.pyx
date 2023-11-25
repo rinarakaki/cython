@@ -3,6 +3,6 @@
 extern class Spam.Eggs.Ham:
     pass
 
-cdef Ham ham
+static Ham ham
 
 ham = None
