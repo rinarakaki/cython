@@ -2485,7 +2485,6 @@ def p_item(s, ctx, attributes):
     if s.sy == "use":
         item = p_use_item(s)
     elif s.sy == "static":
-        s.next()
         item = p_static_item(s, ctx)
     elif s.sy == "const" and s.peek()[0] == "IDENT":
         if ctx.visibility == "extern":
@@ -2548,9 +2547,11 @@ def p_statement(s, ctx, first_statement = 0):
     ):
         if s.sy == "cdef":
             s.next()
-        item_ctx = ctx(overridable=overridable, visibility=p_visibility(s, ctx.visibility))
-        if s.systring == "api" and s.peek()[0] in ("static", "fn", "type", "enum", "struct", "class"):
-            item_ctx.api = p_api(s)
+        item_ctx = ctx(
+            overridable=overridable,
+            visibility=p_visibility(s, ctx.visibility),
+            api=ctx.api or p_api(s)
+        )
         item = p_item(s, item_ctx, attributes)
         if item is not None:
             return item
@@ -3732,7 +3733,9 @@ def p_let_statement(s, ctx):
     return Nodes.LetStatNode(pos, base_type = base_type, declarators = declarators)
 
 def p_static_item(s, ctx):
+    # s.sy == "static"
     pos = s.position()
+    s.next()
     base_type = p_c_base_type(s, nonempty = 1, templates = ctx.templates)
     declarator = p_c_declarator(s, ctx, assignable = 1, nonempty = 1)
     declarators = [declarator]
