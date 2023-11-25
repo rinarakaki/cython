@@ -4,7 +4,7 @@ use cpython::object::(Py_EQ, Py_NE)
 
 use cython
 
-const C21 = 2-1j
+const auto C21 = 2-1j
 
 cdef class Complex3j:
     """

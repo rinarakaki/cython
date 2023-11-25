@@ -1,4 +1,4 @@
-const USTUFF = u"Spam"
+const auto USTUFF = u"Spam"
 
 def uf():
     """
@@ -10,7 +10,7 @@ def uf():
     ELSE:
         print "Doesn't work"
 
-const BSTUFF = b"Spam"
+const auto BSTUFF = b"Spam"
 
 def bf():
     """

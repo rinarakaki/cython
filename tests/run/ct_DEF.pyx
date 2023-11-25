@@ -10,32 +10,32 @@ def print_large_number(n):
     print(str(n).rstrip('L'))
 
 
-const TUPLE = (1, 2, u"buckle my shoe")
-const TRUE_FALSE = (true, false)
-const NONE = None
+const auto TUPLE = (1, 2, u"buckle my shoe")
+const auto TRUE_FALSE = (true, false)
+const auto NONE = None
 
-const CHAR = c'x'
-const INT0 = -1
-const INT1 = 42
-const INT2 = 0x42
-const INT3 = -0x42
-const LONG = 666i64
-const LARGE_NUM32 = (1 << 32) - 1
-const LARGE_NUM64 = (1 << 64) - 1
-const FLOAT = 12.5
-const EXACT_FLOAT = 0.577215664901532860606512090082402431
-const E_FLOAT = 0.5772156E4  # Cannot currently warn about this since we can't safely compare the string repr.
-const BYTES = b"spam"
-const UNICODE = u"spam-u"
-const TWO = TUPLE[1]
-const FIVE = TWO + 3
-const TRUE  = TRUE_FALSE[0]
-const FALSE = TRUE_FALSE[1]
-const INT_TUPLE1 = TUPLE[:2]
-const INT_TUPLE2 = TUPLE[1:4;2]
-const ELLIPSIS = ...
-const EXPRESSION = int(float(2*2)) + int(str(2)) + int(max(1, 2, 3)) + sum([TWO, FIVE])
-const UNICODE_EXPRESSION = unicode(BYTES.decode('utf8')).encode('ascii').decode('latin1')
+const auto CHAR = c'x'
+const auto INT0 = -1
+const auto INT1 = 42
+const auto INT2 = 0x42
+const auto INT3 = -0x42
+const auto LONG = 666i64
+const auto LARGE_NUM32 = (1 << 32) - 1
+const auto LARGE_NUM64 = (1 << 64) - 1
+const auto FLOAT = 12.5
+const auto EXACT_FLOAT = 0.577215664901532860606512090082402431
+const auto E_FLOAT = 0.5772156E4  # Cannot currently warn about this since we can't safely compare the string repr.
+const auto BYTES = b"spam"
+const auto UNICODE = u"spam-u"
+const auto TWO = TUPLE[1]
+const auto FIVE = TWO + 3
+const auto TRUE  = TRUE_FALSE[0]
+const auto FALSE = TRUE_FALSE[1]
+const auto INT_TUPLE1 = TUPLE[:2]
+const auto INT_TUPLE2 = TUPLE[1:4;2]
+const auto ELLIPSIS = ...
+const auto EXPRESSION = int(float(2*2)) + int(str(2)) + int(max(1, 2, 3)) + sum([TWO, FIVE])
+const auto UNICODE_EXPRESSION = unicode(BYTES.decode('utf8')).encode('ascii').decode('latin1')
 
 def c():
     """
