@@ -54,7 +54,7 @@ extern from *:
 
 fn inline   void bar (): pass
 fn          void bar0()
-pub         void bar1()
+pub fn      void bar1()
 api fn      void bar2()
 pub api fn  void bar3()
 

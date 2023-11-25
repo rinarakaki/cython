@@ -3742,7 +3742,7 @@ def p_let_statement(s, pos, ctx):
             break
         declarator = p_c_declarator(s, ctx, assignable = 1, nonempty = 1)
         declarators.append(declarator)
-    s.expect_newline("Syntax error in C variable declaration", ignore_semicolon=True)
+    s.expect_newline("Syntax error in let statement", ignore_semicolon=True)
     return Nodes.LetStatNode(pos, base_type = base_type, declarators = declarators)
 
 def p_visibility(s, prev_visibility):
@@ -3813,7 +3813,7 @@ def p_fn_item(s, pos, ctx):
                                         assignable = 1, nonempty = 1)
             declarators.append(declarator)
         doc_line = s.start_line + 1
-        s.expect_newline("Syntax error in C variable declaration", ignore_semicolon=True)
+        s.expect_newline("Syntax error in fn item", ignore_semicolon=True)
         if ctx.level in ("c_class", "c_class_pxd") and s.start_line == doc_line:
             doc = p_doc_string(s)
         else:
