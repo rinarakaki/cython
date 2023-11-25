@@ -14,14 +14,14 @@ fn c_unused_optional(a, b, c=1, d=2):
     """
     return b + d
 
-cpdef cp_unused_simple(a, b, c):
+cpdef fn cp_unused_simple(a, b, c):
     """
     >>> cp_unused_simple(1, 2, 3)
     3
     """
     return a + b
 
-cpdef cp_unused_optional(a, b, c=1, d=2):
+cpdef fn cp_unused_optional(a, b, c=1, d=2):
     """
     >>> cp_unused_optional(1, 2)
     4

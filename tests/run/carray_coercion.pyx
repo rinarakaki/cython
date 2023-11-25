@@ -15,7 +15,7 @@ def from_int_array():
     v[2] = 3
     return v
 
-cpdef tuple tuple_from_int_array():
+cpdef fn tuple tuple_from_int_array():
     """
     >>> tuple_from_int_array()
     (1, 2, 3)
@@ -41,7 +41,7 @@ def from_typedef_int_array():
     v[2] = 3
     return v
 
-cpdef tuple tuple_from_typedef_int_array():
+cpdef fn tuple tuple_from_typedef_int_array():
     """
     >>> tuple_from_typedef_int_array()
     (1, 2, 3)

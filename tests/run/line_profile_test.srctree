@@ -95,7 +95,7 @@ def collatz(n):
             n = 3*n+1
 
 @cython::binding(true)
-cpdef cp_collatz(n):
+cpdef fn cp_collatz(n):
     while n > 1:
         if n % 2 == 0:
             n //= 2

@@ -1,4 +1,4 @@
-cpdef void unraisable() noexcept:
+cpdef fn void unraisable() noexcept:
     """
     >>> unraisable()
     here
@@ -6,7 +6,7 @@ cpdef void unraisable() noexcept:
     print('here')
     raise RuntimeError()
 
-cpdef void raisable() except *:
+cpdef fn void raisable() except *:
     """
     >>> raisable()
     Traceback (most recent call last):

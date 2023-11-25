@@ -1,5 +1,5 @@
 cdef class B(A):
-  cpdef foo(self):
+  cpdef fn foo(self):
     """
     >>> B().foo()
     B
@@ -7,7 +7,7 @@ cdef class B(A):
     print "B"
 
 cdef class A(object):
-  cpdef foo(self):
+  cpdef fn foo(self):
     """
     >>> A().foo()
     A
@@ -15,7 +15,7 @@ cdef class A(object):
     print "A"
 
 cdef class C(A):
-  cpdef foo(self):
+  cpdef fn foo(self):
     """
     >>> C().foo()
     C

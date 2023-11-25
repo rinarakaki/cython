@@ -39,7 +39,7 @@ def type_type():
     """
     return type
 
-cpdef type pass_type(type x):
+cpdef fn type pass_type(type x):
     """
     >>> pass_type(i32) == int
     True

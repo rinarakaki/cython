@@ -141,7 +141,7 @@ def test_nomatch():
 
 ctypedef f128 long_double
 
-cpdef multiarg(cython.integral x, cython.floating y):
+cpdef fn multiarg(cython.integral x, cython.floating y):
     if cython.integral is int:
         print("x is an int,", end=' ')
     else:
@@ -185,10 +185,10 @@ def test_ambiguousmatch():
 
 # https://github.com/cython/cython/issues/4409
 # default arguments + fused cpdef were crashing
-cpdef literal_default(cython.integral x, some_string="value"):
+cpdef fn literal_default(cython.integral x, some_string="value"):
     return x, some_string
 
-cpdef mutable_default(cython.integral x, some_value=[]):
+cpdef fn mutable_default(cython.integral x, some_value=[]):
     some_value.append(x)
     return some_value
 

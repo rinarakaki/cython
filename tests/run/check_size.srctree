@@ -94,7 +94,7 @@ extern from "check_size_nominal.h":
             i32 f0
             i32 f1
 
-cpdef pub i32 testme(Foo f) except -1:
+cpdef fn pub i32 testme(Foo f) except -1:
     return f.f0 + f.f1
 
 ######## _check_size_too_small.pyx ########
@@ -106,7 +106,7 @@ extern from "check_size_bigger.h":
             i32 f1
             i32 f2
 
-cpdef pub i32 testme(Foo f, i32 f2) except -1:
+cpdef fn pub i32 testme(Foo f, i32 f2) except -1:
     f.f2 = f2
     return f.f0 + f.f1 + f.f2
 
@@ -117,7 +117,7 @@ extern from "check_size_smaller.h":
         cdef:
             i32 f9
 
-cpdef pub i32 testme(Foo f) except -1:
+cpdef fn pub i32 testme(Foo f) except -1:
     return f.f9
 
 ######## _check_size_warn.pyx ########
@@ -128,7 +128,7 @@ extern from "check_size_smaller.h":
         cdef:
             i32 f9
 
-cpdef pub i32 testme(Foo f) except -1:
+cpdef fn pub i32 testme(Foo f) except -1:
     return f.f9
 
 ######## _check_size_ignore.pyx ########
@@ -139,7 +139,7 @@ extern from "check_size_smaller.h":
         cdef:
             i32 f9
 
-cpdef pub i32 testme(Foo f) except -1:
+cpdef fn pub i32 testme(Foo f) except -1:
     return f.f9
 
 ######## _check_size_error.pyx ########
@@ -150,7 +150,7 @@ extern from "check_size_smaller.h":
         cdef:
             i32 f9
 
-cpdef pub i32 testme(Foo f) except -1:
+cpdef fn pub i32 testme(Foo f) except -1:
     return f.f9
 
 ######## check_size_invalid.pyx ########
@@ -161,7 +161,7 @@ extern from "check_size_smaller.h":
         cdef:
             int f9
 
-cpdef pub i32 testme(Foo f) except -1:
+cpdef fn pub i32 testme(Foo f) except -1:
     return f.f9
 
 ######## runner.py ########

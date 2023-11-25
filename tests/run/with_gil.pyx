@@ -245,7 +245,7 @@ def test_closure():
 
     raise Exception("This should not be raised!")
 
-cpdef test_cpdef():
+cpdef fn test_cpdef():
     """
     >>> test_cpdef()
     Seems to work!

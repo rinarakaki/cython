@@ -61,7 +61,7 @@ cdef class CyClass:
     p_class = PyClass99
 
 
-cpdef func(x, y=1, z=PyClass):
+cpdef fn func(x, y=1, z=PyClass):
     """
     >>> func(0)
     (0, 1, 2)

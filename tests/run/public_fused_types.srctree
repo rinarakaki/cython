@@ -58,7 +58,7 @@ cdef class TestFusedExtMethods(object):
 
 object_t = cython.fused_type(TestFusedExtMethods, object, list)
 
-cpdef public_cpdef(cython.integral x, cython.floating y, object_t z)
+cpdef fn public_cpdef(cython.integral x, cython.floating y, object_t z)
 
 ######## header.h ########
 
@@ -99,7 +99,7 @@ cdef class TestFusedExtMethods(object):
         else:
             return <fused1> x + y
 
-cpdef public_cpdef(cython.integral x, cython.floating y, object_t z):
+cpdef fn public_cpdef(cython.integral x, cython.floating y, object_t z):
     if cython.integral is int:
         pass
 

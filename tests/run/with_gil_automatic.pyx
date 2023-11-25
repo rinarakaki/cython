@@ -26,7 +26,7 @@ def test_print_in_nogil_section(x):
 @cython::test_fail_if_path_exists(
     "//GILStatNode//GILStatNode",
 )
-cpdef i32 test_print_in_nogil_func(x) except -1 nogil:
+cpdef fn i32 test_print_in_nogil_func(x) except -1 nogil:
     """
     >>> _ = test_print_in_nogil_func(123)
     --123--
@@ -58,7 +58,7 @@ def test_raise_in_nogil_section(x):
 @cython::test_fail_if_path_exists(
     "//GILStatNode//GILStatNode",
 )
-cpdef i32 test_raise_in_nogil_func(x) except -1 nogil:
+cpdef fn i32 test_raise_in_nogil_func(x) except -1 nogil:
     """
     >>> test_raise_in_nogil_func(123)
     Traceback (most recent call last):
@@ -121,7 +121,7 @@ def assert_in_nogil_section_string(i32 x):
     "//AssertStatNode//GILStatNode",
     "//AssertStatNode//GILStatNode//RaiseStatNode",
 )
-cpdef int assert_in_nogil_func(i32 x) except -1 nogil:
+cpdef fn int assert_in_nogil_func(i32 x) except -1 nogil:
     """
     >>> _ = assert_in_nogil_func(123)
     >>> assert_in_nogil_func(0)

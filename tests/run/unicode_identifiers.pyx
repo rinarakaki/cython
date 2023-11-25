@@ -138,7 +138,7 @@ def Fα2():
         pass
     return nested_normal, nεstεd_uni
 
-cpdef Fα3():
+cpdef fn Fα3():
     """docstring"""
     return 1
 

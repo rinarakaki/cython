@@ -10,7 +10,7 @@ cdef class GVector:
     cpdef fn f64 Mag(self)
     cpdef fn f64 dist(self, GVector other)
 
-cpdef list GetKnots(list points, i64 degree)
+cpdef fn list GetKnots(list points, i64 degree)
 
 #[cython::final]
 cdef class Spline:

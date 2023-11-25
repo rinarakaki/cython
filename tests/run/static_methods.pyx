@@ -22,7 +22,7 @@ cdef class A:
         return 'cdef_utyped', a, b
 
 #     @staticmethod
-#     cpdef static_cpdef(i32 x):
+#     cpdef fn static_cpdef(i32 x):
 #         """
 #         >>> A.static_def
 #         >>> A.static_cpdef

@@ -568,7 +568,7 @@ def test_fused_buffers(fused_buffers arg):
     ['int64_t[::1]', 'ndarray[int32_t,ndim=1]']
     """
 
-cpdef _fused_cpdef_buffers(np.ndarray[fused_external] a):
+cpdef fn _fused_cpdef_buffers(np.ndarray[fused_external] a):
     print a.dtype
 
 @testcase
@@ -670,7 +670,7 @@ def test_fused_ndarray(fused_ndarray a):
     else:
         print b[5]
 
-cpdef test_fused_cpdef_ndarray(fused_ndarray a):
+cpdef fn test_fused_cpdef_ndarray(fused_ndarray a):
     """
     >>> import cython
     >>> sorted(test_fused_cpdef_ndarray.__signatures__)

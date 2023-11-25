@@ -1209,7 +1209,7 @@ def test_assign_from_byteslike(byteslike):
 def multiple_memoryview_def(f64[:] a, f64[:] b):
     return a[0] + b[0]
 
-cpdef multiple_memoryview_cpdef(f64[:] a, f64[:] b):
+cpdef fn multiple_memoryview_cpdef(f64[:] a, f64[:] b):
     return a[0] + b[0]
 
 fn multiple_memoryview_cdef(f64[:] a, f64[:] b):

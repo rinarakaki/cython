@@ -164,7 +164,7 @@ def f_def(i64 a):
 fn i64 f_cdef(i64 a):
     return a
 
-cpdef long f_cpdef(i64 a):
+cpdef fn long f_cpdef(i64 a):
     return a
 
 fn inline i64 f_inline(i64 a):

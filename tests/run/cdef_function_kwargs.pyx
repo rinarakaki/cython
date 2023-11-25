@@ -5,7 +5,7 @@ use libc::string::strstr
 fn cfunc(a, b, c, d):
     return (a, b, c, d)
 
-cpdef cpfunc(a, b, c, d):
+cpdef fn cpfunc(a, b, c, d):
     return (a, b, c, d)
 
 fn optargs(a, b=2, c=3):

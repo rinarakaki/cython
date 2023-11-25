@@ -20,7 +20,7 @@ cdef class WithCDefWrapper:
     def hello(self):
         return _helloC(self)
 
-cpdef _helloC(object caller):
+cpdef fn _helloC(object caller):
     return "Hello, World"
 
 
@@ -36,7 +36,7 @@ cdef class WithCPDef:
 cdef class WithCDefWrapper:
     pass
 
-cpdef _helloC(object caller)
+cpdef fn _helloC(object caller)
 
 
 ######################### main.py #########################
