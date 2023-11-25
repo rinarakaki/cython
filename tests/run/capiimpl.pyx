@@ -36,7 +36,7 @@ api fn void spam():
 api static i32 ten = 10
 api static f64 pi = 3.14
 api static object obj = object()
-api static dict   dct = {}
+api static dict dct = {}
 
 pub api static tuple tpl = ()
 pub api static f32 one = 1

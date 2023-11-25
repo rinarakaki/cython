@@ -65,14 +65,14 @@ spam0(None)
 
 # --
 
-static f64 d0 = 0
-pub static f64 d1 = 1
-api static f64 d2 = 2
+static         f64 d0 = 0
+pub static     f64 d1 = 1
+api static     f64 d2 = 2
 pub api static f64 d3 = 3
 
-static object o0 = None
-pub static object o1 = None
-api static object o2 = None
+static         object o0 = None
+pub static     object o1 = None
+api static     object o2 = None
 pub api static object o3 = None
 
 # --

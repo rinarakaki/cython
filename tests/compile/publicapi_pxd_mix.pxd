@@ -1,8 +1,8 @@
 # --
 
-type Int0 = i32
-pub type Int1 = i32
-api type Int2 = i32
+type         Int0 = i32
+pub type     Int1 = i32
+api type     Int2 = i32
 pub api type Int3 = i32
 
 ctypedef         enum EnumA0: EA0
@@ -10,10 +10,10 @@ ctypedef pub     enum EnumA1: EA1
 ctypedef     api enum EnumA2: EA2
 ctypedef pub api enum EnumA3: EA3
 
-enum EnumB0: EB0 = 0
-pub enum EnumB1: EB1 = 1
-api enum EnumB2: EB2 = 2
-pub  api enum EnumB3: EB3 = 3
+enum         EnumB0: EB0 = 0
+pub enum     EnumB1: EB1 = 1
+api enum     EnumB2: EB2 = 2
+pub api enum EnumB3: EB3 = 3
 
 # --
 
@@ -26,11 +26,11 @@ ctypedef     api struct StructA2:
 ctypedef pub api struct StructA3:
     i32 SA3
 
-struct StructB0:
+struct         StructB0:
     i32 SB0
-pub struct StructB1:
+pub struct     StructB1:
     i32 SB1
-api struct StructB2:
+api struct     StructB2:
     i32 SB2
 pub api struct StructB3:
     i32 SB3
