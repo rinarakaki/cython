@@ -2494,7 +2494,7 @@ def p_item(s, ctx, attributes):
         if ctx.level not in ("module", "module_pxd"):
             s.error("type statement not allowed here")
         item = p_type_alias_item(s, ctx)
-    elif s.sy == "enum":
+    elif s.sy == "enum" and s.peek()[0] == "IDENT":
         if ctx.level not in ("module", "module_pxd"):
             error(pos, "C enum definition not allowed here")
         item = p_enum_item(s, pos, ctx)
