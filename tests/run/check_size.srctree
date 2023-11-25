@@ -112,8 +112,7 @@ cpdef fn pub i32 testme(Foo f, i32 f2) except -1:
 
 extern from "check_size_smaller.h":
     ctypedef class check_size.Foo [object FooStructSmall]:
-        cdef:
-            i32 f9
+        cdef i32 f9
 
 cpdef fn pub i32 testme(Foo f) except -1:
     return f.f9
@@ -123,8 +122,7 @@ cpdef fn pub i32 testme(Foo f) except -1:
 extern from "check_size_smaller.h":
     # make sure missing check_size is equivalent to warn
     ctypedef class check_size.Foo [object FooStructSmall, check_size warn]:
-        cdef:
-            i32 f9
+        cdef i32 f9
 
 cpdef fn pub i32 testme(Foo f) except -1:
     return f.f9
@@ -134,8 +132,7 @@ cpdef fn pub i32 testme(Foo f) except -1:
 extern from "check_size_smaller.h":
     # Allow size to be larger
     ctypedef class check_size.Foo [object FooStructSmall, check_size ignore]:
-        cdef:
-            i32 f9
+        cdef i32 f9
 
 cpdef fn pub i32 testme(Foo f) except -1:
     return f.f9
@@ -145,8 +142,7 @@ cpdef fn pub i32 testme(Foo f) except -1:
 extern from "check_size_smaller.h":
     # Strict checking, will raise an error
     ctypedef class check_size.Foo [object FooStructSmall, check_size error]:
-        cdef:
-            i32 f9
+        cdef i32 f9
 
 cpdef fn pub i32 testme(Foo f) except -1:
     return f.f9
@@ -156,8 +152,7 @@ cpdef fn pub i32 testme(Foo f) except -1:
 extern from "check_size_smaller.h":
     # Raise CompileError when using bad value
     ctypedef class check_size.Foo [object FooStructSmall, check_size hihi]:
-        cdef:
-            int f9
+        cdef i32 f9
 
 cpdef fn pub i32 testme(Foo f) except -1:
     return f.f9
