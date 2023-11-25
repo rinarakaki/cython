@@ -2525,6 +2525,7 @@ def p_statement(s, ctx, first_statement = 0):
     if s.sy in ("pub",):
         visibility_token = s.sy
     ctx = ctx(overridable=overridable, visibility=p_visibility(s, ctx.visibility))
+    ctx.api = ctx.api or p_api(s)
     item = p_item(s, ctx, decorators)
     if item is not None:
         return item

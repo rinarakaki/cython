@@ -1,7 +1,7 @@
 # --
 
 type Int0 = i32
-ctypedef pub     i32 Int1
+pub type Int1 = i32
 ctypedef     api i32 Int2
 ctypedef pub api i32 Int3
 
