@@ -22,7 +22,7 @@ cdef fused C:
    i32
    object
 
-cdef const type_info* tidint = &typeid(i32)
+static const type_info* tidint = &typeid(i32)
 def typeid_call(C x):
     """
     For GH issue 3203
