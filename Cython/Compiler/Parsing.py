@@ -2568,7 +2568,7 @@ def p_statement(s, ctx, first_statement = 0):
 
     overridable = 0
     
-    elif s.sy in ("pub", "let", "static", "const"):
+    if s.sy in ("pub", "let", "static", "const"):
         cdef_flag = 1
     if cdef_flag:
         if ctx.level not in ('module', 'module_pxd', 'function', 'c_class', 'c_class_pxd'):
