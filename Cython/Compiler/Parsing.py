@@ -2534,7 +2534,6 @@ def p_statement(s, ctx, first_statement = 0):
         cdef_flag = 1
         overridable = 1
         s.next()
-    ctx.overridable = overridable
 
     if not s.in_python_file and (
         (s.sy != "IDENT" or s.systring == "type")
@@ -2543,7 +2542,7 @@ def p_statement(s, ctx, first_statement = 0):
         and
         (s.sy not in ("pub", "readonly") or s.peek()[0] != "IDENT")
     ):
-        ctx.visibility = p_visibility(s, ctx.visibility)
+        ctx = ctx(overridable=overridable, visibility=p_visibility(s, ctx.visibility))
         if s.systring == "api" and s.peek()[0] in ("static", "fn", "type", "enum", "struct", "class"):
             ctx.api = p_api(s)
         item = p_item(s, ctx, decorators)
