@@ -1,6 +1,6 @@
 # mode: compile
 
-cdef volatile i32 x = 1
+static volatile i32 x = 1
 
 static const volatile i8* greeting1 = "hello world"
 static volatile i8* greeting2 = "goodbye"
