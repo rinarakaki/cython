@@ -2538,7 +2538,7 @@ def p_statement(s, ctx, first_statement = 0):
     if (
         (s.sy != "IDENT" or s.systring == "type" or s.systring == "api" and s.peek()[0] in ("static", "fn", "type", "enum", "struct", "class"))
         and
-        s.sy != "class"
+        (s.sy != "class" or ctx.visibility == "extern")
         and
         (s.sy != "cdef" or s.peek()[0] in ("extern", "enum", "struct", "union", "class"))
         and
