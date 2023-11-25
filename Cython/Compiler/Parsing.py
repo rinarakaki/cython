@@ -2495,7 +2495,7 @@ def p_item(s, ctx, attributes):
         if ctx.level not in ("module", "module_pxd"):
             error(pos, "C enum definition not allowed here")
         item = p_enum_item(s, pos, ctx)
-    elif s.sy in ("struct", "union"):
+    elif s.sy in ("struct", "union") or s.systring == "packed" and s.peek()[0] == "struct":
         if ctx.level not in ("module", "module_pxd"):
             error(pos, "C struct/union definition not allowed here")
         if ctx.overridable:
