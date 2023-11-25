@@ -176,13 +176,15 @@ struct RefNannyAPIStruct:
     PyObject* (*SetupContext)(r&i8, isize, r&i8) except NULL
     void (*FinishContext)(PyObject**)
 
-cdef RefNannyAPIStruct api
-api.INCREF = INCREF
-api.DECREF =  DECREF
-api.GOTREF =  GOTREF
-api.GIVEREF = GIVEREF
-api.SetupContext = SetupContext
-api.FinishContext = FinishContext
+static RefNannyAPIStruct api = RefNannyAPIStruct {
+    INCREF,
+    DECREF,
+    GOTREF,
+    GIVEREF,
+    SetupContext,
+    FinishContext,
+}
+
 
 extern from "Python.h":
     fn object PyLong_FromVoidPtr(void*)
