@@ -14,10 +14,10 @@ pub class C[type C_Type, object C_Obj]:
 pub Zax *blarg
 
 pub C c_pub = C()
-cdef api C c_api = C()
+api static C c_api = C()
 
 pub dict o_pub = C()
-cdef api list o_api = C()
+api static list o_api = C()
 
 api fn f32 f(Foo *x):
     pass

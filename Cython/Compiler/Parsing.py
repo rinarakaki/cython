@@ -2508,7 +2508,7 @@ def p_item(s, ctx, attributes):
         if ctx.overridable:
             error(pos, "C struct/union cannot be declared cpdef")
         item = p_struct_or_union_item(s, pos, ctx)
-    elif s.sy == "class":
+    elif s.sy == "cdef" and s.peek()[0] == "class":
         if ctx.level not in ("module", "module_pxd"):
             error(pos, "Extension type definition not allowed here")
         if ctx.overridable:
@@ -2526,10 +2526,7 @@ def p_statement(s, ctx, first_statement = 0):
     s.level = ctx.level
     decorators = p_attributes(s)
     overridable = 0
-    if s.sy == 'cdef':
-        cdef_flag = 1
-        s.next()
-    elif s.sy == "cpdef":
+    if s.sy == "cpdef":
         cdef_flag = 1
         overridable = 1
         s.next()
@@ -2540,7 +2537,7 @@ def p_statement(s, ctx, first_statement = 0):
         visibility_pos = s.position()
     ctx = ctx(overridable=overridable, visibility=p_visibility(s, ctx.visibility))
     api_token = None
-    if s.systring == "api":
+    if s.systring == "api" and s.peek()[0] in ("static", "fn", "type", "enum", "struct", "class"):
         api_token = s.systring
         api_pos = s.position()
         ctx.api = p_api(s)
@@ -2589,6 +2586,9 @@ def p_statement(s, ctx, first_statement = 0):
 
     overridable = 0
 
+    if s.sy == "cdef":
+        cdef_flag = 1
+        s.next()
     if s.sy in ("pub", "let"):
         cdef_flag = 1
     if cdef_flag:

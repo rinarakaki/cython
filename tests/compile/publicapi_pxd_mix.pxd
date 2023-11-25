@@ -2,8 +2,8 @@
 
 type Int0 = i32
 pub type Int1 = i32
-ctypedef     api i32 Int2
-ctypedef pub api i32 Int3
+api type Int2 = i32
+pub api type Int3 = i32
 
 ctypedef         enum EnumA0: EA0
 ctypedef pub     enum EnumA1: EA1
@@ -12,7 +12,7 @@ ctypedef pub api enum EnumA3: EA3
 
 enum EnumB0: EB0 = 0
 pub enum EnumB1: EB1 = 1
-cdef api enum EnumB2: EB2 = 2
+api enum EnumB2: EB2 = 2
 pub  api enum EnumB3: EB3 = 3
 
 # --
@@ -30,9 +30,9 @@ struct StructB0:
     i32 SB0
 pub struct StructB1:
     i32 SB1
-cdef api struct StructB2:
+api struct StructB2:
     i32 SB2
-pub  api struct StructB3:
+pub api struct StructB3:
     i32 SB3
 
 # --
@@ -52,23 +52,23 @@ pub  api class Bar3 [type PyBar3_Type, object PyBar3_Object]: pass
 extern from *:
     fn void foo()
 
-fn inline       void bar (): pass
-fn              void bar0()
-pub             void bar1()
-cdef        api void bar2()
-pub         api void bar3()
+fn inline   void bar (): pass
+fn          void bar0()
+pub         void bar1()
+api fn      void bar2()
+pub api fn  void bar3()
 
-fn inline       void* spam (object o) except NULL: return NULL
-fn              void* spam0(object o) except NULL
-pub             void* spam1(object o) except NULL
-cdef        api void* spam2(object o) except NULL nogil
-pub         api void* spam3(object o) except NULL with gil
+fn inline  void* spam (object o) except NULL: return NULL
+fn         void* spam0(object o) except NULL
+pub fn     void* spam1(object o) except NULL
+api fn     void* spam2(object o) except NULL nogil
+pub api fn void* spam3(object o) except NULL with gil
 
 # --
 
-cdef     i32 i0 = 0 # XXX implement initialization!!!
-pub      i32 i1
-cdef api i32 i2
-pub  api i32 i3
+static         i32 i0 = 0 # XXX implement initialization!!!
+pub static     i32 i1
+api static     i32 i2
+pub api static i32 i3
 
 # --
