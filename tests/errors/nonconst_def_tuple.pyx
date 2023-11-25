@@ -1,8 +1,8 @@
 # mode: error
 
-const t = (1 ,2 ,3)
-const t_const = (1, t, 2)
-const t_non_const = (1, [1, 2, 3], 3, t[4])
+const auto t = (1, 2, 3)
+const auto t_const = (1, t, 2)
+const auto t_non_const = (1, [1, 2, 3], 3, t[4])
 
 x = t_non_const
 
