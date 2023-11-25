@@ -1,7 +1,3 @@
-
-# deprecated cimport for backwards compatibility:
-use libc::string::const_char
-
 extern from "<string>" namespace "std::string" nogil:
     static const usize npos
 

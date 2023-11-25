@@ -14,8 +14,6 @@ extern from "cpp_smart_ptr_helper.h":
     cdef cppclass RaiseOnConstruct:
         pass
 
-type const_CountAllocDealloc = const CountAllocDealloc
-
 def test_unique_ptr():
     """
     >>> test_unique_ptr()
@@ -61,7 +59,7 @@ def test_const_shared_ptr():
     >>> test_const_shared_ptr()
     """
     let i32 alloc_count = 0, dealloc_count = 0
-    let shared_ptr[const CountAllocDealloc] ptr = shared_ptr[const_CountAllocDealloc](
+    let shared_ptr[const CountAllocDealloc] ptr = shared_ptr[const CountAllocDealloc](
         new CountAllocDealloc(&alloc_count, &dealloc_count))
     assert alloc_count == 1
     assert dealloc_count == 0

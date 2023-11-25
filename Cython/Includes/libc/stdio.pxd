@@ -1,9 +1,5 @@
 # 7.19 Input/output <stdio.h>
 
-
-# deprecated cimports for backwards compatibility:
-use libc::string::(const_char, const_void)
-
 extern from "<stdio.h>" nogil:
     struct FILE
     static FILE* stdin
