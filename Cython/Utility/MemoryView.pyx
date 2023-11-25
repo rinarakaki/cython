@@ -108,7 +108,6 @@ except:
 #[cython::collection_type("sequence")]
 #[cname("__pyx_array")]
 cdef class array:
-
     cdef:
         r&i8 data
         isize len

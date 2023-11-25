@@ -227,7 +227,7 @@ cdef class TestFrozen:
 def get_dataclass_initvar():
     return py_dataclasses.InitVar
 
-#[dataclass](kw_only=True)
+#[dataclass(kw_only=True)]
 cdef class TestKwOnly:
     """
     >>> inst = TestKwOnly(a=3, b=2)
