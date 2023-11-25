@@ -2486,7 +2486,7 @@ def p_item(s, ctx, attributes):
         item = p_use_item(s)
     elif s.sy == "static":
         item = p_static_item(s, ctx)
-    elif s.sy == "const" and s.peek()[0] == "IDENT":
+    elif s.sy == "const":
         if ctx.visibility == "extern":
             s.error("const statement not allowed here")
         item = p_const_item(s)
