@@ -2512,6 +2512,10 @@ def p_statement(s, ctx, first_statement = 0):
     cdef_flag = ctx.cdef_flag
     s.level = ctx.level
     overridable = 0
+    if s.sy == "cpdef":
+        cdef_flag = 1
+        overridable = 1
+        s.next()
     decorators = p_attributes(s)
 
     visibility_token = None
@@ -2562,10 +2566,6 @@ def p_statement(s, ctx, first_statement = 0):
     overridable = 0
     if s.sy == 'cdef':
         cdef_flag = 1
-        s.next()
-    elif s.sy == 'cpdef':
-        cdef_flag = 1
-        overridable = 1
         s.next()
     elif s.sy in ("pub", "let", "static", "const"):
         cdef_flag = 1
