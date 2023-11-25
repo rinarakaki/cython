@@ -2513,7 +2513,10 @@ def p_statement(s, ctx, first_statement = 0):
     s.level = ctx.level
     decorators = p_attributes(s)
     overridable = 0
-    if s.sy == "cpdef":
+    if s.sy == 'cdef':
+        cdef_flag = 1
+        s.next()
+    elif s.sy == "cpdef":
         cdef_flag = 1
         overridable = 1
         s.next()
@@ -2564,9 +2567,7 @@ def p_statement(s, ctx, first_statement = 0):
         return p_pass_statement(s, with_newline=1)
 
     overridable = 0
-    if s.sy == 'cdef':
-        cdef_flag = 1
-        s.next()
+    
     elif s.sy in ("pub", "let", "static", "const"):
         cdef_flag = 1
     if cdef_flag:
