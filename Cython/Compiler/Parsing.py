@@ -2528,6 +2528,10 @@ def p_item(s, ctx, attributes):
 def p_statement(s, ctx, first_statement = 0):
     cdef_flag = ctx.cdef_flag
     s.level = ctx.level
+
+    if not s.in_python_file and s.sy == "let":
+        return p_let_statement(s, ctx)
+
     decorators = p_attributes(s)
 
     overridable = 0
@@ -2585,11 +2589,7 @@ def p_statement(s, ctx, first_statement = 0):
         return p_pass_statement(s, with_newline=1)
 
     if s.sy == "cdef":
-        cdef_flag = 1
         s.next()
-    if s.sy in ("pub", "let"):
-        cdef_flag = 1
-    if cdef_flag:
         if ctx.level not in ('module', 'module_pxd', 'function', 'c_class', 'c_class_pxd'):
             s.error('cdef statement not allowed here')
         s.level = ctx.level
@@ -3504,8 +3504,6 @@ def p_cdef_statement(s, ctx):
         return p_cpp_class_definition(s, pos, ctx)
     elif s.sy == 'IDENT' and s.systring == 'fused':
         return p_fused_definition(s, pos, ctx)
-    elif s.sy == "let":
-        return p_let_statement(s, pos, ctx)
     else:
         return p_c_func_or_var_declaration(s, pos, ctx)
 
@@ -3709,8 +3707,9 @@ def p_struct_enum(s, pos, ctx):
     else:
         return p_struct_or_union_item(s, pos, ctx)
 
-def p_let_statement(s, pos, ctx):
+def p_let_statement(s, ctx):
     # s.sy == "let"
+    pos = s.position()
     s.next()
     if s.sy == "auto":
         s.next()
