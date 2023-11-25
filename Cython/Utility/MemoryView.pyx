@@ -108,20 +108,19 @@ except:
 #[cython::collection_type("sequence")]
 #[cname("__pyx_array")]
 cdef class array:
-    cdef:
-        r&i8 data
-        isize len
-        r&i8 format
-        i32 ndim
-        isize* _shape
-        isize* _strides
-        isize itemsize
-        unicode mode  # FIXME: this should have been a simple 'char'
-        bytes _format
-        void (*callback_free_data)(void* data) noexcept
-        # cdef object _memview
-        cdef u2 free_data
-        cdef u2 dtype_is_object
+    cdef r&i8 data
+    cdef isize len
+    cdef r&i8 format
+    cdef i32 ndim
+    cdef isize* _shape
+    cdef isize* _strides
+    cdef isize itemsize
+    cdef unicode mode  # FIXME: this should have been a simple 'char'
+    cdef bytes _format
+    cdef void (*callback_free_data)(void* data) noexcept
+    # cdef object _memview
+    cdef u2 free_data
+    cdef u2 dtype_is_object
 
     def __cinit__(array self, tuple shape, isize itemsize, format not None,
                   mode="c", u2 allocate_buffer=true):
