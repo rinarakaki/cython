@@ -2541,7 +2541,7 @@ def p_statement(s, ctx, first_statement = 0):
         and
         (s.sy != "cdef" or s.peek()[0] == "class")
         and
-        (s.sy not in ("pub", "readonly") or s.peek()[0] != "IDENT")
+        (s.sy not in ("pub", "readonly") or s.peek()[0] != "IDENT" or s.peek()[1] == "packed")
     ):
         item_ctx = ctx(overridable=overridable, visibility=p_visibility(s, ctx.visibility))
         if s.systring == "api" and s.peek()[0] in ("static", "fn", "type", "enum", "struct", "class"):
