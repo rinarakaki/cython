@@ -90,9 +90,8 @@ cdef class Foo:
 
 extern from "check_size_nominal.h":
     ctypedef class check_size.Foo [object FooStructNominal]:
-        cdef:
-            i32 f0
-            i32 f1
+        cdef i32 f0
+        cdef i32 f1
 
 cpdef fn pub i32 testme(Foo f) except -1:
     return f.f0 + f.f1
@@ -101,10 +100,9 @@ cpdef fn pub i32 testme(Foo f) except -1:
 
 extern from "check_size_bigger.h":
     ctypedef class check_size.Foo [object FooStructBig]:
-        cdef:
-            i32 f0
-            i32 f1
-            i32 f2
+        cdef i32 f0
+        cdef i32 f1
+        cdef i32 f2
 
 cpdef fn pub i32 testme(Foo f, i32 f2) except -1:
     f.f2 = f2

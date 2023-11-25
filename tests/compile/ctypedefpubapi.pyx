@@ -3,10 +3,8 @@
 ctypedef pub api class Foo [type PyFoo_Type, object PyFooObject]:
     pass
 
-cdef api:
-    ctypedef pub class Bar [type PyBar_Type, object PyBarObject]:
+cdef api ctypedef pub class Bar [type PyBar_Type, object PyBarObject]:
         pass
 
-cdef pub api:
-    ctypedef class Baz [type PyBaz_Type, object PyBazObject]:
+cdef pub api ctypedef class Baz [type PyBaz_Type, object PyBazObject]:
         pass

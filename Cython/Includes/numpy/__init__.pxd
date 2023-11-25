@@ -862,19 +862,18 @@ extern from "numpy/ufuncobject.h":
     ctypedef void (*PyUFuncGenericFunction) (i8**, npy_intp *, npy_intp *, void *)
 
     ctypedef class numpy.ufunc [object PyUFuncObject, check_size ignore]:
-        cdef:
-            i32 nin, nout, nargs
-            i32 identity
-            PyUFuncGenericFunction* functions
-            void** data
-            i32 ntypes
-            i32 check_return
-            r&i8 name
-            r&i8 types
-            r&i8 doc
-            void* ptr
-            PyObject* obj
-            PyObject* userloops
+        cdef i32 nin, nout, nargs
+        cdef i32 identity
+        cdef PyUFuncGenericFunction* functions
+        cdef void** data
+        cdef i32 ntypes
+        cdef i32 check_return
+        cdef r&i8 name
+        cdef r&i8 types
+        cdef r&i8 doc
+        cdef void* ptr
+        cdef PyObject* obj
+        cdef PyObject* userloops
 
     enum:
         PyUFunc_Zero
