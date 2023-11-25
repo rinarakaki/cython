@@ -2509,11 +2509,12 @@ def p_item(s, ctx, attributes):
             error(pos, "C struct/union cannot be declared cpdef")
         item = p_struct_or_union_item(s, pos, ctx)
     elif s.sy == "cdef" and s.peek()[0] == "class":
-        s.next()  # "cdef"
         if ctx.level not in ("module", "module_pxd"):
             error(pos, "Extension type definition not allowed here")
         if ctx.overridable:
             error(pos, "Extension types cannot be declared cpdef")
+        s.next()  # "cdef"
+        pos = s.position()
         return p_c_class_definition(s, pos, ctx)
 
     if item is not None:
