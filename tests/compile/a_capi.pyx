@@ -6,7 +6,7 @@ pub struct Foo:
 struct Blarg:
     i32 c, d
 
-ctypedef pub Foo Zax
+pub type Zax = Foo
 
 pub class C[type C_Type, object C_Obj]:
     pass
@@ -19,13 +19,13 @@ cdef api C c_api = C()
 pub dict o_pub = C()
 cdef api list o_api = C()
 
-cdef api f32 f(Foo *x):
+api fn f32 f(Foo *x):
     pass
 
 pub fn void g(Blarg *x):
     pass
 
-pub api void h(Zax *x):
+pub api fn void h(Zax *x):
     pass
 
 extern from "a_capi.h":

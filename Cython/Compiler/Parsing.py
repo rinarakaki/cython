@@ -2524,14 +2524,20 @@ def p_statement(s, ctx, first_statement = 0):
     visibility_token = None
     if s.sy in ("pub", "extern"):
         visibility_token = s.sy
+        visibility_pos = s.position()
     ctx = ctx(overridable=overridable, visibility=p_visibility(s, ctx.visibility))
-    ctx.api = ctx.api or p_api(s)
+    if s.sy == "api":
+        api_token = s.sy
+        api_pos = s.position()
+        ctx.api = p_api(s)
     item = p_item(s, ctx, decorators)
     if item is not None:
         return item
     else:
+        if api_token is not None:
+            s.put_back(api_token, api_token, api_pos)
         if visibility_token is not None:
-            s.put_back(visibility_token, s.systring, s.position()) 
+            s.put_back(visibility_token, visibility_token, visibility_pos)
 
     if s.sy == 'ctypedef':
         if ctx.level not in ('module', 'module_pxd'):
