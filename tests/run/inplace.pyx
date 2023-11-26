@@ -1,6 +1,6 @@
 use cython
 
-def f(a, b):
+fn f(a, b):
     """
     >>> str(f(5, 7))
     '29509034655744'
@@ -10,7 +10,7 @@ def f(a, b):
     a **= b
     return a
 
-def g(i32 a, i32 b):
+fn g(i32 a, i32 b):
     """
     >>> g(13, 4)
     32
@@ -20,7 +20,7 @@ def g(i32 a, i32 b):
     a <<= b
     return a
 
-def h(f64 a, f64 b):
+fn h(f64 a, f64 b):
     """
     >>> h(56, 7)
     105.0
@@ -32,12 +32,12 @@ def h(f64 a, f64 b):
 
 use libc::stdlib
 
-def arrays():
+fn arrays():
     """
     >>> arrays()
     19
     """
-    let auto buf = <char*>stdlib.malloc(10)
+    let auto buf = <r&mut i8>stdlib::malloc(10)
     let i32 i = 2
     let object j = 2
     buf[2] = 0
@@ -48,9 +48,9 @@ def arrays():
     stdlib.free(buf)
 
 cdef class A:
-    let attr
-    let i32 attr2
-    let char* buf
+    cdef attr
+    cdef i32 attr2
+    cdef r&mut i8 buf
     def __init__(self):
         self.attr = 3
         self.attr2 = 3
@@ -74,6 +74,7 @@ def attributes():
     print a.attr, a.attr2, b.attr
 
 def get_2(): return 2
+
 fn i32 identity(i32 value): return value
 
 def smoketest():
@@ -81,7 +82,7 @@ def smoketest():
     >>> smoketest()
     10
     """
-    let auto buf = <char*>stdlib.malloc(10)
+    let auto buf = <r&mut i8>stdlib::malloc(10)
     let A a = A()
     a.buf = buf
     a.buf[identity(1)] = 0
@@ -97,7 +98,7 @@ fn i32 c_side_effect(i32 x):
     print u"c side effect", x
     return x
 
-def test_side_effects():
+fn test_side_effects():
     """
     >>> test_side_effects()
     side effect 1
@@ -118,7 +119,7 @@ def test_side_effects():
     return a, [b[i] for i in 0..5]
 
 #[cython::cdivision(true)]
-def test_inplace_cdivision(i32 a, i32 b):
+fn test_inplace_cdivision(i32 a, i32 b):
     """
     >>> test_inplace_cdivision(13, 10)
     3
@@ -133,7 +134,7 @@ def test_inplace_cdivision(i32 a, i32 b):
     return a
 
 #[cython::cdivision(false)]
-def test_inplace_pydivision(i32 a, i32 b):
+fn test_inplace_pydivision(i32 a, i32 b):
     """
     >>> test_inplace_pydivision(13, 10)
     3
@@ -147,7 +148,7 @@ def test_inplace_pydivision(i32 a, i32 b):
     a %= b
     return a
 
-def test_complex_inplace(c128 x, c128 y):
+fn test_complex_inplace(c128 x, c128 y):
     """
     >>> test_complex_inplace(1, 1)
     (2+0j)
@@ -175,7 +176,7 @@ struct NestedA:
 struct ArrayOfA:
     Aa[10] a
 
-def nested_struct_assignment():
+fn nested_struct_assignment():
     """
     >>> nested_struct_assignment()
     """
@@ -188,7 +189,7 @@ def nested_struct_assignment():
     nested.a.inner.x += 10
     assert nested.a.inner.x == 15
 
-def nested_array_assignment():
+fn nested_array_assignment():
     """
     >>> nested_array_assignment()
     c side effect 0

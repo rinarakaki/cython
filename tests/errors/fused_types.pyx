@@ -76,7 +76,7 @@ func(x, y)
 fn floating return_type_unfindable1(cython.integral x):
     return 1.0
 
-cpdef floating return_type_unfindable2(cython.integral x):
+cpdef fn floating return_type_unfindable2(cython.integral x):
     return 1.0
 
 fn void contents_unfindable1(cython.integral x):

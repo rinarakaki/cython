@@ -24,7 +24,7 @@ cdef class ExtTypeSimple:
     >>> find_name(ExtTypeSimple)
     1
     """
-    cdef int x
+    cdef i32 x
     def __dealloc__(self):
         add_name(self)
         self.x = 0

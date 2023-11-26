@@ -23,12 +23,11 @@ fn string add_strings(string a, string b) except *:
 def decode(bytes b):
     return b.decode("ascii")
 
-
 def test_string(o):
     """
-    >>> decode(test_string("abc".encode('ascii')))
+    >>> decode(test_string("abc".encode("ascii")))
     'abc'
-    >>> decode(test_string("abc\\x00def".encode('ascii')))
+    >>> decode(test_string("abc\\x00def".encode("ascii")))
     'abc\\x00def'
     """
     let string s = o
@@ -41,7 +40,7 @@ def test_encode_to_string(o):
     >>> decode(test_encode_to_string('abc\\x00def'))
     'abc\\x00def'
     """
-    let string s = o.encode('ascii')
+    let string s = o.encode("ascii")
     return s
 
 def test_encode_to_string_cast(o):
@@ -51,7 +50,7 @@ def test_encode_to_string_cast(o):
     >>> decode(test_encode_to_string_cast('abc\\x00def'))
     'abc\\x00def'
     """
-    s = <string>o.encode('ascii')
+    s = <string>o.encode("ascii")
     return s
 
 def test_unicode_encode_to_string(unicode o):
@@ -61,19 +60,19 @@ def test_unicode_encode_to_string(unicode o):
     >>> decode(test_unicode_encode_to_string(py_unicode('abc\\x00def')))
     'abc\\x00def'
     """
-    let string s = o.encode('ascii')
+    let string s = o.encode("ascii")
     return s
 
 def test_string_call(a, b):
     """
-    >>> decode(test_string_call("abc".encode('ascii'), "xyz".encode('ascii')))
+    >>> decode(test_string_call("abc".encode("ascii"), "xyz".encode("ascii")))
     'abcxyz'
     """
     return add_strings(a, b)
 
-def test_c_string_convert(char* c_string):
+fn test_c_string_convert(r&i8 c_string):
     """
-    >>> decode(test_c_string_convert("abc".encode('ascii')))
+    >>> decode(test_c_string_convert("abc".encode("ascii")))
     'abc'
     """
     let string s
@@ -94,7 +93,6 @@ def test_bint_vector(o):
     >>> test_bint_vector(["", "hello"])
     [False, True]
     """
-
     let vector[u2] v = o
     return v
 
@@ -133,7 +131,7 @@ def test_tuple_literal_to_vector():
 
 def test_string_vector(s):
     """
-    >>> list(map(decode, test_string_vector('ab cd ef gh'.encode('ascii'))))
+    >>> list(map(decode, test_string_vector('ab cd ef gh'.encode("ascii"))))
     ['ab', 'cd', 'ef', 'gh']
     """
     let vector[string] cpp_strings = s.split()
@@ -144,7 +142,7 @@ fn list convert_string_vector(vector[string] vect):
 
 def test_string_vector_temp_funcarg(s):
     """
-    >>> list(map(decode, test_string_vector_temp_funcarg('ab cd ef gh'.encode('ascii'))))
+    >>> list(map(decode, test_string_vector_temp_funcarg('ab cd ef gh'.encode("ascii"))))
     ['ab', 'cd', 'ef', 'gh']
     """
     return convert_string_vector(s.split())

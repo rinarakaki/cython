@@ -36,7 +36,7 @@ fn void release_gil_in_nogil() nogil:
     with nogil:
         pass
 
-cpdef void release_gil_in_nogil2() nogil:
+cpdef fn void release_gil_in_nogil2() nogil:
     # This should generate valid code with/without the GIL
     with nogil:
         pass
@@ -56,7 +56,7 @@ fn void get_gil_in_nogil() nogil:
     with gil:
         pass
 
-cpdef void get_gil_in_nogil2() nogil:
+cpdef fn void get_gil_in_nogil2() nogil:
     with gil:
         pass
 

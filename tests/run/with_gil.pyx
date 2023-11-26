@@ -19,7 +19,7 @@ def redirect_stderr(func, *args, **kwargs):
     func(*args, **kwargs)
     sys.stderr = stderr
 
-fn void puts(char* string) with gil:
+fn void puts(r&mut i8 string) with gil:
     """
     We need this for doctest, used from nogil sections.
     """
@@ -199,7 +199,7 @@ def test_loops_and_boxing():
     m
     done looping
     """
-    let char c, *string = "spamham"
+    let i8 c, *string = "spamham"
 
     with nogil:
         with gil:
@@ -245,7 +245,7 @@ def test_closure():
 
     raise Exception("This should not be raised!")
 
-cpdef test_cpdef():
+cpdef fn test_cpdef():
     """
     >>> test_cpdef()
     Seems to work!

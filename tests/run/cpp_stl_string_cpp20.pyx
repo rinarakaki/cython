@@ -17,20 +17,20 @@ def test_string_starts_with_char(bytes py_str):
     >>> test_string_starts_with_char(b'F')
     False
     """
-    let char c = py_str[0]
+    let i8 c = py_str[0]
     let string s = b"ABCDEF"
     return s.starts_with(c)
 
 
 def test_string_starts_with_cstr(bytes py_str):
     """
-    Test std::string.starts_with() with c str type argument (char*)
+    Test std::string.starts_with() with c str type argument (r&i8)
     >>> test_string_starts_with_cstr(b"ABC")
     True
     >>> test_string_starts_with_cstr(b"DEF")
     False
     """
-    let char* c = py_str
+    let r&i8 c = py_str
     let string s = b"ABCDEF"
     return s.starts_with(c)
 
@@ -43,19 +43,19 @@ def test_string_ends_with_char(bytes py_str):
     >>> test_string_ends_with_char(b'A')
     False
     """
-    let char c = py_str[0]
+    let i8 c = py_str[0]
     let string s = b"ABCDEF"
     return s.ends_with(c)
 
 
 def test_string_ends_with_cstr(bytes py_str):
     """
-    Test std::string.ends_with() with c str type argument (char*)
+    Test std::string.ends_with() with c str type argument (r&i8)
     >>> test_string_ends_with_cstr(b"DEF")
     True
     >>> test_string_ends_with_cstr(b"ABC")
     False
     """
-    let char* c = py_str
+    let r&i8 c = py_str
     let string s = b"ABCDEF"
     return s.ends_with(c)

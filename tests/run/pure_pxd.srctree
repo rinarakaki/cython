@@ -91,8 +91,8 @@ cdef class ExtTypeAttributes:
 
 cdef class TypedMethod:
     @cython::locals(x='char[:]')
-    cpdef meth(self)
+    cpdef fn meth(self)
 
-cpdef int func(x, int y, z) except? -1  # argument names should not matter, types should
+cpdef fn int func(x, int y, z) except? -1  # argument names should not matter, types should
 
 fn i32 sum_generator_expression(int a)
