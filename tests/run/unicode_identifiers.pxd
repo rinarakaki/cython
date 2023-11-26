@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 # cython: language_level=3
 
-cdef Fα1()
+cdef fn Fα1()
+
 cdef class Γναμε2:
     pub i32 α
     fn boring_cdef(self)

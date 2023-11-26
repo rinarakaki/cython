@@ -71,7 +71,7 @@ __doc__ = u"""
     """
 
 global_ναμε1 = None
-cdef double global_ναμε2 = 1.2
+static f64 global_ναμε2 = 1.2
 
 def f():
     """docstring"""
@@ -102,7 +102,7 @@ cdef class C:
     def Ƒ(self):
         pass
 cdef class D:
-    cdef int Ƒ
+    cdef i32 Ƒ
 
 def regular_function():
     """
@@ -182,11 +182,11 @@ cdef Γναμε2 global_ναμε3 = Γναμε2()
 
 
 #[cython::always_allow_keywords(false)]  # METH_O signature
-def metho_function_taking_fancy_argument(Γναμε2 αrγ):
+fn metho_function_taking_fancy_argument(Γναμε2 αrγ):
     return αrγ
 
 #[cython::always_allow_keywords(true)]
-def function_taking_fancy_argument(Γναμε2 αrγ):
+fn function_taking_fancy_argument(Γναμε2 αrγ):
     return αrγ
 
 

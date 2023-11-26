@@ -4436,7 +4436,9 @@ def p_cpp_class_attribute(s, ctx):
         if s.systring != 'enum':
             return p_cpp_class_definition(s, s.position(), ctx)
         else:
-            return p_struct_enum(s, s.position(), ctx)
+            item = p_struct_enum(s, s.position(), ctx)
+            item.visibility = ctx.visibility
+            item.overridable = ctx.overridable
     else:
         node = p_c_func_or_var_declaration(s, s.position(), ctx)
         if decorators is not None:
