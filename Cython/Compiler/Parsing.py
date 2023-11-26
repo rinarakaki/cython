@@ -2492,7 +2492,7 @@ def p_item(s, ctx, attributes):
     if s.sy == "use":
         item = p_use_item(s)
     elif s.sy == "static":
-        item = p_static_item(s, ctx)
+        item = p_static_item(s, ctx())
     elif s.sy == "const":
         if ctx.visibility == "extern":
             s.error("const statement not allowed here")
@@ -2500,27 +2500,27 @@ def p_item(s, ctx, attributes):
     elif s.sy == "fn" or s.sy == "const" and s.peek()[0] == "fn":
         item = p_fn_item(s, pos, ctx())
     elif ctx.visibility == "extern" and s.systring == "from":
-        item = p_extern_item(s, pos, ctx)
+        item = p_extern_item(s, pos, ctx())
     elif s.systring == "type" and s.peek()[0] == "IDENT":
         if ctx.level not in ("module", "module_pxd"):
             s.error("type statement not allowed here")
-        item = p_type_alias_item(s, ctx)
+        item = p_type_alias_item(s, ctx())
     elif s.sy == "enum":
         if ctx.level not in ("module", "module_pxd"):
             error(pos, "C enum definition not allowed here")
-        item = p_enum_item(s, pos, ctx)
+        item = p_enum_item(s, pos, ctx())
     elif s.sy in ("struct", "union") or s.systring == "packed" and s.peek()[0] == "struct":
         if ctx.level not in ("module", "module_pxd"):
             error(pos, "C struct/union definition not allowed here")
         if ctx.overridable:
             error(pos, "C struct/union cannot be declared cpdef")
-        item = p_struct_or_union_item(s, pos, ctx)
+        item = p_struct_or_union_item(s, pos, ctx())
     elif s.sy == "class":
         if ctx.level not in ("module", "module_pxd"):
             error(pos, "Extension type definition not allowed here")
         if ctx.overridable:
             error(pos, "Extension types cannot be declared cpdef")
-        item = p_c_class_definition(s, pos, ctx)
+        item = p_c_class_definition(s, pos, ctx())
 
 
     if item is not None:
