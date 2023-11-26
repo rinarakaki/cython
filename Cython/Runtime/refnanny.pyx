@@ -33,7 +33,7 @@ cdef class Context:
         self.errors = []
     
     #[staticmethod]
-    fn new(name, line=0, filename=None):
+    fn Context new(name, line=0, filename=None):
         return Context { name, start = line, filename, refs = {}, errors = [] }
 
     fn regref(self, obj, isize lineno, u2 is_null):
