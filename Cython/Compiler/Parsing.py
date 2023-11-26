@@ -3656,10 +3656,10 @@ def p_struct_or_union_item(s, pos, ctx):
     cname = p_opt_cname(s)
     if cname is None and ctx.namespace is not None:
         cname = ctx.namespace + "::" + name
-    attributes = None
+    fields = None
     if s.sy == ':':
         s.next()
-        attributes = []
+        fields = []
         if s.sy == 'pass':
             s.next()
             s.expect_newline("Expected a newline", ignore_semicolon=True)
@@ -3669,22 +3669,27 @@ def p_struct_or_union_item(s, pos, ctx):
             body_ctx = Ctx(visibility=ctx.visibility)
             while s.sy != 'DEDENT':
                 if s.sy != 'pass':
-                    attributes.append(
+                    fields.append(
                         p_c_func_or_var_declaration(s, s.position(), body_ctx))
                 else:
                     s.next()
                     s.expect_newline("Expected a newline")
             s.expect_dedent()
 
-        if not attributes and ctx.visibility != "extern":
+        if not fields and ctx.visibility != "extern":
             error(pos, "Empty struct or union definition not allowed outside a 'cdef extern from' block")
     else:
         s.expect_newline("Syntax error in struct or union definition")
 
     return Nodes.CStructOrUnionDefNode(pos,
-        name = name, cname = cname, kind = kind, attributes = attributes,
-        typedef_flag = ctx.typedef_flag, visibility = ctx.visibility,
-        api = ctx.api, in_pxd = ctx.level == 'module_pxd', packed = packed)
+        name = name,
+        cname = cname,
+        kind = kind,
+        attributes = fields,
+        typedef_flag = ctx.typedef_flag,
+        in_pxd = ctx.level == "module_pxd",
+        packed = packed
+    )
 
 def p_fused_definition(s, pos, ctx):
     """
@@ -3761,14 +3766,11 @@ def p_static_item(s, ctx):
         declarators.append(declarator)
     s.expect_newline("Syntax error in static item", ignore_semicolon=True)
     result = Nodes.CVarDefNode(pos,
-        visibility = ctx.visibility,
         base_type = base_type,
         declarators = declarators,
         in_pxd = ctx.level == "module_pxd",
         doc = None,
-        api = 0,
         modifiers = [],
-        overridable = 0
     )
     return result
 
