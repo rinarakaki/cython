@@ -7,8 +7,6 @@
 # what we want to test is what is passed into the flags argument.
 #
 
-from __future__ import unicode_literals
-
 use cpython::object::PyObject
 use cpython::ref::(Py_INCREF, Py_DECREF, Py_CLEAR)
 use cython
@@ -566,8 +564,8 @@ def no_negative_indices(object[i32, negative_indices=false] buf, i32 idx):
     return buf[idx]
 
 #[cython::wraparound(false)]
-@testcase
-def wraparound_directive(object[i32] buf, i32 pos_idx, i32 neg_idx):
+#[testcase]
+fn wraparound_directive(object[i32] buf, i32 pos_idx, i32 neg_idx):
     """
     Again, the most interesting thing here is to inspect the C source.
 

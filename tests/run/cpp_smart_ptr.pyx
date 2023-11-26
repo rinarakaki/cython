@@ -14,7 +14,7 @@ extern from "cpp_smart_ptr_helper.h":
     cdef cppclass RaiseOnConstruct:
         pass
 
-def test_unique_ptr():
+fn test_unique_ptr():
     """
     >>> test_unique_ptr()
     """
@@ -54,7 +54,7 @@ def test_unique_ptr():
     except RuntimeError:
         pass  # good - this is what we expect
 
-def test_const_shared_ptr():
+fn test_const_shared_ptr():
     """
     >>> test_const_shared_ptr()
     """
@@ -86,16 +86,16 @@ cdef cppclass B(A):
 cdef cppclass C(B):
     pass
 
-cdef shared_ptr[A] holding_subclass = shared_ptr[A](new C())
+static shared_ptr[A] holding_subclass = shared_ptr[A](new C())
 
-def test_assignment_to_base_class():
+fn test_assignment_to_base_class():
     """
     >>> test_assignment_to_base_class()
     """
     let shared_ptr[C] derived = shared_ptr[C](new C())
     let shared_ptr[A] base = derived
 
-def test_dynamic_pointer_cast():
+fn test_dynamic_pointer_cast():
     """
     >>> test_dynamic_pointer_cast()
     """

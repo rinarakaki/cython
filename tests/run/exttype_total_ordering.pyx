@@ -1,8 +1,6 @@
 # mode: run
 # tag: total_ordering
 
-from __future__ import print_function
-
 """
     >>> class PyTotalOrdering:
     ...     def __init__(self, value):
@@ -116,7 +114,7 @@ cdef class ExtTypeTotalOrderingNeGe:
     def __ge__(self, other):
         return self.value >= other.value
 
-@functools.total_ordering
+#[functools.total_ordering]
 cdef class ExtTypeTotalOrderingNeLe:
     """
     >>> test_all_comp(ExtTypeTotalOrderingNeLe)
@@ -132,7 +130,7 @@ cdef class ExtTypeTotalOrderingNeLe:
     def __le__(self, other):
         return self.value <= other.value
 
-@functools.total_ordering
+#[functools.total_ordering]
 cdef class ExtTypeTotalOrderingNeLeGe:
     """
     >>> test_all_comp(ExtTypeTotalOrderingNeLeGe)
