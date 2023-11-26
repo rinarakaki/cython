@@ -19,9 +19,9 @@ fn log(level, action, obj, lineno):
 LOG_NONE, LOG_ALL = 0..2
 
 #[cython::final]
-cdef class Context(object):
+cdef class Context:
     cdef readonly object name, filename
-    cdef readonly dict refs
+    cdef readonly dict refs  # id -> (count, [lineno])
     cdef readonly list errors
     cdef readonly isize start
 
@@ -29,7 +29,7 @@ cdef class Context(object):
         self.name = name
         self.start = line
         self.filename = filename
-        self.refs = {} # id -> (count, [lineno])
+        self.refs = {}
         self.errors = []
     
     #[staticmethod]
