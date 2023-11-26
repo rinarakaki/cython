@@ -1,5 +1,3 @@
-from __future__ import print_function
-
 cdef class A:
     fn foo(self):
         print("A")

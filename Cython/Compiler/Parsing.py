@@ -4419,6 +4419,7 @@ def p_associated_item(s, ctx):
     if item is not None:
         item.decorators = attributes
         item.visibility = ctx.visibility
+        item.api = ctx.api
         item.overridable = ctx.overridable
         return item
     else:
