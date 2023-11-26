@@ -7,11 +7,11 @@ extern from "cpp_nested_classes_support.h":
             cppclass C:
                 i32 cube(i32)
         B* createB()
-        ctypedef i32 my_int
+        type my_int = i32
         static fn my_int negate(my_int)
 
     cdef cppclass TypedClass[T]:
-        ctypedef T MyType
+        type MyType = T
         struct MyStruct:
             T typed_value
             i32 int_value
@@ -33,15 +33,15 @@ cdef cppclass AA:
                 return x * x * x
     BB* createB():
         return new BB()
-    ctypedef i32 my_int
+    type my_int = i32
     static fn my_int negate(my_int x):
         return -x
 
 cdef cppclass DD(AA):
-    ctypedef i32 my_other_int
+    type my_other_int = i32
 
-ctypedef A AliasA1
-ctypedef AliasA1 AliasA2
+type AliasA1 = A
+type AliasA2 = AliasA1
 
 def test_nested_classes():
     """
