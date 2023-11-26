@@ -2550,7 +2550,7 @@ def p_statement(s, ctx, first_statement = 0):
     if (
         (s.sy != "IDENT" or s.systring in ("type", "packed") or s.systring == "api" and s.peek()[1] in ("static", "fn", "type", "enum", "struct", "class"))
         and
-        (s.sy != "class" or ctx.visibility == "extern")
+        (s.sy != "class" or ctx.visibility == "extern" or typedef_flag)
         and
         (s.sy != "cdef" or s.peek()[0] in ("extern", "enum", "struct", "union", "class"))
         and
@@ -3663,8 +3663,8 @@ def p_struct_or_union_item(s, pos, ctx):
             s.expect('NEWLINE')
             s.expect_indent()
             body_ctx = Ctx(visibility=ctx.visibility)
-            while s.sy != 'DEDENT':
-                if s.sy != 'pass':
+            while s.sy != "DEDENT":
+                if s.sy != "pass":
                     fields.append(
                         p_c_func_or_var_declaration(s, s.position(), body_ctx))
                 else:
