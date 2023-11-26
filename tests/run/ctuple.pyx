@@ -119,9 +119,9 @@ def c_types(i32 a, f64 b):
     >>> c_types(1, 2)
     (1, 2.0)
     """
-    let i32* a_ptr
-    let f64* b_ptr
-    let (i32*, f64*) ab = (&a, &b)
+    let r&i32 a_ptr
+    let r&f64 b_ptr
+    let (r&i32, r&f64) ab = (&a, &b)
     a_ptr, b_ptr = ab
     return a_ptr[0], b_ptr[0]
 
@@ -151,7 +151,7 @@ def union_in_ctuple_dynamic(*values):
     let (i32, Union) a = values
     return a[1].x if a[0] == 1 else a[1].y
 
-fn (i32, i32*) cdef_ctuple_return_type(i32 x, i32* x_ptr):
+fn (i32, r&i32) cdef_ctuple_return_type(i32 x, r&i32 x_ptr):
     return x, x_ptr
 
 def call_cdef_ctuple_return_type(i32 x):
@@ -159,10 +159,10 @@ def call_cdef_ctuple_return_type(i32 x):
     >>> call_cdef_ctuple_return_type(2)
     (2, 2)
     """
-    let (i32, i32*) res = cdef_ctuple_return_type(x, &x)
+    let (i32, r&i32) res = cdef_ctuple_return_type(x, &x)
     return res[0], res[1][0]
 
-cpdef (i32, f64) cpdef_ctuple_return_type(i32 x, f64 y):
+cpdef fn (i32, f64) cpdef_ctuple_return_type(i32 x, f64 y):
     """
     >>> cpdef_ctuple_return_type(1, 2)
     (1, 2.0)

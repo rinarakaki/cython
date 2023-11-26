@@ -10,28 +10,28 @@ cdef class D(C):
 
 # These are declared in the pxd.
 cdef class Base(object):
-  cdef f(self):
-    pass
+    cdef f(self):
+        pass
 
 cdef class MissingRedeclaration(Base):
-  # Not declared (so assumed cdef) in the pxd.
-  cpdef f(self):
-    pass
+    # Not declared (so assumed cdef) in the pxd.
+    cpdef fn f(self):
+        pass
 
 cdef class BadRedeclaration(Base):
-  # Declared as cdef in the pxd.
-  cpdef f(self):
-    pass
+    # Declared as cdef in the pxd.
+    cpdef fn f(self):
+        pass
 
 cdef class UnneededRedeclaration(Base):
-  # This is OK, as it's not declared in the pxd.
-  cpdef f(self):
-    pass
+    # This is OK, as it's not declared in the pxd.
+    cpdef fn f(self):
+        pass
 
 cdef class NarrowerReturn(Base):
-  # This does not require a new vtable entry.
-  cdef Base f(self):
-    pass
+    # This does not require a new vtable entry.
+    cdef Base f(self):
+        pass
 
 
 _ERRORS = u"""

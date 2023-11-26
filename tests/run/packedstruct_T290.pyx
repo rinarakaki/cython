@@ -7,12 +7,12 @@
 
 #[repr(packed)]
 struct MyCdefStruct:
-    char a
+    i8 a
     f64 b
 
 #[repr(packed)]
-struct MyCTypeDefStruct:
-    char a
+ctypedef struct MyCTypeDefStruct:
+    i8 a
     f64 b
 
 def f():

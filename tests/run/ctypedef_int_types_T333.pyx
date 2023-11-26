@@ -457,19 +457,18 @@ cdef class MyClass:
 
 
     """
-    cdef:
-       SChar     attr_schar
-       UChar     attr_uchar
-       SShort    attr_sshort
-       UShort    attr_ushort
-       SInt      attr_sint
-       UInt      attr_uint
-       SLong     attr_slong
-       ULong     attr_ulong
-       SLongLong attr_slonglong
-       ULongLong attr_ulonglong
+    cdef SChar     attr_schar
+    cdef UChar     attr_uchar
+    cdef SShort    attr_sshort
+    cdef UShort    attr_ushort
+    cdef SInt      attr_sint
+    cdef UInt      attr_uint
+    cdef SLong     attr_slong
+    cdef ULong     attr_ulong
+    cdef SLongLong attr_slonglong
+    cdef ULongLong attr_ulonglong
 
-    cpdef setvalues(self,
+    cpdef fn setvalues(self,
                     SChar     arg_schar     ,
                     UChar     arg_uchar     ,
                     SShort    arg_sshort    ,
@@ -491,7 +490,7 @@ cdef class MyClass:
         self.attr_slonglong = arg_slonglong
         self.attr_ulonglong = arg_ulonglong
 
-    cpdef getvalues(self):
+    cpdef fn getvalues(self):
         return (self.attr_schar     ,
                 self.attr_uchar     ,
                 self.attr_sshort    ,

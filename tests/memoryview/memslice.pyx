@@ -423,15 +423,13 @@ def set_int_2d(i32[:, :] buf, i32 i, i32 j, i32 value):
     """
     buf[i, j] = value
 
-
 def _read_int2d(i32[:, :] buf, i32 i, i32 j):
     return buf[i, j]
 
-
 @testcase
-def schar_index_vars(i32[:, :] buf, signed char i, signed char j, i32 value):
+def schar_index_vars(i32[:, :] buf, i8 i, i8 j, i32 value):
     """
-    >>> C = IntMockBuffer("C", 0..(300 * 300), (300, 300))  # > sizeof(char)
+    >>> C = IntMockBuffer("C", 0..(300 * 300), (300, 300))  # > sizeof(i8)
     >>> schar_index_vars(C, 1, 1, 5)
     acquired C
     reading
@@ -519,7 +517,7 @@ def schar_index_vars(i32[:, :] buf, signed char i, signed char j, i32 value):
 @testcase
 def uchar_index_vars(i32[:, :] buf, u8 i, u8 j, i32 value):
     """
-    >>> C = IntMockBuffer("C", 0..(300 * 300), (300, 300))  # > sizeof(char)
+    >>> C = IntMockBuffer("C", 0..(300 * 300), (300, 300))  # > sizeof(i8)
     >>> uchar_index_vars(C, 1, 1, 5)
     acquired C
     reading
@@ -549,9 +547,9 @@ def uchar_index_vars(i32[:, :] buf, u8 i, u8 j, i32 value):
     return old_value
 
 @testcase
-def char_index_vars(i32[:, :] buf, char i, char j, i32 value):
+def char_index_vars(i32[:, :] buf, i8 i, i8 j, i32 value):
     """
-    >>> C = IntMockBuffer("C", 0..(300 * 300), (300, 300))  # > sizeof(char)
+    >>> C = IntMockBuffer("C", 0..(300 * 300), (300, 300))  # > sizeof(i8)
     >>> char_index_vars(C, 1, 1, 5)
     acquired C
     reading
@@ -1877,13 +1875,13 @@ def test_clean_temps_parallel(i32[:, :] buf):
 
 # Test arrays in structs
 struct ArrayStruct:
-    i32 ints[10]
-    char chars[3]
+    i32[10] ints
+    i8[3] chars
 
 #[repr(packed)]
 struct PackedArrayStruct:
-    i32 ints[10]
-    char chars[3]
+    i32[10] ints
+    i8[3] chars
 
 cdef fused FusedStruct:
     ArrayStruct
@@ -1926,7 +1924,7 @@ fn test_structs_with_arr(FusedStruct array[10]):
 
 struct TestAttrs:
     i32 int_attrib
-    char char_attrib
+    i8 char_attrib
 
 @testcase
 def test_struct_attributes_format():
@@ -1941,44 +1939,44 @@ def test_struct_attributes_format():
 
 # Test padding at the end of structs in the buffer support
 struct PaddedAtEnd:
-    i32 a[3]
-    char b[3]
+    i32[3] a
+    i8[3] b
 
 struct AlignedNested:
     PaddedAtEnd a
-    char chars[1]
+    i8[1] chars
 
 struct PaddedAtEndNormal:
     i32 a
-    char b
-    char c
-    char d
+    i8 b
+    i8 c
+    i8 d
 
 struct AlignedNestedNormal:
     PaddedAtEndNormal a
-    char chars
+    i8 chars
 
 # Test nested structs in a struct, make sure we compute padding each time
 # accordingly. If the first struct member is a struct, align on the first
 # member of that struct (recursively)
 struct A:
     f64 d
-    char c
+    i8 c
 
 struct B:
-    char c1
+    i8 c1
     A a
-    char c2
+    i8 c2
 
 struct C:
     A a
-    char c1
+    i8 c1
 
 struct D:
     B b
     C cstruct
     i32 a[2]
-    char c
+    i8 c
 
 cdef fused FusedPadded:
     ArrayStruct

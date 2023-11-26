@@ -67,15 +67,15 @@ struct Bar:
 struct Foo:
     f32 f
     c128 dc
-    char c
+    i8 c
     i32 i
     Bar b
-    char s[20]
+    i8[20] s
 
 struct OtherFoo:
     f32 f
     c128 dc
-    char c
+    i8 c
     i32 i
     Bar b
-    char s[20]
+    i8[20] s

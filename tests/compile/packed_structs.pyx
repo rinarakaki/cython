@@ -3,7 +3,7 @@
 extern from *:
     #[repr(packed)]
     struct MyStruct:
-        char a
+        i8 a
 
 #[repr(packed)]
 pub struct PublicStruct:

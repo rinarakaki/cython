@@ -14,7 +14,7 @@ struct custom_dtype_struct:
     u8 x
     f32 y
 
-def sum(custom_dtype_struct[:] a):
+fn sum(custom_dtype_struct[:] a):
     let u8 sum_x = 0
     let f32 sum_y = 0.0
 

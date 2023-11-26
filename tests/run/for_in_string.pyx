@@ -42,7 +42,7 @@ def for_char_in_bytes(bytes s):
     >>> for_char_in_bytes(bytes_ABC_null)
     'C'
     """
-    let char c
+    let i8 c
     for c in s:
         if c == b'C':
             return 'C'
@@ -83,7 +83,7 @@ def for_char_in_bytes_slice(bytes s):
     >>> for_char_in_bytes_slice(bytes_ABC_null)
     'B'
     """
-    let char c
+    let i8 c
     for c in s[1:-1]:
         if c == c'B':
             return 'B'
@@ -103,7 +103,7 @@ def for_char_in_enumerate_bytes(bytes s):
     >>> for_char_in_enumerate_bytes(bytes_ABC_null)
     4
     """
-    let char c
+    let i8 c
     let isize i
     for i, c in enumerate(s):
         if c == b'C':
@@ -115,7 +115,7 @@ def for_char_in_enumerate_bytes(bytes s):
 #
 # #[cython::test_assert_path_exists("//ForFromStatNode")]
 # #[cython::test_fail_if_path_exists("//ForInStatNode")]
-# def for_pyvar_in_char_ptr(char* c_string):
+# def for_pyvar_in_char_ptr(r&i8 c_string):
 #     """
 #     >>> for_pyvar_in_char_ptr( (bytes_abc+bytes_ABC) * 2 )
 #     [True, True, True, False, False, False, True, True, True, False]
@@ -130,7 +130,7 @@ def for_char_in_enumerate_bytes(bytes s):
 
 #[cython::test_assert_path_exists("//ForFromStatNode")]
 #[cython::test_fail_if_path_exists("//ForInStatNode")]
-def for_char_in_char_ptr(char* c_string):
+def for_char_in_char_ptr(r&i8 c_string):
     """
     >>> for_char_in_char_ptr( (bytes_abc+bytes_ABC) * 2 )
     [True, True, True, False, False, False, True, True, True, False]
@@ -138,7 +138,7 @@ def for_char_in_char_ptr(char* c_string):
     [True, False, True, False, True, True, False, True, False, True]
     """
     in_test = []
-    let char c
+    let i8 c
     for c in c_string[:10]:
         in_test.append( c in b'abc' )
     return in_test
