@@ -6,9 +6,9 @@ pub type     Int1 = i32
 api type     Int2 = i32
 pub api type Int3 = i32
 
-ctypedef         enum EnumA0: EA0
-ctypedef pub     enum EnumA1: EA1
-ctypedef     api enum EnumA2: EA2
+ctypedef enum         EnumA0: EA0
+ctypedef pub enum     EnumA1: EA1
+ctypedef api enum     EnumA2: EA2
 ctypedef pub api enum EnumA3: EA3
 
 enum         EnumB0: EB0 = 0
@@ -18,11 +18,11 @@ pub api enum EnumB3: EB3=3
 
 # --
 
-ctypedef         struct StructA0: 
+ctypedef struct         StructA0: 
     i32 SA0
-ctypedef pub     struct StructA1: 
+ctypedef pub struct     StructA1: 
     i32 SA1
-ctypedef     api struct StructA2:
+ctypedef api struct     StructA2:
     i32 SA2
 ctypedef pub api struct StructA3:
     i32 SA3
@@ -38,9 +38,9 @@ pub api struct StructB3:
 
 # --
 
-ctypedef         class Foo0: pass
-ctypedef pub     class Foo1 [type PyFoo1_Type, object PyFoo1_Object]: pass
-ctypedef     api class Foo2 [type PyFoo2_Type, object PyFoo2_Object]: pass
+ctypedef class         Foo0: pass
+ctypedef pub class     Foo1 [type PyFoo1_Type, object PyFoo1_Object]: pass
+ctypedef api class     Foo2 [type PyFoo2_Type, object PyFoo2_Object]: pass
 ctypedef pub api class Foo3 [type PyFoo3_Type, object PyFoo3_Object]: pass
 
 cdef class    Bar0: pass

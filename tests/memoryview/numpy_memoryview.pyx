@@ -523,7 +523,7 @@ def test_structarray_errors(StructArray[:] a):
 struct StringStruct:
     i8[4][4] c
 
-ctypedef i8[4][4] String
+type String = i8[4][4]
 
 def stringstructtest(StringStruct[:] view):
     pass

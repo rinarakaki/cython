@@ -20,7 +20,7 @@ api static EnumB1 eb1 = EB1
 
 # --
 
-ctypedef     struct StructA0:
+ctypedef struct     StructA0:
     i32 SA0
 ctypedef api struct StructA1:
     i32 SA1

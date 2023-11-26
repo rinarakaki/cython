@@ -2543,7 +2543,7 @@ def p_statement(s, ctx, first_statement = 0):
         s.next()
         cdef_flag = 1
         overridable = 1
-    elif s.sy == "ctypedef" and (s.peek()[0] != "IDENT" or s.peek()[1] == ("api", "packed")):
+    elif s.sy == "ctypedef" and (s.peek()[0] != "IDENT" or s.peek()[1] in ("api", "packed")):
         s.next()
         typedef_flag = 1
 

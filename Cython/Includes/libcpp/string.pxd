@@ -3,13 +3,13 @@ extern from "<string>" namespace "std::string" nogil:
 
 extern from "<string>" namespace "std" nogil:
     cdef cppclass string:
-        ctypedef i8 value_type
+        type value_type = i8
 
         # these should really be allocator_type.size_type and
         # allocator_type.difference_type to be true to the C++ definition
         # but cython doesn't support deferred access on template arguments
-        ctypedef usize size_type
-        ctypedef ptrdiff_t difference_type
+        type size_type = usize
+        type difference_type = ptrdiff_t
 
         cppclass const_iterator
         cppclass iterator:
