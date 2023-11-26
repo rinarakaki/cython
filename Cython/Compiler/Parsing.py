@@ -4420,6 +4420,8 @@ def p_associated_item(s, ctx):
     elif s.systring == "type" and s.peek()[0] == "IDENT":
         item = p_type_alias_item(s, ctx)
     elif s.sy == "cdef" and s.peek()[0] == "IDENT" or s.sy == "const" and s.peek()[0] != "fn":
+        if s.sy == "cdef":
+            s.next()
         item = p_c_func_or_var_declaration(s, s.position(), ctx)
     
     if item is not None:
