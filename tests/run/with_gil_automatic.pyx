@@ -19,13 +19,13 @@ fn test_print_in_nogil_section(x):
     with nogil:
         print f"--{x}--"
 
-@cython::test_assert_path_exists(
+#[cython::test_assert_path_exists(
     "//GILStatNode",
     "//GILStatNode//PrintStatNode",
-)
-@cython::test_fail_if_path_exists(
+)]
+#[cython::test_fail_if_path_exists(
     "//GILStatNode//GILStatNode",
-)
+)]
 cpdef fn i32 test_print_in_nogil_func(x) except -1 nogil:
     """
     >>> _ = test_print_in_nogil_func(123)
@@ -115,7 +115,6 @@ fn assert_in_nogil_section_string(i32 x):
     """
     with nogil:
         assert x, "failed!"
-
 
 #[cython::test_assert_path_exists(
     "//AssertStatNode",

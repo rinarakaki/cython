@@ -4407,9 +4407,7 @@ def p_cpp_class_definition(s, pos,  ctx):
         templates = templates)
 
 def p_associated_item(s, ctx):
-    attributes = []
-    if s.sy == "#" and s.peek()[0] in ("!", "["):
-        attributes = p_attributes(s)
+    attributes = p_attributes(s)
     item = None
     if s.systring == "type" and s.peek()[0] == "IDENT":
         item = p_type_alias_item(s, ctx)
@@ -4420,6 +4418,8 @@ def p_associated_item(s, ctx):
 
     if item is not None:
         item.decorators = attributes
+        item.visibility = ctx.visibility
+        item.overridable = ctx.overridable
         return item
     else:
         return p_cpp_class_attribute(s, ctx)
