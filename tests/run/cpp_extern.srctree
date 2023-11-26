@@ -47,7 +47,7 @@ setup(
 
 use libcpp::vector
 
-pub vector.vector[i32] get_vector():
+pub fn vector.vector[i32] get_vector():
     return [1, 2, 3]
 
 extern from "include_as_c_and_cpp_header.h":
@@ -88,7 +88,7 @@ size_t size_vector2() {
 
 ######## include_from_c_and_cpp.pyx ########
 
-pub i8 get_char():
+pub fn i8 get_char():
     return 42
 
 extern from "include_from_c_and_cpp_header.h":
@@ -122,7 +122,7 @@ extern "C" int get_int2() { return (int)get_char(); }
 
 # distutils: language = c++
 
-pub i8 get_char():
+pub fn i8 get_char():
     return 42
 
 extern from "cdefines_header.h":

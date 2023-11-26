@@ -4,7 +4,7 @@
 cdef bytes c_s = b"abc"
 s = b"abc"
 
-cdef char* cptr
+cdef r&mut char cptr
 
 # constant => ok
 cptr = b"xyz"
@@ -20,7 +20,7 @@ cptr = s + b"cba"
 
 # indexing => error (but not clear enough to make it a compiler error)
 cptr = s[0]
-cdef char* x = <char*>s[0]
+cdef r&i8 x = <r&i8>s[0]
 
 # slicing => error
 cptr = s[:2]

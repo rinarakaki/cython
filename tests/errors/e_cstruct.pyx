@@ -2,7 +2,7 @@
 
 struct Spam:
     i32 i
-    char c
+    i8 c
     f32[42] *p
     obj             # error - py object
 
