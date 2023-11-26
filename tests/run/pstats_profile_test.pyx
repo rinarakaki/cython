@@ -120,7 +120,7 @@ use cython
 # FIXME: With type specs, cpdef methods are currently counted twice.
 # https://github.com/cython/cython/issues/2137
 extern from *:
-    int CYTHON_USE_TYPE_SPECS
+    static i32 CYTHON_USE_TYPE_SPECS
 
 CPDEF_METHODS_COUNT_TWICE = CYTHON_USE_TYPE_SPECS
 

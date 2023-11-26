@@ -2593,8 +2593,10 @@ def p_statement(s, ctx, first_statement = 0):
         return p_pass_statement(s, with_newline=1)
 
     if s.sy in ("cdef", "pub"):
+        cdef_flag = 1
         if s.sy == "cdef":
             s.next()
+    if cdef_flag:
         if ctx.level not in ('module', 'module_pxd', 'function', 'c_class', 'c_class_pxd'):
             s.error('cdef statement not allowed here')
         s.level = ctx.level
