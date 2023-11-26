@@ -3,6 +3,6 @@
 ctypedef class spam:
     pass
 
-cdef spam s
+static spam s
 
 s = None

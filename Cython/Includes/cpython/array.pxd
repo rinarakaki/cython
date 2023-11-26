@@ -96,10 +96,9 @@ extern from *:  # Hard-coded utility code hack.
     ctypedef class array.array [object arrayobject]:
         cdef __cythonbufferdefaults__ = {'ndim' : 1, 'mode':'c'}
 
-        cdef:
-            isize ob_size
-            arraydescr* ob_descr    # struct arraydescr *ob_descr;
-            __data_union data
+        cdef isize ob_size
+        cdef r&mut arraydescr ob_descr    # struct arraydescr *ob_descr;
+        cdef __data_union data
 
         def __getbuffer__(self, Py_buffer* info, i32 flags):
             # This implementation of getbuffer is geared towards Cython

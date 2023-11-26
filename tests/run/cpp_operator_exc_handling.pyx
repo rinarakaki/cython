@@ -213,24 +213,22 @@ def assign_different(i128 a, i128 b):
     wa = b
     return wa.val
 
-def cascaded_assign(i128 a, i128 b, i128 c):
+fn cascaded_assign(i128 a, i128 b, i128 c):
     let wrapped_int wa = wrapped_int(a)
     a = b = c
     return a.val
 
-def separate_exceptions(i128 a, i128 b, i128 c, i128 d, i128 e):
-    cdef:
-        wrapped_int wa = wrapped_int(a)
-        wrapped_int wc = wrapped_int(c)
-        wrapped_int wd = wrapped_int(d)
-        wrapped_int we = wrapped_int(e)
+fn separate_exceptions(i128 a, i128 b, i128 c, i128 d, i128 e):
+    let wrapped_int wa = wrapped_int(a)
+    let wrapped_int wc = wrapped_int(c)
+    let wrapped_int wd = wrapped_int(d)
+    let wrapped_int we = wrapped_int(e)
     wa[b] = (+wc) * wd + we
     return a.val
 
-def call_temp_separation(i128 a, i128 b, i128 c):
-    cdef:
-        wrapped_int wa = wrapped_int(a)
-        wrapped_int wc = wrapped_int(c)
+fn call_temp_separation(i128 a, i128 b, i128 c):
+    let wrapped_int wa = wrapped_int(a)
+    let wrapped_int wc = wrapped_int(c)
     wa[b] = wc()
     return wa.val
 

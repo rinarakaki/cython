@@ -2,7 +2,7 @@ ctypedef fused char_or_float:
     i8
     f64
 
-cpdef char_or_float plus_one(char_or_float var):
+cpdef fn char_or_float plus_one(char_or_float var):
     return var + 1
 
 def show_me():

@@ -16,9 +16,9 @@ cdef class B(A):
     fn point(self, o, i32 i, oo, list L, ooo, point p, point* ps):
         pass
 
-cdef point P
-cdef point *Ps
-cdef A a
+static point P
+static point *Ps
+static A a
 
 foo(2, 3, [], [], P, P, &P)
 a.point("something", 3, "anything", [], "an object", P, &P)

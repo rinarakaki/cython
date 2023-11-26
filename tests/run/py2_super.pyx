@@ -48,7 +48,7 @@ class B(A):
 cdef class CClassBase(object):
     def method(self):
         return 'def'
-    cpdef method_cp(self):
+    cpdef fn method_cp(self):
         return 'cpdef'
 
 #     cdef method_c(self):
@@ -68,7 +68,7 @@ cdef class CClassSub(CClassBase):
 
     def method(self):
         return super(CClassSub, self).method()
-    cpdef method_cp(self):
+    cpdef fn method_cp(self):
         return super(CClassSub, self).method_cp()
 
 #     cdef method_c(self):
@@ -81,7 +81,7 @@ cdef class Base(object):
     >>> Base.method(Base())
     'Base'
     """
-    cpdef method(self):
+    cpdef fn method(self):
         return "Base"
 
 cdef class Sub(Base):
@@ -93,5 +93,5 @@ cdef class Sub(Base):
     >>> Base.method(Sub())
     'Base'
     """
-    cpdef method(self):
+    cpdef fn method(self):
         return "Sub"

@@ -9,8 +9,8 @@ ctypedef object (*p_sub_expr_func)(PyrexScanner obj)
 
 # entry points
 
-cpdef p_module(PyrexScanner s, pxd, full_module_name, ctx=*)
-cpdef p_code(PyrexScanner s, level= *, ctx=*)
+cpdef fn p_module(PyrexScanner s, pxd, full_module_name, ctx=*)
+cpdef fn p_code(PyrexScanner s, level= *, ctx=*)
 
 # internal parser states
 
@@ -61,7 +61,7 @@ fn p_subscript(PyrexScanner s)
 fn p_slice_element(PyrexScanner s, follow_set)
 fn expect_ellipsis(PyrexScanner s)
 fn make_slice_nodes(pos, subscripts)
-cpdef make_slice_node(pos, start, stop = *, step = *)
+cpdef fn make_slice_node(pos, start, stop = *, step = *)
 fn p_atom(PyrexScanner s)
 
 fn dict p_numeric_literal_suffix(PyrexScanner s, pos)
@@ -147,12 +147,13 @@ fn p_simple_statement(PyrexScanner s, u2 first_statement = *)
 fn p_simple_statement_list(PyrexScanner s, ctx, u2 first_statement = *)
 
 fn p_compile_time_expr(PyrexScanner s)
-fn p_const_item(PyrexScanner s)
 fn p_IF_statement(PyrexScanner s, ctx)
-fn p_use_item(PyrexScanner s)
+
+fn p_item(PyrexScanner s, ctx, attributes)
 fn p_attributes(PyrexScanner s)
-fn p_visibility(PyrexScanner s, prev_visibility = *)
-fn p_item(PyrexScanner s, ctx)
+fn p_use_item(PyrexScanner s)
+fn p_static_item(PyrexScanner s, ctx)
+fn p_const_item(PyrexScanner s)
 
 fn p_statement(PyrexScanner s, ctx, u2 first_statement = *)
 fn p_statement_list(PyrexScanner s, ctx, u2 first_statement = *)
@@ -161,7 +162,7 @@ fn tuple p_suite_with_docstring(PyrexScanner s, ctx, u2 with_doc_only=*)
 fn tuple _extract_docstring(node)
 fn p_positional_and_keyword_args(PyrexScanner s, end_sy_set, templates = *)
 
-cpdef p_c_base_type(PyrexScanner s, u2 nonempty = *, templates = *)
+cpdef fn p_c_base_type(PyrexScanner s, u2 nonempty = *, templates = *)
 fn p_calling_convention(PyrexScanner s)
 fn p_c_complex_base_type(PyrexScanner s, templates = *)
 fn p_c_simple_base_type(PyrexScanner s, u2 nonempty, templates = *)
@@ -175,7 +176,7 @@ fn u2 looking_at_base_type(PyrexScanner s) except -2
 fn u2 looking_at_dotted_name(PyrexScanner s) except -2
 fn p_sign_and_longness(PyrexScanner s)
 fn p_opt_cname(PyrexScanner s)
-cpdef p_c_declarator(PyrexScanner s, ctx = *, u2 empty = *, u2 is_type = *, u2 cmethod_flag = *,
+cpdef fn p_c_declarator(PyrexScanner s, ctx = *, u2 empty = *, u2 is_type = *, u2 cmethod_flag = *,
                    u2 assignable = *, u2 nonempty = *,
                    u2 calling_convention_allowed = *)
 fn p_c_array_declarator(PyrexScanner s, base)
@@ -185,7 +186,7 @@ fn p_c_simple_declarator(PyrexScanner s, ctx, u2 empty, u2 is_type, u2 cmethod_f
 fn p_nogil(PyrexScanner s)
 fn p_with_gil(PyrexScanner s)
 fn p_exception_value_clause(PyrexScanner s, u2 is_extern)
-cpdef p_c_arg_list(PyrexScanner s, ctx = *, u2 in_pyfunc = *, u2 cmethod_flag = *,
+cpdef fn p_c_arg_list(PyrexScanner s, ctx = *, u2 in_pyfunc = *, u2 cmethod_flag = *,
                    u2 nonempty_declarators = *, u2 kw_only = *, u2 annotated = *)
 fn p_optional_ellipsis(PyrexScanner s)
 fn p_c_arg_decl(PyrexScanner s, ctx, in_pyfunc, u2 cmethod_flag = *, u2 nonempty = *, u2 kw_only = *, u2 annotated = *)
@@ -199,9 +200,10 @@ fn p_variant(PyrexScanner s, ctx, list items)
 fn p_struct_or_union_item(PyrexScanner s, pos, ctx)
 fn p_fused_definition(PyrexScanner s, pos, ctx)
 fn p_struct_enum(PyrexScanner s, pos, ctx)
-fn p_let_statement(PyrexScanner s, pos, ctx)
-fn p_fn_item(PyrexScanner s, pos, ctx)
+fn p_let_statement(PyrexScanner s, ctx)
+fn p_visibility(PyrexScanner s, prev_visibility)
 fn p_c_modifiers(PyrexScanner s)
+fn p_fn_item(PyrexScanner s, pos, ctx)
 fn p_c_func_or_var_declaration(PyrexScanner s, pos, ctx)
 fn p_mod_item(PyrexScanner s, ctx)
 fn p_type_alias_item(PyrexScanner s, ctx)

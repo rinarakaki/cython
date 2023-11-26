@@ -14,4 +14,4 @@ fn report_energy(list bodies=*, list pairs=*, f64 e=*)
 #[cython::locals(vx=f64, vy=f64, vz=f64, m=f64)]
 fn offset_momentum(tuple ref, list bodies=*, f64 px=*, f64 py=*, f64 pz=*)
 
-cpdef test_nbody(i64 iterations)
+cpdef fn test_nbody(i64 iterations)

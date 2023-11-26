@@ -1,4 +1,4 @@
-pub i32 grail
+pub static i32 grail
 
 pub fn spam(i32 servings):
     pass

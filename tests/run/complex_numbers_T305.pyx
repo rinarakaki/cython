@@ -4,7 +4,7 @@ use cpython::object::(Py_EQ, Py_NE)
 
 use cython
 
-const C21 = 2-1j
+const auto C21 = 2-1j
 
 cdef class Complex3j:
     """
@@ -253,7 +253,7 @@ def test_coerce_typedef_multiply_int(myint x, c128 z):
     """
     return x * z
 
-cpdef c128 complex_retval():
+cpdef fn c128 complex_retval():
     """
     >>> complex_retval()
     1j

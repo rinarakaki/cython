@@ -364,7 +364,7 @@ def assign_slice_from_shorter_array():
     return a
 
 
-cdef enum:
+enum:
     Size = 2
 
 type int_array_dyn = i32[Size]

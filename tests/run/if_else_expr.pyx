@@ -10,7 +10,7 @@ cdef class Foo:
     def __repr__(self):
         return '<Foo>'
 
-cpdef test_type_cast(Foo obj, cond):
+cpdef fn test_type_cast(Foo obj, cond):
     """
     # Regression test: obj must be cast to (PyObject *) here
     >>> test_type_cast(Foo(), True)

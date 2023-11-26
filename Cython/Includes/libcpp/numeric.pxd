@@ -59,14 +59,14 @@ extern from "<numeric>" namespace "std" nogil:
     #     ExecutionPolicy&& policy, ForwardIt first, ForwardIt last, T init, BinaryReductionOp reduce,
     #     UnaryTransformOp transform)
 
-    OutputIt inclusive_scan[InputIt, OutputIt](InputIt first, InputIt last, OutputIt d_first)
+    fn OutputIt inclusive_scan[InputIt, OutputIt](InputIt first, InputIt last, OutputIt d_first)
 
     # ambiguous with next overload
     # ForwardIt2 inclusive_scan[ExecutionPolicy, ForwardIt1, ForwardIt2](
     #    ExecutionPolicy&& policy, ForwardIt1 first, ForwardIt1 last,
     #    ForwardIt2 d_first)
 
-    OutputIt inclusive_scan[InputIt, OutputIt, BinaryOperation](
+    fn OutputIt inclusive_scan[InputIt, OutputIt, BinaryOperation](
         InputIt first, InputIt last, OutputIt d_first, BinaryOperation binary_op)
 
     # ambiguous with next overload
@@ -74,7 +74,7 @@ extern from "<numeric>" namespace "std" nogil:
     #   ExecutionPolicy&& policy, ForwardIt1 first, ForwardIt1 last, ForwardIt2 d_first,
     #   BinaryOperation binary_op)
 
-    OutputIt inclusive_scan[InputIt, OutputIt, BinaryOperation, T](
+    fn OutputIt inclusive_scan[InputIt, OutputIt, BinaryOperation, T](
         InputIt first, InputIt last, OutputIt d_first, BinaryOperation binary_op,
         T init)
 
@@ -83,7 +83,7 @@ extern from "<numeric>" namespace "std" nogil:
     #     ExecutionPolicy&& policy, ForwardIt1 first, ForwardIt1 last, ForwardIt2 d_first,
     #     BinaryOperation binary_op, T init)
 
-    OutputIt exclusive_scan[InputIt, OutputIt, T](InputIt first, InputIt last,
+    fn OutputIt exclusive_scan[InputIt, OutputIt, T](InputIt first, InputIt last,
         OutputIt d_first, T init)
 
     # ambiguous with next overload
@@ -91,14 +91,14 @@ extern from "<numeric>" namespace "std" nogil:
     #     ExecutionPolicy&& policy, ForwardIt1 first, ForwardIt1 last,
     #     ForwardIt2 d_first, T init)
 
-    OutputIt exclusive_scan[InputIt, OutputIt, T, BinaryOperation](
+    fn OutputIt exclusive_scan[InputIt, OutputIt, T, BinaryOperation](
         InputIt first, InputIt last, OutputIt d_first, T init, BinaryOperation binary_op)
 
-    ForwardIt2 exclusive_scan[ExecutionPolicy, ForwardIt1, ForwardIt2, T, BinaryOperation](
+    fn ForwardIt2 exclusive_scan[ExecutionPolicy, ForwardIt1, ForwardIt2, T, BinaryOperation](
         ExecutionPolicy&& policy, ForwardIt1 first, ForwardIt1 last, ForwardIt2 d_first,
         T init, BinaryOperation binary_op)
 
-    OutputIt transform_inclusive_scan[InputIt, OutputIt, BinaryOperation, UnaryOperation](
+    fn OutputIt transform_inclusive_scan[InputIt, OutputIt, BinaryOperation, UnaryOperation](
         InputIt first, InputIt last, OutputIt d_first, BinaryOperation binary_op,
         UnaryOperation unary_op)
 
@@ -107,19 +107,19 @@ extern from "<numeric>" namespace "std" nogil:
     #    ExecutionPolicy&& policy, ForwardIt1 first, ForwardIt1 last, ForwardIt2 d_first,
     #    BinaryOperation binary_op, UnaryOperation unary_op)
 
-    OutputIt transform_inclusive_scan[InputIt, OutputIt, BinaryOperation, UnaryOperation, T](
+    fn OutputIt transform_inclusive_scan[InputIt, OutputIt, BinaryOperation, UnaryOperation, T](
         InputIt first, InputIt last, OutputIt d_first, BinaryOperation binary_op,
         UnaryOperation unary_op, T init)
 
-    ForwardIt2 transform_inclusive_scan[ExecutionPolicy, ForwardIt1, ForwardIt2, BinaryOperation, UnaryOperation, T](
+    fn ForwardIt2 transform_inclusive_scan[ExecutionPolicy, ForwardIt1, ForwardIt2, BinaryOperation, UnaryOperation, T](
         ExecutionPolicy&& policy, ForwardIt1 first, ForwardIt1 last, ForwardIt2 d_first,
         BinaryOperation binary_op, UnaryOperation unary_op, T init)
 
-    OutputIt transform_exclusive_scan[InputIt, OutputIt, T, BinaryOperation, UnaryOperation](
+    fn OutputIt transform_exclusive_scan[InputIt, OutputIt, T, BinaryOperation, UnaryOperation](
         InputIt first, InputIt last, OutputIt d_first, T init, BinaryOperation binary_op,
         UnaryOperation unary_op)
 
-    ForwardIt2 transform_exclusive_scan[ExecutionPolicy, ForwardIt1, ForwardIt2, T, BinaryOperation, UnaryOperation](
+    fn ForwardIt2 transform_exclusive_scan[ExecutionPolicy, ForwardIt1, ForwardIt2, T, BinaryOperation, UnaryOperation](
         ExecutionPolicy&& policy, ForwardIt1 first, ForwardIt1 last, ForwardIt2 d_first,
         T init, BinaryOperation binary_op, UnaryOperation unary_op)
 

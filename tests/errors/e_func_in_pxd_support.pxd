@@ -4,5 +4,5 @@ fn foo():
 pub fn inline foo2():
     return 1
 
-cdef api inline foo3():
+api fn inline foo3():
     return 1

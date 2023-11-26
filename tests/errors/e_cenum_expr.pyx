@@ -1,6 +1,6 @@
 # mode: error
 
-cdef enum Foo:
+enum Foo:
     d
 
 Foo

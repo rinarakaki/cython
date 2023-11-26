@@ -16,7 +16,7 @@ setup(
 cpdef enum:
     BAR
 
-cpdef foo(): pass
+cpdef fn foo(): pass
 
 ######## enums.pxd ########
 
@@ -26,7 +26,7 @@ cpdef enum:
 cpdef enum NamedEnumType:
     NamedEnumValue = 389
 
-cpdef foo()
+cpdef fn foo()
 
 ######## enums_without_pyx.pxd #####
 
