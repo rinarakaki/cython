@@ -4411,14 +4411,17 @@ def p_cpp_class_definition(s, pos,  ctx):
 
 def p_associated_item(s, ctx):
     attributes = p_attributes(s)
+    visibility = ctx.visibility = p_visibility(s, ctx.visibility)
     item = None
-    if s.systring == "type" and s.peek()[0] == "IDENT":
-        item = p_type_alias_item(s, ctx)
-    elif s.sy == "const" and s.peek()[0] != "fn":
-        item = p_c_func_or_var_declaration(s, s.position(), ctx)
+    if s.sy == "const" and s.peek()[0] == "IDENT":
+        item = p_const_item(s)
     elif s.sy == "fn" or s.sy in ("static", "const") and s.peek()[0] == "fn":
         item = p_fn_item(s, s.position(), ctx)
-
+    elif s.systring == "type" and s.peek()[0] == "IDENT":
+        item = p_type_alias_item(s, ctx)
+    elif s.sy == "cdef" and s.peek()[0] == "IDENT" or s.sy == "const" and s.peek()[0] != "fn":
+        item = p_c_func_or_var_declaration(s, s.position(), ctx)
+    
     if item is not None:
         item.decorators = attributes
         item.visibility = ctx.visibility
