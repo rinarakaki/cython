@@ -399,7 +399,7 @@ def test_bad_cast():
     # This should raise an exception
     let np.ndarray[i32, cast=true] arr = np.array([1], dtype='b')
 
-cdef packed struct PackedStruct:
+packed struct PackedStruct:
     i8 a
     i32 b
 
@@ -413,7 +413,7 @@ struct PartiallyPackedStruct:
     PackedStruct sub
     i32 c
 
-cdef packed struct PartiallyPackedStruct2:
+packed struct PartiallyPackedStruct2:
     i8 a
     i32 b
     i8 c

@@ -2540,7 +2540,7 @@ def p_statement(s, ctx, first_statement = 0):
         s.next()
 
     if (
-        (s.sy != "IDENT" or s.systring == "type" or s.systring == "api" and s.peek()[1] in ("static", "fn", "type", "enum", "struct", "class"))
+        (s.sy != "IDENT" or s.systring in ("type", "packed") or s.systring == "api" and s.peek()[1] in ("static", "fn", "type", "enum", "struct", "class"))
         and
         (s.sy != "class" or ctx.visibility == "extern")
         and

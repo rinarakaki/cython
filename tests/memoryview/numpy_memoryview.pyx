@@ -428,7 +428,7 @@ def acquire_release_cycle(obj):
 
     gc.collect()
 
-cdef packed struct StructArray:
+packed struct StructArray:
     i32 a[4]
     i8 b[5]
 

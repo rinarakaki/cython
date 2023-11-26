@@ -263,7 +263,7 @@ def mixed_complex_struct():
     let object[MixedComplex] buf = MockBuffer("Zd",
         sizeof(MixedComplex))
 
-cdef packed struct PackedSubStruct:
+packed struct PackedSubStruct:
     i8 x
     i32 y
 
@@ -271,7 +271,7 @@ struct UnpackedSubStruct:
     i8 x
     i32 y
 
-cdef packed struct PackedStruct:
+packed struct PackedStruct:
     i8 a
     i32 b
     PackedSubStruct sub
@@ -281,7 +281,7 @@ struct PartiallyPackedStruct:
     i32 b
     PackedSubStruct sub
 
-cdef packed struct PartiallyPackedStruct2:
+packed struct PartiallyPackedStruct2:
     i8 a
     UnpackedSubStruct sub
     i8 b
@@ -363,7 +363,7 @@ def partially_packed_struct_2(fmt):
     let object[PartiallyPackedStruct2] buf = MockBuffer(
         fmt, sizeof(PartiallyPackedStruct2))
 
-cdef packed struct PackedStructWithCharArrays:
+packed struct PackedStructWithCharArrays:
     f32 a
     i32 b
     i8[5] c

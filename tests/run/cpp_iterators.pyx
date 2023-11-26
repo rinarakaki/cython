@@ -396,7 +396,7 @@ extern from *:
 
         const i32 num
 
-def test_iteration_from_const_member(i32 num):
+fn test_iteration_from_const_member(i32 num):
     """
     >>> tuple(test_iteration_from_const_member(5))
     (0, 1, 2, 3, 4)

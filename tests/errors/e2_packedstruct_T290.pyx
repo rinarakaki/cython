@@ -1,7 +1,7 @@
 # ticket: t290
 # mode: error
 
-cdef packed foo:
+packed foo:
     pass
 
 _ERRORS = u"""
