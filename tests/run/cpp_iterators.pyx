@@ -275,7 +275,7 @@ def test_iteration_over_attribute_of_call():
 
 extern from *:
     # TODO: support make_shared[const i32]
-    shared_ptr[const i32] make_shared_const_int "std::make_shared<const int>"(i32)
+    fn shared_ptr[const i32] make_shared_const_int "std::make_shared<const int>"(i32)
 
 def test_iteration_over_shared_const_ptr_vector(py_v):
     """
