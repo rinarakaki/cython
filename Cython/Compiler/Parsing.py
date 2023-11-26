@@ -3580,45 +3580,51 @@ def p_enum_item(s, pos, ctx):
         )
 
     s.expect(':')
-    items = []
+    variants = []
 
     doc = None
     if s.sy != 'NEWLINE':
-        p_c_enum_line(s, ctx, items)
+        p_c_enum_line(s, ctx, variants)
     else:
         s.next()  # 'NEWLINE'
         s.expect_indent()
         doc = p_doc_string(s)
 
         while s.sy not in ('DEDENT', 'EOF'):
-            p_c_enum_line(s, ctx, items)
+            p_c_enum_line(s, ctx, variants)
 
         s.expect_dedent()
 
-    if not items and ctx.visibility != "extern":
+    if not variants and ctx.visibility != "extern":
         error(pos, "Empty enum definition not allowed outside a 'cdef extern from' block")
 
-    return Nodes.CEnumDefNode(
-        pos, name=name, cname=cname,
-        scoped=scoped, items=items,
+    return Nodes.CEnumDefNode(pos,
+        name=name,
+        cname=cname,
+        scoped=scoped,
+        items=variants,
         underlying_type=underlying_type,
-        typedef_flag=ctx.typedef_flag, visibility=ctx.visibility,
+        typedef_flag=ctx.typedef_flag,
+        visibility=ctx.visibility,
         create_wrapper=ctx.overridable,
-        api=ctx.api, in_pxd=ctx.level == 'module_pxd', doc=doc)
+        api=ctx.api,
+        in_pxd=ctx.level == 'module_pxd',
+        doc=doc,
+    )
 
-def p_c_enum_line(s, ctx, items):
+def p_c_enum_line(s, ctx, variants):
     if s.sy != 'pass':
-        p_variant(s, ctx, items)
+        p_variant(s, ctx, variants)
         while s.sy == ',':
             s.next()
             if s.sy in ('NEWLINE', 'EOF'):
                 break
-            p_variant(s, ctx, items)
+            p_variant(s, ctx, variants)
     else:
         s.next()
     s.expect_newline("Syntax error in enum item list")
 
-def p_variant(s, ctx, items):
+def p_variant(s, ctx, variants):
     pos = s.position()
     name = p_ident(s)
     cname = p_opt_cname(s)
@@ -3628,7 +3634,7 @@ def p_variant(s, ctx, items):
     if s.sy == '=':
         s.next()
         value = p_test(s)
-    items.append(Nodes.CEnumDefItemNode(pos,
+    variants.append(Nodes.CEnumDefItemNode(pos,
         name = name, cname = cname, value = value))
 
 def p_struct_or_union_item(s, pos, ctx):
