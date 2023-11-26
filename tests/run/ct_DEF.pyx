@@ -3,57 +3,46 @@
 
 use cython
 
-__doc__ = u"""
-    >>> s()
-    b'spam'
-"""
-
 _unicode = unicode
-
-import sys
-IS_PY3 = sys.version_info[0] >= 3
-
-if not IS_PY3:
-    __doc__ = __doc__.replace(u" b'", u" '")
 
 
 def print_large_number(n):
     print(str(n).rstrip('L'))
 
 
-DEF TUPLE = (1, 2, u"buckle my shoe")
-DEF TRUE_FALSE = (True, False)
-DEF NONE = None
+const auto TUPLE = (1, 2, u"buckle my shoe")
+const auto TRUE_FALSE = (true, false)
+const auto NONE = None
 
-DEF CHAR = c'x'
-DEF INT0 = -1
-DEF INT1 = 42
-DEF INT2 = 0x42
-DEF INT3 = -0x42
-DEF LONG = 666L
-DEF LARGE_NUM32 = (1 << 32) - 1
-DEF LARGE_NUM64 = (1 << 64) - 1
-DEF FLOAT = 12.5
-DEF EXACT_FLOAT = 0.577215664901532860606512090082402431
-DEF E_FLOAT = 0.5772156E4  # Cannot currently warn about this since we can't safely compare the string repr.
-DEF BYTES = b"spam"
-DEF UNICODE = u"spam-u"
-DEF TWO = TUPLE[1]
-DEF FIVE = TWO + 3
-DEF TRUE  = TRUE_FALSE[0]
-DEF FALSE = TRUE_FALSE[1]
-DEF INT_TUPLE1 = TUPLE[:2]
-DEF INT_TUPLE2 = TUPLE[1:4;2]
-DEF ELLIPSIS = ...
-DEF EXPRESSION = int(float(2*2)) + int(str(2)) + int(max(1, 2, 3)) + sum([TWO, FIVE])
-DEF UNICODE_EXPRESSION = unicode(BYTES.decode('utf8')).encode('ascii').decode('latin1')
+const auto CHAR = c'x'
+const auto INT0 = -1
+const auto INT1 = 42
+const auto INT2 = 0x42
+const auto INT3 = -0x42
+const auto LONG = 666i64
+const auto LARGE_NUM32 = (1 << 32) - 1
+const auto LARGE_NUM64 = (1 << 64) - 1
+const auto FLOAT = 12.5
+const auto EXACT_FLOAT = 0.577215664901532860606512090082402431
+const auto E_FLOAT = 0.5772156E4  # Cannot currently warn about this since we can't safely compare the string repr.
+const auto BYTES = b"spam"
+const auto UNICODE = u"spam-u"
+const auto TWO = TUPLE[1]
+const auto FIVE = TWO + 3
+const auto TRUE  = TRUE_FALSE[0]
+const auto FALSE = TRUE_FALSE[1]
+const auto INT_TUPLE1 = TUPLE[:2]
+const auto INT_TUPLE2 = TUPLE[1:4;2]
+const auto ELLIPSIS = ...
+const auto EXPRESSION = int(float(2*2)) + int(str(2)) + int(max(1, 2, 3)) + sum([TWO, FIVE])
+const auto UNICODE_EXPRESSION = unicode(BYTES.decode('utf8')).encode('ascii').decode('latin1')
 
 def c():
     """
     >>> c()
     120
     """
-    let char c = CHAR
+    let i8 c = CHAR
     return c
 
 def i0():
@@ -124,9 +113,10 @@ def f():
 
 def s():
     """
-    see module docstring above
+    >>> s()
+    b'spam'
     """
-    let char* s = BYTES
+    let r&i8 s = BYTES
     return s
 
 def type_of_bytes():
@@ -149,7 +139,7 @@ def type_of_unicode():
     s = UNICODE
     return t, s
 
-#[cython.test_assert_path_exists('//TupleNode')]
+#[cython::test_assert_path_exists('//TupleNode')]
 def constant_tuple():
     """
     >>> constant_tuple()[:-1]
@@ -160,7 +150,7 @@ def constant_tuple():
     let object t = TUPLE
     return t
 
-#[cython.test_assert_path_exists('//IntNode')]
+#[cython::test_assert_path_exists('//IntNode')]
 def tuple_indexing():
     """
     >>> tuple_indexing()
@@ -185,22 +175,22 @@ def five():
     let i32 five = FIVE
     return five
 
-#[cython.test_assert_path_exists('//BoolNode')]
+#[cython::test_assert_path_exists('//BoolNode')]
 def true():
     """
     >>> true()
     True
     """
-    let bint true = TRUE
+    let u2 true = TRUE
     return true
 
-#[cython.test_assert_path_exists('//BoolNode')]
+#[cython::test_assert_path_exists('//BoolNode')]
 def false():
     """
     >>> false()
     False
     """
-    let bint false = FALSE
+    let u2 false = FALSE
     return false
 
 def ellipsis():
@@ -210,8 +200,8 @@ def ellipsis():
     """
     return ELLIPSIS
 
-#[cython.test_assert_path_exists('//IntNode')]
-#[cython.test_fail_if_path_exists('//AddNode')]
+#[cython::test_assert_path_exists('//IntNode')]
+#[cython::test_fail_if_path_exists('//AddNode')]
 def expression():
     """
     >>> expression()
@@ -249,7 +239,7 @@ _IGNORE = """
 35:0: The 'DEF' statement is deprecated and will be removed in a future Cython version. Consider using global variables, constants, and in-place literals instead. See https://github.com/cython/cython/issues/4310
 36:0: The 'DEF' statement is deprecated and will be removed in a future Cython version. Consider using global variables, constants, and in-place literals instead. See https://github.com/cython/cython/issues/4310
 37:0: The 'DEF' statement is deprecated and will be removed in a future Cython version. Consider using global variables, constants, and in-place literals instead. See https://github.com/cython/cython/issues/4310
-37:18: Using this floating point value with DEF may lose precision, using 0.5772156649015329
+37:20: Using this floating point value with DEF may lose precision, using 0.5772156649015329
 38:0: The 'DEF' statement is deprecated and will be removed in a future Cython version. Consider using global variables, constants, and in-place literals instead. See https://github.com/cython/cython/issues/4310
 39:0: The 'DEF' statement is deprecated and will be removed in a future Cython version. Consider using global variables, constants, and in-place literals instead. See https://github.com/cython/cython/issues/4310
 40:0: The 'DEF' statement is deprecated and will be removed in a future Cython version. Consider using global variables, constants, and in-place literals instead. See https://github.com/cython/cython/issues/4310
@@ -265,5 +255,5 @@ _IGNORE = """
 """
 
 _WARNINGS = """
-37:18: Using this floating point value with DEF may lose precision, using 0.5772156649015329
+26:25: Using this floating point value with DEF may lose precision, using 0.5772156649015329
 """

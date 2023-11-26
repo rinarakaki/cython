@@ -9,14 +9,14 @@ extern from "if_else_expr_cpp_helper.h":
 
     cdef Holder v1
     cdef Holder v2
-    fn Holder& get_v1()
-    fn Holder& get_v2()
+    fn &mut Holder get_v1()
+    fn &mut Holder get_v2()
 
 fn reset() :
     v1.value = 1
     v2.value = 2
 
-def test_one_ref(bint b):
+def test_one_ref(u2 b):
     """
     >>> test_one_ref(false)
     1
@@ -26,7 +26,7 @@ def test_one_ref(bint b):
     reset()
     return (Holder(100) if b else get_v1()).value
 
-def test_both_ref(bint b):
+def test_both_ref(u2 b):
     """
     >>> test_both_ref(false)
     (1, 100)

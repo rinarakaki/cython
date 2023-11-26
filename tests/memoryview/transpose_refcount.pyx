@@ -2,7 +2,7 @@
 
 use cython::view
 
-fn bint print_upper_right(f64[:, :] M):
+fn u2 print_upper_right(f64[:, :] M):
     print M[0, 1]
 
 cdef class MemViewContainer:
@@ -11,7 +11,7 @@ cdef class MemViewContainer:
     def __init__(self, A):
         self.A = A
 
-    cpdef run(self):
+    cpdef fn run(self):
         print_upper_right(self.A)
         print_upper_right(self.A.T)
         print_upper_right(self.A.T)

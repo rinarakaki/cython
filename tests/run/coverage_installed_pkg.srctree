@@ -9,6 +9,7 @@ PYTHON -m coverage report
 """
 
 ######## setup.py ########
+
 from distutils.core import setup, Extension
 from Cython.Build import cythonize
 
@@ -24,15 +25,14 @@ setup(
     ]),
 )
 
-
 ######## .coveragerc ########
+
 [run]
 plugins = Cython.Coverage
 
-
 ######## pkg/__init__.py ########
-from .test_ext_import import test_add
 
+from .test_ext_import import test_add
 
 ######## pkg/test_ext_import.pyx ########
 # cython: linetrace=True
@@ -41,31 +41,27 @@ from .test_ext_import import test_add
 import ext_pkg
 
 
-cpdef test_add(int a, int b):
+cpdef fn test_add(i32 a, i32 b):
     return a + ext_pkg.test_mul(b, 2)
 
-
 ######## ext_src/ext_pkg/__init__.py ########
+
 from .mul import test_mul
 
-
 ######## ext_src/ext_pkg/mul.py ########
-from __future__ import absolute_import
 
+from __future__ import absolute_import
 
 def test_mul(a, b):
      return a * b
-
 
 try:
     from ._mul import *
 except ImportError:
     pass
 
-
 ######## coverage_test.py ########
 
 from pkg import test_add
-
 
 assert 5 == test_add(1, 2)

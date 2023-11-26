@@ -3,14 +3,14 @@
 extern from *:
     fn void foo(i32[])
 
-    ctypedef i32 MyInt
+    type MyInt = i32
     fn void foo(MyInt[])
 
     struct MyStruct:
         pass
     fn void bar(MyStruct[])
 
-    ctypedef MyStruct* MyStructP
+    type MyStructP = r&mut MyStruct
     fn void baz(MyStructP[])
 
 struct OtherStruct:
@@ -19,6 +19,6 @@ struct OtherStruct:
 a = sizeof(i32[23][34])
 b = sizeof(OtherStruct[43])
 
-DEF COUNT = 4
+const isize COUNT = 4
 c = sizeof(i32[COUNT])
 d = sizeof(OtherStruct[COUNT])

@@ -45,7 +45,7 @@ def test_fast_access(a):
         value = ca.data.as_floats[1]
     assert value == 2.0, value
 
-    #assert ca._c[:5] == b'\x00\x00\x80?\x00', repr(ca._c[:5])
+    # assert ca._c[:5] == b'\x00\x00\x80?\x00', repr(ca._c[:5])
 
     with nogil:
         ca.data.as_floats[1] += 2.0
@@ -187,7 +187,7 @@ def test_extend_buffer():
     let i64[2] s
     s[0] = 389
     s[1] = 5077
-    array.extend_buffer(ca, <char*> &s, 2)
+    array.extend_buffer(ca, <r&i8> &s, 2)
 
     assert ca.data.as_ulongs[3] == 5077
     assert len(ca) == 4

@@ -2,20 +2,20 @@
 
 use cython
 
-ctypedef i32 USERTYPE
+type USERTYPE = i32
 
 # Functions
 
-#[cython.callspec("")]
+#[cython::callspec("")]
 fn void h1(): pass
 
-#[cython.callspec("__cdecl")]
+#[cython::callspec("__cdecl")]
 fn void __cdecl h2(): pass
 
-#[cython.callspec("__stdcall")]
+#[cython::callspec("__stdcall")]
 fn void __stdcall h3(): pass
 
-#[cython.callspec("__fastcall")]
+#[cython::callspec("__fastcall")]
 fn void __fastcall h4(): pass
 
 fn USERTYPE h5(): return 0
@@ -26,10 +26,10 @@ fn USERTYPE __stdcall h7(): return 0
 
 fn USERTYPE __fastcall h8(): return 0
 
-#[cython.callspec("__cdecl")]
+#[cython::callspec("__cdecl")]
 fn void __stdcall herr1(): pass # fail
 
-#[cython.callspec("__cdecl")]
+#[cython::callspec("__cdecl")]
 fn void __fastcall herr2(): pass # fail
 
 # Pointer typedefs
@@ -75,21 +75,21 @@ p5 = pt5 = p6 = pt6 = h6
 p7 = pt7 = h7
 p8 = pt8 = h8
 
-#p1 = h2 # fail
-#p1 = h3 # fail
-#p1 = h4 # fail
+# p1 = h2  # fail
+# p1 = h3  # fail
+# p1 = h4  # fail
 
-#p2 = h1 # fail
-#p2 = h3 # fail
-#p2 = h4 # fail
+# p2 = h1  # fail
+# p2 = h3  # fail
+# p2 = h4  # fail
 
 _ERRORS = u"""
 30:23: cannot have both '__stdcall' and '__cdecl' calling conventions
 33:24: cannot have both '__fastcall' and '__cdecl' calling conventions
 """
-#31:14: Cannot assign type 'void (__cdecl )(void)' to 'void (*)(void)'
-#32:14: Cannot assign type 'void (__stdcall )(void)' to 'void (*)(void)'
-#33:14: Cannot assign type 'void (__fastcall )(void)' to 'void (*)(void)'
-#35:14: Cannot assign type 'void (void)' to 'void (__cdecl *)(void)'
-#36:14: Cannot assign type 'void (__stdcall )(void)' to 'void (__cdecl *)(void)'
-#37:14: Cannot assign type 'void (__fastcall )(void)' to 'void (__cdecl *)(void)'
+# 31:14: Cannot assign type 'void (__cdecl )(void)' to 'void (*)(void)'
+# 32:14: Cannot assign type 'void (__stdcall )(void)' to 'void (*)(void)'
+# 33:14: Cannot assign type 'void (__fastcall )(void)' to 'void (*)(void)'
+# 35:14: Cannot assign type 'void (void)' to 'void (__cdecl *)(void)'
+# 36:14: Cannot assign type 'void (__stdcall )(void)' to 'void (__cdecl *)(void)'
+# 37:14: Cannot assign type 'void (__fastcall )(void)' to 'void (__cdecl *)(void)'

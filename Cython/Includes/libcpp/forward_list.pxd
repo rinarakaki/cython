@@ -1,63 +1,63 @@
 extern from "<forward_list>" namespace "std" nogil:
     cdef cppclass forward_list[T,ALLOCATOR=*]:
-        ctypedef T value_type
-        ctypedef ALLOCATOR allocator_type
+        type value_type = T
+        type allocator_type = ALLOCATOR
 
         # these should really be allocator_type.size_type and
         # allocator_type.difference_type to be true to the C++ definition
         # but cython doesn't support deferred access on template arguments
-        ctypedef usize size_type
-        ctypedef ptrdiff_t difference_type
+        type size_type = usize
+        type difference_type = ptrdiff_t
 
         cppclass iterator:
             iterator()
             iterator(iterator &)
-            T& operator*()
-            iterator operator++()
-            iterator operator++(i32)
-            bint operator==(iterator)
-            bint operator!=(iterator)
+            fn &mut T operator*()
+            fn iterator operator++()
+            fn iterator operator++(i32)
+            fn u2 operator==(iterator)
+            fn u2 operator!=(iterator)
         cppclass const_iterator(iterator):
             pass
         forward_list() except +
         forward_list(forward_list&) except +
         forward_list(usize, T&) except +
-        #forward_list& operator=(forward_list&)
-        bint operator==(forward_list&, forward_list&)
-        bint operator!=(forward_list&, forward_list&)
-        bint operator<(forward_list&, forward_list&)
-        bint operator>(forward_list&, forward_list&)
-        bint operator<=(forward_list&, forward_list&)
-        bint operator>=(forward_list&, forward_list&)
-        void assign(usize, T&)
-        T& front()
-        iterator before_begin()
-        const_iterator const_before_begin "before_begin"()
-        iterator begin()
-        const_iterator const_begin "begin"()
-        iterator end()
-        const_iterator const_end "end"()
-        bint empty()
-        usize max_size()
-        void clear()
-        iterator insert_after(iterator, T&)
-        void insert_after(iterator, usize, T&)
-        iterator erase_after(iterator)
-        iterator erase_after(iterator, iterator)
-        void push_front(T&)
-        void pop_front()
-        void resize(usize)
-        void resize(usize, T&)
-        void swap(forward_list&)
-        void merge(forward_list&)
-        void merge[Compare](forward_list&, Compare)
-        void splice_after(iterator, forward_list&)
-        void splice_after(iterator, forward_list&, iterator)
-        void splice_after(iterator, forward_list&, iterator, iterator)
-        void remove(const T&)
-        void remove_if[Predicate](Predicate)
-        void reverse()
-        void unique()
-        void unique[Predicate](Predicate)
-        void sort()
-        void sort[Compare](Compare)
+        # fn &mut forward_list operator=(&mut forward_list)
+        fn u2 operator==(&mut forward_list, &mut forward_list)
+        fn u2 operator!=(&mut forward_list, &mut forward_list)
+        fn u2 operator<(&mut forward_list, &mut forward_list)
+        fn u2 operator>(&mut forward_list, &mut forward_list)
+        fn u2 operator<=(&mut forward_list, &mut forward_list)
+        fn u2 operator>=(&mut forward_list, &mut forward_list)
+        fn void assign(usize, &mut T)
+        fn &mut T front()
+        fn iterator before_begin()
+        fn const_iterator const_before_begin "before_begin"()
+        fn iterator begin()
+        fn const_iterator const_begin "begin"()
+        fn iterator end()
+        fn const_iterator const_end "end"()
+        fn u2 empty()
+        fn usize max_size()
+        fn void clear()
+        fn iterator insert_after(iterator, &mut T)
+        fn void insert_after(iterator, usize, &mut T)
+        fn iterator erase_after(iterator)
+        fn iterator erase_after(iterator, iterator)
+        fn void push_front(&mut T)
+        fn void pop_front()
+        fn void resize(usize)
+        fn void resize(usize, &mut T)
+        fn void swap(&mut forward_list)
+        fn void merge(&mut forward_list)
+        fn void merge[Compare](&mut forward_list, Compare)
+        fn void splice_after(iterator, &mut forward_list)
+        fn void splice_after(iterator, &mut forward_list, iterator)
+        fn void splice_after(iterator, &mut forward_list, iterator, iterator)
+        fn void remove(&T)
+        fn void remove_if[Predicate](Predicate)
+        fn void reverse()
+        fn void unique()
+        fn void unique[Predicate](Predicate)
+        fn void sort()
+        fn void sort[Compare](Compare)

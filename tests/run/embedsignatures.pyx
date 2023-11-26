@@ -1,4 +1,4 @@
-#cython: embedsignature=true, annotation_typing=false
+# cython: embedsignature=true, annotation_typing=false
 
 # signatures here are a little fragile - when they are
 # generated during the build process gives slightly
@@ -8,22 +8,17 @@
 
 import sys
 
-if sys.version_info >= (3, 4):
-    def funcdoc(f):
-        if not getattr(f, "__text_signature__", None):
-            return f.__doc__
-        doc = '%s%s' % (f.__name__, f.__text_signature__)
-        if f.__doc__:
-            if '\n' in f.__doc__:
-                # preceding line endings get stripped
-                doc = '%s\n\n%s' % (doc, f.__doc__)
-            else:
-                doc = '%s\n%s' % (doc, f.__doc__)
-        return doc
-
-else:
-    def funcdoc(f):
+def funcdoc(f):
+    if not getattr(f, "__text_signature__", None):
         return f.__doc__
+    doc = '%s%s' % (f.__name__, f.__text_signature__)
+    if f.__doc__:
+        if '\n' in f.__doc__:
+            # preceding line endings get stripped
+            doc = '%s\n\n%s' % (doc, f.__doc__)
+        else:
+            doc = '%s\n%s' % (doc, f.__doc__)
+    return doc
 
 
 # note the r, we use \n below
@@ -276,17 +271,17 @@ cdef class Ext:
     def o(self, a, b=1, /, c=5, *args, **kwargs):
         pass
 
-    cpdef i32 get_int(self):
+    cpdef fn i32 get_int(self):
         return 0
 
-    cpdef f32 get_float(self):
+    cpdef fn f32 get_float(self):
         return 0.0
 
-    cpdef str get_str(self):
+    cpdef fn str get_str(self):
         """Existing string"""
         return "string"
 
-    cpdef Ext clone(self):
+    cpdef fn Ext clone(self):
         return Ext(1, 2)
 
 def foo():
@@ -305,11 +300,11 @@ def with_doc_2(a, b, c):
     """
     pass
 
-cpdef with_doc_3(a, b, c):
+cpdef fn with_doc_3(a, b, c):
     """Existing string"""
     pass
 
-cpdef str with_doc_4(i32 a, str b, list c):
+cpdef fn str with_doc_4(i32 a, str b, list c):
     """
     Existing string
     """
@@ -318,83 +313,83 @@ cpdef str with_doc_4(i32 a, str b, list c):
 def f_sd(str s='spam'):
     return s
 
-cpdef str cf_sd(str s='spam'):
+cpdef fn str cf_sd(str s='spam'):
     return s
 
-cpdef char f_c(char c):
+cpdef fn i8 f_c(i8 c):
     return c
 
-cpdef u8 f_uc(u8 c):
+cpdef fn u8 f_uc(u8 c):
     return c
 
-cpdef signed char f_sc(signed char c):
+cpdef fn signed char f_sc(signed char c):
     return c
 
-cpdef i16 f_s(i16 s):
+cpdef fn i16 f_s(i16 s):
     return s
 
-cpdef u16 f_us(u16 s):
+cpdef fn u16 f_us(u16 s):
     return s
 
 
-cpdef i32 f_i(i32 i):
+cpdef fn i32 f_i(i32 i):
     return i
 
-cpdef u32 f_ui(u32 i):
+cpdef fn u32 f_ui(u32 i):
     return i
 
-cpdef bint f_bint(bint i):
+cpdef fn u2 f_bint(u2 i):
     return i
 
-cpdef i64 f_l(i64 l):
+cpdef fn i64 f_l(i64 l):
     return l
 
-cpdef u64 f_ul(u64 l):
+cpdef fn u64 f_ul(u64 l):
     return l
 
-cpdef i128 f_L(i128 L):
+cpdef fn i128 f_L(i128 L):
     return L
 
-cpdef u128 f_uL(u128 L):
+cpdef fn u128 f_uL(u128 L):
     return L
 
-cpdef f32 f_f(f32 f):
+cpdef fn f32 f_f(f32 f):
     return f
 
-cpdef f64 f_d(f64 d):
+cpdef fn f64 f_d(f64 d):
     return d
 
-cpdef long double f_D(long double D):
+cpdef fn f128 f_D(f128 D):
     return D
 
-ctypedef i32 MyInt
-cpdef MyInt f_my_i(MyInt i):
+type MyInt = i32
+cpdef fn MyInt f_my_i(MyInt i):
     return i
 
-ctypedef float MyFloat
-cpdef MyFloat f_my_f(MyFloat f):
+type MyFloat = f32
+cpdef fn MyFloat f_my_f(MyFloat f):
     return f
 
-cdef enum:
+enum:
     FLAG1
     FLAG2
 
-cpdef f_defexpr1(i32 x = FLAG1, i32 y = FLAG2):
+cpdef fn f_defexpr1(i32 x = FLAG1, i32 y = FLAG2):
     pass
 
-cpdef f_defexpr2(i32 x = FLAG1 | FLAG2, y = FLAG1 & FLAG2):
+cpdef fn f_defexpr2(i32 x = FLAG1 | FLAG2, y = FLAG1 & FLAG2):
     pass
 
-cpdef f_defexpr3(i32 x = Ext.CONST1, f = __builtins__.abs):
+cpdef fn f_defexpr3(i32 x = Ext.CONST1, f = __builtins__.abs):
     pass
 
-cpdef f_defexpr4(i32 x = (Ext.CONST1 + FLAG1) * Ext.CONST2):
+cpdef fn f_defexpr4(i32 x = (Ext.CONST1 + FLAG1) * Ext.CONST2):
     pass
 
-cpdef f_defexpr5(i32 x = 2+2):
+cpdef fn f_defexpr5(i32 x = 2+2):
     pass
 
-cpdef (char*) f_charptr_null(char* s=NULL):
+cpdef fn (r&i8) f_charptr_null(r&i8 s=NULL):
     return s or b'abc'
 
 # no signatures for lambda functions

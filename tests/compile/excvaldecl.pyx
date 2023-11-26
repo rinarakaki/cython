@@ -6,7 +6,7 @@ fn i32 spam() except 42:
 fn f32 eggs() except 3.14:
     pass
 
-fn char *grail() except NULL:
+fn r&i8 grail() except NULL:
     pass
 
 fn i32 tomato() except *:

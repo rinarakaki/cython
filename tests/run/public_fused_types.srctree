@@ -15,8 +15,8 @@ setup(
 use cython
 
 extern from "header.h":
-    ctypedef i32 extern_int
-    ctypedef i64 extern_long
+    type extern_int = i32
+    type extern_long = i64
 
 struct mystruct_t:
     extern_int a
@@ -27,16 +27,16 @@ ctypedef union myunion_t:
 pub class MyExt [ type MyExtType, object MyExtObject ]:
     cdef u8 a
 
-ctypedef char *string_t
+type string_t = r&i8
 simple_t = cython.fused_type(i32, f32)
 less_simple_t = cython.fused_type(i32, f32, string_t)
 struct_t = cython.fused_type(mystruct_t, myunion_t, MyExt)
-builtin_t = cython.fused_type(str, unicode, bytes)
+builtin_t = cython.fused_type(str, bytes)
 
 ctypedef fused fusedbunch:
     i32
     i64
-    complex
+    c128
     string_t
 
 ctypedef fused fused1:
@@ -54,11 +54,11 @@ fn public_optional_args(struct_t obj, simple_t simple = *)
 
 cdef class TestFusedExtMethods(object):
     fn cython.floating method(self, cython.integral x, cython.floating y)
-    cpdef cpdef_method(self, cython.integral x, cython.floating y)
+    cpdef fn cpdef_method(self, cython.integral x, cython.floating y)
 
 object_t = cython.fused_type(TestFusedExtMethods, object, list)
 
-cpdef public_cpdef(cython.integral x, cython.floating y, object_t z)
+cpdef fn public_cpdef(cython.integral x, cython.floating y, object_t z)
 
 ######## header.h ########
 
@@ -89,8 +89,8 @@ cdef class TestFusedExtMethods(object):
 
         return x + y
 
-    cpdef cpdef_method(self, cython.integral x, cython.floating y):
-        return cython.typeof(x), cython.typeof(y)
+    cpdef fn cpdef_method(self, cython.integral x, cython.floating y):
+        return cython::typeof(x), cython::typeof(y)
 
     def def_method(self, fused1 x, fused2 y):
         if (fused1 is string_t and fused2 is not string_t or
@@ -99,11 +99,11 @@ cdef class TestFusedExtMethods(object):
         else:
             return <fused1> x + y
 
-cpdef public_cpdef(cython.integral x, cython.floating y, object_t z):
+cpdef fn public_cpdef(cython.integral x, cython.floating y, object_t z):
     if cython.integral is int:
         pass
 
-    return cython.typeof(x), cython.typeof(y), cython.typeof(z)
+    return cython::typeof(x), cython::typeof(y), cython::typeof(z)
 
 
 ######## b.pyx ########
@@ -171,7 +171,7 @@ cdef class Subclass(TestFusedExtMethods):
     fn cython.floating method(self, cython.integral x, cython.floating y):
         return -x -y
 
-    cpdef cpdef_method(self, cython.integral x, cython.floating y):
+    cpdef fn cpdef_method(self, cython.integral x, cython.floating y):
         return x, y
 
 cdef Subclass myobj = Subclass()
@@ -201,8 +201,8 @@ ae(a_mod.public_cpdef[i32, f32, list](5, 6, [7]), ("int", "float", "list object"
 idx = cy.typeof(0), cy.typeof(0.0), cy.typeof([])
 ae(a_mod.public_cpdef[idx](5, 6, [7]), ("int", "float", "list object"))
 
-ae(a_mod.public_cpdef[cy.i32, cy.f64, cython.typeof(obj)](5, 6, obj), ("int", "double", "TestFusedExtMethods"))
-ae(a_mod.public_cpdef[cy.i32, cy.f64, cython.typeof(obj)](5, 6, myobj), ("int", "double", "TestFusedExtMethods"))
+ae(a_mod.public_cpdef[cy.i32, cy.f64, cython::typeof(obj)](5, 6, obj), ("int", "double", "TestFusedExtMethods"))
+ae(a_mod.public_cpdef[cy.i32, cy.f64, cython::typeof(obj)](5, 6, myobj), ("int", "double", "TestFusedExtMethods"))
 
 ae(public_cpdef[i32, f32, list](5, 6, [7]), ("int", "float", "list object"))
 ae(public_cpdef[i32, f64, TestFusedExtMethods](5, 6, obj), ("int", "double", "TestFusedExtMethods"))

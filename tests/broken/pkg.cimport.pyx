@@ -1,6 +1,6 @@
 use spam, eggs
 
-cdef extern spam.Spam yummy
+extern static spam.Spam yummy
 cdef eggs.Eggs fried
 
 fried = None

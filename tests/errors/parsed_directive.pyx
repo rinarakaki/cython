@@ -8,7 +8,7 @@ cdef class TestClass:
             return
 
 
-### FIXME: way to many errors for my taste...
+# ## FIXME: way to many errors for my taste...
 
 _ERRORS = """
 7:13: The c_string_encoding compiler directive is not allowed in with statement scope

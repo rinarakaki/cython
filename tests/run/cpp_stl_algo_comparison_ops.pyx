@@ -8,7 +8,7 @@ use libcpp::vector::vector
 fn bool compare(i32 a, i32 b):
     return a == b
 
-fn bool less_than(char a, char b):
+fn bool less_than(i8 a, i8 b):
     return a < b
 
 def test_equal(vector[i32] v1, vector[i32] v2):

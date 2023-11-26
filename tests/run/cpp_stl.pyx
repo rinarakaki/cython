@@ -12,8 +12,8 @@ extern from "vector" namespace "std":
         cppclass iterator:
             T operator*()
             iterator operator++()
-            bint operator==(iterator)
-            bint operator!=(iterator)
+            u2 operator==(iterator)
+            u2 operator!=(iterator)
 
         iterator end()
         iterator begin()
@@ -35,7 +35,7 @@ def test_vector(L):
         print v.at(i)
     del v
 
-ctypedef i32 my_int
+type my_int = i32
 def test_vector_typedef(L):
     """
     >>> test_vector_typedef([1, 2, 3])

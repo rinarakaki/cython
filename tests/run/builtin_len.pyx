@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 use cython
 
 unicode_str = u'ab jd  üöä ôñ ÄÖ'
@@ -8,10 +6,11 @@ bytes_str   = b'ab jd  sdflk as sa  sadas asdas fsdf '
 _frozenset = frozenset
 _set = set
 
-@cython.test_assert_path_exists(
+#[cython::test_assert_path_exists(
     "//CoerceToPyTypeNode",
-    "//PythonCapiCallNode")
-def len_unicode(unicode s):
+    "//PythonCapiCallNode"
+)]
+fn len_unicode(unicode s):
     """
     >>> len(unicode_str)
     16
@@ -23,10 +22,11 @@ def len_unicode(unicode s):
     """
     return len(s)
 
-@cython.test_assert_path_exists(
+#[cython::test_assert_path_exists(
     "//CoerceToPyTypeNode",
-    "//PythonCapiCallNode")
-def len_bytes(bytes s):
+    "//PythonCapiCallNode"
+)]
+fn len_bytes(bytes s):
     """
     >>> len(bytes_str)
     37
@@ -38,10 +38,10 @@ def len_bytes(bytes s):
     """
     return len(s)
 
-#@cython.test_assert_path_exists(
+# @cython::test_assert_path_exists(
 #    "//CoerceToPyTypeNode",
 #    "//PythonCapiCallNode")
-def len_str(str s):
+fn len_str(str s):
     """
     >>> len('abcdefg')
     7
@@ -53,10 +53,11 @@ def len_str(str s):
     """
     return len(s)
 
-@cython.test_assert_path_exists(
+#[cython::test_assert_path_exists(
     "//CoerceToPyTypeNode",
-    "//PythonCapiCallNode")
-def len_list(list s):
+    "//PythonCapiCallNode"
+)]
+fn len_list(list s):
     """
     >>> l = [1, 2, 3, 4]
     >>> len(l)
@@ -69,10 +70,11 @@ def len_list(list s):
     """
     return len(s)
 
-@cython.test_assert_path_exists(
+#[cython::test_assert_path_exists(
     "//CoerceToPyTypeNode",
-    "//PythonCapiCallNode")
-def len_tuple(tuple s):
+    "//PythonCapiCallNode"
+)]
+fn len_tuple(tuple s):
     """
     >>> t = (1, 2, 3, 4)
     >>> len(t)
@@ -85,10 +87,11 @@ def len_tuple(tuple s):
     """
     return len(s)
 
-@cython.test_assert_path_exists(
+#[cython::test_assert_path_exists(
     "//CoerceToPyTypeNode",
-    "//PythonCapiCallNode")
-def len_dict(dict s):
+    "//PythonCapiCallNode"
+)]
+fn len_dict(dict s):
     """
     >>> d = dict(a=1, b=2, c=3, d=4)
     >>> len(d)
@@ -101,10 +104,11 @@ def len_dict(dict s):
     """
     return len(s)
 
-@cython.test_assert_path_exists(
+#[cython::test_assert_path_exists(
     "//CoerceToPyTypeNode",
-    "//PythonCapiCallNode")
-def len_set(set s):
+    "//PythonCapiCallNode"
+)]
+fn len_set(set s):
     """
     >>> s = _set((1, 2, 3, 4))
     >>> len(s)
@@ -117,10 +121,11 @@ def len_set(set s):
     """
     return len(s)
 
-@cython.test_assert_path_exists(
+#[cython::test_assert_path_exists(
     "//CoerceToPyTypeNode",
-    "//PythonCapiCallNode")
-def len_frozenset(frozenset s):
+    "//PythonCapiCallNode"
+)]
+fn len_frozenset(frozenset s):
     """
     >>> s = _frozenset((1, 2, 3, 4))
     >>> len(s)

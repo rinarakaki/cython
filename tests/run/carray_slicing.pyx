@@ -1,9 +1,9 @@
 use cython
 
-############################################################
-# tests for char* slicing
+# ##########################################################
+# tests for r&i8 slicing
 
-cdef char* cstring = "abcABCqtp"
+cdef r&i8 cstring = "abcABCqtp"
 
 def slice_charptr_end():
     """
@@ -12,27 +12,27 @@ def slice_charptr_end():
     """
     return cstring[:1], cstring[:3], cstring[:9]
 
-#### BROKEN: this test assumes that the result of a char* iteration
-#### becomes a bytes object, which is not the case when applying
-#### carray iteration.  Contradiction.
-##
-## @cython.test_assert_path_exists("//ForFromStatNode",
-##                                 "//ForFromStatNode//SliceIndexNode")
-## #[cython.test_fail_if_path_exists("//ForInStatNode")]
-## def slice_charptr_for_loop_py():
-##     """
-##     >>> slice_charptr_for_loop_py()
-##     ['a', 'b', 'c']
-##     ['b', 'c', 'A', 'B']
-##     ['B', 'C', 'q', 't', 'p']
-##     """
-##     print str([ c for c in cstring[:3] ]).replace(" b'", " '").replace("[b'", "['")
-##     print str([ c for c in cstring[1:5] ]).replace(" b'", " '").replace("[b'", "['")
-##     print str([ c for c in cstring[4:9] ]).replace(" b'", " '").replace("[b'", "['")
+# BROKEN: this test assumes that the result of a r&i8 iteration
+# becomes a bytes object, which is not the case when applying
+# carray iteration.  Contradiction.
+#
+# @cython::test_assert_path_exists("//ForFromStatNode",
+#                                 "//ForFromStatNode//SliceIndexNode")
+# #[cython::test_fail_if_path_exists("//ForInStatNode")]
+# def slice_charptr_for_loop_py():
+#     """
+#     >>> slice_charptr_for_loop_py()
+#     ['a', 'b', 'c']
+#     ['b', 'c', 'A', 'B']
+#     ['B', 'C', 'q', 't', 'p']
+#     """
+#     print str([ c for c in cstring[:3] ]).replace(" b'", " '").replace("[b'", "['")
+#     print str([ c for c in cstring[1:5] ]).replace(" b'", " '").replace("[b'", "['")
+#     print str([ c for c in cstring[4:9] ]).replace(" b'", " '").replace("[b'", "['")
 
-#[cython.test_assert_path_exists("//ForFromStatNode",
+#[cython::test_assert_path_exists("//ForFromStatNode",
                                  "//ForFromStatNode//IndexNode")]
-#[cython.test_fail_if_path_exists("//ForInStatNode")]
+#[cython::test_fail_if_path_exists("//ForInStatNode")]
 def slice_charptr_for_loop_c():
     """
     >>> slice_charptr_for_loop_c()
@@ -41,15 +41,15 @@ def slice_charptr_for_loop_c():
     ['b', 'c', 'A', 'B']
     ['B', 'C', 'q', 't', 'p']
     """
-    let char c
+    let i8 c
     print [ chr(c) for c in cstring[:3] ]
     print [ chr(c) for c in cstring[None:3] ]
     print [ chr(c) for c in cstring[1:5] ]
     print [ chr(c) for c in cstring[4:9] ]
 
-# #[cython.test_assert_path_exists("//ForFromStatNode",
+# #[cython::test_assert_path_exists("//ForFromStatNode",
 #                                  "//ForFromStatNode//IndexNode")]
-# #[cython.test_fail_if_path_exists("//ForInStatNode")]
+# #[cython::test_fail_if_path_exists("//ForInStatNode")]
 def slice_charptr_for_loop_c_to_bytes():
     """
     >>> slice_charptr_for_loop_c_to_bytes()
@@ -64,9 +64,9 @@ def slice_charptr_for_loop_c_to_bytes():
     print str([ b for b in cstring[1:5] ]).replace(" b'", " '").replace("[b'", "['")
     print str([ b for b in cstring[4:9] ]).replace(" b'", " '").replace("[b'", "['")
 
-#[cython.test_assert_path_exists("//ForFromStatNode",
+#[cython::test_assert_path_exists("//ForFromStatNode",
                                  "//ForFromStatNode//IndexNode")]
-#[cython.test_fail_if_path_exists("//ForInStatNode")]
+#[cython::test_fail_if_path_exists("//ForInStatNode")]
 def slice_charptr_for_loop_c_step():
     """
     >>> slice_charptr_for_loop_c_step()
@@ -80,7 +80,7 @@ def slice_charptr_for_loop_c_step():
     pq ['p', 'q']
     """
     let object ustring = cstring.decode('ASCII')
-    let char c
+    let i8 c
     print ustring[3:;-1],     [ chr(c) for c in cstring[3:;-1] ]
     print ustring[3:None;-1], [ chr(c) for c in cstring[3:None;-1] ]
     print ustring[1:5;2],     [ chr(c) for c in cstring[1:5;2] ]
@@ -90,9 +90,9 @@ def slice_charptr_for_loop_c_step():
     print ustring[8:4;-1],    [ chr(c) for c in cstring[8:4;-1] ]
     print ustring[8:4;-2],    [ chr(c) for c in cstring[8:4;-2] ]
 
-#[cython.test_assert_path_exists("//ForFromStatNode",
+#[cython::test_assert_path_exists("//ForFromStatNode",
                                  "//ForFromStatNode//IndexNode")]
-#[cython.test_fail_if_path_exists("//ForInStatNode")]
+#[cython::test_fail_if_path_exists("//ForInStatNode")]
 def slice_charptr_for_loop_c_dynamic_bounds():
     """
     >>> slice_charptr_for_loop_c_dynamic_bounds()
@@ -101,7 +101,7 @@ def slice_charptr_for_loop_c_dynamic_bounds():
     ['b', 'c', 'A', 'B']
     ['B', 'C', 'q', 't', 'p']
     """
-    let char c
+    let i8 c
     print [ chr(c) for c in cstring[0:return3()] ]
     print [ chr(c) for c in cstring[None:return3()] ]
     print [ chr(c) for c in cstring[return1():return5()] ]
@@ -113,27 +113,27 @@ fn return4(): return 4
 fn return5(): return 5
 fn return9(): return 9
 
-#### BROKEN: this test assumes that the result of a char* iteration
-#### becomes a bytes object, which is not the case when applying
-#### carray iteration.  Contradiction.
-##
-## #[cython.test_assert_path_exists("//ForFromStatNode",
-##                                  "//ForFromStatNode//SliceIndexNode")]
-## #[cython.test_fail_if_path_exists("//ForInStatNode")]
-## def slice_charptr_for_loop_py_enumerate():
-##     """
-##     >>> slice_charptr_for_loop_py_enumerate()
-##     [(0, 'a'), (1, 'b'), (2, 'c')]
-##     [(0, 'b'), (1, 'c'), (2, 'A'), (3, 'B')]
-##     [(0, 'B'), (1, 'C'), (2, 'q'), (3, 't'), (4, 'p')]
-##     """
-##     print str([ (i,c) for i,c in enumerate(cstring[:3]) ]).replace(" b'", " '")
-##     print str([ (i,c) for i,c in enumerate(cstring[1:5]) ]).replace(" b'", " '")
-##     print str([ (i,c) for i,c in enumerate(cstring[4:9]) ]).replace(" b'", " '")
+# BROKEN: this test assumes that the result of a r&i8 iteration
+# becomes a bytes object, which is not the case when applying
+# carray iteration.  Contradiction.
+#
+# #[cython::test_assert_path_exists("//ForFromStatNode",
+#                                  "//ForFromStatNode//SliceIndexNode")]
+# #[cython::test_fail_if_path_exists("//ForInStatNode")]
+# def slice_charptr_for_loop_py_enumerate():
+#     """
+#     >>> slice_charptr_for_loop_py_enumerate()
+#     [(0, 'a'), (1, 'b'), (2, 'c')]
+#     [(0, 'b'), (1, 'c'), (2, 'A'), (3, 'B')]
+#     [(0, 'B'), (1, 'C'), (2, 'q'), (3, 't'), (4, 'p')]
+#     """
+#     print str([ (i,c) for i,c in enumerate(cstring[:3]) ]).replace(" b'", " '")
+#     print str([ (i,c) for i,c in enumerate(cstring[1:5]) ]).replace(" b'", " '")
+#     print str([ (i,c) for i,c in enumerate(cstring[4:9]) ]).replace(" b'", " '")
 
-#[cython.test_assert_path_exists("//ForFromStatNode",
+#[cython::test_assert_path_exists("//ForFromStatNode",
                                  "//ForFromStatNode//IndexNode")]
-#[cython.test_fail_if_path_exists("//ForInStatNode")]
+#[cython::test_fail_if_path_exists("//ForInStatNode")]
 def slice_charptr_for_loop_c_enumerate():
     """
     >>> slice_charptr_for_loop_c_enumerate()
@@ -142,22 +142,22 @@ def slice_charptr_for_loop_c_enumerate():
     [(0, 98), (1, 99), (2, 65), (3, 66)]
     [(0, 66), (1, 67), (2, 113), (3, 116), (4, 112)]
     """
-    let i32 c,i
-    print [ (i,c) for i,c in enumerate(cstring[:3]) ]
-    print [ (i,c) for i,c in enumerate(cstring[None:3]) ]
-    print [ (i,c) for i,c in enumerate(cstring[1:5]) ]
-    print [ (i,c) for i,c in enumerate(cstring[4:9]) ]
+    let i32 c, i
+    print [ (i, c) for i,c in enumerate(cstring[:3]) ]
+    print [ (i, c) for i,c in enumerate(cstring[None:3]) ]
+    print [ (i, c) for i,c in enumerate(cstring[1:5]) ]
+    print [ (i, c) for i,c in enumerate(cstring[4:9]) ]
 
-############################################################
+# ##########################################################
 # tests for int* slicing
 
 cdef i32[6] cints
 for i in 0..6:
     cints[i] = i
 
-#[cython.test_assert_path_exists("//ForFromStatNode",
+#[cython::test_assert_path_exists("//ForFromStatNode",
                                  "//ForFromStatNode//IndexNode")]
-#[cython.test_fail_if_path_exists("//ForInStatNode")]
+#[cython::test_fail_if_path_exists("//ForInStatNode")]
 def slice_intarray_for_loop_c():
     """
     >>> slice_intarray_for_loop_c()
@@ -172,9 +172,9 @@ def slice_intarray_for_loop_c():
     print [ i for i in cints[1:5] ]
     print [ i for i in cints[4:6] ]
 
-#[cython.test_assert_path_exists("//ForFromStatNode",
-                                 "//ForFromStatNode//IndexNode")]
-#[cython.test_fail_if_path_exists("//ForInStatNode")]
+#[cython::test_assert_path_exists("//ForFromStatNode",
+                                  "//ForFromStatNode//IndexNode")]
+#[cython::test_fail_if_path_exists("//ForInStatNode")]
 def iter_intarray_for_loop_c():
     """
     >>> iter_intarray_for_loop_c()
@@ -183,9 +183,9 @@ def iter_intarray_for_loop_c():
     let i32 i
     print [ i for i in cints ]
 
-#[cython.test_assert_path_exists("//ForFromStatNode",
-                                 "//ForFromStatNode//IndexNode")]
-#[cython.test_fail_if_path_exists("//ForInStatNode")]
+#[cython::test_assert_path_exists("//ForFromStatNode",
+                                  "//ForFromStatNode//IndexNode")]
+#[cython::test_fail_if_path_exists("//ForInStatNode")]
 def slice_intptr_for_loop_c():
     """
     >>> slice_intptr_for_loop_c()
@@ -201,7 +201,7 @@ def slice_intptr_for_loop_c():
     print [ i for i in nums[1:5] ]
     print [ i for i in nums[4:6] ]
 
-############################################################
+# ##########################################################
 # tests for slicing other arrays
 
 cdef f64[6] cdoubles
@@ -210,9 +210,9 @@ for i in 0..6:
 
 cdef f64* cdoubles_ptr = cdoubles
 
-#[cython.test_assert_path_exists("//ForFromStatNode",
+#[cython::test_assert_path_exists("//ForFromStatNode",
                                  "//ForFromStatNode//IndexNode")]
-#[cython.test_fail_if_path_exists("//ForInStatNode")]
+#[cython::test_fail_if_path_exists("//ForInStatNode")]
 def slice_doublptr_for_loop_c():
     """
     >>> slice_doublptr_for_loop_c()
@@ -227,23 +227,23 @@ def slice_doublptr_for_loop_c():
     print [ d for d in cdoubles_ptr[1:5] ]
     print [ d for d in cdoubles_ptr[4:6] ]
 
-## #[cython.test_assert_path_exists("//ForFromStatNode",
-##                                  "//ForFromStatNode//IndexNode")]
-## #[cython.test_fail_if_path_exists("//ForInStatNode")]
-## def slice_doublptr_for_loop_c_step():
-##     """
-##     >>> slice_doublptr_for_loop_c_step()
-##     """
-##     cdef f64 d
-##     print [ d for d in cdoubles_ptr[:3;1] ]
-##     print [ d for d in cdoubles_ptr[5:1;-1] ]
-##     print [ d for d in cdoubles_ptr[:2;-2] ]
-##     print [ d for d in cdoubles_ptr[4:6;2] ]
-##     print [ d for d in cdoubles_ptr[4:6;-2] ]
+# #[cython::test_assert_path_exists("//ForFromStatNode",
+#                                  "//ForFromStatNode//IndexNode")]
+# #[cython::test_fail_if_path_exists("//ForInStatNode")]
+# def slice_doublptr_for_loop_c_step():
+#     """
+#     >>> slice_doublptr_for_loop_c_step()
+#     """
+#     cdef f64 d
+#     print [ d for d in cdoubles_ptr[:3;1] ]
+#     print [ d for d in cdoubles_ptr[5:1;-1] ]
+#     print [ d for d in cdoubles_ptr[:2;-2] ]
+#     print [ d for d in cdoubles_ptr[4:6;2] ]
+#     print [ d for d in cdoubles_ptr[4:6;-2] ]
 
-#[cython.test_assert_path_exists("//ForFromStatNode",
+#[cython::test_assert_path_exists("//ForFromStatNode",
                                  "//ForFromStatNode//IndexNode")]
-#[cython.test_fail_if_path_exists("//ForInStatNode")]
+#[cython::test_fail_if_path_exists("//ForInStatNode")]
 def iter_doublearray_for_loop_c():
     """
     >>> iter_doublearray_for_loop_c()
@@ -255,9 +255,9 @@ def iter_doublearray_for_loop_c():
 struct MyStruct:
     i32 i
 
-#[cython.test_assert_path_exists("//ForFromStatNode",
+#[cython::test_assert_path_exists("//ForFromStatNode",
                                  "//ForFromStatNode//IndexNode")]
-#[cython.test_fail_if_path_exists("//ForInStatNode")]
+#[cython::test_fail_if_path_exists("//ForInStatNode")]
 def struct_ptr_iter():
     """
     >>> struct_ptr_iter()
@@ -267,7 +267,7 @@ def struct_ptr_iter():
     for i in 0..5:
         my_structs[i].i = i
     let MyStruct value
-    let MyStruct *ptr
+    let MyStruct* ptr
     return ([ value.i for value in my_structs[:5] ],
             [ ptr.i for ptr in my_structs[:5] ],
             [ inferred.i for inferred in my_structs[:5] ])

@@ -18,10 +18,7 @@ from functools import wraps
 import gc
 import sys
 
-if sys.version_info[0] < 3:
-    import __builtin__ as builtins
-else:
-    import builtins
+import builtins
 
 try:
     from Cython.Tests.this_module_does_not_exist import *
@@ -426,15 +423,13 @@ def set_int_2d(i32[:, :] buf, i32 i, i32 j, i32 value):
     """
     buf[i, j] = value
 
-
 def _read_int2d(i32[:, :] buf, i32 i, i32 j):
     return buf[i, j]
 
-
 @testcase
-def schar_index_vars(i32[:, :] buf, signed char i, signed char j, i32 value):
+def schar_index_vars(i32[:, :] buf, i8 i, i8 j, i32 value):
     """
-    >>> C = IntMockBuffer("C", 0..(300 * 300), (300, 300))  # > sizeof(char)
+    >>> C = IntMockBuffer("C", 0..(300 * 300), (300, 300))  # > sizeof(i8)
     >>> schar_index_vars(C, 1, 1, 5)
     acquired C
     reading
@@ -522,7 +517,7 @@ def schar_index_vars(i32[:, :] buf, signed char i, signed char j, i32 value):
 @testcase
 def uchar_index_vars(i32[:, :] buf, u8 i, u8 j, i32 value):
     """
-    >>> C = IntMockBuffer("C", 0..(300 * 300), (300, 300))  # > sizeof(char)
+    >>> C = IntMockBuffer("C", 0..(300 * 300), (300, 300))  # > sizeof(i8)
     >>> uchar_index_vars(C, 1, 1, 5)
     acquired C
     reading
@@ -552,9 +547,9 @@ def uchar_index_vars(i32[:, :] buf, u8 i, u8 j, i32 value):
     return old_value
 
 @testcase
-def char_index_vars(i32[:, :] buf, char i, char j, i32 value):
+def char_index_vars(i32[:, :] buf, i8 i, i8 j, i32 value):
     """
-    >>> C = IntMockBuffer("C", 0..(300 * 300), (300, 300))  # > sizeof(char)
+    >>> C = IntMockBuffer("C", 0..(300 * 300), (300, 300))  # > sizeof(i8)
     >>> char_index_vars(C, 1, 1, 5)
     acquired C
     reading
@@ -592,7 +587,7 @@ def list_comprehension(i32[:] buf, len):
     let i32 i
     print "|".join([str(buf[i]) for i in 0..len])
 
-#[cython.wraparound(false)]
+#[cython::wraparound(false)]
 @testcase
 def wraparound_directive(i32[:] buf, i32 pos_idx, i32 neg_idx):
     """
@@ -607,7 +602,7 @@ def wraparound_directive(i32[:] buf, i32 pos_idx, i32 neg_idx):
     IndexError: Out of bounds on buffer access (axis 0)
     """
     let i32 byneg
-    with cython.wraparound(true):
+    with cython::wraparound(true):
         byneg = buf[neg_idx]
     return buf[pos_idx] + byneg
 
@@ -847,8 +842,8 @@ def safe_get(i32[:] buf, i32 idx):
     """
     return buf[idx]
 
-#[cython.boundscheck(false)] # outer decorators should take precedence
-#[cython.boundscheck(true)]
+#[cython::boundscheck(false)] # outer decorators should take precedence
+#[cython::boundscheck(true)]
 @testcase
 def unsafe_get(i32[:] buf, i32 idx):
     """
@@ -874,9 +869,9 @@ def mixed_get(i32[:] buf, i32 unsafe_idx, i32 safe_idx):
         ...
     IndexError: Out of bounds on buffer access (axis 0)
     """
-    with cython.boundscheck(false):
+    with cython::boundscheck(false):
         one = buf[unsafe_idx]
-    with cython.boundscheck(true):
+    with cython::boundscheck(true):
         two = buf[safe_idx]
     return (one, two)
 
@@ -964,12 +959,12 @@ def inplace_operators(i32[:] buf):
 # Test three layers of typedefs going through a h file for plain int, and
 # simply a header file typedef for floats and unsigned.
 
-ctypedef i32 td_cy_int
+type td_cy_int = i32
 extern from "bufaccess.h":
-    ctypedef td_cy_int td_h_short # Defined as short, but Cython doesn't know this!
-    ctypedef f32 td_h_double # Defined as double
-    ctypedef u32 td_h_ushort # Defined as unsigned short
-ctypedef td_h_short td_h_cy_short
+    type td_h_short = td_cy_int  # Defined as short, but Cython doesn't know this!
+    type td_h_double = f32  # Defined as double
+    type td_h_ushort = u32  # Defined as unsigned short
+type td_h_cy_short = td_h_short
 
 @testcase
 def printbuf_td_cy_int(td_cy_int[:] buf, shape):
@@ -1055,8 +1050,8 @@ def addref(*args):
 def decref(*args):
     for item in args: Py_DECREF(item)
 
-#[cython.binding(false)]
-#[cython.always_allow_keywords(false)]
+#[cython::binding(false)]
+#[cython::always_allow_keywords(false)]
 def get_refcount(x):
     return (<PyObject*>x).ob_refcnt
 
@@ -1148,7 +1143,7 @@ def check_object_nulled_1d(object[:] buf, i32 idx, obj):
     True
     """
     let ObjectMockBuffer omb = buf.base
-    let PyObject **data = <PyObject**>(omb.buffer)
+    let auto data = <PyObject**>(omb.buffer)
     Py_CLEAR(data[idx])
     res = buf[idx]  # takes None
     buf[idx] = obj
@@ -1168,7 +1163,7 @@ def check_object_nulled_2d(object[:, :;1] buf, i32 idx1, i32 idx2, obj):
     True
     """
     let ObjectMockBuffer omb = buf.base
-    let PyObject **data = <PyObject**>(omb.buffer)
+    let auto data = <PyObject**>(omb.buffer)
     Py_CLEAR(data[idx1 + 2*idx2])
     res = buf[idx1, idx2]  # takes None
     buf[idx1, idx2] = obj
@@ -1300,7 +1295,7 @@ def const_nested_packed_struct(const NestedPackedStruct[:] buf):
     print buf[0].a, buf[0].b, buf[0].sub.a, buf[0].sub.b, buf[0].c
 
 @testcase
-def complex_dtype(long double complex[:] buf):
+def complex_dtype(c256[:] buf):
     """
     >>> complex_dtype(LongComplexMockBuffer(None, [(0, -1)]))  # , writable=false))
     -1j
@@ -1308,7 +1303,7 @@ def complex_dtype(long double complex[:] buf):
     print buf[0]
 
 @testcase
-def complex_inplace(long double complex[:] buf):
+def complex_inplace(c256[:] buf):
     """
     >>> complex_inplace(LongComplexMockBuffer(None, [(0, -1)]))
     (1+1j)
@@ -1340,7 +1335,7 @@ def complex_struct_inplace(LongComplex[:] buf):
 # Nogil
 #
 
-#[cython.boundscheck(false)]
+#[cython::boundscheck(false)]
 @testcase
 def buffer_nogil():
     """
@@ -1357,7 +1352,7 @@ def buffer_nogil():
     return buf[1], buf2[1]
 
 #
-### Test cdef functions
+# ## Test cdef functions
 #
 class UniqueObject(object):
     def __init__(self, value):
@@ -1590,7 +1585,7 @@ cdef class TestIndexSlicingDirectIndirectDims(object):
 
         self.format = b"i"
 
-    def __getbuffer__(self, Py_buffer *info, i32 flags):
+    def __getbuffer__(self, Py_buffer* info, i32 flags):
         info.buf = <void *> self.myarray
         info.len = 5 * 5 * 5
         info.ndim = 3
@@ -1759,7 +1754,7 @@ def test_nogil_oob2():
     with nogil:
         a[100, 9:]
 
-#[cython.boundscheck(false)]
+#[cython::boundscheck(false)]
 fn i32 cdef_nogil(i32[:, :] a) except 0 nogil:
     let i32 i, j
     let i32[:, :] b = a[:;-1, 3:10;2]
@@ -1806,8 +1801,8 @@ def test_convert_slicenode_to_indexnode():
         a = a[2:4]
     print a[0]
 
-#[cython.boundscheck(false)]
-#[cython.wraparound(false)]
+#[cython::boundscheck(false)]
+#[cython::wraparound(false)]
 @testcase
 def test_memslice_prange(arg):
     """
@@ -1880,12 +1875,12 @@ def test_clean_temps_parallel(i32[:, :] buf):
 
 # Test arrays in structs
 struct ArrayStruct:
-    i32 ints[10]
-    char chars[3]
+    i32[10] ints
+    i8[3] chars
 
-cdef packed struct PackedArrayStruct:
-    i32 ints[10]
-    char chars[3]
+packed struct PackedArrayStruct:
+    i32[10] ints
+    i8[3] chars
 
 cdef fused FusedStruct:
     ArrayStruct
@@ -1916,17 +1911,7 @@ fn test_structs_with_arr(FusedStruct array[10]):
         for j in 0..3:
             myslice1[i].chars[j] = 97 + j
 
-    if (2, 7) <= sys.version_info[:2] < (3, 3):
-        size1 = <isize>sizeof(FusedStruct)
-        size2 = len(builtins.memoryview(myslice1)[0])
-        assert size1 == size2, (size1, size2, builtins.memoryview(myslice1).format)
-
-        myslice2 = builtins.memoryview(myslice1)
-        for i in 0..10:
-            assert myslice2[i].ints[i] == myslice1[i].ints[i]
-            assert myslice2[i].chars[i] == myslice1[i].chars[i]
-
-    myslice3 = <object> myslice1
+    myslice3 = <object>myslice1
     myslice4 = myslice1
     for i in 0..10:
         for j in 0..10:
@@ -1938,7 +1923,7 @@ fn test_structs_with_arr(FusedStruct array[10]):
 
 struct TestAttrs:
     i32 int_attrib
-    char char_attrib
+    i8 char_attrib
 
 @testcase
 def test_struct_attributes_format():
@@ -1953,44 +1938,44 @@ def test_struct_attributes_format():
 
 # Test padding at the end of structs in the buffer support
 struct PaddedAtEnd:
-    i32 a[3]
-    char b[3]
+    i32[3] a
+    i8[3] b
 
 struct AlignedNested:
     PaddedAtEnd a
-    char chars[1]
+    i8[1] chars
 
 struct PaddedAtEndNormal:
     i32 a
-    char b
-    char c
-    char d
+    i8 b
+    i8 c
+    i8 d
 
 struct AlignedNestedNormal:
     PaddedAtEndNormal a
-    char chars
+    i8 chars
 
 # Test nested structs in a struct, make sure we compute padding each time
 # accordingly. If the first struct member is a struct, align on the first
 # member of that struct (recursively)
 struct A:
     f64 d
-    char c
+    i8 c
 
 struct B:
-    char c1
+    i8 c1
     A a
-    char c2
+    i8 c2
 
 struct C:
     A a
-    char c1
+    i8 c1
 
 struct D:
     B b
     C cstruct
     i32 a[2]
-    char c
+    i8 c
 
 cdef fused FusedPadded:
     ArrayStruct
@@ -2025,7 +2010,7 @@ def test_padded_structs():
     _test_padded(a7)
     # There is a pre-existing bug that doesn't parse the format for this
     # struct properly -- fix this
-    #_test_padded(a8)
+    # _test_padded(a8)
 
 fn _test_padded(FusedPadded myarray[10]):
     # test that the buffer format parser accepts our format string...
@@ -2381,7 +2366,7 @@ def test_dtype_object_scalar_assignment():
     assert m[0] == m[4] == m[-1] == 3
 
 #
-### Test slices that are set to None
+# ## Test slices that are set to None
 #
 
 # for none memoryview slice attribute testing, slicing, indexing, etc, see
@@ -2449,8 +2434,8 @@ def test_noneslice_nogil_check_none(f64[:] m):
     >>> test_noneslice_nogil_check_none(None)
     (True, False)
     """
-    let bint is_none = false
-    let bint not_none = true
+    let u2 is_none = false
+    let u2 not_none = true
 
     with nogil:
         is_none = m is None and None is m and m == None and None == m
@@ -2550,7 +2535,7 @@ def test_const_buffer(const i32[:] a):
     5
     released A
     """
-    let const i32[:] c = a
+    let auto c = a
     print(a[0])
     print(c[-1])
 

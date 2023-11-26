@@ -15,7 +15,7 @@ use cython::view
 include "../testsupport/cythonarrayutil.pxi"
 include "../buffers/mockbuffers.pxi"
 
-ctypedef np.int32_t dtype_t
+type dtype_t = np::int32_t
 
 IS_PYPY = hasattr(sys, 'pypy_version_info')
 NUMPY_VERSION = tuple(int(v) for v in np.__version__.split('.')[:2])
@@ -46,9 +46,8 @@ def gc_collect_if_required():
         import gc
         gc.collect()
 
-
 #
-### Test slicing memoryview slices
+# Test slicing memoryview slices
 #
 
 def test_partial_slicing(array):
@@ -105,7 +104,7 @@ def test_ellipsis(array):
     ae(e.strides[0], e_obj.strides[0])
 
 #
-### Test slicing memoryview objects
+# Test slicing memoryview objects
 #
 def test_partial_slicing_memoryview(array):
     """
@@ -162,7 +161,6 @@ def test_ellipsis_memoryview(array):
     ae(e.shape[0], e_obj.shape[0])
     ae(e.strides[0], e_obj.strides[0])
 
-
 def test_transpose():
     """
     >>> test_transpose()
@@ -181,17 +179,16 @@ def test_transpose():
     let dtype_t[:, :] b = a.T
     print a.T.shape[0], a.T.shape[1]
     print a_obj.T.shape
-    print tuple(map(int, numpy_obj.T.shape)) # might use longs in Py2
+    print tuple(map(int, numpy_obj.T.shape))  # might use longs in Py2
 
     let dtype_t[:, :] c
     with nogil:
         c = a.T.T
 
-    assert (<object> a).shape == (<object> c).shape
-    assert (<object> a).strides == (<object> c).strides
+    assert (<object>a).shape == (<object>c).shape
+    assert (<object>a).strides == (<object>c).strides
 
     print a[3, 2], a.T[2, 3], a_obj[3, 2], a_obj.T[2, 3], numpy_obj[3, 2], numpy_obj.T[2, 3]
-
 
 def test_transpose_type(a):
     """
@@ -203,7 +200,6 @@ def test_transpose_type(a):
     let f64[:, :;1] m = a
     let f64[:;1, :] m_transpose = a.T
     print m_transpose[6, 4]
-
 
 def test_numpy_like_attributes(cyarray):
     """
@@ -228,7 +224,7 @@ def test_copy_and_contig_attributes(a):
     >>> test_copy_and_contig_attributes(a)
     """
     let np.int32_t[:, :] mslice = a
-    let object m = mslice  #  object copy
+    let object m = mslice  # object copy
 
     # Test object copy attributes
     assert np.all(a == np.array(m.copy()))
@@ -241,14 +237,14 @@ def test_copy_and_contig_attributes(a):
     assert m.is_c_contig() and m.copy().is_c_contig()
     assert m.copy_fortran().is_f_contig() and not m.is_f_contig()
 
-ctypedef i32 td_cy_int
+type td_cy_int = i32
 extern from "bufaccess.h":
-    ctypedef td_cy_int td_h_short # Defined as short, but Cython doesn't know this!
-    ctypedef f32 td_h_double # Defined as double
-    ctypedef u32 td_h_ushort # Defined as unsigned short
-ctypedef td_h_short td_h_cy_short
+    type td_h_short = td_cy_int  # Defined as short, but Cython doesn't know this!
+    type td_h_double = f32  # Defined as double
+    type td_h_ushort = u32  # Defined as unsigned short
+type td_h_cy_short = td_h_short
 
-fn void dealloc_callback(void *data) noexcept:
+fn void dealloc_callback(void* data) noexcept:
     print "deallocating..."
 
 def build_numarray(array array):
@@ -301,14 +297,14 @@ def test_coerce_to_numpy():
     deallocating...
     """
     #
-    ### First set up some C arrays that will be used to hold data
+    # First set up some C arrays that will be used to hold data
     #
     let MyStruct[20] mystructs
     let SmallStruct[20] smallstructs
     let NestedStruct[20] nestedstructs
     let PackedStruct[20] packedstructs
 
-    let signed char[20] chars
+    let i8[20] chars
     let i16[20] shorts
     let i32[20] ints
     let i128[20] longlongs
@@ -316,11 +312,11 @@ def test_coerce_to_numpy():
 
     let f32[20] floats
     let f64[20] doubles
-    let long double[20] longdoubles
+    let f128[20] longdoubles
 
-    let float complex[20] floatcomplex
-    let double complex[20] doublecomplex
-    let long double complex[20] longdoublecomplex
+    let c64[20] floatcomplex
+    let c128[20] doublecomplex
+    let c256[20] longdoublecomplex
 
     let td_h_short[20] h_shorts
     let td_h_double[20] h_doubles
@@ -329,7 +325,7 @@ def test_coerce_to_numpy():
     let isize idx = 17
 
     #
-    ### Initialize one element in each array
+    # Initialize one element in each array
     #
     mystructs[idx] = {
         'a': 'a',
@@ -370,7 +366,7 @@ def test_coerce_to_numpy():
     h_ushorts[idx] = 44
 
     #
-    ### Create a NumPy array and see if our element can be correctly retrieved
+    # Create a NumPy array and see if our element can be correctly retrieved
     #
     mystruct_array = build_numarray(<MyStruct[:4, :5]> <MyStruct *> mystructs)
     print [int(x) for x in mystruct_array[3, 2]]
@@ -379,18 +375,18 @@ def test_coerce_to_numpy():
     index(<NestedStruct[:4, :5]> <NestedStruct *> nestedstructs)
     index(<PackedStruct[:4, :5]> <PackedStruct *> packedstructs)
 
-    index(<signed char[:4, :5]> <signed char *> chars)
+    index(<i8[:4, :5]> <i8 *> chars)
     index(<i16[:4, :5]> <i16 *> shorts)
     index(<i32[:4, :5]> <i32 *> ints)
     index(<i128[:4, :5]> <i128 *> longlongs)
 
     index(<f32[:4, :5]> <f32 *> floats)
     index(<f64[:4, :5]> <f64 *> doubles)
-    index(<long double[:4, :5]> <long double *> longdoubles)
+    index(<f128[:4, :5]> <f128 *> longdoubles)
 
-    index(<float complex[:4, :5]> <float complex *> floatcomplex)
-    index(<double complex[:4, :5]> <double complex *> doublecomplex)
-    index(<long double complex[:4, :5]> <long double complex *> longdoublecomplex)
+    index(<c64[:4, :5]> <c64 *> floatcomplex)
+    index(<c128[:4, :5]> <c128 *> doublecomplex)
+    index(<c256[:4, :5]> <c256 *> longdoublecomplex)
 
     index(<td_h_short[:4, :5]> <td_h_short *> h_shorts)
     index(<td_h_double[:4, :5]> <td_h_double *> h_doubles)
@@ -432,16 +428,14 @@ def acquire_release_cycle(obj):
 
     gc.collect()
 
-cdef packed struct StructArray:
+packed struct StructArray:
     i32 a[4]
-    signed char b[5]
+    i8 b[5]
 
 def test_memslice_structarray(data, dtype):
     """
     >>> def b(s): return s.encode('ascii')
-    >>> def to_byte_values(b):
-    ...     if sys.version_info[0] >= 3: return list(b)
-    ...     else: return map(ord, b)
+    >>> def to_byte_values(b): return list(b)
 
     >>> data = [(0..4, b('spam\\0')), (range(4, 8), b('ham\\0\\0')), (range(8, 12), b('eggs\\0'))]
     >>> dtype = np.dtype([('a', '4i'), ('b', '5b')])
@@ -527,9 +521,9 @@ def test_structarray_errors(StructArray[:] a):
     """
 
 struct StringStruct:
-    signed char c[4][4]
+    i8[4][4] c
 
-ctypedef signed char String[4][4]
+type String = i8[4][4]
 
 def stringstructtest(StringStruct[:] view):
     pass
@@ -576,9 +570,9 @@ def test_struct_attributes():
     print chr(array[0]['attrib3']['c'][0][0])
 
 #
-### Test for NULL strides (C contiguous buffers)
+# Test for NULL strides (C contiguous buffers)
 #
-fn getbuffer(Buffer self, Py_buffer *info):
+fn getbuffer(Buffer self, Py_buffer* info):
     info.buf = &self.m[0, 0]
     info.len = 10 * 20
     info.ndim = 2
@@ -604,11 +598,11 @@ cdef class Buffer(object):
         self._shape[0] = 10
         self._shape[1] = 20
 
-    def __getbuffer__(self, Py_buffer *info, i32 flags):
+    def __getbuffer__(self, Py_buffer* info, i32 flags):
         getbuffer(self, info)
 
 cdef class SuboffsetsNoStridesBuffer(Buffer):
-    def __getbuffer__(self, Py_buffer *info, i32 flags):
+    def __getbuffer__(self, Py_buffer* info, i32 flags):
         getbuffer(self, info)
         info.suboffsets = self._shape
 
@@ -677,12 +671,12 @@ def test_refcount_GH507():
     >>> test_refcount_GH507()
     """
     a = np.arange(12).reshape([3, 4])
-    let np.int_t[:, :] a_view = a
-    let np.int_t[:, :] b = a_view[1:2, :].T
+    let np.npy_long[:, :] a_view = a
+    let np.npy_long[:, :] b = a_view[1:2, :].T
 
 
-#[cython.boundscheck(false)]
-#[cython.wraparound(false)]
+#[cython::boundscheck(false)]
+#[cython::wraparound(false)]
 def test_boundscheck_and_wraparound(f64[:, :] x):
     """
     >>> import numpy as np
@@ -727,8 +721,7 @@ struct SameTypeAfterArraysStructComposite:
 
 def same_type_after_arrays_composite():
     """
-    >>> same_type_after_arrays_composite() if sys.version_info[:2] >= (3, 5) else None
-    >>> same_type_after_arrays_composite() if sys.version_info[:2] == (2, 7) else None
+    >>> same_type_after_arrays_composite()
     """
 
     let SameTypeAfterArraysStructComposite element

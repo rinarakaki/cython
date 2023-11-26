@@ -3,9 +3,9 @@
 # cython: annotation_typing=false
 # cython: c_string_type=bytearray
 
-cpdef object      f00(object a): return a
-cpdef long double f01(u32 a): return <f64>a
-cpdef long double f02(u32 a: float): return <f64>a
+cpdef fn object f00(object a): return a
+cpdef fn f128   f01(u32 a): return <f64>a
+cpdef fn f128   f02(u32 a: float): return <f64>a
 
 __doc__ = ur"""
 >>> print(f00.__doc__)
@@ -30,9 +30,9 @@ cdef class Foo:
     def m01(self, u32 a): return a
     def m02(self, u32 a: i32): return a
     def m03(self: Self, u32 a: i32) -> float: return a
-    def m04(self, const char* a): return a
-    def m05(self, const char a[]): return a
-    def m06(self, const char* a: bytes) -> bytes: return a
+    def m04(self, r&i8 a): return a
+    def m05(self, const i8 a[]): return a
+    def m06(self, r&i8 a: bytes) -> bytes: return a
 
     @classmethod
     def c00(cls, a): return a
@@ -143,43 +143,43 @@ p3: Foo
 
 """
 
-ctypedef i128 LongLong
-ctypedef signed long long LongLongSigned
-ctypedef u128 LongLongUnsigned
+type LongLong = i128
+type LongLongSigned = signed long long
+type LongLongUnsigned = u128
 
 cdef class Bar:
 
-    cpdef i8                  m00(self, i8                  a): return a
-    cpdef signed char         m01(self, signed char         a): return a
-    cpdef u8                  m02(self, u8                  a): return a
+    cpdef fn i8               m00(self, i8               a): return a
+    cpdef fn signed char      m01(self, signed char      a): return a
+    cpdef fn u8               m02(self, u8               a): return a
 
-    cpdef i16                 m10(self, i16                 a): return a
-    cpdef signed short        m11(self, signed short        a): return a
-    cpdef u16                 m12(self, u16                 a): return a
+    cpdef fn i16              m10(self, i16              a): return a
+    cpdef fn signed short     m11(self, signed short     a): return a
+    cpdef fn u16              m12(self, u16              a): return a
 
-    cpdef i32                 m20(self, i32                 a): return a
-    cpdef signed int          m21(self, signed int          a): return a
-    cpdef u32                 m22(self, u32                 a): return a
+    cpdef fn i32              m20(self, i32              a): return a
+    cpdef fn signed int       m21(self, signed int       a): return a
+    cpdef fn u32              m22(self, u32              a): return a
 
-    cpdef i64                 m30(self, i64                 a): return a
-    cpdef signed long         m31(self, signed long         a): return a
-    cpdef u64                 m32(self, u64                 a): return a
+    cpdef fn i64              m30(self, i64              a): return a
+    cpdef fn signed long      m31(self, signed long      a): return a
+    cpdef fn u64              m32(self, u64              a): return a
 
-    cpdef i128                m40(self, i128                a): return a
-    cpdef signed long long    m41(self, signed long long    a): return a
-    cpdef u128                m42(self, u128                a): return a
+    cpdef fn i128             m40(self, i128             a): return a
+    cpdef fn signed long long m41(self, signed long long a): return a
+    cpdef fn u128             m42(self, u128             a): return a
 
-    cpdef LongLong            m43(self, LongLong            a): return a
-    cpdef LongLongSigned      m44(self, LongLongSigned      a): return a
-    cpdef LongLongUnsigned    m45(self, LongLongUnsigned    a): return a
+    cpdef fn LongLong         m43(self, LongLong         a): return a
+    cpdef fn LongLongSigned   m44(self, LongLongSigned   a): return a
+    cpdef fn LongLongUnsigned m45(self, LongLongUnsigned a): return a
 
-    cpdef f32                 m50(self, f32                 a): return a
-    cpdef f64                 m60(self, f64                 a): return a
-    cpdef long double         m70(self, long double         a): return a
+    cpdef fn f32              m50(self, f32              a): return a
+    cpdef fn f64              m60(self, f64              a): return a
+    cpdef fn f128             m70(self, f128             a): return a
 
-    cpdef float       complex m51(self, float       complex a): return a
-    cpdef double      complex m61(self, double      complex a): return a
-    cpdef long double complex m71(self, long double complex a): return a
+    cpdef fn c64              m51(self, c64              a): return a
+    cpdef fn c128             m61(self, c128             a): return a
+    cpdef fn c256             m71(self, c256             a): return a
 
 
 __doc__ += ur"""

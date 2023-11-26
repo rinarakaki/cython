@@ -19,10 +19,10 @@ NameError: ...name 'log' is not defined
 """
 
 extern from "math.h":
-    cpdef f64 sqrt(f64)
-    cpdef f64 pyx_sqrt "sqrt"(f64)
+    cpdef fn f64 sqrt(f64)
+    cpdef fn f64 pyx_sqrt "sqrt"(f64)
     let f64 log(f64) # not wrapped
 
 extern from "string.h":
     # signature must be exact in C++, disagrees with C
-    cpdef const char* strchr(const char *haystack, i32 needle);
+    cpdef fn r&i8 strchr(r&i8 haystack, i32 needle);

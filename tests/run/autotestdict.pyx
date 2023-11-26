@@ -29,11 +29,11 @@ cdeffunc() # make sure it's being used
 
 def all_tests_run():
     assert sorted(log) == sorted([u'cdef class', u'class'] + (
-        (1 if sys.version_info < (3, 4) else 2) * [u'cdef class method', u'class method', u'cpdef', u'cpdef class method', u'def'])), sorted(log)
+        2 * [u'cdef class method', u'class method', u'cpdef', u'cpdef class method', u'def'])), sorted(log)
 
 def add_log(s):
     log.append(unicode(s))
-    if len(log) == len(__test__) + (2 if sys.version_info < (3, 4) else 7):
+    if len(log) == len(__test__) + 7:
         # Final per-function doctest executed
         all_tests_run()
 
@@ -47,7 +47,7 @@ def doc_without_test():
 def nodocstring():
     pass
 
-cpdef mycpdeffunc():
+cpdef fn mycpdeffunc():
     """>>> add_log("cpdef")"""
 
 
@@ -74,7 +74,7 @@ cdef class MyCdefClass:
     def method(self):
         """>>> add_log("cdef class method")"""
 
-    cpdef cpdef_method(self):
+    cpdef fn cpdef_method(self):
         """>>> add_log("cpdef class method")"""
 
     fn cdef_method(self):

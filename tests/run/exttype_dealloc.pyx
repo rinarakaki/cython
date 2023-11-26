@@ -24,7 +24,7 @@ cdef class ExtTypeSimple:
     >>> find_name(ExtTypeSimple)
     1
     """
-    cdef int x
+    cdef i32 x
     def __dealloc__(self):
         add_name(self)
         self.x = 0
@@ -122,10 +122,7 @@ class PySubTypeRefCycleDel(ExtTypeRefCycle):
     >>> obj = None
     >>> _ = gc.collect()
 
-    >>> count = 2
-    >>> if sys.version_info >= (3, 4):
-    ...     count = find_name(PySubTypeRefCycleDel)
-    >>> count
+    >>> find_name(PySubTypeRefCycleDel)
     2
     """
     def __del__(self):

@@ -2,21 +2,7 @@
 # tag: pickle
 
 import cython
-import sys
 
-if sys.version_info[0] < 3:
-    __doc__ = """
-    >>> import cPickle
-    >>> a = A(5); a
-    A(5)
-    >>> cPickle.loads(cPickle.dumps(a))
-    A(5)
-
-    >>> b = B(0, 1); b
-    B(x=0, y=1)
-    >>> cPickle.loads(cPickle.dumps(b))
-    B(x=0, y=1)
-    """
 
 cdef class A:
     """
@@ -75,7 +61,7 @@ cdef class C(B):
     pass
 
 
-@cython.auto_pickle(true)  # Not needed, just to test the directive.
+#[cython::auto_pickle(true)]  # Not needed, just to test the directive.
 cdef class DefaultReduce(object):
     """
     >>> a = DefaultReduce(11, 'abc'); a
@@ -248,7 +234,7 @@ cdef class StructMemberDefault(object):
         return "%s(i=%s, x=%s)" % (
             type(self).__name__, self.my_struct.i, self.my_struct.x)
 
-@cython.auto_pickle(true)  # Forced due to the (inherited) struct attribute.
+#[cython.auto_pickle(true)]  # Forced due to the (inherited) struct attribute.
 cdef class StructMemberForcedPickle(StructMemberDefault):
     """
     >>> import pickle
@@ -258,7 +244,7 @@ cdef class StructMemberForcedPickle(StructMemberDefault):
     StructMemberForcedPickle(i=1, x=1.5)
     """
 
-cdef _unset = object()
+static _unset = object()
 
 # Test cyclic references.
 cdef class Wrapper(object):
@@ -298,19 +284,17 @@ cdef class Wrapper(object):
 
 # Non-regression test for pickling bound and unbound methods of non-extension
 # classes
-if sys.version_info[:2] >= (3, 5):
-    # builtin methods not picklable for python <= 3.4
-    class MyClass(object):
-        """
-        >>> import pickle
-        >>> pickle.loads(pickle.dumps(MyClass.my_method)) is MyClass.my_method
-        True
-        >>> bound_method = pickle.loads(pickle.dumps(MyClass().my_method))
-        >>> bound_method(1)
-        1
-        """
-        def my_method(self, x):
-            return x
+class MyClass(object):
+    """
+    >>> import pickle
+    >>> pickle.loads(pickle.dumps(MyClass.my_method)) is MyClass.my_method
+    True
+    >>> bound_method = pickle.loads(pickle.dumps(MyClass().my_method))
+    >>> bound_method(1)
+    1
+    """
+    def my_method(self, x):
+        return x
 
 
 # Pickled with Cython 0.29.28 (using MD5 for the checksum).

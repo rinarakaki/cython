@@ -1,6 +1,6 @@
 extern from "ctypedefextern.h":
-    ctypedef i32 some_int
-    ctypedef some_int *some_ptr
+    type some_int = i32
+    type some_ptr = r&mut some_int
 
 fn void spam():
     let some_int i

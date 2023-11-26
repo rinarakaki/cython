@@ -12,15 +12,15 @@ def test_sizeof():
     True
     True
     """
-    x = cython.declare(cython.bint)
-    print sizeof(x) == sizeof(cython.bint)
-    print sizeof(cython.char) <= sizeof(cython.short) <= sizeof(cython.int) <= sizeof(cython.long) <= sizeof(cython.longlong)
+    x = cython.declare(cython.u2)
+    print sizeof(x) == sizeof(cython.u2)
+    print sizeof(cython.i8) <= sizeof(cython.short) <= sizeof(cython.int) <= sizeof(cython.long) <= sizeof(cython.longlong)
     print sizeof(cython.uint) == sizeof(cython.int)
     print sizeof(cython.p_int) == sizeof(cython.p_double)
     if cython.compiled:
-        print sizeof(cython.char) < sizeof(cython.longlong)
+        print sizeof(cython.i8) < sizeof(cython.longlong)
     else:
-        print sizeof(cython.char) == 1
+        print sizeof(cython.i8) == 1
 
 def test_declare(n):
     """
@@ -43,7 +43,7 @@ def test_declare(n):
     ptr = cython.declare(cython.p_int, cython.address(y))
     return y, ptr[0]
 
-#[cython.locals(x=cython.double, n=cython.int)]
+#[cython::locals(x=cython.double, n=cython.int)]
 def test_cast(x):
     """
     >>> test_cast(1.5)
@@ -54,7 +54,7 @@ def test_cast(x):
     n = cython.cast(cython.int, x)
     return n
 
-#[cython.locals(as_list=list)]
+#[cython::locals(as_list=list)]
 def test_cast_object(x, typecheck):
     """
     >>> test_cast_object([1, 2, 3], true)
@@ -74,7 +74,7 @@ def test_cast_object(x, typecheck):
         as_list = cython.cast(list, x, typecheck=false)
     return as_list
 
-#[cython.locals(x=cython.int, y=cython.p_int)]
+#[cython::locals(x=cython.int, y=cython.p_int)]
 def test_address(x):
     """
     >>> test_address(39)
@@ -83,8 +83,8 @@ def test_address(x):
     y = cython.address(x)
     return y[0]
 
-#[cython.locals(x=cython.int)]
-#[cython.locals(y=cython.bint)]
+#[cython::locals(x=cython.int)]
+#[cython::locals(y=cython.u2)]
 def test_locals(x):
     """
     >>> test_locals(5)
@@ -94,7 +94,7 @@ def test_locals(x):
     return y
 
 MyUnion = cython.r#union(n=cython.int, x=cython.double)
-MyStruct = cython.r#struct(is_integral=cython.bint, data=MyUnion)
+MyStruct = cython.r#struct(is_integral=cython.u2, data=MyUnion)
 MyStruct2 = cython.typedef(MyStruct[2])
 
 def test_struct(n, x):
@@ -134,12 +134,12 @@ def test_declare_c_types(n):
     >>> test_declare_c_types(2)
     """
     #
-    b00 = cython.declare(cython.bint, 0)
-    b01 = cython.declare(cython.bint, 1)
-    b02 = cython.declare(cython.bint, 2)
+    b00 = cython.declare(cython.u2, 0)
+    b01 = cython.declare(cython.u2, 1)
+    b02 = cython.declare(cython.u2, 2)
     #
     i00 = cython.declare(cython.uchar, n)
-    i01 = cython.declare(cython.char, n)
+    i01 = cython.declare(cython.i8, n)
     i02 = cython.declare(cython.schar, n)
     i03 = cython.declare(cython.ushort, n)
     i04 = cython.declare(cython.short, n)
@@ -161,10 +161,10 @@ def test_declare_c_types(n):
     f01 = cython.declare(cython.f64, n)
     f02 = cython.declare(cython.longdouble, n)
     #
-    #z00 = cython.declare(cython.complex, n+1j)
-    #z01 = cython.declare(cython.floatcomplex, n+1j)
-    #z02 = cython.declare(cython.doublecomplex, n+1j)
-    #z03 = cython.declare(cython.longdoublecomplex, n+1j)
+    # z00 = cython.declare(cython.complex, n+1j)
+    # z01 = cython.declare(cython.floatcomplex, n+1j)
+    # z02 = cython.declare(cython.doublecomplex, n+1j)
+    # z03 = cython.declare(cython.longdoublecomplex, n+1j)
 
 
 cdef class ExtType:
@@ -173,9 +173,9 @@ cdef class ExtType:
     >>> x.forward_ref(x)
     'ExtType'
     """
-    #[cython.locals(x="ExtType")]
+    #[cython::locals(x="ExtType")]
     def forward_ref(self, x):
-        return cython.typeof(x)
+        return cython::typeof(x)
 
 
 def ext_type_string_ref(x: "ExtType"):
@@ -184,13 +184,13 @@ def ext_type_string_ref(x: "ExtType"):
     >>> ext_type_string_ref(x)
     'ExtType'
     """
-    return cython.typeof(x)
+    return cython::typeof(x)
 
 
 with cython.cdivision(true):
 
-    #[cython.cdivision(false)]
-    #[cython.cdivision(true)]
+    #[cython::cdivision(false)]
+    #[cython::cdivision(true)]
     def test_override_reset(x: cython.int):
         """
         >>> test_override_reset(-3)  # @cdivision(false)
@@ -198,8 +198,8 @@ with cython.cdivision(true):
         """
         return x / 2
 
-    #[cython.cdivision(true)]
-    #[cython.cdivision(false)]
+    #[cython::cdivision(true)]
+    #[cython::cdivision(false)]
     def test_override_set(x: cython.int):
         """
         >>> test_override_set(-5)  # @cdivision(true)
@@ -207,18 +207,18 @@ with cython.cdivision(true):
         """
         return x / 3
 
-    #[cython.cdivision(true)]
-    #[cython.cdivision(false)]
-    #[cython.cdivision(true)]
-    #[cython.cdivision(false)]
-    #[cython.cdivision(false)]
-    #[cython.cdivision(false)]
-    #[cython.cdivision(true)]
-    #[cython.cdivision(false)]
-    #[cython.cdivision(true)]
-    #[cython.cdivision(true)]
-    #[cython.cdivision(true)]
-    #[cython.cdivision(false)]
+    #[cython::cdivision(true)]
+    #[cython::cdivision(false)]
+    #[cython::cdivision(true)]
+    #[cython::cdivision(false)]
+    #[cython::cdivision(false)]
+    #[cython::cdivision(false)]
+    #[cython::cdivision(true)]
+    #[cython::cdivision(false)]
+    #[cython::cdivision(true)]
+    #[cython::cdivision(true)]
+    #[cython::cdivision(true)]
+    #[cython::cdivision(false)]
     def test_override_set_repeated(x: cython.int):
         """
         >>> test_override_set_repeated(-5)  # @cdivision(true)

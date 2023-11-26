@@ -9,26 +9,26 @@ extern from "Python.h":
     #endif
     """
 
-    ############################################################################
+    # ##########################################################################
     # 7.4.1 Dictionary Objects
-    ############################################################################
+    # ##########################################################################
 
     # PyDictObject
     #
     # This subtype of PyObject represents a Python dictionary object
     # (i.e. the 'dict' type).
 
-    # PyTypeObject PyDict_Type
+    # static PyTypeObject PyDict_Type
     #
     # This instance of PyTypeObject represents the Python dictionary
     # type. This is exposed to Python programs as dict and
     # types.DictType.
 
-    fn bint PyDict_Check(object p)
+    fn u2 PyDict_Check(object p)
     # Return true if p is a dict object or an instance of a subtype of
     # the dict type.
 
-    fn bint PyDict_CheckExact(object p)
+    fn u2 PyDict_CheckExact(object p)
     # Return true if p is a dict object, but not an instance of a
     # subtype of the dict type.
 
@@ -59,9 +59,9 @@ extern from "Python.h":
     # be hashable; if it isn't, TypeError will be raised. Return 0 on
     # success or -1 on failure.
 
-    fn i32 PyDict_SetItemString(object p, const char *key, object val) except -1
+    fn i32 PyDict_SetItemString(object p, r&i8 key, object val) except -1
     # Insert value into the dictionary p using key as a key. key
-    # should be a char*. The key object is created using
+    # should be a r&i8. The key object is created using
     # PyString_FromString(key). Return 0 on success or -1 on failure.
 
     fn i32 PyDict_DelItem(object p, object key) except -1
@@ -69,7 +69,7 @@ extern from "Python.h":
     # hashable; if it isn't, TypeError is raised. Return 0 on success
     # or -1 on failure.
 
-    fn i32 PyDict_DelItemString(object p, const char *key) except -1
+    fn i32 PyDict_DelItemString(object p, r&i8 key) except -1
     # Remove the entry in dictionary p which has a key specified by
     # the string key. Return 0 on success or -1 on failure.
 
@@ -85,10 +85,10 @@ extern from "Python.h":
     # NULL with an exception set if an exception occurred. Return NULL
     # without an exception set if the key wasn’t present.
 
-    fn PyObject* PyDict_GetItemString(object p, const char *key)
+    fn PyObject* PyDict_GetItemString(object p, r&i8 key)
     # Return value: Borrowed reference.
     # This is the same as PyDict_GetItem(), but key is specified as a
-    # char*, rather than a PyObject*.
+    # r&i8, rather than a PyObject*.
 
     fn PyObject* PyDict_SetDefault(object p, object key, object default) except NULL
     # Return value: Borrowed reference.
@@ -120,7 +120,7 @@ extern from "Python.h":
     # Return the number of items in the dictionary. This is equivalent
     # to "len(p)" on a dictionary.
 
-    fn i32 PyDict_Next(object p, isize *ppos, PyObject* *pkey, PyObject* *pvalue)
+    fn i32 PyDict_Next(object p, isize* ppos, PyObject* *pkey, PyObject* *pvalue)
     # Iterate over all key-value pairs in the dictionary p. The int
     # referred to by ppos must be initialized to 0 prior to the first
     # call to this function to start the iteration; the function
@@ -134,13 +134,13 @@ extern from "Python.h":
     # sparse, the offsets are not consecutive.
     # For example:
     #
-    #object key, *value;
-    #int pos = 0;
+    # object key, *value;
+    # int pos = 0;
     #
-    #while (PyDict_Next(self->dict, &pos, &key, &value)) {
+    # while (PyDict_Next(self->dict, &pos, &key, &value)) {
     #   /* do something interesting with the values... */
     #    ...
-    #}
+    # }
     # The dictionary p should not be mutated during iteration. It is
     # safe (since Python 2.1) to modify the values of the keys as you
     # iterate over the dictionary, but only so long as the set of keys
@@ -180,7 +180,7 @@ extern from "Python.h":
     # wins. Return 0 on success or -1 if an exception was
     # raised. Equivalent Python (except for the return value):
     #
-    #def PyDict_MergeFromSeq2(a, seq2, override):
+    # def PyDict_MergeFromSeq2(a, seq2, override):
     #    for key, value in seq2:
     #        if override or key not in a:
     #            a[key] = value

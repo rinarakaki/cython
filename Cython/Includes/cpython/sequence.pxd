@@ -1,11 +1,11 @@
 use super::object::PyObject
 
 extern from "Python.h":
-    ############################################################################
+    # ##########################################################################
     # 6.3 Sequence Protocol
-    ############################################################################
+    # ##########################################################################
 
-    fn bint PySequence_Check(object o)
+    fn u2 PySequence_Check(object o)
     # Return 1 if the object provides sequence protocol, and 0
     # otherwise. This function always succeeds.
 
@@ -101,7 +101,7 @@ extern from "Python.h":
     # appropriate contents. This is equivalent to the Python
     # expression "tuple(o)".
 
-    fn object PySequence_Fast(object o, char *m)
+    fn object PySequence_Fast(object o, r&i8 m)
     # Return value: New reference.
     # Returns the sequence o as a tuple, unless it is already a tuple
     # or list, in which case o is returned. Use

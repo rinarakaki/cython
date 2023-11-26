@@ -3,9 +3,9 @@
 cdef object blarg
 
 def foo(obj):
-    let void *p
-    p = <void *>blarg # ok
-    p = <void *>(obj + blarg) # error - temporary
+    let void* p
+    p = <void*>blarg # ok
+    p = <void*>(obj + blarg) # error - temporary
 
 _ERRORS = u"""
 8:8: Casting temporary Python object to non-numeric non-Python type

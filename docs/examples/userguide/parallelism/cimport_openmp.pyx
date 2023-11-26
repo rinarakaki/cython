@@ -3,9 +3,9 @@
 use cython::parallel::parallel
 use openmp
 
-fn i32 num_threads
+cdef i32 num_threads
 
-openmp.omp_set_dynamic(1)
+openmp::omp_set_dynamic(1)
 with nogil, parallel():
-    num_threads = openmp.omp_get_num_threads()
+    num_threads = openmp::omp_get_num_threads()
     # ...

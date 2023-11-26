@@ -1,14 +1,4 @@
-__doc__ = """
-    >>> test_chars(b'yo')
-    (b'a', b'bc', b'yo')
-    >>> try: test_chars(None)
-    ... except TypeError: pass
-"""
-
-import sys
-
-if sys.version_info[0] < 3:
-    __doc__ = __doc__.replace(u"b'", u"'")
+# mode: run
 
 def repeated_literals():
     """
@@ -34,7 +24,13 @@ def test_ints(i32 x):
     return L[3], Li[3], Lii[1][0]
 
 def test_chars(foo):
-    let char** ss = [b"a", b"bc", foo]
+    """
+    >>> test_chars(b'yo')
+    (b'a', b'bc', b'yo')
+    >>> try: test_chars(None)
+    ... except TypeError: pass
+    """
+    let i8** ss = [b"a", b"bc", foo]
     return ss[0], ss[1], ss[2]
 
 struct MyStruct:
@@ -58,7 +54,7 @@ def test_struct(i32 x, y):
 cdef i32 m_int = -1
 cdef i32* m_iarray = [4, m_int]
 cdef i32** m_piarray = [m_iarray, &m_int]
-cdef char** m_carray = [b"a", b"bc"]
+cdef i8** m_carray = [b"a", b"bc"]
 cdef MyStruct* m_structarray = [[m_int, 0, NULL], [1, m_int+1, NULL]]
 
 def test_module_level():

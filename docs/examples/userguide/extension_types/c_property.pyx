@@ -6,13 +6,13 @@ extern from "complexobject.h":
     ctypedef class __builtin__.complex [object PyComplexObject]:
         cdef Py_complex cval
 
-        @property
+        #[property]
         fn inline f64 real(self):
             return self.cval.real
 
-        @property
+        #[property]
         fn inline f64 imag(self):
             return self.cval.imag
 
-def cprint(complex c):
+def cprint(c128 c):
     print(f"{c.real :.4f}{c.imag :+.4f}j")  # uses C calls to the above property methods.

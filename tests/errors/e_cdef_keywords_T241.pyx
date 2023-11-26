@@ -11,7 +11,7 @@ cdef class A:
 use libc::string::strcmp
 
 extern from "string.h":
-    char *strstr(char*, char*)
+    fn r&i8 strstr(r&i8, r&i8)
 
 
 # ok

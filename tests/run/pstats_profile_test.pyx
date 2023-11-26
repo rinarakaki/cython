@@ -55,7 +55,7 @@ u"""
     ... except:
     ...    pass
 
-    >>> sorted(callees(s, 'test_profile'))  #doctest: +NORMALIZE_WHITESPACE
+    >>> sorted(callees(s, 'test_profile'))  # doctest: +NORMALIZE_WHITESPACE
     ['f_cdef', 'f_cpdef', 'f_def',
      'f_inline', 'f_inline_prof',
      'f_raise',
@@ -120,7 +120,7 @@ use cython
 # FIXME: With type specs, cpdef methods are currently counted twice.
 # https://github.com/cython/cython/issues/2137
 extern from *:
-    int CYTHON_USE_TYPE_SPECS
+    static i32 CYTHON_USE_TYPE_SPECS
 
 CPDEF_METHODS_COUNT_TWICE = CYTHON_USE_TYPE_SPECS
 
@@ -164,41 +164,41 @@ def f_def(i64 a):
 fn i64 f_cdef(i64 a):
     return a
 
-cpdef long f_cpdef(i64 a):
+cpdef fn long f_cpdef(i64 a):
     return a
 
 fn inline i64 f_inline(i64 a):
     return a
 
-#[cython.profile(true)]
+#[cython::profile(true)]
 fn inline i64 f_inline_prof(i64 a):
     return a
 
-#[cython.profile(false)]
+#[cython::profile(false)]
 fn i32 f_noprof(i64 a):
     return a
 
 fn i64 f_raise(long) except -2:
     raise RuntimeError
 
-#[cython.profile(false)]
+#[cython::profile(false)]
 fn i32 withgil_noprof(i64 a) with gil:
     return (a)
-#[cython.profile(true)]
+#[cython::profile(true)]
 fn i32 withgil_prof(i64 a) with gil:
     return (a)
 
-#[cython.profile(false)]
+#[cython::profile(false)]
 fn i32 nogil_noprof(i64 a) nogil:
     return a
-#[cython.profile(true)]
+#[cython::profile(true)]
 fn i32 nogil_prof(i64 a) nogil:
     return a
 
 cdef class A(object):
     def m_def(self, i64 a):
         return a
-    cpdef m_cpdef(self, i64 a):
+    cpdef fn m_cpdef(self, i64 a):
         return a
     fn m_cdef(self, i64 a):
         return a

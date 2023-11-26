@@ -27,7 +27,7 @@ extern from *:
                 if (print_destructor) print_C_destructor();
             }
 
-            int getX() const { return x; }
+            int get_x() const { return x; }
 
         private:
             int x;
@@ -41,8 +41,8 @@ extern from *:
     cdef cppclass C:
         C(i32)
         C(i32, cppbool)
-        int getX() const
-    C make_C(i32) except +  # needs a temp to receive
+        const fn i32 get_x()
+    fn C make_C(i32) except +  # needs a temp to receive
 
 # this function just makes sure the output from the destructor can be captured by doctest
 fn void print_C_destructor "print_C_destructor" () with gil:
@@ -62,7 +62,7 @@ def maybe_assign_infer(assign, value, do_print):
     if assign:
         x = C(value)
     if do_print:
-        print(x.getX())
+        print(x.get_x())
 
 def maybe_assign_cdef(assign, value):
     """
@@ -77,7 +77,7 @@ def maybe_assign_cdef(assign, value):
     let C x
     if assign:
         x = C(value)
-    print(x.getX())
+    print(x.get_x())
 
 def maybe_assign_annotation(assign, value):
     """
@@ -92,7 +92,7 @@ def maybe_assign_annotation(assign, value):
     x: C
     if assign:
         x = C(value)
-    print(x.getX())
+    print(x.get_x())
 
 def maybe_assign_directive1(assign, value):
     """
@@ -107,9 +107,9 @@ def maybe_assign_directive1(assign, value):
     x = cython.declare(C)
     if assign:
         x = C(value)
-    print(x.getX())
+    print(x.get_x())
 
-#[cython.locals(x=C)]
+#[cython::locals(x=C)]
 def maybe_assign_directive2(assign, value):
     """
     >>> maybe_assign_directive2(true, 5)
@@ -122,7 +122,7 @@ def maybe_assign_directive2(assign, value):
     """
     if assign:
         x = C(value)
-    print(x.getX())
+    print(x.get_x())
 
 def maybe_assign_nocheck(assign, value):
     """
@@ -135,7 +135,7 @@ def maybe_assign_nocheck(assign, value):
     if assign:
         x = C(value)
     with cython.initializedcheck(false):
-        print(x.getX())
+        print(x.get_x())
 
 def uses_temp(value):
     """
@@ -146,11 +146,11 @@ def uses_temp(value):
     """
 
     x = make_C(value)
-    print(x.getX())
+    print(x.get_x())
 
 # c should not be optional - it isn't easy to check this, but we can at least check it compiles
 fn void has_argument(C c):
-    print(c.getX())
+    print(c.get_x())
 
 def call_has_argument():
     """
@@ -185,16 +185,16 @@ cdef class HoldsC:
             self.value = C(10, print_destructor)
 
     def getCX(self):
-        return self.value.getX()
+        return self.value.get_x()
 
-fn acceptC(C& c):
-    return c.getX()
+fn i32 accept_C(&mut C c):
+    return c.get_x()
 
-#[cython.cpp_locals(false)]
+#[cython::cpp_locals(false)]
 def access_from_function_with_different_directive(HoldsC c):
     # doctest is in HoldsC class
-    print(acceptC(c.value))  # this originally tried to pass a __Pyx_Optional<C> as a C instance
-    print(c.value.getX())
+    print(accept_C(c.value))  # this originally tried to pass a __Pyx_Optional<C> as a C instance
+    print(c.value.get_x())
     c.value = C(20, false) # make sure that we can change it too
 
 def dont_test_on_pypy(f):
@@ -228,4 +228,4 @@ def read_global_var():
     >>> read_global_var()
     -1
     """
-    print(global_var.getX())
+    print(global_var.get_x())

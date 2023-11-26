@@ -1,5 +1,5 @@
 extern from "verbatiminclude.h":
-    long cube(long)
+    fn i64 cube(i64)
 
 extern from *:
     """
@@ -8,11 +8,11 @@ extern from *:
         return x * x;
     }
     """
-    i64 square(long)
+    fn i64 square(i64)
 
 extern from "verbatiminclude.h":
     "typedef int myint;"
-    ctypedef i32 myint
+    type myint = i32
 
 extern from "verbatiminclude.h":
     "#undef long"
@@ -24,7 +24,7 @@ extern from "Python.h":
     """
     #define my_SET_SIZE(obj, size)  __Pyx_SET_SIZE(obj, size)
     """
-    void my_SET_SIZE(object, isize)
+    fn void my_SET_SIZE(object, isize)
 
 def test_square(x):
     """

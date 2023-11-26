@@ -14,14 +14,13 @@ use libcpp::set::set
 use libcpp::deque::deque
 use libcpp::functional::reference_wrapper
 
-def test_reference_wrapper():
+fn test_reference_wrapper():
     """
     >>> test_reference_wrapper()
     'pass'
     """
-    cdef:
-        int x = 1
-        vector[reference_wrapper[int]] ref_wrap_vector
+    let i32 x = 1
+    let vector[reference_wrapper[int]] ref_wrap_vector
     ref_wrap_vector.push_back(reference_wrapper[int](x))
     assert ref_wrap_vector[0].get() == 1
     return "pass"
@@ -31,10 +30,9 @@ def test_vector_functionality():
     >>> test_vector_functionality()
     'pass'
     """
-    cdef:
-        vector[i32] int_vector = vector[i32]()
-        int* data
-        const i32* const_data
+    let vector[i32] int_vector = vector[i32]()
+    let i32* data
+    let r&i32 const_data
     int_vector.push_back(77)
     data = int_vector.data()
     const_data = int_vector.const_data()
@@ -42,53 +40,49 @@ def test_vector_functionality():
     assert const_data[0] == 77
     return "pass"
 
-def test_queue_functionality():
+fn test_queue_functionality():
     """
     >>> test_queue_functionality()
     'pass'
     """
-    cdef:
-        queue[int] int_queue = queue[int]()
-        queue[int] int_queue2 = queue[int]()
+    let queue[int] int_queue = queue[int]()
+    let queue[int] int_queue2 = queue[int]()
     int_queue.push(77)
     int_queue.swap(int_queue2)
     assert int_queue.size() == 0
     assert int_queue2.size() == 1
     return "pass"
 
-def test_deque_functionality():
+fn test_deque_functionality():
     """
     >>> test_deque_functionality()
     'pass'
     """
-    cdef:
-        deque[int] int_deque = deque[int]()
+    let deque[int] int_deque = deque[int]()
     int_deque.push_back(77)
     int_deque.shrink_to_fit()
     return "pass"
 
-def test_priority_queue_functionality():
+fn test_priority_queue_functionality():
     """
     >>> test_priority_queue_functionality()
     'pass'
     """
-    cdef:
-        priority_queue[int] int_queue = priority_queue[int]()
-        priority_queue[int] int_queue2 = priority_queue[int]()
+    let priority_queue[int] int_queue = priority_queue[int]()
+    let priority_queue[int] int_queue2 = priority_queue[int]()
     int_queue.push(77)
     int_queue.swap(int_queue2)
     assert int_queue.size() == 0
     assert int_queue2.size() == 1
     return "pass"
 
-def test_set_functionality():
+fn test_set_functionality():
     """
     >>> test_set_functionality()
     'pass'
     """
-    cdef:
-        set[int] int_set
-        set[int] int_set2
+    let set[int] int_set
+    let set[int] int_set2
     int_set2.insert(77)
     int_set2.insert(66)
     int_set.insert(int_set2.const_begin(), int_set2.const_end())
@@ -96,27 +90,25 @@ def test_set_functionality():
     assert int_set.erase(int_set.const_begin(), int_set.const_end()) == int_set.end()
     return "pass"
 
-def test_map_functionality():
+fn test_map_functionality():
     """
     >>> test_map_functionality()
     'pass'
     """
-    cdef:
-        map[int, const void*] int_map
-        const void* data
+    let map[i32, void*] int_map
+    let r&void data
     int_map[77] = NULL
     data = int_map.const_at(77)
     return "pass"
 
-def test_unordered_set_functionality():
+fn test_unordered_set_functionality():
     """
     >>> test_unordered_set_functionality()
     'pass'
     """
-    cdef:
-        unordered_set[int] int_set = unordered_set[int]()
-        unordered_set[int] int_set2
-        unordered_set[int].iterator iterator = int_set.begin()
+    let unordered_set[int] int_set = unordered_set[int]()
+    let unordered_set[int] int_set2
+    let unordered_set[int].iterator iterator = int_set.begin()
     int_set.insert(1)
     assert int_set.size() == 1
     int_set.erase(unordered_set[int].const_iterator(int_set.begin()), unordered_set[int].const_iterator(int_set.end()))
@@ -155,16 +147,15 @@ def test_unordered_map_functionality():
     >>> test_unordered_map_functionality()
     'pass'
     """
-    cdef:
-        unordered_map[i32, i32] int_map = unordered_map[i32, i32]()
-        pair[i32, i32] pair_insert = pair[i32, i32](1, 2)
-        unordered_map[i32, i32].iterator iterator = int_map.begin()
-        pair[unordered_map[i32, i32].iterator, bint] pair_iter  = int_map.insert(pair_insert)
-        unordered_map[i32, i32] int_map2
-        unordered_map[int, int*] intptr_map
-        const i32* intptr
-        unordered_map[vector[i32], int, IntVectorHash] int_vector_map
-        vector[i32] intvec
+    let unordered_map[i32, i32] int_map = unordered_map[i32, i32]()
+    let pair[i32, i32] pair_insert = pair[i32, i32](1, 2)
+    let unordered_map[i32, i32].iterator iterator = int_map.begin()
+    let pair[unordered_map[i32, i32].iterator, u2] pair_iter  = int_map.insert(pair_insert)
+    let unordered_map[i32, i32] int_map2
+    let unordered_map[i32, i32*] intptr_map
+    let r&i32 intptr
+    let unordered_map[vector[i32], i32, IntVectorHash] int_vector_map
+    let vector[i32] intvec
     assert int_map[1] == 2
     assert int_map.size() == 1
     assert int_map.erase(1) == 1 # returns number of elements erased

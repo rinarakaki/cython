@@ -1,13 +1,13 @@
 # mode: compile
 
 use cython
-# use cython::view::(contig as foo, full as bar)  #, follow
+# use cython::view::(contig as foo, full as bar)  # , follow
 use cython::view
 use cython::view::(generic, strided, indirect,
                    contiguous, indirect_contiguous)
 
-cdef char[:] one_dim
-cdef char[:, :, :] three_dim
+cdef i8[:] one_dim
+cdef i8[:, :, :] three_dim
 cdef u32[:;1, :] view1
 cdef u32[:, :;1] view2
 cdef i128[:;1, :, :, :] fort_contig

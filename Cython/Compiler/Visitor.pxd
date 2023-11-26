@@ -1,12 +1,10 @@
-# cython: language_level=3str
-
 use cython
 
 cdef class TreeVisitor:
     pub list access_path
     cdef dict dispatch_table
 
-    cpdef visit(self, obj)
+    cpdef fn visit(self, obj)
 
     fn _visit(self, obj)
 
@@ -16,18 +14,18 @@ cdef class TreeVisitor:
 
     fn dict _visitchildren(self, parent, attrs, exclude)
 
-    cpdef visitchildren(self, parent, attrs=*, exclude=*)
+    cpdef fn visitchildren(self, parent, attrs=*, exclude=*)
 
     fn _raise_compiler_error(self, child, e)
 
 cdef class VisitorTransform(TreeVisitor):
     fn dict _process_children(self, parent, attrs=*, exclude=*)
 
-    cpdef visitchildren(self, parent, attrs=*, exclude=*)
+    cpdef fn visitchildren(self, parent, attrs=*, exclude=*)
 
     fn list _flatten_list(self, list orig_list)
 
-    cpdef visitchild(self, parent, str attr, idx=*)
+    cpdef fn visitchild(self, parent, str attr, idx=*)
 
 cdef class CythonTransform(VisitorTransform):
     pub context
@@ -43,19 +41,19 @@ cdef class EnvTransform(CythonTransform):
     pub list env_stack
 
 cdef class MethodDispatcherTransform(EnvTransform):
-    #[cython.final]
+    #[cython::final]
     fn _visit_binop_node(self, node)
 
-    #[cython.final]
-    fn _find_handler(self, match_name, bint has_kwargs)
+    #[cython::final]
+    fn _find_handler(self, match_name, u2 has_kwargs)
 
-    #[cython.final]
+    #[cython::final]
     fn _delegate_to_assigned_value(self, node, function, arg_list, kwargs)
 
-    #[cython.final]
+    #[cython::final]
     fn _dispatch_to_handler(self, node, function, arg_list, kwargs)
 
-    #[cython.final]
+    #[cython::final]
     fn _dispatch_to_method_handler(self, attr_name, self_arg,
                                    is_unbound_method, type_name,
                                    node, function, arg_list, kwargs)
@@ -66,4 +64,4 @@ cdef class RecursiveNodeReplacer(VisitorTransform):
 
 cdef class NodeFinder(TreeVisitor):
     cdef node
-    pub bint found
+    pub u2 found

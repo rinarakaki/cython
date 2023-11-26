@@ -1,5 +1,3 @@
-from __future__ import absolute_import
-
 import itertools
 from time import time
 
@@ -203,7 +201,7 @@ def create_pipeline(context, mode, exclude_classes=()):
         AnalyseDeclarationsTransform(context),
         AutoTestDictTransform(context),
         EmbedSignature(context),
-        EarlyReplaceBuiltinCalls(context),  ## Necessary?
+        EarlyReplaceBuiltinCalls(context),  # Necessary?
         TransformBuiltinMethods(context),
         MarkParallelAssignments(context),
         ControlFlowAnalysis(context),
@@ -218,8 +216,8 @@ def create_pipeline(context, mode, exclude_classes=()):
         ExpandInplaceOperators(context),
         IterationTransform(context),
         SwitchTransform(context),
-        OptimizeBuiltinCalls(context),  ## Necessary?
-        CreateClosureClasses(context),  ## After all lookups and type inference
+        OptimizeBuiltinCalls(context),  # Necessary?
+        CreateClosureClasses(context),  # After all lookups and type inference
         CalculateQualifiedNamesTransform(context),
         ConsolidateOverflowCheck(context),
         DropRefcountingTransform(),
@@ -350,7 +348,7 @@ _pipeline_entry_points = {}
 try:
     from threading import local as _threadlocal
 except ImportError:
-    class _threadlocal(object): pass
+    class _threadlocal: pass
 
 threadlocal = _threadlocal()
 

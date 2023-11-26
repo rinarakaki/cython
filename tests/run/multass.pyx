@@ -1,11 +1,4 @@
-__doc__ = """
-    >>> h()
-    (1, b'test', 3, 1, b'test', 3)
-"""
-
-import sys
-if sys.version_info[0] < 3:
-    __doc__ = __doc__.replace(u" b'", u" '")
+# mode: run
 
 def f():
     """
@@ -28,9 +21,13 @@ def g():
     return obj1a, obj1b, obj2a, obj2b, obj3a, obj3b
 
 def h():
+    """
+    >>> h()
+    (1, b'test', 3, 1, b'test', 3)
+    """
     let object obj1a, obj2a, obj3a, obj1b, obj2b, obj3b
     let i32 int1, int2
-    let char *ptr1, *ptr2
+    let r&i8 ptr1, ptr2
     int2, ptr2, obj1b = 1, "test", 3
     int1, ptr1, obj1a = int2, ptr2, obj1b
     return int1, ptr1, obj1a, int2, ptr2, obj1b

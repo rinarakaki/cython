@@ -1,18 +1,6 @@
 # coding: ASCII
 
-import sys
-if sys.version_info[0] < 3:
-    __doc__ = u"""
->>> expected = ''.join([chr(i) for i in range(0x10, 0xFF, 0x11)] + [chr(0xFF)])
-
->>> s = test_assign()
->>> assert s == expected, repr(s)
-
->>> s = test_array()
->>> assert s == expected, repr(s)
-"""
-else:
-    __doc__ = u"""
+__doc__ = u"""
 >>> expected = bytes(list(range(0x10, 0xFF, 0x11)) + [0xFF])
 
 >>> s = test_assign()
@@ -23,7 +11,7 @@ else:
 """
 
 def test_assign():
-    let char[17] s
+    let i8[17] s
 
     s[ 0] = c'\x10'
     s[ 1] = c'\x21'
@@ -47,7 +35,7 @@ def test_assign():
     return s
 
 def test_array():
-    let char* s = [
+    let r&i8 s = [
         c'\x10',
         c'\x21',
         c'\x32',

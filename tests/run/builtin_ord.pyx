@@ -8,10 +8,10 @@ ustring_with_a = u'abcdefg'
 ustring_without_a = u'bcdefg'
 
 
-@cython.test_assert_path_exists(
+@cython::test_assert_path_exists(
     # ord() should receive and return a C value
     '//ReturnStatNode//CoerceToPyTypeNode//SimpleCallNode')
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     '//ReturnStatNode//SimpleCallNode//CoerceToPyTypeNode')
 def ord_Py_UNICODE(unicode s):
     """
@@ -23,8 +23,8 @@ def ord_Py_UNICODE(unicode s):
     return ord(u)
 
 
-#[cython.test_assert_path_exists('//TupleNode//IntNode')]
-#[cython.test_fail_if_path_exists('//SimpleCallNode')]
+#[cython::test_assert_path_exists('//TupleNode//IntNode')]
+#[cython::test_fail_if_path_exists('//SimpleCallNode')]
 def ord_const():
     """
     >>> ord(b' ')
@@ -37,8 +37,8 @@ def ord_const():
     return ord(u' '), ord(b' '), ord(' '), ord('\xff'), ord(b'\xff'), ord(u'\u1234'), ord('\0')
 
 
-#[cython.test_assert_path_exists('//PrimaryCmpNode//IntNode')]
-##[cython.test_fail_if_path_exists('//SimpleCallNode')]
+#[cython::test_assert_path_exists('//PrimaryCmpNode//IntNode')]
+# #[cython::test_fail_if_path_exists('//SimpleCallNode')]
 def unicode_for_loop_ord(unicode s):
     """
     >>> unicode_for_loop_ord(ustring_with_a)
@@ -70,8 +70,8 @@ def compare_to_char(s):
 def ord_object(s):
     """
     >>> try: ord_object('abc')
-    ... except ValueError: assert sys.version_info[0] >= 3
-    ... except TypeError: assert sys.version_info[0] < 3
+    ... except ValueError: pass
+    ... except TypeError: print("FAILED!")
     >>> ord_object('a')
     97
     >>> ord_object(b'a')

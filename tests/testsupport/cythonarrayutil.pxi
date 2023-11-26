@@ -2,14 +2,14 @@ use libc::stdlib::(malloc, free)
 use cython
 use cython::view::array
 
-fn void callback(void *data) noexcept:
+fn void callback(void* data) noexcept:
     print("callback called")
     free(data)
 
 def create_array(shape, mode, use_callback=false):
     let array result = array(shape, itemsize=sizeof(i32),
                              format='i', mode=mode)
-    let i32 *data = <i32 *> result.data
+    let auto data = <r&mut i32>result.data
     let i32 i, j, cidx, fidx
 
     for i in 0..shape[0]:

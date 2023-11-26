@@ -21,11 +21,10 @@ setup(
 ######## pkg/a.pyx ########
 
 extern from "alib.h":
-    i32 c_function(i32 x)
+    fn i32 c_function(i32 x)
 
 def test():
     return c_function(42)
-
 
 ######## pkg/alib.c ########
 

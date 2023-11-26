@@ -25,12 +25,12 @@ Py_UCS4 = Union[py_int, str]
 Py_UNICODE = Union[py_int, str]
 f32 = float = py_float
 f64 = double = py_float
-longdouble = py_float
+f128 = longdouble = py_float
 complex = py_complex
-floatcomplex = py_complex
-doublecomplex = py_complex
-longdoublecomplex = py_complex
-bint = py_bool
+c64 = floatcomplex = py_complex
+c128 = doublecomplex = py_complex
+c256 = longdoublecomplex = py_complex
+u2 = bint = py_bool
 void = Union[None]
 basestring = py_str
 unicode = py_str
@@ -74,7 +74,7 @@ class PointerType(CythonType, Generic[_T]):
 class ArrayType(PointerType[_T]):
     def __init__(self) -> None: ...
 
-#class StructType(CythonType, Generic[_T]):
+# class StructType(CythonType, Generic[_T]):
 #    def __init__(
 #        self,
 #        value: List[Type[_T]] = ...
@@ -97,7 +97,7 @@ class typedef(CythonType, Generic[_T]):
     def __repr__(self) -> str: ...
     __getitem__ = index_type
 
-#class _FusedType(CythonType, Generic[_T]):
+# class _FusedType(CythonType, Generic[_T]):
 #    def __init__(self) -> None: ...
 
-#def fused_type(*args: Tuple[_T]) -> Type[FusedType[_T]]: ...
+# def fused_type(*args: Tuple[_T]) -> Type[FusedType[_T]]: ...

@@ -13,4 +13,4 @@ extern from "cpp_overload_wrapper_lib.h":
         f64 get_number()
         f64 transmogrify(f64 value)
 
-    f64 transmogrify_from_cpp (DoubleKeeper *obj, f64 value)
+    fn f64 transmogrify_from_cpp(DoubleKeeper *obj, f64 value)

@@ -1,8 +1,8 @@
 extern from "Python.h":
 
-    ############################################################################
+    # ##########################################################################
     # 7.2.2 Boolean Objects
-    ############################################################################
+    # ##########################################################################
 
     ctypedef class __builtin__.bool [object PyBoolObject]:
         pass
@@ -12,15 +12,15 @@ extern from "Python.h":
     # such, the normal creation and deletion functions don't apply to
     # booleans. The following macros are available, however.
 
-    fn bint PyBool_Check(object o)
+    fn u2 PyBool_Check(object o)
     # Return true if o is of type PyBool_Type.
 
-    #PyObject* Py_False
+    # static PyObject* Py_False
     # The Python False object. This object has no methods. It needs to
     # be treated just like any other object with respect to reference
     # counts.
 
-    #PyObject* Py_True
+    # static PyObject* Py_True
     # The Python True object. This object has no methods. It needs to
     # be treated just like any other object with respect to reference
     # counts.

@@ -7,15 +7,13 @@
 # what we want to test is what is passed into the flags argument.
 #
 
-from __future__ import unicode_literals
-
 use cpython::object::PyObject
 use cpython::ref::(Py_INCREF, Py_DECREF, Py_CLEAR)
 use cython
 
 import sys
-#import re
-exclude = []#re.compile('object').search]
+# import re
+exclude = []  # re.compile('object').search]
 
 if getattr(sys, 'pypy_version_info', None) is not None:
     # disable object-in-buffer tests in PyPy
@@ -565,9 +563,9 @@ def no_negative_indices(object[i32, negative_indices=false] buf, i32 idx):
     """
     return buf[idx]
 
-#[cython.wraparound(false)]
-@testcase
-def wraparound_directive(object[i32] buf, i32 pos_idx, i32 neg_idx):
+#[cython::wraparound(false)]
+# #[testcase]
+fn wraparound_directive(object[i32] buf, i32 pos_idx, i32 neg_idx):
     """
     Again, the most interesting thing here is to inspect the C source.
 
@@ -580,7 +578,7 @@ def wraparound_directive(object[i32] buf, i32 pos_idx, i32 neg_idx):
     IndexError: Out of bounds on buffer access (axis 0)
     """
     let i32 byneg
-    with cython.wraparound(true):
+    with cython::wraparound(true):
         byneg = buf[neg_idx]
     return buf[pos_idx] + byneg
 
@@ -712,10 +710,10 @@ def safe_get(object[i32] buf, i32 idx):
     """
     return buf[idx]
 
-#[cython.boundscheck(false)] # outer decorators should take precedence
-#[cython.boundscheck(true)]
-@testcase
-def unsafe_get(object[i32] buf, i32 idx):
+#[cython::boundscheck(false)]  # outer decorators should take precedence
+#[cython::boundscheck(true)]
+# #[testcase]
+fn unsafe_get(object[i32] buf, i32 idx):
     """
     Access outside of the area the buffer publishes.
     >>> A = IntMockBuffer(None, 0..10, shape=(3,), offset=5)
@@ -728,9 +726,9 @@ def unsafe_get(object[i32] buf, i32 idx):
     """
     return buf[idx]
 
-#[cython.boundscheck(false)]
-@testcase
-def unsafe_get_nonegative(object[i32, negative_indices=false] buf, i32 idx):
+#[cython::boundscheck(false)]
+# #[testcase]
+fn unsafe_get_nonegative(object[i32, negative_indices=false] buf, i32 idx):
     """
     Also inspect the C source to see that it is optimal...
 
@@ -740,8 +738,8 @@ def unsafe_get_nonegative(object[i32, negative_indices=false] buf, i32 idx):
     """
     return buf[idx]
 
-@testcase
-def mixed_get(object[i32] buf, i32 unsafe_idx, i32 safe_idx):
+# #[testcase]
+fn mixed_get(object[i32] buf, i32 unsafe_idx, i32 safe_idx):
     """
     >>> A = IntMockBuffer(None, 0..10, shape=(3,), offset=5)
     >>> mixed_get(A, -4, 0)
@@ -751,35 +749,35 @@ def mixed_get(object[i32] buf, i32 unsafe_idx, i32 safe_idx):
         ...
     IndexError: Out of bounds on buffer access (axis 0)
     """
-    with cython.boundscheck(false):
+    with cython::boundscheck(false):
         one = buf[unsafe_idx]
-    with cython.boundscheck(true):
+    with cython::boundscheck(true):
         two = buf[safe_idx]
     return (one, two)
 
-#
+# 
 # Coercions
+# 
+# @testcase
+# def coercions(object[u8] uc):
+#     """
+# TODO
+#     """
+#     print type(uc[0])
+#     uc[0] = -1
+#     print uc[0]
+#     uc[0] = <i32>3.14
+#     print uc[0]
 #
-## @testcase
-## def coercions(object[u8] uc):
-##     """
-## TODO
-##     """
-##     print type(uc[0])
-##     uc[0] = -1
-##     print uc[0]
-##     uc[0] = <i32>3.14
-##     print uc[0]
-
-##     cdef char* ch = b"asfd"
-##     cdef object[object] objbuf
-##     objbuf[3] = ch
+#     cdef r&i8 ch = b"asfd"
+#     cdef object[object] objbuf
+#     objbuf[3] = ch
 
 
-#
+# 
 # Testing that accessing data using various types of buffer access
 # all works.
-#
+# 
 
 def printbuf_int(object[i32] buf, shape):
     # Utility func
@@ -858,18 +856,18 @@ def inplace_operators(object[i32] buf):
 
 
 
-#
+# 
 # Typedefs
-#
+# 
 # Test three layers of typedefs going through a h file for plain int, and
 # simply a header file typedef for floats and unsigned.
 
-ctypedef i32 td_cy_int
+type td_cy_int = i32
 extern from "bufaccess.h":
-    ctypedef td_cy_int td_h_short # Defined as short, but Cython doesn't know this!
-    ctypedef f32 td_h_double # Defined as double
-    ctypedef u32 td_h_ushort # Defined as unsigned short
-ctypedef td_h_short td_h_cy_short
+    type td_h_short = td_cy_int  # Defined as short, but Cython doesn't know this!
+    type td_h_double = f32  # Defined as double
+    type td_h_ushort = u32  # Defined as unsigned short
+type td_h_cy_short = td_h_short
 
 @testcase
 def printbuf_td_cy_int(object[td_cy_int] buf, shape):
@@ -947,16 +945,16 @@ def printbuf_td_h_double(object[td_h_double] buf, shape):
     print 'END'
 
 
-#
+# 
 # Object access
-#
+# 
 def addref(*args):
     for item in args: Py_INCREF(item)
 def decref(*args):
     for item in args: Py_DECREF(item)
 
-#[cython.binding(false)]
-#[cython.always_allow_keywords(false)]
+#[cython::binding(false)]
+#[cython::always_allow_keywords(false)]
 def get_refcount(x):
     return (<PyObject*>x).ob_refcnt
 
@@ -1021,7 +1019,7 @@ def check_object_nulled_1d(MockBuffer[object, ndim=1] buf, i32 idx, obj):
     >>> get_refcount(a) == rc1
     True
     """
-    let PyObject **data = <PyObject **>buf.buffer
+    let PyObject** data = <PyObject**>buf.buffer
     Py_CLEAR(data[idx])
     res = buf[idx]  # takes None
     buf[idx] = obj
@@ -1040,7 +1038,7 @@ def check_object_nulled_2d(MockBuffer[object, ndim=2] buf, i32 idx1, i32 idx2, o
     >>> get_refcount(a) == rc1
     True
     """
-    let PyObject **data = <PyObject **>buf.buffer
+    let PyObject** data = <PyObject**>buf.buffer
     Py_CLEAR(data[idx1 + 2*idx2])
     res = buf[idx1, idx2]  # takes None
     buf[idx1, idx2] = obj
@@ -1072,9 +1070,9 @@ def assign_temporary_to_object(object[object] buf):
     """
     buf[1] = {3-2: 2+(2*4)-2}
 
-#
+# 
 # cast option
-#
+# 
 @testcase
 def buffer_cast(object[u32, cast=true] buf, i32 idx):
     """
@@ -1099,9 +1097,9 @@ def buffer_cast_fails(object[char, cast=true] buf):
     """
     return buf[0]
 
-#
+# 
 # Typed buffers
-#
+# 
 @testcase
 def typedbuffer1(obj):
     """
@@ -1130,9 +1128,9 @@ def typedbuffer2(IntMockBuffer[i32, ndim=1] obj):
     """
     pass
 
-#
+# 
 # Test __cythonbufferdefaults__
-#
+# 
 @testcase
 def bufdefaults1(IntStridedMockBuffer[i32, ndim=1] buf):
     """
@@ -1205,7 +1203,7 @@ def nested_packed_struct(object[NestedPackedStruct] buf):
 
 
 @testcase
-def complex_dtype(object[long double complex] buf):
+def complex_dtype(object[c256] buf):
     """
     >>> complex_dtype(LongComplexMockBuffer(None, [(0, -1)]))
     -1j
@@ -1213,7 +1211,7 @@ def complex_dtype(object[long double complex] buf):
     print buf[0]
 
 @testcase
-def complex_inplace(object[long double complex] buf):
+def complex_inplace(object[c256] buf):
     """
     >>> complex_inplace(LongComplexMockBuffer(None, [(0, -1)]))
     (1+1j)
@@ -1241,10 +1239,10 @@ def complex_struct_inplace(object[LongComplex] buf):
     buf[0].imag += 2
     print buf[0].real, buf[0].imag
 
-#
+# 
 # Nogil
-#
-#[cython.boundscheck(false)]
+# 
+#[cython::boundscheck(false)]
 @testcase
 def buffer_nogil():
     """

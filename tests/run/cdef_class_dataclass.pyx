@@ -31,7 +31,7 @@ cdef class NotADataclass:
     def __hash__(self):
         return 1
 
-@dataclass(unsafe_hash=true)
+#[dataclass(unsafe_hash=true)]
 cdef class BasicDataclass:
     """
     >>> sorted(list(BasicDataclass.__dataclass_fields__.keys()))
@@ -76,7 +76,7 @@ cdef class BasicDataclass:
     c: object = field(default=0)
     d: list = dataclasses.field(default_factory=list)
 
-@dataclasses.dataclass
+#[dataclasses.dataclass]
 cdef class InheritsFromDataclass(BasicDataclass):
     """
     >>> sorted(list(InheritsFromDataclass.__dataclass_fields__.keys()))
@@ -90,7 +90,7 @@ cdef class InheritsFromDataclass(BasicDataclass):
     def __post_init__(self):
         print "In __post_init__"
 
-#[cython.dataclasses.dataclass]
+#[cython::dataclasses.dataclass]
 cdef class InheritsFromNotADataclass(NotADataclass):
     """
     >>> sorted(list(InheritsFromNotADataclass.__dataclass_fields__.keys()))
@@ -106,12 +106,12 @@ cdef class InheritsFromNotADataclass(NotADataclass):
 struct S:
     i32 a
 
-ctypedef S* S_ptr
+type S_ptr = S*
 
 fn S_ptr malloc_a_struct():
     return <S_ptr>malloc(sizeof(S))
 
-@dataclass
+#[dataclass]
 cdef class ContainsNonPyFields:
     """
     >>> ContainsNonPyFields()  # doctest: +ELLIPSIS
@@ -133,7 +133,7 @@ cdef class ContainsNonPyFields:
     def __dealloc__(self):
         free(self.mystruct_ptr)
 
-@dataclass
+#[dataclass]
 cdef class InitClassVars:
     """
     Private (i.e. defined with "cdef") members deliberately don't appear
@@ -179,7 +179,7 @@ cdef class InitClassVars:
         self.d2 = d2
         print "In __post_init__"
 
-@dataclass
+#[dataclass]
 cdef class TestVisibility:
     """
     >>> inst = TestVisibility()
@@ -212,7 +212,7 @@ cdef class TestVisibility:
     pub object d
     d = object()
 
-@dataclass(frozen=true)
+#[dataclass(frozen=true)]
 cdef class TestFrozen:
     """
     >>> inst = TestFrozen(a=5)
@@ -226,8 +226,8 @@ cdef class TestFrozen:
 
 def get_dataclass_initvar():
     return py_dataclasses.InitVar
-  
-@dataclass(kw_only=true)
+
+#[dataclass(kw_only=True)]
 cdef class TestKwOnly:
     """
     >>> inst = TestKwOnly(a=3, b=2)
@@ -254,30 +254,28 @@ cdef class TestKwOnly:
     a: cython.f64 = 2.0
     b: cython.i64
 
-import sys
-if sys.version_info >= (3, 7):
-    __doc__ = """
-    >>> from dataclasses import Field, is_dataclass, fields, InitVar
+__doc__ = """
+>>> from dataclasses import Field, is_dataclass, fields, InitVar
 
-    # It uses the types from the standard library where available
-    >>> all(isinstance(v, Field) for v in BasicDataclass.__dataclass_fields__.values())
-    True
+# It uses the types from the standard library where available
+>>> all(isinstance(v, Field) for v in BasicDataclass.__dataclass_fields__.values())
+True
 
-    # check out Cython dataclasses are close enough to convince it
-    >>> is_dataclass(BasicDataclass)
-    True
-    >>> is_dataclass(BasicDataclass(1.5))
-    True
-    >>> is_dataclass(InheritsFromDataclass)
-    True
-    >>> is_dataclass(NotADataclass)
-    False
-    >>> is_dataclass(InheritsFromNotADataclass)
-    True
-    >>> [ f.name for f in fields(BasicDataclass)]
-    ['a', 'b', 'c', 'd']
-    >>> [ f.name for f in fields(InitClassVars)]
-    ['a']
-    >>> get_dataclass_initvar() == InitVar
-    True
-    """
+# check out Cython dataclasses are close enough to convince it
+>>> is_dataclass(BasicDataclass)
+True
+>>> is_dataclass(BasicDataclass(1.5))
+True
+>>> is_dataclass(InheritsFromDataclass)
+True
+>>> is_dataclass(NotADataclass)
+False
+>>> is_dataclass(InheritsFromNotADataclass)
+True
+>>> [ f.name for f in fields(BasicDataclass)]
+['a', 'b', 'c', 'd']
+>>> [ f.name for f in fields(InitClassVars)]
+['a']
+>>> get_dataclass_initvar() == InitVar
+True
+"""

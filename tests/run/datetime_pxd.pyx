@@ -199,23 +199,22 @@ def do_datetime_tzinfo2(i32 year, i32 month, i32 day,
     return r1, r2, r3, r4, r5, r6, r7, r8
 
 
-def test_timedelta_total_seconds():
+fn test_timedelta_total_seconds():
     """
     >>> cytotal, pytotal = test_timedelta_total_seconds()
     >>> assert cytotal == pytotal, (cytotal, pytotal)
     >>> cytotal == pytotal
     True
     """
-    cdef:
-        datetime now = py_datetime.datetime.now()
-        timedelta td = now - py_datetime.datetime(1970, 1, 1)
+    let datetime now = py_datetime.datetime.now()
+    let timedelta td = now - py_datetime.datetime(1970, 1, 1)
 
     pytd = now - py_datetime.datetime(1970, 1, 1)
 
     return total_seconds(td), pytd.total_seconds()
 
 
-@cython.test_fail_if_path_exists(
+@cython::test_fail_if_path_exists(
     "//CoerceFromPyTypeNode",
     "//AttributeNode",
 )
@@ -255,16 +254,10 @@ def test_date_from_timestamp():
 
 def test_get_utc():
     """
-    >>> from datetime import datetime
     >>> test_get_utc()
-    True
     """
-    try:
-        get_utc()
-    except RuntimeError:
-        if sys.version_info >= (3, 7):
-            raise  # get_utc() is only supposed to raise on Python < 3.7
-    return true
+    # should not raise
+    get_utc()
 
 def test_datetime_from_timestamp():
     """

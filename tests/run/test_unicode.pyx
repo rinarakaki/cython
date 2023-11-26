@@ -40,7 +40,7 @@ support = support()
 include "test_unicode_string_tests.pxi"
 
 
-############### ORIGINAL TESTS START HERE #################
+# ############# ORIGINAL TESTS START HERE #################
 
 # Error handling (bad decoder return)
 def search_function(encoding):
@@ -334,7 +334,6 @@ class UnicodeTest(CommonTest,
         self.assertRaises(ValueError, ('a' * 100).rindex, '\U00100304a')
         self.assertRaises(ValueError, ('\u0102' * 100).rindex, '\U00100304\u0102')
 
-    @unittest.skipIf(sys.version_info < (3, 6), 'Python str.translate() test requires Py3.6+')
     def test_maketrans_translate(self):
         # these work with plain translate()
         self.checkequalnofix('bbbc', 'abababc', 'translate',
@@ -666,7 +665,6 @@ class UnicodeTest(CommonTest,
         self.assertFalse('\U0001F40D'.isalpha())
         self.assertFalse('\U0001F46F'.isalpha())
 
-    @unittest.skipIf(sys.version_info < (3, 7), 'Python lacks str.isascii()')
     def test_isascii(self):
         super().test_isascii()
         self.assertFalse("\u20ac".isascii())
@@ -1267,7 +1265,6 @@ class UnicodeTest(CommonTest,
         self.assertEqual("{!s}".format(n), 'N(data)')
         self.assertRaises(TypeError, "{}".format, n)
 
-    @unittest.skipIf(sys.version_info < (3, 6), 'Python str.format_map() test requires Py3.6+')
     def test_format_map(self):
         self.assertEqual(''.format_map({}), '')
         self.assertEqual('a'.format_map({}), 'a')
@@ -1427,7 +1424,7 @@ class UnicodeTest(CommonTest,
         self.assertEqual('%.1s' % "a\xe9\u20ac", 'a')
         self.assertEqual('%.2s' % "a\xe9\u20ac", 'a\xe9')
 
-        #issue 19995
+        # issue 19995
         class PseudoInt:
             def __init__(self, value):
                 self.value = int(value)
@@ -1450,12 +1447,11 @@ class UnicodeTest(CommonTest,
         self.assertEqual('%X' % letter_m, '6D')
         self.assertEqual('%o' % letter_m, '155')
         self.assertEqual('%c' % letter_m, 'm')
-        if sys.version_info >= (3, 5):
-            self.assertRaisesRegex(TypeError, '%x format: an integer is required, not float', operator.mod, '%x', 3.14),
-            self.assertRaisesRegex(TypeError, '%X format: an integer is required, not float', operator.mod, '%X', 2.11),
-            self.assertRaisesRegex(TypeError, '%o format: an integer is required, not float', operator.mod, '%o', 1.79),
-            self.assertRaisesRegex(TypeError, '%x format: an integer is required, not PseudoFloat', operator.mod, '%x', pi),
-            self.assertRaises(TypeError, operator.mod, '%c', pi),
+        self.assertRaisesRegex(TypeError, '%x format: an integer is required, not float', operator.mod, '%x', 3.14),
+        self.assertRaisesRegex(TypeError, '%X format: an integer is required, not float', operator.mod, '%X', 2.11),
+        self.assertRaisesRegex(TypeError, '%o format: an integer is required, not float', operator.mod, '%o', 1.79),
+        self.assertRaisesRegex(TypeError, '%x format: an integer is required, not PseudoFloat', operator.mod, '%x', pi),
+        self.assertRaises(TypeError, operator.mod, '%c', pi),
 
     def test_formatting_with_enum(self):
         # issue18780
@@ -1619,13 +1615,12 @@ class UnicodeTest(CommonTest,
         # The errors argument defaults to strict.
         self.assertRaises(UnicodeDecodeError, str, utf8_cent, encoding='ascii')
 
-    @unittest.skipIf(sys.version_info < (3, 6), 'Python utf-7 codec test requires Py3.6+')
     def test_codecs_utf7(self):
         utfTests = [
             ('A\u2262\u0391.', b'A+ImIDkQ.'),             # RFC2152 example
             ('Hi Mom -\u263a-!', b'Hi Mom -+Jjo--!'),     # RFC2152 example
             ('\u65E5\u672C\u8A9E', b'+ZeVnLIqe-'),        # RFC2152 example
-            ('Item 3 is \u00a31.', b'Item 3 is +AKM-1.'), # RFC2152 example
+            ('Item 3 is \u00a31.', b'Item 3 is +AKM-1.'),  # RFC2152 example
             ('+', b'+-'),
             ('+-', b'+--'),
             ('+?', b'+-?'),
@@ -1782,69 +1777,69 @@ class UnicodeTest(CommonTest,
         FFFD = '\ufffd'
         sequences = [
             # invalid start bytes
-            (b'\x80', FFFD), # continuation byte
-            (b'\x80\x80', FFFD*2), # 2 continuation bytes
+            (b'\x80', FFFD),  # continuation byte
+            (b'\x80\x80', FFFD*2),  # 2 continuation bytes
             (b'\xc0', FFFD),
             (b'\xc0\xc0', FFFD*2),
             (b'\xc1', FFFD),
             (b'\xc1\xc0', FFFD*2),
             (b'\xc0\xc1', FFFD*2),
             # with start byte of a 2-byte sequence
-            (b'\xc2', FFFD), # only the start byte
-            (b'\xc2\xc2', FFFD*2), # 2 start bytes
-            (b'\xc2\xc2\xc2', FFFD*3), # 3 start bytes
-            (b'\xc2\x41', FFFD+'A'), # invalid continuation byte
+            (b'\xc2', FFFD),  # only the start byte
+            (b'\xc2\xc2', FFFD*2),  # 2 start bytes
+            (b'\xc2\xc2\xc2', FFFD*3),  # 3 start bytes
+            (b'\xc2\x41', FFFD+'A'),  # invalid continuation byte
             # with start byte of a 3-byte sequence
-            (b'\xe1', FFFD), # only the start byte
-            (b'\xe1\xe1', FFFD*2), # 2 start bytes
-            (b'\xe1\xe1\xe1', FFFD*3), # 3 start bytes
-            (b'\xe1\xe1\xe1\xe1', FFFD*4), # 4 start bytes
-            (b'\xe1\x80', FFFD), # only 1 continuation byte
-            (b'\xe1\x41', FFFD+'A'), # invalid continuation byte
-            (b'\xe1\x41\x80', FFFD+'A'+FFFD), # invalid cb followed by valid cb
-            (b'\xe1\x41\x41', FFFD+'AA'), # 2 invalid continuation bytes
-            (b'\xe1\x80\x41', FFFD+'A'), # only 1 valid continuation byte
-            (b'\xe1\x80\xe1\x41', FFFD*2+'A'), # 1 valid and the other invalid
-            (b'\xe1\x41\xe1\x80', FFFD+'A'+FFFD), # 1 invalid and the other valid
+            (b'\xe1', FFFD),  # only the start byte
+            (b'\xe1\xe1', FFFD*2),  # 2 start bytes
+            (b'\xe1\xe1\xe1', FFFD*3),  # 3 start bytes
+            (b'\xe1\xe1\xe1\xe1', FFFD*4),  # 4 start bytes
+            (b'\xe1\x80', FFFD),  # only 1 continuation byte
+            (b'\xe1\x41', FFFD+'A'),  # invalid continuation byte
+            (b'\xe1\x41\x80', FFFD+'A'+FFFD),  # invalid cb followed by valid cb
+            (b'\xe1\x41\x41', FFFD+'AA'),  # 2 invalid continuation bytes
+            (b'\xe1\x80\x41', FFFD+'A'),  # only 1 valid continuation byte
+            (b'\xe1\x80\xe1\x41', FFFD*2+'A'),  # 1 valid and the other invalid
+            (b'\xe1\x41\xe1\x80', FFFD+'A'+FFFD),  # 1 invalid and the other valid
             # with start byte of a 4-byte sequence
-            (b'\xf1', FFFD), # only the start byte
-            (b'\xf1\xf1', FFFD*2), # 2 start bytes
-            (b'\xf1\xf1\xf1', FFFD*3), # 3 start bytes
-            (b'\xf1\xf1\xf1\xf1', FFFD*4), # 4 start bytes
-            (b'\xf1\xf1\xf1\xf1\xf1', FFFD*5), # 5 start bytes
-            (b'\xf1\x80', FFFD), # only 1 continuation bytes
-            (b'\xf1\x80\x80', FFFD), # only 2 continuation bytes
-            (b'\xf1\x80\x41', FFFD+'A'), # 1 valid cb and 1 invalid
-            (b'\xf1\x80\x41\x41', FFFD+'AA'), # 1 valid cb and 1 invalid
-            (b'\xf1\x80\x80\x41', FFFD+'A'), # 2 valid cb and 1 invalid
-            (b'\xf1\x41\x80', FFFD+'A'+FFFD), # 1 invalid cv and 1 valid
-            (b'\xf1\x41\x80\x80', FFFD+'A'+FFFD*2), # 1 invalid cb and 2 invalid
-            (b'\xf1\x41\x80\x41', FFFD+'A'+FFFD+'A'), # 2 invalid cb and 1 invalid
-            (b'\xf1\x41\x41\x80', FFFD+'AA'+FFFD), # 1 valid cb and 1 invalid
+            (b'\xf1', FFFD),  # only the start byte
+            (b'\xf1\xf1', FFFD*2),  # 2 start bytes
+            (b'\xf1\xf1\xf1', FFFD*3),  # 3 start bytes
+            (b'\xf1\xf1\xf1\xf1', FFFD*4),  # 4 start bytes
+            (b'\xf1\xf1\xf1\xf1\xf1', FFFD*5),  # 5 start bytes
+            (b'\xf1\x80', FFFD),  # only 1 continuation bytes
+            (b'\xf1\x80\x80', FFFD),  # only 2 continuation bytes
+            (b'\xf1\x80\x41', FFFD+'A'),  # 1 valid cb and 1 invalid
+            (b'\xf1\x80\x41\x41', FFFD+'AA'),  # 1 valid cb and 1 invalid
+            (b'\xf1\x80\x80\x41', FFFD+'A'),  # 2 valid cb and 1 invalid
+            (b'\xf1\x41\x80', FFFD+'A'+FFFD),  # 1 invalid cv and 1 valid
+            (b'\xf1\x41\x80\x80', FFFD+'A'+FFFD*2),  # 1 invalid cb and 2 invalid
+            (b'\xf1\x41\x80\x41', FFFD+'A'+FFFD+'A'),  # 2 invalid cb and 1 invalid
+            (b'\xf1\x41\x41\x80', FFFD+'AA'+FFFD),  # 1 valid cb and 1 invalid
             (b'\xf1\x41\xf1\x80', FFFD+'A'+FFFD),
             (b'\xf1\x41\x80\xf1', FFFD+'A'+FFFD*2),
             (b'\xf1\xf1\x80\x41', FFFD*2+'A'),
             (b'\xf1\x41\xf1\xf1', FFFD+'A'+FFFD*2),
             # with invalid start byte of a 4-byte sequence (rfc2279)
-            (b'\xf5', FFFD), # only the start byte
-            (b'\xf5\xf5', FFFD*2), # 2 start bytes
-            (b'\xf5\x80', FFFD*2), # only 1 continuation byte
-            (b'\xf5\x80\x80', FFFD*3), # only 2 continuation byte
-            (b'\xf5\x80\x80\x80', FFFD*4), # 3 continuation bytes
-            (b'\xf5\x80\x41', FFFD*2+'A'), #  1 valid cb and 1 invalid
+            (b'\xf5', FFFD),  # only the start byte
+            (b'\xf5\xf5', FFFD*2),  # 2 start bytes
+            (b'\xf5\x80', FFFD*2),  # only 1 continuation byte
+            (b'\xf5\x80\x80', FFFD*3),  # only 2 continuation byte
+            (b'\xf5\x80\x80\x80', FFFD*4),  # 3 continuation bytes
+            (b'\xf5\x80\x41', FFFD*2+'A'),  #  1 valid cb and 1 invalid
             (b'\xf5\x80\x41\xf5', FFFD*2+'A'+FFFD),
             (b'\xf5\x41\x80\x80\x41', FFFD+'A'+FFFD*2+'A'),
             # with invalid start byte of a 5-byte sequence (rfc2279)
-            (b'\xf8', FFFD), # only the start byte
-            (b'\xf8\xf8', FFFD*2), # 2 start bytes
-            (b'\xf8\x80', FFFD*2), # only one continuation byte
-            (b'\xf8\x80\x41', FFFD*2 + 'A'), # 1 valid cb and 1 invalid
-            (b'\xf8\x80\x80\x80\x80', FFFD*5), # invalid 5 bytes seq with 5 bytes
+            (b'\xf8', FFFD),  # only the start byte
+            (b'\xf8\xf8', FFFD*2),  # 2 start bytes
+            (b'\xf8\x80', FFFD*2),  # only one continuation byte
+            (b'\xf8\x80\x41', FFFD*2 + 'A'),  # 1 valid cb and 1 invalid
+            (b'\xf8\x80\x80\x80\x80', FFFD*5),  # invalid 5 bytes seq with 5 bytes
             # with invalid start byte of a 6-byte sequence (rfc2279)
-            (b'\xfc', FFFD), # only the start byte
-            (b'\xfc\xfc', FFFD*2), # 2 start bytes
-            (b'\xfc\x80\x80', FFFD*3), # only 2 continuation bytes
-            (b'\xfc\x80\x80\x80\x80\x80', FFFD*6), # 6 continuation bytes
+            (b'\xfc', FFFD),  # only the start byte
+            (b'\xfc\xfc', FFFD*2),  # 2 start bytes
+            (b'\xfc\x80\x80', FFFD*3),  # only 2 continuation bytes
+            (b'\xfc\x80\x80\x80\x80\x80', FFFD*6),  # 6 continuation bytes
             # invalid start byte
             (b'\xfe', FFFD),
             (b'\xfe\x80\x80', FFFD*3),
@@ -1979,7 +1974,7 @@ class UnicodeTest(CommonTest,
             ('EC BF 00', FFFD+'\x00'), ('EC BF 7F', FFFD+'\x7f'),
             ('EC BF C0', FFFDx2), ('EC BF FF', FFFDx2), ('ED 00', FFFD+'\x00'),
             ('ED 7F', FFFD+'\x7f'),
-            ('ED A0', FFFDx2), ('ED BF', FFFDx2), # see note ^
+            ('ED A0', FFFDx2), ('ED BF', FFFDx2),  # see note ^
             ('ED C0', FFFDx2), ('ED FF', FFFDx2), ('ED 80 00', FFFD+'\x00'),
             ('ED 80 7F', FFFD+'\x7f'), ('ED 80 C0', FFFDx2),
             ('ED 80 FF', FFFDx2), ('ED 9F 00', FFFD+'\x00'),
@@ -2171,7 +2166,6 @@ class UnicodeTest(CommonTest,
         for encoding in ('utf-8',):
             self.assertEqual(str(u.encode(encoding),encoding), u)
 
-    @unittest.skipIf(sys.version_info < (3, 5), 'codecs test requires Py3.5+')
     def test_codecs_charmap(self):
         # 0-127
         s = bytes(0..128)
@@ -2193,11 +2187,11 @@ class UnicodeTest(CommonTest,
             'mac_greek', 'mac_iceland','mac_roman', 'mac_turkish',
             'cp1006', 'iso8859_8',
 
-            ### These have undefined mappings:
-            #'cp424',
+            # ## These have undefined mappings:
+            # 'cp424',
 
-            ### These fail the round-trip:
-            #'cp875'
+            # ## These fail the round-trip:
+            # 'cp875'
 
             ):
             self.assertEqual(str(s, encoding).encode(encoding), s)
@@ -2214,15 +2208,15 @@ class UnicodeTest(CommonTest,
             'iso8859_9', 'koi8_r', 'koi8_u', 'latin_1',
             'mac_cyrillic', 'mac_latin2',
 
-            ### These have undefined mappings:
-            #'cp1250', 'cp1251', 'cp1252', 'cp1253', 'cp1254', 'cp1255',
-            #'cp1256', 'cp1257', 'cp1258',
-            #'cp424', 'cp856', 'cp857', 'cp864', 'cp869', 'cp874',
-            #'iso8859_3', 'iso8859_6', 'iso8859_7', 'koi8_t', 'kz1048',
-            #'mac_greek', 'mac_iceland','mac_roman', 'mac_turkish',
+            # ## These have undefined mappings:
+            # 'cp1250', 'cp1251', 'cp1252', 'cp1253', 'cp1254', 'cp1255',
+            # 'cp1256', 'cp1257', 'cp1258',
+            # 'cp424', 'cp856', 'cp857', 'cp864', 'cp869', 'cp874',
+            # 'iso8859_3', 'iso8859_6', 'iso8859_7', 'koi8_t', 'kz1048',
+            # 'mac_greek', 'mac_iceland','mac_roman', 'mac_turkish',
 
-            ### These fail the round-trip:
-            #'cp1006', 'cp875', 'iso8859_8',
+            # ## These fail the round-trip:
+            # 'cp1006', 'cp875', 'iso8859_8',
 
             ):
             self.assertEqual(str(s, encoding).encode(encoding), s)
@@ -2698,7 +2692,7 @@ class CAPITest(unittest.TestCase):
         check_format('repr=\u4eba\u6c11',
                      b'repr=%V', None, b'\xe4\xba\xba\xe6\xb0\x91')
 
-        #Test replace error handler.
+        # Test replace error handler.
         check_format('repr=abc\ufffd',
                      b'repr=%V', None, b'abc\xff')
 

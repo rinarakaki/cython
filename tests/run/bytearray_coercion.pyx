@@ -5,7 +5,7 @@
 
 use cython
 
-cpdef bytearray coerce_to_charptr(char* b):
+cpdef fn bytearray coerce_to_charptr(r&i8 b):
     """
     >>> b = bytearray(b'abc')
     >>> coerced = coerce_to_charptr(b)
@@ -22,12 +22,12 @@ def coerce_to_charptrs(bytearray b):
     >>> coerce_to_charptrs(b)
     True
     """
-    let char* cs = b
-    let u8* ucs = b
-    let signed char* scs = b
-    return b == <bytearray>cs == <bytearray> ucs == <bytearray>scs
+    let r&i8 cs = b
+    let r&u8 ucs = b
+    let r&i8 scs = b
+    return b == <bytearray>cs == <bytearray>ucs == <bytearray>scs
 
-cpdef bytearray coerce_charptr_slice(char* b):
+cpdef fn bytearray coerce_charptr_slice(r&i8 b):
     """
     >>> b = bytearray(b'abc')
     >>> coerced = coerce_charptr_slice(b)
@@ -37,7 +37,6 @@ cpdef bytearray coerce_charptr_slice(char* b):
     True
     """
     return b[:2]
-
 
 def infer_concatenation_types(bytearray b):
     """
@@ -56,8 +55,7 @@ def infer_concatenation_types(bytearray b):
 
     e = b + b
 
-    return b, c, d, e, cython.typeof(b), cython.typeof(c), cython.typeof(d), cython.typeof(e)
-
+    return b, c, d, e, cython::typeof(b), cython::typeof(c), cython::typeof(d), cython::typeof(e)
 
 def infer_index_types(bytearray b):
     """
@@ -66,12 +64,11 @@ def infer_index_types(bytearray b):
     (254, 254, 254, 'unsigned char', 'unsigned char', 'unsigned char', 'int')
     """
     c = b[1]
-    with cython.wraparound(false):
+    with cython::wraparound(false):
         d = b[1]
-    with cython.boundscheck(false):
+    with cython::boundscheck(false):
         e = b[1]
-    return c, d, e, cython.typeof(c), cython.typeof(d), cython.typeof(e), cython.typeof(b[1])
-
+    return c, d, e, cython::typeof(c), cython::typeof(d), cython::typeof(e), cython::typeof(b[1])
 
 def infer_slice_types(bytearray b):
     """
@@ -80,12 +77,11 @@ def infer_slice_types(bytearray b):
     (bytearray(b'bc'), bytearray(b'bc'), bytearray(b'bc'), 'bytearray object', 'bytearray object', 'bytearray object', 'bytearray object')
     """
     c = b[1:]
-    with cython.boundscheck(false):
+    with cython::boundscheck(false):
         d = b[1:]
-    with cython.boundscheck(false), cython.wraparound(false):
+    with cython::boundscheck(false), cython::wraparound(false):
         e = b[1:]
-    return c, d, e, cython.typeof(c), cython.typeof(d), cython.typeof(e), cython.typeof(b[1:])
-
+    return c, d, e, cython::typeof(c), cython::typeof(d), cython::typeof(e), cython::typeof(b[1:])
 
 def assign_to_index(bytearray b, value):
     """
@@ -136,7 +132,6 @@ def assign_to_index(bytearray b, value):
 
     return b
 
-
 def check_bounds(i32 cvalue):
     """
     >>> check_bounds(0)
@@ -168,7 +163,6 @@ def check_bounds(i32 cvalue):
 
     b[0] = cvalue
     return b[0]
-
 
 def nogil_assignment(bytearray x, i32 value):
     """

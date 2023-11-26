@@ -33,65 +33,65 @@ extern from "<sys/stat.h>" nogil:
 
 # POSIX prescribes including both <sys/stat.h> and <unistd.h> for these
 extern from "<unistd.h>" nogil:
-    fn i32 chmod(const char *, mode_t)
+    fn i32 chmod(r&i8, mode_t)
     fn i32 fchmod(i32, mode_t)
-    fn i32 fchmodat(i32, const char *, mode_t, i32 flags)
+    fn i32 fchmodat(i32, r&i8, mode_t, i32 flags)
 
-    fn i32 stat(const char *, struct_stat *)
-    fn i32 lstat(const char *, struct_stat *)
+    fn i32 stat(r&i8, struct_stat *)
+    fn i32 lstat(r&i8, struct_stat *)
     fn i32 fstat(i32, struct_stat *)
-    fn i32 fstatat(i32, const char *, struct_stat *, i32 flags)
+    fn i32 fstatat(i32, r&i8, struct_stat *, i32 flags)
 
-    fn i32 mkdir(const char *, mode_t)
-    fn i32 mkdirat(i32, const char *, mode_t)
-    fn i32 mkfifo(const char *, mode_t)
-    fn i32 mkfifoat(i32, const char *, mode_t)
-    fn i32 mknod(const char *, mode_t, dev_t)
-    fn i32 mknodat(i32, const char *, mode_t, dev_t)
+    fn i32 mkdir(r&i8, mode_t)
+    fn i32 mkdirat(i32, r&i8, mode_t)
+    fn i32 mkfifo(r&i8, mode_t)
+    fn i32 mkfifoat(i32, r&i8, mode_t)
+    fn i32 mknod(r&i8, mode_t, dev_t)
+    fn i32 mknodat(i32, r&i8, mode_t, dev_t)
 
     fn i32 futimens(i32, const timespec *)
-    fn i32 utimensat(i32, const char *, const timespec *, i32 flags)
+    fn i32 utimensat(i32, r&i8, const timespec *, i32 flags)
 
     # Macros for st_mode
-    mode_t S_ISREG(mode_t)
-    mode_t S_ISDIR(mode_t)
-    mode_t S_ISCHR(mode_t)
-    mode_t S_ISBLK(mode_t)
-    mode_t S_ISFIFO(mode_t)
-    mode_t S_ISLNK(mode_t)
-    mode_t S_ISSOCK(mode_t)
+    fn mode_t S_ISREG(mode_t)
+    fn mode_t S_ISDIR(mode_t)
+    fn mode_t S_ISCHR(mode_t)
+    fn mode_t S_ISBLK(mode_t)
+    fn mode_t S_ISFIFO(mode_t)
+    fn mode_t S_ISLNK(mode_t)
+    fn mode_t S_ISSOCK(mode_t)
 
-    mode_t S_IFMT
-    mode_t S_IFREG
-    mode_t S_IFDIR
-    mode_t S_IFCHR
-    mode_t S_IFBLK
-    mode_t S_IFIFO
-    mode_t S_IFLNK
-    mode_t S_IFSOCK
+    static mode_t S_IFMT
+    static mode_t S_IFREG
+    static mode_t S_IFDIR
+    static mode_t S_IFCHR
+    static mode_t S_IFBLK
+    static mode_t S_IFIFO
+    static mode_t S_IFLNK
+    static mode_t S_IFSOCK
 
     # Permissions
-    mode_t S_ISUID
-    mode_t S_ISGID
-    mode_t S_ISVTX
+    static mode_t S_ISUID
+    static mode_t S_ISGID
+    static mode_t S_ISVTX
 
-    mode_t S_IRWXU
-    mode_t S_IRUSR
-    mode_t S_IWUSR
-    mode_t S_IXUSR
+    static mode_t S_IRWXU
+    static mode_t S_IRUSR
+    static mode_t S_IWUSR
+    static mode_t S_IXUSR
 
-    mode_t S_IRWXG
-    mode_t S_IRGRP
-    mode_t S_IWGRP
-    mode_t S_IXGRP
+    static mode_t S_IRWXG
+    static mode_t S_IRGRP
+    static mode_t S_IWGRP
+    static mode_t S_IXGRP
 
-    mode_t S_IRWXO
-    mode_t S_IROTH
-    mode_t S_IWOTH
-    mode_t S_IXOTH
+    static mode_t S_IRWXO
+    static mode_t S_IROTH
+    static mode_t S_IWOTH
+    static mode_t S_IXOTH
 
     # test file types
-    fn bint S_TYPEISMQ(struct_stat *buf)
-    fn bint S_TYPEISSEM(struct_stat *buf)
-    fn bint S_TYPEISSHM(struct_stat *buf)
-    fn bint S_TYPEISTMO(struct_stat *buf)
+    fn u2 S_TYPEISMQ(struct_stat *buf)
+    fn u2 S_TYPEISSEM(struct_stat *buf)
+    fn u2 S_TYPEISSHM(struct_stat *buf)
+    fn u2 S_TYPEISTMO(struct_stat *buf)

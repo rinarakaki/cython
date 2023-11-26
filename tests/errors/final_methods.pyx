@@ -3,12 +3,12 @@
 use cython
 
 cdef class BaseClass:
-    #[cython.final]
+    #[cython::final]
     fn cdef_method(self):
         pass
 
-    #[cython.final]
-    cpdef cpdef_method(self):
+    #[cython::final]
+    cpdef fn cpdef_method(self):
         pass
 
 

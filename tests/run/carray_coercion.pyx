@@ -1,19 +1,8 @@
 # mode: run
 
-import sys
-IS_PY3 = sys.version_info[0] >= 3
-IS_32BIT_PY2 = not IS_PY3 and sys.maxint < 2**32
-
 use libc::stdint
 use libc::stdint::int16_t as my_int16_t
 
-def unlongify(v):
-    # on 32bit Py2.x platforms, 'unsigned int' coerces to a Python long => fix doctest output here.
-    s = repr(v)
-    if IS_32BIT_PY2:
-        assert s.count('L') == s.count(',') + 1, s
-        s = s.replace('L', '')
-    return s
 
 def from_int_array():
     """
@@ -26,7 +15,7 @@ def from_int_array():
     v[2] = 3
     return v
 
-cpdef tuple tuple_from_int_array():
+cpdef fn tuple tuple_from_int_array():
     """
     >>> tuple_from_int_array()
     (1, 2, 3)
@@ -39,12 +28,12 @@ cpdef tuple tuple_from_int_array():
     return v
 
 extern from "stdint.h":
-    ctypedef u64 uint32_t
+    type uint32_t = u64
 
 def from_typedef_int_array():
     """
-    >>> unlongify(from_typedef_int_array())
-    '[1, 2, 3]'
+    >>> from_typedef_int_array()
+    [1, 2, 3]
     """
     let uint32_t[3] v
     v[0] = 1
@@ -52,10 +41,10 @@ def from_typedef_int_array():
     v[2] = 3
     return v
 
-cpdef tuple tuple_from_typedef_int_array():
+cpdef fn tuple tuple_from_typedef_int_array():
     """
-    >>> unlongify(tuple_from_typedef_int_array())
-    '(1, 2, 3)'
+    >>> tuple_from_typedef_int_array()
+    (1, 2, 3)
     """
     let uint32_t[3] v
     v[0] = 1
@@ -222,7 +211,7 @@ def to_int_array_array(x):
 
 '''
 # FIXME: this isn't currently allowed
-cdef enum:
+enum:
     SizeA = 2
     SizeB = 3
 

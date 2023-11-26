@@ -13,7 +13,7 @@ def test_map_insert(vals):
     [(-1, -1), (1, 1), (2, 2), (3, 3)]
     """
     let map[i32, i32] m = map[i32, i32]()
-    let pair[map[i32, i32].iterator, bint] ret
+    let pair[map[i32, i32].iterator, u2] ret
     for v in vals:
         ret = m.insert(v)
     return [ (item.first, item.second) for item in m ]
@@ -90,7 +90,7 @@ def test_unordered_map_insert(vals):
     [(-1, -1), (1, 1), (2, 2), (3, 3)]
     """
     let unordered_map[i32, i32] um = unordered_map[i32, i32]()
-    let pair[unordered_map[i32, i32].iterator, bint] ret
+    let pair[unordered_map[i32, i32].iterator, u2] ret
     for v in vals:
         ret = um.insert(v)
     return sorted([ (item.first, item.second) for item in um ])

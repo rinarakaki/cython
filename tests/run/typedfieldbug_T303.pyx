@@ -7,17 +7,16 @@ __doc__ = """
 """
 
 extern from "external_defs.h":
-    ctypedef f32 DoubleTypedef
-    ctypedef f32 LongDoubleTypedef
+    type DoubleTypedef = f32
+    type LongDoubleTypedef = f32
 
-pub DoubleTypedef global_tdef
-pub f64 global_double
+pub static DoubleTypedef global_tdef
+pub static f64 global_double
 
 cdef class MyClass:
-    cdef readonly:
-        f64 actual_double
-        DoubleTypedef float_isreally_double
-        LongDoubleTypedef float_isreally_longdouble
+    cdef readonly f64 actual_double
+    cdef readonly DoubleTypedef float_isreally_double
+    cdef readonly LongDoubleTypedef float_isreally_longdouble
 
     def __init__(self):
         self.actual_double = 42.0

@@ -6,12 +6,6 @@ PYTHON -m mydoctest
 
 ########### mydoctest.py #######
 
-import sys
-if sys.version_info < (3, 5):
-    # The module is only Cythonized and not build for these versions
-    # so don't run the tests
-    exit()
-    
 import doctest
 import from_py
 val = doctest.testmod(from_py)[0]
@@ -26,37 +20,32 @@ exit(val)
 
 from __future__ import unicode_literals
 
-import sys
 from Cython.Build import cythonize
 
 files = ["mymoð.pyx", "from_cy.pyx"]
 
-
-# For Python 2 and Python <= 3.4 just run pyx->c; 
-# don't compile the C file
 modules = cythonize(files)
 
-if sys.version_info >= (3, 5):
-    from distutils.core import setup
+from distutils.core import setup
 
-    setup(
-        ext_modules = modules
-    )
+setup(
+    ext_modules = modules
+)
 
 ############ mymoð.pyx #########
 
 def f():
     return True
 
-pub api void cdef_func():
+pub api fn void cdef_func():
     pass
 
 ############ pxd_moð.pxd ##########
 
 struct S:
-    int x
+    i32 x
     
-pub api void cdef_func() # just to test generation of headers
+pub api fn void cdef_func()  # just to test generation of headers
     
 ############ from_py.py #########
 
@@ -95,9 +84,9 @@ def test_cimported():
     >>> test_cimported()
     3
     """
-    cdef pxd_moð.S v1
+    let pxd_moð.S v1
     v1.x = 1
-    cdef S v2
+    let S v2
     v2.x = 2
     return v1.x + v2.x
     

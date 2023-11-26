@@ -1,6 +1,6 @@
 import functools
 
-@functools.total_ordering
+#[functools.total_ordering]
 cdef class ExtGe:
     cdef i32 x
 

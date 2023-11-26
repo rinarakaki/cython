@@ -1,7 +1,7 @@
 extern from "string.h":
-    fn char* strstr(const char *haystack, const char *needle)
+    fn r&i8 strstr(r&i8 haystack, r&i8 needle)
 
-cdef char* data = "hfvcakdfagbcffvschvxcdfgccbcfhvgcsnfxjh"
+cdef r&i8 data = "hfvcakdfagbcffvschvxcdfgccbcfhvgcsnfxjh"
 
-cdef char* pos = strstr(needle='akd', haystack=data)
+cdef r&i8 pos = strstr(needle='akd', haystack=data)
 print(pos is not NULL)

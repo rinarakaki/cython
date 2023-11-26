@@ -2,16 +2,16 @@
 # tag: internal
 
 extern from *:
-    i32 check_binary_version "__Pyx_check_binary_version" (u64 ct_version, u64 rt_version, i32 allow_newer) except -1
-    u64 get_runtime_version "__Pyx_get_runtime_version" ()
-    u64 PY_VERSION_HEX
+    fn i32 check_binary_version "__Pyx_check_binary_version"(u64 ct_version, u64 rt_version, i32 allow_newer) except -1
+    fn u64 get_runtime_version "__Pyx_get_runtime_version"()
+    static u64 PY_VERSION_HEX
 
 def test_get_runtime_version():
     """
     >>> test_get_runtime_version()
     True
     """
-    let u64 rt_version = get_runtime_version()
+    let auto rt_version = get_runtime_version()
     return PY_VERSION_HEX & ~0xFF == rt_version or  (hex(PY_VERSION_HEX), hex(rt_version))
 
 def iter_hex_versions():

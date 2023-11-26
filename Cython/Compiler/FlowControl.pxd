@@ -1,5 +1,3 @@
-# cython: language_level=3
-
 use cython
 
 use super::Visitor::(CythonTransform, TreeVisitor)
@@ -19,16 +17,16 @@ cdef class ControlBlock:
     pub object i_kill
     pub object i_state
 
-    cpdef bint empty(self)
-    cpdef detach(self)
-    cpdef add_child(self, block)
+    cpdef fn u2 empty(self)
+    cpdef fn detach(self)
+    cpdef fn add_child(self, block)
 
 cdef class ExitBlock(ControlBlock):
-    cpdef bint empty(self)
+    cpdef fn u2 empty(self)
 
 cdef class NameAssignment:
-    pub bint is_arg
-    pub bint is_deletion
+    pub u2 is_arg
+    pub u2 is_deletion
     pub object lhs
     pub object rhs
     pub object entry
@@ -46,7 +44,7 @@ cdef class AssignmentList:
 cdef class AssignmentCollector(TreeVisitor):
     cdef list assignments
 
-#[cython.final]
+#[cython::final]
 cdef class ControlFlow:
     pub set blocks
     pub set entries
@@ -61,26 +59,26 @@ cdef class ControlFlow:
 
     pub isize in_try_block
 
-    cpdef newblock(self, ControlBlock parent=*)
-    cpdef nextblock(self, ControlBlock parent=*)
-    cpdef bint is_tracked(self, entry)
-    cpdef bint is_statically_assigned(self, entry)
-    cpdef mark_position(self, node)
-    cpdef mark_assignment(self, lhs, rhs, entry, rhs_scope=*)
-    cpdef mark_argument(self, lhs, rhs, entry)
-    cpdef mark_deletion(self, node, entry)
-    cpdef mark_reference(self, node, entry)
+    cpdef fn newblock(self, ControlBlock parent=*)
+    cpdef fn nextblock(self, ControlBlock parent=*)
+    cpdef fn u2 is_tracked(self, entry)
+    cpdef fn u2 is_statically_assigned(self, entry)
+    cpdef fn mark_position(self, node)
+    cpdef fn mark_assignment(self, lhs, rhs, entry, rhs_scope=*)
+    cpdef fn mark_argument(self, lhs, rhs, entry)
+    cpdef fn mark_deletion(self, node, entry)
+    cpdef fn mark_reference(self, node, entry)
 
-    #[cython.locals(block=ControlBlock, parent=ControlBlock, unreachable=set)]
-    cpdef normalize(self)
+    #[cython::locals(block=ControlBlock, parent=ControlBlock, unreachable=set)]
+    cpdef fn normalize(self)
 
-    #[cython.locals(bit=object, assmts=AssignmentList, block=ControlBlock)]
-    cpdef initialize(self)
+    #[cython::locals(bit=object, assmts=AssignmentList, block=ControlBlock)]
+    cpdef fn initialize(self)
 
-    #[cython.locals(assmts=AssignmentList, assmt=NameAssignment)]
-    cpdef set map_one(self, istate, entry)
+    #[cython::locals(assmts=AssignmentList, assmt=NameAssignment)]
+    cpdef fn set map_one(self, istate, entry)
 
-    #[cython.locals(block=ControlBlock, parent=ControlBlock)]
+    #[cython::locals(block=ControlBlock, parent=ControlBlock)]
     fn reaching_definitions(self)
 
 cdef class Uninitialized:
@@ -92,11 +90,11 @@ cdef class Unknown:
 cdef class MessageCollection:
     cdef set messages
 
-#[cython.locals(dirty=bint, block=ControlBlock, parent=ControlBlock,
-                assmt=NameAssignment)]
+#[cython::locals(dirty=u2, block=ControlBlock, parent=ControlBlock,
+                 assmt=NameAssignment)]
 fn check_definitions(ControlFlow flow, dict compiler_directives)
 
-#[cython.final]
+#[cython::final]
 cdef class ControlFlowAnalysis(CythonTransform):
     cdef object gv_ctx
     cdef object constant_folder
@@ -105,7 +103,7 @@ cdef class ControlFlowAnalysis(CythonTransform):
     cdef object env
     cdef ControlFlow flow
     cdef object object_expr
-    cdef bint in_inplace_assignment
+    cdef u2 in_inplace_assignment
 
-    cpdef mark_assignment(self, lhs, rhs=*, rhs_scope=*)
-    cpdef mark_position(self, node)
+    cpdef fn mark_assignment(self, lhs, rhs=*, rhs_scope=*)
+    cpdef fn mark_position(self, node)

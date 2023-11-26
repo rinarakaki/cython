@@ -1,8 +1,6 @@
 # mode: run
 # tag: cpp, werror, cpp11, no-cpp-locals
 
-from __future__ import print_function
-
 use libcpp::bool
 use libcpp::algorithm::(is_sorted, is_sorted_until, sort, partial_sort, partial_sort_copy, stable_sort)
 use libcpp::algorithm::nth_element
@@ -11,7 +9,7 @@ use libcpp::iterator::distance
 use libcpp::string::string
 use libcpp::vector::vector
 
-def is_sorted_ints(vector[i32] values):
+fn is_sorted_ints(vector[i32] values):
     """
     Test is_sorted.
 
@@ -22,7 +20,7 @@ def is_sorted_ints(vector[i32] values):
     """
     return is_sorted(values.begin(), values.end())
 
-def initial_sorted_elements(vector[i32] values):
+fn initial_sorted_elements(vector[i32] values):
     """
     Test is_sorted_until.
 
@@ -44,7 +42,7 @@ def initial_sorted_elements(vector[i32] values):
     sorted_end = is_sorted_until(values.begin(), values.end())
     return distance(values.begin(), sorted_end)
 
-def sort_ints(vector[i32] values):
+fn sort_ints(vector[i32] values):
     """Test sort using the default operator<.
 
     >>> sort_ints([5, 7, 4, 2, 8, 6, 1, 9, 0, 3])
@@ -53,7 +51,7 @@ def sort_ints(vector[i32] values):
     sort(values.begin(), values.end())
     return values
 
-def sort_ints_reverse(vector[i32] values):
+fn sort_ints_reverse(vector[i32] values):
     """Test sort using a standard library comparison function object.
 
     >>> sort_ints_reverse([5, 7, 4, 2, 8, 6, 1, 9, 0, 3])
@@ -62,7 +60,7 @@ def sort_ints_reverse(vector[i32] values):
     sort(values.begin(), values.end(), greater[int]())
     return values
 
-def partial_sort_ints(vector[i32] values, i32 k):
+fn partial_sort_ints(vector[i32] values, i32 k):
     """
     Test partial_sort using the default operator<.
 
@@ -72,7 +70,7 @@ def partial_sort_ints(vector[i32] values, i32 k):
     partial_sort(values.begin(), values.begin() + k, values.end())
     return values
 
-def partial_sort_ints_reverse(vector[i32] values, i32 k):
+fn partial_sort_ints_reverse(vector[i32] values, i32 k):
     """
     Test partial_sort using a standard library comparison function object.
 
@@ -82,7 +80,7 @@ def partial_sort_ints_reverse(vector[i32] values, i32 k):
     partial_sort(values.begin(), values.begin() + k, values.end(), greater[int]())
     return values
 
-def partial_sort_ints2(vector[i32] values, i32 k):
+fn partial_sort_ints2(vector[i32] values, i32 k):
     """
     Test partial_sort_copy using the default operator<.
 
@@ -93,7 +91,7 @@ def partial_sort_ints2(vector[i32] values, i32 k):
     partial_sort_copy(values.begin(), values.end(), output.begin(), output.end())
     return output
 
-def partial_sort_ints_reverse2(vector[i32] values, i32 k):
+fn partial_sort_ints_reverse2(vector[i32] values, i32 k):
     """
     Test partial_sort_copy using a standard library comparison function object.
 
@@ -122,10 +120,10 @@ extern from *:
     cppclass Employee:
         Employee()
         Employee(i32, string)
-        int age
+        i32 age
         string name
 
-fn bool Employee_greater(const Employee& lhs, const Employee& rhs):
+fn bool Employee_greater(&Employee lhs, &Employee rhs):
     return lhs.age > rhs.age
 
 def test_stable_sort():
@@ -155,7 +153,7 @@ def test_stable_sort():
     for e in employees:
         print("%s, %s" % (e.age, <str>(e.name).decode("ascii")))
 
-def second_smallest(vector[i32] values):
+fn second_smallest(vector[i32] values):
     """
     Test nth_element using the default operator<.
 
@@ -165,7 +163,7 @@ def second_smallest(vector[i32] values):
     nth_element(values.begin(), values.begin() + 1, values.end())
     return values[1]
 
-def second_largest(vector[i32] values):
+fn second_largest(vector[i32] values):
     """
     Test nth_element using a standard library comparison function object.
 

@@ -1,4 +1,3 @@
-#!/usr/bin/python
 # micro benchmarks for generators
 
 COUNT = 10000

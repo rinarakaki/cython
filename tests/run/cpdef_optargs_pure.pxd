@@ -1,1 +1,1 @@
-cpdef func(x, y=*, z=*)
+cpdef fn func(x, y=*, z=*)

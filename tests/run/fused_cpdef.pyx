@@ -6,12 +6,12 @@ import sys, io
 
 cy = __import__("cython")
 
-cpdef func1(self, cython.integral x):
+cpdef fn func1(self, cython.integral x):
     print(f"{self},", end=' ')
     if cython.integral is int:
-        print('x is int', x, cython.typeof(x))
+        print('x is int', x, cython::typeof(x))
     else:
-        print('x is long', x, cython.typeof(x))
+        print('x is long', x, cython::typeof(x))
 
 
 class A(object):
@@ -21,12 +21,12 @@ class A(object):
         return "A"
 
 cdef class B:
-    cpdef int meth(self, cython.integral x):
+    cpdef fn int meth(self, cython.integral x):
         print(f"{self},", end=' ')
         if cython.integral is int:
-            print('x is int', x, cython.typeof(x))
+            print('x is int', x, cython::typeof(x))
         else:
-            print('x is long', x, cython.typeof(x))
+            print('x is long', x, cython::typeof(x))
         return 0
 
     def __str__(self):
@@ -73,10 +73,6 @@ def test_fused_cpdef():
 
 
 midimport_run = io.StringIO()
-if sys.version_info.major < 3:
-    # Monkey-patch midimport_run.write to accept non-unicode strings under Python 2.
-    midimport_run.write = lambda c: io.StringIO.write(midimport_run, unicode(c))
-
 realstdout = sys.stdout
 sys.stdout = midimport_run
 
@@ -143,9 +139,9 @@ def test_nomatch():
     TypeError: No matching signature found
     """
 
-ctypedef long double long_double
+type long_double = f128
 
-cpdef multiarg(cython.integral x, cython.floating y):
+cpdef fn multiarg(cython.integral x, cython.floating y):
     if cython.integral is int:
         print("x is an int,", end=' ')
     else:
@@ -189,10 +185,10 @@ def test_ambiguousmatch():
 
 # https://github.com/cython/cython/issues/4409
 # default arguments + fused cpdef were crashing
-cpdef literal_default(cython.integral x, some_string="value"):
+cpdef fn literal_default(cython.integral x, some_string="value"):
     return x, some_string
 
-cpdef mutable_default(cython.integral x, some_value=[]):
+cpdef fn mutable_default(cython.integral x, some_value=[]):
     some_value.append(x)
     return some_value
 

@@ -12,7 +12,7 @@ __doc__ = u"""
 ... except (OverflowError, TypeError): print("ERROR")
 ERROR
 
->>> test(1<<128) #doctest: +ELLIPSIS
+>>> test(1<<128) # doctest: +ELLIPSIS
 Traceback (most recent call last):
     ...
 OverflowError: ...
@@ -27,7 +27,7 @@ True
 >>> try: a.foo(-1)
 ... except (OverflowError, TypeError): print("ERROR")
 ERROR
->>> a.foo(1 << 180) #doctest: +ELLIPSIS
+>>> a.foo(1 << 180) # doctest: +ELLIPSIS
 Traceback (most recent call last):
     ...
 OverflowError: ...
@@ -35,7 +35,7 @@ OverflowError: ...
 
 # XXX This should generate a warning !!!
 extern from *:
-    ctypedef u64 usize
+    type usize = u64
 
 def test(usize i):
     return i
@@ -48,6 +48,6 @@ cdef class A:
         self.a = a
         self.b = b
 
-    cpdef usize foo(self, usize x):
+    cpdef fn usize foo(self, usize x):
         cdef object o = x
         return o

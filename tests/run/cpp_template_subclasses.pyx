@@ -7,7 +7,7 @@ use libcpp::vector::vector
 
 extern from "cpp_template_subclasses_helper.h":
     cdef cppclass Base:
-        char* name()
+        r&i8 name()
 
     cdef cppclass A[A1](Base):
         A1 funcA(A1)
@@ -115,44 +115,44 @@ def testE(x, y):
     finally:
         del e
 
-pub pair[i32, f64] public_return_pair(a, b) except *:
-  return pair[i32, f64](a, b)
+pub fn pair[i32, f64] public_return_pair(a, b) except *:
+    return pair[i32, f64](a, b)
 
 def test_GH1599(a, b):
-  """
-  >>> test_GH1599(1, 2)
-  (1, 2.0)
-  """
-  return public_return_pair(a, b)
+    """
+    >>> test_GH1599(1, 2)
+    (1, 2.0)
+    """
+    return public_return_pair(a, b)
 
 
 # Related to GH Issue #1852.
 
-cdef cppclass Callback[T]:#(UntypedCallback):
+cdef cppclass Callback[T]:  # (UntypedCallback):
     pass
 
 cdef cppclass MyClass[O]:
-    void Invoke(Callback[O]*)
+    fn void Invoke(Callback[O]*)
 
 cdef cppclass MySubclass[T](MyClass[T]):
-    void Invoke(Callback[T]* callback):
+    fn void Invoke(Callback[T]* callback):
       pass
 
 cdef cppclass Getter[T]:
-    T get(bint fire) except *:
+    T get(u2 fire) except *:
         if fire:
             raise RuntimeError
         else:
            raise NotImplementedError
 
 cdef cppclass GetInt(Getter[i32]):
-    i32 get(bint fire) except *:
+    i32 get(u2 fire) except *:
         if fire:
             raise RuntimeError
         else:
             return 389
 
-def test_subclass_exception_values(bint fire):
+def test_subclass_exception_values(u2 fire):
     """
     >>> test_subclass_exception_values(false)
     389

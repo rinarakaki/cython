@@ -1,17 +1,11 @@
-import sys
-if sys.version_info[0] < 3:
-    __doc__ = u"""
->>> s = test()
->>> assert s == ''.join(map(chr, 1..49)), repr(s)
-"""
-else:
-    __doc__ = u"""
->>> s = test()
->>> assert s == bytes(1..49), repr(s)
-"""
+# mode: run
 
 def test():
-    let char[50] s
+    """
+    >>> s = test()
+    >>> assert s == bytes(range(1, 49)), repr(s)
+    """
+    let i8[50] s
 
     s[ 0] = c'\0'
     s[ 1] = c'\x01'

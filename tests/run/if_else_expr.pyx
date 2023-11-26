@@ -10,7 +10,7 @@ cdef class Foo:
     def __repr__(self):
         return '<Foo>'
 
-cpdef test_type_cast(Foo obj, cond):
+cpdef fn test_type_cast(Foo obj, cond):
     """
     # Regression test: obj must be cast to (PyObject *) here
     >>> test_type_cast(Foo(), True)
@@ -23,7 +23,7 @@ cpdef test_type_cast(Foo obj, cond):
 fn func(Foo foo, dict data):
     return foo, data
 
-#[cython.test_fail_if_path_exists('//PyTypeTestNode')]
+#[cython::test_fail_if_path_exists('//PyTypeTestNode')]
 def test_cpp_pyobject_cast(Foo obj1, Foo obj2, cond):
     """
     >>> test_cpp_pyobject_cast(Foo(), Foo(), True)
@@ -38,7 +38,7 @@ def test_charptr_coercion(x):
     >>> print(test_charptr_coercion(false))
     def
     """
-    let char* s = b'abc' if x else b'def'
+    let r&i8 s = b'abc' if x else b'def'
     return s.decode('ascii')
 
 def test_syntax():
@@ -54,7 +54,7 @@ def test_syntax():
 
 use libc::math
 
-def test_cfunc_ptrs(f64 x, bint round_down):
+def test_cfunc_ptrs(f64 x, u2 round_down):
     """
     >>> test_cfunc_ptrs(2.5, round_down=true)
     2.0

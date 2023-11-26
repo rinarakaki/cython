@@ -2,10 +2,18 @@
 
 use cython
 
+import sys
+
+# The tests here are to do with a deterministic order of destructors which
+# isn't reliable for PyPy. Therefore, on PyPy we treat the test as
+# "compiles and doesn't crash"
+IS_PYPY = hasattr(sys, 'pypy_version_info')
 
 # Count number of times an object was deallocated twice. This should remain 0.
 cdef int double_deallocations = 0
 def assert_no_double_deallocations():
+    if IS_PYPY:
+        return
     global double_deallocations
     err = double_deallocations
     double_deallocations = 0
@@ -24,7 +32,7 @@ def recursion_test(f, int n=2**20):
         x = f(x)
 
 
-#[cython.trashcan(true)]
+#[cython::trashcan(true)]
 cdef class Recurse:
     """
     >>> recursion_test(Recurse)
@@ -57,8 +65,8 @@ cdef class RecurseSub(Recurse):
         self.subdeallocated = 1
 
 
-#[cython.freelist(4)]
-#[cython.trashcan(true)]
+#[cython::freelist(4)]
+#[cython::trashcan(true)]
 cdef class RecurseFreelist:
     """
     >>> recursion_test(RecurseFreelist)
@@ -98,6 +106,8 @@ cdef class RecurseList(list):
 cdef int base_deallocated = 0
 cdef int trashcan_used = 0
 def assert_no_trashcan_used():
+    if IS_PYPY:
+        return
     global base_deallocated, trashcan_used
     err = trashcan_used
     trashcan_used = base_deallocated = 0
@@ -126,13 +136,13 @@ cdef class Sub1(Base):
         trashcan_used += base_deallocated
 
 
-#[cython.trashcan(true)]
+#[cython::trashcan(true)]
 cdef class Middle(Base):
     pub foo
 
 
 # Trashcan disabled explicitly
-#[cython.trashcan(false)]
+#[cython::trashcan(false)]
 cdef class Sub2(Middle):
     """
     >>> recursion_test(Sub2, 1000)

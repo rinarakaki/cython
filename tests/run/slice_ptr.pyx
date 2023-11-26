@@ -14,9 +14,9 @@ def double_ptr_slice(x, L, i32 a, i32 b):
     >>> double_ptr_slice(EqualsEvens(), L, 0, 10)
     >>> double_ptr_slice(EqualsEvens(), L, 1, 10)
     """
-    let f64 *L_c = NULL
+    let f64* L_c = NULL
     try:
-        L_c = <f64*>malloc(<u64> len(L) * sizeof(f64))
+        L_c = <f64*>malloc(<u64>len(L) * sizeof(f64))
         for i, a in enumerate(L):
             L_c[i] = L[i]
         assert (x in L_c[:b]) == (x in L[:b])
@@ -39,8 +39,8 @@ def void_ptr_slice(py_x, L, i32 a, i32 b):
     >>> void_ptr_slice(9, L, 3, 7)
     """
     # I'm using the fact that small Python ints are cached.
-    let void **L_c = NULL
-    let void *x = <void*>py_x
+    let void** L_c = NULL
+    let auto x = <void*>py_x
     try:
         L_c = <void**>malloc(<u64> len(L) * sizeof(void*))
         for i, a in enumerate(L):

@@ -14,8 +14,8 @@ def test_ptr2():
     >>> test_ptr2()
     2
     """
-    let char* p1 = NULL
-    let char* p2 = NULL
+    let r&i8 p1 = NULL
+    let r&i8 p2 = NULL
     p1 += 1
 
     if p1 and p2:
@@ -79,10 +79,10 @@ def test_attr_int(TestExtInt e):
 
 union _aux:
     usize i
-    void *p
+    void* p
 
 cdef class TestExtPtr:
-    let void* p
+    cdef void* p
     def __init__(self, i32 i):
         cdef _aux aux
         aux.i = i

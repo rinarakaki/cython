@@ -3,13 +3,13 @@
 
 # This gives a warning about the previous .pxd definition, but should not give an error.
 cdef cppclass Foo:
-    int _foo
-    int get_foo():
+    i32 _foo
+    fn i32 get_foo():
         return this._foo
-    void set_foo(i32 foo):
+    fn void set_foo(i32 foo):
         this._foo = foo
 
-def test_Foo(n):
+fn test_Foo(n):
     """
     >>> test_Foo(1)
     1

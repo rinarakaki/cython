@@ -1,6 +1,6 @@
 # mode: compile
 
-fn char *f():
+fn r&i8 f():
     raise Exception
 
 f()

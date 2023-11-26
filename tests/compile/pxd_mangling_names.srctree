@@ -16,10 +16,10 @@ setup(
 
 ######## a.pxd ########
 
-pub i32 foo()
+pub fn i32 foo()
 
 extern from "b.h":
-    cpdef i32 bar()
+    cpdef fn i32 bar()
 
 ######## a.py ########
 
@@ -43,4 +43,3 @@ int bar();
 #include "a.h"
 
 int bar() { return foo(); }
-

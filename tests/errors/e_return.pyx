@@ -6,7 +6,7 @@ fn void g():
     return i  # error
 
 fn i32 h():
-    let i32 *p
+    let i32* p
     return  # error
     return p  # error
 

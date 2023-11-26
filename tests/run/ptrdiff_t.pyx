@@ -41,7 +41,7 @@ cdef class A:
         self.a = a
         self.b = b
 
-    cpdef ptrdiff_t foo(self, ptrdiff_t x):
+    cpdef fn ptrdiff_t foo(self, ptrdiff_t x):
         cdef object o = x
         return o
 

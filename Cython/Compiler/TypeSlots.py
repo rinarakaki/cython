@@ -3,7 +3,6 @@
 #   and associated know-how.
 #
 
-from __future__ import absolute_import
 
 from . import Naming
 from . import PyrexTypes
@@ -17,7 +16,7 @@ invisible = ['__cinit__', '__dealloc__', '__richcmp__',
 richcmp_special_methods = ['__eq__', '__ne__', '__lt__', '__gt__', '__le__', '__ge__']
 
 
-class Signature(object):
+class Signature:
     #  Method slot signature descriptor.
     #
     #  has_dummy_arg      boolean
@@ -77,8 +76,7 @@ class Signature(object):
         # and are not looked up in here
     }
 
-    type_to_format_map = dict(
-        (type_, format_) for format_, type_ in format_map.items())
+    type_to_format_map = {type_: format_ for format_, type_ in format_map.items()}
 
     error_value_map = {
         'O': "NULL",
@@ -218,7 +216,7 @@ class Signature(object):
             return "VARARGS"
 
 
-class SlotDescriptor(object):
+class SlotDescriptor:
     #  Abstract base class for type slot descriptors.
     #
     #  slot_name    string           Member name of the slot in the type object
@@ -655,7 +653,7 @@ class MemberTableSlot(SlotDescriptor):
     def get_member_specs(self, scope):
         return [
             get_slot_by_name("tp_dictoffset", scope.directives).members_slot_value(scope),
-            #get_slot_by_name("tp_weaklistoffset").spec_value(scope),
+            # get_slot_by_name("tp_weaklistoffset").spec_value(scope),
         ]
 
     def is_empty(self, scope):
@@ -717,7 +715,8 @@ class DictOffsetSlot(SlotDescriptor):
     def slot_code(self, scope):
         dict_entry = scope.lookup_here("__dict__") if not scope.is_closure_class_scope else None
         if dict_entry and dict_entry.is_variable:
-            if getattr(dict_entry.type, 'cname', None) != 'PyDict_Type':
+            from . import Builtin
+            if dict_entry.type is not Builtin.dict_type:
                 error(dict_entry.pos, "__dict__ slot must be of type 'dict'")
                 return "0"
             type = scope.parent_type
@@ -737,18 +736,18 @@ class DictOffsetSlot(SlotDescriptor):
             return None
         return '{"__dictoffset__", T_PYSSIZET, %s, READONLY, NULL},' % dict_offset
 
-## The following slots are (or could be) initialised with an
-## extern function pointer.
+# The following slots are (or could be) initialised with an
+# extern function pointer.
 #
-#slots_initialised_from_extern = (
+# slots_initialised_from_extern = (
 #    "tp_free",
-#)
+# )
 
-#------------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
 #
 #  Utility functions for accessing slot table data structures
 #
-#------------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
 
 
 def get_property_accessor_signature(name):
@@ -810,30 +809,30 @@ def is_reverse_number_slot(name):
     return False
 
 
-#------------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
 #
 #  Signatures for generic Python functions and methods.
 #
-#------------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
 
 pyfunction_signature = Signature("-*", "O")
 pymethod_signature = Signature("T*", "O")
 
-#------------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
 #
 #  Signatures for simple Python functions.
 #
-#------------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
 
 pyfunction_noargs = Signature("-", "O")
 pyfunction_onearg = Signature("-O", "O")
 
-#------------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
 #
 #  Signatures for the various kinds of function that
 #  can appear in the type object and its substructures.
 #
-#------------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
 
 unaryfunc = Signature("T", "O")            # typedef PyObject * (*unaryfunc)(PyObject *);
 binaryfunc = Signature("OO", "O")          # typedef PyObject * (*binaryfunc)(PyObject *, PyObject *);
@@ -890,11 +889,11 @@ getbufferproc = Signature("TBi", "r")      # typedef int (*getbufferproc)(PyObje
 releasebufferproc = Signature("TB", "v")   # typedef void (*releasebufferproc)(PyObject *, Py_buffer *);
 
 
-#------------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
 #
 #  Signatures for accessor methods of properties.
 #
-#------------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
 
 property_accessor_signatures = {
     '__get__': Signature("T", "O"),
@@ -905,7 +904,7 @@ property_accessor_signatures = {
 
 PyNumberMethods_Py2only_GUARD = "PY_MAJOR_VERSION < 3 || (CYTHON_COMPILING_IN_PYPY && PY_VERSION_HEX < 0x03050000)"
 
-#------------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
 #
 #  The main slot table. This table contains descriptors for all the
 #  top-level type slots, beginning with tp_dealloc, in the order they
@@ -915,9 +914,9 @@ PyNumberMethods_Py2only_GUARD = "PY_MAJOR_VERSION < 3 || (CYTHON_COMPILING_IN_PY
 # slot tables for each set of compiler directives are generated lazily and put in
 # the _slot_table_dict
 #
-#------------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
 
-class SlotTable(object):
+class SlotTable:
     def __init__(self, old_binops):
         # The following dictionary maps __xxx__ method names to slot descriptors.
         method_name_to_slot = {}
@@ -994,7 +993,7 @@ class SlotTable(object):
             MethodSlot(lenfunc, "sq_length", "__len__", method_name_to_slot),
             EmptySlot("sq_concat"),  # nb_add used instead
             EmptySlot("sq_repeat"),  # nb_multiply used instead
-            SyntheticSlot("sq_item", ["__getitem__"], "0"),    #EmptySlot("sq_item"),   # mp_subscript used instead
+            SyntheticSlot("sq_item", ["__getitem__"], "0"),  # EmptySlot("sq_item"),   # mp_subscript used instead
             MethodSlot(ssizessizeargfunc, "sq_slice", "__getslice__", method_name_to_slot),
             EmptySlot("sq_ass_item"),  # mp_ass_subscript used instead
             SyntheticSlot("sq_ass_slice", ["__setslice__", "__delslice__"], "0"),
@@ -1076,7 +1075,7 @@ class SlotTable(object):
             MemberTableSlot("tp_members"),
             GetSetSlot("tp_getset"),
 
-            BaseClassSlot("tp_base"),  #EmptySlot("tp_base"),
+            BaseClassSlot("tp_base"),  # EmptySlot("tp_base"),
             EmptySlot("tp_dict"),
 
             SyntheticSlot("tp_descr_get", ["__get__"], "0"),
@@ -1085,7 +1084,7 @@ class SlotTable(object):
             DictOffsetSlot("tp_dictoffset", ifdef="!CYTHON_USE_TYPE_SPECS"),  # otherwise set via "__dictoffset__" member
 
             MethodSlot(initproc, "tp_init", "__init__", method_name_to_slot),
-            EmptySlot("tp_alloc"),  #FixedSlot("tp_alloc", "PyType_GenericAlloc"),
+            EmptySlot("tp_alloc"),  # FixedSlot("tp_alloc", "PyType_GenericAlloc"),
             ConstructorSlot("tp_new", "__cinit__"),
             EmptySlot("tp_free"),
 
@@ -1106,13 +1105,13 @@ class SlotTable(object):
             EmptySlot("tp_pypy_flags", ifdef="CYTHON_COMPILING_IN_PYPY && PY_VERSION_HEX >= 0x03090000 && PY_VERSION_HEX < 0x030a0000"),
         )
 
-        #------------------------------------------------------------------------------------------
+        # -----------------------------------------------------------------------------------------
         #
         #  Descriptors for special methods which don't appear directly
         #  in the type object or its substructures. These methods are
         #  called from slot functions synthesized by Cython.
         #
-        #------------------------------------------------------------------------------------------
+        # -----------------------------------------------------------------------------------------
 
         MethodSlot(initproc, "", "__cinit__", method_name_to_slot)
         MethodSlot(destructor, "", "__dealloc__", method_name_to_slot)

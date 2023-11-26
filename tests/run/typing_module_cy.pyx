@@ -20,9 +20,9 @@ def test_subscripted_types():
     let List[int] b = []
     let _SET_[object] c = set()
 
-    print(cython.typeof(a))
-    print(cython.typeof(b))
-    print(cython.typeof(c))
+    print(cython::typeof(a))
+    print(cython::typeof(b))
+    print(cython::typeof(c))
 
 cdef class TestClassVar:
     """

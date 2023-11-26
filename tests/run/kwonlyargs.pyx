@@ -93,10 +93,10 @@ def h(a, b, *args, c, d = 42, e = 17, f, **kwds):
 
 def k(a, b, c=1, *args, d = 42, e = 17, f, **kwds):
     """
-    >>> k(1,2, c=1, f=2)
-    >>> k(1,2, c=1, f=2, e=3)
-    >>> k(1,2,3,4,5,6, d=1, f=2)
-    >>> k(1,2,3,4,5,6, d=1, f=2, e=3, x=25, y=11)
+    >>> k(1 ,2, c=1, f=2)
+    >>> k(1, 2, c=1, f=2, e=3)
+    >>> k(1, 2, 3, 4, 5, 6, d=1, f=2)
+    >>> k(1, 2, 3, 4, 5, 6, d=1, f=2, e=3, x=25, y=11)
     >>> k(1, 2, 3)
     Traceback (most recent call last):
     TypeError: k() needs keyword-only argument f
@@ -113,13 +113,13 @@ def l(*, a, b, c = 88):
     >>> l(1, 2, 3)
     Traceback (most recent call last):
     TypeError: l() takes exactly 0 positional arguments (3 given)
-    >>> l(1,2, d=1)
+    >>> l(1, 2, d=1)
     Traceback (most recent call last):
     TypeError: l() takes exactly 0 positional arguments (2 given)
     >>> l(1, 2, 3)
     Traceback (most recent call last):
     TypeError: l() takes exactly 0 positional arguments (3 given)
-    >>> l(1,2, d=1)
+    >>> l(1, 2, d=1)
     Traceback (most recent call last):
     TypeError: l() takes exactly 0 positional arguments (2 given)
     """

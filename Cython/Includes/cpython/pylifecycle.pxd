@@ -4,17 +4,17 @@ use libc::stdio::FILE
 use super::pystate::PyThreadState
 
 extern from "Python.h":
-    ctypedef i32 wchar_t
+    type wchar_t = i32
 
-    fn void Py_SetProgramName(wchar_t *)
-    wchar_t *Py_GetProgramName()
+    fn void Py_SetProgramName(wchar_t*)
+    fn wchar_t* Py_GetProgramName()
 
-    fn void Py_SetPythonHome(wchar_t *)
-    wchar_t *Py_GetPythonHome()
+    fn void Py_SetPythonHome(wchar_t*)
+    fn wchar_t* Py_GetPythonHome()
 
     # Only used by applications that embed the interpreter and need to
     # override the standard encoding determination mechanism
-    int Py_SetStandardStreamEncoding(const char *encoding, const char *errors)
+    fn i32 Py_SetStandardStreamEncoding(r&i8 encoding, r&i8 errors)
 
     fn void Py_Initialize()
     fn void Py_InitializeEx(i32)
@@ -22,8 +22,8 @@ extern from "Python.h":
     fn void Py_Finalize()
     fn i32 Py_FinalizeEx()
     fn i32 Py_IsInitialized()
-    PyThreadState *Py_NewInterpreter()
-    fn void Py_EndInterpreter(PyThreadState *)
+    fn PyThreadState *Py_NewInterpreter()
+    fn void Py_EndInterpreter(PyThreadState*)
 
     # _Py_PyAtExit is for the atexit module, Py_AtExit is for low-level
     # exit functions.
@@ -35,32 +35,32 @@ extern from "Python.h":
     # Restore signals that the interpreter has called SIG_IGN on to SIG_DFL.
     fn void _Py_RestoreSignals()
 
-    fn i32 Py_FdIsInteractive(FILE *, const char *)
+    fn i32 Py_FdIsInteractive(FILE*, r&i8)
 
     # Bootstrap __main__ (defined in Modules/main.c)
-    fn i32 Py_Main(i32 argc, wchar_t **argv)
+    fn i32 Py_Main(i32 argc, wchar_t** argv)
 
     # In getpath.c
-    wchar_t *Py_GetProgramFullPath()
-    wchar_t *Py_GetPrefix()
-    wchar_t *Py_GetExecPrefix()
-    wchar_t *Py_GetPath()
-    fn void Py_SetPath(const wchar_t *)
+    fn wchar_t* Py_GetProgramFullPath()
+    fn wchar_t* Py_GetPrefix()
+    fn wchar_t* Py_GetExecPrefix()
+    fn wchar_t* Py_GetPath()
+    fn void Py_SetPath(const wchar_t*)
     fn i32 _Py_CheckPython3()
 
     # In their own files
-    const char *Py_GetVersion()
-    const char *Py_GetPlatform()
-    const char *Py_GetCopyright()
-    const char *Py_GetCompiler()
-    const char *Py_GetBuildInfo()
-    const char *_Py_gitidentifier()
-    const char *_Py_gitversion()
+    fn r&i8 Py_GetVersion()
+    fn r&i8 Py_GetPlatform()
+    fn r&i8 Py_GetCopyright()
+    fn r&i8 Py_GetCompiler()
+    fn r&i8 Py_GetBuildInfo()
+    fn r&i8 _Py_gitidentifier()
+    fn r&i8 _Py_gitversion()
 
     ctypedef void (*PyOS_sighandler_t)(i32)
-    PyOS_sighandler_t PyOS_getsig(i32)
-    PyOS_sighandler_t PyOS_setsig(i32, PyOS_sighandler_t)
+    fn PyOS_sighandler_t PyOS_getsig(i32)
+    fn PyOS_sighandler_t PyOS_setsig(i32, PyOS_sighandler_t)
 
     # Random
-    fn i32 _PyOS_URandom(void *buffer, isize size)
-    fn i32 _PyOS_URandomNonblock(void *buffer, isize size)
+    fn i32 _PyOS_URandom(void* buffer, isize size)
+    fn i32 _PyOS_URandomNonblock(void* buffer, isize size)
