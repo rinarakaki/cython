@@ -3546,7 +3546,8 @@ def p_extern_item(s, pos, ctx):
         include_file = include_file,
         verbatim_include = verbatim_include,
         body = body,
-        namespace = ctx.namespace)
+        namespace = ctx.namespace
+    )
 
 def p_enum_item(s, pos, ctx):
     # s.sy == ident 'enum'
@@ -3557,7 +3558,7 @@ def p_enum_item(s, pos, ctx):
         scoped = True
         s.next()
 
-    if s.sy == 'IDENT':
+    if s.sy == "IDENT":
         name = s.systring
         s.next()
         cname = p_opt_cname(s)
@@ -3584,11 +3585,11 @@ def p_enum_item(s, pos, ctx):
             longness = 0
         )
 
-    s.expect(':')
+    s.expect(":")
     variants = []
 
     doc = None
-    if s.sy != 'NEWLINE':
+    if s.sy != "NEWLINE":
         p_c_enum_line(s, ctx, variants)
     else:
         s.next()  # 'NEWLINE'
@@ -3920,7 +3921,6 @@ def p_type_alias_item(s, ctx):
     # s.systring == "type"
     pos = s.position()
     s.next()
-    api = p_api(s)
     ctx = ctx(typedef_flag=1)
     declarator = p_c_declarator(s, ctx, is_type=1, assignable=0)
     s.expect("=")
@@ -3930,8 +3930,6 @@ def p_type_alias_item(s, ctx):
         pos,
         base_type=base_type,
         declarator=declarator,
-        visibility=ctx.visibility,
-        api=api,
         in_pxd=ctx.level == "module_pxd"
     )
 
@@ -4099,11 +4097,11 @@ def p_c_class_definition(s, pos,  ctx):
     s.next()
     module_path = []
     class_name = p_ident(s)
-    while s.sy == '.':
+    while s.sy == ".":
         s.next()
         module_path.append(class_name)
         class_name = p_ident(s)
-    if module_path and ctx.visibility != 'extern':
+    if module_path and ctx.visibility != "extern":
         error(pos, "Qualified class name only allowed for 'extern' C class")
     if module_path and s.sy == 'IDENT' and s.systring == 'as':
         s.next()
@@ -4155,9 +4153,7 @@ def p_c_class_definition(s, pos,  ctx):
     else:
         error(pos, "Invalid class visibility '%s'" % ctx.visibility)
     return Nodes.CClassDefNode(pos,
-        visibility = ctx.visibility,
         typedef_flag = ctx.typedef_flag,
-        api = ctx.api,
         module_name = ".".join(module_path),
         class_name = class_name,
         as_name = as_name,
@@ -4165,9 +4161,10 @@ def p_c_class_definition(s, pos,  ctx):
         objstruct_name = objstruct_name,
         typeobj_name = typeobj_name,
         check_size = check_size,
-        in_pxd = ctx.level == 'module_pxd',
+        in_pxd = ctx.level == "module_pxd",
         doc = doc,
-        body = body)
+        body = body
+    )
 
 
 def p_c_class_options(s):
