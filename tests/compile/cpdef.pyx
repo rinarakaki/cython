@@ -1,8 +1,8 @@
 # mode: compile
 
 cdef class A:
-    cpdef a(self):
+    cpdef fn a(self):
         ma(self)
 
-cpdef ma(x):
+cpdef fn ma(x):
     print x

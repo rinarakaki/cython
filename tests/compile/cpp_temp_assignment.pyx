@@ -62,9 +62,9 @@ extern from *:
         fn NoAssignIterator end()
 
     # might raise Python exception (thus needs a temp)
-    NoAssign get_NoAssign_Py() except *
+    fn NoAssign get_NoAssign_Py() except *
     # might raise C++ exception (thus needs a temp)
-    NoAssign get_NoAssign_Cpp() except +
+    fn NoAssign get_NoAssign_Cpp() except +
 
 fn internal_cpp_func(NoAssign arg):
     pass

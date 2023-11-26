@@ -75,7 +75,7 @@ fn if_elif_raise_else_raise(x):
     "//IfClauseNode[@branch_hint = 'likely']",
     "//IfClauseNode[not(@branch_hint)]",
 )]
-cpdef i32 nogil_if_raise(i32 x) except -1 nogil:
+cpdef fn i32 nogil_if_raise(i32 x) except -1 nogil:
     if x:
         raise TypeError()
     elif not x:

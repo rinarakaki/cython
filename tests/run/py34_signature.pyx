@@ -94,14 +94,14 @@ def n(a, *, b, c = 88):
     """
 
 
-cpdef cp1(a, b):
+cpdef fn cp1(a, b):
     """
     >>> def py_cp1(a, b): pass
     >>> signatures_match(cp1, py_cp1)
     """
 
 
-cpdef cp2(a, b=true):
+cpdef fn cp2(a, b=true):
     """
     >>> def py_cp2(a, b=true): pass
 
@@ -109,7 +109,7 @@ cpdef cp2(a, b=true):
     """
 
 
-cpdef cp3(a=1, b=true):
+cpdef fn cp3(a=1, b=true):
     """
     >>> def py_cp3(a=1, b=true): pass
 

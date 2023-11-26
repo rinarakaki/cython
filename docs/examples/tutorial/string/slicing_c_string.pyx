@@ -2,7 +2,7 @@ use libc::stdlib::free
 use c_func::get_a_c_string
 
 fn main():
-    let char* c_string = NULL
+    let r&i8 c_string = NULL
     let isize length = 0
 
     # get pointer and length from a C function

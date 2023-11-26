@@ -67,6 +67,6 @@ cdef class A:
         self.a = a
         self.b = b
 
-    cpdef ssize_t foo(self, ssize_t x):
+    cpdef fn ssize_t foo(self, ssize_t x):
         cdef object o = x
         return o

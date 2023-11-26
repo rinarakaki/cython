@@ -65,8 +65,8 @@ extern from *:
     int DEBUG_MODE = 1;
     #endif
     """
-    int PyCFunction_GET_FLAGS(op)
-    int DEBUG_MODE
+    fn i32 PyCFunction_GET_FLAGS(op)
+    static i32 DEBUG_MODE
 
 def has_fastcall(meth):
     """

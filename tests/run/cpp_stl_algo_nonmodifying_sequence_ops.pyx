@@ -260,7 +260,7 @@ def in_quote2(string quote, string word):
     """
     return search(quote.begin(), quote.end(), word.begin(), word.end(), &is_equal) != quote.end()
 
-def consecutive_values(string c, i32 count, char v):
+def consecutive_values(string c, i32 count, i8 v):
     """
     Test search_n using cppreference example (without std::begin and std::end).
 
@@ -271,7 +271,7 @@ def consecutive_values(string c, i32 count, char v):
     """
     return search_n(c.begin(), c.end(), count, v) != c.end()
 
-def consecutive_values2(string c, i32 count, char v):
+def consecutive_values2(string c, i32 count, i8 v):
     """
     Test search_n using cppreference example (with is_equal predicate).
 

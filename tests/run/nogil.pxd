@@ -1,1 +1,1 @@
-cdef void voidexceptnogil_in_pxd() nogil
+fn void voidexceptnogil_in_pxd() nogil
