@@ -2544,9 +2544,9 @@ def p_statement(s, ctx, first_statement = 0):
         s.next()
         cdef_flag = 1
         overridable = 1
-    # elif s.sy == "ctypedef":
-    #     s.next()
-    #     typedef_flag = 1
+    elif s.sy == "ctypedef" and s.peek()[0] in ("enum", "struct", "union", "class"):
+        s.next()
+        typedef_flag = 1
 
     if (
         (s.sy != "IDENT" or s.systring in ("type", "packed") or s.systring == "api" and s.peek()[0] in ("static", "fn", "type", "enum", "struct", "class"))
@@ -2559,7 +2559,7 @@ def p_statement(s, ctx, first_statement = 0):
     ):
         if s.sy == "cdef":
             s.next()
-        item = p_item(s, ctx(overridable=overridable), attributes)
+        item = p_item(s, ctx(overridable=overridable, typedef_flag=typedef_flag), attributes)
         if item is not None:
             return item
     
@@ -3943,24 +3943,18 @@ def p_ctypedef_statement(s, ctx):
     ctx = ctx(typedef_flag = 1, visibility = visibility)
     if api:
         ctx.api = 1
-    if s.sy == 'class':
-        node = p_c_class_definition(s, pos, ctx)
-    elif s.sy in struct_enum_union or s.sy == 'IDENT' and s.systring == "packed":
-        node = p_struct_enum(s, pos, ctx)
-    elif s.sy == 'IDENT' and s.systring == 'fused':
+    if s.sy == 'IDENT' and s.systring == 'fused':
         return p_fused_definition(s, pos, ctx)
     else:
         base_type = p_c_base_type(s, nonempty = 1)
         declarator = p_c_declarator(s, ctx, is_type = 1, nonempty = 1)
         s.expect_newline("Syntax error in ctypedef statement", ignore_semicolon=True)
-        node = Nodes.CTypeDefNode(
+        return Nodes.CTypeDefNode(
             pos, base_type = base_type,
             declarator = declarator,
             visibility = visibility, api = api,
             in_pxd = ctx.level == 'module_pxd'
         )
-    node.visibility = visibility
-    node.api = api
 
 def p_attributes(s):
     attributes = []
