@@ -2544,7 +2544,7 @@ def p_statement(s, ctx, first_statement = 0):
         s.next()
 
     if (
-        (s.sy != "IDENT" or s.systring in ("type", "packed") or s.systring == "api" and s.peek()[1] in ("static", "fn", "type", "enum", "struct", "class"))
+        (s.sy != "IDENT" or s.systring in ("type", "packed") or s.systring == "api" and s.peek()[0] in ("static", "fn", "type", "enum", "struct", "class"))
         and
         (s.sy != "class" or ctx.visibility == "extern")
         and
@@ -3514,7 +3514,7 @@ def p_cdef_statement(s, ctx):
         return p_cdef_block(s, ctx)
     elif s.sy == 'IDENT' and s.systring == 'fused':
         return p_fused_definition(s, pos, ctx)
-    elif s.systring == "cppclass":
+    elif s.sy == 'IDENT' and s.systring == "cppclass":
         return p_cpp_class_definition(s, pos, ctx)
     else:
         return p_c_func_or_var_declaration(s, pos, ctx)
