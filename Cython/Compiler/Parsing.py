@@ -2545,11 +2545,11 @@ def p_statement(s, ctx, first_statement = 0):
         s.next()
 
     if (
-        (s.sy != "IDENT" or s.systring in ("type", "packed") or s.systring == "api" and s.peek()[1] in ("static", "fn", "type", "enum", "struct", "class"))
+        (s.sy != "IDENT" or s.systring in ("type", "packed", "cppclass") or s.systring == "api" and s.peek()[1] in ("static", "fn", "type", "enum", "struct", "class"))
         and
         (s.sy != "class" or ctx.visibility == "extern")
         and
-        (s.sy != "cdef" or s.peek()[0] in ("extern", "enum", "struct", "union", "class"))
+        (s.sy != "cdef" or s.peek()[0] in ("extern", "enum", "struct", "union", "class", "cppclass"))
         and
         (s.sy not in ("pub", "readonly") or s.peek()[0] != "IDENT" or s.peek()[1] in ("type", "packed", "api"))
     ):
