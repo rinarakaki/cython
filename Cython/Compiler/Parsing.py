@@ -2527,6 +2527,7 @@ def p_item(s, ctx, attributes):
     if item is not None:
         item.decorators = attributes
         item.visibility = ctx.visibility
+        item.api = ctx.api
 
     return item
 

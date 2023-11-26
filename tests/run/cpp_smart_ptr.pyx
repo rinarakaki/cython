@@ -54,17 +54,19 @@ fn test_unique_ptr():
     except RuntimeError:
         pass  # good - this is what we expect
 
+type const_CountAllocDealloc = const CountAllocDealloc
+
 fn test_const_shared_ptr():
     """
     >>> test_const_shared_ptr()
     """
     let i32 alloc_count = 0, dealloc_count = 0
-    let shared_ptr[const CountAllocDealloc] ptr = shared_ptr[const CountAllocDealloc](
+    let shared_ptr[const_CountAllocDealloc] ptr = shared_ptr[const_CountAllocDealloc](
         new CountAllocDealloc(&alloc_count, &dealloc_count))
     assert alloc_count == 1
     assert dealloc_count == 0
 
-    let shared_ptr[const CountAllocDealloc] ptr2 = ptr
+    let shared_ptr[const_CountAllocDealloc] ptr2 = ptr
     assert alloc_count == 1
     assert dealloc_count == 0
 
