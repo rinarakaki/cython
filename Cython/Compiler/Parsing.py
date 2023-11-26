@@ -3610,10 +3610,8 @@ def p_enum_item(s, pos, ctx):
         items=variants,
         underlying_type=underlying_type,
         typedef_flag=ctx.typedef_flag,
-        visibility=ctx.visibility,
         create_wrapper=ctx.overridable,
-        api=ctx.api,
-        in_pxd=ctx.level == 'module_pxd',
+        in_pxd=ctx.level == "module_pxd",
         doc=doc,
     )
 
