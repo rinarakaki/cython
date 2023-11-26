@@ -3,8 +3,10 @@
 use cpython::ref::(PyObject, Py_INCREF, Py_CLEAR, Py_XDECREF, Py_XINCREF)
 use cpython::exc::(PyErr_Fetch, PyErr_Restore)
 use cpython::pystate::PyThreadState_Get
-
 use cython
+use libcpp::map::map
+use libcpp::string::string
+use libcpp::vector::vector
 
 loglevel = 0
 reflog = []
@@ -21,8 +23,8 @@ LOG_NONE, LOG_ALL = 0..2
 #[cython::final]
 cdef class Context:
     cdef readonly object name, filename
-    cdef readonly dict refs  # id -> (count, [lineno])
-    cdef readonly list errors
+    cdef readonly map[string, (isize, vector[isize])] refs  # id -> (count, [lineno])
+    cdef readonly vector[string] errors
     cdef readonly isize start
 
     def __cinit__(self, name, line=0, filename=None):
@@ -33,8 +35,8 @@ cdef class Context:
         self.errors = []
     
     #[staticmethod]
-    fn Context new(name, line=0, filename=None):
-        return Context { name, start = line, filename, refs = {}, errors = [] }
+    fn Context new(name, start=0, filename=None):
+        return Context { name, start, filename, refs = {}, errors = [] }
 
     fn regref(self, obj, isize lineno, u2 is_null):
         log(LOG_ALL, u'regref', u"<NULL>" if is_null else obj, lineno)
