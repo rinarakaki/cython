@@ -1,7 +1,7 @@
 extern from "<utility>" namespace "std" nogil:
     cdef cppclass pair[T, U]:
-        ctypedef T first_type
-        ctypedef U second_type
+        type first_type = T
+        type second_type = U
         T first
         U second
         pair() except +

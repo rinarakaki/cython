@@ -8,7 +8,7 @@ cdef class BaseClass:
         pass
 
     #[cython::final]
-    cpdef cpdef_method(self):
+    cpdef fn cpdef_method(self):
         pass
 
 

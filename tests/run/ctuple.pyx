@@ -162,7 +162,7 @@ def call_cdef_ctuple_return_type(i32 x):
     let (i32, r&i32) res = cdef_ctuple_return_type(x, &x)
     return res[0], res[1][0]
 
-cpdef (i32, f64) cpdef_ctuple_return_type(i32 x, f64 y):
+cpdef fn (i32, f64) cpdef_ctuple_return_type(i32 x, f64 y):
     """
     >>> cpdef_ctuple_return_type(1, 2)
     (1, 2.0)

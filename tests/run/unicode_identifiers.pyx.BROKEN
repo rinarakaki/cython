@@ -71,7 +71,7 @@ __doc__ = u"""
     """
 
 global_ναμε1 = None
-cdef double global_ναμε2 = 1.2
+static f64 global_ναμε2 = 1.2
 
 def f():
     """docstring"""
@@ -96,13 +96,13 @@ cdef class A:
         """
         return self.Ƒ()
 cdef class B:
-    cpdef Ƒ(self):
+    cpdef fn Ƒ(self):
         pass
 cdef class C:
     def Ƒ(self):
         pass
 cdef class D:
-    cdef int Ƒ
+    cdef i32 Ƒ
 
 def regular_function():
     """
@@ -138,7 +138,7 @@ def Fα2():
         pass
     return nested_normal, nεstεd_uni
 
-cpdef Fα3():
+cpdef fn Fα3():
     """docstring"""
     return 1
 
@@ -168,10 +168,10 @@ cdef class Γναμε2:
         """docstring"""
         pass
 
-    cpdef boring_cpdef(self):
+    cpdef fn boring_cpdef(self):
         """docstring"""
         return 2
-    cpdef εxciting_cpdef(self):
+    cpdef fn εxciting_cpdef(self):
         """docstring"""
         return 2
 
@@ -182,11 +182,11 @@ cdef Γναμε2 global_ναμε3 = Γναμε2()
 
 
 #[cython::always_allow_keywords(false)]  # METH_O signature
-def metho_function_taking_fancy_argument(Γναμε2 αrγ):
+fn metho_function_taking_fancy_argument(Γναμε2 αrγ):
     return αrγ
 
 #[cython::always_allow_keywords(true)]
-def function_taking_fancy_argument(Γναμε2 αrγ):
+fn function_taking_fancy_argument(Γναμε2 αrγ):
     return αrγ
 
 

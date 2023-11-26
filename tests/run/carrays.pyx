@@ -38,7 +38,7 @@ def test2():
     let i32[2+3] a2
     return sizeof(a1) - sizeof(a2)
 
-cdef enum:
+enum:
     MySizeA = 2
     MySizeB = 3
 

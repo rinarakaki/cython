@@ -1,5 +1,5 @@
 extern from "someheader.h":
-    type specialChar = const i8
+    type special_char = i8
 
     fn i32 process_string(r&i8 s)
     

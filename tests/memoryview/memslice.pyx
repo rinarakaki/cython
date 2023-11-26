@@ -1878,7 +1878,7 @@ struct ArrayStruct:
     i32[10] ints
     i8[3] chars
 
-cdef packed struct PackedArrayStruct:
+packed struct PackedArrayStruct:
     i32[10] ints
     i8[3] chars
 

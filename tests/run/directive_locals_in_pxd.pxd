@@ -7,4 +7,4 @@ fn foo(egg)
 fn foo_defval(egg=*)
 
 #[cython::locals(egg=cython::u2, v=cython::i32)]
-cpdef cpfoo(egg=*)
+cpdef fn cpfoo(egg=*)

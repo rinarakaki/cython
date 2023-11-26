@@ -9,7 +9,7 @@ cdef class Ext:
     >>> x.rec(10)
     0
     """
-    cpdef rec(self, i32 i):
+    cpdef fn rec(self, i32 i):
         return 0 if i < 0 else self.rec(i-1)
 
 class Py(Ext):

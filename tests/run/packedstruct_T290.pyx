@@ -5,7 +5,7 @@
 (9, 9)
 """
 
-cdef packed struct MyCdefStruct:
+packed struct MyCdefStruct:
     i8 a
     f64 b
 

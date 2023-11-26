@@ -2,17 +2,17 @@ use super::utility::pair
 
 extern from "<map>" namespace "std" nogil:
     cdef cppclass map[T, U, COMPARE=*, ALLOCATOR=*]:
-        ctypedef T key_type
-        ctypedef U mapped_type
-        ctypedef pair[const T, U] value_type
-        ctypedef COMPARE key_compare
-        ctypedef ALLOCATOR allocator_type
+        type key_type = T
+        type mapped_type = U
+        type value_type = pair[const T, U]
+        type key_compare = COMPARE
+        type allocator_type = ALLOCATOR
 
         # these should really be allocator_type.size_type and
         # allocator_type.difference_type to be true to the C++ definition
         # but cython doesn't support deferred access on template arguments
-        ctypedef usize size_type
-        ctypedef ptrdiff_t difference_type
+        type size_type = usize
+        type difference_type = ptrdiff_t
 
         cppclass const_iterator
         cppclass iterator:
@@ -129,17 +129,17 @@ extern from "<map>" namespace "std" nogil:
         fn u2 contains(&T)
 
     cdef cppclass multimap[T, U, COMPARE=*, ALLOCATOR=*]:
-        ctypedef T key_type
-        ctypedef U mapped_type
-        ctypedef pair[const T, U] value_type
-        ctypedef COMPARE key_compare
-        ctypedef ALLOCATOR allocator_type
+        type key_type = T
+        type mapped_type = U
+        type value_type = pair[const T, U]
+        type key_compare = COMPARE
+        type allocator_type = ALLOCATOR
 
         # these should really be allocator_type.size_type and
         # allocator_type.difference_type to be true to the C++ definition
         # but cython doesn't support deferred access on template arguments
-        ctypedef usize size_type
-        ctypedef ptrdiff_t difference_type
+        type size_type = usize
+        type difference_type = ptrdiff_t
 
         cppclass const_iterator
         cppclass iterator:

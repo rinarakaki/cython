@@ -9,7 +9,7 @@ cdef cppclass Foo:
     fn void set_foo(i32 foo):
         this._foo = foo
 
-def test_Foo(n):
+fn test_Foo(n):
     """
     >>> test_Foo(1)
     1

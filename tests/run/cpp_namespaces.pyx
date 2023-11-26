@@ -2,7 +2,7 @@
 # tag: cpp, werror
 
 extern from "cpp_namespaces_helper.h" namespace "A":
-    ctypedef i32 A_t
+    type A_t = i32
     struct S:
         f64 x
         A_t k

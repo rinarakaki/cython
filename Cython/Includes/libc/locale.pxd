@@ -1,8 +1,5 @@
 # 7.11 Localization <locale.h>
 
-# deprecated cimport for backwards compatibility:
-use libc::string::const_char
-
 extern from "<locale.h>" nogil:
     struct lconv:
         r&i8 decimal_point

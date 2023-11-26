@@ -19,7 +19,7 @@ setup(
 pub fn i32 foo()
 
 extern from "b.h":
-    cpdef i32 bar()
+    cpdef fn i32 bar()
 
 ######## a.py ########
 
