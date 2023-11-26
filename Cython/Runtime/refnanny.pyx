@@ -41,7 +41,7 @@ cdef class Context:
     fn regref(self, obj, isize lineno, u2 is_null):
         log(LOG_ALL, u'regref', u"<NULL>" if is_null else obj, lineno)
         if is_null:
-            self.errors.append(f"NULL argument on line {lineno}")
+            self.errors.push_back(f"NULL argument on line {lineno}")
             return
         id_ = id(obj)
         count, linenumbers = self.refs.get(id_, (0, []))
@@ -68,7 +68,7 @@ cdef class Context:
     fn end(self):
         if self.refs:
             msg = u"References leaked:"
-            for count, linenos in self.refs.itervalues():
+            for count, linenos in self.refs:
                 msg += f"\n  ({count}) acquired on lines: {u', '.join([f'{x}' for x in linenos])}"
             self.errors.append(msg)
         return u"\n".join([f'REFNANNY: {error}' for error in self.errors]) if self.errors else None
