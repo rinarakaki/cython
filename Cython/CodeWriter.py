@@ -217,7 +217,7 @@ class DeclarationWriter(TreeVisitor):
         self._visit_container_node(node, "cdef cppclass", extras, node.fields)
 
     def visit_CEnumDefNode(self, node):
-        self._visit_container_node(node, "cdef enum", None, node.items)
+        self._visit_container_node(node, "cdef enum", None, node.variants)
 
     def visit_CEnumDefItemNode(self, node):
         self.startline(node.name)

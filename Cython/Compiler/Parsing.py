@@ -3605,7 +3605,7 @@ def p_enum_item(s, pos, ctx):
         name=name,
         cname=cname,
         scoped=scoped,
-        items=variants,
+        variants=variants,
         underlying_type=underlying_type,
         typedef_flag=ctx.typedef_flag,
         create_wrapper=ctx.overridable,

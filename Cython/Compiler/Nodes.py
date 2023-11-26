@@ -1769,7 +1769,7 @@ class CEnumDefNode(StatNode):
     #  cname              string or None
     #  scoped             boolean                Is a C++ scoped enum
     #  underlying_type    CSimpleBaseTypeNode    The underlying value type (int or C++ type)
-    #  items              [CEnumDefItemNode]
+    #  variants           [CEnumDefItemNode]
     #  typedef_flag       boolean
     #  visibility         "public" or "private" or "extern"
     #  api                boolean
@@ -1778,7 +1778,7 @@ class CEnumDefNode(StatNode):
     #  entry              Entry
     #  doc                EncodedString or None    Doc string
 
-    child_attrs = ["items", "underlying_type"]
+    child_attrs = ["variants", "underlying_type"]
     doc = None
 
     def declare(self, env):
@@ -1803,14 +1803,14 @@ class CEnumDefNode(StatNode):
 
         self.entry.type.underlying_type = underlying_type
 
-        if self.scoped and self.items is not None:
+        if self.scoped and self.variants is not None:
             scope = CppScopedEnumScope(self.name, env)
             scope.type = self.entry.type
             scope.directives = env.directives
         else:
             scope = env
 
-        if self.items is not None:
+        if self.variants is not None:
             if self.in_pxd and not env.in_cinclude:
                 self.entry.defined_in_pxd = 1
 
@@ -1819,11 +1819,11 @@ class CEnumDefNode(StatNode):
             is_declared_enum = self.visibility != 'extern'
 
             next_int_enum_value = 0 if is_declared_enum else None
-            for item in self.items:
-                item.analyse_enum_declarations(scope, self.entry, next_int_enum_value)
+            for variant in self.variants:
+                variant.analyse_enum_declarations(scope, self.entry, next_int_enum_value)
                 if is_declared_enum:
                     next_int_enum_value = 1 + (
-                        item.entry.enum_int_value if item.entry.enum_int_value is not None else next_int_enum_value)
+                        variant.entry.enum_int_value if variant.entry.enum_int_value is not None else next_int_enum_value)
 
     def analyse_expressions(self, env):
         return self
