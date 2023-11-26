@@ -2486,6 +2486,7 @@ def p_item(s, ctx, attributes):
     visibility = ctx.visibility = p_visibility(s, ctx.visibility)
     api = ctx.api = p_api(s) or ctx.api
     overridable = ctx.overridable
+    ctx.typedef_flag = ctx.typedef_flag or visibility == "extern"
 
     item = None
     if s.sy == "use":
