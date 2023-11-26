@@ -83,12 +83,12 @@ extern from *:  # Hard-coded utility code hack.
         u32* as_uints
         u16* as_uchars
         signed char* as_schars
-        char* as_chars
+        r&i8 as_chars
         u64* as_ulongs
         i64* as_longs
         u128* as_ulonglongs
         i128* as_longlongs
-        i16* as_shorts
+        r&i16 as_shorts
         u16* as_ushorts
         Py_UNICODE* as_pyunicodes
         void* as_voidptr
@@ -96,10 +96,9 @@ extern from *:  # Hard-coded utility code hack.
     ctypedef class array.array [object arrayobject]:
         cdef __cythonbufferdefaults__ = {'ndim' : 1, 'mode':'c'}
 
-        cdef:
-            isize ob_size
-            arraydescr* ob_descr    # struct arraydescr *ob_descr;
-            __data_union data
+        cdef isize ob_size
+        cdef r&mut arraydescr ob_descr    # struct arraydescr *ob_descr;
+        cdef __data_union data
 
         def __getbuffer__(self, Py_buffer* info, i32 flags):
             # This implementation of getbuffer is geared towards Cython
@@ -121,7 +120,7 @@ extern from *:  # Hard-coded utility code hack.
             info.shape[0] = item_count      # constant regardless of resizing
             info.strides = &info.itemsize
 
-            info.format = <char*>(info.shape + 1)
+            info.format = <r&i8>(info.shape + 1)
             info.format[0] = self.ob_descr.typecode
             info.format[1] = 0
             info.obj = self
@@ -154,7 +153,7 @@ fn inline array copy(array self):
     memcpy(op.data.as_chars, self.data.as_chars, Py_SIZE(op) * op.ob_descr.itemsize)
     return op
 
-fn inline i32 extend_buffer(array self, char* stuff, isize n) except -1:
+fn inline i32 extend_buffer(array self, r&i8 stuff, isize n) except -1:
     """ efficient appending of new stuff of same type
     (e.g. of same array type)
     n: number of elements (not number of bytes!) """

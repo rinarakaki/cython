@@ -8,14 +8,14 @@ extern from "<memory>" namespace "std" nogil:
         allocator()
         allocator(&allocator)
         # allocator(const allocator[U] &)  # unique_ptr unit tests fail w/this
-        fn T* address(T &)
-        fn const T* address(&T) const
-        fn T* allocate(usize n) # Not to standard.  should be a second default argument
-        fn void deallocate(T *, usize)
-        fn usize max_size() const
-        fn void construct(T *, &T)  # C++98.  The C++11 version is variadic AND perfect-forwarding
-        fn void destroy(T *)  # C++98
-        fn void destroy[U](U *)  # unique_ptr unit tests fail w/this
+        fn r&mut T address(&T)
+        const fn r&T address(&T)
+        fn r&mut T allocate(usize n) # Not to standard.  should be a second default argument
+        fn void deallocate(r&mut T, usize)
+        const fn usize max_size()
+        fn void construct(r&mut T, &T)  # C++98.  The C++11 version is variadic AND perfect-forwarding
+        fn void destroy(r&mut T)  # C++98
+        fn void destroy[U](r&mut U)  # unique_ptr unit tests fail w/this
 
 
     cdef cppclass unique_ptr[T,DELETER=*]:
@@ -25,16 +25,16 @@ extern from "<memory>" namespace "std" nogil:
         unique_ptr(unique_ptr[T]&)
 
         # Modifiers
-        fn T* release()
+        fn r&mut T release()
         fn void reset()
         fn void reset(nullptr_t)
-        fn void reset(T*)
+        fn void reset(r&mut T)
         fn void swap(&mut unique_ptr)
 
         # Observers
-        fn T* get()
+        fn r&mut T get()
         fn &mut T operator*()
-        # fn T* operator->() # Not Supported
+        # fn r&mut T operator->()  # Not Supported
         fn bool operator bool()
         fn bool operator!()
 
@@ -63,18 +63,18 @@ extern from "<memory>" namespace "std" nogil:
 
         # Modifiers
         fn void reset()
-        fn void reset(T*)
+        fn void reset(r&mut T)
         fn void swap(&mut shared_ptr)
 
         # Observers
-        fn T* get()
+        fn r&mut T get()
         fn &mut T operator*()
-        # T* operator->() # Not Supported
-        fn long use_count()
+        # fn r&mut T operator->() # Not Supported
+        fn i64 use_count()
         fn bool unique()
         fn bool operator bool()
         fn bool operator!()
-        # fn bool owner_before[Y](const weak_ptr[Y]&) # Not Supported
+        # fn bool owner_before[Y](const weak_ptr[Y]&)  # Not Supported
         fn bool owner_before[Y](const shared_ptr[Y]&)
 
         fn bool operator==(&shared_ptr)

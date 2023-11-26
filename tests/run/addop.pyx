@@ -11,7 +11,7 @@ def mixed_test():
     (30, 22)
     """
     let i32 int1, int2, int3
-    let char* ptr1, ptr2 = "test", ptr3 = "toast"
+    let r&i8 ptr1, ptr2 = "test", ptr3 = "toast"
     int2 = 10
     int3 = 20
     obj1 = 1

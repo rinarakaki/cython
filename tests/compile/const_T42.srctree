@@ -8,7 +8,7 @@ PYTHON -c "import test"
 
 extern from "test.h":
     struct c_Test "Test":
-        const char* get_string() except +RuntimeError
+        r&i8 get_string() except +RuntimeError
 
 struct Test:
     r&mut c_Test thisptr
@@ -19,10 +19,10 @@ impl Test:
 
 ######## test.h ########
 
-static const char* astring = "123";
+static r&i8 astring = "123";
 class Test {
 public:
-    const char* getString(void) { return astring; }
+    const char* get_string(void) { return astring; }
 };
 
 ######## setup.py ########

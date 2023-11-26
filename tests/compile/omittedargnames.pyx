@@ -1,3 +1,3 @@
 # mode: compile
 
-extern fn void spam(i32, char *)
+extern fn void spam(i32, r&mut i8)

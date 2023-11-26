@@ -703,7 +703,7 @@ def reversed_bytes(bytes s):
     >>> reversed_bytes(bytes_string)
     [70, 69, 68, 99, 98, 97]
     """
-    let char c
+    let i8 c
     result = []
     for c in reversed(s):
         result.append(c)
@@ -717,7 +717,7 @@ def reversed_bytes_slice(bytes s):
     >>> reversed_bytes_slice(bytes_string)
     [68, 99, 98]
     """
-    let char c
+    let i8 c
     result = []
     for c in reversed(s[1:-2]):
         result.append(c)
@@ -731,7 +731,7 @@ def reversed_bytes_slice_step(bytes s):
     >>> reversed_bytes_slice_step(bytes_string)
     [99, 68, 69]
     """
-    let char c
+    let i8 c
     result = []
     for c in reversed(s[-2:1;-1]):
         result.append(c)
@@ -745,7 +745,7 @@ def reversed_bytes_slice_step_only(bytes s):
     >>> reversed_bytes_slice_step_only(bytes_string)
     [97, 98, 99, 68, 69, 70]
     """
-    let char c
+    let i8 c
     result = []
     for c in reversed(s[:;-1]):
         result.append(c)

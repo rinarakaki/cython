@@ -40,7 +40,7 @@ def test_foo():
     print foo(1, foo(2, 3), foo(4))
 
 cdef class A:
-    cpdef method(self):
+    cpdef fn method(self):
         """
         >>> A().method()
         'A'
@@ -48,7 +48,7 @@ cdef class A:
         return typeof(self)
 
 cdef class B(A):
-    cpdef method(self, i32 x = 0):
+    cpdef fn method(self, i32 x = 0):
         """
         >>> B().method()
         ('B', 0)
@@ -58,7 +58,7 @@ cdef class B(A):
         return typeof(self), x
 
 cdef class C(B):
-    cpdef method(self, i32 x = 10):
+    cpdef fn method(self, i32 x = 10):
         """
         >>> C().method()
         ('C', 10)

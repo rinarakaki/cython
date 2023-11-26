@@ -5,5 +5,5 @@ class Pyclass(object):
         pass
 
 _ERRORS = """
- 4:4: cdef statement not allowed here
+4:16: C function definition not allowed here
 """

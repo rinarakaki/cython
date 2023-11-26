@@ -1,11 +1,9 @@
-from __future__ import print_function
-
 cdef class A:
     fn foo(self):
         print("A")
 
 cdef class B(A):
-    cpdef foo(self):
+    cpdef fn foo(self):
         print("B")
 
 class C(B):  # NOTE: not cdef class

@@ -15,7 +15,7 @@ cdef class CompileTimeScope:
     pub CompileTimeScope outer
     # # fn declare(self, name, value)
     # # fn lookup_here(self, name)
-    # # cpdef lookup(self, name)
+    # # cpdef fn lookup(self, name)
 
 #[cython::final]
 cdef class PyrexScanner(Scanner):
@@ -37,21 +37,21 @@ cdef class PyrexScanner(Scanner):
     pub list put_back_on_failure
 
     fn isize current_level(self)
-    # cpdef commentline(self, text)
-    # cpdef open_bracket_action(self, text)
-    # cpdef close_bracket_action(self, text)
-    # cpdef newline_action(self, text)
-    # cpdef begin_string_action(self, text)
-    # cpdef end_string_action(self, text)
-    # cpdef unclosed_string_action(self, text)
+    # cpdef fn commentline(self, text)
+    # cpdef fn open_bracket_action(self, text)
+    # cpdef fn close_bracket_action(self, text)
+    # cpdef fn newline_action(self, text)
+    # cpdef fn begin_string_action(self, text)
+    # cpdef fn end_string_action(self, text)
+    # cpdef fn unclosed_string_action(self, text)
 
     #[cython::locals(current_level=isize, new_level=isize)]
-    cpdef indentation_action(self, text)
+    cpdef fn indentation_action(self, text)
 
-    # cpdef eof_action(self, text)
-    # # cdef next(self)
-    # # cdef peek(self)
-    # cpdef put_back(self, sy, systring)
+    # cpdef fn eof_action(self, text)
+    # # fn next(self)
+    # # fn peek(self)
+    # cpdef fn put_back(self, sy, systring)
     # # fn u2 expect(self, what, message = *) except -2
     # # fn expect_keyword(self, what, message = *)
     # # fn expected(self, what, message = *)

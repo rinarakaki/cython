@@ -1,9 +1,9 @@
 # mode: compile
 
-cdef volatile i32 x = 1
+static volatile i32 x = 1
 
-cdef const volatile char* greeting1 = "hello world"
-cdef volatile const char* greeting2 = "goodbye"
+static const volatile i8* greeting1 = "hello world"
+static volatile i8* greeting2 = "goodbye"
 
 extern from "stdlib.h":
     fn volatile void* malloc(usize)
