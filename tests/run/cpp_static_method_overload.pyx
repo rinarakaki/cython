@@ -6,34 +6,31 @@ extern from *:
     struct Foo
     {
 
-      static r&char bar(int x, int y) {
+      static r&i8 bar(int x, int y) {
         return "second";
       }
 
-      static r&char bar(int x) {
+      static r&i8 bar(int x) {
         return "first";
       }
 
-      r&char baz(int x, int y) {
+      r&i8 baz(int x, int y) {
         return "second";
       }
 
-      r&char baz(int x) {
+      r&i8 baz(int x) {
         return "first";
       }
     };
     """
     cppclass Foo:
-        @staticmethod
-        r&char bar(i32 x)
+        static fn r&i8 bar(i32 x)
+        static fn r&i8 bar(i32 x, i32 y)
+        
+        fn r&i8 baz(i32 x)
+        fn r&i8 baz(i32 x, i32 y)
 
-        @staticmethod
-        r&char bar(i32 x, i32 y)
-
-        r&char baz(i32 x)
-        r&char baz(i32 x, i32 y)
-
-def test_normal_method_overload():
+fn test_normal_method_overload():
     """
     >>> test_normal_method_overload()
     """

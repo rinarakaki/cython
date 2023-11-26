@@ -17,15 +17,15 @@ cdef class FinalType(object):
 
     #[cython::test_assert_path_exists("//CFuncDefNode[@entry.is_final_cmethod=true]")]
     #[cython::test_fail_if_path_exists("//CFuncDefNode//OverrideCheckNode")]
-    cpdef cpdef_method(self):
+    cpdef fn cpdef_method(self):
         pass
 
     #[cython::test_assert_path_exists("//AttributeNode[@entry.is_final_cmethod=true]")]
-    def test_cdef(self):
+    fn test_cdef(self):
         self.cdef_method()
 
     #[cython::test_assert_path_exists("//AttributeNode[@entry.is_final_cmethod=true]")]
-    def test_cpdef(self):
+    fn test_cpdef(self):
         self.cpdef_method()
 
 
@@ -55,7 +55,7 @@ cdef class BaseTypeWithFinalMethods(object):
         pass
 
     #[cython::test_assert_path_exists("//AttributeNode[@entry.is_final_cmethod=true]")]
-    def test_cdef(self):
+    fn test_cdef(self):
         self.cdef_method()
 
 
@@ -65,5 +65,5 @@ cdef class SubType(BaseTypeWithFinalMethods):
     >>> obj.test_cdef()
     """
     #[cython::test_assert_path_exists("//AttributeNode[@entry.is_final_cmethod=true]")]
-    def test_cdef(self):
+    fn test_cdef(self):
         self.cdef_method()

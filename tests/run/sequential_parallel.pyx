@@ -502,7 +502,7 @@ def test_parallel_exc_cdef():
     parallel_exc_cdef_unnested()
     parallel_exc_cdef()
 
-cpdef i32 parallel_exc_cpdef() except -3:
+cpdef fn i32 parallel_exc_cpdef() except -3:
     let i32 i, j
     for i in prange(10, nogil=true):
         for j in prange(10, num_threads=6):
@@ -511,7 +511,7 @@ cpdef i32 parallel_exc_cpdef() except -3:
 
     return 0
 
-cpdef i32 parallel_exc_cpdef_unnested() except -3:
+cpdef fn i32 parallel_exc_cpdef_unnested() except -3:
     let i32 i, j
     for i in prange(10, nogil=true):
         with gil:

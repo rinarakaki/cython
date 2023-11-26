@@ -6,7 +6,7 @@ try:
 except ImportError:
     pass  # The modules don't actually have to exists for Cython to use them as annotations
 
-@dataclasses.dataclass
+#[dataclasses::dataclass]
 cdef class MyDataclass:
     # fields can be declared using annotations
     a: cython.i32 = 0

@@ -3,7 +3,7 @@
 fn cf(default=None):
     return default
 
-cpdef cpf(default=100):
+cpdef fn cpf(default=100):
     """
     >>> cpf()
     100

@@ -91,7 +91,7 @@ cdef class MockBuffer:
 
     fn void* create_buffer(self, data) except NULL:
         let auto n = <usize>(len(data) * self.itemsize)
-        let auto buf = <r&char>stdlib.malloc(n)
+        let auto buf = <r&i8>stdlib.malloc(n)
         if buf == NULL:
             raise MemoryError
         let auto it = buf
@@ -139,11 +139,11 @@ cdef class MockBuffer:
         if flags & cpython.buffer.PyBUF_WRITABLE and not self.writable:
             raise BufferError(f"Writable buffer requested from read-only mock: {' | '.join(self.received_flags)}")
 
-        buffer.buf = <void*>(<r&char>self.buffer + (<i32>self.offset * self.itemsize))
+        buffer.buf = <void*>(<r&i8>self.buffer + (<i32>self.offset * self.itemsize))
         buffer.obj = self
         buffer.len = self.len
         buffer.readonly = not self.writable
-        buffer.format = <r&char>self.format
+        buffer.format = <r&i8>self.format
         buffer.ndim = self.ndim
         buffer.shape = self.shape
         buffer.strides = self.strides
@@ -254,8 +254,8 @@ cdef class ErrorBuffer:
 # Structs
 #
 struct MyStruct:
-    signed char a
-    signed char b
+    i8 a
+    i8 b
     i128 c
     i32 d
     i32 e
@@ -269,12 +269,12 @@ struct NestedStruct:
     SmallStruct y
     i32 z
 
-cdef packed struct PackedStruct:
-    signed char a
+packed struct PackedStruct:
+    i8 a
     i32 b
 
 struct NestedPackedStruct:
-    signed char a
+    i8 a
     i32 b
     PackedStruct sub
     i32 c

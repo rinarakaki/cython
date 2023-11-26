@@ -10,7 +10,7 @@ cdef class Foo:
     def __repr__(self):
         return '<Foo>'
 
-cpdef test_type_cast(Foo obj, cond):
+cpdef fn test_type_cast(Foo obj, cond):
     """
     # Regression test: obj must be cast to (PyObject *) here
     >>> test_type_cast(Foo(), True)
@@ -38,7 +38,7 @@ def test_charptr_coercion(x):
     >>> print(test_charptr_coercion(false))
     def
     """
-    let r&char s = b'abc' if x else b'def'
+    let r&i8 s = b'abc' if x else b'def'
     return s.decode('ascii')
 
 def test_syntax():

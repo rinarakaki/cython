@@ -1,14 +1,14 @@
 use cython
 
-cdef r&char s = b"abcdefg"
-cdef r&char cs = b"abcdefg"
-cdef u8* us = b"abcdefg"
-cdef const u8* cus = b"abcdefg"
-cdef bytes pystr =  b"abcdefg"
+static r&mut i8 s = b"abcdefg"
+static r&i8 cs = b"abcdefg"
+static r&mut u8 us = b"abcdefg"
+static r&u8 cus = b"abcdefg"
+static bytes pystr =  b"abcdefg"
 
 @cython::test_assert_path_exists(
     "//PythonCapiCallNode",
-    )
+)
 def lentest_char():
     """
     >>> lentest_char()
@@ -18,7 +18,7 @@ def lentest_char():
 
 @cython::test_assert_path_exists(
     "//PythonCapiCallNode",
-    )
+)
 def lentest_const_char():
     """
     >>> lentest_const_char()
@@ -28,7 +28,7 @@ def lentest_const_char():
 
 @cython::test_assert_path_exists(
     "//PythonCapiCallNode",
-    )
+)
 def lentest_char_c():
     """
     >>> lentest_char_c()
@@ -39,7 +39,7 @@ def lentest_char_c():
 
 @cython::test_assert_path_exists(
     "//PythonCapiCallNode",
-    )
+)
 def lentest_char_c_short():
     """
     >>> lentest_char_c_short()
@@ -50,7 +50,7 @@ def lentest_char_c_short():
 
 @cython::test_assert_path_exists(
     "//PythonCapiCallNode",
-    )
+)
 def lentest_char_c_float():
     """
     >>> lentest_char_c_float()
@@ -61,7 +61,7 @@ def lentest_char_c_float():
 
 @cython::test_assert_path_exists(
     "//PythonCapiCallNode",
-    )
+)
 def lentest_uchar():
     """
     >>> lentest_uchar()
@@ -71,7 +71,7 @@ def lentest_uchar():
 
 @cython::test_assert_path_exists(
     "//PythonCapiCallNode",
-    )
+)
 def lentest_const_uchar():
     """
     >>> lentest_const_uchar()

@@ -269,8 +269,36 @@ def builtin_type_methods():
     append(1)
     assert l == [1], str(l)
 
+    u = u'abc def'
+    split = u.split()
+    assert typeof(split) == 'list object', typeof(split)
+
+    str_result1 = u.upper()
+    assert typeof(str_result1) == 'unicode object', typeof(str_result1)
+    str_result2 = u.upper().lower()
+    assert typeof(str_result2) == 'unicode object', typeof(str_result2)
+    str_result3 = u.upper().lower().strip()
+    assert typeof(str_result3) == 'unicode object', typeof(str_result3)
+    str_result4 = u.upper().lower().strip().lstrip()
+    assert typeof(str_result4) == 'unicode object', typeof(str_result4)
+    str_result5 = u.upper().lower().strip().lstrip().rstrip()
+    assert typeof(str_result5) == 'unicode object', typeof(str_result5)
+    str_result6 = u.upper().lower().strip().lstrip().rstrip().center(20)
+    assert typeof(str_result6) == 'unicode object', typeof(str_result6)
+    str_result7 = u.upper().lower().strip().lstrip().rstrip().center(20).format()
+    assert typeof(str_result7) == 'unicode object', typeof(str_result7)
+    str_result8 = u.upper().lower().strip().lstrip().rstrip().center(20).format().expandtabs(4)
+    assert typeof(str_result8) == 'unicode object', typeof(str_result8)
+    str_result9 = u.upper().lower().strip().lstrip().rstrip().center(20).format().expandtabs(4).swapcase()
+    assert typeof(str_result9) == 'unicode object', typeof(str_result9)
+
+    predicate1 = u.isupper()
+    assert typeof(predicate1) == 'bint', typeof(predicate1)
+    predicate2 = u.istitle()
+    assert typeof(predicate2) == 'bint', typeof(predicate2)
+
 fn i32 cfunc(i32 x):
-    return x+1
+    return x + 1
 
 def c_functions():
     """
@@ -383,7 +411,7 @@ def loop_over_charptr():
     >>> print( loop_over_charptr() )
     char
     """
-    let r&char char_ptr_string = 'abcdefg'
+    let r&i8 char_ptr_string = 'abcdefg'
     for c in char_ptr_string:
         pass
     return typeof(c)
@@ -539,9 +567,8 @@ def safe_only():
     div_res = pyint_val / 7
     assert typeof(div_res) == ("double" if IS_LANGUAGE_LEVEL_3 else "Python object"), typeof(div_res)
 
-    # we special-case inference to type str
     s = "abc"
-    assert typeof(s) == ("unicode object" if IS_LANGUAGE_LEVEL_3 else "Python object"), (typeof(s), str_type)
+    assert typeof(s) == str_type, (typeof(s), str_type)
     let str t = "def"
     assert typeof(t) == str_type, (typeof(t), str_type)
 
@@ -713,7 +740,7 @@ def with_statement():
 
 #[cython::final]
 cdef class TypedContextManager(object):
-    cpdef double __enter__(self):
+    cpdef fn double __enter__(self):
         return 2.0
     def __exit__(self, *args):
         return 0
@@ -806,9 +833,9 @@ cdef class WithMethods:
     let i32 offset
     def __init__(self, offset):
         self.offset = offset
-    cpdef i32 one_arg(self, i32 x):
+    cpdef fn i32 one_arg(self, i32 x):
         return x + self.offset
-    cpdef i32 default_arg(self, i32 x, i32 y=0):
+    cpdef fn i32 default_arg(self, i32 x, i32 y=0):
         return x + y + self.offset
 
 def test_bound_methods():

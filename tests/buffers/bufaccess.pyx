@@ -7,8 +7,6 @@
 # what we want to test is what is passed into the flags argument.
 #
 
-from __future__ import unicode_literals
-
 use cpython::object::PyObject
 use cpython::ref::(Py_INCREF, Py_DECREF, Py_CLEAR)
 use cython
@@ -566,8 +564,8 @@ def no_negative_indices(object[i32, negative_indices=false] buf, i32 idx):
     return buf[idx]
 
 #[cython::wraparound(false)]
-@testcase
-def wraparound_directive(object[i32] buf, i32 pos_idx, i32 neg_idx):
+# #[testcase]
+fn wraparound_directive(object[i32] buf, i32 pos_idx, i32 neg_idx):
     """
     Again, the most interesting thing here is to inspect the C source.
 
@@ -714,8 +712,8 @@ def safe_get(object[i32] buf, i32 idx):
 
 #[cython::boundscheck(false)]  # outer decorators should take precedence
 #[cython::boundscheck(true)]
-@testcase
-def unsafe_get(object[i32] buf, i32 idx):
+# #[testcase]
+fn unsafe_get(object[i32] buf, i32 idx):
     """
     Access outside of the area the buffer publishes.
     >>> A = IntMockBuffer(None, 0..10, shape=(3,), offset=5)
@@ -729,8 +727,8 @@ def unsafe_get(object[i32] buf, i32 idx):
     return buf[idx]
 
 #[cython::boundscheck(false)]
-@testcase
-def unsafe_get_nonegative(object[i32, negative_indices=false] buf, i32 idx):
+# #[testcase]
+fn unsafe_get_nonegative(object[i32, negative_indices=false] buf, i32 idx):
     """
     Also inspect the C source to see that it is optimal...
 
@@ -740,8 +738,8 @@ def unsafe_get_nonegative(object[i32, negative_indices=false] buf, i32 idx):
     """
     return buf[idx]
 
-@testcase
-def mixed_get(object[i32] buf, i32 unsafe_idx, i32 safe_idx):
+# #[testcase]
+fn mixed_get(object[i32] buf, i32 unsafe_idx, i32 safe_idx):
     """
     >>> A = IntMockBuffer(None, 0..10, shape=(3,), offset=5)
     >>> mixed_get(A, -4, 0)
@@ -757,9 +755,9 @@ def mixed_get(object[i32] buf, i32 unsafe_idx, i32 safe_idx):
         two = buf[safe_idx]
     return (one, two)
 
-#
+# 
 # Coercions
-#
+# 
 # @testcase
 # def coercions(object[u8] uc):
 #     """
@@ -771,15 +769,15 @@ def mixed_get(object[i32] buf, i32 unsafe_idx, i32 safe_idx):
 #     uc[0] = <i32>3.14
 #     print uc[0]
 #
-#     cdef r&char ch = b"asfd"
+#     cdef r&i8 ch = b"asfd"
 #     cdef object[object] objbuf
 #     objbuf[3] = ch
 
 
-#
+# 
 # Testing that accessing data using various types of buffer access
 # all works.
-#
+# 
 
 def printbuf_int(object[i32] buf, shape):
     # Utility func
@@ -858,9 +856,9 @@ def inplace_operators(object[i32] buf):
 
 
 
-#
+# 
 # Typedefs
-#
+# 
 # Test three layers of typedefs going through a h file for plain int, and
 # simply a header file typedef for floats and unsigned.
 
@@ -947,9 +945,9 @@ def printbuf_td_h_double(object[td_h_double] buf, shape):
     print 'END'
 
 
-#
+# 
 # Object access
-#
+# 
 def addref(*args):
     for item in args: Py_INCREF(item)
 def decref(*args):
@@ -1072,9 +1070,9 @@ def assign_temporary_to_object(object[object] buf):
     """
     buf[1] = {3-2: 2+(2*4)-2}
 
-#
+# 
 # cast option
-#
+# 
 @testcase
 def buffer_cast(object[u32, cast=true] buf, i32 idx):
     """
@@ -1099,9 +1097,9 @@ def buffer_cast_fails(object[char, cast=true] buf):
     """
     return buf[0]
 
-#
+# 
 # Typed buffers
-#
+# 
 @testcase
 def typedbuffer1(obj):
     """
@@ -1130,9 +1128,9 @@ def typedbuffer2(IntMockBuffer[i32, ndim=1] obj):
     """
     pass
 
-#
+# 
 # Test __cythonbufferdefaults__
-#
+# 
 @testcase
 def bufdefaults1(IntStridedMockBuffer[i32, ndim=1] buf):
     """
@@ -1241,9 +1239,9 @@ def complex_struct_inplace(object[LongComplex] buf):
     buf[0].imag += 2
     print buf[0].real, buf[0].imag
 
-#
+# 
 # Nogil
-#
+# 
 #[cython::boundscheck(false)]
 @testcase
 def buffer_nogil():

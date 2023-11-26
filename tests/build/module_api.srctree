@@ -20,16 +20,16 @@ setup(
 
 ######## a.pxd ########
 
-ctypedef api f32 flt
+api type flt = f32
 
-cdef i32 int0
-cdef f32 flt0
+static i32 int0
+static f32 flt0
 
-cdef api i32 int1
-cdef api f32 flt1
+api static i32 int1
+api static f32 flt1
 
-pub api i32 int2
-pub api flt flt2
+pub api static i32 int2
+pub api static flt flt2
 
 cdef class A0:
      pass
@@ -46,20 +46,20 @@ ctypedef pub api class A2 [
 ]:
      pass
 
-cdef A0 a0
-cdef api A1 a1
-pub api A2 a2
+static        A0 a0
+api static    A1 a1
+pub api static A2 a2
 
 ######## a.pyx ########
 
-cdef i32 int0 = 1, int1 = 1, int2 = 1
-cdef f32 flt0 = 1, flt1 = 1, flt2 = 1
+static i32 int0 = 1, int1 = 1, int2 = 1
+static f32 flt0 = 1, flt1 = 1, flt2 = 1
 
-cdef api i32 int3 = 1
-cdef api flt flt3 = 1
+api static i32 int3 = 1
+api static flt flt3 = 1
 
-pub i32 int4 = 1
-pub flt flt4 = 1
+pub static i32 int4 = 1
+pub static flt flt4 = 1
 
 def get_int():
     return (int0, int1, int2, int3, int4)
@@ -71,9 +71,9 @@ cdef class A0: pass
 cdef class A1: pass
 cdef class A2: pass
 
-cdef A0 a0 = A0()
-cdef api A1 a1 = A1()
-pub api A2 a2 = A2()
+static A0 a0 = A0()
+api static A1 a1 = A1()
+pub api static A2 a2 = A2()
 
 ######## b.pyx ########
 
@@ -88,7 +88,7 @@ flt0 = flt1 = flt2 = 7
 
 extern from "a_api.h":
     fn i32 import_a() except -1
-    ctypedef f32 flt
+    type flt = f32
     static i32 int1, int2, int3
     static flt flt1, flt2, flt3
 
@@ -120,7 +120,7 @@ void inita(void)
       PyModule_ExecDef(mod, mdef);
    }
 #endif
-   PyDict_SetItemString(sys_modules, (r&char)"a", mod);
+   PyDict_SetItemString(sys_modules, (char*)"a", mod);
 }
 
 ######## d.pyx ########
@@ -131,9 +131,9 @@ extern from "inita.h":
      pass
 extern from "a.h":
      fn void inita() except *
-     ctypedef f32 flt
-     i32 int2, int4
-     flt flt2, flt4
+     type flt = f32
+     static i32 int2, int4
+     static flt flt2, flt4
 
 inita()
 

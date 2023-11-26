@@ -13,14 +13,14 @@ cdef class WithoutC:
         return "Hello, World"
 
 cdef class WithCPDef:
-    cpdef str hello(self):
+    cpdef fn str hello(self):
         return "Hello, World"
 
 cdef class WithCDefWrapper:
     def hello(self):
         return _helloC(self)
 
-cpdef _helloC(object caller):
+cpdef fn _helloC(object caller):
     return "Hello, World"
 
 
@@ -31,12 +31,12 @@ cdef class WithoutCPDef:
     pass
 
 cdef class WithCPDef:
-    cpdef str hello(self)
+    cpdef fn str hello(self)
 
 cdef class WithCDefWrapper:
     pass
 
-cpdef _helloC(object caller)
+cpdef fn _helloC(object caller)
 
 
 ######################### main.py #########################
