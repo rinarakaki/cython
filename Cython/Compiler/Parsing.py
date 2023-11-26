@@ -3943,6 +3943,18 @@ def p_ctypedef_statement(s, ctx):
             in_pxd = ctx.level == 'module_pxd'
         )
 
+def p_attributes(s):
+    attributes = []
+    while s.sy == "#" and s.peek()[0] == "[":
+        pos = s.position()
+        s.next()
+        s.next()
+        attribute = p_namedexpr_test(s)
+        attributes.append(Nodes.DecoratorNode(pos, decorator=attribute))
+        s.expect("]")
+        s.expect_newline("Expected a newline after attribute")
+    return attributes
+
 def p_decorators(s):
     decorators = []
     while s.sy == '@':
