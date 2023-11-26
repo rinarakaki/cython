@@ -1,7 +1,7 @@
 use libc::stdlib::free
 use c_func::get_a_c_string
 
-def main():
+fn main():
     let r&i8 c_string = NULL
     let isize length = 0
 

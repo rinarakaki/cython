@@ -2,7 +2,7 @@
 
 use libcpp::string::string
 
-def get_ustrings():
+fn get_ustrings():
     let string s = string(b'abcdefg')
 
     ustring1 = s.decode('UTF-8')

@@ -1,4 +1,4 @@
-def process_byte_data(u8[:] data):
+fn process_byte_data(u8[:] data):
     # ... process the data, here, dummy processing.
     let u2 return_all = (data[0] == 108)
 

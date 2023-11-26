@@ -1,6 +1,6 @@
 use cython::view
 
-def main():
+fn main():
     # direct access in both dimensions, strided in the first dimension, contiguous in the last
     let i32[:, :;view::contiguous] a
 

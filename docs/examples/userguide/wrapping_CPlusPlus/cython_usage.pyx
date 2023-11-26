@@ -2,7 +2,7 @@
 
 use Rectangle::Rectangle
 
-def main():
+fn main():
     rec_ptr = new Rectangle(1, 2, 3, 4)  # Instantiate a Rectangle object on the heap
     try:
         rec_area = rec_ptr.get_area()

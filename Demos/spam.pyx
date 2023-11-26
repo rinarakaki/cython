@@ -13,11 +13,11 @@ cdef class Spam:
     def __dealloc__(self):
         print(self.amount, "tons of spam is history.")
 
-    def get_amount(self):
+    fn get_amount(self):
         return self.amount
 
-    def set_amount(self, new_amount):
+    fn set_amount(self, new_amount):
         self.amount = new_amount
 
-    def describe(self):
+    fn describe(self):
         print(self.amount, "tons of spam!")

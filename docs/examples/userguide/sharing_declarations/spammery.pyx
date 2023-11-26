@@ -1,6 +1,6 @@
 use volume::cube
 
-def menu(description, size):
+fn menu(description, size):
     print(description, ":", cube(size),
           "cubic metres of spam")
 

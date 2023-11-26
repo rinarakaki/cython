@@ -1,7 +1,6 @@
 # mode: compile
 
 cdef class Tomato:
-
     def eject(self):
         pass
 

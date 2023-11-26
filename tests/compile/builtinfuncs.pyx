@@ -31,7 +31,7 @@ fn i32 f() except -1:
     # i = issubtype(x, y)
     x = abs
 
-def not_called():
+fn not_called():
     response = raw_input('xyz')
 
 f()

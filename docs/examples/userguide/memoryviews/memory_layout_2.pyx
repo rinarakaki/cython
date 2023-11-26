@@ -2,7 +2,7 @@
 
 use cython::view
 
-def main():
+fn main():
     # VALID
     let i32[:;view::indirect, :;1, :] a
     let i32[:;view::indirect, :, :;1] b

@@ -8,7 +8,7 @@ cdef class MyClass:
 
 # Turn off nonecheck locally for the function
 #[cython::nonecheck(false)]
-def func():
+fn func():
     let MyClass obj = None
     try:
         # Turn nonecheck on again for a block

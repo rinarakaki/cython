@@ -1,4 +1,4 @@
 # mode: compile
 
-def f():
+fn f():
     x = open("foo")

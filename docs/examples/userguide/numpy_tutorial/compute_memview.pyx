@@ -5,7 +5,7 @@ DTYPE = np.intc
 fn i32 clip(i32 a, i32 min_value, i32 max_value):
     return min(max(a, min_value), max_value)
 
-def compute(i32[:, :] array_1, i32[:, :] array_2, i32 a, i32 b, i32 c):
+fn compute(i32[:, :] array_1, i32[:, :] array_2, i32 a, i32 b, i32 c):
     let isize x_max = array_1.shape[0]
     let isize y_max = array_1.shape[1]
 

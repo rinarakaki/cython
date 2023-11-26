@@ -9,5 +9,5 @@ ctypedef fused IntOrFloat:
 # This function does not use buffers so has no reason to import numpy to
 # look up dtypes. fused_buffers.pyx is the corresponding test for the case
 # where numpy is imported
-def f(IntOrFloat x):
+fn f(IntOrFloat x):
     return x

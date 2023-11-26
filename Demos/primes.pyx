@@ -2,7 +2,7 @@
 
 print("starting")
 
-def primes(i32 kmax):
+fn primes(i32 kmax):
     # let i32 n, k, i
     let i32 p[1000]
     result = []
