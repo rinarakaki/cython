@@ -2102,7 +2102,7 @@ property NAME:
 cdef class NAME:
     cdef TYPE value
     def __init__(self, MEMBER=None):
-        cdef int count
+        let i32 count
         count = 0
         INIT_ASSIGNMENTS
         if IS_UNION and count > 1:
@@ -2246,8 +2246,8 @@ if VALUE is not None:
             # so it can be pickled *after* self is memoized.
             unpickle_func = TreeFragment("""
                 def %(unpickle_func_name)s(__pyx_type, long __pyx_checksum, __pyx_state):
-                    cdef object __pyx_PickleError
-                    cdef object __pyx_result
+                    let object __pyx_PickleError
+                    let object __pyx_result
                     if __pyx_checksum not in %(checksums)s:
                         from pickle import PickleError as __pyx_PickleError
                         raise __pyx_PickleError, "Incompatible checksums (0x%%x vs %(checksums)s = (%(members)s))" %% __pyx_checksum
@@ -2256,7 +2256,7 @@ if VALUE is not None:
                         %(unpickle_func_name)s__set_state(<%(class_name)s> __pyx_result, __pyx_state)
                     return __pyx_result
 
-                cdef %(unpickle_func_name)s__set_state(%(class_name)s __pyx_result, tuple __pyx_state):
+                fn %(unpickle_func_name)s__set_state(%(class_name)s __pyx_result, tuple __pyx_state):
                     %(assignments)s
                     if len(__pyx_state) > %(num_members)d and hasattr(__pyx_result, '__dict__'):
                         __pyx_result.__dict__.update(__pyx_state[%(num_members)d])

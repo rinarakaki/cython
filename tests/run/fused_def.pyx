@@ -8,7 +8,7 @@ cy = __import__("cython")
 use cython
 
 extern from *:
-    i32 __Pyx_CyFunction_Check(object)
+    fn i32 __Pyx_CyFunction_Check(object)
 
 cdef class Base(object):
     def __repr__(self):
@@ -385,7 +385,7 @@ cdef class CBaseClass(object):
     def normalmethod(self, cython.integral arg1, arg2, arg3):
         print self, cython::typeof(arg1), arg1, arg2, arg3
 
-    cpdef cpdefmethod(self, cython.integral arg1):
+    cpdef fn cpdefmethod(self, cython.integral arg1):
         print self, cython::typeof(arg1), arg1
 
     def __repr__(self):

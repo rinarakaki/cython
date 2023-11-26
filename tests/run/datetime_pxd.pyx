@@ -199,16 +199,15 @@ def do_datetime_tzinfo2(i32 year, i32 month, i32 day,
     return r1, r2, r3, r4, r5, r6, r7, r8
 
 
-def test_timedelta_total_seconds():
+fn test_timedelta_total_seconds():
     """
     >>> cytotal, pytotal = test_timedelta_total_seconds()
     >>> assert cytotal == pytotal, (cytotal, pytotal)
     >>> cytotal == pytotal
     True
     """
-    cdef:
-        datetime now = py_datetime.datetime.now()
-        timedelta td = now - py_datetime.datetime(1970, 1, 1)
+    let datetime now = py_datetime.datetime.now()
+    let timedelta td = now - py_datetime.datetime(1970, 1, 1)
 
     pytd = now - py_datetime.datetime(1970, 1, 1)
 

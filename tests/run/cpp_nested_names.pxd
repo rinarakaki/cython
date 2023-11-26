@@ -6,12 +6,12 @@ extern from "cpp_nested_names_helper.h":
     cdef cppclass Outer:
         cppclass Nested:
             cppclass NestedNested:
-                string get_str()
+                fn string get_str()
 
-            string get_str()
+            fn string get_str()
 
-            @staticmethod
+            #[staticmethod]
             fn NestedNested get()
 
-        @staticmethod
+        #[staticmethod]
         fn Nested get()

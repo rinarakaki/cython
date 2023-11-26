@@ -70,7 +70,7 @@ fn call_static_list_comprehension_GH1540(i32 x):
 #    return A::static_cdef_untyped(a, b)
 
 # UNIMPLEMENTED
-# def call_static_cpdef(i32 x):
+# fn call_static_cpdef(i32 x):
 #     """
 #     >>> call_static_cpdef(2)
 #     ('cpdef', 2)
@@ -84,7 +84,7 @@ cdef class FromPxd:
     fn static_cdef_with_implicit_object(obj):
         return obj + 1
 
-def call_static_pxd_cdef(i32 x):
+fn call_static_pxd_cdef(i32 x):
     """
     >>> call_static_pxd_cdef(2)
     ('pxd_cdef', 2)
@@ -92,7 +92,7 @@ def call_static_pxd_cdef(i32 x):
     let r&i32 x_ptr = &x
     return FromPxd::static_cdef(x_ptr)
 
-def call_static_pxd_cdef_with_implicit_object(i32 x):
+fn call_static_pxd_cdef_with_implicit_object(i32 x):
     """
     # https://github.com/cython/cython/issues/3174
     >>> call_static_pxd_cdef_with_implicit_object(2)

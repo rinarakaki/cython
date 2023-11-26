@@ -176,7 +176,7 @@ struct RefNannyAPIStruct:
     PyObject* (*SetupContext)(r&i8, isize, r&i8) except NULL
     void (*FinishContext)(PyObject**)
 
-cdef RefNannyAPIStruct api
+static RefNannyAPIStruct api
 api.INCREF = INCREF
 api.DECREF =  DECREF
 api.GOTREF =  GOTREF

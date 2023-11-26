@@ -7,9 +7,9 @@ cdef class A:
     >>> A().is_False()
     False
     """
-    cpdef is_True(self):
+    cpdef fn is_True(self):
         return true
-    cpdef is_False(self):
+    cpdef fn is_False(self):
         return not self.is_True()
 
 class B(A):

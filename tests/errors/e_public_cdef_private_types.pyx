@@ -1,43 +1,44 @@
 # mode: error
 
-ctypedef r&i8 string_t
-ctypedef pub r&i8 public_string_t
-ctypedef api r&i8 api_string_t
+type     string_t = r&i8
+pub type public_string_t = r&i8
+api type api_string_t = r&i8
 
 # This should all fail
-pub pub_func1(string_t x):
+pub fn pub_func1(string_t x):
     pass
 
-cdef api api_func1(string_t x):
+api fn api_func1(string_t x):
     pass
 
-pub string_t pub_func2():
+pub fn string_t pub_func2():
     pass
 
-cdef api string_t api_func2():
+api fn string_t api_func2():
     pass
 
-pub opt_pub_func(x = None):
+pub fn opt_pub_func(x = None):
     pass
 
-cdef api opt_api_func(x = None):
+api fn opt_api_func(x = None):
     pass
 
 # This should all work
-pub pub_func3(public_string_t x, api_string_t y):
+pub fn pub_func3(public_string_t x, api_string_t y):
     pass
 
-cdef api api_func3(public_string_t x, api_string_t y):
+api fn api_func3(public_string_t x, api_string_t y):
     pass
 
 fn opt_func(x = None):
     pass
 
+
 _ERRORS = u"""
-e_public_cdef_private_types.pyx:8:14: Function declared public or api may not have private types
-e_public_cdef_private_types.pyx:11:19: Function declared public or api may not have private types
+e_public_cdef_private_types.pyx:8:17: Function declared public or api may not have private types
+e_public_cdef_private_types.pyx:11:17: Function declared public or api may not have private types
 e_public_cdef_private_types.pyx:14:0: Function declared public or api may not have private types
-e_public_cdef_private_types.pyx:17:5: Function declared public or api may not have private types
-e_public_cdef_private_types.pyx:20:16: Function with optional arguments may not be declared public or api
-e_public_cdef_private_types.pyx:23:21: Function with optional arguments may not be declared public or api
+e_public_cdef_private_types.pyx:17:0: Function declared public or api may not have private types
+e_public_cdef_private_types.pyx:20:19: Function with optional arguments may not be declared public or api
+e_public_cdef_private_types.pyx:23:19: Function with optional arguments may not be declared public or api
 """

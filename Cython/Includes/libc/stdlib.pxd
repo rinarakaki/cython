@@ -1,9 +1,5 @@
 # 7.20 General utilities <stdlib.h>
 
-# deprecated cimports for backwards compatibility:
-use libc::string::(const_char, const_void)
-
-
 extern from "<stdlib.h>" nogil:
 
     # 7.20.1 Numeric conversion functions

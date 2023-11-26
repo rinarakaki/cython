@@ -2,8 +2,6 @@
 use cython
 use cython::typeof
 
-use libc::string::(const_char, const_uchar)
-
 #[cython::test_assert_path_exists(
     "//NameNode[@name = 'st' and @type.is_string = true]",
     "//NameNode[@name = 'ust' and @type.is_string = true]",
@@ -15,18 +13,18 @@ def const_charptrs():
     >>> const_charptrs()
     """
     let object obj
-    let r&const_char  st  = b"XYZ"
-    let r&const_uchar ust = <r&u8>b"XYZ"  # needs cast to unsigned
+    let r&i8  st  = b"XYZ"
+    let r&u8 ust = <r&u8>b"XYZ"  # needs cast to unsigned
 
-    assert typeof(st) == "const_char *", typeof(st)
+    assert typeof(st) == "const char *", typeof(st)
     my_st = st
-    assert typeof(my_st) == "const_char *", typeof(my_st)
+    assert typeof(my_st) == "const char *", typeof(my_st)
     obj = my_st
     assert obj == b"XYZ", obj
 
-    assert typeof(ust) == "const_uchar *", typeof(ust)
+    assert typeof(ust) == "const unsigned char *", typeof(ust)
     my_ust = ust
-    assert typeof(my_ust) == "const_uchar *", typeof(my_ust)
+    assert typeof(my_ust) == "const unsigned char *", typeof(my_ust)
     obj = my_ust
     assert obj == b"XYZ", obj
 

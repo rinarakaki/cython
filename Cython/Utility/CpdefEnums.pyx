@@ -61,7 +61,7 @@ __Pyx_globals["{{name}}"].__doc__ = {{ repr(enum_doc) }}
 
 #################### EnumTypeToPy ####################
 
-@cname("{{funcname}}")
+#[cname("{{funcname}}")]
 fn {{funcname}}({{name}} c_val):
     let object __pyx_enum
     # There's a complication here: the Python enum wrapping is only generated

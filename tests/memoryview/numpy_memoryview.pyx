@@ -428,7 +428,7 @@ def acquire_release_cycle(obj):
 
     gc.collect()
 
-cdef packed struct StructArray:
+packed struct StructArray:
     i32 a[4]
     i8 b[5]
 
@@ -523,7 +523,7 @@ def test_structarray_errors(StructArray[:] a):
 struct StringStruct:
     i8[4][4] c
 
-ctypedef i8[4][4] String
+type String = i8[4][4]
 
 def stringstructtest(StringStruct[:] view):
     pass
