@@ -206,7 +206,7 @@ class DeclarationWriter(TreeVisitor):
         if node.packed:
             decl += 'packed '
         decl += node.kind
-        self._visit_container_node(node, decl, None, node.attributes)
+        self._visit_container_node(node, decl, None, node.fields)
 
     def visit_CppClassNode(self, node):
         extras = ""
@@ -214,7 +214,7 @@ class DeclarationWriter(TreeVisitor):
             extras = "[%s]" % ", ".join(node.templates)
         if node.base_classes:
             extras += "(%s)" % ", ".join(node.base_classes)
-        self._visit_container_node(node, "cdef cppclass", extras, node.attributes)
+        self._visit_container_node(node, "cdef cppclass", extras, node.fields)
 
     def visit_CEnumDefNode(self, node):
         self._visit_container_node(node, "cdef enum", None, node.items)

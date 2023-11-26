@@ -1638,11 +1638,11 @@ class CStructOrUnionDefNode(StatNode):
     #  visibility    "public" or "private"
     #  api           boolean
     #  in_pxd        boolean
-    #  attributes    [CVarDefNode] or None
+    #  fields        [CVarDefNode] or None
     #  entry         Entry
     #  packed        boolean
 
-    child_attrs = ["attributes"]
+    child_attrs = ["fields"]
 
     def declare(self, env, scope=None):
         self.entry = env.declare_struct_or_union(
@@ -1652,13 +1652,13 @@ class CStructOrUnionDefNode(StatNode):
 
     def analyse_declarations(self, env):
         scope = None
-        if self.attributes is not None:
+        if self.fields is not None:
             scope = StructOrUnionScope(self.name)
         self.declare(env, scope)
-        if self.attributes is not None:
+        if self.fields is not None:
             if self.in_pxd and not env.in_cinclude:
                 self.entry.defined_in_pxd = 1
-            for attr in self.attributes:
+            for attr in self.fields:
                 attr.analyse_declarations(env, scope)
             if self.visibility != 'extern':
                 for attr in scope.var_entries:
@@ -1681,7 +1681,7 @@ class CppClassNode(CStructOrUnionDefNode, BlockNode):
     #  cname         string or None
     #  visibility    "extern"
     #  in_pxd        boolean
-    #  attributes    [CVarDefNode] or None
+    #  fields        [CVarDefNode] or None
     #  entry         Entry
     #  base_classes  [CBaseTypeNode]
     #  templates     [(string, bool)] or None
@@ -1710,7 +1710,7 @@ class CppClassNode(CStructOrUnionDefNode, BlockNode):
             template_types = [PyrexTypes.TemplatePlaceholderType(template_name, not required)
                               for template_name, required in self.templates]
         scope = None
-        if self.attributes is not None:
+        if self.fields is not None:
             scope = CppClassScope(self.name, env, templates=template_names)
         def base_ok(base_class):
             if base_class.is_cpp_class or base_class.is_struct:
@@ -1733,17 +1733,17 @@ class CppClassNode(CStructOrUnionDefNode, BlockNode):
                     yield attr
                 elif isinstance(attr, CompilerDirectivesNode):
                     yield from func_attributes(attr.body.stats)
-                elif isinstance(attr, CppClassNode) and attr.attributes is not None:
-                    yield from func_attributes(attr.attributes)
-        if self.attributes is not None:
+                elif isinstance(attr, CppClassNode) and attr.fields is not None:
+                    yield from func_attributes(attr.fields)
+        if self.fields is not None:
             if self.in_pxd and not env.in_cinclude:
                 self.entry.defined_in_pxd = 1
-            for attr in self.attributes:
-                declare = getattr(attr, 'declare', None)
+            for field in self.fields:
+                declare = getattr(field, 'declare', None)
                 if declare:
-                    attr.declare(scope)
-                attr.analyse_declarations(scope)
-            for func in func_attributes(self.attributes):
+                    field.declare(scope)
+                field.analyse_declarations(scope)
+            for func in func_attributes(self.fields):
                 defined_funcs.append(func)
                 if self.templates is not None:
                     func.template_declaration = "template <typename %s>" % ", typename ".join(template_names)

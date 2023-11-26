@@ -3681,7 +3681,7 @@ def p_struct_or_union_item(s, pos, ctx):
         name = name,
         cname = cname,
         kind = kind,
-        attributes = fields,
+        fields = fields,
         typedef_flag = ctx.typedef_flag,
         in_pxd = ctx.level == "module_pxd",
         packed = packed
@@ -4384,18 +4384,18 @@ def p_cpp_class_definition(s, pos,  ctx):
         # The goal of this is consistency: we can make docstrings inside cppclass methods,
         # so why not on the cppclass itself ?
         p_doc_string(s)
-        attributes = []
+        fields = []
         body_ctx = Ctx(visibility = ctx.visibility, level='cpp_class', nogil=nogil or ctx.nogil)
         body_ctx.templates = template_names
         while s.sy != 'DEDENT':
             if s.sy != 'pass':
-                attributes.append(p_associated_item(s, body_ctx))
+                fields.append(p_associated_item(s, body_ctx))
             else:
                 s.next()
                 s.expect_newline("Expected a newline")
         s.expect_dedent()
     else:
-        attributes = None
+        fields = None
         s.expect_newline("Syntax error in C++ class definition")
     return Nodes.CppClassNode(pos,
         name = class_name,
@@ -4403,7 +4403,7 @@ def p_cpp_class_definition(s, pos,  ctx):
         base_classes = base_classes,
         visibility = ctx.visibility,
         in_pxd = ctx.level == 'module_pxd',
-        attributes = attributes,
+        fields = fields,
         templates = templates)
 
 def p_associated_item(s, ctx):
