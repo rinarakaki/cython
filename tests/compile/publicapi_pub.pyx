@@ -4,7 +4,7 @@
 type     Int0 = i32
 pub type Int1 = i32
 
-ctypedef     enum EnumA0: EA0
+ctypedef enum     EnumA0: EA0
 ctypedef pub enum EnumA1: EA1
 
 enum     EnumB0: EB0=0
@@ -25,20 +25,20 @@ ctypedef struct     StructA0:
 ctypedef pub struct StructA1:
     i32 SA1
 
-struct StructB0:
+struct     StructB0:
     i32 SB0
 pub struct StructB1:
     i32 SB1
 
-static StructA0 sa0 = {'SA0':0}
-static StructB0 sb0 = {'SB0':2}
+static StructA0 sa0 = StructA0 { SA0 = 0 }
+static StructB0 sb0 = StructB0 { SB0 = 2 }
 
-pub static StructA1 sa1 = {'SA1':1}
-pub static StructB1 sb1 = {'SB1':3}
+pub static StructA1 sa1 = StructA1 { SA1 = 1 }
+pub static StructB1 sb1 = StructB1 { SB1 = 3 }
 
 # --
 
-ctypedef     class Foo0: pass
+ctypedef class     Foo0: pass
 ctypedef pub class Foo1 [type PyFoo1_Type, object PyFoo1_Object]: pass
 
 cdef class Bar0: pass

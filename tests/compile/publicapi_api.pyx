@@ -1,7 +1,7 @@
 # mode: compile
 # --
 
-type Int0 = i32
+type     Int0 = i32
 api type Int1 = i32
 
 ctypedef     enum EnumA0: EA0
@@ -25,20 +25,20 @@ ctypedef     struct StructA0:
 ctypedef api struct StructA1:
     i32 SA1
 
-struct StructB0:
+struct     StructB0:
     i32 SB0
 api struct StructB1:
     i32 SB1
 
-static StructA0 sa0 = {'SA0':0}
-static StructB0 sb0 = {'SB0':2}
+static StructA0 sa0 = StructA0 { SA0 = 0 }
+static StructB0 sb0 = StructB0 { SB0 = 2 }
 
-api static StructA1 sa1 = {'SA1':1}
-api static StructB1 sb1 = {'SB1':3}
+api static StructA1 sa1 = StructA1 { SA1 = 1 }
+api static StructB1 sb1 = StructB1 { SB1 = 3 }
 
 # --
 
-ctypedef     class Foo0: pass
+ctypedef class     Foo0: pass
 ctypedef api class Foo1 [type PyFoo1_Type, object PyFoo1_Object]: pass
 
 cdef class Bar0: pass

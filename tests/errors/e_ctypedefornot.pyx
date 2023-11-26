@@ -10,10 +10,10 @@ ctypedef struct Blarg:
 
 struct Blarg
 
-cdef Foo f
-cdef Blarg b
+static Foo f
+static Blarg b
 
 _ERRORS = u"""
-5:0: 'Foo' previously declared using 'cdef'
-11:0: 'Blarg' previously declared using 'ctypedef'
+5:9: 'Foo' previously declared using 'cdef'
+11:9: 'Blarg' previously declared using 'ctypedef'
 """
