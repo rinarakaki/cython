@@ -11,7 +11,7 @@ cdef class MemViewContainer:
     def __init__(self, A):
         self.A = A
 
-    cpdef run(self):
+    cpdef fn run(self):
         print_upper_right(self.A)
         print_upper_right(self.A.T)
         print_upper_right(self.A.T)

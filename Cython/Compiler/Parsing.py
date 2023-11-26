@@ -5,6 +5,7 @@
 
 
 # This should be done automatically
+from Cython.Shadow import typedef
 import cython
 cython.declare(Nodes=object, ExprNodes=object, EncodedString=object,
                bytes_literal=object, StringEncoding=object,
@@ -453,7 +454,6 @@ def p_async_statement(s, ctx, decorators):
         # 'async def' statements aren't allowed in pxd files
         if 'pxd' in ctx.level:
             s.error('def statement not allowed here')
-        s.level = ctx.level
         return p_def_statement(s, decorators, is_async_def=True)
     elif decorators:
         s.error("Decorators can only be followed by functions or classes")
@@ -1816,7 +1816,7 @@ def p_raise_statement(s):
         return Nodes.ReraiseStatNode(pos)
 
 
-def p_use_statement(s):
+def p_use_item(s):
     # s.sy == "use"
     pos = s.position()
     s.next()
@@ -1842,6 +1842,7 @@ def p_use_statement(s):
                 is_absolute=is_absolute,
             )
         stats.append(stat)
+    s.expect_newline("Expected a newline", ignore_semicolon=True)
     return Nodes.StatListNode(pos, stats=stats)
 
 
@@ -2383,8 +2384,6 @@ def p_simple_statement(s, first_statement = 0):
         node = p_return_statement(s)
     elif s.sy == 'raise':
         node = p_raise_statement(s)
-    elif s.sy == "use":
-        node = p_use_statement(s)
     elif s.sy in ("import", "cimport"):
         node = p_import_statement(s)
     elif s.sy == "from" or not s.in_python_file and s.systring == "from":
@@ -2441,16 +2440,21 @@ def p_compile_time_expr(s):
     s.compile_time_expr = old
     return expr
 
-def p_const_statement(s):
+def p_const_item(s):
     pos = s.position()
     denv = s.compile_time_env
-    s.next()  # 'DEF'
+    s.next()  # "const"
+    if s.sy == "auto":
+        s.next()
+        base_type = None
+    else:
+        base_type = p_c_base_type(s)
     name = p_ident(s)
     s.expect('=')
     expr = p_compile_time_expr(s)
     if s.compile_time_eval:
         value = expr.compile_time_value(denv)
-        # print "p_const_statement: %s = %r" % (name, value) #
+        # print "p_const_item: %s = %r" % (name, value) #
         denv.declare(name, value)
     s.expect_newline("Expected a newline", ignore_semicolon=True)
     return Nodes.PassStatNode(pos)
@@ -2482,31 +2486,104 @@ def p_IF_statement(s, ctx):
     s.compile_time_eval = saved_eval
     return result
 
-def p_statement(s, ctx, first_statement = 0):
-    cdef_flag = ctx.cdef_flag
-    decorators = []
-    if s.sy == "#" and s.peek()[0] == "[":
-        s.level = ctx.level
-        decorators = p_attributes(s)
+def p_item(s, ctx, attributes):
+    pos = s.position()
+    visibility = ctx.visibility = p_visibility(s, ctx.visibility)
+    api = ctx.api = p_api(s) or ctx.api
+    overridable = ctx.overridable
+    ctx.typedef_flag = ctx.typedef_flag or visibility == "extern"
 
-    if not s.in_python_file and s.systring == "type" and s.peek()[0] == "IDENT":
+    item = None
+    if s.sy == "use":
+        item = p_use_item(s)
+    elif s.sy == "static":
+        item = p_static_item(s, ctx)
+    elif s.sy == "const":
+        if ctx.visibility == "extern":
+            s.error("const statement not allowed here")
+        item = p_const_item(s)
+    elif s.sy == "fn" or s.sy == "const" and s.peek()[0] == "fn":
+        item = p_fn_item(s, pos, ctx)
+    elif ctx.visibility == "extern" and s.systring == "from":
+        item = p_extern_item(s, pos, ctx)
+    elif s.systring == "type" and s.peek()[0] == "IDENT":
         if ctx.level not in ("module", "module_pxd"):
             s.error("type statement not allowed here")
-        return p_type_statement(s, ctx)
-    elif s.sy == 'ctypedef':
+        item = p_type_alias_item(s, ctx)
+    elif s.sy == "enum":
+        if ctx.level not in ("module", "module_pxd"):
+            error(pos, "C enum definition not allowed here")
+        item = p_enum_item(s, pos, ctx)
+    elif s.sy in ("struct", "union") or s.systring == "packed" and s.peek()[0] == "struct":
+        if ctx.level not in ("module", "module_pxd"):
+            error(pos, "C struct/union definition not allowed here")
+        if ctx.overridable:
+            error(pos, "C struct/union cannot be declared cpdef")
+        item = p_struct_or_union_item(s, pos, ctx)
+    elif s.sy == "class":
+        if ctx.level not in ("module", "module_pxd"):
+            error(pos, "Extension type definition not allowed here")
+        if ctx.overridable:
+            error(pos, "Extension types cannot be declared cpdef")
+        item = p_c_class_definition(s, pos, ctx)
+
+
+    if item is not None:
+        item.decorators = attributes
+        item.visibility = visibility
+        item.api = api
+        item.overridable = overridable
+
+    return item
+
+def p_statement(s, ctx, first_statement = 0):
+    cdef_flag = ctx.cdef_flag
+
+    if s.sy == "let":
+        return p_let_statement(s, ctx(overridable=0))
+
+    attributes = p_attributes(s)
+
+    overridable = typedef_flag = 0
+    if s.sy == "cpdef":
+        s.next()
+        cdef_flag = 1
+        overridable = 1
+    elif s.sy == "ctypedef" and (s.peek()[0] != "IDENT" or s.peek()[1] in ("api", "packed")):
+        s.next()
+        typedef_flag = 1
+
+    if (
+        (s.sy != "IDENT" or s.systring in ("type", "packed") or s.systring == "api" and s.peek()[1] in ("static", "fn", "type", "enum", "struct", "class"))
+        and
+        (s.sy != "class" or ctx.visibility == "extern" or typedef_flag)
+        and
+        (s.sy != "cdef" or s.peek()[0] in ("extern", "enum", "struct", "union", "class"))
+        and
+        (s.sy not in ("pub", "readonly", "extern") or s.peek()[0] != "IDENT" or s.peek()[1] in ("from", "type", "packed", "api"))
+    ):
+        if s.sy == "cdef":
+            s.next()
+        item = p_item(s, ctx(overridable=overridable, typedef_flag=typedef_flag), attributes)
+        if item is not None:
+            return item
+    
+    decorators = attributes
+
+    if s.sy == 'ctypedef':
         if ctx.level not in ('module', 'module_pxd'):
             s.error("ctypedef statement not allowed here")
         # if ctx.api:
         #    error(s.position(), "'api' not allowed with 'ctypedef'")
         return p_ctypedef_statement(s, ctx)
-    elif s.sy in ("const", "DEF") and ctx.visibility != "extern":
+    elif s.sy == "DEF":
         # We used to dep-warn about this but removed the warning again since
         # we don't have a good answer yet for all use cases.
         # warning(s.position(),
         #         "The 'DEF' statement is deprecated and will be removed in a future Cython version. "
         #         "Consider using global variables, constants, and in-place literals instead. "
         #         "See https://github.com/cython/cython/issues/4310", level=1)
-        return p_const_statement(s)
+        return p_const_item(s)
     elif s.sy == 'IF':
         warning(s.position(),
                 "The 'IF' statement is deprecated and will be removed in a future Cython version. "
@@ -2516,7 +2593,6 @@ def p_statement(s, ctx, first_statement = 0):
     elif s.sy == '@':
         if ctx.level not in ('module', 'class', 'c_class', 'function', 'property', 'module_pxd', 'c_class_pxd', 'other'):
             s.error('decorator not allowed here')
-        s.level = ctx.level
         decorators += p_decorators(s)
         if not ctx.allow_struct_enum_decorator and s.sy not in ("def", "fn", "cdef", "cpdef", "class", "async"):
             if s.sy == 'IDENT' and s.systring == 'async':
@@ -2527,20 +2603,13 @@ def p_statement(s, ctx, first_statement = 0):
         # empty cdef block
         return p_pass_statement(s, with_newline=1)
 
-    overridable = 0
-    if s.sy == 'cdef':
+    if s.sy in ("cdef", "pub", "extern"):
         cdef_flag = 1
-        s.next()
-    elif s.sy == 'cpdef':
-        cdef_flag = 1
-        overridable = 1
-        s.next()
-    elif s.sy in ("pub", "fn", "let", "enum", "struct", "union", "extern", "static"):
-        cdef_flag = 1
+        if s.sy == "cdef":
+            s.next()
     if cdef_flag:
         if ctx.level not in ('module', 'module_pxd', 'function', 'c_class', 'c_class_pxd'):
             s.error('cdef statement not allowed here')
-        s.level = ctx.level
         node = p_cdef_statement(s, ctx(overridable=overridable))
         if len(decorators) > 0:
             tup = (Nodes.CFuncDefNode, Nodes.CVarDefNode, Nodes.CClassDefNode)
@@ -2558,7 +2627,6 @@ def p_statement(s, ctx, first_statement = 0):
             # as part of a cdef class
             if ('pxd' in ctx.level) and (ctx.level != 'c_class_pxd'):
                 s.error('def statement not allowed here')
-            s.level = ctx.level
             return p_def_statement(s, decorators)
         elif s.sy == 'class':
             if ctx.level not in ('module', 'function', 'class', 'other'):
@@ -2954,12 +3022,12 @@ def is_memoryviewslice_access(s):
     saved = [(s.sy, s.systring, s.position())]
     s.next()
     retval = 0
-    if s.systring == ':':
+    if s.systring == ":":
         retval = 1
     elif s.sy == 'INT':
         saved.append((s.sy, s.systring, s.position()))
         s.next()
-        if s.sy == ':':
+        if s.sy == ":":
             retval = 1
 
     for sv in reversed(saved):
@@ -3434,13 +3502,11 @@ def p_cdef_statement(s, ctx):
     ctx.visibility = p_visibility(s, ctx.visibility)
     ctx.api = ctx.api or p_api(s)
     if ctx.api:
-        if ctx.visibility not in ("private", "pub", "public"):
+        if ctx.visibility not in ("private", "public"):
             error(pos, "Cannot combine 'api' with '%s'" % ctx.visibility)
-    if ctx.visibility == "extern" and s.systring == "from":
-        return p_cdef_extern_block(s, pos, ctx)
-    elif s.sy == 'import':
+    if s.sy == 'import':
         s.next()
-        return p_cdef_extern_block(s, pos, ctx)
+        return p_extern_item(s, pos, ctx)
     elif p_nogil(s):
         ctx.nogil = 1
         if ctx.overridable:
@@ -3450,38 +3516,17 @@ def p_cdef_statement(s, ctx):
         if ctx.overridable:
             error(pos, "cdef blocks cannot be declared cpdef")
         return p_cdef_block(s, ctx)
-    elif s.sy == 'class':
-        if ctx.level not in ('module', 'module_pxd'):
-            error(pos, "Extension type definition not allowed here")
-        if ctx.overridable:
-            error(pos, "Extension types cannot be declared cpdef")
-        return p_c_class_definition(s, pos, ctx)
-    elif s.sy == 'IDENT' and s.systring == 'cppclass':
-        return p_cpp_class_definition(s, pos, ctx)
-    elif s.sy in struct_enum_union or s.sy == 'IDENT' and s.systring == "packed":
-        if ctx.level not in ('module', 'module_pxd'):
-            error(pos, "C struct/union/enum definition not allowed here")
-        if ctx.overridable:
-            if s.systring != 'enum':
-                error(pos, "C struct/union cannot be declared cpdef")
-        return p_struct_enum(s, pos, ctx)
     elif s.sy == 'IDENT' and s.systring == 'fused':
         return p_fused_definition(s, pos, ctx)
-    elif s.sy == "fn":
-        s.next()
-        return p_c_func_or_var_declaration(s, pos, ctx)
-    elif s.sy == "let":
-        return p_let_statement(s, pos, ctx)
-    elif s.sy == "static":
-        s.next()
-        return p_c_func_or_var_declaration(s, pos, ctx)
+    elif s.sy == 'IDENT' and s.systring == "cppclass":
+        return p_cpp_class_definition(s, pos, ctx)
     else:
         return p_c_func_or_var_declaration(s, pos, ctx)
 
 def p_cdef_block(s, ctx):
     return p_suite(s, ctx(cdef_flag = 1))
 
-def p_cdef_extern_block(s, pos, ctx):
+def p_extern_item(s, pos, ctx):
     if ctx.overridable:
         error(pos, "cdef extern blocks cannot be declared cpdef")
     include_file = None
@@ -3504,9 +3549,10 @@ def p_cdef_extern_block(s, pos, ctx):
         include_file = include_file,
         verbatim_include = verbatim_include,
         body = body,
-        namespace = ctx.namespace)
+        namespace = ctx.namespace
+    )
 
-def p_c_enum_definition(s, pos, ctx):
+def p_enum_item(s, pos, ctx):
     # s.sy == ident 'enum'
     s.next()
 
@@ -3515,7 +3561,7 @@ def p_c_enum_definition(s, pos, ctx):
         scoped = True
         s.next()
 
-    if s.sy == 'IDENT':
+    if s.sy == "IDENT":
         name = s.systring
         s.next()
         cname = p_opt_cname(s)
@@ -3542,46 +3588,50 @@ def p_c_enum_definition(s, pos, ctx):
             longness = 0
         )
 
-    s.expect(':')
-    items = []
+    s.expect(":")
+    variants = []
 
     doc = None
-    if s.sy != 'NEWLINE':
-        p_c_enum_line(s, ctx, items)
+    if s.sy != "NEWLINE":
+        p_c_enum_line(s, ctx, variants)
     else:
         s.next()  # 'NEWLINE'
         s.expect_indent()
         doc = p_doc_string(s)
 
         while s.sy not in ('DEDENT', 'EOF'):
-            p_c_enum_line(s, ctx, items)
+            p_c_enum_line(s, ctx, variants)
 
         s.expect_dedent()
 
-    if not items and ctx.visibility != "extern":
+    if not variants and ctx.visibility != "extern":
         error(pos, "Empty enum definition not allowed outside a 'cdef extern from' block")
 
-    return Nodes.CEnumDefNode(
-        pos, name=name, cname=cname,
-        scoped=scoped, items=items,
+    return Nodes.CEnumDefNode(pos,
+        name=name,
+        cname=cname,
+        scoped=scoped,
+        variants=variants,
         underlying_type=underlying_type,
-        typedef_flag=ctx.typedef_flag, visibility=ctx.visibility,
+        typedef_flag=ctx.typedef_flag,
         create_wrapper=ctx.overridable,
-        api=ctx.api, in_pxd=ctx.level == 'module_pxd', doc=doc)
+        in_pxd=ctx.level == "module_pxd",
+        doc=doc,
+    )
 
-def p_c_enum_line(s, ctx, items):
+def p_c_enum_line(s, ctx, variants):
     if s.sy != 'pass':
-        p_c_enum_item(s, ctx, items)
+        p_variant(s, ctx, variants)
         while s.sy == ',':
             s.next()
             if s.sy in ('NEWLINE', 'EOF'):
                 break
-            p_c_enum_item(s, ctx, items)
+            p_variant(s, ctx, variants)
     else:
         s.next()
     s.expect_newline("Syntax error in enum item list")
 
-def p_c_enum_item(s, ctx, items):
+def p_variant(s, ctx, variants):
     pos = s.position()
     name = p_ident(s)
     cname = p_opt_cname(s)
@@ -3591,10 +3641,10 @@ def p_c_enum_item(s, ctx, items):
     if s.sy == '=':
         s.next()
         value = p_test(s)
-    items.append(Nodes.CEnumDefItemNode(pos,
+    variants.append(Nodes.CEnumDefItemNode(pos,
         name = name, cname = cname, value = value))
 
-def p_c_struct_or_union_definition(s, pos, ctx):
+def p_struct_or_union_item(s, pos, ctx):
     packed = False
     if s.systring == 'packed':
         packed = True
@@ -3608,10 +3658,10 @@ def p_c_struct_or_union_definition(s, pos, ctx):
     cname = p_opt_cname(s)
     if cname is None and ctx.namespace is not None:
         cname = ctx.namespace + "::" + name
-    attributes = None
-    if s.sy == ':':
+    fields = None
+    if s.sy == ":":
         s.next()
-        attributes = []
+        fields = []
         if s.sy == 'pass':
             s.next()
             s.expect_newline("Expected a newline", ignore_semicolon=True)
@@ -3619,24 +3669,29 @@ def p_c_struct_or_union_definition(s, pos, ctx):
             s.expect('NEWLINE')
             s.expect_indent()
             body_ctx = Ctx(visibility=ctx.visibility)
-            while s.sy != 'DEDENT':
-                if s.sy != 'pass':
-                    attributes.append(
+            while s.sy != "DEDENT":
+                if s.sy != "pass":
+                    fields.append(
                         p_c_func_or_var_declaration(s, s.position(), body_ctx))
                 else:
                     s.next()
                     s.expect_newline("Expected a newline")
             s.expect_dedent()
 
-        if not attributes and ctx.visibility != "extern":
+        if not fields and ctx.visibility != "extern":
             error(pos, "Empty struct or union definition not allowed outside a 'cdef extern from' block")
     else:
         s.expect_newline("Syntax error in struct or union definition")
 
     return Nodes.CStructOrUnionDefNode(pos,
-        name = name, cname = cname, kind = kind, attributes = attributes,
-        typedef_flag = ctx.typedef_flag, visibility = ctx.visibility,
-        api = ctx.api, in_pxd = ctx.level == 'module_pxd', packed = packed)
+        name = name,
+        cname = cname,
+        kind = kind,
+        fields = fields,
+        typedef_flag = ctx.typedef_flag,
+        in_pxd = ctx.level == "module_pxd",
+        packed = packed
+    )
 
 def p_fused_definition(s, pos, ctx):
     """
@@ -3674,12 +3729,13 @@ def p_fused_definition(s, pos, ctx):
 
 def p_struct_enum(s, pos, ctx):
     if s.systring == 'enum':
-        return p_c_enum_definition(s, pos, ctx)
+        return p_enum_item(s, pos, ctx)
     else:
-        return p_c_struct_or_union_definition(s, pos, ctx)
+        return p_struct_or_union_item(s, pos, ctx)
 
-def p_let_statement(s, pos, ctx):
+def p_let_statement(s, ctx):
     # s.sy == "let"
+    pos = s.position()
     s.next()
     if s.sy == "auto":
         s.next()
@@ -3688,14 +3744,37 @@ def p_let_statement(s, pos, ctx):
         base_type = p_c_base_type(s, nonempty = 1, templates = ctx.templates)
     declarator = p_c_declarator(s, ctx, assignable = 1, nonempty = 1)
     declarators = [declarator]
-    while s.sy == ',':
+    while s.sy == ",":
         s.next()
-        if s.sy == 'NEWLINE':
+        if s.sy == "NEWLINE":
             break
         declarator = p_c_declarator(s, ctx, assignable = 1, nonempty = 1)
         declarators.append(declarator)
-    s.expect_newline("Syntax error in C variable declaration", ignore_semicolon=True)
+    s.expect_newline("Syntax error in let statement", ignore_semicolon=True)
     return Nodes.LetStatNode(pos, base_type = base_type, declarators = declarators)
+
+def p_static_item(s, ctx):
+    # s.sy == "static"
+    pos = s.position()
+    s.next()
+    base_type = p_c_base_type(s, nonempty = 1, templates = ctx.templates)
+    declarator = p_c_declarator(s, ctx, assignable = 1, nonempty = 1)
+    declarators = [declarator]
+    while s.sy == ",":
+        s.next()
+        if s.sy == "NEWLINE":
+            break
+        declarator = p_c_declarator(s, ctx, assignable = 1, nonempty = 1)
+        declarators.append(declarator)
+    s.expect_newline("Syntax error in static item", ignore_semicolon=True)
+    result = Nodes.CVarDefNode(pos,
+        base_type = base_type,
+        declarators = declarators,
+        in_pxd = ctx.level == "module_pxd",
+        doc = None,
+        modifiers = [],
+    )
+    return result
 
 def p_visibility(s, prev_visibility):
     pos = s.position()
@@ -3717,6 +3796,57 @@ def p_c_modifiers(s):
         s.next()
         return [modifier] + p_c_modifiers(s)
     return []
+
+def p_fn_item(s, pos, ctx):
+    # s.sy == "fn" or s.sy == "const" and s.peek()[0] == "fn"
+    cmethod_flag = ctx.level in ("c_class", "c_class_pxd")
+    is_static_method = is_const_function = 0
+    if s.sy == "const":
+        s.next()
+        is_const_function = 1
+    elif s.sy == "static":
+        s.next()
+        is_static_method = 1
+    s.next()
+
+    modifiers = p_c_modifiers(s)
+    base_type = p_c_base_type(s, nonempty = 1, templates = ctx.templates)
+    declarator = p_c_declarator(s, ctx(modifiers=modifiers), cmethod_flag = cmethod_flag,
+                                assignable = 1, nonempty = 1)
+    declarator.overridable = ctx.overridable
+    if s.sy == ":":
+        if ctx.level not in ("module", "c_class", "module_pxd", "c_class_pxd", "cpp_class") and not ctx.templates:
+            s.error("C function definition not allowed here")
+        doc, suite = p_suite_with_docstring(s, Ctx(level="function"))
+        return Nodes.CFuncDefNode(pos,
+            base_type = base_type,
+            declarator = declarator,
+            body = suite,
+            doc = doc,
+            modifiers = modifiers,
+            is_static_method = is_static_method,
+            is_const_method = is_const_function
+        )
+    else:
+        # if api:
+        #    s.error("'api' not allowed with variable declaration")
+        if is_const_function:
+            declarator.is_const_method = is_const_function
+        declarators = [declarator]
+        doc_line = s.start_line + 1
+        s.expect_newline("Syntax error in fn item", ignore_semicolon=True)
+        if ctx.level in ("c_class", "c_class_pxd") and s.start_line == doc_line:
+            doc = p_doc_string(s)
+        else:
+            doc = None
+        return Nodes.CVarDefNode(pos,
+            base_type = base_type,
+            declarators = declarators,
+            in_pxd = ctx.level in ("module_pxd", "c_class_pxd"),
+            doc = doc,
+            modifiers = modifiers,
+            is_static_method = is_static_method,
+        )
 
 def p_c_func_or_var_declaration(s, pos, ctx):
     cmethod_flag = ctx.level in ('c_class', 'c_class_pxd')
@@ -3782,13 +3912,11 @@ def p_c_func_or_var_declaration(s, pos, ctx):
             overridable = ctx.overridable)
     return result
 
-def p_type_statement(s, ctx):
+def p_type_alias_item(s, ctx):
     # s.systring == "type"
     pos = s.position()
     s.next()
-    visibility = p_visibility(s, ctx.visibility)
-    api = p_api(s)
-    ctx = ctx(typedef_flag=1, visibility=visibility)
+    ctx = ctx(typedef_flag=1)
     declarator = p_c_declarator(s, ctx, is_type=1, assignable=0)
     s.expect("=")
     base_type = p_c_base_type(s)
@@ -3797,8 +3925,6 @@ def p_type_statement(s, ctx):
         pos,
         base_type=base_type,
         declarator=declarator,
-        visibility=visibility,
-        api=api,
         in_pxd=ctx.level == "module_pxd"
     )
 
@@ -3811,11 +3937,7 @@ def p_ctypedef_statement(s, ctx):
     ctx = ctx(typedef_flag = 1, visibility = visibility)
     if api:
         ctx.api = 1
-    if s.sy == 'class':
-        return p_c_class_definition(s, pos, ctx)
-    elif s.sy in struct_enum_union or s.sy == 'IDENT' and s.systring == "packed":
-        return p_struct_enum(s, pos, ctx)
-    elif s.sy == 'IDENT' and s.systring == 'fused':
+    if s.sy == 'IDENT' and s.systring == 'fused':
         return p_fused_definition(s, pos, ctx)
     else:
         base_type = p_c_base_type(s, nonempty = 1)
@@ -3825,7 +3947,8 @@ def p_ctypedef_statement(s, ctx):
             pos, base_type = base_type,
             declarator = declarator,
             visibility = visibility, api = api,
-            in_pxd = ctx.level == 'module_pxd')
+            in_pxd = ctx.level == 'module_pxd'
+        )
 
 def p_attributes(s):
     attributes = []
@@ -3962,15 +4085,15 @@ def p_class_statement(s, decorators):
 
 
 def p_c_class_definition(s, pos,  ctx):
-    # s.sy == 'class'
+    # s.sy == "class"
     s.next()
     module_path = []
     class_name = p_ident(s)
-    while s.sy == '.':
+    while s.sy == ".":
         s.next()
         module_path.append(class_name)
         class_name = p_ident(s)
-    if module_path and ctx.visibility != 'extern':
+    if module_path and ctx.visibility != "extern":
         error(pos, "Qualified class name only allowed for 'extern' C class")
     if module_path and s.sy == 'IDENT' and s.systring == 'as':
         s.next()
@@ -3990,7 +4113,7 @@ def p_c_class_definition(s, pos,  ctx):
         bases = ExprNodes.TupleNode(pos, args=[])
 
     if s.sy == '[':
-        if ctx.visibility not in ("pub", "public", "extern") and not ctx.api:
+        if ctx.visibility not in ("public", "extern") and not ctx.api:
             error(s.position(), "Name options only allowed for 'public', 'api', or 'extern' C class")
         objstruct_name, typeobj_name, check_size = p_c_class_options(s)
     if s.sy == ':':
@@ -4022,9 +4145,7 @@ def p_c_class_definition(s, pos,  ctx):
     else:
         error(pos, "Invalid class visibility '%s'" % ctx.visibility)
     return Nodes.CClassDefNode(pos,
-        visibility = ctx.visibility,
         typedef_flag = ctx.typedef_flag,
-        api = ctx.api,
         module_name = ".".join(module_path),
         class_name = class_name,
         as_name = as_name,
@@ -4032,9 +4153,10 @@ def p_c_class_definition(s, pos,  ctx):
         objstruct_name = objstruct_name,
         typeobj_name = typeobj_name,
         check_size = check_size,
-        in_pxd = ctx.level == 'module_pxd',
+        in_pxd = ctx.level == "module_pxd",
         doc = doc,
-        body = body)
+        body = body
+    )
 
 
 def p_c_class_options(s):
@@ -4260,18 +4382,18 @@ def p_cpp_class_definition(s, pos,  ctx):
         # The goal of this is consistency: we can make docstrings inside cppclass methods,
         # so why not on the cppclass itself ?
         p_doc_string(s)
-        attributes = []
+        fields = []
         body_ctx = Ctx(visibility = ctx.visibility, level='cpp_class', nogil=nogil or ctx.nogil)
         body_ctx.templates = template_names
         while s.sy != 'DEDENT':
             if s.sy != 'pass':
-                attributes.append(p_cpp_class_attribute(s, body_ctx))
+                fields.append(p_associated_item(s, body_ctx))
             else:
                 s.next()
                 s.expect_newline("Expected a newline")
         s.expect_dedent()
     else:
-        attributes = None
+        fields = None
         s.expect_newline("Syntax error in C++ class definition")
     return Nodes.CppClassNode(pos,
         name = class_name,
@@ -4279,8 +4401,27 @@ def p_cpp_class_definition(s, pos,  ctx):
         base_classes = base_classes,
         visibility = ctx.visibility,
         in_pxd = ctx.level == 'module_pxd',
-        attributes = attributes,
+        fields = fields,
         templates = templates)
+
+def p_associated_item(s, ctx):
+    attributes = p_attributes(s)
+    item = None
+    if s.systring == "type" and s.peek()[0] == "IDENT":
+        item = p_type_alias_item(s, ctx)
+    elif s.sy == "const" and s.peek()[0] != "fn":
+        item = p_c_func_or_var_declaration(s, s.position(), ctx)
+    elif s.sy == "fn" or s.sy in ("static", "const") and s.peek()[0] == "fn":
+        item = p_fn_item(s, s.position(), ctx)
+
+    if item is not None:
+        item.decorators = attributes
+        item.visibility = ctx.visibility
+        item.api = ctx.api
+        item.overridable = ctx.overridable
+        return item
+    else:
+        return p_cpp_class_attribute(s, ctx)
 
 def p_cpp_class_attribute(s, ctx):
     decorators = None
@@ -4294,18 +4435,9 @@ def p_cpp_class_attribute(s, ctx):
         if s.systring != 'enum':
             return p_cpp_class_definition(s, s.position(), ctx)
         else:
-            return p_struct_enum(s, s.position(), ctx)
-    elif s.sy == "fn":
-        s.next()
-        node = p_c_func_or_var_declaration(s, s.position(), ctx)
-        if decorators is not None:
-            tup = Nodes.CFuncDefNode, Nodes.CVarDefNode, Nodes.CClassDefNode
-            if ctx.allow_struct_enum_decorator:
-                tup += Nodes.CStructOrUnionDefNode, Nodes.CEnumDefNode
-            if not isinstance(node, tup):
-                s.error("Decorators can only be followed by functions or classes")
-            node.decorators = decorators
-        return node
+            item = p_struct_enum(s, s.position(), ctx)
+            item.visibility = ctx.visibility
+            item.overridable = ctx.overridable
     else:
         node = p_c_func_or_var_declaration(s, s.position(), ctx)
         if decorators is not None:

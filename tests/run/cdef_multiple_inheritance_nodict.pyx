@@ -5,7 +5,7 @@ cdef class CBase(object):
     cdef int a
     fn c_method(self):
         return "CBase"
-    cpdef cpdef_method(self):
+    cpdef fn cpdef_method(self):
         return "CBase"
 
 class PyBase(object):
@@ -30,7 +30,7 @@ cdef class Both(CBase, PyBase):
     """
     fn c_method(self):
         return "Both"
-    cpdef cp_method(self):
+    cpdef fn cp_method(self):
         return "Both"
     def call_c_method(self):
         return self.c_method()

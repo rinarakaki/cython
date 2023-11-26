@@ -15,7 +15,7 @@ fn int_test(i32 x):
     >>> int_test(100000)
     3
     """
-    atom = new atomic[int](x)
+    atom = new atomic[i32](x)
     try:
         atom.store(0)
         incr(*atom)
@@ -46,7 +46,7 @@ fn typedef_test(i32 x):
     finally:
         del atom
 
-def stack_allocation_test(i32 x):
+fn stack_allocation_test(i32 x):
     """
     >>> stack_allocation_test(55)
     3
@@ -66,7 +66,7 @@ def stack_allocation_test(i32 x):
     finally:
         pass
 
-def nogil_int_test(i32 x):
+fn nogil_int_test(i32 x):
     """
     >>> nogil_int_test(55)
     55

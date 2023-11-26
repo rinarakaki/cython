@@ -1532,6 +1532,7 @@ class CVarDefNode(StatNode):
 
     decorators = None
     directive_locals = None
+    is_static_method = 0
 
     def analyse_declarations(self, env, dest_scope=None):
         if self.directive_locals is None:
@@ -1605,8 +1606,8 @@ class CVarDefNode(StatNode):
             if type.is_rvalue_reference and self.visibility != 'extern':
                 error(declarator.pos, "C++ rvalue-references cannot be declared")
             if type.is_cfunction:
-                if 'staticmethod' in env.directives:
-                    type.is_static_method = True
+                if self.is_static_method or 'staticmethod' in env.directives:
+                    type.is_static_method = 1
                 self.entry = dest_scope.declare_cfunction(
                     name, type, declarator.pos,
                     cname=cname, visibility=self.visibility, in_pxd=self.in_pxd,
@@ -1637,11 +1638,11 @@ class CStructOrUnionDefNode(StatNode):
     #  visibility    "public" or "private"
     #  api           boolean
     #  in_pxd        boolean
-    #  attributes    [CVarDefNode] or None
+    #  fields        [CVarDefNode] or None
     #  entry         Entry
     #  packed        boolean
 
-    child_attrs = ["attributes"]
+    child_attrs = ["fields"]
 
     def declare(self, env, scope=None):
         self.entry = env.declare_struct_or_union(
@@ -1651,13 +1652,13 @@ class CStructOrUnionDefNode(StatNode):
 
     def analyse_declarations(self, env):
         scope = None
-        if self.attributes is not None:
+        if self.fields is not None:
             scope = StructOrUnionScope(self.name)
         self.declare(env, scope)
-        if self.attributes is not None:
+        if self.fields is not None:
             if self.in_pxd and not env.in_cinclude:
                 self.entry.defined_in_pxd = 1
-            for attr in self.attributes:
+            for attr in self.fields:
                 attr.analyse_declarations(env, scope)
             if self.visibility != 'extern':
                 for attr in scope.var_entries:
@@ -1680,7 +1681,7 @@ class CppClassNode(CStructOrUnionDefNode, BlockNode):
     #  cname         string or None
     #  visibility    "extern"
     #  in_pxd        boolean
-    #  attributes    [CVarDefNode] or None
+    #  fields        [CVarDefNode] or None
     #  entry         Entry
     #  base_classes  [CBaseTypeNode]
     #  templates     [(string, bool)] or None
@@ -1709,7 +1710,7 @@ class CppClassNode(CStructOrUnionDefNode, BlockNode):
             template_types = [PyrexTypes.TemplatePlaceholderType(template_name, not required)
                               for template_name, required in self.templates]
         scope = None
-        if self.attributes is not None:
+        if self.fields is not None:
             scope = CppClassScope(self.name, env, templates=template_names)
         def base_ok(base_class):
             if base_class.is_cpp_class or base_class.is_struct:
@@ -1732,17 +1733,17 @@ class CppClassNode(CStructOrUnionDefNode, BlockNode):
                     yield attr
                 elif isinstance(attr, CompilerDirectivesNode):
                     yield from func_attributes(attr.body.stats)
-                elif isinstance(attr, CppClassNode) and attr.attributes is not None:
-                    yield from func_attributes(attr.attributes)
-        if self.attributes is not None:
+                elif isinstance(attr, CppClassNode) and attr.fields is not None:
+                    yield from func_attributes(attr.fields)
+        if self.fields is not None:
             if self.in_pxd and not env.in_cinclude:
                 self.entry.defined_in_pxd = 1
-            for attr in self.attributes:
-                declare = getattr(attr, 'declare', None)
+            for field in self.fields:
+                declare = getattr(field, 'declare', None)
                 if declare:
-                    attr.declare(scope)
-                attr.analyse_declarations(scope)
-            for func in func_attributes(self.attributes):
+                    field.declare(scope)
+                field.analyse_declarations(scope)
+            for func in func_attributes(self.fields):
                 defined_funcs.append(func)
                 if self.templates is not None:
                     func.template_declaration = "template <typename %s>" % ", typename ".join(template_names)
@@ -1768,7 +1769,7 @@ class CEnumDefNode(StatNode):
     #  cname              string or None
     #  scoped             boolean                Is a C++ scoped enum
     #  underlying_type    CSimpleBaseTypeNode    The underlying value type (int or C++ type)
-    #  items              [CEnumDefItemNode]
+    #  variants           [CEnumDefItemNode]
     #  typedef_flag       boolean
     #  visibility         "public" or "private" or "extern"
     #  api                boolean
@@ -1777,7 +1778,7 @@ class CEnumDefNode(StatNode):
     #  entry              Entry
     #  doc                EncodedString or None    Doc string
 
-    child_attrs = ["items", "underlying_type"]
+    child_attrs = ["variants", "underlying_type"]
     doc = None
 
     def declare(self, env):
@@ -1802,14 +1803,14 @@ class CEnumDefNode(StatNode):
 
         self.entry.type.underlying_type = underlying_type
 
-        if self.scoped and self.items is not None:
+        if self.scoped and self.variants is not None:
             scope = CppScopedEnumScope(self.name, env)
             scope.type = self.entry.type
             scope.directives = env.directives
         else:
             scope = env
 
-        if self.items is not None:
+        if self.variants is not None:
             if self.in_pxd and not env.in_cinclude:
                 self.entry.defined_in_pxd = 1
 
@@ -1818,11 +1819,11 @@ class CEnumDefNode(StatNode):
             is_declared_enum = self.visibility != 'extern'
 
             next_int_enum_value = 0 if is_declared_enum else None
-            for item in self.items:
-                item.analyse_enum_declarations(scope, self.entry, next_int_enum_value)
+            for variant in self.variants:
+                variant.analyse_enum_declarations(scope, self.entry, next_int_enum_value)
                 if is_declared_enum:
                     next_int_enum_value = 1 + (
-                        item.entry.enum_int_value if item.entry.enum_int_value is not None else next_int_enum_value)
+                        variant.entry.enum_int_value if variant.entry.enum_int_value is not None else next_int_enum_value)
 
     def analyse_expressions(self, env):
         return self
@@ -2659,26 +2660,26 @@ class FuncDefNode(StatNode, BlockNode):
 class CFuncDefNode(FuncDefNode):
     #  C function definition.
     #
-    #  modifiers     ['inline']
-    #  visibility    'private' or 'public' or 'extern'
-    #  base_type     CBaseTypeNode
-    #  declarator    CDeclaratorNode
+    #  modifiers        ['inline']
+    #  visibility      'private' or 'public' or 'extern'
+    #  base_type        CBaseTypeNode
+    #  declarator       CDeclaratorNode
     #  cfunc_declarator  the CFuncDeclarator of this function
     #                    (this is also available through declarator or a
     #                     base thereof)
-    #  body          StatListNode
-    #  api           boolean
-    #  decorators    [DecoratorNode]        list of decorators
+    #  body             StatListNode
+    #  api              boolean
+    #  decorators       [DecoratorNode]        list of decorators
     #
-    #  with_gil      boolean    Acquire GIL around body
-    #  type          CFuncType
-    #  py_func       wrapper for calling from Python
-    #  overridable   whether or not this is a cpdef function
-    #  inline_in_pxd whether this is an inline function in a pxd file
+    #  with_gil          boolean    Acquire GIL around body
+    #  type              CFuncType
+    #  py_func           wrapper for calling from Python
+    #  overridable       whether or not this is a cpdef function
+    #  inline_in_pxd     whether this is an inline function in a pxd file
     #  template_declaration  String or None   Used for c++ class methods
-    #  is_const_method whether this is a const method
-    #  is_static_method whether this is a static method
-    #  is_c_class_method whether this is a cclass method
+    #  is_const_method    whether this is a const method
+    #  is_static_method   whether this is a static method
+    #  is_c_class_method  whether this is a cclass method
 
     child_attrs = ["base_type", "declarator", "body", "decorators", "py_func_stat"]
     outer_attrs = ["decorators", "py_func_stat"]
@@ -2690,6 +2691,7 @@ class CFuncDefNode(FuncDefNode):
     override = None
     template_declaration = None
     is_const_method = False
+    is_static_method = 0
     py_func_stat = None
 
     def unqualified_name(self):
@@ -2715,7 +2717,7 @@ class CFuncDefNode(FuncDefNode):
                 base_type = PyrexTypes.error_type
         else:
             base_type = self.base_type.analyse(env)
-        self.is_static_method = 'staticmethod' in env.directives and not env.lookup_here('staticmethod')
+        self.is_static_method = self.is_static_method or 'staticmethod' in env.directives and not env.lookup_here('staticmethod')
         # The 2 here is because we need both function and argument names.
         if isinstance(self.declarator, CFuncDeclaratorNode):
             name_declarator, typ = self.declarator.analyse(

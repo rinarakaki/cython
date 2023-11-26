@@ -1209,7 +1209,7 @@ def test_assign_from_byteslike(byteslike):
 def multiple_memoryview_def(f64[:] a, f64[:] b):
     return a[0] + b[0]
 
-cpdef multiple_memoryview_cpdef(f64[:] a, f64[:] b):
+cpdef fn multiple_memoryview_cpdef(f64[:] a, f64[:] b):
     return a[0] + b[0]
 
 fn multiple_memoryview_cdef(f64[:] a, f64[:] b):
@@ -1284,7 +1284,7 @@ def test_assignment_typedef():
     for v in y:
         print(v)
 
-def test_untyped_index(i):
+fn test_untyped_index(i):
     """
     >>> test_untyped_index(2)
     3
@@ -1293,11 +1293,10 @@ def test_untyped_index(i):
     >>> test_untyped_index(-1)
     0
     """
-    cdef int[6] arr
-    arr = [5, 4, 3, 2, 1, 0]
-    cdef int[:] mview_arr = arr
+    let i32[6] arr = [5, 4, 3, 2, 1, 0]
+    let i32[:] mview_arr = arr
     return mview_arr[i]  # should generate a performance hint
 
 _PERFORMANCE_HINTS = """
-1299:21: Index should be typed for more efficient access
+1298:21: Index should be typed for more efficient access
 """

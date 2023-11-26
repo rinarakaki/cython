@@ -12,24 +12,27 @@ import cython
 
 extern from "shapes.h" namespace "shapes":
     cdef cppclass Shape:
-        float area() const
+        const fn f32 area()
 
 cdef cppclass RegularPolygon(Shape):
     f32 radius # major
     i32 n
-    __init__(i32 n, float radius):
+
+    __init__(i32 n, f32 radius):
         this.n = n
         this.radius = radius
-    fn f32 area() noexcept const:
-        cdef f64 theta = pi / this.n
+
+    const fn f32 area() noexcept:
+        let f64 theta = pi / this.n
         return this.radius * this.radius * sin(theta) * cos(theta) * this.n
+
     fn void do_with() except *:
         # only a compile test - the file doesn't actually have to exist
         # "with" was broken by https://github.com/cython/cython/issues/4212
         with open("does not matter") as f:
             return
 
-def test_Poly(i32 n, float radius=1):
+fn test_Poly(i32 n, f32 radius=1):
     """
     >>> test_Poly(4)
     2.0
@@ -52,16 +55,19 @@ def test_Poly(i32 n, float radius=1):
         del poly
 
 cdef cppclass BaseClass:
-    int n
-    int method():
+    i32 n
+
+    fn i32 method():
         return this.n
 
 cdef cppclass SubClass(BaseClass):
     bool override
+
     __init__(bool override):
         this.n = 1
         this.override = override
-    int method():
+
+    fn i32 method():
         if override:
             return 0
         else:
@@ -82,8 +88,7 @@ def test_BaseMethods(x):
         del subClass
 
 cdef cppclass WithStatic:
-    @staticmethod
-    fn f64 square(f64 x):
+    static fn  f64 square(f64 x):
         return x * x
 
 def test_Static(x):
@@ -101,13 +106,14 @@ cdef cppclass InitDealloc:
             print "Init"
         finally:
             return  # swallow any exceptions
+
     __dealloc__():
         try:
             print "Dealloc"
         finally:
             return  # swallow any exceptions
 
-def test_init_dealloc():
+fn test_init_dealloc():
     """
     >>> test_init_dealloc()
     start
@@ -124,8 +130,10 @@ def test_init_dealloc():
 
 cdef cppclass WithTemplate[T]:
     T value
+
     fn void set_value(T value):
         this.value = value
+
     fn T get_value():
         return this.value
 
@@ -151,29 +159,32 @@ def test_templates(long value):
     del base
 
 cdef cppclass Simple:
-  pass
+    pass
 
 def test_default_init_no_gil():
-  with nogil:
-    s = new Simple()
-    del s
-
+    with nogil:
+        s = new Simple()
+        del s
 
 cdef class NoisyAlloc(object):
     pub name
+
     def __init__(self, name):
         print "NoisyAlloc.__init__", name
         self.name = name
+
     def __dealloc__(self):
         try:
             print "NoisyAlloc.__dealloc__", self.name
         except:
             pass  # Suppress unraisable exception warning.
+
     def __repr__(self):
         return "NoisyAlloc[%s]" % self.name
 
 cdef cppclass CppClassWithObjectMember:
     NoisyAlloc o
+
     __init__(name):
         try:
             print "CppClassWithObjectMember.__init__", name
@@ -229,17 +240,18 @@ fn test_CppClassWithObjectMemberCopyAssign(name):
 
 # Github issue #1886.
 pub cppclass PublicCppClassWithObjectMember:
-  object o
+    object o
 
 def test_PublicCppClassWithObjectMember():
-  """
-  >>> test_PublicCppClassWithObjectMember()
-  """
-  cdef PublicCppClassWithObjectMember c
-  assert c.o is None
+    """
+    >>> test_PublicCppClassWithObjectMember()
+    """
+    let PublicCppClassWithObjectMember c
+    assert c.o is None
 
 cdef cppclass UncopyableConstructorArgument:
     unique_ptr[vector[i32]] member
+
     __init__(unique_ptr[vector[i32]] arg):
         this.member.reset(arg.release())
 

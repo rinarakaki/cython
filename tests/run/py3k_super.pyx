@@ -65,7 +65,7 @@ cdef class CClassBase(object):
     def method(self):
         return 'def'
 
-#     cpdef method_cp(self):
+#     cpdef fn method_cp(self):
 #         return 'cpdef'
 #     cdef method_c(self):
 #         return 'cdef'
@@ -85,7 +85,7 @@ cdef class CClassSub(CClassBase):
     def method(self):
         return super().method()
 
-#     cpdef method_cp(self):
+#     cpdef fn method_cp(self):
 #         return super().method_cp()
 #     cdef method_c(self):
 #         return super().method_c()

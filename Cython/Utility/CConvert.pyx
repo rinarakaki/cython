@@ -8,7 +8,7 @@ extern from *:
     fn object PyErr_Format(exc, r&i8 format, ...)
     fn i32 __Pyx_RaiseUnexpectedTypeError(r&i8 expected, object obj) except 0
 
-@cname("{{funcname}}")
+#[cname("{{funcname}}")]
 fn {{struct_type}} {{funcname}}(obj) except *:
     let {{struct_type}} result
     if not PyMapping_Check(obj):
@@ -34,7 +34,7 @@ extern from *:
     fn object PyErr_Format(exc, r&i8 format, ...)
     fn i32 __Pyx_RaiseUnexpectedTypeError(r&i8 expected, object obj) except 0
 
-@cname("{{funcname}}")
+#[cname("{{funcname}}")]
 fn {{struct_type}} {{funcname}}(obj) except *:
     let {{struct_type}} result
     let isize length
@@ -62,7 +62,7 @@ fn {{struct_type}} {{funcname}}(obj) except *:
 
 #################### cfunc.to_py ####################
 
-@cname("{{cname}}")
+#[cname("{{cname}}")]
 fn object {{cname}}({{return_type.ctype}} (*f)({{ ', '.join(arg.type_cname for arg in args) }}) {{except_clause}}):
     def wrap({{ ', '.join('{arg.ctype} {arg.name}'.format(arg=arg) for arg in args) }}):
         """wrap({{', '.join(('{arg.name}: {arg.type_displayname}'.format(arg=arg) if arg.type_displayname else arg.name) for arg in args)}}){{if return_type.type_displayname}} -> {{return_type.type_displayname}}{{endif}}"""
@@ -75,7 +75,7 @@ fn object {{cname}}({{return_type.ctype}} (*f)({{ ', '.join(arg.type_cname for a
 extern from *:
     fn object PyErr_Format(exc, r&i8 format, ...)
 
-@cname("{{cname}}")
+#[cname("{{cname}}")]
 fn i32 {{cname}}(object o, {{base_type}} *v, isize length) except -1:
     let auto i = length
     try:
@@ -109,7 +109,7 @@ extern from *:
     fn void PyTuple_SET_ITEM(object p, isize pos, object o)
     fn void PyList_SET_ITEM(object p, isize pos, object o)
 
-@cname("{{cname}}")
+#[cname("{{cname}}")]
 fn inline list {{cname}}({{base_type}} *v, isize length):
     let usize i
     let object value
@@ -120,7 +120,7 @@ fn inline list {{cname}}({{base_type}} *v, isize length):
         PyList_SET_ITEM(l, i, value)
     return l
 
-@cname("{{to_tuple_cname}}")
+#[cname("{{to_tuple_cname}}")]
 fn inline tuple {{to_tuple_cname}}({{base_type}} *v, isize length):
     let usize i
     let object value

@@ -1,12 +1,5 @@
 # 7.21 String handling <string.h>
 
-extern from *:
-    # deprecated backwards compatibility declarations
-    type const_char "const char" = const i8
-    type const_schar "const signed char" = const signed char
-    type const_uchar "const unsigned char" = const u8
-    type const_void "const void" = const void
-
 extern from "<string.h>" nogil:
     fn void* memcpy(void* pto, const void* pfrom, usize size)
     fn void* memmove(void* pto, const void* pfrom, usize size)
