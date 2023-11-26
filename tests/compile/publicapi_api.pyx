@@ -41,8 +41,8 @@ api static StructB1 sb1 = {'SB1':3}
 ctypedef     class Foo0: pass
 ctypedef api class Foo1 [type PyFoo1_Type, object PyFoo1_Object]: pass
 
-cdef     class Bar0: pass
-cdef api class Bar1 [type PyBar1_Type, object PyBar1_Object]: pass
+cdef class Bar0: pass
+api class  Bar1 [type PyBar1_Type, object PyBar1_Object]: pass
 
 static Foo0 f0 = None
 static Bar0 b0 = None

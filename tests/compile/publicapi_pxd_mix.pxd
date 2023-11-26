@@ -42,7 +42,7 @@ ctypedef pub     class Foo1 [type PyFoo1_Type, object PyFoo1_Object]: pass
 ctypedef     api class Foo2 [type PyFoo2_Type, object PyFoo2_Object]: pass
 ctypedef pub api class Foo3 [type PyFoo3_Type, object PyFoo3_Object]: pass
 
-class         Bar0: pass
+cdef class    Bar0: pass
 pub class     Bar1 [type PyBar1_Type, object PyBar1_Object]: pass
 api class     Bar2 [type PyBar2_Type, object PyBar2_Object]: pass
 pub api class Bar3 [type PyBar3_Type, object PyBar3_Object]: pass
