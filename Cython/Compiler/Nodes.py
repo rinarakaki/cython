@@ -2660,26 +2660,26 @@ class FuncDefNode(StatNode, BlockNode):
 class CFuncDefNode(FuncDefNode):
     #  C function definition.
     #
-    #  modifiers     ['inline']
-    #  visibility    'private' or 'public' or 'extern'
-    #  base_type     CBaseTypeNode
-    #  declarator    CDeclaratorNode
+    #  modifiers        ['inline']
+    #  visibility      'private' or 'public' or 'extern'
+    #  base_type        CBaseTypeNode
+    #  declarator       CDeclaratorNode
     #  cfunc_declarator  the CFuncDeclarator of this function
     #                    (this is also available through declarator or a
     #                     base thereof)
-    #  body          StatListNode
-    #  api           boolean
-    #  decorators    [DecoratorNode]        list of decorators
+    #  body             StatListNode
+    #  api              boolean
+    #  decorators       [DecoratorNode]        list of decorators
     #
-    #  with_gil      boolean    Acquire GIL around body
-    #  type          CFuncType
-    #  py_func       wrapper for calling from Python
-    #  overridable   whether or not this is a cpdef function
-    #  inline_in_pxd whether this is an inline function in a pxd file
+    #  with_gil          boolean    Acquire GIL around body
+    #  type              CFuncType
+    #  py_func           wrapper for calling from Python
+    #  overridable       whether or not this is a cpdef function
+    #  inline_in_pxd     whether this is an inline function in a pxd file
     #  template_declaration  String or None   Used for c++ class methods
-    #  is_const_method whether this is a const method
-    #  is_static_method whether this is a static method
-    #  is_c_class_method whether this is a cclass method
+    #  is_const_method    whether this is a const method
+    #  is_static_method   whether this is a static method
+    #  is_c_class_method  whether this is a cclass method
 
     child_attrs = ["base_type", "declarator", "body", "decorators", "py_func_stat"]
     outer_attrs = ["decorators", "py_func_stat"]
