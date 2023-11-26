@@ -96,7 +96,7 @@ extern from "<stdint.h>" nogil:
     enum: SIG_ATOMIC_MIN
     enum: SIG_ATOMIC_MAX
     # size_t
-    usize SIZE_MAX
+    static usize SIZE_MAX
     # wchar_t
     enum: WCHAR_MIN
     enum: WCHAR_MAX

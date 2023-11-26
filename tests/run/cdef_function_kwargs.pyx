@@ -5,7 +5,7 @@ use libc::string::strstr
 fn cfunc(a, b, c, d):
     return (a, b, c, d)
 
-cpdef cpfunc(a, b, c, d):
+cpdef fn cpfunc(a, b, c, d):
     return (a, b, c, d)
 
 fn optargs(a, b=2, c=3):
@@ -216,7 +216,7 @@ cdef class ExtType:
         print ext.cmeth(1,2,c=3,d=4)
         print ext.cmeth(a=1,b=2,c=3,d=4)
 
-    cpdef cpmeth(self, a, b, c, d):
+    cpdef fn cpmeth(self, a, b, c, d):
         return (a, b, c, d)
 
     #[cython::test_fail_if_path_exists('//GeneralCallNode')]
@@ -280,7 +280,7 @@ cdef class ExtType:
         print ext.optargs(a=3)
         # print ext.optargs(b=4)
 
-    cpdef cpmeth_optargs(self, a=1, b=2):
+    cpdef fn cpmeth_optargs(self, a=1, b=2):
         return (a, b)
 
     #[cython::test_fail_if_path_exists('//GeneralCallNode')]
@@ -319,7 +319,7 @@ cdef class ExtType:
         print ext.cpmeth_optargs(a=3)
         # print ext.cpmeth_optargs(b=4)
 
-    cpdef cpmeth_optargs1(self, a=1):
+    cpdef fn cpmeth_optargs1(self, a=1):
         return a
 
     #[cython::test_fail_if_path_exists('//GeneralCallNode')]

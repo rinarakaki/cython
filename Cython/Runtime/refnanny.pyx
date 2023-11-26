@@ -178,7 +178,7 @@ struct RefNannyAPIStruct:
     SetupContextType SetupContext
     void(PyObject**) FinishContext
 
-cdef RefNannyAPIStruct api
+static RefNannyAPIStruct api
 api.INCREF = INCREF
 api.DECREF =  DECREF
 api.GOTREF =  GOTREF

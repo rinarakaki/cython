@@ -1,4 +1,3 @@
 # mode: compile
 
-extern:
-    fn func(i32[])
+extern fn func(i32[])

@@ -4,28 +4,34 @@ cdef class TreeVisitor:
     pub list access_path
     cdef dict dispatch_table
 
-    cpdef visit(self, obj)
+    cpdef fn visit(self, obj)
 
+    #[cython::final]
     fn _visit(self, obj)
 
+    #[cython::final]
     fn find_handler(self, obj)
 
+    #[cython::final]
     fn _visitchild(self, child, parent, attrname, idx)
 
+    #[cython::final]
     fn dict _visitchildren(self, parent, attrs, exclude)
 
-    cpdef visitchildren(self, parent, attrs=*, exclude=*)
+    cpdef fn visitchildren(self, parent, attrs=*, exclude=*)
 
     fn _raise_compiler_error(self, child, e)
 
 cdef class VisitorTransform(TreeVisitor):
+    #[cython::final]
     fn dict _process_children(self, parent, attrs=*, exclude=*)
 
-    cpdef visitchildren(self, parent, attrs=*, exclude=*)
+    cpdef fn visitchildren(self, parent, attrs=*, exclude=*)
 
+    #[cython::final]
     fn list _flatten_list(self, list orig_list)
 
-    cpdef visitchild(self, parent, str attr, idx=*)
+    cpdef fn visitchild(self, parent, str attr, idx=*)
 
 cdef class CythonTransform(VisitorTransform):
     pub context

@@ -54,11 +54,11 @@ fn public_optional_args(struct_t obj, simple_t simple = *)
 
 cdef class TestFusedExtMethods(object):
     fn cython.floating method(self, cython.integral x, cython.floating y)
-    cpdef cpdef_method(self, cython.integral x, cython.floating y)
+    cpdef fn cpdef_method(self, cython.integral x, cython.floating y)
 
 object_t = cython.fused_type(TestFusedExtMethods, object, list)
 
-cpdef public_cpdef(cython.integral x, cython.floating y, object_t z)
+cpdef fn public_cpdef(cython.integral x, cython.floating y, object_t z)
 
 ######## header.h ########
 
@@ -89,7 +89,7 @@ cdef class TestFusedExtMethods(object):
 
         return x + y
 
-    cpdef cpdef_method(self, cython.integral x, cython.floating y):
+    cpdef fn cpdef_method(self, cython.integral x, cython.floating y):
         return cython::typeof(x), cython::typeof(y)
 
     def def_method(self, fused1 x, fused2 y):
@@ -99,7 +99,7 @@ cdef class TestFusedExtMethods(object):
         else:
             return <fused1> x + y
 
-cpdef public_cpdef(cython.integral x, cython.floating y, object_t z):
+cpdef fn public_cpdef(cython.integral x, cython.floating y, object_t z):
     if cython.integral is int:
         pass
 
@@ -171,7 +171,7 @@ cdef class Subclass(TestFusedExtMethods):
     fn cython::floating method(self, cython::integral x, cython::floating y):
         return -x -y
 
-    cpdef cpdef_method(self, cython::integral x, cython::floating y):
+    cpdef fn cpdef_method(self, cython::integral x, cython::floating y):
         return x, y
 
 cdef Subclass myobj = Subclass()

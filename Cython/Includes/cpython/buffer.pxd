@@ -1,10 +1,10 @@
 # Please see the Python header files (object.h/abstract.h) for docs
 
 extern from "Python.h":
-    cdef enum:
+    enum:
         PyBUF_MAX_NDIM
 
-    cdef enum:
+    enum:
         PyBUF_SIMPLE,
         PyBUF_WRITABLE,
         PyBUF_WRITEABLE,  # backwards compatibility

@@ -160,7 +160,7 @@ def test_fused_pointer_except_null(value):
 
 include "../testsupport/cythonarrayutil.pxi"
 
-cpdef cython.integral test_fused_memoryviews(cython.integral[:, :;1] a):
+cpdef fn cython::integral test_fused_memoryviews(cython::integral[:, :;1] a):
     """
     >>> import cython
     >>> a = create_array((3, 5), mode="c")

@@ -31,12 +31,12 @@ cdef class BaseType:
     BaseType.meth
     BaseType.meth
     """
-    cpdef callmeth(self):
+    cpdef fn callmeth(self):
         return self.callmeth2()
-    cpdef callmeth2(self):
+    cpdef fn callmeth2(self):
         # not overridden by subclasses
         return self.meth()
-    cpdef meth(self):
+    cpdef fn meth(self):
         # overridden by subclasses
         print("BaseType.meth")
 

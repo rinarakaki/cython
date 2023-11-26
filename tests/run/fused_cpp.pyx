@@ -22,14 +22,14 @@ cdef fused C:
    i32
    object
 
-cdef const type_info* tidint = &typeid(i32)
+static r&type_info tidint = &typeid(i32)
 def typeid_call(C x):
     """
     For GH issue 3203
     >>> typeid_call(1)
     True
     """
-    let const type_info* a = &typeid(C)
+    let r&type_info a = &typeid(C)
     return a[0] == tidint[0]
 
 use cython
@@ -40,7 +40,7 @@ def typeid_call2(cython::integral x):
     >>> typeid_call2[i32](1)
     True
     """
-    let const type_info* a = &typeid(cython.integral)
+    let r&type_info a = &typeid(cython.integral)
     return a[0] == tidint[0]
 
 fn cython::integral fused_ref(&mut cython::integral x):
