@@ -4,15 +4,15 @@
 type     Int0 = i32
 api type Int1 = i32
 
-ctypedef     enum EnumA0: EA0
+ctypedef enum     EnumA0: EA0
 ctypedef api enum EnumA1: EA1
 
 enum     EnumB0: EB0 = 0
 api enum EnumB1: EB1 = 1
 
-cdef Int0   i0  = 0
-cdef EnumA0 ea0 = EA0
-cdef EnumB0 eb0 = EB0
+static Int0   i0  = 0
+static EnumA0 ea0 = EA0
+static EnumB0 eb0 = EB0
 
 api static Int1   i1  = 0
 api static EnumA1 ea1 = EA1
