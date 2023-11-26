@@ -2526,6 +2526,7 @@ def p_item(s, ctx, attributes):
         item.decorators = attributes
         item.visibility = ctx.visibility
         item.api = ctx.api
+        item.overridable = ctx.overridable,
 
     return item
 
@@ -3814,14 +3815,11 @@ def p_fn_item(s, pos, ctx):
             s.error("C function definition not allowed here")
         doc, suite = p_suite_with_docstring(s, Ctx(level="function"))
         result = Nodes.CFuncDefNode(pos,
-            visibility = ctx.visibility,
             base_type = base_type,
             declarator = declarator,
             body = suite,
             doc = doc,
             modifiers = modifiers,
-            api = ctx.api,
-            overridable = ctx.overridable,
             is_static_method = is_static_method,
             is_const_method = is_const_function
         )
@@ -3845,14 +3843,11 @@ def p_fn_item(s, pos, ctx):
         else:
             doc = None
         result = Nodes.CVarDefNode(pos,
-            visibility = ctx.visibility,
             base_type = base_type,
             declarators = declarators,
             in_pxd = ctx.level in ("module_pxd", "c_class_pxd"),
             doc = doc,
-            api = ctx.api,
             modifiers = modifiers,
-            overridable = ctx.overridable,
             is_static_method = is_static_method,
         )
     return result
