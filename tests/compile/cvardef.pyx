@@ -19,10 +19,10 @@ def f():
     let i8[10][20] a_2d_char_array
     let (r&mut i8)[10][20] a_2d_char_ptr_array
     let (r&mut r&mut i8)[10][20] a_2d_char_ptr_ptr_array
-    let i32 (*a_0arg_function)()
-    let i32 (*a_1arg_function)(i32 i)
-    let i32 (*a_2arg_function)(i32 i, i32 j)
-    let void (*a_void_function)()
+    let i32() a_0arg_function
+    let i32(i32 i) a_1arg_function
+    let i32(i32 i, i32 j) a_2arg_function
+    let void() a_void_function
     a_char = 0
     a_short = 0
     i1 = 0

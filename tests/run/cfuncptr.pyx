@@ -2,7 +2,7 @@
 
 
 fn i32 grail():
-    let i32 (*spam)()
+    let (i32*)() spam
     spam = &grail
     spam = grail
     assert spam is grail
@@ -32,7 +32,7 @@ def call_cfuncptr():
     """
     >>> call_cfuncptr()
     """
-    let i32 (*spam)()
+    let (i32*)() spam
     spam = grail
     spam()
 

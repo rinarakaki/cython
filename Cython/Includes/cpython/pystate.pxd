@@ -25,7 +25,7 @@ extern from "Python.h":
     # The type of the trace function registered using PyEval_SetProfile() and
     # PyEval_SetTrace().
     # Py_tracefunc return -1 when raising an exception, or 0 for success.
-    ctypedef i32 (*Py_tracefunc)(PyObject *, PyFrameObject *, int, PyObject *)
+    type Py_tracefunc = i32(r&mut PyObject, r&mut PyFrameObject, i32, r&mut PyObject)
 
     # The following values are used for 'what' for tracefunc functions
     enum:
@@ -37,19 +37,19 @@ extern from "Python.h":
         PyTrace_C_EXCEPTION
         PyTrace_C_RETURN
 
-    fn PyInterpreterState * PyInterpreterState_New()
-    fn void PyInterpreterState_Clear(PyInterpreterState *)
-    fn void PyInterpreterState_Delete(PyInterpreterState *)
-    fn PY_INT64_T PyInterpreterState_GetID(PyInterpreterState *)
+    fn PyInterpreterState* PyInterpreterState_New()
+    fn void PyInterpreterState_Clear(PyInterpreterState*)
+    fn void PyInterpreterState_Delete(PyInterpreterState*)
+    fn PY_INT64_T PyInterpreterState_GetID(PyInterpreterState*)
 
-    fn PyThreadState * PyThreadState_New(PyInterpreterState *)
-    fn void PyThreadState_Clear(PyThreadState *)
-    fn void PyThreadState_Delete(PyThreadState *)
+    fn PyThreadState* PyThreadState_New(PyInterpreterState*)
+    fn void PyThreadState_Clear(PyThreadState*)
+    fn void PyThreadState_Delete(PyThreadState*)
 
-    fn PyThreadState * PyThreadState_Get()
-    fn PyThreadState * PyThreadState_Swap(PyThreadState *)  # NOTE: DO NOT USE IN CYTHON CODE !
-    fn PyObject * PyThreadState_GetDict()
-    fn i32 PyThreadState_SetAsyncExc(i64, PyObject *)
+    fn PyThreadState* PyThreadState_Get()
+    fn PyThreadState* PyThreadState_Swap(PyThreadState*)  # NOTE: DO NOT USE IN CYTHON CODE !
+    fn PyObject* PyThreadState_GetDict()
+    fn i32 PyThreadState_SetAsyncExc(i64, PyObject*)
 
     # Ensure that the current thread is ready to call the Python
     # C API, regardless of the current state of Python, or of its
@@ -87,7 +87,7 @@ extern from "Python.h":
 
     # Routines for advanced debuggers, requested by David Beazley.
     # Don't use unless you know what you are doing!
-    fn PyInterpreterState * PyInterpreterState_Head()
-    fn PyInterpreterState * PyInterpreterState_Next(PyInterpreterState *)
-    fn PyThreadState * PyInterpreterState_ThreadHead(PyInterpreterState *)
-    fn PyThreadState * PyThreadState_Next(PyThreadState *)
+    fn PyInterpreterState* PyInterpreterState_Head()
+    fn PyInterpreterState* PyInterpreterState_Next(PyInterpreterState*)
+    fn PyThreadState* PyInterpreterState_ThreadHead(PyInterpreterState*)
+    fn PyThreadState* PyThreadState_Next(PyThreadState*)

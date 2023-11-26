@@ -49,7 +49,7 @@ print(A, foo(10))
 
 use other
 
-fn call_fooptr(int (*fptr)(int)):
+fn call_fooptr((i32*)(i32) fptr):
     return fptr(10)
 
 def call_other_foo():

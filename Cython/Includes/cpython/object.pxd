@@ -4,37 +4,37 @@ cimport cpython.type
 extern from "Python.h":
     struct PyObject  # forward declaration
 
-    ctypedef object (*newfunc)(cpython.type.type, PyObject*, PyObject*)  # (type, args|NULL, kwargs|NULL)
+    type newfunc = object(cpython::type::type, r&mut PyObject, &mut PyObject)  # (type, args|NULL, kwargs|NULL)
 
-    ctypedef object (*unaryfunc)(object)
-    ctypedef object (*binaryfunc)(object, object)
-    ctypedef object (*ternaryfunc)(object, object, object)
-    ctypedef i32 (*inquiry)(object) except -1
-    ctypedef isize (*lenfunc)(object) except -1
-    ctypedef object (*ssizeargfunc)(object, isize)
-    ctypedef object (*ssizessizeargfunc)(object, isize, isize)
-    ctypedef i32 (*ssizeobjargproc)(object, isize, object) except -1
-    ctypedef i32 (*ssizessizeobjargproc)(object, isize, isize, object) except -1
-    ctypedef i32 (*objobjargproc)(object, object, object) except -1
-    ctypedef i32 (*objobjproc)(object, object) except -1
+    type unaryfunc = object(object)
+    type binaryfunc = object(object, object)
+    type ternaryfunc = object(object, object, object)
+    type inquiry = i32(object) except -1
+    type lenfunc = isize(object) except -1
+    type ssizeargfunc = object(object, isize)
+    type ssizessizeargfunc = object(object, isize, isize)
+    type ssizeobjargproc = i32(object, isize, object) except -1
+    type ssizessizeobjargproc = i32(object, isize, isize, object) except -1
+    type objobjargproc = i32(object, object, object) except -1
+    type objobjproc = i32(object, object) except -1
 
-    ctypedef Py_hash_t (*hashfunc)(object) except -1
-    ctypedef object (*reprfunc)(object)
+    type hashfunc = Py_hash_t(object) except -1
+    type reprfunc = object(object)
 
-    ctypedef i32 (*cmpfunc)(object, object) except -2
-    ctypedef object (*richcmpfunc)(object, object, i32)
+    type cmpfunc = i32(object, object) except -2
+    type richcmpfunc = object(object, object, i32)
 
     # The following functions use 'PyObject*' as first argument instead of 'object' to prevent
     # accidental reference counting when calling them during a garbage collection run.
-    ctypedef void (*destructor)(PyObject*)
-    ctypedef i32 (*visitproc)(PyObject*, void *) except -1
-    ctypedef i32 (*traverseproc)(PyObject*, visitproc, void*) except -1
-    ctypedef void (*freefunc)(void*)
+    type destructor = void(r&mut PyObject)
+    type visitproc = i32(r&mut PyObject, r&mut void) except -1
+    type traverseproc = i32(r&mut PyObject, visitproc, r&mut void) except -1
+    type freefunc = void(r&mut void)
 
-    ctypedef object (*descrgetfunc)(object, object, object)
-    ctypedef i32 (*descrsetfunc)(object, object, object) except -1
+    type descrgetfunc = object(object, object, object)
+    type descrsetfunc = i32(object, object, object) except -1
 
-    ctypedef object (*PyCFunction)(object, object)
+    type PyCFunction = object(object, object)
 
     struct PyMethodDef:
         r&i8 ml_name

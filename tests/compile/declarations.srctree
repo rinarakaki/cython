@@ -40,7 +40,7 @@ extern static i32 a(i32[][3], i32[][3][5])
 fn void f():
     let void* p = NULL
     global ifnp, cpa
-    ifnp = <i32 (*)() noexcept>p
+    ifnp = <(i32*)() noexcept>p
 
 fn r&i8 g():
     pass

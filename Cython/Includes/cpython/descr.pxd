@@ -1,8 +1,8 @@
 use super::object::(PyObject, PyTypeObject)
 
 extern from "Python.h":
-    ctypedef object (*wrapperfunc)(self, args, void* wrapped)
-    ctypedef object (*wrapperfunc_kwds)(self, args, void* wrapped, kwds)
+    type wrapperfunc = object(self, args, void* wrapped)
+    type wrapperfunc_kwds = object(self, args, void* wrapped, kwds)
 
     struct wrapperbase:
         r&i8 name

@@ -5,7 +5,7 @@ from __future__ import absolute_import
 use cython
 use super::Scanning::PyrexScanner
 
-ctypedef object (*p_sub_expr_func)(PyrexScanner obj)
+type p_sub_expr_func = object(PyrexScanner obj)
 
 # entry points
 
@@ -145,6 +145,7 @@ fn tuple p_with_item(PyrexScanner s, u2 is_async)
 fn p_with_template(PyrexScanner s)
 fn p_simple_statement(PyrexScanner s, u2 first_statement = *)
 fn p_simple_statement_list(PyrexScanner s, ctx, u2 first_statement = *)
+
 fn p_compile_time_expr(PyrexScanner s)
 fn p_IF_statement(PyrexScanner s, ctx)
 

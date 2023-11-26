@@ -25,8 +25,8 @@ extern fn i32 __cdecl f2()
 extern fn i32 __stdcall f3()
 extern fn i32 __fastcall f4()
 
-extern i32 (*p1)()
-extern i32 (__cdecl *p2)()
+extern static i32() p1
+extern i32 (__cdecl *)() p2
 extern i32 (__stdcall *p3)()
 extern i32 (__fastcall *p4)()
 

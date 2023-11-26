@@ -3,8 +3,8 @@ extern from "pythread.h":
     type PyThread_type_sema = void*
 
     fn void PyThread_init_thread()
-    fn i64 PyThread_start_new_thread(void (*)(void *), void *)  # FIXME: legacy
-    # fn u64 PyThread_start_new_thread(void (*)(void *), void *)  # returned 'long' before Py3.7
+    fn i64 PyThread_start_new_thread(void(r&mut void), r&mut void)  # FIXME: legacy
+    # fn u64 PyThread_start_new_thread(void(r&mut void*), r&mut void)  # returned 'long' before Py3.7
     fn void PyThread_exit_thread()
     fn i64 PyThread_get_thread_ident()  # FIXME: legacy
     # u64 PyThread_get_thread_ident()  # returned 'long' before Py3.7
@@ -31,8 +31,8 @@ extern from "pythread.h":
     # Thread Local Storage (TLS) API deprecated in CPython 3.7+
     fn i32 PyThread_create_key()
     fn void PyThread_delete_key(i32)
-    fn i32 PyThread_set_key_value(i32, void *)
-    fn void * PyThread_get_key_value(i32)
+    fn i32 PyThread_set_key_value(i32, void*)
+    fn void* PyThread_get_key_value(i32)
     fn void PyThread_delete_key_value(i32 key)
 
     # Cleanup after a fork
@@ -42,9 +42,9 @@ extern from "pythread.h":
     # struct Py_tss_t: pass   # Cython built-in type
     static Py_tss_t Py_tss_NEEDS_INIT        # Not normally useful: Cython auto-initialises declared "Py_tss_t" variables.
     fn Py_tss_t* PyThread_tss_alloc()
-    fn void PyThread_tss_free(Py_tss_t *key)
-    fn i32 PyThread_tss_is_created(Py_tss_t *key)
-    fn i32 PyThread_tss_create(Py_tss_t *key)
-    fn void PyThread_tss_delete(Py_tss_t *key)
+    fn void PyThread_tss_free(Py_tss_t* key)
+    fn i32 PyThread_tss_is_created(Py_tss_t* key)
+    fn i32 PyThread_tss_create(Py_tss_t* key)
+    fn void PyThread_tss_delete(Py_tss_t* key)
     fn i32 PyThread_tss_set(Py_tss_t* key, void* value)
-    fn void * PyThread_tss_get(Py_tss_t* key)
+    fn void* PyThread_tss_get(Py_tss_t* key)

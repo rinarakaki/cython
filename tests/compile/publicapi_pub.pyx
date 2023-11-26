@@ -7,8 +7,8 @@ pub type Int1 = i32
 ctypedef enum     EnumA0: EA0
 ctypedef pub enum EnumA1: EA1
 
-enum     EnumB0: EB0=0
-pub enum EnumB1: EB1=1
+enum     EnumB0: EB0 = 0
+pub enum EnumB1: EB1 = 1
 
 static Int0   i0  = 0
 static EnumA0 ea0 = EA0

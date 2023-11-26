@@ -200,7 +200,7 @@ fn test_specializations():
     double pointer
     double pointer
     """
-    let object (*f)(f64, f64 *, f64 *, i32 *)
+    let object(f64, r&f64, r&f64, i32*) f
 
     let f64 somedouble = 2.2
     let f64 otherdouble = 3.3
@@ -213,10 +213,10 @@ fn test_specializations():
     f = test_specialize
     assert f(1.1, somedouble_p, otherdouble_p, someint_p) == 10.6
 
-    f = <object (*)(f64, f64 *, f64 *, i32 *)> test_specialize
+    f = <object(f64, f64*, f64*, i32*)>test_specialize
     assert f(1.1, somedouble_p, otherdouble_p, someint_p) == 10.6
 
-    assert (<object (*)(f64, f64 *, f64 *, i32 *)>
+    assert (<object(f64, f64*, f64*, i32*)>
             test_specialize)(1.1, somedouble_p, otherdouble_p, someint_p) == 10.6
 
     f = test_specialize[f64, i32]
@@ -554,7 +554,7 @@ fn f64 get_double():
 fn float get_float():
     return 0.0
 
-fn call_func_pointer(cython.floating (*f)()):
+fn call_func_pointer((cython::floating*)() f):
     return f()
 
 def test_fused_func_pointer():
@@ -569,7 +569,7 @@ def test_fused_func_pointer():
 fn f64 get_double_from_int(i32 i):
     return i
 
-fn call_func_pointer_with_1(cython.floating (*f)(cython.integral)):
+fn call_func_pointer_with_1((cython::floating*)(cython::integral) f):
     return f(1)
 
 def test_fused_func_pointer2():
@@ -579,9 +579,9 @@ def test_fused_func_pointer2():
     """
     print(call_func_pointer_with_1(get_double_from_int))
 
-fn call_function_that_calls_fused_pointer(object (*f)(cython.floating (*)(cython.integral))):
-    if cython.floating is f64 and cython.integral is i32:
-        return 5*f(get_double_from_int)
+fn call_function_that_calls_fused_pointer((object*)((cython::floating*)(cython::integral)) f):
+    if cython::floating is f64 and cython::integral is i32:
+        return 5 * f(get_double_from_int)
     else:
         return None  # practically it's hard to make this kind of function useful...
 

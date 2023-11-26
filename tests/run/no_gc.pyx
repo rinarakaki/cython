@@ -10,8 +10,8 @@ use cpython::ref::(PyObject, Py_TYPE)
 
 extern from *:
     struct PyTypeObject:
-        void (*tp_clear)(object)
-        void (*tp_traverse)(object)
+        (void*)(object) tp_clear
+        (void*)(object) tp_traverse
 
 def is_tp_clear_null(obj):
     return (<PyTypeObject*>Py_TYPE(obj)).tp_clear is NULL

@@ -14,7 +14,7 @@ use cpython::ref::(PyObject, Py_TYPE)
 
 extern from *:
     struct PyTypeObject:
-        void (*tp_clear)(object)
+        void(object) tp_clear
 
     struct __pyx_CyFunctionObject:
         PyObject* func_closure

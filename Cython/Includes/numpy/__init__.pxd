@@ -191,7 +191,7 @@ extern from "numpy/arrayobject.h":
 
     static npy_intp NPY_MAX_ELSIZE
 
-    ctypedef void (*PyArray_VectorUnaryFunc)(void *, void *, npy_intp, void *,  void *)
+    type PyArray_VectorUnaryFunc = void(void*, void*, npy_intp, void*, void*)
 
     struct PyArray_ArrayDescr:
         # shape is a tuple, but Cython doesn't support "tuple shape"
@@ -263,7 +263,7 @@ extern from "numpy/arrayobject.h":
             return PyArray_NDIM(self)
 
         #[property]
-        fn inline npy_intp *shape(self) nogil:
+        fn inline r&mut npy_intp shape(self) nogil:
             """Returns a pointer to the dimensions/shape of the array.
             The number of elements matches the number of dimensions of the array (ndim).
             Can return NULL for 0-dimensional arrays.
@@ -271,7 +271,7 @@ extern from "numpy/arrayobject.h":
             return PyArray_DIMS(self)
 
         #[property]
-        fn inline npy_intp *strides(self) nogil:
+        fn inline r&mut npy_intp strides(self) nogil:
             """Returns a pointer to the strides of the array.
             The number of elements matches the number of dimensions of the array (ndim).
             """
@@ -858,8 +858,7 @@ extern from "numpy/arrayscalars.h":
 #
 
 extern from "numpy/ufuncobject.h":
-
-    ctypedef void (*PyUFuncGenericFunction) (i8**, npy_intp *, npy_intp *, void *)
+    type PyUFuncGenericFunction = void(i8**, npy_intp*, npy_intp*, void*)
 
     ctypedef class numpy.ufunc [object PyUFuncObject, check_size ignore]:
         cdef i32 nin, nout, nargs

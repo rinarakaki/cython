@@ -1385,35 +1385,172 @@ class TemplatedTypeNode(CBaseTypeNode):
 
 class CComplexBaseTypeNode(CBaseTypeNode):
     # base_type   CBaseTypeNode
-    # declarator  CDeclaratorNode
+    # ident       string
 
-    child_attrs = ["base_type", "declarator"]
-
-    def analyse(self, env, could_be_name=False):
-        base_type = self.base_type.analyse(env, could_be_name)
-        if self.declarator is not None:
-            _, type = self.declarator.analyse(base_type, env)
-        else:
-            type = base_type
-        return type
-
-
-class CTupleBaseTypeNode(CBaseTypeNode):
-    # components [CBaseTypeNode]
-
-    child_attrs = ["components"]
+    child_attrs = ["base_type", "ident"]
 
     def analyse(self, env, could_be_name=False):
-        component_types = []
-        for c in self.components:
-            type = c.analyse(env)
+        return self.base_type.analyse(env, could_be_name)
+
+
+class CTupleTypeNode(CBaseTypeNode):
+    # base_types [CBaseTypeNode]
+
+    child_attrs = ["base_types"]
+
+    def analyse(self, env, could_be_name=False):
+        base_types = []
+        for base_type in self.base_types:
+            type = base_type.analyse(env)
             if type.is_pyobject:
-                error(c.pos, "Tuple types can't (yet) contain Python objects.")
+                error(base_type.pos, "Tuple types can't (yet) contain Python objects.")
                 return error_type
-            component_types.append(type)
-        entry = env.declare_tuple_type(self.pos, component_types)
+            base_types.append(type)
+        entry = env.declare_tuple_type(self.pos, base_types)
         entry.used = True
         return entry.type
+
+
+class CFuncPtrTypeNode(CBaseTypeNode):
+    # base_type        CBaseTypeNode
+    # args             [CComplexBaseTypeNode] or CTupleTypeNode
+    # templates        [TemplatePlaceholderType]
+    # has_varargs      boolean
+    # exception_value  ConstNode or NameNode    NameNode when the name of a c++ exception conversion function
+    # exception_check  boolean or "+"    True if PyErr_Occurred check needed, "+" for a c++ check
+    # nogil            boolean    Can be called without gil
+    # with_gil         boolean    Acquire gil around function body
+    # is_const_method  boolean    Whether this is a const method
+
+    child_attrs = ["base_type", "args", "exception_value"]
+
+    overridable = 0
+    optional_arg_count = 0
+    is_const_method = 0
+    templates = None
+
+    def analyse(self, env, could_be_name=False):
+        func_type_args = []
+        for i, arg_node in enumerate(self.args):
+            type = arg_node.analyse(env)
+            # Turn *[] argument into **
+            if type.is_array:
+                type = PyrexTypes.c_ptr_type(type.base_type)
+            # Catch attempted C-style func(void) decl
+            if type.is_void:
+                error(arg_node.pos, "Use spam() rather than spam(void) to declare a function with no arguments.")
+            func_type_args.append(
+                PyrexTypes.CFuncTypeArg("", type, arg_node.pos))
+
+        base_type = self.base_type.analyse(env)
+        exc_val = None
+        exc_check = 0
+        if self.exception_check == '+':
+            env.add_include_file('ios')         # for std::ios_base::failure
+            env.add_include_file('new')         # for std::bad_alloc
+            env.add_include_file('stdexcept')
+            env.add_include_file('typeinfo')    # for std::bad_cast
+        elif base_type.is_pyobject and self.exception_check:
+            # Functions in pure Python mode default to always check return values for exceptions
+            # (equivalent to the "except*" declaration). In this case, the exception clause
+            # is silently ignored for functions returning a Python object.
+            self.exception_check = False
+
+        if (base_type.is_pyobject
+                and (self.exception_value or self.exception_check)
+                and self.exception_check != '+'):
+            error(self.pos, "Exception clause not allowed for function returning Python object")
+        else:
+            if self.exception_value is None and self.exception_check and self.exception_check != '+':
+                # Use an explicit exception return value to speed up exception checks.
+                # Even if it is not declared, we can use the default exception value of the return type,
+                # unless the function is some kind of external function that we do not control.
+                if (self.exception_value is not None and (self.visibility != 'extern' and not self.in_pxd)):
+                    # - We skip this optimization for extension types; they are more difficult because
+                    #   the signature must match the base type signature.
+                    # - Same for function pointers, as we want them to be able to match functions
+                    #   with any exception value.
+                    # - Ideally the function-pointer test would be better after self.base is analysed
+                    #   however that is hard to do with the current implementation so it lives here
+                    #   for now.
+                    if not env.is_c_class_scope and not isinstance(self.base, CPtrDeclaratorNode):
+                        from .ExprNodes import ConstNode
+                        self.exception_value = ConstNode(
+                            self.pos, value=self.exception_value, type=base_type)
+            if self.exception_value:
+                if self.exception_check == '+':
+                    self.exception_value = self.exception_value.analyse_const_expression(env)
+                    exc_val_type = self.exception_value.type
+                    if (not exc_val_type.is_error
+                            and not exc_val_type.is_pyobject
+                            and not (exc_val_type.is_cfunction
+                                     and not exc_val_type.return_type.is_pyobject
+                                     and not exc_val_type.args)
+                            and not (exc_val_type == PyrexTypes.c_char_type
+                                     and self.exception_value.value == '*')):
+                        error(self.exception_value.pos,
+                              "Exception value must be a Python exception, or C++ function with no arguments, or *.")
+                    exc_val = self.exception_value
+                else:
+                    self.exception_value = self.exception_value.analyse_types(env).coerce_to(
+                        base_type, env).analyse_const_expression(env)
+                    exc_val = self.exception_value.get_constant_c_result_code()
+                    if exc_val is None:
+                        error(self.exception_value.pos, "Exception value must be constant")
+                    if not base_type.assignable_from(self.exception_value.type):
+                        error(self.exception_value.pos,
+                              "Exception value incompatible with function return type")
+                    if (self.visibility != 'extern'
+                            and (base_type.is_int or base_type.is_float)
+                            and self.exception_value.has_constant_result()):
+                        try:
+                            type_default_value = float(base_type.default_value)
+                        except ValueError:
+                            pass
+                        else:
+                            if self.exception_value.constant_result == type_default_value:
+                                warning(self.pos, "Ambiguous exception value, same as default return value: %r" %
+                                        self.exception_value.constant_result)
+            exc_check = self.exception_check
+        if base_type.is_cfunction:
+            error(self.pos, "Function cannot return a function")
+        func_type = PyrexTypes.CFuncType(
+            base_type, func_type_args, self.has_varargs,
+            optional_arg_count=self.optional_arg_count,
+            exception_value=exc_val, exception_check=exc_check,
+            calling_convention=base_type.calling_convention,
+            nogil=self.nogil, with_gil=self.with_gil, is_overridable=self.overridable,
+            is_const_method=self.is_const_method,
+            templates=self.templates
+        )
+
+        if self.optional_arg_count:
+            if func_type.is_fused:
+                # This is a bit of a hack... When we need to create specialized CFuncTypes
+                # on the fly because the cdef is defined in a pxd, we need to declare the specialized optional arg
+                # struct
+                def declare_opt_arg_struct(func_type, fused_cname):
+                    self.declare_optional_arg_struct(func_type, env, fused_cname)
+
+                func_type.declare_opt_arg_struct = declare_opt_arg_struct
+            else:
+                self.declare_optional_arg_struct(func_type, env)
+
+        callspec = env.directives['callspec']
+        if callspec:
+            current = func_type.calling_convention
+            if current and current != callspec:
+                error(self.pos, "cannot have both '%s' and '%s' "
+                      "calling conventions" % (current, callspec))
+            func_type.calling_convention = callspec
+
+        if func_type.return_type.is_rvalue_reference:
+            warning(self.pos, "Rvalue-reference as function return type not supported", 1)
+        for arg in func_type.args:
+            if arg.type.is_rvalue_reference and not arg.is_forwarding_reference():
+                warning(self.pos, "Rvalue-reference as function argument not supported", 1)
+
+        return func_type
 
 
 class FusedTypeNode(CBaseTypeNode):
@@ -3502,8 +3639,8 @@ class DefNode(FuncDefNode):
         name = self.name
         entry = env.lookup_here(name)
         if entry:
-            if entry.is_final_cmethod and not env.parent_type.is_final_type:
-                error(self.pos, "Only final types can have final Python (def/cpdef) methods")
+            # if entry.is_final_cmethod and not env.parent_type.is_final_type:
+            #     error(self.pos, "Only final types can have final Python (def/cpdef) methods")
             if entry.type.is_cfunction and not entry.is_builtin_cmethod and not self.is_wrapper:
                 warning(self.pos, "Overriding cdef method with def method.", 5)
         entry = env.declare_pyfunction(name, self.pos, allow_redefine=not self.is_wrapper)

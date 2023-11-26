@@ -13,12 +13,12 @@ setup(
 
 pub fn f():
     pass
-    
+
 ############# b.pyx ###############
 
 pub fn g():
     pass
-    
+
 ############# include_both.pyx ####
 
 # This is just checking that a and b don't duplicate any names

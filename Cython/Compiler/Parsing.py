@@ -373,7 +373,7 @@ def p_typecast(s):
         Nodes.CPtrTypeNode,
         Nodes.TemplatedTypeNode,
         Nodes.CConstOrVolatileTypeNode,
-        Nodes.CTupleBaseTypeNode,
+        Nodes.CTupleTypeNode,
     ))
     if not (is_memslice or is_other_unnamed_type) and base_type.name is None:
         s.error("Unknown type")
@@ -1842,7 +1842,7 @@ def p_use_item(s):
 
 
 def p_import_statement(s):
-    # s.sy in ("import", "use", "cimport")
+    # s.sy in ("import", "cimport")
     pos = s.position()
     kind = s.sy
     s.next()
@@ -1853,7 +1853,7 @@ def p_import_statement(s):
     stats = []
     is_absolute = Future.absolute_import in s.context.future_directives
     for pos, target_name, dotted_name, as_name in items:
-        if kind in ("use", "cimport"):
+        if kind == "cimport":
             stat = Nodes.CImportStatNode(
                 pos,
                 module_name=dotted_name,
@@ -1953,13 +1953,11 @@ def p_from_import_statement(s, first_statement = 0):
                 name_list = import_list),
             items = items)
 
-
 def p_imported_name(s):
     pos = s.position()
     name = p_ident(s)
     as_name = p_as_name(s)
     return (pos, name, as_name)
-
 
 def p_path(s, as_allowed):
     pos = s.position()
@@ -1978,9 +1976,9 @@ def p_path(s, as_allowed):
         elif s.sy == "(":
             s.next()
             idents.append(p_imported_name(s))
-            while s.sy == ',':
+            while s.sy == ",":
                 s.next()
-                if s.sy == ')':
+                if s.sy == ")":
                     break
                 idents.append(p_imported_name(s))
             s.expect(")")
@@ -2813,7 +2811,19 @@ def p_c_base_type(s, nonempty=False, templates=None):
         base_type = p_c_base_type(s, nonempty=nonempty, templates=templates)
         base_type = Nodes.CRvalueRefTypeNode(pos, base_type=base_type)
     elif s.sy == "(":
-        base_type = p_c_complex_base_type(s, templates = templates)
+        pos = s.position()
+        s.next()
+        base_type = p_c_base_type(s, templates=templates)
+        if s.sy == ",":
+            base_types = [base_type]
+            while s.sy == ",":
+                s.next()
+                if s.sy == ")":
+                    break
+                base_type = p_c_base_type(s, templates=templates)
+                base_types.append(base_type)
+            base_type = Nodes.CTupleTypeNode(pos, base_types = base_types)
+        s.expect(")")
     else:
         base_type = p_c_simple_base_type(s, nonempty=nonempty, templates=templates)
     
@@ -2827,6 +2837,16 @@ def p_c_base_type(s, nonempty=False, templates=None):
             base_type = Nodes.CConstOrVolatileTypeNode(pos,
                 base_type=base_type, is_const=is_const, is_volatile=is_volatile
             )
+
+    elif s.sy == "(":
+        args = p_c_complex_base_type(s, templates = templates)
+        exception_value, exception_check, exc_clause = p_exception_value_clause(s, 1)
+        base_type = Nodes.CFuncPtrTypeNode(pos,
+            base_type=base_type,
+            args=args,
+            exception_value=exception_value,
+            exception_check=exception_check,
+        )
     
     if s.sy in ("*", "**"):
         # scanner returns "**" as a single token
@@ -2849,35 +2869,24 @@ def p_calling_convention(s):
 calling_convention_words = cython.declare(frozenset, frozenset((
     "__stdcall", "__cdecl", "__fastcall")))
 
-
 def p_c_complex_base_type(s, templates = None):
-    # s.sy == '('
+    # s.sy == "("
     pos = s.position()
     s.next()
-    base_type = p_c_base_type(s, templates=templates)
-    declarator = p_c_declarator(s, empty=True)
-    type_node = Nodes.CComplexBaseTypeNode(
-        pos, base_type=base_type, declarator=declarator)
-    if s.sy == ',':
-        components = [type_node]
-        while s.sy == ',':
+    base_types = []
+    while s.sy not in (")",):
+        base_type = p_c_base_type(s, templates=templates)
+        if s.sy == "IDENT":
+            ident = s.systring
             s.next()
-            if s.sy == ')':
-                break
-            base_type = p_c_base_type(s, templates=templates)
-            declarator = p_c_declarator(s, empty=True)
-            components.append(Nodes.CComplexBaseTypeNode(
-                pos, base_type=base_type, declarator=declarator))
-        type_node = Nodes.CTupleBaseTypeNode(pos, components = components)
-
-    s.expect(')')
-    if s.sy == '[':
-        if is_memoryviewslice_access(s):
-            type_node = p_memoryviewslice_access(s, type_node)
         else:
-            type_node = p_buffer_or_template(s, type_node, templates)
-    return type_node
+            ident = None
+        base_types.append(Nodes.CComplexBaseTypeNode(pos, base_type=base_type, ident=ident))
+        if s.sy == ",":
+            s.next()
 
+    s.expect(")")
+    return base_types
 
 def p_c_simple_base_type(s, nonempty, templates=None):
     is_builtin = 0
@@ -3945,18 +3954,6 @@ def p_ctypedef_statement(s, ctx):
             in_pxd = ctx.level == 'module_pxd'
         )
 
-def p_attributes(s):
-    attributes = []
-    while s.sy == "#" and s.peek()[0] == "[":
-        pos = s.position()
-        s.next()
-        s.next()
-        attribute = p_namedexpr_test(s)
-        attributes.append(Nodes.DecoratorNode(pos, decorator=attribute))
-        s.expect("]")
-        s.expect_newline("Expected a newline after attribute")
-    return attributes
-
 def p_decorators(s):
     decorators = []
     while s.sy == '@':
@@ -4055,7 +4052,6 @@ def p_py_arg_decl(s, annotated = 1):
         annotation = p_annotation(s)
     return Nodes.PyArgDeclNode(pos, name = name, annotation = annotation)
 
-
 def p_class_statement(s, decorators):
     # s.sy == 'class'
     pos = s.position()
@@ -4077,7 +4073,6 @@ def p_class_statement(s, decorators):
         keyword_args=keyword_dict,
         doc=doc, body=body, decorators=decorators,
         force_py3_semantics=s.context.language_level >= 3)
-
 
 def p_c_class_definition(s, pos,  ctx):
     # s.sy == "class"
@@ -4111,12 +4106,28 @@ def p_c_class_definition(s, pos,  ctx):
         if ctx.visibility not in ("public", "extern") and not ctx.api:
             error(s.position(), "Name options only allowed for 'public', 'api', or 'extern' C class")
         objstruct_name, typeobj_name, check_size = p_c_class_options(s)
-    if s.sy == ':':
-        if ctx.level == 'module_pxd':
-            body_level = 'c_class_pxd'
+    if s.sy == ":":
+        s.next()
+        if s.sy == "pass":
+            body = p_pass_statement(s)
         else:
-            body_level = 'c_class'
-        doc, body = p_suite_with_docstring(s, Ctx(level=body_level))
+            s.expect("NEWLINE")
+            s.expect_indent()
+            if ctx.level == 'module_pxd':
+                body_level = 'c_class_pxd'
+            else:
+                body_level = 'c_class'
+            doc = p_doc_string(s)            
+            items = []
+            body_ctx = Ctx(level=body_level)
+            while s.sy != "DEDENT":
+                if s.sy != "pass":
+                    items.append(p_associated_item(s, body_ctx))
+                else:
+                    s.next()
+                    s.expect_newline("Expected a newline")
+            s.expect_dedent()
+            body = Nodes.StatListNode(pos, stats = items)
     else:
         s.expect_newline("Syntax error in C class definition")
         doc = None
@@ -4126,7 +4137,7 @@ def p_c_class_definition(s, pos,  ctx):
             error(pos, "Module name required for 'extern' C class")
         if typeobj_name:
             error(pos, "Type object name specification not allowed for 'extern' C class")
-    elif ctx.visibility in ("pub", "public"):
+    elif ctx.visibility == "public":
         if not objstruct_name:
             error(pos, "Object struct name specification required for 'public' C class")
         if not typeobj_name:
@@ -4383,10 +4394,7 @@ def p_cpp_class_definition(s, pos,  ctx):
         while s.sy != 'DEDENT':
             if s.sy != 'pass':
                 fields.append(p_associated_item(s, body_ctx))
-            else:
-                s.next()
                 s.expect_newline("Expected a newline")
-        s.expect_dedent()
     else:
         fields = None
         s.expect_newline("Syntax error in C++ class definition")

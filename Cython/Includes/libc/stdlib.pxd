@@ -31,17 +31,17 @@ extern from "<stdlib.h>" nogil:
     enum: EXIT_SUCCESS
     fn void exit(i32 status)
     fn void _exit(i32 status)
-    fn i32 atexit(void (*function) ())
+    fn i32 atexit(void() function)
     fn void abort()
     fn r&i8 getenv(r&i8 name)
     fn i32 system(r&i8 command)
 
     # 7.20.5 Searching and sorting utilities
-    fn void* bsearch(const void* key, const void* array,
+    fn void* bsearch(r&void key, r&void array,
                      usize count, usize size,
-                     i32 (*compare)(const void *, const void *))
+                     i32(r&void, r&void) compare)
     fn void qsort(void* array, usize count, usize size,
-                  i32 (*compare)(const void*, const void*))
+                  i32(r&void, r&void) compare)
 
     # 7.20.6 Integer arithmetic functions
     fn i32 abs(i32 number)
