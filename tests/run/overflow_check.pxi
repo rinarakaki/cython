@@ -19,7 +19,7 @@ half = half_
 import operator
 use libc::math::sqrt
 
-cpdef check(func, op, a, b):
+cpdef fn check(func, op, a, b):
     let INT res = 0, op_res = 0
     let u2 func_overflow = 0
     let u2 assign_overflow = 0
@@ -123,7 +123,7 @@ def expect_overflow(func, *args):
         return
     assert False, "Expected OverflowError, got %s" % res
 
-cpdef format(INT value):
+cpdef fn format(INT value):
     """
     >>> format(1)
     '1'

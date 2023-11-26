@@ -91,7 +91,7 @@ extern from "<algorithm>" namespace "std" nogil:
         InputIt first1, InputIt last1, OutputIt d_first, UnaryOp unary_op) except +
 
     # This overload is ambiguous with the next one. We just let C++ disambiguate from the arguments
-    # OutputIt transform[ExecutionPolicy, InputIt, OutputIt, UnaryOp](
+    # fn OutputIt transform[ExecutionPolicy, InputIt, OutputIt, UnaryOp](
     #     ExecutionPolicy&& policy, InputIt first1, InputIt last1, OutputIt d_first, UnaryOp unary_op) except +
 
     fn OutputIt transform[InputIt1, InputIt2, OutputIt, BinaryOp](
@@ -155,7 +155,7 @@ extern from "<algorithm>" namespace "std" nogil:
     fn OutputIt unique_copy[ExecutionPolicy, InputIt, OutputIt, BinaryPred](
         ExecutionPolicy&& policy, InputIt first, InputIt last, OutputIt d_first, BinaryPred pred) except +
 
-    SampleIt sample[PopulationIt, SampleIt, Distance, URBG](PopulationIt first, PopulationIt last, SampleIt out, Distance n, URBG&& g) except +
+    fn SampleIt sample[PopulationIt, SampleIt, Distance, URBG](PopulationIt first, PopulationIt last, SampleIt out, Distance n, URBG&& g) except +
 
     # Partitioning operations
     fn bool is_partitioned[Iter, Pred](Iter first, Iter last, Pred p) except +

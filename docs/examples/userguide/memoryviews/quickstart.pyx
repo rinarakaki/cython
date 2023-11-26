@@ -32,9 +32,9 @@ cyarr_view[0, 0, 0] = 1000
 print("NumPy sum of NumPy array after assignments: %s" % narr.sum())
 
 # A function using a memoryview does not usually need the GIL
-cpdef i32 sum3d(i32[:, :, :] arr) nogil:
+cpdef fn i32 sum3d(i32[:, :, :] arr) nogil:
     let usize i, j, k, I, J, K
-    cdef i32 total = 0
+    let i32 total = 0
     I = arr.shape[0]
     J = arr.shape[1]
     K = arr.shape[2]

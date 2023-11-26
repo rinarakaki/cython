@@ -269,7 +269,7 @@ struct NestedStruct:
     SmallStruct y
     i32 z
 
-cdef packed struct PackedStruct:
+packed struct PackedStruct:
     i8 a
     i32 b
 

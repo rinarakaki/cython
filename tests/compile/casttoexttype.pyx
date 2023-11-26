@@ -1,6 +1,6 @@
 # mode: compile
 
-cdef extern class external.Spam:
+extern class external.Spam:
     pass
 
 fn void foo(object x):

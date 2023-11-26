@@ -99,7 +99,7 @@ cdef fused_checker(fused_type i):
     else:
         return False
 
-cpdef fused_cpdef(fused_type i):
+cpdef fn fused_cpdef(fused_type i):
     return not fused_checker(i)
 
 def test():

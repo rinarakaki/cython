@@ -765,7 +765,7 @@ def test_convert_pylong(x):
     cdef i128 r = x
     return r
 
-cdef enum:
+enum:
    AnonymousEnumMember = 1
 
 def test_anonymous_enum():

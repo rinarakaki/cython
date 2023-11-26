@@ -57,7 +57,7 @@ def test_const_pointer_get(i32 x):
         del wrapper
 
 # TODO: parse vector[Wrapper[i32]*]
-ctypedef Wrapper[i32] wrapInt
+type wrapInt = Wrapper[i32]
 
 def test_vector_members(py_a, py_b):
     """
