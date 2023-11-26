@@ -5,6 +5,7 @@
 
 
 # This should be done automatically
+from Cython.Shadow import typedef
 import cython
 cython.declare(Nodes=object, ExprNodes=object, EncodedString=object,
                bytes_literal=object, StringEncoding=object,
@@ -2526,7 +2527,7 @@ def p_item(s, ctx, attributes):
         item.decorators = attributes
         item.visibility = ctx.visibility
         item.api = ctx.api
-        # item.overridable = ctx.overridable,
+        item.overridable = ctx.overridable,
 
     return item
 
@@ -2538,11 +2539,14 @@ def p_statement(s, ctx, first_statement = 0):
 
     attributes = p_attributes(s)
 
-    overridable = 0
+    overridable = typedef_flag = 0
     if s.sy == "cpdef":
+        s.next()
         cdef_flag = 1
         overridable = 1
-        s.next()
+    # elif s.sy == "ctypedef":
+    #     s.next()
+    #     typedef_flag = 1
 
     if (
         (s.sy != "IDENT" or s.systring in ("type", "packed") or s.systring == "api" and s.peek()[0] in ("static", "fn", "type", "enum", "struct", "class"))
@@ -3957,7 +3961,6 @@ def p_ctypedef_statement(s, ctx):
         )
     node.visibility = visibility
     node.api = api
-    node.overridable = ctx.overridable
 
 def p_attributes(s):
     attributes = []
