@@ -1,6 +1,6 @@
 cdef class FromPxd:
-    @staticmethod
+    #[staticmethod]
     fn static_cdef(i32* x)
 
-    @staticmethod
+    #[staticmethod]
     fn static_cdef_with_implicit_object(obj)

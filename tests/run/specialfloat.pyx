@@ -1,13 +1,13 @@
-const FLOAT = 12.5
-const EMFLOAT = 5e-1
-const EPFLOAT = 5e+1
-const FLOAT_NAN = float('nan')
-const FLOAT_INFP = float('+inf')
-const FLOAT_INFN = float('-inf')
+const auto FLOAT = 12.5
+const auto EMFLOAT = 5e-1
+const auto EPFLOAT = 5e+1
+const auto FLOAT_NAN = float('nan')
+const auto FLOAT_INFP = float('+inf')
+const auto FLOAT_INFN = float('-inf')
 
-cdef double cdef_float_nan = float('nan')
-cdef double cdef_float_infp = float('+inf')
-cdef double cdef_float_infn = float('-inf')
+static f64 cdef_float_nan = float('nan')
+static f64 cdef_float_infp = float('+inf')
+static f64 cdef_float_infn = float('-inf')
 
 float_nan = FLOAT_NAN
 float_infp = FLOAT_INFP

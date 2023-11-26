@@ -1,6 +1,6 @@
 # mode: error
 
-cpdef cpdef_yield():
+cpdef fn cpdef_yield():
     def inner():
         pass
 

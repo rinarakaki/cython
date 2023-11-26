@@ -10,7 +10,7 @@ cdef:
         global priv_i
         priv_i = 42
 
-pub:
+cdef pub:
     struct PubFoo:
         i32 i
 
@@ -26,7 +26,7 @@ cdef api:
     fn void api_f():
         pass
 
-pub api:
+cdef pub api:
     fn void pub_api_f():
         pass
 

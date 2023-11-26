@@ -6,4 +6,4 @@ ctypedef fused NotInPy:
 
 cdef class TestCls:
     #[cython::locals(loc = NotInPy)]
-    cpdef cpfunc(self, NotInPy arg)
+    cpdef fn cpfunc(self, NotInPy arg)

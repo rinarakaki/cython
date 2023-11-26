@@ -31,7 +31,7 @@ cdef class Scanner:
     fn inline next_char(self)
 
     #[cython::locals(action=Action)]
-    cpdef tuple read(self)
+    cpdef fn tuple read(self)
 
     fn inline unread(self, token, value, position)
 

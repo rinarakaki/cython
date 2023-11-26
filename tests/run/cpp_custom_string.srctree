@@ -49,7 +49,7 @@ extern from "my_string.cpp":
   cdef cppclass MyString2:
     pass
 
-  ctypedef MyString2 MyTypedefString  # really a MyString
+  type MyTypedefString = MyString2  # really a MyString
 
 def do_convert(MyString value):
     return value

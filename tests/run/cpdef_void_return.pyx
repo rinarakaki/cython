@@ -1,4 +1,4 @@
-cpdef void unraisable() noexcept:
+cpdef fn void unraisable() noexcept:
     """
     >>> unraisable()
     here
@@ -6,7 +6,7 @@ cpdef void unraisable() noexcept:
     print('here')
     raise RuntimeError()
 
-cpdef void raisable() except *:
+cpdef fn void raisable() except *:
     """
     >>> raisable()
     Traceback (most recent call last):
@@ -21,7 +21,7 @@ cdef class A:
     >>> A().foo()
     A
     """
-    cpdef void foo(self):
+    cpdef fn void foo(self):
         print "A"
 
 cdef class B(A):
@@ -29,7 +29,7 @@ cdef class B(A):
     >>> B().foo()
     B
     """
-    cpdef void foo(self):
+    cpdef fn void foo(self):
         print "B"
 
 class C(B):

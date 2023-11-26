@@ -7,16 +7,16 @@ use posix::types::off_t
 
 extern from "<stdio.h>" nogil:
     # File descriptors
-    fn FILE *fdopen(i32, const char *)
+    fn FILE *fdopen(i32, r&i8)
     fn i32 fileno(FILE *)
 
     # Pipes
-    fn FILE *popen(const char *, const char *)
+    fn FILE *popen(r&i8 , r&i8)
     fn i32 pclose(FILE *)
 
     # Memory streams (POSIX.2008)
-    fn FILE *fmemopen(void *, usize, const char *)
-    fn FILE *open_memstream(char **, usize *)
+    fn FILE *fmemopen(void *, usize, r&i8)
+    fn FILE *open_memstream(i8**, usize *)
     fn FILE *open_wmemstream(wchar_t **, usize *)
 
     # Seek and tell with off_t
@@ -33,5 +33,5 @@ extern from "<stdio.h>" nogil:
     fn i32 putchar_unlocked(i32)
 
     # Reading lines and records (POSIX.2008)
-    fn isize getline(char **, usize *, FILE *)
-    fn isize getdelim(char **, usize *, i32, FILE *)
+    fn isize getline(i8**, usize *, FILE *)
+    fn isize getdelim(i8**, usize *, i32, FILE *)

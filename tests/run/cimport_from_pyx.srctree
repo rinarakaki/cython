@@ -47,7 +47,7 @@ enum Benum:
 struct Bstruct:
     i32 value
 
-type Btypedef = i32*
+type Btypedef = r&i32
 
 cdef class Bclass:
     cdef i64 value
@@ -99,7 +99,7 @@ cdef fused_checker(fused_type i):
     else:
         return False
 
-cpdef fused_cpdef(fused_type i):
+cpdef fn fused_cpdef(fused_type i):
     return not fused_checker(i)
 
 def test():
