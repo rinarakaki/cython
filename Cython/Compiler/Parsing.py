@@ -4110,6 +4110,7 @@ def p_c_class_definition(s, pos,  ctx):
     if s.sy == ":":
         s.next()
         if s.sy == "pass":
+            doc = None
             body = p_pass_statement(s)
         else:
             s.expect("NEWLINE")
@@ -4133,7 +4134,7 @@ def p_c_class_definition(s, pos,  ctx):
         s.expect_newline("Syntax error in C class definition")
         doc = None
         body = None
-    if ctx.visibility == 'extern':
+    if ctx.visibility == "extern":
         if not module_path:
             error(pos, "Module name required for 'extern' C class")
         if typeobj_name:
@@ -4143,7 +4144,7 @@ def p_c_class_definition(s, pos,  ctx):
             error(pos, "Object struct name specification required for 'public' C class")
         if not typeobj_name:
             error(pos, "Type object name specification required for 'public' C class")
-    elif ctx.visibility == 'private':
+    elif ctx.visibility == "private":
         if ctx.api:
             if not objstruct_name:
                 error(pos, "Object struct name specification required for 'api' C class")
