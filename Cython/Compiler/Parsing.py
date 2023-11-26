@@ -4411,6 +4411,8 @@ def p_cpp_class_definition(s, pos,  ctx):
 
 def p_associated_item(s, ctx):
     attributes = p_attributes(s)
+    if s.sy == "cdef":
+        s.next()
     visibility = ctx.visibility = p_visibility(s, ctx.visibility)
     item = None
     if s.sy == "const" and s.peek()[0] == "IDENT":
@@ -4419,9 +4421,7 @@ def p_associated_item(s, ctx):
         item = p_fn_item(s, s.position(), ctx)
     elif s.systring == "type" and s.peek()[0] == "IDENT":
         item = p_type_alias_item(s, ctx)
-    elif s.sy == "cdef" and s.peek()[0] == "IDENT" or s.sy == "const" and s.peek()[0] != "fn":
-        if s.sy == "cdef":
-            s.next()
+    elif s.sy == "IDENT" or s.sy == "const" and s.peek()[0] != "fn":
         item = p_c_func_or_var_declaration(s, s.position(), ctx)
     
     if item is not None:
