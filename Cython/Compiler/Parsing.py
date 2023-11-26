@@ -3940,20 +3940,24 @@ def p_ctypedef_statement(s, ctx):
     if api:
         ctx.api = 1
     if s.sy == 'class':
-        return p_c_class_definition(s, pos, ctx)
+        node = p_c_class_definition(s, pos, ctx)
     elif s.sy in struct_enum_union or s.sy == 'IDENT' and s.systring == "packed":
-        return p_struct_enum(s, pos, ctx)
+        node = p_struct_enum(s, pos, ctx)
     elif s.sy == 'IDENT' and s.systring == 'fused':
         return p_fused_definition(s, pos, ctx)
     else:
         base_type = p_c_base_type(s, nonempty = 1)
         declarator = p_c_declarator(s, ctx, is_type = 1, nonempty = 1)
         s.expect_newline("Syntax error in ctypedef statement", ignore_semicolon=True)
-        return Nodes.CTypeDefNode(
+        node = Nodes.CTypeDefNode(
             pos, base_type = base_type,
             declarator = declarator,
             visibility = visibility, api = api,
-            in_pxd = ctx.level == 'module_pxd')
+            in_pxd = ctx.level == 'module_pxd'
+        )
+    node.visibility = visibility
+    node.api = api
+    node.overridable = ctx.overridable
 
 def p_attributes(s):
     attributes = []
