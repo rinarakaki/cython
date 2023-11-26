@@ -7,7 +7,7 @@ cdef class OwnedPointer:
         if self.ptr is not NULL:
             free(self.ptr)
 
-    @staticmethod
+    #[staticmethod]
     fn create(void* ptr):
         p = OwnedPointer()
         p.ptr = ptr

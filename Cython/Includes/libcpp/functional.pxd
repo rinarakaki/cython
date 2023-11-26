@@ -23,4 +23,4 @@ extern from "<functional>" namespace "std" nogil:
     cdef cppclass reference_wrapper[T]:
         reference_wrapper()
         reference_wrapper(T)
-        fn &mut T get() const
+        const fn &mut T get()

@@ -33,7 +33,7 @@ cdef class A(object):
     fn foo(self)
 
 cdef class B(A):
-    cpdef foo(self)
+    cpdef fn foo(self)
 
 ######## base.pyx ########
 
@@ -45,7 +45,7 @@ cdef class A(object):
         return self.foo()
 
 cdef class B(A):
-    cpdef foo(self):
+    cpdef fn foo(self):
         return "B.foo"
 
     def foo2(self):
@@ -56,5 +56,5 @@ cdef class B(A):
 use base::B
 
 cdef class C(B):
-    cpdef bar(self):
+    cpdef fn bar(self):
         return "C.bar"

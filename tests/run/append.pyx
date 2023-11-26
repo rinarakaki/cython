@@ -53,7 +53,6 @@ def test_append(L):
         print u"got error"
     return L
 
-
 def test_append_typed(list L not None):
     """
     >>> test_append_typed([])
@@ -65,7 +64,6 @@ def test_append_typed(list L not None):
     L.append(2)
     print L.append((3, 4))
     return L
-
 
 def append_unused_retval(L):
     """
@@ -89,7 +87,6 @@ def append_unused_retval(L):
         print u"got error"
     return L
 
-
 def method_name():
     """
     >>> method_name()
@@ -97,9 +94,8 @@ def method_name():
     """
     return [].append.__name__
 
-@cython::test_assert_path_exists(
-    '//PythonCapiCallNode')
-def append_optimized(probably_list):
+#[cython::test_assert_path_exists("//PythonCapiCallNode")]
+fn append_optimized(probably_list):
     """
     >>> l = []
     >>> append_optimized(l)
@@ -116,9 +112,8 @@ cdef class AppendBug:
     def __init__(self, append):
         self.append = append
 
-@cython::test_fail_if_path_exists(
-    '//PythonCapiCallNode')
-def specific_attribute(AppendBug a):
+#[cython::test_fail_if_path_exists("//PythonCapiCallNode")]
+fn specific_attribute(AppendBug a):
     """
     >>> def append_to_default_arg(a, arg=[]):
     ...    arg.append(a)

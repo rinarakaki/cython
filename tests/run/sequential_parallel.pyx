@@ -242,9 +242,9 @@ def test_nan_init():
     """
     let i32 mybool = 0
     let i32 err = 0
-    let i32* errp = &err
+    let r&mut i32 errp = &err
 
-    let signed char a1 = 10
+    let i8 a1 = 10
     let u8 a2 = 10
     let i16 b1 = 10
     let u16 b2 = 10
@@ -263,7 +263,7 @@ def test_nan_init():
     let f64 g = 10.0
     let f128 h = 10.0
 
-    let auto p = <void*>10
+    let auto p = <r&void>10
 
     with nogil, cython.parallel.parallel():
         # First, trick the error checking to make it believe these variables
@@ -315,8 +315,8 @@ def test_nan_init():
         c1 = 16
 
 
-fn void nogil_print(char* s) noexcept with gil:
-    print s.decode('ascii')
+fn void nogil_print(r&i8 s) noexcept with gil:
+    print s.decode("ascii")
 
 def test_else_clause():
     """
@@ -358,7 +358,7 @@ def test_prange_continue():
     9 0
     """
     let i32 i
-    let auto p = <i32*>calloc(10, sizeof(i32))
+    let auto p = <r&mut i32>calloc(10, sizeof(i32))
 
     if p == NULL:
         raise MemoryError
@@ -502,7 +502,7 @@ def test_parallel_exc_cdef():
     parallel_exc_cdef_unnested()
     parallel_exc_cdef()
 
-cpdef i32 parallel_exc_cpdef() except -3:
+cpdef fn i32 parallel_exc_cpdef() except -3:
     let i32 i, j
     for i in prange(10, nogil=true):
         for j in prange(10, num_threads=6):
@@ -511,7 +511,7 @@ cpdef i32 parallel_exc_cpdef() except -3:
 
     return 0
 
-cpdef i32 parallel_exc_cpdef_unnested() except -3:
+cpdef fn i32 parallel_exc_cpdef_unnested() except -3:
     let i32 i, j
     for i in prange(10, nogil=true):
         with gil:
@@ -632,7 +632,6 @@ def test_parallel_with_gil_continue_unnested():
         with gil:
             if i % 2:
                 continue
-
         sum += i
 
     print sum
@@ -739,7 +738,7 @@ def test_pointer_temps(f64 x):
     4.0
     """
     let isize i
-    let f64* f
+    let r&f64 f
     let f64[:] arr = array(format="d", shape=(10,), itemsize=sizeof(f64))
     arr[0] = 4.0
     arr[1] = 3.0

@@ -6,11 +6,11 @@ extern from "complexobject.h":
     ctypedef class __builtin__.complex [object PyComplexObject]:
         cdef Py_complex cval
 
-        @property
+        #[property]
         fn inline f64 real(self):
             return self.cval.real
 
-        @property
+        #[property]
         fn inline f64 imag(self):
             return self.cval.imag
 

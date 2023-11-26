@@ -25,7 +25,7 @@ def test_ref_func_address(i32 x):
     >>> test_ref_func_address(7)
     7
     """
-    let i32* i_ptr = &ref_func(x)
+    let auto i_ptr = &ref_func(x)
     return i_ptr[0]
 
 def test_except_ref_func_address(i32 x):
@@ -35,7 +35,7 @@ def test_except_ref_func_address(i32 x):
     >>> test_except_ref_func_address(7)
     7
     """
-    let i32* i_ptr = &except_ref_func(x)
+    let auto i_ptr = &except_ref_func(x)
     return i_ptr[0]
 
 def test_ref_var(i32 x):

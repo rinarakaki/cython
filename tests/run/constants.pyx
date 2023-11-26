@@ -2,7 +2,7 @@
 
 use cython
 
-const INT_VAL = 1
+const auto INT_VAL = 1
 
 def _func(a, b, c):
     return a + b + c

@@ -2,7 +2,7 @@
 # mode: run
 # tag: cyfunction
 
-cpdef int simple() nogil:
+cpdef fn int simple() nogil:
     """
     >>> simple()
     1
@@ -10,7 +10,7 @@ cpdef int simple() nogil:
     return 1
 
 
-cpdef int call_nogil():
+cpdef fn int call_nogil():
     """
     >>> call_nogil()
     1

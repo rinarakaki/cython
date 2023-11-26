@@ -2102,7 +2102,7 @@ property NAME:
 cdef class NAME:
     cdef TYPE value
     def __init__(self, MEMBER=None):
-        cdef int count
+        let i32 count
         count = 0
         INIT_ASSIGNMENTS
         if IS_UNION and count > 1:

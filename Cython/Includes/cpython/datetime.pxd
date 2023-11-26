@@ -68,92 +68,92 @@ extern from "datetime.h":
     """
 
     ctypedef extern class datetime.date[object PyDateTime_Date]:
-        @property
+        #[property]
         fn inline i32 year(self):
             return PyDateTime_GET_YEAR(self)
 
-        @property
+        #[property]
         fn inline i32 month(self):
             return PyDateTime_GET_MONTH(self)
 
-        @property
+        #[property]
         fn inline i32 day(self):
             return PyDateTime_GET_DAY(self)
 
     ctypedef extern class datetime.time[object PyDateTime_Time]:
-        @property
+        #[property]
         fn inline i32 hour(self):
             return PyDateTime_TIME_GET_HOUR(self)
 
-        @property
+        #[property]
         fn inline i32 minute(self):
             return PyDateTime_TIME_GET_MINUTE(self)
 
-        @property
+        #[property]
         fn inline i32 second(self):
             return PyDateTime_TIME_GET_SECOND(self)
 
-        @property
+        #[property]
         fn inline i32 microsecond(self):
             return PyDateTime_TIME_GET_MICROSECOND(self)
 
-        @property
+        #[property]
         fn inline object tzinfo(self):
             return <object>PyDateTime_TIME_GET_TZINFO(self)
 
-        @property
+        #[property]
         fn inline i32 fold(self):
             # For Python < 3.6 this returns 0 no matter what
             return PyDateTime_TIME_GET_FOLD(self)
 
     ctypedef extern class datetime.datetime[object PyDateTime_DateTime]:
-        @property
+        #[property]
         fn inline i32 year(self):
             return PyDateTime_GET_YEAR(self)
 
-        @property
+        #[property]
         fn inline i32 month(self):
             return PyDateTime_GET_MONTH(self)
 
-        @property
+        #[property]
         fn inline i32 day(self):
             return PyDateTime_GET_DAY(self)
 
-        @property
+        #[property]
         fn inline i32 hour(self):
             return PyDateTime_DATE_GET_HOUR(self)
 
-        @property
+        #[property]
         fn inline i32 minute(self):
             return PyDateTime_DATE_GET_MINUTE(self)
 
-        @property
+        #[property]
         fn inline i32 second(self):
             return PyDateTime_DATE_GET_SECOND(self)
 
-        @property
+        #[property]
         fn inline i32 microsecond(self):
             return PyDateTime_DATE_GET_MICROSECOND(self)
 
-        @property
+        #[property]
         fn inline object tzinfo(self):
             return <object>PyDateTime_DATE_GET_TZINFO(self)
 
-        @property
+        #[property]
         fn inline i32 fold(self):
             # For Python < 3.6 this returns 0 no matter what
             return PyDateTime_DATE_GET_FOLD(self)
 
     ctypedef extern class datetime.timedelta[object PyDateTime_Delta]:
-        @property
+        #[property]
         fn inline i32 day(self):
             return PyDateTime_DELTA_GET_DAYS(self)
 
-        @property
+        #[property]
         fn inline i32 second(self):
             return PyDateTime_DELTA_GET_SECONDS(self)
 
-        @property
+        #[property]
         fn inline i32 microsecond(self):
             return PyDateTime_DELTA_GET_MICROSECONDS(self)
 
@@ -165,12 +165,12 @@ extern from "datetime.h":
 
     struct PyDateTime_Time:
         u8 fold
-        char hastzinfo
+        i8 hastzinfo
         PyObject* tzinfo
 
     struct PyDateTime_DateTime:
         u8 fold
-        char hastzinfo
+        i8 hastzinfo
         PyObject* tzinfo
 
     struct PyDateTime_Delta:
