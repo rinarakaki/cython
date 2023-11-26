@@ -2485,8 +2485,9 @@ def p_IF_statement(s, ctx):
 def p_item(s, ctx, attributes):
     pos = s.position()
     s.level = ctx.level
-    ctx.visibility = p_visibility(s, ctx.visibility)
-    ctx.api = p_api(s) or ctx.api
+    visibility = ctx.visibility = p_visibility(s, ctx.visibility)
+    api = ctx.api = p_api(s) or ctx.api
+    overridable = ctx.overridable
 
     item = None
     if s.sy == "use":
@@ -2525,9 +2526,9 @@ def p_item(s, ctx, attributes):
 
     if item is not None:
         item.decorators = attributes
-        item.visibility = ctx.visibility
-        item.api = ctx.api
-        item.overridable = ctx.overridable,
+        item.visibility = visibility
+        item.api = api
+        item.overridable = overridable
 
     return item
 
