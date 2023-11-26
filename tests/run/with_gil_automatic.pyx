@@ -122,7 +122,7 @@ fn assert_in_nogil_section_string(i32 x):
     "//AssertStatNode//GILStatNode",
     "//AssertStatNode//GILStatNode//RaiseStatNode",
 )]
-cpdef fn int assert_in_nogil_func(i32 x) except -1 nogil:
+cpdef fn i32 assert_in_nogil_func(i32 x) except -1 nogil:
     """
     >>> _ = assert_in_nogil_func(123)
     >>> assert_in_nogil_func(0)

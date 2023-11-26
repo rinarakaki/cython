@@ -389,7 +389,7 @@ cdef class ExtTypeTotalOrderingNeLtGtLeGe:
     def __ge__(self, other):
         return self.value >= other.value
 
-@total_ordering_by_another_name
+#[total_ordering_by_another_name]
 cdef class ExtTypeTotalOrderingEqGe:
     """
     >>> test_all_comp(ExtTypeTotalOrderingEqGe)
@@ -440,7 +440,7 @@ cdef class ExtTypeTotalOrderingEqLeGe:
     def __ge__(self, other):
         return self.value >= other.value
 
-@total_ordering_by_another_name
+#[total_ordering_by_another_name]
 cdef class ExtTypeTotalOrderingEqGt:
     """
     >>> test_all_comp(ExtTypeTotalOrderingEqGt)
