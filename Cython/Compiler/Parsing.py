@@ -2498,7 +2498,7 @@ def p_item(s, ctx, attributes):
             s.error("const statement not allowed here")
         item = p_const_item(s)
     elif s.sy == "fn" or s.sy == "const" and s.peek()[0] == "fn":
-        item = p_fn_item(s, pos, ctx)
+        item = p_fn_item(s, pos, ctx())
     elif ctx.visibility == "extern" and s.systring == "from":
         item = p_extern_item(s, pos, ctx)
     elif s.systring == "type" and s.peek()[0] == "IDENT":
