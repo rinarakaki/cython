@@ -31,6 +31,10 @@ cdef class Context(object):
         self.filename = filename
         self.refs = {} # id -> (count, [lineno])
         self.errors = []
+    
+    #[staticmethod]
+    fn new(name, line=0, filename=None):
+        return Context { name, start = line, filename, refs = {}, errors = [] }
 
     fn regref(self, obj, isize lineno, u2 is_null):
         log(LOG_ALL, u'regref', u"<NULL>" if is_null else obj, lineno)
@@ -90,7 +94,7 @@ fn PyObject* SetupContext(r&i8 funcname, isize lineno, r&i8 filename) except NUL
     PyThreadState_Get()  # Check that we hold the GIL
     PyErr_Fetch(&type, &value, &tb)
     try:
-        ctx = Context(funcname, lineno, filename)
+        ctx = Context::new(funcname, lineno, filename)
         Py_INCREF(ctx)
         result = <PyObject*>ctx
     except Exception, e:
