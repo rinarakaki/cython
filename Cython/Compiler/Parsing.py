@@ -2552,7 +2552,7 @@ def p_statement(s, ctx, first_statement = 0):
         and
         (s.sy != "cdef" or s.peek()[1] in ("extern", "enum", "struct", "union", "class", "cppclass"))
         and
-        (s.sy not in ("pub", "readonly") or s.peek()[0] != "IDENT" or s.peek()[1] in ("type", "packed", "api"))
+        (s.sy not in ("pub", "extern", "readonly") or s.peek()[0] != "IDENT" or s.peek()[1] in ("type", "packed", "api", "cppclass"))
     ):
         if s.sy == "cdef":
             s.next()
