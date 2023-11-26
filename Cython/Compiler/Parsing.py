@@ -2482,8 +2482,10 @@ def p_IF_statement(s, ctx):
     return result
 
 def p_item(s, ctx, attributes):
-    s.level = ctx.level
     pos = s.position()
+    s.level = ctx.level
+    ctx.visibility = p_visibility(s, ctx.visibility)
+    ctx.api = p_api(s) or ctx.api
 
     item = None
     if s.sy == "use":
@@ -2550,12 +2552,7 @@ def p_statement(s, ctx, first_statement = 0):
     ):
         if s.sy == "cdef":
             s.next()
-        item_ctx = ctx(
-            overridable=overridable,
-            visibility=p_visibility(s, ctx.visibility),
-            api=p_api(s) or ctx.api
-        )
-        item = p_item(s, item_ctx, attributes)
+        item = p_item(s, ctx(overridable=overridable), attributes)
         if item is not None:
             return item
     
