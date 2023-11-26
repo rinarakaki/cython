@@ -3,12 +3,12 @@
 extern from "cpp_nested_classes_support.h":
     cdef cppclass A:
         cppclass B:
-            i32 square(i32)
+            fn i32 square(i32)
             cppclass C:
-                i32 cube(i32)
-        B* createB()
+                fn i32 cube(i32)
+        fn B* createB()
         type my_int = i32
-        static fn my_int negate(my_int)
+        fn my_int negate(my_int)
 
     cdef cppclass TypedClass[T]:
         type MyType = T
@@ -26,15 +26,15 @@ extern from "cpp_nested_classes_support.h":
 
 cdef cppclass AA:
     cppclass BB:
-        i32 square(i32 x):
+        fn i32 square(i32 x):
             return x * x
         cppclass CC:
-            i32 cube(i32 x):
+            fn i32 cube(i32 x):
                 return x * x * x
-    BB* createB():
+    fn BB* createB():
         return new BB()
     type my_int = i32
-    static fn my_int negate(my_int x):
+    fn my_int negate(my_int x):
         return -x
 
 cdef cppclass DD(AA):
@@ -185,7 +185,7 @@ use cpp_nested_names
 cimport libcpp.string
 use cython::operator::(dereference as deref, preincrement as inc)
 
-def test_nested_names():
+fn test_nested_names():
     """
     >>> test_nested_names()
     Nested
@@ -202,8 +202,8 @@ def test_nested_names():
     print(n.get_str().decode('ascii'))
     print(nn.get_str().decode('ascii'))
 
-    let libcpp.string.string s = "Cython"
-    let libcpp.string.string.iterator i = s.begin()
+    let libcpp::string::string s = "Cython"
+    let libcpp::string::string.iterator i = s.begin()
     while i != s.end():
         print(chr(deref(i)))
         inc(i)
