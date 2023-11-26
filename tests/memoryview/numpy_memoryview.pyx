@@ -15,7 +15,7 @@ use cython::view
 include "../testsupport/cythonarrayutil.pxi"
 include "../buffers/mockbuffers.pxi"
 
-ctypedef np.int32_t dtype_t
+type dtype_t = np::int32_t
 
 IS_PYPY = hasattr(sys, 'pypy_version_info')
 NUMPY_VERSION = tuple(int(v) for v in np.__version__.split('.')[:2])
@@ -45,7 +45,6 @@ def gc_collect_if_required():
     if NUMPY_VERSION >= (1, 14) or IS_PYPY:
         import gc
         gc.collect()
-
 
 #
 # Test slicing memoryview slices
@@ -162,7 +161,6 @@ def test_ellipsis_memoryview(array):
     ae(e.shape[0], e_obj.shape[0])
     ae(e.strides[0], e_obj.strides[0])
 
-
 def test_transpose():
     """
     >>> test_transpose()
@@ -187,11 +185,10 @@ def test_transpose():
     with nogil:
         c = a.T.T
 
-    assert (<object> a).shape == (<object> c).shape
-    assert (<object> a).strides == (<object> c).strides
+    assert (<object>a).shape == (<object>c).shape
+    assert (<object>a).strides == (<object>c).strides
 
     print a[3, 2], a.T[2, 3], a_obj[3, 2], a_obj.T[2, 3], numpy_obj[3, 2], numpy_obj.T[2, 3]
-
 
 def test_transpose_type(a):
     """
@@ -203,7 +200,6 @@ def test_transpose_type(a):
     let f64[:, :;1] m = a
     let f64[:;1, :] m_transpose = a.T
     print m_transpose[6, 4]
-
 
 def test_numpy_like_attributes(cyarray):
     """
@@ -243,10 +239,10 @@ def test_copy_and_contig_attributes(a):
 
 type td_cy_int = i32
 extern from "bufaccess.h":
-    ctypedef td_cy_int td_h_short  # Defined as short, but Cython doesn't know this!
-    ctypedef f32 td_h_double  # Defined as double
-    ctypedef u32 td_h_ushort  # Defined as unsigned short
-ctypedef td_h_short td_h_cy_short
+    type td_h_short = td_cy_int  # Defined as short, but Cython doesn't know this!
+    type td_h_double = f32  # Defined as double
+    type td_h_ushort = u32  # Defined as unsigned short
+type td_h_cy_short = td_h_short
 
 fn void dealloc_callback(void* data) noexcept:
     print "deallocating..."
@@ -308,7 +304,7 @@ def test_coerce_to_numpy():
     let NestedStruct[20] nestedstructs
     let PackedStruct[20] packedstructs
 
-    let signed char[20] chars
+    let i8[20] chars
     let i16[20] shorts
     let i32[20] ints
     let i128[20] longlongs
@@ -379,7 +375,7 @@ def test_coerce_to_numpy():
     index(<NestedStruct[:4, :5]> <NestedStruct *> nestedstructs)
     index(<PackedStruct[:4, :5]> <PackedStruct *> packedstructs)
 
-    index(<signed char[:4, :5]> <signed char *> chars)
+    index(<i8[:4, :5]> <i8 *> chars)
     index(<i16[:4, :5]> <i16 *> shorts)
     index(<i32[:4, :5]> <i32 *> ints)
     index(<i128[:4, :5]> <i128 *> longlongs)
@@ -432,9 +428,9 @@ def acquire_release_cycle(obj):
 
     gc.collect()
 
-cdef packed struct StructArray:
+packed struct StructArray:
     i32 a[4]
-    signed char b[5]
+    i8 b[5]
 
 def test_memslice_structarray(data, dtype):
     """
@@ -525,9 +521,9 @@ def test_structarray_errors(StructArray[:] a):
     """
 
 struct StringStruct:
-    signed char c[4][4]
+    i8[4][4] c
 
-ctypedef signed char String[4][4]
+type String = i8[4][4]
 
 def stringstructtest(StringStruct[:] view):
     pass

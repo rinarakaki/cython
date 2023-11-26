@@ -17,7 +17,7 @@ fn cdef_test():
     print "%d" % i[0]
     let i32* i = NULL
 
-cpdef cpdef_test():
+cpdef fn cpdef_test():
     let i32 j = 10
     i[0] = j
     print "%d" % i[0]

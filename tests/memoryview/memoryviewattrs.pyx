@@ -22,7 +22,7 @@ def test_shape_stride_suboffset():
     77 11 1
     -1 -1 -1
     '''
-    let char[:, :, :] larr = array((5, 7, 11), 1, 'c')
+    let i8[:, :, :] larr = array((5, 7, 11), 1, 'c')
     print larr.shape[0], larr.shape[1], larr.shape[2]
     print larr.strides[0], larr.strides[1], larr.strides[2]
     print larr.suboffsets[0], larr.suboffsets[1], larr.suboffsets[2]
@@ -34,7 +34,7 @@ def test_shape_stride_suboffset():
     print larr.suboffsets[0], larr.suboffsets[1], larr.suboffsets[2]
     print
 
-    let char[:, :, :] c_contig = larr.copy()
+    let i8[:, :, :] c_contig = larr.copy()
     print c_contig.shape[0], c_contig.shape[1], c_contig.shape[2]
     print c_contig.strides[0], c_contig.strides[1], c_contig.strides[2]
     print c_contig.suboffsets[0], c_contig.suboffsets[1], c_contig.suboffsets[2]
@@ -49,14 +49,14 @@ def test_copy_to():
     let i32[:, :, :] from_mvs, to_mvs
     from_mvs = np.arange(8, dtype=np.int32).reshape(2, 2, 2)
 
-    let i32* from_data = <i32*>from_mvs._data
+    let auto from_data = <i32*>from_mvs._data
     print ' '.join(str(from_data[i]) for i in 0..(2 * 2 * 2))
 
     to_mvs = array((2, 2, 2), sizeof(i32), 'i')
     to_mvs[...] = from_mvs
 
     # TODO Mark: remove this _data attribute
-    let i32* to_data = <i32*>to_mvs._data
+    let auto to_data = <i32*>to_mvs._data
     print ' '.join(str(from_data[i]) for i in 0..(2 * 2 * 2))
     print ' '.join(str(to_data[i]) for i in 0..(2 * 2 * 2))
 
@@ -225,7 +225,7 @@ def call():
 
     mv3 = mv2
 
-    let i32* mv3_data = <i32*>mv3._data
+    let auto mv3_data = <i32*>mv3._data
 
     print (<i32*>mv1._data)[2]
 

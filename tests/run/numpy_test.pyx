@@ -10,7 +10,7 @@ import re
 
 def little_endian():
     let i32 endian_detector = 1
-    return (<char*>&endian_detector)[0] != 0
+    return (<r&i8>&endian_detector)[0] != 0
 
 def testcase(f):
     # testcase decorator now does nothing (following changes to doctest)
@@ -399,7 +399,7 @@ def test_bad_cast():
     # This should raise an exception
     let np.ndarray[i32, cast=true] arr = np.array([1], dtype='b')
 
-cdef packed struct PackedStruct:
+packed struct PackedStruct:
     i8 a
     i32 b
 
@@ -413,7 +413,7 @@ struct PartiallyPackedStruct:
     PackedStruct sub
     i32 c
 
-cdef packed struct PartiallyPackedStruct2:
+packed struct PartiallyPackedStruct2:
     i8 a
     i32 b
     i8 c
@@ -489,7 +489,7 @@ def test_complextypes():
     print "%d,%d" % (sizeof(x64), sizeof(x128))
 
 struct Point:
-    np.float64_t x, y
+    np::float64_t x, y
 
 def test_point_record():
     """
@@ -568,7 +568,7 @@ def test_fused_buffers(fused_buffers arg):
     ['int64_t[::1]', 'ndarray[int32_t,ndim=1]']
     """
 
-cpdef _fused_cpdef_buffers(np.ndarray[fused_external] a):
+cpdef fn _fused_cpdef_buffers(np.ndarray[fused_external] a):
     print a.dtype
 
 @testcase
@@ -632,7 +632,7 @@ struct Foo:
     f32 b
 
 cdef fused fused_FooArray:
-    np.ndarray[Foo, ndim=1]
+    np::ndarray[Foo, ndim=1]
 
 cdef fused fused_ndarray:
     np.ndarray[float, ndim=1]
@@ -670,7 +670,7 @@ def test_fused_ndarray(fused_ndarray a):
     else:
         print b[5]
 
-cpdef test_fused_cpdef_ndarray(fused_ndarray a):
+cpdef fn test_fused_cpdef_ndarray(fused_ndarray a):
     """
     >>> import cython
     >>> sorted(test_fused_cpdef_ndarray.__signatures__)
@@ -731,7 +731,7 @@ def test_dispatch_non_clashing_declarations_repeating_types(np.ndarray[cython.fl
     """
     print a1[1], a2[2], a3[3], a4[4]
 
-ctypedef np.int32_t typedeffed_type
+type typedeffed_type = np::int32_t
 
 cdef fused typedeffed_fused_type:
     typedeffed_type
@@ -747,7 +747,7 @@ def test_dispatch_typedef(np.ndarray[typedeffed_fused_type] a):
     print a[5]
 
 extern from "types.h":
-    type actually_long_t = char
+    type actually_long_t = i8
 
 cdef fused confusing_fused_typedef:
     actually_long_t
@@ -755,7 +755,7 @@ cdef fused confusing_fused_typedef:
     u64
     c128
     u8
-    signed char
+    i8
 
 def test_dispatch_external_typedef(np.ndarray[confusing_fused_typedef] a):
     """
@@ -831,7 +831,7 @@ def test_dispatch_memoryview_object():
     """
     let i32[:] m = np.arange(10, dtype=np.dtype('i'))
     let i32[:] m2 = m
-    let i32[:] m3 = <object> m
+    let i32[:] m3 = <object>m
     test_fused_memslice(m3)
 
 cdef fused ndim_t:

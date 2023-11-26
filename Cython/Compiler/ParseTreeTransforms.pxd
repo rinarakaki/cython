@@ -1,5 +1,3 @@
-# cython: language_level=3str
-
 use cython
 
 use super::Visitor::(
@@ -13,7 +11,7 @@ use super::Visitor::(
 cdef class NormalizeTree(CythonTransform):
     cdef u2 is_in_statlist
     cdef u2 is_in_expr
-    cpdef visit_StatNode(self, node, is_listcontainer=*)
+    cpdef fn visit_StatNode(self, node, is_listcontainer=*)
 
 cdef class PostParse(ScopeTrackingTransform):
     cdef dict specialattribute_handlers

@@ -6,16 +6,16 @@ extern from "<memory>" namespace "std" nogil:
 
     cdef cppclass allocator[T]:
         allocator()
-        allocator(const allocator &)
+        allocator(&allocator)
         # allocator(const allocator[U] &)  # unique_ptr unit tests fail w/this
-        T * address(T &)
-        const T * address(const T &) const
-        T * allocate( usize n ) # Not to standard.  should be a second default argument
-        void deallocate(T * , usize)
-        usize max_size() const
-        void construct( T *, const T &)  # C++98.  The C++11 version is variadic AND perfect-forwarding
-        void destroy(T *)  # C++98
-        void destroy[U](U *)  # unique_ptr unit tests fail w/this
+        fn r&mut T address(&T)
+        const fn r&T address(&T)
+        fn r&mut T allocate(usize n) # Not to standard.  should be a second default argument
+        fn void deallocate(r&mut T, usize)
+        const fn usize max_size()
+        fn void construct(r&mut T, &T)  # C++98.  The C++11 version is variadic AND perfect-forwarding
+        fn void destroy(r&mut T)  # C++98
+        fn void destroy[U](r&mut U)  # unique_ptr unit tests fail w/this
 
 
     cdef cppclass unique_ptr[T,DELETER=*]:
@@ -25,28 +25,28 @@ extern from "<memory>" namespace "std" nogil:
         unique_ptr(unique_ptr[T]&)
 
         # Modifiers
-        T* release()
-        void reset()
-        void reset(nullptr_t)
-        void reset(T*)
-        void swap(unique_ptr&)
+        fn r&mut T release()
+        fn void reset()
+        fn void reset(nullptr_t)
+        fn void reset(r&mut T)
+        fn void swap(&mut unique_ptr)
 
         # Observers
-        T* get()
-        T& operator*()
-        # T* operator->() # Not Supported
-        bool operator bool()
-        bool operator!()
+        fn r&mut T get()
+        fn &mut T operator*()
+        # fn r&mut T operator->()  # Not Supported
+        fn bool operator bool()
+        fn bool operator!()
 
-        bool operator==(const unique_ptr&)
-        bool operator!=(const unique_ptr&)
-        bool operator<(const unique_ptr&)
-        bool operator>(const unique_ptr&)
-        bool operator<=(const unique_ptr&)
-        bool operator>=(const unique_ptr&)
+        fn bool operator==(&unique_ptr)
+        fn bool operator!=(&unique_ptr)
+        fn bool operator<(&unique_ptr)
+        fn bool operator>(&unique_ptr)
+        fn bool operator<=(&unique_ptr)
+        fn bool operator>=(&unique_ptr)
 
-        bool operator==(nullptr_t)
-        bool operator!=(nullptr_t)
+        fn bool operator==(nullptr_t)
+        fn bool operator!=(nullptr_t)
 
     # Forward Declaration not working ("Compiler crash in AnalyseDeclarationsTransform")
     # cdef cppclass weak_ptr[T]
@@ -59,33 +59,33 @@ extern from "<memory>" namespace "std" nogil:
         shared_ptr(shared_ptr[T]&, T*)
         shared_ptr(unique_ptr[T]&)
         # shared_ptr(weak_ptr[T]&) # Not Supported
-        shared_ptr[T]& operator=[Y](const shared_ptr[Y]& ptr)
+        fn shared_ptr[T]& operator=[Y](const shared_ptr[Y]& ptr)
 
         # Modifiers
-        void reset()
-        void reset(T*)
-        void swap(shared_ptr&)
+        fn void reset()
+        fn void reset(r&mut T)
+        fn void swap(&mut shared_ptr)
 
         # Observers
-        T* get()
-        T& operator*()
-        # T* operator->() # Not Supported
-        long use_count()
-        bool unique()
-        bool operator bool()
-        bool operator!()
-        # bool owner_before[Y](const weak_ptr[Y]&) # Not Supported
-        bool owner_before[Y](const shared_ptr[Y]&)
+        fn r&mut T get()
+        fn &mut T operator*()
+        # fn r&mut T operator->() # Not Supported
+        fn i64 use_count()
+        fn bool unique()
+        fn bool operator bool()
+        fn bool operator!()
+        # fn bool owner_before[Y](const weak_ptr[Y]&)  # Not Supported
+        fn bool owner_before[Y](const shared_ptr[Y]&)
 
-        bool operator==(const shared_ptr&)
-        bool operator!=(const shared_ptr&)
-        bool operator<(const shared_ptr&)
-        bool operator>(const shared_ptr&)
-        bool operator<=(const shared_ptr&)
-        bool operator>=(const shared_ptr&)
+        fn bool operator==(&shared_ptr)
+        fn bool operator!=(&shared_ptr)
+        fn bool operator<(&shared_ptr)
+        fn bool operator>(&shared_ptr)
+        fn bool operator<=(&shared_ptr)
+        fn bool operator>=(&shared_ptr)
 
-        bool operator==(nullptr_t)
-        bool operator!=(nullptr_t)
+        fn bool operator==(nullptr_t)
+        fn bool operator!=(nullptr_t)
 
     cdef cppclass weak_ptr[T]:
         weak_ptr()
@@ -93,20 +93,20 @@ extern from "<memory>" namespace "std" nogil:
         weak_ptr(shared_ptr[T]&)
 
         # Modifiers
-        void reset()
-        void swap(weak_ptr&)
+        fn void reset()
+        fn void swap(&mut weak_ptr)
 
         # Observers
-        long use_count()
-        bool expired()
-        shared_ptr[T] lock()
-        bool owner_before[Y](const weak_ptr[Y]&)
-        bool owner_before[Y](const shared_ptr[Y]&)
+        fn i64 use_count()
+        fn bool expired()
+        fn shared_ptr[T] lock()
+        fn bool owner_before[Y](const weak_ptr[Y]&)
+        fn bool owner_before[Y](const shared_ptr[Y]&)
 
     # Smart pointer non-member operations
-    shared_ptr[T] make_shared[T](...) except +
+    fn shared_ptr[T] make_shared[T](...) except +
 
-    unique_ptr[T] make_unique[T](...) except +
+    fn unique_ptr[T] make_unique[T](...) except +
 
     # No checking on the compatibility of T and U.
     fn shared_ptr[T] static_pointer_cast[T, U](const shared_ptr[U]&)

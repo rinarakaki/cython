@@ -35,7 +35,7 @@ cdef i32[:, :;view.contiguous, :;view.indirect_contiguous] a6
 # cdef i32[:;view.generic_contiguous, :;view.contiguous] a7
 # cdef i32[:;view.contiguous, :;view.generic_contiguous] a8
 
-ctypedef i32* intp
+type intp = i32*
 cdef intp[:, :] myarray
 
 cdef i32[:] a10 = <i32[:10]> object()

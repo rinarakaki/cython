@@ -1,5 +1,5 @@
 cdef class A:
-    cpdef foo(self)
+    cpdef fn foo(self)
 
 cdef class B(A):
-    cpdef foo(self)
+    cpdef fn foo(self)

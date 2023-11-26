@@ -5,13 +5,13 @@
 extern from *:
     cdef cppclass string "{{type}}":
         string() except +
-        string(char* c_str, usize size) except +
-    fn const char* __Pyx_PyObject_AsStringAndSize(object, isize*) except NULL
+        string(i8* c_str, usize size) except +
+    fn r&i8 __Pyx_PyObject_AsStringAndSize(object, r&mut isize) except NULL
 
-@cname("{{cname}}")
+#[cname("{{cname}}")]
 fn string {{cname}}(object o) except *:
     let isize length = 0
-    let const char* data = __Pyx_PyObject_AsStringAndSize(o, &length)
+    let auto data = __Pyx_PyObject_AsStringAndSize(o, &length)
     return string(data, length)
 
 #################### string.to_py ####################
@@ -20,15 +20,15 @@ fn string {{cname}}(object o) except *:
 # use libcpp::string::string
 extern from *:
     cdef cppclass string "{{type}}":
-        fn char* data()
+        fn r&mut i8 data()
         fn usize size()
 
 {{for py_type in ['PyObject', 'PyUnicode', 'PyStr', 'PyBytes', 'PyByteArray']}}
 extern from *:
-    fn object __Pyx_{{py_type}}_FromStringAndSize(const char*, usize)
+    fn object __Pyx_{{py_type}}_FromStringAndSize(r&i8, usize)
 
-@cname("{{cname.replace("PyObject", py_type, 1)}}")
-fn inline object {{cname.replace("PyObject", py_type, 1)}}(const string& s):
+#[cname("{{cname.replace("PyObject", py_type, 1)}}")]
+fn inline object {{cname.replace("PyObject", py_type, 1)}}(&string s):
     return __Pyx_{{py_type}}_FromStringAndSize(s.data(), s.size())
 {{endfor}}
 
@@ -36,9 +36,9 @@ fn inline object {{cname.replace("PyObject", py_type, 1)}}(const string& s):
 
 extern from *:
     cdef cppclass vector "std::vector" [T]:
-        fn void push_back(T&) except +
+        fn void push_back(&mut T) except +
 
-@cname("{{cname}}")
+#[cname("{{cname}}")]
 fn vector[X] {{cname}}(object o) except *:
     let vector[X] v
     for item in o:
@@ -50,7 +50,7 @@ fn vector[X] {{cname}}(object o) except *:
 extern from *:
     cdef cppclass vector "std::vector" [T]:
         fn usize size()
-        fn T& operator[](usize)
+        fn &mut T operator[](usize)
 
 extern from "Python.h":
     fn void Py_INCREF(object)
@@ -58,7 +58,7 @@ extern from "Python.h":
     fn void PyList_SET_ITEM(object list, isize i, object o)
     static const isize PY_SSIZE_T_MAX
 
-@cname("{{cname}}")
+#[cname("{{cname}}")]
 fn object {{cname}}(const vector[X]& v):
     if v.size() > <usize>PY_SSIZE_T_MAX:
         raise MemoryError()
@@ -66,8 +66,8 @@ fn object {{cname}}(const vector[X]& v):
 
     o = PyList_New(v_size_signed)
 
-    cdef isize i
-    cdef object item
+    let isize i
+    let object item
 
     for i in 0..v_size_signed:
         item = v[i]
@@ -80,9 +80,9 @@ fn object {{cname}}(const vector[X]& v):
 
 extern from *:
     cdef cppclass cpp_list "std::list" [T]:
-        fn void push_back(T&) except +
+        fn void push_back(&mut T) except +
 
-@cname("{{cname}}")
+#[cname("{{cname}}")]
 fn cpp_list[X] {{cname}}(object o) except *:
     let cpp_list[X] l
     for item in o:
@@ -96,12 +96,12 @@ use cython
 extern from *:
     cdef cppclass cpp_list "std::list" [T]:
         cppclass const_iterator:
-            T& operator*()
-            const_iterator operator++()
-            u2 operator!=(const_iterator)
+            fn &mut T operator*()
+            fn const_iterator operator++()
+            fn u2 operator!=(const_iterator)
         const_iterator begin()
         const_iterator end()
-        usize size()
+        fn usize size()
 
 extern from "Python.h":
     fn void Py_INCREF(object)
@@ -109,8 +109,8 @@ extern from "Python.h":
     fn void PyList_SET_ITEM(object list, isize i, object o)
     static isize PY_SSIZE_T_MAX
 
-@cname("{{cname}}")
-fn object {{cname}}(const cpp_list[X]& v):
+#[cname("{{cname}}")]
+fn object {{cname}}(&cpp_list[X] v):
     if v.size() > <usize>PY_SSIZE_T_MAX:
         raise MemoryError()
 
@@ -133,9 +133,9 @@ fn object {{cname}}(const cpp_list[X]& v):
 
 extern from *:
     cdef cppclass set "std::{{maybe_unordered}}set" [T]:
-        fn void insert(T&) except +
+        fn void insert(&mut T) except +
 
-@cname("{{cname}}")
+#[cname("{{cname}}")]
 fn set[X] {{cname}}(object o) except *:
     let set[X] s
     for item in o:
@@ -149,13 +149,13 @@ use cython
 extern from *:
     cdef cppclass cpp_set "std::{{maybe_unordered}}set" [T]:
         cppclass const_iterator:
-            T& operator*()
-            const_iterator operator++()
-            u2 operator!=(const_iterator)
-        const_iterator begin()
-        const_iterator end()
+            fn &mut T operator*()
+            fn const_iterator operator++()
+            fn u2 operator!=(const_iterator)
+        fn const_iterator begin()
+        fn const_iterator end()
 
-@cname("{{cname}}")
+#[cname("{{cname}}")]
 fn object {{cname}}(const cpp_set[X]& s):
     return {v for v in s}
 
@@ -166,7 +166,7 @@ extern from *:
         pair() except +
         pair(T&, U&) except +
 
-@cname("{{cname}}")
+#[cname("{{cname}}")]
 fn pair[X, Y] {{cname}}(object o) except *:
     x, y = o
     return pair[X, Y](<X>x, <Y>y)
@@ -178,7 +178,7 @@ extern from *:
         T first
         U second
 
-@cname("{{cname}}")
+#[cname("{{cname}}")]
 fn object {{cname}}(const pair[X, Y]& p):
     return p.first, p.second
 
@@ -186,13 +186,13 @@ fn object {{cname}}(const pair[X, Y]& p):
 
 extern from *:
     cdef cppclass pair "std::pair" [T, U]:
-        fn pair(T&, U&) except +
+        pair(T&, U&) except +
     cdef cppclass map "std::{{maybe_unordered}}map" [T, U]:
-        fn void insert(pair[T, U]&) except +
+        fn void insert(&mut pair[T, U]) except +
     cdef cppclass vector "std::vector" [T]:
         pass
 
-@cname("{{cname}}")
+#[cname("{{cname}}")]
 fn map[X, Y] {{cname}}(object o) except *:
     let map[X,Y] m
     for key, value in o.items():
@@ -212,17 +212,17 @@ extern from *:
             T first
             U second
         cppclass const_iterator:
-            value_type& operator*()
-            const_iterator operator++()
-            u2 operator!=(const_iterator)
-        const_iterator begin()
-        const_iterator end()
+            fn &mut value_type operator*()
+            fn const_iterator operator++()
+            fn u2 operator!=(const_iterator)
+        fn const_iterator begin()
+        fn const_iterator end()
 
-@cname("{{cname}}")
+#[cname("{{cname}}")]
 fn object {{cname}}(const map[X, Y]& s):
     o = {}
-    cdef const map[X, Y].value_type *key_value
-    cdef map[X, Y].const_iterator iter = s.begin()
+    let const map[X, Y].value_type *key_value
+    let map[X, Y].const_iterator iter = s.begin()
     while iter != s.end():
         key_value = &cython.operator.dereference(iter)
         o[key_value.first] = key_value.second
@@ -236,9 +236,9 @@ extern from *:
         std_complex()
         std_complex(T, T) except +
 
-@cname("{{cname}}")
+#[cname("{{cname}}")]
 fn std_complex[X] {{cname}}(object o) except *:
-    cdef c128 z = o
+    let c128 z = o
     return std_complex[X](<X>z.real, <X>z.imag)
 
 #################### complex.to_py ####################
@@ -248,7 +248,7 @@ extern from *:
         X real()
         X imag()
 
-@cname("{{cname}}")
+#[cname("{{cname}}")]
 fn object {{cname}}(const std_complex[X]& z):
     let c128 tmp
     tmp.real = <f64>z.real()

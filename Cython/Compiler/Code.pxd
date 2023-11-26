@@ -1,10 +1,9 @@
-# cython: language_level=3
-
 use cython
 use super::super::StringIOTree::StringIOTree
 
+
 cdef class UtilityCodeBase(object):
-    cpdef format_code(self, code_string, replace_empty_lines=*)
+    cpdef fn format_code(self, code_string, replace_empty_lines=*)
 
 cdef class UtilityCode(UtilityCodeBase):
     pub object name
@@ -18,7 +17,7 @@ cdef class UtilityCode(UtilityCodeBase):
     pub list specialize_list
     pub object file
 
-    cpdef none_or_sub(self, s, context)
+    cpdef fn none_or_sub(self, s, context)
 
 cdef class FunctionState:
     pub set names_taken
@@ -56,15 +55,15 @@ cdef class FunctionState:
     pub u2 needs_refnanny
 
     #[cython::locals(n=usize)]
-    cpdef new_label(self, name=*)
-    cpdef tuple get_loop_labels(self)
-    cpdef set_loop_labels(self, labels)
-    cpdef tuple get_all_labels(self)
-    cpdef set_all_labels(self, labels)
-    cpdef start_collecting_temps(self)
-    cpdef stop_collecting_temps(self)
+    cpdef fn new_label(self, name=*)
+    cpdef fn tuple get_loop_labels(self)
+    cpdef fn set_loop_labels(self, labels)
+    cpdef fn tuple get_all_labels(self)
+    cpdef fn set_all_labels(self, labels)
+    cpdef fn start_collecting_temps(self)
+    cpdef fn stop_collecting_temps(self)
 
-    cpdef list temps_in_use(self)
+    cpdef fn list temps_in_use(self)
 
 cdef class IntConst:
     pub object cname
@@ -83,7 +82,7 @@ cdef class StringConst:
     pub list py_versions
 
     #[cython::locals(intern=u2, is_str=u2, is_unicode=u2)]
-    cpdef get_py_string_const(self, encoding, identifier=*, is_str=*, py3str_cstring=*)
+    cpdef fn get_py_string_const(self, encoding, identifier=*, is_str=*, py3str_cstring=*)
 
 # cdef class PyStringConst:
 #     pub object cname
@@ -108,18 +107,18 @@ cdef class CCodeWriter(object):
     pub isize call_level  # debug-only, see Nodes.py
     cdef u2 bol
 
-    cpdef write(self, s)
+    cpdef fn write(self, s)
 
     #[cython::final]
     fn _write_lines(self, s)
 
-    cpdef _write_to_buffer(self, s)
+    cpdef fn _write_to_buffer(self, s)
 
-    cpdef put(self, code)
+    cpdef fn put(self, code)
 
-    cpdef put_safe(self, code)
+    cpdef fn put_safe(self, code)
 
-    cpdef putln(self, code=*, u2 safe=*)
+    cpdef fn putln(self, code=*, u2 safe=*)
 
     #[cython::final]
     fn increase_indent(self)

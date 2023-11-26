@@ -45,7 +45,7 @@ def doc_without_test():
 def nodocstring():
     pass
 
-cpdef mycpdeffunc():
+cpdef fn mycpdeffunc():
     """>>> add_log("cpdef")"""
 
 
@@ -72,7 +72,7 @@ cdef class MyCdefClass:
     def method(self):
         """>>> add_log("cdef class method")"""
 
-    cpdef cpdef_method(self):
+    cpdef fn cpdef_method(self):
         """>>> add_log("cpdef class method")"""
 
     fn cdef_method(self):

@@ -1,8 +1,8 @@
 # mode: compile
 
 extern from *:
-    cdef packed struct MyStruct:
-        char a
+    packed struct MyStruct:
+        i8 a
 
 pub packed struct PublicStruct:
     i32 a

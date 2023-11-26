@@ -31,13 +31,13 @@ fn i32 foo(int a):
 
 ######## pkg/sub.pxd ########
 
-ctypedef int my_int
+type my_int = i32
 
 ######## pkg/subpkg/__init__.py ########
 
 ######## pkg/subpkg/submod.pxd ########
 
-ctypedef int my_int
+type my_int = i32
 
 ######## a.pyx ########
 

@@ -1,6 +1,6 @@
 extern from "Python.h":
     type PY_LONG_LONG = i128
-    ctypedef u128 uPY_LONG_LONG "unsigned PY_LONG_LONG"
+    type uPY_LONG_LONG "unsigned PY_LONG_LONG" = u128
 
     # ##########################################################################
     # 7.2.3 Long Integer Objects
@@ -49,7 +49,7 @@ extern from "Python.h":
     # Return value: New reference.
     # Return a new PyLongObject object from the integer part of v, or NULL on failure.
 
-    fn object PyLong_FromString(char* str, char** pend, i32 base)
+    fn object PyLong_FromString(r&i8 str, i8** pend, i32 base)
     # Return value: New reference.
     # Return a new PyLongObject based on the string value in str,
     # which is interpreted according to the radix in base. If pend is

@@ -3,11 +3,11 @@
 use cython
 
 extern from "cpp_references_helper.h":
-    fn i32& ref_func(i32&)
-    fn i32& except_ref_func "ref_func" (i32&) except +
+    fn &mut i32 ref_func(&mut i32)
+    fn &mut i32 except_ref_func "ref_func"(&mut i32) except +
 
     static i32 ref_var_value
-    static i32& ref_var
+    static &mut i32 ref_var
 
 def test_ref_func(i32 x):
     """
@@ -25,7 +25,7 @@ def test_ref_func_address(i32 x):
     >>> test_ref_func_address(7)
     7
     """
-    let i32* i_ptr = &ref_func(x)
+    let auto i_ptr = &ref_func(x)
     return i_ptr[0]
 
 def test_except_ref_func_address(i32 x):
@@ -35,7 +35,7 @@ def test_except_ref_func_address(i32 x):
     >>> test_except_ref_func_address(7)
     7
     """
-    let i32* i_ptr = &except_ref_func(x)
+    let auto i_ptr = &except_ref_func(x)
     return i_ptr[0]
 
 def test_ref_var(i32 x):

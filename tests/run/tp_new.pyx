@@ -39,7 +39,7 @@ cdef class Base(object):
     pass
 
 cdef class Derived(Base):
-    cpdef int f(self):
+    cpdef fn int f(self):
         return 42
 
 def test_derived_vtab():

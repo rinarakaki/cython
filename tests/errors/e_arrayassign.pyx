@@ -1,8 +1,8 @@
 # mode: error
 # cython: auto_pickle=false
 
-ctypedef i32[1] int_array
-ctypedef i32[2] int_array2
+type int_array = i32[1]
+type int_array2 = i32[2]
 
 
 cdef int_array x, y
@@ -21,10 +21,10 @@ cdef int_array2 z
 z = x  # error
 x = z  # error
 
-cdef enum:
+enum:
     Size = 2
 
-ctypedef i32[Size] int_array_dyn
+type int_array_dyn = i32[Size]
 
 cdef int_array_dyn d
 d = z  # not an error

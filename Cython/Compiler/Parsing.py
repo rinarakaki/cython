@@ -1,24 +1,23 @@
-# cython: auto_cpdef=True, infer_types=True, language_level=3, py2_import=True
+# cython: auto_cpdef=True, infer_types=True, py2_import=True
 #
 #   Parser
 #
 
-from __future__ import absolute_import
 
 # This should be done automatically
+from Cython.Shadow import typedef
 import cython
 cython.declare(Nodes=object, ExprNodes=object, EncodedString=object,
                bytes_literal=object, StringEncoding=object,
                FileSourceDescriptor=object, lookup_unicodechar=object, unicode_category=object,
                Future=object, Options=object, error=object, warning=object,
                Builtin=object, ModuleNode=object, Utils=object, _unicode=object, _bytes=object,
-               re=object, sys=object, _parse_escape_sequences=object, _parse_escape_sequences_raw=object,
-               partial=object, reduce=object, _IS_PY3=cython.bint, _IS_2BYTE_UNICODE=cython.bint,
+               re=object, _parse_escape_sequences=object, _parse_escape_sequences_raw=object,
+               partial=object, reduce=object,
                _CDEF_MODIFIERS=tuple, COMMON_BINOP_MISTAKES=dict)
 
 from io import StringIO
 import re
-import sys
 from unicodedata import lookup as lookup_unicodechar, category as unicode_category
 from functools import partial, reduce
 
@@ -27,19 +26,18 @@ from . import Nodes
 from . import ExprNodes
 from . import Builtin
 from . import StringEncoding
-from .StringEncoding import EncodedString, bytes_literal, _unicode, _bytes
+from .StringEncoding import EncodedString, bytes_literal
 from .ModuleNode import ModuleNode
 from .Errors import error, warning
 from .. import Utils
 from . import Future
 from . import Options
 
-_IS_PY3 = sys.version_info[0] >= 3
-_IS_2BYTE_UNICODE = sys.maxunicode == 0xffff
+
 _CDEF_MODIFIERS = ('inline', 'nogil', 'api')
 
 
-class Ctx(object):
+class Ctx:
     #  Parsing context
     level = 'other'
     visibility = 'private'
@@ -177,7 +175,7 @@ def p_namedexpr_test(s):
 COMMON_BINOP_MISTAKES = {'||': 'or', '&&': 'and'}
 
 def p_or_test(s):
-    return p_rassoc_binop_expr(s, u'or', p_and_test)
+    return p_rassoc_binop_expr(s, 'or', p_and_test)
 
 def p_rassoc_binop_expr(s, op, p_subexpr):
     n1 = p_subexpr(s)
@@ -197,8 +195,8 @@ def p_rassoc_binop_expr(s, op, p_subexpr):
 # and_test: not_test ('and' not_test)*
 
 def p_and_test(s):
-    # return p_binop_expr(s, ('and',), p_not_test)
-    return p_rassoc_binop_expr(s, u'and', p_not_test)
+    # return p_binop_expr(s, ("and",), p_not_test)
+    return p_rassoc_binop_expr(s, "and", p_not_test)
 
 # not_test: 'not' not_test | comparison
 
@@ -388,13 +386,14 @@ def p_typecast(s):
     s.expect(">")
     operand = p_factor(s)
     if is_memslice:
-        return ExprNodes.CythonArrayNode(pos, base_type_node=base_type, operand=operand)
+        return ExprNodes.CythonArrayNode(pos, base_type=base_type, operand=operand)
 
     return ExprNodes.TypecastNode(pos,
         base_type = base_type,
         declarator = declarator,
         operand = operand,
-        typecheck = typecheck)
+        typecheck = typecheck
+    )
 
 def p_sizeof(s):
     # s.sy == ident "sizeof"
@@ -450,7 +449,6 @@ def p_async_statement(s, ctx, decorators):
         # 'async def' statements aren't allowed in pxd files
         if 'pxd' in ctx.level:
             s.error('def statement not allowed here')
-        s.level = ctx.level
         return p_def_statement(s, decorators, is_async_def=True)
     elif decorators:
         s.error("Decorators can only be followed by functions or classes")
@@ -478,7 +476,7 @@ def p_power(s):
         while s.sy in ("(", "[", "."):
             n1 = p_trailer(s, n1)
     else:
-        while s.sy in ("(", "[", ".", "::"):
+        while s.sy in ("(", "[", "{", ".", "::"):
             n1 = p_trailer(s, n1)
     if await_pos:
         n1 = ExprNodes.AwaitExprNode(await_pos, arg=n1)
@@ -505,6 +503,8 @@ def p_trailer(s, node1):
         return p_call(s, node1)
     elif s.sy == '[':
         return p_index(s, node1)
+    elif s.sy == "{":
+        return p_struct(s, node1)
     else:  # s.sy in (".", "::")
         s.next()
         name = p_ident(s)
@@ -650,6 +650,40 @@ def p_index(s, base):
             base = base, index = index)
     s.expect(']')
     return result
+
+def p_struct_parse_fields(s):
+    # s.sy == "{"
+    pos = s.position()
+    s.next()
+    fields = []
+    while s.sy != "}":
+        if s.sy == '**':
+            s.next()
+            fields.append(p_test(s))
+        else:
+            arg = p_namedexpr_test(s)
+            encoded_name = s.context.intern_ustring(arg.name)
+            ident = ExprNodes.IdentNode(arg.pos, name=encoded_name)
+            if s.sy == "=":
+                s.next()
+                if not arg.is_name:
+                    s.error("Expected an identifier before '='", pos=arg.pos)
+                expr = p_test(s)
+            else:
+                expr = p_name(s, arg.name)
+            fields.append(ExprNodes.ExprFieldNode(arg.pos, ident=ident, expr=expr))
+        if s.sy != ",":
+            break
+        s.next()
+
+    s.expect("}")
+    return fields
+
+def p_struct(s, path):
+    # s.sy == "{"
+    pos = s.position()
+    fields = p_struct_parse_fields(s)
+    return ExprNodes.StructExprNode(pos, path = path, fields = fields)
 
 def p_subscript_list(s):
     is_single_value = True
@@ -856,9 +890,9 @@ def wrap_compile_time_constant(pos, value):
                 pos, '+', ExprNodes.FloatNode(pos, value=repr(value.real), constant_result=value.real), node,
                 constant_result=value)
         return node
-    elif isinstance(value, _unicode):
+    elif isinstance(value, str):
         return ExprNodes.UnicodeNode(pos, value=EncodedString(value))
-    elif isinstance(value, _bytes):
+    elif isinstance(value, bytes):
         bvalue = bytes_literal(value, 'ascii')  # actually: unknown encoding, but BytesLiteral requires one
         return ExprNodes.BytesNode(pos, value=bvalue, constant_result=value)
     elif isinstance(value, tuple):
@@ -869,8 +903,6 @@ def wrap_compile_time_constant(pos, value):
         else:
             # error already reported
             return None
-    elif not _IS_PY3 and isinstance(value, long):
-        return ExprNodes.IntNode(pos, value=rep.rstrip('L'), constant_result=value)
     error(pos, "Invalid type for compile-time constant: %r (type %s)"
                % (value, value.__class__.__name__))
     return None
@@ -908,7 +940,7 @@ def p_cat_string_literal(s):
         # Py3 enforced unicode literals are parsed as bytes/unicode combination
         bytes_value = bytes_literal(StringEncoding.join_bytes(bstrings), s.source_encoding)
     if kind in ('u', ''):
-        unicode_value = EncodedString(u''.join([u for u in ustrings if u is not None]))
+        unicode_value = EncodedString(''.join([u for u in ustrings if u is not None]))
     if kind == 'f':
         unicode_value = []
         for u, pos in zip(ustrings, positions):
@@ -937,7 +969,7 @@ def p_opt_string_literal(s, required_type='u'):
 
 def check_for_non_ascii_characters(string):
     for c in string:
-        if c >= u'\x80':
+        if c >= '\x80':
             return True
     return False
 
@@ -1009,14 +1041,14 @@ def p_string_literal(s, kind_override=None):
                 has_non_ascii_literal_characters = True
         elif sy == 'ESCAPE':
             # in Py2, 'ur' raw unicode strings resolve unicode escapes but nothing else
-            if is_raw and (is_python3_source or kind != 'u' or systr[1] not in u'Uu'):
+            if is_raw and (is_python3_source or kind != 'u' or systr[1] not in 'Uu'):
                 chars.append(systr)
                 if is_python3_source and not has_non_ascii_literal_characters and check_for_non_ascii_characters(systr):
                     has_non_ascii_literal_characters = True
             else:
                 _append_escape_sequence(kind, chars, systr, s)
         elif sy == 'NEWLINE':
-            chars.append(u'\n')
+            chars.append('\n')
         elif sy == 'END_STRING':
             break
         elif sy == 'EOF':
@@ -1029,7 +1061,7 @@ def p_string_literal(s, kind_override=None):
         unicode_value = None
         bytes_value = chars.getchar()
         if len(bytes_value) != 1:
-            error(pos, u"invalid character literal: %r" % bytes_value)
+            error(pos, "invalid character literal: %r" % bytes_value)
     else:
         bytes_value, unicode_value = chars.getstrings()
         if (has_non_ascii_literal_characters
@@ -1046,22 +1078,22 @@ def p_string_literal(s, kind_override=None):
 
 def _append_escape_sequence(kind, builder, escape_sequence, s):
     c = escape_sequence[1]
-    if c in u"01234567":
+    if c in "01234567":
         builder.append_charval(int(escape_sequence[1:], 8))
-    elif c in u"'\"\\":
+    elif c in "'\"\\":
         builder.append(c)
-    elif c in u"abfnrtv":
+    elif c in "abfnrtv":
         builder.append(StringEncoding.char_from_escape_sequence(escape_sequence))
-    elif c == u'\n':
+    elif c == '\n':
         pass  # line continuation
-    elif c == u'x':  # \xXX
+    elif c == 'x':  # \xXX
         if len(escape_sequence) == 4:
             builder.append_charval(int(escape_sequence[2:], 16))
         else:
             s.error("Invalid hex escape '%s'" % escape_sequence, fatal=False)
-    elif c in u'NUu' and kind in ('u', 'f', ''):  # \uxxxx, \Uxxxxxxxx, \N{...}
+    elif c in 'NUu' and kind in ('u', 'f', ''):  # \uxxxx, \Uxxxxxxxx, \N{...}
         chrval = -1
-        if c == u'N':
+        if c == 'N':
             uchar = None
             try:
                 uchar = lookup_unicodechar(escape_sequence[3:-1])
@@ -1069,14 +1101,6 @@ def _append_escape_sequence(kind, builder, escape_sequence, s):
             except KeyError:
                 s.error("Unknown Unicode character name %s" %
                         repr(escape_sequence[3:-1]).lstrip('u'), fatal=False)
-            except TypeError:
-                # 2-byte unicode build of CPython?
-                if (uchar is not None and _IS_2BYTE_UNICODE and len(uchar) == 2 and
-                        unicode_category(uchar[0]) == 'Cs' and unicode_category(uchar[1]) == 'Cs'):
-                    # surrogate pair instead of single character
-                    chrval = 0x10000 + (ord(uchar[0]) - 0xd800) >> 10 + (ord(uchar[1]) - 0xdc00)
-                else:
-                    raise
         elif len(escape_sequence) in (6, 10):
             chrval = int(escape_sequence[2:], 16)
             if chrval > 1114111:  # sys.maxunicode:
@@ -1108,7 +1132,8 @@ _parse_escape_sequences_raw, _parse_escape_sequences = [re.compile((
     br'\}\}?|'
     br'[^\\{}]+)'
     ).decode('us-ascii')).match
-    for is_raw in (True, False)]
+    for is_raw in (True, False)
+]
 
 
 def _f_string_error_pos(pos, string, i):
@@ -1786,7 +1811,7 @@ def p_raise_statement(s):
         return Nodes.ReraiseStatNode(pos)
 
 
-def p_use_statement(s):
+def p_use_item(s):
     # s.sy == "use"
     pos = s.position()
     s.next()
@@ -1812,6 +1837,7 @@ def p_use_statement(s):
                 is_absolute=is_absolute,
             )
         stats.append(stat)
+    s.expect_newline("Expected a newline", ignore_semicolon=True)
     return Nodes.StatListNode(pos, stats=stats)
 
 
@@ -1976,7 +2002,7 @@ def p_dotted_name(s, as_allowed):
         names.append(p_ident(s))
     if as_allowed:
         as_name = p_as_name(s)
-    return (pos, target_name, s.context.intern_ustring(u'.'.join(names)), as_name)
+    return (pos, target_name, s.context.intern_ustring('.'.join(names)), as_name)
 
 
 def p_as_name(s):
@@ -2353,8 +2379,6 @@ def p_simple_statement(s, first_statement = 0):
         node = p_return_statement(s)
     elif s.sy == 'raise':
         node = p_raise_statement(s)
-    elif s.sy == "use":
-        node = p_use_statement(s)
     elif s.sy in ("import", "cimport"):
         node = p_import_statement(s)
     elif s.sy == "from" or not s.in_python_file and s.systring == "from":
@@ -2411,16 +2435,21 @@ def p_compile_time_expr(s):
     s.compile_time_expr = old
     return expr
 
-def p_const_statement(s):
+def p_const_item(s):
     pos = s.position()
     denv = s.compile_time_env
-    s.next()  # 'DEF'
+    s.next()  # "const"
+    if s.sy == "auto":
+        s.next()
+        base_type = None
+    else:
+        base_type = p_c_base_type(s)
     name = p_ident(s)
     s.expect('=')
     expr = p_compile_time_expr(s)
     if s.compile_time_eval:
         value = expr.compile_time_value(denv)
-        # print "p_const_statement: %s = %r" % (name, value) #
+        # print "p_const_item: %s = %r" % (name, value) #
         denv.declare(name, value)
     s.expect_newline("Expected a newline", ignore_semicolon=True)
     return Nodes.PassStatNode(pos)
@@ -2452,31 +2481,104 @@ def p_IF_statement(s, ctx):
     s.compile_time_eval = saved_eval
     return result
 
-def p_statement(s, ctx, first_statement = 0):
-    cdef_flag = ctx.cdef_flag
-    decorators = []
-    if s.sy == "#" and s.peek()[0] == "[":
-        s.level = ctx.level
-        decorators = p_attributes(s)
+def p_item(s, ctx, attributes):
+    pos = s.position()
+    visibility = ctx.visibility = p_visibility(s, ctx.visibility)
+    api = ctx.api = p_api(s) or ctx.api
+    overridable = ctx.overridable
+    ctx.typedef_flag = ctx.typedef_flag or visibility == "extern"
 
-    if not s.in_python_file and s.systring == "type" and s.peek()[0] == "IDENT":
+    item = None
+    if s.sy == "use":
+        item = p_use_item(s)
+    elif s.sy == "static":
+        item = p_static_item(s, ctx)
+    elif s.sy == "const":
+        if ctx.visibility == "extern":
+            s.error("const statement not allowed here")
+        item = p_const_item(s)
+    elif s.sy == "fn" or s.sy == "const" and s.peek()[0] == "fn":
+        item = p_fn_item(s, pos, ctx)
+    elif ctx.visibility == "extern" and s.systring == "from":
+        item = p_extern_item(s, pos, ctx)
+    elif s.systring == "type" and s.peek()[0] == "IDENT":
         if ctx.level not in ("module", "module_pxd"):
             s.error("type statement not allowed here")
-        return p_type_statement(s, ctx)
-    elif s.sy == 'ctypedef':
+        item = p_type_alias_item(s, ctx)
+    elif s.sy == "enum":
+        if ctx.level not in ("module", "module_pxd"):
+            error(pos, "C enum definition not allowed here")
+        item = p_enum_item(s, pos, ctx)
+    elif s.sy in ("struct", "union") or s.systring == "packed" and s.peek()[0] == "struct":
+        if ctx.level not in ("module", "module_pxd"):
+            error(pos, "C struct/union definition not allowed here")
+        if ctx.overridable:
+            error(pos, "C struct/union cannot be declared cpdef")
+        item = p_struct_or_union_item(s, pos, ctx)
+    elif s.sy == "class":
+        if ctx.level not in ("module", "module_pxd"):
+            error(pos, "Extension type definition not allowed here")
+        if ctx.overridable:
+            error(pos, "Extension types cannot be declared cpdef")
+        item = p_c_class_definition(s, pos, ctx)
+
+
+    if item is not None:
+        item.decorators = attributes
+        item.visibility = visibility
+        item.api = api
+        item.overridable = overridable
+
+    return item
+
+def p_statement(s, ctx, first_statement = 0):
+    cdef_flag = ctx.cdef_flag
+
+    if s.sy == "let":
+        return p_let_statement(s, ctx(overridable=0))
+
+    attributes = p_attributes(s)
+
+    overridable = typedef_flag = 0
+    if s.sy == "cpdef":
+        s.next()
+        cdef_flag = 1
+        overridable = 1
+    elif s.sy == "ctypedef" and (s.peek()[0] != "IDENT" or s.peek()[1] in ("api", "packed")):
+        s.next()
+        typedef_flag = 1
+
+    if (
+        (s.sy != "IDENT" or s.systring in ("type", "packed") or s.systring == "api" and s.peek()[1] in ("static", "fn", "type", "enum", "struct", "class"))
+        and
+        (s.sy != "class" or ctx.visibility == "extern" or typedef_flag)
+        and
+        (s.sy != "cdef" or s.peek()[0] in ("extern", "enum", "struct", "union", "class"))
+        and
+        (s.sy not in ("pub", "readonly", "extern") or s.peek()[0] != "IDENT" or s.peek()[1] in ("from", "type", "packed", "api"))
+    ):
+        if s.sy == "cdef":
+            s.next()
+        item = p_item(s, ctx(overridable=overridable, typedef_flag=typedef_flag), attributes)
+        if item is not None:
+            return item
+    
+    decorators = attributes
+
+    if s.sy == 'ctypedef':
         if ctx.level not in ('module', 'module_pxd'):
             s.error("ctypedef statement not allowed here")
         # if ctx.api:
         #    error(s.position(), "'api' not allowed with 'ctypedef'")
         return p_ctypedef_statement(s, ctx)
-    elif s.sy in ("const", "DEF") and ctx.visibility != "extern":
+    elif s.sy == "DEF":
         # We used to dep-warn about this but removed the warning again since
         # we don't have a good answer yet for all use cases.
         # warning(s.position(),
         #         "The 'DEF' statement is deprecated and will be removed in a future Cython version. "
         #         "Consider using global variables, constants, and in-place literals instead. "
         #         "See https://github.com/cython/cython/issues/4310", level=1)
-        return p_const_statement(s)
+        return p_const_item(s)
     elif s.sy == 'IF':
         warning(s.position(),
                 "The 'IF' statement is deprecated and will be removed in a future Cython version. "
@@ -2486,7 +2588,6 @@ def p_statement(s, ctx, first_statement = 0):
     elif s.sy == '@':
         if ctx.level not in ('module', 'class', 'c_class', 'function', 'property', 'module_pxd', 'c_class_pxd', 'other'):
             s.error('decorator not allowed here')
-        s.level = ctx.level
         decorators += p_decorators(s)
         if not ctx.allow_struct_enum_decorator and s.sy not in ("def", "fn", "cdef", "cpdef", "class", "async"):
             if s.sy == 'IDENT' and s.systring == 'async':
@@ -2497,20 +2598,13 @@ def p_statement(s, ctx, first_statement = 0):
         # empty cdef block
         return p_pass_statement(s, with_newline=1)
 
-    overridable = 0
-    if s.sy == 'cdef':
+    if s.sy in ("cdef", "pub", "extern"):
         cdef_flag = 1
-        s.next()
-    elif s.sy == 'cpdef':
-        cdef_flag = 1
-        overridable = 1
-        s.next()
-    elif s.sy in ("pub", "fn", "let", "enum", "struct", "union", "extern", "static"):
-        cdef_flag = 1
+        if s.sy == "cdef":
+            s.next()
     if cdef_flag:
         if ctx.level not in ('module', 'module_pxd', 'function', 'c_class', 'c_class_pxd'):
             s.error('cdef statement not allowed here')
-        s.level = ctx.level
         node = p_cdef_statement(s, ctx(overridable=overridable))
         if len(decorators) > 0:
             tup = (Nodes.CFuncDefNode, Nodes.CVarDefNode, Nodes.CClassDefNode)
@@ -2528,7 +2622,6 @@ def p_statement(s, ctx, first_statement = 0):
             # as part of a cdef class
             if ('pxd' in ctx.level) and (ctx.level != 'c_class_pxd'):
                 s.error('def statement not allowed here')
-            s.level = ctx.level
             return p_def_statement(s, decorators)
         elif s.sy == 'class':
             if ctx.level not in ('module', 'function', 'class', 'other'):
@@ -2573,7 +2666,7 @@ def p_statement(s, ctx, first_statement = 0):
                         return p_async_statement(s, ctx, decorators)
                     elif decorators:
                         s.error("Decorators can only be followed by functions or classes")
-                    s.put_back(u'IDENT', ident_name, ident_pos)  # re-insert original token
+                    s.put_back('IDENT', ident_name, ident_pos)  # re-insert original token
                 return p_simple_statement_list(s, ctx, first_statement=first_statement)
 
 
@@ -2692,7 +2785,34 @@ def p_c_base_type(s, nonempty=False, templates=None):
             is_volatile = 1
             s.next()
 
-    if s.sy == "(":
+    if s.sy == "&" or s.systring == "r" and s.peek()[0] == "&":
+        if s.systring == "r":
+            s.next()
+            s.next()
+            raw = 1
+        else:
+            s.next()
+            raw = 0
+
+        if s.sy == "mut":
+            mutable = 1
+            s.next()
+        else:
+            mutable = 0
+        base_type = p_c_base_type(s, nonempty=nonempty, templates=templates)
+        if not mutable:
+            base_type = Nodes.CConstOrVolatileTypeNode(pos,
+                base_type=base_type, is_const=1, is_volatile=0
+            )
+        if raw:
+            base_type = Nodes.CPtrTypeNode(pos, base_type=base_type)
+        else:
+            base_type = Nodes.CRefTypeNode(pos, base_type=base_type)
+    elif s.sy == "&&":
+        s.next()
+        base_type = p_c_base_type(s, nonempty=nonempty, templates=templates)
+        base_type = Nodes.CRvalueRefTypeNode(pos, base_type=base_type)
+    elif s.sy == "(":
         base_type = p_c_complex_base_type(s, templates = templates)
     else:
         base_type = p_c_simple_base_type(s, nonempty=nonempty, templates=templates)
@@ -2700,11 +2820,13 @@ def p_c_base_type(s, nonempty=False, templates=None):
     if is_const or is_volatile:
         if isinstance(base_type, Nodes.MemoryViewSliceTypeNode):
             # reverse order to avoid having to write "(const int)[:]"
-            base_type.base_type_node = Nodes.CConstOrVolatileTypeNode(pos,
-                base_type=base_type.base_type_node, is_const=is_const, is_volatile=is_volatile)
+            base_type.base_type = Nodes.CConstOrVolatileTypeNode(pos,
+                base_type=base_type.base_type, is_const=is_const, is_volatile=is_volatile
+            )
         else:
             base_type = Nodes.CConstOrVolatileTypeNode(pos,
-                base_type=base_type, is_const=is_const, is_volatile=is_volatile)
+                base_type=base_type, is_const=is_const, is_volatile=is_volatile
+            )
     
     if s.sy in ("*", "**"):
         # scanner returns "**" as a single token
@@ -2723,7 +2845,6 @@ def p_calling_convention(s):
         return result
     else:
         return ""
-
 
 calling_convention_words = cython.declare(frozenset, frozenset((
     "__stdcall", "__cdecl", "__fastcall")))
@@ -2808,13 +2929,13 @@ def p_c_simple_base_type(s, nonempty, templates=None):
                 s.next()
                 if (s.sy == '*' or s.sy == '**' or s.sy == '&'
                         or (s.sy == 'IDENT' and s.systring in calling_convention_words)):
-                    s.put_back(u'(', u'(', old_pos)
+                    s.put_back('(', '(', old_pos)
                 else:
-                    s.put_back(u'(', u'(', old_pos)
-                    s.put_back(u'IDENT', name, name_pos)
+                    s.put_back('(', '(', old_pos)
+                    s.put_back('IDENT', name, name_pos)
                     name = None
             elif s.sy not in ('*', '**', '[', '&'):
-                s.put_back(u'IDENT', name, name_pos)
+                s.put_back('IDENT', name, name_pos)
                 name = None
 
     type_node = Nodes.CSimpleBaseTypeNode(pos,
@@ -2824,7 +2945,7 @@ def p_c_simple_base_type(s, nonempty, templates=None):
     )
 
     #    declarations here.
-    if s.sy == '[':
+    if s.sy == "[":
         if is_memoryviewslice_access(s):
             type_node = p_memoryviewslice_access(s, type_node)
         else:
@@ -2837,7 +2958,7 @@ def p_c_simple_base_type(s, nonempty, templates=None):
 
     return type_node
 
-def p_buffer_or_template(s, base_type_node, templates):
+def p_buffer_or_template(s, base_type, templates):
     # s.sy == '['
     pos = s.position()
     s.next()
@@ -2849,7 +2970,7 @@ def p_buffer_or_template(s, base_type_node, templates):
     s.expect(']')
 
     if s.sy == '[':
-        base_type_node = p_buffer_or_template(s, base_type_node, templates)
+        base_type = p_buffer_or_template(s, base_type, templates)
 
     keyword_dict = ExprNodes.DictNode(pos,
         key_value_pairs = [
@@ -2857,31 +2978,32 @@ def p_buffer_or_template(s, base_type_node, templates):
             for key, value in keyword_args
         ])
     result = Nodes.TemplatedTypeNode(pos,
+        base_type = base_type,
         positional_args = positional_args,
         keyword_args = keyword_dict,
-        base_type_node = base_type_node)
+    )
     return result
 
-def p_bracketed_base_type(s, base_type_node, nonempty, empty):
+def p_bracketed_base_type(s, base_type, nonempty, empty):
     # s.sy == '['
     if empty and not nonempty:
         # sizeof-like thing.  Only anonymous C arrays allowed (int[SIZE]).
-        return base_type_node
+        return base_type
     elif not empty and nonempty:
         # declaration of either memoryview slice or buffer.
         if is_memoryviewslice_access(s):
-            return p_memoryviewslice_access(s, base_type_node)
+            return p_memoryviewslice_access(s, base_type)
         else:
-            return p_buffer_or_template(s, base_type_node, None)
-            # return p_buffer_access(s, base_type_node)
+            return p_buffer_or_template(s, base_type, None)
+            # return p_buffer_access(s, base_type)
     elif not empty and not nonempty:
         # only anonymous C arrays and memoryview slice arrays here.  We
         # disallow buffer declarations for now, due to ambiguity with anonymous
         # C arrays.
         if is_memoryviewslice_access(s):
-            return p_memoryviewslice_access(s, base_type_node)
+            return p_memoryviewslice_access(s, base_type)
         else:
-            return base_type_node
+            return base_type
 
 def is_memoryviewslice_access(s):
     # s.sy == '['
@@ -2890,22 +3012,22 @@ def is_memoryviewslice_access(s):
     # not have an unnested colon in the first entry; the memoryview slice will.
     saved = [(s.sy, s.systring, s.position())]
     s.next()
-    retval = False
-    if s.systring == ':':
-        retval = True
+    retval = 0
+    if s.systring == ":":
+        retval = 1
     elif s.sy == 'INT':
         saved.append((s.sy, s.systring, s.position()))
         s.next()
-        if s.sy == ':':
-            retval = True
+        if s.sy == ":":
+            retval = 1
 
     for sv in reversed(saved):
         s.put_back(*sv)
 
     return retval
 
-def p_memoryviewslice_access(s, base_type_node):
-    # s.sy == '['
+def p_memoryviewslice_access(s, base_type):
+    # s.sy == "["
     pos = s.position()
     s.next()
     subscripts, _ = p_subscript_list(s)
@@ -2913,11 +3035,9 @@ def p_memoryviewslice_access(s, base_type_node):
     for subscript in subscripts:
         if len(subscript) < 2:
             s.error("An axis specification in memoryview declaration does not have a ':'.")
-    s.expect(']')
+    s.expect("]")
     indexes = make_slice_nodes(pos, subscripts)
-    result = Nodes.MemoryViewSliceTypeNode(pos,
-            base_type_node = base_type_node,
-            axes = indexes)
+    result = Nodes.MemoryViewSliceTypeNode(pos, base_type = base_type, axes = indexes)
     return result
 
 def looking_at_name(s):
@@ -2958,10 +3078,10 @@ def looking_at_expr(s):
 
         dotted_path.reverse()
         for p in dotted_path:
-            s.put_back(u'IDENT', *p)
-            s.put_back(u'.', u'.', p[1])  # gets the position slightly wrong
+            s.put_back('IDENT', *p)
+            s.put_back('.', '.', p[1])  # gets the position slightly wrong
 
-        s.put_back(u'IDENT', name, name_pos)
+        s.put_back('IDENT', name, name_pos)
         return not is_type and saved[0]
     else:
         return True
@@ -3045,7 +3165,7 @@ def p_c_declarator(s, ctx = Ctx(), empty = 0, is_type = 0, cmethod_flag = 0,
     if s.sy == '(':
         s.next()
         if s.sy == ')' or looking_at_name(s):
-            base = Nodes.CNameDeclaratorNode(pos, name=s.context.intern_ustring(u""), cname=None)
+            base = Nodes.CNameDeclaratorNode(pos, name=s.context.intern_ustring(""), cname=None)
             result = p_c_func_declarator(s, pos, ctx, base, cmethod_flag)
         else:
             result = p_c_declarator(s, ctx, empty = empty, is_type = is_type,
@@ -3056,7 +3176,7 @@ def p_c_declarator(s, ctx = Ctx(), empty = 0, is_type = 0, cmethod_flag = 0,
     else:
         result = p_c_simple_declarator(s, ctx, empty, is_type, cmethod_flag,
                                        assignable, nonempty)
-    if not calling_convention_allowed and result.calling_convention and s.sy != '(':
+    if not calling_convention_allowed and result is not None and result.calling_convention and s.sy != '(':
         error(s.position(), "%s on something that is not a function"
             % result.calling_convention)
     while s.sy in ('[', '('):
@@ -3148,7 +3268,7 @@ def p_c_simple_declarator(s, ctx, empty, is_type, cmethod_flag,
         result = node_class(pos, base=base)
     else:
         rhs = None
-        if s.sy == 'IDENT':
+        if s.sy == "IDENT":
             name = s.systring
             if empty:
                 error(s.position(), "Declarator should be empty")
@@ -3160,6 +3280,8 @@ def p_c_simple_declarator(s, ctx, empty, is_type, cmethod_flag,
         else:
             if nonempty:
                 error(s.position(), "Empty declarator")
+            if empty:
+                return None
             name = ""
             cname = None
         if cname is None and ctx.namespace is not None and nonempty:
@@ -3266,7 +3388,7 @@ def p_exception_value_clause(s, is_extern):
                     exc_val = p_name(s, name)
                     s.next()
             elif s.sy == '*':
-                exc_val = ExprNodes.CharNode(s.position(), value=u'*')
+                exc_val = ExprNodes.CharNode(s.position(), value='*')
                 s.next()
         else:
             if s.sy == '?':
@@ -3371,13 +3493,11 @@ def p_cdef_statement(s, ctx):
     ctx.visibility = p_visibility(s, ctx.visibility)
     ctx.api = ctx.api or p_api(s)
     if ctx.api:
-        if ctx.visibility not in ("private", "pub", "public"):
+        if ctx.visibility not in ("private", "public"):
             error(pos, "Cannot combine 'api' with '%s'" % ctx.visibility)
-    if ctx.visibility == "extern" and s.systring == "from":
-        return p_cdef_extern_block(s, pos, ctx)
-    elif s.sy == 'import':
+    if s.sy == 'import':
         s.next()
-        return p_cdef_extern_block(s, pos, ctx)
+        return p_extern_item(s, pos, ctx)
     elif p_nogil(s):
         ctx.nogil = 1
         if ctx.overridable:
@@ -3387,38 +3507,17 @@ def p_cdef_statement(s, ctx):
         if ctx.overridable:
             error(pos, "cdef blocks cannot be declared cpdef")
         return p_cdef_block(s, ctx)
-    elif s.sy == 'class':
-        if ctx.level not in ('module', 'module_pxd'):
-            error(pos, "Extension type definition not allowed here")
-        if ctx.overridable:
-            error(pos, "Extension types cannot be declared cpdef")
-        return p_c_class_definition(s, pos, ctx)
-    elif s.sy == 'IDENT' and s.systring == 'cppclass':
-        return p_cpp_class_definition(s, pos, ctx)
-    elif s.sy in struct_enum_union or s.sy == 'IDENT' and s.systring == "packed":
-        if ctx.level not in ('module', 'module_pxd'):
-            error(pos, "C struct/union/enum definition not allowed here")
-        if ctx.overridable:
-            if s.systring != 'enum':
-                error(pos, "C struct/union cannot be declared cpdef")
-        return p_struct_enum(s, pos, ctx)
     elif s.sy == 'IDENT' and s.systring == 'fused':
         return p_fused_definition(s, pos, ctx)
-    elif s.sy == "fn":
-        s.next()
-        return p_c_func_or_var_declaration(s, pos, ctx)
-    elif s.sy == "let":
-        return p_let_statement(s, pos, ctx)
-    elif s.sy == "static":
-        s.next()
-        return p_c_func_or_var_declaration(s, pos, ctx)
+    elif s.sy == 'IDENT' and s.systring == "cppclass":
+        return p_cpp_class_definition(s, pos, ctx)
     else:
         return p_c_func_or_var_declaration(s, pos, ctx)
 
 def p_cdef_block(s, ctx):
     return p_suite(s, ctx(cdef_flag = 1))
 
-def p_cdef_extern_block(s, pos, ctx):
+def p_extern_item(s, pos, ctx):
     if ctx.overridable:
         error(pos, "cdef extern blocks cannot be declared cpdef")
     include_file = None
@@ -3427,7 +3526,7 @@ def p_cdef_extern_block(s, pos, ctx):
         s.next()
     else:
         include_file = p_string_literal(s, 'u')[2]
-    ctx = ctx(cdef_flag = 1, visibility = 'extern')
+    ctx = ctx(cdef_flag = 1, typedef_flag = 1, visibility = 'extern')
     if s.systring == "namespace":
         s.next()
         ctx.namespace = p_string_literal(s, 'u')[2]
@@ -3441,9 +3540,10 @@ def p_cdef_extern_block(s, pos, ctx):
         include_file = include_file,
         verbatim_include = verbatim_include,
         body = body,
-        namespace = ctx.namespace)
+        namespace = ctx.namespace
+    )
 
-def p_c_enum_definition(s, pos, ctx):
+def p_enum_item(s, pos, ctx):
     # s.sy == ident 'enum'
     s.next()
 
@@ -3452,7 +3552,7 @@ def p_c_enum_definition(s, pos, ctx):
         scoped = True
         s.next()
 
-    if s.sy == 'IDENT':
+    if s.sy == "IDENT":
         name = s.systring
         s.next()
         cname = p_opt_cname(s)
@@ -3479,46 +3579,50 @@ def p_c_enum_definition(s, pos, ctx):
             longness = 0
         )
 
-    s.expect(':')
-    items = []
+    s.expect(":")
+    variants = []
 
     doc = None
-    if s.sy != 'NEWLINE':
-        p_c_enum_line(s, ctx, items)
+    if s.sy != "NEWLINE":
+        p_c_enum_line(s, ctx, variants)
     else:
         s.next()  # 'NEWLINE'
         s.expect_indent()
         doc = p_doc_string(s)
 
         while s.sy not in ('DEDENT', 'EOF'):
-            p_c_enum_line(s, ctx, items)
+            p_c_enum_line(s, ctx, variants)
 
         s.expect_dedent()
 
-    if not items and ctx.visibility != "extern":
+    if not variants and ctx.visibility != "extern":
         error(pos, "Empty enum definition not allowed outside a 'cdef extern from' block")
 
-    return Nodes.CEnumDefNode(
-        pos, name=name, cname=cname,
-        scoped=scoped, items=items,
+    return Nodes.CEnumDefNode(pos,
+        name=name,
+        cname=cname,
+        scoped=scoped,
+        variants=variants,
         underlying_type=underlying_type,
-        typedef_flag=ctx.typedef_flag, visibility=ctx.visibility,
+        typedef_flag=ctx.typedef_flag,
         create_wrapper=ctx.overridable,
-        api=ctx.api, in_pxd=ctx.level == 'module_pxd', doc=doc)
+        in_pxd=ctx.level == "module_pxd",
+        doc=doc,
+    )
 
-def p_c_enum_line(s, ctx, items):
+def p_c_enum_line(s, ctx, variants):
     if s.sy != 'pass':
-        p_c_enum_item(s, ctx, items)
+        p_variant(s, ctx, variants)
         while s.sy == ',':
             s.next()
             if s.sy in ('NEWLINE', 'EOF'):
                 break
-            p_c_enum_item(s, ctx, items)
+            p_variant(s, ctx, variants)
     else:
         s.next()
     s.expect_newline("Syntax error in enum item list")
 
-def p_c_enum_item(s, ctx, items):
+def p_variant(s, ctx, variants):
     pos = s.position()
     name = p_ident(s)
     cname = p_opt_cname(s)
@@ -3528,10 +3632,10 @@ def p_c_enum_item(s, ctx, items):
     if s.sy == '=':
         s.next()
         value = p_test(s)
-    items.append(Nodes.CEnumDefItemNode(pos,
+    variants.append(Nodes.CEnumDefItemNode(pos,
         name = name, cname = cname, value = value))
 
-def p_c_struct_or_union_definition(s, pos, ctx):
+def p_struct_or_union_item(s, pos, ctx):
     packed = False
     if s.systring == 'packed':
         packed = True
@@ -3545,10 +3649,10 @@ def p_c_struct_or_union_definition(s, pos, ctx):
     cname = p_opt_cname(s)
     if cname is None and ctx.namespace is not None:
         cname = ctx.namespace + "::" + name
-    attributes = None
-    if s.sy == ':':
+    fields = None
+    if s.sy == ":":
         s.next()
-        attributes = []
+        fields = []
         if s.sy == 'pass':
             s.next()
             s.expect_newline("Expected a newline", ignore_semicolon=True)
@@ -3556,24 +3660,29 @@ def p_c_struct_or_union_definition(s, pos, ctx):
             s.expect('NEWLINE')
             s.expect_indent()
             body_ctx = Ctx(visibility=ctx.visibility)
-            while s.sy != 'DEDENT':
-                if s.sy != 'pass':
-                    attributes.append(
+            while s.sy != "DEDENT":
+                if s.sy != "pass":
+                    fields.append(
                         p_c_func_or_var_declaration(s, s.position(), body_ctx))
                 else:
                     s.next()
                     s.expect_newline("Expected a newline")
             s.expect_dedent()
 
-        if not attributes and ctx.visibility != "extern":
+        if not fields and ctx.visibility != "extern":
             error(pos, "Empty struct or union definition not allowed outside a 'cdef extern from' block")
     else:
         s.expect_newline("Syntax error in struct or union definition")
 
     return Nodes.CStructOrUnionDefNode(pos,
-        name = name, cname = cname, kind = kind, attributes = attributes,
-        typedef_flag = ctx.typedef_flag, visibility = ctx.visibility,
-        api = ctx.api, in_pxd = ctx.level == 'module_pxd', packed = packed)
+        name = name,
+        cname = cname,
+        kind = kind,
+        fields = fields,
+        typedef_flag = ctx.typedef_flag,
+        in_pxd = ctx.level == "module_pxd",
+        packed = packed
+    )
 
 def p_fused_definition(s, pos, ctx):
     """
@@ -3611,9 +3720,52 @@ def p_fused_definition(s, pos, ctx):
 
 def p_struct_enum(s, pos, ctx):
     if s.systring == 'enum':
-        return p_c_enum_definition(s, pos, ctx)
+        return p_enum_item(s, pos, ctx)
     else:
-        return p_c_struct_or_union_definition(s, pos, ctx)
+        return p_struct_or_union_item(s, pos, ctx)
+
+def p_let_statement(s, ctx):
+    # s.sy == "let"
+    pos = s.position()
+    s.next()
+    if s.sy == "auto":
+        s.next()
+        base_type = None
+    else:
+        base_type = p_c_base_type(s, nonempty = 1, templates = ctx.templates)
+    declarator = p_c_declarator(s, ctx, assignable = 1, nonempty = 1)
+    declarators = [declarator]
+    while s.sy == ",":
+        s.next()
+        if s.sy == "NEWLINE":
+            break
+        declarator = p_c_declarator(s, ctx, assignable = 1, nonempty = 1)
+        declarators.append(declarator)
+    s.expect_newline("Syntax error in let statement", ignore_semicolon=True)
+    return Nodes.LetStatNode(pos, base_type = base_type, declarators = declarators)
+
+def p_static_item(s, ctx):
+    # s.sy == "static"
+    pos = s.position()
+    s.next()
+    base_type = p_c_base_type(s, nonempty = 1, templates = ctx.templates)
+    declarator = p_c_declarator(s, ctx, assignable = 1, nonempty = 1)
+    declarators = [declarator]
+    while s.sy == ",":
+        s.next()
+        if s.sy == "NEWLINE":
+            break
+        declarator = p_c_declarator(s, ctx, assignable = 1, nonempty = 1)
+        declarators.append(declarator)
+    s.expect_newline("Syntax error in static item", ignore_semicolon=True)
+    result = Nodes.CVarDefNode(pos,
+        base_type = base_type,
+        declarators = declarators,
+        in_pxd = ctx.level == "module_pxd",
+        doc = None,
+        modifiers = [],
+    )
+    return result
 
 def p_visibility(s, prev_visibility):
     pos = s.position()
@@ -3629,36 +3781,63 @@ def p_visibility(s, prev_visibility):
         s.next()
     return visibility
 
-def p_let_statement(s, pos, ctx):
-    # s.sy == "let"
-    s.next()
-    base_type = p_c_base_type(s, nonempty = 1, templates = ctx.templates)
-    declarator = p_c_declarator(s, ctx, assignable = 1, nonempty = 1)
-    declarators = [declarator]
-    while s.sy == ',':
-        s.next()
-        if s.sy == 'NEWLINE':
-            break
-        declarator = p_c_declarator(s, ctx, assignable = 1, nonempty = 1)
-        declarators.append(declarator)
-    s.expect_newline("Syntax error in C variable declaration", ignore_semicolon=True)
-    return Nodes.CVarDefNode(pos,
-        visibility = ctx.visibility,
-        base_type = base_type,
-        declarators = declarators,
-        in_pxd = ctx.level in ("module_pxd", "c_class_pxd"),
-        doc = None,
-        api = ctx.api,
-        modifiers = [],
-        overridable = ctx.overridable,
-    )
-
 def p_c_modifiers(s):
     if s.sy == 'IDENT' and s.systring in ('inline',):
         modifier = s.systring
         s.next()
         return [modifier] + p_c_modifiers(s)
     return []
+
+def p_fn_item(s, pos, ctx):
+    # s.sy == "fn" or s.sy == "const" and s.peek()[0] == "fn"
+    cmethod_flag = ctx.level in ("c_class", "c_class_pxd")
+    is_static_method = is_const_function = 0
+    if s.sy == "const":
+        s.next()
+        is_const_function = 1
+    elif s.sy == "static":
+        s.next()
+        is_static_method = 1
+    s.next()
+
+    modifiers = p_c_modifiers(s)
+    base_type = p_c_base_type(s, nonempty = 1, templates = ctx.templates)
+    declarator = p_c_declarator(s, ctx(modifiers=modifiers), cmethod_flag = cmethod_flag,
+                                assignable = 1, nonempty = 1)
+    declarator.overridable = ctx.overridable
+    if s.sy == ":":
+        if ctx.level not in ("module", "c_class", "module_pxd", "c_class_pxd", "cpp_class") and not ctx.templates:
+            s.error("C function definition not allowed here")
+        doc, suite = p_suite_with_docstring(s, Ctx(level="function"))
+        return Nodes.CFuncDefNode(pos,
+            base_type = base_type,
+            declarator = declarator,
+            body = suite,
+            doc = doc,
+            modifiers = modifiers,
+            is_static_method = is_static_method,
+            is_const_method = is_const_function
+        )
+    else:
+        # if api:
+        #    s.error("'api' not allowed with variable declaration")
+        if is_const_function:
+            declarator.is_const_method = is_const_function
+        declarators = [declarator]
+        doc_line = s.start_line + 1
+        s.expect_newline("Syntax error in fn item", ignore_semicolon=True)
+        if ctx.level in ("c_class", "c_class_pxd") and s.start_line == doc_line:
+            doc = p_doc_string(s)
+        else:
+            doc = None
+        return Nodes.CVarDefNode(pos,
+            base_type = base_type,
+            declarators = declarators,
+            in_pxd = ctx.level in ("module_pxd", "c_class_pxd"),
+            doc = doc,
+            modifiers = modifiers,
+            is_static_method = is_static_method,
+        )
 
 def p_c_func_or_var_declaration(s, pos, ctx):
     cmethod_flag = ctx.level in ('c_class', 'c_class_pxd')
@@ -3724,13 +3903,11 @@ def p_c_func_or_var_declaration(s, pos, ctx):
             overridable = ctx.overridable)
     return result
 
-def p_type_statement(s, ctx):
+def p_type_alias_item(s, ctx):
     # s.systring == "type"
     pos = s.position()
     s.next()
-    visibility = p_visibility(s, ctx.visibility)
-    api = p_api(s)
-    ctx = ctx(typedef_flag=1, visibility=visibility)
+    ctx = ctx(typedef_flag=1)
     declarator = p_c_declarator(s, ctx, is_type=1, assignable=0)
     s.expect("=")
     base_type = p_c_base_type(s)
@@ -3739,8 +3916,6 @@ def p_type_statement(s, ctx):
         pos,
         base_type=base_type,
         declarator=declarator,
-        visibility=visibility,
-        api=api,
         in_pxd=ctx.level == "module_pxd"
     )
 
@@ -3753,11 +3928,7 @@ def p_ctypedef_statement(s, ctx):
     ctx = ctx(typedef_flag = 1, visibility = visibility)
     if api:
         ctx.api = 1
-    if s.sy == 'class':
-        return p_c_class_definition(s, pos, ctx)
-    elif s.sy in struct_enum_union or s.sy == 'IDENT' and s.systring == "packed":
-        return p_struct_enum(s, pos, ctx)
-    elif s.sy == 'IDENT' and s.systring == 'fused':
+    if s.sy == 'IDENT' and s.systring == 'fused':
         return p_fused_definition(s, pos, ctx)
     else:
         base_type = p_c_base_type(s, nonempty = 1)
@@ -3767,7 +3938,8 @@ def p_ctypedef_statement(s, ctx):
             pos, base_type = base_type,
             declarator = declarator,
             visibility = visibility, api = api,
-            in_pxd = ctx.level == 'module_pxd')
+            in_pxd = ctx.level == 'module_pxd'
+        )
 
 def p_attributes(s):
     attributes = []
@@ -3904,15 +4076,15 @@ def p_class_statement(s, decorators):
 
 
 def p_c_class_definition(s, pos,  ctx):
-    # s.sy == 'class'
+    # s.sy == "class"
     s.next()
     module_path = []
     class_name = p_ident(s)
-    while s.sy == '.':
+    while s.sy == ".":
         s.next()
         module_path.append(class_name)
         class_name = p_ident(s)
-    if module_path and ctx.visibility != 'extern':
+    if module_path and ctx.visibility != "extern":
         error(pos, "Qualified class name only allowed for 'extern' C class")
     if module_path and s.sy == 'IDENT' and s.systring == 'as':
         s.next()
@@ -3932,7 +4104,7 @@ def p_c_class_definition(s, pos,  ctx):
         bases = ExprNodes.TupleNode(pos, args=[])
 
     if s.sy == '[':
-        if ctx.visibility not in ("pub", "public", "extern") and not ctx.api:
+        if ctx.visibility not in ("public", "extern") and not ctx.api:
             error(s.position(), "Name options only allowed for 'public', 'api', or 'extern' C class")
         objstruct_name, typeobj_name, check_size = p_c_class_options(s)
     if s.sy == ':':
@@ -3964,9 +4136,7 @@ def p_c_class_definition(s, pos,  ctx):
     else:
         error(pos, "Invalid class visibility '%s'" % ctx.visibility)
     return Nodes.CClassDefNode(pos,
-        visibility = ctx.visibility,
         typedef_flag = ctx.typedef_flag,
-        api = ctx.api,
         module_name = ".".join(module_path),
         class_name = class_name,
         as_name = as_name,
@@ -3974,9 +4144,10 @@ def p_c_class_definition(s, pos,  ctx):
         objstruct_name = objstruct_name,
         typeobj_name = typeobj_name,
         check_size = check_size,
-        in_pxd = ctx.level == 'module_pxd',
+        in_pxd = ctx.level == "module_pxd",
         doc = doc,
-        body = body)
+        body = body
+    )
 
 
 def p_c_class_options(s):
@@ -4132,11 +4303,11 @@ def p_module(s, pxd, full_module_name, ctx=Ctx):
     s.parse_comments = False
 
     if s.context.language_level is None:
-        s.context.set_language_level('3str')
+        s.context.set_language_level('3')
         if pos[0].filename:
             import warnings
             warnings.warn(
-                "Cython directive 'language_level' not set, using '3str' for now (Py3). "
+                "Cython directive 'language_level' not set, using '3' (Py3). "
                 "This has changed from earlier releases! File: %s" % pos[0].filename,
                 FutureWarning,
                 stacklevel=1 if cython.compiled else 2,
@@ -4202,18 +4373,18 @@ def p_cpp_class_definition(s, pos,  ctx):
         # The goal of this is consistency: we can make docstrings inside cppclass methods,
         # so why not on the cppclass itself ?
         p_doc_string(s)
-        attributes = []
+        fields = []
         body_ctx = Ctx(visibility = ctx.visibility, level='cpp_class', nogil=nogil or ctx.nogil)
         body_ctx.templates = template_names
         while s.sy != 'DEDENT':
             if s.sy != 'pass':
-                attributes.append(p_cpp_class_attribute(s, body_ctx))
+                fields.append(p_associated_item(s, body_ctx))
             else:
                 s.next()
                 s.expect_newline("Expected a newline")
         s.expect_dedent()
     else:
-        attributes = None
+        fields = None
         s.expect_newline("Syntax error in C++ class definition")
     return Nodes.CppClassNode(pos,
         name = class_name,
@@ -4221,8 +4392,27 @@ def p_cpp_class_definition(s, pos,  ctx):
         base_classes = base_classes,
         visibility = ctx.visibility,
         in_pxd = ctx.level == 'module_pxd',
-        attributes = attributes,
+        fields = fields,
         templates = templates)
+
+def p_associated_item(s, ctx):
+    attributes = p_attributes(s)
+    item = None
+    if s.systring == "type" and s.peek()[0] == "IDENT":
+        item = p_type_alias_item(s, ctx)
+    elif s.sy == "const" and s.peek()[0] != "fn":
+        item = p_c_func_or_var_declaration(s, s.position(), ctx)
+    elif s.sy == "fn" or s.sy in ("static", "const") and s.peek()[0] == "fn":
+        item = p_fn_item(s, s.position(), ctx)
+
+    if item is not None:
+        item.decorators = attributes
+        item.visibility = ctx.visibility
+        item.api = ctx.api
+        item.overridable = ctx.overridable
+        return item
+    else:
+        return p_cpp_class_attribute(s, ctx)
 
 def p_cpp_class_attribute(s, ctx):
     decorators = None
@@ -4236,18 +4426,9 @@ def p_cpp_class_attribute(s, ctx):
         if s.systring != 'enum':
             return p_cpp_class_definition(s, s.position(), ctx)
         else:
-            return p_struct_enum(s, s.position(), ctx)
-    elif s.sy == "fn":
-        s.next()
-        node = p_c_func_or_var_declaration(s, s.position(), ctx)
-        if decorators is not None:
-            tup = Nodes.CFuncDefNode, Nodes.CVarDefNode, Nodes.CClassDefNode
-            if ctx.allow_struct_enum_decorator:
-                tup += Nodes.CStructOrUnionDefNode, Nodes.CEnumDefNode
-            if not isinstance(node, tup):
-                s.error("Decorators can only be followed by functions or classes")
-            node.decorators = decorators
-        return node
+            item = p_struct_enum(s, s.position(), ctx)
+            item.visibility = ctx.visibility
+            item.overridable = ctx.overridable
     else:
         node = p_c_func_or_var_declaration(s, s.position(), ctx)
         if decorators is not None:

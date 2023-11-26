@@ -16,8 +16,8 @@ extern from "<algorithm>" namespace "std" nogil:
     fn void for_each[Iter, UnaryFunction](Iter first, Iter last, UnaryFunction f) except +  # actually returns f
     fn void for_each[ExecutionPolicy, Iter, UnaryFunction](ExecutionPolicy&& policy, Iter first, Iter last, UnaryFunction f) except +  # actually returns f
 
-    fn ptrdiff_t count[Iter, T](Iter first, Iter last, const T& value) except +
-    fn ptrdiff_t count[ExecutionPolicy, Iter, T](ExecutionPolicy&& policy, Iter first, Iter last, const T& value) except +
+    fn ptrdiff_t count[Iter, T](Iter first, Iter last, &T value) except +
+    fn ptrdiff_t count[ExecutionPolicy, Iter, T](ExecutionPolicy&& policy, Iter first, Iter last, &T value) except +
     fn ptrdiff_t count_if[Iter, Pred](Iter first, Iter last, Pred pred) except +
     fn ptrdiff_t count_if[ExecutionPolicy, Iter, Pred](ExecutionPolicy&& policy, Iter first, Iter last, Pred pred) except +
 
@@ -26,8 +26,8 @@ extern from "<algorithm>" namespace "std" nogil:
     fn pair[Iter1, Iter2] mismatch[ExecutionPolicy, Iter1, Iter2](
         ExecutionPolicy&& policy, Iter1 first1, Iter1 last1, Iter2 first2) except +
 
-    fn Iter find[Iter, T](Iter first, Iter last, const T& value) except +
-    fn Iter find[ExecutionPolicy, Iter, T](ExecutionPolicy&& policy, Iter first, Iter last, const T& value) except +
+    fn Iter find[Iter, T](Iter first, Iter last, &T value) except +
+    fn Iter find[ExecutionPolicy, Iter, T](ExecutionPolicy&& policy, Iter first, Iter last, &T value) except +
 
     fn Iter find_if[Iter, Pred](Iter first, Iter last, Pred pred) except +
     fn Iter find_if[ExecutionPolicy, Iter, Pred](ExecutionPolicy&& policy, Iter first, Iter last, Pred pred) except +
@@ -60,12 +60,12 @@ extern from "<algorithm>" namespace "std" nogil:
         Iter1 first1, Iter1 last1, Iter2 first2, Iter2 last2, BinaryPred pred) except +
     fn Iter1 search[ExecutionPolicy, Iter1, Iter2, BinaryPred](
         ExecutionPolicy&& policy, Iter1 first1, Iter1 last1, Iter2 first2, Iter2 last2, BinaryPred pred) except +
-    fn Iter search_n[Iter, Size, T](Iter first1, Iter last1, Size count, const T& value) except +
-    fn Iter search_n[ExecutionPolicy, Iter, Size, T](ExecutionPolicy&& policy, Iter first1, Iter last1, Size count, const T& value) except +
+    fn Iter search_n[Iter, Size, T](Iter first1, Iter last1, Size count, &T value) except +
+    fn Iter search_n[ExecutionPolicy, Iter, Size, T](ExecutionPolicy&& policy, Iter first1, Iter last1, Size count, &T value) except +
     fn Iter search_n[Iter, Size, T, BinaryPred](
-        Iter first1, Iter last1, Size count, const T& value, BinaryPred pred) except +
+        Iter first1, Iter last1, Size count, &T value, BinaryPred pred) except +
     fn Iter search_n[ExecutionPolicy, Iter, Size, T, BinaryPred](
-        ExecutionPolicy&& policy, Iter first1, Iter last1, Size count, const T& value, BinaryPred pred) except +
+        ExecutionPolicy&& policy, Iter first1, Iter last1, Size count, &T value, BinaryPred pred) except +
 
     # Modifying sequence operations
     fn OutputIt copy[InputIt, OutputIt](InputIt first, InputIt last, OutputIt d_first) except +
@@ -82,16 +82,16 @@ extern from "<algorithm>" namespace "std" nogil:
     fn Iter2 move_backward[Iter1, Iter2](Iter1 first, Iter1 last, Iter2 d_last) except +
     fn Iter2 move_backward[ExecutionPolicy, Iter1, Iter2](ExecutionPolicy&& policy, Iter1 first, Iter1 last, Iter2 d_last) except +
 
-    fn void fill[Iter, T](Iter first, Iter last, const T& value) except +
-    fn void fill[ExecutionPolicy, Iter, T](ExecutionPolicy&& policy, Iter first, Iter last, const T& value) except +
-    fn Iter fill_n[Iter, Size, T](Iter first, Size count, const T& value) except +
-    fn Iter fill_n[ExecutionPolicy, Iter, Size, T](ExecutionPolicy&& policy, Iter first, Size count, const T& value) except +
+    fn void fill[Iter, T](Iter first, Iter last, &T value) except +
+    fn void fill[ExecutionPolicy, Iter, T](ExecutionPolicy&& policy, Iter first, Iter last, &T value) except +
+    fn Iter fill_n[Iter, Size, T](Iter first, Size count, &T value) except +
+    fn Iter fill_n[ExecutionPolicy, Iter, Size, T](ExecutionPolicy&& policy, Iter first, Size count, &T value) except +
 
     fn OutputIt transform[InputIt, OutputIt, UnaryOp](
         InputIt first1, InputIt last1, OutputIt d_first, UnaryOp unary_op) except +
 
     # This overload is ambiguous with the next one. We just let C++ disambiguate from the arguments
-    # OutputIt transform[ExecutionPolicy, InputIt, OutputIt, UnaryOp](
+    # fn OutputIt transform[ExecutionPolicy, InputIt, OutputIt, UnaryOp](
     #     ExecutionPolicy&& policy, InputIt first1, InputIt last1, OutputIt d_first, UnaryOp unary_op) except +
 
     fn OutputIt transform[InputIt1, InputIt2, OutputIt, BinaryOp](
@@ -105,32 +105,32 @@ extern from "<algorithm>" namespace "std" nogil:
     fn void generate_n[Iter, Size, Generator](Iter first, Size count, Generator g) except +
     fn void generate_n[ExecutionPolicy, Iter, Size, Generator](ExecutionPolicy&& policy, Iter first, Size count, Generator g) except +
 
-    fn Iter remove[Iter, T](Iter first, Iter last, const T& value) except +
-    fn Iter remove[ExecutionPolicy, Iter, T](ExecutionPolicy&& policy, Iter first, Iter last, const T& value) except +
+    fn Iter remove[Iter, T](Iter first, Iter last, &T value) except +
+    fn Iter remove[ExecutionPolicy, Iter, T](ExecutionPolicy&& policy, Iter first, Iter last, &T value) except +
     fn Iter remove_if[Iter, UnaryPred](Iter first, Iter last, UnaryPred pred) except +
     fn Iter remove_if[ExecutionPolicy, Iter, UnaryPred](ExecutionPolicy&& policy, Iter first, Iter last, UnaryPred pred) except +
-    fn OutputIt remove_copy[InputIt, OutputIt, T](InputIt first, InputIt last, OutputIt d_first, const T& value) except +
-    fn OutputIt remove_copy[ExecutionPolicy, InputIt, OutputIt, T](ExecutionPolicy&& policy, InputIt first, InputIt last, OutputIt d_first, const T& value) except +
+    fn OutputIt remove_copy[InputIt, OutputIt, T](InputIt first, InputIt last, OutputIt d_first, &T value) except +
+    fn OutputIt remove_copy[ExecutionPolicy, InputIt, OutputIt, T](ExecutionPolicy&& policy, InputIt first, InputIt last, OutputIt d_first, &T value) except +
     fn OutputIt remove_copy_if[InputIt, OutputIt, UnaryPred](
         InputIt first, InputIt last, OutputIt d_first, UnaryPred pred) except +
     fn OutputIt remove_copy_if[ExecutionPolicy, InputIt, OutputIt, UnaryPred](
         ExecutionPolicy&& policy, InputIt first, InputIt last, OutputIt d_first, UnaryPred pred) except +
 
-    fn void replace[Iter, T](Iter first, Iter last, const T& old_value, const T& new_value) except +
-    fn void replace[ExecutionPolicy, Iter, T](ExecutionPolicy&& policy, Iter first, Iter last, const T& old_value, const T& new_value) except +
-    fn void replace_if[Iter, UnaryPred, T](Iter first, Iter last, UnaryPred pred, const T& new_value) except +
+    fn void replace[Iter, T](Iter first, Iter last, &T old_value, &T new_value) except +
+    fn void replace[ExecutionPolicy, Iter, T](ExecutionPolicy&& policy, Iter first, Iter last, &T old_value, &T new_value) except +
+    fn void replace_if[Iter, UnaryPred, T](Iter first, Iter last, UnaryPred pred, &T new_value) except +
     fn OutputIt replace_copy[InputIt, OutputIt, T](
-        InputIt first, InputIt last, OutputIt d_first, const T& old_value, const T& new_value) except +
-    fn void replace_if[ExecutionPolicy, Iter, UnaryPred, T](ExecutionPolicy&& policy, Iter first, Iter last, UnaryPred pred, const T& new_value) except +
+        InputIt first, InputIt last, OutputIt d_first, &T old_value, &T new_value) except +
+    fn void replace_if[ExecutionPolicy, Iter, UnaryPred, T](ExecutionPolicy&& policy, Iter first, Iter last, UnaryPred pred, &T new_value) except +
 
     fn OutputIt replace_copy[ExecutionPolicy, InputIt, OutputIt, T](
-        ExecutionPolicy&& policy, InputIt first, InputIt last, OutputIt d_first, const T& old_value, const T& new_value) except +
+        ExecutionPolicy&& policy, InputIt first, InputIt last, OutputIt d_first, &T old_value, &T new_value) except +
     fn OutputIt replace_copy_if[InputIt, OutputIt, UnaryPred, T](
-        InputIt first, InputIt last, OutputIt d_first, UnaryPred pred, const T& new_value) except +
+        InputIt first, InputIt last, OutputIt d_first, UnaryPred pred, &T new_value) except +
     fn OutputIt replace_copy_if[ExecutionPolicy, InputIt, OutputIt, UnaryPred, T](
-        ExecutionPolicy&& policy, InputIt first, InputIt last, OutputIt d_first, UnaryPred pred, const T& new_value) except +
+        ExecutionPolicy&& policy, InputIt first, InputIt last, OutputIt d_first, UnaryPred pred, &T new_value) except +
 
-    fn void swap[T](T& a, T& b) except +  # array overload also works
+    fn void swap[T](&mut T a, &mut T b) except +  # array overload also works
     fn Iter2 swap_ranges[Iter1, Iter2](Iter1 first1, Iter1 last1, Iter2 first2) except +
     fn void iter_swap[Iter](Iter a, Iter b) except +
 
@@ -155,7 +155,7 @@ extern from "<algorithm>" namespace "std" nogil:
     fn OutputIt unique_copy[ExecutionPolicy, InputIt, OutputIt, BinaryPred](
         ExecutionPolicy&& policy, InputIt first, InputIt last, OutputIt d_first, BinaryPred pred) except +
 
-    SampleIt sample[PopulationIt, SampleIt, Distance, URBG](PopulationIt first, PopulationIt last, SampleIt out, Distance n, URBG&& g) except +
+    fn SampleIt sample[PopulationIt, SampleIt, Distance, URBG](PopulationIt first, PopulationIt last, SampleIt out, Distance n, URBG&& g) except +
 
     # Partitioning operations
     fn bool is_partitioned[Iter, Pred](Iter first, Iter last, Pred p) except +
@@ -213,20 +213,20 @@ extern from "<algorithm>" namespace "std" nogil:
     fn void nth_element[ExecutionPolicy, Iter, Compare](ExecutionPolicy&& policy, Iter first, Iter nth, Iter last, Compare comp) except +
 
     # Binary search operations (on sorted ranges)
-    fn Iter lower_bound[Iter, T](Iter first, Iter last, const T& value) except +
-    fn Iter lower_bound[ExecutionPolicy, Iter, T](ExecutionPolicy&& policy, Iter first, Iter last, const T& value) except +
-    fn Iter lower_bound[Iter, T, Compare](Iter first, Iter last, const T& value, Compare comp) except +
-    fn Iter lower_bound[ExecutionPolicy, Iter, T, Compare](ExecutionPolicy&& policy, Iter first, Iter last, const T& value, Compare comp) except +
+    fn Iter lower_bound[Iter, T](Iter first, Iter last, &T value) except +
+    fn Iter lower_bound[ExecutionPolicy, Iter, T](ExecutionPolicy&& policy, Iter first, Iter last, &T value) except +
+    fn Iter lower_bound[Iter, T, Compare](Iter first, Iter last, &T value, Compare comp) except +
+    fn Iter lower_bound[ExecutionPolicy, Iter, T, Compare](ExecutionPolicy&& policy, Iter first, Iter last, &T value, Compare comp) except +
 
-    fn Iter upper_bound[Iter, T](Iter first, Iter last, const T& value) except +
-    fn Iter upper_bound[ExecutionPolicy, Iter, T](ExecutionPolicy&& policy, Iter first, Iter last, const T& value) except +
-    fn Iter upper_bound[Iter, T, Compare](Iter first, Iter last, const T& value, Compare comp) except +
-    fn Iter upper_bound[ExecutionPolicy, Iter, T, Compare](ExecutionPolicy&& policy, Iter first, Iter last, const T& value, Compare comp) except +
+    fn Iter upper_bound[Iter, T](Iter first, Iter last, &T value) except +
+    fn Iter upper_bound[ExecutionPolicy, Iter, T](ExecutionPolicy&& policy, Iter first, Iter last, &T value) except +
+    fn Iter upper_bound[Iter, T, Compare](Iter first, Iter last, &T value, Compare comp) except +
+    fn Iter upper_bound[ExecutionPolicy, Iter, T, Compare](ExecutionPolicy&& policy, Iter first, Iter last, &T value, Compare comp) except +
 
-    fn bool binary_search[Iter, T](Iter first, Iter last, const T& value) except +
-    fn bool binary_search[ExecutionPolicy, Iter, T](ExecutionPolicy&& policy, Iter first, Iter last, const T& value) except +
-    fn bool binary_search[Iter, T, Compare](Iter first, Iter last, const T& value, Compare comp) except +
-    fn bool binary_search[ExecutionPolicy, Iter, T, Compare](ExecutionPolicy&& policy, Iter first, Iter last, const T& value, Compare comp) except +
+    fn bool binary_search[Iter, T](Iter first, Iter last, &T value) except +
+    fn bool binary_search[ExecutionPolicy, Iter, T](ExecutionPolicy&& policy, Iter first, Iter last, &T value) except +
+    fn bool binary_search[Iter, T, Compare](Iter first, Iter last, &T value, Compare comp) except +
+    fn bool binary_search[ExecutionPolicy, Iter, T, Compare](ExecutionPolicy&& policy, Iter first, Iter last, &T value, Compare comp) except +
 
     # Other operations on sorted ranges
     fn OutputIt merge[InputIt1, InputIt2, OutputIt](
@@ -289,13 +289,13 @@ extern from "<algorithm>" namespace "std" nogil:
     fn Iter max_element[Iter](Iter first, Iter last) except +
     fn Iter max_element[Iter, Compare](Iter first, Iter last, Compare comp) except +
     fn Iter max_element[ExecutionPolicy, Iter](ExecutionPolicy&& policy, Iter first, Iter last) except +
-    fn pair[T, T] minmax[T](const T& a, const T& b) except +
-    fn pair[T, T] minmax[T, Compare](const T& a, const T& b, Compare comp) except +
+    fn pair[T, T] minmax[T](&T a, &T b) except +
+    fn pair[T, T] minmax[T, Compare](&T a, &T b, Compare comp) except +
     fn pair[Iter, Iter] minmax_element[Iter](Iter first, Iter last) except +
     fn pair[Iter, Iter] minmax_element[Iter, Compare](Iter first, Iter last, Compare comp) except +
     fn pair[Iter, Iter] minmax_element[ExecutionPolicy, Iter](ExecutionPolicy&& policy, Iter first, Iter last) except +
-    fn const T& clamp[T](const T& v, const T& lo, const T& hi) except +
-    fn const T& clamp[T, Compare](const T& v, const T& lo, const T& hi, Compare comp) except +
+    fn &T clamp[T](&T v, &T lo, &T hi) except +
+    fn &T clamp[T, Compare](&T v, &T lo, &T hi, Compare comp) except +
 
     # Comparison operations
     fn bool equal[InputIt1, InputIt2](InputIt1 first1, InputIt1 last1, InputIt2 first2) except +

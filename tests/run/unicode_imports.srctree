@@ -37,15 +37,15 @@ setup(
 def f():
     return True
 
-pub api void cdef_func():
+pub api fn void cdef_func():
     pass
 
 ############ pxd_moð.pxd ##########
 
 struct S:
-    int x
+    i32 x
     
-pub api void cdef_func() # just to test generation of headers
+pub api fn void cdef_func()  # just to test generation of headers
     
 ############ from_py.py #########
 
@@ -84,9 +84,9 @@ def test_cimported():
     >>> test_cimported()
     3
     """
-    cdef pxd_moð.S v1
+    let pxd_moð.S v1
     v1.x = 1
-    cdef S v2
+    let S v2
     v2.x = 2
     return v1.x + v2.x
     

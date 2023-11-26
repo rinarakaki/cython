@@ -14,9 +14,7 @@ extern from "cpp_smart_ptr_helper.h":
     cdef cppclass RaiseOnConstruct:
         pass
 
-ctypedef const CountAllocDealloc const_CountAllocDealloc
-
-def test_unique_ptr():
+fn test_unique_ptr():
     """
     >>> test_unique_ptr()
     """
@@ -56,17 +54,19 @@ def test_unique_ptr():
     except RuntimeError:
         pass  # good - this is what we expect
 
-def test_const_shared_ptr():
+type const_CountAllocDealloc = const CountAllocDealloc
+
+fn test_const_shared_ptr():
     """
     >>> test_const_shared_ptr()
     """
     let i32 alloc_count = 0, dealloc_count = 0
-    let shared_ptr[const CountAllocDealloc] ptr = shared_ptr[const_CountAllocDealloc](
+    let shared_ptr[const_CountAllocDealloc] ptr = shared_ptr[const_CountAllocDealloc](
         new CountAllocDealloc(&alloc_count, &dealloc_count))
     assert alloc_count == 1
     assert dealloc_count == 0
 
-    let shared_ptr[const CountAllocDealloc] ptr2 = ptr
+    let shared_ptr[const_CountAllocDealloc] ptr2 = ptr
     assert alloc_count == 1
     assert dealloc_count == 0
 
@@ -88,16 +88,16 @@ cdef cppclass B(A):
 cdef cppclass C(B):
     pass
 
-cdef shared_ptr[A] holding_subclass = shared_ptr[A](new C())
+static shared_ptr[A] holding_subclass = shared_ptr[A](new C())
 
-def test_assignment_to_base_class():
+fn test_assignment_to_base_class():
     """
     >>> test_assignment_to_base_class()
     """
     let shared_ptr[C] derived = shared_ptr[C](new C())
     let shared_ptr[A] base = derived
 
-def test_dynamic_pointer_cast():
+fn test_dynamic_pointer_cast():
     """
     >>> test_dynamic_pointer_cast()
     """

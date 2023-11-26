@@ -2,7 +2,7 @@
 # mode: error
 
 cdef class B:
-    cpdef b():
+    cpdef fn b():
         pass
 
 _ERRORS = u"""

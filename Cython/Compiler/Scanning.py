@@ -1,9 +1,8 @@
-# cython: infer_types=true, language_level=3, auto_pickle=false
+# cython: infer_types=True
 #
 #   Cython Scanner
 #
 
-from __future__ import absolute_import
 
 import cython
 cython.declare(make_lexicon=object, lexicon=object,
@@ -48,7 +47,7 @@ common_reserved_words = [
 ]
 py_reserved_words = common_reserved_words + ["from"]
 pyx_reserved_words = common_reserved_words + [
-    "use", "pub", "extern", "fn", "let", "enum", "struct", "union", "const", "static", "loop",
+    "use", "pub", "extern", "fn", "let", "enum", "struct", "union", "const", "static", "loop", "auto", "mut",
     "include", "ctypedef", "cdef", "cpdef",
     "cimport", "DEF", "IF", "ELIF", "ELSE"
 ]
@@ -56,7 +55,7 @@ pyx_reserved_words = common_reserved_words + [
 
 # ------------------------------------------------------------------
 
-class CompileTimeScope(object):
+class CompileTimeScope:
 
     def __init__(self, outer=None):
         self.entries = {}
@@ -90,10 +89,7 @@ def initial_compile_time_env():
     names = ('UNAME_SYSNAME', 'UNAME_NODENAME', 'UNAME_RELEASE', 'UNAME_VERSION', 'UNAME_MACHINE')
     for name, value in zip(names, platform.uname()):
         benv.declare(name, value)
-    try:
-        import __builtin__ as builtins
-    except ImportError:
-        import builtins
+    import builtins
 
     names = (
         'False', 'True',
@@ -127,7 +123,7 @@ def initial_compile_time_env():
 
 # ------------------------------------------------------------------
 
-class SourceDescriptor(object):
+class SourceDescriptor:
     """
     A SourceDescriptor should be considered immutable.
     """
@@ -451,9 +447,9 @@ class PyrexScanner(Scanner):
             return  # just a marker, error() always raises
         if sy == IDENT:
             if systring in self.keywords:
-                if systring == u'print' and print_function in self.context.future_directives:
+                if systring == 'print' and print_function in self.context.future_directives:
                     self.keywords.pop('print', None)
-                elif systring == u'exec' and self.context.language_level >= 3:
+                elif systring == 'exec' and self.context.language_level >= 3:
                     self.keywords.pop('exec', None)
                 else:
                     sy = self.keywords[systring]  # intern

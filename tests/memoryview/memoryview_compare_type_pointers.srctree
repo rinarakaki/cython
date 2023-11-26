@@ -56,24 +56,25 @@ doubleview_obj = doubleview
 doubleview[0] = 6.0
 
 ######## types.pxi ########
+
 ctypedef packed struct Baz:
     f64 d
 
-ctypedef struct Bar:
+struct Bar:
     i32 i
 
-ctypedef struct Foo:
+struct Foo:
     f32 f
     c128 dc
-    char c
+    i8 c
     i32 i
     Bar b
-    char s[20]
+    i8[20] s
 
-ctypedef struct OtherFoo:
+struct OtherFoo:
     f32 f
     c128 dc
-    char c
+    i8 c
     i32 i
     Bar b
-    char s[20]
+    i8[20] s

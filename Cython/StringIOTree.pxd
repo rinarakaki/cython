@@ -9,21 +9,21 @@ cdef class StringIOTree:
     pub object write
     pub list markers
 
-    cpdef u2 empty(self)
+    cpdef fn u2 empty(self)
 
     #[cython::locals(x=StringIOTree)]
-    cpdef getvalue(self)
+    cpdef fn getvalue(self)
 
     #[cython::locals(x=StringIOTree)]
     fn _collect_in(self, list target_list)
 
     #[cython::locals(child=StringIOTree)]
-    cpdef copyto(self, target)
+    cpdef fn copyto(self, target)
 
-    cpdef commit(self)
+    cpdef fn commit(self)
     
     # def insert(self, iotree)
     # def insertion_point(self)
 
     #[cython::locals(c=StringIOTree)]
-    cpdef allmarkers(self)
+    cpdef fn allmarkers(self)

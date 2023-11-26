@@ -36,9 +36,9 @@ def simple_parallel_int_mix_recursive():
     ai, [bi, ci] = al, [bl, cl] = xo, yo = ao, [bo, co] = c = d = [1, [2, 3]]
     return ao, bo, co, xo, yo, ai, bi, ci, al, bl, cl, c, d
 
-cdef int called = 0
+cdef i32 called = 0
 
-fn char* get_string():
+fn r&i8 get_string():
     global called
     called += 1
     return "abcdefg"
@@ -48,9 +48,9 @@ def non_simple_rhs():
     >>> non_simple_rhs()
     1
     """
-    let char* a, b
+    let r&i8 a, b
     let i32 orig_called = called
-    a = b = <char*>get_string()
+    a = b = <r&i8>get_string()
     assert a is b
     return called - orig_called
 
@@ -60,17 +60,17 @@ def non_simple_rhs_malloc():
     """
     >>> non_simple_rhs_malloc()
     """
-    let char* a, b,
-    let char** c
+    let r&mut i8 a, b,
+    let i8** c
 
     c = &b
-    c[0] = a = <char*>malloc(2)
+    c[0] = a = <r&i8>malloc(2)
     a[0] = c'X'
     b[1] = c'\0'
 
     # copy from different pointers to make sure they all point to the
     # same memory
-    let char[2] x
+    let i8[2] x
     x[0] = b[0]
     x[1] = a[1]
 
@@ -92,13 +92,13 @@ def assign_carray():
     assign_carray()
     (1, 2, 3)
     """
-    let i32* b, c
+    let r&i32 b, c
     let i32[3] a
     a[0] = 1
     a[1] = 2
     a[2] = 3
 
-    b = c = a+1
+    b = c = a + 1
     assert b[0] == 2
     assert c[1] == 3
     return a[0], b[0], c[1]

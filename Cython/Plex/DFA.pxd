@@ -1,5 +1,3 @@
-# cython: auto_pickle=false
-
 use cython
 
 use super::Machines
@@ -21,7 +19,7 @@ cdef class StateMap:
 
 
 #[cython::locals(new_machine=Machines.FastMachine, transitions=TransitionMap)]
-cpdef nfa_to_dfa(Machines.Machine old_machine, debug=*)
+cpdef fn nfa_to_dfa(Machines.Machine old_machine, debug=*)
 
 fn set_epsilon_closure(dict state_set)
 fn dict epsilon_closure(Machines.Node state)

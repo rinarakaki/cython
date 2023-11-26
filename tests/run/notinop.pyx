@@ -98,7 +98,7 @@ cdef bytes bytes_string = b'abcdefg'
 
 #[cython::test_assert_path_exists("//PrimaryCmpNode")]
 #[cython::test_fail_if_path_exists("//SwitchStatNode", "//BoolBinopNode", "//BoolBinopNode")]
-def m_bytes(char a):
+def m_bytes(i8 a):
     """
     >>> m_bytes(ord('f'))
     0
@@ -110,7 +110,7 @@ def m_bytes(char a):
 
 #[cython::test_assert_path_exists("//SwitchStatNode")]
 #[cython::test_fail_if_path_exists("//BoolBinopNode", "//BoolBinopNode", "//PrimaryCmpNode")]
-def m_bytes_literal(char a):
+def m_bytes_literal(i8 a):
     """
     >>> m_bytes_literal(ord('f'))
     0
@@ -244,7 +244,7 @@ def conditional_object(i32 a):
 
 #[cython::test_assert_path_exists("//SwitchStatNode")]
 #[cython::test_fail_if_path_exists("//BoolBinopNode", "//BoolBinopNode", "//PrimaryCmpNode")]
-def conditional_bytes(char a):
+def conditional_bytes(i8 a):
     """
     >>> conditional_bytes(ord('a'))
     '2'

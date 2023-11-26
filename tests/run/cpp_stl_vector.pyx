@@ -134,7 +134,7 @@ def item_ptr_test(L, i32 i, i32 x):
     [0, 1, 2, 3, 4, 5, 6, 100, 8, 9]
     """
     let vector[i32] v = L
-    let i32* vi_ptr = &v[i]
+    let r&mut i32 vi_ptr = &v[i]
     vi_ptr[0] = x
     return v
 
@@ -178,8 +178,8 @@ def test_bool_vector_get_set():
     v[1] = false
     assert <object>v == [True, False, True, True, True]
 
-ctypedef vector[cbool] vector_bool
-ctypedef vector[i32] vector_int
+type vector_bool = vector[cbool]
+type vector_int = vector[i32]
 
 def test_typedef_vector(L):
     """

@@ -5,7 +5,7 @@ use libc::string::strstr
 fn cfunc(a, b, c, d):
     return (a, b, c, d)
 
-cpdef cpfunc(a, b, c, d):
+cpdef fn cpfunc(a, b, c, d):
     return (a, b, c, d)
 
 fn optargs(a, b=2, c=3):
@@ -17,7 +17,6 @@ fn i32 cfuncptr(i32 a, i32 b):
 
 fn cfuncptr_type get_cfuncptr():
     return cfuncptr
-
 
 sideeffect = []
 fn side_effect(x):
@@ -164,7 +163,7 @@ def cdef_funcptr():
     1 2
     1 2
     """
-    let cfuncptr_type cfunc_ptr = get_cfuncptr()
+    let auto cfunc_ptr = get_cfuncptr()
     cfunc_ptr(1, 2)
     cfunc_ptr(1, b=2)
     cfunc_ptr(a=1, b=2)
@@ -183,7 +182,7 @@ def varargs():
     >>> print(varargs())
     abc
     """
-    let char[10] buffer
+    let i8[10] buffer
     retval = snprintf(buffer, template="abc", size=10)
     if retval < 0:
         raise MemoryError()
@@ -216,7 +215,7 @@ cdef class ExtType:
         print ext.cmeth(1,2,c=3,d=4)
         print ext.cmeth(a=1,b=2,c=3,d=4)
 
-    cpdef cpmeth(self, a, b, c, d):
+    cpdef fn cpmeth(self, a, b, c, d):
         return (a, b, c, d)
 
     #[cython::test_fail_if_path_exists('//GeneralCallNode')]
@@ -280,7 +279,7 @@ cdef class ExtType:
         print ext.optargs(a=3)
         # print ext.optargs(b=4)
 
-    cpdef cpmeth_optargs(self, a=1, b=2):
+    cpdef fn cpmeth_optargs(self, a=1, b=2):
         return (a, b)
 
     #[cython::test_fail_if_path_exists('//GeneralCallNode')]
@@ -319,7 +318,7 @@ cdef class ExtType:
         print ext.cpmeth_optargs(a=3)
         # print ext.cpmeth_optargs(b=4)
 
-    cpdef cpmeth_optargs1(self, a=1):
+    cpdef fn cpmeth_optargs1(self, a=1):
         return a
 
     #[cython::test_fail_if_path_exists('//GeneralCallNode')]
