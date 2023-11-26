@@ -95,7 +95,7 @@ fn test_map_functionality():
     >>> test_map_functionality()
     'pass'
     """
-    let map[i32, r&void] int_map
+    let map[i32, void*] int_map
     let r&void data
     int_map[77] = NULL
     data = int_map.const_at(77)

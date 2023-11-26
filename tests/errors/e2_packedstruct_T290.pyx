@@ -5,5 +5,5 @@ packed foo:
     pass
 
 _ERRORS = u"""
-4:12: Expected 'struct', found 'foo'
+4:7: Syntax error in simple statement list
 """

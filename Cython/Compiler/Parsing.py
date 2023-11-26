@@ -2520,6 +2520,9 @@ def p_item(s, ctx, attributes):
         if ctx.overridable:
             error(pos, "Extension types cannot be declared cpdef")
         return p_c_class_definition(s, pos, ctx)
+    elif s.systring == "cppclass":
+        return p_cpp_class_definition(s, pos, ctx)
+
 
     if item is not None:
         item.decorators = attributes
@@ -3507,8 +3510,6 @@ def p_cdef_statement(s, ctx):
         if ctx.overridable:
             error(pos, "cdef blocks cannot be declared cpdef")
         return p_cdef_block(s, ctx)
-    elif s.sy == 'IDENT' and s.systring == 'cppclass':
-        return p_cpp_class_definition(s, pos, ctx)
     elif s.sy == 'IDENT' and s.systring == 'fused':
         return p_fused_definition(s, pos, ctx)
     else:
