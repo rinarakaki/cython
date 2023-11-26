@@ -4423,10 +4423,14 @@ def p_associated_item(s, ctx):
         item = p_type_alias_item(s, ctx)
     elif s.sy == "IDENT" or s.sy == "const" and s.peek()[0] != "fn":
         item = p_c_func_or_var_declaration(s, s.position(), ctx)
+    elif s.sy == "def":
+        if "pxd" in ctx.level and ctx.level != "c_class_pxd":
+            s.error('def statement not allowed here')
+        return p_def_statement(s, attributes)
     
     if item is not None:
         item.decorators = attributes
-        item.visibility = ctx.visibility
+        item.visibility = visibility
         item.api = ctx.api
         item.overridable = ctx.overridable
         return item
