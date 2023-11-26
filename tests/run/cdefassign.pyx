@@ -8,7 +8,7 @@ def test(x, i32 y):
     if True:
         before = 0
     let i32 a = 4, b = x, c = y
-    let i32* p = &y
+    let r&i32 p = &y
     let object o = int(8)
     print a, b, c, p[0], before, g, o
 

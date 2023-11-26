@@ -134,7 +134,7 @@ def item_ptr_test(L, i32 i, i32 x):
     [0, 1, 2, 3, 4, 5, 6, 100, 8, 9]
     """
     let vector[i32] v = L
-    let i32* vi_ptr = &v[i]
+    let r&mut i32 vi_ptr = &v[i]
     vi_ptr[0] = x
     return v
 

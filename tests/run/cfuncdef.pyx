@@ -2,13 +2,13 @@ fn void ftang():
     let i32 x
     x = 0
 
-fn i32 foo(i32 i, char c):
+fn i32 foo(i32 i, i8 c):
     let f32 f, g
     f = 0
     g = 0
 
 fn spam(i32 i, obj, object object):
-    let char c
+    let i8 c
     c = 0
 
 def test():

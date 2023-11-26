@@ -1,6 +1,6 @@
 extern from "<stack>" namespace "std" nogil:
     cdef cppclass stack[T]:
-        ctypedef T value_type
+        type value_type = T
         stack() except +
         stack(stack&) except +
         # stack(Container&)

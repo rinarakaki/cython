@@ -12,10 +12,10 @@ cdef class NN:
     cdef list ci, co
 
     #[cython::locals(i=isize, j=isize, k=isize)]
-    cpdef update(self, list inputs)
+    cpdef fn update(self, list inputs)
 
     #[cython::locals(i=isize, j=isize, k=isize, change=f64)]
-    cpdef f64 back_propagate(self, list targets, f64 N, M)
+    cpdef fn f64 back_propagate(self, list targets, f64 N, M)
 
     #[cython::locals(i=isize, p=list, error=f64)]
-    cpdef train(self, list patterns, isize iterations=*, f64 N=*, M=*)
+    cpdef fn train(self, list patterns, isize iterations=*, f64 N=*, M=*)

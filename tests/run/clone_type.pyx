@@ -1,5 +1,5 @@
 cdef class MyType:
-    def dup(self):
+    fn dup(self):
         """
         >>> x1 = MyType()
         >>> isinstance(x1, MyType)
@@ -10,5 +10,5 @@ cdef class MyType:
         >>> x1 != x2
         True
         """
-        cdef MyType clone = <MyType>type(self)()
+        let auto clone = <MyType>type(self)()
         return clone

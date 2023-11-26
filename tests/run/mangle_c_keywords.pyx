@@ -8,5 +8,5 @@ cdef class A:
     def __init__(self, value):
         self.switch = value
     cdef int switch
-    cpdef case(self):
+    cpdef fn case(self):
         return self.switch

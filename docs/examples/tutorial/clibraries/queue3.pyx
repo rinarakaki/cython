@@ -20,7 +20,7 @@ cdef class Queue:
         if self._c_queue is not NULL:
             cqueue::queue_free(self._c_queue)
 
-    cpdef append(self, i32 value):
+    cpdef fn append(self, i32 value):
         if not cqueue::queue_push_tail(self._c_queue,
                                        <void*><isize>value):
             raise MemoryError()
@@ -32,7 +32,7 @@ cdef class Queue:
     # a new "extend()" method that provides a suitable Python interface by
     # accepting an arbitrary Python iterable.
 
-    cpdef extend(self, values):
+    cpdef fn extend(self, values):
         for value in values:
             self.append(value)
 
@@ -41,7 +41,7 @@ cdef class Queue:
         for value in values[:count]:  # Slicing pointer to limit the iteration boundaries.
             self.append(value)
 
-    cpdef i32 peek(self) except? -1:
+    cpdef fn i32 peek(self) except? -1:
         let i32 value = <isize>cqueue::queue_peek_head(self._c_queue)
 
         if value == 0:
@@ -51,7 +51,7 @@ cdef class Queue:
                 raise IndexError("Queue is empty")
         return value
 
-    cpdef i32 pop(self) except? -1:
+    cpdef fn i32 pop(self) except? -1:
         if cqueue::queue_is_empty(self._c_queue):
             raise IndexError("Queue is empty")
         return <isize>cqueue::queue_pop_head(self._c_queue)

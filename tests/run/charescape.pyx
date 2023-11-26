@@ -5,7 +5,7 @@ def test():
     >>> s = test()
     >>> assert s == bytes(range(1, 49)), repr(s)
     """
-    let char[50] s
+    let i8[50] s
 
     s[ 0] = c'\0'
     s[ 1] = c'\x01'
