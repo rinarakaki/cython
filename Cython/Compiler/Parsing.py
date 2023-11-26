@@ -2557,9 +2557,6 @@ def p_statement(s, ctx, first_statement = 0):
             s.next()
         item = p_item(s, ctx(overridable=overridable), attributes)
         if item is not None:
-            if isinstance(item, Nodes.CClassDefNode):
-                print("!!!!!p_statement !!!!!")
-                print(item)
             return item
     
     decorators = attributes
