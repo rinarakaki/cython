@@ -3807,12 +3807,12 @@ def p_fn_item(s, pos, ctx):
     base_type = p_c_base_type(s, nonempty = 1, templates = ctx.templates)
     declarator = p_c_declarator(s, ctx(modifiers=modifiers), cmethod_flag = cmethod_flag,
                                 assignable = 1, nonempty = 1)
-    # declarator.overridable = ctx.overridable
+    declarator.overridable = ctx.overridable
     if s.sy == ":":
         if ctx.level not in ("module", "c_class", "module_pxd", "c_class_pxd", "cpp_class") and not ctx.templates:
             s.error("C function definition not allowed here")
         doc, suite = p_suite_with_docstring(s, Ctx(level="function"))
-        result = Nodes.CFuncDefNode(pos,
+        return Nodes.CFuncDefNode(pos,
             base_type = base_type,
             declarator = declarator,
             body = suite,
@@ -3827,20 +3827,13 @@ def p_fn_item(s, pos, ctx):
         if is_const_function:
             declarator.is_const_method = is_const_function
         declarators = [declarator]
-        while s.sy == ',':
-            s.next()
-            if s.sy == 'NEWLINE':
-                break
-            declarator = p_c_declarator(s, ctx, cmethod_flag = cmethod_flag,
-                                        assignable = 1, nonempty = 1)
-            declarators.append(declarator)
         doc_line = s.start_line + 1
         s.expect_newline("Syntax error in fn item", ignore_semicolon=True)
         if ctx.level in ("c_class", "c_class_pxd") and s.start_line == doc_line:
             doc = p_doc_string(s)
         else:
             doc = None
-        result = Nodes.CVarDefNode(pos,
+        return Nodes.CVarDefNode(pos,
             base_type = base_type,
             declarators = declarators,
             in_pxd = ctx.level in ("module_pxd", "c_class_pxd"),
@@ -3848,7 +3841,6 @@ def p_fn_item(s, pos, ctx):
             modifiers = modifiers,
             is_static_method = is_static_method,
         )
-    return result
 
 def p_c_func_or_var_declaration(s, pos, ctx):
     cmethod_flag = ctx.level in ('c_class', 'c_class_pxd')
