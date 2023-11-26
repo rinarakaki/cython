@@ -2519,7 +2519,7 @@ def p_item(s, ctx, attributes):
             error(pos, "Extension type definition not allowed here")
         if ctx.overridable:
             error(pos, "Extension types cannot be declared cpdef")
-        return p_c_class_definition(s, pos, ctx)
+        item = p_c_class_definition(s, pos, ctx)
 
 
     if item is not None:
