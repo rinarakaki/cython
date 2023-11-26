@@ -449,7 +449,6 @@ def p_async_statement(s, ctx, decorators):
         # 'async def' statements aren't allowed in pxd files
         if 'pxd' in ctx.level:
             s.error('def statement not allowed here')
-        s.level = ctx.level
         return p_def_statement(s, decorators, is_async_def=True)
     elif decorators:
         s.error("Decorators can only be followed by functions or classes")
@@ -2484,7 +2483,6 @@ def p_IF_statement(s, ctx):
 
 def p_item(s, ctx, attributes):
     pos = s.position()
-    s.level = ctx.level
     visibility = ctx.visibility = p_visibility(s, ctx.visibility)
     api = ctx.api = p_api(s) or ctx.api
     overridable = ctx.overridable
@@ -2589,7 +2587,6 @@ def p_statement(s, ctx, first_statement = 0):
     elif s.sy == '@':
         if ctx.level not in ('module', 'class', 'c_class', 'function', 'property', 'module_pxd', 'c_class_pxd', 'other'):
             s.error('decorator not allowed here')
-        s.level = ctx.level
         decorators += p_decorators(s)
         if not ctx.allow_struct_enum_decorator and s.sy not in ("def", "fn", "cdef", "cpdef", "class", "async"):
             if s.sy == 'IDENT' and s.systring == 'async':
@@ -2607,7 +2604,6 @@ def p_statement(s, ctx, first_statement = 0):
     if cdef_flag:
         if ctx.level not in ('module', 'module_pxd', 'function', 'c_class', 'c_class_pxd'):
             s.error('cdef statement not allowed here')
-        s.level = ctx.level
         node = p_cdef_statement(s, ctx(overridable=overridable))
         if len(decorators) > 0:
             tup = (Nodes.CFuncDefNode, Nodes.CVarDefNode, Nodes.CClassDefNode)
@@ -2625,7 +2621,6 @@ def p_statement(s, ctx, first_statement = 0):
             # as part of a cdef class
             if ('pxd' in ctx.level) and (ctx.level != 'c_class_pxd'):
                 s.error('def statement not allowed here')
-            s.level = ctx.level
             return p_def_statement(s, decorators)
         elif s.sy == 'class':
             if ctx.level not in ('module', 'function', 'class', 'other'):
@@ -4414,7 +4409,6 @@ def p_cpp_class_definition(s, pos,  ctx):
 def p_associated_item(s, ctx):
     attributes = []
     if s.sy == "#" and s.peek()[0] in ("!", "["):
-        s.level = ctx.level
         attributes = p_attributes(s)
     item = None
     if s.systring == "type" and s.peek()[0] == "IDENT":
