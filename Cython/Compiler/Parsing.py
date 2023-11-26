@@ -3657,7 +3657,7 @@ def p_struct_or_union_item(s, pos, ctx):
     if cname is None and ctx.namespace is not None:
         cname = ctx.namespace + "::" + name
     fields = None
-    if s.sy == ':':
+    if s.sy == ":":
         s.next()
         fields = []
         if s.sy == 'pass':
@@ -3811,7 +3811,7 @@ def p_fn_item(s, pos, ctx):
     base_type = p_c_base_type(s, nonempty = 1, templates = ctx.templates)
     declarator = p_c_declarator(s, ctx(modifiers=modifiers), cmethod_flag = cmethod_flag,
                                 assignable = 1, nonempty = 1)
-    declarator.overridable = ctx.overridable
+    # declarator.overridable = ctx.overridable
     if s.sy == ":":
         if ctx.level not in ("module", "c_class", "module_pxd", "c_class_pxd", "cpp_class") and not ctx.templates:
             s.error("C function definition not allowed here")
