@@ -2520,8 +2520,6 @@ def p_item(s, ctx, attributes):
         if ctx.overridable:
             error(pos, "Extension types cannot be declared cpdef")
         return p_c_class_definition(s, pos, ctx)
-    elif s.systring == "cppclass":
-        return p_cpp_class_definition(s, pos, ctx)
 
 
     if item is not None:
@@ -2546,13 +2544,13 @@ def p_statement(s, ctx, first_statement = 0):
         s.next()
 
     if (
-        (s.sy != "IDENT" or s.systring in ("type", "packed", "cppclass") or s.systring == "api" and s.peek()[1] in ("static", "fn", "type", "enum", "struct", "class"))
+        (s.sy != "IDENT" or s.systring in ("type", "packed") or s.systring == "api" and s.peek()[1] in ("static", "fn", "type", "enum", "struct", "class"))
         and
         (s.sy != "class" or ctx.visibility == "extern")
         and
-        (s.sy != "cdef" or s.peek()[1] in ("extern", "enum", "struct", "union", "class", "cppclass"))
+        (s.sy != "cdef" or s.peek()[0] in ("extern", "enum", "struct", "union", "class"))
         and
-        (s.sy not in ("pub", "extern", "readonly") or s.peek()[0] != "IDENT" or s.peek()[1] in ("type", "packed", "api", "cppclass"))
+        (s.sy not in ("pub", "readonly") or s.peek()[0] != "IDENT" or s.peek()[1] in ("type", "packed", "api"))
     ):
         if s.sy == "cdef":
             s.next()
@@ -2599,7 +2597,7 @@ def p_statement(s, ctx, first_statement = 0):
         # empty cdef block
         return p_pass_statement(s, with_newline=1)
 
-    if s.sy in ("cdef", "pub"):
+    if s.sy in ("cdef", "pub", "extern"):
         cdef_flag = 1
         if s.sy == "cdef":
             s.next()
@@ -3516,6 +3514,8 @@ def p_cdef_statement(s, ctx):
         return p_cdef_block(s, ctx)
     elif s.sy == 'IDENT' and s.systring == 'fused':
         return p_fused_definition(s, pos, ctx)
+    elif s.systring == "cppclass":
+        return p_cpp_class_definition(s, pos, ctx)
     else:
         return p_c_func_or_var_declaration(s, pos, ctx)
 
