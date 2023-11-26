@@ -117,7 +117,7 @@ fn void GOTREF(PyObject* ctx, PyObject* p_obj, isize lineno):
 fn u2 GIVEREF_and_report(PyObject* ctx, PyObject* p_obj, isize lineno):
     if ctx == NULL: return 1
     let r&mut PyObject type = NULL, value = NULL, tb = NULL
-    let u2 decref_ok = 0
+    let u2 mut decref_ok = 0
     PyErr_Fetch(&type, &value, &tb)
     try:
         decref_ok = (<Context>ctx).delref(
