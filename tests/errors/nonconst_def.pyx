@@ -1,9 +1,10 @@
 # mode: error
 
 import os
+
 const auto ospath = os.path
 
-_ERRORS = u"""
-4:15: Compile-time name 'os' not defined
-4:17: Error in compile-time expression: AttributeError: 'NoneType' object has no attribute 'path'
+_ERRORS = """
+5:20: Compile-time name 'os' not defined
+5:17: Error in compile-time expression: AttributeError: 'NoneType' object has no attribute 'path'
 """
