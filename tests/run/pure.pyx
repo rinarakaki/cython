@@ -14,13 +14,13 @@ def test_sizeof():
     """
     x = cython.declare(cython.u2)
     print sizeof(x) == sizeof(cython.u2)
-    print sizeof(cython.char) <= sizeof(cython.short) <= sizeof(cython.int) <= sizeof(cython.long) <= sizeof(cython.longlong)
+    print sizeof(cython.i8) <= sizeof(cython.short) <= sizeof(cython.int) <= sizeof(cython.long) <= sizeof(cython.longlong)
     print sizeof(cython.uint) == sizeof(cython.int)
     print sizeof(cython.p_int) == sizeof(cython.p_double)
     if cython.compiled:
-        print sizeof(cython.char) < sizeof(cython.longlong)
+        print sizeof(cython.i8) < sizeof(cython.longlong)
     else:
-        print sizeof(cython.char) == 1
+        print sizeof(cython.i8) == 1
 
 def test_declare(n):
     """
@@ -139,7 +139,7 @@ def test_declare_c_types(n):
     b02 = cython.declare(cython.u2, 2)
     #
     i00 = cython.declare(cython.uchar, n)
-    i01 = cython.declare(cython.char, n)
+    i01 = cython.declare(cython.i8, n)
     i02 = cython.declare(cython.schar, n)
     i03 = cython.declare(cython.ushort, n)
     i04 = cython.declare(cython.short, n)

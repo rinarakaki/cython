@@ -64,7 +64,7 @@ extern from *:
         TEN "10"
         HUNDRED "100"
 
-    cdef enum:  # ExternSecretPyx
+    enum:  # ExternSecretPyx
         THOUSAND "1000"
 
 cpdef use enum PyxEnum:

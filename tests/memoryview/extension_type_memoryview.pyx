@@ -11,7 +11,7 @@ cdef class ExtensionType(object):
         self.dummy = n
 
 items = [ExtensionType(1), ExtensionType(2)]
-cdef ExtensionType[:] view = np.array(items, dtype=ExtensionType)
+static ExtensionType[:] view = np.array(items, dtype=ExtensionType)
 
 def test_getitem():
     """

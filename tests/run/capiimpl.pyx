@@ -28,16 +28,16 @@ pub api class Foo [type FooType, object FooObject]:
     fn void bar(self):
         pass
 
-pub api void bar():
+pub api fn void bar():
     pass
-cdef api void spam():
+api fn void spam():
     pass
 
-cdef api i32 ten = 10
-cdef api f64 pi = 3.14
-cdef api object obj = object()
-cdef api dict   dct = {}
+api static i32 ten = 10
+api static f64 pi = 3.14
+api static object obj = object()
+api static dict dct = {}
 
-pub api tuple tpl = ()
-pub api f32 one = 1
-pub     f32 two = 2
+pub api static tuple tpl = ()
+pub api static f32 one = 1
+pub     static f32 two = 2

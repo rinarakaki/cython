@@ -48,6 +48,6 @@ cdef class A:
         self.a = a
         self.b = b
 
-    cpdef usize foo(self, usize x):
+    cpdef fn usize foo(self, usize x):
         cdef object o = x
         return o

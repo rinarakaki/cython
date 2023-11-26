@@ -2,18 +2,18 @@
 
 use cython::dataclasses::dataclass
 
-@dataclass
+#[dataclass]
 cdef class BaseDataclass:
     a: str = "value"
 
-@dataclass
+#[dataclass]
 cdef class MainDataclass(BaseDataclass):
     a: str = "new value"
 
 cdef class Intermediate(BaseDataclass):
     pass
 
-@dataclass
+#[dataclass]
 cdef class AnotherDataclass(Intermediate):
     a: str = "ooops"
 

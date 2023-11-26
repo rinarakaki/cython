@@ -24,9 +24,9 @@ def nonzero(i32 x):
         return false
 
 use libc::string::strcpy
-cdef char[256] error_msg
+cdef i8[256] error_msg
 cdef jmp_buf error_ctx
-fn void error(char msg[]) nogil:
+fn void error(i8 msg[]) nogil:
     strcpy(error_msg,msg)
     longjmp(error_ctx, 1)
 

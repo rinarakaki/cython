@@ -3,8 +3,8 @@
 
 cimport cython.parallel
 from cython.parallel import prange, threadid
-use openmp
 use libc::stdlib::(malloc, free)
+use openmp
 
 openmp.omp_set_nested(1)
 

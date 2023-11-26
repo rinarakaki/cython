@@ -3,7 +3,7 @@
 fn cdef_yield():
     yield
 
-cpdef cpdef_yield():
+cpdef fn cpdef_yield():
     yield
 
 _ERRORS = u"""

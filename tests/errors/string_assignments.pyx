@@ -3,17 +3,17 @@
 # tag: py_unicode_strings
 
 # ok:
-cdef char* c1   =  "abc"
+cdef r&mut i8 c1   =  "abc"
 cdef str s1     =  "abc"
 
 cdef unicode u1 = u"abc"
 cdef Py_UNICODE* cu1 = u1
 
 cdef bytes b1 = b"abc"
-cdef char* c2 = b"abc"
+cdef r&mut i8 c2 = b"abc"
 
 cdef bytes b2 = c1
-cdef char* c3 = b1
+cdef r&mut i8 c3 = b1
 
 cdef basestring bs1  =  "abc"
 cdef basestring bs2  = u"abc"
@@ -33,9 +33,9 @@ u1 = bs1
 s1 = bs1
 
 # errors:
-cdef char* c_f1   = u"\N{SNOWMAN}"  # not bytes compatible
-cdef char* c_f2   = u1
-cdef char* c_f3   = s1
+cdef r&mut i8 c_f1   = u"\N{SNOWMAN}"  # not bytes compatible
+cdef r&mut i8 c_f2   = u1
+cdef r&mut i8 c_f3   = s1
 
 cdef Py_UNICODE* cu_f1 = c1
 cdef Py_UNICODE* cu_f2 = b1
@@ -75,9 +75,9 @@ print <unicode>c1
 print <unicode>c1[1:2]
 
 _ERRORS = u"""
-36:20: Unicode literals do not support coercion to C types other than Py_UNICODE/Py_UCS4 (for characters) or Py_UNICODE* (for strings).
-37:20: Unicode objects only support coercion to Py_UNICODE*.
-38:20: 'str' objects do not support coercion to C types (use 'bytes'?).
+36:23: Unicode literals do not support coercion to C types other than Py_UNICODE/Py_UCS4 (for characters) or Py_UNICODE* (for strings).
+37:23: Unicode objects only support coercion to Py_UNICODE*.
+38:23: 'str' objects do not support coercion to C types (use 'bytes'?).
 
 40:25: Cannot assign type 'char *' to 'Py_UNICODE *'
 41:25: Cannot convert 'bytes' object to Py_UNICODE*, use 'unicode'.
