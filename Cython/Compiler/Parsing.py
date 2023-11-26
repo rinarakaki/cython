@@ -3016,12 +3016,12 @@ def is_memoryviewslice_access(s):
     saved = [(s.sy, s.systring, s.position())]
     s.next()
     retval = 0
-    if s.systring == ':':
+    if s.systring == ":":
         retval = 1
     elif s.sy == 'INT':
         saved.append((s.sy, s.systring, s.position()))
         s.next()
-        if s.sy == ':':
+        if s.sy == ":":
             retval = 1
 
     for sv in reversed(saved):
