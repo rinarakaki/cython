@@ -2440,6 +2440,7 @@ def p_const_item(s):
     denv = s.compile_time_env
     s.next()  # "const"
     if s.sy == "auto":
+        s.next()
         base_type = None
     else:
         base_type = p_c_base_type(s)
