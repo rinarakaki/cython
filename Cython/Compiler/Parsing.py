@@ -4114,10 +4114,10 @@ def p_c_class_definition(s, pos,  ctx):
         else:
             s.expect("NEWLINE")
             s.expect_indent()
-            if ctx.level == 'module_pxd':
-                body_level = 'c_class_pxd'
+            if ctx.level == "module_pxd":
+                body_level = "c_class_pxd"
             else:
-                body_level = 'c_class'
+                body_level = "c_class"
             doc = p_doc_string(s)            
             items = []
             body_ctx = Ctx(level=body_level)
