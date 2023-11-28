@@ -6,10 +6,10 @@ cdef class MyFloat(float):
     """
     >>> MyFloat(1.0)== 1.0
     True
-    >>> MyFloat(1.0).attr is None
+    >>> MyFloat(1.0).ATTR is None
     True
     """
-    cdef readonly object attr
+    const object ATTR
 
 ustring = u'abc'
 
@@ -19,19 +19,19 @@ cdef class MyUnicode(unicode):
     True
     >>> MyUnicode(ustring + ustring) == ustring
     False
-    >>> MyUnicode(ustring).attr is None
+    >>> MyUnicode(ustring).ATTR is None
     True
     """
-    cdef readonly object attr
+    const object ATTR
 
 cdef class MyList(list):
     """
     >>> MyList([1, 2, 3]) == [1, 2, 3]
     True
-    >>> MyList([1, 2, 3]).attr is None
+    >>> MyList([1, 2, 3]).ATTR is None
     True
     """
-    cdef readonly object attr
+    const object ATTR
 
 cdef class MyListOverride(list):
     """
@@ -74,10 +74,10 @@ cdef class MyDict(dict):
     """
     >>> MyDict({1:2, 3:4}) == {1:2, 3:4}
     True
-    >>> MyDict({1:2, 3:4}).attr is None
+    >>> MyDict({1:2, 3:4}).ATTR is None
     True
     """
-    cdef readonly object attr
+    const object ATTR
 
 cdef class MyException(Exception):
     """
@@ -86,9 +86,10 @@ cdef class MyException(Exception):
     ...
     MyException: 3
     """
-    cdef readonly int value
-    def __cinit__(self, value):
-        self.value = value
+    const i32 VALUE
+
+    def __cinit__(self, VALUE):
+        self.VALUE = VALUE
 
 def test_exception_isinstance(maybe_exn):
     """

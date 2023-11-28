@@ -1,6 +1,6 @@
 cdef class Spam:
     pub i32 tons
-    cdef readonly f32 tastiness
+    const f32 tastiness
     cdef i32 temperature
 
     def __init__(self, tons, tastiness, temperature):

@@ -17,14 +17,14 @@ cdef class MockBuffer:
     cdef object format, offset
     cdef void* buffer
     cdef isize len, itemsize
-    cdef Py_ssize_t* strides
-    cdef Py_ssize_t* shape
-    cdef Py_ssize_t* suboffsets
+    cdef isize* strides
+    cdef isize* shape
+    cdef isize* suboffsets
     cdef object label, log
     cdef i32 ndim
     cdef bint writable
 
-    cdef readonly object received_flags, release_ok
+    const object received_flags, release_ok
     pub object fail
 
     def __init__(self, label, data, shape=None, strides=None, format=None, writable=true, offset=0):

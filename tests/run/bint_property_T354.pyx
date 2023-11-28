@@ -3,14 +3,14 @@
 cdef class Test:
     """
     >>> t = Test(true)
-    >>> t.some_ro_bool
+    >>> t.SOME_RO_BOOL
     True
     >>> t.some_public_bool
     True
     """
     pub u2 some_public_bool
-    cdef readonly u2 some_ro_bool
+    const u2 SOME_RO_BOOL
 
     def __init__(self, u2 boolval):
-        self.some_ro_bool = boolval
+        self.SOME_RO_BOOL = boolval
         self.some_public_bool = boolval

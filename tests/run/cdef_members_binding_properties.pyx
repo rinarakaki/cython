@@ -18,15 +18,15 @@ __doc__ = u"""
 
 >>> a.h, a.i, a.l
 (7, 127, 255)
->>> a.ro_h, a.ro_i, a.ro_l
+>>> a.RO_H, a.RO_I, a.RO_L
 (7, 127, 255)
 >>> a.f, a.d, a.g
 (0.5, 0.75, 0.875)
->>> a.ro_f, a.ro_d, a.ro_g
+>>> a.RO_F, a.RO_D, a.RO_G
 (0.5, 0.75, 0.875)
 >>> a.Zf, a.Zd, a.Zg
 ((1+2j), (3+4j), (5+6j))
->>> a.ro_Zf, a.ro_Zd, a.ro_Zg
+>>> a.RO_ZF, a.RO_ZD, a.RO_ZG
 ((1+2j), (3+4j), (5+6j))
 
 >>> b = B()
@@ -44,19 +44,19 @@ AttributeError: ...
 
 >>> isinstance(b.a1, type(None))
 True
->>> isinstance(b.a2, type(None))
+>>> isinstance(b.A2, type(None))
 True
 >>> isinstance(b.b1, list)
 True
->>> isinstance(b.b2, list)
+>>> isinstance(b.B2, list)
 True
 >>> isinstance(b.c1, A)
 True
->>> isinstance(b.c2, A)
+>>> isinstance(b.C2, A)
 True
 
 >>> b.a1 = a
->>> b.a1 is not b.a2
+>>> b.a1 is not b.A2
 True
 
 >>> try: b.b1 = 1
@@ -65,13 +65,13 @@ True
 >>> try: b.c1 = 1
 ... except (TypeError, AttributeError): pass
 
->>> try: b.a2 = None
+>>> try: b.A2 = None
 ... except (TypeError, AttributeError): pass
 
->>> try: b.b2 = []
+>>> try: b.B2 = []
 ... except (TypeError, AttributeError): pass
 
->>> try: b.c2 = A()
+>>> try: b.C2 = A()
 ... except (TypeError, AttributeError): pass
 """
 
@@ -88,42 +88,42 @@ cdef class A:
     pub c128 Zd
     pub c256 Zg
 
-    cdef readonly i16 ro_h
-    cdef readonly i32 ro_i
-    cdef readonly i64 ro_l
-    cdef readonly i128 ro_q
-    cdef readonly f32 ro_f
-    cdef readonly f64 ro_d
-    cdef readonly f128 ro_g
-    cdef readonly c64 ro_Zf
-    cdef readonly c128 ro_Zd
-    cdef readonly c256 ro_Zg
+    const i16 RO_H
+    const i32 RO_I
+    const i64 RO_L
+    const i128 RO_Q
+    const f32 RO_F
+    const f64 RO_D
+    const f128 RO_G
+    const c64 RO_ZF
+    const c128 RO_ZD
+    const c256 RO_ZG
 
     def __cinit__(self):
-        self.ro_h = 7
-        self.ro_i = 127
-        self.ro_l = 255
-        self.ro_q = 255
-        self.ro_f = 1.0/2.0
-        self.ro_d = 1/2.0 + 1/4.0
-        self.ro_g = 1/2.0 + 1/4.0 + 1/8.0
-        self.ro_Zf = 1+2j
-        self.ro_Zd = 3+4j
-        self.ro_Zg = 5+6j
+        self.RO_H = 7
+        self.RO_I = 127
+        self.RO_L = 255
+        self.RO_Q = 255
+        self.RO_F = 1.0/2.0
+        self.RO_D = 1/2.0 + 1/4.0
+        self.RO_G = 1/2.0 + 1/4.0 + 1/8.0
+        self.RO_ZF = 1+2j
+        self.RO_ZD = 3+4j
+        self.RO_ZG = 5+6j
 
 cdef class B:
     cdef object a0
     pub object a1
-    cdef readonly object a2
+    const object A2
 
     cdef list b0
     pub list b1
-    cdef readonly list b2
+    const list B2
 
     cdef A c0
     pub A c1
-    cdef readonly A c2
+    const A C2
 
     def __cinit__(self):
-        self.b0 = self.b1 = self.b2 = []
-        self.c0 = self.c1 = self.c2 = A()
+        self.b0 = self.b1 = self.B2 = []
+        self.c0 = self.c1 = self.C2 = A()

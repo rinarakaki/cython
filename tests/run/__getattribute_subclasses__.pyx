@@ -3,9 +3,10 @@
 # __getattribute__ and __getattr__ special methods and subclasses.
 
 cdef class boring:
-    cdef readonly int boring_member
-    cdef readonly int getattr_called
-    cdef int getattribute_called
+    const i32 boring_member
+    const i32 getattr_called
+    cdef i32 getattribute_called
+
     def __init__(self):
         self.boring_member = 10
 
@@ -28,7 +29,7 @@ cdef class getattr_boring(boring):
     >>> a.getattr_called
     2
     """
-    def __getattr__(self,n):
+    def __getattr__(self, n):
         self.getattr_called += 1
         if n == 'resolved_by':
             return 'getattr_boring'
@@ -37,12 +38,10 @@ cdef class getattr_boring(boring):
         else:
             raise AttributeError
 
-
 # currently fails, see #1793
 # class getattr_boring_py(getattr_boring):
 #    __doc__ = getattr_boring.__doc__.replace(
 #        'getattr_boring()', 'getattr_boring_py()')
-
 
 cdef class getattribute_boring(boring):
     """
@@ -77,14 +76,13 @@ cdef class getattribute_boring(boring):
         else:
             raise AttributeError
 
-
 class getattribute_boring_py(getattribute_boring):
     __doc__ = getattribute_boring.__doc__.replace(
         'getattribute_boring()', 'getattribute_boring_py()')
 
-
 cdef class _getattr:
-    cdef readonly int getattr_called
+    const i32 getattr_called
+
     def __getattr__(self,n):
         self.getattr_called += 1
         if n == 'resolved_by':
@@ -97,7 +95,6 @@ cdef class _getattr:
             return self.getattr_called
         else:
             raise AttributeError
-
 
 class getattr_py(_getattr):
     """
@@ -123,9 +120,9 @@ class getattr_py(_getattr):
     # 3
     """
 
-
 cdef class _getattribute:
-    cdef int getattribute_called
+    cdef i32 getattribute_called
+
     def __getattribute__(self,n):
         self.getattribute_called += 1
         if n == 'resolved_by':
@@ -136,7 +133,6 @@ cdef class _getattribute:
             return self.getattribute_called
         else:
             raise AttributeError
-
 
 class getattribute_py(_getattribute):
     """
@@ -160,9 +156,8 @@ class getattribute_py(_getattribute):
     7
     """
 
-
 cdef class boring_getattribute(_getattribute):
-    cdef readonly int boring_getattribute_member
+    const i32 boring_getattribute_member
 
 cdef class boring_boring_getattribute(boring_getattribute):
     """
@@ -191,19 +186,17 @@ cdef class boring_boring_getattribute(boring_getattribute):
     >>> a.getattribute_called
     9
     """
-    cdef readonly int boring_boring_getattribute_member
-
+    const i32 boring_boring_getattribute_member
 
 class boring_boring_getattribute_py(boring_boring_getattribute):
     __doc__ = boring_boring_getattribute.__doc__.replace(
         'boring_boring_getattribute()', 'boring_boring_getattribute_py()')
 
-
 cdef class boring_getattr(_getattr):
-    cdef readonly int boring_getattr_member
+    const i32 boring_getattr_member
 
 cdef class boring_boring_getattr(boring_getattr):
-    cdef readonly int boring_boring_getattr_member
+    const i32 boring_boring_getattr_member
 
 cdef class getattribute_boring_boring_getattr(boring_boring_getattr):
     """
@@ -231,7 +224,8 @@ cdef class getattribute_boring_boring_getattr(boring_boring_getattr):
     >>> (a.getattr_called, a.getattribute_called)
     (7, 14)
     """
-    cdef int getattribute_called
+    cdef i32 getattribute_called
+
     def __getattribute__(self,n):
         self.getattribute_called += 1
         if n == 'resolved_by':
@@ -276,8 +270,9 @@ cdef class getattr_boring_boring_getattribute(boring_boring_getattribute):
     >>> (a.getattr_called, a.getattribute_called)
     (7, 14)
     """
-    cdef readonly int getattr_called  # note: property will not be used due to __getattribute__()
-    def __getattr__(self,n):
+    const i32 getattr_called  # note: property will not be used due to __getattribute__()
+
+    def __getattr__(self, n):
         self.getattr_called += 1
         if n == 'resolved_by':
             return 'getattr_boring_boring_getattribute'

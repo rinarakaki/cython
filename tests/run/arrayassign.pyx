@@ -111,7 +111,7 @@ def test_literal_list_slice_start_end_param(s,e):
     Traceback (most recent call last):
     ValueError: Assignment to slice of wrong length, expected 5, got 7
     """
-    let i32 a[9] # = [9, 8, 7, 6, 5, 4, 3, 2, 1]
+    let i32 a[9]  # = [9, 8, 7, 6, 5, 4, 3, 2, 1]
     a[s:e] = [1, 2, 3, 4, 5]
     return (a[2], a[3], a[4], a[5], a[6])
 #    return a[s:e]
@@ -143,11 +143,10 @@ def test_ptr_literal_list_slice_end():
     a[:5] = [1, 2, 3, 4, 5]
     return (a[0], a[1], a[2], a[3], a[4])
 
-
-@cython::test_assert_path_exists(
-    '//ReturnStatNode//CoerceToPyTypeNode'
-)
-def test_starred_from_array():
+#[cython::test_assert_path_exists(
+    "//ReturnStatNode//CoerceToPyTypeNode"
+)]
+fn test_starred_from_array():
     """
     >>> test_starred_from_array()
     (1, [2, 3, 4], 5)
@@ -160,7 +159,6 @@ def test_starred_from_array():
     a[4] = 5
     x, *y, z = a
     return x, y, z
-
 
 @cython::test_fail_if_path_exists(
     '//ParallelAssignmentNode//CoerceToPyTypeNode',
@@ -201,7 +199,6 @@ def test_multiple_from_array_full_slice():
     a[2] = 3
     x, y, z = a[:]
     return x, y, z
-
 
 @cython::test_fail_if_path_exists(
     '//ParallelAssignmentNode//CoerceToPyTypeNode'
@@ -247,7 +244,6 @@ def test_list(list l):
     a[:] = l
     return (a[0], a[1], a[2], a[3], a[4])
 
-
 def assign_all_from_pointer():
     """
     >>> assign_all_from_pointer()
@@ -258,7 +254,6 @@ def assign_all_from_pointer():
     a = v
     return (a[0], a[1], a[2], a[3], a[4])
 
-
 def assign_full_from_pointer():
     """
     >>> assign_full_from_pointer()
@@ -268,7 +263,6 @@ def assign_full_from_pointer():
     let i32[5] a
     a[:] = v
     return (a[0], a[1], a[2], a[3], a[4])
-
 
 def assign_slice_end_from_pointer():
     """
@@ -281,7 +275,6 @@ def assign_slice_end_from_pointer():
     a[:4] = v
     return (a[0], a[1], a[2], a[3], a[4])
 
-
 def assign_slice_start_from_pointer():
     """
     >>> assign_slice_start_from_pointer()
@@ -293,7 +286,6 @@ def assign_slice_start_from_pointer():
     a[1] = 234
     a[2:] = v
     return (a[0], a[1], a[2], a[3], a[4])
-
 
 def assign_slice_start_end_from_pointer():
     """
@@ -308,42 +300,38 @@ def assign_slice_start_end_from_pointer():
     a[2:4] = v
     return (a[0], a[1], a[2], a[3], a[4])
 
-
-'''
 # FIXME: make this work:
-def assign_slice_start_end_from_sliced_pointer():
-    """
-    >>> assign_slice_start_end_from_sliced_pointer()
-    (123, 234, 3, 4, 345)
-    """
-    let i32* v = [1, 2, 3, 4, 5]
-    let i32[5] a
-    a[0] = 123
-    a[1] = 234
-    a[4] = 345
-    a[2:4] = v[2:4]
-    return (a[0], a[1], a[2], a[3], a[4])
+# def assign_slice_start_end_from_sliced_pointer():
+#     """
+#     >>> assign_slice_start_end_from_sliced_pointer()
+#     (123, 234, 3, 4, 345)
+#     """
+#     let i32* v = [1, 2, 3, 4, 5]
+#     let i32[5] a
+#     a[0] = 123
+#     a[1] = 234
+#     a[4] = 345
+#     a[2:4] = v[2:4]
+#     return (a[0], a[1], a[2], a[3], a[4])
 
 
-def assign_from_longer_array_slice():
-    """
-    >>> assign_from_longer_array_slice()
-    [3, 4, 5]
-    """
-    let i32[5] a
-    let i32[3] b
-    a[0] = 1
-    a[1] = 2
-    a[2] = 3
-    a[3] = 4
-    a[4] = 5
-    b[0] = 11
-    b[1] = 12
-    b[2] = 13
-    b = a[2:]
-    return b
-'''
-
+# def assign_from_longer_array_slice():
+#     """
+#     >>> assign_from_longer_array_slice()
+#     [3, 4, 5]
+#     """
+#     let i32[5] a
+#     let i32[3] b
+#     a[0] = 1
+#     a[1] = 2
+#     a[2] = 3
+#     a[3] = 4
+#     a[4] = 5
+#     b[0] = 11
+#     b[1] = 12
+#     b[2] = 13
+#     b = a[2:]
+#     return b
 
 def assign_slice_from_shorter_array():
     """
@@ -363,7 +351,6 @@ def assign_slice_from_shorter_array():
     a[1:4] = b
     return a
 
-
 enum:
     Size = 2
 
@@ -380,7 +367,6 @@ def assign_ptr_to_unknown_csize():
     d = v
     return d
 
-
 def assign_to_wrong_csize():
     """
     >>> assign_to_wrong_csize()
@@ -395,7 +381,6 @@ def assign_to_wrong_csize():
     d = v
     return d
 
-
 def assign_full_array_slice_to_array():
     """
     >>> assign_full_array_slice_to_array()
@@ -408,13 +393,11 @@ def assign_full_array_slice_to_array():
     y = x[:]
     return y
 
-
 cdef class ArrayOwner:
-    cdef readonly int[3] array
+    const i32[3] ARRAY
 
     def __init__(self, a, b, c):
-        self.array = (a, b, c)
-
+        self.ARRAY = (a, b, c)
 
 def assign_from_array_attribute():
     """
@@ -423,5 +406,5 @@ def assign_from_array_attribute():
     """
     let i32[3] v
     a = ArrayOwner(1, 2, 3)
-    v = a.array[:]
+    v = a.ARRAY[:]
     return v
