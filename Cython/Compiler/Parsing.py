@@ -4121,10 +4121,9 @@ def p_c_class_definition(s, pos,  ctx):
                 body_level = "c_class"
             doc = p_doc_string(s)            
             items = []
-            body_ctx = Ctx(level=body_level)
             while s.sy != "DEDENT":
                 if s.sy != "pass":
-                    items.append(p_associated_item(s, body_ctx))
+                    items.append(p_associated_item(s, Ctx(level=body_level)))
                 else:
                     s.next()
                     s.expect_newline("Expected a newline")
