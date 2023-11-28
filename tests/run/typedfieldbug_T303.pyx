@@ -14,14 +14,14 @@ pub static DoubleTypedef global_tdef
 pub static f64 global_double
 
 cdef class MyClass:
-    cdef readonly f64 actual_double
-    cdef readonly DoubleTypedef float_isreally_double
-    cdef readonly LongDoubleTypedef float_isreally_longdouble
+    const f64 ACTUAL_DOUBLE
+    const DoubleTypedef FLOAT_ISREALLY_DOUBLE
+    const LongDoubleTypedef FLOAT_ISREALLY_LONGDOUBLE
 
     def __init__(self):
-        self.actual_double = 42.0
-        self.float_isreally_double = 42.0
-        self.float_isreally_longdouble = 42.0
+        self.ACTUAL_DOUBLE = 42.0
+        self.FLOAT_ISREALLY_DOUBLE = 42.0
+        self.FLOAT_ISREALLY_LONGDOUBLE = 42.0
 
 def global_vars(x):
     """
@@ -40,8 +40,8 @@ def f():
     42.0
     """
     let object c = MyClass()
-    print c.actual_double
-    print c.float_isreally_double
+    print c.ACTUAL_DOUBLE
+    print c.FLOAT_ISREALLY_DOUBLE
 
 def longdouble_access():
     """
@@ -49,8 +49,8 @@ def longdouble_access():
     42.0
     """
     let object c = MyClass()
-    print c.float_isreally_longdouble
+    print c.FLOAT_ISREALLY_LONGDOUBLE
 
 def readonly():
     let object c = MyClass()
-    c.actual_double = 3
+    c.ACTUAL_DOUBLE = 3

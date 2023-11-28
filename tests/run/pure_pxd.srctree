@@ -86,8 +86,8 @@ cdef class ExtTypePxdDocstring:
     """ho, ho, ho!"""
 
 cdef class ExtTypeAttributes:
-    cdef int a
-    cdef readonly list b
+    cdef i32 a
+    const list B
 
 cdef class TypedMethod:
     @cython::locals(x='char[:]')

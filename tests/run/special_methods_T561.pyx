@@ -334,176 +334,176 @@ cdef class VerySpecial:
     >>> vs0_init(0)
     VS __init__ 0
     """
-    cdef readonly int value
+    const i32 VALUE
 
     def __init__(self, v):
-        self.value = v
-        print "VS __init__ %d" % self.value
+        self.VALUE = v
+        print "VS __init__ %d" % self.VALUE
 
     def __add__(self, other):
-        print "VS __add__ %d %d" % (self.value, other.value)
+        print "VS __add__ %d %d" % (self.VALUE, other.VALUE)
 
     def __sub__(self, other):
-        print "VS __sub__ %d %d" % (self.value, other.value)
+        print "VS __sub__ %d %d" % (self.VALUE, other.VALUE)
 
     def __mul__(self, other):
-        print "VS __mul__ %d %d" % (self.value, other.value)
+        print "VS __mul__ %d %d" % (self.VALUE, other.VALUE)
 
     def __div__(self, other):
-        print "VS __div__ %d %d" % (self.value, other.value)
+        print "VS __div__ %d %d" % (self.VALUE, other.VALUE)
 
     def __mod__(self, other):
-        print "VS __mod__ %d %d" % (self.value, other.value)
+        print "VS __mod__ %d %d" % (self.VALUE, other.VALUE)
 
     def __divmod__(self, other):
-        print "VS __divmod__ %d %d" % (self.value, other.value)
+        print "VS __divmod__ %d %d" % (self.VALUE, other.VALUE)
 
     def __pow__(self, other, r#mod):
-        print "VS __pow__ pow(%d, %d, %r)" % (self.value, other.value, r#mod)
+        print "VS __pow__ pow(%d, %d, %r)" % (self.VALUE, other.VALUE, r#mod)
 
     def __lshift__(self, other):
-        print "VS __lshift__ %d << %d" % (self.value, other.value)
+        print "VS __lshift__ %d << %d" % (self.VALUE, other.VALUE)
 
     def __rshift__(self, other):
-        print "VS __rshift__ %d >> %d" % (self.value, other.value)
+        print "VS __rshift__ %d >> %d" % (self.VALUE, other.VALUE)
 
     def __and__(self, other):
-        print "VS __and__ %d & %d" % (self.value, other.value)
+        print "VS __and__ %d & %d" % (self.VALUE, other.VALUE)
 
     def __xor__(self, other):
-        print "VS __xor__ %d ^ %d" % (self.value, other.value)
+        print "VS __xor__ %d ^ %d" % (self.VALUE, other.VALUE)
 
     def __or__(self, other):
-        print "VS __or__ %d | %d" % (self.value, other.value)
+        print "VS __or__ %d | %d" % (self.VALUE, other.VALUE)
 
     def __floordiv__(self, other):
-        print "VS __floordiv__ %d / %d" % (self.value, other.value)
+        print "VS __floordiv__ %d / %d" % (self.VALUE, other.VALUE)
 
     def __truediv__(self, other):
-        print "VS __truediv__ %d / %d" % (self.value, other.value)
+        print "VS __truediv__ %d / %d" % (self.VALUE, other.VALUE)
 
     def __neg__(self):
-        print "VS __neg__ %d" % self.value
+        print "VS __neg__ %d" % self.VALUE
 
     def __pos__(self):
-        print "VS __pos__ %d" % self.value
+        print "VS __pos__ %d" % self.VALUE
 
     def __abs__(self):
-        print "VS __abs__ %d" % self.value
+        print "VS __abs__ %d" % self.VALUE
 
     def __nonzero__(self):
-        print "VS __nonzero__ %d" % self.value
+        print "VS __nonzero__ %d" % self.VALUE
 
     def __invert__(self):
-        print "VS __invert__ %d" % self.value
+        print "VS __invert__ %d" % self.VALUE
 
     def __int__(self):
-        print "VS __int__ %d" % self.value
+        print "VS __int__ %d" % self.VALUE
 
     def __long__(self):
-        print "VS __long__ %d" % self.value
+        print "VS __long__ %d" % self.VALUE
 
     def __float__(self):
-        print "VS __float__ %d" % self.value
+        print "VS __float__ %d" % self.VALUE
 
     def __oct__(self):
-        print "VS __oct__ %d" % self.value
+        print "VS __oct__ %d" % self.VALUE
 
     def __hex__(self):
-        print "VS __hex__ %d" % self.value
+        print "VS __hex__ %d" % self.VALUE
 
     def __iadd__(self, other):
-        print "VS __iadd__ %d += %d" % (self.value, other.value)
+        print "VS __iadd__ %d += %d" % (self.VALUE, other.VALUE)
 
     def __isub__(self, other):
-        print "VS __isub__ %d -= %d" % (self.value, other.value)
+        print "VS __isub__ %d -= %d" % (self.VALUE, other.VALUE)
 
     def __imul__(self, other):
-        print "VS __imul__ %d *= %d" % (self.value, other.value)
+        print "VS __imul__ %d *= %d" % (self.VALUE, other.VALUE)
 
     def __idiv__(self, other):
-        print "VS __idiv__ %d /= %d" % (self.value, other.value)
+        print "VS __idiv__ %d /= %d" % (self.VALUE, other.VALUE)
 
     def __imod__(self, other):
-        print "VS __imod__ %d %%= %d" % (self.value, other.value)
+        print "VS __imod__ %d %%= %d" % (self.VALUE, other.VALUE)
 
     def __ipow__(self, other):
         # We must declare mod as an argument, but we must not touch it
         # or we'll get a segfault.  See #562
-        print "VS __ipow__ %d %d" % (self.value, other.value)
+        print "VS __ipow__ %d %d" % (self.VALUE, other.VALUE)
 
     def __ilshift__(self, other):
-        print "VS __ilshift__ %d <<= %d" % (self.value, other.value)
+        print "VS __ilshift__ %d <<= %d" % (self.VALUE, other.VALUE)
 
     def __irshift__(self, other):
-        print "VS __irshift__ %d >>= %d" % (self.value, other.value)
+        print "VS __irshift__ %d >>= %d" % (self.VALUE, other.VALUE)
 
     def __iand__(self, other):
-        print "VS __iand__ %d &= %d" % (self.value, other.value)
+        print "VS __iand__ %d &= %d" % (self.VALUE, other.VALUE)
 
     def __ixor__(self, other):
-        print "VS __ixor__ %d ^= %d" % (self.value, other.value)
+        print "VS __ixor__ %d ^= %d" % (self.VALUE, other.VALUE)
 
     def __ior__(self, other):
-        print "VS __ior__ %d |= %d" % (self.value, other.value)
+        print "VS __ior__ %d |= %d" % (self.VALUE, other.VALUE)
 
     def __ifloordiv__(self, other):
-        print "VS __ifloordiv__ %d /= %d" % (self.value, other.value)
+        print "VS __ifloordiv__ %d /= %d" % (self.VALUE, other.VALUE)
 
     def __itruediv__(self, other):
-        print "VS __itruediv__ %d /= %d" % (self.value, other.value)
+        print "VS __itruediv__ %d /= %d" % (self.VALUE, other.VALUE)
 
     def __index__(self):
-        print "VS __index__ %d" % self.value
+        print "VS __index__ %d" % self.VALUE
 
     def __getitem__(self, index):
-        print "VS __getitem__ %d[%r]" % (self.value, index)
+        print "VS __getitem__ %d[%r]" % (self.VALUE, index)
 
     def __contains__(self, other):
-        print "VS __contains__ %d %d" % (self.value, other.value)
+        print "VS __contains__ %d %d" % (self.VALUE, other.VALUE)
 
     def __len__(self):
-        print "VS __len__ %d" % (self.value)
+        print "VS __len__ %d" % (self.VALUE)
 
     def __cmp__(self, other):
-        print "VS __cmp__ %d %d" % (self.value, other.value)
+        print "VS __cmp__ %d %d" % (self.VALUE, other.VALUE)
 
     def __repr__(self):
-        print "VS __repr__ %d" % self.value
+        print "VS __repr__ %d" % self.VALUE
 
     def __hash__(self):
-        print "VS __hash__ %d" % self.value
-        return self.value + 1000
+        print "VS __hash__ %d" % self.VALUE
+        return self.VALUE + 1000
 
     def __call__(self, other):
-        print "VS __call__ %d(%d)" % (self.value, other.value)
+        print "VS __call__ %d(%d)" % (self.VALUE, other.VALUE)
 
     def __str__(self):
-        print "VS __str__ %d" % self.value
+        print "VS __str__ %d" % self.VALUE
 
     def __richcmp__(self, other, kind):
-        print "VS richcmp %d %d (kind=%r)" % (self.value, other.value, kind)
+        print "VS richcmp %d %d (kind=%r)" % (self.VALUE, other.VALUE, kind)
 
     def __iter__(self):
-        print "VS __iter__ %d" % self.value
+        print "VS __iter__ %d" % self.VALUE
 
     def __next__(self):
-        print "VS next/__next__ %d" % self.value
+        print "VS next/__next__ %d" % self.VALUE
 
     def __get__(self, inst, own):
-        print "VS __get__ %d %r %r" % (self.value, inst, own)
+        print "VS __get__ %d %r %r" % (self.VALUE, inst, own)
 
 cdef class SetItem:
-    def __setitem__(self, index, value):
-        print "SetItem setitem %r %r" % (index, value)
+    def __setitem__(self, index, VALUE):
+        print "SetItem setitem %r %r" % (index, VALUE)
 
 cdef class DelItem:
     def __delitem__(self, index):
         print "DelItem delitem %r" % index
 
 cdef class SetDelItem:
-    def __setitem__(self, index, value):
-        print "SetDelItem setitem %r %r" % (index, value)
+    def __setitem__(self, index, VALUE):
+        print "SetDelItem setitem %r %r" % (index, VALUE)
 
     def __delitem__(self, index):
         print "SetDelItem delitem %r" % index

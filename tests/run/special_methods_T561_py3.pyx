@@ -52,29 +52,29 @@ __doc__ = u"""
 """
 
 cdef class VerySpecial:
-    cdef readonly int value
+    const i32 VALUE
 
     def __init__(self, v):
-        self.value = v
-        print "VS __init__ %d" % self.value
+        self.VALUE = v
+        print "VS __init__ %d" % self.VALUE
 
     def __nonzero__(self):
-        print "VS __nonzero__ %d" % self.value
+        print "VS __nonzero__ %d" % self.VALUE
 
     def __oct__(self):
-        print "VS __oct__ %d" % self.value
+        print "VS __oct__ %d" % self.VALUE
 
     def __hex__(self):
-        print "VS __hex__ %d" % self.value
+        print "VS __hex__ %d" % self.VALUE
 
     def __cmp__(self, other):
-        print "VS __cmp__ %d %d" % (self.value, other.value)
+        print "VS __cmp__ %d %d" % (self.VALUE, other.VALUE)
 
     def __div__(self, other):
-        print "VS __div__ %d %d" % (self.value, other.value)
+        print "VS __div__ %d %d" % (self.VALUE, other.VALUE)
 
     def __idiv__(self, other):
-        print "VS __idiv__ %d /= %d" % (self.value, other.value)
+        print "VS __idiv__ %d /= %d" % (self.VALUE, other.VALUE)
 
 cdef class Long:
     def __long__(self):

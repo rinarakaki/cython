@@ -20,7 +20,7 @@ OverflowError: ...
 >>> a = A(1, 2)
 >>> a.a == 1
 True
->>> a.b == 2
+>>> a.B == 2
 True
 >>> a.foo(5)
 5
@@ -42,11 +42,11 @@ def test(usize i):
 
 cdef class A:
     pub usize a
-    cdef readonly usize b
+    const usize B
 
-    def __init__(self, usize a, object b):
+    def __init__(self, usize a, object B):
         self.a = a
-        self.b = b
+        self.B = B
 
     cpdef fn usize foo(self, usize x):
         cdef object o = x

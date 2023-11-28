@@ -22,34 +22,34 @@ def test_all():
 def test_a():
     import a
     assert isinstance(a.tpnew_ExtTypeA(), a.ExtTypeA)
-    assert a.tpnew_ExtTypeA().attrA == 123
+    assert a.tpnew_ExtTypeA().VALUE_A == 123
 
 def test_b():
     import b
     assert isinstance(b.tpnew_ExtTypeB(), b.ExtTypeB)
-    assert b.tpnew_ExtTypeB().attrB == 234
+    assert b.tpnew_ExtTypeB().VALUE_B == 234
 
 def test_a_in_b():
     import a, b
     assert isinstance(b.tpnew_ExtTypeA(), a.ExtTypeA)
-    assert b.tpnew_ExtTypeA().attrA == 123
+    assert b.tpnew_ExtTypeA().VALUE_A == 123
 
 def test_sub():
     import b
     assert isinstance(b.tpnew_SubExtTypeA(), b.SubExtTypeA)
-    assert b.tpnew_SubExtTypeA().attrAB == 345
-    assert b.tpnew_SubExtTypeA().attrA == 123
+    assert b.tpnew_SubExtTypeA().VALUE_AB == 345
+    assert b.tpnew_SubExtTypeA().VALUE_A == 123
 
 ######## a.pxd ########
 
 cdef api class ExtTypeA[type ExtTypeA_Type, object ExtTypeAObject]:
-    cdef readonly attrA
+    const VALUE_A
 
 ######## a.pyx ########
 
 cdef class ExtTypeA:
     def __cinit__(self):
-        self.attrA = 123
+        self.VALUE_A = 123
 
 def tpnew_ExtTypeA():
     return ExtTypeA.__new__(ExtTypeA)
@@ -59,10 +59,10 @@ def tpnew_ExtTypeA():
 use a::ExtTypeA
 
 cdef class ExtTypeB:
-    cdef readonly attrB
+    const ATTR_B
 
 cdef class SubExtTypeA(ExtTypeA):
-    cdef readonly attrAB
+    const VALUE_AB
 
 ######## b.pyx ########
 
@@ -70,11 +70,11 @@ use a::ExtTypeA
 
 cdef class ExtTypeB:
     def __cinit__(self):
-        self.attrB = 234
+        self.VALUE_B = 234
 
 cdef class SubExtTypeA(ExtTypeA):
     def __cinit__(self):
-        self.attrAB = 345
+        self.VALUE_AB = 345
 
 def tpnew_ExtTypeA():
     return ExtTypeA.__new__(ExtTypeA)

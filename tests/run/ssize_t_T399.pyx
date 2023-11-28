@@ -38,7 +38,7 @@ OverflowError: ...
 >>> a = A(1, 2)
 >>> a.a == 1
 True
->>> a.b == 2
+>>> a.B == 2
 True
 >>> a.foo(5)
 5
@@ -61,11 +61,11 @@ def test(ssize_t i):
 
 cdef class A:
     pub ssize_t a
-    cdef readonly ssize_t b
+    const ssize_t B
 
-    def __init__(self, ssize_t a, object b):
+    def __init__(self, ssize_t a, object B):
         self.a = a
-        self.b = b
+        self.B = B
 
     cpdef fn ssize_t foo(self, ssize_t x):
         cdef object o = x

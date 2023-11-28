@@ -26,7 +26,7 @@ cdef class A:
     >>> a = A(1, 2)
     >>> a.a == 1
     True
-    >>> a.b == 2
+    >>> a.B == 2
     True
     >>> print(a.foo(5))
     5
@@ -35,11 +35,11 @@ cdef class A:
     ERROR
     """
     pub ptrdiff_t a
-    cdef readonly ptrdiff_t b
+    const ptrdiff_t B
 
-    def __init__(self, ptrdiff_t a, object b):
+    def __init__(self, ptrdiff_t a, object B):
         self.a = a
-        self.b = b
+        self.B = B
 
     cpdef fn ptrdiff_t foo(self, ptrdiff_t x):
         cdef object o = x

@@ -11,7 +11,8 @@ def _it(N):
 
 cdef class ItCount(object):
     cdef object values
-    cdef readonly count
+    const count
+
     def __init__(self, values):
         self.values = iter(values)
         self.count = 0

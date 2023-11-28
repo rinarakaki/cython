@@ -27,9 +27,9 @@ cdef class TpClearFixture:
     actually clears the references to NULL.
 
     >>> fixture = TpClearFixture()
-    >>> isinstance(fixture.extension_type, ExtensionType)
+    >>> isinstance(fixture.EXTENSION_TYPE, ExtensionType)
     True
-    >>> isinstance(fixture.any_object, str)
+    >>> isinstance(fixture.ANY_OBJECT, str)
     True
     >>> fixture.call_tp_clear()
     >>> fixture.check_any_object_status()
@@ -38,29 +38,29 @@ cdef class TpClearFixture:
     'NULL'
     """
     
-    cdef readonly object any_object
-    cdef readonly ExtensionType extension_type
+    const object ANY_OBJECT
+    const ExtensionType EXTENSION_TYPE
 
     def __cinit__(self):
-        self.any_object = "Hello World"
-        self.extension_type = ExtensionType()
+        self.ANY_OBJECT = "Hello World"
+        self.EXTENSION_TYPE = ExtensionType()
 
     def call_tp_clear(self):
         let PyTypeObject *pto = Py_TYPE(self)
         pto.tp_clear(self)
 
     def check_any_object_status(self):
-        if <void*>(self.any_object) == NULL:
+        if <void*>(self.ANY_OBJECT) == NULL:
             return 'NULL'
-        elif self.any_object is None:
+        elif self.ANY_OBJECT is None:
             return 'None' 
         else:
             return 'not cleared'
 
     def check_extension_type_status(self):
-        if <void*>(self.any_object) == NULL:
+        if <void*>(self.ANY_OBJECT) == NULL:
             return 'NULL'
-        elif self.any_object is None:
+        elif self.ANY_OBJECT is None:
             return 'None' 
         else:
             return 'not cleared'
