@@ -4396,10 +4396,10 @@ def p_cpp_class_definition(s, pos,  ctx):
         while s.sy != "DEDENT":
             if s.sy != "pass":
                 fields.append(p_associated_item(s, body_ctx))
-            else:	
+            else:
                 s.next()
                 s.expect_newline("Expected a newline")
-            s.expect_dedent()
+        s.expect_dedent()
     else:
         fields = None
         s.expect_newline("Syntax error in C++ class definition")
