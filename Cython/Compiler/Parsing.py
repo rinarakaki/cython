@@ -4382,7 +4382,7 @@ def p_cpp_class_definition(s, pos,  ctx):
     if s.sy == '[':
         error(s.position(), "Name options not allowed for C++ class")
     nogil = p_nogil(s)
-    if s.sy == ':':
+    if s.sy == ":":
         s.next()
         s.expect('NEWLINE')
         s.expect_indent()
@@ -4393,10 +4393,13 @@ def p_cpp_class_definition(s, pos,  ctx):
         fields = []
         body_ctx = Ctx(visibility = ctx.visibility, level='cpp_class', nogil=nogil or ctx.nogil)
         body_ctx.templates = template_names
-        while s.sy != 'DEDENT':
-            if s.sy != 'pass':
+        while s.sy != "DEDENT":
+            if s.sy != "pass":
                 fields.append(p_associated_item(s, body_ctx))
+            else:	
+                s.next()
                 s.expect_newline("Expected a newline")
+            s.expect_dedent()
     else:
         fields = None
         s.expect_newline("Syntax error in C++ class definition")
@@ -4407,7 +4410,8 @@ def p_cpp_class_definition(s, pos,  ctx):
         visibility = ctx.visibility,
         in_pxd = ctx.level == 'module_pxd',
         fields = fields,
-        templates = templates)
+        templates = templates
+    )
 
 def p_associated_item(s, ctx):
     attributes = p_attributes(s)
