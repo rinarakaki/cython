@@ -4415,8 +4415,12 @@ def p_cpp_class_definition(s, pos,  ctx):
 
 def p_associated_item(s, ctx):
     attributes = p_attributes(s)
+    overridable = ctx.overridable
     if s.sy == "cdef":
         s.next()
+    elif s.sy == "cpdef":
+        s.next()
+        overridable = 1
     visibility = ctx.visibility = p_visibility(s, ctx.visibility)
     item = None
     if s.sy == "const" and s.peek()[0] == "IDENT":
@@ -4436,7 +4440,7 @@ def p_associated_item(s, ctx):
         item.decorators = attributes
         item.visibility = visibility
         item.api = ctx.api
-        item.overridable = ctx.overridable
+        item.overridable = overridable
         return item
     else:
         return p_cpp_class_attribute(s, ctx)
