@@ -4111,7 +4111,7 @@ def p_c_class_definition(s, pos,  ctx):
         s.next()
         if s.sy == "pass":
             doc = None
-            body = p_pass_statement(s)
+            body = p_pass_statement(s, with_newline=1)
         else:
             s.expect("NEWLINE")
             s.expect_indent()
