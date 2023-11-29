@@ -288,7 +288,7 @@ fn array array_cwrapper(tuple shape, isize itemsize, r&i8 format, r&i8 c_mode, r
 
 #[cname("__pyx_MemviewEnum")]
 cdef class Enum(object):
-    let object name
+    object name
 
     def __init__(self, name):
         self.name = name
