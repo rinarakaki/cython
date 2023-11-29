@@ -4413,6 +4413,7 @@ def p_cpp_class_definition(s, pos,  ctx):
     )
 
 def p_associated_item(s, ctx):
+    pos = s.position()
     attributes = p_attributes(s) + p_decorators(s)
     overridable = ctx.overridable
     if s.sy == "cdef" and (s.sy != "IDENT" or s.sy in ("inline",)):
@@ -4434,6 +4435,10 @@ def p_associated_item(s, ctx):
         if "pxd" in ctx.level and ctx.level != "c_class_pxd":
             s.error('def statement not allowed here')
         return p_def_statement(s, attributes)
+    elif s.sy == ":":
+        if overridable:
+            error(pos, "cdef blocks cannot be declared cpdef")
+        return p_cdef_block(s, ctx)
     
     if item is not None:
         item.decorators = attributes
