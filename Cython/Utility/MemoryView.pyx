@@ -94,12 +94,9 @@ extern from "<stdlib.h>":
     fn r&mut void memcpy(r&mut void dest, r&mut void src, usize n) nogil
 
 # the sequence abstract base class
-cdef object __pyx_collections_abc_Sequence "__pyx_collections_abc_Sequence"
-try:
-    __pyx_collections_abc_Sequence = __import__("collections.abc").abc.Sequence
-except:
-    # it isn't a big problem if this fails
-    __pyx_collections_abc_Sequence = None
+from collections.abc import Sequence
+static object __pyx_collections_abc_Sequence "__pyx_collections_abc_Sequence"
+__pyx_collections_abc_Sequence = Sequence
 
 #
 # ## cython.array class
@@ -231,11 +228,11 @@ cdef class array:
         self.memview[item] = value
 
     # Sequence methods
-    try:
-        count = __pyx_collections_abc_Sequence.count
-        index = __pyx_collections_abc_Sequence.index
-    except:
-        pass
+    # try:
+    #     count = __pyx_collections_abc_Sequence.count
+    #     index = __pyx_collections_abc_Sequence.index
+    # except:
+    #     pass
 
 #[cname("__pyx_array_allocate_buffer")]
 fn i32 _allocate_buffer(array self) except -1:
@@ -292,8 +289,10 @@ fn array array_cwrapper(tuple shape, isize itemsize, r&i8 format, r&i8 c_mode, r
 #[cname("__pyx_MemviewEnum")]
 cdef class Enum(object):
     let object name
+
     def __init__(self, name):
         self.name = name
+    
     def __repr__(self):
         return self.name
 
