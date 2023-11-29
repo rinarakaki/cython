@@ -4413,7 +4413,7 @@ def p_cpp_class_definition(s, pos,  ctx):
     )
 
 def p_associated_item(s, ctx):
-    attributes = p_attributes(s)
+    attributes = p_attributes(s) + p_decorators(s)
     overridable = ctx.overridable
     if s.sy == "cdef" and (s.sy != "IDENT" or s.sy in ("inline",)):
         s.next()
