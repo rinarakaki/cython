@@ -1298,5 +1298,6 @@ fn test_untyped_index(i):
     return mview_arr[i]  # should generate a performance hint
 
 _PERFORMANCE_HINTS = """
-1298:21: Index should be typed for more efficient access
+243:9: Use boundscheck(False) for faster access
+1313:21: Index should be typed for more efficient access
 """
