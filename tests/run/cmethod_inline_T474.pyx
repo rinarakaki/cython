@@ -1,9 +1,10 @@
 # mode: run
 # ticket: t474
+
 use cython
 
 
-cdef class TestInlineMethod(object):
+cdef class TestInlineMethod:
     """
     >>> test = TestInlineMethod()
     >>> test.test_cdef_method()

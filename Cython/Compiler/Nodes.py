@@ -504,6 +504,7 @@ class CNameDeclaratorNode(CDeclaratorNode):
 
     child_attrs = ['default']
 
+    cname = None
     default = None
 
     def declared_name(self):

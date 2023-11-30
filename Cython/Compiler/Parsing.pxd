@@ -153,7 +153,7 @@ fn p_item(PyrexScanner s, ctx, attributes)
 fn p_attributes(PyrexScanner s)
 fn p_use_item(PyrexScanner s)
 fn p_static_item(PyrexScanner s, ctx)
-fn p_const_item(PyrexScanner s)
+fn p_const_item(PyrexScanner s, ctx)
 
 fn p_statement(PyrexScanner s, ctx, u2 first_statement = *)
 fn p_statement_list(PyrexScanner s, ctx, u2 first_statement = *)

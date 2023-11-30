@@ -46,15 +46,15 @@ cdef class MyListOverride(list):
     [1, 2, 3, 5, 5]
     """
     # not doctested:
-    """
-    >>> l = MyListOverride([1, 2, 3])
-    >>> l.append(8)
-    >>> l
-    [1, 2, 3, 0, 8]
-    >>> l._append(9)
-    >>> l
-    [1, 2, 3, 0, 8, 0, 9]
-    """
+    # """
+    # >>> l = MyListOverride([1, 2, 3])
+    # >>> l.append(8)
+    # >>> l
+    # [1, 2, 3, 0, 8]
+    # >>> l._append(9)
+    # >>> l
+    # [1, 2, 3, 0, 8, 0, 9]
+    # """
     def reverse(self):
         self[:] = self + [5]
 

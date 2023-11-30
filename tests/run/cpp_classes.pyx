@@ -156,13 +156,13 @@ def test_stack_allocation_in_struct():
     return destructor_count
 
 cdef class EmptyHolder:
-    let Empty empty
+    Empty empty
 
 cdef class AnotherEmptyHolder(EmptyHolder):
-    let Empty another_empty
+    Empty another_empty
 
 cdef class EmptyViaStructHolder:
-    let StructWithEmpty swe
+    StructWithEmpty swe
 
 def test_class_member():
     """
@@ -207,8 +207,8 @@ def test_class_in_struct_member():
            destructor_count - start_destructor_count
 
 cdef class TemplateClassMember:
-    let vector[i32] x
-    let vector[vector[Empty]] vec
+    vector[i32] x
+    vector[vector[Empty]] vec
 
 def test_template_class_member():
     """

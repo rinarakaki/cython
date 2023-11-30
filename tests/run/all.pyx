@@ -2,9 +2,11 @@
 # tag: all, builtins, werror
 
 cdef class VerboseGetItem(object):
-    let object sequence
+    object sequence
+
     def __init__(self, seq):
         self.sequence = seq
+
     def __getitem__(self, i):
         print i
         return self.sequence[i] # may raise IndexError

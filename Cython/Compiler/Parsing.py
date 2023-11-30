@@ -62,7 +62,7 @@ class Ctx:
 
 
 def p_ident(s, message="Expected an identifier, found '%s'"):
-    if s.sy == 'IDENT':
+    if s.sy == "IDENT":
         name = s.context.intern_ustring(s.systring)
         s.next()
         return name
@@ -2433,24 +2433,36 @@ def p_compile_time_expr(s):
     s.compile_time_expr = old
     return expr
 
-def p_const_item(s):
+def p_const_item(s, ctx):
+    # s.sy == "const"
     pos = s.position()
-    denv = s.compile_time_env
-    s.next()  # "const"
+    s.next()
     if s.sy == "auto":
         s.next()
         base_type = None
     else:
         base_type = p_c_base_type(s)
-    name = p_ident(s)
-    s.expect('=')
-    expr = p_compile_time_expr(s)
-    if s.compile_time_eval:
-        value = expr.compile_time_value(denv)
-        # print "p_const_item: %s = %r" % (name, value) #
-        denv.declare(name, value)
-    s.expect_newline("Expected a newline", ignore_semicolon=True)
-    return Nodes.PassStatNode(pos)
+    name = s.systring
+    s.next()
+    if s.sy == "=":
+        s.next()
+        denv = s.compile_time_env
+        expr = p_compile_time_expr(s)
+        if s.compile_time_eval:
+            value = expr.compile_time_value(denv)
+            # print "p_const_item: %s = %r" % (name, value) #
+            denv.declare(s.context.intern_ustring(name), value)
+        s.expect_newline("Expected a newline", ignore_semicolon=True)
+        return Nodes.PassStatNode(pos)
+    else:
+        declarators = Nodes.CNameDeclaratorNode(pos, name = name)
+        return Nodes.CVarDefNode(pos,
+            base_type = base_type,
+            declarators = declarators,
+            in_pxd = ctx.level == "module_pxd",
+            doc = None,
+            modifiers = [],
+        )
 
 def p_IF_statement(s, ctx):
     pos = s.position()
@@ -2494,7 +2506,7 @@ def p_item(s, ctx, attributes):
     elif s.sy == "const":
         if ctx.visibility == "extern":
             s.error("const statement not allowed here")
-        item = p_const_item(s)
+        item = p_const_item(s, ctx)
     elif s.sy == "fn" or s.sy == "const" and s.peek()[0] == "fn":
         item = p_fn_item(s, pos, ctx)
     elif ctx.visibility == "extern" and s.systring == "from":
@@ -3760,14 +3772,13 @@ def p_static_item(s, ctx):
         declarator = p_c_declarator(s, ctx, assignable = 1, nonempty = 1)
         declarators.append(declarator)
     s.expect_newline("Syntax error in static item", ignore_semicolon=True)
-    result = Nodes.CVarDefNode(pos,
+    return Nodes.CVarDefNode(pos,
         base_type = base_type,
         declarators = declarators,
         in_pxd = ctx.level == "module_pxd",
         doc = None,
         modifiers = [],
     )
-    return result
 
 def p_visibility(s, prev_visibility):
     pos = s.position()
@@ -4424,7 +4435,7 @@ def p_associated_item(s, ctx):
     visibility = ctx.visibility = p_visibility(s, ctx.visibility)
     item = None
     if s.sy == "const" and s.peek()[0] == "IDENT":
-        item = p_const_item(s)
+        item = p_const_item(s, ctx)
     elif s.sy == "fn" or s.sy in ("static", "const") and s.peek()[0] == "fn":
         item = p_fn_item(s, s.position(), ctx)
     elif s.systring == "type" and s.peek()[0] == "IDENT":

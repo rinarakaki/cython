@@ -1,3 +1,3 @@
-cdef class TestInlineMethod(object):
-    cdef inline int cdef_inline_method(self):
+cdef class TestInlineMethod:
+    fn inline i32 cdef_inline_method(self):
         return 0
