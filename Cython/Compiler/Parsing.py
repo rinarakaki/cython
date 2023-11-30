@@ -4276,6 +4276,8 @@ def p_code(s, level=None, ctx=Ctx):
         items = []
         while s.sy != "DEDENT":
             if s.sy != "pass":
+                print("!!!!! p_code !!!!!")
+                assert (s.systring, s.peek()) == (0, 1), f"{s.systring}, {s.peek()[1]}"
                 items.append(p_associated_item(s, Ctx(level=level)))
             else:
                 s.next()
