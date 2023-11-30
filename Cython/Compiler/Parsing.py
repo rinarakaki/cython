@@ -2641,8 +2641,6 @@ def p_statement(s, ctx, first_statement = 0):
             if ctx.level not in ('module', 'module_pxd'):
                 s.error("include statement not allowed here")
             return p_include_statement(s, ctx)
-        elif ctx.level == 'c_class' and s.sy == 'IDENT' and s.systring == 'property':
-            return p_property_decl(s)
         elif s.sy == 'pass' and ctx.level != 'property':
             return p_pass_statement(s, with_newline=True)
         else:
@@ -4453,6 +4451,8 @@ def p_associated_item(s, ctx):
         if overridable:
             error(pos, "cdef blocks cannot be declared cpdef")
         return p_cdef_block(s, ctx)
+    elif ctx.level == "c_class" and s.systring == "property":
+        return p_property_decl(s)
     
     if item is not None:
         item.decorators = attributes

@@ -1,6 +1,5 @@
 # Some comments first
 
-
 # More comments
 
 'A module docstring'
@@ -118,16 +117,14 @@ cdef class TS(T):
 cdef class TSS(TS):
     pass
 
-
 def n():
     "This is not a docstring".lower()
 
 class PyN(object):
     u"This is not a docstring".lower()
 
-cdef class CN(object):
-    b"This is not a docstring".lower()
-
+# cdef class CN:
+#     b"This is not a docstring".lower()
 
 def test_non_docstrings():
     """

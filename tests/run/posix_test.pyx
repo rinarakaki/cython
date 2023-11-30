@@ -1,8 +1,8 @@
 # tag: posix
+
 use libc::stdio::*
 use posix::unistd::*
 use posix::fcntl::*
-
 
 fn i32 noisy_function() except -1:
     let i32 ret = 0
@@ -21,7 +21,6 @@ fn i32 noisy_function() except -1:
     ret = write(STDOUT_FILENO, b"0123456789\n", 11)
     assert ret == 11  # write()
     return  0
-
 
 def test_silent_stdout():
     """
@@ -45,18 +44,17 @@ def test_silent_stdout():
         ret = close(stdout_save)
         assert ret == 0
 
-
 cdef class silent_fd:
-    let i32 fd_save, fd
+    i32 fd_save, fd
 
-    def __cinit__(self, int fd=-1):
+    def __cinit__(self, i32 fd=-1):
         self.fd_save = -1
         self.fd = STDOUT_FILENO
         if fd != -1:
             self.fd = fd
 
     def __enter__(self):
-        cdef int ret = 0, dev_null = -1
+        let i32 ret = 0, dev_null = -1
         assert self.fd_save == -1
         dev_null = open(b"/dev/null", O_WRONLY, 0)
         assert dev_null != -1
@@ -73,7 +71,7 @@ cdef class silent_fd:
             ret = close(dev_null)
 
     def __exit__(self, t, v, tb):
-        cdef int ret = 0
+        let i32 ret = 0
         if self.fd_save != -1:
             ret = dup2(self.fd_save, self.fd)
             assert ret == self.fd

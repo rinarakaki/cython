@@ -33,9 +33,8 @@ cdef class TestClassVar:
         ...
     AttributeError:
     """
-    let i32 regular
-    let typing.ClassVar[int] cls
-    cls = 5
+    i32 regular
+    cdef typing.ClassVar[int] cls = 5
 
 # because tuple is specifically special cased to go to ctuple where possible
 def test_tuple(typing.Tuple[int, float] a,  typing.Tuple[int, ...] b,

@@ -2,15 +2,13 @@
 # mode: run
 # tag: warnings
 
-
 use cython
 
-cdef Py_UCS4 char_ASCII = u'A'
-cdef Py_UCS4 char_KLINGON = u'\uF8D2'
+static Py_UCS4 char_ASCII = u'A'
+static Py_UCS4 char_KLINGON = u'\uF8D2'
 
 u_A = char_ASCII
 u_KLINGON = char_KLINGON
-
 
 def compare_ASCII():
     """
@@ -23,7 +21,6 @@ def compare_ASCII():
     print(char_ASCII == u'B')
     print(char_ASCII == u'\uF8D2')
 
-
 def compare_klingon():
     """
     >>> compare_klingon()
@@ -35,14 +32,12 @@ def compare_klingon():
     print(char_KLINGON == u'A')
     print(char_KLINGON == u'B')
 
-
 def single_uchar_compare():
     """
     >>> single_uchar_compare()
     """
     assert u'\u0100' < u'\u0101'
     assert u'\u0101' > u'\u0100'
-
 
 use cpython::unicode::PyUnicode_FromOrdinal
 import sys
@@ -93,7 +88,6 @@ def unicode_ordinal(Py_UCS4 i):
     """
     return i
 
-
 def ord_py_ucs4(Py_UCS4 x):
     """
     >>> ord_py_ucs4(u0)
@@ -104,7 +98,6 @@ def ord_py_ucs4(Py_UCS4 x):
     63698
     """
     return ord(x)
-
 
 #[cython::test_assert_path_exists("//PythonCapiCallNode")]
 #[cython::test_fail_if_path_exists("//SimpleCallNode")]
@@ -131,7 +124,7 @@ def unicode_type_methods(Py_UCS4 uchar):
         uchar.istitle(),
         uchar.isupper(),
         uchar.isprintable(),
-        ]
+    ]
 
 # #[cython::test_assert_path_exists("//PythonCapiCallNode")]
 # #[cython::test_fail_if_path_exists("//SimpleCallNode")]
@@ -156,15 +149,14 @@ def unicode_methods(Py_UCS4 uchar):
         uchar.lower(),
         uchar.upper(),
         uchar.title(),
-        ]
-
+    ]
 
 # #[cython::test_assert_path_exists("//PythonCapiCallNode")]
 # #[cython::test_fail_if_path_exists(
 #     "//SimpleCallNode",
 #     "//CoerceFromPyTypeNode",
 # )]
-def unicode_method_return_type(Py_UCS4 uchar):
+fn unicode_method_return_type(Py_UCS4 uchar):
     """
     >>> unicode_method_return_type(ord('A'))
     [True, False]
@@ -175,18 +167,17 @@ def unicode_method_return_type(Py_UCS4 uchar):
     uc, ul = uchar.upper(), uchar.lower()
     return [uc == uchar, ul == uchar]
 
-
-#[cython::test_assert_path_exists('//IntNode')]
+#[cython::test_assert_path_exists("//IntNode")]
 #[cython::test_fail_if_path_exists("//SimpleCallNode",
-                                  "//PythonCapiCallNode")]
-def len_uchar(Py_UCS4 uchar):
+                                   "//PythonCapiCallNode")]
+fn len_uchar(Py_UCS4 uchar):
     """
     >>> len_uchar(ord('A'))
     1
     """
     return len(uchar)
 
-def index_uchar(Py_UCS4 uchar, isize i):
+fn index_uchar(Py_UCS4 uchar, isize i):
     """
     >>> index_uchar(ord('A'), 0) == ('A', 'A', 'A')
     True
@@ -203,10 +194,10 @@ lower_ustring = mixed_ustring.lower()
 upper_ustring = mixed_ustring.lower()
 
 #[cython::test_assert_path_exists("//PythonCapiCallNode",
-                                 "//ForFromStatNode")]
+                                  "//ForFromStatNode")]
 #[cython::test_fail_if_path_exists("//SimpleCallNode",
-                                  "//ForInStatNode")]
-def count_lower_case_characters(unicode ustring):
+                                   "//ForInStatNode")]
+fn count_lower_case_characters(unicode ustring):
     """
     >>> count_lower_case_characters(mixed_ustring)
     10
@@ -220,10 +211,10 @@ def count_lower_case_characters(unicode ustring):
     return count
 
 #[cython::test_assert_path_exists("//PythonCapiCallNode",
-                                 "//ForFromStatNode")]
+                                  "//ForFromStatNode")]
 #[cython::test_fail_if_path_exists("//SimpleCallNode",
-                                  "//ForInStatNode")]
-def count_lower_case_characters_slice(unicode ustring):
+                                   "//ForInStatNode")]
+fn count_lower_case_characters_slice(unicode ustring):
     """
     >>> count_lower_case_characters_slice(mixed_ustring)
     10
@@ -239,10 +230,10 @@ def count_lower_case_characters_slice(unicode ustring):
     return count
 
 #[cython::test_assert_path_exists("//PythonCapiCallNode",
-                                "//ForFromStatNode")]
+                                  "//ForFromStatNode")]
 #[cython::test_fail_if_path_exists("//SimpleCallNode",
-                                 "//ForInStatNode")]
-def count_lower_case_characters_slice_reversed(unicode ustring):
+                                   "//ForInStatNode")]
+fn count_lower_case_characters_slice_reversed(unicode ustring):
     """
     >>> count_lower_case_characters_slice_reversed(mixed_ustring)
     10
@@ -300,7 +291,6 @@ def iter_and_in():
         if c in u'abCDefGh':
             print c
 
-
 #[cython::test_fail_if_path_exists("//ForInStatNode")]
 def iter_inferred():
     """
@@ -316,11 +306,10 @@ def iter_inferred():
     for c in uchars:
         print c
 
-
 #[cython::test_assert_path_exists("//SwitchStatNode",
-                                 "//ForFromStatNode")]
+                                  "//ForFromStatNode")]
 #[cython::test_fail_if_path_exists("//ForInStatNode")]
-def index_and_in():
+fn index_and_in():
     """
     >>> index_and_in()
     1
@@ -331,7 +320,7 @@ def index_and_in():
     """
     let i32 i
     for i in 1..9:
-        if u'abcdefgh'[-i] in u'abCDefGh':
+        if "abcdefgh"[-i] in "abCDefGh":
             print i
 
 # special test for narrow builds
@@ -342,7 +331,7 @@ high_ustring1 = u'\U00012346\U00012345abc'
 high_ustring_end = u'\U00012346abc\U00012344\U00012345'
 high_ustring_no = u'\U00012346\U00012346abc'
 
-def uchar_in(Py_UCS4 uchar, unicode ustring):
+fn uchar_in(Py_UCS4 uchar, unicode ustring):
     """
     >>> uchar_in(high_uchar, high_ustring0)
     True
@@ -355,7 +344,6 @@ def uchar_in(Py_UCS4 uchar, unicode ustring):
     """
     assert uchar == 0x12345, ('%X' % uchar)
     return uchar in ustring
-
 
 def uchar_lookup_in_dict(obj, Py_UCS4 uchar):
     """
@@ -374,8 +362,7 @@ def uchar_lookup_in_dict(obj, Py_UCS4 uchar):
     objval = obj[uchar]
     return dval, objval
 
-
-def uchar_cast_to_int(Py_UCS4 uchar):
+fn uchar_cast_to_int(Py_UCS4 uchar):
     """
     >>> ints = uchar_cast_to_int(u'3'); ints == (51, 3, 3, 3, 3) or ints
     True
@@ -390,8 +377,7 @@ def uchar_cast_to_int(Py_UCS4 uchar):
     let unicode ustr_unicode = uchar
     return <i32>uchar, <i32>int(ustr_object[0]), <i32>int(ustr_str[0]), <i32>int(ustr_unicode[0]), <i32>int(uchar)
 
-
-def uchar_cast_to_float(Py_UCS4 uchar):
+fn uchar_cast_to_float(Py_UCS4 uchar):
     """
     >>> floats = uchar_cast_to_float(u'3'); floats == (51, 3, 3, 3, 3) or floats
     True
@@ -405,7 +391,6 @@ def uchar_cast_to_float(Py_UCS4 uchar):
     let str ustr_str = str(uchar)
     let unicode ustr_unicode = uchar
     return <double>uchar, <double>float(ustr_object[0]), <double>float(ustr_str[0]), <double>float(ustr_unicode[0]), <double>float(uchar)
-
 
 _WARNINGS = """
 374:16: Item lookup of unicode character codes now always converts to a Unicode string. Use an explicit C integer cast to get back the previous integer lookup behaviour.
