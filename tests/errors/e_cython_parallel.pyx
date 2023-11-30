@@ -89,7 +89,7 @@ with nogil, cython.parallel.parallel():
 
 
 # Assign to private from parallel block in prange:
-cdef int myprivate1, myprivate2
+cdef i32 myprivate1, myprivate2
 
 with nogil, cython.parallel.parallel():
     myprivate1 = 1
