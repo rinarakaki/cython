@@ -4416,7 +4416,7 @@ def p_associated_item(s, ctx):
     pos = s.position()
     attributes = p_attributes(s) + p_decorators(s)
     overridable = ctx.overridable
-    if s.sy == "cdef" and (s.sy != "IDENT" or s.sy in ("inline",)):
+    if s.sy == "cdef" and (s.sy != "IDENT" or s.sy in ("inline", "readonly")):
         s.next()
     elif s.sy == "cpdef":
         s.next()
@@ -4429,7 +4429,7 @@ def p_associated_item(s, ctx):
         item = p_fn_item(s, s.position(), ctx)
     elif s.systring == "type" and s.peek()[0] == "IDENT":
         item = p_type_alias_item(s, ctx)
-    elif s.sy == "IDENT" or s.sy == "const" and s.peek()[0] != "fn":
+    elif (s.sy == "IDENT" and s.systring != "cppclass") or s.sy == "const" and s.peek()[0] != "fn":
         item = p_c_func_or_var_declaration(s, s.position(), ctx)
     elif s.sy == "def":
         if "pxd" in ctx.level and ctx.level != "c_class_pxd":
