@@ -2544,7 +2544,7 @@ def p_mod_item(s, ctx):
         doc, body = p_suite_with_docstring(s, ctx, True)
     else:
         directive_comments = []
-        mod_path = os.path.join(os.path.splitext(pos[0])[0], name)
+        mod_path = os.path.join(os.path.splitext(str(pos[0]))[0], name)
         if mod_path is None:
             s.error("Cannot find module file '%s'" % name)
             return Nodes.PassStatNode(pos)
