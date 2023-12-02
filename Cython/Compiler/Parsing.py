@@ -4455,7 +4455,7 @@ def p_associated_item(s, ctx):
         if "pxd" in ctx.level and ctx.level != "c_class_pxd":
             s.error('def statement not allowed here')
         return p_def_statement(s, attributes)
-    elif s.sy == "async" and s.peek()[0] == "def":
+    elif s.systring == "async" and s.peek()[0] == "def":
         s.next()
         return p_async_statement(s, ctx, attributes)
     elif s.sy == ":":
