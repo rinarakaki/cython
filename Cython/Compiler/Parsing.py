@@ -5,6 +5,7 @@
 
 
 # This should be done automatically
+import os
 from Cython.Shadow import typedef
 import cython
 cython.declare(Nodes=object, ExprNodes=object, EncodedString=object,
@@ -2543,7 +2544,7 @@ def p_mod_item(s, ctx):
         doc, body = p_suite_with_docstring(s, ctx, True)
     else:
         directive_comments = []
-        mod_path = s.context.find_mod_file(name, pos)
+        mod_path = os.path.join(os.path.splitext(pos)[0], name)
         if mod_path is None:
             s.error("Cannot find module file '%s'" % name)
             return Nodes.PassStatNode(pos)
