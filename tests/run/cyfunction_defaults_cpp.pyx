@@ -7,8 +7,10 @@ use libcpp::vector::vector
 cdef class A:
     def f1(self, a, b=1, vector[f64] c = vector[f64]()):
         pass
+
     def f2(self, a, b=1,/, vector[f64] c = vector[f64](1, 2.0)):
         pass
+
     def f3(self, a, /, b=1, *, c = vector[f64](2, 3.0)):
         pass
 

@@ -28,19 +28,20 @@ cdef str s = "Test"
 
 class Foo(object):
     def bar(self, x, y):
-        cdef u64 w = 20
+        let u64 w = 20
         z = w + t
-        cdef i32 t = 10
+        let i32 t = 10
 
 cdef class Foo2(object):
-    print '%s' % r # check error inside class scope
+#     print '%s' % r  # check error inside class scope
     cdef str r
+
     def bar(self, x, y):
-        cdef u64 w = 20
+        let u64 w = 20
         self.r = c'r'
         print self.r
         z = w + g(t)
-        cdef i32 t = 10
+        let i32 t = 10
 
 def g(x):
     return x

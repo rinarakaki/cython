@@ -81,8 +81,8 @@ cdef class ExtTypePyArgsNoGC:
     cdef bytes b
     cdef str s
     cdef unicode u
-# eventually, this should work, too:
-#    cdef ExtTypeFinalNoGC x
+    # eventually, this should work, too:
+    # cdef ExtTypeFinalNoGC x
 
 
 #[cython::test_fail_if_path_exists(

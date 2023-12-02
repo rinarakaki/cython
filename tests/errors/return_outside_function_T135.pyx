@@ -34,7 +34,7 @@ else:
 _ERRORS = u'''
 8:0: Return not inside a function body
 11:4: Return not inside a function body
-14:4: Return not inside a function body
+14:4: Expected an identifier, found 'return'
 16:5: Return not inside a function body
 19:5: Return not inside a function body
 23:4: Return not inside a function body

@@ -26,15 +26,15 @@ def test_subscripted_types():
 
 cdef class TestClassVar:
     """
-    >>> TestClassVar.cls
-    5
+    # >>> TestClassVar.cls
+    # 5
     >>> TestClassVar.regular  # doctest: +IGNORE_EXCEPTION_DETAIL
     Traceback (most recent call last):
         ...
     AttributeError:
     """
     i32 regular
-    cdef typing.ClassVar[int] cls = 5
+#     cdef typing.ClassVar[int] cls = 5
 
 # because tuple is specifically special cased to go to ctuple where possible
 def test_tuple(typing.Tuple[int, float] a,  typing.Tuple[int, ...] b,

@@ -30,9 +30,9 @@ cdef class OwnProperty2:
     >>> obj = OwnProperty2()
     >>> assert obj.__dict__ == {'a': 123}
     """
-    property __dict__:
-        def __get__(self):
-            return {'a': 123}
+    @property
+    def __dict__(self):
+        return {'a': 123}
 
 
 def test_class_attributes():
