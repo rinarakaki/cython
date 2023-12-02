@@ -2436,7 +2436,7 @@ def p_compile_time_expr(s):
 def p_const_item(s, ctx):
     # s.sy == "const"
     pos = s.position()
-    s.next()
+    # s.next()
     if s.sy == "auto":
         s.next()
         base_type = None
