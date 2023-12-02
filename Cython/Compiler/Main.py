@@ -282,6 +282,20 @@ class Context:
         return self.search_include_directories(
             qualified_name, suffix=".pyx", source_pos=pos, sys_path=sys_path, source_file_path=source_file_path)
 
+    def find_mod_file(self, name, pos=None):
+        # Search list of include directories for name.
+        # Reports an error and returns None if not found.
+        path = self.search_mod_dirs(name, pos)
+        if not path:
+            error(pos, "'%s' not found" % name)
+        return path
+
+    def search_mod_dirs(self, name, pos):
+        include_dirs = self.include_directories
+        # include_dirs must be hashable for caching in @cached_function
+        include_dirs = tuple(include_dirs + [standard_include_path])
+        return search_mod_dirs(include_dirs, name, pos)
+
     def find_include_file(self, filename, pos=None, source_file_path=None):
         # Search list of include directories for filename.
         # Reports an error and returns None if not found.
@@ -658,6 +672,55 @@ def compile(source, options = None, full_module_name = None, **kwds):
         source = [source]
     return compile_multiple(source, options)
 
+@Utils.cached_function
+def search_mod_dirs(dirs, module_name, pos, include=True):
+    """
+    Search the list of include directories for the given file name.
+
+    If a source file path or position is given, first searches the directory
+    containing that file.  Returns None if not found, but does not report an error.
+
+    The 'include' option will disable package dereferencing.
+    """
+    file_desc = pos[0]
+    if not isinstance(file_desc, FileSourceDescriptor):
+        raise RuntimeError("Only file sources for code supported")
+    source_file_path = file_desc.filename
+    if include:
+        dirs = (os.path.dirname(source_file_path),) + dirs
+    else:
+        dirs = (Utils.find_root_package_dir(source_file_path),) + dirs
+
+    # search for dotted filename e.g. <dir>/foo.bar.pxd
+    dotted_filename = module_name
+
+    for dirname in dirs:
+        path = os.path.join(dirname, dotted_filename)
+        if os.path.exists(path):
+            return path
+
+    # search for filename in package structure e.g. <dir>/foo/bar.pxd or <dir>/foo/bar/__init__.pxd
+    package_names = (module_name,)
+
+    # search for standard packages first - PEP420
+    namespace_dirs = []
+    for dirname in dirs:
+        package_dir, is_namespace = Utils.check_package_dir(dirname, package_names)
+        if package_dir is not None:
+            if is_namespace:
+                namespace_dirs.append(package_dir)
+                continue
+            path = search_module_in_dir(package_dir, module_name, "")
+            if path:
+                return path
+
+    # search for namespaces second - PEP420
+    for package_dir in namespace_dirs:
+        path = search_module_in_dir(package_dir, module_name, "")
+        if path:
+            return path
+
+    return None
 
 @Utils.cached_function
 def search_include_directories(dirs, qualified_name, suffix="", pos=None, include=False, source_file_path=None):

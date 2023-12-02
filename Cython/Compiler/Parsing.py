@@ -2543,7 +2543,7 @@ def p_mod_item(s, ctx):
         doc, body = p_suite_with_docstring(s, ctx, True)
     else:
         directive_comments = []
-        mod_path = s.context.find_include_file(name, pos)
+        mod_path = s.context.find_mod_file(name, pos)
         s.included_files.append(name)
         with Utils.open_source_file(mod_path) as f:
             source_desc = FileSourceDescriptor(mod_path)
