@@ -4274,7 +4274,7 @@ def p_code(s, level=None, ctx=Ctx):
     if level == "c_class":
         pos = s.position()
         items = []
-        while s.sy != "DEDENT":
+        while s.sy not in ("DEDENT", "EOF"):
             if s.sy != "pass":
                 items.append(p_associated_item(s, Ctx(level=level)))
             else:
