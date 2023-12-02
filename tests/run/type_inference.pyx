@@ -821,14 +821,14 @@ cdef class InferInProperties:
     def __cinit__(self):
         self.attr = MyEnum::X
 
-    property x:
-        def __get__(self):
-            a = 1.0
-            b = u'abc'
-            c = self.attr
-            d = MyEnum::Y
-            c = d
-            return typeof(a), typeof(b), typeof(c), typeof(d)
+    @property
+    def x(self):
+        a = 1.0
+        b = u'abc'
+        c = self.attr
+        d = MyEnum::Y
+        c = d
+        return typeof(a), typeof(b), typeof(c), typeof(d)
 
 cdef class WithMethods:
     i32 offset

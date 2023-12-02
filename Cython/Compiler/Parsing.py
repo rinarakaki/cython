@@ -2456,6 +2456,7 @@ def p_const_item(s, ctx):
         return Nodes.PassStatNode(pos)
     else:
         declarators = Nodes.CNameDeclaratorNode(pos, name = name)
+        s.expect_newline("Expected a newline", ignore_semicolon=True)
         return Nodes.CVarDefNode(pos,
             base_type = base_type,
             declarators = declarators,
@@ -4452,8 +4453,6 @@ def p_associated_item(s, ctx):
     elif (s.sy == "IDENT" and s.systring not in ("cppclass", "property")) or s.sy == "const" and s.peek()[0] != "fn":
         item = p_c_func_or_var_declaration(s, s.position(), ctx)
     elif s.sy == "def":
-        if "pxd" in ctx.level and ctx.level != "c_class_pxd":
-            s.error('def statement not allowed here')
         return p_def_statement(s, attributes)
     elif s.systring == "async" and s.peek()[0] == "def":
         s.next()
