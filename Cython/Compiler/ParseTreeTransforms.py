@@ -2081,7 +2081,7 @@ def NAME(self):
     return ATTR
 
 @NAME.setter
-def __set__(self, value):
+def NAME(self, value):
     ATTR = value
     """, level='c_class', pipeline=[NormalizeTree(None)])
 
@@ -2091,11 +2091,11 @@ def NAME(self):
     return ATTR
 
 @NAME.setter
-def __set__(self, value):
+def NAME(self, value):
     ATTR = value
 
 @NAME.deleter
-def __del__(self):
+def NAME(self):
     ATTR = None
     """, level='c_class', pipeline=[NormalizeTree(None)])
 
