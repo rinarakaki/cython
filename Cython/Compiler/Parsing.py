@@ -4276,7 +4276,6 @@ def p_code(s, level=None, ctx=Ctx):
         items = []
         while s.sy != "DEDENT":
             if s.sy != "pass":
-                assert s.systring == "property", f"{s.systring}"
                 items.append(p_associated_item(s, Ctx(level=level)))
             else:
                 s.next()
@@ -4434,7 +4433,6 @@ def p_cpp_class_definition(s, pos,  ctx):
     )
 
 def p_associated_item(s, ctx):
-    assert s.systring == "property", f"{s.systring}"
     pos = s.position()
     attributes = p_attributes(s) + p_decorators(s)
     overridable = ctx.overridable
@@ -4464,8 +4462,6 @@ def p_associated_item(s, ctx):
         if overridable:
             error(pos, "cdef blocks cannot be declared cpdef")
         return p_cdef_block(s, ctx)
-    elif ctx.level == "c_class" and s.systring == "property":
-        return p_property_decl(s)
     
     if item is not None:
         item.decorators = attributes
@@ -4474,7 +4470,6 @@ def p_associated_item(s, ctx):
         item.overridable = overridable
         return item
     else:
-        assert ctx.level == "c_class" and s.systring == "property", f"{ctx.level}, {s.systring}"
         return p_cpp_class_attribute(s, ctx)
 
 def p_cpp_class_attribute(s, ctx):
