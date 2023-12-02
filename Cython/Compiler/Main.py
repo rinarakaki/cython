@@ -699,7 +699,7 @@ def search_mod_dirs(dirs, module_name, pos, include=True):
         if os.path.exists(path):
             return path
 
-    # search for filename in package structure e.g. <dir>/foo/bar.pxd or <dir>/foo/bar/__init__.pxd
+    # search for filename in package structure e.g. <dir>/foo/bar.pxd or <dir>/foo/bar/mod.pxd
     package_names = (module_name,)
 
     # search for standard packages first - PEP420

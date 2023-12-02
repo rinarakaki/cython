@@ -2544,6 +2544,9 @@ def p_mod_item(s, ctx):
     else:
         directive_comments = []
         mod_path = s.context.find_mod_file(name, pos)
+        if mod_path is None:
+            s.error("Cannot find module file '%s'" % name)
+            return Nodes.PassStatNode(pos)
         s.included_files.append(name)
         with Utils.open_source_file(mod_path) as f:
             source_desc = FileSourceDescriptor(mod_path)
