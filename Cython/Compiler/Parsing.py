@@ -3969,6 +3969,18 @@ def p_ctypedef_statement(s, ctx):
             in_pxd = ctx.level == 'module_pxd'
         )
 
+def p_attributes(s):	
+    attributes = []	
+    while s.sy == "#" and s.peek()[0] == "[":	
+        pos = s.position()	
+        s.next()	
+        s.next()	
+        attribute = p_namedexpr_test(s)	
+        attributes.append(Nodes.DecoratorNode(pos, decorator=attribute))	
+        s.expect("]")	
+        s.expect_newline("Expected a newline after attribute")	
+    return attributes
+
 def p_decorators(s):
     decorators = []
     while s.sy == '@':
@@ -4122,27 +4134,11 @@ def p_c_class_definition(s, pos,  ctx):
             error(s.position(), "Name options only allowed for 'public', 'api', or 'extern' C class")
         objstruct_name, typeobj_name, check_size = p_c_class_options(s)
     if s.sy == ":":
-        s.next()
-        if s.sy == "pass":
-            body = p_pass_statement(s)
+        if ctx.level == "module_pxd":
+            body_level = "c_class_pxd"
         else:
-            s.expect("NEWLINE")
-            s.expect_indent()
-            if ctx.level == 'module_pxd':
-                body_level = 'c_class_pxd'
-            else:
-                body_level = 'c_class'
-            doc = p_doc_string(s)            
-            items = []
-            body_ctx = Ctx(level=body_level)
-            while s.sy != "DEDENT":
-                if s.sy != "pass":
-                    items.append(p_associated_item(s, body_ctx))
-                else:
-                    s.next()
-                    s.expect_newline("Expected a newline")
-            s.expect_dedent()
-            body = Nodes.StatListNode(pos, stats = items)
+            body_level = "c_class"
+        doc, body = p_suite_with_docstring(s, Ctx(level=body_level))
     else:
         s.expect_newline("Syntax error in C class definition")
         doc = None
