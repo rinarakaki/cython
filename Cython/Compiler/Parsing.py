@@ -2532,14 +2532,17 @@ def p_item(s, ctx, attributes):
     return item
 
 def p_mod_item(s, ctx):
+    # s.sy == "mod"
     pos = s.position()
-    s.next()  # s.sy == "mod"
+    s.next()
     name = p_ident(s)
     ctx = ctx(cdef_flag = 1, level = "module")
     if s.sy == ":":
+        directive_comments = p_compiler_directive_comments(s)
         # Use "docstring" as verbatim string to include
         doc, body = p_suite_with_docstring(s, ctx, True)
     else:
+        directive_comments = []
         mod_path = s.context.find_include_file(name, pos)
         s.included_files.append(name)
         with Utils.open_source_file(mod_path) as f:
