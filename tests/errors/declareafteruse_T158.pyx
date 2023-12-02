@@ -62,7 +62,7 @@ _ERRORS = u"""
 18:13: cdef variable 'i' declared after it is used
 24:13: cdef variable 'i' declared after it is used
 27:9: cdef variable 's' declared after it is used
-33:17: cdef variable 't' declared after it is used
+33:16: cdef variable 't' declared after it is used
 43:17: cdef variable 't' declared after it is used
 50:10: cdef variable 'baz' declared after it is used
 53:20: cdef variable 'var' declared after it is used
