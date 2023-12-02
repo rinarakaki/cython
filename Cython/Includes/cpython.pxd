@@ -136,6 +136,59 @@
 # START OF DEPRECATED SECTION
 # ###############################################################
 
+pub mod array
+pub mod bool
+pub mod buffer
+pub mod bytearray
+pub mod bytes
+pub mod cellobject
+pub mod ceval
+pub mod cobject
+pub mod codecs
+pub mod complex
+pub mod contextvars
+pub mod conversion
+pub mod datetime
+pub mod desc
+pub mod dict
+pub mod exc
+pub mod fileobject
+pub mod float
+pub mod function
+pub mod genobject
+pub mod getargs
+pub mod instance
+pub mod int
+pub mod iterator
+pub mod iterobject
+pub mod list
+pub mod long
+pub mod longintrepr
+pub mod mapping
+pub mod marshal
+pub mod mem
+pub mod memoryview
+pub mod method
+pub mod number
+pub mod object
+pub mod oldbuffer
+pub mod pycapsule
+pub mod pylifecycle
+pub mod pyport
+pub mod pystate
+pub mod pythread
+pub mod ref
+pub mod sequence
+pub mod set
+pub mod slice
+pub mod string
+pub mod time
+pub mod tuple
+pub mod type
+pub mod unicode
+pub mod version
+pub mod weakref
+
 use cpython::version::*
 use cpython::ref::*
 use cpython::exc::*
