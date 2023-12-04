@@ -2548,7 +2548,7 @@ def p_mod_item(s, ctx):
         if os.path.exists(os.path.join(self_path, name + '.pyx')):
             mod_path = os.path.join(self_path, name + '.pyx')
         else:
-            mod_path = os.path.join(self_path, name + '.pyd')
+            mod_path = os.path.join(self_path, name + '.pxd')
         s.included_files.append(name)
         with Utils.open_source_file(mod_path) as f:
             source_desc = FileSourceDescriptor(mod_path)
