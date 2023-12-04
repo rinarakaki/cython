@@ -62,7 +62,7 @@ class Ctx:
 
 
 def p_ident(s, message="Expected an identifier, found '%s'"):
-    if s.sy == 'IDENT':
+    if s.sy == "IDENT":
         name = s.context.intern_ustring(s.systring)
         s.next()
         return name
@@ -2433,24 +2433,37 @@ def p_compile_time_expr(s):
     s.compile_time_expr = old
     return expr
 
-def p_const_item(s):
+def p_const_item(s, ctx):
+    # s.sy == "const"
     pos = s.position()
-    denv = s.compile_time_env
-    s.next()  # "const"
+    # s.next()
     if s.sy == "auto":
         s.next()
         base_type = None
     else:
         base_type = p_c_base_type(s)
-    name = p_ident(s)
-    s.expect('=')
-    expr = p_compile_time_expr(s)
-    if s.compile_time_eval:
-        value = expr.compile_time_value(denv)
-        # print "p_const_item: %s = %r" % (name, value) #
-        denv.declare(name, value)
-    s.expect_newline("Expected a newline", ignore_semicolon=True)
-    return Nodes.PassStatNode(pos)
+    name = s.systring
+    s.next()
+    if s.sy == "=":
+        s.next()
+        denv = s.compile_time_env
+        expr = p_compile_time_expr(s)
+        if s.compile_time_eval:
+            value = expr.compile_time_value(denv)
+            # print "p_const_item: %s = %r" % (name, value) #
+            denv.declare(s.context.intern_ustring(name), value)
+        s.expect_newline("Expected a newline", ignore_semicolon=True)
+        return Nodes.PassStatNode(pos)
+    else:
+        declarators = Nodes.CNameDeclaratorNode(pos, name = name)
+        s.expect_newline("Expected a newline", ignore_semicolon=True)
+        return Nodes.CVarDefNode(pos,
+            base_type = base_type,
+            declarators = declarators,
+            in_pxd = ctx.level == "module_pxd",
+            doc = None,
+            modifiers = [],
+        )
 
 def p_IF_statement(s, ctx):
     pos = s.position()
@@ -2494,7 +2507,7 @@ def p_item(s, ctx, attributes):
     elif s.sy == "const":
         if ctx.visibility == "extern":
             s.error("const statement not allowed here")
-        item = p_const_item(s)
+        item = p_const_item(s, ctx)
     elif s.sy == "fn" or s.sy == "const" and s.peek()[0] == "fn":
         item = p_fn_item(s, pos, ctx)
     elif ctx.visibility == "extern" and s.systring == "from":
@@ -2629,8 +2642,6 @@ def p_statement(s, ctx, first_statement = 0):
             if ctx.level not in ('module', 'module_pxd'):
                 s.error("include statement not allowed here")
             return p_include_statement(s, ctx)
-        elif ctx.level == 'c_class' and s.sy == 'IDENT' and s.systring == 'property':
-            return p_property_decl(s)
         elif s.sy == 'pass' and ctx.level != 'property':
             return p_pass_statement(s, with_newline=True)
         else:
@@ -3760,14 +3771,13 @@ def p_static_item(s, ctx):
         declarator = p_c_declarator(s, ctx, assignable = 1, nonempty = 1)
         declarators.append(declarator)
     s.expect_newline("Syntax error in static item", ignore_semicolon=True)
-    result = Nodes.CVarDefNode(pos,
+    return Nodes.CVarDefNode(pos,
         base_type = base_type,
         declarators = declarators,
         in_pxd = ctx.level == "module_pxd",
         doc = None,
         modifiers = [],
     )
-    return result
 
 def p_visibility(s, prev_visibility):
     pos = s.position()
@@ -4262,7 +4272,18 @@ def _extract_docstring(node):
 
 
 def p_code(s, level=None, ctx=Ctx):
-    body = p_statement_list(s, ctx(level = level), first_statement = 1)
+    if level == "c_class":
+        pos = s.position()
+        items = []
+        while s.sy not in ("DEDENT", "EOF"):
+            if s.sy != "pass":
+                items.append(p_associated_item(s, Ctx(level=level)))
+            else:
+                s.next()
+                s.expect_newline("Expected a newline")
+        body = Nodes.StatListNode(pos, stats = items)
+    else:
+        body = p_statement_list(s, ctx(level = level), first_statement = 1)
     if s.sy != 'EOF':
         s.error("Syntax error in statement [%s,%s]" % (
             repr(s.sy), repr(s.systring)))
@@ -4389,18 +4410,18 @@ def p_cpp_class_definition(s, pos,  ctx):
         # The goal of this is consistency: we can make docstrings inside cppclass methods,
         # so why not on the cppclass itself ?
         p_doc_string(s)
-        fields = []
+        items = []
         body_ctx = Ctx(visibility = ctx.visibility, level='cpp_class', nogil=nogil or ctx.nogil)
         body_ctx.templates = template_names
         while s.sy != "DEDENT":
             if s.sy != "pass":
-                fields.append(p_associated_item(s, body_ctx))
+                items.append(p_associated_item(s, body_ctx))
             else:
                 s.next()
                 s.expect_newline("Expected a newline")
         s.expect_dedent()
     else:
-        fields = None
+        items = None
         s.expect_newline("Syntax error in C++ class definition")
     return Nodes.CppClassNode(pos,
         name = class_name,
@@ -4408,7 +4429,7 @@ def p_cpp_class_definition(s, pos,  ctx):
         base_classes = base_classes,
         visibility = ctx.visibility,
         in_pxd = ctx.level == 'module_pxd',
-        fields = fields,
+        fields = items,
         templates = templates
     )
 
@@ -4416,7 +4437,7 @@ def p_associated_item(s, ctx):
     pos = s.position()
     attributes = p_attributes(s) + p_decorators(s)
     overridable = ctx.overridable
-    if s.sy == "cdef" and (s.sy != "IDENT" or s.sy in ("inline", "readonly")):
+    if s.sy == "cdef" and (s.sy != "IDENT" or s.systring in ("inline", "readonly")):
         s.next()
     elif s.sy == "cpdef":
         s.next()
@@ -4424,18 +4445,16 @@ def p_associated_item(s, ctx):
     visibility = ctx.visibility = p_visibility(s, ctx.visibility)
     item = None
     if s.sy == "const" and s.peek()[0] == "IDENT":
-        item = p_const_item(s)
+        item = p_const_item(s, ctx)
     elif s.sy == "fn" or s.sy in ("static", "const") and s.peek()[0] == "fn":
         item = p_fn_item(s, s.position(), ctx)
     elif s.systring == "type" and s.peek()[0] == "IDENT":
         item = p_type_alias_item(s, ctx)
-    elif (s.sy == "IDENT" and s.systring != "cppclass") or s.sy == "const" and s.peek()[0] != "fn":
+    elif (s.sy == "IDENT" and s.systring not in ("cppclass", "property")) or s.sy == "const" and s.peek()[0] != "fn":
         item = p_c_func_or_var_declaration(s, s.position(), ctx)
     elif s.sy == "def":
-        if "pxd" in ctx.level and ctx.level != "c_class_pxd":
-            s.error('def statement not allowed here')
         return p_def_statement(s, attributes)
-    elif s.sy == "async" and s.peek()[0] == "def":
+    elif s.systring == "async" and s.peek()[0] == "def":
         s.next()
         return p_async_statement(s, ctx, attributes)
     elif s.sy == ":":

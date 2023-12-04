@@ -962,11 +962,11 @@ cdef class _memoryviewslice(memoryview):
         return self.from_object
 
     # Sequence methods
-    try:
-        count = __pyx_collections_abc_Sequence.count
-        index = __pyx_collections_abc_Sequence.index
-    except:
-        pass
+    # try:
+    #     count = __pyx_collections_abc_Sequence.count
+    #     index = __pyx_collections_abc_Sequence.index
+    # except:
+    #     pass
 
 try:
     if __pyx_collections_abc_Sequence:

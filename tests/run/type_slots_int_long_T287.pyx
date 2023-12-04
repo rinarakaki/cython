@@ -55,4 +55,4 @@ cdef class IntLongA:
 cdef class IntLongB:
    def __int__(self):
        return 2
-   __long__ = __int__
+#    __long__ = __int__

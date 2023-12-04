@@ -720,7 +720,7 @@ def large_literals():
     assert typeof(c) == "long", typeof(c)
     assert typeof(d) == "Python object", typeof(d)
 
-class EmptyContextManager(object):
+class EmptyContextManager:
     def __enter__(self):
         return None
     def __exit__(self, *args):
@@ -739,8 +739,8 @@ def with_statement():
     return x
 
 #[cython::final]
-cdef class TypedContextManager(object):
-    cpdef fn double __enter__(self):
+cdef class TypedContextManager:
+    cpdef fn f64 __enter__(self):
         return 2.0
     def __exit__(self, *args):
         return 0
@@ -816,21 +816,23 @@ cdef class InferInProperties:
     >>> InferInProperties().x
     ('double', 'unicode object', 'MyEnum', 'MyEnum')
     """
-    let MyEnum attr
+    MyEnum attr
+
     def __cinit__(self):
         self.attr = MyEnum::X
 
-    property x:
-        def __get__(self):
-            a = 1.0
-            b = u'abc'
-            c = self.attr
-            d = MyEnum::Y
-            c = d
-            return typeof(a), typeof(b), typeof(c), typeof(d)
+    @property
+    def x(self):
+        a = 1.0
+        b = u'abc'
+        c = self.attr
+        d = MyEnum::Y
+        c = d
+        return typeof(a), typeof(b), typeof(c), typeof(d)
 
 cdef class WithMethods:
-    let i32 offset
+    i32 offset
+
     def __init__(self, offset):
         self.offset = offset
     cpdef fn i32 one_arg(self, i32 x):

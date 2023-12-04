@@ -33,6 +33,5 @@ cdef class TestClassVar:
         ...
     AttributeError:
     """
-    cdef int regular
-    cdef typing.ClassVar[int] cls
-    cls = 5
+    i32 regular
+    typing.ClassVar[int] cls = 5

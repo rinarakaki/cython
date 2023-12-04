@@ -3,7 +3,6 @@
 
 use cython
 
-
 def test_outer_inner_double():
     """
     >>> print(test_outer_inner_double())
@@ -16,7 +15,6 @@ def test_outer_inner_double():
     inner()
     assert x == 2.0, str(x)
     return cython::typeof(x)
-
 
 def test_outer_inner_double_int():
     """
@@ -32,7 +30,6 @@ def test_outer_inner_double_int():
     inner()
     return cython::typeof(x), cython::typeof(y)
 
-
 def test_outer_inner_pyarg():
     """
     >>> print(test_outer_inner_pyarg())
@@ -44,7 +41,6 @@ def test_outer_inner_pyarg():
         return x + y
     print inner(1)
     return cython::typeof(x)
-
 
 def test_outer_inner_carg():
     """
@@ -58,7 +54,6 @@ def test_outer_inner_carg():
     print inner(1)
     return cython::typeof(x)
 
-
 def test_outer_inner_incompatible():
     """
     >>> print(test_outer_inner_incompatible())
@@ -70,7 +65,6 @@ def test_outer_inner_incompatible():
         x = 'test'
     inner()
     return cython::typeof(x)
-
 
 def test_outer_inner_ptr():
     """
@@ -87,7 +81,6 @@ def test_outer_inner_ptr():
             '%s != %s' % (cython::typeof(xptr_inner), cython::typeof(xptr_outer)))
     inner()
     return cython::typeof(xptr_outer)
-
 
 def test_outer_inner2_double():
     """

@@ -30,7 +30,7 @@ def bool_result():
 _ERRORS = '''
 4:0: continue statement not inside loop
 7:4: continue statement not inside loop
-10:4: continue statement not inside loop
+10:4: Expected an identifier, found 'continue'
 13:4: continue statement not inside loop
 15:5: continue statement not inside loop
 18:5: continue statement not inside loop

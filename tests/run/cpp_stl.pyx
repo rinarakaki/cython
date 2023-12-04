@@ -3,20 +3,20 @@
 
 extern from "vector" namespace "std":
     cdef cppclass vector[T]:
-        T at(i32)
-        void push_back(T t)
-        void assign(i32, T)
-        void clear()
-        i32 size()
+        fn T at(i32)
+        fn void push_back(T t)
+        fn void assign(i32, T)
+        fn void clear()
+        fn i32 size()
 
         cppclass iterator:
-            T operator*()
-            iterator operator++()
-            u2 operator==(iterator)
-            u2 operator!=(iterator)
+            fn T operator*()
+            fn iterator operator++()
+            fn u2 operator==(iterator)
+            fn u2 operator!=(iterator)
 
-        iterator end()
-        iterator begin()
+        fn iterator end()
+        fn iterator begin()
 
 use cython::operator::(dereference as deref, preincrement as inc)
 
@@ -67,8 +67,10 @@ cdef class VectorWrapper:
     >>> VectorWrapper(1, 0.5, 0.25, 0.125)
     [1.0, 0.5, 0.25, 0.125]
     """
-    let vector[f64] vector
+    vector[f64] vector
+
     def __init__(self, *args):
         self.vector = args
+
     def __repr__(self):
         return repr(self.vector)

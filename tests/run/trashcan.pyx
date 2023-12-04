@@ -39,7 +39,7 @@ cdef class Recurse:
     >>> assert_no_double_deallocations()
     """
     pub attr
-    cdef int deallocated
+    i32 deallocated
 
     def __cinit__(self, x):
         self.attr = x
@@ -56,7 +56,7 @@ cdef class RecurseSub(Recurse):
     >>> recursion_test(RecurseSub)
     >>> assert_no_double_deallocations()
     """
-    cdef int subdeallocated
+    i32 subdeallocated
 
     def __dealloc__(self):
         # Check that we're not being deallocated twice
@@ -74,7 +74,7 @@ cdef class RecurseFreelist:
     >>> assert_no_double_deallocations()
     """
     pub attr
-    cdef int deallocated
+    i32 deallocated
 
     def __cinit__(self, x):
         self.attr = x
@@ -103,8 +103,8 @@ cdef class RecurseList(list):
 # in a big recursive deallocation, the __dealloc__s of the base classes are
 # only run after the __dealloc__s of the subclasses.
 # We use this to detect trashcan usage.
-cdef int base_deallocated = 0
-cdef int trashcan_used = 0
+cdef i32 base_deallocated = 0
+cdef i32 trashcan_used = 0
 def assert_no_trashcan_used():
     if IS_PYPY:
         return
@@ -135,11 +135,9 @@ cdef class Sub1(Base):
         global base_deallocated, trashcan_used
         trashcan_used += base_deallocated
 
-
 #[cython::trashcan(true)]
 cdef class Middle(Base):
     pub foo
-
 
 # Trashcan disabled explicitly
 #[cython::trashcan(false)]
