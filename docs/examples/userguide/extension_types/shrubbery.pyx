@@ -1,5 +1,3 @@
-from __future__ import print_function
-
 cdef class Shrubbery:
     cdef i32 width
     cdef i32 height
