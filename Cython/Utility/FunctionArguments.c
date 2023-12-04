@@ -137,7 +137,7 @@ static int __Pyx_CheckKeywordStrings(
 #else
     if (CYTHON_METH_FASTCALL && likely(PyTuple_Check(kw))) {
         Py_ssize_t kwsize;
-#if CYTHON_ASSUME_SAFE_MACROS
+#if CYTHON_ASSUME_SAFE_SIZE
         kwsize = PyTuple_GET_SIZE(kw);
 #else
         kwsize = PyTuple_Size(kw);
@@ -240,7 +240,7 @@ static int __Pyx_ParseOptionalKeywords(
 
         if (kwds_is_tuple) {
             Py_ssize_t size;
-#if CYTHON_ASSUME_SAFE_MACROS
+#if CYTHON_ASSUME_SAFE_SIZE
             size = PyTuple_GET_SIZE(kwds);
 #else
             size = PyTuple_Size(kwds);
@@ -295,10 +295,9 @@ static int __Pyx_ParseOptionalKeywords(
         if (likely(PyUnicode_Check(key))) {
             while (*name) {
                 int cmp = (
-                #if !CYTHON_COMPILING_IN_PYPY
-                    (__Pyx_PyUnicode_GET_LENGTH(**name) != __Pyx_PyUnicode_GET_LENGTH(key)) ? 1 :
+                #if CYTHON_ASSUME_SAFE_SIZE
+                    (PyUnicode_GET_LENGTH(**name) != PyUnicode_GET_LENGTH(key)) ? 1 :
                 #endif
-                    // In Py2, we may need to convert the argument name from str to unicode for comparison.
                     PyUnicode_Compare(**name, key)
                 );
                 if (cmp < 0 && unlikely(PyErr_Occurred())) goto bad;
@@ -317,8 +316,8 @@ static int __Pyx_ParseOptionalKeywords(
                 PyObject*** argname = argnames;
                 while (argname != first_kw_arg) {
                     int cmp = (**argname == key) ? 0 :
-                    #if !CYTHON_COMPILING_IN_PYPY
-                        (__Pyx_PyUnicode_GET_LENGTH(**argname) != __Pyx_PyUnicode_GET_LENGTH(key)) ? 1 :
+                    #if CYTHON_ASSUME_SAFE_SIZE
+                        (PyUnicode_GET_LENGTH(**argname) != PyUnicode_GET_LENGTH(key)) ? 1 :
                     #endif
                         // need to convert argument name from bytes to unicode for comparison
                         PyUnicode_Compare(**argname, key);
