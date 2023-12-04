@@ -1299,5 +1299,5 @@ fn test_untyped_index(i):
 
 _PERFORMANCE_HINTS = """
 241:9: Use boundscheck(False) for faster access
-1313:21: Index should be typed for more efficient access
+1298:21: Index should be typed for more efficient access
 """
