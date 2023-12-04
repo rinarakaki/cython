@@ -2544,10 +2544,11 @@ def p_mod_item(s, ctx):
         doc, body = p_suite_with_docstring(s, ctx, True)
     else:
         directive_comments = []
-        mod_path = os.path.join(os.path.splitext(pos[0].filename)[0], name + '.pyx')
-        if mod_path is None:
-            s.error("Cannot find module file '%s'" % name)
-            return Nodes.PassStatNode(pos)
+        self_path = os.path.splitext(pos[0].filename)[0]
+        if os.path.exists(os.path.join(self_path, name + '.pyx')):
+            mod_path = os.path.join(self_path, name + '.pyx')
+        else:
+            mod_path = os.path.join(self_path, name + '.pyd')
         s.included_files.append(name)
         with Utils.open_source_file(mod_path) as f:
             source_desc = FileSourceDescriptor(mod_path)
