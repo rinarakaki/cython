@@ -143,13 +143,12 @@ pub mod bytearray
 pub mod bytes
 pub mod cellobject
 pub mod ceval
-pub mod cobject
 pub mod codecs
 pub mod complex
 pub mod contextvars
 pub mod conversion
 pub mod datetime
-pub mod desc
+pub mod descr
 pub mod dict
 pub mod exc
 pub mod fileobject
@@ -158,7 +157,6 @@ pub mod function
 pub mod genobject
 pub mod getargs
 pub mod instance
-pub mod int
 pub mod iterator
 pub mod iterobject
 pub mod list
@@ -169,9 +167,9 @@ pub mod marshal
 pub mod mem
 pub mod memoryview
 pub mod method
+pub mod module
 pub mod number
 pub mod object
-pub mod oldbuffer
 pub mod pycapsule
 pub mod pylifecycle
 pub mod pyport
@@ -189,38 +187,33 @@ pub mod unicode
 pub mod version
 pub mod weakref
 
-use cpython::version::*
-use cpython::ref::*
-use cpython::exc::*
-use cpython::module::*
-use cpython::mem::*
-use cpython::tuple::*
-use cpython::list::*
-use cpython::object::*
-use cpython::sequence::*
-use cpython::mapping::*
-use cpython::iterator::*
-use cpython::type::*
-use cpython::number::*
-use cpython::int::*
-use cpython::bool::*
-use cpython::long::*
-use cpython::float::*
-use cpython::complex::*
-use cpython::string::*
-use cpython::unicode::*
-use cpython::dict::*
-use cpython::instance::*
-use cpython::function::*
-use cpython::method::*
-use cpython::weakref::*
-use cpython::getargs::*
-use cpython::pythread::*
-use cpython::pystate::*
-
-# Python <= 2.x
-use cpython::cobject::*
-use cpython::oldbuffer::*
+use cpython::version::**
+use cpython::ref::**
+use cpython::exc::**
+use cpython::module::**
+use cpython::mem::**
+use cpython::tuple::**
+use cpython::list::**
+use cpython::object::**
+use cpython::sequence::**
+use cpython::mapping::**
+use cpython::iterator::**
+use cpython::type::**
+use cpython::number::**
+use cpython::bool::**
+use cpython::long::**
+use cpython::float::**
+use cpython::complex::**
+use cpython::string::**
+use cpython::unicode::**
+use cpython::dict::**
+use cpython::instance::**
+use cpython::function::**
+use cpython::method::**
+use cpython::weakref::**
+use cpython::getargs::**
+use cpython::pythread::**
+use cpython::pystate::**
 
 # Python >= 2.4
 use cpython::set::*

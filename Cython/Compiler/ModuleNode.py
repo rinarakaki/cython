@@ -1532,10 +1532,12 @@ class ModuleNode(Nodes.Node, Nodes.BlockNode):
                     slot_func)
         code.putln("")
         if freelist_size:
+            code.putln("#if CYTHON_USE_FREELISTS")
             code.putln("static %s[%d];" % (
                 scope.parent_type.declaration_code(freelist_name),
                 freelist_size))
             code.putln("static int %s = 0;" % freecount_name)
+            code.putln("#endif")
             code.putln("")
         code.putln(
             "static PyObject *%s(PyTypeObject *t, %sPyObject *a, %sPyObject *k) {" % (
@@ -1565,7 +1567,7 @@ class ModuleNode(Nodes.Node, Nodes.BlockNode):
                 else:
                     type_safety_check = ' & (int)(!__Pyx_PyType_HasFeature(t, (Py_TPFLAGS_IS_ABSTRACT | Py_TPFLAGS_HEAPTYPE)))'
                 obj_struct = type.declaration_code("", deref=True)
-                code.putln("#if CYTHON_COMPILING_IN_CPYTHON")
+                code.putln("#if CYTHON_USE_FREELISTS")
                 code.putln(
                     "if (likely((int)(%s > 0) & (int)(t->tp_basicsize == sizeof(%s))%s)) {" % (
                         freecount_name, obj_struct, type_safety_check))
@@ -1780,9 +1782,15 @@ class ModuleNode(Nodes.Node, Nodes.BlockNode):
                 # cimported base type pointer directly interacts badly with
                 # the module cleanup, which may already have cleared it.
                 # In that case, fall back to traversing the type hierarchy.
-                code.putln("if (likely(%s)) __Pyx_PyType_GetSlot(%s, tp_dealloc, destructor)(o); "
-                           "else __Pyx_call_next_tp_dealloc(o, %s);" % (
-                               base_cname, base_cname, slot_func_cname))
+                # If we're using the module state then always go through the
+                # type hierarchy, because our access to the module state may
+                # have been lost (at least for the limited API version of
+                # using module state).
+                code.putln("#if !CYTHON_USE_MODULE_STATE")
+                code.putln("if (likely(%s)) __Pyx_PyType_GetSlot(%s, tp_dealloc, destructor)(o); else" % (
+                    base_cname, base_cname))
+                code.putln("#endif")
+                code.putln("__Pyx_call_next_tp_dealloc(o, %s);" % slot_func_cname)
                 code.globalstate.use_utility_code(
                     UtilityCode.load_cached("CallNextTpDealloc", "ExtensionTypes.c"))
         else:
@@ -1798,7 +1806,7 @@ class ModuleNode(Nodes.Node, Nodes.BlockNode):
                         ' & (int)(!__Pyx_PyType_HasFeature(Py_TYPE(o), (Py_TPFLAGS_IS_ABSTRACT | Py_TPFLAGS_HEAPTYPE)))')
 
                 type = scope.parent_type
-                code.putln("#if CYTHON_COMPILING_IN_CPYTHON")
+                code.putln("#if CYTHON_USE_FREELISTS")
                 code.putln(
                     "if (((int)(%s < %d) & (int)(Py_TYPE(o)->tp_basicsize == sizeof(%s))%s)) {" % (
                         freecount_name,
@@ -1870,18 +1878,31 @@ class ModuleNode(Nodes.Node, Nodes.BlockNode):
                 code.putln("e = %s(o, v, a); if (e) return e;" % static_call)
             elif base_type.is_builtin_type:
                 base_cname = base_type.typeptr_cname
-                code.putln("if (!%s->tp_traverse); else { e = %s->tp_traverse(o,v,a); if (e) return e; }" % (
-                    base_cname, base_cname))
+                code.putln("{")
+                code.putln(
+                    f"traverseproc traverse = __Pyx_PyType_GetSlot({base_cname}, tp_traverse, traverseproc);")
+                code.putln("if (!traverse); else { e = traverse(o,v,a); if (e) return e; }")
+                code.putln("}")
             else:
                 # This is an externally defined type.  Calling through the
                 # cimported base type pointer directly interacts badly with
                 # the module cleanup, which may already have cleared it.
                 # In that case, fall back to traversing the type hierarchy.
+                # If we're using the module state then always go through the
+                # type hierarchy, because our access to the module state may
+                # have been lost (at least for the limited API version of
+                # using module state).
                 base_cname = base_type.typeptr_cname
+                code.putln("#if !CYTHON_USE_MODULE_STATE")
+                code.putln("e = 0;")
+                code.putln("if (likely(%s)) {" % base_cname)
                 code.putln(
-                    "e = ((likely(%s)) ? ((%s->tp_traverse) ? %s->tp_traverse(o, v, a) : 0) : "
-                    "__Pyx_call_next_tp_traverse(o, v, a, %s)); if (e) return e;" % (
-                        base_cname, base_cname, base_cname, slot_func))
+                    f"traverseproc traverse = __Pyx_PyType_GetSlot({base_cname}, tp_traverse, traverseproc);")
+                code.putln("if (traverse) { e = traverse(o, v, a); }")
+                code.putln("} else")
+                code.putln("#endif")
+                code.putln("{ e = __Pyx_call_next_tp_traverse(o, v, a, %s); }" % slot_func)
+                code.putln("if (e) return e;")
                 code.globalstate.use_utility_code(
                     UtilityCode.load_cached("CallNextTpTraverse", "ExtensionTypes.c"))
 
@@ -1936,17 +1957,27 @@ class ModuleNode(Nodes.Node, Nodes.BlockNode):
                 code.putln("%s(o);" % static_call)
             elif base_type.is_builtin_type:
                 base_cname = base_type.typeptr_cname
-                code.putln("if (!%s->tp_clear); else %s->tp_clear(o);" % (
-                    base_cname, base_cname))
+                code.putln("{")
+                code.putln(f"inquiry clear = __Pyx_PyType_GetSlot({base_cname}, tp_clear, inquiry);")
+                code.putln("if (clear) clear(o);")
+                code.putln("}")
             else:
                 # This is an externally defined type.  Calling through the
                 # cimported base type pointer directly interacts badly with
                 # the module cleanup, which may already have cleared it.
                 # In that case, fall back to traversing the type hierarchy.
+                # If we're using the module state then always go through the
+                # type hierarchy, because our access to the module state may
+                # have been lost (at least for the limited API version of
+                # using module state).
                 base_cname = base_type.typeptr_cname
-                code.putln(
-                    "if (likely(%s)) { if (%s->tp_clear) %s->tp_clear(o); } else __Pyx_call_next_tp_clear(o, %s);" % (
-                        base_cname, base_cname, base_cname, slot_func))
+                code.putln("#if !CYTHON_USE_MODULE_STATE")
+                code.putln("if (likely(%s)) {" % base_cname)
+                code.putln(f"inquiry clear = __Pyx_PyType_GetSlot({base_cname}, tp_clear, inquiry);")
+                code.putln("if (clear) clear(o);")
+                code.putln("} else")
+                code.putln("#endif")
+                code.putln("{ __Pyx_call_next_tp_clear(o, %s); }" % slot_func)
                 code.globalstate.use_utility_code(
                     UtilityCode.load_cached("CallNextTpClear", "ExtensionTypes.c"))
 
@@ -3372,6 +3403,7 @@ class ModuleNode(Nodes.Node, Nodes.BlockNode):
                 scope = cclass_type.scope
                 freelist_name = scope.mangle_internal(Naming.freelist_name)
                 freecount_name = scope.mangle_internal(Naming.freecount_name)
+                code.putln('#if CYTHON_USE_FREELISTS')
                 code.putln("while (%s > 0) {" % freecount_name)
                 code.putln("PyObject* o = (PyObject*)%s[--%s];" % (
                     freelist_name, freecount_name))
@@ -3383,6 +3415,7 @@ class ModuleNode(Nodes.Node, Nodes.BlockNode):
                 code.putln("if (tp_free) tp_free(o);")
                 code.putln("#endif")
                 code.putln("}")
+                code.putln('#endif')  # CYTHON_USE_FREELISTS
 #        for entry in env.pynum_entries:
 #            code.put_decref_clear(entry.cname,
 #                                  PyrexTypes.py_object_type,
