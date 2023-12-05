@@ -2553,7 +2553,7 @@ def p_mod_item(s, ctx):
         with Utils.open_source_file(mod_path) as f:
             directive_comments = []
             source_desc = FileSourceDescriptor(mod_path)
-            mod_s = PyrexScanner(f, source_desc, s, source_encoding=f.encoding, parse_comments=s.parse_comments)
+            mod_s = PyrexScanner(f, source_desc, source_encoding=f.encoding, parse_comments=s.parse_comments)
             body = p_statement_list(mod_s, ctx)
 
     return ModuleNode(pos,
