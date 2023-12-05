@@ -2538,11 +2538,11 @@ def p_mod_item(s, ctx):
     s.next()
     name = s.systring
     s.next()
-    ctx = ctx(cdef_flag = 1, level = "module")
     if s.sy == ":":
         s.next()
         s.expect("NEWLINE")
         directive_comments = p_compiler_directive_comments(s)
+        ctx = Ctx(level = "module", cdef_flag = 1)
         body = p_statement_list(s, ctx, True)
     else:
         s.expect_newline("Expected a newline", ignore_semicolon=True)
