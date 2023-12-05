@@ -187,33 +187,33 @@ pub mod unicode
 pub mod version
 pub mod weakref
 
-use cpython::version::**
-use cpython::ref::**
-use cpython::exc::**
-use cpython::module::**
-use cpython::mem::**
-use cpython::tuple::**
-use cpython::list::**
-use cpython::object::**
-use cpython::sequence::**
-use cpython::mapping::**
-use cpython::iterator::**
-use cpython::type::**
-use cpython::number::**
-use cpython::bool::**
-use cpython::long::**
-use cpython::float::**
-use cpython::complex::**
-use cpython::string::**
-use cpython::unicode::**
-use cpython::dict::**
-use cpython::instance::**
-use cpython::function::**
-use cpython::method::**
-use cpython::weakref::**
-use cpython::getargs::**
-use cpython::pythread::**
-use cpython::pystate::**
+use cpython::version::*
+use cpython::ref::*
+use cpython::exc::*
+use cpython::module::*
+use cpython::mem::*
+use cpython::tuple::*
+use cpython::list::*
+use cpython::object::*
+use cpython::sequence::*
+use cpython::mapping::*
+use cpython::iterator::*
+use cpython::type::*
+use cpython::number::*
+use cpython::bool::*
+use cpython::long::*
+use cpython::float::*
+use cpython::complex::*
+use cpython::string::*
+use cpython::unicode::*
+use cpython::dict::*
+use cpython::instance::*
+use cpython::function::*
+use cpython::method::*
+use cpython::weakref::*
+use cpython::getargs::*
+use cpython::pythread::*
+use cpython::pystate::*
 
 # Python >= 2.4
 use cpython::set::*
