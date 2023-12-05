@@ -120,6 +120,7 @@ class ModuleNode(Nodes.Node, Nodes.BlockNode):
 
     child_attrs = ["body"]
     directives = None
+    scope = None
     # internal - used in merging
     pxd_stats = None
     utility_code_stats = None
