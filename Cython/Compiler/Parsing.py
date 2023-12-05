@@ -2555,9 +2555,10 @@ def p_mod_item(s, ctx):
         s.included_files.append(mod_file_name)
         with Utils.open_source_file(mod_file_path) as f:
             source_desc = FileSourceDescriptor(mod_file_path)
+            assert not source_desc.is_python_file()
             mod_s = PyrexScanner(f, source_desc, s, source_encoding=f.encoding, parse_comments=s.parse_comments)
-            directive_comments = p_compiler_directive_comments(mod_s)
-            body = p_statement_list(mod_s, ctx)
+            directive_comments = []  # p_compiler_directive_comments(mod_s)
+            body = p_statement_list(mod_s, Ctx())
 
     return ModuleNode(pos,
         doc = None,
