@@ -2545,15 +2545,15 @@ def p_mod_item(s, ctx):
     else:
         directive_comments = []
         self_path = os.path.splitext(pos[0].filename)[0]
-        if os.path.exists(os.path.join(self_path, name + '.pyx')):
-            mod_path = os.path.join(self_path, name + '.pyx')
-        else:
+        mod_path = os.path.join(self_path, name + '.pyx')
+        if not os.path.exists(mod_path):
             mod_path = os.path.join(self_path, name + '.pxd')
         s.included_files.append(name)
         with Utils.open_source_file(mod_path) as f:
             source_desc = FileSourceDescriptor(mod_path)
             s2 = PyrexScanner(f, source_desc, s, source_encoding=f.encoding, parse_comments=s.parse_comments)
             doc, body = p_suite_with_docstring(s2, ctx)
+        s.expect_newline("Expected a newline", ignore_semicolon=True)
 
     return ModuleNode(pos,
         doc = doc,
