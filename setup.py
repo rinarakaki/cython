@@ -37,22 +37,17 @@ class sdist(sdist_orig):
         sdist_orig.run(self)
 add_command_class('sdist', sdist)
 
-pxd_include_dirs = [
-    directory for directory, dirs, files
-    in os.walk(os.path.join('Cython', 'Includes'))
-    if '__init__.pyx' in files or '__init__.pxd' in files
-    or directory == os.path.join('Cython', 'Includes')]
-
 pxd_include_patterns = [
-    p+'/*.pxd' for p in pxd_include_dirs ] + [
-    p+'/*.pyx' for p in pxd_include_dirs ]
+    os.path.join('Includes', mod_name + '.pxd')
+    for mod_name in ['cpython', 'libc', 'libcpp', 'openmp', 'posix']
+]
 
 setup_args['package_data'] = {
     'Cython.Plex'     : ['*.pxd'],
     'Cython.Compiler' : ['*.pxd'],
     'Cython.Runtime'  : ['*.pyx', '*.pxd'],
     'Cython.Utility'  : ['*.pyx', '*.pxd', '*.c', '*.h', '*.cpp'],
-    'Cython'          : [ p[7:] for p in pxd_include_patterns ],
+    'Cython'          : [ p for p in pxd_include_patterns ],
     'Cython.Debugger.Tests': ['codefile', 'cfuncs.c'],
 }
 
