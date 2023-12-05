@@ -2542,7 +2542,7 @@ def p_mod_item(s, ctx):
         s.next()
         s.expect("NEWLINE")
         directive_comments = p_compiler_directive_comments(s)
-        ctx = Ctx(level = "module", cdef_flag = 1)
+        ctx = Ctx(level = "module")
         body = p_statement_list(s, ctx, True)
     else:
         s.expect_newline("Expected a newline", ignore_semicolon=True)
@@ -2560,7 +2560,7 @@ def p_mod_item(s, ctx):
             assert not source_desc.is_python_file()
             mod_s = PyrexScanner(f, source_desc, s, source_encoding=f.encoding, parse_comments=s.parse_comments)
             directive_comments = []  # p_compiler_directive_comments(mod_s)
-            body = p_statement_list(mod_s, Ctx(level=level, cdef_flag=1))
+            body = p_statement_list(mod_s, Ctx(level=level))
 
     return ModuleNode(pos,
         doc = None,
