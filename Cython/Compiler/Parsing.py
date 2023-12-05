@@ -2539,10 +2539,13 @@ def p_mod_item(s, ctx):
     name = p_ident(s)
     ctx = ctx(cdef_flag = 1, level = "module")
     if s.sy == ":":
+        s.next()
+        s.expect("NEWLINE")
         directive_comments = p_compiler_directive_comments(s)
         # Use "docstring" as verbatim string to include
         doc, body = p_suite_with_docstring(s, ctx, True)
     else:
+        s.expect_newline("Expected a newline", ignore_semicolon=True)
         directive_comments = []
         self_path = os.path.splitext(pos[0].filename)[0]
         mod_path = os.path.join(self_path, name + '.pyx')
@@ -2553,7 +2556,6 @@ def p_mod_item(s, ctx):
             source_desc = FileSourceDescriptor(mod_path)
             s2 = PyrexScanner(f, source_desc, s, source_encoding=f.encoding, parse_comments=s.parse_comments)
             doc, body = p_suite_with_docstring(s2, ctx)
-        s.expect_newline("Expected a newline", ignore_semicolon=True)
 
     return ModuleNode(pos,
         doc = doc,
