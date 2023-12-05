@@ -2547,9 +2547,11 @@ def p_mod_item(s, ctx):
     else:
         s.expect_newline("Expected a newline", ignore_semicolon=True)
         self_path = os.path.splitext(pos[0].filename)[0]
+        level = "module"
         mod_file_name = name + '.pyx'
         mod_file_path = os.path.join(self_path, mod_file_name)
         if not os.path.exists(mod_file_path):
+            level = "module_pxd"
             mod_file_name = name + '.pxd'
             mod_file_path = os.path.join(self_path, mod_file_name)
         s.included_files.append(mod_file_name)
@@ -2558,7 +2560,7 @@ def p_mod_item(s, ctx):
             assert not source_desc.is_python_file()
             mod_s = PyrexScanner(f, source_desc, s, source_encoding=f.encoding, parse_comments=s.parse_comments)
             directive_comments = []  # p_compiler_directive_comments(mod_s)
-            body = p_statement_list(mod_s, Ctx())
+            body = p_statement_list(mod_s, Ctx(level=level, cdef_flag=1))
 
     return ModuleNode(pos,
         doc = None,
