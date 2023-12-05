@@ -2542,23 +2542,22 @@ def p_mod_item(s, ctx):
         s.next()
         s.expect("NEWLINE")
         directive_comments = p_compiler_directive_comments(s)
-        # Use "docstring" as verbatim string to include
-        doc, body = p_suite_with_docstring(s, ctx, True)
+        body = p_statement_list(s, ctx, True)
     else:
         s.expect_newline("Expected a newline", ignore_semicolon=True)
-        directive_comments = []
         self_path = os.path.splitext(pos[0].filename)[0]
         mod_path = os.path.join(self_path, name + '.pyx')
         if not os.path.exists(mod_path):
             mod_path = os.path.join(self_path, name + '.pxd')
         s.included_files.append(name)
         with Utils.open_source_file(mod_path) as f:
+            directive_comments = []
             source_desc = FileSourceDescriptor(mod_path)
-            s2 = PyrexScanner(f, source_desc, s, source_encoding=f.encoding, parse_comments=s.parse_comments)
-            doc, body = p_suite_with_docstring(s2, ctx)
+            mod_s = PyrexScanner(f, source_desc, s, source_encoding=f.encoding, parse_comments=s.parse_comments)
+            body = p_statement_list(mod_s, ctx)
 
     return ModuleNode(pos,
-        doc = doc,
+        doc = None,
         body = body,
         full_module_name = name,
         directive_comments = directive_comments
