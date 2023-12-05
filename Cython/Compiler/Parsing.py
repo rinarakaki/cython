@@ -63,7 +63,7 @@ class Ctx:
 
 
 def p_ident(s, message="Expected an identifier, found '%s'"):
-    if s.sy == 'IDENT':
+    if s.sy =="IDENT":
         name = s.context.intern_ustring(s.systring)
         s.next()
         return name
@@ -2536,7 +2536,8 @@ def p_mod_item(s, ctx):
     # s.sy == "mod"
     pos = s.position()
     s.next()
-    name = p_ident(s)
+    name = s.systring
+    s.next()
     ctx = ctx(cdef_flag = 1, level = "module")
     if s.sy == ":":
         s.next()
@@ -2546,14 +2547,16 @@ def p_mod_item(s, ctx):
     else:
         s.expect_newline("Expected a newline", ignore_semicolon=True)
         self_path = os.path.splitext(pos[0].filename)[0]
-        mod_path = os.path.join(self_path, name + '.pyx')
-        if not os.path.exists(mod_path):
-            mod_path = os.path.join(self_path, name + '.pxd')
-        s.included_files.append(name)
-        with Utils.open_source_file(mod_path) as f:
-            directive_comments = []
-            source_desc = FileSourceDescriptor(mod_path)
+        mod_file_name = name + '.pyx'
+        mod_file_path = os.path.join(self_path, mod_file_name)
+        if not os.path.exists(mod_file_path):
+            mod_file_name = name + '.pxd'
+            mod_file_path = os.path.join(self_path, mod_file_name)
+        s.included_files.append(mod_file_name)
+        with Utils.open_source_file(mod_file_path) as f:
+            source_desc = FileSourceDescriptor(mod_file_path)
             mod_s = PyrexScanner(f, source_desc, s, source_encoding=f.encoding, parse_comments=s.parse_comments)
+            directive_comments = p_compiler_directive_comments(mod_s)
             body = p_statement_list(mod_s, ctx)
 
     return ModuleNode(pos,
@@ -2706,7 +2709,7 @@ def p_statement_list(s, ctx, first_statement = 0):
     # Parse a series of statements separated by newlines.
     pos = s.position()
     stats = []
-    while s.sy not in ('DEDENT', 'EOF'):
+    while s.sy not in ("DEDENT", "EOF"):
         stat = p_statement(s, ctx, first_statement = first_statement)
         if isinstance(stat, Nodes.PassStatNode):
             continue
