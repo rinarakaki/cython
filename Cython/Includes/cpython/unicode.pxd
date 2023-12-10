@@ -392,7 +392,7 @@ extern from *:
     # This caches the UTF-8 representation of the string in the Unicode
     # object, and subsequent calls will return a pointer to the same buffer.
     # The caller is not responsible for deallocating the buffer
-    fn r&i8 PyUnicode_AsUTF8AndSize(object unicode, Py_ssize_t *size) except NULL
+    fn r&i8 PyUnicode_AsUTF8AndSize(object unicode, isize *size) except NULL
 
 
     # As PyUnicode_AsUTF8AndSize(), but does not store the size.
