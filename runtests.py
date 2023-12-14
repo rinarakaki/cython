@@ -1,4 +1,4 @@
-from __future__ import print_function
+#!/usr/bin/env python
 
 import atexit
 import base64
@@ -1867,6 +1867,7 @@ def collect_unittests(path, module_prefix, suite, selectors, exclude_selectors):
         return dirname == "Tests"
 
     loader = unittest.TestLoader()
+    from importlib import import_module
 
     if include_debugger:
         skipped_dirs = []
@@ -1893,9 +1894,7 @@ def collect_unittests(path, module_prefix, suite, selectors, exclude_selectors):
                         continue
                     if any(1 for match in exclude_selectors if match(modulename)):
                         continue
-                    module = __import__(modulename)
-                    for x in modulename.split('.')[1:]:
-                        module = getattr(module, x)
+                    module = import_module(modulename)
                     suite.addTests([loader.loadTestsFromModule(module)])
 
 
