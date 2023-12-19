@@ -2622,7 +2622,7 @@ if VALUE is not None:
                 error(node.pos, "cdef variable '%s' declared after it is used" % node.name)
         self.visitchildren(node)
         return node
-    
+
     def visit_LetStatNode(self, node):
         # to ensure all CNameDeclaratorNodes are visited.
         self.visitchildren(node)
@@ -3184,7 +3184,7 @@ class RemoveUnreachableCode(CythonTransform):
 class YieldNodeCollector(TreeVisitor):
 
     def __init__(self, excludes=[]):
-        super().__init__()
+        super(YieldNodeCollector, self).__init__()
         self.yields = []
         self.returns = []
         self.finallys = []

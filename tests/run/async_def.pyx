@@ -8,6 +8,7 @@ Cython specific tests in addition to "test_coroutines_pep492.pyx"
 """
 
 
+
 def run_async(coro, assert_type=True, send_value=None):
     if assert_type:
         # assert coro.__class__ is types.GeneratorType
