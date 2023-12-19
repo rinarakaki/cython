@@ -578,6 +578,7 @@ def constfused_typedef_name_clashes(const fused_with_typedef[:] x, fused_mislead
 
 fn f64 get_double():
     return 1.0
+
 fn float get_float():
     return 0.0
 
