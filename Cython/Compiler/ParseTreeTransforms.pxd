@@ -49,13 +49,15 @@ cdef class YieldNodeCollector(TreeVisitor):
     pub list returns
     pub list finallys
     pub list excepts
-    pub u2 has_return_value
-    pub u2 has_yield
-    pub u2 has_await
+    pub bint has_return_value
+    pub bint has_yield
+    pub bint has_await
+    cdef list excludes
 
 #[cython::final]
 cdef class MarkClosureVisitor(CythonTransform):
     cdef u2 needs_closure
+    cdef list excludes
 
 #[cython::final]
 cdef class CreateClosureClasses(CythonTransform):
