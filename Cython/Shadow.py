@@ -1,7 +1,12 @@
 # cython.* namespace for pure mode.
 
 # Possible version formats: "3.1.0", "3.1.0a1", "3.1.0a1.dev0"
-__version__ = "3.1.0a0"
+__version__ = "3.0.7"
+
+try:
+    from __builtin__ import basestring
+except ImportError:
+    basestring = str
 
 
 # BEGIN shameless copy from Cython/minivect/minitypes.py
