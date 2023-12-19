@@ -194,7 +194,7 @@ extern from *:
     # string is null-terminated in case this is required by the application.
     # Also, note that the wchar_t* string might contain null characters,
     # which would cause the string to be truncated when used with most C functions.
-    fn isize PyUnicode_AsWideChar(object o, wchar_t *w, isize size)
+    fn isize PyUnicode_AsWideChar(object o, wchar_t *w, isize size) except -1
 
     # Convert the Unicode object to a wide character string. The output
     # string always ends with a null character. If size is not NULL,
@@ -207,7 +207,7 @@ extern from *:
     # Returns a buffer allocated by PyMem_New (use PyMem_Free() to free it)
     # on success. On error, returns NULL and *size is undefined. Raises a
     # MemoryError if memory allocation is failed.
-    fn wchar_t *PyUnicode_AsWideCharString(object o, isize *size)
+    fn wchar_t *PyUnicode_AsWideCharString(object o, isize *size) except NULL
 
 # Unicode Methods
 
@@ -392,7 +392,11 @@ extern from *:
     # This caches the UTF-8 representation of the string in the Unicode
     # object, and subsequent calls will return a pointer to the same buffer.
     # The caller is not responsible for deallocating the buffer
-    fn r&i8 PyUnicode_AsUTF8AndSize(object unicode, isize* size)
+    fn r&i8 PyUnicode_AsUTF8AndSize(object unicode, Py_ssize_t *size) except NULL
+
+
+    # As PyUnicode_AsUTF8AndSize(), but does not store the size.
+    fn r&i8 PyUnicode_AsUTF8(object unicode) except NULL
 
 # These are the UTF-16 codec APIs:
 
