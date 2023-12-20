@@ -33,6 +33,10 @@ def compute(my_type[:, :;1] array_1, my_type[:, :;1] array_2, my_type a, my_type
     let my_type tmp
     let isize x, y
 
+
+    for x in range(x_max):
+        for y in range(y_max):
+
     for x in 0..x_max:
         for y in 0..y_max:
             tmp = clip(array_1[x, y], 2, 10)

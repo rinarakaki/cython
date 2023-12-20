@@ -1,22 +1,26 @@
 import numpy as np
-
+import cython
 # We now need to fix a datatype for our arrays. I've used the variable
 # DTYPE for this, which is assigned to the usual NumPy runtime
 # type info object.
 DTYPE = np.intc
 
-# cdef means here that this function is a plain C function (so faster).
+# @cython.cfunc means here that this function is a plain C function (so faster).
 # To get all the benefits, we type the arguments and the return value.
-fn i32 clip(i32 a, i32 min_value, i32 max_value):
+@cython.exceptval(check=False)
+@cython.cfunc
+def clip(a: cython.int, min_value: cython.int, max_value: cython.int) -> cython.int:
     return min(max(a, min_value), max_value)
 
-def compute(array_1, array_2, i32 a, i32 b, i32 c):
-    # The "cdef" keyword is also used within functions to type variables. It
+
+def compute(array_1, array_2, a: cython.int, b: cython.int, c: cython.int):
+
+    # Annotation is also used within functions to type variables. It
     # can only be used at the top indentation level (there are non-trivial
     # problems with allowing them in other places, though we'd love to see
     # good and thought out proposals for it).
-    let isize x_max = array_1.shape[0]
-    let isize y_max = array_1.shape[1]
+    x_max: cython.Py_ssize_t  = array_1.shape[0]
+    y_max: cython.Py_ssize_t  = array_1.shape[1]
 
     assert array_1.shape == array_2.shape
     assert array_1.dtype == DTYPE
@@ -33,16 +37,15 @@ def compute(array_1, array_2, i32 a, i32 b, i32 c):
     # datatype size, it will simply wrap around like in C, rather than raise
     # an error like in Python.
 
-    let i32 tmp
+    tmp: cython.int
 
-    # isize is the proper C type for Python array indices.
-    let isize x, y
+    # cython.Py_ssize_t is the proper C type for Python array indices.
+    x: cython.Py_ssize_t
+    y:  cython.Py_ssize_t
 
     for x in range(x_max):
         for y in range(y_max):
 
-    for x in 0..x_max:
-        for y in 0..y_max:
             tmp = clip(array_1[x, y], 2, 10)
             tmp = tmp * a + array_2[x, y] * b
             result[x, y] = tmp + c
