@@ -56,6 +56,11 @@ jobs:
           # ================
           # GCC 11 (with latest language standards)
           - os: ubuntu-latest
+            python-version: "3.11"
+            backend: "c,cpp"
+            env: { LIMITED_API: "--limited-api", EXCLUDE: "--no-file" }
+            extra_hash: "-limited_api"
+          - os: ubuntu-latest
             python-version: "3.12"
             allowed_failure: true
             backend: "c,cpp"
