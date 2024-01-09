@@ -524,6 +524,8 @@ for name in float_types:
 for name in complex_types:
     gs[name] = typedef(py_complex, to_repr(name, name))
 
+del name, reprname
+
 bint = typedef(bool, "bint")
 void = typedef(None, "void")
 Py_tss_t = typedef(None, "Py_tss_t")
@@ -534,8 +536,19 @@ for t in builtin_types + int_types + float_types + complex_types + other_types:
 
 NULL = gs['p_void'](0)
 
-# looks like 'gs' has some users out there by now...
-# del gs
+del gs
+
+
+def __getattr__(name):
+    # looks like 'gs' has some users out there by now...
+    if name == 'gs':
+        import warnings
+        warnings.warn(
+            "'gs' is not a publicly exposed name in cython.*. Use vars() or globals() instead.",
+            DeprecationWarning)
+        return globals()
+    raise AttributeError(f"'cython' has no attribute {name!r}")
+
 
 integral = floating = numeric = _FusedType()
 
