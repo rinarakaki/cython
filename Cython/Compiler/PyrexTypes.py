@@ -5364,6 +5364,14 @@ def parse_basic_type(name):
           not name.startswith('short')):
         name = name[1:]
         signed = 2
+    elif name == 'Py_ssize_t':
+        signed = 2
+    elif name == 'ssize_t':
+        signed = 2
+    elif name == 'size_t':
+        signed = 0
+    elif name == 'ptrdiff_t':
+        signed = 2
     else:
         signed = 1
 
