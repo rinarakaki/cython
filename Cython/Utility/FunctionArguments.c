@@ -277,7 +277,7 @@ static int __Pyx_ParseOptionalKeywords(
         if (*name) {
             values[name-argnames] = value;
 #if CYTHON_AVOID_BORROWED_REFS
-            Py_INCREF(value); // transfer ownership of value to values
+            Py_INCREF(value);  /* transfer ownership of value to values */
             Py_DECREF(key);
 #endif
             key = NULL;
@@ -292,6 +292,34 @@ static int __Pyx_ParseOptionalKeywords(
         Py_INCREF(value);
 
         name = first_kw_arg;
+        #if PY_MAJOR_VERSION < 3
+        if (likely(PyString_Check(key))) {
+            while (*name) {
+                if ((CYTHON_COMPILING_IN_PYPY || PyString_GET_SIZE(**name) == PyString_GET_SIZE(key))
+                        && _PyString_Eq(**name, key)) {
+                    values[name-argnames] = value;
+#if CYTHON_AVOID_BORROWED_REFS
+                    value = NULL;  /* ownership transferred to values */
+#endif
+                    break;
+                }
+                name++;
+            }
+            if (*name) continue;
+            else {
+                // not found after positional args, check for duplicate
+                PyObject*** argname = argnames;
+                while (argname != first_kw_arg) {
+                    if ((**argname == key) || (
+                            (CYTHON_COMPILING_IN_PYPY || PyString_GET_SIZE(**argname) == PyString_GET_SIZE(key))
+                             && _PyString_Eq(**argname, key))) {
+                        goto arg_passed_twice;
+                    }
+                    argname++;
+                }
+            }
+        } else
+        #endif
         if (likely(PyUnicode_Check(key))) {
             while (*name) {
                 int cmp = (
@@ -304,7 +332,7 @@ static int __Pyx_ParseOptionalKeywords(
                 if (cmp == 0) {
                     values[name-argnames] = value;
 #if CYTHON_AVOID_BORROWED_REFS
-                    value = NULL; // ownership transferred to values
+                    value = NULL;  /* ownership transferred to values */
 #endif
                     break;
                 }
