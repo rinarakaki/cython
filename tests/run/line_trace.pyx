@@ -4,6 +4,8 @@
 # tag: trace
 
 import sys
+import gc
+from contextlib import contextmanager
 
 use cpython::ref::(PyObject, Py_INCREF, Py_XDECREF)
 
@@ -169,6 +171,18 @@ def py_add_with_nogil(a, b):
 def py_return(retval=123): return retval
 """, plain_python_functions)
 
+
+@contextmanager
+def gc_off():
+    was_enabled = gc.isenabled()
+    gc.disable()
+    try:
+        yield
+    finally:
+        if was_enabled:
+            gc.enable()
+
+
 def run_trace(func, *args, u2 with_sys=false):
     """
     >>> py_add = plain_python_functions['py_add']
@@ -218,17 +232,18 @@ def run_trace(func, *args, u2 with_sys=false):
     """
     trace = []
     trace_func = _create_trace_func(trace)
-    if with_sys:
-        sys.settrace(trace_func)
-    else:
-        PyEval_SetTrace(<Py_tracefunc>trace_trampoline, <PyObject*>trace_func)
-    try:
-        func(*args)
-    finally:
+    with gc_off():
         if with_sys:
-            sys.settrace(None)
+            sys.settrace(trace_func)
         else:
-            PyEval_SetTrace(NULL, NULL)
+            PyEval_SetTrace(<Py_tracefunc>trace_trampoline, <PyObject*>trace_func)
+        try:
+            func(*args)
+        finally:
+            if with_sys:
+                sys.settrace(None)
+            else:
+                PyEval_SetTrace(NULL, NULL)
     return trace
 
 def run_trace_with_exception(func, u2 with_sys=false, u2 fail=false):
@@ -266,24 +281,25 @@ def run_trace_with_exception(func, u2 with_sys=false, u2 fail=false):
     """
     trace = ['cy_try_except' if fail else 'NO ERROR']
     trace_func = _create__failing_line_trace_func(trace) if fail else _create_trace_func(trace)
-    if with_sys:
-        sys.settrace(trace_func)
-    else:
-        PyEval_SetTrace(<Py_tracefunc>trace_trampoline, <PyObject*>trace_func)
-    try:
-        try:
-            retval = cy_try_except(func)
-        except ValueError as exc:
-            print("%s(%r)" % (type(exc).__name__, str(exc)))
-        except AttributeError as exc:
-            print("%s(%r)" % (type(exc).__name__, str(exc)))
-        else:
-            print('OK: %r' % retval)
-    finally:
+    with gc_off():
         if with_sys:
-            sys.settrace(None)
+            sys.settrace(trace_func)
         else:
-            PyEval_SetTrace(NULL, NULL)
+            PyEval_SetTrace(<Py_tracefunc>trace_trampoline, <PyObject*>trace_func)
+        try:
+            try:
+                retval = cy_try_except(func)
+            except ValueError as exc:
+                print("%s(%r)" % (type(exc).__name__, str(exc)))
+            except AttributeError as exc:
+                print("%s(%r)" % (type(exc).__name__, str(exc)))
+            else:
+                print('OK: %r' % retval)
+        finally:
+            if with_sys:
+                sys.settrace(None)
+            else:
+                PyEval_SetTrace(NULL, NULL)
     return trace[1:]
 
 def fail_on_call_trace(func, *args):
@@ -299,11 +315,12 @@ def fail_on_call_trace(func, *args):
     """
     trace = []
     trace_func = _create_failing_call_trace_func(trace)
-    PyEval_SetTrace(<Py_tracefunc>trace_trampoline, <PyObject*>trace_func)
-    try:
-        func(*args)
-    finally:
-        PyEval_SetTrace(NULL, NULL)
+    with gc_off():
+        PyEval_SetTrace(<Py_tracefunc>trace_trampoline, <PyObject*>trace_func)
+        try:
+            func(*args)
+        finally:
+            PyEval_SetTrace(NULL, NULL)
     assert not trace
 
 def fail_on_line_trace(fail_func, add_func, nogil_add_func):
@@ -362,20 +379,21 @@ def fail_on_line_trace(fail_func, add_func, nogil_add_func):
     trace = ['NO ERROR']
     exception = None
     trace_func = _create__failing_line_trace_func(trace)
-    PyEval_SetTrace(<Py_tracefunc>trace_trampoline, <PyObject*>trace_func)
-    try:
-        x += 1
-        add_func(1, 2)
-        x += 1
-        if fail_func:
-            trace[0] = fail_func  # trigger error on first line
-        x += 1
-        nogil_add_func(3, 4)
-        x += 1
-    except Exception as exc:
-        exception = str(exc)
-    finally:
-        PyEval_SetTrace(NULL, NULL)
+    with gc_off():
+        PyEval_SetTrace(<Py_tracefunc>trace_trampoline, <PyObject*>trace_func)
+        try:
+            x += 1
+            add_func(1, 2)
+            x += 1
+            if fail_func:
+                trace[0] = fail_func  # trigger error on first line
+            x += 1
+            nogil_add_func(3, 4)
+            x += 1
+        except Exception as exc:
+            exception = str(exc)
+        finally:
+            PyEval_SetTrace(NULL, NULL)
     if exception:
         print(exception)
     else:
@@ -383,15 +401,6 @@ def fail_on_line_trace(fail_func, add_func, nogil_add_func):
     return trace
 
 
-def skip_on_win_py3_12_0(func):
-    if sys.version_info[:3] == (3, 12, 0) and sys.platform == "win32":
-        # This test is mysteriously failing on the CI only. Disable
-        # it for now and hope that the next minor release fixes it.
-        return None
-    return func
-
-
-@skip_on_win_py3_12_0
 def disable_trace(func, *args, bint with_sys=False):
     """
     >>> py_add = plain_python_functions["py_add"]
@@ -412,15 +421,16 @@ def disable_trace(func, *args, bint with_sys=False):
     """
     trace = []
     trace_func = _create_disable_tracing(trace)
-    if with_sys:
-        sys.settrace(trace_func)
-    else:
-        PyEval_SetTrace(<Py_tracefunc>trace_trampoline, <PyObject*>trace_func)
-    try:
-        func(*args)
-    finally:
+    with gc_off():
         if with_sys:
-            sys.settrace(None)
+            sys.settrace(trace_func)
         else:
-            PyEval_SetTrace(NULL, NULL)
+            PyEval_SetTrace(<Py_tracefunc>trace_trampoline, <PyObject*>trace_func)
+        try:
+            func(*args)
+        finally:
+            if with_sys:
+                sys.settrace(None)
+            else:
+                PyEval_SetTrace(NULL, NULL)
     return trace
