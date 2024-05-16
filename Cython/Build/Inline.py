@@ -7,7 +7,7 @@ import sys
 from distutils.core import Distribution, Extension
 from distutils.command.build_ext import build_ext
 
-import Cython
+import Cython as cython
 from ..Compiler.Main import Context
 from ..Compiler.Options import (default_options, CompilationOptions,
     get_directive_defaults)
@@ -18,7 +18,7 @@ from ..Compiler.TreeFragment import parse_from_strings
 from .Dependencies import strip_string_literals, cythonize, cached_function
 from ..Compiler import Pipeline
 from ..Utils import get_cython_cache_dir
-import cython as cython_module
+import Cython as cython_module
 
 import importlib.util
 from importlib.machinery import ExtensionFileLoader

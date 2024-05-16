@@ -1,19 +1,14 @@
-try:
-    from setuptools import setup, Extension
-except ImportError:
-    from distutils.core import setup, Extension
 import os
+import shutil
 import stat
 import subprocess
-import textwrap
 import sys
+import sysconfig
 
-import platform
-is_cpython = platform.python_implementation() == 'CPython'
+from setuptools import setup, Extension
 
-# this specifies which versions of python we support, pip >= 9 knows to skip
-# versions of packages which are not compatible with the running python
-PYTHON_REQUIRES = '>=3.7'
+from Cython.Distutils.build_ext import build_ext
+from Cython.Compiler.Options import get_directive_defaults
 
 if sys.platform == "darwin":
     # Don't create resource files on OS X tar.
@@ -27,7 +22,7 @@ def add_command_class(name, cls):
     cmdclasses[name] = cls
     setup_args['cmdclass'] = cmdclasses
 
-from distutils.command.sdist import sdist as sdist_orig
+from setuptools.command.sdist import sdist as sdist_orig
 class sdist(sdist_orig):
     def run(self):
         self.force_manifest = 1
@@ -37,49 +32,8 @@ class sdist(sdist_orig):
         sdist_orig.run(self)
 add_command_class('sdist', sdist)
 
-pxd_include_dirs = [
-    directory for directory, dirs, files
-    in os.walk(os.path.join('Cython', 'Includes'))
-    if '__init__.pyx' in files or '__init__.pxd' in files
-    or directory == os.path.join('Cython', 'Includes')]
-
-pxd_include_patterns = [
-    p+'/*.pxd' for p in pxd_include_dirs ] + [
-    p+'/*.pyx' for p in pxd_include_dirs ]
-
-setup_args['package_data'] = {
-    'Cython.Plex'     : ['*.pxd'],
-    'Cython.Compiler' : ['*.pxd'],
-    'Cython.Runtime'  : ['*.pyx', '*.pxd'],
-    'Cython.Utility'  : ['*.pyx', '*.pxd', '*.c', '*.h', '*.cpp'],
-    'Cython'          : [ p[7:] for p in pxd_include_patterns ],
-    'Cython.Debugger.Tests': ['codefile', 'cfuncs.c'],
-}
-
-# This dict is used for passing extra arguments that are setuptools
-# specific to setup
-setuptools_extra_args = {}
-
-if 'setuptools' in sys.modules:
-    setuptools_extra_args['python_requires'] = PYTHON_REQUIRES
-    setuptools_extra_args['zip_safe'] = False
-    setuptools_extra_args['entry_points'] = {
-        'console_scripts': [
-            'cython = Cython.Compiler.Main:setuptools_main',
-            'cythonize = Cython.Build.Cythonize:main',
-            'cygdb = Cython.Debugger.Cygdb:main',
-        ]
-    }
-    scripts = []
-else:
-    if os.name == "posix":
-        scripts = ["bin/cython", "bin/cythonize", "bin/cygdb"]
-    else:
-        scripts = ["cython.py", "cythonize.py", "cygdb.py"]
-
 
 def compile_cython_modules(profile=False, coverage=False, compile_minimal=False, compile_more=False, cython_with_refnanny=False):
-    source_root = os.path.abspath(os.path.dirname(__file__))
     compiled_modules = [
         "Cython.Plex.Actions",
         "Cython.Plex.Scanners",
@@ -112,10 +66,8 @@ def compile_cython_modules(profile=False, coverage=False, compile_minimal=False,
             "Cython.Compiler.Optimize",
             ])
 
-    from distutils.spawn import find_executable
-    from distutils.sysconfig import get_python_inc
-    pgen = find_executable(
-        'pgen', os.pathsep.join([os.environ['PATH'], os.path.join(get_python_inc(), '..', 'Parser')]))
+    pgen = shutil.which(
+        'pgen', os.pathsep.join([os.environ['PATH'], os.path.join(sysconfig.get_path('platstdlib'), 'Parser')]))
     if not pgen:
         sys.stderr.write("Unable to find pgen, not compiling formal grammar.\n")
     else:
@@ -143,7 +95,7 @@ def compile_cython_modules(profile=False, coverage=False, compile_minimal=False,
 
     extensions = []
     for module in compiled_modules:
-        source_file = os.path.join(source_root, *module.split('.'))
+        source_file = os.path.join(*module.split('.'))
         pyx_source_file = source_file + ".py"
         if not os.path.exists(pyx_source_file):
             pyx_source_file += "x"  # .py -> .pyx
@@ -162,8 +114,6 @@ def compile_cython_modules(profile=False, coverage=False, compile_minimal=False,
     # optimise build parallelism by starting with the largest modules
     extensions.sort(key=lambda ext: os.path.getsize(ext.sources[0]), reverse=True)
 
-    from Cython.Distutils.build_ext import build_ext
-    from Cython.Compiler.Options import get_directive_defaults
     get_directive_defaults().update(
         language_level=3,
         auto_pickle=False,
@@ -205,8 +155,6 @@ if compile_cython_itself:
     cython_compile_more = check_option('cython-compile-all')
     cython_compile_minimal = check_option('cython-compile-minimal')
 
-setup_args.update(setuptools_extra_args)
-
 
 def dev_status(version: str):
     if 'b' in version or 'c' in version:
@@ -219,26 +167,8 @@ def dev_status(version: str):
         return 'Development Status :: 5 - Production/Stable'
 
 
-packages = [
-    'Cython',
-    'Cython.Build',
-    'Cython.Compiler',
-    'Cython.Runtime',
-    'Cython.Distutils',
-    'Cython.Debugger',
-    'Cython.Debugger.Tests',
-    'Cython.Plex',
-    'Cython.Tests',
-    'Cython.Build.Tests',
-    'Cython.Compiler.Tests',
-    'Cython.Utility',
-    'Cython.Tempita',
-    'pyximport',
-]
-
-
 def run_build():
-    if compile_cython_itself and (is_cpython or cython_compile_more or cython_compile_minimal):
+    if compile_cython_itself:
         compile_cython_modules(cython_profile, cython_coverage, cython_compile_minimal, cython_compile_more, cython_with_refnanny)
 
     from Cython import __version__ as version

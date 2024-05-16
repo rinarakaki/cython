@@ -1,0 +1,108 @@
+[build-system]
+requires = ["Cython", "setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "Cython"
+description = "The Cython compiler for writing C extensions in the Python language."
+readme = "README.rst"
+authors = [
+    { name = "Robert Bradshaw, Stefan Behnel, Dag Seljebotn, Greg Ewing, et al.", email = "cython-devel@python.org" }
+]
+license = { file = "LICENSE.txt" }
+requires-python = ">=3.11"
+classifiers = [
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Programming Language :: C",
+    "Programming Language :: Cython",
+    "Topic :: Software Development :: Code Generators",
+    "Topic :: Software Development :: Compilers",
+    "Topic :: Software Development :: Libraries :: Python Modules"
+]
+dependencies = [
+]
+dynamic = ["version"]
+
+[project.optional-dependencies]
+test = [
+    "numpy",
+    "coverage",
+    "pycodestyle",
+    "pytest",
+    "ruff",
+    "setuptools"
+]
+doc = [
+    "jinja2",
+    "jupyter",
+    "sphinx",
+    "sphinx-issues",
+    "sphinx-tabs",
+]
+
+[project.scripts]
+cython = "Cython.Compiler.Main:setuptools_main"
+cythonize = "Cython.Build.Cythonize:main"
+cygdb = "Cython.Debugger.Cygdb:main"
+
+[project.urls]
+"Homepage" = "https://cython.org/"
+"Documentation" = "https://cython.readthedocs.io/"
+"Donate" = "https://cython.readthedocs.io/en/latest/src/donating.html"
+"Source Code" = "https://github.com/cython/cython"
+"Bug Tracker" = "https://github.com/cython/cython/issues"
+"User Group" = "https://groups.google.com/g/cython-users"
+
+[tool.setuptools]
+py-modules = ["cython"]
+packages = [
+    "Cython",
+    "Cython.Build",
+    "Cython.Compiler",
+    "Cython.Runtime",
+    "Cython.Distutils",
+    "Cython.Debugger",
+    "Cython.Debugger.Tests",
+    "Cython.Plex",
+    "Cython.Tests",
+    "Cython.Build.Tests",
+    "Cython.Compiler.Tests",
+    "Cython.Utility",
+    "Cython.Tempita",
+    "pyximport",
+]
+
+[tool.setuptools.package-data]
+"Cython.Plex" = ["*.pxd"]
+"Cython.Compiler" = ["*.pxd"]
+"Cython.Runtime" = ["*.pyx", "*.pxd"]
+"Cython.Utility" = ["*.pyx", "*.pxd", "*.c", "*.h", "*.cpp"]
+"Cython" = ["*.pyx", "*.pxd"]
+"Cython.Debugger.Tests" = ["codefile", "cfuncs.c"]
+
+[tool.setuptools.dynamic]
+version = { attr = "Cython.__version__" }
+
+[tool.pytest.ini_options]
+addopts = [
+]
+
+[tool.coverage.run]
+branch = true
+concurrency = ["multiprocessing", "thread"]
+include = ["Cython/*"]
+omit = ["Test*"]
+parallel = true
+source = ["Cython"]
+
+[tool.ruff]
+line-length = 150
+
+[tool.ruff.mccabe]
+max-complexity = 10

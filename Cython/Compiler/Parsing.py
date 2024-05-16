@@ -5,8 +5,7 @@
 
 
 # This should be done automatically
-from Cython.Shadow import typedef
-import cython
+import Cython as cython
 cython.declare(Nodes=object, ExprNodes=object, EncodedString=object,
                bytes_literal=object, StringEncoding=object,
                FileSourceDescriptor=object, lookup_unicodechar=object, unicode_category=object,

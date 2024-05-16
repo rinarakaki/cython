@@ -82,20 +82,15 @@ echo "===================="
 
 # Install python requirements
 echo "Installing requirements [python]"
-if [[ $PYTHON_VERSION == "3.1"[2-9]* ]]; then
-  python -m pip install pip wheel setuptools || exit 1
-  python -m pip install --pre -r test-requirements-312.txt || exit 1
-else
-  python -m pip install -U pip setuptools wheel || exit 1
-
-  if [[ $PYTHON_VERSION != *"-dev" || $COVERAGE == "1" ]]; then
-    python -m pip install -r test-requirements-312.txt || exit 1
-  fi
+if [[ $PYTHON_VERSION == "3.1"[1-9]* ]]; then
+  python -m pip install -U pip build setuptools wheel || exit 1
+  # python -m build || exit 1
+  python -m pip install .[test] || exit 1
 fi
 
 if [[ $TEST_CODE_STYLE == "1" ]]; then
   STYLE_ARGS="--no-unit --no-doctest --no-file --no-pyregr --no-examples"
-  python -m pip install -r doc-requirements.txt || exit 1
+  python -m pip install .[doc] || exit 1
 else
   STYLE_ARGS="--no-code-style"
 

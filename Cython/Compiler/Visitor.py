@@ -16,7 +16,7 @@ from . import Errors
 from . import DebugFlags
 from . import Future
 
-import cython
+import Cython as cython
 
 
 _PRINTABLE = cython.declare(tuple, (bytes, str, int, float, complex))

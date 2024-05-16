@@ -3,7 +3,7 @@ Cython -- Things that don't belong anywhere else in particular
 """
 
 
-import cython
+import Cython as cython
 
 cython.declare(
     basestring=object,

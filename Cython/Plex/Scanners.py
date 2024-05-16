@@ -4,7 +4,7 @@ Python Lexical Analyser
 Scanning an input stream
 """
 
-import cython
+import Cython as cython
 
 cython.declare(BOL=object, EOL=object, EOF=object, NOT_FOUND=object)  # noqa:E402
 

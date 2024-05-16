@@ -1,5 +1,0 @@
-sphinx
-sphinx-issues
-sphinx-tabs
-Jinja2
-jupyter

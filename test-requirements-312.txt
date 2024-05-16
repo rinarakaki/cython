@@ -1,5 +1,0 @@
-git+https://github.com/rnarkk/numpy.git@comments
-coverage
-pycodestyle
-pytest
-setuptools

@@ -4,7 +4,7 @@ Python Lexical Analyser
 Classes for building NFAs and DFAs
 """
 
-import cython
+import Cython as cython
 from .Transitions import TransitionMap
 
 maxint = 2**31-1  # sentinel value

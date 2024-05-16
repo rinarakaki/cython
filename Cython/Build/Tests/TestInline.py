@@ -60,7 +60,7 @@ class TestInline(CythonTest):
         self.assertEqual(tp, Type)
 
     def test_pure(self):
-        import cython as cy
+        import Cython as cy
         b = inline("""
         b = cy.declare(float, a)
         c = cy.declare(cy.pointer(cy.float), &b)

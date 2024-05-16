@@ -3,7 +3,7 @@
 #
 
 
-import cython
+import Cython as cython
 cython.declare(Naming=object, Options=object, PyrexTypes=object, TypeSlots=object,
                error=object, warning=object, py_object_type=object, UtilityCode=object,
                EncodedString=object, re=object)
