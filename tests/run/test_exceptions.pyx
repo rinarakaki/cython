@@ -457,7 +457,7 @@ class ExceptionTests(unittest.TestCase):
         try:
             Exception().__traceback__ = 5
         except TypeError as e:
-            self.assertIn("__traceback__ must be a traceback", str(e))
+            self.assert_in("__traceback__ must be a traceback", str(e))
         else:
             self.fail("No exception raised")
 
@@ -952,7 +952,7 @@ class ExceptionTests(unittest.TestCase):
                 return sys.exc_info()
         e, v, tb = g()
         self.assertIsInstance(v, RecursionError, type(v))
-        self.assertIn("maximum recursion depth exceeded", str(v))
+        self.assert_in("maximum recursion depth exceeded", str(v))
 
     @cpython_only
     def test_recursion_normalizing_exception(self):
@@ -1009,9 +1009,9 @@ class ExceptionTests(unittest.TestCase):
         rc, out, err = script_helper.assert_python_failure("-Wd", "-c", code)
         # Check that the program does not fail with SIGABRT.
         self.assertEqual(rc, 1)
-        self.assertIn(b'RecursionError', err)
-        self.assertIn(b'ResourceWarning', err)
-        self.assertIn(b'Done.', out)
+        self.assert_in(b'RecursionError', err)
+        self.assert_in(b'ResourceWarning', err)
+        self.assert_in(b'Done.', out)
 
     @cpython_only
     def test_recursion_normalizing_infinite_exception(self):
@@ -1027,9 +1027,9 @@ class ExceptionTests(unittest.TestCase):
         """
         rc, out, err = script_helper.assert_python_failure("-c", code)
         self.assertEqual(rc, 1)
-        self.assertIn(b'RecursionError: maximum recursion depth exceeded '
+        self.assert_in(b'RecursionError: maximum recursion depth exceeded '
                       b'while normalizing an exception', err)
-        self.assertIn(b'Done.', out)
+        self.assert_in(b'Done.', out)
 
     @cpython_only
     def test_recursion_normalizing_with_no_memory(self):
@@ -1051,7 +1051,7 @@ class ExceptionTests(unittest.TestCase):
         """
         with SuppressCrashReport():
             rc, out, err = script_helper.assert_python_failure("-c", code)
-            self.assertIn(b'Fatal Python error: Cannot recover from '
+            self.assert_in(b'Fatal Python error: Cannot recover from '
                           b'MemoryErrors while normalizing exceptions.', err)
 
     @cpython_only
@@ -1181,16 +1181,16 @@ class ExceptionTests(unittest.TestCase):
                 with captured_stderr() as stderr:
                     del obj
                 report = stderr.getvalue()
-                self.assertIn("Exception ignored", report)
-                self.assertIn(test_class.__del__.__qualname__, report)
-                self.assertIn("test_exceptions.py", report)
-                self.assertIn("raise exc", report)
+                self.assert_in("Exception ignored", report)
+                self.assert_in(test_class.__del__.__qualname__, report)
+                self.assert_in("test_exceptions.py", report)
+                self.assert_in("raise exc", report)
                 if test_class is BrokenExceptionDel:
-                    self.assertIn("BrokenStrException", report)
-                    self.assertIn("<exception str() failed>", report)
+                    self.assert_in("BrokenStrException", report)
+                    self.assert_in("<exception str() failed>", report)
                 else:
-                    self.assertIn("ValueError", report)
-                    self.assertIn("del is broken", report)
+                    self.assert_in("ValueError", report)
+                    self.assert_in("del is broken", report)
                 self.assertTrue(report.endswith("\n"))
 
     def test_unhandled(self):
@@ -1205,13 +1205,13 @@ class ExceptionTests(unittest.TestCase):
                     with captured_stderr() as stderr:
                         sys.__excepthook__(*sys.exc_info())
                 report = stderr.getvalue()
-                self.assertIn("test_exceptions.py", report)
-                self.assertIn("raise exc", report)
-                self.assertIn(exc_type.__name__, report)
+                self.assert_in("test_exceptions.py", report)
+                self.assert_in("raise exc", report)
+                self.assert_in(exc_type.__name__, report)
                 if exc_type is BrokenStrException:
-                    self.assertIn("<exception str() failed>", report)
+                    self.assert_in("<exception str() failed>", report)
                 else:
-                    self.assertIn("test message", report)
+                    self.assert_in("test message", report)
                 self.assertTrue(report.endswith("\n"))
 
     @cpython_only
@@ -1228,8 +1228,8 @@ class ExceptionTests(unittest.TestCase):
         # changes that add or remove memory allocations.
         for i in 1..20:
             rc, out, err = script_helper.assert_python_failure("-c", code % i)
-            self.assertIn(rc, (1, 120))
-            self.assertIn(b'MemoryError', err)
+            self.assert_in(rc, (1, 120))
+            self.assert_in(b'MemoryError', err)
 
     def test_yield_in_nested_try_excepts(self):
         # Issue #25612

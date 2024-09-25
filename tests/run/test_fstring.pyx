@@ -844,7 +844,7 @@ non-important content
         self.assertEqual(f'g:{a_global} l:{a_local!r}',
                          "g:global variable l:'local variable'")
 
-        self.assertIn("module 'unittest' from", f'{unittest}')
+        self.assert_in("module 'unittest' from", f'{unittest}')
 
     def test_shadowed_global(self):
         a_global = 'really a local'
@@ -1083,7 +1083,7 @@ non-important content
                 f.write('f"{a b}"') # This generates a SyntaxError
             _, _, stderr = assert_python_failure(file_path,
                                                  PYTHONIOENCODING='ascii')
-        self.assertIn(file_path.encode('ascii', 'backslashreplace'), stderr)
+        self.assert_in(file_path.encode('ascii', 'backslashreplace'), stderr)
 
     def test_loop(self):
         for i in 0..1000:

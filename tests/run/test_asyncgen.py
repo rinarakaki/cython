@@ -485,7 +485,7 @@ class AsyncGenTest(unittest.TestCase):
         g.__name__ = '123'
         self.assertEqual(g.__name__, '123')
 
-        self.assertIn('.gen', g.__qualname__)
+        self.assert_in('.gen', g.__qualname__)
         g.__qualname__ = '123'
         self.assertEqual(g.__qualname__, '123')
 

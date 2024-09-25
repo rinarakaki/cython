@@ -912,30 +912,30 @@ class UnicodeTest(CommonTest,
 
     def test_contains(self):
         # Testing Unicode contains method
-        self.assertIn('a', 'abdb')
-        self.assertIn('a', 'bdab')
-        self.assertIn('a', 'bdaba')
-        self.assertIn('a', 'bdba')
+        self.assert_in('a', 'abdb')
+        self.assert_in('a', 'bdab')
+        self.assert_in('a', 'bdaba')
+        self.assert_in('a', 'bdba')
         self.assertNotIn('a', 'bdb')
-        self.assertIn('a', 'bdba')
-        self.assertIn('a', ('a',1,None))
-        self.assertIn('a', (1,None,'a'))
-        self.assertIn('a', ('a',1,None))
-        self.assertIn('a', (1,None,'a'))
+        self.assert_in('a', 'bdba')
+        self.assert_in('a', ('a',1,None))
+        self.assert_in('a', (1,None,'a'))
+        self.assert_in('a', ('a',1,None))
+        self.assert_in('a', (1,None,'a'))
         self.assertNotIn('a', ('x',1,'y'))
         self.assertNotIn('a', ('x',1,None))
         self.assertNotIn('abcd', 'abcxxxx')
-        self.assertIn('ab', 'abcd')
-        self.assertIn('ab', 'abc')
-        self.assertIn('ab', (1,None,'ab'))
-        self.assertIn('', 'abc')
-        self.assertIn('', '')
-        self.assertIn('', 'abc')
+        self.assert_in('ab', 'abcd')
+        self.assert_in('ab', 'abc')
+        self.assert_in('ab', (1,None,'ab'))
+        self.assert_in('', 'abc')
+        self.assert_in('', '')
+        self.assert_in('', 'abc')
         self.assertNotIn('\0', 'abc')
-        self.assertIn('\0', '\0abc')
-        self.assertIn('\0', 'abc\0')
-        self.assertIn('a', '\0abc')
-        self.assertIn('asdf', 'asdf')
+        self.assert_in('\0', '\0abc')
+        self.assert_in('\0', 'abc\0')
+        self.assert_in('a', '\0abc')
+        self.assert_in('asdf', 'asdf')
         self.assertNotIn('asdf', 'asd')
         self.assertNotIn('asdf', '')
 
@@ -945,9 +945,9 @@ class UnicodeTest(CommonTest,
             fill *= 9
             for delim in ('c', '\u0102', '\U00010302'):
                 self.assertNotIn(delim, fill)
-                self.assertIn(delim, fill + delim)
+                self.assert_in(delim, fill + delim)
                 self.assertNotIn(delim * 2, fill)
-                self.assertIn(delim * 2, fill + delim * 2)
+                self.assert_in(delim * 2, fill + delim * 2)
 
     def test_issue18183(self):
         '\U00010000\U00100000'.lower()
@@ -1517,8 +1517,8 @@ class UnicodeTest(CommonTest,
             with self.assertRaises(TypeError) as cm:
                 meth(['f'])
             exc = str(cm.exception)
-            self.assertIn('str', exc)
-            self.assertIn('tuple', exc)
+            self.assert_in('str', exc)
+            self.assert_in('tuple', exc)
 
     @support.run_with_locale('LC_ALL', 'de_DE', 'fr_FR')
     def test_format_float(self):
@@ -1867,7 +1867,7 @@ class UnicodeTest(CommonTest,
             seq.decode('utf-8')
         exc = cm.exception
 
-        self.assertIn(err, str(exc))
+        self.assert_in(err, str(exc))
         self.assertEqual(seq.decode('utf-8', 'replace'), res)
         self.assertEqual((b'aaaa' + seq + b'bbbb').decode('utf-8', 'replace'),
                          'aaaa' + res + 'bbbb')

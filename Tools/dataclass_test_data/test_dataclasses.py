@@ -432,13 +432,13 @@ class TestCase(unittest.TestCase):
                         self.assertNotIn('__gt__', C.__dict__)
                         self.assertNotIn('__ge__', C.__dict__)
                     elif result == 'both':
-                        self.assertIn('__eq__', C.__dict__)
-                        self.assertIn('__lt__', C.__dict__)
-                        self.assertIn('__le__', C.__dict__)
-                        self.assertIn('__gt__', C.__dict__)
-                        self.assertIn('__ge__', C.__dict__)
+                        self.assert_in('__eq__', C.__dict__)
+                        self.assert_in('__lt__', C.__dict__)
+                        self.assert_in('__le__', C.__dict__)
+                        self.assert_in('__gt__', C.__dict__)
+                        self.assert_in('__ge__', C.__dict__)
                     elif result == 'eq_only':
-                        self.assertIn('__eq__', C.__dict__)
+                        self.assert_in('__eq__', C.__dict__)
                         self.assertNotIn('__lt__', C.__dict__)
                         self.assertNotIn('__le__', C.__dict__)
                         self.assertNotIn('__gt__', C.__dict__)
@@ -586,7 +586,7 @@ class TestCase(unittest.TestCase):
         self.assertIsInstance(the_fields, tuple)
         for f in the_fields:
             self.assertIs(type(f), Field)
-            self.assertIn(f.name, C.__annotations__)
+            self.assert_in(f.name, C.__annotations__)
 
         self.assertEqual(len(the_fields), 3)
 
@@ -892,7 +892,7 @@ class TestCase(unittest.TestCase):
         self.assertNotIn('x', D.__dict__)
 
     def test_missing_repr(self):
-        self.assertIn('MISSING_TYPE object', repr(MISSING))
+        self.assert_in('MISSING_TYPE object', repr(MISSING))
 
     def test_dont_include_other_annotations(self):
         @dataclass
@@ -1842,19 +1842,19 @@ class TestCase(unittest.TestCase):
         self.assertNotIn('a', C.__dict__)
         self.assertNotIn('b', C.__dict__)
         self.assertNotIn('c', C.__dict__)
-        self.assertIn('d', C.__dict__)
+        self.assert_in('d', C.__dict__)
         self.assertEqual(C.d, 4)
-        self.assertIn('e', C.__dict__)
+        self.assert_in('e', C.__dict__)
         self.assertEqual(C.e, 0)
         # Instance dict
-        self.assertIn('a', c.__dict__)
+        self.assert_in('a', c.__dict__)
         self.assertEqual(c.a, 0)
-        self.assertIn('b', c.__dict__)
+        self.assert_in('b', c.__dict__)
         self.assertEqual(c.b, [])
-        self.assertIn('c', c.__dict__)
+        self.assert_in('c', c.__dict__)
         self.assertEqual(c.c, [])
         self.assertNotIn('d', c.__dict__)
-        self.assertIn('e', c.__dict__)
+        self.assert_in('e', c.__dict__)
         self.assertEqual(c.e, 0)
 
     def test_alternate_classmethod_constructor(self):
@@ -2307,7 +2307,7 @@ class TestRepr(unittest.TestCase):
         @dataclass(repr=False)
         class C:
             x: int
-        self.assertIn(f'{__name__}.TestRepr.test_no_repr.<locals>.C object at',
+        self.assert_in(f'{__name__}.TestRepr.test_no_repr.<locals>.C object at',
                       repr(C(3)))
 
         # Test a class with a __repr__ and repr=False.
@@ -2501,7 +2501,7 @@ class TestHash(unittest.TestCase):
                 # See if the result matches what's expected.
                 if result == 'fn':
                     # __hash__ contains the function we generated.
-                    self.assertIn('__hash__', C.__dict__)
+                    self.assert_in('__hash__', C.__dict__)
                     self.assertIsNotNone(C.__dict__['__hash__'])
 
                 elif result == '':
@@ -2511,7 +2511,7 @@ class TestHash(unittest.TestCase):
 
                 elif result == 'none':
                     # __hash__ is set to None.
-                    self.assertIn('__hash__', C.__dict__)
+                    self.assert_in('__hash__', C.__dict__)
                     self.assertIsNone(C.__dict__['__hash__'])
 
                 elif result == 'exception':
@@ -3056,7 +3056,7 @@ class TestSlots(unittest.TestCase):
         class A:
             a: int
 
-        self.assertIn("__weakref__", A.__slots__)
+        self.assert_in("__weakref__", A.__slots__)
         a = A(1)
         weakref.ref(a)
 
@@ -3069,7 +3069,7 @@ class TestSlots(unittest.TestCase):
             a: int
 
         # __weakref__ is in the base class, not A.  But an A is still weakref-able.
-        self.assertIn("__weakref__", Base.__slots__)
+        self.assert_in("__weakref__", Base.__slots__)
         self.assertNotIn("__weakref__", A.__slots__)
         a = A(1)
         weakref.ref(a)
@@ -3086,7 +3086,7 @@ class TestSlots(unittest.TestCase):
 
         # __weakref__ is in the base class, not A.  But an A is still
         # weakref-able.
-        self.assertIn("__weakref__", Base.__slots__)
+        self.assert_in("__weakref__", Base.__slots__)
         self.assertNotIn("__weakref__", A.__slots__)
         a = A(1)
         weakref.ref(a)
@@ -3100,7 +3100,7 @@ class TestSlots(unittest.TestCase):
 
     def test_weakref_slot_make_dataclass(self):
         A = make_dataclass('A', [('a', int),], slots=True, weakref_slot=True)
-        self.assertIn("__weakref__", A.__slots__)
+        self.assert_in("__weakref__", A.__slots__)
         a = A(1)
         weakref.ref(a)
 
@@ -3121,7 +3121,7 @@ class TestSlots(unittest.TestCase):
 
         # __weakref__ is in the base class, not A.  But an instance of A
         # is still weakref-able.
-        self.assertIn("__weakref__", Base.__slots__)
+        self.assert_in("__weakref__", Base.__slots__)
         self.assertNotIn("__weakref__", A.__slots__)
         a = A(1)
         weakref.ref(a)
@@ -3137,7 +3137,7 @@ class TestSlots(unittest.TestCase):
 
         # __weakref__ is in the base class, not A.  Even though A doesn't
         # specify weakref_slot, it should still be weakref-able.
-        self.assertIn("__weakref__", Base.__slots__)
+        self.assert_in("__weakref__", Base.__slots__)
         self.assertNotIn("__weakref__", A.__slots__)
         a = A(1)
         weakref.ref(a)
@@ -3152,7 +3152,7 @@ class TestSlots(unittest.TestCase):
 
         # __weakref__ is in the base class, not A.  But an instance of
         # A is still weakref-able.
-        self.assertIn("__weakref__", Base.__slots__)
+        self.assert_in("__weakref__", Base.__slots__)
         self.assertNotIn("__weakref__", A.__slots__)
         a = A(1)
         weakref.ref(a)
@@ -3475,7 +3475,7 @@ class TestStringAnnotations(unittest.TestCase):
 
                 if m.USING_STRINGS:
                     # iv4 is interpreted as a normal field.
-                    self.assertIn('not_iv4', c.__dict__)
+                    self.assert_in('not_iv4', c.__dict__)
                     self.assertEqual(c.not_iv4, 4)
                 else:
                     # iv4 is interpreted as an InitVar, so it
@@ -3580,7 +3580,7 @@ class TestMakeDataclass(unittest.TestCase):
                            init=False)
         # Make sure we have a repr, but no init.
         self.assertNotIn('__init__', vars(C))
-        self.assertIn('__repr__', vars(C))
+        self.assert_in('__repr__', vars(C))
 
         # Make sure random other params don't work.
         with self.assertRaisesRegex(TypeError, 'unexpected keyword argument'):

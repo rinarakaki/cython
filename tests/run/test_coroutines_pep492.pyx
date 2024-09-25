@@ -841,8 +841,8 @@ class CoroutineTest(unittest.TestCase):
             self.assertTrue(re.search(regex, str(value)),
                             "'%s' did not match '%s'" % (value, regex))
 
-    if not hasattr(unittest.TestCase, 'assertIn'):
-        def assertIn(self, member, container, msg=None):
+    if not hasattr(unittest.TestCase, 'assert_in'):
+        def assert_in(self, member, container, msg=None):
             self.assertTrue(member in container, msg)
 
     if not hasattr(unittest.TestCase, 'assertIsNone'):
@@ -1050,9 +1050,9 @@ class CoroutineTest(unittest.TestCase):
         coro = func()
         # Test that PyCoro_Type and _PyCoroWrapper_Type types were properly
         # initialized
-        self.assertIn('__await__', dir(coro))
-        self.assertIn('__iter__', dir(coro.__await__()))
-        self.assertIn('coroutine_wrapper', repr(coro.__await__()))
+        self.assert_in('__await__', dir(coro))
+        self.assert_in('__iter__', dir(coro.__await__()))
+        self.assert_in('coroutine_wrapper', repr(coro.__await__()))
         coro.close() # avoid RuntimeWarning
 
     def test_func_12(self):
@@ -1280,16 +1280,16 @@ class CoroutineTest(unittest.TestCase):
     def test_corotype_1(self):
         async def f(): pass
         ct = type(f())
-        self.assertIn('into coroutine', ct.send.__doc__)
-        self.assertIn('inside coroutine', ct.close.__doc__)
-        self.assertIn('in coroutine', ct.throw.__doc__)
-        self.assertIn('of the coroutine', ct.__dict__['__name__'].__doc__)
-        self.assertIn('of the coroutine', ct.__dict__['__qualname__'].__doc__)
+        self.assert_in('into coroutine', ct.send.__doc__)
+        self.assert_in('inside coroutine', ct.close.__doc__)
+        self.assert_in('in coroutine', ct.throw.__doc__)
+        self.assert_in('of the coroutine', ct.__dict__['__name__'].__doc__)
+        self.assert_in('of the coroutine', ct.__dict__['__qualname__'].__doc__)
         self.assertEqual(ct.__name__, 'coroutine')
 
         async def f(): pass
         c = f()
-        self.assertIn('coroutine object', repr(c))
+        self.assert_in('coroutine object', repr(c))
         c.close()
 
     def test_await_1(self):
@@ -2407,7 +2407,7 @@ class CoroutineTest(unittest.TestCase):
             warnings.filterwarnings("error")
             func()
             gc.collect()
-        self.assertIn("was never awaited", stderr.getvalue())
+        self.assert_in("was never awaited", stderr.getvalue())
 
 
 class CoroAsyncIOCompatTest(unittest.TestCase):

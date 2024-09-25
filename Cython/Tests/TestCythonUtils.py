@@ -146,9 +146,9 @@ class TestCythonUtils(unittest.TestCase):
         stderr = stderr.getvalue()
 
         from .. import __version__ as version
-        self.assertIn(version, stdout)
+        self.assert_in(version, stdout)
         if stderr:  # Depends on os.fstat(1/2).
-            self.assertIn(version, stderr)
+            self.assert_in(version, stderr)
 
     def test_print_version_stdouterr(self):
         orig_stderr = sys.stderr
@@ -163,7 +163,7 @@ class TestCythonUtils(unittest.TestCase):
         stdout = stdout.getvalue()
 
         from .. import __version__ as version
-        self.assertIn(version, stdout)
+        self.assert_in(version, stdout)
         self.assertEqual(stdout.count(version), 1)
 
     def test_normalise_float_repr(self):

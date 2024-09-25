@@ -64,7 +64,7 @@ class TestJediTyper(TransformTest):
             a = i + 1
         '''
         types = self._test(code)
-        self.assertIn((None, (1, 0)), types)
+        self.assert_in((None, (1, 0)), types)
         variables = types.pop((None, (1, 0)))
         self.assertFalse(types)
         self.assertEqual({'a': {'int'}, 'i': {'int'}}, variables)
@@ -77,7 +77,7 @@ class TestJediTyper(TransformTest):
             return a
         '''
         types = self._test(code)
-        self.assertIn(('func', (1, 0)), types)
+        self.assert_in(('func', (1, 0)), types)
         variables = types.pop(('func', (1, 0)))
         self.assertFalse(types)
         self.assertEqual({'a': {'int'}, 'i': {'int'}}, variables)
@@ -94,7 +94,7 @@ class TestJediTyper(TransformTest):
         print(func(1.5, 2))
         '''
         types = self._test(code)
-        self.assertIn(('func', (1, 0)), types)
+        self.assert_in(('func', (1, 0)), types)
         variables = types.pop(('func', (1, 0)))
         self.assertFalse(types)
         self.assertEqual({'a': {'float', 'int', 'str'}, 'b': {'int'}}, variables)
@@ -110,7 +110,7 @@ class TestJediTyper(TransformTest):
         print(func('abcdefg'))
         '''
         types = self._test(code)
-        self.assertIn(('func', (1, 0)), types)
+        self.assert_in(('func', (1, 0)), types)
         variables = types.pop(('func', (1, 0)))
         self.assertFalse(types)
         self.assertEqual({'a': {'int'}, 'i': {'int'}}, variables)
@@ -123,7 +123,7 @@ class TestJediTyper(TransformTest):
         d = [0]*10
         '''
         types = self._test(code)
-        self.assertIn((None, (1, 0)), types)
+        self.assert_in((None, (1, 0)), types)
         variables = types.pop((None, (1, 0)))
         self.assertFalse(types)
         self.assertEqual({'a': {'list'}, 'b': {'list'}, 'c': {'list'}, 'd': {'list'}}, variables)
@@ -138,7 +138,7 @@ class TestJediTyper(TransformTest):
         print(func([0]*100))
         '''
         types = self._test(code)
-        self.assertIn(('func', (1, 0)), types)
+        self.assert_in(('func', (1, 0)), types)
         variables = types.pop(('func', (1, 0)))
         self.assertFalse(types)
         self.assertEqual({'a': {'list'}, 'b': {'list'}, 'c': {'list'}, 'x': {'list'}}, variables)
@@ -150,7 +150,7 @@ class TestJediTyper(TransformTest):
         c = a
         '''
         types = self._test(code)
-        self.assertIn((None, (1, 0)), types)
+        self.assert_in((None, (1, 0)), types)
         variables = types.pop((None, (1, 0)))
         self.assertFalse(types)
         self.assertEqual({'a': {'dict'}, 'b': {'dict'}, 'c': {'dict'}}, variables)
@@ -165,7 +165,7 @@ class TestJediTyper(TransformTest):
         print(func({1:2, 'x':7}))
         '''
         types = self._test(code)
-        self.assertIn(('func', (1, 0)), types)
+        self.assert_in(('func', (1, 0)), types)
         variables = types.pop(('func', (1, 0)))
         self.assertFalse(types)
         self.assertEqual({'a': {'dict'}, 'b': {'dict'}, 'c': {'dict'}, 'x': {'dict'}}, variables)
@@ -180,7 +180,7 @@ class TestJediTyper(TransformTest):
         e = a | b
         '''
         types = self._test(code)
-        self.assertIn((None, (1, 0)), types)
+        self.assert_in((None, (1, 0)), types)
         variables = types.pop((None, (1, 0)))
         self.assertFalse(types)
         self.assertEqual({'a': {'set'}, 'c': {'set'}, 'd': {'set'}, 'e': {'set'}}, variables)
@@ -196,7 +196,7 @@ class TestJediTyper(TransformTest):
         print(func({1,2,3}))
         '''
         types = self._test(code)
-        self.assertIn(('func', (1, 0)), types)
+        self.assert_in(('func', (1, 0)), types)
         variables = types.pop(('func', (1, 0)))
         self.assertFalse(types)
         self.assertEqual({'a': {'set'}, 'c': {'set'}, 'd': {'set'}, 'x': {'set'}}, variables)
