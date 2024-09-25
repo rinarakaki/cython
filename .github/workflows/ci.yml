@@ -213,4 +213,4 @@ jobs:
       - name: codespell-project/actions-codespell@v2
         uses: codespell-project/actions-codespell@v2
         with:
-          skip: vscode/**/*
+          skip: vscode
