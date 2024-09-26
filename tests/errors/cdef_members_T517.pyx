@@ -4,17 +4,17 @@
 type VoidP = void*
 
 cdef class Spam:
-    cdef          VoidP vp0
-    cdef readonly VoidP vp2
-    pub           VoidP vp1
+    cdef  VoidP vp0
+    const VoidP vp2
+    pub   VoidP vp1
 
 struct Foo:
     i32 i
 
 cdef class Bar:
-    cdef          Foo foo0
-    cdef readonly Foo foo2
-    pub           Foo foo1
+    cdef  Foo foo0
+    const Foo foo2
+    pub   Foo foo1
     pass
 
 _ERRORS = u"""

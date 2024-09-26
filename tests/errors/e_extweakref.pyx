@@ -7,7 +7,7 @@ cdef class D:
     pub object __weakref__
 
 cdef class E:
-    cdef readonly object __weakref__
+    const object __weakref__
 
 fn void f():
     let C c = C()

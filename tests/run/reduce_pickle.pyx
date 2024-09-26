@@ -73,24 +73,24 @@ cdef class DefaultReduce(object):
     DefaultReduce(i=11, s=None)
     """
 
-    cdef readonly int i
-    cdef readonly str s
+    const i32 I
+    const str S
 
-    def __init__(self, i=0, s=None):
-        self.i = i
-        self.s = s
+    def __init__(self, I=0, S=None):
+        self.I = I
+        self.S = S
 
     def __repr__(self):
-        return "DefaultReduce(i=%s, s=%r)" % (self.i, self.s)
+        return "DefaultReduce(I=%s, S=%r)" % (self.I, self.S)
 
 
 cdef class DefaultReduceSubclass(DefaultReduce):
     """
-    >>> a = DefaultReduceSubclass(i=11, s='abc', x=1.5); a
-    DefaultReduceSubclass(i=11, s='abc', x=1.5)
+    >>> a = DefaultReduceSubclass(I=11, S='abc', x=1.5); a
+    DefaultReduceSubclass(I=11, S='abc', x=1.5)
     >>> import pickle
     >>> pickle.loads(pickle.dumps(a))
-    DefaultReduceSubclass(i=11, s='abc', x=1.5)
+    DefaultReduceSubclass(I=11, S='abc', x=1.5)
     """
 
     cdef double x
@@ -100,29 +100,29 @@ cdef class DefaultReduceSubclass(DefaultReduce):
         super(DefaultReduceSubclass, self).__init__(**kwargs)
 
     def __repr__(self):
-        return "DefaultReduceSubclass(i=%s, s=%r, x=%s)" % (self.i, self.s, self.x)
+        return "DefaultReduceSubclass(I=%s, S=%r, x=%s)" % (self.I, self.S, self.x)
 
 
 cdef class result(DefaultReduceSubclass):
     """
-    >>> a = result(i=11, s='abc', x=1.5); a
-    result(i=11, s='abc', x=1.5)
+    >>> a = result(I=11, S='abc', x=1.5); a
+    result(I=11, S='abc', x=1.5)
     >>> import pickle
     >>> pickle.loads(pickle.dumps(a))
-    result(i=11, s='abc', x=1.5)
+    result(I=11, S='abc', x=1.5)
     """
 
     def __repr__(self):
-        return "result(i=%s, s=%r, x=%s)" % (self.i, self.s, self.x)
+        return "result(I=%s, S=%r, x=%s)" % (self.I, self.S, self.x)
 
 
 class DefaultReducePySubclass(DefaultReduce):
     """
-    >>> a = DefaultReducePySubclass(i=11, s='abc', x=1.5); a
-    DefaultReducePySubclass(i=11, s='abc', x=1.5)
+    >>> a = DefaultReducePySubclass(I=11, S='abc', x=1.5); a
+    DefaultReducePySubclass(I=11, S='abc', x=1.5)
     >>> import pickle
     >>> pickle.loads(pickle.dumps(a))
-    DefaultReducePySubclass(i=11, s='abc', x=1.5)
+    DefaultReducePySubclass(I=11, S='abc', x=1.5)
 
     >>> a.self_reference = a
     >>> a2 = pickle.loads(pickle.dumps(a))
@@ -134,7 +134,7 @@ class DefaultReducePySubclass(DefaultReduce):
         super(DefaultReducePySubclass, self).__init__(**kwargs)
 
     def __repr__(self):
-        return "DefaultReducePySubclass(i=%s, s=%r, x=%s)" % (self.i, self.s, self.x)
+        return "DefaultReducePySubclass(I=%s, S=%r, x=%s)" % (self.I, self.S, self.x)
 
 
 cdef class NoReduceDueToIntPtr(object):
@@ -175,8 +175,8 @@ cdef class NoPyMembers(object):
     >>> pickle.loads(pickle.dumps(NoPyMembers(2, 1.75)))
     NoPyMembers(ii=[2, 4, 8], x=1.75)
     """
-    cdef int[3] ii
-    cdef double x
+    cdef i32[3] ii
+    cdef f64 x
 
     def __init__(self, i, x):
         self.ii[0] = i

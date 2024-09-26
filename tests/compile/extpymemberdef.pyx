@@ -10,7 +10,7 @@ cdef class Spam:
     pub f32 f
     pub f64 d
     pub r&i8 s
-    cdef readonly char[42] a
+    const i8[42] a
     pub object o
-    cdef readonly i32 r
-    cdef readonly Spam e
+    const i32 r
+    const Spam e

@@ -9,15 +9,15 @@ fn void test(f32* f):
     pass
 
 cdef class Position:
-    cdef readonly CoordSyst parent
+    const CoordSyst PARENT
 
 cdef class Point(Position):
     fn void bug(self):
-        test(self.parent._matrix)
+        test(self.PARENT._matrix)
 
 cdef class Vector(Point):
     fn void bug(self):
-        test(self.parent._matrix)
+        test(self.PARENT._matrix)
 
 cdef class CoordSyst:
     cdef f32* _matrix

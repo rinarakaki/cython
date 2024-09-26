@@ -2,7 +2,6 @@
 
 # __getattribute__ and __getattr__ special methods for a single class.
 
-
 cdef class just_getattribute:
     """
     >>> a = just_getattribute()
@@ -20,16 +19,16 @@ cdef class just_getattribute:
     >>> a.called
     6
     """
-    cdef readonly int called
-    def __getattribute__(self,n):
-        self.called += 1
+    const i32 CALLED
+
+    def __getattribute__(self, n):
+        self.CALLED += 1
         if n == 'bar':
             return n
         elif n == 'called':
-            return self.called
+            return self.CALLED
         else:
             raise AttributeError
-
 
 cdef class just_getattr:
     """
@@ -52,17 +51,18 @@ cdef class just_getattr:
     >>> a.called
     2
     """
-    cdef readonly int called
-    cdef readonly int foo
+    const i32 called
+    const i32 foo
+
     def __init__(self):
         self.foo = 10
-    def __getattr__(self,n):
+
+    def __getattr__(self, n):
         self.called += 1
         if n == 'bar':
             return n
         else:
             raise AttributeError
-
 
 cdef class both:
     """
@@ -83,9 +83,10 @@ cdef class both:
     >>> (a.called_getattr, a.called_getattribute)
     (2, 11)
     """
-    cdef readonly int called_getattribute
-    cdef readonly int called_getattr
-    cdef readonly int foo
+    const i32 called_getattribute
+    const i32 called_getattr
+    const i32 foo
+
     def __init__(self):
         self.foo = 10
 

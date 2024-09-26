@@ -74,10 +74,10 @@ fn swap_py(a, b):
     return a, b
 
 cdef class A:
-    cdef readonly object x
-    cdef readonly object y
-    def __init__(self, x, y):
-        self.x, self.y = x, y
+    const object X
+    const object Y
+    def __init__(self, X, Y):
+        self.X, self.Y = X, Y
 
 #[cython::test_assert_path_exists(
     "//ParallelAssignmentNode",
@@ -94,21 +94,21 @@ cdef class A:
 fn swap_attr_values(A a, A b):
     """
     >>> a, b = A(1, 2), A(3, 4)
-    >>> a.x, a.y, b.x, b.y
+    >>> a.X, a.Y, b.X, b.Y
     (1, 2, 3, 4)
     >>> swap_attr_values(a, b)
-    >>> a.x, a.y, b.x, b.y
+    >>> a.X, a.Y, b.X, b.Y
     (3, 2, 1, 4)
     """
-    a.x, a.y, b.x, b.y = a.y, b.x, b.y, a.x  # shift by one
-    a.x, a.y, b.x, b.y = b.x, b.y, a.x, a.y  # shift by two
-    a.x, a.y, b.x, b.y = b.y, b.x, a.y, a.x  # reverse
+    a.X, a.Y, b.X, b.Y = a.Y, b.X, b.Y, a.X  # shift by one
+    a.X, a.Y, b.X, b.Y = b.X, b.Y, a.X, a.Y  # shift by two
+    a.X, a.Y, b.X, b.Y = b.Y, b.X, a.Y, a.X  # reverse
 
 cdef class B:
-    cdef readonly A a1
-    cdef readonly A a2
+    const A A1
+    const A A2
     def __init__(self, x1, y1, x2, y2):
-        self.a1, self.a2 = A(x1, y1), A(x2, y2)
+        self.A1, self.A2 = A(x1, y1), A(x2, y2)
 
 #[cython::test_assert_path_exists(
     "//ParallelAssignmentNode",
@@ -125,37 +125,37 @@ cdef class B:
 fn swap_recursive_attr_values(B a, B b):
     """
     >>> a, b = B(1, 2, 3, 4), B(5, 6, 7, 8)
-    >>> a.a1.x, a.a1.y, a.a2.x, a.a2.y
+    >>> a.A1.X, a.A1.Y, a.A2.X, a.A2.Y
     (1, 2, 3, 4)
-    >>> b.a1.x, b.a1.y, b.a2.x, b.a2.y
+    >>> b.A1.X, b.A1.Y, b.A2.X, b.A2.Y
     (5, 6, 7, 8)
     >>> swap_recursive_attr_values(a, b)
-    >>> a.a1.x, a.a1.y, a.a2.x, a.a2.y
+    >>> a.A1.X, a.A1.Y, a.A2.X, a.A2.Y
     (2, 1, 4, 4)
-    >>> b.a1.x, b.a1.y, b.a2.x, b.a2.y
+    >>> b.A1.X, b.A1.Y, b.A2.X, b.A2.Y
     (6, 5, 8, 8)
 
     # compatibility test
     >>> class A:
-    ...     def __init__(self, x, y):
-    ...         self.x, self.y = x, y
+    ...     def __init__(self, X, Y):
+    ...         self.X, self.Y = X, Y
     >>> class B:
     ...     def __init__(self, x1, y1, x2, y2):
-    ...         self.a1, self.a2 = A(x1, y1), A(x2, y2)
+    ...         self.A1, self.A2 = A(x1, y1), A(x2, y2)
     >>> a, b = B(1, 2, 3, 4), B(5, 6, 7, 8)
-    >>> a.a1, a.a2 = a.a2, a.a1
-    >>> b.a1, b.a2 = b.a2, b.a1
-    >>> a.a1, a.a1.x, a.a2.y, a.a2, a.a1.y, a.a2.x = a.a2, a.a2.y, a.a1.x, a.a1, a.a2.x, a.a1.y
-    >>> b.a1, b.a1.x, b.a2.y, b.a2, b.a1.y, b.a2.x = b.a2, b.a2.y, b.a1.x, b.a1, b.a2.x, b.a1.y
-    >>> a.a1.x, a.a1.y, a.a2.x, a.a2.y
+    >>> a.A1, a.A2 = a.A2, a.A1
+    >>> b.A1, b.A2 = b.A2, b.A1
+    >>> a.A1, a.A1.X, a.A2.Y, a.A2, a.A1.Y, a.A2.X = a.A2, a.A2.Y, a.A1.X, a.A1, a.A2.X, a.A1.Y
+    >>> b.A1, b.A1.X, b.A2.Y, b.A2, b.A1.Y, b.A2.X = b.A2, b.A2.Y, b.A1.X, b.A1, b.A2.X, b.A1.Y
+    >>> a.A1.X, a.A1.Y, a.A2.X, a.A2.Y
     (2, 1, 4, 4)
-    >>> b.a1.x, b.a1.y, b.a2.x, b.a2.y
+    >>> b.A1.X, b.A1.Y, b.A2.X, b.A2.Y
     (6, 5, 8, 8)
     """
-    a.a1, a.a2 = a.a2, a.a1
-    b.a1, b.a2 = b.a2, b.a1
-    a.a1, a.a1.x, a.a2.y, a.a2, a.a1.y, a.a2.x = a.a2, a.a2.y, a.a1.x, a.a1, a.a2.x, a.a1.y
-    b.a1, b.a1.x, b.a2.y, b.a2, b.a1.y, b.a2.x = b.a2, b.a2.y, b.a1.x, b.a1, b.a2.x, b.a1.y
+    a.A1, a.A2 = a.A2, a.A1
+    b.A1, b.A2 = b.A2, b.A1
+    a.A1, a.A1.X, a.A2.Y, a.A2, a.A1.Y, a.A2.X = a.A2, a.A2.Y, a.A1.X, a.A1, a.A2.X, a.A1.Y
+    b.A1, b.A1.X, b.A2.Y, b.A2, b.A1.Y, b.A2.X = b.A2, b.A2.Y, b.A1.X, b.A1, b.A2.X, b.A1.Y
 
 #[cython::test_assert_path_exists(
 #    "//ParallelAssignmentNode",

@@ -8,7 +8,7 @@ cdef class WaveFunction(Function):
     pub f64 freq
 
     # Available in Python-space, but only for reading:
-    cdef readonly f64 scale
+    const f64 scale
 
     # Available in Python-space:
     @property

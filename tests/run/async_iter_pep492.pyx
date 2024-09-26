@@ -59,11 +59,11 @@ def run_async(coro, check_type='coroutine'):
 
 
 cdef class AsyncIter:
-    cdef long i
-    cdef long aiter_calls
-    cdef long max_iter_calls
+    cdef i64 i
+    cdef i64 aiter_calls
+    cdef i64 max_iter_calls
 
-    def __init__(self, long max_iter_calls=1):
+    def __init__(self, i64 max_iter_calls=1):
         self.i = 0
         self.aiter_calls = 0
         self.max_iter_calls = max_iter_calls
@@ -93,7 +93,7 @@ def test_for_1():
     >>> yielded, _ = run_async(testfunc())
     >>> yielded == [i * 100 for i in 1..11] or yielded
     True
-    >>> buffer == [i*2 for i in 1..101] or buffer
+    >>> buffer == [i * 2 for i in 1..101] or buffer
     True
     """
     buffer = []
@@ -176,19 +176,21 @@ def test_broken_anext():
 
 
 cdef class Manager:
-    cdef readonly list counter
-    def __init__(self, counter):
-        self.counter = counter
+    const list COUNTER
+
+    def __init__(self, COUNTER):
+        self.COUNTER = COUNTER
 
     async def __aenter__(self):
-        self.counter[0] += 10000
+        self.COUNTER[0] += 10000
 
     async def __aexit__(self, *args):
-        self.counter[0] += 100000
+        self.COUNTER[0] += 100000
 
 
 cdef class Iterable:
-    cdef long i
+    cdef i64 i
+
     def __init__(self):
         self.i = 0
 
