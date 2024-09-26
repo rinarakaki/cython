@@ -269,7 +269,8 @@ struct NestedStruct:
     SmallStruct y
     i32 z
 
-packed struct PackedStruct:
+#[repr(packed)]
+struct PackedStruct:
     i8 a
     i32 b
 

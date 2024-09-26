@@ -428,9 +428,10 @@ def acquire_release_cycle(obj):
 
     gc.collect()
 
-packed struct StructArray:
-    i32 a[4]
-    i8 b[5]
+#[repr(packed)]
+struct StructArray:
+    i32[4] a
+    i8[5] b
 
 def test_memslice_structarray(data, dtype):
     """

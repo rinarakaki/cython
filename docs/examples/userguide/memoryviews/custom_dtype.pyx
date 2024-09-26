@@ -7,13 +7,14 @@ CUSTOM_DTYPE = np.dtype([
 
 a = np.zeros(100, dtype=CUSTOM_DTYPE)
 
-packed struct custom_dtype_struct:
+#[repr(packed)]
+struct custom_dtype_struct:
     # The struct needs to be packed since by default numpy dtypes aren't
     # aligned
     u8 x
     f32 y
 
-def sum(custom_dtype_struct[:] a):
+fn sum(custom_dtype_struct[:] a):
     let u8 sum_x = 0
     let f32 sum_y = 0.0
 

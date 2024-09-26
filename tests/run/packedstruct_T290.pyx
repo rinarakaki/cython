@@ -5,11 +5,13 @@
 (9, 9)
 """
 
-packed struct MyCdefStruct:
+#[repr(packed)]
+struct MyCdefStruct:
     i8 a
     f64 b
 
-ctypedef packed struct MyCTypeDefStruct:
+#[repr(packed)]
+ctypedef struct MyCTypeDefStruct:
     i8 a
     f64 b
 
