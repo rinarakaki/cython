@@ -1,7 +1,7 @@
 # mode: run
 # tag: cpp, cpp11, werror, no-cpp-locals
 
-use cython::operator::(preincrement as incr, dereference as deref)
+use cython::operator::preincrement as incr
 use libc::stdint::*
 
 use libcpp::atomic::atomic
@@ -18,9 +18,9 @@ fn int_test(i32 x):
     atom = new atomic[i32](x)
     try:
         atom.store(0)
-        incr(deref(atom))
-        incr(deref(atom))
-        incr(deref(atom))
+        incr(*atom)
+        incr(*atom)
+        incr(*atom)
         return atom.load()
     finally:
         del atom
@@ -39,9 +39,9 @@ fn typedef_test(i32 x):
     atom = new atomint32_t(x)
     try:
         atom.store(0)
-        incr(deref(atom))
-        incr(deref(atom))
-        incr(deref(atom))
+        incr(*atom)
+        incr(*atom)
+        incr(*atom)
         return atom.load()
     finally:
         del atom

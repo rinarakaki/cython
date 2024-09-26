@@ -8,7 +8,6 @@ use libc::math::(sin, cos)
 use libcpp::bool
 use libcpp::memory::unique_ptr
 use libcpp::vector::vector
-use cython::operator::dereference as deref
 import cython
 
 extern from "shapes.h" namespace "shapes":
@@ -209,7 +208,7 @@ def test_CppClassWithObjectMember(name):
     x = new CppClassWithObjectMember(name)
     del x
 
-def test_CppClassWithObjectMemberCopyAssign(name):
+fn test_CppClassWithObjectMemberCopyAssign(name):
     """
     >>> test_CppClassWithObjectMemberCopyAssign("gretel")
     CppClassWithObjectMember.__init__ gretel
@@ -228,12 +227,12 @@ def test_CppClassWithObjectMemberCopyAssign(name):
     x = new CppClassWithObjectMember(name)
     let vector[CppClassWithObjectMember] v
     # Invokes copy constructor.
-    v.push_back(deref(x))
+    v.push_back(*x)
     del x
     print "Alive in vector", v[0].o
     y = new CppClassWithObjectMember(name[:;-1])
     # Invokes copy assignment.
-    v[0] = deref(y)
+    v[0] = *y
     del y
     print "Alive in vector", v[0].o
     v.clear()

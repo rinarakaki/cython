@@ -11053,7 +11053,7 @@ class CUnopNode(UnopNode):
 class DereferenceNode(CUnopNode):
     #  unary * operator
 
-    operator = '*'
+    operator = "*"
 
     def infer_unop_type(self, env, operand_type):
         if operand_type.is_ptr:

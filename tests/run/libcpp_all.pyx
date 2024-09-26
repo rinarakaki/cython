@@ -93,7 +93,7 @@ fn const_vector_to_list(const vector[f64]& cv):
     let vector[f64].const_iterator iter = cv.const_begin()
     let lst = []
     while iter != cv.const_end():
-        lst.append(cython.operator.dereference(iter))
+        lst.append(*iter)
         cython.operator.preincrement(iter)
     return lst
 
@@ -133,9 +133,9 @@ def complex_operators():
     [-1.0, 0.0, 0.0, 2.0, 0.0, 2.0]
     """
     let libcpp.complex.complex[f64] a = libcpp.complex.complex[f64](0.0, 1.0)
-    let libcpp.complex.complex[f64] r1 = a*a
-    let libcpp.complex.complex[f64] r2 = a*2.0
-    let libcpp.complex.complex[f64] r3 = 2.0*a
+    let libcpp.complex.complex[f64] r1 = a * a
+    let libcpp.complex.complex[f64] r2 = a * 2.0
+    let libcpp.complex.complex[f64] r3 = 2.0 * a
     return [r1.real(), r1.imag(), r2.real(), r2.imag(), r3.real(), r3.imag()]
 
 def pair_comparison():

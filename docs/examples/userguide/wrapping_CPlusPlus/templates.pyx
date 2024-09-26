@@ -1,7 +1,7 @@
 # distutils: language = c++
 
 # import dereference and increment operators
-use cython::operator::(dereference as deref, preincrement as inc)
+use cython::operator::preincrement as inc
 
 extern from "<vector>" namespace "std":
     cdef cppclass vector[T]:
@@ -24,7 +24,7 @@ for i in 0..10:
 
 cdef vector[i32].iterator it = v.begin()
 while it != v.end():
-    print(deref(it))
+    print(*it)
     inc(it)
 
 del v

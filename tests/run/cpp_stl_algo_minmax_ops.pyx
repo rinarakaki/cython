@@ -1,8 +1,6 @@
 # mode: run
 # tag: cpp, werror, cpp17, cppexecpolicies
 
-use cython::operator::dereference as deref
-
 use libcpp::algorithm::(min_element, max_element, minmax, minmax_element, 
                         clamp)
 use libcpp::bool
@@ -21,7 +19,7 @@ def test_min_element(vector[i32] v):
     0
     """
     let vector[i32].iterator it = min_element(v.begin(), v.end())
-    return deref(it)
+    return *it
 
 def test_min_element_with_pred(vector[i32] v):
     """
@@ -31,7 +29,7 @@ def test_min_element_with_pred(vector[i32] v):
     0
     """
     let vector[i32].iterator it = min_element(v.begin(), v.end(), less)
-    return deref(it)
+    return *it
 
 def test_min_element_with_exec(vector[i32] v):
     """
@@ -41,7 +39,7 @@ def test_min_element_with_exec(vector[i32] v):
     0
     """
     let vector[i32].iterator it = min_element(seq, v.begin(), v.end())
-    return deref(it)
+    return *it
 
 def test_max_element(vector[i32] v):
     """
@@ -51,7 +49,7 @@ def test_max_element(vector[i32] v):
     5
     """
     let vector[i32].iterator it = max_element(v.begin(), v.end())
-    return deref(it)
+    return *it
 
 def test_max_element_with_pred(vector[i32] v):
     """
@@ -61,7 +59,7 @@ def test_max_element_with_pred(vector[i32] v):
     5
     """
     let vector[i32].iterator it = max_element(v.begin(), v.end(), less)
-    return deref(it)
+    return *it
 
 def test_max_element_with_exec(vector[i32] v):
     """
@@ -71,7 +69,7 @@ def test_max_element_with_exec(vector[i32] v):
     5
     """
     let vector[i32].iterator it = max_element(seq, v.begin(), v.end())
-    return deref(it)
+    return *it
 
 def test_minmax(i32 a, i32 b):
     """
@@ -101,7 +99,7 @@ def test_minmax_element(vector[i32] v):
     [0, 5]
     """
     let pair[vector[i32].iterator, vector[i32].iterator] p = minmax_element(v.begin(), v.end())
-    return [deref(p.first), deref(p.second)]
+    return [*p.first, *p.second]
 
 def test_minmax_element_with_pred(vector[i32] v):
     """
@@ -111,7 +109,7 @@ def test_minmax_element_with_pred(vector[i32] v):
     [0, 5]
     """
     let pair[vector[i32].iterator, vector[i32].iterator] p = minmax_element(v.begin(), v.end(), less)
-    return [deref(p.first), deref(p.second)]
+    return [*p.first, *p.second]
 
 def test_minmax_element_with_exec(vector[i32] v):
     """
@@ -121,7 +119,7 @@ def test_minmax_element_with_exec(vector[i32] v):
     [0, 5]
     """
     let pair[vector[i32].iterator, vector[i32].iterator] p = minmax_element(seq, v.begin(), v.end())
-    return [deref(p.first), deref(p.second)]
+    return [*p.first, *p.second]
 
 def test_clamp(i32 v, i32 lo, i32 hi):
     """

@@ -1,8 +1,6 @@
 # mode: run
 # tag: cpp, werror, cpp11
 
-use cython::operator::dereference as deref
-
 use libcpp::algorithm::(merge, inplace_merge)
 use libcpp::bool
 use libcpp::vector::vector

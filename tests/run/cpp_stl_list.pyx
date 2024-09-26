@@ -1,7 +1,6 @@
 # mode: run
 # tag: cpp, werror, no-cpp-locals
 
-use cython::operator::dereference as deref
 use cython::operator::preincrement as incr
 
 use libcpp::list::list as cpp_list
@@ -39,7 +38,7 @@ def pylist_test(L):
     finally:
         del l
 
-def iteration_test(L):
+fn iteration_test(L):
     """
     >>> iteration_test([1, 2, 4, 8])
     1
@@ -53,13 +52,13 @@ def iteration_test(L):
             l.push_back(a)
         it = l.begin()
         while it != l.end():
-            a = deref(it)
+            a = *it
             incr(it)
             print(a)
     finally:
         del l
 
-def reverse_iteration_test(L):
+fn reverse_iteration_test(L):
     """
     >>> reverse_iteration_test([1, 2, 4, 8])
     8
@@ -73,7 +72,7 @@ def reverse_iteration_test(L):
             l.push_back(a)
         it = l.rbegin()
         while it != l.rend():
-            a = deref(it)
+            a = *it
             incr(it)
             print(a)
     finally:
@@ -99,7 +98,7 @@ fn list to_pylist(cpp_list[i32]& l):
     let list L = []
     it = l.begin()
     while it != l.end():
-        L.append(deref(it))
+        L.append(*it)
         incr(it)
     return L
 

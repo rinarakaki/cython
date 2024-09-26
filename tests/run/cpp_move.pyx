@@ -1,7 +1,6 @@
 # mode: run
 # tag: cpp, werror, cpp11, no-cpp-locals
 
-use cython::operator::dereference
 use libcpp::memory::(shared_ptr, make_shared)
 use libcpp::nullptr
 use libcpp::utility::move
@@ -23,7 +22,7 @@ def test_move_assignment():
     p1 = make_shared[int](1337)
     p2 = move(p1)
     assert p1 == nullptr
-    assert dereference(p2) == 1337
+    assert *p2 == 1337
 
 def test_move_func_call():
     """

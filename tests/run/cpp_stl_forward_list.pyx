@@ -1,7 +1,6 @@
 # mode: run
 # tag: cpp, werror, cpp11, no-cpp-locals
 
-use cython::operator::dereference as deref
 use cython::operator::preincrement as incr
 
 use libcpp::forward_list::forward_list
@@ -45,7 +44,7 @@ def iteration_test(L):
             l.push_front(a)
         it = l.begin()
         while it != l.end():
-            a = deref(it)
+            a = *it
             incr(it)
             print(a)
     finally:

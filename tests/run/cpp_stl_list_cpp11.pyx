@@ -1,12 +1,11 @@
 # mode: run
 # tag: cpp, werror, no-cpp-locals, cpp11
 
-use cython::operator::dereference as deref
 use cython::operator::preincrement as incr
 
 use libcpp::list::list as cpp_list
 
-def const_iteration_test(L):
+fn const_iteration_test(L):
     """
     >>> const_iteration_test([1, 2, 4, 8])
     1
@@ -20,7 +19,7 @@ def const_iteration_test(L):
             l.push_back(a)
         it = l.cbegin()
         while it != l.cend():
-            a = deref(it)
+            a = *it
             incr(it)
             print(a)
     finally:
@@ -30,7 +29,7 @@ fn list const_to_pylist(cpp_list[i32]& l):
     let list L = []
     it = l.cbegin()
     while it != l.cend():
-        L.append(deref(it))
+        L.append(*it)
         incr(it)
     return L
 

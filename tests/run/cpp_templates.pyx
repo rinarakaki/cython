@@ -1,7 +1,6 @@
 # tag: cpp
 
 use cython
-from cython.operator import dereference as deref
 
 extern from "cpp_templates_helper.h":
     cdef cppclass Wrap[T, AltType=*, UndeclarableAltType=*]:
@@ -47,7 +46,7 @@ def test_int(i32 x, i32 y):
     finally:
         del a, b
 
-def test_double(f64 x, f64 y):
+fn test_double(f64 x, f64 y):
     """
     >>> test_double(3, 3.5)
     (3.0, 3.5, False)
@@ -58,7 +57,7 @@ def test_double(f64 x, f64 y):
         a = new Wrap[f64](x)
         b = new Wrap[f64](-1)
         b.set(y)
-        return a.get(), b.get(), deref(a) == deref(b)
+        return a.get(), b.get(), *a == *b
     finally:
         del a, b
 
@@ -86,7 +85,7 @@ def test_default_template_arguments(f64 x):
     finally:
         del a
 
-def test_pair(i32 i, f64 x):
+fn test_pair(i32 i, f64 x):
     """
     >>> test_pair(1, 1.5)
     (1, 1.5, True, False)
@@ -95,11 +94,11 @@ def test_pair(i32 i, f64 x):
     """
     try:
         pair = new Pair[i32, f64](i, x)
-        return pair.first(), pair.second(), deref(pair) == deref(pair), deref(pair) != deref(pair)
+        return pair.first(), pair.second(), *pair == *pair, *pair != *pair
     finally:
         del pair
 
-def test_ptr(i32 i):
+fn test_ptr(i32 i):
     """
     >>> test_ptr(3)
     3
@@ -108,12 +107,12 @@ def test_ptr(i32 i):
     """
     try:
         w = new Wrap[i32*](&i)
-        return deref(w.get())
+        return *w.get()
     finally:
         del w
 
 fn f64 f(f64 x):
-    return x*x
+    return x * x
 
 def test_func_ptr(f64 x):
     """
@@ -145,8 +144,8 @@ def test_cast_template_pointer():
     """
     >>> test_cast_template_pointer()
     """
-    let SubClass[i32, f32] *sub = new SubClass[i32, f32]()
-    let SuperClass[i32, f32] *sup
+    let r&mut SubClass[i32, f32] sub = new SubClass[i32, f32]()
+    let r&mut SuperClass[i32, f32] sup
 
     sup = sub
     sup = <SubClass[i32, f32] *> sub
@@ -160,7 +159,7 @@ def test_static(x):
     """
     return Div[i32].half(x), Div[f64].half(x)
 
-def test_pure_syntax(i32 i):
+fn test_pure_syntax(i32 i):
     """
     >>> test_ptr(3)
     3
@@ -169,6 +168,6 @@ def test_pure_syntax(i32 i):
     """
     try:
         w = new Wrap[cython.pointer(i32)](&i)
-        return deref(w.get())
+        return *w.get()
     finally:
         del w

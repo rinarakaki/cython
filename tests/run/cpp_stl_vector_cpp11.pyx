@@ -1,7 +1,6 @@
 # mode: run
 # tag: cpp, werror, no-cpp-locals, cpp11
 
-use cython::operator::dereference as d
 use cython::operator::preincrement as incr
 
 use libcpp::vector::vector
@@ -20,7 +19,7 @@ def const_iteration_test(L):
             v.push_back(a)
         it = v.cbegin()
         while it != v.cend():
-            a = d(it)
+            a = *it
             incr(it)
             print(a)
     finally:

@@ -1,8 +1,6 @@
 # mode: run
 # tag: cpp, werror, cpp11
 
-use cython::operator::dereference as deref
-
 use libcpp::bool
 use libcpp::algorithm::(all_of, any_of, none_of, for_each, count, count_if, mismatch, find, find_if, find_if_not)
 use libcpp::algorithm::(find_end, find_first_of, adjacent_find, search, search_n)
@@ -108,7 +106,7 @@ def mismatch_ints(vector[i32] values1, vector[i32] values2):
     result = mismatch(values1.begin(), values1.end(), values2.begin())
     if result.first == values1.end():
         return
-    return deref(result.first), deref(result.second)
+    return *result.first, *result.second
 
 def is_int_in(vector[i32] values, i32 target):
     """
@@ -131,7 +129,7 @@ def find_odd(vector[i32] values):
     """
     result = find_if(values.begin(), values.end(), is_odd)
     if result != values.end():
-        return deref(result)
+        return *result
     else:
         return None
 
@@ -145,7 +143,7 @@ def find_even(vector[i32] values):
     """
     result = find_if_not(values.begin(), values.end(), is_odd)
     if result != values.end():
-        return deref(result)
+        return *result
     else:
         return None
 

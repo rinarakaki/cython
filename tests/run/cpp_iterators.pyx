@@ -1,7 +1,6 @@
 # mode: run
 # tag: cpp, werror, no-cpp-locals
 
-use cython::operator::dereference as deref
 use libcpp::deque::deque
 use libcpp::list::list as stdlist
 use libcpp::map::map as stdmap
@@ -57,7 +56,7 @@ def test_vector_iterator_subtraction(py_v):
 
     return last - first
 
-def test_deque_iterator_addition(py_v):
+fn  test_deque_iterator_addition(py_v):
     """
     >>> test_deque_iterator_addition([2, 4, 6])
     6
@@ -67,9 +66,9 @@ def test_deque_iterator_addition(py_v):
         dint.push_back(i)
     let deque[i32].iterator first = dint.begin()
 
-    return deref(first+2)
+    return *(first+2)
 
-def test_vector_iterator_addition(py_v):
+fn  test_vector_iterator_addition(py_v):
     """
     >>> test_vector_iterator_addition([2, 4, 6])
     6
@@ -77,7 +76,7 @@ def test_vector_iterator_addition(py_v):
     let vector[i32] vint = py_v
     let vector[i32].iterator first = vint.begin()
 
-    return deref(first+2)
+    return *(first + 2)
 
 def test_ptrs():
     """
@@ -108,7 +107,7 @@ def test_custom():
     finally:
         del iter
 
-def test_custom_deref():
+fn test_custom_deref():
     """
     >>> test_custom_deref()
     [1.0, 2.0, 3.0]
@@ -117,7 +116,7 @@ def test_custom_deref():
     let DoublePointerIter* iter
     try:
         iter = new DoublePointerIter(values, 3)
-        return [x for x in deref(iter)]
+        return [x for x in *iter]
     finally:
         del iter
 
@@ -137,7 +136,7 @@ def test_custom_genexp():
     finally:
         del iter
 
-def test_iteration_over_heap_vector(L):
+fn test_iteration_over_heap_vector(L):
     """
     >>> test_iteration_over_heap_vector([1, 2])
     [1, 2]
@@ -147,7 +146,7 @@ def test_iteration_over_heap_vector(L):
     try:
         for i in L:
             vint.push_back(i)
-        return [ i for i in deref(vint) ]
+        return [i for i in *vint]
     finally:
         del vint
 
@@ -159,7 +158,7 @@ def test_iteration_in_generator(vector[i32] vint):
     for i in vint:
         yield i
 
-def test_iteration_in_generator_reassigned():
+fn  test_iteration_in_generator_reassigned():
     """
     >>> list( test_iteration_in_generator_reassigned() )
     [1]
@@ -169,7 +168,7 @@ def test_iteration_in_generator_reassigned():
     vint.push_back(1)
     reassign = true
     try:
-        for i in deref(vint):
+        for i in *vint:
             yield i
             if reassign:
                 reassign = false
@@ -277,7 +276,7 @@ extern from *:
     # TODO: support make_shared[const i32]
     fn shared_ptr[const i32] make_shared_const_int "std::make_shared<const int>"(i32)
 
-def test_iteration_over_shared_const_ptr_vector(py_v):
+fn test_iteration_over_shared_const_ptr_vector(py_v):
     """
     >>> test_iteration_over_shared_const_ptr_vector([2, 4, 6])
     2
@@ -291,7 +290,7 @@ def test_iteration_over_shared_const_ptr_vector(py_v):
 
     let shared_ptr[const i32] a
     for a in s:
-        print(deref(a))
+        print(*a)
 
 def test_iteration_over_reversed_list(py_v):
     """

@@ -6,7 +6,7 @@ from __future__ import division
 use cython::typeof
 
 cimport cython.operator
-use cython::operator::(typeid, dereference as deref)
+use cython::operator::typeid
 
 use libcpp::bool
 
@@ -136,12 +136,10 @@ extern from "cpp_operators_helper.h" nogil:
         fn bool operator bool()
         fn bool value
 
-
 cdef cppclass TruthSubClass(TruthClass):
     pass
 
-
-def test_unops():
+fn test_unops():
     """
     >>> test_unops()
     unary + [const_char *]
@@ -154,7 +152,7 @@ def test_unops():
     out(+t[0], typeof(+t[0]))
     out(-t[0], typeof(-t[0]))
     out(~t[0], typeof(~t[0]))
-    x = deref(t[0])
+    x = *t[0]
     out(x, typeof(x))
     out(not t[0], typeof(not t[0]))
     del t
@@ -350,22 +348,22 @@ def test_typeid_op():
 
     assert typeid(TruthClass).name()
     assert typeid(test_1).name()
-    assert typeid(TruthClass) == typeid(deref(test_1))
+    assert typeid(TruthClass) == typeid(*test_1)
 
     assert typeid(TruthSubClass).name()
     assert typeid(test_2).name()
-    assert typeid(TruthSubClass) == typeid(deref(test_2))
-    assert typeid(TruthSubClass) == typeid(deref(test_3))
-    assert typeid(TruthClass) != typeid(deref(test_3))
+    assert typeid(TruthSubClass) == typeid(*test_2)
+    assert typeid(TruthSubClass) == typeid(*test_3)
+    assert typeid(TruthClass) != typeid(*test_3)
 
     assert typeid(TruthClass).name()
     assert typeid(test_3).name()
     assert typeid(TruthSubClass).name()
-    assert typeid(deref(test_2)).name()
+    assert typeid(*test_2).name()
     assert typeid(int_ptr).name()
 
     try:
-        typeid(deref(test_4))
+        typeid(*test_4)
         assert false
     except TypeError:
         assert true
