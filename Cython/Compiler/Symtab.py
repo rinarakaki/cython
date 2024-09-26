@@ -80,7 +80,9 @@ class Entry:
     # type             PyrexType  Type of entity
     # doc              string     Doc string
     # annotation       ExprNode   PEP 484/526 annotation
+    # initialised      boolean
     # init             string     Initial value
+    # mutable          boolean
     # visibility       'private' or 'public' or 'extern'
     # is_builtin       boolean    Is an entry in the Python builtins dict
     # is_cglobal       boolean    Is a C global variable
@@ -165,7 +167,9 @@ class Entry:
 
     inline_func_in_pxd = False
     borrowed = 0
+    initialised = 0
     init = ""
+    mutable = 0
     annotation = None
     visibility = 'private'
     is_builtin = 0
@@ -236,12 +240,13 @@ class Entry:
     pytyping_modifiers = None
     enum_int_value = None
 
-    def __init__(self, name, cname, type, pos = None, init = None):
+    def __init__(self, name, cname, type, pos = None, init = None, mutable = 0):
         self.name = name
         self.cname = cname
         self.type = type
         self.pos = pos
         self.init = init
+        self.mutable = mutable
         self.overloaded_alternatives = []
         self.cf_assignments = []
         self.cf_references = []
@@ -501,7 +506,7 @@ class Scope:
         yield
         self.in_c_type_context = old_c_type_context
 
-    def declare(self, name, cname, type, pos, visibility, shadow = 0, is_type = 0, create_wrapper = 0):
+    def declare(self, name, cname, type, pos, visibility, mutable = 0, shadow = 0, is_type = 0, create_wrapper = 0):
         # Create new entry, and add to dictionary if
         # name is not None. Reports a warning if already
         # declared.
@@ -540,7 +545,7 @@ class Scope:
             elif visibility != 'ignore':
                 error(pos, "'%s' redeclared " % name)
                 entries[name].already_declared_here()
-        entry = Entry(name, cname, type, pos = pos)
+        entry = Entry(name, cname, type, pos = pos, mutable = mutable)
         entry.in_cinclude = self.in_cinclude
         entry.create_wrapper = create_wrapper
         if name:
@@ -753,7 +758,7 @@ class Scope:
         return self.outer_scope.declare_tuple_type(pos, components)
 
     def declare_var(self, name, type, pos,
-                    cname=None, visibility='private',
+                    cname=None, visibility='private', mutable=0,
                     api=False, in_pxd=False, is_cdef=False, pytyping_modifiers=None):
         # Add an entry for a variable.
         if not cname:
@@ -761,7 +766,7 @@ class Scope:
                 cname = name
             else:
                 cname = self.mangle(Naming.var_prefix, name)
-        entry = self.declare(name, cname, type, pos, visibility)
+        entry = self.declare(name, cname, type, pos, visibility, mutable)
         entry.is_variable = 1
         if type.is_cpp_class and visibility != 'extern':
             if self.directives['cpp_locals']:
@@ -1534,7 +1539,7 @@ class ModuleScope(Scope):
         return entry
 
     def declare_var(self, name, type, pos,
-                    cname=None, visibility='private',
+                    cname=None, visibility='private', mutable=0,
                     api=False, in_pxd=False, is_cdef=False, pytyping_modifiers=None):
         # Add an entry for a global variable. If it is a Python
         # object type, and not declared with cdef, it will live
@@ -1577,7 +1582,7 @@ class ModuleScope(Scope):
                 return entry
 
         entry = Scope.declare_var(self, name, type, pos,
-                                  cname=cname, visibility=visibility,
+                                  cname=cname, visibility=visibility, mutable=mutable,
                                   api=api, in_pxd=in_pxd, is_cdef=is_cdef, pytyping_modifiers=pytyping_modifiers)
         if is_cdef:
             entry.is_cglobal = 1
@@ -1920,7 +1925,7 @@ class LocalScope(Scope):
         return entry
 
     def declare_var(self, name, type, pos,
-                    cname=None, visibility='private',
+                    cname=None, visibility='private', mutable=0,
                     api=False, in_pxd=False, is_cdef=False, pytyping_modifiers=None):
         name = self.mangle_class_private_name(name)
         # Add an entry for a local variable.
@@ -2026,7 +2031,7 @@ class ComprehensionScope(Scope):
         return '%s%s' % (self.genexp_prefix, self.parent_scope.mangle(prefix, name))
 
     def declare_var(self, name, type, pos,
-                    cname=None, visibility='private',
+                    cname=None, visibility='private', mutable=0,
                     api=False, in_pxd=False, is_cdef=True, pytyping_modifiers=None):
         if type is unspecified_type:
             # if the outer scope defines a type for this variable, inherit it
@@ -2116,7 +2121,7 @@ class StructOrUnionScope(Scope):
         Scope.__init__(self, name, outer_scope=None, parent_scope=None)
 
     def declare_var(self, name, type, pos,
-                    cname=None, visibility='private',
+                    cname=None, visibility='private', mutable=0,
                     api=False, in_pxd=False, is_cdef=False, pytyping_modifiers=None,
                     allow_pyobject=False, allow_memoryview=False, allow_refcounted=False):
         # Add an entry for an attribute.
@@ -2204,7 +2209,7 @@ class PyClassScope(ClassScope):
     is_py_class_scope = 1
 
     def declare_var(self, name, type, pos,
-                    cname=None, visibility='private',
+                    cname=None, visibility='private', mutable=0,
                     api=False, in_pxd=False, is_cdef=False, pytyping_modifiers=None):
         name = self.mangle_class_private_name(name)
         if type is unspecified_type:
@@ -2361,7 +2366,7 @@ class CClassScope(ClassScope):
         return have_entries, (py_attrs, py_buffers, memoryview_slices)
 
     def declare_var(self, name, type, pos,
-                    cname=None, visibility='private',
+                    cname=None, visibility='private', mutable=0,
                     api=False, in_pxd=False, is_cdef=False, pytyping_modifiers=None):
         name = self.mangle_class_private_name(name)
 
@@ -2677,7 +2682,7 @@ class CppClassScope(Scope):
                 template_entry.is_type = 1
 
     def declare_var(self, name, type, pos,
-                    cname=None, visibility='extern',
+                    cname=None, visibility='extern', mutable=0,
                     api=False, in_pxd=False, is_cdef=False, defining=False, pytyping_modifiers=None):
         # Add an entry for an attribute.
         if not cname:
@@ -2812,7 +2817,7 @@ class CppScopedEnumScope(Scope):
         Scope.__init__(self, name, outer_scope, None)
 
     def declare_var(self, name, type, pos,
-                    cname=None, visibility='extern', pytyping_modifiers=None):
+                    cname=None, visibility='extern', mutable=0, pytyping_modifiers=None):
         # Add an entry for an attribute.
         if not cname:
             cname = name

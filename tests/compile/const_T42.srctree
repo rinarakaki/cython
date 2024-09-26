@@ -17,10 +17,10 @@ cdef class Test:
 
 ######## test.h ########
 
-static r&i8 astring = "123";
+static i8 *astring = "123";
 class Test {
 public:
-    const char* get_string(void) { return astring; }
+    const char *get_string(void) { return astring; }
 };
 
 ######## setup.py ########

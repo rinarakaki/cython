@@ -2924,7 +2924,7 @@ def p_c_simple_base_type(s, nonempty, templates=None):
         name = s.systring
         name_pos = s.position()
         s.next()
-        if nonempty and s.sy not in ("const", "IDENT"):
+        if nonempty and s.sy not in ("const", "mut", "IDENT"):
             # Make sure this is not a declaration of a variable or function.
             if s.sy == '(':
                 old_pos = s.position()
@@ -3090,7 +3090,7 @@ def looking_at_expr(s):
 
 def looking_at_base_type(s):
     # print "looking_at_base_type?", s.sy, s.systring, s.position()
-    return s.sy == 'IDENT' and s.systring in base_type_start_words
+    return s.sy == "IDENT" and s.systring in base_type_start_words
 
 def looking_at_dotted_name(s):
     return s.sy == "IDENT" and s.peek()[0] in (".", "::")
@@ -3237,7 +3237,7 @@ def p_c_simple_declarator(s, ctx, empty, is_type, cmethod_flag,
                           assignable, nonempty):
     pos = s.position()
     calling_convention = p_calling_convention(s)
-    if s.sy in ("*", "**", "const"):
+    if s.sy in ("*", "**"):
         if s.sy == "*":
             is_ptrptr = 0
             s.next()
@@ -3248,16 +3248,9 @@ def p_c_simple_declarator(s, ctx, empty, is_type, cmethod_flag,
         else:
             is_ptrptr = 0
 
-        const_pos = s.position()
-        is_const = s.sy == "const"
-        if is_const:
-            s.next()
-
         base = p_c_declarator(s, ctx, empty=empty, is_type=is_type,
                               cmethod_flag=cmethod_flag,
                               assignable=assignable, nonempty=nonempty)
-        if is_const:
-            base = Nodes.CConstDeclaratorNode(const_pos, base=base)
         if is_ptrptr:
             base = Nodes.CPtrDeclaratorNode(pos, base=base)
         result = Nodes.CPtrDeclaratorNode(pos, base=base)
@@ -3269,6 +3262,17 @@ def p_c_simple_declarator(s, ctx, empty, is_type, cmethod_flag,
                               assignable=assignable, nonempty=nonempty)
         result = node_class(pos, base=base)
     else:
+        if s.in_python_file or not ctx.cdef_flag or ctx.level in ("c_class", "c_class_pxd", "cpp_class"):
+            mutable = 1
+        else:
+            if s.sy == "mut":
+                mutable = 1
+                s.next()
+            else:
+                mutable = 0
+                if s.sy == "const":
+                    s.next()
+
         rhs = None
         if s.sy == "IDENT":
             name = s.systring
@@ -3316,8 +3320,7 @@ def p_c_simple_declarator(s, ctx, empty, is_type, cmethod_flag,
                             fatal=False)
                 name = name + ' ' + op
                 s.next()
-        result = Nodes.CNameDeclaratorNode(pos,
-            name = name, cname = cname, default = rhs)
+        result = Nodes.CNameDeclaratorNode(pos, name=name, cname=cname, mutable=mutable, default=rhs)
     result.calling_convention = calling_convention
     return result
 
@@ -3743,6 +3746,9 @@ def p_let_statement(s, ctx):
             break
         declarator = p_c_declarator(s, ctx, assignable = 1, nonempty = 1)
         declarators.append(declarator)
+    if s.sy != "NEWLINE":
+        print("!!!!! p_let_statement !!!!!")
+        print(base_type, declarator, s, pos)
     s.expect_newline("Syntax error in let statement", ignore_semicolon=True)
     return Nodes.LetStatNode(pos, base_type = base_type, declarators = declarators)
 
