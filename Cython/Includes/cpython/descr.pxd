@@ -21,6 +21,14 @@ extern from "Python.h":
         cdef wrapperbase* d_base
         cdef void* d_wrapped
 
+    fn r&mut PyObject PyDescr_NewMethod(r&mut PyTypeObject, r&mut PyMethodDef);
+    fn r&mut PyObject PyDescr_NewClassMethod(r&mut PyTypeObject, r&mut PyMethodDef);
+    fn r&mut PyObject PyDescr_NewMember(r&mut PyTypeObject, r&mut PyMemberDef);
+    fn r&mut PyObject PyDescr_NewGetSet(r&mut PyTypeObject, r&mut PyGetSetDef);
+    
+    fn r&mut PyObject PyDictProxy_New(r&mut PyObject);
+    fn r&mut PyObject PyWrapper_New(r&mut PyObject, r&mut PyObject);
+
     fn object PyDescr_NewWrapper(PyTypeObject* cls, wrapperbase* wrapper, void* wrapped)
 
     fn i32 PyDescr_IsData(descr)

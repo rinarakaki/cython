@@ -1,20 +1,25 @@
+use super::object::PyObject
+
 extern from "Python.h":
     # #########################################################################
     # Codec registry and support functions
     # #########################################################################
 
-    fn i32 PyCodec_Register(object search_function)
+    fn i32 PyCodec_Register(r&mut PyObject search_function)
     # Register a new codec search function.
-
+    # 
     # As side effect, this tries to load the encodings package, if not yet
     # done, to make sure that it is always first in the list of search
     # functions.
+
+    fn i32 PyCodec_Unregister(r&mut PyObject search_function)
+    # ?
 
     fn i32 PyCodec_KnownEncoding(r&i8 encoding)
     # Return 1 or 0 depending on whether there is a registered codec for the
     # given encoding. This function always succeeds.
 
-    fn object PyCodec_Encode(object o, r&i8 encoding, r&i8 errors)
+    fn r&mut PyObject PyCodec_Encode(r&mut PyObject object, r&i8 encoding, r&i8 errors)
     # Return value: New reference.
     # Generic codec based encoding API.
 
@@ -23,7 +28,7 @@ extern from "Python.h":
     # to use the default method defined for the codec. Raises a LookupError
     # if no encoder can be found.
 
-    fn object PyCodec_Decode(object o, r&i8 encoding, r&i8 errors)
+    fn r&mut PyObject PyCodec_Decode(r&mut PyObject object, r&i8 encoding, r&i8 errors)
     # Return value: New reference.
     # Generic codec based decoding API.
 
@@ -40,34 +45,34 @@ extern from "Python.h":
     # this mechanism effectively case-insensitive. If no codec is found, a
     # KeyError is set and NULL returned.
 
-    fn object PyCodec_Encoder(r&i8 encoding)
+    fn r&mut PyObject PyCodec_Encoder(r&i8 encoding)
     # Return value: New reference.
     # Get an encoder function for the given encoding.
 
-    fn object PyCodec_Decoder(r&i8 encoding)
+    fn r&mut PyObject PyCodec_Decoder(r&i8 encoding)
     # Return value: New reference.
     # Get a decoder function for the given encoding.
 
-    fn object PyCodec_IncrementalEncoder(r&i8 encoding, r&i8 errors)
+    fn r&mut PyObject PyCodec_IncrementalEncoder(r&i8 encoding, r&i8 errors)
     # Return value: New reference.
     # Get an IncrementalEncoder object for the given encoding.
 
-    fn object PyCodec_IncrementalDecoder(r&i8 encoding, r&i8 errors)
+    fn r&mut PyObject PyCodec_IncrementalDecoder(r&i8 encoding, r&i8 errors)
     # Return value: New reference.
     # Get an IncrementalDecoder object for the given encoding.
 
-    fn object PyCodec_StreamReader(r&i8 encoding, object stream, r&i8 errors)
+    fn r&mut PyObject PyCodec_StreamReader(r&i8 encoding, r&mut PyObject stream, r&i8 errors)
     # Return value: New reference.
     # Get a StreamReader factory function for the given encoding.
 
-    fn object PyCodec_StreamWriter(r&i8 encoding, object stream, r&i8 errors)
+    fn r&mut PyObject PyCodec_StreamWriter(r&i8 encoding, r&mut PyObject stream, r&i8 errors)
     # Return value: New reference.
     # Get a StreamWriter factory function for the given encoding.
 
 
     # Registry API for Unicode encoding error handlers
 
-    fn i32 PyCodec_RegisterError(r&i8 name, object error) except? -1
+    fn i32 PyCodec_RegisterError(r&i8 name, r&mut PyObject error) except? -1
     # Register the error handling callback function error under the given
     # name. This callback function will be called by a codec when it
     # encounters unencodable characters/undecodable bytes and name is
@@ -86,34 +91,34 @@ extern from "Python.h":
 
     # Return 0 on success, -1 on error.
 
-    fn object PyCodec_LookupError(r&i8 name)
+    fn r&mut PyObject PyCodec_LookupError(r&i8 name)
     # Return value: New reference.
     # Lookup the error handling callback function registered under name. As a
     # special case NULL can be passed, in which case the error handling
     # callback for "strict" will be returned.
 
-    fn object PyCodec_StrictErrors(object exc)
+    fn r&mut PyObject PyCodec_StrictErrors(r&mut PyObject exc)
     # Return value: Always NULL.
     # Raise exc as an exception.
 
-    fn object PyCodec_IgnoreErrors(object exc)
+    fn r&mut PyObject PyCodec_IgnoreErrors(r&mut PyObject exc)
     # Return value: New reference.
     # Ignore the unicode error, skipping the faulty input.
 
-    fn object PyCodec_ReplaceErrors(object exc)
+    fn r&mut PyObject PyCodec_ReplaceErrors(r&mut PyObject exc)
     # Return value: New reference.
     # Replace the unicode encode error with "?" or "U+FFFD".
 
-    fn object PyCodec_XMLCharRefReplaceErrors(object exc)
+    fn r&mut PyObject PyCodec_XMLCharRefReplaceErrors(object exc)
     # Return value: New reference.
     # Replace the unicode encode error with XML character references.
 
-    fn object PyCodec_BackslashReplaceErrors(object exc)
+    fn r&mut PyObject PyCodec_BackslashReplaceErrors(r&mut PyObject exc)
     # Return value: New reference.
     # Replace the unicode encode error with backslash escapes ("\x", "\u"
     # and "\U").
 
-    fn object PyCodec_NameReplaceErrors(object exc)
+    fn r&mut PyObject PyCodec_NameReplaceErrors(r&mut PyObject exc)
     # Return value: New reference.
     # Replace the unicode encode error with "\N{...}" escapes.
 
