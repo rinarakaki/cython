@@ -453,7 +453,7 @@ def p_async_statement(s, ctx, decorators):
     elif decorators:
         s.error("Decorators can only be followed by functions or classes")
     elif s.sy == 'for':
-        return p_for_statement(s, is_async=True)
+        return p_for_statement(s, ctx, is_async=True)
     elif s.sy == 'with':
         s.next()
         return p_with_items(s, is_async=True)
@@ -2027,22 +2027,22 @@ def p_assert_statement(s):
 statement_terminators = cython.declare(frozenset, frozenset((
     ';', 'NEWLINE', 'EOF')))
 
-def p_if_statement(s):
+def p_if_statement(s, ctx):
     # s.sy == 'if'
     pos = s.position()
     s.next()
-    if_clauses = [p_if_clause(s)]
+    if_clauses = [p_if_clause(s, ctx)]
     while s.sy == 'elif':
         s.next()
-        if_clauses.append(p_if_clause(s))
+        if_clauses.append(p_if_clause(s, ctx))
     else_clause = p_else_clause(s)
     return Nodes.IfStatNode(pos,
         if_clauses = if_clauses, else_clause = else_clause)
 
-def p_if_clause(s):
+def p_if_clause(s, ctx):
     pos = s.position()
     test = p_namedexpr_test(s)
-    body = p_suite(s)
+    body = p_suite(s, ctx)
     return Nodes.IfClauseNode(pos,
         condition = test, body = body)
 
@@ -2071,12 +2071,13 @@ def p_while_statement(s):
         condition = test, body = body,
         else_clause = else_clause)
 
-def p_for_statement(s, is_async=False):
+
+def p_for_statement(s, ctx, is_async=False):
     # s.sy == 'for'
     pos = s.position()
     s.next()
     kw = p_for_bounds(s, allow_testlist=True, is_async=is_async)
-    body = p_suite(s)
+    body = p_suite(s, ctx)
     else_clause = p_else_clause(s)
     kw.update(body=body, else_clause=else_clause, is_async=is_async)
     return Nodes.ForStatNode(pos, **kw)
@@ -2172,11 +2173,11 @@ def p_for_iterator(s, allow_testlist=True, is_async=False):
     return (ExprNodes.AsyncIteratorNode if is_async else ExprNodes.IteratorNode)(pos, sequence=expr)
 
 
-def p_try_statement(s):
+def p_try_statement(s, ctx):
     # s.sy == 'try'
     pos = s.position()
     s.next()
-    body = p_suite(s)
+    body = p_suite(s, ctx)
     except_clauses = []
     else_clause = None
     if s.sy in ('except', 'else'):
@@ -2184,7 +2185,7 @@ def p_try_statement(s):
             except_clauses.append(p_except_clause(s))
         if s.sy == 'else':
             s.next()
-            else_clause = p_suite(s)
+            else_clause = p_suite(s, ctx)
         body = Nodes.TryExceptStatNode(pos,
             body = body, except_clauses = except_clauses,
             else_clause = else_clause)
@@ -2193,7 +2194,7 @@ def p_try_statement(s):
         # try-except-finally is equivalent to nested try-except/try-finally
     if s.sy == 'finally':
         s.next()
-        finally_clause = p_suite(s)
+        finally_clause = p_suite(s, ctx)
         return Nodes.TryFinallyStatNode(pos,
             body = body, finally_clause = finally_clause)
     else:
@@ -2640,15 +2641,15 @@ def p_statement(s, ctx, first_statement = 0):
                     return node
                 s.error("Executable statement not allowed here")
             if s.sy == 'if':
-                return p_if_statement(s)
+                return p_if_statement(s, ctx)
             elif s.sy == "loop":
                 return p_loop_statement(s)
             elif s.sy == 'while':
                 return p_while_statement(s)
             elif s.sy == 'for':
-                return p_for_statement(s)
+                return p_for_statement(s, ctx)
             elif s.sy == 'try':
-                return p_try_statement(s)
+                return p_try_statement(s, ctx)
             elif s.sy == 'with':
                 return p_with_statement(s)
             elif s.sy == 'async':

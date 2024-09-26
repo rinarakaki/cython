@@ -37,8 +37,8 @@ cdef class Context(object):
         if is_null:
             self.errors.append(f"NULL argument on line {lineno}")
             return
-        id_ = id(obj)
-        count, linenumbers = self.refs.get(id_, (0, []))
+        let auto id_ = id(obj)
+        let auto (count, linenumbers) = self.refs.get(id_, (0, []))
         self.refs[id_] = (count + 1, linenumbers)
         linenumbers.append(lineno)
 
@@ -48,8 +48,8 @@ cdef class Context(object):
         if is_null:
             self.errors.append(f"NULL argument on line {lineno}")
             return false
-        id_ = id(obj)
-        count, linenumbers = self.refs.get(id_, (0, []))
+        let auto id_ = id(obj)
+        let auto (count, linenumbers) = self.refs.get(id_, (0, []))
         if count == 0:
             self.errors.append(f"Too many decrefs on line {lineno}, reference acquired on lines {linenumbers!r}")
             return false
@@ -61,7 +61,9 @@ cdef class Context(object):
 
     fn end(self):
         if self.refs:
-            msg = u"References leaked:"
+            let msg = u"References leaked:"
+            let i32 count
+            let list linenos
             for count, linenos in self.refs.itervalues():
                 msg += f"\n  ({count}) acquired on lines: {u', '.join([f'{x}' for x in linenos])}"
             self.errors.append(msg)
@@ -90,7 +92,7 @@ fn PyObject* SetupContext(r&i8 funcname, isize lineno, r&i8 filename) except NUL
     PyThreadState_Get()  # Check that we hold the GIL
     PyErr_Fetch(&type, &value, &tb)
     try:
-        ctx = Context(funcname, lineno, filename)
+        let ctx = Context(funcname, lineno, filename)
         Py_INCREF(ctx)
         result = <PyObject*>ctx
     except Exception, e:
