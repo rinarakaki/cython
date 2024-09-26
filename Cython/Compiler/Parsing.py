@@ -465,6 +465,7 @@ def p_async_statement(s, ctx, decorators):
 # atom_expr: ['await'] atom trailer*
 
 def p_power(s):
+    pos = s.position()
     if s.systring == 'new' and s.peek()[0] == 'IDENT':
         return p_new_expr(s)
     await_pos = None
@@ -474,10 +475,10 @@ def p_power(s):
     n1 = p_atom(s)
     if s.in_python_file:
         while s.sy in ("(", "[", "."):
-            n1 = p_trailer(s, n1)
+            n1 = p_trailer(s, n1, pos)
     else:
         while s.sy in ("(", "[", "{", ".", "::"):
-            n1 = p_trailer(s, n1)
+            n1 = p_trailer(s, n1, pos)
     if await_pos:
         n1 = ExprNodes.AwaitExprNode(await_pos, arg=n1)
     if s.sy == '**':
@@ -497,14 +498,14 @@ def p_new_expr(s):
 
 # trailer: '(' [arglist] ')' | '[' subscriptlist ']' | '.' NAME
 
-def p_trailer(s, node1):
+def p_trailer(s, node1, pos):
     pos = s.position()
     if s.sy == '(':
         return p_call(s, node1)
     elif s.sy == '[':
         return p_index(s, node1)
     elif s.sy == "{":
-        return p_struct(s, node1)
+        return p_struct(s, pos, node1)
     else:  # s.sy in (".", "::")
         s.next()
         name = p_ident(s)
@@ -679,9 +680,8 @@ def p_struct_parse_fields(s):
     s.expect("}")
     return fields
 
-def p_struct(s, path):
+def p_struct(s, pos, path):
     # s.sy == "{"
-    pos = s.position()
     fields = p_struct_parse_fields(s)
     return ExprNodes.StructExprNode(pos, path = path, fields = fields)
 

@@ -3,8 +3,10 @@
 use cpython::ref::(PyObject, Py_INCREF, Py_CLEAR, Py_XDECREF, Py_XINCREF)
 use cpython::exc::(PyErr_Fetch, PyErr_Restore)
 use cpython::pystate::PyThreadState_Get
-
 use cython
+use libcpp::map::map
+use libcpp::string::string
+use libcpp::vector::vector
 
 loglevel = 0
 reflog = []
@@ -19,23 +21,27 @@ fn log(level, action, obj, lineno):
 LOG_NONE, LOG_ALL = 0..2
 
 #[cython::final]
-cdef class Context(object):
+cdef class Context:
     cdef readonly object name, filename
-    cdef readonly dict refs
-    cdef readonly list errors
+    cdef readonly map[string, (isize, vector[isize])] refs  # id -> (count, [lineno])
+    cdef readonly vector[string] errors
     cdef readonly isize start
 
     def __cinit__(self, name, line=0, filename=None):
         self.name = name
         self.start = line
         self.filename = filename
-        self.refs = {} # id -> (count, [lineno])
+        self.refs = {}
         self.errors = []
+    
+    #[staticmethod]
+    fn Context new(name, start=0, filename=None):
+        return Context { name, start, filename, refs = {}, errors = [] }
 
     fn regref(self, obj, isize lineno, u2 is_null):
         log(LOG_ALL, u'regref', u"<NULL>" if is_null else obj, lineno)
         if is_null:
-            self.errors.append(f"NULL argument on line {lineno}")
+            self.errors.push_back(f"NULL argument on line {lineno}")
             return
         id_ = id(obj)
         count, linenumbers = self.refs.get(id_, (0, []))
@@ -62,7 +68,7 @@ cdef class Context(object):
     fn end(self):
         if self.refs:
             msg = u"References leaked:"
-            for count, linenos in self.refs.itervalues():
+            for count, linenos in self.refs:
                 msg += f"\n  ({count}) acquired on lines: {u', '.join([f'{x}' for x in linenos])}"
             self.errors.append(msg)
         return u"\n".join([f'REFNANNY: {error}' for error in self.errors]) if self.errors else None
@@ -90,7 +96,7 @@ fn PyObject* SetupContext(r&i8 funcname, isize lineno, r&i8 filename) except NUL
     PyThreadState_Get()  # Check that we hold the GIL
     PyErr_Fetch(&type, &value, &tb)
     try:
-        ctx = Context(funcname, lineno, filename)
+        ctx = Context::new(funcname, lineno, filename)
         Py_INCREF(ctx)
         result = <PyObject*>ctx
     except Exception, e:
