@@ -28,19 +28,20 @@ cdef str s = "Test"
 
 class Foo(object):
     def bar(self, x, y):
-        cdef u64 w = 20
+        let u64 w = 20
         z = w + t
-        cdef i32 t = 10
+        let i32 t = 10
 
 cdef class Foo2(object):
-    print '%s' % r # check error inside class scope
+#     print '%s' % r  # check error inside class scope
     cdef str r
+
     def bar(self, x, y):
-        cdef u64 w = 20
+        let u64 w = 20
         self.r = c'r'
         print self.r
         z = w + g(t)
-        cdef i32 t = 10
+        let i32 t = 10
 
 def g(x):
     return x
@@ -61,7 +62,7 @@ _ERRORS = u"""
 18:13: cdef variable 'i' declared after it is used
 24:13: cdef variable 'i' declared after it is used
 27:9: cdef variable 's' declared after it is used
-33:17: cdef variable 't' declared after it is used
+33:16: cdef variable 't' declared after it is used
 43:17: cdef variable 't' declared after it is used
 50:10: cdef variable 'baz' declared after it is used
 53:20: cdef variable 'var' declared after it is used

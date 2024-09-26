@@ -145,6 +145,7 @@ fn tuple p_with_item(PyrexScanner s, u2 is_async)
 fn p_with_template(PyrexScanner s)
 fn p_simple_statement(PyrexScanner s, u2 first_statement = *)
 fn p_simple_statement_list(PyrexScanner s, ctx, u2 first_statement = *)
+
 fn p_compile_time_expr(PyrexScanner s)
 fn p_IF_statement(PyrexScanner s, ctx)
 
@@ -152,7 +153,7 @@ fn p_item(PyrexScanner s, ctx, attributes)
 fn p_attributes(PyrexScanner s)
 fn p_use_item(PyrexScanner s)
 fn p_static_item(PyrexScanner s, ctx)
-fn p_const_item(PyrexScanner s)
+fn p_const_item(PyrexScanner s, ctx)
 
 fn p_statement(PyrexScanner s, ctx, u2 first_statement = *)
 fn p_statement_list(PyrexScanner s, ctx, u2 first_statement = *)

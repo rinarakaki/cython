@@ -1,9 +1,11 @@
 use cython
 
 cdef class CBase(object):
-    cdef int a
+    cdef i32 a
+
     fn c_method(self):
         return "CBase"
+
     cpdef fn cpdef_method(self):
         return "CBase"
 
@@ -13,7 +15,6 @@ class PyBase(object):
 
 #[cython::binding(true)]
 cdef class BothBound(CBase, PyBase):
-    cdef dict __dict__
     """
     >>> b = Both()
     >>> b.py_method()
@@ -28,10 +29,14 @@ cdef class BothBound(CBase, PyBase):
     >>> isinstance(b, PyBase)
     True
     """
+    cdef dict __dict__
+
     fn c_method(self):
         return "Both"
+
     cpdef fn cp_method(self):
         return "Both"
+
     def call_c_method(self):
         return self.c_method()
 
@@ -49,7 +54,6 @@ cdef class BothSub(BothBound):
 
 #[cython::binding(false)]
 cdef class BothUnbound(CBase, PyBase):
-    cdef dict __dict__
     """
     >>> b = Both()
     >>> b.py_method()
@@ -64,9 +68,13 @@ cdef class BothUnbound(CBase, PyBase):
     >>> isinstance(b, PyBase)
     True
     """
+    cdef dict __dict__
+
     fn c_method(self):
         return "Both"
+
     cpdef fn cp_method(self):
         return "Both"
+
     def call_c_method(self):
         return self.c_method()

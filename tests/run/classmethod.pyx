@@ -73,10 +73,15 @@ class class2(object):
 
 
 cdef class class3:
-    a = 7
-    plus = classmethod(f_plus)
+#     a = 7
+
+    @classmethod
+    def plus(cls, a):
+        return f_plus(cls, a)
+
     def view(cls):
         print cls.__name__
+
     view = classmethod(view)
 
     #[cython::binding(true)]

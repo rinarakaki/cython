@@ -62,7 +62,7 @@ class Ctx:
 
 
 def p_ident(s, message="Expected an identifier, found '%s'"):
-    if s.sy == 'IDENT':
+    if s.sy == "IDENT":
         name = s.context.intern_ustring(s.systring)
         s.next()
         return name
@@ -1840,7 +1840,7 @@ def p_use_item(s):
 
 
 def p_import_statement(s):
-    # s.sy in ("import", "use", "cimport")
+    # s.sy in ("import", "cimport")
     pos = s.position()
     kind = s.sy
     s.next()
@@ -1851,7 +1851,7 @@ def p_import_statement(s):
     stats = []
     is_absolute = Future.absolute_import in s.context.future_directives
     for pos, target_name, dotted_name, as_name in items:
-        if kind in ("use", "cimport"):
+        if kind == "cimport":
             stat = Nodes.CImportStatNode(
                 pos,
                 module_name=dotted_name,
@@ -1951,13 +1951,11 @@ def p_from_import_statement(s, first_statement = 0):
                 name_list = import_list),
             items = items)
 
-
 def p_imported_name(s):
     pos = s.position()
     name = p_ident(s)
     as_name = p_as_name(s)
     return (pos, name, as_name)
-
 
 def p_path(s, as_allowed):
     pos = s.position()
@@ -1976,9 +1974,9 @@ def p_path(s, as_allowed):
         elif s.sy == "(":
             s.next()
             idents.append(p_imported_name(s))
-            while s.sy == ',':
+            while s.sy == ",":
                 s.next()
-                if s.sy == ')':
+                if s.sy == ")":
                     break
                 idents.append(p_imported_name(s))
             s.expect(")")
@@ -2433,24 +2431,37 @@ def p_compile_time_expr(s):
     s.compile_time_expr = old
     return expr
 
-def p_const_item(s):
+def p_const_item(s, ctx):
+    # s.sy == "const"
     pos = s.position()
-    denv = s.compile_time_env
-    s.next()  # "const"
+    # s.next()
     if s.sy == "auto":
         s.next()
         base_type = None
     else:
         base_type = p_c_base_type(s)
-    name = p_ident(s)
-    s.expect('=')
-    expr = p_compile_time_expr(s)
-    if s.compile_time_eval:
-        value = expr.compile_time_value(denv)
-        # print "p_const_item: %s = %r" % (name, value) #
-        denv.declare(name, value)
-    s.expect_newline("Expected a newline", ignore_semicolon=True)
-    return Nodes.PassStatNode(pos)
+    name = s.systring
+    s.next()
+    if s.sy == "=":
+        s.next()
+        denv = s.compile_time_env
+        expr = p_compile_time_expr(s)
+        if s.compile_time_eval:
+            value = expr.compile_time_value(denv)
+            # print "p_const_item: %s = %r" % (name, value) #
+            denv.declare(s.context.intern_ustring(name), value)
+        s.expect_newline("Expected a newline", ignore_semicolon=True)
+        return Nodes.PassStatNode(pos)
+    else:
+        declarators = Nodes.CNameDeclaratorNode(pos, name = name)
+        s.expect_newline("Expected a newline", ignore_semicolon=True)
+        return Nodes.CVarDefNode(pos,
+            base_type = base_type,
+            declarators = declarators,
+            in_pxd = ctx.level == "module_pxd",
+            doc = None,
+            modifiers = [],
+        )
 
 def p_IF_statement(s, ctx):
     pos = s.position()
@@ -2494,7 +2505,7 @@ def p_item(s, ctx, attributes):
     elif s.sy == "const":
         if ctx.visibility == "extern":
             s.error("const statement not allowed here")
-        item = p_const_item(s)
+        item = p_const_item(s, ctx)
     elif s.sy == "fn" or s.sy == "const" and s.peek()[0] == "fn":
         item = p_fn_item(s, pos, ctx)
     elif ctx.visibility == "extern" and s.systring == "from":
@@ -2629,8 +2640,6 @@ def p_statement(s, ctx, first_statement = 0):
             if ctx.level not in ('module', 'module_pxd'):
                 s.error("include statement not allowed here")
             return p_include_statement(s, ctx)
-        elif ctx.level == 'c_class' and s.sy == 'IDENT' and s.systring == 'property':
-            return p_property_decl(s)
         elif s.sy == 'pass' and ctx.level != 'property':
             return p_pass_statement(s, with_newline=True)
         else:
@@ -3760,14 +3769,13 @@ def p_static_item(s, ctx):
         declarator = p_c_declarator(s, ctx, assignable = 1, nonempty = 1)
         declarators.append(declarator)
     s.expect_newline("Syntax error in static item", ignore_semicolon=True)
-    result = Nodes.CVarDefNode(pos,
+    return Nodes.CVarDefNode(pos,
         base_type = base_type,
         declarators = declarators,
         in_pxd = ctx.level == "module_pxd",
         doc = None,
         modifiers = [],
     )
-    return result
 
 def p_visibility(s, prev_visibility):
     pos = s.position()
@@ -4053,7 +4061,6 @@ def p_py_arg_decl(s, annotated = 1):
         annotation = p_annotation(s)
     return Nodes.PyArgDeclNode(pos, name = name, annotation = annotation)
 
-
 def p_class_statement(s, decorators):
     # s.sy == 'class'
     pos = s.position()
@@ -4075,7 +4082,6 @@ def p_class_statement(s, decorators):
         keyword_args=keyword_dict,
         doc=doc, body=body, decorators=decorators,
         force_py3_semantics=s.context.language_level >= 3)
-
 
 def p_c_class_definition(s, pos,  ctx):
     # s.sy == "class"
@@ -4109,27 +4115,43 @@ def p_c_class_definition(s, pos,  ctx):
         if ctx.visibility not in ("public", "extern") and not ctx.api:
             error(s.position(), "Name options only allowed for 'public', 'api', or 'extern' C class")
         objstruct_name, typeobj_name, check_size = p_c_class_options(s)
-    if s.sy == ':':
-        if ctx.level == 'module_pxd':
-            body_level = 'c_class_pxd'
+    if s.sy == ":":
+        s.next()
+        if s.sy == "pass":
+            doc = None
+            body = p_pass_statement(s, with_newline=1)
         else:
-            body_level = 'c_class'
-        doc, body = p_suite_with_docstring(s, Ctx(level=body_level))
+            s.expect("NEWLINE")
+            s.expect_indent()
+            if ctx.level == "module_pxd":
+                body_level = "c_class_pxd"
+            else:
+                body_level = "c_class"
+            doc = p_doc_string(s)            
+            items = []
+            while s.sy != "DEDENT":
+                if s.sy != "pass":
+                    items.append(p_associated_item(s, Ctx(level=body_level)))
+                else:
+                    s.next()
+                    s.expect_newline("Expected a newline")
+            s.expect_dedent()
+            body = Nodes.StatListNode(pos, stats = items)
     else:
         s.expect_newline("Syntax error in C class definition")
         doc = None
         body = None
-    if ctx.visibility == 'extern':
+    if ctx.visibility == "extern":
         if not module_path:
             error(pos, "Module name required for 'extern' C class")
         if typeobj_name:
             error(pos, "Type object name specification not allowed for 'extern' C class")
-    elif ctx.visibility in ("pub", "public"):
+    elif ctx.visibility == "public":
         if not objstruct_name:
             error(pos, "Object struct name specification required for 'public' C class")
         if not typeobj_name:
             error(pos, "Type object name specification required for 'public' C class")
-    elif ctx.visibility == 'private':
+    elif ctx.visibility == "private":
         if ctx.api:
             if not objstruct_name:
                 error(pos, "Object struct name specification required for 'api' C class")
@@ -4248,7 +4270,18 @@ def _extract_docstring(node):
 
 
 def p_code(s, level=None, ctx=Ctx):
-    body = p_statement_list(s, ctx(level = level), first_statement = 1)
+    if level == "c_class":
+        pos = s.position()
+        items = []
+        while s.sy not in ("DEDENT", "EOF"):
+            if s.sy != "pass":
+                items.append(p_associated_item(s, Ctx(level=level)))
+            else:
+                s.next()
+                s.expect_newline("Expected a newline")
+        body = Nodes.StatListNode(pos, stats = items)
+    else:
+        body = p_statement_list(s, ctx(level = level), first_statement = 1)
     if s.sy != 'EOF':
         s.error("Syntax error in statement [%s,%s]" % (
             repr(s.sy), repr(s.systring)))
@@ -4367,7 +4400,7 @@ def p_cpp_class_definition(s, pos,  ctx):
     if s.sy == '[':
         error(s.position(), "Name options not allowed for C++ class")
     nogil = p_nogil(s)
-    if s.sy == ':':
+    if s.sy == ":":
         s.next()
         s.expect('NEWLINE')
         s.expect_indent()
@@ -4375,18 +4408,18 @@ def p_cpp_class_definition(s, pos,  ctx):
         # The goal of this is consistency: we can make docstrings inside cppclass methods,
         # so why not on the cppclass itself ?
         p_doc_string(s)
-        fields = []
+        items = []
         body_ctx = Ctx(visibility = ctx.visibility, level='cpp_class', nogil=nogil or ctx.nogil)
         body_ctx.templates = template_names
-        while s.sy != 'DEDENT':
-            if s.sy != 'pass':
-                fields.append(p_associated_item(s, body_ctx))
+        while s.sy != "DEDENT":
+            if s.sy != "pass":
+                items.append(p_associated_item(s, body_ctx))
             else:
                 s.next()
                 s.expect_newline("Expected a newline")
         s.expect_dedent()
     else:
-        fields = None
+        items = None
         s.expect_newline("Syntax error in C++ class definition")
     return Nodes.CppClassNode(pos,
         name = class_name,
@@ -4394,24 +4427,44 @@ def p_cpp_class_definition(s, pos,  ctx):
         base_classes = base_classes,
         visibility = ctx.visibility,
         in_pxd = ctx.level == 'module_pxd',
-        fields = fields,
-        templates = templates)
+        fields = items,
+        templates = templates
+    )
 
 def p_associated_item(s, ctx):
-    attributes = p_attributes(s)
+    pos = s.position()
+    attributes = p_attributes(s) + p_decorators(s)
+    overridable = ctx.overridable
+    if s.sy == "cdef" and (s.sy != "IDENT" or s.systring in ("inline", "readonly")):
+        s.next()
+    elif s.sy == "cpdef":
+        s.next()
+        overridable = 1
+    visibility = ctx.visibility = p_visibility(s, ctx.visibility)
     item = None
-    if s.systring == "type" and s.peek()[0] == "IDENT":
-        item = p_type_alias_item(s, ctx)
-    elif s.sy == "const" and s.peek()[0] != "fn":
-        item = p_c_func_or_var_declaration(s, s.position(), ctx)
+    if s.sy == "const" and s.peek()[0] == "IDENT":
+        item = p_const_item(s, ctx)
     elif s.sy == "fn" or s.sy in ("static", "const") and s.peek()[0] == "fn":
         item = p_fn_item(s, s.position(), ctx)
-
+    elif s.systring == "type" and s.peek()[0] == "IDENT":
+        item = p_type_alias_item(s, ctx)
+    elif (s.sy == "IDENT" and s.systring not in ("cppclass", "property")) or s.sy == "const" and s.peek()[0] != "fn":
+        item = p_c_func_or_var_declaration(s, s.position(), ctx)
+    elif s.sy == "def":
+        return p_def_statement(s, attributes)
+    elif s.systring == "async" and s.peek()[0] == "def":
+        s.next()
+        return p_async_statement(s, ctx, attributes)
+    elif s.sy == ":":
+        if overridable:
+            error(pos, "cdef blocks cannot be declared cpdef")
+        return p_cdef_block(s, ctx)
+    
     if item is not None:
         item.decorators = attributes
-        item.visibility = ctx.visibility
+        item.visibility = visibility
         item.api = ctx.api
-        item.overridable = ctx.overridable
+        item.overridable = overridable
         return item
     else:
         return p_cpp_class_attribute(s, ctx)

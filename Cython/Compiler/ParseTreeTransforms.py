@@ -2074,27 +2074,34 @@ class ForwardDeclareTypes(CythonTransform):
 
 
 class AnalyseDeclarationsTransform(EnvTransform):
-
     basic_property = TreeFragment("""
-property NAME:
-    def __get__(self):
-        return ATTR
-    def __set__(self, value):
-        ATTR = value
+@property
+def NAME(self):
+    return ATTR
+
+@NAME.setter
+def NAME(self, value):
+    ATTR = value
     """, level='c_class', pipeline=[NormalizeTree(None)])
+
     basic_pyobject_property = TreeFragment("""
-property NAME:
-    def __get__(self):
-        return ATTR
-    def __set__(self, value):
-        ATTR = value
-    def __del__(self):
-        ATTR = None
+@property
+def NAME(self):
+    return ATTR
+
+@NAME.setter
+def NAME(self, value):
+    ATTR = value
+
+@NAME.deleter
+def NAME(self):
+    ATTR = None
     """, level='c_class', pipeline=[NormalizeTree(None)])
+
     basic_property_ro = TreeFragment("""
-property NAME:
-    def __get__(self):
-        return ATTR
+@property
+def NAME(self):
+    return ATTR
     """, level='c_class', pipeline=[NormalizeTree(None)])
 
     struct_or_union_wrapper = TreeFragment("""

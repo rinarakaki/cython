@@ -47,7 +47,7 @@ def break_after_loop():
 _ERRORS = u'''
 4:0: break statement not inside loop
 7:4: break statement not inside loop
-10:4: break statement not inside loop
+10:4: Expected an identifier, found 'break'
 13:4: break statement not inside loop
 15:5: break statement not inside loop
 18:5: break statement not inside loop

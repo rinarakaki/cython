@@ -1,6 +1,5 @@
 import sys
 
-
 def modobj(obj2, obj3):
     """
     >>> modobj(9, 2)
@@ -13,7 +12,6 @@ def modobj(obj2, obj3):
     """
     obj1 = obj2 % obj3
     return obj1
-
 
 def mod_10_obj(int2):
     """
@@ -35,7 +33,6 @@ def mod_10_obj(int2):
     """
     int1 = 10 % int2
     return int1
-
 
 def mod_obj_10(int2):
     """
@@ -107,7 +104,6 @@ def mod_obj_10(int2):
     int1 = int2 % 10
     return int1
 
-
 def mod_obj_17(int2):
     """
     >>> 0 % 17
@@ -178,7 +174,6 @@ def mod_obj_17(int2):
     int1 = int2 % 17
     return int1
 
-
 def mod_int_17(i32 int2):
     """
     >>> 0 % 17
@@ -225,7 +220,6 @@ def mod_int_17(i32 int2):
     int1 = int2 % 17
     return int1
 
-
 def mod_obj_m2(int2):
     """
     >>> 0 % -2
@@ -243,7 +237,6 @@ def mod_obj_m2(int2):
     """
     int1 = int2 % -2
     return int1
-
 
 def mod_obj_m2f(obj2):
     """
@@ -263,8 +256,7 @@ def mod_obj_m2f(obj2):
     result = obj2 % -2.0
     return result
 
-
-def modint(i32 int2, int int3):
+fn modint(i32 int2, i32 int3):
     """
     >>> modint(9, 2)
     1
@@ -273,8 +265,7 @@ def modint(i32 int2, int int3):
     int1 = int2 % int3
     return int1
 
-
-def modptr():
+fn modptr():
     """
     >>> modptr()
     b'spameggs'
@@ -284,7 +275,6 @@ def modptr():
     str3 = "eggs"
     obj1 = str2 % str3
     return obj1
-
 
 def mod_bigint(obj):
     """

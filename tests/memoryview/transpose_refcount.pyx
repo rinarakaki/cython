@@ -6,7 +6,7 @@ fn u2 print_upper_right(f64[:, :] M):
     print M[0, 1]
 
 cdef class MemViewContainer:
-    let f64[:, :] A
+    f64[:, :] A
 
     def __init__(self, A):
         self.A = A

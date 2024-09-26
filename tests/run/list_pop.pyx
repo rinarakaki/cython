@@ -14,6 +14,7 @@ cdef class B:
     """
     fn pop(self):
         return "B"
+
     def call_pop(self):
         return self.pop()
 

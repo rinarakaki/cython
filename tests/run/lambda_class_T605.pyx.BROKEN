@@ -2,7 +2,7 @@
 # tag: lambda
 # ticket: t605
 
-cdef int cdef_CONST = 123
+static i32 cdef_CONST = 123
 CONST = 456
 
 cdef class Foo:
@@ -20,7 +20,7 @@ cdef class Foo:
     id = lambda self, x: x
     cconst_mul = lambda self, x: x * cdef_CONST
     const_mul = lambda self, x: x * CONST
-    foo = (lambda x:x,)
+    foo = (lambda x: x,)
 
 class Bar:
     """

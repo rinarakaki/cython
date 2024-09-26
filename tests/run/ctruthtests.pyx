@@ -62,7 +62,8 @@ def test_Py_ssize_t(isize i):
         return false
 
 cdef class TestExtInt:
-    let i32 i
+    i32 i
+
     def __init__(self, i): self.i = i
 
 def test_attr_int(TestExtInt e):
@@ -83,6 +84,7 @@ union _aux:
 
 cdef class TestExtPtr:
     cdef void* p
+
     def __init__(self, i32 i):
         cdef _aux aux
         aux.i = i

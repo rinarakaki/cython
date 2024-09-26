@@ -200,33 +200,33 @@ __doc__ = ur"""
 
 cdef class Ext:
     pub i32  attr0
-    """attr0 docstring"""
+    # attr0 docstring
     pub      attr1
-    """attr1 docstring"""
+    # attr1 docstring
     pub list attr2
     pub Ext  attr3
 
-    """NOT attr3 docstring"""
-    cdef     i32  attr4
+    # NOT attr3 docstring
+    cdef i32 attr4
     pub i32 \
         attr5
     """attr5 docstring"""
 
     CONST1, CONST2 = 1, 2
 
-    property prop0:
+    @property
+    def prop0(self):
         """prop0 docstring"""
-        def __get__(self):
-            return self.attr0
+        return self.attr0
 
-    property prop1:
-        def __get__(self):
-            return self.attr1
+    @property
+    def prop1(self):
+        return self.attr1
 
-    property attr4:
+    @property
+    def attr4(self):
         """attr4 docstring"""
-        def __get__(self):
-            return self.attr4
+        return self.attr4
 
     def __init__(self, a, b, c=None):
         pass

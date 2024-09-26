@@ -1,5 +1,5 @@
 extern from "<vector>" namespace "std" nogil:
-    cdef cppclass vector[T,ALLOCATOR=*]:
+    cdef cppclass vector[T, ALLOCATOR=*]:
         type value_type = T
         type allocator_type = ALLOCATOR
 

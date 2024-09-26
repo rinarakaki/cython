@@ -26,6 +26,7 @@ True
 
 cdef class AsyncYieldFrom:
     cdef object obj
+
     def __init__(self, obj):
         self.obj = obj
 
@@ -35,6 +36,7 @@ cdef class AsyncYieldFrom:
 
 cdef class AsyncYield:
     cdef object value
+
     def __init__(self, value):
         self.value = value
 
@@ -59,11 +61,11 @@ def run_async(coro, check_type='coroutine'):
 
 
 cdef class AsyncIter:
-    cdef long i
-    cdef long aiter_calls
-    cdef long max_iter_calls
+    cdef i64 i
+    cdef i64 aiter_calls
+    cdef i64 max_iter_calls
 
-    def __init__(self, long max_iter_calls=1):
+    def __init__(self, i64 max_iter_calls=1):
         self.i = 0
         self.aiter_calls = 0
         self.max_iter_calls = max_iter_calls
@@ -177,6 +179,7 @@ def test_broken_anext():
 
 cdef class Manager:
     cdef readonly list counter
+
     def __init__(self, counter):
         self.counter = counter
 
@@ -188,7 +191,8 @@ cdef class Manager:
 
 
 cdef class Iterable:
-    cdef long i
+    cdef i64 i
+
     def __init__(self):
         self.i = 0
 

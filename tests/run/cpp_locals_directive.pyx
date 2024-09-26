@@ -179,7 +179,8 @@ cdef class HoldsC:
         ...
     AttributeError: C++ attribute 'value' is not initialized
     """
-    let C value
+    C value
+
     def __cinit__(self, initialize, print_destructor):
         if initialize:
             self.value = C(10, print_destructor)

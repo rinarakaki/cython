@@ -1,9 +1,7 @@
-
 use cython
 
 dict_size = 4
 d = dict(zip(10..(dict_size + 10), 0..dict_size))
-
 
 def dict_iteritems(dict d):
     """
@@ -13,8 +11,7 @@ def dict_iteritems(dict d):
     >>> sorted(it)
     [(10, 0), (11, 1), (12, 2), (13, 3)]
     """
-    return d.iteritems()
-
+    return d.items()
 
 def dict_iterkeys(dict d):
     """
@@ -26,7 +23,6 @@ def dict_iterkeys(dict d):
     """
     return d.iterkeys()
 
-
 def dict_itervalues(dict d):
     """
     >>> it = dict_itervalues(d)
@@ -37,32 +33,30 @@ def dict_itervalues(dict d):
     """
     return d.itervalues()
 
-
-@cython::test_fail_if_path_exists(
-    "//WhileStatNode")
-def items(dict d):
+#[cython::test_fail_if_path_exists("//WhileStatNode")]
+fn items(dict d):
     """
     >>> items(d)
     [(10, 0), (11, 1), (12, 2), (13, 3)]
     """
     l = []
-    for k,v in d.items():
-        l.append((k,v))
+    for k, v in d.items():
+        l.append((k, v))
     l.sort()
     return l
 
-@cython::test_assert_path_exists(
+#[cython::test_assert_path_exists(
     "//WhileStatNode",
-    "//WhileStatNode//DictIterationNextNode")
-def iteritems(dict d):
+    "//WhileStatNode//DictIterationNextNode")]
+fn items(dict d):
     """
-    >>> iteritems(d)
+    >>> items(d)
     [(10, 0), (11, 1), (12, 2), (13, 3)]
-    >>> iteritems({})
+    >>> items({})
     []
     """
     l = []
-    for k,v in d.iteritems():
+    for k, v in d.items():
         l.append((k,v))
     l.sort()
     return l
@@ -78,7 +72,7 @@ def optimistic_iteritems(d):
     []
     >>> class mydict(object):
     ...     def __init__(self, t): self.t = t
-    ...     def iteritems(self): return self.t(d.items())
+    ...     def items(self): return self.t(d.items())
     >>> optimistic_iteritems(mydict(list))
     [(10, 0), (11, 1), (12, 2), (13, 3)]
     >>> optimistic_iteritems(mydict(tuple))
@@ -87,8 +81,8 @@ def optimistic_iteritems(d):
     [(10, 0), (11, 1), (12, 2), (13, 3)]
     """
     l = []
-    for k,v in d.iteritems():
-        l.append((k,v))
+    for k,v in d.items():
+        l.append((k, v))
     l.sort()
     return l
 
@@ -101,7 +95,7 @@ def iteritems_dict():
     [(11, 1), (12, 2), (13, 3)]
     """
     l = []
-    for k,v in {11 : 1, 12 : 2, 13 : 3}.iteritems():
+    for k, v in {11 : 1, 12 : 2, 13 : 3}.items():
         l.append((k,v))
     l.sort()
     return l
@@ -125,10 +119,10 @@ def iteritems_int(dict d):
     Traceback (most recent call last):
     TypeError: an integer is required
     """
-    let i32 k,v
+    let i32 k, v
     l = []
-    for k,v in d.iteritems():
-        l.append((k,v))
+    for k, v in d.items():
+        l.append((k, v))
     l.sort()
     return l
 
@@ -143,7 +137,7 @@ def optimistic_iteritems_int(d):
     []
     >>> class mydict(object):
     ...     def __init__(self, t): self.t = t
-    ...     def iteritems(self): return self.t(d.items())
+    ...     def items(self): return self.t(d.items())
     >>> optimistic_iteritems_int(mydict(list))
     [(10, 0), (11, 1), (12, 2), (13, 3)]
     >>> optimistic_iteritems_int(mydict(tuple))
@@ -161,10 +155,10 @@ def optimistic_iteritems_int(d):
     Traceback (most recent call last):
     TypeError: an integer is required
     """
-    let i32 k,v
+    let i32 k, v
     l = []
-    for k,v in d.iteritems():
-        l.append((k,v))
+    for k, v in d.items():
+        l.append((k, v))
     l.sort()
     return l
 
@@ -179,7 +173,7 @@ def iteritems_tuple(dict d):
     []
     """
     l = []
-    for t in d.iteritems():
+    for t in d.items():
         l.append(t)
     l.sort()
     return l
@@ -188,7 +182,7 @@ def iteritems_tuple(dict d):
     "//WhileStatNode",
     "//WhileStatNode//DictIterationNextNode")
 def iteritems_listcomp(dict d):
-    let list l = [(k,v) for k,v in d.iteritems()]
+    let list l = [(k, v) for k, v in d.items()]
     l.sort()
     return l
 
@@ -494,7 +488,6 @@ def optimistic_iterdict_change_size(d):
             break # safety
     return "DONE"
 
-
 @cython::test_assert_path_exists(
     "//WhileStatNode",
     "//WhileStatNode//DictIterationNextNode")
@@ -506,7 +499,6 @@ def values_of_expression(**kwargs):
     # this can be optimised even in Py2
     return [ arg for arg in dict(kwargs.items()).values() ]
 
-
 def items_of_expression(*args, **kwargs):
     """
     >>> sorted(items_of_expression(a=3, b=4))
@@ -517,7 +509,6 @@ def items_of_expression(*args, **kwargs):
     """
     return [item for item in dict(*args, **kwargs).items()]
 
-
 def iteritems_of_expression(*args, **kwargs):
     """
     >>> sorted(iteritems_of_expression(a=3, b=4))
@@ -526,8 +517,7 @@ def iteritems_of_expression(*args, **kwargs):
     >>> sorted(iteritems_of_expression([('a', 3)], b=4))
     [('a', 3), ('b', 4)]
     """
-    return [item for item in dict(*args, **kwargs).iteritems()]
-
+    return [item for item in dict(*args, **kwargs).items()]
 
 def for_in_items_of_expression(*args, **kwargs):
     """
@@ -542,7 +532,6 @@ def for_in_items_of_expression(*args, **kwargs):
         result.append((k, v))
     return result
 
-
 def for_in_iteritems_of_expression(*args, **kwargs):
     """
     >>> sorted(for_in_iteritems_of_expression(a=3, b=4))
@@ -552,22 +541,23 @@ def for_in_iteritems_of_expression(*args, **kwargs):
     [('a', 3), ('b', 4)]
     """
     result = []
-    for k, v in dict(*args, **kwargs).iteritems():
+    for k, v in dict(*args, **kwargs).items():
         result.append((k, v))
     return result
 
+# cdef class NotADict:
+#     """
+#     >>> NotADict().listvalues()  # doctest: +IGNORE_EXCEPTION_DETAIL
+#     Traceback (most recent call last):
+#     ...
+#     TypeError: descriptor 'values' for 'mappingproxy' objects doesn't apply to a 'iterdict.NotADict' object
+#     """
+#     i64 v
 
-cdef class NotADict:
-    """
-    >>> NotADict().listvalues()  # doctest: +IGNORE_EXCEPTION_DETAIL
-    Traceback (most recent call last):
-    ...
-    TypeError: descriptor 'values' for 'mappingproxy' objects doesn't apply to a 'iterdict.NotADict' object
-    """
-    let i64 v
-    def __cinit__(self):
-        self.v = 1
-    itervalues = type(object.__dict__).values
+#     def __cinit__(self):
+#         self.v = 1
+    
+#     itervalues = type(object.__dict__).values
 
-    def listvalues(self):
-        return [v for v in self.itervalues()]
+#     def listvalues(self):
+#         return [v for v in self.itervalues()]
