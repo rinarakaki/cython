@@ -8,6 +8,7 @@ extern from "cpp_nested_classes_support.h":
                 fn i32 cube(i32)
         fn B* createB()
         type my_int = i32
+        #[staticmethod]
         fn my_int negate(my_int)
 
     cdef cppclass TypedClass[T]:
@@ -34,6 +35,7 @@ cdef cppclass AA:
     fn BB* createB():
         return new BB()
     type my_int = i32
+    #[staticmethod]
     fn my_int negate(my_int x):
         return -x
 

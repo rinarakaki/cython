@@ -55,7 +55,6 @@ cdef class Foo:
         "c00 docstring"
         pass
 
-    @staticmethod
     def s00(a):
         "s00 docstring"
         pass

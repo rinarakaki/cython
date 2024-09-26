@@ -24,11 +24,11 @@ extern from *:
     };
     """
     cppclass Foo:
-        static fn r&i8 bar(i32 x)
-        static fn r&i8 bar(i32 x, i32 y)
-        
-        fn r&i8 baz(i32 x)
-        fn r&i8 baz(i32 x, i32 y)
+        fn r&i8 bar(i32 x)
+        fn r&i8 bar(i32 x, i32 y)
+
+        fn r&i8 baz(self, i32 x)
+        fn r&i8 baz(self, i32 x, i32 y)
 
 fn test_normal_method_overload():
     """
@@ -38,9 +38,9 @@ fn test_normal_method_overload():
     assert f.baz(1) == b"first"
     assert f.baz(1, 2) == b"second"
 
-def test_static_method_overload():
+fn test_static_method_overload():
     """
     >>> test_static_method_overload()
     """
-    assert Foo.bar(1) == b"first"
-    assert Foo.bar(1, 2) == b"second"
+    assert Foo::bar(1) == b"first"
+    assert Foo::bar(1, 2) == b"second"

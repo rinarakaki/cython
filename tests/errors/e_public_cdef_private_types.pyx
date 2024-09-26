@@ -33,6 +33,7 @@ api fn api_func3(public_string_t x, api_string_t y):
 fn opt_func(x = None):
     pass
 
+
 _ERRORS = u"""
 e_public_cdef_private_types.pyx:8:17: Function declared public or api may not have private types
 e_public_cdef_private_types.pyx:11:17: Function declared public or api may not have private types

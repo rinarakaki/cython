@@ -339,16 +339,12 @@ cdef class CBaseClass(object):
     Test fused def and cpdef methods in cdef classes.
 
     >>> import cython as cy
-    >>> obj = CBaseClass()
     >>> cls = CBaseClass
+    >>> obj = CBaseClass()
 
-    >>> obj.mystaticmethod(10)
+    >>> CBaseClass::mystaticmethod(10)
     long 10
-    >>> obj.mystaticmethod[cy.short](10)
-    short 10
-    >>> cls.mystaticmethod(10)
-    long 10
-    >>> cls.mystaticmethod[cy.short](10)
+    >>> CBaseClass::mystaticmethod[cy.short](10)
     short 10
 
     >>> obj.myclassmethod(10)
@@ -379,8 +375,7 @@ cdef class CBaseClass(object):
     <fused_def.CBaseClass object> short 10
     """
 
-    @staticmethod
-    def mystaticmethod(cython.integral arg1):
+    fn mystaticmethod(cython::integral arg1):
         print cython::typeof(arg1), arg1
 
     @classmethod

@@ -43,13 +43,9 @@ cdef class Foo:
     @classmethod
     def c03(type cls: type[Foo], u32 a: i32) -> float: return a
 
-    @staticmethod
     def s00(a): return a
-    @staticmethod
     def s01(u32 a): return a
-    @staticmethod
     def s02(u32 a: i32): return a
-    @staticmethod
     def s03(u32 a: i32) -> float: return a
 
     pub i64 p0

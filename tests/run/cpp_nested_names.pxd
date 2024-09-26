@@ -10,6 +10,8 @@ extern from "cpp_nested_names_helper.h":
 
             fn string get_str()
 
-            static fn NestedNested get()
+            #[staticmethod]
+            fn NestedNested get()
 
-        static fn Nested get()
+        #[staticmethod]
+        fn Nested get()

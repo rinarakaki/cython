@@ -18,16 +18,20 @@ extern from "<limits>" namespace "std" nogil:
     # print lm.round_style
     cdef cppclass numeric_limits[T]:
         const u2 is_specialized
-        static fn T min()
-        static fn T max()
+        #[staticmethod]
+        fn T min()
+        #[staticmethod]
+        fn T max()
         const i32 digits
         const i32  digits10
         const u2 is_signed
         const u2 is_integer
         const u2 is_exact
         const i32 radix
-        static fn T epsilon()
-        static fn T round_error()
+        #[staticmethod]
+        fn T epsilon()
+        #[staticmethod]
+        fn T round_error()
 
         const i32  min_exponent
         const i32  min_exponent10
@@ -39,10 +43,14 @@ extern from "<limits>" namespace "std" nogil:
         const u2 has_signaling_NaN
         const float_denorm_style has_denorm
         const u2 has_denorm_loss
-        static fn T infinity()
-        static fn T quiet_NaN()
-        static fn T signaling_NaN()
-        static fn T denorm_min()
+        #[staticmethod]
+        fn T infinity()
+        #[staticmethod]
+        fn T quiet_NaN()
+        #[staticmethod]
+        fn T signaling_NaN()
+        #[staticmethod]
+        fn T denorm_min()
 
         const u2 is_iec559
         const u2 is_bounded

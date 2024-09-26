@@ -499,17 +499,30 @@ def p_new_expr(s):
 
 def p_trailer(s, node1):
     pos = s.position()
-    if s.sy == '(':
+    if s.sy == "(":
         return p_call(s, node1)
     elif s.sy == '[':
         return p_index(s, node1)
     elif s.sy == "{":
         return p_struct(s, node1)
-    else:  # s.sy in (".", "::")
+    elif s.sy == "::":
         s.next()
         name = p_ident(s)
-        return ExprNodes.AttributeNode(pos,
+        expr = ExprNodes.AttributeNode(pos,
             obj=node1, attribute=name)
+        if s.sy == "(":
+            return p_call(s, expr, method_call=0)
+        else:
+            return expr
+    else:  # s.sy == "."
+        s.next()
+        name = p_ident(s)
+        expr = ExprNodes.AttributeNode(pos,
+            obj=node1, attribute=name)
+        if s.sy == "(":
+            return p_call(s, expr, method_call=1)
+        else:
+            return expr
 
 
 # arglist:  argument (',' argument)* [',']
@@ -614,17 +627,17 @@ def p_call_build_packed_args(pos, positional_args, keyword_args):
     return arg_tuple, keyword_dict
 
 
-def p_call(s, function):
+def p_call(s, function, method_call=0):
     # s.sy == '('
     pos = s.position()
     positional_args, keyword_args = p_call_parse_args(s)
 
     if not keyword_args and len(positional_args) == 1 and isinstance(positional_args[0], list):
-        return ExprNodes.SimpleCallNode(pos, function=function, args=positional_args[0])
+        return ExprNodes.SimpleCallNode(pos, function=function, args=positional_args[0], method_call=method_call)
     else:
         arg_tuple, keyword_dict = p_call_build_packed_args(pos, positional_args, keyword_args)
         return ExprNodes.GeneralCallNode(
-            pos, function=function, positional_args=arg_tuple, keyword_args=keyword_dict)
+            pos, function=function, positional_args=arg_tuple, keyword_args=keyword_dict, method_call=method_call)
 
 
 # lambdef: 'lambda' [varargslist] ':' test
@@ -1840,7 +1853,7 @@ def p_use_item(s):
 
 
 def p_import_statement(s):
-    # s.sy in ("import", "use", "cimport")
+    # s.sy in ("import", "cimport")
     pos = s.position()
     kind = s.sy
     s.next()
@@ -1851,7 +1864,7 @@ def p_import_statement(s):
     stats = []
     is_absolute = Future.absolute_import in s.context.future_directives
     for pos, target_name, dotted_name, as_name in items:
-        if kind in ("use", "cimport"):
+        if kind == "cimport":
             stat = Nodes.CImportStatNode(
                 pos,
                 module_name=dotted_name,
@@ -1951,13 +1964,11 @@ def p_from_import_statement(s, first_statement = 0):
                 name_list = import_list),
             items = items)
 
-
 def p_imported_name(s):
     pos = s.position()
     name = p_ident(s)
     as_name = p_as_name(s)
     return (pos, name, as_name)
-
 
 def p_path(s, as_allowed):
     pos = s.position()
@@ -1976,9 +1987,9 @@ def p_path(s, as_allowed):
         elif s.sy == "(":
             s.next()
             idents.append(p_imported_name(s))
-            while s.sy == ',':
+            while s.sy == ",":
                 s.next()
-                if s.sy == ')':
+                if s.sy == ")":
                     break
                 idents.append(p_imported_name(s))
             s.expect(")")
@@ -3413,7 +3424,10 @@ def p_c_arg_list(s, ctx = Ctx(), in_pyfunc = 0, cmethod_flag = 0,
     #  Comma-separated list of C argument declarations, possibly empty.
     #  May have a trailing comma.
     args = []
-    is_self_arg = cmethod_flag
+    if s.in_python_file:
+        is_self_arg = cmethod_flag
+    else:
+        is_self_arg = cmethod_flag and s.systring == "self" and s.peek()[0] != "IDENT"
     while s.sy not in c_arg_list_terminators:
         args.append(p_c_arg_decl(s, ctx, in_pyfunc, is_self_arg,
             nonempty = nonempty_declarators, kw_only = kw_only,
@@ -3431,7 +3445,7 @@ def p_optional_ellipsis(s):
     else:
         return 0
 
-def p_c_arg_decl(s, ctx, in_pyfunc, cmethod_flag = 0, nonempty = 0,
+def p_c_arg_decl(s, ctx, in_pyfunc, is_self_arg = 0, nonempty = 0,
                  kw_only = 0, annotated = 1):
     pos = s.position()
     not_none = or_none = 0
@@ -3443,10 +3457,22 @@ def p_c_arg_decl(s, ctx, in_pyfunc, cmethod_flag = 0, nonempty = 0,
             name = None, module_path = [],
             is_basic_c_type = 0, signed = 0,
             complex = 0, longness = 0,
-            is_self_arg = cmethod_flag, templates = None)
+            is_self_arg = is_self_arg, templates = None
+        )
+        declarator = p_c_declarator(s, ctx, nonempty=nonempty)
+    elif is_self_arg:
+        # base_type = Nodes.CSimpleBaseTypeNode(pos,
+        #     name = None, module_path = [],
+        #     is_basic_c_type = 0, signed = 0,
+        #     complex = 0, longness = 0,
+        #     is_self_arg = is_self_arg, templates = None
+        # )
+        base_type = None
+        declarator = Nodes.CNameDeclaratorNode(pos, name="self", cname=None, default=None)
+        s.next()
     else:
         base_type = p_c_base_type(s, nonempty=nonempty)
-    declarator = p_c_declarator(s, ctx, nonempty = nonempty)
+        declarator = p_c_declarator(s, ctx, nonempty=nonempty)
     if s.sy in ('not', 'or') and not s.in_python_file:
         kind = s.sy
         s.next()
@@ -3481,7 +3507,9 @@ def p_c_arg_decl(s, ctx, in_pyfunc, cmethod_flag = 0, nonempty = 0,
         or_none = or_none,
         default = default,
         annotation = annotation,
-        kw_only = kw_only)
+        is_self_arg = is_self_arg,
+        kw_only = kw_only,
+    )
 
 def p_api(s):
     if s.sy == 'IDENT' and s.systring == 'api':
@@ -3943,18 +3971,6 @@ def p_ctypedef_statement(s, ctx):
             in_pxd = ctx.level == 'module_pxd'
         )
 
-def p_attributes(s):
-    attributes = []
-    while s.sy == "#" and s.peek()[0] == "[":
-        pos = s.position()
-        s.next()
-        s.next()
-        attribute = p_namedexpr_test(s)
-        attributes.append(Nodes.DecoratorNode(pos, decorator=attribute))
-        s.expect("]")
-        s.expect_newline("Expected a newline after attribute")
-    return attributes
-
 def p_decorators(s):
     decorators = []
     while s.sy == '@':
@@ -4053,7 +4069,6 @@ def p_py_arg_decl(s, annotated = 1):
         annotation = p_annotation(s)
     return Nodes.PyArgDeclNode(pos, name = name, annotation = annotation)
 
-
 def p_class_statement(s, decorators):
     # s.sy == 'class'
     pos = s.position()
@@ -4075,7 +4090,6 @@ def p_class_statement(s, decorators):
         keyword_args=keyword_dict,
         doc=doc, body=body, decorators=decorators,
         force_py3_semantics=s.context.language_level >= 3)
-
 
 def p_c_class_definition(s, pos,  ctx):
     # s.sy == "class"
@@ -4109,12 +4123,28 @@ def p_c_class_definition(s, pos,  ctx):
         if ctx.visibility not in ("public", "extern") and not ctx.api:
             error(s.position(), "Name options only allowed for 'public', 'api', or 'extern' C class")
         objstruct_name, typeobj_name, check_size = p_c_class_options(s)
-    if s.sy == ':':
-        if ctx.level == 'module_pxd':
-            body_level = 'c_class_pxd'
+    if s.sy == ":":
+        s.next()
+        if s.sy == "pass":
+            body = p_pass_statement(s)
         else:
-            body_level = 'c_class'
-        doc, body = p_suite_with_docstring(s, Ctx(level=body_level))
+            s.expect("NEWLINE")
+            s.expect_indent()
+            if ctx.level == 'module_pxd':
+                body_level = 'c_class_pxd'
+            else:
+                body_level = 'c_class'
+            doc = p_doc_string(s)            
+            items = []
+            body_ctx = Ctx(level=body_level)
+            while s.sy != "DEDENT":
+                if s.sy != "pass":
+                    items.append(p_associated_item(s, body_ctx))
+                else:
+                    s.next()
+                    s.expect_newline("Expected a newline")
+            s.expect_dedent()
+            body = Nodes.StatListNode(pos, stats = items)
     else:
         s.expect_newline("Syntax error in C class definition")
         doc = None
@@ -4124,7 +4154,7 @@ def p_c_class_definition(s, pos,  ctx):
             error(pos, "Module name required for 'extern' C class")
         if typeobj_name:
             error(pos, "Type object name specification not allowed for 'extern' C class")
-    elif ctx.visibility in ("pub", "public"):
+    elif ctx.visibility == "public":
         if not objstruct_name:
             error(pos, "Object struct name specification required for 'public' C class")
         if not typeobj_name:
@@ -4381,10 +4411,7 @@ def p_cpp_class_definition(s, pos,  ctx):
         while s.sy != 'DEDENT':
             if s.sy != 'pass':
                 fields.append(p_associated_item(s, body_ctx))
-            else:
-                s.next()
                 s.expect_newline("Expected a newline")
-        s.expect_dedent()
     else:
         fields = None
         s.expect_newline("Syntax error in C++ class definition")

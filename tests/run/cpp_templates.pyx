@@ -30,7 +30,8 @@ extern from "cpp_templates_helper.h":
         pass
 
     cdef cppclass Div[T]:
-        static fn T half(T value)
+        #[staticmethod]
+        fn T half(T value)
 
 def test_int(i32 x, i32 y):
     """

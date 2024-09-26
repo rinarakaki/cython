@@ -6115,14 +6115,15 @@ class CallNode(ExprNode):
 class SimpleCallNode(CallNode):
     #  Function call without keyword, * or ** args.
     #
-    #  function       ExprNode
-    #  args           [ExprNode]
-    #  arg_tuple      ExprNode or None     used internally
-    #  self           ExprNode or None     used internally
-    #  coerced_self   ExprNode or None     used internally
-    #  wrapper_call   bool                 used internally
-    #  has_optional_args   bool            used internally
-    #  nogil          bool                 used internally
+    #  function            ExprNode
+    #  args                [ExprNode]
+    #  arg_tuple           ExprNode or None  used internally
+    #  self                ExprNode or None  used internally
+    #  coerced_self        ExprNode or None  used internally
+    #  wrapper_call        bool              used internally
+    #  has_optional_args   bool              used internally
+    #  nogil               bool              used internally
+    #  method_call         bool
 
     subexprs = ['self', 'coerced_self', 'function', 'args', 'arg_tuple']
 
@@ -6134,6 +6135,7 @@ class SimpleCallNode(CallNode):
     nogil = False
     analysed = False
     overflowcheck = False
+    method_call = 0
 
     def compile_time_value(self, denv):
         function = self.function.compile_time_value(denv)
@@ -6227,13 +6229,11 @@ class SimpleCallNode(CallNode):
             self.type = error_type
             return
 
-        if func_type.is_cfunction and func_type.is_static_method:
-            if self.self and self.self.type.is_extension_type:
-                # To support this we'd need to pass self to determine whether
-                # it was overloaded in Python space (possibly via a Cython
-                # superclass turning a cdef method into a cpdef one).
-                error(self.pos, "Cannot call a static method on an instance variable.")
-            args = self.args
+        if func_type.is_cfunction:
+            if self.method_call:
+                args = [self.self] + self.args
+            else:
+                args = self.args
         elif self.self:
             args = [self.self] + self.args
         else:

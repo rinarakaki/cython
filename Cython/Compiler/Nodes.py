@@ -689,9 +689,7 @@ class CFuncDeclaratorNode(CDeclaratorNode):
             nonempty -= 1
         func_type_args = []
         for i, arg_node in enumerate(self.args):
-            name_declarator, type = arg_node.analyse(
-                env, nonempty=nonempty,
-                is_self_arg=(i == 0 and env.is_c_class_scope and 'staticmethod' not in env.directives))
+            name_declarator, type = arg_node.analyse(env, nonempty=nonempty)
             name = name_declarator.name
             if name in directive_locals:
                 type_node = directive_locals[name]
@@ -930,9 +928,10 @@ class CArgDeclNode(Node):
             return punycodify_name(Naming.var_prefix + self.entry.name)
 
 
-    def analyse(self, env, nonempty=0, is_self_arg=False):
-        if is_self_arg:
-            self.base_type.is_self_arg = self.is_self_arg = is_self_arg
+    def analyse(self, env, nonempty=0):
+        if self.is_self_arg:
+            self.type = env.parent_type
+            return self.declarator.analyse(env.parent_type, env, nonempty=nonempty)
         if self.type is not None:
             return self.name_declarator, self.type
 
@@ -1606,8 +1605,7 @@ class CVarDefNode(StatNode):
             if type.is_rvalue_reference and self.visibility != 'extern':
                 error(declarator.pos, "C++ rvalue-references cannot be declared")
             if type.is_cfunction:
-                if self.is_static_method or 'staticmethod' in env.directives:
-                    type.is_static_method = 1
+                type.is_static_method = 1
                 self.entry = dest_scope.declare_cfunction(
                     name, type, declarator.pos,
                     cname=cname, visibility=self.visibility, in_pxd=self.in_pxd,
@@ -2808,9 +2806,9 @@ class CFuncDefNode(FuncDefNode):
     def declare_cpdef_wrapper(self, env):
         if not self.overridable:
             return
-        if self.is_static_method:
-            # TODO(robertwb): Finish this up, perhaps via more function refactoring.
-            error(self.pos, "static cpdef methods not yet supported")
+        # if self.is_static_method:
+        #     # TODO(robertwb): Finish this up, perhaps via more function refactoring.
+        #     error(self.pos, "static cpdef methods not yet supported")
 
         name = self.entry.name
         py_func_body = self.call_self_node(is_module_scope=env.is_module_scope)
@@ -3216,8 +3214,7 @@ class DefNode(FuncDefNode):
                 error(self.pos, "wrong number of arguments")
                 error(cfunc.pos, "previous declaration here")
             for i, (formal_arg, type_arg) in enumerate(zip(self.args, cfunc_type.args)):
-                name_declarator, type = formal_arg.analyse(scope, nonempty=1,
-                                                           is_self_arg=(i == 0 and scope.is_c_class_scope))
+                name_declarator, type = formal_arg.analyse(scope, nonempty=1)
                 if type is None or type is PyrexTypes.py_object_type:
                     formal_arg.type = type_arg.type
                     formal_arg.name_declarator = name_declarator
@@ -3502,8 +3499,8 @@ class DefNode(FuncDefNode):
         name = self.name
         entry = env.lookup_here(name)
         if entry:
-            if entry.is_final_cmethod and not env.parent_type.is_final_type:
-                error(self.pos, "Only final types can have final Python (def/cpdef) methods")
+            # if entry.is_final_cmethod and not env.parent_type.is_final_type:
+            #     error(self.pos, "Only final types can have final Python (def/cpdef) methods")
             if entry.type.is_cfunction and not entry.is_builtin_cmethod and not self.is_wrapper:
                 warning(self.pos, "Overriding cdef method with def method.", 5)
         entry = env.declare_pyfunction(name, self.pos, allow_redefine=not self.is_wrapper)
