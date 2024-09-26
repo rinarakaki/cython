@@ -841,7 +841,7 @@ class CoroutineTest(unittest.TestCase):
             self.assertTrue(re.search(regex, str(value)),
                             "'%s' did not match '%s'" % (value, regex))
 
-    if not hasattr(unittest.TestCase, 'assert_in'):
+    if not hasattr(unittest.TestCase, 'assertIn'):
         def assert_in(self, member, container, msg=None):
             self.assertTrue(member in container, msg)
 
