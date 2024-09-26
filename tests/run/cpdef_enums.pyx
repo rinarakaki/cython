@@ -59,7 +59,7 @@ NameError: ...name 'IntEnum' is not defined
 """
 
 extern from *:
-    cpdef enum:  # ExternPyx
+    enum:  # ExternPyx
         ONE "1"
         TEN "10"
         HUNDRED "100"
@@ -67,17 +67,17 @@ extern from *:
     enum:  # ExternSecretPyx
         THOUSAND "1000"
 
-cpdef enum PyxEnum:
+cpdef use enum PyxEnum:
     Two = 2
     Three = 3
     Five = 5
 
-cpdef enum cpdefPyxDocEnum:
+enum cpdefPyxDocEnum:
     """Home is where...
     """
     Eleven = 11
 
-cpdef enum CpdefPyxDocLineEnum:
+enum CpdefPyxDocLineEnum:
     """Home is where..."""
     Fourteen = 14
 
@@ -98,22 +98,22 @@ extern from *:
     };
     """
     # Cython doesn't know about the duplicates though
-    cpdef enum ExternHasDuplicates:
+    use enum ExternHasDuplicates:
         EX_DUP_A
         EX_DUP_B
         EX_DUP_C
 
 
-cpdef enum CyDefinedHasDuplicates1:
+enum CyDefinedHasDuplicates1:
     CY_DUP1_A
     CY_DUP1_B = 0x00000000
 
 
-cpdef enum CyDefinedHasDuplicates2:
+enum CyDefinedHasDuplicates2:
     CY_DUP2_A
-    CY_DUP2_B = CY_DUP2_A
+    CY_DUP2_B = <i32>CY_DUP2_A
 
-cpdef enum CyDefinedHasDuplicates3:
+enum CyDefinedHasDuplicates3:
     CY_DUP3_A = 1
     CY_DUP3_B = 0
     CY_DUP3_C  # = 1
@@ -129,7 +129,7 @@ def test_as_variable_from_cython():
 fn i32 verify_pure_c() nogil:
     let i32 x = Two
     let i32 y = PyxEnum.Three
-    let i32 z = SecretPyxEnum::Seven
+    let i32 z = <i32>SecretPyxEnum::Seven
     return x + y + z
 
 # Use it to suppress warning.

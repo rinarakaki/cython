@@ -275,14 +275,14 @@ def test_nested(o):
     let map[pair[f64, f64], vector[i32]] m = o
     return m
 
-cpdef enum Colour:
+cpdef use enum Colour:
     Red = 0
     Green
     Blue
 
 def test_enum_map(o):
     """
-    >>> test_enum_map({Colour::Red: Colour::Green})
+    >>> test_enum_map({Red: Green})
     {<Colour.Red: 0>: <Colour.Green: 1>}
     """
     let map[Colour, Colour] m = o

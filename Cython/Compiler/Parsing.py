@@ -2487,7 +2487,7 @@ def p_item(s, ctx, attributes):
     ctx.typedef_flag = ctx.typedef_flag or visibility == "extern"
 
     item = None
-    if s.sy == "use":
+    if s.sy == "use" and s.peek()[0] != "enum":
         item = p_use_item(s)
     elif s.sy == "static":
         item = p_static_item(s, ctx)
@@ -2503,7 +2503,7 @@ def p_item(s, ctx, attributes):
         if ctx.level not in ("module", "module_pxd"):
             s.error("type statement not allowed here")
         item = p_type_alias_item(s, ctx)
-    elif s.sy == "enum":
+    elif s.sy == "enum" or s.sy == "use" and s.peek()[0] == "enum":
         if ctx.level not in ("module", "module_pxd"):
             error(pos, "C enum definition not allowed here")
         item = p_enum_item(s, pos, ctx)
@@ -3546,12 +3546,13 @@ def p_extern_item(s, pos, ctx):
     )
 
 def p_enum_item(s, pos, ctx):
-    # s.sy == ident 'enum'
+    # s.sy == "enum" or s.sy == "use" and s.peek()[0] == "enum"
+    use_all = 0
+    if s.sy == "use":
+        s.next()
+        use_all = 1
     s.next()
-
-    scoped = False
     if s.context.cpp and s.sy in ("class", "struct"):
-        scoped = True
         s.next()
 
     if s.sy == "IDENT":
@@ -3562,10 +3563,8 @@ def p_enum_item(s, pos, ctx):
             cname = ctx.namespace + "::" + name
     else:
         name = cname = None
-        if scoped:
-            s.error("Unnamed scoped enum not allowed")
 
-    if scoped and s.sy == '(':
+    if s.sy == '(':
         s.next()
         underlying_type = p_c_base_type(s)
         s.expect(')')
@@ -3603,7 +3602,6 @@ def p_enum_item(s, pos, ctx):
     return Nodes.CEnumDefNode(pos,
         name=name,
         cname=cname,
-        scoped=scoped,
         variants=variants,
         underlying_type=underlying_type,
         typedef_flag=ctx.typedef_flag,

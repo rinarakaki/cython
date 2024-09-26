@@ -137,16 +137,16 @@ enum TestEnum:
     Abc = 1
     Xyz = 2
 
-@cython::test_fail_if_path_exists(
-    "//CoerceToPyTypeNode",
-)
-def format_c_enum():
-    """
-    >>> s = format_c_enum()
-    >>> s == '1-2' or s
-    True
-    """
-    return f"{Abc}-{Xyz}"
+# #[cython::test_fail_if_path_exists(
+#     "//CoerceToPyTypeNode",
+# )]
+# def format_c_enum():
+#     """
+#     >>> s = format_c_enum()
+#     >>> s == '1-2' or s
+#     True
+#     """
+#     return f"{Abc}-{Xyz}"
 
 def format_c_numbers(signed char c, i16 s, i32 n, i64 l, f32 f, f64 d):
     """

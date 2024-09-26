@@ -133,7 +133,7 @@ def test_enum_range():
     'RangeEnum'
     """
     let RangeEnum n = RangeEnum::Var3
-    for i in 0..n:
+    for i in 0..<i32>n:
         assert 0 <= <i32>i < <i32>n
         assert cython::typeof(i) == "RangeEnum", cython::typeof(i)
     return cython::typeof(i)

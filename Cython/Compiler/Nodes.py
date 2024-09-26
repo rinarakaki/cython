@@ -23,7 +23,7 @@ from . import TypeSlots
 from .PyrexTypes import py_object_type, error_type
 from .Symtab import (ModuleScope, LocalScope, ClosureScope, PropertyScope,
                      StructOrUnionScope, PyClassScope, CppClassScope, TemplateScope, GeneratorExpressionScope,
-                     CppScopedEnumScope, punycodify_name)
+                     EnumScope, punycodify_name)
 from .Code import UtilityCode
 from .StringEncoding import EncodedString
 from . import Future
@@ -1767,7 +1767,6 @@ class CppClassNode(CStructOrUnionDefNode, BlockNode):
 class CEnumDefNode(StatNode):
     #  name               string or None
     #  cname              string or None
-    #  scoped             boolean                Is a C++ scoped enum
     #  underlying_type    CSimpleBaseTypeNode    The underlying value type (int or C++ type)
     #  variants           [CEnumDefItemNode]
     #  typedef_flag       boolean
@@ -1789,10 +1788,12 @@ class CEnumDefNode(StatNode):
         self.entry = env.declare_enum(
             self.name, self.pos,
             cname=self.cname,
-            scoped=self.scoped,
             typedef_flag=self.typedef_flag,
-            visibility=self.visibility, api=self.api,
-            create_wrapper=self.create_wrapper, doc=doc)
+            visibility=self.visibility,
+            api=self.api,
+            create_wrapper=self.create_wrapper,
+            doc=doc
+        )
 
     def analyse_declarations(self, env):
         scope = None
@@ -1803,8 +1804,8 @@ class CEnumDefNode(StatNode):
 
         self.entry.type.underlying_type = underlying_type
 
-        if self.scoped and self.variants is not None:
-            scope = CppScopedEnumScope(self.name, env)
+        if self.name is not None and self.variants is not None:
+            scope = EnumScope(self.name, env)
             scope.type = self.entry.type
             scope.directives = env.directives
         else:
@@ -1829,9 +1830,7 @@ class CEnumDefNode(StatNode):
         return self
 
     def generate_execution_code(self, code):
-        if self.scoped:
-            return  # nothing to do here for C++ enums
-        if self.visibility == 'public' or self.api:
+        if self.visibility == "public" or self.api:
             code.mark_pos(self.pos)
             temp = code.funcstate.allocate_temp(PyrexTypes.py_object_type, manage_ref=True)
             for item in self.entry.enum_values:
@@ -1869,10 +1868,15 @@ class CEnumDefItemNode(StatNode):
             cname = self.cname
 
         self.entry = entry = env.declare_const(
-            self.name, enum_entry.type,
-            self.value, self.pos, cname=cname,
-            visibility=enum_entry.visibility, api=enum_entry.api,
-            create_wrapper=enum_entry.create_wrapper and enum_entry.name is None)
+            self.name,
+            enum_entry.type,
+            self.value,
+            self.pos,
+            cname=cname,
+            visibility=enum_entry.visibility,
+            api=enum_entry.api,
+            create_wrapper=enum_entry.create_wrapper and enum_entry.name is None
+        )
 
         # Use the incremental integer value unless we see an explicitly declared value.
         enum_value = incremental_int_value

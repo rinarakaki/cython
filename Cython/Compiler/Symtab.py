@@ -718,8 +718,8 @@ class Scope:
             error(pos, "'%s' previously declared as '%s'" % (
                 entry.name, entry.visibility))
 
-    def declare_enum(self, name, pos, cname, scoped, typedef_flag,
-            visibility='private', api=0, create_wrapper=0, doc=None):
+    def declare_enum(self, name, pos, cname, typedef_flag,
+                     visibility='private', api=0, create_wrapper=0, doc=None):
         if name:
             if not cname:
                 if (self.in_cinclude or visibility == 'public'
@@ -732,15 +732,15 @@ class Scope:
             else:
                 namespace = None
 
-            if scoped:
+            if 0 and 1:
                 type = PyrexTypes.CppScopedEnumType(name, cname, namespace, doc=doc)
             else:
                 type = PyrexTypes.CEnumType(name, cname, typedef_flag, namespace, doc=doc)
         else:
             type = PyrexTypes.c_anon_enum_type
         entry = self.declare_type(name, type, pos, cname = cname,
-            visibility = visibility, api = api)
-        if scoped:
+                                  visibility = visibility, api = api)
+        if 0 and 1:
             entry.utility_code = Code.UtilityCode.load_cached("EnumClassDecl", "CppSupport.cpp")
             self.use_entry_utility_code(entry)
         entry.create_wrapper = create_wrapper
@@ -2656,6 +2656,26 @@ class CClassScope(ClassScope):
                 entry.as_variable = var_entry
             if base_entry.utility_code:
                 entry.utility_code = base_entry.utility_code
+
+
+class EnumScope(Scope):
+    #  Namespace of a ScopedEnum
+
+    def __init__(self, name, outer_scope):
+        Scope.__init__(self, name, outer_scope, None)
+
+    def declare_var(self, name, type, pos,
+                    cname=None, visibility='extern', pytyping_modifiers=None):
+        # Add an entry for an attribute.
+        if not cname:
+            cname = name
+        self._reject_pytyping_modifiers(pos, pytyping_modifiers)
+        entry = self.declare(name, cname, type, pos, visibility)
+        entry.is_variable = True
+        return entry
+    
+    def lookup(self, name):
+        return self.lookup_here(name)
 
 
 class CppClassScope(Scope):

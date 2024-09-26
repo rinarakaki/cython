@@ -9,11 +9,11 @@ fn void f():
     let Colour e
     let i32 i
 
-    i = Colour::Red
-    i = Colour::Red + 1
-    i = Colour::Red | 1
+    i = <i32>Colour::Red
+    i = <i32>Colour::Red + 1
+    i = <i32>Colour::Red | 1
     e = Colour::White
-    i = e
-    i = e + 1
+    i = <i32>e
+    i = <i32>e + 1
 
 f()

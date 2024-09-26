@@ -1,10 +1,10 @@
 import cython
-from cython.cimports.dishes import SpamDish, Sausage
+from cython.cimports.dishes import SpamDish, OtherStuff
 
 @cython.cfunc
 def prepare(d: cython.pointer(SpamDish)) -> cython.void:
     d.oz_of_spam = 42
-    d.filler = Sausage
+    d.filler = OtherStuff.Sausage
 
 def serve():
     d: SpamDish
