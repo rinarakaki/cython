@@ -16,6 +16,8 @@ __doc__ = u"""
 
 swallow = true
 
-class Swallow:
+struct Swallow
+
+impl Swallow:
     def spam(w, i32 x = 42, y = "grail", z = swallow):
         print w, x, y, z

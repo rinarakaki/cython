@@ -19,7 +19,7 @@ ext_modules = cythonize(ext_modules, include_path=["include"])
 
 ######## pkg/a.pxd ########
 
-cdef class A(object):
+struct A:
     pass
 
 ######## importer.pyx ########

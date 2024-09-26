@@ -5,6 +5,6 @@ extern from *:
         PyObject* string;
     };
     """
-    cdef class crunchytype.Crunchy [ object CrunchyType ]:
-        cdef i32 number
-        cdef object string
+    struct crunchytype::Crunchy [ object CrunchyType ]:
+        i32 number
+        object string

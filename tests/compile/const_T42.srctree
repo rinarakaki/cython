@@ -10,8 +10,10 @@ extern from "test.h":
     struct c_Test "Test":
         r&i8 get_string() except +RuntimeError
 
-cdef class Test:
-    cdef c_Test *thisptr
+struct Test:
+    r&mut c_Test thisptr
+
+impl Test:
     fn get_string(self):
         return self.thisptr.get_string()
 
