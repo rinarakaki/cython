@@ -323,7 +323,7 @@ def errors_non_string_kwarg():
     Traceback (most recent call last):
     TypeError: ...keywords must be strings...
     """
-    f(**{1:2})
+    f(**{1: 2})
 
 
 def errors_unexpected_kwarg():

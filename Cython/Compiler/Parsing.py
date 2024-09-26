@@ -518,7 +518,7 @@ def p_trailer(s, node1):
 # since PEP 448:
 # argument: ( test [comp_for] |
 #             test '=' test |
-#             '**' expr |
+#             ".." expr |
 #             star_expr )
 
 def p_call_parse_args(s, allow_genexp=True):
@@ -530,13 +530,13 @@ def p_call_parse_args(s, allow_genexp=True):
     starstar_seen = False
     last_was_tuple_unpack = False
     while s.sy != ')':
-        if s.sy == '*':
+        if s.in_python_file and s.sy == "*" or not s.in_python_file and s.sy == "...":
             if starstar_seen:
                 s.error("Non-keyword arg following keyword arg", pos=s.position())
             s.next()
             positional_args.append(p_test(s))
             last_was_tuple_unpack = True
-        elif s.sy == '**':
+        elif s.in_python_file and s.sy == "**" or not s.in_python_file and s.sy == "..":
             s.next()
             keyword_args.append(p_test(s))
             starstar_seen = True
@@ -657,7 +657,7 @@ def p_struct_parse_fields(s):
     s.next()
     fields = []
     while s.sy != "}":
-        if s.sy == '**':
+        if s.sy == "..":
             s.next()
             fields.append(p_test(s))
         else:
@@ -1426,10 +1426,10 @@ def p_dict_or_set_maker(s):
     target_type = 0
     last_was_simple_item = False
     while True:
-        if s.sy in ('*', '**'):
+        if s.in_python_file and s.sy in ('*', '**') or not s.in_python_file and s.sy in ('...', ".."):
             # merged set/dict literal
             if target_type == 0:
-                target_type = 1 if s.sy == '*' else 2  # 'stars'
+                target_type = 1 if s.sy in ("*", "...") else 2  # 'stars'
             elif target_type != len(s.sy):
                 s.error("unexpected %sitem found in %s literal" % (
                     s.sy, 'set' if target_type == 1 else 'dict'))
@@ -4037,7 +4037,7 @@ def p_varargslist(s, terminator=')', annotated=1):
                 nonempty_declarators = 1, kw_only = 1, annotated = annotated))
         elif s.sy != terminator:
             s.error("Syntax error in Python function argument list")
-    if s.sy == '**':
+    if s.sy == "**":
         s.next()
         starstar_arg = p_py_arg_decl(s, annotated=annotated)
     if s.sy == ',':
