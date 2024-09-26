@@ -5,6 +5,7 @@
 
 
 # This should be done automatically
+import os
 from Cython.Shadow import typedef
 import cython
 cython.declare(Nodes=object, ExprNodes=object, EncodedString=object,
@@ -62,7 +63,7 @@ class Ctx:
 
 
 def p_ident(s, message="Expected an identifier, found '%s'"):
-    if s.sy == 'IDENT':
+    if s.sy =="IDENT":
         name = s.context.intern_ustring(s.systring)
         s.next()
         return name
@@ -1840,7 +1841,7 @@ def p_use_item(s):
 
 
 def p_import_statement(s):
-    # s.sy in ("import", "use", "cimport")
+    # s.sy in ("import", "cimport")
     pos = s.position()
     kind = s.sy
     s.next()
@@ -1851,7 +1852,7 @@ def p_import_statement(s):
     stats = []
     is_absolute = Future.absolute_import in s.context.future_directives
     for pos, target_name, dotted_name, as_name in items:
-        if kind in ("use", "cimport"):
+        if kind == "cimport":
             stat = Nodes.CImportStatNode(
                 pos,
                 module_name=dotted_name,
@@ -1951,13 +1952,11 @@ def p_from_import_statement(s, first_statement = 0):
                 name_list = import_list),
             items = items)
 
-
 def p_imported_name(s):
     pos = s.position()
     name = p_ident(s)
     as_name = p_as_name(s)
     return (pos, name, as_name)
-
 
 def p_path(s, as_allowed):
     pos = s.position()
@@ -1976,9 +1975,9 @@ def p_path(s, as_allowed):
         elif s.sy == "(":
             s.next()
             idents.append(p_imported_name(s))
-            while s.sy == ',':
+            while s.sy == ",":
                 s.next()
-                if s.sy == ')':
+                if s.sy == ")":
                     break
                 idents.append(p_imported_name(s))
             s.expect(")")
@@ -2497,6 +2496,8 @@ def p_item(s, ctx, attributes):
         item = p_const_item(s)
     elif s.sy == "fn" or s.sy == "const" and s.peek()[0] == "fn":
         item = p_fn_item(s, pos, ctx)
+    elif s.sy == "mod":
+        item = p_mod_item(s, ctx)
     elif ctx.visibility == "extern" and s.systring == "from":
         item = p_extern_item(s, pos, ctx)
     elif s.systring == "type" and s.peek()[0] == "IDENT":
@@ -2528,6 +2529,43 @@ def p_item(s, ctx, attributes):
         item.overridable = overridable
 
     return item
+
+def p_mod_item(s, ctx):
+    # s.sy == "mod"
+    pos = s.position()
+    s.next()
+    name = s.systring
+    s.next()
+    if s.sy == ":":
+        s.next()
+        s.expect("NEWLINE")
+        directive_comments = p_compiler_directive_comments(s)
+        ctx = Ctx(level = "module")
+        body = p_statement_list(s, ctx, True)
+    else:
+        s.expect_newline("Expected a newline", ignore_semicolon=True)
+        self_path = os.path.splitext(pos[0].filename)[0]
+        level = "module"
+        mod_file_name = name + '.pyx'
+        mod_file_path = os.path.join(self_path, mod_file_name)
+        if not os.path.exists(mod_file_path):
+            level = "module_pxd"
+            mod_file_name = name + '.pxd'
+            mod_file_path = os.path.join(self_path, mod_file_name)
+        s.included_files.append(mod_file_name)
+        with Utils.open_source_file(mod_file_path) as f:
+            source_desc = FileSourceDescriptor(mod_file_path)
+            assert not source_desc.is_python_file()
+            mod_s = PyrexScanner(f, source_desc, s, source_encoding=f.encoding, parse_comments=s.parse_comments)
+            directive_comments = []  # p_compiler_directive_comments(mod_s)
+            body = p_statement_list(mod_s, Ctx(level=level))
+
+    return ModuleNode(pos,
+        doc = None,
+        body = body,
+        full_module_name = name,
+        directive_comments = directive_comments
+    )
 
 def p_statement(s, ctx, first_statement = 0):
     cdef_flag = ctx.cdef_flag
@@ -2672,7 +2710,7 @@ def p_statement_list(s, ctx, first_statement = 0):
     # Parse a series of statements separated by newlines.
     pos = s.position()
     stats = []
-    while s.sy not in ('DEDENT', 'EOF'):
+    while s.sy not in ("DEDENT", "EOF"):
         stat = p_statement(s, ctx, first_statement = first_statement)
         if isinstance(stat, Nodes.PassStatNode):
             continue
@@ -4053,7 +4091,6 @@ def p_py_arg_decl(s, annotated = 1):
         annotation = p_annotation(s)
     return Nodes.PyArgDeclNode(pos, name = name, annotation = annotation)
 
-
 def p_class_statement(s, decorators):
     # s.sy == 'class'
     pos = s.position()
@@ -4075,7 +4112,6 @@ def p_class_statement(s, decorators):
         keyword_args=keyword_dict,
         doc=doc, body=body, decorators=decorators,
         force_py3_semantics=s.context.language_level >= 3)
-
 
 def p_c_class_definition(s, pos,  ctx):
     # s.sy == "class"
@@ -4109,11 +4145,11 @@ def p_c_class_definition(s, pos,  ctx):
         if ctx.visibility not in ("public", "extern") and not ctx.api:
             error(s.position(), "Name options only allowed for 'public', 'api', or 'extern' C class")
         objstruct_name, typeobj_name, check_size = p_c_class_options(s)
-    if s.sy == ':':
-        if ctx.level == 'module_pxd':
-            body_level = 'c_class_pxd'
+    if s.sy == ":":
+        if ctx.level == "module_pxd":
+            body_level = "c_class_pxd"
         else:
-            body_level = 'c_class'
+            body_level = "c_class"
         doc, body = p_suite_with_docstring(s, Ctx(level=body_level))
     else:
         s.expect_newline("Syntax error in C class definition")
@@ -4124,7 +4160,7 @@ def p_c_class_definition(s, pos,  ctx):
             error(pos, "Module name required for 'extern' C class")
         if typeobj_name:
             error(pos, "Type object name specification not allowed for 'extern' C class")
-    elif ctx.visibility in ("pub", "public"):
+    elif ctx.visibility == "public":
         if not objstruct_name:
             error(pos, "Object struct name specification required for 'public' C class")
         if not typeobj_name:

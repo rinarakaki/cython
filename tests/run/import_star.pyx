@@ -33,8 +33,8 @@ def test_cdefed_cvalues():
 
 def test_non_cdefed_names():
     """
-    >>> mod, pth = test_non_cdefed_names()
-    >>> assert mod is not None
+    >>> r#mod, pth = test_non_cdefed_names()
+    >>> assert r#mod is not None
     >>> assert pth is not None
     """
     return modules, path

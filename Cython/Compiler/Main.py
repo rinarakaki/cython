@@ -658,7 +658,6 @@ def compile(source, options = None, full_module_name = None, **kwds):
         source = [source]
     return compile_multiple(source, options)
 
-
 @Utils.cached_function
 def search_include_directories(dirs, qualified_name, suffix="", pos=None, include=False, source_file_path=None):
     """

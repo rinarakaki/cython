@@ -87,7 +87,7 @@ def division(i128 a, i128 b):
     let wrapped_int wb = wrapped_int(b)
     return (wa / wb).val
 
-def mod(i128 a, i128 b):
+def r#mod(i128 a, i128 b):
     let wrapped_int wa = wrapped_int(a)
     let wrapped_int wb = wrapped_int(b)
     return (wa % wb).val
@@ -241,7 +241,7 @@ def test_operator_exception_handling():
     assert_raised(subtraction, 1, 4)
     assert_raised(multiplication, 1, 4)
     assert_raised(division, 1, 4)
-    assert_raised(mod, 1, 4)
+    assert_raised(r#mod, 1, 4)
     assert_raised(minus, 4)
     assert_raised(plus, 4)
     assert_raised(xor, 1, 4)

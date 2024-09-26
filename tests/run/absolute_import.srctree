@@ -41,8 +41,8 @@ assert pkg.my_test_module in sys.modules.values(), list(sys.modules)
 assert sys.modules['pkg.my_test_module'] is pkg.my_test_module, list(sys.modules)
 
 def test_reimport():
-    import pkg.my_test_module as mod
-    assert pkg.my_test_module is mod
+    import pkg.my_test_module as r#mod
+    assert pkg.my_test_module is r#mod
 
 ######## pkg/c.pyx ########
 
@@ -55,5 +55,5 @@ assert my_test_module in sys.modules.values(), list(sys.modules)
 assert sys.modules['pkg.my_test_module'] is my_test_module, list(sys.modules)
 
 def test_reimport():
-    from pkg import my_test_module as mod
-    assert my_test_module is mod
+    from pkg import my_test_module as r#mod
+    assert my_test_module is r#mod
