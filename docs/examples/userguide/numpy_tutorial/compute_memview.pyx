@@ -22,10 +22,6 @@ def compute(i32[:, :] array_1, i32[:, :] array_2, i32 a, i32 b, i32 c):
     let i32 tmp
     let isize x, y
 
-
-    for x in range(x_max):
-        for y in range(y_max):
-
     for x in 0..x_max:
         for y in 0..y_max:
             tmp = clip(array_1[x, y], 2, 10)
