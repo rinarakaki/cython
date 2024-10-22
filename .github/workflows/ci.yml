@@ -56,7 +56,7 @@ jobs:
           # ================
           # GCC 13 (with broad language standards)
           - os: ubuntu-latest
-            python-version: "3.12"
+            python-version: "3.13"
             backend: c
             env: { GCC_VERSION: 13, EXTRA_CFLAGS: "-std=c17" }
             extra_hash: "-gcc13"
@@ -67,12 +67,12 @@ jobs:
             extra_hash: "-gcc13"
           # compile all modules
           - os: ubuntu-latest
-            python-version: "3.12"
+            python-version: "3.13"
             backend: c
             env: { CYTHON_COMPILE_ALL: 1 }
             extra_hash: "-all"
           - os: ubuntu-latest
-            python-version: "3.11"
+            python-version: "3.13"
             backend: cpp
             env: { CYTHON_COMPILE_ALL: 1 }
             extra_hash: "-all"
@@ -91,7 +91,7 @@ jobs:
             extra_hash: "-limited_api"
           # Type specs
           - os: ubuntu-latest
-            python-version: "3.12"
+            python-version: "3.13"
             backend: c
             env: { EXTRA_CFLAGS: "-DCYTHON_USE_TYPE_SPECS=1" }
             extra_hash: "-typespecs"
