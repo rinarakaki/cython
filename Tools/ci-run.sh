@@ -2,7 +2,7 @@
 
 set -x
 
-GCC_VERSION=${GCC_VERSION:=10}
+GCC_VERSION=${GCC_VERSION:=12}
 
 # Set up compilers
 if [[ $TEST_CODE_STYLE == "1" ]]; then
