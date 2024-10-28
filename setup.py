@@ -58,7 +58,6 @@ setup_args['package_data'] = {
 setuptools_extra_args = {}
 
 if 'setuptools' in sys.modules:
-    setuptools_extra_args['python_requires'] = PYTHON_REQUIRES
     setuptools_extra_args['zip_safe'] = False
     setuptools_extra_args['entry_points'] = {
         'console_scripts': [
