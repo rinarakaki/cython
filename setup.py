@@ -57,22 +57,6 @@ setup_args['package_data'] = {
 # specific to setup
 setuptools_extra_args = {}
 
-if 'setuptools' in sys.modules:
-    setuptools_extra_args['zip_safe'] = False
-    setuptools_extra_args['entry_points'] = {
-        'console_scripts': [
-            'cython = Cython.Compiler.Main:setuptools_main',
-            'cythonize = Cython.Build.Cythonize:main',
-            'cygdb = Cython.Debugger.Cygdb:main',
-        ]
-    }
-    scripts = []
-else:
-    if os.name == "posix":
-        scripts = ["bin/cython", "bin/cythonize", "bin/cygdb"]
-    else:
-        scripts = ["cython.py", "cythonize.py", "cygdb.py"]
-
 
 def compile_cython_modules(profile=False, coverage=False, compile_minimal=False, compile_more=False, cython_with_refnanny=False,
                            cython_limited_api=False):
