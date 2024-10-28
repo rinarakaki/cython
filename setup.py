@@ -6,7 +6,6 @@ except ImportError:
 import os
 import stat
 import subprocess
-import textwrap
 import sys
 
 import platform
