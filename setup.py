@@ -23,7 +23,7 @@ def add_command_class(name, cls):
     cmdclasses[name] = cls
     setup_args['cmdclass'] = cmdclasses
 
-from distutils.command.sdist import sdist as sdist_orig
+from setuptools.command.sdist import sdist as sdist_orig
 class sdist(sdist_orig):
     def run(self):
         self.force_manifest = 1
