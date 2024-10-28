@@ -271,7 +271,6 @@ def run_build():
 
     from Cython import __version__ as version
     setup(
-        version=version,
         url='https://cython.org/',
         classifiers=[
             dev_status(version),
