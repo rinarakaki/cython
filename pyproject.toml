@@ -44,6 +44,28 @@ packages = [
   "pyximport",
 ]
 
+[tool.setuptools.package-data]
+"Cython.Plex" = ["*.pxd"]
+"Cython.Compiler" = ["*.pxd"]
+"Cython.Runtime" = ["*.pyx", "*.pxd"]
+"Cython.Utility" = ["*.pyx", "*.pxd", "*.c", "*.h", "*.cpp"]
+"Cython" = [
+  "Includes/*.pxd",
+  "Includes/*.pyx",
+  "Includes/cpython/*.pxd",
+  "Includes/cpython/*.pyx",
+  "Includes/libc/*.pxd",
+  "Includes/libc/*.pyx",
+  "Includes/libcpp/*.pxd",
+  "Includes/libcpp/*.pyx",
+  "Includes/posix/*.pxd",
+  "Includes/posix/*.pyx",
+  "py.typed",
+  "__init__.pyi",
+  "Shadow.pyi",
+]
+"Cython.Debugger.Tests" = ["codefile", "cfuncs.c"]
+
 [tool.setuptools.dynamic]
 version = { attr = "Cython.__version__" }
 
