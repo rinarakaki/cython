@@ -21,7 +21,7 @@ else:
 # TODO: Better interface...
 from Cython.Build.Dependencies import cythonize
 
-from distutils.core import setup
+from setuptools import setup
 
 setup(
   ext_modules = (cythonize("*.pyx", build_dir="scratchA") +

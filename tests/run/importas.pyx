@@ -10,7 +10,7 @@ __doc__ = u"""
 ... else: print("distutils was defined!")
 
 >>> import sys as sous
->>> import distutils.core as corey
+>>> import setuptools as corey
 >>> from copy import deepcopy as copey
 >>> import distutils.command as commie
 
@@ -37,9 +37,9 @@ sys
 >>> print(sous.__name__)
 sys
 >>> print(_corey.__name__)
-distutils.core
+setuptools
 >>> print(corey.__name__)
-distutils.core
+setuptools
 >>> print(_copey.__name__)
 deepcopy
 >>> print(copey.__name__)
@@ -51,6 +51,6 @@ distutils.command
 """
 
 import sys as _sous
-import distutils.core as _corey
+import setuptools as _corey
 from copy import deepcopy as _copey
 import distutils.command as _commie

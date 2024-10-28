@@ -13,7 +13,7 @@ PYTHON -c "from cdefines import test; test()"
 
 from Cython.Build import cythonize
 from Cython.Distutils.extension import Extension
-from distutils.core import setup
+from setuptools import setup
 import sys
 
 include_as_c_and_cpp = Extension(

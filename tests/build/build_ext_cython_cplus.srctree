@@ -7,7 +7,7 @@ PYTHON -c "import a; a.use_vector([1,2,3])"
 
 from Cython.Distutils.extension import Extension
 from Cython.Build import build_ext
-from distutils.core import setup
+from setuptools import setup
 
 setup(
     name='Hello world app',

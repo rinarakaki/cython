@@ -18,7 +18,7 @@ import sys
 from Cython.Build.Dependencies import cythonize
 import os
 
-from distutils.core import setup
+from setuptools import setup
 
 # MacOS seems to crash with nthreads>0
 is_mac_os = sys.platform == "darwin"

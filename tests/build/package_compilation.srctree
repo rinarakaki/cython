@@ -8,7 +8,7 @@ PYTHON -c "from toppkg.subpkg import a; assert a.MODULE == 'subpkg.a'"
 
 
 from Cython.Build import cythonize
-from distutils.core import setup
+from setuptools import setup
 
 setup(
   ext_modules = cythonize("toppkg/**/*.py"),

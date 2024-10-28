@@ -7,7 +7,7 @@ PYTHON test_profile.py
 ######## setup.py ###########
 
 from distutils.extension import Extension
-from distutils.core import setup
+from setuptools import setup
 from Cython.Build import cythonize
 
 extensions = [

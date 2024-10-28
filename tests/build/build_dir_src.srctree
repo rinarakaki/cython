@@ -16,7 +16,7 @@ shutil.copytree(sys.argv[1], sys.argv[2])
 from Cython.Build.Dependencies import cythonize
 from Cython.Distutils.extension import Extension
 
-from distutils.core import setup
+from setuptools import setup
 
 ext_modules = cythonize(
         Extension("a", ["src/a.pyx"]), build_dir="scratchA")

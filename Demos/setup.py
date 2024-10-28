@@ -2,9 +2,10 @@
 #    python setup.py build_ext --inplace
 
 import sys
+
 sys.path.insert(0, "..")
 
-from distutils.core import setup
+from setuptools import setup
 from distutils.extension import Extension
 from Cython.Build import cythonize
 
@@ -16,12 +17,10 @@ try:
 except ImportError:
     pass
 else:
-    numpy_demo = [Extension("*",
-                            ["numpy_*.pyx"],
-                            include_dirs=get_include())]
+    numpy_demo = [Extension("*", ["numpy_*.pyx"], include_dirs=get_include())]
     ext_modules.extend(cythonize(numpy_demo))
 
 setup(
-  name = 'Demos',
-  ext_modules = ext_modules,
+    name="Demos",
+    ext_modules=ext_modules,
 )

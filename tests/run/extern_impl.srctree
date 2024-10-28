@@ -5,7 +5,7 @@ PYTHON -c "import a"
 ######## setup.py ########
 
 from Cython.Build import cythonize
-from distutils.core import setup
+from setuptools import setup
 
 setup(
   ext_modules = cythonize("*.pyx"),

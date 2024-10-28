@@ -9,7 +9,7 @@ PYTHON -c "import a"
 # TODO: Better interface...
 from Cython.Build.Dependencies import cythonize
 
-from distutils.core import setup
+from setuptools import setup
 import sys
 if sys.platform == 'win32':
    MATH_LIBS = []

@@ -3,7 +3,7 @@ from __future__ import absolute_import, print_function
 import os
 import sys
 
-from distutils.core import setup
+from setuptools import setup
 from distutils.extension import Extension
 from Cython.Build import cythonize
 
@@ -19,15 +19,19 @@ except:
         sys.exit(1)
 
 # Here is how to use the library built above.
-ext_modules = cythonize([
-    Extension("call_mymath",
-              sources=["call_mymath.pyx"],
-              include_dirs=[os.getcwd()],  # path to .h file(s)
-              library_dirs=[os.getcwd()],  # path to .a or .so file(s)
-              libraries=['mymath'])
-])
+ext_modules = cythonize(
+    [
+        Extension(
+            "call_mymath",
+            sources=["call_mymath.pyx"],
+            include_dirs=[os.getcwd()],  # path to .h file(s)
+            library_dirs=[os.getcwd()],  # path to .a or .so file(s)
+            libraries=["mymath"],
+        )
+    ]
+)
 
 setup(
-    name='Demos',
+    name="Demos",
     ext_modules=ext_modules,
 )

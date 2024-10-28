@@ -10,7 +10,7 @@ from Cython.Build.Dependencies import cythonize
 from Cython.Compiler import PyrexTypes
 PyrexTypes.cpp_string_conversions += ("MyString", "MyString2")
 
-from distutils.core import setup
+from setuptools import setup
 
 setup(
   ext_modules = cythonize("*.pyx"),

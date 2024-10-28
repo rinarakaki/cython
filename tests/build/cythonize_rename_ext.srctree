@@ -5,7 +5,7 @@ PYTHON -c "from pkg import b; assert b.test() == 43"
 
 from Cython.Build import cythonize
 
-from distutils.core import setup, Extension
+from setuptools import setup, Extension
 
 extensions = [
     Extension('pkg.b', sources=['pkg/a.pyx', 'pkg/alib.c'],

@@ -7,7 +7,7 @@ PYTHON check_paths.py
 
 from Cython.Distutils.extension import Extension
 from Cython.Build import build_ext
-from distutils.core import setup
+from setuptools import setup
 
 setup(
     name='Hello world app',

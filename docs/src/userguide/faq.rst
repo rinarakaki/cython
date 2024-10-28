@@ -743,7 +743,7 @@ yet up-to-date. For example, you may be using this in setup.py:
 
 ::
 
-    from distutils.core import setup
+    from setuptools import setup
     from distutils.extension import Extension
 
 
@@ -756,7 +756,7 @@ find vcvarsall.bat:
         from setuptools import setup
         from setuptools import Extension
     except ImportError:
-        from distutils.core import setup
+        from setuptools import setup
        from distutils.extension import Extension
 
 

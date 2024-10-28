@@ -8,7 +8,7 @@ PYTHON -c "import a"
 from Cython.Build.Dependencies import cythonize
 
 import sys
-from distutils.core import setup
+from setuptools import setup
 try:
     # io.StringIO cannot handle 'str' in Py2
     from StringIO import StringIO
