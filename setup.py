@@ -226,24 +226,6 @@ def dev_status(version: str):
         return 'Development Status :: 5 - Production/Stable'
 
 
-packages = [
-    'Cython',
-    'Cython.Build',
-    'Cython.Compiler',
-    'Cython.Runtime',
-    'Cython.Distutils',
-    'Cython.Debugger',
-    'Cython.Debugger.Tests',
-    'Cython.Plex',
-    'Cython.Tests',
-    'Cython.Build.Tests',
-    'Cython.Compiler.Tests',
-    'Cython.Utility',
-    'Cython.Tempita',
-    'pyximport',
-]
-
-
 def run_build():
     if compile_cython_itself and (is_cpython or cython_compile_more or cython_compile_minimal):
         compile_cython_modules(cython_profile, cython_coverage, cython_compile_minimal, cython_compile_more, cython_with_refnanny,
@@ -277,7 +259,6 @@ def run_build():
             "Typing :: Typed"
         ],
 
-        packages=packages,
         py_modules=["cython"],
         **setup_args
     )
