@@ -71,9 +71,9 @@ def compile_cython_modules(profile=False, coverage=False, compile_minimal=False,
             "Cython.Compiler.Optimize",
             ])
 
-    import shutil
+    from distutils.spawn import find_executable
     import sysconfig
-    pgen = shutil.which(
+    pgen = find_executable(
         'pgen', os.pathsep.join([os.environ['PATH'], os.path.join(sysconfig.get_paths()['include'], '..', 'Parser')]))
     if not pgen:
         sys.stderr.write("Unable to find pgen, not compiling formal grammar.\n")
