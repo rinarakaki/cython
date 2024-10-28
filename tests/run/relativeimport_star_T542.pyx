@@ -1,3 +1,4 @@
+import setuptools
 from setuptools import version
 
 __name__ = "setuptools.cytest_relativeimport_T542"  # fool Python we are in distutils
