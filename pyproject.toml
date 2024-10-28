@@ -10,6 +10,11 @@ authors = [
 ]
 license = { text = "Apache-2.0" }
 requires-python = ">= 3.7"
+dependencies = []
+dynamic = ["version"]
+
+[tool.setuptools.dynamic]
+version = { attr = "Cython.__version__" }
 
 [tool.cibuildwheel]
 build-verbosity = 2
