@@ -13,6 +13,11 @@ requires-python = ">= 3.7"
 dependencies = []
 dynamic = ["version"]
 
+[project.scripts]
+cython = "Cython.Compiler.Main:setuptools_main"
+cythonize = "Cython.Build.Cythonize:main"
+cygdb = "Cython.Debugger.Cygdb:main"
+
 [project.urls]
 "Homepage" = "https://cython.org/"
 "Documentation" = "https://cython.readthedocs.io/"
