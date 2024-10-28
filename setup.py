@@ -281,7 +281,6 @@ def run_build():
             "Typing :: Typed"
         ],
 
-        scripts=scripts,
         packages=packages,
         py_modules=["cython"],
         **setup_args
