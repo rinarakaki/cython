@@ -13,6 +13,14 @@ requires-python = ">= 3.7"
 dependencies = []
 dynamic = ["version"]
 
+[project.urls]
+"Homepage" = "https://cython.org/"
+"Documentation" = "https://cython.readthedocs.io/"
+"Donate" = "https://cython.readthedocs.io/en/latest/src/donating.html"
+"Source Code" = "https://github.com/cython/cython"
+"Bug Tracker" = "https://github.com/cython/cython/issues"
+"User Group" = "https://groups.google.com/g/cython-users"
+
 [tool.setuptools.dynamic]
 version = { attr = "Cython.__version__" }
 
