@@ -1,6 +1,16 @@
 [build-system]
 requires = ["setuptools", "wheel"]
 
+[project]
+name = "Cython"
+description = "The Cython compiler for writing C extensions in the Python language."
+readme = "README.rst"
+authors = [
+  { name = "Robert Bradshaw, Stefan Behnel, Dag Seljebotn, Greg Ewing, et al.", email = "cython-devel@python.org" },
+]
+license = { text = "Apache-2.0" }
+requires-python = ">= 3.7"
+
 [tool.cibuildwheel]
 build-verbosity = 2
 skip = ["pp*", "cp36*"]
