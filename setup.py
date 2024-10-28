@@ -12,10 +12,6 @@ import sys
 import platform
 is_cpython = platform.python_implementation() == 'CPython'
 
-# this specifies which versions of python we support, pip >= 9 knows to skip
-# versions of packages which are not compatible with the running python
-PYTHON_REQUIRES = '>=3.7'
-
 if sys.platform == "darwin":
     # Don't create resource files on OS X tar.
     os.environ['COPY_EXTENDED_ATTRIBUTES_DISABLE'] = 'true'
@@ -276,42 +272,8 @@ def run_build():
 
     from Cython import __version__ as version
     setup(
-        name='Cython',
         version=version,
         url='https://cython.org/',
-        author='Robert Bradshaw, Stefan Behnel, David Woods, Greg Ewing, et al.',
-        author_email='cython-devel@python.org',
-        description="The Cython compiler for writing C extensions in the Python language.",
-        long_description=textwrap.dedent("""\
-        The Cython language makes writing C extensions for the Python language as
-        easy as Python itself.  Cython is a source code translator based on Pyrex_,
-        but supports more cutting edge functionality and optimizations.
-
-        The Cython language is a superset of the Python language (almost all Python
-        code is also valid Cython code), but Cython additionally supports optional
-        static typing to natively call C functions, operate with C++ classes and
-        declare fast C types on variables and class attributes.  This allows the
-        compiler to generate very efficient C code from Cython code.
-
-        This makes Cython the ideal language for writing glue code for external
-        C/C++ libraries, and for fast C modules that speed up the execution of
-        Python code.
-
-        The newest Cython release can always be downloaded from https://cython.org/.
-        Unpack the tarball or zip file, enter the directory, and then run::
-
-            pip install .
-
-        Note that for one-time builds, e.g. for CI/testing, on platforms that are not
-        covered by one of the wheel packages provided on PyPI *and* the pure Python wheel
-        that we provide is not used, it is substantially faster than a full source build
-        to install an uncompiled (slower) version of Cython with::
-
-            NO_CYTHON_COMPILE=true pip install .
-
-        .. _Pyrex: https://www.cosc.canterbury.ac.nz/greg.ewing/python/Pyrex/
-        """),
-        license='Apache-2.0',
         classifiers=[
             dev_status(version),
             "Intended Audience :: Developers",
