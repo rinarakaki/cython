@@ -271,7 +271,6 @@ def run_build():
 
     from Cython import __version__ as version
     setup(
-        url='https://cython.org/',
         classifiers=[
             dev_status(version),
             "Intended Audience :: Developers",
@@ -297,13 +296,6 @@ def run_build():
             "Topic :: Software Development :: Libraries :: Python Modules",
             "Typing :: Typed"
         ],
-        project_urls={
-            "Documentation": "https://cython.readthedocs.io/",
-            "Donate": "https://cython.readthedocs.io/en/latest/src/donating.html",
-            "Source Code": "https://github.com/cython/cython",
-            "Bug Tracker": "https://github.com/cython/cython/issues",
-            "User Group": "https://groups.google.com/g/cython-users",
-        },
 
         scripts=scripts,
         packages=packages,
